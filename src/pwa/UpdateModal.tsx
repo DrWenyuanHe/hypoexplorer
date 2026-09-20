@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { ConfirmDialog } from './ConfirmDialog';
+import { forceRefresh } from './forceRefresh';
 import { subscribe, getSnapshot, applyUpdate } from './updateStore';
 
 // "Updating to the newest version" prompt. Mounted once at the app root. Stays
@@ -24,9 +25,39 @@ import { subscribe, getSnapshot, applyUpdate } from './updateStore';
 // what is about to happen, and can take it immediately with "Reload now".
 const AUTO_RELOAD_SECONDS = 10;
 
+// How long "Reloading…" is allowed to run before this dialog admits it did not
+// work and hands the user a control again.
+//
+// Applying an update should navigate the page within a second or two, and the
+// two things that can stop it are already handled a layer down: the
+// service-worker handover carries its own watchdog and falls back to
+// forceRefresh() (registerUpdates.ts), and forceRefresh() caps its cleanup and
+// reloads regardless. This is the backstop for a reload prevented outright — a
+// blocked navigation, an origin that never answers.
+//
+// It must sit CLEAR of that automatic recovery, not race it: 8s of watchdog
+// plus 4s of capped cleanup means the layer below is still legitimately working
+// until ~12s, and two independent forceRefresh() calls landing together help
+// nobody. 20s leaves the automatic path a clear run and still resolves the
+// spinner while the user is watching it.
+//
+// It matters more here than it would in an ordinary dialog: this one is
+// mandatory, so it swallows Escape and offers no dismissal. Without it, a
+// failed update is a spinner the user cannot leave, on top of an app they can
+// no longer reach.
+const STUCK_AFTER_MS = 20_000;
+
 export function UpdateModal() {
   const signal = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
-  const [pending, setPending] = useState(false);
+  // How many times we have asked this page to reload: 0 before the update is
+  // applied, then one per attempt. A COUNT rather than a boolean because the
+  // watchdog below has to re-arm for a retry, and a boolean that is already true
+  // does not change — an effect that does not re-run is a watchdog that never
+  // re-arms, i.e. the same dead spinner one click later.
+  const [attempt, setAttempt] = useState(0);
+  const pending = attempt > 0;
+  // Set when the reload we asked for never arrived. See STUCK_AFTER_MS.
+  const [stuck, setStuck] = useState(false);
   // The countdown carries the signal it belongs to. Two states would desync: on
   // the render where a SECOND update bumps the signal, the reset written by the
   // restart effect is not visible to the apply effect yet, so it would read the
@@ -44,7 +75,8 @@ export function UpdateModal() {
   useEffect(() => {
     if (signal === 0) return;
     applied.current = false;
-    setPending(false);
+    setStuck(false);
+    setAttempt(0);
     setCountdown({ signal, secondsLeft: AUTO_RELOAD_SECONDS });
     const id = setInterval(() => {
       setCountdown((c) =>
@@ -59,16 +91,33 @@ export function UpdateModal() {
     if (signal === 0 || countdown.signal !== signal || countdown.secondsLeft > 0) return;
     if (applied.current) return;
     applied.current = true;
-    setPending(true);
+    setAttempt((n) => n + 1);
     applyUpdate();
   }, [signal, countdown]);
 
+  // Watch the reload we just asked for. Still here after STUCK_AFTER_MS means it
+  // is not coming, so stop claiming otherwise and offer the manual remedy.
+  useEffect(() => {
+    if (attempt === 0) return;
+    const id = setTimeout(() => setStuck(true), STUCK_AFTER_MS);
+    return () => clearTimeout(id);
+  }, [attempt]);
+
   if (!open) return null;
+
+  // The manual remedy, offered only once the automatic one has visibly failed:
+  // unregister every worker, drop the shell caches, reload. Same action the
+  // version badge offers, and the same one registerUpdates.ts falls back to.
+  const forceNow = () => {
+    setStuck(false);
+    setAttempt((n) => n + 1); // re-arms the watchdog, so a failed retry is not final
+    void forceRefresh();
+  };
 
   const reloadNow = () => {
     if (applied.current) return;
     applied.current = true;
-    setPending(true);
+    setAttempt((n) => n + 1);
     // applyUpdate() → the fn registered with the store: SKIP_WAITING + reload
     // for the service-worker path, or a full cache reset + reload for the
     // version-stamp path. The spinner covers the gap until the page navigates.
@@ -117,9 +166,11 @@ export function UpdateModal() {
         <p style={{
           fontSize: 13, lineHeight: 1.5, color: 'var(--text-muted)', margin: '8px 0 0',
         }}>
-          {pending
-            ? 'Reloading…'
-            : `Reloading automatically in ${secondsLeft} second${secondsLeft === 1 ? '' : 's'}.`}
+          {stuck
+            ? 'The reload has not gone through. Clearing this tab’s cached app files should finish it.'
+            : pending
+              ? 'Reloading…'
+              : `Reloading automatically in ${secondsLeft} second${secondsLeft === 1 ? '' : 's'}.`}
         </p>
       </div>
 
@@ -129,18 +180,19 @@ export function UpdateModal() {
       }}>
         <button
           type="button"
-          onClick={reloadNow}
-          disabled={pending}
+          onClick={stuck ? forceNow : reloadNow}
+          disabled={pending && !stuck}
           style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
             padding: '7px 16px', fontSize: 13, fontWeight: 600, fontFamily: 'inherit',
             border: 'none', borderRadius: 7,
             background: 'var(--color-selected)', color: '#fff',
-            cursor: pending ? 'default' : 'pointer', opacity: pending ? 0.8 : 1,
+            cursor: pending && !stuck ? 'default' : 'pointer',
+            opacity: pending && !stuck ? 0.8 : 1,
             boxShadow: '0 2px 6px rgba(242, 142, 43, 0.3)',
           }}
         >
-          {pending && (
+          {pending && !stuck && (
             <svg width={14} height={14} viewBox="0 0 24 24" fill="none"
               aria-hidden="true" focusable="false"
               stroke="#fff" strokeWidth="2.4" strokeLinecap="round"
@@ -148,7 +200,7 @@ export function UpdateModal() {
               <path d="M21 12a9 9 0 1 1-6.2-8.5" />
             </svg>
           )}
-          {pending ? 'Reloading…' : 'Reload now'}
+          {stuck ? 'Force refresh' : pending ? 'Reloading…' : 'Reload now'}
         </button>
       </div>
     </ConfirmDialog>
