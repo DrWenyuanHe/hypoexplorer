@@ -1,0 +1,1 @@
+var HX_EMTAB15489_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":17938},"colors":{"hypothalamus":"#3775BA"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":4,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

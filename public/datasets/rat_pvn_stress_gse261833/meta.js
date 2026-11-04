@@ -1,0 +1,1 @@
+var HX_RAT_PVN_STRESS_GSE261833_META = {"populations":["pvn"],"labels":{"pvn":"Paraventricular nucleus (PVN)"},"types":{"pvn":"Tissue"},"nGenes":{"pvn":16117},"colors":{"pvn":"#8C564B"},"qcFlags":{"pvn":{"is3v3":false,"nNormal":5,"nObese":5,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

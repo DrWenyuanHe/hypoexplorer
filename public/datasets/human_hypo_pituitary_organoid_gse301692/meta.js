@@ -1,0 +1,1 @@
+var HX_HUMAN_HYPO_PITUITARY_ORGANOID_GSE301692_META = {"populations":["organoid"],"labels":{"organoid":"Hypothalamus-pituitary organoid"},"types":{"organoid":"Tissue"},"nGenes":{"organoid":15416},"colors":{"organoid":"#B279A2"},"qcFlags":{"organoid":{"is3v3":false,"nNormal":4,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

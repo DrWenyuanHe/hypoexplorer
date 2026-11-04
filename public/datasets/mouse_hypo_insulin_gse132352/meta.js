@@ -1,0 +1,1 @@
+var HX_MOUSE_HYPO_INSULIN_GSE132352_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":13709},"colors":{"hypothalamus":"#79706E"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":5,"nObese":5,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

@@ -1,0 +1,1 @@
+var HX_MOUSE_GT17_OREXIN_GSE99690_META = {"populations":["gt17"],"labels":{"gt17":"GT1-7 hypothalamic neurons"},"types":{"gt17":"Tissue"},"nGenes":{"gt17":15785},"colors":{"gt17":"#4E79A7"},"qcFlags":{"gt17":{"is3v3":true,"nNormal":3,"nObese":3,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

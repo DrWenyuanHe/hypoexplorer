@@ -1,0 +1,46 @@
+{
+  "accession": "GSE30733",
+  "candidateId": "rat_son_lactation_gse30733",
+  "reviewed": "2026-10-19",
+  "decision": "held_for_preprocessing_and_design_review",
+  "includedInStudiesManifest": false,
+  "source": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE30733",
+  "publication": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3159778/",
+  "doi": "10.1210/en.2011-1044",
+  "pmid": "21791562",
+  "title": "Transcriptomic analysis of the osmotic and reproductive remodelling of the female rat supraoptic nucleus",
+  "organism": "Rattus norvegicus",
+  "strain": "Sprague Dawley",
+  "platform": "GPL1355",
+  "newFemaleCohort": {
+    "euhydrated": ["GSM854817", "GSM854818", "GSM854819", "GSM854820"],
+    "lactation11Days": ["GSM854812", "GSM854813", "GSM854814", "GSM854815", "GSM854816"],
+    "dehydration72Hours": ["GSM854821", "GSM854822", "GSM854823", "GSM854824", "GSM854825"],
+    "replication": "The primary paper describes completely independent targets, each from pooled SON tissue of five rats, with four female control arrays and five arrays in each stimulated arm. These are measured pools, not individual-animal expression samples. GEO calls the arrays both biological and technical replicates; the paper's explicit independent-pool description supplies the relevant clarification.",
+    "estrousState": "Randomly cycling virgin females for euhydrated/dehydrated arms; no cycle-resolved analysis"
+  },
+  "excludedReusedMaleCohort": {
+    "dehydrated": ["GSM69268", "GSM69457", "GSM69458", "GSM69459", "GSM69460"],
+    "euhydrated": ["GSM69461", "GSM69462", "GSM69463", "GSM69464", "GSM69465"],
+    "reason": "Each of these exact GSM records also belongs to GSE3110. They are the previously published male SON arrays and must not be added again as new independent evidence."
+  },
+  "availability": {
+    "rawCEL": "Public for all 14 female arrays; six full downloads were gzip-validated during this audit. A further file was truncated by the network and is excluded from validated-input claims.",
+    "lactationProcessedValues": "Absent: all five lactation GSMs have Sample_data_row_count=0",
+    "otherFemaleProcessedValues": "Control and dehydration GSMs each contain 31,099 preliminary signal values",
+    "publishedMatrix": "All female GSM processing metadata explicitly states that the publication's GeneSpring-derived MAS5 data is not included. No complete published normalized lactation matrix is reconstructed from these partial deposits."
+  },
+  "designConcern": {
+    "status": "unresolved_for_lactation_vs_control",
+    "observation": "Four fully validated lactation CEL headers record scans on 2007-07-19 with instrument identifier 50101440. Two fully validated female control CEL headers record scans on 2006-08-03 with instrument identifier 50205220. The remaining female CEL filenames follow the same lactation-versus-control/dehydration date pattern.",
+    "interpretation": "The reviewed lactation and control arrays differ jointly in biological condition, acquisition period and instrument. This supports a batch-confounding concern; it does not establish that the observed biology is artifactual. A group-only reanalysis would not separate these factors, and an exactly confounded group-plus-batch model cannot estimate both.",
+    "nextStep": "Complete all 14 raw-array downloads, reconcile acquisition and target preparation metadata, select and document a raw-array preprocessing route, and decide whether lactation effects can be presented with an explicitly limited exploratory interpretation. Assess the female dehydration contrast independently rather than treating the lactation concern as evidence against that comparison."
+  },
+  "evidencePaths": [
+    "data/intake/oxt-avp-2026-10-19/sources/GSE30733_sample-metadata.json.gz",
+    "data/intake/oxt-avp-2026-10-19/sources/GSE30733_sample-map.json.gz",
+    "data/intake/oxt-avp-2026-10-19/sources/GSE30733_validated_CEL_headers.json.gz",
+    "data/intake/oxt-avp-2026-10-19/sources/GSE30733_sources.json"
+  ],
+  "evidenceLimits": "Source metadata proves cohort membership and identifies reused GSMs. Publication methods support independent pools. Retained header extracts and source hashes establish the inspected acquisition dates for six arrays. No differential-expression output, normalization reconstruction, author-result concordance or full raw-array QC has been produced for this candidate."
+}

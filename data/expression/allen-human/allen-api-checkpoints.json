@@ -1,0 +1,922 @@
+{
+  "retrieved": "2026-10-29T18:58:09.098Z",
+  "donors": {
+    "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Donor,rma::criteria,products[id$eq2],rma::include,age,rma::options[only$eq'donors.id,donors.name,donors.sex,donors.race_only,ages.name,ages.days']",
+    "msg": [
+      {
+        "id": 15697,
+        "name": "H0351.1016",
+        "race_only": "White or Caucasian",
+        "sex": "M",
+        "age": {
+          "days": 20075,
+          "name": "55 yrs"
+        }
+      },
+      {
+        "id": 9861,
+        "name": "H0351.2001",
+        "race_only": "Black or African American",
+        "sex": "M",
+        "age": {
+          "days": 8760,
+          "name": "24 yrs"
+        }
+      },
+      {
+        "id": 10021,
+        "name": "H0351.2002",
+        "race_only": "Black or African American",
+        "sex": "M",
+        "age": {
+          "days": 14235,
+          "name": "39 yrs"
+        }
+      },
+      {
+        "id": 12876,
+        "name": "H0351.1009",
+        "race_only": "White or Caucasian",
+        "sex": "M",
+        "age": {
+          "days": 20805,
+          "name": "57 yrs"
+        }
+      },
+      {
+        "id": 14380,
+        "name": "H0351.1012",
+        "race_only": "White or Caucasian",
+        "sex": "M",
+        "age": {
+          "days": 11315,
+          "name": "31 yrs"
+        }
+      },
+      {
+        "id": 15496,
+        "name": "H0351.1015",
+        "race_only": "Hispanic",
+        "sex": "F",
+        "age": {
+          "days": 17885,
+          "name": "49 yrs"
+        }
+      }
+    ]
+  },
+  "samples": [
+    {
+      "donor": "9861",
+      "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,tissue_sample_data_set(specimen(donor[id$eq9861])),structure[structure_id_path$il'*%2F4540%2F*'],rma::include,structure,rma::options[num_rows$eqall][only$eq'samples.id,samples.structure_id,samples.rna_integrity_number,structures.acronym']",
+      "msg": [
+        {
+          "id": 2509,
+          "rna_integrity_number": 4.9,
+          "structure_id": 4679,
+          "structure": {
+            "acronym": "PHA"
+          }
+        },
+        {
+          "id": 2538,
+          "rna_integrity_number": 5.8,
+          "structure_id": 4593,
+          "structure": {
+            "acronym": "SO"
+          }
+        },
+        {
+          "id": 2651,
+          "rna_integrity_number": 5.2,
+          "structure_id": 4679,
+          "structure": {
+            "acronym": "PHA"
+          }
+        },
+        {
+          "id": 2643,
+          "rna_integrity_number": 5.3,
+          "structure_id": 13006,
+          "structure": {
+            "acronym": "LHM"
+          }
+        },
+        {
+          "id": 2514,
+          "rna_integrity_number": 5.8,
+          "structure_id": 4556,
+          "structure": {
+            "acronym": "PrOR"
+          }
+        },
+        {
+          "id": 2659,
+          "rna_integrity_number": 4.9,
+          "structure_id": 4693,
+          "structure": {
+            "acronym": "PHA"
+          }
+        },
+        {
+          "id": 2533,
+          "rna_integrity_number": 5.5,
+          "structure_id": 4624,
+          "structure": {
+            "acronym": "SO"
+          }
+        },
+        {
+          "id": 2635,
+          "rna_integrity_number": 6.2,
+          "structure_id": 13005,
+          "structure": {
+            "acronym": "LHM"
+          }
+        },
+        {
+          "id": 2506,
+          "rna_integrity_number": 5.2,
+          "structure_id": 4542,
+          "structure": {
+            "acronym": "PrOR"
+          }
+        }
+      ]
+    },
+    {
+      "donor": "10021",
+      "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,tissue_sample_data_set(specimen(donor[id$eq10021])),structure[structure_id_path$il'*%2F4540%2F*'],rma::include,structure,rma::options[num_rows$eqall][only$eq'samples.id,samples.structure_id,samples.rna_integrity_number,structures.acronym']",
+      "msg": [
+        {
+          "id": 7090,
+          "rna_integrity_number": 4.5,
+          "structure_id": 4685,
+          "structure": {
+            "acronym": "MB"
+          }
+        },
+        {
+          "id": 7390,
+          "rna_integrity_number": 6.2,
+          "structure_id": 4604,
+          "structure": {
+            "acronym": "PVH"
+          }
+        },
+        {
+          "id": 7343,
+          "rna_integrity_number": 6.5,
+          "structure_id": 4659,
+          "structure": {
+            "acronym": "ARH"
+          }
+        },
+        {
+          "id": 7335,
+          "rna_integrity_number": 6.5,
+          "structure_id": 4644,
+          "structure": {
+            "acronym": "ARH"
+          }
+        },
+        {
+          "id": 7382,
+          "rna_integrity_number": 6.1,
+          "structure_id": 4573,
+          "structure": {
+            "acronym": "PVH"
+          }
+        },
+        {
+          "id": 7358,
+          "rna_integrity_number": 5.6,
+          "structure_id": 4593,
+          "structure": {
+            "acronym": "SO"
+          }
+        },
+        {
+          "id": 7082,
+          "rna_integrity_number": 5.8,
+          "structure_id": 4679,
+          "structure": {
+            "acronym": "PHA"
+          }
+        },
+        {
+          "id": 7319,
+          "rna_integrity_number": 5.9,
+          "structure_id": 4598,
+          "structure": {
+            "acronym": "AHA"
+          }
+        },
+        {
+          "id": 7042,
+          "rna_integrity_number": 5.5,
+          "structure_id": 4573,
+          "structure": {
+            "acronym": "PVH"
+          }
+        },
+        {
+          "id": 7058,
+          "rna_integrity_number": 5.8,
+          "structure_id": 4604,
+          "structure": {
+            "acronym": "PVH"
+          }
+        },
+        {
+          "id": 7342,
+          "rna_integrity_number": 5.4,
+          "structure_id": 4542,
+          "structure": {
+            "acronym": "PrOR"
+          }
+        },
+        {
+          "id": 7066,
+          "rna_integrity_number": 4.7,
+          "structure_id": 13006,
+          "structure": {
+            "acronym": "LHM"
+          }
+        },
+        {
+          "id": 7359,
+          "rna_integrity_number": 6.1,
+          "structure_id": 4637,
+          "structure": {
+            "acronym": "VMH"
+          }
+        },
+        {
+          "id": 7311,
+          "rna_integrity_number": 5.6,
+          "structure_id": 4627,
+          "structure": {
+            "acronym": "LHA"
+          }
+        },
+        {
+          "id": 7303,
+          "rna_integrity_number": 5.4,
+          "structure_id": 4596,
+          "structure": {
+            "acronym": "LHA"
+          }
+        },
+        {
+          "id": 7374,
+          "rna_integrity_number": 6,
+          "structure_id": 4624,
+          "structure": {
+            "acronym": "SO"
+          }
+        },
+        {
+          "id": 7098,
+          "rna_integrity_number": 5.1,
+          "structure_id": 4693,
+          "structure": {
+            "acronym": "PHA"
+          }
+        },
+        {
+          "id": 7050,
+          "rna_integrity_number": 4.4,
+          "structure_id": 13005,
+          "structure": {
+            "acronym": "LHM"
+          }
+        },
+        {
+          "id": 7074,
+          "rna_integrity_number": 4.7,
+          "structure_id": 4671,
+          "structure": {
+            "acronym": "MB"
+          }
+        },
+        {
+          "id": 7327,
+          "rna_integrity_number": 5.8,
+          "structure_id": 4629,
+          "structure": {
+            "acronym": "AHA"
+          }
+        },
+        {
+          "id": 7367,
+          "rna_integrity_number": 6.1,
+          "structure_id": 4652,
+          "structure": {
+            "acronym": "VMH"
+          }
+        },
+        {
+          "id": 7350,
+          "rna_integrity_number": 5,
+          "structure_id": 4556,
+          "structure": {
+            "acronym": "PrOR"
+          }
+        }
+      ]
+    },
+    {
+      "donor": "12876",
+      "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,tissue_sample_data_set(specimen(donor[id$eq12876])),structure[structure_id_path$il'*%2F4540%2F*'],rma::include,structure,rma::options[num_rows$eqall][only$eq'samples.id,samples.structure_id,samples.rna_integrity_number,structures.acronym']",
+      "msg": [
+        {
+          "id": 14194,
+          "rna_integrity_number": 5.2,
+          "structure_id": 13005,
+          "structure": {
+            "acronym": "LHM"
+          }
+        },
+        {
+          "id": 13794,
+          "rna_integrity_number": 6.2,
+          "structure_id": 4593,
+          "structure": {
+            "acronym": "SO"
+          }
+        },
+        {
+          "id": 13826,
+          "rna_integrity_number": 5.6,
+          "structure_id": 4637,
+          "structure": {
+            "acronym": "VMH"
+          }
+        },
+        {
+          "id": 13865,
+          "rna_integrity_number": 5.3,
+          "structure_id": 4542,
+          "structure": {
+            "acronym": "PrOR"
+          }
+        },
+        {
+          "id": 14210,
+          "rna_integrity_number": 5.8,
+          "structure_id": 4679,
+          "structure": {
+            "acronym": "PHA"
+          }
+        },
+        {
+          "id": 14178,
+          "rna_integrity_number": 6.4,
+          "structure_id": 10151,
+          "structure": {
+            "acronym": "LTu"
+          }
+        },
+        {
+          "id": 14218,
+          "rna_integrity_number": 5.3,
+          "structure_id": 4669,
+          "structure": {
+            "acronym": "SuM"
+          }
+        },
+        {
+          "id": 14202,
+          "rna_integrity_number": 7.2,
+          "structure_id": 4675,
+          "structure": {
+            "acronym": "LM"
+          }
+        },
+        {
+          "id": 13818,
+          "rna_integrity_number": 5.7,
+          "structure_id": 4641,
+          "structure": {
+            "acronym": "DMH"
+          }
+        },
+        {
+          "id": 14225,
+          "rna_integrity_number": 5.1,
+          "structure_id": 4637,
+          "structure": {
+            "acronym": "VMH"
+          }
+        },
+        {
+          "id": 14186,
+          "rna_integrity_number": 6.1,
+          "structure_id": 4672,
+          "structure": {
+            "acronym": "MM"
+          }
+        },
+        {
+          "id": 14233,
+          "rna_integrity_number": 5.4,
+          "structure_id": 4641,
+          "structure": {
+            "acronym": "DMH"
+          }
+        },
+        {
+          "id": 14162,
+          "rna_integrity_number": 5.8,
+          "structure_id": 13008,
+          "structure": {
+            "acronym": "LHT"
+          }
+        },
+        {
+          "id": 14249,
+          "rna_integrity_number": 6.5,
+          "structure_id": 4667,
+          "structure": {
+            "acronym": "TM"
+          }
+        },
+        {
+          "id": 13810,
+          "rna_integrity_number": 5.6,
+          "structure_id": 4573,
+          "structure": {
+            "acronym": "PVH"
+          }
+        },
+        {
+          "id": 13802,
+          "rna_integrity_number": 5.2,
+          "structure_id": 4596,
+          "structure": {
+            "acronym": "LHA"
+          }
+        },
+        {
+          "id": 14241,
+          "rna_integrity_number": 6,
+          "structure_id": 4648,
+          "structure": {
+            "acronym": "PeF"
+          }
+        }
+      ]
+    },
+    {
+      "donor": "14380",
+      "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,tissue_sample_data_set(specimen(donor[id$eq14380])),structure[structure_id_path$il'*%2F4540%2F*'],rma::include,structure,rma::options[num_rows$eqall][only$eq'samples.id,samples.structure_id,samples.rna_integrity_number,structures.acronym']",
+      "msg": [
+        {
+          "id": 127687839,
+          "rna_integrity_number": 6.2,
+          "structure_id": 4637,
+          "structure": {
+            "acronym": "VMH"
+          }
+        },
+        {
+          "id": 127687997,
+          "rna_integrity_number": 6.2,
+          "structure_id": 4573,
+          "structure": {
+            "acronym": "PVH"
+          }
+        },
+        {
+          "id": 127687963,
+          "rna_integrity_number": 6.5,
+          "structure_id": 4593,
+          "structure": {
+            "acronym": "SO"
+          }
+        },
+        {
+          "id": 127687983,
+          "rna_integrity_number": 5.6,
+          "structure_id": 4669,
+          "structure": {
+            "acronym": "SuM"
+          }
+        },
+        {
+          "id": 127687871,
+          "rna_integrity_number": 6.3,
+          "structure_id": 4648,
+          "structure": {
+            "acronym": "PeF"
+          }
+        },
+        {
+          "id": 127687999,
+          "rna_integrity_number": 6,
+          "structure_id": 13005,
+          "structure": {
+            "acronym": "LHM"
+          }
+        },
+        {
+          "id": 127687556,
+          "rna_integrity_number": 7,
+          "structure_id": 4573,
+          "structure": {
+            "acronym": "PVH"
+          }
+        },
+        {
+          "id": 127687855,
+          "rna_integrity_number": 6.3,
+          "structure_id": 4641,
+          "structure": {
+            "acronym": "DMH"
+          }
+        },
+        {
+          "id": 127687605,
+          "rna_integrity_number": 6.5,
+          "structure_id": 4598,
+          "structure": {
+            "acronym": "AHA"
+          }
+        },
+        {
+          "id": 127687887,
+          "rna_integrity_number": 6.8,
+          "structure_id": 4667,
+          "structure": {
+            "acronym": "TM"
+          }
+        },
+        {
+          "id": 127687919,
+          "rna_integrity_number": 5.6,
+          "structure_id": 13008,
+          "structure": {
+            "acronym": "LHT"
+          }
+        },
+        {
+          "id": 127687967,
+          "rna_integrity_number": 6.3,
+          "structure_id": 4672,
+          "structure": {
+            "acronym": "MM"
+          }
+        },
+        {
+          "id": 127687572,
+          "rna_integrity_number": 5.3,
+          "structure_id": 4596,
+          "structure": {
+            "acronym": "LHA"
+          }
+        },
+        {
+          "id": 127687935,
+          "rna_integrity_number": 6.4,
+          "structure_id": 4672,
+          "structure": {
+            "acronym": "MM"
+          }
+        },
+        {
+          "id": 127687825,
+          "rna_integrity_number": 6.5,
+          "structure_id": 4675,
+          "structure": {
+            "acronym": "LM"
+          }
+        },
+        {
+          "id": 127687951,
+          "rna_integrity_number": 6.4,
+          "structure_id": 4679,
+          "structure": {
+            "acronym": "PHA"
+          }
+        },
+        {
+          "id": 127687841,
+          "rna_integrity_number": 6.1,
+          "structure_id": 4597,
+          "structure": {
+            "acronym": "PalHy"
+          }
+        },
+        {
+          "id": 127687540,
+          "rna_integrity_number": 6.1,
+          "structure_id": 4542,
+          "structure": {
+            "acronym": "PrOR"
+          }
+        },
+        {
+          "id": 127687588,
+          "rna_integrity_number": 6.9,
+          "structure_id": 4593,
+          "structure": {
+            "acronym": "SO"
+          }
+        },
+        {
+          "id": 127687903,
+          "rna_integrity_number": 6.5,
+          "structure_id": 10151,
+          "structure": {
+            "acronym": "LTu"
+          }
+        }
+      ]
+    },
+    {
+      "donor": "15496",
+      "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,tissue_sample_data_set(specimen(donor[id$eq15496])),structure[structure_id_path$il'*%2F4540%2F*'],rma::include,structure,rma::options[num_rows$eqall][only$eq'samples.id,samples.structure_id,samples.rna_integrity_number,structures.acronym']",
+      "msg": [
+        {
+          "id": 156906830,
+          "rna_integrity_number": 6.5,
+          "structure_id": 4573,
+          "structure": {
+            "acronym": "PVH"
+          }
+        },
+        {
+          "id": 156906910,
+          "rna_integrity_number": 6.3,
+          "structure_id": 4648,
+          "structure": {
+            "acronym": "PeF"
+          }
+        },
+        {
+          "id": 156906990,
+          "rna_integrity_number": 6.2,
+          "structure_id": 10151,
+          "structure": {
+            "acronym": "LTu"
+          }
+        },
+        {
+          "id": 156906862,
+          "rna_integrity_number": 6.7,
+          "structure_id": 4637,
+          "structure": {
+            "acronym": "VMH"
+          }
+        },
+        {
+          "id": 156906976,
+          "rna_integrity_number": 4.6,
+          "structure_id": 4675,
+          "structure": {
+            "acronym": "LM"
+          }
+        },
+        {
+          "id": 156907006,
+          "rna_integrity_number": 6,
+          "structure_id": 4667,
+          "structure": {
+            "acronym": "TM"
+          }
+        },
+        {
+          "id": 156906626,
+          "rna_integrity_number": 4.4,
+          "structure_id": 4597,
+          "structure": {
+            "acronym": "PalHy"
+          }
+        },
+        {
+          "id": 156906894,
+          "rna_integrity_number": 5.1,
+          "structure_id": 13008,
+          "structure": {
+            "acronym": "LHT"
+          }
+        },
+        {
+          "id": 156906878,
+          "rna_integrity_number": 6.2,
+          "structure_id": 4641,
+          "structure": {
+            "acronym": "DMH"
+          }
+        },
+        {
+          "id": 156906864,
+          "rna_integrity_number": 6.5,
+          "structure_id": 4679,
+          "structure": {
+            "acronym": "PHA"
+          }
+        },
+        {
+          "id": 147628343,
+          "rna_integrity_number": 5.9,
+          "structure_id": 4672,
+          "structure": {
+            "acronym": "MM"
+          }
+        },
+        {
+          "id": 156906928,
+          "rna_integrity_number": 6.1,
+          "structure_id": 4669,
+          "structure": {
+            "acronym": "SuM"
+          }
+        },
+        {
+          "id": 156906622,
+          "rna_integrity_number": 6.1,
+          "structure_id": 4542,
+          "structure": {
+            "acronym": "PrOR"
+          }
+        },
+        {
+          "id": 156906912,
+          "rna_integrity_number": 6,
+          "structure_id": 13005,
+          "structure": {
+            "acronym": "LHM"
+          }
+        },
+        {
+          "id": 156906942,
+          "rna_integrity_number": 4.7,
+          "structure_id": 4644,
+          "structure": {
+            "acronym": "ARH"
+          }
+        },
+        {
+          "id": 156906896,
+          "rna_integrity_number": 5.8,
+          "structure_id": 4672,
+          "structure": {
+            "acronym": "MM"
+          }
+        }
+      ]
+    },
+    {
+      "donor": "15697",
+      "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,tissue_sample_data_set(specimen(donor[id$eq15697])),structure[structure_id_path$il'*%2F4540%2F*'],rma::include,structure,rma::options[num_rows$eqall][only$eq'samples.id,samples.structure_id,samples.rna_integrity_number,structures.acronym']",
+      "msg": [
+        {
+          "id": 160091632,
+          "rna_integrity_number": 5.6,
+          "structure_id": 10151,
+          "structure": {
+            "acronym": "LTu"
+          }
+        },
+        {
+          "id": 160091536,
+          "rna_integrity_number": 5.6,
+          "structure_id": 4648,
+          "structure": {
+            "acronym": "PeF"
+          }
+        },
+        {
+          "id": 160091538,
+          "rna_integrity_number": 5.2,
+          "structure_id": 4597,
+          "structure": {
+            "acronym": "PalHy"
+          }
+        },
+        {
+          "id": 160091550,
+          "rna_integrity_number": 6.6,
+          "structure_id": 4644,
+          "structure": {
+            "acronym": "ARH"
+          }
+        },
+        {
+          "id": 160091628,
+          "rna_integrity_number": 6.5,
+          "structure_id": 4593,
+          "structure": {
+            "acronym": "SO"
+          }
+        },
+        {
+          "id": 160091648,
+          "rna_integrity_number": 5.7,
+          "structure_id": 13005,
+          "structure": {
+            "acronym": "LHM"
+          }
+        },
+        {
+          "id": 160091502,
+          "rna_integrity_number": 6,
+          "structure_id": 4637,
+          "structure": {
+            "acronym": "VMH"
+          }
+        },
+        {
+          "id": 160091564,
+          "rna_integrity_number": 6.5,
+          "structure_id": 4542,
+          "structure": {
+            "acronym": "PrOR"
+          }
+        },
+        {
+          "id": 160091534,
+          "rna_integrity_number": 6.1,
+          "structure_id": 4641,
+          "structure": {
+            "acronym": "DMH"
+          }
+        },
+        {
+          "id": 160091568,
+          "rna_integrity_number": 5.9,
+          "structure_id": 4669,
+          "structure": {
+            "acronym": "SuM"
+          }
+        },
+        {
+          "id": 160091552,
+          "rna_integrity_number": 6,
+          "structure_id": 4667,
+          "structure": {
+            "acronym": "TM"
+          }
+        },
+        {
+          "id": 160091584,
+          "rna_integrity_number": 5,
+          "structure_id": 4672,
+          "structure": {
+            "acronym": "MM"
+          }
+        },
+        {
+          "id": 160091486,
+          "rna_integrity_number": 6.1,
+          "structure_id": 4596,
+          "structure": {
+            "acronym": "LHA"
+          }
+        },
+        {
+          "id": 160091600,
+          "rna_integrity_number": 6.2,
+          "structure_id": 4675,
+          "structure": {
+            "acronym": "LM"
+          }
+        },
+        {
+          "id": 160091566,
+          "rna_integrity_number": 6.1,
+          "structure_id": 4648,
+          "structure": {
+            "acronym": "PeF"
+          }
+        },
+        {
+          "id": 160091518,
+          "rna_integrity_number": 5,
+          "structure_id": 13008,
+          "structure": {
+            "acronym": "LHT"
+          }
+        },
+        {
+          "id": 160091612,
+          "rna_integrity_number": 6.6,
+          "structure_id": 4573,
+          "structure": {
+            "acronym": "PVH"
+          }
+        },
+        {
+          "id": 160091616,
+          "rna_integrity_number": 5.7,
+          "structure_id": 4679,
+          "structure": {
+            "acronym": "PHA"
+          }
+        }
+      ]
+    }
+  ]
+}

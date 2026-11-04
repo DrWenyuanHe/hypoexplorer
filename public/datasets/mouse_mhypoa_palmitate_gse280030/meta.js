@@ -1,0 +1,1 @@
+var HX_MOUSE_MHYPOA_PALMITATE_GSE280030_META = {"populations":["mhypoa"],"labels":{"mhypoa":"mHypoA-2/12 hypothalamic neurons"},"types":{"mhypoa":"Tissue"},"nGenes":{"mhypoa":11286},"colors":{"mhypoa":"#D37295"},"qcFlags":{"mhypoa":{"is3v3":false,"nNormal":3,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

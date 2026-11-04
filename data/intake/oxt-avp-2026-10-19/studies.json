@@ -1,0 +1,61 @@
+[
+  {
+    "id": "rat_son_salt_gse65663",
+    "accession": "GSE65663",
+    "dir": "geo_replication/datasets/GSE65663_rnor_son_salt",
+    "name": "Rat supraoptic nucleus - salt loading",
+    "category": "Stress, immune & disease",
+    "organism": "Rattus norvegicus",
+    "region": "Supraoptic nucleus",
+    "preparation": "Bulk tissue",
+    "perturbation": "Environment & stress",
+    "modality": "microarray",
+    "expressionUnit": "log2 RMA (GeneSpring median-baselined)",
+    "citation": "Greenwood et al., Am J Physiol Regul Integr Comp Physiol 2015",
+    "doi": "10.1152/ajpregu.00444.2014",
+    "pmid": "25632023",
+    "source": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65663",
+    "note": "Male Sprague-Dawley rat supraoptic nucleus after seven days of 2% (w/v) saline instead of normal drinking water. Five independent RNA pools per arm; GEO explicitly reports five rats per pool, and individual pool members are not identified. Each array is one measured pool, so the modeled and displayed sample size is five per arm. The deposited GeneSpring GX12 RMA values are already median-baselined on the RMA log2 scale and are retained unchanged; zero or negative values are valid relative expression, not raw counts or absolute transcript abundance. All 31,099 source probes remain in the prepared matrix. Missing or ambiguous annotations are unlabelled fit rows, and unambiguous same-symbol probes are averaged by the shared limma producer before testing. This is a bulk SON study relevant to OXT/AVP physiology, without purified OXT or AVP neurons. Water-deprivation arrays from GSE3110 are not included: the paper treats them as a separate experiment because their amplification protocols differ. Standardized limma inference is independent of the authors' GeneSpring Welch tests; author-result concordance has not been established.",
+    "groups": [
+      { "key": "control", "label": "Euhydrated" },
+      { "key": "salt", "label": "7-day salt loading" }
+    ],
+    "contrasts": [
+      {
+        "id": "salt_vs_control",
+        "label": "7-day salt loading vs euhydrated",
+        "baseline": "control",
+        "case": "salt"
+      }
+    ],
+    "tracks": [
+      {
+        "id": "son",
+        "analysisId": "GSE65663",
+        "label": "Supraoptic nucleus",
+        "matrix": "geo_replication/datasets/GSE65663_rnor_son_salt/prepared/GSE65663_log_expression.tsv.gz",
+        "samplesheet": "geo_replication/datasets/GSE65663_rnor_son_salt/metadata/GSE65663_samplesheet.tsv",
+        "kind": "matrix_log"
+      }
+    ],
+    "designReview": {
+      "replicationStatus": "pass_with_notes",
+      "biologicalUnit": "Independent RNA pool of five rats, measured on one array",
+      "note": "The downloaded GEO series overall design explicitly identifies each array as an independent pool of five animals. All ten distinct GSMs and source group labels match the matrix: GSM1602660-GSM1602664 are EU1-EU5 controls and GSM1602655-GSM1602659 are SL1-SL5 salt loading. Pool membership and individual-rat expression are not public; inference uses five measured pools per arm. Primary publication methods and GSM protocols confirm the seven-day 2% saline comparison. Source GSE3110 water-deprivation arrays are excluded because the publication documents different amplification procedures and analyzes that experiment separately.",
+      "evidencePaths": [
+        "geo_replication/datasets/GSE65663_rnor_son_salt/metadata/GSE65663_series.soft.gz",
+        "geo_replication/datasets/GSE65663_rnor_son_salt/raw/GSE65663_series_matrix.txt.gz",
+        "geo_replication/datasets/GSE65663_rnor_son_salt/metadata/GSE65663_source_review.json",
+        "geo_replication/datasets/GSE65663_rnor_son_salt/metadata/GSE65663_source_files.json",
+        "geo_replication/datasets/GSE65663_rnor_son_salt/metadata/GSE65663_preparation_qc.json"
+      ]
+    },
+    "authorReview": {
+      "availability": "not_located",
+      "note": "The deposited per-sample matrix and primary methods were inspected. The authors used GeneSpring GX12 RMA, median baseline and Welch tests with BH correction. The standardized Explorer result uses the independent limma producer, source-bound probe annotation and shared pre-fit symbol aggregation. A matching full author effect table has not been compared; no author-result concordance is claimed.",
+      "nextStep": "Retrieve and reconcile the primary paper's salt-loading supplementary full result table against the registered limma output, including probe-to-symbol and testing-universe differences.",
+      "pmid": "25632023",
+      "pmcId": "PMC4386000"
+    }
+  }
+]

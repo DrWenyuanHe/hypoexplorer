@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "area": "module-methodology",
+  "fingerprint": "dbdb5f93d562b03f5956f310d27f33172ca2c1e46be4944eedc4cd87b20251b4",
+  "outcome": "updated",
+  "explanation": "Methodology moves out of the explorer into its own page-level view, MethodologyView.tsx (renamed from MethodologyTab.tsx), rendered in PageShell at #/methodology with a Home breadcrumb, so collection-wide methods no longer sit inside the macaque dataset. The audited content is unchanged by the move: collection-wide sections for source data, differential expression, enrichment, units and verification, then the macaque pipeline and size-cap example, with an On this page nav that scrolls in place and focuses the section. Significance defaults are read from DEFAULT_FDR_CUTOFF and METRIC_DEFAULT_SIG_THRESH. Audit corrections: tables replaced on 26 September 2026, session records per DE run, duplicate-symbol sum/average rules, log2(value + 1) matrix units, the 15-500 window applies to every study, KEGG legacy, and e33 dropping the parent term below i15's universe.",
+  "references": [
+    "src/methodology/MethodologyView.tsx",
+    "src/statistics/policy.ts",
+    "src/explorer/explorerSession.ts",
+    "scripts/lib/de_common.R",
+    "data/raw/scripts/run_atlas_r460.R",
+    "data/quality/regeneration-r460-2026-09-25/README.md"
+  ]
+}

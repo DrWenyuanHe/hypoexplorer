@@ -1,0 +1,1 @@
+var HX_MOUSE_ARC_POMC_DRD2_GSE210311_META = {"populations":["pomc"],"labels":{"pomc":"Arcuate POMC neurons (RiboTag)"},"types":{"pomc":"Tissue"},"nGenes":{"pomc":16167},"colors":{"pomc":"#76B7B2"},"qcFlags":{"pomc":{"is3v3":true,"nNormal":3,"nObese":3,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

@@ -1,0 +1,1 @@
+var HX_MOUSE_HYPO_ASTRO_AGING_GSE99791_META = {"populations":["astrocytes"],"labels":{"astrocytes":"Hypothalamic astrocytes (GFAP-RiboTag IP)"},"types":{"astrocytes":"Tissue"},"nGenes":{"astrocytes":14978},"colors":{"astrocytes":"#9B77C8"},"qcFlags":{"astrocytes":{"is3v3":true,"nNormal":3,"nObese":3,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

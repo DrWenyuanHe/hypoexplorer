@@ -1,0 +1,1 @@
+var HX_RAT_HYPO_HFD_WTTS_GSE100349_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus (WTTS-seq)"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":9439},"colors":{"hypothalamus":"#E76F51"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":4,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

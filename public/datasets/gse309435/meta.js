@@ -1,0 +1,1 @@
+var HX_GSE309435_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Paraventricular nucleus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":14565},"colors":{"hypothalamus":"#3775BA"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":9,"nObese":10,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

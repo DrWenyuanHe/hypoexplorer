@@ -1,0 +1,1 @@
+var HX_MOUSE_ARC_CORTICOSTERONE_GSE128148_META = {"populations":["arc"],"labels":{"arc":"Arcuate nucleus (LCM)"},"types":{"arc":"Tissue"},"nGenes":{"arc":11182},"colors":{"arc":"#E15759"},"qcFlags":{"arc":{"is3v3":false,"nNormal":3,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

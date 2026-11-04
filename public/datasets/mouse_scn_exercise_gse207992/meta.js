@@ -1,0 +1,1 @@
+var HX_MOUSE_SCN_EXERCISE_GSE207992_META = {"populations":["scn"],"labels":{"scn":"Suprachiasmatic nucleus (LCM)"},"types":{"scn":"Tissue"},"nGenes":{"scn":24839},"colors":{"scn":"#59A14F"},"qcFlags":{"scn":{"is3v3":false,"nNormal":4,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

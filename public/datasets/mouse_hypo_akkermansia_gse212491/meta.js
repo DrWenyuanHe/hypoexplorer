@@ -1,0 +1,1 @@
+var HX_MOUSE_HYPO_AKKERMANSIA_GSE212491_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus (Drop-seq pseudobulk)"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":15564},"colors":{"hypothalamus":"#2A9D8F"},"qcFlags":{"hypothalamus":{"is3v3":true,"nNormal":3,"nObese":3,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

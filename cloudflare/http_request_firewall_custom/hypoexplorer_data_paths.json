@@ -1,0 +1,7 @@
+{
+  "ref": "hypoexplorer_data_paths",
+  "description": "Data host: block paths outside /datasets/, /query/, /qc/ with .js or .pdf",
+  "expression": "(http.host eq \"data.hypoexplorer.com\" and (not (starts_with(http.request.uri.path, \"/datasets/\") or starts_with(http.request.uri.path, \"/query/\") or starts_with(http.request.uri.path, \"/qc/\")) or not (ends_with(http.request.uri.path, \".js\") or ends_with(http.request.uri.path, \".pdf\")) or http.request.uri.path contains \"..\" or http.request.uri.path contains \"//\" or len(http.request.uri.path) gt 256))",
+  "action": "block",
+  "enabled": true
+}

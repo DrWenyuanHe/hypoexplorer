@@ -1,0 +1,617 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-15",
+  "measurement": "Local baseline file byte census before loading optimizations. Compression estimates are not observed network transfer.",
+  "compression": {
+    "gzip6": "Node zlib.gzipSync(buffer, {level:6})",
+    "brotli11": "Separately measured Node zlib.brotliCompressSync(buffer), default quality 11. Excludes HTTP/TLS overhead; live R2/CDN may differ."
+  },
+  "baselineBehavior": {
+    "entry": "Default Lepr values loaded automatically before the user selected a gene.",
+    "sourceLoads": "Unbounded Promise.all; obsolete source loads all started.",
+    "expressionUploadRequests": 0,
+    "uploadNote": "Queries read static assets. Exports are produced locally. Deployment uploads are outside this census."
+  },
+  "scopes": {
+    "neuroseqLepr": {
+      "requests": 3,
+      "decodedBytes": 4118364,
+      "gzip6Bytes": 479643,
+      "paths": [
+        "public/expression/neuroseq/manifest.json",
+        "public/expression/neuroseq/gene-index.json",
+        "public/expression/neuroseq/shards/5c.json"
+      ]
+    },
+    "wholeHypothalamusIgf1r": {
+      "requests": 4,
+      "decodedBytes": 17857800,
+      "gzip6Bytes": 4948561,
+      "brotli11EstimatedBytes": 3654156,
+      "paths": [
+        "public/datasets/mouse_hypo_fedfast_gse254155/track_hypothalamus.js",
+        "public/datasets/mouse_hypo_fasting_gse289833/track_hypothalamus.js",
+        "public/datasets/mouse_hypo_fasting_gse294478/track_hypothalamus.js",
+        "public/datasets/mouse_hypo_hfd_gse220533/track_whole.js"
+      ]
+    },
+    "agrpExistingTracks": {
+      "requests": 3,
+      "decodedBytes": 8464479,
+      "gzip6Bytes": 2578929,
+      "brotli11EstimatedBytes": 1975325,
+      "paths": [
+        "public/datasets/mouse_agrp_fedfast_gse68177/track_agrp.js",
+        "public/datasets/mouse_arc_agrp_trap_gse240484/track_agrp.js",
+        "public/datasets/mouse_agrp_fedfast_gse124693/track_agrp.js"
+      ]
+    },
+    "agrpAcrossStudiesLepr": {
+      "requests": 6,
+      "decodedBytes": 12582843,
+      "gzip6Bytes": 3058572,
+      "paths": [
+        "public/datasets/mouse_agrp_fedfast_gse68177/track_agrp.js",
+        "public/datasets/mouse_arc_agrp_trap_gse240484/track_agrp.js",
+        "public/datasets/mouse_agrp_fedfast_gse124693/track_agrp.js",
+        "public/expression/neuroseq/manifest.json",
+        "public/expression/neuroseq/gene-index.json",
+        "public/expression/neuroseq/shards/5c.json"
+      ]
+    },
+    "allExistingSources": {
+      "sourceCount": 31,
+      "requests": 29,
+      "decodedBytes": 119765082,
+      "gzip6Bytes": 35159308,
+      "brotli11EstimatedBytes": 24161349,
+      "paths": [
+        "public/datasets/mouse_agrp_fedfast_gse68177/track_agrp.js",
+        "public/datasets/mouse_arc_agrp_trap_gse240484/track_agrp.js",
+        "public/datasets/mouse_agrp_fedfast_gse124693/track_agrp.js",
+        "public/datasets/mouse_pomc_fedfast_gse68177/track_pomc.js",
+        "public/datasets/mouse_arc_pomc_drd2_gse210311/track_pomc.js",
+        "public/datasets/mouse_pomc_maternal_hfd_gse135639/track_pomc.js",
+        "public/datasets/gse224274/track_hypothalamus.js",
+        "public/datasets/mouse_arc_pnoc_trap_gse292416/track_pnoc.js",
+        "public/datasets/mouse_leprb_stat3_gse123983/track_leprb.js",
+        "public/datasets/mouse_gnrh_androgen_gse162563/track_poa.js",
+        "public/datasets/mouse_hypo_oxt_trap_gse242245/track_oxytocin.js",
+        "public/datasets/mouse_mpoa_pnoc_bactrap_gse306829/track_mpoa.js",
+        "public/datasets/mouse_sst_neuron_sex_gse224254/track_sst_neurons.js",
+        "public/datasets/mouse_vlpo_galanin_sleep_gse132308/track_vlpo_galanin.js",
+        "public/datasets/mouse_vmh_sf1_sex_gse143818/track_vmh_sf1.js",
+        "public/datasets/mouse_pvn_crh_ela_gse174085/track_crh_pvn.js",
+        "public/datasets/gse262407/track_ghrh.js",
+        "public/datasets/mouse_arc_neun_development_gse189945/track_arc_neun.js",
+        "public/datasets/gse337822/track_excitatory.js",
+        "public/datasets/gse337822/track_inhibitory.js",
+        "public/datasets/gse262407/track_neuron.js",
+        "public/datasets/mouse_arc_fasting_gse96627/track_arcuate.js",
+        "public/datasets/mouse_arc_hfd_gse225038/track_arcuate.js",
+        "public/datasets/mouse_arc_hfd_gse284408/track_arcuate.js",
+        "public/datasets/mouse_hypo_fedfast_gse254155/track_hypothalamus.js",
+        "public/datasets/mouse_hypo_fasting_gse289833/track_hypothalamus.js",
+        "public/datasets/mouse_hypo_fasting_gse294478/track_hypothalamus.js",
+        "public/datasets/mouse_hypo_hfd_gse220533/track_whole.js",
+        "public/datasets/mouse_lha_hfd_gse130597/track_lha.js"
+      ]
+    }
+  },
+  "existingTrackFiles": [
+    {
+      "path": "public/datasets/mouse_agrp_fedfast_gse68177/track_agrp.js",
+      "datasetId": "mouse_agrp_fedfast_gse68177",
+      "trackId": "agrp",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_agrp_fedfast_gse68177:agrp"
+      ],
+      "sha256": "6690089600c959ce14be9e81bcdc6949d505195007989cfe188494fe6e04c77f",
+      "decodedBytes": 2809773,
+      "gzip6Bytes": 921310,
+      "brotli11EstimatedBytes": 718220,
+      "cpmJsonBytes": 1349013,
+      "geneCount": 14630,
+      "sampleCount": 11
+    },
+    {
+      "path": "public/datasets/mouse_arc_agrp_trap_gse240484/track_agrp.js",
+      "datasetId": "mouse_arc_agrp_trap_gse240484",
+      "trackId": "agrp",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_arc_agrp_trap_gse240484:agrp"
+      ],
+      "sha256": "01036f619100b7e535a69f80ed7fee3f8c1d3a216f97afffc35a821233d8d4f4",
+      "decodedBytes": 2507480,
+      "gzip6Bytes": 763003,
+      "brotli11EstimatedBytes": 579148,
+      "cpmJsonBytes": 984744,
+      "geneCount": 15242,
+      "sampleCount": 7
+    },
+    {
+      "path": "public/datasets/mouse_agrp_fedfast_gse124693/track_agrp.js",
+      "datasetId": "mouse_agrp_fedfast_gse124693",
+      "trackId": "agrp",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_agrp_fedfast_gse124693:agrp"
+      ],
+      "sha256": "4317db02ccb5570881c8bf42c13efc327bcb0c04e36f52f96b56ca54c99c943b",
+      "decodedBytes": 3147226,
+      "gzip6Bytes": 894616,
+      "brotli11EstimatedBytes": 677957,
+      "cpmJsonBytes": 1281874,
+      "geneCount": 18611,
+      "sampleCount": 9
+    },
+    {
+      "path": "public/datasets/mouse_pomc_fedfast_gse68177/track_pomc.js",
+      "datasetId": "mouse_pomc_fedfast_gse68177",
+      "trackId": "pomc",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_pomc_fedfast_gse68177:pomc"
+      ],
+      "sha256": "5b5a7386295605819f99035b87d95d31698469494891cebedd648113bda42e86",
+      "decodedBytes": 2647412,
+      "gzip6Bytes": 842048,
+      "brotli11EstimatedBytes": 652518,
+      "cpmJsonBytes": 1225062,
+      "geneCount": 14364,
+      "sampleCount": 10
+    },
+    {
+      "path": "public/datasets/mouse_arc_pomc_drd2_gse210311/track_pomc.js",
+      "datasetId": "mouse_arc_pomc_drd2_gse210311",
+      "trackId": "pomc",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_arc_pomc_drd2_gse210311:pomc:pomc",
+        "mouse_arc_pomc_drd2_gse210311:pomc:drd2"
+      ],
+      "sha256": "9857357a6b634ee4016aa6b1530b380312aaf62a078cd58b6c4a64e23d90bb93",
+      "decodedBytes": 2532368,
+      "gzip6Bytes": 777409,
+      "brotli11EstimatedBytes": 604086,
+      "cpmJsonBytes": 901415,
+      "geneCount": 16181,
+      "sampleCount": 6
+    },
+    {
+      "path": "public/datasets/mouse_pomc_maternal_hfd_gse135639/track_pomc.js",
+      "datasetId": "mouse_pomc_maternal_hfd_gse135639",
+      "trackId": "pomc",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_pomc_maternal_hfd_gse135639:pomc"
+      ],
+      "sha256": "e234e9fe3e05e6096f4444184820baf13371de7987979165b45c9b916aa72c50",
+      "decodedBytes": 8054230,
+      "gzip6Bytes": 2070233,
+      "brotli11EstimatedBytes": 1493938,
+      "cpmJsonBytes": 1925952,
+      "geneCount": 15230,
+      "sampleCount": 17
+    },
+    {
+      "path": "public/datasets/gse224274/track_hypothalamus.js",
+      "datasetId": "gse224274",
+      "trackId": "hypothalamus",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "gse224274:hypothalamus"
+      ],
+      "sha256": "386afbf8457dfec5f9321bdef1670972c877f497de1997ab3f147c77c1150d66",
+      "decodedBytes": 1058619,
+      "gzip6Bytes": 203862,
+      "brotli11EstimatedBytes": 145213,
+      "cpmJsonBytes": 545572,
+      "geneCount": 5143,
+      "sampleCount": 12
+    },
+    {
+      "path": "public/datasets/mouse_arc_pnoc_trap_gse292416/track_pnoc.js",
+      "datasetId": "mouse_arc_pnoc_trap_gse292416",
+      "trackId": "pnoc",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_arc_pnoc_trap_gse292416:pnoc"
+      ],
+      "sha256": "27fb1a6c5e183ec20acd68e5bab3490f2e9fc1fc27edcd311fc20bf3adfb0619",
+      "decodedBytes": 2837980,
+      "gzip6Bytes": 827179,
+      "brotli11EstimatedBytes": 650563,
+      "cpmJsonBytes": 1203430,
+      "geneCount": 16832,
+      "sampleCount": 8
+    },
+    {
+      "path": "public/datasets/mouse_leprb_stat3_gse123983/track_leprb.js",
+      "datasetId": "mouse_leprb_stat3_gse123983",
+      "trackId": "leprb",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_leprb_stat3_gse123983:leprb"
+      ],
+      "sha256": "d9b96c420ba46576d07c0153018275e6b87ba362c9f53469f05476dbe39e7120",
+      "decodedBytes": 2684929,
+      "gzip6Bytes": 709469,
+      "brotli11EstimatedBytes": 552631,
+      "cpmJsonBytes": 971190,
+      "geneCount": 17193,
+      "sampleCount": 6
+    },
+    {
+      "path": "public/datasets/mouse_gnrh_androgen_gse162563/track_poa.js",
+      "datasetId": "mouse_gnrh_androgen_gse162563",
+      "trackId": "poa",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_gnrh_androgen_gse162563:poa"
+      ],
+      "sha256": "dd7e8c3c5bf5129504e9b0e470d51b358d66105f19d2737a60aefbfba8a8bc6c",
+      "decodedBytes": 3061961,
+      "gzip6Bytes": 933220,
+      "brotli11EstimatedBytes": 743092,
+      "cpmJsonBytes": 1496061,
+      "geneCount": 15701,
+      "sampleCount": 11
+    },
+    {
+      "path": "public/datasets/mouse_hypo_oxt_trap_gse242245/track_oxytocin.js",
+      "datasetId": "mouse_hypo_oxt_trap_gse242245",
+      "trackId": "oxytocin",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_hypo_oxt_trap_gse242245:oxytocin"
+      ],
+      "sha256": "ba04939db70e7619768920cc88d7bb60747dac03284e85735dc3149a8f82f0ae",
+      "decodedBytes": 2786379,
+      "gzip6Bytes": 766160,
+      "brotli11EstimatedBytes": 600482,
+      "cpmJsonBytes": 1087745,
+      "geneCount": 17013,
+      "sampleCount": 7
+    },
+    {
+      "path": "public/datasets/mouse_mpoa_pnoc_bactrap_gse306829/track_mpoa.js",
+      "datasetId": "mouse_mpoa_pnoc_bactrap_gse306829",
+      "trackId": "mpoa",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_mpoa_pnoc_bactrap_gse306829:mpoa:ip",
+        "mouse_mpoa_pnoc_bactrap_gse306829:mpoa:input"
+      ],
+      "sha256": "b2ec5f6ae7c0d29de4d80583e6b10171d8e5100fad588a023e78754beeac0481",
+      "decodedBytes": 3104843,
+      "gzip6Bytes": 928257,
+      "brotli11EstimatedBytes": 703325,
+      "cpmJsonBytes": 1093417,
+      "geneCount": 19842,
+      "sampleCount": 6
+    },
+    {
+      "path": "public/datasets/mouse_sst_neuron_sex_gse224254/track_sst_neurons.js",
+      "datasetId": "mouse_sst_neuron_sex_gse224254",
+      "trackId": "sst_neurons",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_sst_neuron_sex_gse224254:sst_neurons"
+      ],
+      "sha256": "2a3dc322702e489d53949053f783c5fe31c03d6aefcc59493659b781cecfd3e6",
+      "decodedBytes": 2589281,
+      "gzip6Bytes": 815585,
+      "brotli11EstimatedBytes": 651812,
+      "cpmJsonBytes": 1083840,
+      "geneCount": 15112,
+      "sampleCount": 8
+    },
+    {
+      "path": "public/datasets/mouse_vlpo_galanin_sleep_gse132308/track_vlpo_galanin.js",
+      "datasetId": "mouse_vlpo_galanin_sleep_gse132308",
+      "trackId": "vlpo_galanin",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_vlpo_galanin_sleep_gse132308:vlpo_galanin"
+      ],
+      "sha256": "3d804db43a7bbcdaa64062bfadee8657f93680325d989884059111ee426e44f6",
+      "decodedBytes": 2695564,
+      "gzip6Bytes": 846515,
+      "brotli11EstimatedBytes": 626832,
+      "cpmJsonBytes": 1373605,
+      "geneCount": 13286,
+      "sampleCount": 12
+    },
+    {
+      "path": "public/datasets/mouse_vmh_sf1_sex_gse143818/track_vmh_sf1.js",
+      "datasetId": "mouse_vmh_sf1_sex_gse143818",
+      "trackId": "vmh_sf1",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_vmh_sf1_sex_gse143818:vmh_sf1"
+      ],
+      "sha256": "05a81e40531d90aac23a31ecb8e2820125723500971af9f89c407c072f68dd8d",
+      "decodedBytes": 1004665,
+      "gzip6Bytes": 223472,
+      "brotli11EstimatedBytes": 170647,
+      "cpmJsonBytes": 376352,
+      "geneCount": 6323,
+      "sampleCount": 6
+    },
+    {
+      "path": "public/datasets/mouse_pvn_crh_ela_gse174085/track_crh_pvn.js",
+      "datasetId": "mouse_pvn_crh_ela_gse174085",
+      "trackId": "crh_pvn",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_pvn_crh_ela_gse174085:crh_pvn"
+      ],
+      "sha256": "b659f1f78c663e92edd0e6027f7836d63903298baf96c90fd16fe237694b4031",
+      "decodedBytes": 6406705,
+      "gzip6Bytes": 2181928,
+      "brotli11EstimatedBytes": 1704571,
+      "cpmJsonBytes": 3984566,
+      "geneCount": 24181,
+      "sampleCount": 24
+    },
+    {
+      "path": "public/datasets/gse262407/track_ghrh.js",
+      "datasetId": "gse262407",
+      "trackId": "ghrh",
+      "isDefaultTrack": false,
+      "sourceIds": [
+        "gse262407:ghrh"
+      ],
+      "sha256": "148718c527fb2d2545027e25e31fbe7608156b5139164be7949ce54e351624f6",
+      "decodedBytes": 4367009,
+      "gzip6Bytes": 914761,
+      "brotli11EstimatedBytes": 566428,
+      "cpmJsonBytes": 1882653,
+      "geneCount": 7135,
+      "sampleCount": 15
+    },
+    {
+      "path": "public/datasets/mouse_arc_neun_development_gse189945/track_arc_neun.js",
+      "datasetId": "mouse_arc_neun_development_gse189945",
+      "trackId": "arc_neun",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_arc_neun_development_gse189945:arc_neun"
+      ],
+      "sha256": "011eb4a2a736fb466f689e2b0ff371b2bedd7685f633f4b7998fe5282c41d2d8",
+      "decodedBytes": 4254311,
+      "gzip6Bytes": 1052116,
+      "brotli11EstimatedBytes": 755117,
+      "cpmJsonBytes": 1896847,
+      "geneCount": 23502,
+      "sampleCount": 10
+    },
+    {
+      "path": "public/datasets/gse337822/track_excitatory.js",
+      "datasetId": "gse337822",
+      "trackId": "excitatory",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "gse337822:excitatory"
+      ],
+      "sha256": "c89337e16ac42c3db831fa4c8fec5f8e7749ead9c86cc102aef3600356671fd1",
+      "decodedBytes": 7091725,
+      "gzip6Bytes": 2531966,
+      "brotli11EstimatedBytes": 1187840,
+      "cpmJsonBytes": 5507089,
+      "geneCount": 15806,
+      "sampleCount": 20
+    },
+    {
+      "path": "public/datasets/gse337822/track_inhibitory.js",
+      "datasetId": "gse337822",
+      "trackId": "inhibitory",
+      "isDefaultTrack": false,
+      "sourceIds": [
+        "gse337822:inhibitory"
+      ],
+      "sha256": "9dd1e21d5bd0ea59178b2fc35ad47188e45f86699bd5f02e5473ef2d573908e5",
+      "decodedBytes": 8393230,
+      "gzip6Bytes": 3197573,
+      "brotli11EstimatedBytes": 1622634,
+      "cpmJsonBytes": 6527989,
+      "geneCount": 18581,
+      "sampleCount": 20
+    },
+    {
+      "path": "public/datasets/gse262407/track_neuron.js",
+      "datasetId": "gse262407",
+      "trackId": "neuron",
+      "isDefaultTrack": false,
+      "sourceIds": [
+        "gse262407:neuron"
+      ],
+      "sha256": "29cb96a1ebf8700bf0003a9aa9cc7f8c0e8c527999e9d61c612eda6498877ef8",
+      "decodedBytes": 14047597,
+      "gzip6Bytes": 4045233,
+      "brotli11EstimatedBytes": 2215442,
+      "cpmJsonBytes": 6714182,
+      "geneCount": 19213,
+      "sampleCount": 20
+    },
+    {
+      "path": "public/datasets/mouse_arc_fasting_gse96627/track_arcuate.js",
+      "datasetId": "mouse_arc_fasting_gse96627",
+      "trackId": "arcuate",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_arc_fasting_gse96627:arcuate"
+      ],
+      "sha256": "e0e3f546fbf1cd57ac03dab67f72eb9153e38169e9038c1267aa51b9795e25f1",
+      "decodedBytes": 5214237,
+      "gzip6Bytes": 1356766,
+      "brotli11EstimatedBytes": 1075677,
+      "cpmJsonBytes": 2397164,
+      "geneCount": 29901,
+      "sampleCount": 10
+    },
+    {
+      "path": "public/datasets/mouse_arc_hfd_gse225038/track_arcuate.js",
+      "datasetId": "mouse_arc_hfd_gse225038",
+      "trackId": "arcuate",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_arc_hfd_gse225038:arcuate"
+      ],
+      "sha256": "de7823534d808dc3aa6ceb28b3beacba55862a7b0ad268a2b16e7a8bfbb2c3d9",
+      "decodedBytes": 3675872,
+      "gzip6Bytes": 1067922,
+      "brotli11EstimatedBytes": 801934,
+      "cpmJsonBytes": 1431644,
+      "geneCount": 22457,
+      "sampleCount": 7
+    },
+    {
+      "path": "public/datasets/mouse_arc_hfd_gse284408/track_arcuate.js",
+      "datasetId": "mouse_arc_hfd_gse284408",
+      "trackId": "arcuate",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_arc_hfd_gse284408:arcuate"
+      ],
+      "sha256": "7a23a9f1cc8e1c9d431c39da13d2bfa49aa9abd30a44441f6e28257e52f79198",
+      "decodedBytes": 2212543,
+      "gzip6Bytes": 569308,
+      "brotli11EstimatedBytes": 435898,
+      "cpmJsonBytes": 808424,
+      "geneCount": 14152,
+      "sampleCount": 6
+    },
+    {
+      "path": "public/datasets/mouse_hypo_fedfast_gse254155/track_hypothalamus.js",
+      "datasetId": "mouse_hypo_fedfast_gse254155",
+      "trackId": "hypothalamus",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_hypo_fedfast_gse254155:hypothalamus"
+      ],
+      "sha256": "af15d75a307e738562facd4d6d86ea91c1f3d3a7b73a223b708df5b672ff5af8",
+      "decodedBytes": 4468929,
+      "gzip6Bytes": 1572734,
+      "brotli11EstimatedBytes": 1185798,
+      "cpmJsonBytes": 2769139,
+      "geneCount": 16909,
+      "sampleCount": 20
+    },
+    {
+      "path": "public/datasets/mouse_hypo_fasting_gse289833/track_hypothalamus.js",
+      "datasetId": "mouse_hypo_fasting_gse289833",
+      "trackId": "hypothalamus",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_hypo_fasting_gse289833:hypothalamus"
+      ],
+      "sha256": "428918302e66285f9182dc72a4453e147e6a9fc0795cb55e3b3715eeff28233e",
+      "decodedBytes": 2624586,
+      "gzip6Bytes": 772034,
+      "brotli11EstimatedBytes": 574814,
+      "cpmJsonBytes": 944837,
+      "geneCount": 16751,
+      "sampleCount": 6
+    },
+    {
+      "path": "public/datasets/mouse_hypo_fasting_gse294478/track_hypothalamus.js",
+      "datasetId": "mouse_hypo_fasting_gse294478",
+      "trackId": "hypothalamus",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_hypo_fasting_gse294478:hypothalamus"
+      ],
+      "sha256": "8797cf9d05faa38e6c0e301c7dd37d980b62fc9c2a6aaf09ceea1115a7c13fb4",
+      "decodedBytes": 3052066,
+      "gzip6Bytes": 900648,
+      "brotli11EstimatedBytes": 669784,
+      "cpmJsonBytes": 1096324,
+      "geneCount": 19445,
+      "sampleCount": 6
+    },
+    {
+      "path": "public/datasets/mouse_hypo_hfd_gse220533/track_whole.js",
+      "datasetId": "mouse_hypo_hfd_gse220533",
+      "trackId": "whole",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_hypo_hfd_gse220533:whole"
+      ],
+      "sha256": "71aad3dccf1e516f2efba11d9e955f3455295213858f0f74e16ec9fa884f4c1d",
+      "decodedBytes": 7712219,
+      "gzip6Bytes": 1703145,
+      "brotli11EstimatedBytes": 1223760,
+      "cpmJsonBytes": 3981552,
+      "geneCount": 37116,
+      "sampleCount": 15
+    },
+    {
+      "path": "public/datasets/mouse_lha_hfd_gse130597/track_lha.js",
+      "datasetId": "mouse_lha_hfd_gse130597",
+      "trackId": "lha",
+      "isDefaultTrack": true,
+      "sourceIds": [
+        "mouse_lha_hfd_gse130597:lha"
+      ],
+      "sha256": "885fae6547755cc33c6d873c6cafb575dc0ed49925bb981e5b210b73ad57f623",
+      "decodedBytes": 2721343,
+      "gzip6Bytes": 770836,
+      "brotli11EstimatedBytes": 571188,
+      "cpmJsonBytes": 1480505,
+      "geneCount": 12471,
+      "sampleCount": 14
+    }
+  ],
+  "neuroseqFiles": [
+    {
+      "path": "public/expression/neuroseq/manifest.json",
+      "decodedBytes": 48474,
+      "gzip6Bytes": 3844,
+      "sha256": "fcbc3e797a2fdfe78733a8f60bd1ccabc3692daa94288db49b34d8adffc9a481"
+    },
+    {
+      "path": "public/expression/neuroseq/gene-index.json",
+      "decodedBytes": 4006871,
+      "gzip6Bytes": 458967,
+      "sha256": "9de5335f303a8775ab62359fbf42ec7c05937b91ecfaa43f562640c63557150e"
+    },
+    {
+      "path": "public/expression/neuroseq/shards/5c.json",
+      "decodedBytes": 63019,
+      "gzip6Bytes": 16832,
+      "sha256": "79748d755b3d286b607e411abb847303b9f5dd337b440d9e44d3c6d91e529028"
+    }
+  ],
+  "proposedLosslessIndex": {
+    "status": "Measured in-memory serialization sketch only; neither implemented nor deployed.",
+    "query": "IGF1R",
+    "hash": "FNV-1a over uppercase gene key, 512 buckets",
+    "all29TrackBucket": {
+      "decodedBytes": 151541,
+      "gzip6Bytes": 52649
+    },
+    "all29TrackSampleScaffolding": {
+      "decodedBytes": 15034,
+      "gzip6Bytes": 2680
+    },
+    "all29TrackExactGeneRows": {
+      "decodedBytes": 4404,
+      "gzip6Bytes": 2019
+    },
+    "whole4TrackExactGeneRows": {
+      "decodedBytes": 582,
+      "gzip6Bytes": 307
+    },
+    "representation": "Rows [datasetId,trackId,originalFeatureKey,unchangedSampleArray]; scaffold [datasetId,trackId,raw.meta]. No numbers rounded.",
+    "requirements": [
+      "Retain exact sample arrays, nulls, samplesKept, sample/group IDs, original units and Ensembl ambiguity.",
+      "Cover all 29 tracks including gse262407 ghrh/neuron and gse337822 inhibitory.",
+      "Publish content-addressed manifests/shards with full source equality checks; fail closed on identity mismatch.",
+      "Current public/query expression rows use four significant digits and default tracks only, so cannot directly replace the exact-value adapter."
+    ]
+  }
+}

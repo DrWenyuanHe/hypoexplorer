@@ -1,0 +1,1 @@
+var HX_MOUSE_ARC_REVERB_GSE148641_META = {"populations":["arcuate"],"labels":{"arcuate":"Arcuate nucleus (ARC)"},"types":{"arcuate":"Tissue"},"nGenes":{"arcuate":14246},"colors":{"arcuate":"#E377C2"},"qcFlags":{"arcuate":{"is3v3":false,"nNormal":4,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

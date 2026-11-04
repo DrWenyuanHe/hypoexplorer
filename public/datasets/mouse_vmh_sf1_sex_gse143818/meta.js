@@ -1,0 +1,1 @@
+var HX_MOUSE_VMH_SF1_SEX_GSE143818_META = {"populations":["vmh_sf1"],"labels":{"vmh_sf1":"VMH Sf1-lineage neurons (mouse pseudobulk)"},"types":{"vmh_sf1":"Tissue"},"nGenes":{"vmh_sf1":6321},"colors":{"vmh_sf1":"#D47AAE"},"qcFlags":{"vmh_sf1":{"is3v3":true,"nNormal":3,"nObese":3,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

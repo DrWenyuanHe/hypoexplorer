@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "policy": "Expected identities retained from a fixed pre-intake QC artifact. Available retained dependencies are fingerprint-checked for identity only. Unavailable dependencies are not read or newly verified. This metadata never grants a passing QC check or changes a dataset status. Historical reads of absent source files still fail.",
+  "baseline": {
+    "archivePath": "data/intake/oxt-avp-2026-10-19/qc-input-baseline.json.gz",
+    "sourceCommit": "1879fe04b7ec0d951a2ec93660389485c50e132e",
+    "sourcePath": "data/internal-qc/assessments.generated.json",
+    "sourceSha256": "2de856378a45fb833e19437673448f2b3c9f552fe4b0a3aaa725bae56d13cb84",
+    "sourceBytes": 5525396
+  },
+  "observedInputCount": 3969,
+  "retainedIdentityCount": 2,
+  "availableIdentityCount": 2,
+  "unavailableIdentityCount": 0,
+  "identities": [
+    {
+      "path": "data/intake/september5-2026/audit-r460.generated.json",
+      "sha256": "deb06093ec6ce195f72ddd8fe3fe901d54790d00ced69e021493e864c41c8332",
+      "availability": "available_identity_checked"
+    },
+    {
+      "path": "data/internal-qc/advancement-r460-2026-09-25/replays/pinned/GSE135007-349d2dc9586ebe3a135e1c213fe4c1c5289f4e1c9cafb79777988cb0cf06e681.json",
+      "sha256": "e6c971e2fa5e33c5173a62f43e5e79724c0722ea6a620c3133e3f31787a906b7",
+      "availability": "available_identity_checked"
+    }
+  ]
+}

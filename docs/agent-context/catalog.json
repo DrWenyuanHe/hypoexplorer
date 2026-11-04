@@ -1,0 +1,418 @@
+{
+  "version": 1,
+  "directories": {
+    "brand": "Approved logo masters, reusable exports and licensed companion typography",
+    "src": "React explorer and shared TypeScript domain model",
+    "scripts": "Dataset builders, evidence checks and maintenance tools",
+    "public": "Static assets and generated browser data bundles",
+    "data": "Analysis inputs, retained evidence and reviewed assessments",
+    "geo_replication": "Tracked study inputs and analysis outputs",
+    "workers": "Scheduled R2 spend guard for the data origin",
+    "cloudflare": "Edge cache, WAF and rate-limit rule payloads for the data host",
+    "docs": "Data contracts, runbooks and maintained context",
+    "dataset-tracker": "Standalone tracker application",
+    "vendor": "Pinned Claude SEO toolkit snapshot behind the project-local SEO skills"
+  },
+  "modules": {
+    "__tests__": {
+      "summary": "App, data-contract and regression tests",
+      "references": [
+        "src/__tests__/datasetsRegistry.test.ts",
+        "src/__tests__/bundleWriter.test.ts"
+      ]
+    },
+    "acknowledgements": {
+      "summary": "Study sources and attribution",
+      "references": [
+        "src/acknowledgements/DataSourcesTab.tsx"
+      ]
+    },
+    "changelog": {
+      "summary": "Release history shown in the explorer",
+      "references": [
+        "src/changelog/ChangelogTab.tsx",
+        "src/changelog/changelog.ts",
+        "CHANGELOG.md"
+      ]
+    },
+    "circadian": {
+      "summary": "Time-series displays and rhythm statistics",
+      "references": [
+        "src/circadian/CircadianTab.tsx",
+      "src/circadian/multipleTesting.ts",
+      "src/circadian/jtkCycle.ts",
+      "docs/CIRCADIAN_VALIDATION.md"
+      ]
+    },
+    "common": {
+      "summary": "Shared study records, tables, dialogs and page chrome",
+      "references": [
+        "src/common/StudyMetadata.tsx",
+        "src/common/AuthorValidation.tsx",
+        "src/common/SortableTable.tsx",
+        "src/common/PageShell.tsx",
+        "src/common/BrandLink.tsx",
+        "brand/README.md"
+      ]
+    },
+    "compare": {
+      "summary": "Within-dataset comparisons across tracks",
+      "references": [
+        "src/compare/CompareTab.tsx",
+        "src/compare/CompareGenesView.tsx"
+      ]
+    },
+    "compareset": {
+      "summary": "Persistent selected studies and comparison columns",
+      "references": [
+        "src/compareset/compareSetStore.ts",
+        "src/compareset/CompareSetView.tsx"
+      ]
+    },
+    "crossdataset": {
+      "summary": "Gene, pathway and expression reports across studies",
+      "references": [
+        "src/crossdataset/GeneReport.tsx",
+        "src/crossdataset/PathwayReport.tsx",
+        "src/crossdataset/forestReport.tsx",
+        "src/crossdataset/geneStudyScope.tsx"
+      ]
+    },
+    "data": {
+      "summary": "Registry, bundle loading, query indexes and evidence state",
+      "references": [
+        "src/data/datasets.ts",
+        "src/data/bundleSource.ts",
+        "src/data/trackData.ts",
+        "src/data/buildPopData.ts",
+      "src/data/datasetQuality.ts",
+      "src/data/datasetQualityR460.ts",
+        "src/data/queryIndex.ts",
+        "data/intake/oxt-avp-2026-10-19/README.md"
+      ]
+    },
+    "dataset-tracker": {
+      "summary": "Integrated dataset intake and evidence board",
+      "references": [
+        "src/dataset-tracker/DatasetTrackerView.tsx",
+        "src/dataset-tracker/TrackerDetail.tsx"
+      ]
+    },
+    "explorer": {
+      "summary": "Explorer position, track navigation, tab declarations and session state",
+      "references": [
+        "src/explorer/explorerPosition.ts",
+        "src/explorer/explorerTabs.ts",
+        "src/explorer/explorerSession.ts"
+      ]
+    },
+    "expression-survey": {
+      "summary": "Baseline expression by population, study condition and tissue",
+      "references": [
+        "src/expression-survey/ExpressionSurveyView.tsx",
+        "src/expression-survey/expressionData.ts",
+        "docs/EXPRESSION_SURVEY.md",
+        "src/expression-survey/expressionIndex.ts",
+        "data/expression/existing/README.md",
+        "src/expression-survey/referenceExpression.ts",
+        "data/expression/oxt-reference/README.md"
+      ]
+    },
+    "gene-explorer": {
+      "summary": "Gene search, volcano plots and expression displays",
+      "references": [
+        "src/gene-explorer/GeneExplorerTab.tsx",
+        "src/gene-explorer/BarSEMChart.tsx",
+        "src/gene-explorer/BarSEMChartImpl.tsx"
+      ]
+    },
+    "hub": {
+      "summary": "Search-first landing page and study entry points",
+      "references": [
+        "src/hub/LandingHub.tsx",
+        "src/hub/HubSearch.tsx"
+      ]
+    },
+    "library": {
+      "summary": "Dataset discovery, filtering, study records and result summaries",
+      "references": [
+        "src/library/DatasetLibrary.tsx",
+        "src/library/ResultBars.tsx",
+        "src/library/libraryFilters.ts"
+      ]
+    },
+    "local-datasets": {
+      "summary": "On-device result import, storage and exploration",
+      "references": [
+        "src/local-datasets/LocalDatasetsView.tsx",
+        "src/local-datasets/ImportPanel.tsx",
+        "docs/LOCAL_DATASETS.md"
+      ]
+    },
+    "methodology": {
+      "summary": "Methodology reference page for the collection",
+      "references": [
+        "src/methodology/MethodologyView.tsx"
+      ]
+    },
+    "nomenclature": {
+      "summary": "Symbol and authority reference interface",
+      "references": [
+        "src/nomenclature/NomenclatureView.tsx",
+        "src/data/nomenclature.ts"
+      ]
+    },
+    "pathway-explorer": {
+      "summary": "Enrichment tables, leading edges and pathway plots",
+      "references": [
+        "src/pathway-explorer/PathwayExplorerTab.tsx",
+        "src/pathway-explorer/pathwayTable.ts"
+      ]
+    },
+    "pwa": {
+      "summary": "Service-worker updates and version handling",
+      "references": [
+        "src/pwa/registerUpdates.ts",
+        "src/pwa/versionWatch.ts"
+      ]
+    },
+    "qc": {
+      "summary": "Track-level QC tables and enrichment diagnostics",
+      "references": [
+        "src/qc/QCTab.tsx",
+        "src/qc/qcTables.ts"
+      ]
+    },
+    "search": {
+      "summary": "Unified gene and pathway search, synonym dictionary and results portal",
+      "references": [
+        "src/search/searchTypes.ts",
+        "src/search/searchVocabulary.ts",
+        "src/search/searchSummaries.ts",
+        "src/search/SearchPage.tsx"
+      ]
+    },
+    "statistics": {
+      "summary": "Statistical definitions and interpretation limits",
+      "references": [
+        "src/statistics/StatisticsView.tsx",
+        "src/statistics/policy.ts"
+      ]
+    },
+    "styles": {
+      "summary": "Shared display constants",
+      "references": [
+        "src/styles/constants.ts"
+      ]
+    },
+    "types": {
+      "summary": "Shared registry, track, report and time-series contracts",
+      "references": [
+        "src/types/index.ts",
+        "docs/DATASET_CONTRACT.md"
+      ]
+    },
+    "utils": {
+      "summary": "Routing, sample values, symbol handling and exports",
+      "references": [
+        "src/utils/appLinks.ts",
+        "src/utils/sampleValues.ts",
+        "src/utils/geneListFile.ts"
+      ]
+    },
+    "verification": {
+      "summary": "Evidence status and scientific verification guidance",
+      "references": [
+        "src/verification/VerificationView.tsx",
+        "data/author-validation/README.md"
+      ]
+    }
+  },
+  "categories": {
+    "Primate atlas": "Primate hypothalamic population atlas and its registered comparison.",
+    "Diet-induced obesity": "Diet interventions and obesity-related hypothalamic expression comparisons.",
+    "Feeding & fasting": "Food availability, feeding state and nutrition comparisons.",
+    "Leptin, insulin & energy signaling": "Hormone and energy-sensing interventions.",
+    "Incretin & pharmacology": "Drug and incretin-related interventions.",
+    "Microbiome & gut–brain axis": "Microbial or metabolite interventions with a hypothalamic readout.",
+    "Reproduction & development": "Reproductive and developmental comparisons in the profiled animal.",
+    "Developmental programming": "Maternal metabolic exposures measured in offspring; inspect the actual contrast.",
+    "Aging": "Direct chronological-age comparisons, excluding interventions merely performed in aged animals.",
+    "Circadian": "Clock, light, sleep and timed-expression studies; time-series capability is track-specific.",
+    "Stress, immune & disease": "Stress, immune and disease-related perturbations."
+  },
+  "contracts": {
+    "FeatureType": "Distinguishes gene rows from miRNA rows.",
+    "Group": "Experimental arm identity, label and color.",
+    "Contrast": "Declared baseline-to-case comparison and its interpretation flags.",
+    "Dataset": "Registered study/modality and the locations and capabilities of its bundles.",
+    "ResolvedContrast": "A comparison resolved to its experimental arms for display and loading.",
+    "QCFlags": "Track quality flags and supporting measurements.",
+    "DatasetMeta": "Dataset-level track inventory, labels and sample metadata.",
+    "QcGlobal": "Dataset QC payload consumed by the QC views.",
+    "GeneDERecord": "Precomputed differential-expression statistics for one feature.",
+    "PathwayRecord": "Precomputed enrichment result and leading-edge information.",
+    "DbName": "Supported enrichment database identifiers.",
+    "PathwayDatabase": "Enrichment records grouped by database.",
+    "PathwayRecordWithDb": "Enrichment result annotated with its database.",
+    "PathwaySibling": "Separately loaded pathway payload, including comparison-specific results.",
+    "TrackMeta": "Metadata describing a loaded expression track.",
+    "TrackQC": "Quality information attached to a track payload.",
+    "CpmMatrix": "Feature-to-sample value arrays; consult expressionUnit rather than assuming CPM.",
+    "RawTrack": "Loaded track bundle before the UI transform.",
+    "VolcanoPoint": "Plot-ready differential-expression point.",
+    "PopData": "Resolved, UI-ready view of one track and comparison.",
+    "Direction": "Display direction relative to the selected contrast.",
+    "TrackRow": "One track's gene result in a cross-dataset report.",
+    "DatasetGroup": "Gene-report tracks grouped by study.",
+    "CrossDatasetGeneReport": "Per-study gene results and report metadata; interpretation policy stays with consumers.",
+    "GroupSummary": "Expression summary for one experimental arm.",
+    "PathwayTrackRow": "One track's pathway result in a cross-dataset report.",
+    "PathwayDatasetGroup": "Pathway-report tracks grouped by study.",
+    "CrossDatasetPathwayReport": "Per-study enrichment results and report metadata.",
+    "ReviewStatus": "Dataset intake-board progress states, separate from scientific verification.",
+    "ReviewState": "One intake-board review record.",
+    "Reviews": "Intake review records keyed by identity.",
+    "TrackerRow": "Dataset intake record exposed to the tracker.",
+    "TrackerCatalog": "Bundled tracker inventory.",
+    "TimeSeriesArm": "Experimental arm for timed-expression observations.",
+    "TimeSeriesSample": "Sample identity and timing information.",
+    "TimeSeriesMeta": "Time-series sampling design and metadata.",
+    "TimeSeriesMatrix": "Feature values aligned to time-series sample order.",
+    "TimeSeriesBundle": "Separately loaded time-series metadata and expression values.",
+    "TimeSeriesDescriptor": "Registry declaration identifying time-series tracks and bundle locations.",
+    "ExpressionCondition": "Source condition, reference eligibility and explicitly reported biological state.",
+    "ExpressionProvider": "External atlas publisher, release, licence and the attribution shown with its values.",
+    "ExpressionSource": "Expression-only source identity, material, provenance, measurement scale, sample groups and, for atlases, value kind and provider.",
+    "ExpressionSampleValue": "One original sample label and its stored measurement or missing value.",
+    "ExpressionGroupResult": "Within-source condition measurements and arithmetic mean on the stored scale, or a provider's published summary value.",
+    "ExpressionGeneResult": "Resolved expression query, distinguishing available, absent and ambiguous features."
+  },
+  "views": {
+    "hub": "hub",
+    "search": "search",
+    "library": "library",
+    "explorer": "explorer",
+    "expression": "expression-survey",
+    "report": "crossdataset",
+    "pathway-report": "crossdataset",
+    "compare-datasets": "crossdataset",
+    "compare-set": "compareset",
+    "tracker": "dataset-tracker",
+    "statistics": "statistics",
+    "methodology": "methodology",
+    "verification": "verification",
+    "nomenclature": "nomenclature",
+    "local-datasets": "local-datasets"
+  },
+  "tabs": {
+    "gene": "gene-explorer",
+    "pathway": "pathway-explorer",
+    "circadian": "circadian",
+    "qc": "qc",
+    "datasources": "acknowledgements"
+  },
+  "relationships": [
+    "Registry declarations identify studies; bundle loaders and transforms provide the selected track and contrast to views.",
+    "Analysis and evidence checks govern scientific data; context checks govern navigation and reviewed documentation freshness.",
+    "The site Worker serves assets; R2 serves bundles behind edge cache and WAF rules, and a scheduled spend guard caps R2 reads."
+  ],
+  "workflows": {
+    "dataset-change": {
+      "summary": "Add or change a public dataset",
+      "runbook": "docs/DATASET_CONTRACT.md",
+      "modules": [
+        "data",
+        "types"
+      ],
+      "sources": [
+        "scripts/",
+        "docs/DATASET_CONTRACT.md",
+        "docs/REAL_DATA_SHAPES.md",
+        "docs/EXPRESSION_SURVEY.md",
+        "data/expression/",
+        "data/intake/"
+      ]
+    },
+    "verification": {
+      "summary": "Review QC and author evidence",
+      "runbook": "data/author-validation/README.md",
+      "modules": [
+        "verification",
+        "qc",
+        "data"
+      ],
+      "sources": [
+        "data/author-validation/",
+        "data/internal-qc/",
+        "data/quality/",
+        "data/intake/",
+        "scripts/"
+      ]
+    },
+    "ui-change": {
+      "summary": "Change navigation, views or exports",
+      "runbook": "docs/REFACTOR_CHECKLIST.md",
+      "modules": [
+        "explorer",
+        "gene-explorer",
+        "pathway-explorer",
+        "common",
+        "compareset",
+        "crossdataset",
+        "search",
+        "utils",
+        "expression-survey"
+      ],
+      "sources": [
+        "src/App.tsx",
+        "src/appRouter.ts",
+        "CONTEXT.md",
+        "docs/REFACTOR_CHECKLIST.md"
+      ]
+    },
+    "local-import": {
+      "summary": "Change local result imports",
+      "runbook": "docs/LOCAL_DATASETS.md",
+      "modules": [
+        "local-datasets"
+      ],
+      "sources": [
+        "docs/LOCAL_DATASETS.md"
+      ]
+    },
+    "delivery": {
+      "summary": "Build and verify site delivery",
+      "runbook": "docs/agent-context/delivery.md",
+      "modules": [
+        "pwa"
+      ],
+      "sources": [
+        "workers/",
+        "vite.config.ts",
+        "wrangler.jsonc",
+        "package.json",
+        "scripts/verify_deploy.mts",
+        "scripts/upload_bundles_r2.mts",
+        "scripts/lib/uploadPublication.mts",
+        "docs/DATA_LOADING_AUDIT_2026-09-15.md",
+        "docs/agent-context/delivery.md",
+        "scripts/build_expression_index.mts",
+        "scripts/build_oxt_reference.mts",
+        "scripts/build_query_index.mts",
+        "scripts/lib/indexProducts.mts",
+        "scripts/lib/expressionIndexBuildIdentity.mts",
+        "scripts/lib/r2Incremental.mts",
+        "scripts/lib/r2RemoteInventory.mts",
+        "docs/DATA_LOADING_IMPLEMENTATION_2026-09-15.md",
+        "cloudflare/",
+        "docs/EDGE_PROTECTION.md",
+        "scripts/apply_edge_rules.mts",
+        "scripts/verify_edge.mts",
+        "scripts/lib/edgeRules.mts",
+        "scripts/lib/edgePurge.mts",
+        "scripts/lib/cloudflareApi.mts"
+      ]
+    }
+  }
+}

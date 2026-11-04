@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "area": "module-verification",
+  "fingerprint": "0634de91897afd39f5c25a3ce47e3f610057e76dff631ead4e8bd2736210cedd",
+  "outcome": "no-impact",
+  "explanation": "VerificationView.tsx imports datasetQuality and QUALITY_STATUS from datasetQualityR460.ts, so the verification page summarizes current decisions that apply the r460 concordance re-reviews. Its structure, policy text and the author-validation guide are unchanged; the regenerated evidence it reads is described in the regeneration record.",
+  "references": [
+    "src/verification/VerificationView.tsx",
+    "src/data/datasetQualityR460.ts",
+    "data/quality/regeneration-r460-2026-09-25/README.md"
+  ]
+}

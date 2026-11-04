@@ -1,0 +1,94 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+
+  // Serve the built app shell (dist/) from Cloudflare Workers static assets,
+  // replacing the manual dist/ upload to Hostinger.
+  //
+  // WHY THIS EXISTS
+  // ---------------
+  // The data already lives on Cloudflare R2 (data.hypoexplorer.com, uploaded by
+  // scripts/upload_bundles_r2.mts). Since that cutover the app host carries only
+  // the shell — 42 files, ~38 MB, largest file 16.5 MB — which is far inside the
+  // static-asset limits (20,000 files on the free plan, 25 MiB per file). The
+  // manual upload was the last reason Hostinger was in the picture, and it is
+  // also how the same-origin build reached production unnoticed: a hand upload
+  // has no gate. `wrangler deploy` is one command against the account that
+  // already holds the bucket and the DNS zone. Public study and About pages
+  // are generated HTML assets in the same build, without a Worker script.
+  //
+  // NO `main`, NO ASSETS BINDING — this Worker is assets-only. Adding a script
+  // entrypoint would change routing (the Worker runs when no asset matches), and
+  // nothing here needs server-side behavior: the app is a static SPA that talks
+  // to R2 directly.
+  "name": "hypoexplorer",
+  // The Hypoexplorer account. The maintainer's login sees several accounts, so
+  // the target is pinned rather than chosen by whichever one wrangler picks.
+  "account_id": "2991a2961440d6e0618f39bc2a0a423b",
+  "compatibility_date": "2026-09-03",
+
+  "assets": {
+    "directory": "./dist/",
+
+    // Explicit, not defaulted. Workers makes this opt-in precisely so nobody
+    // inherits a routing mode by accident, and the wrong value here is invisible
+    // in testing: "single-page-application" would answer EVERY unmatched path
+    // with index.html and a 200, so a mistyped asset URL would return HTML that
+    // a parser then chokes on, instead of an honest 404.
+    //
+    // "none" is what this app wants and what it already gets. Routing is by hash
+    // (#/gene/GLP1R — see src/utils/appLinks.ts), so every real navigation is a
+    // request for "/" and there are no path-style routes to fall back for. The
+    // Apache config it replaces has no fallback rewrite either, so this keeps
+    // behavior identical across the cutover. The public /studies/ and /about/
+    // documents are real generated assets, so their nested index.html files
+    // resolve normally; unknown study URLs must continue to return 404.
+    "not_found_handling": "none"
+  },
+
+  // The live domain. Cloudflare replaces the DNS record that pointed the apex at
+  // the Hostinger origin, so this is the cutover: after it, visitors are served
+  // by this Worker and Hostinger is out of the serving path entirely.
+  //
+  // Verified before this was added, on the workers.dev staging URL (now
+  // hypoexplorer.hypoexplorer.workers.dev):
+  // the app renders, a GLP1R lookup makes 3 requests to the R2 query index and
+  // downloads ZERO track bundles, every Cache-Control matches what .htaccess set,
+  // and /.htaccess, /_headers and the .br sidecars all 404 (the ignore list works).
+  // ONE MANUAL STEP GATES THIS. Cloudflare will not create a Custom Domain over
+  // a DNS record it did not make:
+  //
+  //   Hostname 'hypoexplorer.com' already has externally managed DNS records
+  //   (A, CNAME, etc). Delete them first. [code: 100117]
+  //
+  // The apex still carries the proxied A record aimed at Hostinger. Delete that
+  // record in the Cloudflare DNS dashboard (note its value first — nothing here
+  // can read it back, and it is what a rollback would need), then deploy. Or add
+  // the Custom Domain from the dashboard, which replaces the record in one step
+  // and avoids the gap where the apex resolves to nothing.
+  //
+  // www is listed too because `wrangler deploy` replaces the Worker's Custom
+  // Domains with exactly this list. www was attached from the dashboard on
+  // 2026-10-14 and the next deploy silently detached it, leaving www with no
+  // DNS record at all. Its pages carry canonical → apex. The 301 www → apex Redirect
+  // Rule in docs/SEO.md is still owed; zone redirects run before the Worker, so this
+  // Custom Domain is what gives that rule a proxied hostname to fire on.
+  "routes": [
+    { "pattern": "hypoexplorer.com", "custom_domain": true },
+    { "pattern": "www.hypoexplorer.com", "custom_domain": true }
+  ],
+
+  // Keep the workers.dev URL alive alongside the custom domain.
+  //
+  // Not cosmetic. Wrangler disables workers.dev by default as soon as `routes`
+  // exists, and it does that BEFORE attempting the custom domain — so when the
+  // attach failed on the error above, the Worker was left with no route at all
+  // and the verified staging URL went dead. Setting this true means a failed or
+  // pending cutover cannot take the staging copy down with it, and it leaves a
+  // permanent URL for checking a build before it goes live.
+  "workers_dev": true
+
+  // NO "observability" block. The Workers best-practices rule to enable it
+  // applies to Workers that RUN CODE; this one has no script, so there are no
+  // invocations to sample and nothing to log. Add it if a Worker script is ever
+  // introduced here.
+}

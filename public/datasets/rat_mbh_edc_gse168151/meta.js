@@ -1,0 +1,1 @@
+var HX_RAT_MBH_EDC_GSE168151_META = {"populations":["mbh_poa"],"labels":{"mbh_poa":"Mediobasal hypothalamus / preoptic area"},"types":{"mbh_poa":"Tissue"},"nGenes":{"mbh_poa":12911},"colors":{"mbh_poa":"#B07AA1"},"qcFlags":{"mbh_poa":{"is3v3":false,"nNormal":4,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

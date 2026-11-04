@@ -1,0 +1,1 @@
+var HX_MOUSE_TANYCYTE_INSULIN_GSE185074_META = {"populations":["tanycyte"],"labels":{"tanycyte":"Tanycytes (BAC-TRAP)"},"types":{"tanycyte":"Tissue"},"nGenes":{"tanycyte":17497},"colors":{"tanycyte":"#499894"},"qcFlags":{"tanycyte":{"is3v3":false,"nNormal":3,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

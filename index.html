@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HypoExplorer | Hypothalamic Gene Expression &amp; GEO Datasets</title>
+  <!--BRAND_HEAD-->
+  <meta name="description" content="Explore hypothalamic gene expression and pathway enrichment across public datasets. Find studies by GEO accession, paper citation, species, and experimental design." />
+  <meta name="author" content="Wenyuan He" />
+  <link rel="canonical" href="https://hypoexplorer.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="HypoExplorer" />
+  <meta property="og:title" content="HypoExplorer | Hypothalamic Gene Expression &amp; GEO Datasets" />
+  <meta property="og:description" content="Explore public hypothalamic datasets, gene expression, and pathway enrichment. Browse studies by GEO accession and source publication. Currently in beta testing." />
+  <meta property="og:url" content="https://hypoexplorer.com/" />
+  <meta property="og:image" content="https://hypoexplorer.com/social-preview.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="HypoExplorer homepage with dataset, gene, and pathway search tools" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="HypoExplorer | Hypothalamic Gene Expression &amp; GEO Datasets" />
+  <meta name="twitter:description" content="Explore public hypothalamic datasets by GEO accession and paper citation. Browse differential expression and pathway enrichment. Currently in beta testing." />
+  <meta name="twitter:image" content="https://hypoexplorer.com/social-preview.jpg" />
+  <meta name="twitter:image:alt" content="HypoExplorer homepage with dataset, gene, and pathway search tools" />
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://hypoexplorer.com/#website","url":"https://hypoexplorer.com/","name":"HypoExplorer","description":"A research tool for exploring hypothalamic gene expression and pathway enrichment across public datasets.","inLanguage":"en","author":{"@id":"https://hypoexplorer.com/about/#author"}},{"@type":"SoftwareApplication","@id":"https://hypoexplorer.com/#application","name":"HypoExplorer","url":"https://hypoexplorer.com/","applicationCategory":"EducationalApplication","operatingSystem":"Web browser","description":"Explore differential gene expression and pathway enrichment across hypothalamic datasets. HypoExplorer is currently in beta testing.","screenshot":{"@type":"ImageObject","url":"https://hypoexplorer.com/social-preview.jpg","width":1200,"height":630,"caption":"HypoExplorer homepage with dataset, gene, and pathway search tools"},"author":{"@id":"https://hypoexplorer.com/about/#author"}},{"@type":"Person","@id":"https://hypoexplorer.com/about/#author","name":"Wenyuan He","url":"https://hypoexplorer.com/about/"}]}
+  </script>
+  <link rel="stylesheet" href="/fonts/ibm-plex.css" />
+  <link rel="stylesheet" href="/fonts/geist-mono/geist-mono.css" />
+  <link rel="stylesheet" href="/fonts/hanken/hanken.css" />
+  <link rel="stylesheet" href="/fonts/source/source.css" />
+  <link rel="stylesheet" href="/fonts/typography.css" />
+  <!--BUNDLE_PRECONNECT-->
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      /* Warm neutrals, after Perplexity's surfaces: an off-white page under white
+         panels, warm-brown hairlines, and a warm near-black ink. */
+      --bg-app: #faf8f5;
+      --bg-panel: #ffffff;
+      --border: #e7e3de;
+      --border-dark: #d4cfc8;
+      --text-primary: #27251e;
+      --text-muted: #65625c;
+      --text-mono: #3d3a34;
+      --color-normal: #4C78A8;
+      --color-obese: #E45756;
+      --color-selected: #F28E2B;
+      --color-normal-dot: #2F5D8A;
+      --color-obese-dot: #B63A39;
+      --color-neutral: #aaaaaa;
+      --color-up: #E45756;
+      --color-down: #4C78A8;
+
+      /* ── Design tokens (additive) ───────────────────────────────── */
+      /* Spacing scale (4px base) */
+      --sp-1: 4px;
+      --sp-2: 8px;
+      --sp-3: 12px;
+      --sp-4: 16px;
+      --sp-5: 24px;
+      --sp-6: 32px;
+
+      /* Type scale (mirrors the ad-hoc sizes already in use) */
+      --fs-10: 10px;
+      --fs-11: 11px;
+      --fs-12: 12px;
+      --fs-13: 13px;
+      --fs-14: 14px;
+      --fs-16: 16px;
+      --fs-18: 18px;
+      --fs-22: 22px;
+      --fs-24: 24px;
+      --fs-28: 28px;
+      --fs-32: 32px;
+
+      /* Radius */
+      --r-sm: 3px;
+      --r-md: 4px;
+      --r-lg: 6px;
+      --r-xl: 12px;
+
+      /* Elevation */
+      --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.10);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+      --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.25);
+
+      /* Motion */
+      --t-fast: 120ms;
+      --t-med: 200ms;
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+      /* Semantic colors (centralize scattered hex) */
+      --accent: #4C78A8;
+      --accent-up: #E45756;
+      --accent-down: #4C78A8;
+      --db-gobp: #4C78A8;
+      --db-hallmark: #B07AA1;
+      --db-kegg: #59A14F;
+      --db-reactome: #E45756;
+      --row-hover: #f4f1ed;
+      --row-selected: #ede8e2;
+      --chip-bg: #FFF8F0;
+      --danger-bg: #fff3f3;
+      --danger-border: #f5c6cb;
+      --danger-text: #721c24;
+
+      /* Layout (breakpoints override --sidebar-w) */
+      --sidebar-w: 232px;
+    }
+
+    /* ── Responsive: narrow the sidebar on smaller viewports ──────── */
+    @media (max-width: 1199px) {
+      :root { --sidebar-w: 200px; }
+    }
+    @media (max-width: 860px) {
+      :root { --sidebar-w: 176px; }
+    }
+    body {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      background: var(--bg-app);
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+    /* Readable homepage while the interactive application starts, also usable
+       without JavaScript. Study links lead to complete static HTML pages. */
+    #skeleton {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    #skeleton.hidden { display: none; }
+    #skeleton header { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+    #skeleton nav { display: flex; flex-wrap: wrap; gap: 20px; }
+    #skeleton a { color: #2f5d8a; text-underline-offset: 3px; }
+    #skeleton main { max-width: 760px; padding: 48px 0; }
+    #skeleton h1 { font-size: clamp(28px, 5vw, 44px); line-height: 1.2; margin-bottom: 20px; }
+    #skeleton h2 { font-size: 22px; margin: 28px 0 12px; }
+    #skeleton p { margin-bottom: 16px; }
+    .sk-header {
+      height: 38px;
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 16px;
+    }
+    .sk-bar {
+      background: var(--border);
+      border-radius: 3px;
+      animation: sk-pulse 1.5s ease-in-out infinite;
+    }
+    .sk-tabs {
+      height: 36px;
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-end;
+      padding: 0 16px;
+      gap: 8px;
+    }
+    .sk-tab {
+      width: 120px;
+      height: 28px;
+      background: var(--border);
+      border-radius: 3px 3px 0 0;
+      animation: sk-pulse 1.5s ease-in-out infinite;
+    }
+    .sk-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 12px 16px;
+      gap: 12px;
+    }
+    .sk-search-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .sk-volcano {
+      flex: 1;
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      animation: sk-pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes sk-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    #root { display: none; }
+    #root.ready { display: block; }
+    /* Keyboard-nav focus ring for sidebar cell rows */
+    .cell-nav-row:focus-visible {
+      outline: 2px solid var(--color-selected);
+      outline-offset: -2px;
+    }
+
+    /* ── Utility classes (opt-in; existing inline styles untouched) ── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
+      padding: var(--sp-1) var(--sp-3); font-size: var(--fs-12); font-family: inherit;
+      border: 1px solid var(--border-dark); border-radius: var(--r-md);
+      background: var(--bg-panel); color: var(--text-primary); cursor: pointer;
+      transition: background var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease),
+                  box-shadow var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+    }
+    .btn:hover { background: var(--row-hover); }
+    .btn:focus-visible { outline: 2px solid var(--color-selected); outline-offset: 1px; }
+    .btn:disabled { opacity: 0.55; cursor: default; }
+    .btn--primary {
+      background: var(--color-selected); border-color: transparent; color: #fff;
+      box-shadow: 0 2px 6px rgba(242, 142, 43, 0.3);
+    }
+    .btn--primary:hover { background: #e07a1e; }
+    .btn--ghost { background: transparent; }
+
+    .input {
+      width: 100%; padding: var(--sp-2) var(--sp-3); font-size: var(--fs-12); font-family: inherit;
+      border: 1px solid var(--border); border-radius: var(--r-lg);
+      background: var(--bg-panel); color: var(--text-primary); outline: none;
+      transition: border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
+    }
+    .input:focus-visible {
+      border-color: var(--color-selected);
+      box-shadow: 0 0 0 3px rgba(242, 142, 43, 0.15);
+    }
+
+    .card {
+      background: var(--bg-panel); border: 1px solid var(--border);
+      border-radius: var(--r-lg); box-shadow: var(--shadow-sm);
+    }
+
+    .tab-btn {
+      padding: var(--sp-2) var(--sp-4); font-size: var(--fs-13); font-family: inherit;
+      border: none; background: transparent; cursor: pointer;
+      color: var(--text-muted); border-bottom: 2px solid transparent;
+      transition: color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease),
+                  background var(--t-fast) var(--ease);
+    }
+    .tab-btn:hover { color: var(--text-primary); background: rgba(0, 0, 0, 0.02); }
+    .tab-btn:focus-visible { outline: 2px solid var(--color-selected); outline-offset: -2px; }
+    .tab-btn--active { color: var(--text-primary); border-bottom-color: var(--color-selected); font-weight: 600; }
+
+    /* Hover + keyboard-focus highlight for list/table rows (replaces inline onMouseEnter/Leave).
+       Transparent base so it overrides the native <button> background on opt-in elements. */
+    .hover-row { background: transparent; transition: background var(--t-fast) var(--ease); }
+    .hover-row:hover { background: var(--row-hover); }
+    .hover-row:focus-visible { background: var(--row-hover); outline: 2px solid var(--color-selected); outline-offset: -2px; }
+
+    /* Spinner */
+    .spinner {
+      display: inline-block; width: 14px; height: 14px; flex-shrink: 0;
+      border: 2px solid var(--border-dark); border-top-color: var(--color-selected);
+      border-radius: 50%; animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Progress bar — determinate fill, or an indeterminate sweep when the
+       download's total size is unknown (see src/common/ProgressBar.tsx). */
+    .progress-track {
+      position: relative; overflow: hidden; flex-shrink: 0;
+      background: var(--border);
+    }
+    .progress-fill {
+      height: 100%; background: var(--color-selected);
+      transition: width var(--t-med) var(--ease);
+    }
+    .progress-track--busy::after {
+      content: ''; position: absolute; inset: 0;
+      width: 40%; border-radius: inherit; background: var(--color-selected);
+      animation: progress-sweep 1.1s ease-in-out infinite;
+    }
+    @keyframes progress-sweep {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(250%); }
+    }
+
+    /* Skeleton shimmer (reuses the sk-pulse rhythm) */
+    .skeleton {
+      background: var(--border); border-radius: var(--r-sm);
+      animation: sk-pulse 1.5s ease-in-out infinite;
+    }
+
+    /* Entrance animations — opt-in, gated on reduced-motion preference */
+    @media (prefers-reduced-motion: no-preference) {
+      .fade-in { animation: fade-in var(--t-med) var(--ease); }
+      .slide-in { animation: slide-in var(--t-med) var(--ease); }
+      @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes slide-in {
+        from { opacity: 0; transform: translateY(6px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      /* Modal open: backdrop fades, panel rises + settles */
+      .modal-backdrop { animation: modal-fade var(--t-med) var(--ease); }
+      .modal-panel { animation: modal-pop var(--t-med) var(--ease); }
+      @keyframes modal-fade { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes modal-pop {
+        from { opacity: 0; transform: translateY(8px) scale(0.985); }
+        to { opacity: 1; transform: none; }
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .spinner { animation: none; }
+      /* A sweeping bar is the only cue that an unmeasured load is alive, so it
+         becomes a static half-filled track rather than disappearing. */
+      .progress-track--busy::after { animation: none; width: 50%; opacity: 0.55; }
+      .progress-fill { transition: none; }
+    }
+
+    /* ── Landing hub (front door: search box, two cards, tool routes) ─── */
+    .hub { --text-muted: #57544e; --accent: #3e6592; display: flex; flex-direction: column; height: 100vh; overflow-y: auto; background: var(--bg-app); }
+    .hub-ribbon { height: 4px; background: linear-gradient(90deg, #4C78A8, #59A14F 25%, #E45756 50%, #B07AA1 75%, #9C755F); }
+
+    /* The data-origin light, in the header beside the version badge. Same shape
+       as the live/beta status badges — dot plus an uppercase word — because it
+       is the same kind of statement, and the WORD carries the state; the hue and
+       the blink only repeat it. Sized to the badge it sits next to (fs-11), not
+       to body copy. */
+    .hub-origin { white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; font-size: var(--fs-11); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+    .hub-origin .sdot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    .hub-origin a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+    /* A slow wink on the healthy state, about once every five seconds: the one
+       cue that says the light is LIVE rather than a green sticker painted on at
+       build time — it is re-probed on a timer, and the blink is what makes that
+       visible. Deliberately a single soft dip, not a flash: the dot is 6px of
+       header furniture, and anything faster reads as an alert when nothing is
+       wrong. Only the OK state moves; a red light already has a red word and an
+       underlined link doing the work, and blinking it would add urgency to a
+       message that mostly asks the reader to check a status page. */
+    @media (prefers-reduced-motion: no-preference) {
+      .hub-origin.ok .sdot { animation: origin-blink 5s ease-in-out infinite; }
+      @keyframes origin-blink {
+        0%, 84%, 100% { opacity: 1; }
+        90% { opacity: 0.2; }
+        96% { opacity: 1; }
+      }
+    }
+    .hub-origin.ok { color: #2F855A; }
+    .hub-origin.down { color: #C53030; }
+    .hub-origin.warn { color: #B7791F; }
+    .hub-origin.idle { color: var(--text-muted); }
+
+    /* ── The cross-dataset search interface ─────────────────────────────────
+       Lives inside the Gene and Pathway Explorers (src/crossdataset/), not on
+       the hub — hence the neutral `qsearch-` prefix rather than `hub-`. */
+    .qsearch-hero { padding: clamp(20px, 4vw, 40px) 0 var(--sp-4); }
+    .qsearch-eyebrow { display: inline-flex; align-items: center; gap: var(--sp-2); font-family: var(--font-mono); font-size: var(--fs-12); color: var(--text-muted); margin-bottom: var(--sp-4); }
+    .qsearch-eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; }
+    .qsearch-hero h1 { font-size: clamp(24px, 3.2vw, 34px); line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; max-width: 20ch; }
+    .qsearch-sub { margin-top: var(--sp-3); font-size: clamp(13px, 1.3vw, 15px); line-height: 1.55; color: var(--text-muted); max-width: 66ch; }
+    .qsearch { margin-top: var(--sp-5); max-width: 840px; }
+    .qsearch-row { display: flex; gap: var(--sp-2); align-items: stretch; }
+    .qsearch-field { position: relative; flex: 1; }
+    .qsearch-field > svg { position: absolute; left: 16px; top: 26px; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
+    .qsearch-field input { width: 100%; height: 52px; padding: 0 16px 0 46px; font-size: var(--fs-16); font-family: inherit; color: var(--text-primary); background: var(--bg-panel); border: 1px solid var(--border-dark); border-radius: 10px; outline: none; box-shadow: var(--shadow-sm); transition: border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease); }
+    .qsearch-field input::placeholder { color: #938f88; }
+    .qsearch-field input:focus-visible { border-color: var(--color-selected); box-shadow: 0 0 0 4px rgba(242, 142, 43, 0.16); }
+    .qsearch-suggest { position: absolute; top: 100%; left: 0; z-index: 100; width: 100%; max-height: 300px; overflow-y: auto; margin-top: 2px; background: var(--bg-panel); border: 1px solid var(--border-dark); border-radius: var(--r-lg); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); }
+    .qsearch-suggest button { display: block; width: 100%; text-align: left; padding: 6px 12px; border: none; background: none; cursor: pointer; font-family: var(--font-mono); font-size: var(--fs-12); color: var(--text-primary); }
+    .qsearch-go { flex-shrink: 0; display: inline-flex; align-items: center; gap: var(--sp-2); padding: 0 20px; height: 52px; border: none; border-radius: 10px; background: var(--color-selected); color: #fff; font-family: inherit; font-size: var(--fs-14); font-weight: 600; cursor: pointer; box-shadow: 0 2px 6px rgba(242, 142, 43, 0.3); transition: background var(--t-fast) var(--ease); }
+    .qsearch-go:hover { background: #e07a1e; }
+    .qsearch-go:focus-visible { outline: 2px solid var(--color-selected); outline-offset: 2px; }
+    .qsearch-examples { margin-top: var(--sp-3); display: flex; align-items: center; gap: var(--sp-2); flex-wrap: wrap; }
+    .qsearch-examples .lbl { font-size: var(--fs-11); color: var(--text-muted); }
+    .qsearch-chip { font-family: var(--font-mono); font-size: var(--fs-12); color: var(--accent); background: var(--row-selected); border: 1px solid transparent; border-radius: var(--r-md); padding: 4px 10px; cursor: pointer; }
+    .qsearch-chip:hover { background: var(--row-selected); border-color: var(--accent); }
+    .qsearch-scope { margin-top: var(--sp-3); display: flex; align-items: center; gap: var(--sp-2); flex-wrap: wrap; }
+    .qsearch-scope .lbl { font-size: var(--fs-10); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-right: 2px; }
+    /* Study categories and evidence filters share selectable cards. */
+    .qsearch-presets { margin: var(--sp-4) 0 0; padding: 0; min-width: 0; border: 0; }
+    .qsearch-presets .lbl { display: block; font-size: var(--fs-10); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+    .qsearch-preset-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 6px; }
+    .qsearch-quality-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 6px; margin-top: 10px; }
+    .qsearch-preset-tile { display: grid; grid-template-columns: 20px 1fr; grid-template-areas: "ico nm" "ico term"; align-items: center; column-gap: 8px; text-align: left; padding: 8px 10px; background: var(--bg-panel); border: 1px solid var(--border); border-radius: var(--r-lg); cursor: pointer; font-family: inherit; transition: border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease); }
+    .qsearch-preset-tile:hover { border-color: var(--tone, var(--accent)); box-shadow: var(--shadow-sm); }
+    .qsearch-preset-tile[aria-pressed="true"] { border-color: var(--accent); background: var(--row-selected); box-shadow: inset 0 0 0 1px var(--accent); }
+    .qsearch-preset-tile:focus-visible { outline: 2px solid var(--color-selected); outline-offset: 1px; }
+    .qsearch-preset-tile .ico { grid-area: ico; display: inline-flex; color: var(--tone, var(--accent)); }
+    .qsearch-preset-tile .ico svg { width: 18px; height: 18px; }
+    .qsearch-preset-tile .nm { grid-area: nm; font-size: var(--fs-12); font-weight: 600; color: var(--text-primary); line-height: 1.25; }
+    .qsearch-preset-tile .term { grid-area: term; font-family: var(--font-mono); font-size: var(--fs-10); color: var(--text-muted); }
+    .qsearch-filter-note { display: block; margin-top: 5px; line-height: 1.5; }
+    .qsearch-empty { padding: 12px 0; font-size: var(--fs-12); color: var(--text-muted); }
+    .qsearch-dataset-actions { display: flex; gap: 8px; }
+    .qsearch-datasets { margin-top: var(--sp-3); border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--bg-panel); }
+    .qsearch-datasets-bar { display: flex; align-items: center; }
+    .qsearch-datasets-head { display: flex; align-items: center; gap: var(--sp-2); flex: 1; padding: 8px 12px; background: none; border: none; cursor: pointer; font-family: inherit; font-size: var(--fs-12); font-weight: 600; color: var(--text-mono); text-align: left; }
+    .qsearch-datasets-head .caret { color: var(--text-muted); font-size: var(--fs-10); }
+    .qsearch-datasets-head .n { font-family: var(--font-mono); font-weight: 400; color: var(--text-muted); font-size: var(--fs-11); }
+    .qsearch-clear { flex-shrink: 0; padding: 8px 12px; background: none; border: none; font-family: inherit; font-size: var(--fs-11); font-weight: 600; color: var(--accent); cursor: pointer; }
+    .qsearch-datasets-body { max-height: 320px; overflow-y: auto; padding: 0 12px 10px; border-top: 1px solid var(--border); }
+    .qsearch-dsgroup { margin-top: 10px; }
+    .qsearch-dsgroup-head { font-size: var(--fs-10); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding: 2px 0 4px; }
+    .qsearch-dsrow { display: flex; align-items: center; gap: 8px; padding: 3px 2px; font-size: var(--fs-12); color: var(--text-mono); cursor: pointer; border-radius: var(--r-md); }
+    .qsearch-dsrow:hover { background: var(--row-hover); }
+    .qsearch-dsrow input { accent-color: var(--accent); margin: 0; }
+    .qsearch-dsrow .nm { flex: 1; min-width: 0; }
+    .qsearch-dsrow .meta { font-family: var(--font-mono); font-size: var(--fs-10); color: var(--text-muted); font-style: italic; }
+
+    /* Search-first hub: the logo, one search box and two quiet cards in open
+       space, because most visitors arrive with a gene already in mind. A small
+       text nav and the footer keep a route to every other tool. */
+    .hub-bar { position: relative; display: flex; align-items: center; justify-content: center; min-height: 52px; padding: 8px 180px 0; }
+    .hub-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 20px; }
+    .hub-nav button { padding: 6px 2px; font-family: inherit; font-size: var(--fs-14); color: var(--text-muted); background: none; border: none; cursor: pointer; transition: color var(--t-fast) var(--ease); }
+    .hub-nav button:hover { color: var(--text-primary); }
+    .hub-bar-end { position: absolute; top: 12px; right: var(--sp-5); }
+    .hub-main { flex: 1 0 auto; display: flex; justify-content: center; padding: clamp(40px, 15vh, 160px) var(--sp-5) var(--sp-6); }
+    .hub-hero { width: 100%; max-width: 600px; }
+    .hub-mark { display: flex; justify-content: center; margin: 0 0 10px; }
+    .hub-mark img { display: block; width: min(320px, 80%); height: auto; }
+    .hub-tagline { margin: 0 0 28px; text-align: center; font-size: var(--fs-14); color: var(--text-muted); }
+
+    /* The search box: a pill holding a magnifier, the field, a clear button and
+       the go button. Suggestions open inside the same surface, which floats over
+       the page, so opening the list never moves the layout below it. */
+    .hub-search { position: relative; height: 48px; }
+    .hub-search-box { position: absolute; top: 0; left: 0; right: 0; z-index: 1; background: var(--bg-panel); border: 1px solid var(--border-dark); border-radius: 24px; transition: border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease); }
+    .hub-search-box:hover { border-color: transparent; box-shadow: 0 1px 6px rgba(39, 37, 30, 0.18); }
+    .hub-search-box:focus-within { border-color: transparent; box-shadow: 0 1px 8px rgba(39, 37, 30, 0.24); }
+    .hub-search-box.is-open { z-index: 30; box-shadow: 0 4px 18px rgba(39, 37, 30, 0.18), 0 1px 4px rgba(39, 37, 30, 0.12); }
+    .hub-search-bar { display: flex; align-items: center; gap: 12px; height: 46px; padding: 0 6px 0 16px; }
+    .hub-search-icon { flex: none; display: inline-flex; color: var(--text-muted); }
+    .hub-search-bar input { flex: 1; min-width: 0; height: 100%; padding: 0; border: 0; background: none; outline: none; font-family: inherit; font-size: 16px; color: var(--text-primary); }
+    .hub-search-bar input::placeholder { color: #938f88; }
+    .hub-search-clear { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; margin-right: -6px; padding: 0; border: 0; border-radius: 50%; background: none; color: var(--text-muted); cursor: pointer; transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease); }
+    .hub-search-clear:hover { background: var(--row-hover); color: var(--text-primary); }
+    /* The "/" shortcut, shown while the field is empty and unfocused. */
+    .hub-search-kbd { flex: none; padding: 0 6px; font-family: var(--font-mono); font-size: var(--fs-11); line-height: 18px; color: var(--text-muted); border: 1px solid var(--border-dark); border-radius: 4px; background: var(--bg-app); }
+    .hub-search-box:focus-within .hub-search-kbd { visibility: hidden; }
+    /* The list continues the pill: a hairline under the field, then rows whose
+       text lines up with the typed text. */
+    .hub-search-suggest { max-height: min(440px, 60vh); overflow-y: auto; padding: 0 0 8px; border-radius: 0 0 23px 23px; }
+    .hub-search-suggest::before { content: ""; display: block; height: 1px; margin: 0 16px 4px; background: var(--border); }
+    /* One list, two labelled groups: genes first, then pathways. */
+    .hub-search-group + .hub-search-group { margin-top: 4px; }
+    .hub-search-group-label { padding: 8px 16px 4px 46px; font-size: var(--fs-10); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+    .hub-search-suggest [role="option"] { display: flex; align-items: center; gap: 12px; min-height: 36px; padding: 0 16px; font-size: var(--fs-14); color: var(--text-primary); cursor: pointer; }
+    .hub-search-suggest [role="option"]:hover, .hub-search-suggest [role="option"][aria-selected="true"] { background: var(--row-hover); }
+    .hub-search-option-icon { flex: none; display: inline-flex; justify-content: center; width: 18px; color: var(--text-muted); }
+    .hub-search-option-icon svg { width: 15px; height: 15px; }
+    /* As on search engines, the completion is bold and the typed part is not. */
+    .hub-search-option .sym { flex: none; font-family: var(--font-mono); font-weight: 600; }
+    .hub-search-option .sym .typed { font-weight: 400; }
+    .hub-search-option .nm, .hub-search-option .ptitle { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .hub-search-option .nm { color: var(--text-muted); }
+    .hub-search-option .why { flex: none; font-size: var(--fs-11); color: var(--text-muted); }
+    .hub-search-option .db-badge { flex: none; }
+    /* Pathway source: a dot in the collection's hue, the label in ink. */
+    .db-badge { display: inline-flex; align-items: center; gap: 5px; font-size: var(--fs-11); color: var(--text-mono); white-space: nowrap; }
+    .db-badge-dot { width: 7px; height: 7px; border-radius: 50%; }
+    /* Brand dark blue, as in the approved logo: the go button is navigation,
+       and orange stays reserved for the one selected thing. */
+    .hub-search-go { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0; border: 0; border-radius: 50%; background: #2F5D8A; color: #ffffff; cursor: pointer; transition: background var(--t-fast) var(--ease); }
+    .hub-search-go:hover { background: #264d73; }
+
+    .hub-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 28px; }
+    .hub-card { display: grid; gap: 5px; align-content: start; padding: 14px 16px 13px; text-align: left; background: var(--bg-panel); border: 1px solid var(--border); border-radius: 12px; font-family: inherit; color: var(--text-primary); cursor: pointer; transition: border-color var(--t-fast) var(--ease); }
+    .hub-card:hover { border-color: var(--border-dark); }
+    .hub-card strong { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; line-height: 1.3; }
+    .hub-card-icon { display: inline-flex; color: var(--text-mono); }
+    .hub-card-icon svg { width: 16px; height: 16px; }
+    .hub-card > span { font-size: var(--fs-13); line-height: 1.4; color: var(--text-muted); }
+
+    .hub-nav button:focus-visible, .hub-search-go:focus-visible, .hub-search-clear:focus-visible, .hub-card:focus-visible, .hub-foot-link:focus-visible {
+      outline: 2px solid var(--color-selected); outline-offset: 2px;
+    }
+
+    .hub-foot { width: 100%; max-width: 1180px; margin: 0 auto; padding: var(--sp-5); border-top: 1px solid var(--border); display: grid; gap: 14px; }
+    .hub-foot-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; font-family: var(--font-mono); font-size: var(--fs-12); color: var(--text-muted); }
+    .hub-foot-link { padding: 0; font-family: inherit; font-size: var(--fs-13); color: var(--text-muted); background: none; border: none; cursor: pointer; }
+    .hub-foot-link:hover { color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px; }
+    .hub-util { display: grid; gap: 8px; }
+    .hub-util-row { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 12px; align-items: baseline; }
+    .hub-util-label { font-size: var(--fs-12); font-weight: 600; color: var(--text-muted); }
+    .hub-util-links { display: flex; flex-wrap: wrap; gap: 4px 18px; line-height: 1.6; }
+    .hub-util .site-reference-link { text-decoration: none; }
+    .hub-util .site-reference-link:hover, .hub-util button:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .hub-util button { font-size: var(--fs-13); color: var(--text-mono); background: none; border: none; cursor: pointer; font-family: inherit; padding: 0; }
+    .hub-util button:hover { color: var(--text-primary); }
+    .hub-util button:focus-visible { outline: 2px solid var(--color-selected); outline-offset: 3px; border-radius: var(--r-sm); }
+    @media (max-width: 768px) {
+      .qsearch-row { flex-direction: column; }
+      .qsearch-go { height: 46px; justify-content: center; }
+      /* The nav wraps from the left and leaves the corner to the compare pill. */
+      .hub-bar { justify-content: flex-start; padding: 8px 128px 0 10px; }
+      .hub-nav { justify-content: flex-start; gap: 0 14px; }
+      .hub-bar-end { top: 8px; right: 12px; }
+      .hub-main { padding: 48px 16px 32px; }
+      .hub-search-kbd { display: none; }
+      .hub-cards { grid-template-columns: 1fr; gap: 10px; margin-top: 20px; }
+      .hub-foot { padding: 20px 16px; }
+      .hub-util-row { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+      /* Links get the same 44px touch height the buttons beside them do, so a
+         mixed row of links and buttons lines up. */
+      .hub-util-links { gap: 0 18px; }
+      .hub-util .site-reference-link { display: inline-flex; align-items: center; min-height: 44px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Public introduction and crawlable navigation, replaced when React mounts. -->
+  <div id="skeleton">
+    <header>
+      <strong>HypoExplorer</strong>
+      <span>HypoExplorer is currently in beta testing.</span>
+      <nav aria-label="Main navigation"><a href="/studies/">Browse studies</a><a href="/topics/">Research topics</a><a href="/methods/">Methods</a><a href="/about/">About</a></nav>
+    </header>
+    <main>
+      <h1>Where a gene is expressed in the hypothalamus, and how it changes across public studies</h1>
+      <p>Use HypoExplorer to examine hypothalamic differential expression and pathway enrichment in your browser. Explore genes and pathways within a dataset, or compare findings across studies. Each study retains its own experimental design and statistics.</p>
+      <h2>Find a dataset or its source paper</h2>
+      <p>The <a href="/studies/">study directory</a> lists GEO accession numbers, source citations, organisms and experimental comparisons for the data available in HypoExplorer. Every study page links to its original source and its interactive explorer.</p>
+      <p>Explore curated <a href="/topics/">research topics</a>, review the <a href="/methods/">methods and limitations</a>, and learn <a href="/how-to-cite/">how to cite the original studies and HypoExplorer</a>.</p>
+      <p>Topics include obesity, aging, feeding and fasting, circadian biology, and reproduction. Results come from reanalysis of public data. Each record credits the source study and its authors.</p>
+      <p>HypoExplorer is currently in beta testing. Check the study's methods and limitations when interpreting its results.</p>
+      <p><a href="/about/">About HypoExplorer and its author, Wenyuan He</a></p>
+      <noscript><p>The interactive charts require JavaScript. You can still read the <a href="/studies/">study pages</a> and <a href="/about/">About page</a>.</p></noscript>
+    </main>
+  </div>
+
+  <div id="root"></div>
+
+  <!-- NO eager data <script> tags.
+       The default route is the landing hub (App's initialView), which renders a
+       search box and a tool index. Eager-loading the default track here used to
+       cost 3.78 MB of parser-blocking, cross-origin, uncompressed script
+       (meta.js 13 KB + track_e9.js 2.55 MB + track_e9.pathways.js 1.21 MB)
+       BEFORE main.tsx could even start — paid by every visitor, including the
+       ones who never open the explorer.
+
+       The hub is not entirely bundle-free: App's mount effect still fetches the
+       default dataset's meta.js (13 KB) into React state (datasetMeta), which
+       flows to every consumer as props. That is an async 13 KB request rather
+       than 3.78 MB of blocking script, and LandingHub degrades gracefully while
+       it is in flight (it falls back to a hardcoded population count).
+
+       The data is now loaded on demand: App's mount/enter-explorer effect calls
+       loadTrackData for the active track, and loadTrack/loadDatasetMeta still
+       honour an already-set window global, so the eager-seed path stays intact
+       for tests (src/__tests__/setup.ts seeds those globals directly).
+
+       If any eager /datasets/ tag is ever reintroduced it MUST also be listed in
+       REQUIRED_EAGER_SCRIPTS in vite.config.ts, or the build throws — that guard
+       is what applies the bundle base URL and the cache-busting query. -->
+  <script type="module" src="/src/main.tsx"></script>
+  <script>
+    // Hide skeleton and show root when React is ready
+    window.__showApp = function() {
+      var sk = document.getElementById('skeleton');
+      var root = document.getElementById('root');
+      if (sk) sk.classList.add('hidden');
+      if (root) root.classList.add('ready');
+    };
+  </script>
+</body>
+</html>

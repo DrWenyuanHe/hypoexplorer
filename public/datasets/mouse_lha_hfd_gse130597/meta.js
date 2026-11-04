@@ -1,0 +1,1 @@
+var HX_MOUSE_LHA_HFD_GSE130597_META = {"populations":["lha"],"labels":{"lha":"Lateral hypothalamus (all-cell pseudobulk)"},"types":{"lha":"Tissue"},"nGenes":{"lha":12471},"colors":{"lha":"#E76F51"},"qcFlags":{"lha":{"is3v3":false,"nNormal":7,"nObese":7,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

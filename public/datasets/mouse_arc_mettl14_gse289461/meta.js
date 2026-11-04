@@ -1,0 +1,1 @@
+var HX_MOUSE_ARC_METTL14_GSE289461_META = {"populations":["arcuate"],"labels":{"arcuate":"Arcuate nucleus (mouse pseudobulk)"},"types":{"arcuate":"Tissue"},"nGenes":{"arcuate":17515},"colors":{"arcuate":"#6C5CE7"},"qcFlags":{"arcuate":{"is3v3":false,"nNormal":4,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

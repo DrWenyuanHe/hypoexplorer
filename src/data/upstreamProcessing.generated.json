@@ -1,0 +1,1155 @@
+{
+  "CNP0003785": {
+    "aligner": "STAR 2.5.3",
+    "genome": "Macaca_fascicularis_5.0 (pre-mRNA reference)",
+    "notes": "Reviewed Lei et al. 2024, STAR Methods p. e4. Annotation provider/release and the snRNA-seq counting tool are not stated in the paper or recovered author code.",
+    "evidence": "paper_methods",
+    "status": "reviewed"
+  },
+  "E-MTAB-12340": {
+    "aligner": "STAR 2.5.1b",
+    "genome": "mm10",
+    "evidence": "ae_idf_protocol",
+    "status": "reviewed"
+  },
+  "E-MTAB-15488": {
+    "aligner": "STAR 2.7.10b",
+    "evidence": "ae_idf_protocol",
+    "status": "reviewed"
+  },
+  "E-MTAB-15489": {
+    "aligner": "STAR 2.7.10b",
+    "evidence": "ae_idf_protocol",
+    "status": "reviewed"
+  },
+  "E-MTAB-6929": {
+    "aligner": "HISAT2 2.0.1",
+    "quantifier": "featureCounts 5.0.1",
+    "evidence": "ae_idf_protocol",
+    "status": "reviewed"
+  },
+  "GSE100349": {
+    "aligner": "Bowtie2 2.2.3",
+    "genome": "Rnor_6.0",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE102415": {
+    "aligner": "STAR",
+    "genome": "mm9",
+    "annotation": "Ensembl",
+    "quantifier": "HTSeq",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE102471": {
+    "aligner": "TopHat2 2.1",
+    "genome": "rn6; Rnor_6.0",
+    "annotation": "Ensembl 83",
+    "quantifier": "Rsubread",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE104255": {
+    "aligner": "Bowtie2",
+    "genome": "Gallus_gallus-5.0",
+    "annotation": "Ensembl",
+    "quantifier": "RSEM",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE104709": {
+    "aligner": "STAR 2.5.1b",
+    "genome": "mm9",
+    "annotation": "Ensembl 67",
+    "quantifier": "PORT 0.8.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE107324": {
+    "aligner": "TopHat",
+    "genome": "rn6",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE113576": {
+    "aligner": "Cell Ranger 2.0.0",
+    "genome": "mm10",
+    "annotation": "Cell Ranger reference mm10-1.2.0",
+    "quantifier": "Cell Ranger 2.0.0",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE123983": {
+    "aligner": "STAR 2.5.3a",
+    "genome": "mm10",
+    "quantifier": "STAR",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE124693": {
+    "aligner": "STAR 2.5.1",
+    "genome": "mm10",
+    "quantifier": "featureCounts",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE128148": {
+    "aligner": "Subread",
+    "genome": "GRCm38",
+    "annotation": "Ensembl",
+    "quantifier": "featureCounts",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE128537": {
+    "aligner": "HISAT2 2.0.5",
+    "genome": "Mmul_8.0.1",
+    "annotation": "Ensembl 91",
+    "quantifier": "HTSeq 0.6.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE128660": {
+    "aligner": "HISAT2 2.0.5",
+    "genome": "mm9",
+    "quantifier": "featureCounts 1.5.0",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE130597": {
+    "aligner": "STAR 2.4.2a",
+    "genome": "mm10; GRCm38",
+    "quantifier": "Drop-seq tools 1.12",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE131172": {
+    "aligner": "Bowtie2 2.2.5",
+    "genome": "GRCm38.p5",
+    "quantifier": "RSEM 1.2.8",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE132308": {
+    "aligner": "STAR 2.5.3a",
+    "genome": "mm9",
+    "quantifier": "PORT 0.8.4",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE132352": {
+    "aligner": "STAR",
+    "genome": "GRCm38.p4",
+    "quantifier": "featureCounts",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE133293": {
+    "aligner": "Partek",
+    "genome": "rn6",
+    "annotation": "Ensembl 83",
+    "quantifier": "Partek",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE135007": {
+    "aligner": "Bowtie 1.1.1",
+    "genome": "mm10; GRCm38",
+    "annotation": "Ensembl 79",
+    "quantifier": "RSEM 1.2.21",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE135639": {
+    "aligner": "TopHat 2.0.13",
+    "genome": "mm10",
+    "quantifier": "HTSeq 0.6.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE141144": {
+    "aligner": "STAR 2.5",
+    "genome": "GRCz11",
+    "annotation": "Ensembl 92",
+    "quantifier": "STAR 2.5",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE143818": {
+    "aligner": "STAR",
+    "genome": "mm10",
+    "quantifier": "HTSeq",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE145431": {
+    "aligner": "TopHat",
+    "genome": "rn6",
+    "annotation": "Ensembl",
+    "quantifier": "HTSeq",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE148252": {
+    "aligner": "STAR 2.7.1a",
+    "genome": "mm10",
+    "annotation": "GENCODE M21",
+    "quantifier": "HTSeq 0.9.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE148641": {
+    "aligner": "STAR",
+    "genome": "mm10",
+    "quantifier": "featureCounts",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE153495": {
+    "aligner": "STAR 2.6.1",
+    "genome": "UMD3.1",
+    "quantifier": "STAR",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE153498": {
+    "aligner": "STAR 2.6.1",
+    "genome": "UMD3.1",
+    "quantifier": "STAR",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE153551": {
+    "aligner": "STAR",
+    "genome": "Grch38 [sic]",
+    "annotation": "Ensembl 77",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE156859": {
+    "aligner": "STAR 2.5.3a",
+    "genome": "rn6",
+    "annotation": "RefSeq Transcripts 83 (2017-11-01)",
+    "quantifier": "Partek E/M",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE157077": {
+    "aligner": "TopHat",
+    "genome": "mm10; GRCm38",
+    "quantifier": "Cufflinks",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE158751": {
+    "aligner": "STAR",
+    "genome": "GRCm38; mm10",
+    "annotation": "Ensembl 99",
+    "quantifier": "featureCounts",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE160467": {
+    "aligner": "HISAT2",
+    "genome": "GRCm38; mm10",
+    "quantifier": "HTSeq",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE160802": {
+    "aligner": "STAR 2.5.2a",
+    "genome": "GRCm38",
+    "annotation": "Ensembl 89",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE162563": {
+    "aligner": "TopHat 2.0.13; Bowtie 2.2.1",
+    "genome": "mm10",
+    "quantifier": "HTSeq 0.6.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE162673": {
+    "aligner": "HISAT2 2.0.4",
+    "genome": "mm10",
+    "annotation": "Ensembl 95",
+    "quantifier": "featureCounts",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE162744": {
+    "aligner": "HISAT2 2.0.5",
+    "genome": "mm9",
+    "quantifier": "featureCounts 1.5.0",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE167105": {
+    "aligner": "Bowtie2 2.1.0",
+    "genome": "mm10",
+    "annotation": "UCSC transcripts",
+    "quantifier": "RSEM 1.2.15",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE167264": {
+    "aligner": "HISAT2 2.0.5",
+    "genome": "GRCm38",
+    "quantifier": "featureCounts 1.5.0",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE168151": {
+    "aligner": "TopHat2 2.1",
+    "genome": "rn6",
+    "annotation": "Ensembl 83",
+    "quantifier": "Rsubread",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE169296": {
+    "aligner": "CLC Genomics Workbench 10.0",
+    "genome": "Rnor_6.0",
+    "annotation": "Ensembl",
+    "quantifier": "CLC Genomics Workbench 10.0",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE174085": {
+    "aligner": "kallisto",
+    "genome": "mm10",
+    "quantifier": "kallisto",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE174753": {
+    "aligner": "HISAT2 2.2.0",
+    "genome": "Rnor_6.0",
+    "quantifier": "StringTie 2.1.2",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE175461": {
+    "aligner": "STAR",
+    "genome": "rn6",
+    "quantifier": "featureCounts",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE179663": {
+    "aligner": "Bowtie 1.3.0",
+    "genome": "Trinity 2.8.5 de novo transcriptome; GRCm39 for gene mapping",
+    "quantifier": "RSEM 1.3.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE181204": {
+    "aligner": "HISAT2",
+    "genome": "mm10",
+    "quantifier": "HTSeq",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE185074": {
+    "aligner": "STAR 2.6.1d",
+    "genome": "GRCm38.p6",
+    "quantifier": "Salmon 0.14.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE189945": {
+    "aligner": "HISAT2 2.1.0",
+    "genome": "mm10",
+    "annotation": "GENCODE M15",
+    "quantifier": "featureCounts 1.5.3",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE190389": {
+    "aligner": "STAR 2.5.3a",
+    "genome": "mm10; GRCm38",
+    "quantifier": "HOMER 4.10",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE190712": {
+    "aligner": "STAR 2.6.0a",
+    "genome": "mm10",
+    "quantifier": "UMI-tools 0.5.4; featureCounts 1.6.4",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE198437": {
+    "aligner": "HISAT2",
+    "genome": "mm10; GRCm38",
+    "quantifier": "featureCounts",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE201207": {
+    "aligner": "HISAT2",
+    "genome": "GRCm38; mm10",
+    "quantifier": "HTSeq",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE201408": {
+    "aligner": "HISAT2",
+    "genome": "Sscrofa11.1",
+    "quantifier": "HTSeq",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE202003": {
+    "aligner": "HISAT2; TopHat",
+    "genome": "GRCg6a",
+    "annotation": "Ensembl",
+    "quantifier": "HTSeq",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE204883": {
+    "aligner": "Bowtie2",
+    "genome": "De novo Siberian hamster assembly (SAMN28537735)",
+    "annotation": "Liftoff of Ensembl GRCm39 104",
+    "quantifier": "featureCounts",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE205313": {
+    "aligner": "Salmon",
+    "genome": "GRCm38",
+    "quantifier": "Salmon",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE207494": {
+    "aligner": "Bowtie 1.3.0",
+    "genome": "Trinity 2.8.5 de novo transcriptome; GRCm39 for gene mapping",
+    "quantifier": "RSEM 1.3.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE207992": {
+    "aligner": "HISAT2",
+    "genome": "GRCm39",
+    "annotation": "GENCODE M27",
+    "quantifier": "StringTie",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE208722": {
+    "aligner": "Salmon 0.9.0",
+    "genome": "hg19",
+    "quantifier": "Salmon 0.9.0",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE210311": {
+    "aligner": "Salmon 0.14.1",
+    "genome": "GRCm38",
+    "quantifier": "Salmon 0.14.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE212299": {
+    "aligner": "STAR 2.7.3a",
+    "genome": "GRCm39",
+    "quantifier": "HTSeq 0.9.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE212336": {
+    "aligner": "STAR 2.5.3a",
+    "genome": "GRCm38",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE212491": {
+    "aligner": "dropSeqPipe 1.13",
+    "genome": "mm10",
+    "quantifier": "dropSeqPipe 1.13",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE214683": {
+    "aligner": "Salmon 1.9.0",
+    "genome": "GRCm38",
+    "annotation": "GENCODE M23",
+    "quantifier": "Salmon 1.9.0",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE214877": {
+    "aligner": "HISAT2",
+    "genome": "hg19",
+    "quantifier": "StringTie",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE217420": {
+    "aligner": "STAR",
+    "genome": "mm10; GRCm38",
+    "annotation": "GENCODE 24",
+    "quantifier": "featureCounts",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE218188": {
+    "aligner": "HISAT2",
+    "genome": "GRCm38; mm10",
+    "quantifier": "featureCounts",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE220533": {
+    "aligner": "STAR 2.7.6a",
+    "genome": "GRCm38",
+    "annotation": "Ensembl 101",
+    "quantifier": "summarizeOverlaps",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE224254": {
+    "aligner": "kallisto 0.46.2",
+    "genome": "mm10",
+    "quantifier": "kallisto 0.46.2",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE224274": {
+    "aligner": "HISAT2",
+    "genome": "GRCm38; mm10",
+    "quantifier": "featureCounts",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE224780": {
+    "aligner": "STAR 2.7.9a",
+    "genome": "GRCm38.p6",
+    "quantifier": "HTSeq 0.6.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE225038": {
+    "aligner": "STAR 2.5.2b",
+    "genome": "mm10",
+    "quantifier": "featureCounts 1.5.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE225359": {
+    "genome": "Rnor_6.0",
+    "annotation": "Ensembl 102",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE227689": {
+    "aligner": "STAR 2.5.3a",
+    "genome": "GRCm38",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE227725": {
+    "aligner": "kallisto 0.43",
+    "genome": "Sscrofa11.1",
+    "quantifier": "kallisto 0.43",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE229159": {
+    "aligner": "HISAT2 2.0.5",
+    "genome": "rn6; Rnor_6.0",
+    "annotation": "Ensembl 100",
+    "quantifier": "featureCounts 1.6.2",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE229440": {
+    "aligner": "STAR 2.7.8a",
+    "genome": "mm10",
+    "annotation": "GENCODE M24",
+    "quantifier": "STAR",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE229799": {
+    "aligner": "STAR 2.5.1a",
+    "genome": "GRCm38",
+    "annotation": "Ensembl 98",
+    "quantifier": "RSEM 1.3.0",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE229838": {
+    "aligner": "CLC Genomics Workbench 11.0.1",
+    "genome": "mm10",
+    "quantifier": "CLC Genomics Workbench 11.0.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE231617": {
+    "aligner": "HISAT2 2.2.1",
+    "genome": "rn7",
+    "quantifier": "featureCounts 2.0.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE231769": {
+    "aligner": "kallisto 0.46.1",
+    "genome": "mm10",
+    "quantifier": "kallisto 0.46.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE232510": {
+    "aligner": "STAR 2.7.9a",
+    "genome": "Rnor_6.0",
+    "quantifier": "HTSeq 0.13.5",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE234483": {
+    "aligner": "HISAT2 2.0.5",
+    "genome": "GRCm38",
+    "quantifier": "featureCounts 1.5.0",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE235479": {
+    "genome": "GRCm38",
+    "annotation": "Ensembl 84",
+    "quantifier": "EMASE",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE235792": {
+    "aligner": "STAR 2.7.6a",
+    "genome": "GRCm38",
+    "annotation": "Ensembl 101",
+    "quantifier": "summarizeOverlaps",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE236077": {
+    "aligner": "STAR 2.7.3a",
+    "genome": "GRCm39",
+    "quantifier": "STAR",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE240365": {
+    "aligner": "HISAT2",
+    "genome": "GRCm39",
+    "quantifier": "HTSeq",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE240484": {
+    "aligner": "HISAT2",
+    "genome": "mm10",
+    "quantifier": "featureCounts",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE242187": {
+    "genome": "mm10",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE242245": {
+    "aligner": "STAR 7.2a [sic]",
+    "genome": "GRCm38; mm10",
+    "quantifier": "HTSeq 0.11.2",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE242354": {
+    "aligner": "STAR 2.7.0d",
+    "genome": "rn6",
+    "annotation": "Ensembl 96",
+    "quantifier": "RSEM 1.3.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE243287": {
+    "aligner": "STAR 2.7.9a",
+    "quantifier": "featureCounts",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE243697": {
+    "aligner": "HISAT2",
+    "genome": "mm10",
+    "quantifier": "StringTie",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE245146": {
+    "aligner": "kallisto 0.43",
+    "genome": "Sscrofa11.1",
+    "quantifier": "kallisto 0.43",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE245727": {
+    "aligner": "STAR 2.7.2b",
+    "genome": "GRCm38; mm10",
+    "annotation": "GENCODE M25",
+    "quantifier": "featureCounts 1.6.2",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE246918": {
+    "aligner": "STAR 2.6.1d",
+    "genome": "GRCm38",
+    "quantifier": "featureCounts 1.6.4; StringTie 2.0",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE247825": {
+    "aligner": "STAR 2.7.3a",
+    "genome": "mm10",
+    "annotation": "GENCODE M22",
+    "quantifier": "featureCounts 1.6.4",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE248462": {
+    "aligner": "STAR 2.7.10b",
+    "genome": "mm10",
+    "quantifier": "STAR",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE252364": {
+    "aligner": "HISAT2",
+    "genome": "GRCm39",
+    "annotation": "GENCODE M33",
+    "quantifier": "StringTie",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE252779": {
+    "aligner": "CLC Genomics Workbench 11.0.1",
+    "genome": "mm10",
+    "quantifier": "CLC Genomics Workbench 11.0.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE253875": {
+    "aligner": "HISAT2 2.0.5",
+    "genome": "mm10",
+    "quantifier": "featureCounts 1.5.0",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE254155": {
+    "aligner": "STAR 2.7.10b",
+    "genome": "mm10",
+    "quantifier": "featureCounts 2.0.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE261833": {
+    "aligner": "HISAT2 2.1.0",
+    "genome": "Rnor_6.0",
+    "quantifier": "HTSeq 0.9.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE262407": {
+    "aligner": "Cell Ranger 7.0.0",
+    "genome": "mm10",
+    "annotation": "mouse_mm10_optimized_v1 (custom)",
+    "quantifier": "Cell Ranger 7.0.0",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE264350": {
+    "aligner": "HISAT2; Bowtie2",
+    "genome": "GRCm38",
+    "annotation": "Ensembl 84",
+    "quantifier": "RSEM",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE266472": {
+    "aligner": "STAR 2.7.9a",
+    "genome": "mm39; GRCm39",
+    "annotation": "GENCODE M31",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE270378": {
+    "aligner": "STAR 2.7.5c",
+    "genome": "GRCm39",
+    "quantifier": "HTSeq 1.99.2",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE270383": {
+    "aligner": "STAR",
+    "genome": "hg19+mm10 combined (STAR_hg19_mm10_RNAseq)",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE273038": {
+    "aligner": "STAR",
+    "genome": "mm39 or hg19+mm10 (conflicting)",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE274003": {
+    "aligner": "minimap2",
+    "genome": "GRCm39",
+    "quantifier": "Salmon",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE275887": {
+    "aligner": "STAR 2.7.5c",
+    "genome": "GRCm39",
+    "quantifier": "HTSeq 1.99.2",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE278158": {
+    "aligner": "STAR 2.7.10a",
+    "genome": "GRCm39",
+    "quantifier": "featureCounts 2.0.3",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE278826": {
+    "aligner": "HISAT2 2.0.5",
+    "genome": "GRCg6a",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE280030": {
+    "aligner": "STAR 2.7.5c",
+    "genome": "GRCm39",
+    "annotation": "MM109 [sic]",
+    "quantifier": "HTSeq 1.99.2",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE280382": {
+    "aligner": "STAR 2.7.10b",
+    "genome": "GRCm39",
+    "quantifier": "HTSeq 2.0.2",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE281503": {
+    "aligner": "CLC Genomics Workbench 12.0",
+    "genome": "GRCm38; mm10",
+    "quantifier": "CLC Genomics Workbench 12.0",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE281701": {
+    "aligner": "STAR 2.7.9a",
+    "genome": "GRCm38",
+    "quantifier": "RSEM 1.3.3",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE281726": {
+    "aligner": "STAR 2.7.10a",
+    "genome": "Sscrofa11.1",
+    "annotation": "Ensembl",
+    "quantifier": "HTSeq 2.0.2",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE282067": {
+    "aligner": "Salmon; BWA",
+    "genome": "mm10",
+    "quantifier": "Salmon; HTSeq",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE284408": {
+    "genome": "mm10",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE285006": {
+    "aligner": "HISAT2",
+    "genome": "GRCm38",
+    "annotation": "RefSeq",
+    "quantifier": "Rsubread 2.0.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE285906": {
+    "aligner": "STAR 2.5.1a",
+    "genome": "Ensembl 101 primary assembly",
+    "annotation": "Ensembl 101",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE289461": {
+    "genome": "GRCm39; mm10 (conflicting)",
+    "annotation": "GENCODE M25",
+    "quantifier": "Drop-seq tools 2.5.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE289833": {
+    "aligner": "STAR 2.7.3a",
+    "genome": "GRCm38",
+    "annotation": "Ensembl 101",
+    "quantifier": "featureCounts 2.0.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE292416": {
+    "aligner": "Salmon 1.10.1",
+    "genome": "GRCm38",
+    "quantifier": "Salmon 1.10.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE294478": {
+    "aligner": "HISAT2",
+    "genome": "mm10",
+    "quantifier": "featureCounts",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE295250": {
+    "aligner": "HISAT2",
+    "genome": "mm10",
+    "quantifier": "Rsubread",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE296488": {
+    "aligner": "kallisto 0.46.1",
+    "genome": "GRCm39",
+    "quantifier": "kallisto 0.46.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE298648": {
+    "aligner": "HISAT2",
+    "genome": "galgal1 [sic]",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE299412": {
+    "aligner": "BWA 0.7.4.4",
+    "genome": "danRer11",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE301692": {
+    "aligner": "STAR 2.7.11a",
+    "genome": "GRCh38",
+    "annotation": "GENCODE 44",
+    "quantifier": "HTSeq 2.0.5",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE305688": {
+    "aligner": "DRAGEN",
+    "genome": "GRCm39",
+    "annotation": "GENCODE M28",
+    "quantifier": "DRAGEN",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE305719": {
+    "aligner": "HISAT2 2.1.0",
+    "genome": "mm10; GRCm38",
+    "quantifier": "featureCounts 1.6.3",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE306829": {
+    "aligner": "HISAT2",
+    "genome": "mm39",
+    "quantifier": "featureCounts",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE308884": {
+    "aligner": "STAR 2.7.9a",
+    "genome": "GRCm39",
+    "annotation": "GENCODE M31",
+    "quantifier": "Salmon 1.10.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE309435": {
+    "aligner": "STAR",
+    "genome": "rn7",
+    "quantifier": "featureCounts",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE314029": {
+    "aligner": "STAR",
+    "genome": "GRCm38",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE314184": {
+    "aligner": "Cell Ranger",
+    "genome": "PU_Rpum_1.0",
+    "quantifier": "Cell Ranger",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE314817": {
+    "aligner": "ArrayStudio 11.7.4",
+    "genome": "mm10",
+    "quantifier": "ArrayStudio 11.7.4",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE314970": {
+    "aligner": "ArrayStudio 11.7.4",
+    "genome": "rn7",
+    "quantifier": "ArrayStudio 11.7.4",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE317867": {
+    "aligner": "HISAT2",
+    "genome": "GRCm39",
+    "annotation": "Ensembl",
+    "quantifier": "StringTie",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE324226": {
+    "aligner": "kallisto",
+    "genome": "Sscrofa11.1",
+    "annotation": "Ensembl",
+    "quantifier": "kallisto",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE328990": {
+    "aligner": "Salmon 1.10",
+    "genome": "GRCm39",
+    "annotation": "GENCODE M32",
+    "quantifier": "Salmon 1.10",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE329539": {
+    "aligner": "Subread 2.12.3",
+    "genome": "GRCm39",
+    "annotation": "Ensembl 115",
+    "quantifier": "featureCounts",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE329555": {
+    "aligner": "Subread 2.12.3",
+    "genome": "GRCm39",
+    "annotation": "Ensembl 115",
+    "quantifier": "featureCounts",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE330152": {
+    "aligner": "STAR 2.6.1a",
+    "genome": "mRatBN7.2",
+    "quantifier": "featureCounts",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE337822": {
+    "aligner": "Cell Ranger 6.1.2",
+    "genome": "mm10",
+    "quantifier": "Cell Ranger 6.1.2",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE49540": {
+    "aligner": "Bowtie",
+    "genome": "Btau_4.0",
+    "annotation": "Ensembl",
+    "quantifier": "HTSeq",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE56238": {
+    "aligner": "STAR 2.3.0e",
+    "genome": "rn5",
+    "quantifier": "Cufflinks 2.1.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE65663": {
+    "quantifier": "GeneSpring GX 12",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE68177": {
+    "aligner": "STAR 2.4.0i",
+    "genome": "mm10",
+    "annotation": "GENCODE basic (UCSC EncodeGencodeVM4Basic) M4",
+    "quantifier": "HTSeq 0.6.1p1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE87544": {
+    "aligner": "Drop-seq tools",
+    "genome": "mm9",
+    "quantifier": "Drop-seq tools",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE95243": {
+    "aligner": "Bowtie 1.1.1",
+    "genome": "GRCh38",
+    "annotation": "GENCODE 23",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE96627": {
+    "aligner": "TopHat 2.0.11",
+    "genome": "GRCm38",
+    "quantifier": "Cufflinks 2.2.1",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE98519": {
+    "aligner": "Novoalign 2.08.03",
+    "genome": "GRCm38",
+    "annotation": "Ensembl 84",
+    "quantifier": "USeq DefinedRegionDifferentialSeq 8.8.8",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE98690": {
+    "aligner": "TopHat 0.11.2 [sic]",
+    "genome": "GRCm38",
+    "quantifier": "HTSeq 0.6.0",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE99690": {
+    "aligner": "STAR 2.5.2a",
+    "genome": "mm10",
+    "quantifier": "HTSeq 0.6.0",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  },
+  "GSE99791": {
+    "aligner": "STAR 2.4.0k",
+    "genome": "mm10",
+    "quantifier": "HOMER",
+    "evidence": "geo_data_processing",
+    "status": "reviewed"
+  }
+}

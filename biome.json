@@ -1,0 +1,82 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.6.3/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "includes": [
+      "src/**",
+      "scripts/**",
+      "workers/**",
+      "vite.config.ts",
+      "!**/node_modules",
+      "!**/dist",
+      "!!public",
+      "!!data",
+      "!!geo_replication",
+      "!!.agents",
+      "!!.claude",
+      "!!.worktrees",
+      "!scripts/lib/mmus_ens2sym.json",
+      "!scripts/lib/MRK_ENSEMBL.rpt"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "suspicious": {
+        "noExplicitAny": "off"
+      },
+      "style": {
+        "noNonNullAssertion": "off"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["scripts/audit_september5_intake.mts"],
+      "linter": { "rules": { "suspicious": { "useIterableCallbackReturn": "warn" } } }
+    },
+    {
+      "includes": ["src/data/authorConcordance.ts"],
+      "linter": { "rules": { "suspicious": { "noNonNullAssertedOptionalChain": "warn" } } }
+    },
+    {
+      "includes": ["**", "!scripts/smoke/**"],
+      "linter": {
+        "rules": {
+          "correctness": { "usePlaywrightValidDescribeCallback": "off", "noPlaywrightMissingAwait": "off" }
+        }
+      }
+    },
+    {
+      "includes": ["src/__tests__/**"],
+      "linter": { "rules": { "correctness": { "noComponentHookFactories": "off" } } }
+    }
+  ],
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "jsxQuoteStyle": "double",
+      "trailingCommas": "all",
+      "semicolons": "always"
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "off"
+      }
+    }
+  }
+}

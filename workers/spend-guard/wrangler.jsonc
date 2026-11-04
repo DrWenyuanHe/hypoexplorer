@@ -1,0 +1,50 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+
+  // Cron-only spend guard for the R2 data host. src/index.ts and
+  // docs/EDGE_PROTECTION.md carry the rationale.
+  //
+  //   npm run guard:deploy     deploy (OAuth login via --env-file .env.cfdeploy)
+  //   npm run guard:dev        local run in observe mode; trigger with /__scheduled
+  //   npm run typecheck:guard  offline type check (hand-written env types)
+  "name": "hypoexplorer-spend-guard",
+  // Same account as the site Worker; see the root wrangler.jsonc.
+  "account_id": "2991a2961440d6e0618f39bc2a0a423b",
+  "main": "src/index.ts",
+  // Pinned, not today's date: the workerd bundled with wrangler 4.86 refuses to
+  // start `wrangler dev` for compatibility dates newer than 2026-05-03. Nothing
+  // here needs newer runtime semantics. Bump alongside wrangler.
+  "compatibility_date": "2026-05-03",
+
+  // No HTTP surface at all: no routes, no workers.dev URL, no preview URLs, and
+  // the entry module has no fetch handler.
+  "workers_dev": false,
+  "preview_urls": false,
+
+  // Every 10 minutes. Workers Free allows 5 Cron Triggers per account and 10 ms
+  // CPU per invocation; one GraphQL query and one rules read fit easily.
+  "triggers": { "crons": ["*/10 * * * *"] },
+
+  "vars": {
+    // "enforce" toggles the shutoff rule, "observe" only logs what it would do,
+    // "off" does nothing. Any other value is treated as "enforce".
+    "GUARD_MODE": "enforce",
+    // Month-to-date (UTC calendar month) R2 Class B operations at which the data
+    // host closes. 10,000,000 per month are free; 8,000,000 leaves headroom for
+    // analytics lag and the 10-minute polling interval. Unparseable values fall
+    // back to 8,000,000, never to "no limit".
+    "CLASS_B_MONTHLY_LIMIT": "8000000",
+    "ACCOUNT_ID": "2991a2961440d6e0618f39bc2a0a423b",
+    "ZONE_ID": "2646afd72ee9db3111c4a475c4d43a58",
+    "R2_BUCKET": "hypoexplorer-datasets",
+    "SHUTOFF_RULE_REF": "hypoexplorer_data_shutoff"
+  },
+  // Secret, not a var: CF_GUARD_TOKEN (Account > Account Analytics > Read,
+  // Zone > Zone WAF > Edit on hypoexplorer.com). Set with
+  //   npx wrangler secret put CF_GUARD_TOKEN --config workers/spend-guard/wrangler.jsonc --env-file .env.cfdeploy
+
+  // Workers Logs. The guard runs 144 times a day and logs one line per run, so
+  // even full sampling is a few thousand events a month; sampling lower would
+  // drop the rare line that records the host closing or reopening.
+  "observability": { "enabled": true, "head_sampling_rate": 1 }
+}

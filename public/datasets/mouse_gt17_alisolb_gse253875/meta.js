@@ -1,0 +1,1 @@
+var HX_MOUSE_GT17_ALISOLB_GSE253875_META = {"populations":["gt17"],"labels":{"gt17":"GT1-7 hypothalamic GnRH neurons"},"types":{"gt17":"Tissue"},"nGenes":{"gt17":15245},"colors":{"gt17":"#E15759"},"qcFlags":{"gt17":{"is3v3":true,"nNormal":3,"nObese":3,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

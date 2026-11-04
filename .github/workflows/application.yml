@@ -1,0 +1,45 @@
+name: Application
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: application-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  application:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      # The dataset bundles are not in this repository; the app reads them, and
+      # the query catalog it is built against, from the published data origin.
+      VITE_BUNDLE_BASE_URL: https://data.hypoexplorer.com
+      NODE_OPTIONS: --max-old-space-size=6144
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run fetch:query
+      # The GTEx, HPA and Allen atlases (~230 MB) back the Expression survey and its tests.
+      - run: pnpm run fetch:expression
+      - run: pnpm run lint --reporter=summary
+      # check:upstream replays raw GEO inputs, so it runs in the maintainer's checkout.
+      - run: pnpm run typecheck
+      - name: Run tests
+        # Tests that read retained evidence or pre-publication history are left
+        # out of this repository's vite.config.ts; the maintainer runs them.
+        run: pnpm test --maxWorkers=2
+      - name: Build production application
+        run: pnpm run build

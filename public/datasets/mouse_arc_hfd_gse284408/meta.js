@@ -1,0 +1,1 @@
+var HX_MOUSE_ARC_HFD_GSE284408_META = {"populations":["arcuate"],"labels":{"arcuate":"Arcuate nucleus (bulk)"},"types":{"arcuate":"Tissue"},"nGenes":{"arcuate":14151},"colors":{"arcuate":"#E15759"},"qcFlags":{"arcuate":{"is3v3":true,"nNormal":3,"nObese":3,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

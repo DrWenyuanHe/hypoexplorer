@@ -1,0 +1,507 @@
+{
+  "schemaVersion": 1,
+  "reader": {
+    "path": "data/internal-qc/source-recovery-2026-09-11/sourceRecovery.mts",
+    "sha256": "ab3163e766f79a8743b1872d7ed85d35fd53ea3fbc031e995a6c1723804cac1f",
+    "bytes": 15581
+  },
+  "auditor": {
+    "path": "data/internal-qc/source-recovery-2026-09-11/audit_recovery.mts",
+    "sha256": "f06fa646bda4ff17cadcd3c0e19fc1393a3955112f565b4e87bafe8bba6d1b68",
+    "bytes": 1627
+  },
+  "records": [
+    {
+      "datasetId": "mouse_hypo_hfd_emtab6929",
+      "accession": "E-MTAB-6929",
+      "bothPathFormsAgree": true,
+      "status": "pass",
+      "sourceAuthentication": "pass",
+      "derivedInputRelationship": "pass",
+      "conservation": "pass",
+      "sourceScope": "complete_registered_input",
+      "note": "Authenticated originals reproduce all 46,095 registered rows and 737,520 count cells exactly. 0 explicitly excluded source rows are fully accounted for; declared rounding remains separate. Author-result agreement and overall QC are not asserted.",
+      "evidence": [
+        "data/internal-qc/source-recovery-2026-09-11/evidence.json",
+        "data/internal-qc/source-recovery-2026-09-11/reconstruct_sources.py",
+        "data/internal-qc/source-recovery-2026-09-11/replay_emtab.R",
+        "data/internal-qc/source-recovery-2026-09-11/acquire_metadata.py",
+        "data/internal-qc/source-recovery-2026-09-11/sourceRecovery.mts",
+        "data/internal-qc/source-authenticity-2026-09-05/source-authenticity-evidence.json",
+        "data/internal-qc/source-authenticity-2026-09-05/audit-plan.json",
+        "data/internal-qc/source-authenticity-2026-09-05/sourceAuthenticity.mts",
+        "data/internal-qc/source-authenticity-2026-09-05/scopedConfiguration.mts",
+        "data/internal-qc/source-authenticity-2026-09-05/audit_source_authenticity.py",
+        "geo_replication/config/datasets.tsv",
+        "data/internal-qc/source-authenticity-2026-09-05/configuration-snapshots/ebcde6f7a39e06c13a6c728c742f003dc9d88bc67a47ad4a6e0cc9902155788a.tsv",
+        "geo_replication/datasets/EMTAB6929_mmus_hypothalamus_hfd/raw/EMTAB6929_counts_clean.tsv.gz",
+        "geo_replication/datasets/EMTAB6929_mmus_hypothalamus_hfd/raw/Final_Counts.txt",
+        "data/internal-qc/source-authenticity-2026-09-05/downloads/E-MTAB-6929/Final_Counts.txt",
+        "data/internal-qc/source-authenticity-2026-09-05/downloads/E-MTAB-6929/Final_Counts.txt.download.json",
+        "geo_replication/datasets/EMTAB6929_mmus_hypothalamus_hfd/metadata/EMTAB6929_samplesheet.tsv",
+        "data/internal-qc/source-recovery-2026-09-11/replays/E-MTAB-6929/complete-reconstructed-input.tsv.gz",
+        "geo_replication/scripts/prep_2026batch2.R",
+        "data/internal-qc/conservation-2026-09-05/preparation/prep_2026batch2.R",
+        "data/internal-qc/source-recovery-2026-09-11/replays/E-MTAB-6929/isolated-project/datasets/EMTAB6929_mmus_hypothalamus_hfd/raw/Final_Counts.txt",
+        "data/internal-qc/source-recovery-2026-09-11/replays/E-MTAB-6929/run.log",
+        "data/internal-qc/source-recovery-2026-09-11/replays/E-MTAB-6929/excluded-source-rows.tsv"
+      ],
+      "checkedReferences": [
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/reconstruct_sources.py",
+          "sha256": "0fa90d1c1f531a2267238d8f7103317cef0bb6d12cea9c4b8802bbff2593caee",
+          "bytes": 14085
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/replay_emtab.R",
+          "sha256": "07e4cef3d7aeee8bc1780a7e4039641f5208bed4b2843008482ae22bfb1eaf77",
+          "bytes": 821
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/acquire_metadata.py",
+          "sha256": "c47d2da5e67a85b1a9b21f53e13424699401325e83f91a54b7d8670aa4c912db",
+          "bytes": 1866
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/sourceRecovery.mts",
+          "sha256": "ab3163e766f79a8743b1872d7ed85d35fd53ea3fbc031e995a6c1723804cac1f",
+          "bytes": 15581
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/source-authenticity-evidence.json",
+          "sha256": "1ebcc8d02f133340ddb20d2e36fad880dae340164b15e6ba6c27d2f73a2b7eef",
+          "bytes": 617611
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/audit-plan.json",
+          "sha256": "7552dc941bea1853b575e38552702139cf7adbabd52cb1f3f84741da1beef3b5",
+          "bytes": 485463
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/sourceAuthenticity.mts",
+          "sha256": "6c1e63eb42971c1a636d6d161b4168b0f783420787b9d64b859675405c7039a6",
+          "bytes": 10896
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/scopedConfiguration.mts",
+          "sha256": "b8702a271be74d232324e36a4284284b886109784a4d32ec51f3cc5f415adc4f",
+          "bytes": 3561
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/audit_source_authenticity.py",
+          "sha256": "1694f5819b27b62f1e983df2c08e78cc65c53de52a6b54a1fd7299d2086fade8",
+          "bytes": 13633
+        },
+        {
+          "path": "geo_replication/config/datasets.tsv",
+          "sha256": "c2463a8d08af93a8f28c772540b263f4dd0334b68f36d26f44c80b9f3780f9da",
+          "bytes": 53559
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/configuration-snapshots/ebcde6f7a39e06c13a6c728c742f003dc9d88bc67a47ad4a6e0cc9902155788a.tsv",
+          "sha256": "ebcde6f7a39e06c13a6c728c742f003dc9d88bc67a47ad4a6e0cc9902155788a",
+          "bytes": 38089
+        },
+        {
+          "path": "geo_replication/datasets/EMTAB6929_mmus_hypothalamus_hfd/raw/EMTAB6929_counts_clean.tsv.gz",
+          "sha256": "56e7b62b5eaff1685e9940bf35f9802a057361a977ada15be6dd2aba6af148a5",
+          "bytes": 976102
+        },
+        {
+          "path": "geo_replication/datasets/EMTAB6929_mmus_hypothalamus_hfd/raw/Final_Counts.txt",
+          "sha256": "1a162066edd0b53c9b96831ec881909da5c21954680e8c223f1cec7b5a87d9da",
+          "bytes": 3176754
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/downloads/E-MTAB-6929/Final_Counts.txt",
+          "sha256": "af0bd4b9f73a3ed5f98f9f282a143f580fcffc81ad3fc8d7e148615d3e4b90d1",
+          "bytes": 3130658
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/downloads/E-MTAB-6929/Final_Counts.txt.download.json",
+          "sha256": "004912ddb8ec99fe9ddbfd4097a9e3227baa2c1cdbc91a902198973abaa5cc52",
+          "bytes": 679
+        },
+        {
+          "path": "geo_replication/datasets/EMTAB6929_mmus_hypothalamus_hfd/metadata/EMTAB6929_samplesheet.tsv",
+          "sha256": "fb37a7ed8d0678f79e1906681fd5202ca3e4cacc947837516606b0e706e93829",
+          "bytes": 244
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/replays/E-MTAB-6929/complete-reconstructed-input.tsv.gz",
+          "sha256": "56e7b62b5eaff1685e9940bf35f9802a057361a977ada15be6dd2aba6af148a5",
+          "bytes": 976102
+        },
+        {
+          "path": "geo_replication/scripts/prep_2026batch2.R",
+          "sha256": "2453af40a4dca521eb1453161579aabf142158ce18af10a4362796f7f5723cd0",
+          "bytes": 2784
+        },
+        {
+          "path": "data/internal-qc/conservation-2026-09-05/preparation/prep_2026batch2.R",
+          "sha256": "2453af40a4dca521eb1453161579aabf142158ce18af10a4362796f7f5723cd0",
+          "bytes": 2784
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/replays/E-MTAB-6929/isolated-project/datasets/EMTAB6929_mmus_hypothalamus_hfd/raw/Final_Counts.txt",
+          "sha256": "af0bd4b9f73a3ed5f98f9f282a143f580fcffc81ad3fc8d7e148615d3e4b90d1",
+          "bytes": 3130658
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/replays/E-MTAB-6929/run.log",
+          "sha256": "0336e18f2906720ce4bbf63b1165c69b84cb8a9d68cbe5cf45349427440f54ca",
+          "bytes": 388
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/replays/E-MTAB-6929/excluded-source-rows.tsv",
+          "sha256": "5611e73b1692da702ba667780c8df31fce4c84fa66a253427fd544dcac1a0f40",
+          "bytes": 136
+        }
+      ]
+    },
+    {
+      "datasetId": "mouse_vlpo_galanin_sleep_gse132308",
+      "accession": "GSE132308",
+      "bothPathFormsAgree": true,
+      "status": "pass",
+      "sourceAuthentication": "pass",
+      "derivedInputRelationship": "pass",
+      "conservation": "pass",
+      "sourceScope": "complete_registered_input",
+      "note": "Authenticated originals reproduce all 37,681 registered rows and 452,172 count cells exactly. 0 explicitly excluded source rows are fully accounted for; declared rounding remains separate. Author-result agreement and overall QC are not asserted.",
+      "evidence": [
+        "data/internal-qc/source-recovery-2026-09-11/evidence.json",
+        "data/internal-qc/source-recovery-2026-09-11/reconstruct_sources.py",
+        "data/internal-qc/source-recovery-2026-09-11/replay_emtab.R",
+        "data/internal-qc/source-recovery-2026-09-11/acquire_metadata.py",
+        "data/internal-qc/source-recovery-2026-09-11/sourceRecovery.mts",
+        "data/internal-qc/source-authenticity-2026-09-05/source-authenticity-evidence.json",
+        "data/internal-qc/source-authenticity-2026-09-05/audit-plan.json",
+        "data/internal-qc/source-authenticity-2026-09-05/sourceAuthenticity.mts",
+        "data/internal-qc/source-authenticity-2026-09-05/scopedConfiguration.mts",
+        "data/internal-qc/source-authenticity-2026-09-05/audit_source_authenticity.py",
+        "geo_replication/config/datasets.tsv",
+        "data/internal-qc/source-authenticity-2026-09-05/configuration-snapshots/ebcde6f7a39e06c13a6c728c742f003dc9d88bc67a47ad4a6e0cc9902155788a.tsv",
+        "geo_replication/datasets/GSE132308_mmus_vlpo_galanin_sleep/processed/GSE132308_ZT6_counts.tsv.gz",
+        "geo_replication/datasets/GSE132308_mmus_vlpo_galanin_sleep/raw/GSE132308_master_list_of_gene_counts_MIN.sense.UNNORMQUANT.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/downloads/GSE132308/GSE132308_master_list_of_gene_counts_MIN.sense.UNNORMQUANT.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/downloads/GSE132308/GSE132308_master_list_of_gene_counts_MIN.sense.UNNORMQUANT.txt.gz.download.json",
+        "geo_replication/datasets/GSE132308_mmus_vlpo_galanin_sleep/metadata/GSE132308_samplesheet.tsv",
+        "data/internal-qc/source-recovery-2026-09-11/replays/GSE132308/complete-reconstructed-input.tsv.gz",
+        "scripts/prep_GSE132308.R",
+        "data/internal-qc/source-recovery-2026-09-11/downloads/GSE132308_family.soft.gz",
+        "data/internal-qc/source-recovery-2026-09-11/downloads/GSE132308_family.soft.gz.download.json",
+        "geo_replication/datasets/GSE132308_mmus_vlpo_galanin_sleep/metadata/GSE132308_family.soft.gz",
+        "geo_replication/datasets/GSE132308_mmus_vlpo_galanin_sleep/processed/GSE132308_preprocessing_qc.tsv",
+        "data/internal-qc/source-recovery-2026-09-11/replays/GSE132308/run.log",
+        "data/internal-qc/source-recovery-2026-09-11/replays/GSE132308/samplesheet.tsv",
+        "data/internal-qc/source-recovery-2026-09-11/replays/GSE132308/qc.tsv",
+        "data/internal-qc/source-recovery-2026-09-11/replays/GSE132308/excluded-source-rows.tsv"
+      ],
+      "checkedReferences": [
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/reconstruct_sources.py",
+          "sha256": "0fa90d1c1f531a2267238d8f7103317cef0bb6d12cea9c4b8802bbff2593caee",
+          "bytes": 14085
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/replay_emtab.R",
+          "sha256": "07e4cef3d7aeee8bc1780a7e4039641f5208bed4b2843008482ae22bfb1eaf77",
+          "bytes": 821
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/acquire_metadata.py",
+          "sha256": "c47d2da5e67a85b1a9b21f53e13424699401325e83f91a54b7d8670aa4c912db",
+          "bytes": 1866
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/sourceRecovery.mts",
+          "sha256": "ab3163e766f79a8743b1872d7ed85d35fd53ea3fbc031e995a6c1723804cac1f",
+          "bytes": 15581
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/source-authenticity-evidence.json",
+          "sha256": "1ebcc8d02f133340ddb20d2e36fad880dae340164b15e6ba6c27d2f73a2b7eef",
+          "bytes": 617611
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/audit-plan.json",
+          "sha256": "7552dc941bea1853b575e38552702139cf7adbabd52cb1f3f84741da1beef3b5",
+          "bytes": 485463
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/sourceAuthenticity.mts",
+          "sha256": "6c1e63eb42971c1a636d6d161b4168b0f783420787b9d64b859675405c7039a6",
+          "bytes": 10896
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/scopedConfiguration.mts",
+          "sha256": "b8702a271be74d232324e36a4284284b886109784a4d32ec51f3cc5f415adc4f",
+          "bytes": 3561
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/audit_source_authenticity.py",
+          "sha256": "1694f5819b27b62f1e983df2c08e78cc65c53de52a6b54a1fd7299d2086fade8",
+          "bytes": 13633
+        },
+        {
+          "path": "geo_replication/config/datasets.tsv",
+          "sha256": "c2463a8d08af93a8f28c772540b263f4dd0334b68f36d26f44c80b9f3780f9da",
+          "bytes": 53559
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/configuration-snapshots/ebcde6f7a39e06c13a6c728c742f003dc9d88bc67a47ad4a6e0cc9902155788a.tsv",
+          "sha256": "ebcde6f7a39e06c13a6c728c742f003dc9d88bc67a47ad4a6e0cc9902155788a",
+          "bytes": 38089
+        },
+        {
+          "path": "geo_replication/datasets/GSE132308_mmus_vlpo_galanin_sleep/processed/GSE132308_ZT6_counts.tsv.gz",
+          "sha256": "414caf4c9634a5736908fe34eab7938f5ab6de9c12c8e6f3a111244b6786e347",
+          "bytes": 443356
+        },
+        {
+          "path": "geo_replication/datasets/GSE132308_mmus_vlpo_galanin_sleep/raw/GSE132308_master_list_of_gene_counts_MIN.sense.UNNORMQUANT.txt.gz",
+          "sha256": "7dd6d0a625f55a549fa06e16bd55cfef9d2cc1835a54cfcef4b158e942e72111",
+          "bytes": 2135916
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/downloads/GSE132308/GSE132308_master_list_of_gene_counts_MIN.sense.UNNORMQUANT.txt.gz",
+          "sha256": "7dd6d0a625f55a549fa06e16bd55cfef9d2cc1835a54cfcef4b158e942e72111",
+          "bytes": 2135916
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/downloads/GSE132308/GSE132308_master_list_of_gene_counts_MIN.sense.UNNORMQUANT.txt.gz.download.json",
+          "sha256": "6e51b859b8edbf10daeb5aa4ccc0fcecc2a0be9582642cc152b7fbc8c841a7f4",
+          "bytes": 830
+        },
+        {
+          "path": "geo_replication/datasets/GSE132308_mmus_vlpo_galanin_sleep/metadata/GSE132308_samplesheet.tsv",
+          "sha256": "0536da3609e0f0c7643d6ae39023b08034cbf71d0fac5a3614330511f600d586",
+          "bytes": 886
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/replays/GSE132308/complete-reconstructed-input.tsv.gz",
+          "sha256": "414caf4c9634a5736908fe34eab7938f5ab6de9c12c8e6f3a111244b6786e347",
+          "bytes": 443356
+        },
+        {
+          "path": "scripts/prep_GSE132308.R",
+          "sha256": "5358bd1d74cc72225eb8b708fa46c43ec1e4948210cb045eb5631bf48b8436c2",
+          "bytes": 4086
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/downloads/GSE132308_family.soft.gz",
+          "sha256": "e5cbab268b68c483e3bd29b39c9939d5d64da1235f9d5d3efbcbe029204e965f",
+          "bytes": 5172
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/downloads/GSE132308_family.soft.gz.download.json",
+          "sha256": "251d927f3b871c88d1c419f188d0c274fa5b38395a15a732cd476c334e4bf744",
+          "bytes": 492
+        },
+        {
+          "path": "geo_replication/datasets/GSE132308_mmus_vlpo_galanin_sleep/metadata/GSE132308_family.soft.gz",
+          "sha256": "e5cbab268b68c483e3bd29b39c9939d5d64da1235f9d5d3efbcbe029204e965f",
+          "bytes": 5172
+        },
+        {
+          "path": "geo_replication/datasets/GSE132308_mmus_vlpo_galanin_sleep/processed/GSE132308_preprocessing_qc.tsv",
+          "sha256": "a1ec15fb2041d6a0db6c33a093f366f96d7f3a8dffb641b9f4a5014225acce42",
+          "bytes": 282
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/replays/GSE132308/run.log",
+          "sha256": "0bb2e966e0d20d65e3057a73711fc0d6ee2384863b19cd9571369a805e0816ee",
+          "bytes": 330
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/replays/GSE132308/samplesheet.tsv",
+          "sha256": "f6fa1dceeb0a4d94ce66b8b3b11f434393d8dab6d7d570a57c4bfcbd6b666333",
+          "bytes": 899
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/replays/GSE132308/qc.tsv",
+          "sha256": "df816a1bb7cb1e83d342c9b2c0c120042853e6a6cf65e000d1041bcde74fee66",
+          "bytes": 295
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/replays/GSE132308/excluded-source-rows.tsv",
+          "sha256": "2577c10192510dfa54771fa6aaaba72a0c208a5e7d074b9bd4377a948cda15ab",
+          "bytes": 280
+        }
+      ]
+    },
+    {
+      "datasetId": "human_ipsc_hypo_obesity_gse95243",
+      "accession": "GSE95243",
+      "bothPathFormsAgree": true,
+      "status": "pass",
+      "sourceAuthentication": "pass",
+      "derivedInputRelationship": "pass",
+      "conservation": "pass",
+      "sourceScope": "complete_registered_input",
+      "note": "Authenticated originals reproduce all 30,199 registered rows and 362,388 count cells exactly. 116 explicitly excluded source rows are fully accounted for; declared rounding remains separate. Author-result agreement and overall QC are not asserted.",
+      "evidence": [
+        "data/internal-qc/source-recovery-2026-09-11/evidence.json",
+        "data/internal-qc/source-recovery-2026-09-11/reconstruct_sources.py",
+        "data/internal-qc/source-recovery-2026-09-11/replay_emtab.R",
+        "data/internal-qc/source-recovery-2026-09-11/acquire_metadata.py",
+        "data/internal-qc/source-recovery-2026-09-11/sourceRecovery.mts",
+        "data/internal-qc/source-authenticity-2026-09-05/source-authenticity-evidence.json",
+        "data/internal-qc/source-authenticity-2026-09-05/audit-plan.json",
+        "data/internal-qc/source-authenticity-2026-09-05/sourceAuthenticity.mts",
+        "data/internal-qc/source-authenticity-2026-09-05/scopedConfiguration.mts",
+        "data/internal-qc/source-authenticity-2026-09-05/audit_source_authenticity.py",
+        "geo_replication/config/datasets.tsv",
+        "data/internal-qc/source-authenticity-2026-09-05/configuration-snapshots/ebcde6f7a39e06c13a6c728c742f003dc9d88bc67a47ad4a6e0cc9902155788a.tsv",
+        "geo_replication/datasets/GSE95243_hsap_hypothalamic_neurons_obesity/processed/GSE95243_counts.tsv.gz",
+        "geo_replication/datasets/GSE95243_hsap_hypothalamic_neurons_obesity/raw/GSE95243_raw_read_counts.csv.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/downloads/GSE95243/GSE95243_Sareen-HT-2017_data_for_GEO_-_Raw_read_counts.csv.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/downloads/GSE95243/GSE95243_Sareen-HT-2017_data_for_GEO_-_Raw_read_counts.csv.gz.download.json",
+        "geo_replication/datasets/GSE95243_hsap_hypothalamic_neurons_obesity/metadata/GSE95243_samplesheet.tsv",
+        "data/internal-qc/source-recovery-2026-09-11/replays/GSE95243/complete-reconstructed-input.tsv.gz",
+        "scripts/prep_GSE95243.R",
+        "data/internal-qc/source-recovery-2026-09-11/downloads/GSE95243_family.soft.gz",
+        "data/internal-qc/source-recovery-2026-09-11/downloads/GSE95243_family.soft.gz.download.json",
+        "geo_replication/datasets/GSE95243_hsap_hypothalamic_neurons_obesity/metadata/GSE95243_family.soft.gz",
+        "geo_replication/datasets/GSE95243_hsap_hypothalamic_neurons_obesity/processed/GSE95243_preprocessing_qc.tsv",
+        "data/internal-qc/source-recovery-2026-09-11/replays/GSE95243/run.log",
+        "data/internal-qc/source-recovery-2026-09-11/replays/GSE95243/samplesheet.tsv",
+        "data/internal-qc/source-recovery-2026-09-11/replays/GSE95243/qc.tsv",
+        "data/internal-qc/source-recovery-2026-09-11/replays/GSE95243/excluded-source-rows.tsv"
+      ],
+      "checkedReferences": [
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/reconstruct_sources.py",
+          "sha256": "0fa90d1c1f531a2267238d8f7103317cef0bb6d12cea9c4b8802bbff2593caee",
+          "bytes": 14085
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/replay_emtab.R",
+          "sha256": "07e4cef3d7aeee8bc1780a7e4039641f5208bed4b2843008482ae22bfb1eaf77",
+          "bytes": 821
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/acquire_metadata.py",
+          "sha256": "c47d2da5e67a85b1a9b21f53e13424699401325e83f91a54b7d8670aa4c912db",
+          "bytes": 1866
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/sourceRecovery.mts",
+          "sha256": "ab3163e766f79a8743b1872d7ed85d35fd53ea3fbc031e995a6c1723804cac1f",
+          "bytes": 15581
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/source-authenticity-evidence.json",
+          "sha256": "1ebcc8d02f133340ddb20d2e36fad880dae340164b15e6ba6c27d2f73a2b7eef",
+          "bytes": 617611
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/audit-plan.json",
+          "sha256": "7552dc941bea1853b575e38552702139cf7adbabd52cb1f3f84741da1beef3b5",
+          "bytes": 485463
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/sourceAuthenticity.mts",
+          "sha256": "6c1e63eb42971c1a636d6d161b4168b0f783420787b9d64b859675405c7039a6",
+          "bytes": 10896
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/scopedConfiguration.mts",
+          "sha256": "b8702a271be74d232324e36a4284284b886109784a4d32ec51f3cc5f415adc4f",
+          "bytes": 3561
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/audit_source_authenticity.py",
+          "sha256": "1694f5819b27b62f1e983df2c08e78cc65c53de52a6b54a1fd7299d2086fade8",
+          "bytes": 13633
+        },
+        {
+          "path": "geo_replication/config/datasets.tsv",
+          "sha256": "c2463a8d08af93a8f28c772540b263f4dd0334b68f36d26f44c80b9f3780f9da",
+          "bytes": 53559
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/configuration-snapshots/ebcde6f7a39e06c13a6c728c742f003dc9d88bc67a47ad4a6e0cc9902155788a.tsv",
+          "sha256": "ebcde6f7a39e06c13a6c728c742f003dc9d88bc67a47ad4a6e0cc9902155788a",
+          "bytes": 38089
+        },
+        {
+          "path": "geo_replication/datasets/GSE95243_hsap_hypothalamic_neurons_obesity/processed/GSE95243_counts.tsv.gz",
+          "sha256": "73482cd476211bc8719c02380ea5bb60e89f76e623c6632ea53305920dca6a1a",
+          "bytes": 640205
+        },
+        {
+          "path": "geo_replication/datasets/GSE95243_hsap_hypothalamic_neurons_obesity/raw/GSE95243_raw_read_counts.csv.gz",
+          "sha256": "2855580b55062dbd4c0afaef78e4e4d8d310b226870f0cc0a6abba1d303732c6",
+          "bytes": 5484873
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/downloads/GSE95243/GSE95243_Sareen-HT-2017_data_for_GEO_-_Raw_read_counts.csv.gz",
+          "sha256": "2855580b55062dbd4c0afaef78e4e4d8d310b226870f0cc0a6abba1d303732c6",
+          "bytes": 5484873
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/downloads/GSE95243/GSE95243_Sareen-HT-2017_data_for_GEO_-_Raw_read_counts.csv.gz.download.json",
+          "sha256": "4c2e62c8ae9cceff92f245a0fff05b1897405415d28a74d8c8e266baf8fe1dd9",
+          "bytes": 813
+        },
+        {
+          "path": "geo_replication/datasets/GSE95243_hsap_hypothalamic_neurons_obesity/metadata/GSE95243_samplesheet.tsv",
+          "sha256": "ce5c62799fccf6a7b14370e72a8f341a50ad6075bad92154a2721e8eebcc8a0f",
+          "bytes": 906
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/replays/GSE95243/complete-reconstructed-input.tsv.gz",
+          "sha256": "73482cd476211bc8719c02380ea5bb60e89f76e623c6632ea53305920dca6a1a",
+          "bytes": 640205
+        },
+        {
+          "path": "scripts/prep_GSE95243.R",
+          "sha256": "ac1cadb53ff0b4b79f50c0f5b454146a02e64b095e043c42cf5439d57543ac87",
+          "bytes": 6040
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/downloads/GSE95243_family.soft.gz",
+          "sha256": "18238d14c2bdfe43900382ea68e3c58f79238e1990adc585a00c0ed9ff091291",
+          "bytes": 3859
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/downloads/GSE95243_family.soft.gz.download.json",
+          "sha256": "de4a5347537b22d91d89f07e7dd5fd0ef9936de81c8ceb06b9f98b024a146725",
+          "bytes": 486
+        },
+        {
+          "path": "geo_replication/datasets/GSE95243_hsap_hypothalamic_neurons_obesity/metadata/GSE95243_family.soft.gz",
+          "sha256": "18238d14c2bdfe43900382ea68e3c58f79238e1990adc585a00c0ed9ff091291",
+          "bytes": 3859
+        },
+        {
+          "path": "geo_replication/datasets/GSE95243_hsap_hypothalamic_neurons_obesity/processed/GSE95243_preprocessing_qc.tsv",
+          "sha256": "5231458a907af07481984d4c146f6007d36de4251d73542a468af4c330839f23",
+          "bytes": 445
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/replays/GSE95243/run.log",
+          "sha256": "98e66c892935df91285bb08ce91e0607b11ae982e36920933665178cfd6de436",
+          "bytes": 444
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/replays/GSE95243/samplesheet.tsv",
+          "sha256": "6803535afeb0d83fee9b3857d4d02d15386d4782fd1ccf237bde5fbbc07e1dc3",
+          "bytes": 919
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/replays/GSE95243/qc.tsv",
+          "sha256": "acaa9863ec157fd516dbc5435f76a6a88245fa731872f07b1453be6f9eeadd98",
+          "bytes": 465
+        },
+        {
+          "path": "data/internal-qc/source-recovery-2026-09-11/replays/GSE95243/excluded-source-rows.tsv",
+          "sha256": "a9071508abdfeccee42e6f39ea73f958482881abd5923886d72d2940fd5d2835",
+          "bytes": 12883
+        }
+      ]
+    }
+  ]
+}

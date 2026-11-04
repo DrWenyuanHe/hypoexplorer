@@ -1,0 +1,16 @@
+{
+  "ref": "hypoexplorer_data_burst",
+  "description": "Data paths: 400 requests per 10 s per IP, block 10 s",
+  "expression": "(starts_with(http.request.uri.path, \"/datasets/\") or starts_with(http.request.uri.path, \"/query/\") or starts_with(http.request.uri.path, \"/qc/\"))",
+  "action": "block",
+  "ratelimit": {
+    "characteristics": [
+      "cf.colo.id",
+      "ip.src"
+    ],
+    "period": 10,
+    "requests_per_period": 400,
+    "mitigation_timeout": 10
+  },
+  "enabled": true
+}

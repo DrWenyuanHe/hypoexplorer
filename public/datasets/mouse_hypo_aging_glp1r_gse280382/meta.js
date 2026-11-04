@@ -1,0 +1,1 @@
+var HX_MOUSE_HYPO_AGING_GLP1R_GSE280382_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":17594},"colors":{"hypothalamus":"#FABFD2"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":9,"nObese":8,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

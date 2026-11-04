@@ -1,0 +1,153 @@
+node_modules/
+dist/
+*.local
+
+# Credentials. `*.local` above already covers .env.local, but NOT a plain .env —
+# which is exactly where wrangler looks for CLOUDFLARE_API_TOKEN (it is the
+# persistence method Cloudflare's own docs recommend), so an unignored .env is a
+# token one `git add -A` away from the history. .dev.vars is wrangler's other
+# secret file. .env.example carries no secrets and stays tracked.
+.env*
+.dev.vars*
+!.env.example
+!.env.development
+!.env.production
+# Also tracked, and also secret-free BY CONSTRUCTION: an empty file whose only
+# job is to stop `wrangler deploy` auto-loading .env.local. See the file itself.
+!.env.cfdeploy
+
+# Cross-dataset query index — a BUILD ARTIFACT, regenerated from public/datasets/
+# by scripts/build_query_index.mts (verify with --check).
+#
+# Deliberately not tracked. Shards are published under an immutable
+# public/query/<buildId>/ prefix, so every rebuild writes a whole new directory:
+# committing it would add ~61 MB of fresh blobs to history on each data change,
+# on top of the 385 MB public/datasets/ already carries. That compounds badly
+# against the git-history purge already on the TODO list.
+#
+# It must still be UPLOADED with the bundles — `pnpm run upload:bundles` covers
+# both trees and refuses to publish datasets without it, because a missing index
+# silently drops the app back to downloading ~284 MB per cross-dataset query.
+#
+# To track it anyway: `git add -f public/query`.
+public/query/
+public/tracker/catalog.js
+.gstack/
+.claude/scheduled_tasks.lock
+.claude/*.lock
+
+.design-audit/
+
+# Writing (documents, slide decks) and generated figures stay out of this repository.
+*.docx
+*.pptx
+geo_replication/**/*.md
+geo_replication/figures/
+Rplots.pdf
+
+# MGI Ensembl->symbol source download (16MB); the derived scripts/lib/mmus_ens2sym.json is committed
+scripts/lib/MRK_ENSEMBL.rpt
+
+# Nomenclature authority downloads (HGNC, MGI, RGD and species-specific NCBI
+# gene_info files), re-fetchable with
+# `pnpm run build:nomenclature --fetch`. The derived data/nomenclature/*.tsv
+# and public/nomenclature/*.js ARE committed — see scripts/build_nomenclature.mts
+# on why that table is source rather than a build artifact.
+scripts/lib/nomenclature-cache/
+
+# GSE281503 (daridorexant/LPS; explorer dataset mouse_hypo_lps_gse281503): the
+# raw GEO supplement is a 95 MB multi-sheet DEG workbook, re-downloadable from
+# https://ftp.ncbi.nlm.nih.gov/geo/series/GSE281nnn/GSE281503/suppl/ (bytes and
+# SHA-256 pinned in scripts/prep_GSE281503.py and metadata/GSE281503_source_files.tsv).
+# Only that workbook stays out of Git; the processed tables and small metadata
+# are tracked like every other geo_replication dataset. When it is absent the
+# author-validation checks carry the committed GSE281503 records forward with a
+# warning (scripts/lib/authorValidationAudit.mts, LOCAL_INPUT_DATASETS).
+geo_replication/datasets/GSE281503_mmus_hypo_lps/raw/GSE281503_Effects_of_daridorexant_on_LPS-induced_mice.xlsx
+
+# Codex CLI session scratch (tool artifact, not project content)
+.context/
+
+# Pipeline scratch (xlsx reads, matrix batches) — tool artifacts, not project content
+.tmp/
+
+# Agent export archives (pnpm run build:agent-export)
+/dist-export/
+
+# Local research, report and validation deliverables (~13 GB, includes copied
+# software environments) — working output, not project content
+/output/
+
+# Isolated verification build output (avoids a locked shared dist directory)
+.verification-build-*/
+
+# Large author expression workbook retained locally; official URL and SHA-256
+# are pinned in continued-sources/GSE190389/REVIEW_2026-09-04.md and its manifest.
+data/author-validation/continued-sources/GSE190389_TMM_workbook.xlsx
+
+# External reference expression products: BUILD ARTIFACTS (~100 MB for GTEx),
+# regenerated from data/expression/{gtex,hpa,allen-human}/ by scripts/build_*_reference.mts.
+# The builders verify the retained source hashes and replay every emitted value.
+public/expression/gtex/
+public/expression/hpa/
+public/expression/allen-human/
+
+# Wrangler local state (Cloudflare Workers deploys)
+.wrangler
+# Runtime + binding types regenerated per Worker by `wrangler types`
+workers/*/worker-configuration.d.ts
+
+# Large duplicate supplementary archives retained locally. Extracted comparison
+# tables remain trackable; final-numerical-batch manifests pin archive URLs/hash.
+data/author-validation/continued-sources/final-numerical-batch-a/GSE189945/europepmc_supplements.zip
+data/author-validation/continued-sources/final-numerical-batch-d/PMC12461651_supplements.zip
+
+# Python importer bytecode is local runtime cache.
+__pycache__/
+
+# Local production preview for the third verification audit.
+/dist-verification-round3/
+
+# Bulk GEO/SRA download cache from the 2026-09-05 dataset-survey sweep
+# (~36k soft/supplementary files). Re-fetchable from the accessions recorded
+# in the tracked dataset-survey tables; never part of the repo's evidence set.
+nar-research/dataset-survey/browser-routes-2026-09-05/
+
+# ---- Bulk re-fetchable source data (see the R2 + Zenodo storage plan) ----
+# Original archives, their extractions, and pinned R annotation runtimes for the
+# 2026-09-05 source-authenticity and replication rounds. Every file is recorded in
+# the round evidence JSONs by source URL, SHA-256 and byte count — that pin is the
+# provenance record; these bytes are re-downloadable or re-derivable from it.
+# Together they exceed 9 GB and include six files past GitHub's 100 MB file limit,
+# so they cannot live in git. The audit scripts re-fetch and re-extract them.
+data/internal-qc/**/downloads/
+data/internal-qc/**/extracted-source/
+data/internal-qc/**/runtime/
+data/internal-qc/**/region-code/
+
+# Raw archives for the September 5 discovery intake (up to 739 MB each). The
+# analyzed outputs, sample sheets and manifests under the same datasets stay tracked.
+geo_replication/datasets/*_discovery_20260905/raw/
+
+# Deferred GSE203125 platform annotation download (513 MB). Its source and
+# exact bytes are pinned in data/quality/hfd-intake-2026-09-12/GSE203125-deferred.json.
+geo_replication/datasets/GSE203125_mmus_vmh_hfd_array/metadata/GPL20775.soft
+
+# Working design document, not shipped code: it is a scratch comparison of study
+# card layouts kept beside the repo, and it is a root .html so it would otherwise
+# enter the agent-context source snapshot.
+card-redesigns.html
+
+# GSE205313 raw inputs for the R 4.6.0 unrounded preparation (scripts/regen-r460/prep_GSE205313_r460.R).
+# Re-fetchable; URL, bytes and sha256 are recorded in the dataset metadata/r460_sources.json.
+geo_replication/datasets/GSE205313_mmus_hypo_astrocyte_hfhs/raw/GSE205313_RAW.tar
+geo_replication/datasets/GSE205313_mmus_hypo_astrocyte_hfhs/raw/Mus_musculus.GRCm38.102.gtf.gz
+
+# R 4.6.0 regeneration: raw-library-size CPM is written by the r460 drivers but not published
+# (the explorer shows TMM-normalized CPM). Copies are kept in the frozen staging archive.
+geo_replication/**/*_CPM_raw.tsv.gz
+data/raw/results/*/de/rawcpm.csv
+
+# Private SEO skill install receipts, backups and the optional managed runtime
+# (scripts/seo_skills.py, scripts/seo_runtime.py). Machine-local by design.
+.skill-installations/

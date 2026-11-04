@@ -1,0 +1,1 @@
+var HX_MOUSE_SST_NEURON_SEX_GSE224254_META = {"populations":["sst_neurons"],"labels":{"sst_neurons":"Tuberal-hypothalamic SST neurons (FACS)"},"types":{"sst_neurons":"Tissue"},"nGenes":{"sst_neurons":15110},"colors":{"sst_neurons":"#D47AAE"},"qcFlags":{"sst_neurons":{"is3v3":false,"nNormal":4,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

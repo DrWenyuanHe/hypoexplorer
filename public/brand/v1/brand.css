@@ -1,0 +1,25 @@
+/* Shared by the interactive app and prerendered public pages. */
+.site-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 0 0 auto;
+  width: 200px;
+  min-height: 45px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  text-decoration: none;
+  vertical-align: middle;
+}
+.site-brand img {
+  display: block;
+  width: 200px;
+  height: 45px;
+  object-fit: contain;
+}
+.site-brand:focus-visible {
+  outline: 2px solid #2F5D8A;
+  outline-offset: 4px;
+}

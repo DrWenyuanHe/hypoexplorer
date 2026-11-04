@@ -1,0 +1,1 @@
+var HX_MOUSE_ARC_CLOCK_GSE248462_META = {"populations":["arcuate"],"labels":{"arcuate":"Arcuate nucleus (ARC)"},"types":{"arcuate":"Tissue"},"nGenes":{"arcuate":15365},"colors":{"arcuate":"#B6992D"},"qcFlags":{"arcuate":{"is3v3":false,"nNormal":12,"nObese":12,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

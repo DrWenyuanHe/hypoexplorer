@@ -1,0 +1,1 @@
+var HX_CHICKEN_POAH_EHC_GSE298648_META = {"populations":["poah"],"labels":{"poah":"Pre-optic anterior hypothalamic area (POAH)"},"types":{"poah":"Tissue"},"nGenes":{"poah":11807},"colors":{"poah":"#E76F51"},"qcFlags":{"poah":{"is3v3":false,"nNormal":4,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

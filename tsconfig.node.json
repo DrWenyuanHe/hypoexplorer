@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "ES2022"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "types": [
+      "node"
+    ],
+    "allowJs": true,
+    "checkJs": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "tsBuildInfoFile": ".tmp/tsc/node.tsbuildinfo",
+    "strict": false
+  },
+  "include": [
+    "vite.config.ts",
+    "dataset-tracker/vite.config.ts",
+    "scripts"
+  ],
+  "exclude": [
+    "scripts/audit_replication_evidence.mts",
+    "scripts/audit_source_relationship_r460.mts",
+    "scripts/build_internal_qc.mts",
+    "scripts/build_internal_qc_r460.mts",
+    "scripts/lib/intakeNumericR460.mts",
+    "scripts/lib/replicationEvidence.mts",
+    "scripts/lib/reviewedFgseaSpecies.mts",
+    "scripts/refresh_fgsea_bundles.mts"
+  ]
+}

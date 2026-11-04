@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-07T00:00:00Z",
+  "title": "Design System: HypoExplorer",
+  "extensions": {
+    "colorMeta": {
+      "signal-orange": { "role": "primary", "displayName": "Signal Orange", "canonical": "oklch(74% 0.16 58)", "tonalRamp": ["oklch(20% 0.05 58)", "oklch(32% 0.09 58)", "oklch(44% 0.12 58)", "oklch(56% 0.15 58)", "oklch(68% 0.16 58)", "oklch(78% 0.15 58)", "oklch(88% 0.10 58)", "oklch(96% 0.04 58)"] },
+      "data-up": { "role": "secondary", "displayName": "Up Red", "canonical": "oklch(64% 0.18 22)", "tonalRamp": ["oklch(22% 0.06 22)", "oklch(33% 0.10 22)", "oklch(44% 0.14 22)", "oklch(54% 0.17 22)", "oklch(64% 0.18 22)", "oklch(74% 0.15 22)", "oklch(85% 0.09 22)", "oklch(95% 0.03 22)"] },
+      "data-down": { "role": "secondary", "displayName": "Down Blue", "canonical": "oklch(54% 0.10 250)", "tonalRamp": ["oklch(20% 0.04 250)", "oklch(30% 0.06 250)", "oklch(40% 0.08 250)", "oklch(48% 0.10 250)", "oklch(58% 0.10 250)", "oklch(70% 0.08 250)", "oklch(83% 0.05 250)", "oklch(94% 0.02 250)"] },
+      "db-hallmark": { "role": "tertiary", "displayName": "Hallmark Purple", "canonical": "oklch(60% 0.07 340)", "tonalRamp": ["oklch(22% 0.03 340)", "oklch(32% 0.05 340)", "oklch(42% 0.06 340)", "oklch(52% 0.07 340)", "oklch(62% 0.07 340)", "oklch(73% 0.06 340)", "oklch(85% 0.04 340)", "oklch(95% 0.02 340)"] },
+      "db-kegg": { "role": "tertiary", "displayName": "KEGG Green", "canonical": "oklch(62% 0.13 145)", "tonalRamp": ["oklch(22% 0.05 145)", "oklch(33% 0.08 145)", "oklch(44% 0.11 145)", "oklch(54% 0.13 145)", "oklch(64% 0.13 145)", "oklch(74% 0.11 145)", "oklch(85% 0.07 145)", "oklch(95% 0.03 145)"] },
+      "taxonomy-brown": { "role": "tertiary", "displayName": "Taxonomy Brown", "canonical": "oklch(56% 0.05 55)", "tonalRamp": ["oklch(22% 0.02 55)", "oklch(32% 0.03 55)", "oklch(42% 0.04 55)", "oklch(50% 0.05 55)", "oklch(60% 0.05 55)", "oklch(72% 0.04 55)", "oklch(84% 0.03 55)", "oklch(94% 0.01 55)"] },
+      "text-primary": { "role": "neutral", "displayName": "Ink", "canonical": "oklch(26.4% 0.013 94)", "tonalRamp": ["oklch(18% 0.013 94)", "oklch(30% 0.013 94)", "oklch(42% 0.013 94)", "oklch(54% 0.013 94)", "oklch(66% 0.013 94)", "oklch(80% 0.013 94)", "oklch(90% 0.013 94)", "oklch(97% 0.013 94)"] },
+      "text-muted": { "role": "neutral", "displayName": "Stone", "canonical": "oklch(49.7% 0.01 85)", "tonalRamp": ["oklch(18% 0.01 85)", "oklch(30% 0.01 85)", "oklch(42% 0.01 85)", "oklch(54% 0.01 85)", "oklch(66% 0.01 85)", "oklch(80% 0.01 85)", "oklch(90% 0.01 85)", "oklch(97% 0.01 85)"] },
+      "border": { "role": "neutral", "displayName": "Hairline", "canonical": "oklch(91.8% 0.008 74)", "tonalRamp": ["oklch(18% 0.008 74)", "oklch(30% 0.008 74)", "oklch(42% 0.008 74)", "oklch(54% 0.008 74)", "oklch(66% 0.008 74)", "oklch(80% 0.008 74)", "oklch(90% 0.008 74)", "oklch(97% 0.008 74)"] },
+      "app-bg": { "role": "neutral", "displayName": "Paper", "canonical": "oklch(98% 0.005 78)", "tonalRamp": ["oklch(18% 0.005 78)", "oklch(30% 0.005 78)", "oklch(42% 0.005 78)", "oklch(54% 0.005 78)", "oklch(66% 0.005 78)", "oklch(80% 0.005 78)", "oklch(90% 0.005 78)", "oklch(97% 0.005 78)"] },
+      "panel": { "role": "neutral", "displayName": "Panel", "canonical": "oklch(100% 0 0)", "tonalRamp": ["oklch(88% 0 0)", "oklch(91% 0 0)", "oklch(94% 0 0)", "oklch(96% 0 0)", "oklch(97% 0 0)", "oklch(98% 0 0)", "oklch(99% 0 0)", "oklch(100% 0 0)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The hero readout: active population id or metric at the top of the main column. The one place a number gets large." },
+      "headline": { "displayName": "Headline", "purpose": "Wordmark and top-level headings. Sparse." },
+      "title": { "displayName": "Title", "purpose": "Tab labels, card titles, table headers, active navigator rows." },
+      "body": { "displayName": "Body", "purpose": "Running text and descriptions. Cap measure at 65 to 75ch for long-form prose." },
+      "label": { "displayName": "Label", "purpose": "Section eyebrows: 10px, 700, 0.12em tracked, uppercase, muted." },
+      "mono": { "displayName": "Mono", "purpose": "Every gene id, count, p-value, logFC, breadcrumb, and dataset slug." }
+    },
+    "shadows": [
+      { "name": "resting-lift", "value": "0 1px 4px rgba(0,0,0,0.10)", "purpose": "Hairline separation under cards and panels at rest. Barely there." },
+      { "name": "hover-lift", "value": "0 4px 12px rgba(0,0,0,0.12)", "purpose": "Response when a tile or card is hovered or becomes active, paired with a 2px translate." },
+      { "name": "overlay", "value": "0 12px 48px rgba(0,0,0,0.25)", "purpose": "Modals and the update prompt only. The one deep shadow." },
+      { "name": "accent-glow", "value": "0 2px 6px rgba(242,142,43,0.3)", "purpose": "Soft orange halo under the primary action button. The only colored shadow." },
+      { "name": "focus-ring", "value": "0 0 0 3px rgba(242,142,43,0.15)", "purpose": "Orange focus ring on inputs, paired with a Signal Orange border." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "Default easing for every state transition." },
+      { "name": "duration-fast", "value": "120ms", "purpose": "Hover, color, and border transitions." },
+      { "name": "duration-med", "value": "200ms", "purpose": "Card lift, tab switch, fade-in and slide-in entrances." }
+    ],
+    "breakpoints": [
+      { "name": "sidebar-narrow", "value": "1199px", "purpose": "Navigator narrows from 232px to 200px." },
+      { "name": "sidebar-compact", "value": "860px", "purpose": "Navigator narrows to 176px." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single dominant action per view (Compare, Retry). Orange fill with a soft glow.",
+      "html": "<button class=\"ds-btn-primary\"><svg width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\"><path d=\"M8 3v18M16 3v18M3 8h5M3 16h5M16 8h5M16 16h5\"/></svg>Compare all cells</button>",
+      "css": ".ds-btn-primary { display:inline-flex; align-items:center; gap:8px; background:#F28E2B; color:#fff; border:none; border-radius:6px; padding:8px 12px; font-family:'Hanken Grotesk','Source Sans 3',sans-serif; font-size:12px; font-weight:600; cursor:pointer; box-shadow:0 2px 6px rgba(242,142,43,0.3); transition:background 120ms cubic-bezier(0.4,0,0.2,1); } .ds-btn-primary:hover { background:#e07a1e; } .ds-btn-primary:focus-visible { outline:2px solid #F28E2B; outline-offset:1px; }"
+    },
+    {
+      "name": "Default Button",
+      "kind": "button",
+      "refersTo": "button-default",
+      "description": "The everyday bordered control (Changelog, toggles). White or transparent with a hairline edge.",
+      "html": "<button class=\"ds-btn-default\">Changelog</button>",
+      "css": ".ds-btn-default { background:#fff; color:#27251e; border:1px solid #d4cfc8; border-radius:4px; padding:5px 12px; font-family:'Hanken Grotesk','Source Sans 3',sans-serif; font-size:12px; cursor:pointer; transition:background 120ms cubic-bezier(0.4,0,0.2,1); } .ds-btn-default:hover { background:#f4f1ed; } .ds-btn-default:focus-visible { outline:2px solid #F28E2B; outline-offset:1px; }"
+    },
+    {
+      "name": "Search Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Navigator filter and gene search. Hairline border, orange focus ring.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Search by id, marker, or type…\" />",
+      "css": ".ds-input { width:100%; background:#fff; color:#27251e; border:1px solid #e7e3de; border-radius:6px; padding:8px 12px; font-family:'Hanken Grotesk','Source Sans 3',sans-serif; font-size:12px; outline:none; transition:border-color 120ms cubic-bezier(0.4,0,0.2,1), box-shadow 120ms cubic-bezier(0.4,0,0.2,1); } .ds-input::placeholder { color:#938f88; } .ds-input:focus-visible { border-color:#F28E2B; box-shadow:0 0 0 3px rgba(242,142,43,0.15); }"
+    },
+    {
+      "name": "Gene Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "A selected gene token. Cool blue text on a faint row-selected tint, mono.",
+      "html": "<button class=\"ds-chip\">POMC</button>",
+      "css": ".ds-chip { background:#e5ecf4; color:#4C78A8; border:1px solid transparent; border-radius:4px; padding:3px 9px; font-family:'Geist Mono','IBM Plex Mono',monospace; font-size:12px; cursor:pointer; transition:background 120ms cubic-bezier(0.4,0,0.2,1), border-color 120ms cubic-bezier(0.4,0,0.2,1); } .ds-chip:hover { background:#d8e3f0; border-color:#4C78A8; }"
+    },
+    {
+      "name": "Underline Tab",
+      "kind": "nav",
+      "refersTo": "tab-active",
+      "description": "The main view switcher. Muted at rest, ink with an orange underline when active.",
+      "html": "<div class=\"ds-tabs\"><button class=\"ds-tab ds-tab--active\">Gene Explorer</button><button class=\"ds-tab\">Pathway Explorer</button><button class=\"ds-tab\">Quality Control</button></div>",
+      "css": ".ds-tabs { display:flex; gap:4px; border-bottom:1px solid #e7e3de; } .ds-tab { padding:8px 16px; background:transparent; border:none; border-bottom:2px solid transparent; color:#65625c; font-family:'Hanken Grotesk','Source Sans 3',sans-serif; font-size:13px; cursor:pointer; transition:color 120ms cubic-bezier(0.4,0,0.2,1), border-color 120ms cubic-bezier(0.4,0,0.2,1); } .ds-tab:hover { color:#27251e; background:rgba(0,0,0,0.02); } .ds-tab--active { color:#27251e; border-bottom-color:#F28E2B; font-weight:600; }"
+    },
+    {
+      "name": "Navigator Row",
+      "kind": "nav",
+      "refersTo": "card",
+      "description": "Signature: a population row. Colored dot, mono id, truncated marker label. Active row gets a 3px orange left border and a cool selected fill.",
+      "html": "<div class=\"ds-navlist\"><button class=\"ds-navrow ds-navrow--active\"><span class=\"ds-dot\" style=\"background:#E45756\"></span><span class=\"ds-id\">e9</span><span class=\"ds-label\">POMC / CART</span></button><button class=\"ds-navrow\"><span class=\"ds-dot\" style=\"background:#4C78A8\"></span><span class=\"ds-id\">i23</span><span class=\"ds-label\">AGRP / NPY</span></button></div>",
+      "css": ".ds-navlist { display:flex; flex-direction:column; background:#fff; } .ds-navrow { display:flex; align-items:center; gap:8px; padding:5px 14px; background:transparent; border:none; border-left:3px solid transparent; text-align:left; cursor:pointer; color:#3d3a34; font-family:'Hanken Grotesk','Source Sans 3',sans-serif; font-size:12px; transition:background 120ms cubic-bezier(0.4,0,0.2,1); } .ds-navrow:hover { background:#f4f1ed; } .ds-navrow--active { background:#ede8e2; border-left-color:#F28E2B; color:#27251e; font-weight:500; } .ds-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; } .ds-id { font-family:'Geist Mono','IBM Plex Mono',monospace; min-width:28px; } .ds-label { color:#65625c; font-size:11px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }"
+    },
+    {
+      "name": "Contrast Pill",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "The hero group readout: a colored dot plus a mono count in a faint tinted pill. Normal blue vs Obese red.",
+      "html": "<span class=\"ds-pill ds-pill--normal\"><span class=\"ds-dot\" style=\"background:#4C78A8\"></span>3 Normal</span><span class=\"ds-vs\">vs</span><span class=\"ds-pill ds-pill--obese\"><span class=\"ds-dot\" style=\"background:#E45756\"></span>3 Obese</span>",
+      "css": ".ds-pill { display:inline-flex; align-items:center; gap:6px; padding:3px 10px; border-radius:12px; font-family:'Geist Mono','IBM Plex Mono',monospace; font-size:12px; color:#3d3a34; } .ds-pill--normal { background:rgba(76,120,168,0.09); border:1px solid rgba(76,120,168,0.22); } .ds-pill--obese { background:rgba(228,87,86,0.09); border:1px solid rgba(228,87,86,0.22); } .ds-vs { color:#65625c; font-size:12px; margin:0 6px; } .ds-dot { width:8px; height:8px; border-radius:50%; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Lab Notebook",
+    "overview": "HypoExplorer reads like ink on paper. Warm paper surfaces, hairline stone rules, and prose set in Hanken Grotesk. The data is the ink: every number, gene id, count, and p-value is set in Geist Mono so figures line up in columns and never hide inside running text. Color is rationed. It stays out of the chrome and appears only when it carries a result, a red point is up-regulated, a blue point is down-regulated, a single orange element is the thing you have selected right now. The system is dense without being loud, framing live scientific output in the quietest possible chrome. It explicitly rejects the dashboard-SaaS reflexes that scientific tools tend to drift into: gradient hero metrics, purple washes, glassmorphism, and color used for decoration.",
+    "keyCharacteristics": [
+      "Ink-on-paper restraint: warm off-white paper, never #000 for text or chrome.",
+      "Color earns its place by encoding meaning (direction, group, pathway source, selection).",
+      "Mono for every figure; Sans for every sentence.",
+      "Flat at rest; depth appears only on hover, selection, and overlays.",
+      "One accent (orange) per view, marking the single active thing."
+    ],
+    "rules": [
+      { "name": "The One Voice Rule", "body": "Signal Orange marks at most one active element per view. Its rarity is the signal; a second orange selection in frame means the design is lying about what is active.", "section": "colors" },
+      { "name": "The Meaning-Only Color Rule", "body": "Red is up and Obese. Blue is down and Normal. These bindings are absolute and centralized in one module. Color is never chosen for looks; if you cannot name what a color encodes, it should be a neutral.", "section": "colors" },
+      { "name": "The Numbers Are Mono Rule", "body": "If it is a figure (id, count, statistic, coordinate), it is Geist Mono. Numbers never sit in Sans, so columns of data always align.", "section": "typography" },
+      { "name": "The Quiet Label Rule", "body": "Section labels are 10px, 700 weight, 0.12em tracked, uppercase, and muted slate. They orient without shouting.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Surfaces are flat at rest with a hairline border and at most the resting lift. Shadows deepen only in response to hover, selection, or an overlay taking the screen.", "section": "elevation" },
+      { "name": "The Thick Edge Means State Rule", "body": "The only edges thicker than 1px encode state, never decoration: the 4px top accent strip carries the active population's color, and the 3px left border on the active navigator row carries the selection.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do bind color to meaning: Up Red (#E45756) for up-regulated and Obese, Down Blue (#4C78A8) for down-regulated and Normal, the four database hues for pathway source.",
+      "Do reserve Signal Orange (#F28E2B) for exactly one active or selected element per view.",
+      "Do set every number, id, and statistic in Geist Mono so figures align in columns.",
+      "Do define surfaces with 1px hairline borders and keep them flat at rest; let shadows deepen only on hover, selection, and overlays.",
+      "Do let the 4px accent strip carry the active population's color as the primary brand moment.",
+      "Do tint neutrals toward the warm stone family; the darkest text is Ink (#27251e), never black."
+    ],
+    "donts": [
+      "Don't use #000 for text or chrome, or #fff for text. The system bottoms out at Ink #27251e on Paper #faf8f5 / Panel #ffffff.",
+      "Don't introduce a second saturated accent or use color decoratively. If you cannot name what a color encodes, make it a neutral.",
+      "Don't use border-left or border-right greater than 1px as a decorative stripe on cards or callouts. The only thick edges in the system encode state.",
+      "Don't reach for gradient hero metrics, purple-to-blue washes, glassmorphism, or identical icon-and-heading card grids.",
+      "Don't animate layout properties or add bounce. Transitions are 120ms / 200ms on the standard ease, respecting prefers-reduced-motion.",
+      "Don't let chrome compete with the plot. When in doubt, remove a border, mute a label, or drop a color before adding one."
+    ]
+  }
+}

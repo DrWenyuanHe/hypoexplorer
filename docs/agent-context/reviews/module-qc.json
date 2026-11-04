@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "area": "module-qc",
+  "fingerprint": "4f1e3b1f00c7a99b58f590db4ed6817d8d295c2ca12c6e9f1f5c7aad39b1deed",
+  "outcome": "updated",
+  "explanation": "QCTab takes a single onSelectTrack callback in place of switchPop plus setActiveTab. Landing on the Gene Explorer after a QC row click is now the explorer position rule for dataset-scoped tabs, not the tab component naming a tab itself.",
+  "references": [
+    "src/qc/QCTab.tsx",
+    "src/explorer/explorerPosition.ts"
+  ]
+}

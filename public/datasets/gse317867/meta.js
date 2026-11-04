@@ -1,0 +1,1 @@
+var HX_GSE317867_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Paraventricular nucleus (BacTRAP IP)"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":18314},"colors":{"hypothalamus":"#3775BA"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":5,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

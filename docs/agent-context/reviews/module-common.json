@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "area": "module-common",
+  "fingerprint": "71f6435ba7411db5c755c7f493ebd6e7c6069edfa4e5e0d205917cdc949cd840",
+  "outcome": "no-impact",
+  "explanation": "React 19 requires an initial value for useRef, so QualityBadges' close timer ref starts as undefined explicitly. Badge rendering and popover behaviour are unchanged.",
+  "references": [
+    "src/common/QualityBadges.tsx"
+  ]
+}

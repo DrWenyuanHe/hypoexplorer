@@ -1,0 +1,1 @@
+var HX_RAT_HYPO_EXERCISE_GSE242354_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":21215},"colors":{"hypothalamus":"#2A9D8F"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":5,"nObese":5,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

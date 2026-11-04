@@ -1,0 +1,1 @@
+var HX_CHICKEN_HYPO_LCITRULLINE_GSE202003_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":11184},"colors":{"hypothalamus":"#EDC949"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":6,"nObese":6,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

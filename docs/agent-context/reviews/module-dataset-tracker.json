@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "area": "module-dataset-tracker",
+  "fingerprint": "9287e46d414d96bc60c2f79d6d58c0b7e394bd581b1dabbd60f2592ceb5d071e",
+  "outcome": "updated",
+  "explanation": "TrackerDetail.tsx, TrackerFilters.tsx and trackerLogic.ts switch their datasetQuality, qualitySearchText and badge imports to datasetQualityR460.ts, so tracker rows, quality filters and search text follow the current author-concordance reviews after the regeneration. Tracker status logic, catalog loading and the view structure are unchanged. The integrated tracker stylesheet uses var(--font-mono); the standalone tracker imports Geist Mono, Hanken Grotesk and Source fonts, ships their licenses, and uses the warm neutral palette.",
+  "references": [
+    "src/dataset-tracker/trackerLogic.ts",
+    "src/dataset-tracker/TrackerDetail.tsx",
+    "src/data/datasetQualityR460.ts",
+    "dataset-tracker/src/styles.css"
+  ]
+}

@@ -1,0 +1,1 @@
+var HX_RAT_HYPO_OZONE_GSE133293_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":20845},"colors":{"hypothalamus":"#86BCB6"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":4,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

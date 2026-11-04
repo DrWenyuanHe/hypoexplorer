@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "area": "workflow-delivery",
+  "fingerprint": "d30973b4b0898572eba3a8a096ee99ccae134131a5a9b0494467126907386586",
+  "outcome": "updated",
+  "explanation": "From main: React 19 and recharts 3 change chunk contents but not the chunk plan: xlsx, html2canvas, charts, vendor and both evidence chunks remain, and precache is 6646 KiB. Build, precompress, upload and deploy scripts are unchanged; vite build, verify:release and the 7 Playwright smoke tests pass. From this branch: The delivery runbook names pnpm run build:agent-export, which writes the full-dataset ZIP to the ignored dist-export/ from public/datasets without touching the bundle pipeline or R2, and the AGENT_EXPORT runbook records the manual Zenodo deposit and the DATA_EXPORT_DOI link on /methods/.",
+  "references": [
+    "vite.config.ts",
+    "package.json",
+    "docs/agent-context/delivery.md",
+    "docs/AGENT_EXPORT.md",
+    "scripts/lib/seoGuides.mts"
+  ]
+}

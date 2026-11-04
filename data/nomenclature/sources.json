@@ -1,0 +1,88 @@
+{
+  "builtFrom": {
+    "hgnc": {
+      "url": "https://storage.googleapis.com/public-download-files/hgnc/tsv/tsv/hgnc_complete_set.txt",
+      "file": "hgnc_complete_set.txt",
+      "bytes": 16948224,
+      "records": 45045
+    },
+    "mgi": {
+      "url": "https://www.informatics.jax.org/downloads/reports/MRK_List1.rpt",
+      "file": "MRK_List1.rpt",
+      "bytes": 86321016,
+      "records": 75251
+    },
+    "rgd": {
+      "url": "https://download.rgd.mcw.edu/pub/data_release/GENES_RAT.txt",
+      "file": "GENES_RAT.txt",
+      "bytes": 50636452,
+      "records": 84504
+    },
+    "rgdObsolete": {
+      "url": "https://download.rgd.mcw.edu/pub/data_release/GENES_OBSOLETE_IDS.txt",
+      "file": "GENES_OBSOLETE_IDS.txt",
+      "bytes": 9112711,
+      "records": 47755
+    },
+    "ncbiGeneGallusGallus": {
+      "url": "https://ftp.ncbi.nlm.nih.gov/gene/DATA/GENE_INFO/Non-mammalian_vertebrates/Gallus_gallus.gene_info.gz",
+      "file": "Gallus_gallus.gene_info.gz",
+      "bytes": 1190334,
+      "records": 32177
+    },
+    "ncbiGeneDanioRerio": {
+      "url": "https://ftp.ncbi.nlm.nih.gov/gene/DATA/GENE_INFO/Non-mammalian_vertebrates/Danio_rerio.gene_info.gz",
+      "file": "Danio_rerio.gene_info.gz",
+      "bytes": 2130634,
+      "records": 66792
+    },
+    "ncbiGeneSusScrofa": {
+      "url": "https://ftp.ncbi.nlm.nih.gov/gene/DATA/GENE_INFO/Mammalia/Sus_scrofa.gene_info.gz",
+      "file": "Sus_scrofa.gene_info.gz",
+      "bytes": 1573899,
+      "records": 54048
+    },
+    "ncbiGeneBosTaurus": {
+      "url": "https://ftp.ncbi.nlm.nih.gov/gene/DATA/GENE_INFO/Mammalia/Bos_taurus.gene_info.gz",
+      "file": "Bos_taurus.gene_info.gz",
+      "bytes": 1662270,
+      "records": 57271
+    }
+  },
+  "rows": 203189,
+  "tally": {
+    "current": 161018,
+    "previous": 6806,
+    "alias": 6723,
+    "unrecognized": 28161,
+    "ambiguous": 481
+  },
+  "authorityByOrganism": {
+    "Mus musculus": "MGI",
+    "Rattus norvegicus": "RGD",
+    "Macaca fascicularis": "HGNC",
+    "Macaca mulatta": "HGNC",
+    "Homo sapiens": "HGNC",
+    "Phodopus sungorus": "MGI",
+    "Eliomys quercinus": "MGI",
+    "Gallus gallus": "NCBI Gene (Gallus gallus)",
+    "Danio rerio": "NCBI Gene (Danio rerio)",
+    "Sus scrofa": "NCBI Gene (Sus scrofa)",
+    "Bos taurus": "NCBI Gene (Bos taurus)"
+  },
+  "storedDatasetNamespaceOverrides": {
+    "gse314184": {
+      "organism": "Rhabdomys pumilio",
+      "authority": "MGI",
+      "note": "The retained GSE314184 analysis used mouse annotation and pathway references. MGI classifies only those stored symbol spellings; it is not a native Rhabdomys authority or a validated mouse projection. The cross-species mapping remains under review.",
+      "evidence": "data/internal-qc/intake-replication-2026-09-11/review_decisions.json#GSE314184; DOI 10.1038/s41586-026-10123-4"
+    }
+  },
+  "authorityNotes": {
+    "Macaca fascicularis": "Upstream features are explicitly mapped to human ortholog symbols; HGNC governs that namespace.",
+    "Macaca mulatta": "Upstream features are explicitly mapped to human ortholog symbols; HGNC governs that namespace.",
+    "Phodopus sungorus": "Accepted datasets use explicit author-provided mouse feature projections; MGI governs the stored namespace.",
+    "Eliomys quercinus": "Accepted dataset uses an explicit author-provided mouse feature projection; MGI governs the stored namespace.",
+    "nativeNcbiSpecies": "Chicken, zebrafish, pig and cattle remain in separate native NCBI Gene taxon namespaces."
+  }
+}

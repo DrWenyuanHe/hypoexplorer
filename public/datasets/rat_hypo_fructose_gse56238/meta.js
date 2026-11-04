@@ -1,0 +1,1 @@
+var HX_RAT_HYPO_FRUCTOSE_GSE56238_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":14036},"colors":{"hypothalamus":"#F4A261"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":7,"nObese":6,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

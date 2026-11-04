@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "area": "module-compare",
+  "fingerprint": "266898e169efe592bcc233ea61fd6e9eba725a725c11ec35c8fc1c8f2f3203e1",
+  "outcome": "updated",
+  "explanation": "CompareTab loads its populations as track columns (failed populations show Retry; no getTrack or loadPopulation props), renders the shared GenePicker over a union vocabulary of loaded populations, and names its exports and Metadata sheets through export provenance (compareGenesWorkbook in compareSummary, ComparePathwayView). CompareTab only borrows the macaque default pair when given no defaultPops at all, and its vocabulary uses the stored-symbol nomenclature authority.",
+  "references": [
+    "src/compare/CompareTab.tsx",
+    "src/compare/compareSummary.ts",
+    "src/data/trackColumns.ts"
+  ]
+}

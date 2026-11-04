@@ -1,0 +1,39 @@
+{
+  "accession": "CNP0003785",
+  "reviewed": "2026-09-27",
+  "scope": "Depositor processing for the snRNA-seq matrix used by HypoExplorer; not the separate Stereo-seq assay.",
+  "source": {
+    "citation": "Lei et al. Cell Metabolism 2024;36(2):438-453.e6",
+    "doi": "10.1016/j.cmet.2024.01.003",
+    "pmid": "38325338",
+    "canonical_url": "https://doi.org/10.1016/j.cmet.2024.01.003",
+    "accessed_url": "https://www.researchgate.net/publication/378182713_Region-specific_transcriptomic_responses_to_obesity_and_diabetes_in_macaque_hypothalamus",
+    "source_identity": "Author-uploaded full paper, credited to coauthor Qing-Feng Wu, uploaded 2024-02-14.",
+    "location": "STAR Methods, snRNA-seq quality control, page e4; key resources table, page e1.",
+    "excerpt": "STAR v2.5.3 was applied for reads alignment with the Macaca_fascicularis_5.0 genome.",
+    "retention": "This file is a source review and short excerpt, not a downloaded publisher response. Its upstream-table SHA-256 pins these review bytes. Publisher and direct ResearchGate downloads returned HTTP 403; the author's full-text rendering was readable through web retrieval."
+  },
+  "findings": {
+    "aligner": "STAR",
+    "aligner_version": "2.5.3",
+    "genome_build": "Macaca_fascicularis_5.0",
+    "reference_type": "pre-mRNA",
+    "preprocessing": "PISA 0.7 is specified for filtering and demultiplexing.",
+    "annotation": "The snRNA-seq methods do not identify an annotation provider, GTF/GFF file or release.",
+    "quantifier": "The snRNA-seq methods do not identify the counting tool. PISA is not assigned this role without evidence. SAW 4.1.0 is described for Stereo-seq, not snRNA-seq."
+  },
+  "author_code": {
+    "url": "https://github.com/liulab-c114/MHD/tree/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2",
+    "commit": "3c39247bb43fe99d877d1ed0a9ea21486f41bbf2",
+    "tree": "MHD-tree.json",
+    "tree_sha256_lf": "1bacc405f755ca290e7ed6ac253d41fe81d269070b8e98a885a0831cb2448689",
+    "audit": "MHD-source-audit.json",
+    "audit_sha256_lf": "267ef43a352458c8670883abf2cf88de2daa37395e8cb23f0b0379289dfb7d07",
+    "review": "All 24 repository files were inspected for reference/annotation and input-loading terms. Analyses load processed RDS/H5AD objects; the audit found no upstream annotation release or read-counting command. The audit hashes UTF-8 encoded decoded response text and retains the matched lines; it does not retain full source files."
+  },
+  "remaining_unknowns": [
+    "Annotation provider and release for the pre-mRNA reference",
+    "Exact snRNA-seq counting command/tool"
+  ],
+  "next_evidence": "A depositor reference manifest, GTF/GFF filename and version, or the raw-read processing commands would resolve the remaining unknowns. Reviewed means the available sources were checked, not that unstated details were recovered."
+}

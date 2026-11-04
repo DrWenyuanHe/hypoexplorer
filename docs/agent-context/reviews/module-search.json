@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "area": "module-search",
+  "fingerprint": "6f184e2524c1ec0179e2007f205a12546b6a6f93295a464b40fb14d73229ad0f",
+  "outcome": "updated",
+  "explanation": "GeneExpressionCards becomes one \"Where <gene> is expressed\" section: a mouse column (NeuroSeq populations and the reserved mouse single-cell slot) beside a human column (GTEx, Allen, HPA subregions and HPA snRNA-seq clusters), separated by a hairline, with one Open expression survey button in the section footer. ReferenceAtlasSection now renders the whole human column from one loadReferenceAtlases call, so HumanClustersSection is gone and BaselineSection no longer takes onOpenExpression. Sources share one SourceTitle anatomy; search.css replaces portal-ref-grid and portal-grid--three with gene-expr rules that stack the columns at 900px and the human sources at 600px. Loaders and values are unchanged. The Allen block becomes a table with Probe, Median and Donor range headers and a plain note on what a probe is and what log2 signal means; its values are unchanged. The Allen note says each donor mean is over that donor's hypothalamic samples.",
+  "references": [
+    "src/search/portalCards.tsx",
+    "src/search/search.css",
+    "docs/EXPRESSION_SURVEY.md"
+  ]
+}

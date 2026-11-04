@@ -1,0 +1,61 @@
+{
+  "retrieved": "2026-10-29T15:40:14+00:00",
+  "sources": {
+    "tpm": {
+      "url": "https://storage.googleapis.com/adult-gtex/bulk-gex/v10/rna-seq/tpms-by-tissue/gene_tpm_v10_brain_hypothalamus.gct.gz",
+      "bytes": 33274517,
+      "sha256": "513dfce4de7766b43709bd624f85cb2a3e956a71c5ee276f4986169c2276db48"
+    },
+    "samples": {
+      "url": "https://storage.googleapis.com/adult-gtex/annotations/v10/metadata-files/GTEx_Analysis_v10_Annotations_SampleAttributesDS.txt",
+      "bytes": 38497961,
+      "sha256": "98c246b3855edf62cb050982a7ca50f3069d010624baea47ef84a9465900ca4b"
+    },
+    "subjects": {
+      "url": "https://storage.googleapis.com/adult-gtex/annotations/v10/metadata-files/GTEx_Analysis_v10_Annotations_SubjectPhenotypesDS.txt",
+      "bytes": 20292,
+      "sha256": "2313caeaaf3718ac8aead8c6b9eab92b3f613509cfe1a6f7b6286310a7200e73"
+    }
+  },
+  "gct": {
+    "version": "#1.2",
+    "dims": "59033\t257",
+    "genes": 59033,
+    "samples": 257,
+    "donors": 257,
+    "duplicateSymbols": 96,
+    "genesAllZero": 3704,
+    "valueDecimalsSample": {
+      "6": 715275,
+      "1": 1350192,
+      "5": 511895,
+      "4": 309578,
+      "3": 58110,
+      "2": 6600
+    }
+  },
+  "sampleAttributes": {
+    "hypothalamusRows": 631,
+    "matchedToGct": 257,
+    "gctNotInAttributes": 0
+  },
+  "donorSex": {
+    "1": 193,
+    "2": 64
+  },
+  "donorAge": {
+    "60-69": 131,
+    "50-59": 82,
+    "40-49": 21,
+    "20-29": 4,
+    "30-39": 8,
+    "70-79": 11
+  },
+  "product": {
+    "shards": 256,
+    "jsonBytes": 101476850,
+    "gzipBytes": 33787151,
+    "largestShardBytes": 465851,
+    "bytesPerGene": 1719
+  }
+}

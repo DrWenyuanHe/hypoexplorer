@@ -1,0 +1,281 @@
+{
+  "schemaVersion": 1,
+  "regeneration": "R 4.6.0 corpus regeneration, 2026-09-25",
+  "purpose": "Per-sample value tables for the two byte-preserved intakes after the R 4.6.0 regeneration. analyses.json in each intake still names the pre-regeneration <stem>_CPM.tsv.gz (counts / raw column total x 1e6); count analyses now read the DE fit's own TMM CPM, <stem>_CPM_TMM.tsv.gz, labelled 'CPM (TMM-normalized)'. Matrix analyses keep their <stem>_expression.tsv.gz on the deposited scale. Read by scripts/build_hfd_bundles_r460.mts and scripts/build_september5_bundles.mts.",
+  "intakes": {
+    "hfd-2026-09-12": {
+      "GSE104709": {
+        "values": "geo_replication/datasets/GSE104709_mmus_cvh_hfd_rnaseq/processed/GSE104709_expression.tsv.gz",
+        "kind": "matrix",
+        "replaces": "geo_replication/datasets/GSE104709_mmus_cvh_hfd_rnaseq/processed/GSE104709_expression.tsv.gz"
+      },
+      "GSE107324_male": {
+        "values": "geo_replication/datasets/GSE107324_rnor_hypothalamus_maternal_hfd/processed/GSE107324_male_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE107324_rnor_hypothalamus_maternal_hfd/processed/GSE107324_male_CPM.tsv.gz"
+      },
+      "GSE107324_female": {
+        "values": "geo_replication/datasets/GSE107324_rnor_hypothalamus_maternal_hfd/processed/GSE107324_female_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE107324_rnor_hypothalamus_maternal_hfd/processed/GSE107324_female_CPM.tsv.gz"
+      }
+    },
+    "september5-2026": {
+      "GSE317867": {
+        "values": "geo_replication/datasets/GSE317867_discovery_20260905/processed/GSE317867_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE317867_discovery_20260905/processed/GSE317867_CPM.tsv.gz"
+      },
+      "GSE278158": {
+        "values": "geo_replication/datasets/GSE278158_discovery_20260905/processed/GSE278158_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE278158_discovery_20260905/processed/GSE278158_CPM.tsv.gz"
+      },
+      "GSE309435": {
+        "values": "geo_replication/datasets/GSE309435_discovery_20260905/processed/GSE309435_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE309435_discovery_20260905/processed/GSE309435_CPM.tsv.gz"
+      },
+      "GSE148252": {
+        "values": "geo_replication/datasets/GSE148252_discovery_20260905/processed/GSE148252_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE148252_discovery_20260905/processed/GSE148252_CPM.tsv.gz"
+      },
+      "GSE148252_ko_vs_wt_light": {
+        "values": "geo_replication/datasets/GSE148252_discovery_20260905/processed/GSE148252_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE148252_discovery_20260905/processed/GSE148252_CPM.tsv.gz"
+      },
+      "GSE148252_light_vs_dark_wt": {
+        "values": "geo_replication/datasets/GSE148252_discovery_20260905/processed/GSE148252_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE148252_discovery_20260905/processed/GSE148252_CPM.tsv.gz"
+      },
+      "GSE148252_light_vs_dark_ko": {
+        "values": "geo_replication/datasets/GSE148252_discovery_20260905/processed/GSE148252_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE148252_discovery_20260905/processed/GSE148252_CPM.tsv.gz"
+      },
+      "E-MTAB-15488": {
+        "values": "geo_replication/datasets/EMTAB15488_discovery_20260905/processed/E-MTAB-15488_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/EMTAB15488_discovery_20260905/processed/E-MTAB-15488_CPM.tsv.gz"
+      },
+      "E-MTAB-15488_opa1_vs_flox": {
+        "values": "geo_replication/datasets/EMTAB15488_discovery_20260905/processed/E-MTAB-15488_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/EMTAB15488_discovery_20260905/processed/E-MTAB-15488_CPM.tsv.gz"
+      },
+      "E-MTAB-15489": {
+        "values": "geo_replication/datasets/EMTAB15489_discovery_20260905/processed/E-MTAB-15489_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/EMTAB15489_discovery_20260905/processed/E-MTAB-15489_CPM.tsv.gz"
+      },
+      "GSE337822": {
+        "values": "geo_replication/datasets/GSE337822_discovery_20260905/processed/GSE337822_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE337822_discovery_20260905/processed/GSE337822_CPM.tsv.gz"
+      },
+      "GSE337822_inhibitory": {
+        "values": "geo_replication/datasets/GSE337822_discovery_20260905/processed/GSE337822_inhibitory_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE337822_discovery_20260905/processed/GSE337822_inhibitory_CPM.tsv.gz"
+      },
+      "GSE337822_nonneu": {
+        "values": "geo_replication/datasets/GSE337822_discovery_20260905/processed/GSE337822_nonneu_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE337822_discovery_20260905/processed/GSE337822_nonneu_CPM.tsv.gz"
+      },
+      "GSE262407": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_CPM.tsv.gz"
+      },
+      "GSE262407_hfd_vs_chow_glucose": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_CPM.tsv.gz"
+      },
+      "GSE262407_glucose_vs_saline_chow": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_CPM.tsv.gz"
+      },
+      "GSE262407_glucose_vs_saline_hfd": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_CPM.tsv.gz"
+      },
+      "GSE262407_astrocytes": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_astrocytes_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_astrocytes_CPM.tsv.gz"
+      },
+      "GSE262407_astrocytes_hfd_vs_chow_glucose": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_astrocytes_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_astrocytes_CPM.tsv.gz"
+      },
+      "GSE262407_astrocytes_glucose_vs_saline_chow": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_astrocytes_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_astrocytes_CPM.tsv.gz"
+      },
+      "GSE262407_astrocytes_glucose_vs_saline_hfd": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_astrocytes_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_astrocytes_CPM.tsv.gz"
+      },
+      "GSE262407_neuron": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_neuron_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_neuron_CPM.tsv.gz"
+      },
+      "GSE262407_neuron_hfd_vs_chow_glucose": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_neuron_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_neuron_CPM.tsv.gz"
+      },
+      "GSE262407_neuron_glucose_vs_saline_chow": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_neuron_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_neuron_CPM.tsv.gz"
+      },
+      "GSE262407_neuron_glucose_vs_saline_hfd": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_neuron_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_neuron_CPM.tsv.gz"
+      },
+      "GSE262407_opc": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_opc_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_opc_CPM.tsv.gz"
+      },
+      "GSE262407_opc_hfd_vs_chow_glucose": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_opc_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_opc_CPM.tsv.gz"
+      },
+      "GSE262407_opc_glucose_vs_saline_chow": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_opc_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_opc_CPM.tsv.gz"
+      },
+      "GSE262407_opc_glucose_vs_saline_hfd": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_opc_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_opc_CPM.tsv.gz"
+      },
+      "GSE262407_oligodendrocytes": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_oligodendrocytes_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_oligodendrocytes_CPM.tsv.gz"
+      },
+      "GSE262407_oligodendrocytes_hfd_vs_chow_glucose": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_oligodendrocytes_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_oligodendrocytes_CPM.tsv.gz"
+      },
+      "GSE262407_oligodendrocytes_glucose_vs_saline_chow": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_oligodendrocytes_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_oligodendrocytes_CPM.tsv.gz"
+      },
+      "GSE262407_oligodendrocytes_glucose_vs_saline_hfd": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_oligodendrocytes_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_oligodendrocytes_CPM.tsv.gz"
+      },
+      "GSE262407_tanycytes": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_tanycytes_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_tanycytes_CPM.tsv.gz"
+      },
+      "GSE262407_tanycytes_hfd_vs_chow_glucose": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_tanycytes_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_tanycytes_CPM.tsv.gz"
+      },
+      "GSE262407_tanycytes_glucose_vs_saline_chow": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_tanycytes_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_tanycytes_CPM.tsv.gz"
+      },
+      "GSE262407_tanycytes_glucose_vs_saline_hfd": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_tanycytes_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_tanycytes_CPM.tsv.gz"
+      },
+      "GSE262407_ghrh": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_ghrh_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_ghrh_CPM.tsv.gz"
+      },
+      "GSE262407_ghrh_hfd_vs_chow_glucose": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_ghrh_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_ghrh_CPM.tsv.gz"
+      },
+      "GSE262407_ghrh_glucose_vs_saline_chow": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_ghrh_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_ghrh_CPM.tsv.gz"
+      },
+      "GSE262407_ghrh_glucose_vs_saline_hfd": {
+        "values": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_ghrh_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_ghrh_CPM.tsv.gz"
+      },
+      "GSE314184": {
+        "values": "geo_replication/datasets/GSE314184_discovery_20260905/processed/GSE314184_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE314184_discovery_20260905/processed/GSE314184_CPM.tsv.gz"
+      },
+      "GSE314184_infanticidal_vs_control": {
+        "values": "geo_replication/datasets/GSE314184_discovery_20260905/processed/GSE314184_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE314184_discovery_20260905/processed/GSE314184_CPM.tsv.gz"
+      },
+      "GSE314184_sire_vs_control": {
+        "values": "geo_replication/datasets/GSE314184_discovery_20260905/processed/GSE314184_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE314184_discovery_20260905/processed/GSE314184_CPM.tsv.gz"
+      },
+      "GSE314184_dam_vs_sire": {
+        "values": "geo_replication/datasets/GSE314184_discovery_20260905/processed/GSE314184_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE314184_discovery_20260905/processed/GSE314184_CPM.tsv.gz"
+      },
+      "GSE113576": {
+        "values": "geo_replication/datasets/GSE113576_discovery_20260905/processed/GSE113576_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE113576_discovery_20260905/processed/GSE113576_CPM.tsv.gz"
+      },
+      "GSE135007": {
+        "values": "geo_replication/datasets/GSE135007_discovery_20260905/processed/GSE135007_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE135007_discovery_20260905/processed/GSE135007_CPM.tsv.gz"
+      },
+      "GSE224274": {
+        "values": "geo_replication/datasets/GSE224274_discovery_20260905/processed/GSE224274_expression.tsv.gz",
+        "kind": "matrix",
+        "replaces": "geo_replication/datasets/GSE224274_discovery_20260905/processed/GSE224274_expression.tsv.gz"
+      },
+      "GSE308884": {
+        "values": "geo_replication/datasets/GSE308884_discovery_20260905/processed/GSE308884_expression.tsv.gz",
+        "kind": "matrix",
+        "replaces": "geo_replication/datasets/GSE308884_discovery_20260905/processed/GSE308884_expression.tsv.gz"
+      },
+      "GSE308884_dio_vs_lean": {
+        "values": "geo_replication/datasets/GSE308884_discovery_20260905/processed/GSE308884_expression.tsv.gz",
+        "kind": "matrix",
+        "replaces": "geo_replication/datasets/GSE308884_discovery_20260905/processed/GSE308884_expression.tsv.gz"
+      },
+      "GSE281701": {
+        "values": "geo_replication/datasets/GSE281701_discovery_20260905/processed/GSE281701_CPM_TMM.tsv.gz",
+        "kind": "cpm_tmm",
+        "replaces": "geo_replication/datasets/GSE281701_discovery_20260905/processed/GSE281701_CPM.tsv.gz"
+      }
+    }
+  }
+}

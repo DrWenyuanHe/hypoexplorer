@@ -1,0 +1,1 @@
+var HX_MOUSE_VMH_THRB_GSE98690_META = {"populations":["vmh"],"labels":{"vmh":"Ventromedial hypothalamus (VMH)"},"types":{"vmh":"Tissue"},"nGenes":{"vmh":11865},"colors":{"vmh":"#E76F51"},"qcFlags":{"vmh":{"is3v3":false,"nNormal":3,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

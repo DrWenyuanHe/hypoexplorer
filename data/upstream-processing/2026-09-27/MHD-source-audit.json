@@ -1,0 +1,204 @@
+[
+  {
+    "path": "CCI/inf_cellchat.R",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/CCI/inf_cellchat.R",
+    "git_blob_sha1": "93aeb822344f2e9fea44fa6b125fdd91ce67b32f",
+    "response_sha256": "fd246df11fd11387934cc0532651eff19bbb373a41c895ffb31f2a917584be18",
+    "matches": [
+      "seu.obj <- readRDS('outputs/inf_neu_tany_micro_seuobj.rds')"
+    ]
+  },
+  {
+    "path": "CCI/nichenet.ipynb",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/CCI/nichenet.ipynb",
+    "git_blob_sha1": "db174447240379b4adeda68e5af7f6a446323c6b",
+    "response_sha256": "4f43ea4cfd1d42c045feea27abb305a30037664be9ce99db5a05907f9313a106",
+    "matches": [
+      "inf.seu <- readRDS('outputs/inf_neu_tany_micro_seuobj.rds')",
+      "ligand_target_matrix = readRDS(\"ref/ligand_target_matrix.rds\")",
+      "lr_network = readRDS(\"ref/lr_network.rds\")",
+      "weighted_networks = readRDS(\"ref/weighted_networks.rds\")"
+    ]
+  },
+  {
+    "path": "CCI/nichenet_utils.R",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/CCI/nichenet_utils.R",
+    "git_blob_sha1": "191288c4cd331f8dd88d944a6b96cdafb69d80b9",
+    "response_sha256": "71f60046cd1cefce87b50e11fed077671414aba6554694c59b0ebe986e346478",
+    "matches": []
+  },
+  {
+    "path": "README.md",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/README.md",
+    "git_blob_sha1": "a8e4cfeab54ecbb266ff282ebc5887b7ec672a03",
+    "response_sha256": "3d4ed845823a3acb6ae3d407dadcf78c9ed1d0e3f1cb4e8a87aa5cefa3cd833e",
+    "matches": []
+  },
+  {
+    "path": "cross_speices/allcell_scVI.py",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/cross_speices/allcell_scVI.py",
+    "git_blob_sha1": "31409b93a8132c3dbe4d92ea189f653a4ef926c7",
+    "response_sha256": "8cd54592588419598e7c6d8fd86c58fa1f75424b81a4c66ce1a3107e0ac5a2c8",
+    "matches": [
+      "adata = sc.read_h5ad('data/allcell_seu.h5ad')"
+    ]
+  },
+  {
+    "path": "cross_speices/merge_allcell_rds.R",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/cross_speices/merge_allcell_rds.R",
+    "git_blob_sha1": "c5dbe26c54c6cd316b4425b98fab93dfa4724748",
+    "response_sha256": "6fb5dcf2b06454c19ec79c085ddae7f28da2a90d44d92cbfd049b869c30394b1",
+    "matches": [
+      "mice.neu <- readRDS('data/mus_neu_smaple.rds')",
+      "monkey.neu <- readRDS('data/monkey_neu_smaple.rds')",
+      "mice.nn <- readRDS('data/mus_nonneu_smaple.rds')",
+      "monkey.nn <- readRDS('data/monkey_nonneu_smaple.rds')"
+    ]
+  },
+  {
+    "path": "cross_speices/rPCA_integrated.R",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/cross_speices/rPCA_integrated.R",
+    "git_blob_sha1": "6f337371bc95817d891e00c3787025710efcf06c",
+    "response_sha256": "619f62ae14b9aabfaba3880e9932f50205f7e92c49034e82f72812d26fea993a",
+    "matches": []
+  },
+  {
+    "path": "cross_speices/sankey_plot.R",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/cross_speices/sankey_plot.R",
+    "git_blob_sha1": "89633117cd468b0515fb460157b4c27b40d23ca8",
+    "response_sha256": "009db6b5142ae2302727630000f0d2b4cd9773c437a8d9a9388a51ceb08fd85d",
+    "matches": []
+  },
+  {
+    "path": "function_analysis/INF_heatmap.R",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/function_analysis/INF_heatmap.R",
+    "git_blob_sha1": "c884a1f96c7d6310834e61106d559806bbffa4fe",
+    "response_sha256": "acbf7ff441bc44ff91375cfe8c48d6d6b1372478dcec18c0f4018e9a01379119",
+    "matches": []
+  },
+  {
+    "path": "function_analysis/Microglia_pseudotime.ipynb",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/function_analysis/Microglia_pseudotime.ipynb",
+    "git_blob_sha1": "b85cfd0d0c58e77312712fe6ef699568cf7d0b8d",
+    "response_sha256": "3b5376af929ddb94986b24350649c7524bf5976dabf852c0a2fb70207c549713",
+    "matches": [
+      "sce <- readRDS('outputs/microglia/micro_seu.rds')"
+    ]
+  },
+  {
+    "path": "function_analysis/SCPA.R",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/function_analysis/SCPA.R",
+    "git_blob_sha1": "bf6de1c0c40fe9167ba52890914a9417ecd4cf21",
+    "response_sha256": "498eb4a40bcdd44ff0a608a1e88081fd2aec945b76f26b5a835bc0bbf4b1e372",
+    "matches": [
+      "pvn.seu <- readRDS('data/pvn_seu.rds')"
+    ]
+  },
+  {
+    "path": "function_analysis/SCPA_tany.R",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/function_analysis/SCPA_tany.R",
+    "git_blob_sha1": "5f316552d01070795690055962b8ae5f8a650154",
+    "response_sha256": "8b6b8a01f65cbf5468c4ccf7ecc189dc4bcefa799fd3099557f2ab301d6e5302",
+    "matches": [
+      "tany.seu <- readRDS('outputs/tany_seu.rds')"
+    ]
+  },
+  {
+    "path": "function_analysis/SCPA_tany_analysis.R",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/function_analysis/SCPA_tany_analysis.R",
+    "git_blob_sha1": "2d0784d03a3ac8e34944551282e1cb3f6a6a6aec",
+    "response_sha256": "95189644db7bb782b0001d547ac3e2dd6071bdcb9cde96faaec5a7a21885cf97",
+    "matches": [
+      "tany.seu <- readRDS('outputs/tany_seu.rds')"
+    ]
+  },
+  {
+    "path": "function_analysis/ggupset.R",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/function_analysis/ggupset.R",
+    "git_blob_sha1": "2edee016ac9339841ed9a4f45b354c8a6b0948be",
+    "response_sha256": "6e72759b5d13917083f88e084c80c43820429b72412941e873e3574b07b2d82d",
+    "matches": []
+  },
+  {
+    "path": "function_analysis/gsea_analysis.R",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/function_analysis/gsea_analysis.R",
+    "git_blob_sha1": "6518aa5f58ffe5e69837728407e86071063ed1d5",
+    "response_sha256": "5bb5b842072d1b1a68c6a562ba37393873bd86bad67a4e9c7e431e87fa0b5d04",
+    "matches": []
+  },
+  {
+    "path": "function_analysis/interferon_heatmap.R",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/function_analysis/interferon_heatmap.R",
+    "git_blob_sha1": "f2c34bce572d73e784d8d822567bdcd25bb20aed",
+    "response_sha256": "77e34f79a54baca37f37969ecab08070abc0783f05c3a9fccd7e5c7db2e0a42e",
+    "matches": []
+  },
+  {
+    "path": "function_analysis/micro_pseudotime.R",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/function_analysis/micro_pseudotime.R",
+    "git_blob_sha1": "5ef1747890df8486509866a6da8f638e6abb7a5c",
+    "response_sha256": "689e45678f08d584c4386487edc23525aa7eda239296758edf7d752cd96e810b",
+    "matches": []
+  },
+  {
+    "path": "function_analysis/microglia_subtype.R",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/function_analysis/microglia_subtype.R",
+    "git_blob_sha1": "1036efbac1a36126076cf045a953adf0f2e69459",
+    "response_sha256": "e6741e87a010f424341be431476acd296225f582989c7b3ae4af8961d827bd9d",
+    "matches": [
+      "micro.seu <- readRDS('outputs/microglia/micro_seu.rds')"
+    ]
+  },
+  {
+    "path": "function_analysis/nonNeuron_DEG_heatmap.R",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/function_analysis/nonNeuron_DEG_heatmap.R",
+    "git_blob_sha1": "15206702b8a84ee3b0f3ebf7881ae64ab05596ea",
+    "response_sha256": "ae1aba55093d3203b04dd51e2f911fb56bf8679210de9664168faefb39d12480",
+    "matches": []
+  },
+  {
+    "path": "integration_and_clustering/NonNeuron_seurat.ipynb",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/integration_and_clustering/NonNeuron_seurat.ipynb",
+    "git_blob_sha1": "aeeba63a0423e3f33ab187a06c78a5dcd8b4418f",
+    "response_sha256": "d145e95b39d025a312154c3abf2a43ac2e8c8617f08e632c7f2b72df95d98ce1",
+    "matches": [
+      "nonNeu.seu <- readRDS('data/non_neuron_named.rds')"
+    ]
+  },
+  {
+    "path": "integration_and_clustering/cca_intergrate.R",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/integration_and_clustering/cca_intergrate.R",
+    "git_blob_sha1": "c87b0efb01276ce3a571ed663c9d5abb95d582bb",
+    "response_sha256": "f169f911d55132aa9ae0523e9979890bf61041c5b90541509968d780947d7ab2",
+    "matches": [
+      "seu.obj <- readRDS(seu.rds)"
+    ]
+  },
+  {
+    "path": "integration_and_clustering/nn_subtype_markers.R",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/integration_and_clustering/nn_subtype_markers.R",
+    "git_blob_sha1": "cad0eb25e401dd4ad502e4b92c1b97fe09496503",
+    "response_sha256": "9fd7072c9ba23505d63e1b98e13e4d190d2a106ca93bd0843bbb949aa0c73f6c",
+    "matches": [
+      "non.seu <- readRDS('data/non_neuron_named.rds')"
+    ]
+  },
+  {
+    "path": "integration_and_clustering/plot_circlize.R",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/integration_and_clustering/plot_circlize.R",
+    "git_blob_sha1": "4e94ac8a31eda93ad5d17b9f958a609ec79b1d41",
+    "response_sha256": "e7cf34af0ce96011c70533677d56e76abf8d032a205ae395c3bb4e7cad298a7b",
+    "matches": [
+      "AllCell.meta <- readRDS(\"data/all_umap0.01_meta.rds\")"
+    ]
+  },
+  {
+    "path": "integration_and_clustering/plot_umap.ipynb",
+    "url": "https://raw.githubusercontent.com/liulab-c114/MHD/3c39247bb43fe99d877d1ed0a9ea21486f41bbf2/integration_and_clustering/plot_umap.ipynb",
+    "git_blob_sha1": "232d039b7e9f76f1e54296a30744ecd71f5ff720",
+    "response_sha256": "7a6d18e3c9fe67a62b67007f71f78630ee1a0f9776e5de1ae07b1af1b9952424",
+    "matches": [
+      "adata = sc.read_h5ad(\"data/sub_allcell.h5ad\")"
+    ]
+  }
+]

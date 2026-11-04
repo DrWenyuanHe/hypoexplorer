@@ -1,0 +1,1 @@
+var HX_MOUSE_ARC_FASTING_GSE96627_META = {"populations":["arcuate"],"labels":{"arcuate":"Arcuate nucleus (laser capture)"},"types":{"arcuate":"Tissue"},"nGenes":{"arcuate":29865},"colors":{"arcuate":"#F4A261"},"qcFlags":{"arcuate":{"is3v3":false,"nNormal":5,"nObese":5,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

@@ -1,0 +1,1 @@
+var HX_ZEBRAFISH_HYPO_CYP19A1B_GSE299412_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":5007},"colors":{"hypothalamus":"#E15759"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":6,"nObese":5,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

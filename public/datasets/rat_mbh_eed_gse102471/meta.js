@@ -1,0 +1,1 @@
+var HX_RAT_MBH_EED_GSE102471_META = {"populations":["mbh"],"labels":{"mbh":"Mediobasal hypothalamus (MBH)"},"types":{"mbh":"Tissue"},"nGenes":{"mbh":13226},"colors":{"mbh":"#D35D8B"},"qcFlags":{"mbh":{"is3v3":false,"nNormal":4,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

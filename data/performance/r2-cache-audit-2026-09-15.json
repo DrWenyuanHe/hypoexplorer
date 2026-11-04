@@ -1,0 +1,360 @@
+{
+  "schemaVersion": 1,
+  "auditDate": "2026-09-15",
+  "origin": "https://data.hypoexplorer.com",
+  "requestVersion": "0.14.1",
+  "scope": "Bounded public HTTP observations and read-only cache-configuration attempts. No uploads, configuration changes, cache purges or stress tests.",
+  "observations": [
+    {
+      "path": "/datasets/macaque_snrna/meta.js?v=0.14.1",
+      "method": "GET",
+      "status": 200,
+      "elapsedMs": 943,
+      "encodedBodyBytes": 2296,
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable",
+        "cf-cache-status": "HIT",
+        "age": "89332",
+        "content-encoding": "br",
+        "content-length": "2296",
+        "etag": "\"2092e8753ae953239a9d0d55c4d1c802\"",
+        "x-hypoexplorer-gate": "enforce",
+        "access-control-allow-origin": "*",
+        "cf-ray": "a3b95612f9f0a22f-YYZ"
+      }
+    },
+    {
+      "path": "/datasets/macaque_snrna/meta.js?v=0.14.1",
+      "method": "GET",
+      "status": 200,
+      "elapsedMs": 65,
+      "encodedBodyBytes": 2296,
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable",
+        "cf-cache-status": "HIT",
+        "age": "89332",
+        "content-encoding": "br",
+        "content-length": "2296",
+        "etag": "\"2092e8753ae953239a9d0d55c4d1c802\"",
+        "x-hypoexplorer-gate": "enforce",
+        "cf-ray": "a3b956157ca6a22f-YYZ"
+      }
+    },
+    {
+      "path": "/datasets/macaque_snrna/meta.js?v=0.14.1",
+      "method": "GET",
+      "requestHeaders": {
+        "if-none-match": "\"2092e8753ae953239a9d0d55c4d1c802\""
+      },
+      "status": 304,
+      "elapsedMs": 34,
+      "encodedBodyBytes": 0,
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable",
+        "cf-cache-status": "HIT",
+        "age": "89332",
+        "etag": "\"2092e8753ae953239a9d0d55c4d1c802\"",
+        "x-hypoexplorer-gate": "enforce",
+        "cf-ray": "a3b95615cce0a22f-YYZ"
+      }
+    },
+    {
+      "path": "/datasets/macaque_snrna/track_Ast1.js?v=0.14.1",
+      "method": "HEAD",
+      "requestHeaders": {
+        "accept-encoding": "br"
+      },
+      "status": 200,
+      "elapsedMs": 213,
+      "encodedBodyBytes": 0,
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable",
+        "cf-cache-status": "MISS",
+        "content-encoding": "br",
+        "content-length": "444241",
+        "etag": "\"7e6aa5735aaa6a6b90c8ca2689da6e93\"",
+        "x-hypoexplorer-gate": "enforce",
+        "cf-ray": "a3b95615fd10a22f-YYZ"
+      }
+    },
+    {
+      "path": "/datasets/macaque_snrna/track_Ast1.js?v=0.14.1",
+      "method": "HEAD",
+      "requestHeaders": {
+        "accept-encoding": "gzip"
+      },
+      "status": 200,
+      "elapsedMs": 103,
+      "encodedBodyBytes": 0,
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable",
+        "cf-cache-status": "HIT",
+        "age": "0",
+        "content-encoding": "gzip",
+        "etag": "W/\"7e6aa5735aaa6a6b90c8ca2689da6e93\"",
+        "x-hypoexplorer-gate": "enforce",
+        "cf-ray": "a3b956177e88a22f-YYZ"
+      }
+    },
+    {
+      "path": "/datasets/macaque_snrna/track_Ast1.js?v=0.14.1",
+      "method": "HEAD",
+      "requestHeaders": {
+        "accept-encoding": "identity"
+      },
+      "status": 200,
+      "elapsedMs": 249,
+      "encodedBodyBytes": 0,
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable",
+        "cf-cache-status": "HIT",
+        "age": "0",
+        "etag": "W/\"7e6aa5735aaa6a6b90c8ca2689da6e93\"",
+        "x-hypoexplorer-gate": "enforce",
+        "cf-ray": "a3b956181badb634-YYZ"
+      }
+    },
+    {
+      "path": "/query/tracks.js?v=0.14.1",
+      "method": "HEAD",
+      "status": 200,
+      "elapsedMs": 222,
+      "encodedBodyBytes": 0,
+      "headers": {
+        "cache-control": "public, max-age=14400",
+        "cf-cache-status": "REVALIDATED",
+        "content-encoding": "br",
+        "content-length": "15587",
+        "etag": "\"e240557332b38fc14cf0802ae2fdfef1\"",
+        "x-hypoexplorer-gate": "enforce",
+        "cf-ray": "a3b9561a3beecbfd-YYZ"
+      }
+    },
+    {
+      "path": "/query/tracks.js?v=0.14.1",
+      "method": "HEAD",
+      "status": 200,
+      "elapsedMs": 102,
+      "encodedBodyBytes": 0,
+      "headers": {
+        "cache-control": "public, max-age=14400",
+        "cf-cache-status": "HIT",
+        "age": "0",
+        "content-encoding": "br",
+        "content-length": "15587",
+        "etag": "\"e240557332b38fc14cf0802ae2fdfef1\"",
+        "x-hypoexplorer-gate": "enforce",
+        "cf-ray": "a3b9561b3808cbfd-YYZ"
+      }
+    }
+  ],
+  "pointerPolicyCheck": {
+    "command": "node --import tsx scripts/verify_gate.mts --pointer-only",
+    "requestMethod": "HEAD",
+    "requestCountPerRun": 1,
+    "requestTimeoutMs": 15000,
+    "totalRuns": 3,
+    "finalExitCode": 1,
+    "finalShutdownClean": true,
+    "httpStatus": 200,
+    "cacheControl": "public, max-age=14400",
+    "expectedMaxAgeSeconds": 300,
+    "result": "failed: published browser TTL exceeds the uploader's five-minute policy",
+    "developmentNote": "The first two runs exposed an abrupt process.exit shutdown assertion on Windows. The verifier now returns through async main and sets process.exitCode; the final run reports only the expected policy failure."
+  },
+  "configurationChecks": {
+    "authorization": "The user explicitly approved using existing local credentials for read-only Cloudflare settings queries. No credentials or authentication headers are retained here.",
+    "settingsConfirmed": false,
+    "attempts": [
+      {
+        "credentialKind": "saved-wrangler-oauth",
+        "endpoint": "browser_cache_ttl",
+        "httpStatus": 401,
+        "errorCodes": [
+          10000
+        ]
+      },
+      {
+        "credentialKind": "saved-wrangler-oauth",
+        "endpoint": "http_request_cache_settings entrypoint",
+        "httpStatus": 401,
+        "errorCodes": [
+          10000
+        ]
+      },
+      {
+        "credentialKind": "saved-wrangler-oauth",
+        "endpoint": "active page rules",
+        "httpStatus": 403,
+        "errorCodes": [
+          9109
+        ]
+      },
+      {
+        "credentialKind": "saved-wrangler-oauth",
+        "endpoint": "tiered_cache_smart_topology_enable",
+        "httpStatus": 401,
+        "errorCodes": [
+          10000
+        ]
+      },
+      {
+        "credentialKind": "configured-api-token",
+        "endpoint": "browser_cache_ttl",
+        "httpStatus": 403,
+        "errorCodes": [
+          10000
+        ]
+      },
+      {
+        "credentialKind": "configured-api-token",
+        "endpoint": "http_request_cache_settings entrypoint",
+        "httpStatus": 403,
+        "errorCodes": [
+          10000
+        ]
+      },
+      {
+        "credentialKind": "configured-api-token",
+        "endpoint": "active page rules",
+        "httpStatus": 403,
+        "errorCodes": [
+          9109
+        ]
+      },
+      {
+        "credentialKind": "configured-api-token",
+        "endpoint": "tiered_cache_smart_topology_enable",
+        "httpStatus": 403,
+        "errorCodes": [
+          10000
+        ]
+      }
+    ],
+    "conclusion": "Cloudflare denied all configuration reads. A Browser Cache TTL override is consistent with the public four-hour header and official documentation but is not confirmed; Smart Tiered Cache status is also unverified. No further credential attempts were made."
+  },
+  "limitations": [
+    "These HTTP samples are observations from one client and Cloudflare location, not a site-wide performance benchmark.",
+    "Elapsed HTTP times include client connection setup, transport, Worker and cache/origin handling. They are not pure network RTT or browser page-load measurements.",
+    "HEAD returns no body to this client but a cold cacheable HEAD can fetch the complete object from the R2 origin.",
+    "CDN HIT and REVALIDATED describe cache responses; these probes cannot determine account-wide R2 read counts, budget reservations, billing or Smart Tiered Cache configuration.",
+    "Public Cache-Control does not reveal an independently configured Edge Cache TTL."
+  ],
+  "sources": [
+    "https://developers.cloudflare.com/cache/how-to/edge-browser-cache-ttl/",
+    "https://developers.cloudflare.com/cache/interaction-cloudflare-products/r2/",
+    "https://developers.cloudflare.com/cache/concepts/cache-behavior/",
+    "https://developers.cloudflare.com/cache/concepts/cache-responses/",
+    "https://developers.cloudflare.com/r2/pricing/"
+  ],
+  "keepAliveSample": {
+    "capturedAt": "2026-09-15T17:39:19.924Z",
+    "requestCount": 2,
+    "protocol": "Node HTTPS using an explicit HTTP/1.1 keep-alive agent with one socket",
+    "interpretation": "firstByteMs is request-to-first-response-byte time, not pure network RTT. totalMs includes reading the compressed body; neither is full browser page-load speed.",
+    "samples": [
+      {
+        "path": "/datasets/macaque_snrna/meta.js?v=0.14.1",
+        "method": "GET",
+        "httpVersion": "1.1",
+        "status": 200,
+        "reusedSocket": false,
+        "encodedBodyBytes": 2296,
+        "totalMs": 622.7,
+        "phaseMsFromRequestStart": {
+          "dnsCompleteMs": 29.8,
+          "tcpConnectedMs": 166.1,
+          "tlsConnectedMs": 297.6,
+          "firstByteMs": 621.1
+        },
+        "headers": {
+          "content-length": "2296",
+          "cf-ray": "a3b968feacab398a-YYZ",
+          "cf-cache-status": "HIT",
+          "age": "90107",
+          "cache-control": "public, max-age=31536000, immutable",
+          "content-encoding": "br",
+          "etag": "\"2092e8753ae953239a9d0d55c4d1c802\"",
+          "x-hypoexplorer-gate": "enforce"
+        }
+      },
+      {
+        "path": "/datasets/macaque_snrna/meta.js?v=0.14.1",
+        "method": "GET",
+        "httpVersion": "1.1",
+        "status": 200,
+        "reusedSocket": true,
+        "encodedBodyBytes": 2296,
+        "totalMs": 72.8,
+        "phaseMsFromRequestStart": {
+          "firstByteMs": 72.3
+        },
+        "headers": {
+          "content-length": "2296",
+          "cf-ray": "a3b969006e6b398a-YYZ",
+          "cf-cache-status": "HIT",
+          "age": "90107",
+          "cache-control": "public, max-age=31536000, immutable",
+          "content-encoding": "br",
+          "etag": "\"2092e8753ae953239a9d0d55c4d1c802\"",
+          "x-hypoexplorer-gate": "enforce"
+        }
+      }
+    ]
+  },
+  "publicProbeRequestCount": 13,
+  "publicResponseBodyBytes": 9184,
+  "localVerifierFixtures": {
+    "transport": "local HTTP fixture server only",
+    "cases": [
+      {
+        "name": "short",
+        "cacheControl": "public, max-age=300",
+        "expectedExit": 0,
+        "actualExit": 0,
+        "requestCount": 1,
+        "passed": true
+      },
+      {
+        "name": "quoted",
+        "cacheControl": "public, max-age=\"300\"",
+        "expectedExit": 0,
+        "actualExit": 0,
+        "requestCount": 1,
+        "passed": true
+      },
+      {
+        "name": "too-long",
+        "cacheControl": "public, max-age=14400",
+        "expectedExit": 1,
+        "actualExit": 1,
+        "requestCount": 1,
+        "passed": true
+      },
+      {
+        "name": "missing",
+        "cacheControl": null,
+        "expectedExit": 1,
+        "actualExit": 1,
+        "requestCount": 1,
+        "passed": true
+      },
+      {
+        "name": "immutable",
+        "cacheControl": "public, max-age=300, immutable",
+        "expectedExit": 1,
+        "actualExit": 1,
+        "requestCount": 1,
+        "passed": true
+      },
+      {
+        "name": "duplicate",
+        "cacheControl": "public, max-age=300, max-age=14400",
+        "expectedExit": 1,
+        "actualExit": 1,
+        "requestCount": 1,
+        "passed": true
+      }
+    ]
+  }
+}

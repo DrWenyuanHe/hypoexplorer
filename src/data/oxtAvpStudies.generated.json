@@ -1,0 +1,47 @@
+[
+  {
+    "id": "rat_son_salt_gse65663",
+    "name": "Rat supraoptic nucleus - salt loading",
+    "organism": "Rattus norvegicus",
+    "category": "Stress, immune & disease",
+    "region": "Supraoptic nucleus",
+    "preparation": "Bulk tissue",
+    "perturbation": "Environment & stress",
+    "modality": "microarray",
+    "featureType": "gene",
+    "featureLabel": "Gene",
+    "supportsPathways": true,
+    "isDefault": false,
+    "defaultTrack": "son",
+    "trackNoun": "track",
+    "trackCategoryOrder": [
+      "Tissue"
+    ],
+    "expressionUnit": "log2 RMA (GeneSpring median-baselined)",
+    "citation": "Male Sprague-Dawley rat supraoptic nucleus after seven days of 2% (w/v) saline instead of normal drinking water. Five independent RNA pools per arm; GEO explicitly reports five rats per pool, and individual pool members are not identified. Each array is one measured pool, so the modeled and displayed sample size is five per arm. The deposited GeneSpring GX12 RMA values are already median-baselined on the RMA log2 scale and are retained unchanged; zero or negative values are valid relative expression, not raw counts or absolute transcript abundance. All 31,099 source probes remain in the prepared matrix. Missing or ambiguous annotations are unlabelled fit rows, and unambiguous same-symbol probes are averaged by the shared limma producer before testing. This is a bulk SON study relevant to OXT/AVP physiology, without purified OXT or AVP neurons. Water-deprivation arrays from GSE3110 are not included: the paper treats them as a separate experiment because their amplification protocols differ. Standardized limma inference is independent of the authors' GeneSpring Welch tests; author-result concordance has not been established.",
+    "geo": "GSE65663",
+    "doi": "10.1152/ajpregu.00444.2014",
+    "pmid": "25632023",
+    "groups": [
+      {
+        "key": "control",
+        "label": "Euhydrated",
+        "color": "#3775BA"
+      },
+      {
+        "key": "salt",
+        "label": "7-day salt loading",
+        "color": "#B64342"
+      }
+    ],
+    "contrasts": [
+      {
+        "id": "salt_vs_control",
+        "label": "7-day salt loading vs euhydrated",
+        "baseline": "control",
+        "case": "salt",
+        "isDefault": true
+      }
+    ]
+  }
+]

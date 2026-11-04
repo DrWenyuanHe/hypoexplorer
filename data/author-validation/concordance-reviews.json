@@ -1,0 +1,309 @@
+{
+  "schemaVersion": 1,
+  "reviews": [
+    {
+      "datasetId": "chicken_hypo_development_gse104255",
+      "contrastId": "six_week_vs_three_week",
+      "reviewedAt": "2026-09-05",
+      "dimension": "effects",
+      "status": "compatible",
+      "evidenceFingerprint": "cb7317fc193d12d6d7f7f2385a234623c8f3f03947eebdc182c99ef07c2873e2",
+      "localMethod": "edgeR quasi-likelihood",
+      "authorMethod": "DESeq2",
+      "orientation": "Both positive for 6-week minus 3-week hypothalamus.",
+      "priorReview": {
+        "status": "limited",
+        "note": "Pearson 0.902588; four shared author-significant directions reverse."
+      },
+      "note": "The registered edgeR-QL logFC and deposited DESeq2 log2FoldChange both estimate log2 fold change for six-week minus three-week hypothalamus. The comparison adapter uses these columns directly with the recorded identifier map. Their effect definitions are compatible. The prior review concerns imperfect numerical agreement, which the concordance policy evaluates separately through paired-gene correlations, signs and magnitudes. This review does not equate the models' P values or FDR calls.",
+      "sources": [
+        {
+          "path": "geo_replication/datasets/GSE104255_ggal_hypothalamus/raw/GSE104255_res.pod.csv.gz",
+          "sha256": "fa67eecaaae432aeecb4135520f3a369fb4bb2dabfaab3d180889d815765ac71"
+        },
+        {
+          "path": "geo_replication/datasets/GSE104255_ggal_hypothalamus/processed/GSE104255_DE.tsv",
+          "sha256": "21cede79a4069e205f36832bf32e02215dd4aa0afc7fc98ac8b81b3bb366a217"
+        }
+      ]
+    },
+    {
+      "datasetId": "mouse_arc_corticosterone_gse128148",
+      "contrastId": "corticosterone_4week_vs_vehicle",
+      "reviewedAt": "2026-09-05",
+      "dimension": "effects",
+      "status": "compatible",
+      "evidenceFingerprint": "7b681aff8d06a1a4f13cd34ffd9d79dd473fb8b0bd41c66fc80cd9b694341b7f",
+      "localMethod": "edgeR-QL",
+      "authorMethod": "DESeq2; historical version/prior/filter unspecified",
+      "orientation": "Both positive for corticosterone minus vehicle; exact Ensembl IDs.",
+      "priorReview": {
+        "status": "limited",
+        "note": "Registered Pearson 0.899632; all 42 retained author-significant directions agree."
+      },
+      "note": "The original log2FoldChange column and registered edgeR logFC both describe corticosterone minus vehicle on the log2 expression scale for the same seven ARC libraries. The unknown historical DESeq2 prior can change magnitude, but does not leave the effect unit or biological orientation unknown. The prior numerical limitation belongs in the measured correlation, direction and magnitude checks. Missing P/FDR and the Npy figure-label discrepancy remain in the author-reproduction record.",
+      "sources": [
+        {
+          "path": "geo_replication/datasets/GSE128148_mmus_arc_corticosterone/metadata/GSE128148_2019_Wray_4week_normalised_outliers_excluded.txt.gz",
+          "sha256": "4cab6f64c93427b71fee49a00c821c01fbb1019dcf9d075018fec6fcecb9cfab"
+        },
+        {
+          "path": "geo_replication/datasets/GSE128148_mmus_arc_corticosterone/processed/GSE128148_DE.tsv",
+          "sha256": "7c1f4caa10308075fce758281b9b1fdd5c8bc95d3d9571ee17c86f2f204f96dc"
+        }
+      ]
+    },
+    {
+      "datasetId": "mouse_agrp_fedfast_gse124693",
+      "contrastId": "fast24h_vs_fed",
+      "reviewedAt": "2026-09-05",
+      "dimension": "effects",
+      "status": "compatible",
+      "evidenceFingerprint": "67682d97796edf67c0799834450b970de7f2d65e9cbdb936455e097a9f2158ec",
+      "localMethod": "limma on log2(DESeq2-normalized count + 1)",
+      "authorMethod": "DESeq2 (author-significant genes only)",
+      "orientation": "Both positive for ZT14 fasted minus ad-libitum-fed AgRP RiboTag RNA.",
+      "priorReview": {
+        "status": "limited",
+        "note": "Pearson 0.950889; five opposite local estimates are near-zero and nonsignificant."
+      },
+      "note": "Table S2D explicitly labels fasted versus ad-libitum-fed AgRP RiboTag at ZT14 and supplies Log2 Fold Change. The registered limma coefficient is the same oriented difference on log2(DESeq2-normalized count + 1). These estimators support comparison of biological expression direction and relative effects, while pseudocounts and the count model can change magnitudes. Acceptance applies to the complete 1,950-gene selected author list. The five reversals, unavailable raw-count inference and unresolved independence of pools remain documented; an author effect badge does not certify internal replication.",
+      "sources": [
+        {
+          "path": "geo_replication/datasets/_author_de/GSE124693_NIHMS1022948_TableS2.xlsx",
+          "sha256": "b26852f8f2ed4a3feecce01c351c3bb83443a519a2634bc932704cc7c3bf403d"
+        },
+        {
+          "path": "geo_replication/datasets/GSE124693_mmus_agrp_ribotag_fasting/processed/GSE124693_DE.tsv",
+          "sha256": "bd9cabb241bace20eeb86a85862a492dda88dc9f3ee93e57a68e4a7c269f5ebc"
+        }
+      ]
+    },
+    {
+      "datasetId": "mouse_arc_hfd_gse284408",
+      "contrastId": "hfd_vs_ncd",
+      "reviewedAt": "2026-09-05",
+      "dimension": "effects",
+      "status": "compatible",
+      "evidenceFingerprint": "bb94e033d6ca9338b542feeaa107045c696114a3225d2b7259a214cdf869ae90",
+      "localMethod": "edgeR-QL",
+      "authorMethod": "Author FPKM group-mean log2 ratios with DESeq2 P/FDR",
+      "orientation": "HFD minus NCD; effect definition differs from fitted edgeR coefficients.",
+      "priorReview": {
+        "status": "limited",
+        "note": "Author effects equal log2 ratios of FPKM group means to 5.2e-14, not fitted DESeq2 coefficients. Registered effect Pearson is 0.9273, median absolute delta 0.0270, maximum 2.0101. All shared author FDR-significant directions agree, but effect definitions differ."
+      },
+      "note": "The original table explicitly identifies NCD-Arc_mean, HFD-Arc_mean and log2(fc). The reviewed complete source calculation establishes log2(HFD/NCD arithmetic FPKM means); the registered edgeR coefficient describes HFD minus NCD log2 expression for the same six libraries. Both have known units and biological orientation and are comparable for this pipeline-quality criterion. Their estimators are algebraically different, so this does not assert identical effects. Published DEG-list inconsistencies and model-dependent P/FDR remain explicit contextual findings.",
+      "sources": [
+        {
+          "path": "geo_replication/datasets/GSE284408_mmus_arc_hfd/processed/GSE284408_DE.tsv",
+          "sha256": "e7ed5624382f88d3ca22d2d8aaf0a654dc66ab4dec3e985d080a45af1a412dd3"
+        },
+        {
+          "path": "data/author-validation/continued-sources/advancement-sources-a-2026-09-05/GSE284408/author-effects.tsv",
+          "sha256": "eee94325dd30c8df02d176c10493491152f6a29d0ec630405c66d8da8941ca0a"
+        },
+        {
+          "path": "data/author-validation/continued-sources/five-dataset-followup-2026-09-04/GSE284408/GSE284408_author_table.txt.gz",
+          "sha256": "dbb72325fc435ae45943688ee6342b2e8395b13c084918ca907faf8fef4e0ef1"
+        },
+        {
+          "path": "data/author-validation/continued-sources/advancement-sources-a-2026-09-05/prepare_comparisons.py",
+          "sha256": "f189e0a58e1c13907e1d81806f4243f6ed1d00dd2ec5a78b6f336c7ab3b9fef0"
+        },
+        {
+          "path": "data/author-validation/continued-sources/advancement-sources-a-2026-09-05/review-baseline.json",
+          "sha256": "8f63c37dafb8be2bf3b07d67013af0792d96545f842c929ef6799f5779a4a8ad"
+        }
+      ]
+    },
+    {
+      "datasetId": "rat_fetal_hypo_ozone_gse156859",
+      "contrastId": "female_fetal_ozone_vs_air",
+      "reviewedAt": "2026-09-05",
+      "dimension": "effects",
+      "status": "compatible",
+      "evidenceFingerprint": "925d628767f5c6bd976f05b8944e826b1f10e186519ca841e19388e9a5f8d834",
+      "localMethod": "limma mean-log effect",
+      "authorMethod": "Partek; signed arithmetic-mean ratios converted to log2",
+      "orientation": "Female fetal hypothalamus: ozone minus air; sign(author ratio) times log2(abs(author ratio)).",
+      "priorReview": {
+        "status": "different",
+        "note": "Author arithmetic ratios and registered mean-log differences are algebraically distinct; all 168 signs agree."
+      },
+      "note": "Original female Table S5 reports ozone/air arithmetic-mean ratios with signed downregulation. The pinned extractor converts them to signed log2 ratios; the registered limma result is ozone minus air mean-log expression for the same female fetal comparison. Biological direction and log2 units are established independently of agreement. Arithmetic-mean ratios and mean-log effects are distinct estimators, with measured magnitude differences retained. Acceptance is restricted to the complete 168-gene selected reference and does not certify author P/FDR or the full tested universe.",
+      "sources": [
+        {
+          "path": "geo_replication/datasets/GSE156859_rnor_fetal_hypothalamus_ozone/processed/GSE156859_DE.tsv",
+          "sha256": "f898df620ecf3e06b2a83a2bea7a82e978eb5d5adb021aba50f988cd765675c8"
+        },
+        {
+          "path": "data/author-validation/continued-sources/round2-2026-09-05/GSE156859/author-effects.tsv",
+          "sha256": "51d4121415331a40476adb6c17a9c2b39f6cf3ba11696cb75c52e3f9207f6d12"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE156859/mmc1.docx",
+          "sha256": "35ee817e58fd3dd03f7e2816a74f0b787fb6c3ec0316feac6b3d937b8f546c52"
+        },
+        {
+          "path": "scripts/prepare_author_round2.py",
+          "sha256": "254f00fc3a2850ff86c15cf8b24461485d079e0113df05207430f86c542a0a32"
+        }
+      ]
+    },
+    {
+      "datasetId": "cattle_arc_nutrition_gse153498",
+      "contrastId": "high_vs_moderate_plane_nutrition",
+      "reviewedAt": "2026-09-05",
+      "dimension": "effects",
+      "status": "compatible",
+      "evidenceFingerprint": "3b47c6578aa86668cfe63d81a25eeb3f613f2e3adc3de290ce2b7d95d8898a5e",
+      "localMethod": "limma",
+      "authorMethod": "edgeR exact test; signed-linear FC converted to log2",
+      "orientation": "Author and registered directions aligned as documented in the previous source review.",
+      "priorReview": {
+        "status": "different",
+        "note": "Registered r=0.853854, 79/80 signs. AVP reversal follows estimator choice; arithmetic ratios retain up to 0.183519 log2 residual."
+      },
+      "note": "Supplemental Table S2 reports signed fold changes for high versus moderate nutrition in ARC; the pinned original-table adapter converts them to signed log2 effects. The registered limma mean-log coefficient has the same biological orientation and log2 expression scale for the documented 29 subjects. These are comparable directional measurements under the requested pipeline-quality policy, not equal estimators. The AVP reversal, remaining normalization residual, scale difference, zero local discoveries and conflicting author q thresholds remain visible. Acceptance covers the complete 80-gene selected reference only.",
+      "sources": [
+        {
+          "path": "geo_replication/datasets/GSE153498_btau_arcuate_nutrition/processed/GSE153498_DE.tsv",
+          "sha256": "3939f60a59cb3cd3ba549df99b947fdc972b53c9dd610215160fa1eeeef5360a"
+        },
+        {
+          "path": "data/author-validation/continued-sources/advancement-sources-a-2026-09-05/GSE153498/author-effects.tsv",
+          "sha256": "267521a47e2f5757df900a5e602673a7c5a020193a72452a8c657667297eb6f4"
+        },
+        {
+          "path": "data/author-validation/continued-sources/final-numerical-batch-b/GSE153495_GSE153498/41598_2021_93080_MOESM1_ESM.xlsx",
+          "sha256": "e0ef401f0f02f77f2dad6c9a67036f34e1f6d001169e5e571ce4ee43accf29fc"
+        },
+        {
+          "path": "data/author-validation/continued-sources/final-numerical-batch-b/compare_batch_b.py",
+          "sha256": "eae341ed3365876fd735179ae14574b2ce09492fb4a265424ed131386c21c32d"
+        },
+        {
+          "path": "geo_replication/datasets/GSE153498_btau_arcuate_nutrition/metadata/GSE153498_identifier_mapping.tsv.gz",
+          "sha256": "cf4b815f327dc285f1f8e028cc8b63a6db69a0d2dfe6b410acedd0e6272db8d3"
+        },
+        {
+          "path": "data/author-validation/continued-sources/advancement-sources-a-2026-09-05/prepare_comparisons.py",
+          "sha256": "f189e0a58e1c13907e1d81806f4243f6ed1d00dd2ec5a78b6f336c7ab3b9fef0"
+        },
+        {
+          "path": "data/author-validation/continued-sources/advancement-sources-a-2026-09-05/review-baseline.json",
+          "sha256": "8f63c37dafb8be2bf3b07d67013af0792d96545f842c929ef6799f5779a4a8ad"
+        }
+      ]
+    },
+    {
+      "datasetId": "mouse_hypo_thrb_k146q_gse167105",
+      "contrastId": "thrb_k146q_vs_wild_type",
+      "reviewedAt": "2026-09-05",
+      "dimension": "cohort",
+      "status": "compatible",
+      "evidenceFingerprint": "f2b22a2b2ae68b851baed2247ed40922863834e43b6091ad62f005fd71618d77",
+      "localMethod": "limma on log2(author-normalized expression + 1)",
+      "authorMethod": "edgeR on unavailable raw counts",
+      "orientation": "Both positive for K146Q mutant minus WT.",
+      "priorReview": {
+        "status": "limited",
+        "note": "Matching genotype groups; raw counts needed for original count-model reconstruction are absent."
+      },
+      "note": "The original paper specifies three terminal mice per genotype at three months. All six hypothalamus expression columns embedded in the author result table join the six registered libraries through full GEO title, genotype and BioSample fields. There are no additional author expression columns or registered exclusions. The complete 24,054-row log2(expression + 1) transformation was checked across all six samples. Thus the cohorts are compatible; absent raw counts limit exact model reproduction, not sample identity. GEO TMM/RPKM terminology and missing count-model inference remain explicit limitations.",
+      "sources": [
+        {
+          "path": "data/author-validation/continued-sources/round4-2026-09-05/GSE167105/PMC8410017.xml",
+          "sha256": "e24a1a26ba9ae81805154ead30048c9f9dd7060d6f9b7808339594ce56f591dc"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/metadata/GSE167105_family.soft.gz",
+          "sha256": "7c3d0a6ee2fc883b76f0ed75b96bcee093bd89a53f0c813cc3e04b5cfb84def0"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/metadata/GSE167105_samplesheet.tsv",
+          "sha256": "ccade452a71c2f01335791a1642add2b9d6712aed9c2b7365044678c14bfcdf8"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/raw/GSE167105_Hypothalamus_3Hb_vs_3WT_all.txt.gz",
+          "sha256": "3949eccb0cfe94573bb20395a0e3d4525611b1c4bc4ad5284f6ffa49f9297198"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/processed/GSE167105_analysis_matrix.tsv.gz",
+          "sha256": "9bcfea5e5023efa36d8d3362d3d88333018f32c5585ce4547008409db8892de9"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/processed/GSE167105_DE.tsv",
+          "sha256": "89cd9930bede08a8de02202612dea8508e039ccef7b3cbbfb8f80349aabce343"
+        },
+        {
+          "path": "scripts/prep_supported_matrix_batch1.R",
+          "sha256": "967ab173440578b197187f48bfc416572f4c8555e672d5261772c7f19c3dfcb0"
+        },
+        {
+          "path": "scripts/audit_author_cohort_round4.py",
+          "sha256": "deb039b587feabca4cb9bc8e05feba28646c0ef7955d2acfde3215842e2c8fdc"
+        },
+        {
+          "path": "data/author-validation/continued-sources/round4-2026-09-05/GSE167105/cohort-audit.json",
+          "sha256": "57ef6c220625167a33c50734b9a68c03873c9478d709784b7fa8ed46a194297d"
+        }
+      ]
+    },
+    {
+      "datasetId": "mouse_hypo_thrb_k146q_gse167105",
+      "contrastId": "thrb_k146q_vs_wild_type",
+      "reviewedAt": "2026-09-05",
+      "dimension": "effects",
+      "status": "compatible",
+      "evidenceFingerprint": "f2b22a2b2ae68b851baed2247ed40922863834e43b6091ad62f005fd71618d77",
+      "localMethod": "limma on log2(author-normalized expression + 1)",
+      "authorMethod": "edgeR on unavailable raw counts",
+      "orientation": "Both positive for K146Q mutant minus WT.",
+      "priorReview": {
+        "status": "limited",
+        "note": "All-gene Pearson 0.445671, Spearman 0.926561; high-expression agreement is stronger."
+      },
+      "note": "The original logFC column and registered limma coefficient have the recorded K146Q-minus-WT orientation on a log2 expression scale. The same study labels its pituitary transcriptome logFC effects as log2 fold changes; this supports the unit interpretation but is not a recovered hypothalamus-specific model specification. The legacy edgeR classification is inferred from the deposited table, since the primary methods do not explicitly name edgeR. The registered log2(normalized expression + 1) transform compresses low-expression effects, so magnitudes and count-model inference can differ. These limitations remain contextual alongside the unchanged all-gene correlation and magnitude checks. The policy uses the complete 19,771 paired gene directions, with 98.3% same-gene direction agreement; no high-expression subset substitutes for the full comparison. All six author FDR hits have matching signs but none is significant locally, which is not an inferential replication pass. Two duplicated date-like source labels retain the exact last-occurrence rows selected by the local __dup1 IDs; this row binding is audited without inventing new gene identities.",
+      "sources": [
+        {
+          "path": "data/author-validation/continued-sources/round4-2026-09-05/GSE167105/PMC8410017.xml",
+          "sha256": "e24a1a26ba9ae81805154ead30048c9f9dd7060d6f9b7808339594ce56f591dc"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/metadata/GSE167105_family.soft.gz",
+          "sha256": "7c3d0a6ee2fc883b76f0ed75b96bcee093bd89a53f0c813cc3e04b5cfb84def0"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/metadata/GSE167105_samplesheet.tsv",
+          "sha256": "ccade452a71c2f01335791a1642add2b9d6712aed9c2b7365044678c14bfcdf8"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/raw/GSE167105_Hypothalamus_3Hb_vs_3WT_all.txt.gz",
+          "sha256": "3949eccb0cfe94573bb20395a0e3d4525611b1c4bc4ad5284f6ffa49f9297198"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/processed/GSE167105_analysis_matrix.tsv.gz",
+          "sha256": "9bcfea5e5023efa36d8d3362d3d88333018f32c5585ce4547008409db8892de9"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/processed/GSE167105_DE.tsv",
+          "sha256": "89cd9930bede08a8de02202612dea8508e039ccef7b3cbbfb8f80349aabce343"
+        },
+        {
+          "path": "scripts/prep_supported_matrix_batch1.R",
+          "sha256": "967ab173440578b197187f48bfc416572f4c8555e672d5261772c7f19c3dfcb0"
+        },
+        {
+          "path": "scripts/audit_author_cohort_round4.py",
+          "sha256": "deb039b587feabca4cb9bc8e05feba28646c0ef7955d2acfde3215842e2c8fdc"
+        },
+        {
+          "path": "data/author-validation/continued-sources/round4-2026-09-05/GSE167105/cohort-audit.json",
+          "sha256": "57ef6c220625167a33c50734b9a68c03873c9478d709784b7fa8ed46a194297d"
+        }
+      ]
+    }
+  ]
+}

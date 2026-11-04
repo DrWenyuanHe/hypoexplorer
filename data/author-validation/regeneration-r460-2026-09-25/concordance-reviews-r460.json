@@ -1,0 +1,375 @@
+{
+  "schemaVersion": 1,
+  "supersedesLedger": "data/author-validation/concordance-reviews.json",
+  "reason": "R 4.6.0 regeneration 2026-09-25",
+  "reviews": [
+    {
+      "datasetId": "chicken_hypo_development_gse104255",
+      "contrastId": "six_week_vs_three_week",
+      "reviewedAt": "2026-09-26",
+      "dimension": "effects",
+      "status": "compatible",
+      "evidenceFingerprint": "c71cd2dfaf39e5472d8f08c271120644592f4758b3a596c22aa73c4129fbfb8d",
+      "localMethod": "edgeR quasi-likelihood",
+      "authorMethod": "DESeq2",
+      "orientation": "Both positive for 6-week minus 3-week hypothalamus.",
+      "priorReview": {
+        "status": "limited",
+        "note": "Pearson 0.902588; four shared author-significant directions reverse."
+      },
+      "reason": "R 4.6.0 regeneration 2026-09-25",
+      "supersedes": {
+        "reviewedAt": "2026-09-05",
+        "evidenceFingerprint": "cb7317fc193d12d6d7f7f2385a234623c8f3f03947eebdc182c99ef07c2873e2"
+      },
+      "note": "Re-review on the final R 4.6.0 output. The registered edgeR-QL logFC and the deposited DESeq2 log2FoldChange still both estimate log2 fold change for six-week minus three-week hypothalamus, through the same recorded identifier map, so the effect definitions remain compatible. The regeneration no longer publishes the 5,052 features without a gene symbol, so 9,860 genes pair instead of 14,350 (local coverage 1.0, author coverage 0.686). Pearson is 0.906168 (was 0.902588), Spearman 0.930075, sign concordance 0.911354; two shared author-significant directions reverse (was four). The prior numerical concern is unchanged in kind and is evaluated separately by the concordance policy. This review does not equate the models' P values or FDR calls.",
+      "sources": [
+        {
+          "path": "geo_replication/datasets/GSE104255_ggal_hypothalamus/raw/GSE104255_res.pod.csv.gz",
+          "sha256": "fa67eecaaae432aeecb4135520f3a369fb4bb2dabfaab3d180889d815765ac71"
+        },
+        {
+          "path": "geo_replication/datasets/GSE104255_ggal_hypothalamus/processed/GSE104255_DE.tsv",
+          "sha256": "99c9667283f22ae862f909eb183c3e676edcc67e71512ffc9a8154041f077838"
+        }
+      ]
+    },
+    {
+      "datasetId": "mouse_arc_corticosterone_gse128148",
+      "contrastId": "corticosterone_4week_vs_vehicle",
+      "reviewedAt": "2026-09-26",
+      "dimension": "effects",
+      "status": "compatible",
+      "evidenceFingerprint": "e62867deef681d19322d188dd187ad302ad3c26bbe33c97871e56699318c661d",
+      "localMethod": "edgeR-QL",
+      "authorMethod": "DESeq2; historical version/prior/filter unspecified",
+      "orientation": "Both positive for corticosterone minus vehicle; exact Ensembl IDs.",
+      "priorReview": {
+        "status": "limited",
+        "note": "Registered Pearson 0.899632; all 42 retained author-significant directions agree."
+      },
+      "reason": "R 4.6.0 regeneration 2026-09-25",
+      "supersedes": {
+        "reviewedAt": "2026-09-05",
+        "evidenceFingerprint": "7b681aff8d06a1a4f13cd34ffd9d79dd473fb8b0bd41c66fc80cd9b694341b7f"
+      },
+      "note": "Re-review on the final R 4.6.0 output. Registered edgeR-QL logFC and deposited DESeq2 log2FoldChange both estimate log2 fold change for four-week corticosterone minus vehicle on exact Ensembl IDs, now joined through the output's feature map; the effect definitions remain compatible. 11,173 of 11,182 registered genes pair (nine symbols summed over several features have no per-feature author row). Pearson is 0.899578 (was 0.899632), Spearman 0.965779; 42 of 43 author FDR<0.1 calls are locally tested and all 42 directions agree, as before. The magnitude difference (effect scale 2.13) remains a numerical limitation the policy reports separately.",
+      "sources": [
+        {
+          "path": "geo_replication/datasets/GSE128148_mmus_arc_corticosterone/metadata/GSE128148_2019_Wray_4week_normalised_outliers_excluded.txt.gz",
+          "sha256": "4cab6f64c93427b71fee49a00c821c01fbb1019dcf9d075018fec6fcecb9cfab"
+        },
+        {
+          "path": "geo_replication/datasets/GSE128148_mmus_arc_corticosterone/processed/GSE128148_DE.tsv",
+          "sha256": "21329d7bbcb5ddef4cced23b44d8af57666b8a326b95210249f3d5e39ae4b94c"
+        }
+      ]
+    },
+    {
+      "datasetId": "mouse_arc_hfd_gse284408",
+      "contrastId": "hfd_vs_ncd",
+      "reviewedAt": "2026-09-26",
+      "dimension": "effects",
+      "status": "compatible",
+      "evidenceFingerprint": "d41579e277497e3f8c86a3151ae2ab7fb4b3de313416df9e3a9887ef8da036fe",
+      "localMethod": "edgeR-QL",
+      "authorMethod": "Author FPKM group-mean log2 ratios with DESeq2 P/FDR",
+      "orientation": "HFD minus NCD; effect definition differs from fitted edgeR coefficients.",
+      "priorReview": {
+        "status": "limited",
+        "note": "Author effects equal log2 ratios of FPKM group means to 5.2e-14, not fitted DESeq2 coefficients. Registered effect Pearson is 0.9273, median absolute delta 0.0270, maximum 2.0101. All shared author FDR-significant directions agree, but effect definitions differ."
+      },
+      "reason": "R 4.6.0 regeneration 2026-09-25",
+      "supersedes": {
+        "reviewedAt": "2026-09-05",
+        "evidenceFingerprint": "bb94e033d6ca9338b542feeaa107045c696114a3225d2b7259a214cdf869ae90"
+      },
+      "note": "Re-review on the final R 4.6.0 output. Author effects remain log2 ratios of FPKM group means and registered effects remain edgeR-QL log2 fold changes of the same HFD-minus-NCD contrast; both are log2 fold changes of the same groups, so the definitions stay compatible while their estimators differ. The reviewed author-to-output ID mapping joins through the output's feature map: 14,119 of 14,151 registered genes pair (32 symbols summed over several features stay unpaired). Registered Pearson is 0.926950 (was 0.9273), median absolute delta 0.0269 (was 0.0270), maximum 2.0108 (was 2.0101), and all 19 shared author FDR-significant directions still agree.",
+      "sources": [
+        {
+          "path": "geo_replication/datasets/GSE284408_mmus_arc_hfd/processed/GSE284408_DE.tsv",
+          "sha256": "d73620f6a91622d4c03a7c044b3fe10a7cf4bc18d9d2f845749853e4272b7282"
+        },
+        {
+          "path": "data/author-validation/continued-sources/advancement-sources-a-2026-09-05/GSE284408/author-effects.tsv",
+          "sha256": "eee94325dd30c8df02d176c10493491152f6a29d0ec630405c66d8da8941ca0a"
+        },
+        {
+          "path": "data/author-validation/continued-sources/five-dataset-followup-2026-09-04/GSE284408/GSE284408_author_table.txt.gz",
+          "sha256": "dbb72325fc435ae45943688ee6342b2e8395b13c084918ca907faf8fef4e0ef1"
+        },
+        {
+          "path": "data/author-validation/continued-sources/advancement-sources-a-2026-09-05/prepare_comparisons.py",
+          "sha256": "f189e0a58e1c13907e1d81806f4243f6ed1d00dd2ec5a78b6f336c7ab3b9fef0"
+        },
+        {
+          "path": "data/author-validation/continued-sources/advancement-sources-a-2026-09-05/review-baseline.json",
+          "sha256": "8f63c37dafb8be2bf3b07d67013af0792d96545f842c929ef6799f5779a4a8ad"
+        }
+      ]
+    },
+    {
+      "datasetId": "rat_fetal_hypo_ozone_gse156859",
+      "contrastId": "female_fetal_ozone_vs_air",
+      "reviewedAt": "2026-09-26",
+      "dimension": "effects",
+      "status": "compatible",
+      "evidenceFingerprint": "5d3e52780792dce0d3c0d7bf50b108a25894280a48c37f3392981192295f1888",
+      "localMethod": "limma mean-log effect",
+      "authorMethod": "Partek; signed arithmetic-mean ratios converted to log2",
+      "orientation": "Female fetal hypothalamus: ozone minus air; sign(author ratio) times log2(abs(author ratio)).",
+      "priorReview": {
+        "status": "different",
+        "note": "Author arithmetic ratios and registered mean-log differences are algebraically distinct; all 168 signs agree."
+      },
+      "reason": "R 4.6.0 regeneration 2026-09-25",
+      "supersedes": {
+        "reviewedAt": "2026-09-05",
+        "evidenceFingerprint": "925d628767f5c6bd976f05b8944e826b1f10e186519ca841e19388e9a5f8d834"
+      },
+      "note": "Re-review on the final R 4.6.0 output. The 168 author arithmetic ratios and the registered mean-log differences are unchanged in definition; all 168 still pair, all signs agree, Pearson 0.946523 and Spearman 0.992577 are unchanged. The prior finding that the two quantities are algebraically distinct still holds, so this entry does not promote the effect dimension.",
+      "sources": [
+        {
+          "path": "geo_replication/datasets/GSE156859_rnor_fetal_hypothalamus_ozone/processed/GSE156859_DE.tsv",
+          "sha256": "f8fb344864f724d48cd838488573839edc1114ca605eb8879b9482fd315e6fd9"
+        },
+        {
+          "path": "data/author-validation/continued-sources/round2-2026-09-05/GSE156859/author-effects.tsv",
+          "sha256": "51d4121415331a40476adb6c17a9c2b39f6cf3ba11696cb75c52e3f9207f6d12"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE156859/mmc1.docx",
+          "sha256": "35ee817e58fd3dd03f7e2816a74f0b787fb6c3ec0316feac6b3d937b8f546c52"
+        },
+        {
+          "path": "scripts/prepare_author_round2.py",
+          "sha256": "254f00fc3a2850ff86c15cf8b24461485d079e0113df05207430f86c542a0a32"
+        }
+      ]
+    },
+    {
+      "datasetId": "cattle_arc_nutrition_gse153498",
+      "contrastId": "high_vs_moderate_plane_nutrition",
+      "reviewedAt": "2026-09-26",
+      "dimension": "effects",
+      "status": "compatible",
+      "evidenceFingerprint": "30b7d6bdbcd944cc34f2b071ed390c35152dc0275429a95219dcc27384b41b79",
+      "localMethod": "limma",
+      "authorMethod": "edgeR exact test; signed-linear FC converted to log2",
+      "orientation": "Author and registered directions aligned as documented in the previous source review.",
+      "priorReview": {
+        "status": "different",
+        "note": "Registered r=0.853854, 79/80 signs. AVP reversal follows estimator choice; arithmetic ratios retain up to 0.183519 log2 residual."
+      },
+      "reason": "R 4.6.0 regeneration 2026-09-25",
+      "supersedes": {
+        "reviewedAt": "2026-09-05",
+        "evidenceFingerprint": "3b47c6578aa86668cfe63d81a25eeb3f613f2e3adc3de290ce2b7d95d8898a5e"
+      },
+      "note": "Re-review on the final R 4.6.0 output. The estimator difference recorded before is unchanged. The regeneration no longer publishes features without a gene symbol, so 75 of the 80 selected author genes pair (was 80). Registered r is 0.855154 (was 0.853854) with 74/75 signs; the AVP reversal remains and follows estimator choice. The prior finding still holds, so this entry does not promote the effect dimension.",
+      "sources": [
+        {
+          "path": "geo_replication/datasets/GSE153498_btau_arcuate_nutrition/processed/GSE153498_DE.tsv",
+          "sha256": "c032a2829b30cbb6d65338d43234f58b273e297c379cb3f2cb3bee308d35b5b5"
+        },
+        {
+          "path": "data/author-validation/continued-sources/advancement-sources-a-2026-09-05/GSE153498/author-effects.tsv",
+          "sha256": "267521a47e2f5757df900a5e602673a7c5a020193a72452a8c657667297eb6f4"
+        },
+        {
+          "path": "data/author-validation/continued-sources/final-numerical-batch-b/GSE153495_GSE153498/41598_2021_93080_MOESM1_ESM.xlsx",
+          "sha256": "e0ef401f0f02f77f2dad6c9a67036f34e1f6d001169e5e571ce4ee43accf29fc"
+        },
+        {
+          "path": "data/author-validation/continued-sources/final-numerical-batch-b/compare_batch_b.py",
+          "sha256": "eae341ed3365876fd735179ae14574b2ce09492fb4a265424ed131386c21c32d"
+        },
+        {
+          "path": "geo_replication/datasets/GSE153498_btau_arcuate_nutrition/metadata/GSE153498_identifier_mapping.tsv.gz",
+          "sha256": "cf4b815f327dc285f1f8e028cc8b63a6db69a0d2dfe6b410acedd0e6272db8d3"
+        },
+        {
+          "path": "data/author-validation/continued-sources/advancement-sources-a-2026-09-05/prepare_comparisons.py",
+          "sha256": "f189e0a58e1c13907e1d81806f4243f6ed1d00dd2ec5a78b6f336c7ab3b9fef0"
+        },
+        {
+          "path": "data/author-validation/continued-sources/advancement-sources-a-2026-09-05/review-baseline.json",
+          "sha256": "8f63c37dafb8be2bf3b07d67013af0792d96545f842c929ef6799f5779a4a8ad"
+        }
+      ]
+    },
+    {
+      "datasetId": "mouse_hypo_thrb_k146q_gse167105",
+      "contrastId": "thrb_k146q_vs_wild_type",
+      "reviewedAt": "2026-09-26",
+      "dimension": "cohort",
+      "status": "compatible",
+      "evidenceFingerprint": "44d45f095a4317a6cc6470710381f3dfb282857df99da196a908abdbed771e1a",
+      "localMethod": "limma on log2(author-normalized expression + 1)",
+      "authorMethod": "edgeR on unavailable raw counts",
+      "orientation": "Both positive for K146Q mutant minus WT.",
+      "priorReview": {
+        "status": "limited",
+        "note": "Matching genotype groups; raw counts needed for original count-model reconstruction are absent."
+      },
+      "reason": "R 4.6.0 regeneration 2026-09-25",
+      "supersedes": {
+        "reviewedAt": "2026-09-05",
+        "evidenceFingerprint": "f2b22a2b2ae68b851baed2247ed40922863834e43b6091ad62f005fd71618d77"
+      },
+      "note": "Re-review on the final R 4.6.0 output. The six registered libraries remain the six author-table expression columns, three terminal mice per genotype, and every one of the 144,324 source values enters the regenerated analysis matrix as log2(value + 1) within 5.2e-14 (regeneration-r460-2026-09-25/GSE167105-cohort-audit.json). Only the published row identity changed: symbols follow current nomenclature, and rule A3.1 resolves the four duplicated 1-Mar/2-Mar date labels by the source gene-name column into Mtarc1, Mtarc2, Marchf1 and Marchf2, each fitted separately. The registered cohort therefore still matches the author cohort; the absent raw counts still prevent reconstruction of the original count model.",
+      "sources": [
+        {
+          "path": "data/author-validation/continued-sources/round4-2026-09-05/GSE167105/PMC8410017.xml",
+          "sha256": "e24a1a26ba9ae81805154ead30048c9f9dd7060d6f9b7808339594ce56f591dc"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/metadata/GSE167105_family.soft.gz",
+          "sha256": "7c3d0a6ee2fc883b76f0ed75b96bcee093bd89a53f0c813cc3e04b5cfb84def0"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/metadata/GSE167105_samplesheet.tsv",
+          "sha256": "ccade452a71c2f01335791a1642add2b9d6712aed9c2b7365044678c14bfcdf8"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/raw/GSE167105_Hypothalamus_3Hb_vs_3WT_all.txt.gz",
+          "sha256": "3949eccb0cfe94573bb20395a0e3d4525611b1c4bc4ad5284f6ffa49f9297198"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/processed/GSE167105_analysis_matrix.tsv.gz",
+          "sha256": "10beca445a9e752bf2b2a74f8cf4c3203810cca5d9351e168c5820a935b10be0"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/processed/GSE167105_DE.tsv",
+          "sha256": "3715c2bfcb58059c9869e10aedebc7bb0391ba2015c677a5b30e38f01a5dc9aa"
+        },
+        {
+          "path": "scripts/prep_supported_matrix_batch1.R",
+          "sha256": "967ab173440578b197187f48bfc416572f4c8555e672d5261772c7f19c3dfcb0"
+        },
+        {
+          "path": "scripts/audit_author_cohort_round4.py",
+          "sha256": "deb039b587feabca4cb9bc8e05feba28646c0ef7955d2acfde3215842e2c8fdc"
+        },
+        {
+          "path": "data/author-validation/continued-sources/round4-2026-09-05/GSE167105/cohort-audit.json",
+          "sha256": "57ef6c220625167a33c50734b9a68c03873c9478d709784b7fa8ed46a194297d"
+        },
+        {
+          "path": "data/author-validation/regeneration-r460-2026-09-25/GSE167105-cohort-audit.json",
+          "sha256": "5de8b6527138f62f700708efa8108af07a84acd7eb87a65e14506dfeb9fdfd08"
+        },
+        {
+          "path": "scripts/audit_author_cohort_r460.py",
+          "sha256": "8d5fc1e71e3c1f142b6619f8e1c93e12225730875bff0d4df61eff676a9d7ed5"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/processed/GSE167105_feature_map.tsv.gz",
+          "sha256": "49ed4c6e8400f3c13d8958a59ab1b262fcff9f8c028124568ec0f301abaa03a5"
+        }
+      ]
+    },
+    {
+      "datasetId": "mouse_hypo_thrb_k146q_gse167105",
+      "contrastId": "thrb_k146q_vs_wild_type",
+      "reviewedAt": "2026-09-26",
+      "dimension": "effects",
+      "status": "compatible",
+      "evidenceFingerprint": "44d45f095a4317a6cc6470710381f3dfb282857df99da196a908abdbed771e1a",
+      "localMethod": "limma on log2(author-normalized expression + 1)",
+      "authorMethod": "edgeR on unavailable raw counts",
+      "orientation": "Both positive for K146Q mutant minus WT.",
+      "priorReview": {
+        "status": "limited",
+        "note": "All-gene Pearson 0.445671, Spearman 0.926561; high-expression agreement is stronger."
+      },
+      "reason": "R 4.6.0 regeneration 2026-09-25",
+      "supersedes": {
+        "reviewedAt": "2026-09-05",
+        "evidenceFingerprint": "f2b22a2b2ae68b851baed2247ed40922863834e43b6091ad62f005fd71618d77"
+      },
+      "note": "Re-review on the final R 4.6.0 output. The registered limma logFC on log2(author-normalized expression + 1) and the author edgeR logFC still estimate the same K146Q-minus-WT log2 fold change, with the documented compression of low-expression magnitudes. 19,747 of 19,773 registered genes pair; the 26 unpaired are the Excel-date labels now published under current symbols (11 Marchf, 2 Mtarc and 13 Septin genes), which the deposited table spells as dates. All-gene Pearson is 0.445672 (was 0.445671), Spearman 0.926464 (was 0.926561); the 9,831-gene expressed subset gives Pearson 0.827847, and all six author-significant directions agree. The prior finding holds.",
+      "sources": [
+        {
+          "path": "data/author-validation/continued-sources/round4-2026-09-05/GSE167105/PMC8410017.xml",
+          "sha256": "e24a1a26ba9ae81805154ead30048c9f9dd7060d6f9b7808339594ce56f591dc"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/metadata/GSE167105_family.soft.gz",
+          "sha256": "7c3d0a6ee2fc883b76f0ed75b96bcee093bd89a53f0c813cc3e04b5cfb84def0"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/metadata/GSE167105_samplesheet.tsv",
+          "sha256": "ccade452a71c2f01335791a1642add2b9d6712aed9c2b7365044678c14bfcdf8"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/raw/GSE167105_Hypothalamus_3Hb_vs_3WT_all.txt.gz",
+          "sha256": "3949eccb0cfe94573bb20395a0e3d4525611b1c4bc4ad5284f6ffa49f9297198"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/processed/GSE167105_analysis_matrix.tsv.gz",
+          "sha256": "10beca445a9e752bf2b2a74f8cf4c3203810cca5d9351e168c5820a935b10be0"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/processed/GSE167105_DE.tsv",
+          "sha256": "3715c2bfcb58059c9869e10aedebc7bb0391ba2015c677a5b30e38f01a5dc9aa"
+        },
+        {
+          "path": "scripts/prep_supported_matrix_batch1.R",
+          "sha256": "967ab173440578b197187f48bfc416572f4c8555e672d5261772c7f19c3dfcb0"
+        },
+        {
+          "path": "scripts/audit_author_cohort_round4.py",
+          "sha256": "deb039b587feabca4cb9bc8e05feba28646c0ef7955d2acfde3215842e2c8fdc"
+        },
+        {
+          "path": "data/author-validation/continued-sources/round4-2026-09-05/GSE167105/cohort-audit.json",
+          "sha256": "57ef6c220625167a33c50734b9a68c03873c9478d709784b7fa8ed46a194297d"
+        },
+        {
+          "path": "data/author-validation/regeneration-r460-2026-09-25/GSE167105-cohort-audit.json",
+          "sha256": "5de8b6527138f62f700708efa8108af07a84acd7eb87a65e14506dfeb9fdfd08"
+        },
+        {
+          "path": "scripts/audit_author_cohort_r460.py",
+          "sha256": "8d5fc1e71e3c1f142b6619f8e1c93e12225730875bff0d4df61eff676a9d7ed5"
+        },
+        {
+          "path": "geo_replication/datasets/GSE167105_mmus_hypothalamus_thrb/processed/GSE167105_feature_map.tsv.gz",
+          "sha256": "49ed4c6e8400f3c13d8958a59ab1b262fcff9f8c028124568ec0f301abaa03a5"
+        }
+      ]
+    },
+    {
+      "datasetId": "mouse_agrp_fedfast_gse124693",
+      "contrastId": "fast24h_vs_fed",
+      "reviewedAt": "2026-09-26",
+      "dimension": "effects",
+      "status": "compatible",
+      "evidenceFingerprint": "67682d97796edf67c0799834450b970de7f2d65e9cbdb936455e097a9f2158ec",
+      "localMethod": "limma on log2(DESeq2-normalized count + 1)",
+      "authorMethod": "DESeq2 (author-significant genes only)",
+      "orientation": "Both positive for ZT14 fasted minus ad-libitum-fed AgRP RiboTag RNA.",
+      "priorReview": {
+        "status": "limited",
+        "note": "Pearson 0.950889; five opposite local estimates are near-zero and nonsignificant."
+      },
+      "reason": "R 4.6.0 regeneration 2026-09-25",
+      "supersedes": {
+        "reviewedAt": "2026-09-05",
+        "evidenceFingerprint": "67682d97796edf67c0799834450b970de7f2d65e9cbdb936455e097a9f2158ec"
+      },
+      "note": "Re-review on the final R 4.6.0 output. The registered DE table was rewritten with LF line endings; its rows and values are identical to the reviewed CRLF bytes, and the paired comparison is unchanged (1,950 genes, Pearson 0.950889, five opposite local estimates near zero and nonsignificant). Registered limma logFC on log2(DESeq2-normalized count + 1) and the author DESeq2 log2 fold change still measure ZT14 fasted minus fed AgRP RiboTag RNA, so the effect definitions remain compatible.",
+      "sources": [
+        {
+          "path": "geo_replication/datasets/_author_de/GSE124693_NIHMS1022948_TableS2.xlsx",
+          "sha256": "b26852f8f2ed4a3feecce01c351c3bb83443a519a2634bc932704cc7c3bf403d"
+        },
+        {
+          "path": "geo_replication/datasets/GSE124693_mmus_agrp_ribotag_fasting/processed/GSE124693_DE.tsv",
+          "sha256": "b287e65b4fa2e9e163dc71966d2e2ddc24b3d5fcfe1212ea5988372aaebfd9c4"
+        }
+      ]
+    }
+  ]
+}

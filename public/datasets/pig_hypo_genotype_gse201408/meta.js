@@ -1,0 +1,1 @@
+var HX_PIG_HYPO_GENOTYPE_GSE201408_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":14306},"colors":{"hypothalamus":"#E15759"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":10,"nObese":10,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

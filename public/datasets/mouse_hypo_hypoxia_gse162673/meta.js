@@ -1,0 +1,1 @@
+var HX_MOUSE_HYPO_HYPOXIA_GSE162673_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":16942},"colors":{"hypothalamus":"#8C564B"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":4,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

@@ -1,0 +1,1 @@
+var HX_MOUSE_ARC_CAGRILINTIDE_GSE296488_META = {"populations":["arcuate"],"labels":{"arcuate":"Arcuate nucleus (ARC)"},"types":{"arcuate":"Tissue"},"nGenes":{"arcuate":28705},"colors":{"arcuate":"#E76F51"},"qcFlags":{"arcuate":{"is3v3":false,"nNormal":7,"nObese":8,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

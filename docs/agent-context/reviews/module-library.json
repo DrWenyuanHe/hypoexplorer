@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "area": "module-library",
+  "fingerprint": "739caa1d22cb0ef43acba90cb8b757a37dcae9059abaf4d4fa19996e0af6fdd6",
+  "outcome": "no-impact",
+  "explanation": "React 19 types: LibraryPopover's anchorRef accepts RefObject<HTMLElement | null>, which useRef(null) now returns, and the ResultBars close timer ref starts as undefined explicitly. Library rendering and popover placement are unchanged.",
+  "references": [
+    "src/library/LibraryPopover.tsx",
+    "src/library/ResultBars.tsx",
+    "src/library/LibraryToolbar.tsx"
+  ]
+}

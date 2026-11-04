@@ -1,0 +1,1 @@
+var HX_GSE224274_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Arcuate nucleus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":5143},"colors":{"hypothalamus":"#3775BA"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":6,"nObese":6,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

@@ -1,0 +1,1 @@
+var HX_RAT_MBH_PERINATAL_DES_GSE225359_META = {"populations":["mbh"],"labels":{"mbh":"Mediobasal hypothalamus (MBH)"},"types":{"mbh":"Tissue"},"nGenes":{"mbh":13008},"colors":{"mbh":"#F28E2B"},"qcFlags":{"mbh":{"is3v3":false,"nNormal":5,"nObese":5,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

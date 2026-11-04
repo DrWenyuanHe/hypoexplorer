@@ -1,0 +1,1 @@
+var HX_MOUSE_HYPO_GLYLOW_GSE234483_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":17017},"colors":{"hypothalamus":"#EDC948"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":5,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

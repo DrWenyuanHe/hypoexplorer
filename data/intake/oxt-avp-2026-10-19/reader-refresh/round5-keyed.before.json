@@ -1,0 +1,293 @@
+{
+  "schemaVersion": 1,
+  "helper": {
+    "path": "data/internal-qc/source-authenticity-2026-09-05/round5-keyed/sourceInputRelationship.mts",
+    "bytes": 9413,
+    "sha256": "1eec381783ef89f1f9c6877b4205b8a68b96ddfef35bfb5e2bd6546bc983f31b"
+  },
+  "validator": {
+    "path": "data/internal-qc/source-authenticity-2026-09-05/round5-keyed/audit_relationship.mts",
+    "bytes": 1578,
+    "sha256": "9acb225d27faef85cf6a8285043da421707152c2291ff28bc4215a47b804fdda"
+  },
+  "records": [
+    {
+      "datasetId": "mouse_hypo_fedfast_gse254155",
+      "accession": "GSE254155",
+      "status": "pass",
+      "sourceAuthentication": "pass",
+      "derivedInputRelationship": "pass",
+      "sourceScope": "complete_registered_input",
+      "note": "Complete official GEO metadata and all 35 deposited archive members are authenticated. Independent reconstruction preserves all 49,568 unique gene symbols and 20 selected libraries; all 991,360 integer counts match exactly by gene and sample, with no omitted rows, rounding, aggregation or imputation. Gene row order differs. This establishes the complete source-to-input relationship; the historical assembly script is unavailable and byte-identical ordering is not claimed.",
+      "evidence": [
+        "data/internal-qc/source-authenticity-2026-09-05/round5-keyed/evidence.json",
+        "data/internal-qc/source-authenticity-2026-09-05/round5-keyed/reconstruct_input.py",
+        "data/internal-qc/source-authenticity-2026-09-05/round5-keyed/sourceInputRelationship.mts",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/round2Replay.mts",
+        "data/internal-qc/source-authenticity-2026-09-05/sourceAuthenticity.mts",
+        "data/internal-qc/source-authenticity-2026-09-05/scopedConfiguration.mts",
+        "data/internal-qc/source-authenticity-2026-09-05/round4/sourceInputRelationship.mts",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/reconstruction-evidence.json",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/restoration-plan.json",
+        "geo_replication/datasets/GSE254155_mmus_hypothalamus_fedfast/raw/GSE254155_hypo_ctrl_fedfast_counts.tsv.gz",
+        "geo_replication/datasets/GSE254155_mmus_hypothalamus_fedfast/metadata/GSE254155_samplesheet.tsv",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replay_sources.py",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/recover_sources.py",
+        "data/internal-qc/source-authenticity-2026-09-05/audit_source_authenticity.py",
+        "geo_replication/config/datasets.tsv",
+        "data/internal-qc/source-authenticity-2026-09-05/configuration-snapshots/ebcde6f7a39e06c13a6c728c742f003dc9d88bc67a47ad4a6e0cc9902155788a.tsv",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/downloads/GSE254155/GSE254155_RAW.tar",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/downloads/GSE254155/GSE254155_RAW.tar.download.json",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/downloads/GSE254155/GSE254155_family.soft.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/downloads/GSE254155/GSE254155_family.soft.gz.download.json",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/reconstruct_featurecounts.py",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/replay.log",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/input-difference-diagnostic.json",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035114_Ctrl.AL.1.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035115_Ctrl.AL.2.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035116_Ctrl.AL.3.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035117_Ctrl.AL.4.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035118_Ctrl.AL.5.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035119_Ctrl.AL.6.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035120_Ctrl.AL.7.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035121_Ctrl.AL.8.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035122_Ctrl.AL.9.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035123_Ctrl.AL.10.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035124_Ctrl.Fast.1.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035125_Ctrl.Fast.2.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035126_Ctrl.Fast.3.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035127_Ctrl.Fast.4.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035128_Ctrl.Fast.5.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035129_Ctrl.Fast.6.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035130_Ctrl.Fast.7.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035131_Ctrl.Fast.8.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035132_Ctrl.Fast.9.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035133_Ctrl.Fast.10.txt.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/counts.tsv.gz",
+        "data/internal-qc/source-authenticity-2026-09-05/round5-keyed/complete-reconstructed-input.tsv.gz"
+      ],
+      "checkedReferences": [
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round5-keyed/reconstruct_input.py",
+          "bytes": 9632,
+          "sha256": "779515d967ba3a1138a684a0153e7d0642e0de6e5e968aa82754952bbfdaf796"
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round5-keyed/sourceInputRelationship.mts",
+          "bytes": 9413,
+          "sha256": "1eec381783ef89f1f9c6877b4205b8a68b96ddfef35bfb5e2bd6546bc983f31b"
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/round2Replay.mts",
+          "bytes": 15988,
+          "sha256": "d7ebb48b967333e3e3a89ea30a8e14b1195dcb09e90870abd09f0e8737a59e77"
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/sourceAuthenticity.mts",
+          "bytes": 10896,
+          "sha256": "6c1e63eb42971c1a636d6d161b4168b0f783420787b9d64b859675405c7039a6"
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/scopedConfiguration.mts",
+          "bytes": 3561,
+          "sha256": "b8702a271be74d232324e36a4284284b886109784a4d32ec51f3cc5f415adc4f"
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round4/sourceInputRelationship.mts",
+          "bytes": 23641,
+          "sha256": "22e0020706816f6c65819c4d1aedb842d2858f6e702b37441380f7202129947f"
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/reconstruction-evidence.json",
+          "bytes": 117325,
+          "sha256": "15050c682e90a8064e692e1a467d37df99c6c4768efa21823e1690a9df9831f9"
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/restoration-plan.json",
+          "sha256": "11006e975807f62b873d65a90103efa0fa21fedafe2f78c38c79017798a21951",
+          "bytes": 20954
+        },
+        {
+          "path": "geo_replication/datasets/GSE254155_mmus_hypothalamus_fedfast/raw/GSE254155_hypo_ctrl_fedfast_counts.tsv.gz",
+          "sha256": "afd72a381a85f57a202d9d7e8d3ca7e2ec36ee1c03294f05b2b043a3107b1f47",
+          "bytes": 902942
+        },
+        {
+          "path": "geo_replication/datasets/GSE254155_mmus_hypothalamus_fedfast/metadata/GSE254155_samplesheet.tsv",
+          "sha256": "cc46d8461e17ef66645e99373553797e897f8272e546c964bd7c1e97c8d431dd",
+          "bytes": 606
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replay_sources.py",
+          "sha256": "b78dec8f83b8b6dbc4c8d9a5df5fb246e2ec866e31d19364e0eaae0966d88aff",
+          "bytes": 6198
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/recover_sources.py",
+          "sha256": "2e1a15f322a8b89c7a8f54dab92f74dab8e7e0c82b10d423b33a3fcf423a0f25",
+          "bytes": 6048
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/audit_source_authenticity.py",
+          "sha256": "1694f5819b27b62f1e983df2c08e78cc65c53de52a6b54a1fd7299d2086fade8",
+          "bytes": 13633
+        },
+        {
+          "path": "geo_replication/config/datasets.tsv",
+          "sha256": "2b89ca7d8231622817b5fec41d32d76ec746088f56029319b1d20d54973ebaeb",
+          "bytes": 53320
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/configuration-snapshots/ebcde6f7a39e06c13a6c728c742f003dc9d88bc67a47ad4a6e0cc9902155788a.tsv",
+          "sha256": "ebcde6f7a39e06c13a6c728c742f003dc9d88bc67a47ad4a6e0cc9902155788a",
+          "bytes": 38089
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/downloads/GSE254155/GSE254155_RAW.tar",
+          "sha256": "cede787409871958c96151f01abf6f1d41fb903b488a1977d191ec07535003ac",
+          "bytes": 125583360
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/downloads/GSE254155/GSE254155_RAW.tar.download.json",
+          "sha256": "0fbd9bea4d5705b88bd3ef95ad933d42711d715d0a0fe16cda354bd72dbb4086",
+          "bytes": 696
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/downloads/GSE254155/GSE254155_family.soft.gz",
+          "sha256": "d2647c09d9855a1ebbf4b1fd064c2a498dcb2888bb5fc99aa3a5019a1eeae3c9",
+          "bytes": 4026
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/downloads/GSE254155/GSE254155_family.soft.gz.download.json",
+          "sha256": "d6a008d6ce30357dd4660b6208d69f83b3f1d33256480536c3f48be57449ebd0",
+          "bytes": 706
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/reconstruct_featurecounts.py",
+          "sha256": "c925b007765db55a7d3ffee1c2e512c4b2908b5d705a2485ec15d42fb17de188",
+          "bytes": 8697
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/replay.log",
+          "sha256": "8ccc9c4f9f4fa5fe67180675b65d42630af1555225dd6426293b9b581c905a39",
+          "bytes": 111
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/input-difference-diagnostic.json",
+          "sha256": "1009482c90a283dd6198e4221dd2e9ebb48054390a2142d3896e963f1f5e24b2",
+          "bytes": 535
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035114_Ctrl.AL.1.txt.gz",
+          "sha256": "7d40c0d2463bf7886bda2c6e3f39931187d90289914c70c5b6cb4b266b8e6e31",
+          "bytes": 3586471
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035115_Ctrl.AL.2.txt.gz",
+          "sha256": "01e81df2bd72614ca3b14a6f566e2d2cc7b9f29d3f323c9b5a299090a006c002",
+          "bytes": 3586858
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035116_Ctrl.AL.3.txt.gz",
+          "sha256": "4138347af4efd90efc21c620aa2910b3596f1b95ec397abff5189f6aa5496f36",
+          "bytes": 3586108
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035117_Ctrl.AL.4.txt.gz",
+          "sha256": "e94f7e2152b1d831a56fd8bc998f691f372a6e610c1821749c7f2b9826a74c3f",
+          "bytes": 3586106
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035118_Ctrl.AL.5.txt.gz",
+          "sha256": "a725e28c74a903ac66dcb26ac543142f43a5f131390fa2480cbad3992e1cd1b0",
+          "bytes": 3586164
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035119_Ctrl.AL.6.txt.gz",
+          "sha256": "c0abe1e38fbe1a4c4514e2c2c199f742ff7854fc2c038a2c15d79f08f0c73d2d",
+          "bytes": 3586393
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035120_Ctrl.AL.7.txt.gz",
+          "sha256": "1348214c4d13cce66a51e89629aa2f52797e47e417582a0349a454ebf1ee71b5",
+          "bytes": 3586312
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035121_Ctrl.AL.8.txt.gz",
+          "sha256": "786f1fcab151327e0e5ed4424e675ca3c97aa63b291b98ce60a1908105280203",
+          "bytes": 3587318
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035122_Ctrl.AL.9.txt.gz",
+          "sha256": "fd30ccf68f500c4fd2f1c093c6cc5e20e8d1f5e30800c681100766ff5f99915e",
+          "bytes": 3586432
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035123_Ctrl.AL.10.txt.gz",
+          "sha256": "5ff67ab7b6f2012727f50236f42af81c0379978c0a3b757f9b749452b5a669da",
+          "bytes": 3586391
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035124_Ctrl.Fast.1.txt.gz",
+          "sha256": "751dac8f9ba0c6f4da0a034fafb37963dc4ddda3341f52d427b98b5ee72990c3",
+          "bytes": 3587050
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035125_Ctrl.Fast.2.txt.gz",
+          "sha256": "50b115dd1e678c7a2645d714e12e8f9082798e85827e0143f4a0cda2f6ce0d2b",
+          "bytes": 3586347
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035126_Ctrl.Fast.3.txt.gz",
+          "sha256": "8ff0dad8bf7ee7e668ddbfab6452fedc445d999bbf210f766857df0da1ec26b0",
+          "bytes": 3586733
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035127_Ctrl.Fast.4.txt.gz",
+          "sha256": "8899e778980c6b2f831408fa2896cfadead683ccef00867a6aa7b736be69599f",
+          "bytes": 3586190
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035128_Ctrl.Fast.5.txt.gz",
+          "sha256": "590e7e1d3eabf3cf0527790ae329cf6e993923f133cf9967dc8dec3f1d67bfa1",
+          "bytes": 3586526
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035129_Ctrl.Fast.6.txt.gz",
+          "sha256": "b2e8c06c4d4c51290b4cf028fe9f18164be53bd9103be89207fa029ec3914c6a",
+          "bytes": 3586401
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035130_Ctrl.Fast.7.txt.gz",
+          "sha256": "019bcbc212d02cead083c0adec64f678867b8f3965325777dad2a4544426e394",
+          "bytes": 3586461
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035131_Ctrl.Fast.8.txt.gz",
+          "sha256": "dec1c880a13b93a8e8f7f8c6472da815291e9727b571d07898ed474cfd07fcea",
+          "bytes": 3587085
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035132_Ctrl.Fast.9.txt.gz",
+          "sha256": "8ed82c85c739704d81e82d3e2a301aee4535a4858f4baaf20539b8a263f30fbc",
+          "bytes": 3587755
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/selected-source/GSM8035133_Ctrl.Fast.10.txt.gz",
+          "sha256": "f1fe78a3c5455b918ef4bc6e1f3c893b256156861e1b5073c758869ea374436d",
+          "bytes": 3586377
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round2/replays/GSE254155/counts.tsv.gz",
+          "sha256": "7f3521678ea60caa3d3317ca70557853418a2530f8ee4a417ff7e3253266ab0b",
+          "bytes": 886324
+        },
+        {
+          "path": "data/internal-qc/source-authenticity-2026-09-05/round5-keyed/complete-reconstructed-input.tsv.gz",
+          "bytes": 984646,
+          "sha256": "1b7e19165e80ba3e8fc5b5fa45a72a7562b565ba3f58b4130725f7988c8f6940"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+packages:
+  - dataset-tracker
+
+allowBuilds:
+  esbuild: true
+  sharp: true
+  workerd: true
+
+patchedDependencies:
+  xlsx: patches/xlsx.patch

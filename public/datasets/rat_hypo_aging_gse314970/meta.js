@@ -1,0 +1,1 @@
+var HX_RAT_HYPO_AGING_GSE314970_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":15373},"colors":{"hypothalamus":"#8F6BB3"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":12,"nObese":12,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

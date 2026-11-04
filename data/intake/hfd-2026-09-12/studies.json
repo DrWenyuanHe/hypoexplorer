@@ -1,0 +1,132 @@
+[
+  {
+    "id": "mouse_cvh_hfd_gse104709",
+    "accession": "GSE104709",
+    "dir": "geo_replication/datasets/GSE104709_mmus_cvh_hfd_rnaseq",
+    "name": "Mouse ventral hypothalamus - chronic high-fat diet",
+    "category": "Diet-induced obesity",
+    "organism": "Mus musculus",
+    "region": "Ventral hypothalamus",
+    "preparation": "Bulk tissue",
+    "perturbation": "Diet & obesity",
+    "modality": "bulk RNA-seq",
+    "expressionUnit": "log2(PORT-normalized read count + 1)",
+    "note": "Chronic 45%-fat HFD versus regular chow in male C57BL/6J ventral/circumventricular hypothalamus. Five RNA pools per arm, each pooled from two mice; individual pool members are not deposited. Diet-switch arms are excluded. Technical sequencing runs were merged by the authors and are not replicates. The author supplied PORT-normalized resampled read counts, not raw counts. Same-symbol rows are summed on the deposited linear scale and transformed as log2(PORT-normalized read count + 1) for the matrix/limma route. All mice underwent three hours of forced wakefulness before ZT6-7 collection with food available. The chronic contrast includes diet and resulting obesity, and does not isolate diet from body weight. The downloaded file contains 21,654 Ensembl rows and 21,518 unique trimmed author symbols, whereas the paper reports 21,517 detected genes; the authentic file is retained without forcing its dimensions to match the paper.",
+    "doi": "10.1371/journal.pone.0196743",
+    "pmid": "29746501",
+    "groups": [
+      {
+        "key": "control",
+        "label": "Regular chow"
+      },
+      {
+        "key": "case",
+        "label": "Chronic high-fat diet"
+      }
+    ],
+    "contrasts": [
+      {
+        "id": "hfd_vs_chow",
+        "label": "Chronic HFD vs regular chow",
+        "baseline": "control",
+        "case": "case"
+      }
+    ],
+    "tracks": [
+      {
+        "id": "cvh",
+        "analysisId": "GSE104709",
+        "label": "Ventral / circumventricular hypothalamus",
+        "matrix": "geo_replication/datasets/GSE104709_mmus_cvh_hfd_rnaseq/processed/GSE104709_log2_PORT_expression.tsv.gz",
+        "samplesheet": "geo_replication/datasets/GSE104709_mmus_cvh_hfd_rnaseq/metadata/GSE104709_samplesheet.tsv",
+        "kind": "matrix_log"
+      }
+    ],
+    "sourceReview": {
+      "note": "Chronic 45%-fat HFD versus regular chow in male C57BL/6J ventral/circumventricular hypothalamus. Five RNA pools per arm, each pooled from two mice; individual pool members are not deposited. Diet-switch arms are excluded. Technical sequencing runs were merged by the authors and are not replicates. The author supplied PORT-normalized resampled read counts, not raw counts. Same-symbol rows are summed on the deposited linear scale and transformed as log2(PORT-normalized read count + 1) for the matrix/limma route. All mice underwent three hours of forced wakefulness before ZT6-7 collection with food available. The chronic contrast includes diet and resulting obesity, and does not isolate diet from body weight. The downloaded file contains 21,654 Ensembl rows and 21,518 unique trimmed author symbols, whereas the paper reports 21,517 detected genes; the authentic file is retained without forcing its dimensions to match the paper.",
+      "biologicalUnit": "Independent RNA pool of two mice",
+      "replicationStatus": "pass_with_notes",
+      "replicateNote": "Five pools per diet. Author methods describe random allocation into two-mouse pools; individual pool memberships are not public. Technical runs were merged.",
+      "evidencePaths": [
+        "geo_replication/datasets/GSE104709_mmus_cvh_hfd_rnaseq/metadata/GSE104709_source_files.tsv",
+        "geo_replication/datasets/GSE104709_mmus_cvh_hfd_rnaseq/metadata/PMC5945034_author_article.xml",
+        "geo_replication/datasets/GSE104709_mmus_cvh_hfd_rnaseq/processed/GSE104709_preparation_qc.json"
+      ]
+    },
+    "authorReview": {
+      "availability": "access_blocked",
+      "note": "Primary manuscript and supplements were inspected. No complete matching chronic-HFD effect table was retrieved; the linked Dryad processed-data download returned HTTP 401/403. The independent limma source/model replay passed and remains internal verification. The authors used limma-voom and MAANOVA.",
+      "nextStep": "Retrieve the matching chronic-HFD author effect table from the linked Dryad archive before claiming author-result concordance.",
+      "pmid": "29746501",
+      "pmcId": "PMC5945034"
+    }
+  },
+  {
+    "accession": "GSE107324",
+    "id": "rat_hypo_maternal_hfd_gse107324",
+    "name": "Rat neonatal hypothalamus maternal HFD",
+    "category": "Developmental programming",
+    "region": "Whole hypothalamus",
+    "preparation": "Bulk tissue",
+    "perturbation": "Diet & obesity",
+    "organism": "Rattus norvegicus",
+    "modality": "bulk RNA-seq",
+    "note": "Maternal 43% versus 12% fat-derived energy exposure through gestation and lactation; offspring sampled at postnatal day 10. Six samples per diet are analyzed separately within each sex. The paper defines n as litters, but GEO omits sample-to-litter identifiers. Deposited workbooks include authentic per-sample raw counts; the analysis universe is restricted to their submitted rows. Excel-damaged symbols remain unassigned feature IDs.",
+    "source": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE107324",
+    "pmid": "29240779",
+    "doi": "10.1371/journal.pone.0189492",
+    "dir": "geo_replication/datasets/GSE107324_rnor_hypothalamus_maternal_hfd",
+    "groups": [
+      {
+        "key": "control",
+        "label": "Maternal control diet"
+      },
+      {
+        "key": "case",
+        "label": "Maternal high-fat diet"
+      }
+    ],
+    "contrasts": [
+      {
+        "id": "hfd_vs_control",
+        "label": "Maternal HFD vs control",
+        "baseline": "control",
+        "case": "case"
+      }
+    ],
+    "tracks": [
+      {
+        "id": "male",
+        "label": "Male offspring hypothalamus",
+        "matrix": "geo_replication/datasets/GSE107324_rnor_hypothalamus_maternal_hfd/processed/GSE107324_male_source_counts.tsv.gz",
+        "samplesheet": "geo_replication/datasets/GSE107324_rnor_hypothalamus_maternal_hfd/metadata/GSE107324_male_samples.tsv",
+        "kind": "counts",
+        "analysisId": "GSE107324_male"
+      },
+      {
+        "id": "female",
+        "label": "Female offspring hypothalamus",
+        "matrix": "geo_replication/datasets/GSE107324_rnor_hypothalamus_maternal_hfd/processed/GSE107324_female_source_counts.tsv.gz",
+        "samplesheet": "geo_replication/datasets/GSE107324_rnor_hypothalamus_maternal_hfd/metadata/GSE107324_female_samples.tsv",
+        "kind": "counts",
+        "analysisId": "GSE107324_female"
+      }
+    ],
+    "sourceReview": {
+      "biologicalUnit": "Six offspring profiles per diet within each sex; the paper defines n as litters.",
+      "replicationStatus": "pass_with_notes",
+      "replicateNote": "Analyze six versus six within each sex. GEO lacks GSM-to-litter identifiers, so cross-sex pairing is unresolved and the sexes are not pooled.",
+      "evidencePaths": [
+        "geo_replication/datasets/GSE107324_rnor_hypothalamus_maternal_hfd/metadata/GSE107324_source_review.json"
+      ],
+      "note": "Maternal 43% versus 12% fat-derived energy exposure through gestation and lactation; offspring sampled at postnatal day 10. Six samples per diet are analyzed separately within each sex. The paper defines n as litters, but GEO omits sample-to-litter identifiers. Deposited workbooks include authentic per-sample raw counts; the analysis universe is restricted to their submitted rows. Excel-damaged symbols remain unassigned feature IDs."
+    },
+    "authorReview": {
+      "availability": "available",
+      "note": "Both source workbooks were compared after reversing author control-minus-HFD logFC once. Male and female named-gene effects have Pearson correlations 0.999888 and 0.999900, respectively. Author paired-universe FDR<0.05 calls are 8 male and 86 female versus zero in both standardized QL fits. Full-reference gene coverage is about 81%; effect agreement does not establish significance reproduction.",
+      "nextStep": "Review the QL-versus-author inference and deposited filtering universe before any full reproduction claim; retain separate sex-specific evidence.",
+      "pmid": "29240779",
+      "paperUrl": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0189492"
+    }
+  }
+]

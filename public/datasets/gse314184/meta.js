@@ -1,0 +1,1 @@
+var HX_GSE314184_META = {"populations":["mpoa"],"labels":{"mpoa":"Medial preoptic nuclei"},"types":{"mpoa":"Tissue"},"nGenes":{"mpoa":16441},"colors":{"mpoa":"#3775BA"},"qcFlags":{"mpoa":{"is3v3":true,"nNormal":3,"nObese":3,"minCells":4141,"status":"ok"}},"groupN":{"control":3,"alloparental":3,"infanticidal":3,"sire":4,"dam":4},"qaReportFilenames":{}};

@@ -1,0 +1,1 @@
+var HX_MOUSE_HYPO_POMC_ESTROGEN_GSE328990_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":18480},"colors":{"hypothalamus":"#FF9DA7"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":4,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

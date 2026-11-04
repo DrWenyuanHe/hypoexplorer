@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "area": "module-local-datasets",
+  "fingerprint": "7c9f9626510a34c00e6089a92bcc1d6bd915b25db401ebaacf3f1e01df177c9b",
+  "outcome": "updated",
+  "explanation": "LocalDatasetsView names its workbook through localExportName (the export-action sanitizer, no hand-written regex) and writes local provenance that states the import has no release, evidence, link or licence. PublicReferencePicker names copied sources with the shared PUBLIC_COPY_SOURCE_PREFIX that export provenance reads back.",
+  "references": [
+    "src/local-datasets/LocalDatasetsView.tsx",
+    "src/utils/exportProvenance.ts"
+  ]
+}

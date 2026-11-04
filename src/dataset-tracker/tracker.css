@@ -1,0 +1,779 @@
+/* Dataset Tracker — all rules scoped under .tracker-root so nothing leaks into the
+   rest of HypoExplorer. Colors/spacing/radii are re-tokenized onto the host CSS
+   variables defined in index.html; only the status/feasibility hues are local. */
+
+.tracker-root {
+  --t-new: #8a93a3;
+  --t-reviewed: var(--color-normal);
+  --t-pipeline: #c98a1b;
+  --t-added: #1f9d57;
+  --t-rejected: var(--color-obese);
+  --t-integ: #0d9488;
+  --t-drop: #1f9d57;
+  --t-mod: var(--color-normal);
+  --t-heavy: #c98a1b;
+  --t-block: #9aa3b2;
+  --t-line: var(--border);
+  --t-panel: var(--bg-panel);
+  --t-panel2: var(--bg-app);
+  --t-ink: var(--text-primary);
+  --t-mut: var(--text-muted);
+  --t-mut2: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg-app);
+  color: var(--t-ink);
+  font-family: var(--font-sans);
+}
+.tracker-root a {
+  color: var(--color-selected);
+  text-decoration: none;
+}
+.tracker-root a:hover {
+  text-decoration: underline;
+}
+.tracker-root button {
+  font: inherit;
+  cursor: pointer;
+}
+
+/* topbar */
+.tracker-root .tk-top {
+  flex-shrink: 0;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--t-line);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 44px;
+}
+.tracker-root .tk-crumb {
+  font-size: 12px;
+  color: var(--t-mut);
+  font-family: var(--font-mono);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tracker-root .tk-crumb b {
+  color: var(--t-ink);
+  font-weight: 600;
+}
+.tracker-root .tk-mode {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 12px;
+  border: 1px solid var(--t-line);
+  color: var(--t-mut);
+}
+.tracker-root .tk-mode.edit {
+  color: var(--t-pipeline);
+  border-color: var(--t-pipeline);
+  background: rgba(201, 138, 27, 0.1);
+}
+.tracker-root .tk-mode.ro {
+  color: var(--t-mut);
+}
+
+/* scroll body */
+.tracker-root .tk-body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 16px 24px 80px;
+}
+.tracker-root .tk-wrap {
+  max-width: 1480px;
+  margin: 0 auto;
+}
+
+/* summary chips */
+.tracker-root .summary {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.tracker-root .scard {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--bg-panel);
+  border: 1px solid var(--t-line);
+  border-radius: 10px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+}
+.tracker-root .scard.on {
+  outline: 2px solid var(--color-selected);
+}
+.tracker-root .scard.integ-card.on {
+  outline-color: var(--t-integ);
+}
+.tracker-root .scard .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.tracker-root .scard .num {
+  font-weight: 700;
+  font-size: 15px;
+}
+.tracker-root .scard .lab {
+  color: var(--t-mut);
+  font-size: 12px;
+}
+.tracker-root .dot.new {
+  background: var(--t-new);
+}
+.tracker-root .dot.reviewed {
+  background: var(--t-reviewed);
+}
+.tracker-root .dot.pipeline {
+  background: var(--t-pipeline);
+}
+.tracker-root .dot.added {
+  background: var(--t-added);
+}
+.tracker-root .dot.rejected {
+  background: var(--t-rejected);
+}
+.tracker-root .dot.all {
+  background: var(--t-ink);
+}
+.tracker-root .dot.integ {
+  background: var(--t-integ);
+}
+.tracker-root .explorer-toggle {
+  align-self: center;
+  background: var(--bg-app);
+  border: 1px solid var(--t-line);
+  color: var(--t-mut);
+  padding: 6px 11px;
+  border-radius: 8px;
+}
+.tracker-root .explorer-toggle:hover {
+  border-color: var(--color-selected);
+  color: var(--color-selected);
+}
+
+/* explorer reference panel */
+.tracker-root .explorer-ref {
+  margin-top: 10px;
+  border: 1px solid var(--t-line);
+  border-radius: 12px;
+  background: var(--bg-panel);
+  padding: 12px 14px;
+}
+.tracker-root .erhead {
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+.tracker-root .erhead code {
+  font-weight: 600;
+  background: var(--bg-app);
+  border: 1px solid var(--t-line);
+  border-radius: 5px;
+  padding: 1px 5px;
+  font-size: 12px;
+}
+.tracker-root .ergrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 8px;
+}
+.tracker-root .ercard {
+  background: var(--bg-app);
+  border: 1px solid var(--t-line);
+  border-left: 3px solid var(--t-integ);
+  border-radius: 9px;
+  padding: 8px 10px;
+}
+.tracker-root .erid {
+  font-weight: 700;
+  font-size: 12.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.tracker-root .eracc {
+  font-weight: 600;
+  font-size: 10.5px;
+  color: var(--t-integ);
+  border: 1px solid var(--t-integ);
+  border-radius: 10px;
+  padding: 1px 7px;
+}
+.tracker-root .ername {
+  font-size: 12px;
+  margin: 3px 0 2px;
+}
+.tracker-root .ermeta {
+  font-size: 11px;
+  color: var(--t-mut);
+}
+.tracker-root .erkeys {
+  font-size: 10.5px;
+  color: var(--t-mut2);
+  margin-top: 3px;
+  word-break: break-all;
+}
+.tracker-root .er-open {
+  margin-top: 6px;
+  font-size: 11px;
+  padding: 3px 9px;
+  border: 1px solid var(--t-integ);
+  color: var(--t-integ);
+  background: transparent;
+  border-radius: 7px;
+}
+.tracker-root .er-open:hover {
+  background: rgba(13, 148, 136, 0.1);
+}
+
+/* filters */
+.tracker-root .filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 12px;
+}
+.tracker-root .filters input[type="search"] {
+  flex: 1;
+  min-width: 200px;
+  padding: 7px 11px;
+  border: 1px solid var(--t-line);
+  border-radius: 8px;
+  background: var(--bg-panel);
+  color: var(--t-ink);
+}
+.tracker-root .filters select {
+  padding: 6px 9px;
+  border: 1px solid var(--t-line);
+  border-radius: 8px;
+  background: var(--bg-panel);
+  color: var(--t-ink);
+}
+.tracker-root .filters .lbl {
+  color: var(--t-mut2);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.tracker-root .filterpair {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.tracker-root .spacer {
+  flex: 1;
+}
+.tracker-root .viewtoggle {
+  display: flex;
+  gap: 4px;
+}
+.tracker-root .viewtoggle button {
+  background: var(--bg-app);
+  border: 1px solid var(--t-line);
+  color: var(--t-mut);
+  padding: 5px 12px;
+  border-radius: 7px;
+}
+.tracker-root .viewtoggle button.on {
+  background: var(--color-selected);
+  border-color: var(--color-selected);
+  color: #fff;
+}
+.tracker-root .savestate {
+  font-size: 12px;
+  color: var(--t-mut2);
+}
+.tracker-root .savestate.saving {
+  color: var(--t-pipeline);
+}
+.tracker-root .savestate.saved {
+  color: var(--t-added);
+}
+.tracker-root .savestate.error {
+  color: var(--t-rejected);
+}
+.tracker-root .btn {
+  background: var(--bg-app);
+  border: 1px solid var(--t-line);
+  color: var(--t-mut);
+  padding: 6px 11px;
+  border-radius: 8px;
+}
+.tracker-root .btn:hover {
+  border-color: var(--color-selected);
+  color: var(--color-selected);
+}
+
+.tracker-root .shown {
+  color: var(--t-mut);
+  font-size: 12.5px;
+  margin: 12px 0 8px;
+}
+.tracker-root .driftbar {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: rgba(201, 138, 27, 0.12);
+  border: 1px solid var(--t-pipeline);
+  color: #8a5e12;
+  border-radius: 9px;
+  padding: 8px 12px;
+  font-size: 12.5px;
+  font-family: inherit;
+  margin: 10px 0;
+  cursor: pointer;
+}
+.tracker-root .driftbar code {
+  background: var(--bg-panel);
+  border: 1px solid var(--t-line);
+  border-radius: 4px;
+  padding: 0 4px;
+}
+
+/* table */
+.tracker-root .tablewrap {
+  overflow-x: auto;
+  border: 1px solid var(--t-line);
+  border-radius: 12px;
+  background: var(--bg-panel);
+}
+.tracker-root table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.tracker-root th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-app);
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--t-mut);
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--t-line);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.tracker-root td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--t-line);
+  vertical-align: middle;
+  font-size: 13px;
+}
+.tracker-root tr.row:hover td {
+  background: var(--bg-app);
+}
+.tracker-root tr.row.sel td {
+  background: rgba(242, 142, 43, 0.1);
+}
+.tracker-root tr.exrow td:nth-child(2) a,
+.tracker-root tr.exrow td.acc a {
+  text-decoration: line-through;
+  color: var(--t-mut2);
+}
+.tracker-root .acc a {
+  font-weight: 650;
+}
+.tracker-root .sub2 {
+  color: var(--t-mut2);
+  font-size: 11px;
+}
+.tracker-root .pill {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 14px;
+  border: 1px solid var(--t-line);
+  white-space: nowrap;
+}
+.tracker-root .fz-drop {
+  color: var(--t-drop);
+  border-color: var(--t-drop);
+}
+.tracker-root .fz-mod {
+  color: var(--t-mod);
+  border-color: var(--t-mod);
+}
+.tracker-root .fz-heavy {
+  color: var(--t-heavy);
+  border-color: var(--t-heavy);
+}
+.tracker-root .fz-block {
+  color: var(--t-block);
+}
+.tracker-root .fz-na {
+  color: var(--t-mut2);
+}
+.tracker-root .nok {
+  color: var(--t-added);
+  font-weight: 650;
+}
+.tracker-root .nbad {
+  color: var(--t-rejected);
+  font-weight: 650;
+}
+.tracker-root .nunk {
+  color: var(--t-mut2);
+}
+.tracker-root .ctr {
+  text-align: center;
+}
+
+/* status selector + badges */
+.tracker-root .statussel {
+  border: 1px solid var(--t-line);
+  border-radius: 7px;
+  padding: 4px 8px;
+  font-weight: 600;
+  font-size: 12.5px;
+  background: var(--bg-panel);
+  color: var(--t-ink);
+}
+.tracker-root .st-new {
+  color: var(--t-new);
+}
+.tracker-root .st-reviewed {
+  color: var(--t-reviewed);
+}
+.tracker-root .st-pipeline {
+  color: var(--t-pipeline);
+}
+.tracker-root .st-added {
+  color: var(--t-added);
+}
+.tracker-root .st-rejected {
+  color: var(--t-rejected);
+}
+.tracker-root .stbadge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 650;
+  padding: 2px 9px;
+  border-radius: 14px;
+}
+.tracker-root .stbadge.new {
+  background: rgba(138, 147, 163, 0.15);
+  color: #69707d;
+}
+.tracker-root .stbadge.reviewed {
+  background: rgba(76, 120, 168, 0.16);
+  color: var(--t-reviewed);
+}
+.tracker-root .stbadge.pipeline {
+  background: rgba(201, 138, 27, 0.16);
+  color: #a0701b;
+}
+.tracker-root .stbadge.added {
+  background: rgba(31, 157, 87, 0.15);
+  color: var(--t-added);
+}
+.tracker-root .stbadge.rejected {
+  background: rgba(228, 87, 86, 0.16);
+  color: var(--t-rejected);
+}
+.tracker-root .intbadge {
+  display: inline-block;
+  margin-left: 7px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--t-integ);
+  border-radius: 10px;
+  padding: 1px 7px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.tracker-root .intbadge.rel {
+  background: transparent;
+  color: #8a5e12;
+  border: 1px solid var(--t-pipeline);
+}
+
+/* board */
+.tracker-root .board {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+@media (max-width: 1100px) {
+  .tracker-root .board {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.tracker-root .col {
+  background: var(--bg-panel);
+  border: 1px solid var(--t-line);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  min-height: 120px;
+}
+.tracker-root .col .colhead {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--t-line);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  position: sticky;
+  top: 0;
+  background: var(--bg-panel);
+  border-radius: 12px 12px 0 0;
+}
+.tracker-root .col .colhead .cnt {
+  margin-left: auto;
+  color: var(--t-mut);
+  font-weight: 500;
+  font-size: 12px;
+}
+.tracker-root .col .cards {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  overflow: auto;
+  max-height: 70vh;
+}
+.tracker-root .card {
+  border: 1px solid var(--t-line);
+  border-radius: 9px;
+  padding: 8px 10px;
+  background: var(--bg-app);
+}
+.tracker-root .card:hover {
+  border-color: var(--color-selected);
+}
+.tracker-root .card-open {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+.tracker-root .card .cacc {
+  font-weight: 650;
+  font-size: 12.5px;
+}
+.tracker-root .card .cmeta {
+  color: var(--t-mut);
+  font-size: 11px;
+  margin-top: 2px;
+}
+.tracker-root .card .cmove {
+  display: flex;
+  gap: 4px;
+  margin-top: 6px;
+}
+.tracker-root .card .cmove button {
+  font-size: 10.5px;
+  padding: 2px 6px;
+  border: 1px solid var(--t-line);
+  border-radius: 6px;
+  background: var(--bg-panel);
+  color: var(--t-mut);
+}
+.tracker-root .empty {
+  color: var(--t-mut2);
+  font-size: 12px;
+  padding: 14px;
+  text-align: center;
+}
+.tracker-root .loading {
+  padding: 60px;
+  text-align: center;
+  color: var(--t-mut);
+}
+
+/* detail dossier (inside common/Modal) */
+.tracker-root .dossier {
+  padding: 16px 18px;
+}
+.tk-dossier {
+  padding: 16px 18px;
+  font-family: var(--font-sans);
+}
+.tk-dossier .sectlabel {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin: 14px 0 4px;
+}
+.tk-dossier .sectlabel:first-child {
+  margin-top: 0;
+}
+.tk-dossier .chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0;
+}
+.tk-dossier .chip {
+  font-size: 11.5px;
+  padding: 3px 9px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text-primary);
+}
+.tk-dossier a.chip {
+  color: var(--color-selected);
+}
+.tk-dossier .metatbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.8px;
+  margin: 4px 0;
+}
+.tk-dossier .metatbl th {
+  text-align: left;
+  color: var(--text-muted);
+  font-weight: 600;
+  width: 120px;
+  padding: 4px 8px 4px 0;
+  vertical-align: top;
+}
+.tk-dossier .metatbl td {
+  padding: 4px 0;
+  vertical-align: top;
+  color: var(--text-primary);
+}
+.tk-dossier .statusbtns {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 6px 0;
+}
+.tk-dossier .statusbtns button {
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  border-radius: 8px;
+  padding: 6px 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.tk-dossier .statusbtns button.on.new {
+  background: #8a93a3;
+  border-color: #8a93a3;
+  color: #fff;
+}
+.tk-dossier .statusbtns button.on.reviewed {
+  background: var(--color-normal);
+  border-color: var(--color-normal);
+  color: #fff;
+}
+.tk-dossier .statusbtns button.on.pipeline {
+  background: #c98a1b;
+  border-color: #c98a1b;
+  color: #fff;
+}
+.tk-dossier .statusbtns button.on.added {
+  background: #1f9d57;
+  border-color: #1f9d57;
+  color: #fff;
+}
+.tk-dossier .statusbtns button.on.rejected {
+  background: var(--color-obese);
+  border-color: var(--color-obese);
+  color: #fff;
+}
+.tk-dossier .notearea {
+  width: 100%;
+  min-height: 70px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+  font: inherit;
+  resize: vertical;
+  background: var(--bg-panel);
+  color: var(--text-primary);
+}
+.tk-dossier .note-prose {
+  font-size: 12.8px;
+  color: var(--text-muted);
+}
+.tk-dossier .risk {
+  color: #a0701b;
+}
+.tk-dossier .pill {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+}
+.tk-dossier .nok {
+  color: #1f9d57;
+  font-weight: 650;
+}
+.tk-dossier .nbad {
+  color: var(--color-obese);
+  font-weight: 650;
+}
+.tk-dossier .nunk {
+  color: var(--text-muted);
+}
+.tk-dossier .intnote {
+  border-radius: 9px;
+  padding: 9px 12px;
+  font-size: 12.8px;
+  margin-bottom: 12px;
+}
+.tk-dossier .intnote code {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0 4px;
+}
+.tk-dossier .intnote.ok {
+  background: rgba(13, 148, 136, 0.12);
+  border: 1px solid #0d9488;
+  color: #0a6b63;
+}
+.tk-dossier .intnote.rel {
+  background: rgba(201, 138, 27, 0.1);
+  border: 1px solid #c98a1b;
+  color: #8a5e12;
+}
+.tk-dossier .intnote.none {
+  background: var(--bg-app);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+.tk-dossier .open-explorer {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border: 1px solid #0d9488;
+  color: #0a6b63;
+  background: rgba(13, 148, 136, 0.08);
+  border-radius: 8px;
+  margin-left: 8px;
+}
+.tk-headbadge {
+  font-size: 11px;
+  font-weight: 650;
+  padding: 2px 9px;
+  border-radius: 12px;
+}

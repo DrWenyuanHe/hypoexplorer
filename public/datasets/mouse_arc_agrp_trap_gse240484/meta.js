@@ -1,0 +1,1 @@
+var HX_MOUSE_ARC_AGRP_TRAP_GSE240484_META = {"populations":["agrp"],"labels":{"agrp":"Arcuate AGRP neurons (NuTRAP)"},"types":{"agrp":"Tissue"},"nGenes":{"agrp":15242},"colors":{"agrp":"#9467BD"},"qcFlags":{"agrp":{"is3v3":false,"nNormal":3,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

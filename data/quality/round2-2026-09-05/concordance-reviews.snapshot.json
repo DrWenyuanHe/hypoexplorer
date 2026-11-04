@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "reviews": [
+    {
+      "datasetId": "chicken_hypo_development_gse104255",
+      "contrastId": "six_week_vs_three_week",
+      "reviewedAt": "2026-09-05",
+      "dimension": "effects",
+      "status": "compatible",
+      "evidenceFingerprint": "cb7317fc193d12d6d7f7f2385a234623c8f3f03947eebdc182c99ef07c2873e2",
+      "localMethod": "edgeR quasi-likelihood",
+      "authorMethod": "DESeq2",
+      "orientation": "Both positive for 6-week minus 3-week hypothalamus.",
+      "priorReview": {
+        "status": "limited",
+        "note": "Pearson 0.902588; four shared author-significant directions reverse."
+      },
+      "note": "The registered edgeR-QL logFC and deposited DESeq2 log2FoldChange both estimate log2 fold change for six-week minus three-week hypothalamus. The comparison adapter uses these columns directly with the recorded identifier map. Their effect definitions are compatible. The prior review concerns imperfect numerical agreement, which the concordance policy evaluates separately through paired-gene correlations, signs and magnitudes. This review does not equate the models' P values or FDR calls.",
+      "sources": [
+        {
+          "path": "geo_replication/datasets/GSE104255_ggal_hypothalamus/raw/GSE104255_res.pod.csv.gz",
+          "sha256": "fa67eecaaae432aeecb4135520f3a369fb4bb2dabfaab3d180889d815765ac71"
+        },
+        {
+          "path": "geo_replication/datasets/GSE104255_ggal_hypothalamus/processed/GSE104255_DE.tsv",
+          "sha256": "21cede79a4069e205f36832bf32e02215dd4aa0afc7fc98ac8b81b3bb366a217"
+        }
+      ]
+    }
+  ]
+}

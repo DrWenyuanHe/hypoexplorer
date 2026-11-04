@@ -1,0 +1,1 @@
+var HX_MOUSE_ARC_PNOC_TRAP_GSE292416_META = {"populations":["pnoc"],"labels":{"pnoc":"Arcuate PNOC neurons (bacTRAP)"},"types":{"pnoc":"Tissue"},"nGenes":{"pnoc":16832},"colors":{"pnoc":"#D4A6C8"},"qcFlags":{"pnoc":{"is3v3":false,"nNormal":4,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

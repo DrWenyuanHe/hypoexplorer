@@ -1,0 +1,25 @@
+# High-fat-diet discovery review, 2026-09-12
+
+Discovery was compared with `src/data/datasets.ts`, `geo_replication/config/datasets.tsv`, the September 5 intake, the tracker reviews, and earlier survey recipes. The candidates below were absent from the active registry when reviewed. Several had appeared in earlier surveys; they are additional pipeline candidates, not newly discovered accessions.
+
+| Accession | Eligible comparison and input | Decision |
+| --- | --- | --- |
+| [GSE104709](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE104709) | Mouse ventral/circumventricular hypothalamus, chronic 45%-fat HFD versus regular chow. Five independent two-mouse RNA pools per arm. Deposited PORT-normalized expression. | Added one limma track on log2(PORT-normalized read count + 1), with exact source reconstruction and independent model replay. Diet-switch arms excluded. A complete matching author effect table remains unavailable. |
+| [GSE107324](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE107324) | Rat postnatal-day-10 whole hypothalamus after maternal 43% versus 12% fat-derived energy exposure. Six samples per diet within each sex. The two GEO workbooks actually contain twelve normalized columns followed by twelve integer count columns, in addition to author results. | Prepared two sex-specific count tracks. This empirical check corrects the prior rejection based on the topTable filenames. All 337,800 source count values and every deposited row total were verified. |
+| [GSE127056](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE127056) | Mouse hypothalamus, chow versus four- or eight-week HFD; three samples in each of the three arms. Affymetrix GPL6246, deposited CEL and processed sample values. | Excluded after cohort review: chow samples are 10–12 weeks old, four-week HFD samples 12–14 weeks, and eight-week HFD samples 14–16 weeks. Diet is confounded with age. The deposited sample evidence is retained in `../excluded/GSE127056/`. |
+| [GSE104338](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE104338) | Male rat hypothalamus after two months of low-fat soybean or high-fat flaxseed/safflower diets. Earlier source-adjudicated recipes record 4/4/5 animals. The current series record retains 13 samples and a CEL/CHP archive, without a separate sample-expression supplement. | Requires an RTA-1.0 array adapter and validated probe annotation. Fat quantity and fatty-acid composition change together; this is not a pure fat-dose comparison. |
+| [GSE135830](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE135830) | Male mouse postnatal-day-21 hypothalamus after maternal HFD. Five control and six HFD arrays; Agilent GPL10333. A normalized-intensity XLSX and raw feature-extraction files are deposited. | Hold for litter adjudication. GEO allows multiple offspring per dam, and the deposited titles do not establish independent maternal exposure units. The earlier description of all 11 offspring as independent was too strong. |
+
+GSE203125 was also reviewed and remains deferred: its stated linear PLIER processing conflicts with the apparent scale of the deposited matrix. The source files and checksum-bound decision are retained in `../GSE203125-deferred.json`.
+
+GSE220533 is already integrated. GSE79551 and GSE293937 are HFD-exposed expression resources without a matched chow arm for the requested direct diet comparison, so they were not advanced as new HFD-versus-control studies.
+
+## GSE107324 implementation and limits
+
+The reproducible preparer is `scripts/prepare_hfd_maternal.py`. Authentic files, matrices, sample sheets, row-level annotation decisions, and the source review are under `geo_replication/datasets/GSE107324_rnor_hypothalamus_maternal_hfd/`. Both sex-specific tracks are integrated through `data/intake/hfd-2026-09-12/studies.json`; the original discovery proposal is retained separately.
+
+Twenty-four male and 23 female gene-name cells were converted to dates in the deposited Excel files. Their counts remain separate under reserved `__GSE107324_*` feature identifiers. No gene name was guessed. The tested gene universe is restricted to the submitted rows.
+
+The [original paper](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0189492) reports six samples per sex/diet and identifies litter as the replication unit. GEO omits the GSM-to-litter map, so sexes remain separate and no cross-sex pairing is asserted. The paper also specifies that negative deposited logFC means increased expression in HFD offspring; direct comparisons negate that source coefficient once.
+
+`scripts/compare_hfd_authors.py` rereads the original workbooks and pairs every comparable tested named gene with the pipeline output. Male/female Pearson correlations are 0.999888/0.999900, with direction agreement of 99.467%/99.491%. The author's eight male and 86 female FDR discoveries are not significant in the standardized quasi-likelihood refit. These results support agreement of estimated effects, not reproduction of significance calls. Numerical measurements and full paired tables are under `data/author-validation/hfd-intake-2026-09-12/`.

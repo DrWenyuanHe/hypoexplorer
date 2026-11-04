@@ -1,0 +1,156 @@
+# Cache + compression policy for HypoExplorer on Apache/LiteSpeed (Hostinger).
+#
+# ── DORMANT SINCE 2026-09-04. NOTHING HERE RUNS FOR hypoexplorer.com. ────────
+# The apex moved to Cloudflare Workers static assets (see wrangler.jsonc), which
+# is not Apache and never reads this file — and public/.assetsignore explicitly
+# keeps .htaccess out of the Worker upload, so it is not even present there. The
+# live equivalents are:
+#
+#   * public/_headers    — the Cache-Control policy below, ported. Only /assets/*
+#                          is immutable; the unhashed-but-?v=-busted files keep
+#                          Cloudflare's revalidating default, matching what the
+#                          rules below set for them.
+#   * public/_redirects  — /datasets/*, /query/*, /qc/* to R2.
+#   * (nothing)          — the compression half has no port and needs none.
+#                          Cloudflare compresses at the edge, so the sidecar
+#                          rewrites below have no equivalent; the .br/.gz files
+#                          are excluded from the Worker upload too.
+#
+# KEPT, NOT DELETED, for two reasons: www.hypoexplorer.com is still a CNAME to
+# Hostinger's CDN and still served by Apache until that redirect lands, and this
+# file plus the sidecars is what a rollback off Cloudflare would need. Edit it
+# only in step with public/_headers, or the rollback silently disagrees with
+# production.
+#
+# WHAT THE RULES BELOW DO (when Apache is serving):
+# Hashed bundles under /assets/ get immutable long-cache. Unhashed data files
+# (pop_*.js, qc_global.js) and index.html must revalidate so a new deploy is
+# picked up promptly. The Vite build stamps ?v=<version> onto these files, so
+# revalidate + version-param together guarantee fresh content.
+# /datasets/** caching lives in datasets/.htaccess (nested file — most reliable
+# scoping on shared hosting), and is likewise dormant now that those paths are
+# on R2.
+#
+# Cloudflare still fronts the zone, so when Apache IS serving (www today) these
+# remain ORIGIN policy that the edge acts on: the Cache-Control values are what
+# Cloudflare caches by, and `Vary: Accept-Encoding` is load-bearing at the edge
+# because Cloudflare keeps one cached variant per encoding on the strength of it
+# — without it a gzip-only client can be handed brotli it cannot decode.
+#
+# `npm run verify:deploy` no longer checks any of this against the apex: it
+# detects the serving model (it asks for the .br sidecar URL, a real file under
+# Apache and a 404 on Cloudflare) and asserts the appropriate contract for each.
+
+# ── Compression ──────────────────────────────────────────────────────────────
+# The data bundles are 1-10 MB of JSON-in-JS that compress ~4:1; serving them
+# identity-encoded quadruples every track load. Two layers, most reliable first:
+#
+# 1) PRECOMPRESSED SIDECARS (build-time .br/.gz next to each file — generate
+#    with `npm run precompress` after `npm run build`, before uploading dist/).
+#    Shared-host LiteSpeed caps on-the-fly compression by file size, and that
+#    cap is not inspectable from a .htaccess — sidecars sidestep it entirely
+#    and get brotli-11/gzip-9 instead of the server's streaming level.
+#    Follows the official Apache mod_deflate/mod_brotli precompressed recipes:
+#    serve <file>.br|.gz when the client accepts it, re-type the response, and
+#    exempt it from the output filters so nothing double-compresses.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP:Accept-Encoding} \bbr\b
+  RewriteCond %{REQUEST_FILENAME}.br -f
+  RewriteRule ^(.+)\.(js|css)$ $1.$2.br [L]
+  RewriteCond %{HTTP:Accept-Encoding} \bgzip\b
+  RewriteCond %{REQUEST_FILENAME}.gz -f
+  RewriteRule ^(.+)\.(js|css)$ $1.$2.gz [L]
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "\.js\.(br|gz)$">
+    ForceType application/javascript
+  </FilesMatch>
+  <FilesMatch "\.css\.(br|gz)$">
+    ForceType text/css
+  </FilesMatch>
+  <FilesMatch "\.(js|css)\.br$">
+    Header set Content-Encoding br
+    SetEnv no-brotli 1
+    SetEnv no-gzip 1
+  </FilesMatch>
+  <FilesMatch "\.(js|css)\.gz$">
+    Header set Content-Encoding gzip
+    SetEnv no-gzip 1
+  </FilesMatch>
+  <FilesMatch "\.(js|css)(\.(br|gz))?$">
+    Header append Vary Accept-Encoding
+  </FilesMatch>
+</IfModule>
+
+# 2) ON-THE-FLY fallback for anything without a sidecar (html, json, svg, and
+#    any js/css the precompress step missed). Subject to the host's size caps,
+#    which is exactly why layer 1 exists for the multi-MB bundles.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE application/javascript text/javascript text/css text/html application/json image/svg+xml application/manifest+json
+</IfModule>
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS application/javascript text/javascript text/css text/html application/json image/svg+xml application/manifest+json
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Vite hashed bundles: <name>-<8+ hex/base64 chars>.js|css — cache forever.
+  # NOTE: The data-file rule below (pop_* / qc_global) takes precedence for any
+  # filename that matches both patterns, because Apache applies Header directives
+  # in source order and the last writer wins.
+  # (\.(br|gz))? — the precompressed sidecars must carry the same cache policy
+  # as the file they stand in for, or a rewritten response ships with no
+  # Cache-Control at all.
+  <FilesMatch "-[A-Za-z0-9_-]{8,}\.(js|css)(\.(br|gz))?$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Unhashed data files — revalidate every request
+  <FilesMatch "^(pop_.*|qc_global)\.js(\.(br|gz))?$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+
+  # The nomenclature bundles are unhashed multi-MB data files at a stable path
+  # (/nomenclature/aliases.js, table.js). Without an explicit rule they fall to
+  # heuristic edge/browser TTLs, which pins a data-only rebuild (the table is
+  # regenerated a handful of times a year, decoupled from app releases) stale
+  # for an unbounded time. Same treatment as pop_*/qc_global: the ?v= cache
+  # bust and the service worker's CacheFirst bucket are the intended caches,
+  # and the origin answer is always current. FilesMatch matches basenames, so
+  # scope by name — these two names exist nowhere else in the deploy.
+  <FilesMatch "^(aliases|table)\.js(\.(br|gz))?$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+
+  # HTML — always revalidate so new deploys are picked up immediately
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+
+  # The service worker and the PWA manifest live at FIXED urls but change on
+  # every deploy — the exact combination the hashed-asset rule cannot cover.
+  # Browsers cap sw.js caching at 24h regardless, but an explicit no-cache
+  # closes the window entirely: without it, a deploy can leave returning
+  # clients running the previous worker (with its previous precache manifest)
+  # for up to a day, and the edge cache may hold it longer than that.
+  <FilesMatch "^(sw\.js|manifest\.webmanifest)(\.(br|gz))?$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+
+  # version.json — the deploy's version stamp, polled by the in-app update
+  # watcher (src/pwa/versionWatch.ts) to decide whether a tab is running a build
+  # the origin no longer serves. Same shape of problem as sw.js: a FIXED url
+  # whose contents change on every deploy. A cached copy here is worse than a
+  # cached worker, though — it would answer with the OLD version and so report
+  # a stale client as up to date, disabling the very check that exists to catch
+  # staleness. The client also sends no-store and a cache-busting param; this
+  # closes the edge's half of it.
+  <FilesMatch "^(version|release)\.json$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType application/javascript .js
+  AddType text/css .css
+</IfModule>

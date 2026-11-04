@@ -1,0 +1,635 @@
+{
+  "overrides": {
+    "CNP0003785": {
+      "fields": {
+        "assay_class": "sc_counts",
+        "evidence_kind": "paper_methods",
+        "aligner": "STAR",
+        "aligner_version": "2.5.3",
+        "genome_build": "Macaca_fascicularis_5.0 (pre-mRNA reference)",
+        "annotation": "NA",
+        "annotation_version": "NA",
+        "quantifier": "NA",
+        "quantifier_version": "NA",
+        "evidence_path": "data/upstream-processing/2026-09-27/CNP0003785-review.json",
+        "verbatim": "STAR v2.5.3 was applied for reads alignment with the Macaca_fascicularis_5.0 genome."
+      },
+      "reason": "Reviewed Lei et al. 2024, STAR Methods p. e4. Annotation provider/release and the snRNA-seq counting tool are not stated in the paper or recovered author code."
+    },
+    "GSE102415": {
+      "fields": {
+        "annotation": "Ensembl"
+      },
+      "reason": "Depositor wrote 'ENSEBML annotation' (typo for Ensembl); no release given."
+    },
+    "GSE102471": {
+      "fields": {
+        "quantifier": "Rsubread"
+      },
+      "reason": "Counts came from Bioconductor Rsubread against Ensembl build 83 ('Mapping to Ensembl build 83 using Bioconductor Rsubread'); TopHat2 did the alignment."
+    },
+    "GSE128537": {
+      "fields": {
+        "aligner": "HISAT2",
+        "aligner_version": "2.0.5",
+        "annotation": "Ensembl",
+        "annotation_version": "91",
+        "quantifier": "HTSeq",
+        "quantifier_version": "0.6.1"
+      },
+      "reason": "Series also holds ATAC-seq (bwa mem, bedtools); the RNA-seq lines state HISAT2 v2.0.5, the Mmul 8.0.1.91 GTF (Ensembl 91) and HTSeq v0.6.1."
+    },
+    "GSE128660": {
+      "fields": {
+        "annotation": "NA"
+      },
+      "reason": "Genome_build line says mm9 but the processing text maps to the Ensembl release-91 mouse FASTA (GRCm38); recorded as the Genome_build line states. No annotation file is named."
+    },
+    "GSE135639": {
+      "fields": {
+        "assay_class": "rnaseq_normalized",
+        "deposited_file": "GSE135639_Newborn.txt.gz"
+      },
+      "reason": "Not in geo_replication/config/datasets.tsv; the replay input (scripts/advance_internal_dedicated.mts) is the deposited GSE135639_Newborn.txt.gz, a two-decimal normalized expression matrix."
+    },
+    "GSE141144": {
+      "fields": {
+        "annotation": "Ensembl",
+        "annotation_version": "92",
+        "quantifier_version": "2.5"
+      },
+      "reason": "Genome_build 'GRCz11v92' names the Ensembl 92 zebrafish build; counts are STAR --quantMode GeneCounts."
+    },
+    "GSE148252": {
+      "fields": {
+        "aligner": "STAR",
+        "aligner_version": "2.7.1a",
+        "annotation": "GENCODE",
+        "annotation_version": "M21",
+        "quantifier": "HTSeq",
+        "quantifier_version": "0.9.1"
+      },
+      "reason": "Series also holds ChIP-seq (BWA, bedtools, HOMER) and snRNA-seq (Cell Ranger, STAR 2.5.2b, featureCounts); the registered bulk RNA-seq used STAR v2.7.1a, GENCODE M21 and HTSeq v0.9.1."
+    },
+    "GSE153551": {
+      "fields": {
+        "aligner": "STAR",
+        "aligner_version": "NA",
+        "genome_build": "Grch38 [sic]",
+        "annotation": "Ensembl",
+        "annotation_version": "77",
+        "quantifier": "NA",
+        "quantifier_version": "NA"
+      },
+      "reason": "Registered data are the bulk subseries: STAR aligner, no version. Depositor wrote 'Grch38 (release 77)' for mouse; shown as written, probably GRCm38 with Ensembl 77. The Cell Ranger lines belong to the sc/snRNA-seq samples."
+    },
+    "GSE156859": {
+      "fields": {
+        "aligner": "STAR",
+        "aligner_version": "2.5.3a",
+        "annotation": "RefSeq Transcripts",
+        "annotation_version": "83 (2017-11-01)",
+        "quantifier": "Partek E/M",
+        "quantifier_version": "NA"
+      },
+      "reason": "STAR 2.5.3a ran inside Partek Flow (build 6.0.17.0403); reads were assigned to rn6 RefSeq Transcripts 83 (2017-11-01) with Partek E/M."
+    },
+    "GSE157077": {
+      "fields": {
+        "assay_class": "rnaseq_normalized",
+        "deposited_file": "GSE157077_mouse_scn_control.tsv.gz; GSE157077_mouse_scn_high_fat.tsv.gz"
+      },
+      "reason": "Not in geo_replication/config/datasets.tsv; the replay inputs (scripts/advance_internal_dedicated.mts) are the two deposited per-diet normalized expression matrices."
+    },
+    "GSE158751": {
+      "fields": {
+        "annotation": "Ensembl",
+        "annotation_version": "99"
+      },
+      "reason": "Depositor states 'GRCm38_mm10 (release99)'; release 99 is the Ensembl release for GRCm38."
+    },
+    "GSE160802": {
+      "fields": {
+        "annotation": "Ensembl",
+        "annotation_version": "89"
+      },
+      "reason": "Genome_build 'GRCm38_89' names GRCm38 with Ensembl release 89."
+    },
+    "GSE162563": {
+      "fields": {
+        "quantifier": "HTSeq",
+        "quantifier_version": "0.6.1"
+      },
+      "reason": "Raw-count file came from HTSeq v0.6.1 (Cufflinks/Cuffdiff 2.1.1 was a second method); TopHat 2.0.13 ran with Bowtie 2.2.1 (--b2 options, i.e. Bowtie2)."
+    },
+    "GSE167105": {
+      "fields": {
+        "annotation": "UCSC transcripts"
+      },
+      "reason": "Reads were mapped to the 'latest UCSC transcript set' with Bowtie2 v2.1.0 and RSEM v1.2.15."
+    },
+    "GSE168151": {
+      "fields": {
+        "quantifier": "Rsubread"
+      },
+      "reason": "Same pipeline as GSE102471: TopHat2 alignment, Rsubread counting against Ensembl build 83."
+    },
+    "GSE174753": {
+      "fields": {
+        "aligner": "HISAT2"
+      },
+      "reason": "Depositor wrote 'HISAT 2.2.0 release 2/6/2020'; 2.2.0 is a HISAT2 release (HISAT had no 2.x)."
+    },
+    "GSE179663": {
+      "fields": {
+        "genome_build": "Trinity 2.8.5 de novo transcriptome; GRCm39 for gene mapping"
+      },
+      "reason": "Phodopus reads were quantified (bowtie 1.3.0 + RSEM 1.3.1) against a Trinity 2.8.5 de novo transcriptome; GRCm39 is named as the reference for mapping Trinity transcripts to mouse genes (blastx)."
+    },
+    "GSE185074": {
+      "fields": {
+        "aligner": "STAR",
+        "aligner_version": "2.6.1d"
+      },
+      "reason": "Depositor wrote 'STAR vSTAR_2.6.1d' within nf-core/rnaseq v1.4.2; counts are Salmon 0.14.1."
+    },
+    "GSE202003": {
+      "fields": {
+        "aligner": "HISAT2; TopHat"
+      },
+      "reason": "Processing text says 'Gallus gallus_4.0' but the Assembly line names Gallus_gallus.GRCg6a.dna.toplevel.fa; recorded as the Assembly line states."
+    },
+    "GSE204883": {
+      "fields": {
+        "genome_build": "De novo Siberian hamster assembly (SAMN28537735)",
+        "annotation": "Liftoff of Ensembl GRCm39",
+        "annotation_version": "104"
+      },
+      "reason": "Reads were mapped (bowtie2) to a new Siberian hamster assembly (SAMN28537735) annotated by Liftoff from Ensembl 104 GRCm39; the only series file is that GTF, not the count matrix."
+    },
+    "GSE207494": {
+      "fields": {
+        "genome_build": "Trinity 2.8.5 de novo transcriptome; GRCm39 for gene mapping"
+      },
+      "reason": "Dormouse reads were quantified (bowtie 1.3.0 + RSEM 1.3.1) against a Trinity 2.8.5 de novo transcriptome; GRCm39 is named as the reference for mapping Trinity transcripts to mouse genes (blastx)."
+    },
+    "GSE207992": {
+      "fields": {
+        "annotation_version": "M27"
+      },
+      "reason": "Assembly line: 'GRCm39, vM27.annotations from GENCODE'."
+    },
+    "GSE214683": {
+      "fields": {
+        "annotation": "GENCODE",
+        "annotation_version": "M23"
+      },
+      "reason": "Assembly line 'GRCm38, release M23' names the GENCODE M23 mouse release."
+    },
+    "GSE224780": {
+      "fields": {
+        "aligner_version": "2.7.9a"
+      },
+      "reason": "STAR 2.5.0a was used for liver and muscle; the registered hypothalamus samples used STAR 2.7.9a."
+    },
+    "GSE225359": {
+      "fields": {
+        "annotation": "Ensembl",
+        "annotation_version": "102"
+      },
+      "reason": "Processed with nf-core/rnaseq v1.4.2 using the Ensembl release 102 gene set; the depositor does not name the aligner or quantifier."
+    },
+    "GSE227725": {
+      "fields": {
+        "genome_build": "Sscrofa11.1"
+      },
+      "reason": "Assembly stated as 'Sus scrofa genome (version 11.1)', i.e. Sscrofa11.1."
+    },
+    "GSE229159": {
+      "fields": {
+        "quantifier_version": "1.6.2"
+      },
+      "reason": "featureCounts ran from the Subread module v1.6.2 ('featureCount routine of the Subread module (v. 1.6.2)')."
+    },
+    "GSE231617": {
+      "fields": {
+        "aligner": "HISAT2",
+        "aligner_version": "2.2.1"
+      },
+      "reason": "Series also holds nanopore methylation (minimap2, Nanopolish); the RNA-seq lines state HISAT2 v2.2.1 to rn7 and featureCounts (Subread v2.0.1)."
+    },
+    "GSE232510": {
+      "fields": {
+        "genome_build": "Rnor_6.0"
+      },
+      "reason": "Depositor wrote 'Rnor6' in the text and 'Rnot6' in the Assembly line; both name Rnor_6.0."
+    },
+    "GSE235479": {
+      "fields": {
+        "quantifier": "EMASE"
+      },
+      "reason": "Diversity Outbred pipeline: counts quantified by EMASE (GBRS); Ensembl version 84 annotation on GRCm38. The aligner is not named."
+    },
+    "GSE240365": {
+      "fields": {
+        "quantifier": "HTSeq",
+        "quantifier_version": "NA"
+      },
+      "reason": "The registered raw counts came from htseq-count; Cufflinks produced the separate FPKM file."
+    },
+    "GSE240484": {
+      "fields": {
+        "aligner": "HISAT2",
+        "aligner_version": "NA",
+        "quantifier": "featureCounts",
+        "quantifier_version": "NA"
+      },
+      "reason": "Series also holds ATAC-seq (Bowtie 2, bedtools); the RNA-seq lines state HISAT2 and featureCounts with a modified mm10 annotation."
+    },
+    "GSE242187": {
+      "fields": {},
+      "reason": "Processing was done on the Banana Slug Analytics Platform (commercial service); no aligner or quantifier is named."
+    },
+    "GSE242245": {
+      "fields": {
+        "aligner_version": "7.2a [sic]"
+      },
+      "reason": "Depositor wrote 'STAR v.7.2a' (as written; probably 2.7.2a)."
+    },
+    "GSE242354": {
+      "fields": {
+        "aligner": "STAR",
+        "aligner_version": "2.7.0d",
+        "annotation": "Ensembl",
+        "annotation_version": "96"
+      },
+      "reason": "Bowtie 2 only screened globin/rRNA/phiX contamination; STAR v2.7.0d aligned to rn6 with Ensembl release 96 annotation and RSEM v1.3.1 quantified."
+    },
+    "GSE245146": {
+      "fields": {
+        "genome_build": "Sscrofa11.1"
+      },
+      "reason": "Assembly stated as 'Sus scrofa genome (version 11.1)', i.e. Sscrofa11.1."
+    },
+    "GSE246918": {
+      "fields": {
+        "aligner_version": "2.6.1d"
+      },
+      "reason": "Depositor wrote 'STAR v2.6.1.d' (STAR 2.6.1d)."
+    },
+    "GSE247825": {
+      "fields": {
+        "aligner_version": "2.7.3a"
+      },
+      "reason": "Depositor wrote 'STAR aligner12 v. 2.7.3a' (12 is a citation)."
+    },
+    "GSE252779": {
+      "fields": {
+        "genome_build": "mm10"
+      },
+      "reason": "Depositor wrote 'GrCM38/mm 10' and 'Assembly: mm 10'."
+    },
+    "GSE262407": {
+      "fields": {
+        "aligner": "Cell Ranger",
+        "aligner_version": "7.0.0",
+        "quantifier": "Cell Ranger",
+        "quantifier_version": "7.0.0",
+        "annotation": "mouse_mm10_optimized_v1 (custom)"
+      },
+      "reason": "Cell Ranger 7.0.0 (cellranger-7.0.0) produced the gene counts against a custom 'mouse_mm10_optimized_v1' reference; Salmon 1.5.0 and alevin-fry only quantified hashtag oligos."
+    },
+    "GSE266472": {
+      "fields": {
+        "quantifier": "NA",
+        "quantifier_version": "NA"
+      },
+      "reason": "The counts file is described as HTSeq-formatted, but the depositor does not say which tool counted."
+    },
+    "GSE270378": {
+      "fields": {
+        "genome_build": "GRCm39"
+      },
+      "reason": "Depositor wrote 'Mouse GRC39' (GRCm39)."
+    },
+    "GSE270383": {
+      "fields": {
+        "genome_build": "hg19+mm10 combined (STAR_hg19_mm10_RNAseq)"
+      },
+      "reason": "The pipeline maps reads with 'a tool such as STAR' to the combined STAR_hg19_mm10_RNAseq reference; no versions or counting tool are named."
+    },
+    "GSE273038": {
+      "fields": {
+        "aligner": "STAR",
+        "aligner_version": "NA",
+        "genome_build": "mm39 or hg19+mm10 (conflicting)"
+      },
+      "reason": "Registered data are the IRIS-seq spatial samples: their text maps reads with 'a tool such as STAR' to STAR_hg19_mm10_RNAseq while their Assembly field says mm39; the STAR v2.5.2b/EasySci lines belong to the snRNA-seq sample."
+    },
+    "GSE274003": {
+      "fields": {
+        "genome_build": "GRCm39",
+        "aligner": "minimap2",
+        "aligner_version": "NA"
+      },
+      "reason": "Nanopore long reads: minimap2 alignment and Salmon quantification; depositor wrote 'GCRm39' and 'GRCmm39' (GRCm39)."
+    },
+    "GSE280030": {
+      "fields": {
+        "genome_build": "GRCm39",
+        "annotation": "MM109 [sic]"
+      },
+      "reason": "Depositor wrote 'Mouse GRC39 annotation MM109' (GRCm39; 'MM109' shown as written, probably Ensembl 109)."
+    },
+    "GSE280382": {
+      "fields": {
+        "aligner": "STAR",
+        "aligner_version": "2.7.10b",
+        "quantifier": "HTSeq",
+        "quantifier_version": "2.0.2"
+      },
+      "reason": "Citation numbers are glued to tool names: 'STAR98 (v2.7.10b)', 'HTSeq100 (v2.0.2)'."
+    },
+    "GSE282067": {
+      "fields": {},
+      "reason": "Two branches are described: paired-end reads via nf-core/rnaseq 3.16 with Salmon, single-end reads via BWA-mem and HTSeq; the depositor does not say which produced the registered Treg counts."
+    },
+    "GSE285006": {
+      "fields": {
+        "aligner": "HISAT2",
+        "aligner_version": "NA",
+        "quantifier": "Rsubread",
+        "quantifier_version": "2.0.1"
+      },
+      "reason": "Novogene aligned with HISAT2 to NCBI GRCm38; counts came from Rsubread v2.0.1 with the NCBI RefSeq annotation (Rsubread did not align)."
+    },
+    "GSE285906": {
+      "fields": {
+        "genome_build": "Ensembl 101 primary assembly",
+        "aligner": "STAR",
+        "aligner_version": "2.5.1a",
+        "quantifier": "NA",
+        "quantifier_version": "NA"
+      },
+      "reason": "STAR 2.5.1a aligned to the Ensembl release 101 primary assembly; Partek Flow was used downstream and the counting step is not named."
+    },
+    "GSE289461": {
+      "fields": {
+        "annotation_version": "M25",
+        "genome_build": "GRCm39; mm10 (conflicting)"
+      },
+      "reason": "Drop-seq tools v2.5.1 with GRCm39 and GENCODE vM.25 in the processing text; the Assembly line says mm10."
+    },
+    "GSE295250": {
+      "fields": {
+        "aligner": "HISAT2",
+        "aligner_version": "NA",
+        "quantifier": "Rsubread",
+        "quantifier_version": "NA"
+      },
+      "reason": "Series also holds CUT&RUN (Bowtie2); RNA-seq was aligned with HISAT2 and counted with Rsubread."
+    },
+    "GSE298648": {
+      "fields": {
+        "genome_build": "galgal1 [sic]"
+      },
+      "reason": "Depositor wrote 'galgal1' for the chicken genome; shown as written."
+    },
+    "GSE308884": {
+      "fields": {
+        "aligner": "STAR",
+        "aligner_version": "2.7.9a"
+      },
+      "reason": "nf-core/rnaseq v3.14.0: STAR v2.7.9a aligned, Salmon v1.10.1 quantified GENCODE M31 gene models."
+    },
+    "GSE314184": {
+      "fields": {
+        "genome_build": "PU_Rpum_1.0"
+      },
+      "reason": "Rhabdomys pumilio reference PU_Rpum_1.0; Cell Ranger version not given."
+    },
+    "GSE330152": {
+      "fields": {
+        "genome_build": "mRatBN7.2"
+      },
+      "reason": "Depositor wrote 'Rn7.2' (mRatBN7.2); counts by featureCounts in Rsubread."
+    },
+    "GSE337822": {
+      "fields": {
+        "aligner_version": "6.1.2",
+        "quantifier_version": "6.1.2"
+      },
+      "reason": "Depositor wrote 'Cellranger pipeline (10x genomics, v.6.1.2)'."
+    },
+    "GSE68177": {
+      "fields": {
+        "aligner": "STAR",
+        "aligner_version": "2.4.0i",
+        "annotation": "GENCODE basic (UCSC EncodeGencodeVM4Basic)",
+        "annotation_version": "M4"
+      },
+      "reason": "Bowtie2 v2.1.0 only filtered rRNA/mitochondrial/phiX reads; STAR v2.4.0i aligned to mm10; HTSeq v0.6.1p1 counted against UCSC EncodeGencodeVM4Basic (GENCODE M4 basic)."
+    },
+    "GSE87544": {
+      "fields": {
+        "aligner": "Drop-seq tools",
+        "quantifier": "Drop-seq tools"
+      },
+      "reason": "Reads were 'trimmed and aligned using the drop-seq data analysis package' (Drop-seq tools; version not given)."
+    },
+    "GSE98519": {
+      "fields": {
+        "genome_build": "GRCm38",
+        "quantifier": "USeq DefinedRegionDifferentialSeq",
+        "quantifier_version": "8.8.8"
+      },
+      "reason": "Series covers zebrafish and mouse; the registered mouse samples used GRCm38 with Ensembl 84 splice junctions, Novoalign v2.08.03 and USeq (v8.8.8) DefinedRegionDifferentialSeq counts."
+    },
+    "GSE98690": {
+      "fields": {
+        "aligner_version": "0.11.2 [sic]"
+      },
+      "reason": "Depositor wrote 'Tophat (v 0.11.2)'; shown as written."
+    },
+    "GSE65663": {
+      "fields": {
+        "assay_class": "microarray",
+        "platform_gpl": "GPL1355",
+        "aligner": "NA",
+        "aligner_version": "NA",
+        "genome_build": "NA",
+        "annotation": "NA",
+        "annotation_version": "NA",
+        "quantifier": "GeneSpring GX",
+        "quantifier_version": "12",
+        "deposited_file": "GSE65663_series_matrix.txt.gz",
+        "evidence_kind": "geo_data_processing",
+        "evidence_path": "geo_replication/datasets/GSE65663_rnor_son_salt/raw/GSE65663_series_matrix.txt.gz"
+      },
+      "reason": "Reviewed official GEO sample processing: GeneSpring GX12 quartile RMA normalization with median baseline. This is an Affymetrix Rat Genome 230 2.0 microarray, not RNA-seq alignment. HypoExplorer imports the deposited median-baselined RMA log expression unchanged. GPL1355 annotation dated 2016-08-09 is used in the new local probe preparation; it is not asserted as the original author annotation release. Sequencing genome/aligner fields are not applicable and no version is invented."
+    }
+  },
+  "reviewed": {
+    "CNP0003785": "0e6c3025a9fd4c44",
+    "E-MTAB-12340": "8125f1cf72342fff",
+    "E-MTAB-15488": "cb4cbacbbc2a8414",
+    "E-MTAB-15489": "ea2e7c28885d287e",
+    "E-MTAB-6929": "c85a9ef0ea7a4cde",
+    "GSE100349": "46ad3fecf5b6af9d",
+    "GSE102415": "f895a4d78a2cadbc",
+    "GSE102471": "06b90db1661c489c",
+    "GSE104255": "0b5dde8bec2730b7",
+    "GSE104709": "2a2e175da1722ec9",
+    "GSE107324": "f44d3bde8195d7b2",
+    "GSE113576": "e4a3ddd62f7945c4",
+    "GSE123983": "d170af2e86977973",
+    "GSE124693": "61b10ac8c7a17a9d",
+    "GSE128148": "7a027782ac2f3bdf",
+    "GSE128537": "585657e2b4654c93",
+    "GSE128660": "f365e05b5853375a",
+    "GSE130597": "ebfd5c3f0dfa4715",
+    "GSE131172": "d1e613e7438afa71",
+    "GSE132308": "8b701d1bed4f6d93",
+    "GSE132352": "7527ce18d6af4216",
+    "GSE133293": "eba16d3343d39c97",
+    "GSE135007": "0fd3e1968fe24b3c",
+    "GSE135639": "e5e9ac62e82d4d32",
+    "GSE141144": "8e46c74697db959d",
+    "GSE143818": "cc08a73cdc28e6f3",
+    "GSE145431": "e8ac628a1c3842a8",
+    "GSE148252": "029e2f93d822c856",
+    "GSE148641": "097b39ea13891a38",
+    "GSE153495": "133ffe3a67e9da41",
+    "GSE153498": "d7af5b347249d140",
+    "GSE153551": "7ca2aad40d1d43fe",
+    "GSE156859": "2463895d95358f96",
+    "GSE157077": "92570bd3bb549f1e",
+    "GSE158751": "20dd9ce30096d14b",
+    "GSE160467": "a164291c9adc16bd",
+    "GSE160802": "f7bee66185c38ae1",
+    "GSE162563": "84073692d904116e",
+    "GSE162673": "abaa30f29a6d739b",
+    "GSE162744": "1c4985e035c47e42",
+    "GSE167105": "dc82feac3557f728",
+    "GSE167264": "3eb2467a012c588d",
+    "GSE168151": "d6a5643cd584cf2a",
+    "GSE169296": "1de3588a50594b2f",
+    "GSE174085": "9580efa39f3cf5f7",
+    "GSE174753": "c3201654b2491a71",
+    "GSE175461": "7d9aab8855e5de17",
+    "GSE179663": "b769fa21707c59f2",
+    "GSE181204": "1316490a9dfc1277",
+    "GSE185074": "deed0817546af712",
+    "GSE189945": "57e836f2426304bf",
+    "GSE190389": "d26d21427d252b65",
+    "GSE190712": "cd89b2f6cbe782b5",
+    "GSE198437": "43a2829b130ca58b",
+    "GSE201207": "08d9e8e4beebf05d",
+    "GSE201408": "48d8bf9bd9480514",
+    "GSE202003": "1f8d3d5405879975",
+    "GSE204883": "f85cfa079f769405",
+    "GSE205313": "9ee3d33ccc80326e",
+    "GSE207494": "e410e44e8e086d6e",
+    "GSE207992": "cfb32f392122dfe3",
+    "GSE208722": "e1236b4fc9924900",
+    "GSE210311": "ebe5e94b1fb0bd16",
+    "GSE212299": "5946f0c45acd3704",
+    "GSE212336": "0236b94bc40a7b2f",
+    "GSE212491": "9e29bdd6aaaab8f6",
+    "GSE214683": "c727f755daaea566",
+    "GSE214877": "0b996a7dbd05bfdd",
+    "GSE217420": "5b2baa20e5b06032",
+    "GSE218188": "101410147b9129af",
+    "GSE220533": "a5fe019799bebba7",
+    "GSE224254": "6398662c90444a02",
+    "GSE224274": "82ecb41dc13bfaa3",
+    "GSE224780": "b98f317abdef8b44",
+    "GSE225038": "8bf61a76d11f5aea",
+    "GSE225359": "e4cdbd6bfd25d226",
+    "GSE227689": "738983ee6f74a7ea",
+    "GSE227725": "078590f7da1f7950",
+    "GSE229159": "d43c4d0460ed1436",
+    "GSE229440": "f307bb86f368bee5",
+    "GSE229799": "633f8fb0442df741",
+    "GSE229838": "273e12597beee36b",
+    "GSE231617": "a5db4390af31a3bb",
+    "GSE231769": "4775e48ec9d270a9",
+    "GSE232510": "4a0d81153b289e1c",
+    "GSE234483": "930a148f3e12c92e",
+    "GSE235479": "4e62ea65e8a51561",
+    "GSE235792": "3532bb9d58227b1c",
+    "GSE236077": "fdd6140aa8fd9066",
+    "GSE240365": "17a32c887a8d97f0",
+    "GSE240484": "0ac4416c16814b26",
+    "GSE242187": "afee43a1e6395f16",
+    "GSE242245": "52a09ca212efcf9a",
+    "GSE242354": "81cc19da8e07c5db",
+    "GSE243287": "89d9ece7f635e55f",
+    "GSE243697": "8fab9458dc1fcc16",
+    "GSE245146": "5a48080ff11826e9",
+    "GSE245727": "52e1cb729c20b053",
+    "GSE246918": "f32f7d48b722bbd4",
+    "GSE247825": "358de6ed6a6e8cef",
+    "GSE248462": "64abc87896d14cf4",
+    "GSE252364": "d3b08a2ceaf665a3",
+    "GSE252779": "a2e50a7b4735d2ca",
+    "GSE253875": "9c11caf8a6812135",
+    "GSE254155": "94d8b9bba95a0bf4",
+    "GSE261833": "ced9803d8d428c19",
+    "GSE262407": "2ef1952c72cec401",
+    "GSE264350": "d764eac48c87ac86",
+    "GSE266472": "97ef07378de324c9",
+    "GSE270378": "95e6f6cc96ba5dfa",
+    "GSE270383": "c9831f925d2f46bf",
+    "GSE273038": "78be3e96e90d78e2",
+    "GSE274003": "a60a5a641bf8c420",
+    "GSE275887": "3972022ccc159578",
+    "GSE278158": "01410e6777ff8918",
+    "GSE278826": "de427f992e5fddf3",
+    "GSE280030": "a4ca7e91201090b7",
+    "GSE280382": "cb22874a0675ac3c",
+    "GSE281503": "b9b6d740628316cb",
+    "GSE281701": "8871aaa9ad0d0fc8",
+    "GSE281726": "1baef8e961e05f1a",
+    "GSE282067": "9e75daeb5f57cc72",
+    "GSE284408": "5e1bc8a87c4f0a2d",
+    "GSE285006": "05ab2782cd9144ba",
+    "GSE285906": "729d4e8c8cfcbfa7",
+    "GSE289461": "87baa20b9307fcad",
+    "GSE289833": "6edf528f09aedd34",
+    "GSE292416": "c3cf46c1098f9f9a",
+    "GSE294478": "a3056b147d0a3331",
+    "GSE295250": "fc088c5877ae12fc",
+    "GSE296488": "f20eded810c7e6cc",
+    "GSE298648": "df7ad43ff1b25101",
+    "GSE299412": "0b7d23f555453ea4",
+    "GSE301692": "d3c1332c7a4abe06",
+    "GSE305688": "f8e28f5570b79449",
+    "GSE305719": "2694992135f57aa4",
+    "GSE306829": "48b506ec75029a6b",
+    "GSE308884": "190f79703cfd0db6",
+    "GSE309435": "30e9fc54005ad6b2",
+    "GSE314029": "19e1664733d5a274",
+    "GSE314184": "054e1676a87d5505",
+    "GSE314817": "350db875449012b7",
+    "GSE314970": "4f05089453d18346",
+    "GSE317867": "aa8a6b3addaaabf3",
+    "GSE324226": "77c5e7fafdf675bf",
+    "GSE328990": "1b40de90ffd6dcfe",
+    "GSE329539": "952000d1ad97c029",
+    "GSE329555": "854700996662583c",
+    "GSE330152": "7dd3a60503b66637",
+    "GSE337822": "eafef8f6d44e8673",
+    "GSE49540": "5502f6a1af8f5a1d",
+    "GSE56238": "8f297a7116c8dc4f",
+    "GSE65663": "a77dd263abbc162b",
+    "GSE68177": "ca49e798c9b85708",
+    "GSE87544": "6d2528b7d9905ba6",
+    "GSE95243": "bb0d566b6c44cb5c",
+    "GSE96627": "8bc716f33ca76002",
+    "GSE98519": "45bafe514b6e934d",
+    "GSE98690": "87bb13f3da6bb08c",
+    "GSE99690": "e503429a5e56f497",
+    "GSE99791": "40f7060f8cb35f0a"
+  }
+}

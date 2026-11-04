@@ -1,0 +1,17 @@
+diff --git a/package.json b/package.json
+index 3d78bd097ad7291cb5df0ca745e03d2bbae42bf4..684079d64765ac86b670173503453c643b877a85 100644
+--- a/package.json
++++ b/package.json
+@@ -27,9 +27,10 @@
+ 	"types": "types/index.d.ts",
+ 	"exports": {
+ 		".": {
++			"types": "./types/index.d.ts",
++			"node": "./xlsx.js",
+ 			"import": "./xlsx.mjs",
+-			"require": "./xlsx.js",
+-			"types": "./types/index.d.ts"
++			"require": "./xlsx.js"
+ 		},
+ 		"./xlsx.mjs": {
+ 			"import": "./xlsx.mjs",

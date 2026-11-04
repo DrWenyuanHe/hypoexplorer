@@ -1,0 +1,1 @@
+var HX_MOUSE_HYPO_ASTRO_TRAP_GSE214683_META = {"populations":["astrocytes"],"labels":{"astrocytes":"Hypothalamic astrocytes (TRAP)"},"types":{"astrocytes":"Tissue"},"nGenes":{"astrocytes":13612},"colors":{"astrocytes":"#8CD17D"},"qcFlags":{"astrocytes":{"is3v3":false,"nNormal":7,"nObese":6,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

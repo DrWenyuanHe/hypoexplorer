@@ -1,0 +1,1 @@
+var HX_RAT_SON_SALT_GSE65663_META = {"populations":["son"],"labels":{"son":"Supraoptic nucleus"},"types":{"son":"Tissue"},"nGenes":{"son":14604},"colors":{"son":"#3775BA"},"qcFlags":{"son":{"is3v3":false,"nNormal":5,"nObese":5,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

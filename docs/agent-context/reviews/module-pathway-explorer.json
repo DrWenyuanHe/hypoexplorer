@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "area": "module-pathway-explorer",
+  "fingerprint": "2920000add90fd550232fcc3189e505f95b2147d311a74919aa428b87f2c8bdb",
+  "outcome": "updated",
+  "explanation": "Pathway table, detail and leading-edge workbooks are built in pathwayExport.ts with identifying filenames (dataset, track, contrast, kind) and a Metadata sheet, so exports of different contrasts no longer collide as whole_pathways_export.xlsx.",
+  "references": [
+    "src/pathway-explorer/pathwayExport.ts",
+    "src/pathway-explorer/PathwayExplorerTab.tsx",
+    "src/utils/exportProvenance.ts"
+  ]
+}

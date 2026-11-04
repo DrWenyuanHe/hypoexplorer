@@ -1,0 +1,1 @@
+var HX_MOUSE_HYPO_MATERNAL_CARE_GSE305688_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":17443},"colors":{"hypothalamus":"#F1CE63"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":4,"nObese":3,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

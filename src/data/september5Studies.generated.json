@@ -1,0 +1,759 @@
+[
+  {
+    "id": "gse317867",
+    "name": "Mouse PVN sleep-rebound ensembles",
+    "organism": "Mus musculus",
+    "category": "Circadian",
+    "region": "Paraventricular nucleus",
+    "preparation": "Translatome",
+    "perturbation": "Environment & stress",
+    "modality": "bulk RNA-seq",
+    "featureType": "gene",
+    "featureLabel": "Gene",
+    "supportsPathways": true,
+    "isDefault": false,
+    "defaultTrack": "hypothalamus",
+    "trackNoun": "track",
+    "trackCategoryOrder": [
+      "Tissue"
+    ],
+    "expressionUnit": "CPM",
+    "citation": "Five control and four rebound pools, each containing seven mice. Only immunoprecipitated RNA is compared. Input assays are paired to these pools and excluded from this track.",
+    "geo": "GSE317867",
+    "doi": "",
+    "pmid": "",
+    "groups": [
+      {
+        "key": "control",
+        "label": "Control sleep",
+        "color": "#3775BA"
+      },
+      {
+        "key": "rebound",
+        "label": "Rebound sleep",
+        "color": "#B64342"
+      }
+    ],
+    "contrasts": [
+      {
+        "id": "rebound_vs_control",
+        "label": "Rebound vs control sleep",
+        "baseline": "control",
+        "case": "rebound",
+        "isDefault": true
+      }
+    ]
+  },
+  {
+    "id": "gse278158",
+    "name": "Mouse hypothalamus SRC-1 deletion",
+    "organism": "Mus musculus",
+    "category": "Stress, immune & disease",
+    "region": "Whole hypothalamus",
+    "preparation": "Bulk tissue",
+    "perturbation": "Genetic",
+    "modality": "bulk RNA-seq",
+    "featureType": "gene",
+    "featureLabel": "Gene",
+    "supportsPathways": true,
+    "isDefault": false,
+    "defaultTrack": "hypothalamus",
+    "trackNoun": "track",
+    "trackCategoryOrder": [
+      "Tissue"
+    ],
+    "expressionUnit": "CPM",
+    "citation": "Three wild-type and three SRC-1 knockout hypothalamus samples. GEO sample descriptions explicitly map YX3878-YX3883 to the featureCounts columns.",
+    "geo": "GSE278158",
+    "doi": "",
+    "pmid": "40882002",
+    "groups": [
+      {
+        "key": "control",
+        "label": "Wild type",
+        "color": "#3775BA"
+      },
+      {
+        "key": "ko",
+        "label": "SRC-1 knockout",
+        "color": "#B64342"
+      }
+    ],
+    "contrasts": [
+      {
+        "id": "ko_vs_wt",
+        "label": "SRC-1 knockout vs wild type",
+        "baseline": "control",
+        "case": "ko",
+        "isDefault": true
+      }
+    ]
+  },
+  {
+    "id": "gse309435",
+    "name": "Rat PVN hypertension",
+    "organism": "Rattus norvegicus",
+    "category": "Stress, immune & disease",
+    "region": "Paraventricular nucleus",
+    "preparation": "Bulk tissue",
+    "perturbation": "Genetic",
+    "modality": "bulk RNA-seq",
+    "featureType": "gene",
+    "featureLabel": "Gene",
+    "supportsPathways": true,
+    "isDefault": false,
+    "defaultTrack": "hypothalamus",
+    "trackNoun": "track",
+    "trackCategoryOrder": [
+      "Tissue"
+    ],
+    "expressionUnit": "CPM",
+    "citation": "Nine Wistar and ten spontaneously hypertensive rats. Sex is a model covariate; the deposited cohort lacks Wistar male 1.",
+    "geo": "GSE309435",
+    "doi": "",
+    "pmid": "41723507",
+    "groups": [
+      {
+        "key": "control",
+        "label": "Wistar",
+        "color": "#3775BA"
+      },
+      {
+        "key": "shr",
+        "label": "Spontaneously hypertensive",
+        "color": "#B64342"
+      }
+    ],
+    "contrasts": [
+      {
+        "id": "shr_vs_wistar",
+        "label": "SHR vs Wistar, adjusted for sex",
+        "baseline": "control",
+        "case": "shr",
+        "isDefault": true
+      }
+    ]
+  },
+  {
+    "id": "gse148252",
+    "name": "Mouse SCN NPAS4 and light response",
+    "organism": "Mus musculus",
+    "category": "Circadian",
+    "region": "Suprachiasmatic nucleus",
+    "preparation": "Bulk tissue",
+    "perturbation": "Environment & stress",
+    "modality": "bulk RNA-seq",
+    "featureType": "gene",
+    "featureLabel": "Gene",
+    "supportsPathways": true,
+    "isDefault": false,
+    "defaultTrack": "hypothalamus",
+    "trackNoun": "track",
+    "trackCategoryOrder": [
+      "Tissue"
+    ],
+    "expressionUnit": "CPM",
+    "citation": "NPAS4 bulk experiment only. Each genotype/light arm has three independent pools of six SCN pairs. Time-course and ChIP assays are separate experiments and excluded.",
+    "geo": "GSE148252",
+    "doi": "",
+    "pmid": "34416169",
+    "groups": [
+      {
+        "key": "wt_dark",
+        "label": "Wild type, dark",
+        "color": "#3775BA"
+      },
+      {
+        "key": "ko_dark",
+        "label": "NPAS4 knockout, dark",
+        "color": "#B64342"
+      },
+      {
+        "key": "wt_light",
+        "label": "Wild type, light",
+        "color": "#44996B"
+      },
+      {
+        "key": "ko_light",
+        "label": "NPAS4 knockout, light",
+        "color": "#9765AE"
+      }
+    ],
+    "contrasts": [
+      {
+        "id": "ko_vs_wt_dark",
+        "label": "Knockout vs wild type in dark",
+        "baseline": "wt_dark",
+        "case": "ko_dark",
+        "isDefault": true
+      },
+      {
+        "id": "ko_vs_wt_light",
+        "label": "Knockout vs wild type after light",
+        "baseline": "wt_light",
+        "case": "ko_light",
+        "isDefault": false
+      },
+      {
+        "id": "light_vs_dark_wt",
+        "label": "Light vs dark in wild type",
+        "baseline": "wt_dark",
+        "case": "wt_light",
+        "isDefault": false
+      },
+      {
+        "id": "light_vs_dark_ko",
+        "label": "Light vs dark in knockout",
+        "baseline": "ko_dark",
+        "case": "ko_light",
+        "isDefault": false
+      }
+    ]
+  },
+  {
+    "id": "emtab15488",
+    "name": "Mouse hypothalamus chronic colitis and intestinal Opa1 deletion",
+    "organism": "Mus musculus",
+    "category": "Microbiome & gut\u2013brain axis",
+    "region": "Whole hypothalamus",
+    "preparation": "Bulk tissue",
+    "perturbation": "Environment & stress",
+    "modality": "bulk RNA-seq",
+    "featureType": "gene",
+    "featureLabel": "Gene",
+    "supportsPathways": true,
+    "isDefault": false,
+    "defaultTrack": "hypothalamus",
+    "trackNoun": "track",
+    "trackCategoryOrder": [
+      "Tissue"
+    ],
+    "expressionUnit": "CPM",
+    "citation": "Only hypothalamus is included. Multiple organs from the same mouse are not extra replicates. D09Hy and Op57Hy are absent from processed counts. WT/DSS and Opa1/flox cohorts are analyzed separately.",
+    "geo": "E-MTAB-15488",
+    "doi": "",
+    "pmid": "",
+    "groups": [
+      {
+        "key": "control",
+        "label": "Control",
+        "color": "#3775BA"
+      },
+      {
+        "key": "dss",
+        "label": "DSS colitis",
+        "color": "#B64342"
+      },
+      {
+        "key": "flox",
+        "label": "Opa1 floxed control",
+        "color": "#44996B"
+      },
+      {
+        "key": "opa1",
+        "label": "Intestinal Opa1 deletion",
+        "color": "#9765AE"
+      }
+    ],
+    "contrasts": [
+      {
+        "id": "dss_vs_control",
+        "label": "DSS colitis vs control",
+        "baseline": "control",
+        "case": "dss",
+        "isDefault": true
+      },
+      {
+        "id": "opa1_vs_flox",
+        "label": "Intestinal Opa1 deletion vs floxed control",
+        "baseline": "flox",
+        "case": "opa1",
+        "isDefault": false
+      }
+    ]
+  },
+  {
+    "id": "emtab15489",
+    "name": "Mouse hypothalamus acute colitis",
+    "organism": "Mus musculus",
+    "category": "Microbiome & gut\u2013brain axis",
+    "region": "Whole hypothalamus",
+    "preparation": "Bulk tissue",
+    "perturbation": "Environment & stress",
+    "modality": "bulk RNA-seq",
+    "featureType": "gene",
+    "featureLabel": "Gene",
+    "supportsPathways": true,
+    "isDefault": false,
+    "defaultTrack": "hypothalamus",
+    "trackNoun": "track",
+    "trackCategoryOrder": [
+      "Tissue"
+    ],
+    "expressionUnit": "CPM",
+    "citation": "Only hypothalamus is included. Multiple organs from the same mouse are not extra replicates.",
+    "geo": "E-MTAB-15489",
+    "doi": "",
+    "pmid": "",
+    "groups": [
+      {
+        "key": "control",
+        "label": "Control",
+        "color": "#3775BA"
+      },
+      {
+        "key": "dss",
+        "label": "DSS colitis",
+        "color": "#B64342"
+      }
+    ],
+    "contrasts": [
+      {
+        "id": "dss_vs_control",
+        "label": "DSS colitis vs control",
+        "baseline": "control",
+        "case": "dss",
+        "isDefault": true
+      }
+    ]
+  },
+  {
+    "id": "gse337822",
+    "name": "Mouse preoptic response to isoflurane",
+    "organism": "Mus musculus",
+    "category": "Circadian",
+    "region": "Preoptic area",
+    "preparation": "Single-nucleus",
+    "perturbation": "Drug & hormone",
+    "modality": "snRNA-seq",
+    "featureType": "gene",
+    "featureLabel": "Gene",
+    "supportsPathways": true,
+    "isDefault": false,
+    "defaultTrack": "excitatory",
+    "trackNoun": "population",
+    "trackCategoryOrder": [
+      "Tissue"
+    ],
+    "expressionUnit": "CPM",
+    "citation": "Twenty independently sequenced mice, five of each sex per oxygen/isoflurane arm. Submitted excitatory, inhibitory and non-neuronal nuclei are summed within each mouse. Treatment models adjust for sex. GSE243489 supplies the reference taxonomy and contributes no samples.",
+    "geo": "GSE337822",
+    "doi": "",
+    "pmid": "",
+    "groups": [
+      {
+        "key": "control",
+        "label": "Oxygen control",
+        "color": "#3775BA"
+      },
+      {
+        "key": "isoflurane",
+        "label": "Isoflurane",
+        "color": "#B64342"
+      }
+    ],
+    "contrasts": [
+      {
+        "id": "isoflurane_vs_oxygen",
+        "label": "Isoflurane vs oxygen, adjusted for sex",
+        "baseline": "control",
+        "case": "isoflurane",
+        "isDefault": true
+      }
+    ]
+  },
+  {
+    "id": "gse262407",
+    "name": "Mouse arcuate diet and glucose response",
+    "organism": "Mus musculus",
+    "category": "Diet-induced obesity",
+    "region": "Arcuate nucleus",
+    "preparation": "Single-nucleus",
+    "perturbation": "Diet & obesity",
+    "modality": "snRNA-seq",
+    "featureType": "gene",
+    "featureLabel": "Gene",
+    "supportsPathways": true,
+    "isDefault": false,
+    "defaultTrack": "arcuate",
+    "trackNoun": "population",
+    "trackCategoryOrder": [
+      "Tissue"
+    ],
+    "expressionUnit": "CPM",
+    "citation": "ARC/VMH cells aggregated by hashed mouse after submitted discard/doublet filtering. DVC cells are excluded using cell anatomy and Arc animal IDs. Major classes require 20 nuclei per mouse; Ghrh requires 10. Each displayed population retains at least three mice in all four arms. The pilot GSE262408 is a separate cohort and is not included.",
+    "geo": "GSE262407",
+    "doi": "",
+    "pmid": "",
+    "groups": [
+      {
+        "key": "chow_saline",
+        "label": "Chow + saline",
+        "color": "#3775BA"
+      },
+      {
+        "key": "hfd_saline",
+        "label": "HFD + saline",
+        "color": "#B64342"
+      },
+      {
+        "key": "chow_glucose",
+        "label": "Chow + glucose",
+        "color": "#44996B"
+      },
+      {
+        "key": "hfd_glucose",
+        "label": "HFD + glucose",
+        "color": "#9765AE"
+      }
+    ],
+    "contrasts": [
+      {
+        "id": "hfd_vs_chow_saline",
+        "label": "HFD vs chow with saline",
+        "baseline": "chow_saline",
+        "case": "hfd_saline",
+        "isDefault": true
+      },
+      {
+        "id": "hfd_vs_chow_glucose",
+        "label": "HFD vs chow with glucose",
+        "baseline": "chow_glucose",
+        "case": "hfd_glucose",
+        "isDefault": false
+      },
+      {
+        "id": "glucose_vs_saline_chow",
+        "label": "Glucose vs saline on chow",
+        "baseline": "chow_saline",
+        "case": "chow_glucose",
+        "isDefault": false
+      },
+      {
+        "id": "glucose_vs_saline_hfd",
+        "label": "Glucose vs saline on HFD",
+        "baseline": "hfd_saline",
+        "case": "hfd_glucose",
+        "isDefault": false
+      }
+    ]
+  },
+  {
+    "id": "gse314184",
+    "name": "Mouse medial preoptic parental behavior",
+    "organism": "Mus musculus",
+    "category": "Reproduction & development",
+    "region": "Preoptic area",
+    "preparation": "Single-nucleus",
+    "perturbation": "Environment & stress",
+    "modality": "snRNA-seq",
+    "featureType": "gene",
+    "featureLabel": "Gene",
+    "supportsPathways": true,
+    "isDefault": false,
+    "defaultTrack": "mpoa",
+    "trackNoun": "track",
+    "trackCategoryOrder": [
+      "Tissue"
+    ],
+    "expressionUnit": "CPM",
+    "citation": "One animal per submitted Seurat object, with no pooling. RNA count layers are aggregated by mouse after excluding submitted doublet calls. Three naive control, three alloparental, three infanticidal males, four sires and four dams. Dam-versus-sire differences combine sex and parental-role differences; they are not an isolated hormone effect.",
+    "geo": "GSE314184",
+    "doi": "",
+    "pmid": "41708861",
+    "groups": [
+      {
+        "key": "control",
+        "label": "Naive control males",
+        "color": "#3775BA"
+      },
+      {
+        "key": "alloparental",
+        "label": "Naive alloparental males",
+        "color": "#B64342"
+      },
+      {
+        "key": "infanticidal",
+        "label": "Naive infanticidal males",
+        "color": "#44996B"
+      },
+      {
+        "key": "sire",
+        "label": "Sires",
+        "color": "#9765AE"
+      },
+      {
+        "key": "dam",
+        "label": "Dams",
+        "color": "#3775BA"
+      }
+    ],
+    "contrasts": [
+      {
+        "id": "alloparental_vs_control",
+        "label": "Alloparental vs naive control males",
+        "baseline": "control",
+        "case": "alloparental",
+        "isDefault": true
+      },
+      {
+        "id": "infanticidal_vs_control",
+        "label": "Infanticidal vs naive control males",
+        "baseline": "control",
+        "case": "infanticidal",
+        "isDefault": false
+      },
+      {
+        "id": "sire_vs_control",
+        "label": "Sires vs naive control males",
+        "baseline": "control",
+        "case": "sire",
+        "isDefault": false
+      },
+      {
+        "id": "dam_vs_sire",
+        "label": "Dams vs sires",
+        "baseline": "sire",
+        "case": "dam",
+        "isDefault": false
+      }
+    ]
+  },
+  {
+    "id": "gse113576",
+    "name": "Mouse preoptic sex differences",
+    "organism": "Mus musculus",
+    "category": "Reproduction & development",
+    "region": "Preoptic area",
+    "preparation": "Single-cell",
+    "perturbation": "Sex",
+    "modality": "scRNA-seq",
+    "featureType": "gene",
+    "featureLabel": "Gene",
+    "supportsPathways": true,
+    "isDefault": false,
+    "defaultTrack": "preoptic",
+    "trackNoun": "track",
+    "trackCategoryOrder": [
+      "Tissue"
+    ],
+    "expressionUnit": "CPM",
+    "citation": "Three independent female pools and three independent male pools, each containing three mice. GEO explicitly maps matrix barcode suffixes 1-6 to the six pools. Cells are summed within each pool; the 18 mice do not provide 18 independent transcriptomic replicates. This track aggregates all submitted preoptic cell types.",
+    "geo": "GSE113576",
+    "doi": "",
+    "pmid": "30385464",
+    "groups": [
+      {
+        "key": "female",
+        "label": "Female pools",
+        "color": "#3775BA"
+      },
+      {
+        "key": "male",
+        "label": "Male pools",
+        "color": "#B64342"
+      }
+    ],
+    "contrasts": [
+      {
+        "id": "male_vs_female",
+        "label": "Male vs female pools",
+        "baseline": "female",
+        "case": "male",
+        "isDefault": true
+      }
+    ]
+  },
+  {
+    "id": "gse135007",
+    "name": "Mouse hypothalamus Gough Island divergence",
+    "organism": "Mus musculus",
+    "category": "Reproduction & development",
+    "region": "Whole hypothalamus",
+    "preparation": "Bulk tissue",
+    "perturbation": "Genetic",
+    "modality": "bulk RNA-seq",
+    "featureType": "gene",
+    "featureLabel": "Gene",
+    "supportsPathways": true,
+    "isDefault": false,
+    "defaultTrack": "hypothalamus",
+    "trackNoun": "track",
+    "trackCategoryOrder": [
+      "Tissue"
+    ],
+    "expressionUnit": "CPM",
+    "citation": "Ten four-week-old Gough Island and ten WSB hypothalamus samples, each strain with five females and five males. RSEM expected counts, TPM and effective lengths supply a lengthScaledTPM import that preserves library totals. The model adjusts for sex. Litter identity is unavailable in the deposited sample metadata, so litter effects cannot be separated.",
+    "geo": "GSE135007",
+    "doi": "",
+    "pmid": "",
+    "groups": [
+      {
+        "key": "control",
+        "label": "WSB strain",
+        "color": "#3775BA"
+      },
+      {
+        "key": "gough",
+        "label": "Gough Island",
+        "color": "#B64342"
+      }
+    ],
+    "contrasts": [
+      {
+        "id": "gough_vs_wsb",
+        "label": "Gough Island vs WSB, adjusted for sex",
+        "baseline": "control",
+        "case": "gough",
+        "isDefault": true
+      }
+    ]
+  },
+  {
+    "id": "gse224274",
+    "name": "Mouse POMC response to food cues",
+    "organism": "Mus musculus",
+    "category": "Feeding & fasting",
+    "region": "Arcuate nucleus",
+    "preparation": "Translatome",
+    "perturbation": "Fasting & feeding",
+    "modality": "bulk RNA-seq",
+    "featureType": "gene",
+    "featureLabel": "Gene",
+    "supportsPathways": true,
+    "isDefault": false,
+    "defaultTrack": "hypothalamus",
+    "trackNoun": "track",
+    "trackCategoryOrder": [
+      "Tissue"
+    ],
+    "expressionUnit": "log2(CPM + 1)",
+    "citation": "Six POMC-RiboTag mice per condition after a 16-hour fast. Only the 5,764 genes in the deposited CPM matrix are available; results and pathway coverage are restricted to that gene universe. The matrix is summed on the linear scale for duplicate symbols and transformed as log2(CPM+1) for limma. Counts are not reconstructed from CPM. Cage identifiers are not deposited.",
+    "geo": "GSE224274",
+    "doi": "",
+    "pmid": "",
+    "groups": [
+      {
+        "key": "control",
+        "label": "Nonedible object",
+        "color": "#3775BA"
+      },
+      {
+        "key": "food",
+        "label": "Inaccessible food cues",
+        "color": "#B64342"
+      }
+    ],
+    "contrasts": [
+      {
+        "id": "food_cues_vs_object",
+        "label": "Food cues vs nonedible object",
+        "baseline": "control",
+        "case": "food",
+        "isDefault": true
+      }
+    ]
+  },
+  {
+    "id": "gse308884",
+    "name": "Mouse hypothalamus TN-783 in diet-induced obesity",
+    "organism": "Mus musculus",
+    "category": "Incretin & pharmacology",
+    "region": "Whole hypothalamus",
+    "preparation": "Bulk tissue",
+    "perturbation": "Drug & hormone",
+    "modality": "bulk RNA-seq",
+    "featureType": "gene",
+    "featureLabel": "Gene",
+    "supportsPathways": true,
+    "isDefault": false,
+    "defaultTrack": "hypothalamus",
+    "trackNoun": "track",
+    "trackCategoryOrder": [
+      "Tissue"
+    ],
+    "expressionUnit": "Author log2 CPM",
+    "citation": "Six mice each in lean untreated, diet-induced obese vehicle and DIO TN-783 groups. Limma uses the author-supplied log2 CPM sheet without a second logarithm or count model. Duplicate gene-symbol rows are averaged on the supplied log scale. Salmon estimates are retained in the workbook but are not treated as integer raw counts.",
+    "geo": "GSE308884",
+    "doi": "",
+    "pmid": "",
+    "groups": [
+      {
+        "key": "vehicle",
+        "label": "DIO vehicle",
+        "color": "#3775BA"
+      },
+      {
+        "key": "drug",
+        "label": "DIO TN-783",
+        "color": "#B64342"
+      },
+      {
+        "key": "lean",
+        "label": "Lean untreated",
+        "color": "#44996B"
+      }
+    ],
+    "contrasts": [
+      {
+        "id": "tn783_vs_vehicle",
+        "label": "TN-783 vs vehicle in DIO",
+        "baseline": "vehicle",
+        "case": "drug",
+        "isDefault": true
+      },
+      {
+        "id": "dio_vs_lean",
+        "label": "DIO vehicle vs lean untreated",
+        "baseline": "lean",
+        "case": "vehicle",
+        "isDefault": false
+      }
+    ]
+  },
+  {
+    "id": "gse281701",
+    "name": "Mouse hypothalamus cancer cachexia",
+    "organism": "Mus musculus",
+    "category": "Stress, immune & disease",
+    "region": "Whole hypothalamus",
+    "preparation": "Bulk tissue",
+    "perturbation": "Environment & stress",
+    "modality": "bulk RNA-seq",
+    "featureType": "gene",
+    "featureLabel": "Gene",
+    "supportsPathways": true,
+    "isDefault": false,
+    "defaultTrack": "hypothalamus",
+    "trackNoun": "track",
+    "trackCategoryOrder": [
+      "Tissue"
+    ],
+    "expressionUnit": "CPM",
+    "citation": "Three CT-26 cachexia and three healthy mice. Only hypothalamus samples are included. Deposited RSEM gene TPM, effective lengths and expected counts are imported with lengthScaledTPM correction; fractional estimates are retained. Each corrected library preserves its original expected-count total.",
+    "geo": "GSE281701",
+    "doi": "",
+    "pmid": "",
+    "groups": [
+      {
+        "key": "control",
+        "label": "Healthy control",
+        "color": "#3775BA"
+      },
+      {
+        "key": "cachexia",
+        "label": "CT-26 cachexia",
+        "color": "#B64342"
+      }
+    ],
+    "contrasts": [
+      {
+        "id": "cachexia_vs_control",
+        "label": "CT-26 cachexia vs healthy control",
+        "baseline": "control",
+        "case": "cachexia",
+        "isDefault": true
+      }
+    ]
+  }
+]

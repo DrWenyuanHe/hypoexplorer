@@ -1,0 +1,1 @@
+var HX_PIG_HYPO_MIA_GSE227725_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":23701},"colors":{"hypothalamus":"#AF7AA1"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":20,"nObese":15,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

@@ -1,0 +1,1 @@
+var HX_PIG_HYPO_FORMULA_GSE281726_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":9460},"colors":{"hypothalamus":"#59A14F"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":12,"nObese":11,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "area": "workflow-local-import",
+  "fingerprint": "d6c901bff20d5ae7ef9d38d0f9bcf27b7a4fd9855ccf338bc00bd026b97de02d",
+  "outcome": "updated",
+  "explanation": "The local-import verification commands now use pnpm exec for vitest, tsc and vite; the import flow, storage and checks are unchanged. Commands in the authored context now use pnpm: npm run becomes pnpm run, npx becomes pnpm exec, npm ci becomes pnpm install --frozen-lockfile, and script arguments are passed without a separating --, which pnpm 12 would forward literally.",
+  "references": [
+    "docs/LOCAL_DATASETS.md",
+    "docs/agent-context/workflows.md"
+  ]
+}

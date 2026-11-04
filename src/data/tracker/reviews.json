@@ -1,0 +1,1729 @@
+{
+  "EGAD50000000997": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none (reference/atlas)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "NeMO Archive nemo:dat-917e9vs": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none (reference/atlas)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "CELLxGENE Discover collection 283d65eb-dd53-496d-adb7-7570c7caa443": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none (reference/atlas)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE201986": {
+    "status": "rejected",
+    "note": "Excluded under the 2026-08-31 bulk RNA-seq integration gate. This is bona fide arcuate-nucleus bulk RNA-seq, and the paper establishes one distinct male and one distinct female macaque at each sampled month. Full-workbook QC found the February male profile to be a severe low-complexity outlier (6,784 of 54,213 detected features versus 24,401-34,476 in every other ARC profile); removing it and the matched February female leaves a balanced five-male/five-female, month-blocked contrast that passes the replication gate. However, the official TranscriptID field mixes 35,432 ENSMMUT transcripts, 9,307 RefSeq accessions, 5,008 custom transcription units, and 4,466 other labels, while neither GEO nor the paper deposits the version-matched feature-to-gene map for the merged annotation. Transcript-level limma DE is possible, but honest gene harmonization, browsable gene panels, and canonical four-database FGSEA are not; no mapping is guessed, so the study is not integrated.",
+    "updated": "2026-09-01T00:54:00.000Z"
+  },
+  "CELLxGENE collection 0fd39ad7-5d2d-41c2-bda0-c55bde614bdb": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none (reference/atlas)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "CNP0002035": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none (reference/atlas)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE306257": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none (reference/atlas)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE217677": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, maternal HFD vs maternal LFD (offspring hypothalamus, P15)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE78812": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, none — developmental differentiation timecourse, no obese-vs-control contrast).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE151566": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none (reference/atlas)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE190675": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none (reference/atlas)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE230086": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, 50nM dexamethasone vs ethanol vehicle).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE93374": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, 60% high-fat diet (obese) vs ad lib chow).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE303256": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, fasted vs fed (male PVH nuclei, DroNc-Seq subseries GSE303082) — the only metabolic axis; no obese/HFD samples exist in this series).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE172204": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none (reference/atlas)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE172461": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, insulin vs saline (acute insulin signaling; no obese/HFD contrast exists in this dataset)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE125065": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, none (reference/atlas)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE308694": {
+    "status": "rejected",
+    "note": "Excluded under the 2026-08-31 bulk RNA-seq replication gate. The authoritative GEO SOFT contains exactly two wild-type and two POMC-lineage knockout libraries. Each library pools three male mice; those constituent animals are technical contributors to one pooled experimental library and cannot be promoted to independent sample replicates. Effective n=2 per arm, below the required n≥3.",
+    "updated": "2026-09-01T00:54:00.000Z"
+  },
+  "GSE271235": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none (reference/atlas)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE293590": {
+    "status": "rejected",
+    "note": "Excluded under the 2026-08-31 bulk RNA-seq replication gate. The authoritative GEO overall design has two wild-type and three Bbs5-knockout male hypothalamus samples at 12 weeks; the 5-week arm likewise has WT n=2 and knockout n=3. The submitter states that raw files were lost and provides normalized matrices, but the decisive failure is only two independent controls per age-specific contrast, below the required n≥3.",
+    "updated": "2026-09-01T00:54:00.000Z"
+  },
+  "GSE287161": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, Control (Pomc-Cre; Sun1/sfGFP) vs Otp-KO (Pomc-Cre; Otpfl/fl; Sun1/sfGFP) in POMC-lineage GFP+ nuclei).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE278848": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none (reference/atlas)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE266664": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, fasted (24h) vs fed).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "E-MTAB-14810": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, thyroid hormone replacement (40 µg T4 + 4 µg T3, TH-high) vs hypothyroid/saline (TH-low)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE172203": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, none — single-condition reference atlas, no case-vs-control contrast exists).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE246034": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, OtpQ153R/+ mutant vs Sim1-Cre;Sun1-GFP control (genotype; closest obesity-relevant contrast — no HFD/diet arm exists)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE211757": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, fasted vs ad libitum (DMH/SCN feeding-state contrast)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "OMIX007739": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, maternal HFD vs maternal LFD (within sex; offspring P15 hypothalamus)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE154962": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, 24h-fasted vs fed/standard).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE277578": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, FASTED vs FED (snRNA-seq of rabies-traced AgRP inputs)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE248413": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, O (aging control) vs Y (young control)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE162603": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, ob/ob vs WT (leptin-deficient obese vs lean), vehicle/PBS-matched).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE243448": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, HFHS vs SC (high-fat/high-sugar vs standard chow diet)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJNA1453244": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, none).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJNA1376953": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJDB26510": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJEB75217": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJDB14370": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, none).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "SRP149276": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, none).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE178290": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE207736": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, none).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE36674": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE295610": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, fasted vs sated (feeding-state condition contrast; best clean stratum e.g. ARC virgins fasted vs sated), but only 1 pooled library per arm).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "10.5061/dryad.v6wwpzh98": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, none (no metabolic/obese arm; only PBS vs immune-sickness challenges)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "10.5281/zenodo.15983704": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "10.5281/zenodo.10548571": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "10.6084/m9.figshare.28244237": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE226277": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, Hypothalamus RH (recurrent hypoglycemia) vs AH (acute hypoglycemia), snRNA, 2 vs 2).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE222191": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, miR-33 AgRP-conditional iKO vs WT, both on 60% HFD ~1 month (genotype contrast on an obesity/HFD background)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "E-MTAB-15050": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE92236": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, Trsp-RIPKO vs TrspFF control (within one tissue, e.g. hypothalamus); n=2 vs 2).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE172207": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, none usable. Closest n>=3 is GSE172206 Bound(n=3) vs Supernatant(n=3), but that is a TRAP ribosome-IP-vs-input enrichment contrast, not a case-vs-control phenotype. Only genuine biological/hormone contrast (GSE172200 PBS vs leptin) is n=1 per arm.).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE172463": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, Insulin vs Saline (WT mouse mediobasal hypothalamus, GSE172461)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE126707": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, none usable: two candidate contrasts exist but each has n=1 per arm — (1) GFP-positive vs GFP-negative FACS-sorted hypothalamic cells; (2) aCSF vs acute leptin treatment).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE55384": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, CR-saline vs Con-saline (calorie-restricted vs control, untreated arm); equivalently leptin vs saline within a diet group).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE154981": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, WT vs Irx3/5 double-heterozygous (Irx3/5dHet) — best usable case-vs-control, but only 1 pooled library per arm).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE133051": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, CT18 light-pulse (CT18_LP_SCN) vs CT18 control (CT18_CTRL_SCN) — best case-vs-control, but n=2 per arm).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE81619": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, HEN (estrous, high-nutrition treatment) vs HAN (anestrous, low-nutrition treatment), non-breeding-season hypothalamus — reproductive x nutrition axis).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE137012": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, 8 Gy gamma irradiation vs 0 Gy control (PBS), bone marrow or hypothalamus (best available radiation injury case-vs-control)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE137013": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, 8 Gy gamma-irradiation + PBS vs 0 Gy + PBS (bone marrow, miRNA), 12 h post-IR — the only matched case-vs-control pair; hypothalamus has the same PBS-vs-PBS irradiation contrast).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE16725": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none (reference/atlas)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJNA210953": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none (technical barcoding methods study; only contrasts are barcode/adapter chemistries and ARC vs cerebellum tissue, no biological condition)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJNA190003": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, none (single baseline profiling library; no case-vs-control)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJNA77833": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, none (only the prion-infected arm was deposited; the paper's non-infected control is absent from this BioProject)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJNA686442": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, none (reference/atlas)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJNA432546": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none (reference/atlas)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJNA445637": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none (reference/atlas)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJNA276798": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none (only one deposited condition: a single pre-pubertal hypothalamus library; the before-vs-after-puberty contrast is not represented in SRA)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJNA691447": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, none (cross-species/polyploidy comparison: triploid crucian carp TC vs parental red crucian carp RC vs common carp CC) — 1 pooled library per species, no replication).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJNA1224819": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none (reference/atlas)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJNA593416": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, Hypothalamus: hibernating period (HH1, HH2) vs active period (AH1, AH2) — applies to both the miRNA-Seq and the paired-end mRNA RNA-Seq libraries from the same animals).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJNA204941": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, none (reference/atlas)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE288514": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, DIO+vehicle vs Chow-fed vehicle (obese vs lean), within a single tissue (hypothalamus OR DVC/hindbrain)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE296008": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, CCK1/CCK2 receptor knockout vs wild-type, 6-month-old male zebrafish hypothalamus).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE268914": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none (reference/atlas)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE281229": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, none (reference/atlas)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE239973": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, Gi/DREADD MCH-neuron inhibition vs control bone-marrow scRNA-seq (n=1 vs n=1)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE260739": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, Dexamethasone vs Vehicle (fed+Veh)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE212068": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, Wild-type (WT) vs TRalpha1R384C dominant-negative mutant (TRa1+m) hypothalamus).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE183093": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, Sex / hormonal-state: Male vs FR (ovariectomized + hormonally primed, receptive) vs FNR (ovariectomized, unprimed, unreceptive), within each brain region (BNST/MeA/POA/VMH)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE310666": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, young (3-month) vs aged (22-month) male hypothalamus, snRNA-seq).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE245555": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, VPA-exposed vs typical/saline-control PVH snRNA-seq (autism model). Rescue arm: hM3D+VPA+CNO (n=2) vs hM3D+VPA+saline (n=1).).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE131361": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, Winter vs Summer supraoptic nucleus (seasonal/environmental adaptation)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE305744": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, Food-deprived (4h starved) vs voracious feeding (deprived then fed paramecia) larval zebrafish lateral hypothalamus).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE221002": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, estrogen (SC300/EB300)-treated sterilized vs intact control hypothalamus).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE253114": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, none usable).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE97623": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, prepubertal vs pubertal rat hypothalamus (developmental/reproductive-stage), but n=1 library per arm).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE95660": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, Developmental timepoint of female rat MBH: e.g. PND14 vs PND28 (within a single histone mark such as H3K27ac). Best usable case-vs-control is developmental (pre-pubertal vs pubertal onset).).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE98032": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, NP (SiO2 nanoparticle, 20 ug/mL) vs Control in GT1-7 cells (time course 30 min / 1 h / 6 h / 24 h)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE172177": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, none usable for n>=3 (every contrast is 1 pooled library vs 1 pooled library). Closest biological contrasts: intact P50 male vs castrated male; intact female vs OVX; WT vs Esr1KO; pre(P23) vs post(P50) puberty — all n=1 vs n=1.).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJEB47701": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, Developmental pubertal-stage contrast (e.g., PND25 vs PND45 within a fixed sort population such as SLC18A3+_Small). Best usable type is developmental, NOT metabolic.).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJEB43863": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, 4 wk (early puberty) vs 8 wk (late puberty) female mouse hypothalamic ARC, ATAC-seq chromatin accessibility).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "E-MTAB-9421": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, early puberty (4 wk ARC) vs late puberty (8 wk ARC) — developmental; but on methylation assays only, not RNA-seq).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJEB31293": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, Pre-pubertal vs Post-pubertal hypothalamus (developmental/reproductive endpoints); also Pre vs In).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE202507": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, January/Follicular vs May/Anestrus (seasonal/reproductive; this is the contrast the provided count matrix was built for: Foll_vs_Anes). Alternatives: Follicular vs Luteal (progesterone/hormone), Luteal vs Anestrus.).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE141588": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, Hypothalamus: HEP (high egg production) vs LEP (low egg production) hens at 300 days).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE234565": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none (reference/atlas) — circannual time-series under constant light; no case-vs-control arm of any type).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE165015": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, Intact male vs castrated male, ARC, IP (gonadal-hormone/reproductive); also male vs female and IP vs input — all n=2 per arm).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE120002": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, 12-day high corticosterone vs sham-ADX control (glucocorticoid/hormone contrast in PVH-region hypothalamus)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE240803": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, none usable for n>=3 (developmental time course: GD17.5 x1, PND2 x1, PND10 x2, PND30 x2; best possible contrast PND10 vs PND30 = 2 vs 2). No treatment case-vs-control among the snRNA-seq samples.).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE119235": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, Prenatal dexamethasone (200 ug/kg, third trimester) vs vehicle control; PVN of 12-wk male offspring).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE322787": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, HS (heat stress) vs PF (pair-fed control); best usable case-vs-control, but n=1 library per arm).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE162558": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, none (TRAP methodology control SubSeries; no condition case-vs-control arm present here)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE201032": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, none usable: best candidate is baseline ctrl vs ARS (e.g. M_baseline_ctrl vs M_baseline_ARS) or M vs F, but each arm has only n=1 library).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE205667": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, SC chow vs HFHS diet (5d and/or 15d), ARC scRNA-seq).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE179442": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, young (3-month) vs old (12-month) mouse median eminence (aging)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE215174": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, htNSC transplant vs untreated control, aged (~18 mo) mouse hypothalamus (snRNA pseudobulk)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE206861": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, Mouse hypothalamus: human ACP cyst-fluid injection vs PBS sham injection (1 vs 1)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE367": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, LPS (i.p. 10 ug lipopolysaccharide) vs saline control, PVH; alternatively restraint stress (RST) vs saline. Both are case-vs-control. Per time point (1hr OR 3hr) each arm has only n=2; reaching n>=3 requires pooling the two time points (4 vs 4), which confounds the study's primary time-point variable.).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE197547": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, LPS vs Saline (VMPO snRNA-seq); inflammatory).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE214896": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 2/group, aged mouse hypothalamus: Control vs htNSC-Transplant (snRNA-seq)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE296274": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 0/group, none (no control arm in series; both samples are gastritis-group)).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJNA1043710": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, Aged control (O) vs Aged + 17a-estradiol (O.T) [hormone]; alternatively Young (Y) vs Aged (O) [aging]. Both unusable: n=1 vs n=1.).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJNA743854": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, young (3-month) vs old/aged (12-month) median eminence).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "PRJNA1101005": {
+    "status": "rejected",
+    "note": "Auto-rejected: fails n≥3-per-group rule (min 1/group, plasma-positive microglia vs plasma-negative microglia (hypothalamus), but n=1 per arm).",
+    "updated": "2026-06-18T00:00:00.000Z",
+    "auto": true
+  },
+  "GSE236077": {
+    "status": "added",
+    "note": "Already integrated before the 2026-08-31 non-bulk-only continuation scope; retained in the explorer, with no further bulk RNA-seq processing queued.",
+    "updated": "2026-08-31T20:18:24.000Z"
+  },
+  "GSE305719": {
+    "status": "added",
+    "note": "Already integrated before the 2026-08-31 non-bulk-only continuation scope; retained in the explorer, with no further bulk RNA-seq processing queued.",
+    "updated": "2026-08-31T20:18:24.000Z"
+  },
+  "GSE294478": {
+    "status": "added",
+    "note": "Already integrated before the 2026-08-31 non-bulk-only continuation scope; retained in the explorer, with no further bulk RNA-seq processing queued.",
+    "updated": "2026-08-31T20:18:24.000Z"
+  },
+  "GSE282067": {
+    "status": "added",
+    "note": "Already integrated before the 2026-08-31 non-bulk-only continuation scope; retained in the explorer, with no further bulk RNA-seq processing queued.",
+    "updated": "2026-08-31T20:18:24.000Z"
+  },
+  "GSE247825": {
+    "status": "added",
+    "note": "Already integrated before the 2026-08-31 non-bulk-only continuation scope; retained in the explorer, with no further bulk RNA-seq processing queued.",
+    "updated": "2026-08-31T20:18:24.000Z"
+  },
+  "GSE292416": {
+    "status": "added",
+    "note": "Already integrated before this continuation; the completed BacTRAP dataset is retained and is not a remaining processing item.",
+    "updated": "2026-08-31T20:18:24.000Z"
+  },
+  "GSE314817": {
+    "status": "added",
+    "note": "Aging analysis GSE314817_6v27mo was integrated before the 2026-08-31 non-bulk-only continuation scope; retained, with no reprocessing queued.",
+    "updated": "2026-08-31T20:18:24.000Z"
+  },
+  "GSE240365": {
+    "status": "added",
+    "note": "Already integrated before the 2026-08-31 non-bulk-only continuation scope; retained, with no reprocessing queued.",
+    "updated": "2026-08-31T20:18:24.000Z"
+  },
+  "GSE201207": {
+    "status": "added",
+    "note": "Aging analysis GSE201207_young_vs_old was integrated before the 2026-08-31 non-bulk-only continuation scope; retained, with no reprocessing queued.",
+    "updated": "2026-08-31T20:18:24.000Z"
+  },
+  "GSE212336": {
+    "status": "added",
+    "note": "Added to the explorer on 2026-08-31 under the new bulk RNA-seq integration goal. The prespecified whole-hypothalamus endpoint uses 9 independent 3-month and 11 independent 21-month mice, adjusts additively for sex, and excludes the sparse 28-month male-only endpoint. Preprocessing conserved all 115,751,418 integer counts across 21,076 symbols; edgeR-QL retained 13,518 genes, the coefficient-SE refit reproduced logFC at 100% agreement, and four-database FGSEA produced 4,786 rows.",
+    "updated": "2026-08-31T23:30:00.000Z"
+  },
+  "GSE157025": {
+    "status": "rejected",
+    "note": "QC exclusion under the bulk RNA-seq goal: one of the three 24-month hypothalamus libraries (GSM4751099) has only 4,214,894 assigned counts and 1,390 detected genes, versus 36.3-47.5 million counts and 18,203-18,953 detected genes in the other five libraries. Removing that severe outlier leaves only two aged biological replicates, below the pipeline's minimum of three per arm, so the dataset is not integrated and does not count toward the goal.",
+    "updated": "2026-08-31T23:31:00.000Z"
+  },
+  "GSE99791": {
+    "status": "added",
+    "note": "Added to the explorer on 2026-08-31 under the new bulk RNA-seq integration goal. The eligible hypothalamic GFAP-RiboTag immunoprecipitate contrast has three independent 4-month and three independent 2-year biological replicates; the single input library at each age is not counted as replication. Preprocessing conserved 203,888,196 integer counts across 24,537 symbols; edgeR-QL retained 14,978 genes, its SE refit reproduced logFC at 100% agreement, and four-database FGSEA produced 4,886 rows.",
+    "updated": "2026-08-31T23:32:00.000Z"
+  },
+  "GSE102537": {
+    "status": "rejected",
+    "note": "QC drop and scope exclusion: the deposited whole-hypothalamus total RNA-seq object is bulk, and its alleged third IRS1-knockout replicate is fold-change-like rather than an expression column, leaving only n=2 usable knockout columns. Provisional outputs are quarantined; FASTQ requantification is not pursued under the current non-bulk scope.",
+    "updated": "2026-08-31T20:18:24.000Z"
+  },
+  "GSE227689": {
+    "status": "added",
+    "note": "Added to the explorer on 2026-08-31 under the new bulk RNA-seq integration goal. The retained experiment compares four independent 19-month female mice fed ad libitum with four subjected to five weeks of acute dietary restriction; the separate young-plasma experiment is not mixed into the estimand. Preprocessing conserved 70,840,937 integer counts across 21,076 symbols; edgeR-QL retained 13,804 genes, its SE refit reproduced logFC at 100% agreement, and four-database FGSEA produced 4,842 rows.",
+    "updated": "2026-08-31T23:33:00.000Z"
+  },
+  "GSE238128": {
+    "status": "rejected",
+    "note": "Excluded from processing on 2026-08-31: Clariom S microarray is not RNA sequencing.",
+    "updated": "2026-08-31T20:18:24.000Z"
+  },
+  "GSE87102": {
+    "status": "rejected",
+    "note": "Excluded from processing on 2026-08-31: Agilent one-color microarray is not RNA sequencing.",
+    "updated": "2026-08-31T20:18:24.000Z"
+  },
+  "GSE314970": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal as a male-rat hypothalamic age contrast with 12 independent 6-month and 12 independent 27-month animals. The official ArrayStudio table contains 46,580 fractional cells among 730,896 selected values (93.627% integral), so these are software-estimated raw counts rather than literal audited reads. Acceptance is fail-closed and differs from GSE190218: the paper (PMID 41984968) says raw counts were normalized with limma, and the official Zenodo 18190271 code calls the table 'raw gene expression counts' and passes it unchanged to edgeR::DGEList, calcNormFactors, and limma::voom. No value was rounded. The mixed GeneName field has 4,319 ENSRNOG fallbacks; version-matched Ensembl release-113 Rn7 annotation supplies explicit names for 128, while 4,191 unnamed/absent IDs remain unique reserved audit rows and cannot enter panels, MSigDB, or public gene projection. Thirty-two post-map label collisions are summed with exact estimate conservation. edgeR-QL retained 16,396 tests, the public bundle contains 15,373 named genes, the independent coefficient-SE refit reproduced logFC at 100% agreement, and four-database rat FGSEA produced 5,073 rows.",
+    "updated": "2026-09-01T00:54:00.000Z"
+  },
+  "GTEx-v11": {
+    "status": "rejected",
+    "note": "Excluded from processing on 2026-08-31: GTEx hypothalamus is bulk RNA-seq; the current continuation accepts non-bulk RNA-sequencing datasets only. Clarified 2026-10-29: this exclusion governs differential-expression intake. GTEx v10 Brain - Hypothalamus is imported separately as an expression-only reference in the expression survey (docs/EXTERNAL_REFERENCE_EXPRESSION_PLAN_2026-10-29.md) and is not a registered dataset.",
+    "updated": "2026-10-29T16:30:00.000Z"
+  },
+  "GSE288245": {
+    "status": "rejected",
+    "note": "Excluded from processing on 2026-08-31: tissue-level bulk RNA-seq; the current continuation accepts non-bulk RNA-sequencing datasets only.",
+    "updated": "2026-08-31T20:18:24.000Z"
+  },
+  "E-MTAB-14300": {
+    "status": "rejected",
+    "note": "Excluded from processing on 2026-08-31: bulk RNA-seq. The unresolved rat taxon/reference is an additional blocker, but no resolution or FASTQ quantification is pursued under the current non-bulk scope.",
+    "updated": "2026-08-31T20:18:24.000Z"
+  },
+  "GSE179328": {
+    "status": "rejected",
+    "note": "Excluded from processing on 2026-08-31: the GSE179328/GSE179330 macaque VMH study is bulk RNA-seq; the current continuation accepts non-bulk RNA-sequencing datasets only.",
+    "updated": "2026-08-31T20:18:24.000Z"
+  },
+  "PRJEB29798": {
+    "status": "rejected",
+    "note": "Excluded from processing on 2026-08-31: bulk RNA-seq; the current continuation accepts non-bulk RNA-sequencing datasets only.",
+    "updated": "2026-08-31T20:18:24.000Z"
+  },
+  "GSE128537": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal as a rhesus-macaque hypothalamic age comparison. Exactly one GEO-labelled hypothalamus library was retained from each of eight donors: four young 3.2-5-year and four middle-aged 9.8-10-year macaques, balanced two females/two males per arm with sex modeled; adjacent medulla and all other regions were excluded. Preprocessing verified 30,807 nonnegative integer Ensembl-gene rows, 9.06-12.36 million assigned counts per library, and zero conservation deltas. A Macaca-mulatta msigdbr-authority Ensembl-to-symbol map enabled a 15,237-gene sex-adjusted edgeR-QL fit, the independent SE refit reproduced logFC at 100% agreement, and macaque four-database FGSEA produced 4,713 rows. The older arm is middle-aged rather than senescent and the contrast is observational.",
+    "updated": "2026-09-01T00:50:00.000Z"
+  },
+  "PRJNA1089563": {
+    "status": "rejected",
+    "note": "Excluded by the 2026-08-31 bulk input gate and not counted toward the goal. The mouse-hypothalamus study has public FASTQ but no official per-sample integer-count table or documented normalized expression matrix suitable for the repository's edgeR/limma front ends; this task does not authorize inventing counts or a new FASTQ quantification. Moreover, age is perfectly confounded with library protocol in the cross-age design (12-month random-PCR paired-end versus 25-month poly(A) single-end), so ages cannot be pooled. A treatment-within-age re-quantification could be defensible in a future raw-read workflow, but no integration is claimed here.",
+    "updated": "2026-09-01T00:50:00.000Z"
+  },
+  "GSE270383": {
+    "status": "added",
+    "note": "Added to the explorer on 2026-08-31 as non-bulk IRISeq spatial RNA-seq: 4,476 deposited hypothalamic spots from sections 4 and 5 were aggregated to n=3 young and n=3 old animals. The GEO metadata payload had a serialization permutation; a deterministic sample-block repair restored barcode/orig.ident, nCount, and nFeature identity for all 128,405 profiles exactly, with zero count loss. The adapter, edgeR-QL, coefficient-SE refit, and four-database FGSEA gates passed in pinned R 4.4.1. This is an independently validated reanalysis of the deposited 2024 128,405-profile cohort, not an author-provided correction or the final paper's revised 98,006-profile cohort.",
+    "updated": "2026-08-31T21:01:20.000Z"
+  },
+  "GSE273038": {
+    "status": "added",
+    "note": "Added to the explorer on 2026-08-31 using the non-bulk IRISeq spatial RNA-seq arm: 6,124 deposited Hypothalamus spots from two nested sections per mouse were aggregated to three 24-month ad-libitum and three 24-month caloric-restriction animals. Matrix-column library sizes reproduced every deposited Size_Factor at machine precision and animal pseudobulk conserved all 28,155,046 selected counts. The adapter, edgeR-QL, coefficient-SE refit, and four-database FGSEA gates passed in pinned R 4.4.1; the separate EasySci arm was not needed for this retained contrast.",
+    "updated": "2026-08-31T21:01:20.000Z"
+  },
+  "GSE233983": {
+    "status": "rejected",
+    "note": "Dropped at spatial QC on 2026-08-31, not for modality: this is RNA-sequencing-based Visium data. The 44 public H5 entries reconcile to 24 animals, 36 physical sections, and 8 same-section resequencings; clean designs are cohort-1 pairwise ages at n=4 per arm or cohort-2 young versus old at n=10 per arm, not one unconfounded 10/4/10 model. The current public v2 release adds Space Ranger position and image sidecars, but neither the H5/sidecar schema nor the author supplements expose the final barcode-level anatomical-region calls; aggregate region spot totals cannot reconstruct them. A hypothalamus-only animal pseudobulk therefore cannot pass the existing exact anatomical-selection and count-conservation gates. Do not substitute whole-coronal-brain counts or count serial/resequenced sections as replicates; revisit only if a public spot-to-region map is supplied.",
+    "updated": "2026-08-31T21:08:00.000Z"
+  },
+  "PRJNA1251037": {
+    "status": "reviewed",
+    "note": "Non-bulk snRNA-seq candidate on QC hold: the record exposes 79 indexed libraries, but donor-to-library independence is unresolved. Do not process or count indexed libraries as biological replicates until metadata proves at least n=3 independent donors per retained age/sex/genotype arm.",
+    "updated": "2026-08-31T20:18:24.000Z"
+  },
+  "NeMO-dat-61kfys3": {
+    "status": "reviewed",
+    "note": "Non-bulk scRNA-seq candidate on QC hold: the global study is well replicated, but the hypothalamus-specific animal/library map is unresolved. Do not download the approximately 149 GB processed collection or process it until the retained hypothalamic subset proves at least n=3 independent animals per age arm.",
+    "updated": "2026-08-31T20:18:24.000Z"
+  },
+  "GSE212491": {
+    "status": "added",
+    "note": "Added to the explorer on 2026-08-31 using the non-bulk whole-hypothalamus Drop-seq arm. The retained fructose-fed contrast contains three independent control animal libraries and three Akkermansia muciniphila animal libraries; 47,492 cells were aggregated to animal pseudobulk across 25,676 deposited gene symbols with zero count loss. Exact inventory, integer-count, dimension, replication, edgeR-QL, coefficient-SE refit, and four-database FGSEA gates passed in pinned R 4.4.1; the separate water-fed arm was not mixed into this estimand.",
+    "updated": "2026-08-31T22:03:00.000Z"
+  },
+  "GSE300937": {
+    "status": "rejected",
+    "note": "Dropped at biological-replication QC on 2026-08-31: whole-hypothalamus snRNA-seq is on-scope RNA sequencing, but the imipramine-versus-vehicle contrast contains only two independent mice per arm. Public integer count matrices cannot recover the missing biological variance required by the pipeline's n>=3 gate.",
+    "updated": "2026-08-31T22:03:00.000Z"
+  },
+  "GSE134726": {
+    "status": "rejected",
+    "note": "Dropped at design QC on 2026-08-31: all 24 Gipr-positive hypothalamic-cell libraries are individual cells from one condition across two sequencing batches, not independent animals or control/treatment arms. The study has no estimable replicated contrast.",
+    "updated": "2026-08-31T22:03:00.000Z"
+  },
+  "GSE243112": {
+    "status": "rejected",
+    "note": "Dropped at scope and replication QC on 2026-08-31: these are iPSC-derived neurons rather than anatomical hypothalamus, and the apparent libraries reduce to one WT clone versus two BSN+/- clones. Library/cell multiplicity cannot substitute for independent donors.",
+    "updated": "2026-08-31T22:03:00.000Z"
+  },
+  "GSE295866": {
+    "status": "rejected",
+    "note": "Excluded from processing on 2026-08-31: the deposited arm is single-nucleus ATAC-seq only and contains no RNA-expression assay. It is the chromatin companion to the eligible RNA study GSE295856 and is not counted as an additional RNA-seq dataset.",
+    "updated": "2026-08-31T22:03:00.000Z"
+  },
+  "PRJEB49102": {
+    "status": "rejected",
+    "note": "Dropped at model and replication scope on 2026-08-31: four WT and four hsFTOdelta36 libraries are repeated libraries from an isogenic iPSC-derived arcuate-like cell model, not independent animals/donors or anatomical hypothalamus. The record is also FASTQ-only (approximately 191 GB) with no processed count matrix.",
+    "updated": "2026-08-31T22:03:00.000Z"
+  },
+  "PRJEB48453": {
+    "status": "rejected",
+    "note": "Dropped at biological-replication QC on 2026-08-31: the rat arcuate-nucleus Visium series has exactly one animal/section at each PND25, PND35, and PND45 stage, so every defensible stage contrast is n=1 per arm. All three submitted runs are public, but sequencing depth cannot repair the absent independent replication.",
+    "updated": "2026-08-31T22:03:00.000Z"
+  },
+  "GSE89503": {
+    "status": "rejected",
+    "note": "Dropped at contrast and replication QC on 2026-08-31: all 95 deposited single-cell libraries are WT cells from one NKX2.1GFP/w hESC line; the advertised PCSK1-deficient arm is absent. Individual cells are not biological replicates, and the only processed matrix is normalized RPKM rather than integer counts.",
+    "updated": "2026-08-31T22:03:00.000Z"
+  },
+  "GSE237274": {
+    "status": "rejected",
+    "note": "Dropped at biological-replication and model QC on 2026-08-31: TH-high and TH-low organoid sorts were hashtag-pooled into one 10x library per arm, with no public per-replicate demultiplexing key. This leaves n=1 per arm from one WA01 reporter line, not independent anatomical-tissue donors.",
+    "updated": "2026-08-31T22:03:00.000Z"
+  },
+  "GSE262700": {
+    "status": "rejected",
+    "note": "Dropped at biological-replication and model QC on 2026-08-31: one edited guide-positive and one unedited guide-negative 10x library derive from the same PWS iPSC line, leaving n=1 per arm with treatment confounded by day 63 versus day 66. Public integer matrices do not resolve this design failure.",
+    "updated": "2026-08-31T22:03:00.000Z"
+  },
+  "GSE164891": {
+    "status": "rejected",
+    "note": "Dropped at biological-replication and model QC on 2026-08-31: one BBS1 M390R library is compared with one isogenic-corrected iPSC-neuron library. There are no independent donors or replicates and no anatomical hypothalamic tissue.",
+    "updated": "2026-08-31T22:03:00.000Z"
+  },
+  "CNP0003280": {
+    "status": "rejected",
+    "note": "Excluded from processing on 2026-08-31: this is single-cell ATAC-seq only, not RNA sequencing. Its 42 region libraries derive from one 7-8-month-old female rat and provide no replicated comparison arm.",
+    "updated": "2026-08-31T22:03:00.000Z"
+  },
+  "E-GEAD-677": {
+    "status": "rejected",
+    "note": "Dropped at biological-replication QC on 2026-08-31: eight chick Visium sections each occupy a unique developmental-stage/position combination, so every defensible stage-position contrast has one section per arm. The 1.7 GB processed archive cannot create independent replication.",
+    "updated": "2026-08-31T22:03:00.000Z"
+  },
+  "GSE249564": {
+    "status": "rejected",
+    "note": "Dropped at contrast and replication QC on 2026-08-31: this is exact arcuate-nucleus snRNA-seq but contains one WT biological preparation only. The cDNA and HTO GSMs are assay components from that same preparation, not biological replicates or comparison arms.",
+    "updated": "2026-08-31T22:03:00.000Z"
+  },
+  "GSE280460": {
+    "status": "rejected",
+    "note": "Excluded from processing on 2026-08-31: 10x Xenium is targeted in-situ imaging over an approximately 366-gene panel, not RNA sequencing. It uses the same donors as the eligible sequencing companion GSE280316, which remains the processable study.",
+    "updated": "2026-08-31T22:03:00.000Z"
+  },
+  "GSE241594": {
+    "status": "rejected",
+    "note": "Dropped at model and replication scope on 2026-08-31: the H9 hESC-derived hypothalamic-neuron culture is not anatomical hypothalamic tissue and has no independent animal/donor replicates; its pooled matrix lacks a usable library-demultiplexing key.",
+    "updated": "2026-08-31T22:03:00.000Z"
+  },
+  "GSE208750": {
+    "status": "rejected",
+    "note": "Dropped at biological-replication QC on 2026-08-31: the hypothalamus Drop-seq arm contains only two independent libraries in each control, fructose, and HFHS diet group. Other tissues have more libraries, but the hypothalamic contrasts do not meet the pipeline's n>=3 gate.",
+    "updated": "2026-08-31T22:03:00.000Z"
+  },
+  "GSE308660": {
+    "status": "rejected",
+    "note": "Excluded/dropped on 2026-08-31: the adequately replicated seasonal hypothalamus arm is bulk RNA-seq and therefore outside the current non-bulk scope; the non-bulk snRNA-seq arm has only one male and one female bird split into technical libraries, so biological n=1 per sex fails QC.",
+    "updated": "2026-08-31T22:03:00.000Z"
+  },
+  "GSE261715": {
+    "status": "reviewed",
+    "note": "Non-bulk POMC/Ghost Patch-seq candidate on QC hold: the paper reports five HFD and five chow animals, but the 76 cell GSMs and public count matrix provide no cell-to-source-mouse map. Process only if a public cell/GSM-to-mouse-and-diet key permits animal pseudobulk without treating cells as replicates.",
+    "updated": "2026-08-31T22:03:00.000Z"
+  },
+  "GSE242058": {
+    "status": "reviewed",
+    "note": "Non-bulk rat Visium candidate on anatomical-QC hold: male and female groups have four sections/animals each, but the deposit lacks SON barcode lists or ROI masks; spatial_enrichment.csv contains gene-level Moran's-I results, not a spot-to-SON map. Process only when per-sample SON barcodes/ROI masks or author-exported SON-only raw counts are public; whole-section aggregation is not an acceptable substitute.",
+    "updated": "2026-08-31T22:03:00.000Z"
+  },
+  "GSE143818": {
+    "status": "added",
+    "note": "Added to the explorer on 2026-08-31 using non-bulk plate scRNA-seq from FACS-purified P10 Ai14;Sf1-Cre VMH-lineage cells. The retained sex contrast contains three independent female and three independent male mice; all 576 deposited cells were aggregated to mouse pseudobulk across 21,926 genes with exact count conservation and no empty cells. Forty low-depth cells were retained and disclosed rather than silently filtered. Exact inventory, integer-count, replication, edgeR-QL, coefficient-SE refit, and four-database FGSEA gates passed in pinned R 4.4.1. Interpret as a developmental Sf1-lineage male-versus-female contrast, not adult or whole-hypothalamus biology.",
+    "updated": "2026-08-31T22:10:00.000Z"
+  },
+  "GSE130597": {
+    "status": "added",
+    "note": "Added to the explorer on 2026-08-31 using eligible non-bulk lateral-hypothalamus Drop-seq. Seven independent control-chow and seven high-fat-diet male mice were aggregated from 28,410 cells to mouse pseudobulk across 21,568 genes; all deposited counts reconcile exactly and the balanced sequencing pool was modeled. Mouse 11 and Mouse 14 were retained with explicit low-cell-yield watch flags because both keep broad gene detection, bounded TMM factors, valid integer counts, and no established pipeline cell-count exclusion threshold is violated. Exact inventory, replication, edgeR-QL, coefficient-SE refit, and four-database FGSEA gates passed in pinned R 4.4.1. The deposit lacks a barcode-to-cell-type map, so results represent the mixed captured LHA population rather than a cluster-specific contrast.",
+    "updated": "2026-08-31T22:17:00.000Z"
+  },
+  "GSE174085": {
+    "status": "added",
+    "note": "Added to the explorer on 2026-08-31 using non-bulk plate scRNA-seq from PVN CRH-expressing neurons. The 602 deposited cell libraries were mapped through official GEO metadata and aggregated to 15 control and 9 early-life-adversity source animals across 35,805 merged gene symbols with exact count conservation. P10/P11/P12 age at collection is unbalanced but not confounded and was included in the full-rank edgeR design. Four animals below 25% of the cohort-median cell yield retain 15,133-19,046 detected genes and carry explicit watch flags rather than being discarded under an invented cutoff; excluding them leaves 14 control/6 ELA animals and yields Pearson r=0.900 across 23,931 common logFCs with 95.5% focused-gene sign concordance. Exact metadata, integer-count, replication, edgeR-QL, coefficient-SE refit, and four-database FGSEA gates passed in pinned R 4.4.1.",
+    "updated": "2026-08-31T22:23:00.000Z"
+  },
+  "GSE289461": {
+    "status": "added",
+    "note": "Added to the explorer on 2026-08-31 using eligible non-bulk P0 arcuate-median-eminence Drop-seq. Four control and four Mettl14-knockout GSMs are eight independent mice; six tissue sections and 2-3 droplet runs were pooled only within each mouse and were not counted as replicates. The streaming adapter aggregated 208,711 cells to mouse pseudobulk across 36,514 merged genes and conserved all 111,283,130 integer UMIs exactly. edgeR-QL retained 17,517 genes, its coefficient-SE refit reproduced logFC at 100% agreement, and four-database FGSEA produced 4,949 rows in pinned R 4.4.1.",
+    "updated": "2026-08-31T22:27:00.000Z"
+  },
+  "GSE87544": {
+    "status": "added",
+    "note": "Added to the explorer on 2026-08-31 using eligible non-bulk whole-hypothalamus Drop-seq. Official batch-plus-mouse metadata resolves 17 technical partitions to five normal-fed and three 24-hour-food-deprived mice; 18,300 cells were collapsed before analysis to eight mouse pseudobulks across a pinned 19,577-symbol mm9-era union with exact count conservation. The crossed batch-adjusted edgeR design is full rank with two residual degrees of freedom. Two Batch-0 control mice carry low-cell-yield watch flags but retain 13,470/13,993 detected genes and were not removed under an invented cutoff. edgeR-QL, 100%-agreement coefficient-SE refit, and four-database FGSEA (4,865 rows) passed in pinned R 4.4.1.",
+    "updated": "2026-08-31T22:32:00.000Z"
+  },
+  "GSE252779": {
+    "status": "added",
+    "note": "Added to the explorer on 2026-08-31 as whole-hypothalamus bulk RNA-seq from diet-induced-obese mice, using four independent vehicle and four independent celastrol-treated animals. GEO calls the supplementary workbook a gene-count file, but the matrix is predominantly fractional with FPKM-scale column sums, so the adapter correctly rejected the edgeR count route and used the pipeline's log2(FPKM+1) limma front end without rounding or inventing counts. All eight libraries passed finite-value, non-negative-value, broad-detection, replication, reversible-transform, limma, and four-database FGSEA gates. The pair-fed arms were not mixed into this primary drug contrast and remain an explicit interpretation caveat.",
+    "updated": "2026-08-31T23:20:00.000Z"
+  },
+  "GSE235792": {
+    "status": "added",
+    "note": "Added to the explorer on 2026-08-31 under the bulk RNA-seq integration goal. The phenotype-stratified whole-hypothalamus contrast holds sex, age, strain, and high weaning-weight category constant and compares four low-glycaemia with four high-glycaemia male TallyHo/JngJ mice, each with a distinct GSM and BioSample. All 55,401 Ensembl-gene rows are finite non-negative integers, library totals were conserved exactly, edgeR-QL retained 18,849 annotated genes, its SE refit reproduced logFC at 100% agreement, and four-database FGSEA produced 5,047 rows. This remains an association rather than a randomized intervention.",
+    "updated": "2026-08-31T23:34:00.000Z"
+  },
+  "GSE232510": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal. The focused arcuate-nucleus contrast has three independent sedentary chow-fed and three independent sedentary high-fat-diet female rats; exercise and miR-211 arms are not counted as replicates. The adapter preserved 32,883 integer-count genes and exact library totals, rat Ensembl identifiers were mapped with org.Rn.eg.db, edgeR-QL retained 11,536 annotated genes, the uncertainty refit reproduced logFC at 100% agreement, and rat four-database FGSEA produced 4,372 rows. GEO's Rattus rattus label conflicts with the Wistar model, Rnor6 alignment, and ENSRNOG identifiers, so the integration records Rattus norvegicus and keeps that provenance caveat.",
+    "updated": "2026-08-31T23:40:00.000Z"
+  },
+  "GSE229440": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal. Prenatal benzene was assigned to dams, so 15 retained male-offspring libraries were summed before analysis to three independent filtered-air and three independent benzene-exposed litters; siblings were never counted as replicates, and author-identified outlier OBFH14 was excluded before aggregation. All 55,471 versioned Ensembl rows and litter totals were conserved, edgeR-QL retained 22,332 annotated genes, the uncertainty refit reproduced logFC at 100% agreement, and four-database FGSEA produced 5,117 rows.",
+    "updated": "2026-08-31T23:41:00.000Z"
+  },
+  "GSE280030": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal as an explicitly in-vitro hypothalamic model. The contrast uses three independent BSA-vehicle and four independent 5 mM palmitate cultures of mHypoA-2/12 neurons; leptin and antagonist arms are not mixed in. Preprocessing preserved 57,010 integer-count rows with zero conservation deltas, edgeR-QL retained 11,309 annotated genes, its uncertainty refit reproduced logFC at 100% agreement, and four-database FGSEA produced 4,216 rows. The tracker and registry state that this is a cell line rather than an in-vivo tissue estimate.",
+    "updated": "2026-08-31T23:42:00.000Z"
+  },
+  "GSE168151": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal. The selected F1 endpoint compares four independent vehicle and four independent endocrine-disrupting-mixture female rats in mediobasal hypothalamus/preoptic area; F3 animals and the shared sequencing lane are not counted as replicates. The adapter preserved 32,883 integer-count genes and exact totals; two broad-detection libraries carry relative-depth watch flags but no invented absolute cutoff was used. edgeR-QL retained 14,585 annotated genes, its uncertainty refit reproduced logFC at 100% agreement, and rat four-database FGSEA produced 4,802 rows.",
+    "updated": "2026-08-31T23:43:00.000Z"
+  },
+  "GSE175461": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal. The supraoptic-nucleus contrast contains five independent euhydrated and five independent 72-hour-water-deprived male Wistar-Han rats. Preprocessing verified 32,402 unique Ensembl genes, non-negative integer counts, and zero library-total deltas; edgeR-QL retained 15,305 annotated genes, its uncertainty refit reproduced logFC at 100% agreement, and rat four-database FGSEA produced 4,899 rows.",
+    "updated": "2026-08-31T23:44:00.000Z"
+  },
+  "GSE145431": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal. The PVN sodium-depletion study has three independent control pools and three independent furosemide/low-sodium pools; each library pools three animals, and animals inside a pool are not promoted to replicates. Preprocessing verified 32,402 unique Ensembl genes and exact integer-count conservation; edgeR-QL retained 16,330 annotated genes, its uncertainty refit reproduced logFC at 100% agreement, and rat four-database FGSEA produced 4,859 rows.",
+    "updated": "2026-08-31T23:45:00.000Z"
+  },
+  "GSE225359": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal. The prespecified P90 female mediobasal-hypothalamus endpoint compares five vehicle with five perinatally DES-exposed independent rats at 12 micrograms/kg/day; other tissues, ages, compounds, and doses are excluded before analysis. Preprocessing verified 32,883 unique Ensembl genes and exact count conservation; edgeR-QL retained 14,610 annotated genes, its uncertainty refit reproduced logFC at 100% agreement, and rat four-database FGSEA produced 4,822 rows.",
+    "updated": "2026-08-31T23:46:00.000Z"
+  },
+  "GSE169296": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal. The male-rat PVN contrast contains three independent nonstress and three independent adolescent-restraint-stress animals; other brain regions from those animals are not treated as repeated replicates. The adapter verified that deposited expression values exactly equal unique gene reads before extracting 32,623 Ensembl rows, edgeR-QL retained 13,839 annotated genes, its uncertainty refit reproduced logFC at 100% agreement, and rat four-database FGSEA produced 4,665 rows.",
+    "updated": "2026-08-31T23:47:00.000Z"
+  },
+  "GSE190218": {
+    "status": "rejected",
+    "note": "Excluded by the bulk RNA-seq input gate and not counted toward the goal. The sole public gene-level matrix was produced with featureCounts -M -O --fraction and contains 487,384 fractional assignments among 2,503,345 sample values (19.47%). These are fractional multi-overlap read assignments, not a documented log-scale normalized expression matrix suitable for the pipeline's limma route; rounding would invent counts, so no integration was made.",
+    "updated": "2026-08-31T23:48:00.000Z"
+  },
+  "GSE242354": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal through the canonical normalized-matrix route. The retained whole-hypothalamus endpoint compares five independent sedentary with five independent eight-week-trained male F344 rats. Fractional RSEM expected counts were never rounded: 32,883 Ensembl rows were mapped with the study's exact rn6 release-96 GTF, duplicate symbols were summed on the linear scale with exact total conservation, and log2(CPM+1) was sent to limma/eBayes. All 10 BioSamples were unique, 21,215 nonconstant genes passed DE, and rat four-database FGSEA produced 5,259 rows.",
+    "updated": "2026-08-31T23:50:00.000Z"
+  },
+  "GSE124693": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal through the canonical normalized-matrix route. AgRP-neuron RiboTag RNA at ZT14 compares four independent ad-libitum-fed with five independent 24-hour-fasted mice. Deposited linear DESeq2-normalized counts were transformed reversibly as log2(value+1), never rounded or misreported as raw depth; all GSMs and BioSamples are unique and 14,905-17,062 genes are detected per library. limma/eBayes retained 18,611 nonconstant genes and four-database FGSEA produced 5,200 rows.",
+    "updated": "2026-08-31T23:51:00.000Z"
+  },
+  "GSE96627": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal through the canonical normalized-matrix route. Laser-captured arcuate nucleus from five independent ad-libitum-fed and five independent 24-hour-food-deprived male mice was selected while other nuclei were excluded. The deposited RPKM matrix was preserved and reversibly transformed as log2(RPKM+1), with no rounding or false library-depth claim. limma/eBayes retained 32,638 annotated nonconstant genes and four-database FGSEA produced 5,452 rows.",
+    "updated": "2026-08-31T23:52:00.000Z"
+  },
+  "GSE174753": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal through the canonical normalized-matrix route. Adult male-rat medial preoptic area after standard housing or limited bedding/nesting at P2-P9 has six distinct animals and BioSamples per arm. Transcript log2(FPKM+1) was inverted, summed by gene only on the linear FPKM scale, and relogged with numerical conservation; logged values were never summed directly. limma/eBayes retained 21,145 nonconstant genes and rat four-database FGSEA produced 5,194 rows. Public metadata do not expose dam/litter identifiers, so that unmodelled dependence remains explicit.",
+    "updated": "2026-08-31T23:53:00.000Z"
+  },
+  "GSE133293": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal through the canonical normalized-matrix route. The focused sham-surgery whole-hypothalamus comparison has four independent filtered-air and four independent 0.8-ppm-ozone male rats; adrenalectomized and brainstem arms are excluded. Deposited DESeq2-normalized values were summed only on their linear scale where needed and reversibly transformed as log2(value+1), without rounding or treating normalized totals as library depth. limma/eBayes retained 20,845 nonconstant genes and rat four-database FGSEA produced 5,227 rows.",
+    "updated": "2026-08-31T23:54:00.000Z"
+  },
+  "GSE160467": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal. This is RNA-seq from GT1-7 mouse hypothalamic neuronal cells, with three independent wild-type and three independent MKRN3-overexpression culture libraries. The corrected fail-closed adapter removes and separately audits exactly five named __* assignment-summary rows before analysis; none enters the count matrix. The complete archive/SOFT mapping, 55,376-gene order, nonnegative integer counts, 6.44-9.39 million assigned-gene counts and 11,806-13,787 detected genes per library, pinned totals, and zero assigned-count conservation deltas passed hard QC. edgeR-QL retained 6,259 annotated genes; the independent SE refit reproduced 100% of logFC values within tolerance, and four-database FGSEA produced 3,208 rows. This in-vitro result is explicitly not represented as an in-vivo animal estimate.",
+    "updated": "2026-09-01T00:22:00.000Z"
+  },
+  "GSE270378": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal. This is RNA-seq from adult-derived mHypoA-2/12 mouse hypothalamic neuronal cells. The focused comparison holds time fixed at 24 hours and uses three independent vehicle and three independent 3-uM-CBD culture libraries; every 6-hour library and other CBD dose is excluded from the contrast, not counted as a replicate, and remains documented in the verified 30-file source inventory. The corrected adapter removes and separately audits exactly five named __* assignment-summary rows before analysis. All six selected libraries passed 56,941-gene order, integer-count, 2.30-4.16 million assigned-gene-count, 17,091-17,971 detected-gene, pinned-total, and exact assigned-count-conservation QC. edgeR-QL retained 11,242 annotated genes; the SE refit reproduced 100% of logFC values, and four-database FGSEA produced 4,243 rows.",
+    "updated": "2026-09-01T00:23:00.000Z"
+  },
+  "GSE275887": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal. This is RNA-seq from cultured adult mouse hypothalamic neuronal cells. The focused comparison holds glucose context fixed and uses three independent normal-glucose vehicle libraries versus three independent 160-uM-mogroside-V libraries; lower-dose and all high-glucose arms are excluded from the contrast, not counted as replicates, and remain documented in the verified 24-file source inventory. The corrected adapter removes and separately audits exactly five named __* assignment-summary rows before analysis. All six libraries passed 56,941-gene order, integer-count, 3.79-5.21 million assigned-gene-count, 16,535-18,672 detected-gene, pinned-total, and exact assigned-count-conservation QC. edgeR-QL retained 11,763 annotated genes; the SE refit reproduced 100% of logFC values, and four-database FGSEA produced 4,294 rows.",
+    "updated": "2026-09-01T00:24:00.000Z"
+  },
+  "GSE253875": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal as an explicitly in-vitro hypothalamic neuronal model. The GT1-7 GnRH-neuron contrast contains three independent 24-hour vehicle/control and three independent 0.125-uM-Alisol-B culture libraries, each with a distinct GSM and BioSample. The adapter verified 54,532 unique Ensembl-gene rows, nonnegative integer featureCounts, 13.36-15.88 million reads and 23,124-23,908 detected genes per library, pinned totals, and zero count-conservation deltas. edgeR-QL retained 15,414 annotated genes, the independent coefficient-SE refit reproduced logFC at 100% agreement, and mouse four-database FGSEA produced 4,601 rows. The explorer states that these are cultured cells rather than an in-vivo tissue estimate.",
+    "updated": "2026-09-01T00:36:00.000Z"
+  },
+  "GSE243287": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal through the canonical normalized-matrix route. Whole hypothalamus from seven independent Cre-negative control and five independent Camk2a-CreERT2-positive neuronal Smc3-cKO male mice was profiled five weeks after tamoxifen; all GSMs and BioSamples are unique, and setmelanotide was not a sequenced arm. The deposited fractional CPM values were never rounded: 32,494 unique symbols passed finite, nonnegative, pinned-total, >=23,469-detected-gene, and reversible log2(CPM+1) conservation checks. limma/eBayes retained 31,802 nonconstant genes and mouse four-database FGSEA produced 5,450 rows.",
+    "updated": "2026-09-01T00:36:00.000Z"
+  },
+  "GSE229799": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal through the normalized-matrix route. Male-mouse hypothalamus compares four unambiguous wild-type with four Clic1-knockout animals. The adapter excludes K10_S88 because its GEO title/treatment say WT while its description says K10, and excludes W15_S83 because no GEO sample block exists; neither identity was guessed. Deposited RSEM-normalized values were preserved and reversibly transformed as log2(value+1), never rounded or described as library depth. limma/eBayes retained 14,333 genes and mouse four-database FGSEA produced 4,910 rows.",
+    "updated": "2026-09-01T00:50:00.000Z"
+  },
+  "GSE296488": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal through the normalized-matrix route. The focused wild-type 129/Sv arcuate-nucleus contrast contains all seven deposited vehicle and eight deposited AM833/cagrilintide animals; RAMP1/3-knockout, salmon-calcitonin, area-postrema, and LPBN arms are excluded. Deposited kallisto TPM was summed from 121,798 transcripts to 35,194 genes on the linear scale using pinned Ensembl GRCm39 release 113, capturing 99.57-99.60% of source TPM with exact aggregation conservation, then transformed as log2(TPM+1). limma/eBayes retained 28,749 genes and four-database FGSEA produced 5,405 rows. Official TPM files and SOFT match their pinned hashes. Current GEO series and manuscript identify RNA-seq study 3 as cagrilintide 3 nmol/kg; individual GSM records still say 0.3 nmol/kg, but the origin of those conflicting labels is not established. The manuscript reports 117 of 138 eligible brain samples, six replicates per condition, and two ARC CountQC exclusions across all genotypes/treatments. Those removals cannot be assigned specifically to this WT contrast. The deposit has 116 samples with uneven group sizes; final retained identities and exact per-contrast n are unavailable. The registered track remains all-deposited 7-vehicle-versus-8-cagrilintide. Figure 6 reports 404 WT cagrilintide MBH DEGs (96 up, 308 down). The paper's no-effect statement concerns DVC/LPBN, not this hypothalamic comparison; the earlier qualitative-agreement claim was incorrect. Local limma on TPM has zero padj<0.05 genes and 2,997 nominal p<0.05 genes (2,154 up, 843 down; minimum padj 0.0646355). The author uses Kallisto/SUSHI DESeq2App, but the exact Figure 6 DEG criterion and gene-level table are unavailable. These counts establish an unresolved headline comparison, not proof of a computation defect or a like-for-like FDR disagreement.",
+    "updated": "2026-09-03T00:00:00.000Z"
+  },
+  "GSE281503": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal after repairing a packaging-level workbook failure. Whole hypothalamus from four saline-plus-vehicle and four LPS-plus-vehicle independent male mice was retained while both daridorexant arms were excluded. The 95-MB XLSX incorrectly declares worksheet dimension A1 although its first row has 417 cells and the worksheet expands to about 942 MB; a deterministic OOXML-streaming adapter extracted only explicitly labelled Total-gene-read fields, verified all eight Ensembl-ID columns row by row, and preserved 49,585 integer-count genes and 11.32-13.07 million counts per library with zero deltas. edgeR-QL retained 16,974 genes, its SE refit reproduced logFC at 100% agreement, and four-database FGSEA produced 4,988 rows. This is acute neuroinflammation/sickness, not obesity.",
+    "updated": "2026-09-01T00:50:00.000Z"
+  },
+  "GSE154274": {
+    "status": "rejected",
+    "note": "Excluded under the 2026-08-31 independent-biological-unit gate. Maternal PCOS exposure was assigned at the F0 dam/litter level: the paper reports ten F0 rats per group, only six PCOS-model dams delivering, and F1/F2 offspring being randomly selected. However, neither the paper, GEO samples, nor supplements identify the dam/litter for the three sequenced offspring per arm or establish that they came from three distinct litters. The effective independent experimental-unit count therefore cannot be verified as n>=3 per arm, and individual offspring cannot be assumed independent. The normalized matrix remains as local audit evidence but the accession is removed from runnable config, registry, builder, and public integration.",
+    "updated": "2026-09-01T01:15:00.000Z"
+  },
+  "GSE261833": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal through the normalized-matrix route. Male-rat PVN after no treatment versus six hours/day immobilization for one week contains five independent animals per arm; the minocycline rescue arm is excluded. GEO deposits FPKM rather than counts, so all 24,160 features (23,760 Ensembl plus 400 XLOC) were transformed reversibly as log2(FPKM+1) without rounding or claiming normalized totals as depth. limma/eBayes retained 22,348 auditable features and rat four-database FGSEA produced 5,212 rows. At the public gene boundary, the shared rat-Ensembl guard excludes exactly 5,280 unresolved rows whose display label remains a raw ENSRNOG identifier, leaving 17,068 mapped gene-symbol rows and zero ENSRNOG leakage across the five-file browser bundle.",
+    "updated": "2026-09-01T01:36:00.000Z"
+  },
+  "GSE102415": {
+    "status": "added",
+    "note": "Added as a tracker-ranked fallback under the 2026-08-31 bulk RNA-seq goal. Whole hypothalamus from diet-induced-obese mice after five days of vehicle versus GLP-1/dexamethasone conjugate contains six distinct GSM/count files per arm; GLP-1-alone, dexamethasone-alone, and calorie-restricted weight-matched arms are excluded. The adapter removed only five named HTSeq summary rows, retained 37,310 integer Ensembl genes, conserved 34.61-44.56 million assigned counts exactly, and did not conflate treatment with lean-versus-obese status. edgeR-QL retained 18,204 genes, its SE refit reproduced logFC at 100% agreement, and four-database FGSEA produced 5,053 rows. GEO's overview says n=5/group despite the complete sample record and archive containing six per named arm; that discrepancy remains documented.",
+    "updated": "2026-09-01T00:50:00.000Z"
+  },
+  "GSE218188": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal through the canonical normalized-matrix route. Hypothalamus from five untreated and five choroid-plexus-Ins2-overexpression wild-type C57BL/6J mice was retained; choroid-plexus tissue libraries were excluded and all ten hypothalamus GSMs have distinct BioSamples. The official linear DESeq2-normalized matrix contains 25,239 unique symbols, was reversibly transformed as log2(value+1), and was never rounded or described as raw depth. limma/eBayes retained 20,752 nonconstant genes and four-database mouse FGSEA produced 5,401 rows.",
+    "updated": "2026-09-01T00:54:00.000Z"
+  },
+  "GSE56238": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal through the canonical normalized-matrix route. Whole hypothalamus from seven standard-chow and six 55%-fructose male Wistar rats was retained; the paper fixes every sequenced animal at PND80, fasted, non-stressed, and saline-control-injected. All 13 GSMs and BioSamples are unique. The 17,366-row deposited Cufflinks FPKM matrix contains 129 comma-delimited multi-gene labels and 940 _XLOC_ locus-tagged labels (two-row overlap). A pinned dataset-local map sends this 1,067-feature union to unique non-gene sentinels without splitting, first-token selection, suffix stripping, or changing expression values. Limma/eBayes retains 14,412 auditable feature tests, but the 376 nonconstant ambiguous rows (91 compound, 285 XLOC) are excluded from panels, MSigDB, and public symbol projection, leaving 14,036 genes; four-database rat FGSEA produced 4,976 rows.",
+    "updated": "2026-09-01T00:54:00.000Z"
+  },
+  "GSE100349": {
+    "status": "added",
+    "note": "Added under the 2026-08-31 bulk RNA-seq goal. The fixed adult-male Long-Evans-rat whole-hypothalamus contrast compares four standard-chow with four 36-day high-fat-diet/DIO animals, each with a distinct GSM and BioSample. The WTTS-seq input contains 73,922 valid poly(A)-site rows plus one verified blank footer. Annotation now requires both a nonblank Symbol and valid Gene_id: 273 UP<0.05/UP<0.05top/UP<0.05top10 analysis labels with Gene_id '-' are not genes and remain unique reserved APS rows rather than three collapsed pseudo-genes. All 8,009 unannotated APS sites remain separate, yielding 20,248 integer rows with exact conservation and no rounding. edgeR-QL retained 11,937 feature tests, its independent SE refit reproduced logFC at 100% agreement, the public projection contains 9,439 named genes, and four-database rat FGSEA produced 3,678 rows. Gene summation intentionally discards alternative-polyadenylation-site structure. GEO's linked PMID 31728018 is unrelated; the matching diet report is PMID 29391168.",
+    "updated": "2026-09-01T00:54:00.000Z"
+  },
+  "GSE306829": {
+    "status": "added",
+    "note": "Added as the replacement fifth passer under the 2026-08-31 bulk RNA-seq goal. Medial-preoptic-area BacTRAP from female NuTRAP::Pnoc-Cre mice has three independent pooled-animal replicates, each split into matched total-input and PNOC-neuron ribosome-IP libraries; the three animals inside each pool are never promoted to replicates. The estimand is paired PNOC-neuron IP enrichment versus input, not a treatment response. The official merged file's six explicitly named raw-count columns contain 27,884 unique Ensembl genes, finite nonnegative integers, and exact output totals. Paired edgeR-QL retained 19,952 symbol-mapped genes, the independent SE refit reproduced logFC at 100% agreement, and four-database mouse FGSEA produced 5,092 rows.",
+    "updated": "2026-09-01T00:54:00.000Z"
+  },
+  "GSE107324": {
+    "status": "rejected",
+    "note": "Excluded under the 2026-08-31 official-input gate. This rat-offspring hypothalamus study has an otherwise adequate maternal-HFD contrast (six vs six per diet within each sex), but GEO provides only GSE107324_femaleDifferentialCounts0_50_topTable_edgeR_tabular_processed_data.xlsx and the analogous male workbook. Those are already-contrasted edgeR topTable result tables, not feature-by-sample count or documented normalized-expression matrices. Raw reads exist only as SRA FASTQ, so no reusable official sample matrix enters the canonical edgeR/limma pipeline and no counts are invented.",
+    "updated": "2026-09-01T00:54:00.000Z"
+  },
+  "GSE224824": {
+    "status": "rejected",
+    "note": "Excluded as a reviewed replacement candidate under the 2026-08-31 official-input gate. The rat supraoptic-nucleus RASD1-knockdown design has seven control and seven knockdown samples, but the sole GEO supplement is GSE224824_Round_II_Rasd1_KD_DEseq2output_fullgenelist.csv.gz, an already-contrasted DESeq2 results table rather than a reusable feature-by-sample matrix. Raw reads are available only as FASTQ through PRJNA932759. This task does not introduce a new FASTQ quantification or back-invent sample counts, so the accession is not integrated. Follow-up 2026-10-19: the OXT/AVP intake retains this rejection; the reviewed official deposit still supplies contrasted DESeq2 results without a reusable feature-by-sample matrix. A source-matched FASTQ quantification remains the next step, not conversion of DE statistics into expression.",
+    "updated": "2026-10-19T00:00:00.000Z"
+  },
+  "GSE94080": {
+    "status": "rejected",
+    "note": "Excluded under the 2026-08-31 normalized-matrix scale gate. The biological design would otherwise pass: female-rat medial-basal hypothalamus has four distinct postnatal-day-7 animals and four distinct late-proestrus animals, with unique GSM, BioSample, and SRA identifiers. Every GEO sample block describes the official workbook as log2 counts per million per gene after edgeR GLM/voom estimation with batch correction. However, a full 32,662-feature by 20-sample audit finds all 653,240 expression cells to be strictly positive fractional values spanning 0.00155079107973764-29,706.7370772995, with per-sample sums of 625,251.437831845-1,036,980.55376194. That numeric signature is impossible for already-log2 CPM and instead resembles an undocumented linear CPM-like or adjusted-count scale. No deposited author code or primary-source statement resolves the contradiction: unchanged-value limma is invalid, while applying log2 or log2(x+1) would invent an undocumented scale interpretation. No rounding or inferred transform is used; the accession is excluded from runnable config, registry, builder, public bundles, query shards, and the successful-dataset count, with local derived files retained only as explicitly invalid audit evidence.",
+    "updated": "2026-09-01T01:36:00.000Z"
+  },
+  "GSE102471": {
+    "status": "added",
+    "note": "Added as the fail-closed replacement for GSE94080 under the 2026-08-31 bulk RNA-seq goal. The fixed contrast is P28 female-rat mediobasal hypothalamus after P21 stereotaxic delivery of GFP-control versus EED-overexpressing lentivirus, with four independent animals per arm and eight distinct GSM, BioSample, and SRA experiment identifiers. The official Raw Counts worksheet contains 32,662 unique valid ENSRNOG identifiers and 261,296 finite nonnegative integer cells; no value is blank, fractional, negative, rounded, or imputed, and all eight library totals (15,906,832-20,441,235) are exactly conserved. Canonical edgeR-QL retained 16,522 feature tests and emitted 16,500 symbol-deduplicated DE rows; 13,584 have gene symbols and 2,916 unmapped Ensembl identifiers remain local-only. The independent coefficient-SE refit reproduced logFC at 100.0% agreement and wrote 16,522 positive SEs. Four-database rat FGSEA produced 4,820 finite rows. Sequencing-lane allocation is not deposited, so no undocumented lane batch is modeled.",
+    "updated": "2026-09-01T02:00:00.000Z"
+  },
+  "GSE330152": {
+    "status": "added",
+    "note": "Added under the remaining bulk RNA-seq queue. The official GEO SOFT and deposited VST matrix reconcile exactly to 391 independent outbred Heterogeneous Stock rats sampled from ventromedial hypothalamus: 199 low-fat controls and 192 high-fat cases, with 98/98 female and 101/94 male control/case cells. All 391 matrix columns map one-to-one to unique GSM, BioSample, SRA experiment, and animal-genotype identifiers. The matrix contains 28,212 unique valid ENSRNOG identifiers and 11,030,892 finite fractional VST cells spanning 5.6188-17.8251, with no missing values, duplicate identifiers, or constant rows. Because GEO explicitly deposits variance-stabilized expression rather than raw counts, values are not rounded, back-transformed, or passed to edgeR; limma fits sex plus diet directly on the unchanged matrix. It emitted 28,036 symbol-deduplicated DE rows, and four-database rat FGSEA produced 5,388 finite pathway rows.",
+    "updated": "2026-09-01T04:01:00.000Z"
+  },
+  "GSE95243": {
+    "status": "added",
+    "note": "Added under the remaining bulk RNA-seq queue. The official GEO SOFT identifies seven healthy-control and five constitutionally obese iPSC-derived hypothalamic-neuron libraries, each from a distinct parent line with unique GSM, BioSample, and SRA experiment identifiers; motor-neuron and postmortem-hypothalamus samples are excluded. The adapter verifies that both deposited copies of every selected raw-count column agree exactly, retains 30,199 canonical human Ensembl genes, and explicitly removes 24 ENSGR alternate-region rows plus 92 ERCC spike-in rows. All selected cells are finite and nonnegative. GEO's software-estimated counts contain 70,419 fractional cells, which are preserved without rounding. edgeR-QL models sex plus obesity status, retains 17,993 features, and the independent SE refit reproduces 100% of logFC values; four-database human FGSEA produces 5,106 finite pathway rows.",
+    "updated": "2026-09-01T04:17:00.000Z"
+  },
+  "GSE98519": {
+    "status": "added",
+    "note": "Added under the remaining bulk RNA-seq queue using the mature-mouse arm. The selected P22 whole-hypothalamus contrast contains three Lef1 conditional-knockout and three littermate-control libraries, all with distinct GSM, BioSample, and SRA experiment identifiers. The accession's zebrafish 3-dpf and mouse E14.5 arms are separate species/developmental contrasts and are not mixed into this analysis. The official P22 table contains 17,779 unique valid ENSMUSG identifiers, finite nonnegative integer counts, no duplicated features, and exact library totals of 22,014,744-27,345,532. edgeR-QL retains 16,826 features, the independent SE refit reproduces 100% of logFC values, and four-database mouse FGSEA produces 4,991 finite pathway rows.",
+    "updated": "2026-09-01T04:29:00.000Z"
+  },
+  "GSE98690": {
+    "status": "added",
+    "note": "Added under the remaining bulk RNA-seq queue through the documented normalized-matrix route. The VMH contrast contains three AAV-GFP controls and four AAV-Cre Thrb-knockout mice, all with distinct GSM, BioSample, and SRA experiment identifiers. Every GEO sample block states that edgeR generated TMM-normalized log2 counts per million and that the supplement stores log2-CPM, resolving the scale unambiguously. The 11,907-by-7 matrix has unique valid ENSMUSG identifiers, no missing/non-finite or constant rows, and values spanning -2.2359 to 14.6624. Values are analyzed unchanged by limma without rounding, back-transformation, or CPM renormalization. Limma emits 11,906 symbol-deduplicated DE rows, and four-database mouse FGSEA produces 4,489 finite pathway rows.",
+    "updated": "2026-09-01T04:36:00.000Z"
+  },
+  "GSE99690": {
+    "status": "added",
+    "note": "Added under the remaining bulk RNA-seq queue after direct workbook inspection resolved the processed-matrix uncertainty. The official XLSX contains a RawGeneCounts sheet with 37,411 unique mouse gene symbols and all nine libraries, in addition to normalized-count and already-contrasted result sheets. The retained contrast is three 3-hour orexin-A versus three vehicle GT1-7/OxR1 culture libraries; each replicate block contains one library from each arm, and the separate 8-hour arm is excluded. All selected raw-count cells are finite nonnegative integers, with no invalid or duplicate symbols and exact library totals of 16,487,142-18,168,541. edgeR-QL fits replicate block plus treatment, retains 15,800 features, and the independent SE refit reproduces 100% of logFC values. Four-database mouse FGSEA emits 4,545 pathway rows; non-finite unbalanced-statistic rows are excluded at the public bundle boundary. This is an immortalized-cell-line response, not an in-vivo animal contrast.",
+    "updated": "2026-09-01T04:47:00.000Z"
+  },
+  "PRJNA547578": {
+    "status": "added",
+    "note": "Added under the remaining bulk RNA-seq queue through its exact GEO alias GSE132308. The focused contrast compares six spontaneous-sleep with six sleep-deprived galaninergic VLPO-neuron LCM libraries at matched ZT6; other timepoints and baseline samples are excluded rather than pooled across circadian time. All 12 retained libraries have distinct GSM, BioSample, and SRA experiment identifiers. The official unnormalized matrix contains 37,681 unique valid ENSMUSG identifiers and finite nonnegative integer counts, with no invalid or duplicated features and exact library totals of 5,123,118-7,439,839. edgeR-QL retains 13,662 features, the independent SE refit reproduces 100% of logFC values, and four-database mouse FGSEA produces 4,688 finite pathway rows.",
+    "updated": "2026-09-01T04:55:00.000Z"
+  },
+  "GSE214877": {
+    "status": "added",
+    "note": "Added under the remaining RNA-seq queue as an in-vitro differentiation track. Three human pluripotent-stem-cell cultures and three independently prepared hypothalamus-specific neural-stem-cell cultures have unique GSM, BioSample, and SRA experiment identifiers. The official processed table contains explicitly labelled StringTie raw gene-count columns: 20,731 unique symbols, finite nonnegative integers, no invalid or duplicate identifiers, and exact library totals of 18,930,636-67,025,922. edgeR-QL retains 15,491 symbol-deduplicated genes, its independent SE refit reproduces 100% of logFC values, and four-database human FGSEA produces 4,974 finite pathway rows. This is a heterogeneous cell-model differentiation contrast, not primary hypothalamic tissue or an in-vivo condition response.",
+    "updated": "2026-09-01T05:04:00.000Z"
+  },
+  "GSE229159": {
+    "status": "added",
+    "note": "Added under the remaining RNA-seq queue. Adult-male rat rostral posterior hypothalamus from six no-stress controls and six animals exposed to seven daily loud-noise stressors was retained; the one- and three-exposure arms were excluded from the focused contrast. All retained libraries represent distinct animals with unique accessions. The official featureCounts matrix contains 32,883 unique ENSRNOG identifiers, finite nonnegative integer counts, no invalid or duplicate identifiers, and exact library totals of 8,087,697-16,538,531. edgeR-QL emits 15,743 symbol-deduplicated genes, its independent SE refit reproduces 100% of logFC values, and four-database rat FGSEA produces 4,763 finite pathway rows. This is an HPA/stress-habituation study, not a metabolic contrast.",
+    "updated": "2026-09-01T05:04:00.000Z"
+  },
+  "GSE264350": {
+    "status": "added",
+    "note": "Added under the remaining RNA-seq queue through the documented normalized-matrix route. Five 8-week control and five 8-week circadian-rhythm-disrupted whole-hypothalamus libraries were retained; aged animals and four non-hypothalamic tissues were excluded. The official RSEM FPKM table was transformed exactly as log2(FPKM+1), never rounded or treated as raw counts. A pinned official mouse GeneID map retains 20,544 symbols and quarantines 129 unmapped rows while conserving the source-value partition. Limma/eBayes retains 19,186 nonconstant genes and four-database mouse FGSEA produces 5,427 finite pathway rows.",
+    "updated": "2026-09-01T05:04:00.000Z"
+  },
+  "GSE275445": {
+    "status": "rejected",
+    "note": "Excluded: public bulk Oxford Nanopore hypothalamus count estimates and a valid three-versus-three sheep-breed contrast are present, but the unchanged standardized pipeline has no supported Ovis aries pathway authority. Substituting human or cattle labels, or applying an unreviewed ortholog projection, would violate the no-guessed-mapping rule. The official source and fail-closed audit note are retained locally, but no DE, registry entry, or public bundle is produced.",
+    "updated": "2026-09-01T05:04:00.000Z"
+  },
+  "GSE298648": {
+    "status": "added",
+    "note": "Added under the remaining RNA-seq queue. The retained chicken pre-optic anterior hypothalamic-area contrast is four conventionally incubated versus four embryonically heat-conditioned birds sampled two hours into the same acute post-hatch heat challenge; sex is balanced two female and two male per arm and modeled additively, while other regions and timepoints are excluded. The official matrix contains 30,108 ENSGALG source rows. Pinned NCBI taxid-9031 gene_info mapping promotes 15,441 source identifiers to 15,413 official symbols, collapses 28 same-GeneID rows on the raw-count scale, retains 14,667 valid reserved identifiers, and conserves every library total exactly. edgeR-QL retains 14,970 symbol-deduplicated genes, its independent SE refit reproduces 100% of logFC values, and Gallus-supported four-database FGSEA produces 4,385 finite pathway rows.",
+    "updated": "2026-09-01T05:04:00.000Z"
+  },
+  "CNP0000483": {
+    "status": "rejected",
+    "note": "Excluded after manual review. The accession contains bulk RNA-seq from four healthy hypothalamus animals, but its only axis is anatomical-region identity within a reference atlas. There is no condition, perturbation, disease, developmental-stage, or treatment arm from which the current differential-expression pipeline can estimate a condition contrast.",
+    "updated": "2026-09-01T05:10:00.000Z"
+  },
+  "E-MTAB-14452": {
+    "status": "rejected",
+    "note": "Excluded after manual review. All eight bulk hypothalamus RNA-seq libraries form one baseline/reference arm. With no second biological condition, the design has no estimable case-versus-control coefficient despite adequate library count.",
+    "updated": "2026-09-01T05:10:00.000Z"
+  },
+  "E-MTAB-3304": {
+    "status": "rejected",
+    "note": "Excluded after manual review. This is bulk hypothalamus RNA-seq, but the proposed comparison is wild France-versus-Germany population identity and imprinting background rather than an eligible metabolic, reproductive, inflammatory, developmental, or experimental condition response. No current explorer contrast is defined for population provenance alone.",
+    "updated": "2026-09-01T05:10:00.000Z"
+  },
+  "GSE146816": {
+    "status": "rejected",
+    "note": "Excluded after manual review. The available bulk RNA-seq comparison is normal embryonic POMC-neuron identity versus normal embryonic NPY-neuron identity (four versus three libraries). That is a reference cell-type contrast, not a biological condition response for the current pipeline.",
+    "updated": "2026-09-01T05:10:00.000Z"
+  },
+  "GSE186499": {
+    "status": "rejected",
+    "note": "Excluded after manual review. Every bulk RNA-seq library combines ventral telencephalon, hypothalamus, and pituitary before sequencing. The hypothalamic component cannot be separated from the other tissues in either the deposited FPKM values or FASTQ, so a hypothalamus-specific track would be biologically mislabelled.",
+    "updated": "2026-09-01T05:10:00.000Z"
+  },
+  "GSE148644": {
+    "status": "rejected",
+    "note": "Excluded as a duplicate parent record. GSE148644 is the SuperSeries containing RNA-seq subseries GSE148641 plus ChIP-seq subseries GSE148599. The RNA-seq libraries are already integrated as mouse_arc_reverb_gse148641; the parent contributes no additional RNA-seq samples, and the ChIP arm is outside RNA-seq scope.",
+    "updated": "2026-09-01T05:10:00.000Z"
+  },
+  "CRA002561": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. The mouse whole-hypothalamus three-month HFD-versus-chow contrast has four independent animals per arm and is genuine RNA-seq, but the public GSA record provides only paired-end FASTQ runs CRR129819-CRR129826. The standardized project begins at a reusable feature-by-sample count or documented normalized matrix and explicitly does not re-quantify FASTQ, so no counts are invented.",
+    "updated": "2026-09-01T05:10:00.000Z"
+  },
+  "CRA012172": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. The chicken hypothalamus high-versus-low-yield contrast has four independent birds per arm, but CRA012172 exposes only paired-end FASTQ (CRR844647-CRR844650 and CRR844655-CRR844658) and no feature-by-sample matrix. FASTQ quantification is outside the current count-level standardized pipeline; PRJDB38189 is the same study mirror and is not counted separately.",
+    "updated": "2026-09-01T05:10:00.000Z"
+  },
+  "E-MTAB-10186": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. Irx3-knockout versus wild-type mouse hypothalamus under high-fat diet has four independent animals per arm, but BioStudies supplies metadata and eight single-end FASTQ libraries only, with no reusable count or normalized-expression matrix. The current pipeline does not re-quantify FASTQ; PRJEB43437 is the ENA mirror of these same libraries.",
+    "updated": "2026-09-01T05:10:00.000Z"
+  },
+  "E-MTAB-10629": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. The mHypoA-2/10 basal-versus-2.5-mM-glucose three-hour experiment has three independent cultures per arm, but the public deposit contains only six single-end FASTQ runs ERR6126577-ERR6126582 and no feature-by-sample expression matrix. The standardized count-level pipeline does not perform FASTQ quantification.",
+    "updated": "2026-09-01T05:10:00.000Z"
+  },
+  "E-MTAB-7494": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. The pig hypothalamus dexamethasone experiment has adequate replication across sex and NR3C1 genotype, but the ArrayExpress/ENA deposit provides paired-end FASTQ only and no reusable count or normalized-expression matrix. Re-alignment and quantification are outside the current pipeline; PRJEB30249 is the same ENA study mirror.",
+    "updated": "2026-09-01T05:10:00.000Z"
+  },
+  "E-MTAB-8078": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. The DIO-rat arcuate-nucleus semaglutide-versus-vehicle arm is adequately replicated, but the BioStudies files directory contains only SDRF/IDF metadata while ERP115885 supplies FASTQ. No derived count or documented normalized matrix is deposited, and the current standardized pipeline does not re-quantify FASTQ.",
+    "updated": "2026-09-01T05:10:00.000Z"
+  },
+  "GSE112125": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. The fasted LepRb-neuron leptin-versus-saline RNA-seq contrast has three independent mice per arm, but the 25-MB workbook is a processed results/expression table whose sample-level raw-count semantics are not established; the RAW archive contains ChIP/ATAC coverage tracks, not RNA counts. Reusable RNA counts would require quantifying PRJNA439388 FASTQ, which the current pipeline does not do.",
+    "updated": "2026-09-01T05:10:00.000Z"
+  },
+  "GSE116568": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. The retained P15 hypothalamus prenatal-PGM-versus-control contrast would have three mice per arm, but the only expression supplement is per-group average RPKM, not per-sample data. Biological replicate variation cannot be recovered from group means; sample-level values require FASTQ re-quantification, which is outside the current pipeline.",
+    "updated": "2026-09-01T05:10:00.000Z"
+  },
+  "GSE149074": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. The naive-male PVN maternal-separation versus control design has eight independent mice per arm, but the deposited normalized table is a targeted 69-gene panel rather than a whole-transcriptome feature-by-sample matrix. It cannot support the explorer's genome-wide gene view or four-database FGSEA; full reconstruction would require FASTQ quantification outside the current pipeline.",
+    "updated": "2026-09-01T05:10:00.000Z"
+  },
+  "GSE214353": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. The adult/aged rat supraoptic-nucleus dehydration design has adequate independent replication, but GEO deposits three already-contrasted DESeq2 result tables rather than a feature-by-sample expression matrix. Sample counts would have to be regenerated from 20 FASTQ runs, and the current standardized pipeline does not re-quantify reads or reverse-engineer DE tables. Follow-up 2026-10-19: the OXT/AVP intake retains this rejection; three contrasted DESeq2 tables do not replace the missing sample matrix. Independent count quantification from the source FASTQ is still required before standardized analysis.",
+    "updated": "2026-10-19T00:00:00.000Z"
+  },
+  "GSE254239": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. The mouse hypothalamus Gpr75 genotype-by-diet experiment has three libraries in each of four arms, but its supplements are already-contrasted DESeq2 result tables, not sample-level counts or a documented normalized matrix. Reusable counts require quantifying the 12 FASTQ runs, which is outside the current pipeline.",
+    "updated": "2026-09-01T05:10:00.000Z"
+  },
+  "GSE295898": {
+    "status": "rejected",
+    "note": "Excluded at the design-QC gate. The six GN11 bulk RNA-seq libraries nominally compare nanoplastic exposure with control, but treatment is fully confounded with cell passage/batch, leaving no independent treatment coefficient. The deposited TPM table cannot repair that design confounding, so no causal treatment track is emitted.",
+    "updated": "2026-09-01T05:10:00.000Z"
+  },
+  "GSE300766": {
+    "status": "rejected",
+    "note": "Excluded at the anatomical-scope gate. Although an integer count matrix is deposited, the sequenced libraries in this accession are pituitary rather than hypothalamic tissue. A hypothalamic RNA-seq track cannot be derived from these samples, so the dataset is outside the requested tissue scope.",
+    "updated": "2026-09-01T05:10:00.000Z"
+  },
+  "GSE305956": {
+    "status": "rejected",
+    "note": "Excluded at the contrast-QC gate. The bulk RNA-seq arm compares two constitutive fluorescent-marker-positive versus marker-negative lateral/caudal hypothalamic cell populations, not an experimental biological condition. The feeding-state comparison is confined to a separate single-cell arm, so the deposited bulk count matrix does not provide an eligible case-versus-control response track.",
+    "updated": "2026-09-01T05:10:00.000Z"
+  },
+  "GSE241775": {
+    "status": "rejected",
+    "note": "Excluded as a duplicate SuperSeries parent. The RNA-seq data are carried by subseries GSE241772, which remains the single accession to process; GSE241775 contributes no independent feature-by-sample matrix or additional RNA-seq libraries and must not be counted as a second study.",
+    "updated": "2026-09-01T05:10:00.000Z"
+  },
+  "GSE75878": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. The Gnasxl-deficient-versus-wild-type hypothalamus design has three pooled libraries per arm, each pooling two animals, but GEO supplies only Cufflinks/Cuffdiff already-contrasted result tables. No sample-level count or documented normalized matrix is deposited; regenerating one requires merging lane-level FASTQ into the six pooled libraries and re-quantifying reads, outside the current pipeline.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJNA1149064": {
+    "status": "rejected",
+    "note": "Excluded at the public-data gate. The goose fasting/refeeding design registers 18 BioSamples (six control, six fasted, six refed), but the BioProject has zero SRA runs, zero FASTQ links, and no count or normalized-expression matrix; the paper supplements contain curated gene lists only. Metadata alone cannot enter the RNA-seq pipeline.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJDB13538": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. Mouse ESC-derived hypothalamic-lineage cells provide a valid three-versus-three Rx-knockout contrast, but the DDBJ project exposes only FASTQ runs DRR385352-DRR385357 and no feature-by-sample expression matrix. The standardized count-level pipeline does not re-align or quantify FASTQ.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJDB16416": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. Anti-FGF21-antibody versus control mouse hypothalamus has three independent libraries per arm, but PRJDB16416/DRP014467 supplies FASTQ only and no reusable count or documented normalized matrix. FASTQ quantification is outside the current pipeline.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJDB38189": {
+    "status": "rejected",
+    "note": "Excluded as a duplicate FASTQ-only mirror. The four-versus-four high/low egg-production chicken hypothalamus libraries are the same study represented by CRA012172. Neither accession deposits a feature-by-sample matrix, and the current pipeline does not re-quantify the FASTQ; the mirrored project is not counted twice.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJDB39212": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. The Bian-chicken HPO-axis study has a clean three-versus-three high/low-production hypothalamus contrast, but the DDBJ deposit provides strand-specific FASTQ only and no reusable count or normalized-expression matrix. Read quantification is outside the current pipeline.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJDB41791": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. Chicken hypothalamus control versus chronic-unpredictable-mild-stress has three libraries per arm, but PRJDB41791 supplies only paired-end FASTQ runs DRR1008021-DRR1008026. With no sample matrix and no FASTQ re-quantification in the current pipeline, the accession cannot be integrated.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJDB9972": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. The mouse hypothalamus sevoflurane-versus-control arm is a valid three-versus-three bulk RNA-seq contrast, but the DDBJ project is FASTQ-only and supplies no count or documented normalized matrix. The current standardized pipeline begins at a feature-by-sample matrix.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJEB104708": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. This recent mouse project has well-replicated hypothalamus HFD-versus-normal-diet arms across 4, 12, and 24 weeks, but ENA exposes only single-end FASTQ and no processed matrix. Several aliases also represent technical runs that would need merging by animal. Those alignment, quantification, and technical-collapse steps are outside the current count-level pipeline.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJEB28023": {
+    "status": "rejected",
+    "note": "Excluded at the metadata and official-input gates. Juvenile-rat cranial irradiation versus control is RNA-seq, but all 17 runs are registered under one ENA sample accession and the condition/timepoint mapping is not independently represented in structured sample metadata. The project is also FASTQ-only. The current pipeline neither infers animal identities from filenames nor re-quantifies reads.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJEB30100": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. Neuronal Sox2-ablated versus wild-type mouse SCN is well replicated at four circadian timepoints, but PRJEB30100 provides only FASTQ and no feature-by-sample matrix. The current standardized pipeline does not perform FASTQ alignment or quantification.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJEB30249": {
+    "status": "rejected",
+    "note": "Excluded as a duplicate FASTQ-only mirror of E-MTAB-7494. The pig hypothalamus dexamethasone-by-NR3C1-genotype study has adequate replication, but the ENA project contributes no count or normalized-expression matrix beyond the same paired-end reads. Re-quantification is outside the current pipeline, and the mirror is not counted separately.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJEB35794": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. Fetal-rat hypothalamus from maternal standard- versus protein-restricted-diet pregnancies has 16 libraries per arm and sex labels, but PRJEB35794 supplies 3-prime DGE FASTQ only and no reusable feature-by-sample matrix. The current pipeline does not re-quantify FASTQ.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJEB39729": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. Pig hypothalamus across pre-, peri-, and post-pubertal stages has three animals per stage, but the circRNA-framed ENA study deposits only paired-end FASTQ and no gene-level count or documented normalized matrix. Re-alignment and feature quantification are outside the current pipeline.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJEB39754": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. The pig hypothalamus-pituitary-ovary puberty study contains nine hypothalamus libraries across three stages, but ENA deposits FASTQ only and no reusable feature-by-sample expression matrix. The current count-level pipeline does not re-quantify reads.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJEB43437": {
+    "status": "rejected",
+    "note": "Excluded as the ENA mirror of E-MTAB-10186. The four-versus-four Irx3-knockout mouse hypothalamus libraries are valid RNA-seq but are available only as FASTQ, with no reusable count or normalized-expression matrix. The current pipeline does not re-quantify the same reads under either accession.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJEB50606": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. Mouse SCN RNA editing has 12-15 libraries per genotype-by-circadian-time cell, but PRJEB50606/E-MTAB-11408 supplies FASTQ only and no feature-by-sample expression matrix. The current standardized pipeline does not align or quantify FASTQ.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJEB55034": {
+    "status": "rejected",
+    "note": "Excluded at the official-input and species-mapping gates. African four-striped-mouse SCN has about five animals per light-condition by timepoint cell, but the project provides only FASTQ. It would require both de-novo/nonstandard-reference quantification and a reviewed Rhabdomys pathway mapping, neither of which exists in the unchanged pipeline.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJEB89033": {
+    "status": "rejected",
+    "note": "Excluded at the official-input and metadata-reconciliation gates. The early-life HFHS/microbiome mouse hypothalamus project is RNA-seq, but ENA lists 57 runs across 46 samples, which does not reconcile to the proposed 39-sample group design, and supplies no count matrix. The current pipeline does not infer a design while re-quantifying FASTQ.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJNA1097775": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. The mHypoE-N38 experiment is a corrected balanced two-by-two radiation-by-medium design with three cultures per cell, but the public project provides only 12 FASTQ libraries and no feature-by-sample matrix. The current standardized pipeline does not perform read quantification.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJNA1429082": {
+    "status": "rejected",
+    "note": "Excluded at the official-input and run-QC gates. The pig hypothalamus low/high-growth by post-weaning-day design is FASTQ-only; about 13 of 48 registered runs have zero reads, and group identity is encoded only in free-text descriptions. No processed matrix exists, so the current pipeline cannot apply sample QC without first undertaking a new quantification workflow.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJNA1452226": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. The recent mouse HFD/FABP4-inhibitor project contains ARC and PVN RNA-seq among 76 multi-tissue runs, but it deposits only NCBI SRA reads and no count or documented normalized matrix. The current pipeline does not download and quantify FASTQ/SRA data.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJNA266247": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. Rat supraoptic-nucleus salt loading versus control has three biological samples per arm, but its 22 lane-level FASTQ files must be merged into six animals and quantified; the publication supplies DE results rather than a reusable count matrix. Those read-level steps are outside the current pipeline.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJNA382786": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. Piglet hypothalamus after saline versus distal-ileal antibiotic infusion has four versus three animals, but PRJNA382786 supplies only seven paired-end FASTQ runs and no feature-by-sample expression matrix. The unchanged pipeline does not re-align or quantify reads.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJNA454042": {
+    "status": "rejected",
+    "note": "Excluded at the official-input and reference-mapping gates. Muscovy-duck hypothalamus has four animals at each of three reproductive stages, but the study is FASTQ-only and was analyzed against a de-novo transcriptome. The current pipeline has neither a reusable matrix nor a pinned Cairina transcript-to-gene/pathway map, so no orthology is guessed.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJNA522352": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. Chicken hypothalamus from three Lushi and three Rhode Island Red hens is bona fide bulk RNA-seq, but the repository provides FASTQ only and no reusable count or normalized-expression matrix. The current pipeline does not re-quantify reads; this is also a breed/laying-performance contrast rather than a treatment response.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJNA597506": {
+    "status": "rejected",
+    "note": "Excluded at the official-input and metadata gates. Sheep hypothalamus across short- and long-day photoperiod conditions has 21 RNA-seq libraries, but the BioProject is FASTQ-only and the group-to-animal mapping is absent from SRA/ENA attributes. The current pipeline does not reconstruct groups from publication supplements while introducing a new sheep quantification/mapping route.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJNA672275": {
+    "status": "rejected",
+    "note": "Excluded at the official-input and species-mapping gates. The sheep hypothalamus FecB-genotype/estrous-stage study contains 12 RNA-seq libraries, but only FASTQ is public and condition labels are encoded in run aliases. A new Ovis alignment plus reviewed pathway-mapping route would be required; neither belongs to the unchanged count-level pipeline.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJNA835496": {
+    "status": "rejected",
+    "note": "Excluded at the official-input gate. Ewe mediobasal hypothalamus food restriction versus ad-libitum feeding has four independently prepared pooled libraries per arm, each pooling 15 animals, but the BioProject deposits only eight FASTQ runs. With no feature-by-sample matrix and no FASTQ quantification in the current pipeline, the pooled-library contrast cannot be integrated.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJNA846331": {
+    "status": "rejected",
+    "note": "Excluded at the official-input and species-mapping gates. Goose hypothalamus high- versus low-egg-production has four birds per arm, but PRJNA846331 provides only eight FASTQ runs and no expression matrix. Quantification plus a reviewed Anser gene/pathway map would be required, so no counts or orthology are guessed.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "PRJNA1089181": {
+    "status": "added",
+    "note": "Resolved as the exact BioProject alias of already-integrated GEO series GSE261833. The explorer uses the official 15-sample FPKM matrix and retains five control versus five immobilization-stress PVN libraries while excluding the five minocycline-rescue libraries. PRJNA1089181 supplies the same underlying runs and is recorded as provenance, not processed as a second independent dataset.",
+    "updated": "2026-09-01T05:12:00.000Z"
+  },
+  "GSE231418": {
+    "status": "rejected",
+    "note": "Excluded at the species/pathway-authority gate after matrix inspection. The official workbook contains 15 per-sample normalized-CPM columns for a bona fide thirteen-lined-ground-squirrel hypothalamus RNA-seq study; 16,969 valid symbols are recoverable after quarantining 24 Excel-date-corrupted identifiers. However, Ictidomys tridecemlineatus is not supported by the current pathway authority and the source supplies no reviewed projection into a supported species. Substituting mouse labels or inventing an orthology map would violate the unchanged pipeline, so no DE or public bundle is produced.",
+    "updated": "2026-09-01T05:31:00.000Z"
+  },
+  "GSE289511": {
+    "status": "rejected",
+    "note": "Excluded at the feature-identity and species/pathway-authority gates. The official hamster count CSV contains sample count columns but no gene or transcript identifier column; the companion id.csv describes animals rather than mapping matrix rows to genes. Because the rows cannot be joined to a documented feature namespace, and Mesocricetus auratus also lacks a supported pathway authority here, assigning identifiers or projecting to mouse would be guesswork. No DE or public bundle is produced.",
+    "updated": "2026-09-01T05:31:00.000Z"
+  },
+  "GSE55435": {
+    "status": "rejected",
+    "note": "Excluded at the sample-level input gate. The deposited workbook reports tissue-level group averages/RPKM means rather than one expression column per biological RNA-seq library. Without individual hypothalamus sample values, replicate variance and the stated comparison cannot be modeled by the existing pipeline; treating group means as replicates would be invalid. No DE or public bundle is produced.",
+    "updated": "2026-09-01T05:31:00.000Z"
+  },
+  "E-MTAB-12340": {
+    "status": "added",
+    "note": "Added from the official unfiltered 3-prime UTR RNA-seq count matrix as a focused female pubertal-development contrast: five independent whole-hypothalamus libraries at PND22 versus five at PND37, each matched exactly to the BioStudies SDRF and a unique source animal. Male and other age groups are excluded. The matrix retains 10,913 expressed genes for edgeR-QL, emits 10,912 symbol-resolved DE rows with 1,075 FDR<0.05, and produces 4,228 finite pathways across Hallmark, GO BP, KEGG, and Reactome.",
+    "updated": "2026-09-01T05:42:00.000Z"
+  },
+  "GSE128148": {
+    "status": "added",
+    "note": "Added as a four-week oral-corticosterone arcuate-nucleus contrast after applying the authors' explicit outlier exclusions. The official raw featureCounts matrix and the official normalized_outliers_excluded file jointly define three retained vehicle and four retained corticosterone male libraries; DRBC01, DRBC05, and DRBC06 remain in the samplesheet with written author-QC exclusion reasons, and the two-day arm is not pooled. edgeR-QL emits 11,208 symbol-resolved DE rows with 7 FDR<0.05 and 4,371 finite four-database pathway rows.",
+    "updated": "2026-09-01T05:42:00.000Z"
+  },
+  "GSE156859": {
+    "status": "added",
+    "note": "Added through the documented normalized-matrix route. Six female GD21 fetal whole-hypothalamus samples exposed maternally to 0.8 ppm ozone are compared with six female filtered-air controls; male fetuses are excluded. The source matrix is explicitly documented as log2(CPM+0.0001) after the authors' expression filter and is transposed but otherwise left unchanged, never treated as raw counts. Limma/eBayes emits 11,083 nonconstant symbol rows and 4,465 finite four-database pathway rows.",
+    "updated": "2026-09-01T05:42:00.000Z"
+  },
+  "GSE167105": {
+    "status": "added",
+    "note": "Added through the documented normalized-matrix route as three 3-month-old male THRB K146Q-mutant versus three wild-type whole-hypothalamus libraries, all with distinct GEO, BioSample, and SRA experiment identifiers. Raw counts were not deposited; only the six nonnegative author-normalized sample columns are transformed explicitly as log2(x+1), while the source DE-summary columns are ignored. Limma/eBayes emits 19,771 symbol-resolved DE rows and 5,313 finite four-database pathway rows.",
+    "updated": "2026-09-01T05:42:00.000Z"
+  },
+  "GSE189945": {
+    "status": "added",
+    "note": "Added through the documented normalized-matrix route as five female PND35 versus five female PND12 FANS-sorted NeuN-positive arcuate-nucleus RNA-seq libraries. Male, NeuN-negative, and WGBS samples are excluded. The official DESeq2 variance-stabilized expression values are retained unchanged and modeled with limma/eBayes, producing 23,502 symbol-resolved DE rows, 1,300 FDR<0.05 genes, and 5,067 finite pathways across Hallmark, GO BP, KEGG, and Reactome.",
+    "updated": "2026-09-01T05:42:00.000Z"
+  },
+  "GSE243697": {
+    "status": "added",
+    "note": "Added as four independent P19 vehicle versus four PLX3397-treated hypothalami, balanced two female and two male per arm and sex-adjusted. Contrary to the earlier survey label, the official mixed table contains eight explicit StringTie integer count columns alongside FPKM; preprocessing selects only those count columns and conserves every library total across 55,401 unique valid Ensembl genes. edgeR-QL retains 22,151 tests and emits 22,125 symbol-resolved rows with 479 FDR<0.05; the independent SE refit reproduces 100% of logFC values, and four-database mouse FGSEA produces 3,456 finite pathway rows.",
+    "updated": "2026-09-01T05:48:00.000Z"
+  },
+  "GSE131172": {
+    "status": "added",
+    "note": "Added through the documented normalized-matrix route as three estrus versus three diestrus whole-hypothalamus libraries from 10-week-old female mice; all six have distinct GEO, BioSample, and SRA experiment identifiers, and the other 14 tissues are excluded. The official matrix contains 20,414 unique numeric Entrez Gene rows with finite nonnegative RSEM FPKM values. Values are transformed exactly as log2(FPKM+1), never rounded or treated as counts. Limma/eBayes retains 18,838 nonconstant genes and four-database mouse FGSEA produces 5,424 finite pathway rows.",
+    "updated": "2026-09-01T05:51:00.000Z"
+  },
+  "GSE190389": {
+    "status": "added",
+    "note": "Added as 22 Western-diet time-restricted-feeding versus 23 isocaloric ad-libitum suprachiasmatic-nucleus libraries sampled every two hours across 24 hours, with collection ZT modeled additively and non-SCN tissues excluded. GEO documents the deposited values as raw counts after technical resequencings were collapsed into 45 unique source libraries; resulting half-integer count estimates are preserved without rounding. edgeR-QL retains 16,999 genes, the independent SE refit reproduces 100% of logFC values, and four-database mouse FGSEA produces 5,151 finite pathway rows.",
+    "updated": "2026-09-01T05:51:00.000Z"
+  },
+  "GSE204883": {
+    "status": "added",
+    "note": "Added as five Siberian-hamster P50 tanycyte-zone libraries programmed under short photoperiod versus five programmed under long photoperiod before both groups moved to the same intermediate photoperiod; constant-photoperiod arms are excluded. The authors used Liftoff from their hamster assembly to mouse GRCm39.104 and deposited featureCounts against those mouse Ensembl IDs, so no new orthology is inferred. Thirty zero-count transcript IDs are quarantined, leaving 21,852 valid genes; edgeR-QL emits 13,949 DE rows, the SE refit has 100% logFC agreement, and mouse-space four-database FGSEA produces 4,836 finite rows.",
+    "updated": "2026-09-01T05:51:00.000Z"
+  },
+  "GSE207494": {
+    "status": "added",
+    "note": "Added as four garden-dormouse early-torpor versus four interbout-arousal whole-hypothalamus libraries; late-torpor samples are excluded. The authors assembled Trinity contigs and deposited non-normalized RSEM expected counts keyed by their documented BLASTx projection to mouse GRCm39 GeneIDs. All fractional count estimates are preserved without rounding; 16,796 of 16,803 source IDs map to current mouse symbols. edgeR-QL retains 14,529 genes, the SE refit reproduces 100% of logFC values, and mouse-space four-database FGSEA produces 5,011 finite rows.",
+    "updated": "2026-09-01T05:51:00.000Z"
+  },
+  "GSE207992": {
+    "status": "added",
+    "note": "Added through the documented normalized-matrix route as four wild-type scheduled-voluntary-exercise versus four wild-type non-exercise laser-microdissected SCN libraries; Vipr2-null arms are excluded to avoid genotype confounding. GEO explicitly describes the workbook as DESeq2-normalized counts, which are transformed only as log2(x+1), never treated as raw counts. Limma/eBayes emits 25,572 symbol-resolved DE rows and four-database mouse FGSEA produces 5,107 finite pathway rows.",
+    "updated": "2026-09-01T05:51:00.000Z"
+  },
+  "GSE208722": {
+    "status": "added",
+    "note": "Added as three independent day-30 MKRN3-deficient versus three wild-type human iPSC-derived hypothalamic-neuron differentiations. GEO documents Salmon quantification followed by tximport/DESeq2 import; the six deposited gene-level count-estimate files share an exact Ensembl-ID order and values are preserved without rounding. edgeR-QL emits 18,398 DE rows, its independent SE refit reproduces 100% of matched logFC values, and four-database human FGSEA produces 5,006 finite pathway rows.",
+    "updated": "2026-09-01T05:51:00.000Z"
+  },
+  "GSE128660": {
+    "status": "added",
+    "note": "Added through the documented normalized-matrix route as eight lactating-day-13 whole-hypothalamus libraries exposed to 36 °C versus eight 25 °C controls, all with distinct GEO, BioSample, and SRA experiment identifiers; pituitary and mammary-gland libraries are excluded. The 16 official workbooks share a 58,913-row feature order. Preprocessing retains 53,465 valid mouse Ensembl genes and quarantines 5,448 author-labelled novel features with no reviewed mapping while conserving each FPKM partition to floating-point precision. Values are transformed exactly as log2(FPKM+1), never treated as counts. Limma emits 35,433 symbol-resolved DE rows and four-database mouse FGSEA produces 5,422 finite pathway rows.",
+    "updated": "2026-09-01T05:58:00.000Z"
+  },
+  "GSE179663": {
+    "status": "added",
+    "note": "Added as four short-photoperiod Djungarian hamsters in spontaneous daily torpor versus four short-photoperiod normothermic animals sampled at ZT04, with sex modeled additively; long-photoperiod animals are excluded. The authors assembled Trinity transcripts and deposited non-normalized RSEM expected counts keyed by their documented BLASTx projection to mouse GRCm39 GeneIDs. All 63,628 fractional selected count cells are preserved without rounding; 17,183 of 17,191 source IDs map to current mouse symbols. edgeR-QL retains 15,107 genes with 273 FDR<0.05, the independent SE refit reproduces 100% of logFC values, and mouse-space four-database FGSEA produces 5,063 finite rows.",
+    "updated": "2026-09-01T06:10:00.000Z"
+  },
+  "GSE104255": {
+    "status": "added",
+    "note": "Added as eight male six-week versus eight male three-week broiler whole-hypothalamus libraries. GEO supplies per-sample RSEM integer gene counts; no FASTQ re-quantification is performed. The submitter does not link compact matrix columns to individual GSMs, so provenance is retained at the age-group level without inventing assignments. The 24,881-row matrix conservatively maps 9,866 historical Galgal5 IDs through the submitter's own annotation and reserves the remaining rows. edgeR-QL retains 14,912 genes with 162 FDR<0.05, its SE refit reproduces 100% of logFC values, and chicken-space four-database FGSEA produces 4,133 finite rows. Direct publication: PMID 30406127.",
+    "updated": "2026-09-01T06:20:00.000Z"
+  },
+  "GSE141144": {
+    "status": "added",
+    "note": "Added as six unstressed adult zebrafish hypothalamus pools from a fluoxetine-exposed lineage versus six vehicle-lineage pools; each library pools five hypothalami, while acute-stress, telencephalon, and larval-head samples are excluded. GEO explicitly supplies STAR raw counts. The exact GRCz11 release-92 annotation conservatively maps 23,468 of 31,902 rows and reserves 8,434 unnamed or ambiguous features. edgeR-QL retains 17,384 genes with 4,268 FDR<0.05, its SE refit reproduces 100% of logFC values, and zebrafish-space four-database FGSEA produces 4,557 finite rows. GEO lists no associated PMID.",
+    "updated": "2026-09-01T06:20:00.000Z"
+  },
+  "GSE202003": {
+    "status": "added",
+    "note": "Added as six 1% L-citrulline versus six basal-diet broiler hypothalami at 24 °C; both 35 °C arms are excluded so temperature is held constant. The official workbook contains alternating raw-count and FPKM columns, and preprocessing selects only the 12 integer raw-count columns without mixing scales. Author-supplied historical annotations map 12,412 of 16,779 rows and reserve 4,367 unnamed or ambiguous IDs. edgeR-QL retains 13,446 genes, its SE refit reproduces 100% of logFC values, and chicken-space four-database FGSEA produces 4,319 finite rows. Publication: PMID 37844531.",
+    "updated": "2026-09-01T06:20:00.000Z"
+  },
+  "GSE227725": {
+    "status": "added",
+    "note": "Added as 15 nursed maternal-immune-activation versus 20 nursed control piglet hypothalami, with sex modeled additively; weaned samples are excluded. Despite 'counts' in the filename, GEO explicitly defines the deposited fractional Kallisto values as TPM, so they are preserved and transformed exactly as log2(TPM+1) for limma. One TRIM23 row missing values in 25 selected samples is quarantined with a written no-imputation note, leaving 25,186 rows and 23,702 nonconstant tests. Pig-space four-database FGSEA produces 5,104 finite rows. Publication: PMID 38431234.",
+    "updated": "2026-09-01T06:20:00.000Z"
+  },
+  "GSE201408": {
+    "status": "added",
+    "note": "Added as ten pure Iberian versus ten Iberian × Large White two-month-old pig hypothalami, balanced five female and five male per genotype and modeled with sex additively. The official workbook has one 25,885-row by 20-sample sheet; five HTSeq summary rows are quarantined, leaving 25,880 unique pig Ensembl genes, of which 15,629 have strict one-to-one current NCBI symbols. GEO explicitly calls the deposited values normalized expression, so integer appearance does not trigger count modeling: values are transformed exactly as log2(x+1) for limma. The analysis retains 19,471 nonconstant rows with two FDR<0.05 and produces 5,007 finite pig-space FGSEA rows. GEO lists no associated PMID.",
+    "updated": "2026-09-01T06:25:00.000Z"
+  },
+  "GSE274003": {
+    "status": "added",
+    "note": "Added as six Siberian-hamster mediobasal-hypothalamus libraries after four weeks of short day versus six long-day controls; pituitary, other hypothalamic regions, and later time points are excluded. GEO explicitly documents author alignment to mouse GRCm39 before Salmon, satisfying the supported-species projection exception. Fractional transcript count estimates are summed without rounding by supplied mouse gene symbol with exact per-sample conservation, producing 20,156 genes. edgeR-QL retains 6,671 genes with one FDR<0.05, the SE refit reproduces 100% of logFC values, and mouse-space four-database FGSEA produces 3,231 finite rows. Publication: PMID 41527434.",
+    "updated": "2026-09-01T06:20:00.000Z"
+  },
+  "GSE245146": {
+    "status": "added",
+    "note": "Added as 17 saline-challenged 60-day-old pigs exposed to maternal PRRSV immune activation versus 21 saline-challenged controls, with sex modeled additively. Acute offspring fasting and poly(I:C) arms are explicitly excluded so the juvenile challenge is held constant. GEO defines the 26,673-feature matrix as TPM despite its filename; values are therefore preserved and transformed exactly as log2(TPM+1) for limma, never rounded or count-modeled. Exact current pig-symbol mapping promotes 21,820 rows, ambiguous labels remain reserved, the canonical analysis retains 24,481 nonconstant rows with zero FDR<0.05, and pig-space four-database FGSEA produces 5,244 finite rows. Publication: PMID 38189117.",
+    "updated": "2026-09-01T06:45:00.000Z"
+  },
+  "GSE266472": {
+    "status": "added",
+    "note": "Added as nine male P50 whole-SCN libraries developmentally entrained to long photoperiod versus nine short-photoperiod controls, all collected at projected ZT12 after at least 36 hours in constant darkness. Both sequencing cycles are retained because they are exactly balanced 4:4 and 5:5 across conditions, and sequencing batch is modeled additively. Official HTSeq files contain 56,980 unique versioned GRCm39 Ensembl rows; the canonical edgeR-QL analysis emits 18,452 resolvable, deduplicated genes with 1,038 FDR<0.05. Its SE refit covers 18,457 model rows with 100% logFC agreement, and mouse-space four-database FGSEA produces 5,093 finite rows. Publication: PMID 39096022.",
+    "updated": "2026-09-01T06:45:00.000Z"
+  },
+  "GSE278826": {
+    "status": "added",
+    "note": "Added as five high-residual-feed-intake versus five low-residual-feed-intake male Korat-chicken hypothalamus RNA pools, each pooling two birds; all pituitary libraries are explicitly excluded. The official integer matrix contains 28,023 source rows. Author NCBI Gene accessions and exact pinned current chicken-symbol matches promote 13,244 rows to 13,148 official symbols, same-symbol rows are collapsed only on the untouched count scale, unresolved identifiers remain reserved, and every library total is conserved. edgeR-QL retains 15,153 genes with zero FDR<0.05, its SE refit reproduces 100% of logFC values, and chicken-space four-database FGSEA produces 4,362 finite rows. GEO lists no associated PMID.",
+    "updated": "2026-09-01T06:45:00.000Z"
+  },
+  "GSE281726": {
+    "status": "added",
+    "note": "Added as 11 P16 piglets receiving alpha-lactalbumin-enriched formula versus 12 receiving whey-protein-isolate formula, with sex modeled additively. Sow-fed animals are explicitly excluded so the rearing environment is not mixed into the formula contrast. Five HTSeq technical-summary rows are removed from the official per-sample integer counts; exact pinned pig Ensembl cross-references promote 17,592 rows to 17,438 official symbols, count-scale aggregation conserves every assigned-gene library total, and unresolved identifiers remain reserved. edgeR-QL retains 11,195 genes with zero FDR<0.05, its SE refit reproduces 100% of logFC values, and pig-space four-database FGSEA produces 4,032 finite rows. Publication: PMID 41102179.",
+    "updated": "2026-09-01T06:45:00.000Z"
+  },
+  "GSE299412": {
+    "status": "added",
+    "note": "Added as five adult male cyp19a1b-mutant hypothalamus pools versus six male wild-type pools, each pool representing three zebrafish. Female, olfactory-bulb, and telencephalon samples are explicitly excluded. The official matrix contains 15,418 unique integer UMI rows; exact pinned current zebrafish-symbol matching promotes 13,170 rows while 2,248 unmatched labels remain unique reserved identifiers, with no alias or orthology guesses. edgeR-QL retains 5,474 genes with 105 FDR<0.05, its SE refit reproduces 100% of logFC values, and zebrafish-space four-database FGSEA produces 2,833 finite rows. Publication: PMID 40853063.",
+    "updated": "2026-09-01T06:45:00.000Z"
+  },
+  "GSE111339": {
+    "status": "rejected",
+    "note": "Excluded at the species/pathway-authority gate. This is valid bulk RNA-seq with a clean six pre-puberty versus six post-puberty Brahman hypothalamus contrast, 24,616 HTSeq gene rows, and distinct animals/BioSamples. However, GEO identifies every sample as Bos indicus, which is unsupported by the unchanged MSigDB species authority. Relabeling the animals Bos taurus because reads were aligned to UMD3.1.74 would be an unreviewed cross-species pathway substitution. No DE or public bundle is produced; the detailed local exclusion note and official checksummed inputs are retained. Direct publication: PMID 27898892.",
+    "updated": "2026-09-01T06:21:00.000Z"
+  },
+  "GSE241772": {
+    "status": "rejected",
+    "note": "Excluded at the species/pathway-authority gate after official-matrix review. This is genuine Japanese-quail mediobasal-hypothalamus long-read RNA-seq with a reusable 40,282-transcript by 54-sample Salmon count-estimate matrix, including fractional values, and a valid six-versus-six photoperiod endpoint contrast. The deposited features and processing are native Coturnix japonica, a species unsupported by the current pathway authority, and no author projection to Gallus gallus or another supported species is supplied. Collapsing native transcripts would not establish orthology, so no mapping is invented. A detailed exclusion note and source checksums are retained beside the dataset.",
+    "updated": "2026-09-01T06:21:00.000Z"
+  },
+  "GSE242975": {
+    "status": "rejected",
+    "note": "Excluded at the species/pathway-authority gate after official-matrix review. This is genuine Jaculus jaculus supraoptic-nucleus RNA-seq with a reusable 29,170-gene by 29-sample integer featureCounts matrix and a clean ten dehydrated versus ten control contrast adjustable for sex. All rows are native ENSJJAG identifiers from the jerboa assembly; the partial native names in contrasted DE tables are incomplete and are not an author-supported orthology projection. Jaculus is unsupported by the current pathway authority, so no external jerboa-to-mouse/rat mapping is inferred. The detailed exclusion note and source checksums are retained.",
+    "updated": "2026-09-01T06:21:00.000Z"
+  },
+  "GSE281814": {
+    "status": "rejected",
+    "note": "Excluded at the species/pathway-authority gate after official-matrix review. This is genuine laser-capture golden-hamster tanycyte-enriched RNA-seq with 36 per-sample featureCounts files sharing 32,340 native gene rows and a mechanically usable six-versus-six torpor comparison, although age is also confounded with condition. Mesocricetus auratus is unsupported by the current pathway authority, and the authors used the native BCM_Maur_2.0 genome without a documented projection to a supported species. Native symbols and LOC labels cannot be treated as mouse/rat orthologs by spelling. The detailed exclusion note and source checksums are retained.",
+    "updated": "2026-09-01T06:21:00.000Z"
+  },
+  "GSE305857": {
+    "status": "rejected",
+    "note": "Excluded at the species/pathway-authority and identifier gates after official-file review. This is genuine dark-eyed-junco hypothalamus RNA-seq with 13 per-sample integer count files sharing 15,363 features and a six migrant versus seven resident design. Junco hyemalis is unsupported, and features are keyed by zebra-finch RefSeq protein accessions rather than gene identifiers; zebra finch is also unsupported. Resolving proteins to genes and then mapping zebra finch to chicken or mammal would require two new undocumented projections. The detailed exclusion note and source checksums are retained.",
+    "updated": "2026-09-01T06:21:00.000Z"
+  },
+  "GSE313742": {
+    "status": "rejected",
+    "note": "Excluded at the species/pathway-authority gate after official-file review. This is genuine embryonic zebra-finch medial-hypothalamus RNA-seq with 19 raw-count files sharing 19,137 native symbol rows and a ten heat-call versus nine control-call design with sex imbalance. Taeniopygia guttata is unsupported by the current pathway authority, and the authors quantified against the native bTaeGut1.4.pri transcriptome without a documented Gallus or mammalian projection. Uppercase symbol spelling is not proof of one-to-one chicken orthology, so no mapping is inferred. The detailed exclusion note and source checksums are retained.",
+    "updated": "2026-09-01T06:21:00.000Z"
+  },
+  "GSE191213": {
+    "status": "rejected",
+    "note": "Excluded at the species/pathway-authority gate after official-matrix review. This bulk sheep RNA-seq study has 21 hypothalamus libraries (seven luteal, seven follicular, and seven anestrous; plus 21 pars-tuberalis libraries) and a valid 27,054-feature by 42-sample integer raw-count matrix. All features are native Ovis aries ENSOARG genes from Oar_v3.1, Ovis aries is unsupported by the current pathway authority, and the deposit supplies no reviewed projection to a supported species. Inventing orthology would violate the unchanged pipeline, so no DE or public bundle is produced. Official evidence: GSE191213_family.soft.gz and GSE191213_Raw_gene_counts_matrix.txt.gz; PMID 36534535.",
+    "updated": "2026-09-01T06:02:00.000Z"
+  },
+  "GSE198577": {
+    "status": "rejected",
+    "note": "Excluded at the species/pathway-authority gate after official-matrix review. This bulk dromedary-camel supraoptic-nucleus RNA-seq study has a valid five water-replete versus five 20-day-dehydrated design, a 22,444-gene integer raw-count matrix, and a matching DESeq2-normalized matrix. All rows are native Camelus dromedarius ENSCDRG genes from Camdro2; the current pathway authority does not support Camelus dromedarius, and the authors supplied no reviewed projection to a supported species. Inventing orthology would violate the unchanged pipeline, so no DE or public bundle is produced. Official evidence: GSE198577_family.soft.gz, GSE198577_Raw_read_counts.csv.gz, and GSE198577_Normalized_read_counts.csv.gz; PMID 36151304.",
+    "updated": "2026-09-01T06:02:00.000Z"
+  },
+  "GSE202508": {
+    "status": "rejected",
+    "note": "Excluded at the species/pathway-authority gate after official-matrix review. This bulk ewe medio-basal-hypothalamus RNA-seq study compares five follicular versus five luteal RNA pools, each pooling two animals, and deposits a valid 33,775-feature by 10-sample integer raw-count matrix. Its rows are native Ovis aries NCBI GeneID/symbol features from Oar Rambouillet v1.0; Ovis aries is unsupported by the current pathway authority, and no reviewed projection to a supported species is supplied. Guessing orthology would violate the unchanged pipeline, so no DE or public bundle is produced. Official evidence: GSE202508_family.soft.gz and GSE202508_Dardente_H7_Fol_vs_Lut_Raw_Counts.txt.gz.",
+    "updated": "2026-09-01T06:02:00.000Z"
+  },
+  "GSE221072": {
+    "status": "rejected",
+    "note": "Excluded at the species/pathway-authority gate after official-matrix review. This bulk sheep RNA-seq study contains 119 hypothalamic-region libraries from five dietary treatments (39 ARC, 40 LHA, and 40 VMH samples) and a valid 27,054-feature integer raw-count matrix. Every row is a native Ovis aries ENSOARG gene from Oar_v3.1; Ovis aries is unsupported by the current pathway authority, and the authors supplied no reviewed projection to a supported species. Inventing orthology would violate the unchanged pipeline, so no DE or public bundle is produced. Official evidence: GSE221072_family.soft.gz and GSE221072_counts_matrix_allsamples.txt.gz; PMID 37738703.",
+    "updated": "2026-09-01T06:02:00.000Z"
+  },
+  "GSE253249": {
+    "status": "rejected",
+    "note": "Excluded at the feature-mapping and species/pathway-authority gates. This bulk sheep hypothalamus study has 17 samples (control n=5, maternal methionine n=6, maternal omega-3 n=6; nine female and eight male), but GEO supplies only 17 per-sample Salmon transcript quantifications. They contain fractional TPM and NumReads estimates keyed by native ARS-UI_Ramb_v2.0 RefSeq/locus labels, no transcript-to-gene or supported-species projection, duplicated feature labels, and 2,027 rows per file without numeric quantification fields. Ovis aries is also unsupported by the current pathway authority. Collapsing or inventing a mapping would violate the unchanged pipeline, so no DE or public bundle is produced. Official evidence: GSE253249_family.soft.gz and GSE253249_RAW.tar; PMIDs 38864402 and 39813209.",
+    "updated": "2026-09-01T06:02:00.000Z"
+  },
+  "GSE273981": {
+    "status": "rejected",
+    "note": "Excluded at the reusable-gene-matrix and species/pathway-authority gates. This bulk Dolang-ewe hypothalamus RNA-seq study has a valid three-stage design (prepuberty, puberty, and postpuberty; n=3 each), but its file labelled raw counts is a 115,108-row fractional transcript-abundance matrix keyed by native sheep MSTRG and RefSeq transcript accessions, with no gene-level collapse or supported-species projection. Ovis aries is unsupported by the current pathway authority. Rounding, collapsing, or inventing orthology would violate the unchanged pipeline, so no DE or public bundle is produced. Official evidence: GSE273981_family.soft.gz and GSE273981_Raw_counts.txt.gz; PMID 40963589.",
+    "updated": "2026-09-01T06:02:00.000Z"
+  },
+  "GSE231617": {
+    "status": "added",
+    "note": "Added through the documented normalized-matrix route using only RNA-seq SubSeries GSE231616 from mixed SuperSeries GSE231617; the GSE231615 methylation component is explicitly excluded in a dataset-local note. Four 35-day male rat supraoptic-nucleus pools are controls and four 125-day pools are cases, with four rats per biological pool. The official 33,294-gene DESeq2-normalized sample matrix is transformed exactly as log2(normalized count+1), never treated as raw counts. Limma emits 26,696 DE rows (4,971 at FDR < 0.05), and rat four-database FGSEA produces 5,367 finite pathway rows; all source, sample, and QC evidence is retained beside the dataset.",
+    "updated": "2026-09-01T06:45:59.197Z"
+  },
+  "GSE231769": {
+    "status": "added",
+    "note": "Added through the documented normalized-matrix route as four P21 male control-litter mediobasal-hypothalamus libraries versus five maternal-emulsifier-litter libraries. GEO explicitly defines the official matrix as gene-level edgeR TMM-normalized log2 CPM, so values are modeled unchanged by limma/eBayes and never treated as raw counts. One submitted row with a blank gene identifier is quarantined with all nine original values; 14,592 unique genes remain. The full-rank model emits 14,592 DE rows (2 at FDR < 0.05), and mouse four-database FGSEA produces 4,856 finite pathway rows; all source, sample, and QC evidence is retained beside the dataset.",
+    "updated": "2026-09-01T06:45:59.197Z"
+  },
+  "GSE224254": {
+    "status": "added",
+    "note": "Added as four female versus four male FACS-isolated tuberal-hypothalamic SST-neuron RNA-seq libraries. Each GSM has two SRA runs and its official Kallisto file contains two complete transcript blocks, so fractional expected counts are summed across technical runs without rounding. The 118,489-transcript universe matches official Ensembl GRCm38 release 97 at 118,333 canonical IDs; unique mappings retain 99.98% of expected-count mass, while 156 absent transcripts are quarantined with their values. The 36,465-gene matrix yields 15,404 edgeR-QL tests, 15,387 symbol-resolved DE rows (25 at FDR < 0.05), a validated 15,403-row SE sidecar, and 4,916 finite four-database mouse FGSEA rows.",
+    "updated": "2026-09-01T06:45:59.197Z"
+  },
+  "GSE153495": {
+    "status": "added",
+    "note": "Added as 14 high-plane versus 15 moderate-plane early-life nutrition heifer calves using the remaining hypothalamus after arcuate dissection. Although the official filename says merged counts, the source contains fractional author-normalized abundance and PMID 34234169 documents TMM normalization followed by log2(x+1); the 24,596 legacy UMD3.1 rows are therefore mapped and count-conservingly collapsed on the linear scale, then transformed exactly as log2(x+1) for limma, never rounded or sent through edgeR. Mapping promotes 16,216 rows, reserves 8,380 unresolved identifiers, and produces 24,589 rows with zero library-sum delta. Limma retains 19,518 nonconstant genes with zero FDR<0.05, and cattle-space four-database FGSEA produces 5,316 finite rows.",
+    "updated": "2026-09-01T07:10:16.344Z"
+  },
+  "GSE153498": {
+    "status": "added",
+    "note": "Added as 14 high-plane versus 15 moderate-plane early-life nutrition heifer calves using the hypothalamic arcuate region. The official fractional author-normalized abundance matrix follows the PMID 34234169 TMM-plus-log2(x+1) route: 24,596 legacy UMD3.1 rows are mapped and count-conservingly collapsed on the linear scale, then transformed exactly as log2(x+1) for limma without rounding. Mapping promotes 16,216 rows, reserves 8,380 unresolved identifiers, and produces 24,589 rows with zero library-sum delta; the submitted 981_F column is explicitly tied to the unique ARC subject 981 in the samplesheet. Limma retains 19,923 nonconstant genes with zero FDR<0.05, and cattle-space four-database FGSEA produces 5,305 finite rows. BioProject PRJNA642856 is an exact alias and is not analyzed twice.",
+    "updated": "2026-09-01T07:10:16.344Z"
+  },
+  "PRJNA642856": {
+    "status": "added",
+    "note": "Recorded as an exact repository alias of the already-added GSE153498 arcuate-nucleus RNA-seq dataset, not as a second analysis or public bundle. The official GSE153498 family SOFT states !Series_relation = BioProject: https://www.ncbi.nlm.nih.gov/bioproject/PRJNA642856; the same record also carries SRA SRP269224, the same 29 heifer-calve libraries, and the same high-versus-moderate nutrition contrast. Dataset-local alias evidence, the pinned SOFT checksum, and a source manifest are retained under geo_replication/datasets/PRJNA642856_alias_GSE153498/.",
+    "updated": "2026-09-01T07:10:16.344Z"
+  },
+  "GSE301692": {
+    "status": "added",
+    "note": "Added as four day-15 successful versus four day-15 failed hiPSC-derived hypothalamus-pituitary organoid differentiations. All eight day-9 libraries are retained in the dataset-local inventory with an explicit exclusion note so timepoints are not mixed. The official HTSeq matrix supplies 38,608 integer rows; 38,606 human Ensembl genes are retained and two synthetic EGFP/mCherry reporter rows are quarantined with their counts. edgeR-QL produces 16,174 DE rows with zero FDR<0.05, the uncertainty sidecar covers 100% of DE identifiers, and human-space four-database FGSEA produces 4,992 finite rows. Publication: PMID 40763741.",
+    "updated": "2026-09-01T07:10:16.344Z"
+  },
+  "GSE324226": {
+    "status": "added",
+    "note": "Added as six day-39 low-growth versus six day-39 high-growth weanling-pig hypothalamus libraries. The 24 ileum libraries and 12 day-7 hypothalamus libraries are retained in the dataset-local inventory, each with a written tissue or timepoint exclusion reason. The official Kallisto workbook contains 22,924 Sus scrofa gene rows and fractional count estimates; values are preserved without rounding, mapped in pig pathway space, and count-scale collapsed to 22,922 output rows with zero library-sum delta. edgeR-QL retains 15,110 genes with zero FDR<0.05, the uncertainty sidecar covers 100% of DE identifiers, and pig-space four-database FGSEA produces 4,953 finite rows.",
+    "updated": "2026-09-01T07:10:16.344Z"
+  },
+  "GSE49540": {
+    "status": "added",
+    "note": "Added as seven restricted-diet anovulatory versus seven higher-feed ovulatory-control heifers using hypothalamus RNA-seq. The seven restricted-diet ovulatory animals are a distinct third arm and remain in the dataset-local inventory with a written exclusion reason beside each sample. Twenty-one official per-sample HTSeq files share 22,984 integer rows; legacy cattle identifiers are count-conservingly mapped and collapsed to 22,979 rows, promoting 14,963 and reserving 8,021 unresolved identifiers with zero library-sum delta. edgeR-QL retains 13,229 genes with zero FDR<0.05, the uncertainty sidecar covers 100% of DE identifiers, and cattle-space four-database FGSEA produces 4,640 finite rows. Publication: PMID 29121875.",
+    "updated": "2026-09-01T07:10:16.344Z"
+  },
+  "GSE30733": {
+    "status": "reviewed",
+    "note": "Reviewed 2026-10-19; held. The 14 new female arrays are independent five-rat pools: four euhydrated, five dehydrated and five lactating. Ten male GSMs are exact reused GSE3110 arrays and are excluded from new evidence. All five lactation GSMs have zero processed rows, and GEO explicitly omits the publication GeneSpring MAS5 matrix. Validated CEL headers show four lactation arrays scanned on 2007-07-19 with instrument 50101440 versus two female controls on 2006-08-03 with instrument 50205220. Lactation therefore requires raw-array preparation and acquisition-batch review before inferential integration; independent pools do not resolve this confounding. Evidence: data/intake/oxt-avp-2026-10-19/GSE30733-held.json.",
+    "updated": "2026-10-19T00:00:00.000Z"
+  },
+  "GSE65663": {
+    "status": "added",
+    "note": "Added 2026-10-19 as rat_son_salt_gse65663. Actual R 4.6.0 limma outputs contain 14,604 gene rows, FGSEA contains 5,003 pathway rows, and public bundles are built; final audit and shared verification closure are being finalized. Official GEO identifies five independent five-rat RNA pools per arm. The 31,099-probe, 10-array GeneSpring GX12 RMA median-baselined matrix is retained unchanged; all 310,990 values match separately retrieved GSM tables. Ambiguous probe annotations remain unlabelled fit rows. Individual constituent membership is not public; the inferential n is five pools per arm. No author-result concordance is claimed. Evidence: data/intake/oxt-avp-2026-10-19/studies.json, data/intake/oxt-avp-2026-10-19/audit.generated.json and geo_replication/datasets/GSE65663_rnor_son_salt/metadata/GSE65663_source_review.json.",
+    "updated": "2026-10-19T00:00:00.000Z"
+  },
+  "PRJNA485745": {
+    "status": "reviewed",
+    "note": "Reviewed 2026-10-19; held for the matching six-library genotype count source. PRJNA485745 and SRA SRP157978 identify the same OXT-neuron TRAP study, not two cohorts. Its 18-library project includes method-validation data; the advertised rseObjs_oxtMerge_n18_4features.Rdata merges SoLoOxt6, OvationOxt6 and ClonetechCST6 and is not the six Bdnf-genotype count object. Author analyze_data_bdnf.R instead loads preprocessed_data/Bdnf_SoLo_Oxt/rse_gene_Bdnf_SoLo_Oxt_MiSeq_n6.Rdata, absent from the reviewed repository; its genotype vector is WT,BDNF,WT,WT,BDNF,BDNF and model is ~Genotype+totalAssignedGene+oxt. Recover those six matching counts or re-quantify their FASTQ before integration. Sources: https://github.com/LieberInstitute/oxt_trap_seq and https://www.ncbi.nlm.nih.gov/bioproject/PRJNA485745.",
+    "updated": "2026-10-19T00:00:00.000Z"
+  },
+  "HRA005974": {
+    "status": "reviewed",
+    "note": "Reviewed 2026-10-19; corrected access status. The official NGDC GSA-Human record now explicitly reports Open access, release 2025-11-28, BioProject PRJCA020980, and lists HTTPS/FTP downloads. The previous controlled-access description is superseded. This adult human hypothalamus/SCN resource remains a reference candidate: donor metadata, usable assays and any independent condition contrast need file-level review; open access alone does not establish DE eligibility. Sources: https://ngdc.cncb.ac.cn/gsa-human/browse/HRA005974 and https://pubmed.ncbi.nlm.nih.gov/41720090/ (Neuron 2026, DOI 10.1016/j.neuron.2025.12.032).",
+    "updated": "2026-10-19T00:00:00.000Z"
+  },
+  "GSE147092": {
+    "status": "reviewed",
+    "note": "Imported 2026-10-19 as two expression-survey reference sources, with no DE dataset added. Offline source replay verifies all 4,226,700 values across 28,950 genes; original versioned feature IDs and complete cell metadata are retained. See data/expression/oxt-reference/README.md. The reviewed author CENSUS matrix and annotations retain 146 PVN OXT cells: 125 final magnocellular and 21 parvocellular, with source animal/pool labels M3, M4 and M1-5. Cells are not independent animal replicates, and those labels do not establish a balanced replicated cell-type contrast. Preserve the deposited estimated mRNA-copies-per-cell unit, cell IDs, animal/pool labels and plate metadata. Sources: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE147092 and https://github.com/gofflab/OT_neuron_study_2020 (reviewed commit 39072fc7037398a8a2fd8abf63e685243355e3d3).",
+    "updated": "2026-10-19T00:00:00.000Z"
+  },
+  "GSE318415": {
+    "status": "reviewed",
+    "note": "Reviewed 2026-10-19; spatial reference candidate, held from inferential contrast integration. Official GEO has three male C57BL/6 hypothalamus Xenium samples: GSM9494074 saline six weeks, GSM9494075 VPA six weeks and GSM9494076 VPA five weeks. The age-matched comparison is one sample per arm; the younger VPA sample does not supply another matched replicate. Spatial cells and transcripts cannot replace independent animals. No deposited OXT-treatment expression arm is established by these three sample labels. Source: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE318415.",
+    "updated": "2026-10-19T00:00:00.000Z"
+  },
+  "Zenodo 19184866": {
+    "status": "reviewed",
+    "note": "Reviewed 2026-10-19; derivative processed developmental OXT/AVP reference, not an independent raw cohort. The open Zenodo v2 record provides 2025_Avp_Oxt_Diff.rds and archived code f6f10b6 for the FOXP1 developmental study. Its Romanov2020 analysis derives published developing mouse hypothalamus data (GSE132730). RDS assay contents, cell/animal annotations and developmental grouping require audit before reference import; developmental trajectories and cells do not establish replicated treatment arms. Sources: https://zenodo.org/records/19184866 and https://github.com/jberkh/2025_Avp_Oxt_Diff.",
+    "updated": "2026-10-19T00:00:00.000Z"
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "macaque_snrna": {
+    "searchTopic": "Macaque hypothalamus: obesity snRNA-seq",
+    "primaryAccession": "CNP0003785",
+    "selectedScope": "This obese-versus-normal reanalysis uses the macaque hypothalamic single-nucleus data produced by Lei and colleagues. It includes source samples HCA_Macaque001_S001 through S006. S001 through S003 are Normal and S004 through S006 are Obese. The analysis treats each cell population separately, so retained sample counts can differ between populations.",
+    "limitations": "The source publication describes the original study. The obese-versus-normal reanalysis shown here is separate and does not yet have its own publication.",
+    "evidencePaths": ["CLAUDE.md", "src/data/tracker/explorerAccessions.json"]
+  },
+  "mouse_hypo_hfd_gse220533": {
+    "searchTopic": "Mouse hypothalamus: WT HFD vs chow",
+    "selectedScope": "This comparison uses the wild-type chow and high-fat-diet samples from the GPR101 study to examine the diet effect within wild-type hypothalamus. It excludes the knockout arms in the deposited matrix.",
+    "limitations": "The available manuscript diet result pools genotypes, so it is not the same comparison as this wild-type-only analysis. Expression values retain the deposited log2-normalized scale.",
+    "evidencePaths": ["scripts/build_geo_datasets.mts", "geo_replication/datasets/GSE220533_mmus_hypothalamus_rnaseq/metadata/GSE220533_samplesheet.tsv", "data/author-validation/validation-records.generated.json"]
+  },
+  "mouse_arc_hfd_gse225038": {
+    "searchTopic": "Mouse arcuate nucleus: control HFD vs chow",
+    "selectedScope": "This comparison uses control-genotype arcuate-nucleus samples under chow and high-fat diet. It excludes the source study's Klf4-deletion samples.",
+    "evidencePaths": ["scripts/build_geo_datasets.mts", "geo_replication/datasets/GSE225038_mmus_arc_bulk_rnaseq/metadata/GSE225038_samplesheet.tsv"]
+  },
+  "mouse_hypo_fasting_gse294478": {
+    "selectedScope": "This comparison examines whole-hypothalamus expression after 72 hours of fasting relative to fed controls. The experiment concerns negative energy balance, rather than diet-induced obesity.",
+    "limitations": "The authors deposited results for fed versus 24-hour fasting and 24-hour versus 72-hour fasting. Their adjacent effect estimates can support a reconstruction of the 72-hour-versus-fed effect. Their P values and FDR cannot be combined into significance values for this comparison.",
+    "evidencePaths": ["src/data/datasets.ts", "data/author-validation/validation-records.generated.json"]
+  },
+  "mouse_hypo_overfeed_gse247825": {
+    "searchTopic": "Mouse hypothalamus: pooled 14/17-day overfeeding",
+    "selectedScope": "The explorer estimates a common intragastric-overfeeding effect across days 14 and 17 in a model that includes day. The original publication reports the two days separately.",
+    "limitations": "This pooled effect is an exploratory analysis. It should not be interpreted as either the day-14 or day-17 result from the publication.",
+    "evidencePaths": ["src/data/datasets.ts", "data/author-validation/validation-records.generated.json"]
+  },
+  "mouse_hypo_hfd_tc_gse305719": {
+    "searchTopic": "Mouse hypothalamus: HFD day 0 vs 12 weeks",
+    "selectedScope": "This comparison uses the day-0 baseline and the 12-week high-fat-diet samples from the deposited time course.",
+    "limitations": "There is no chow-fed comparison arm in this analysis. The time-course difference should not be described as a matched HFD-versus-chow effect.",
+    "evidencePaths": ["src/data/datasets.ts"]
+  },
+  "mouse_hypo_hfd_gse236077": {
+    "searchTopic": "Mouse hypothalamus: 16-hour HFD vs chow",
+    "selectedScope": "The explorer includes the hypothalamus arm of the mouse brain RNA-seq atlas, comparing chow with 16 hours of high-fat-diet exposure. This track excludes the atlas's other brain regions.",
+    "limitations": "The short dietary exposure should be distinguished from the chronic high-fat-diet experiments elsewhere in the collection.",
+    "evidencePaths": ["src/data/datasets.ts"]
+  },
+  "mouse_hypo_treg_gse282067": {
+    "searchTopic": "Mouse hypothalamic Treg pools: HFD",
+    "selectedScope": "These data are the deposited BL/6 hypothalamic CD4+CD25+ regulatory T-cell pools under standard diet or high-fat diet. Each library pools cells from five mice.",
+    "limitations": "The displayed sample counts refer to pooled libraries, not individual mice. This cohort differs from the pooled BALB/c Foxp3-GFP cohort displayed in the paper.",
+    "evidencePaths": ["src/data/datasets.ts"]
+  },
+  "mouse_poa_fgf_gse285006": {
+    "searchTopic": "Mouse preoptic area: pooled dnFGFR effect",
+    "selectedScope": "This analysis estimates the dominant-negative FGFR genotype effect across same-sex and opposite-sex housing. The authors instead compare housing conditions within each genotype.",
+    "limitations": "The pooled genotype contrast is exploratory and answers a different question from the source publication's within-genotype housing contrasts.",
+    "evidencePaths": ["src/data/datasets.ts", "data/author-validation/validation-records.generated.json"]
+  },
+  "mouse_pomc_maternal_hfd_gse135639": {
+    "selectedScope": "The POMC-neuron RiboTag data cover both maternal diets, chow and high-fat diet, at birth (P0) and weaning (P21). The explorer compares maternal diets at each age and P0-to-P21 maturation within each diet arm.",
+    "limitations": "The source study emphasizes maturation within each diet arm. Comparisons between maternal diets at a fixed age are explicitly exploratory reanalyses. Here, limma-trend refits the deposited normalized CPM values. That fit does not reproduce the source study's raw-count edgeR analysis.",
+    "evidencePaths": ["src/data/datasets.ts", "data/author-validation/validation-records.generated.json"]
+  },
+  "mouse_hypo_spatial_aging_gse270383": {
+    "selectedScope": "For each independent female mouse, the analysis aggregates hypothalamic spatial profiles from sections 4 and 5. It compares 23 months with 4 months of age.",
+    "limitations": "This reanalysis uses the deposited 2024 cohort of 128,405 profiles. It is not the final publication's revised 98,006-profile cohort. Individual spatial profiles are not independent animal replicates.",
+    "evidencePaths": ["src/data/datasets.ts"]
+  },
+  "mouse_hypo_spatial_cr_gse273038": {
+    "selectedScope": "The data compare caloric restriction with ad libitum feeding in 24-month-old male mice. The analysis aggregates hypothalamic spatial profiles from two sections for each independent animal.",
+    "limitations": "The analysis units are animals, rather than individual spatial profiles. This comparison concerns dietary restriction in aged males.",
+    "evidencePaths": ["src/data/datasets.ts"]
+  },
+  "human_hypo_pituitary_organoid_gse301692": {
+    "searchTopic": "Human hypothalamus-pituitary organoids: day 15",
+    "selectedScope": "The data come from day-15 human iPSC-derived hypothalamus-pituitary organoid cultures. The comparison groups cultures by the study's machine-learning predictions of successful or unsuccessful differentiation. It excludes day-9 libraries to keep the sampled timepoint consistent.",
+    "limitations": "The group labels describe predicted differentiation outcomes. This comparison uses cultured organoids, not human hypothalamic tissue. The source-count analysis shown here excludes two synthetic reporter rows.",
+    "evidencePaths": ["src/data/datasets.ts"]
+  },
+  "mouse_hypo_diabetes_gse235792": { "searchTopic": "TallyHo mouse hypothalamus: high vs low glycaemia" },
+  "rat_mbh_edc_gse168151": { "searchTopic": "Rat hypothalamus/POA: perinatal EDC mixture" },
+  "rat_pvn_adolescent_stress_gse169296": { "searchTopic": "Rat PVN: adolescent restraint stress" },
+  "mouse_gt17_mkrn3_gse160467": { "searchTopic": "Mouse GT1-7 neurons: MKRN3 overexpression" },
+  "mouse_hypo_cp_ins2_gse218188": { "searchTopic": "Mouse hypothalamus: choroid-plexus Ins2 overexpression" },
+  "mouse_mpoa_pnoc_bactrap_gse306829": { "searchTopic": "Mouse preoptic PNOC neurons: BacTRAP enrichment" },
+  "human_ipsc_hypo_obesity_gse95243": { "searchTopic": "Human iPSC hypothalamic neurons: inherited obesity" },
+  "human_htnsc_differentiation_gse214877": { "searchTopic": "Human hypothalamic neural stem cells from hPSCs" },
+  "rat_rph_noise_stress_gse229159": { "searchTopic": "Rat posterior hypothalamus: repeated noise stress" },
+  "hamster_hypo_torpor_gse179663": { "searchTopic": "Djungarian hamster hypothalamus: daily torpor" },
+  "mouse_mbh_maternal_emulsifier_gse231769": { "searchTopic": "Mouse mediobasal hypothalamus: maternal emulsifiers" },
+  "mouse_sst_neuron_sex_gse224254": { "searchTopic": "Mouse hypothalamic SST neurons: female vs male" }
+}

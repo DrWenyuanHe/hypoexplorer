@@ -1,0 +1,1 @@
+var HX_MOUSE_LEPRB_STAT3_GSE123983_META = {"populations":["leprb"],"labels":{"leprb":"LepRb neurons (TRAP)"},"types":{"leprb":"Tissue"},"nGenes":{"leprb":17165},"colors":{"leprb":"#7F7F7F"},"qcFlags":{"leprb":{"is3v3":true,"nNormal":3,"nObese":3,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

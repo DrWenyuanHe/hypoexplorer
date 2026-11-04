@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "area": "module-styles",
+  "fingerprint": "4b09fd0f52c875f6de9ede99b0617512b9c9a207aed646414150cb2578b66842",
+  "outcome": "no-impact",
+  "explanation": "responsive.css replaces the single go-button touch rule with the search pill rules at 600px: a taller pill, a 50px bar and 44px go and clear buttons. Breakpoints, tokens and every other layout rule are unchanged, so the styles module map still describes the file.",
+  "references": [
+    "src/styles/responsive.css",
+    "index.html"
+  ]
+}

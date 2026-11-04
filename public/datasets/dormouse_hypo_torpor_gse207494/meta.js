@@ -1,0 +1,1 @@
+var HX_DORMOUSE_HYPO_TORPOR_GSE207494_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":14526},"colors":{"hypothalamus":"#9C755F"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":4,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

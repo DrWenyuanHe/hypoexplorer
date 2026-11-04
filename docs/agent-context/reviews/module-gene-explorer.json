@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "area": "module-gene-explorer",
+  "fingerprint": "d61e17c4f8eca8a180c7dae845864a897708edfa1670bc8859fd7bda08446c08",
+  "outcome": "updated",
+  "explanation": "Recharts 3 no longer passes formattedGraphicalItems to Customized, so BarSEMChart's sample-dot and significance-bracket overlay is now a chart child that places each bar from its x tick, the fixed barSize and the y scale (useXAxisTicks, useYAxisScale). Tick props accept recharts 3's number | string geometry. GeneSearchBox timer refs start as undefined for React 19. Dot and bracket positions match the bars in the dev server and chart tests.",
+  "references": [
+    "src/gene-explorer/BarSEMChartImpl.tsx",
+    "src/gene-explorer/GeneSearchBox.tsx",
+    "src/__tests__/barSEMChart.test.tsx"
+  ]
+}

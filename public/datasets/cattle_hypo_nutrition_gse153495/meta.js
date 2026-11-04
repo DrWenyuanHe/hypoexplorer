@@ -1,0 +1,1 @@
+var HX_CATTLE_HYPO_NUTRITION_GSE153495_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Remaining hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":15634},"colors":{"hypothalamus":"#4E79A7"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":15,"nObese":14,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "area": "module-utils",
+  "fingerprint": "d60441c544ca37af53700b2f65f5dcdc191e022ec44ae1d2b50bc1a17c47255d",
+  "outcome": "no-impact",
+  "explanation": "axes.ts gains wrapLabel, a word-wrap helper for category-axis labels (canvas text measurement with a per-character fallback, ellipsis past three lines), beside the existing niceTicks. It is a pure display helper with no routing, sample-value or export role, so the utils catalog meaning is unchanged.",
+  "references": [
+    "src/utils/axes.ts",
+    "src/gene-explorer/BarSEMChartImpl.tsx"
+  ]
+}

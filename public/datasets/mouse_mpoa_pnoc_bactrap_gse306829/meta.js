@@ -1,0 +1,1 @@
+var HX_MOUSE_MPOA_PNOC_BACTRAP_GSE306829_META = {"populations":["mpoa"],"labels":{"mpoa":"Medial preoptic PNOC neurons (BacTRAP)"},"types":{"mpoa":"Tissue"},"nGenes":{"mpoa":19802},"colors":{"mpoa":"#9467BD"},"qcFlags":{"mpoa":{"is3v3":true,"nNormal":3,"nObese":3,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

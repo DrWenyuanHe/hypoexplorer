@@ -1,0 +1,1 @@
+var HX_MOUSE_AGRP_FEDFAST_GSE68177_META = {"populations":["agrp"],"labels":{"agrp":"Arcuate AGRP neurons (FACS)"},"types":{"agrp":"Tissue"},"nGenes":{"agrp":14630},"colors":{"agrp":"#9467BD"},"qcFlags":{"agrp":{"is3v3":false,"nNormal":5,"nObese":6,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

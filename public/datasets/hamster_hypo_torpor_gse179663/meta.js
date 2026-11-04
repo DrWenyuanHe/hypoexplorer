@@ -1,0 +1,1 @@
+var HX_HAMSTER_HYPO_TORPOR_GSE179663_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":15099},"colors":{"hypothalamus":"#F28E2B"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":4,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

@@ -1,0 +1,1 @@
+var HX_MOUSE_AGRP_FEDFAST_GSE124693_META = {"populations":["agrp"],"labels":{"agrp":"Arcuate AgRP neurons (RiboTag)"},"types":{"agrp":"Tissue"},"nGenes":{"agrp":18611},"colors":{"agrp":"#9467BD"},"qcFlags":{"agrp":{"is3v3":false,"nNormal":4,"nObese":5,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

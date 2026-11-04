@@ -1,0 +1,14 @@
+.dataset-quality-badges { display: inline-flex; flex-wrap: wrap; align-items: flex-start; gap: 5px; max-width: 100%; vertical-align: middle; }
+.quality-badge { display: inline-flex; gap: 5px; align-items: center; text-align: left; border: 1px solid color-mix(in srgb, var(--quality-color) 40%, var(--border)); border-radius: 999px; background: color-mix(in srgb, var(--quality-color) 9%, var(--bg-panel)); color: color-mix(in srgb, var(--quality-color) 75%, var(--text-primary)); padding: 4px 9px; font-family: inherit; font-size: 11px; line-height: 1.4; font-weight: 600; cursor: pointer; }
+.quality-badge-compact { font-size: 10px; padding: 3px 7px; }
+.quality-badge:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.quality-popover { position: fixed; z-index: 10000; width: min(420px, calc(100vw - 24px)); max-height: min(520px, calc(100vh - 24px)); overflow-y: auto; box-sizing: border-box; border: 1px solid var(--border); border-radius: 8px; padding: 14px; background: var(--bg-panel); color: var(--text-primary); box-shadow: 0 8px 32px #0003; font-size: 12px; line-height: 1.5; text-align: left; }
+.quality-popover-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 13px; }
+.quality-popover-heading button { border: 0; background: none; color: var(--text-muted); cursor: pointer; padding: 2px 8px; font-size: 20px; }
+.quality-scope { margin: 8px 0; color: var(--text-muted); overflow-wrap: anywhere; }
+.quality-checklist { list-style: none; padding: 0; margin: 0; }
+.quality-checklist li { display: flex; gap: 9px; padding: 9px 0; border-top: 1px solid var(--border); }
+.quality-check-symbol { flex: 0 0 16px; font-size: 16px; font-weight: 700; }
+.quality-check-status { display: block; font-size: 11px; color: var(--text-muted); }
+.quality-check-note { display: block; margin-top: 3px; overflow-wrap: anywhere; }
+.quality-policy { margin: 10px 0 0; font-size: 10px; color: var(--text-muted); }

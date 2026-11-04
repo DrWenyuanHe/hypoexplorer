@@ -1,0 +1,2894 @@
+{
+  "schemaVersion": 1,
+  "records": {
+    "mouse_arc_hfd_gse284408": {
+      "registeredContrastIds": [
+        "hfd_vs_ncd"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered edgeR-QL result against the full deposited table. The successful DESeq2 sensitivity is a separate result.",
+      "reference": "Full 22,322-row GEO table plus 299-row manuscript Table S1, both retrieved and hashed on 2026-09-04.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "All six GEO libraries map to count columns and local assignments: three NCD and three HFD male laser-captured ARC regions enriched with Kiss1 neurons. No libraries omitted."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "HFD minus NCD in the same ARC cohort. Regional enrichment is not isolated-neuron expression."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 14,174 local Ensembl IDs join the 22,322-row source; all six count columns are conserved and source bytes match."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Author effects equal log2 ratios of FPKM group means to 5.2e-14, not fitted DESeq2 coefficients. Registered effect Pearson is 0.9273, median absolute delta 0.0270, maximum 2.0101. All shared author FDR-significant directions agree, but effect definitions differ."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Registered FDR calls: 19 author/seven local/seven shared. Separate DESeq2 recovers all 19 author IDs with FDR delta <=2.2e-11 over 18,169 jointly finite tests. Restricting the registered comparison to 14,172 model-inferred evaluable rows gives 241 author/283 local/219 shared paper-rule calls; the literal 1-coded export comparison gives 284 local calls."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "48 of 289 author paper-rule calls fall outside the registered filter. Table S1 has ten additional below-cutoff rows, and its 299 total differs from the narrative's 389. Author P/FDR=1 corresponds to 4,153 refit-NA rows, including two registered genes. Bpifa1 has local nominal P<.05 but no test in the reconstruction; it is not confirmed author-negative."
+        }
+      },
+      "criteria": "Nominal P<0.05 and abs(log2FC)>log2(1.5) is the manuscript rule; FDR<0.05 is reported separately. Compare finite-statistic pairs, retain original values and distinguish FPKM-ratio effects from model coefficients. Matching a separate DESeq2 result does not sign off registered edgeR.",
+      "conclusion": "Cohort, source and author inference are supported. Published selection inconsistencies and registered effect/inference differences still require review."
+    },
+    "mouse_hypo_fasting_gse294478": {
+      "registeredContrastIds": [
+        "fasted72h_vs_fed"
+      ],
+      "target": "derived_author_effect",
+      "resultScope": "effects_only",
+      "basis": "Derived author endpoint effects are compared with registered 72-hour-minus-fed edgeR-QL; author inference is not reconstructed.",
+      "reference": "GSE294478 Fedvs24hrFD and 24hrFDvs72hrFD edgeR tables.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Adjacent author fits involve the relevant feeding groups; fit-specific eligibility is not fully signed off."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Adjacent effects are combined with documented signs to estimate 72-hour minus fed."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "15,326 exact shared genes."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Reconstructed effects correlate at 0.9999483; all 3,564 strong effects agree in direction."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "P/FDR cannot be reconstructed by adding adjacent fitted effects."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "15,326 shared of 19,552 local and 18,026 author-reference genes."
+        }
+      },
+      "criteria": "Effect reconstruction only; strong means |author log2FC|>=0.5. No reconstructed author significance calls. No full-result acceptance is established.",
+      "conclusion": "The reconstructed effect is useful; the endpoint test remains unverified."
+    },
+    "mouse_hypo_overfeed_gse247825": {
+      "registeredContrastIds": [
+        "overfeed_vs_control"
+      ],
+      "target": "author_method_reconstruction",
+      "resultScope": "full_results",
+      "basis": "Primary positive evidence is a separate day-14 author-method reconstruction; the registered pooled Explorer comparison is non-equivalent.",
+      "reference": "Separate author day-14 and day-17 DESeq2 results.",
+      "assessment": "not_comparable",
+      "dimensions": {
+        "cohort": {
+          "status": "different",
+          "note": "Author day 14 excludes control replicate four; registered pooled eligibility differs."
+        },
+        "contrast": {
+          "status": "different",
+          "note": "A common effect across days is not either day-specific effect."
+        },
+        "features": {
+          "status": "limited",
+          "note": "Source correspondence is supported by the day-14 refit, not a full pooled-reference comparison."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Near-exact day-14 refit agreement is not agreement of the displayed pooled effect."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Author day-specific FDR sets of 175 and 66 cannot benchmark the pooled three-gene set directly."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "No equivalent pooled author result is supplied."
+        }
+      },
+      "criteria": "Separate day-14 refit Pearson 0.9999998, RMSE 0.00532; these are sensitivity metrics, not Explorer acceptance criteria. No full-result acceptance is established.",
+      "conclusion": "The displayed pooled result remains exploratory relative to the author tables."
+    },
+    "mouse_arc_pnoc_trap_gse292416": {
+      "registeredContrastIds": [
+        "lepRko_vs_wt"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered Explorer edgeR-QL versus deposited DESeq2. The separate eight-IP-library raw-count DESeq2 reconstruction is evidence about author fitting context, not the displayed output.",
+      "reference": "GSE292416_deseq2_results.csv.gz: a 24,405-row four-contrast union, with 13,989 finite KO-minus-WT IP effect/FDR pairs; follow-up reviewed 2026-09-04.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "GEO sample titles, genotype metadata and count columns match all eight registered IP libraries: four independent pools per genotype, four mice per pool. Input/IP fractions are paired within each pool; WT and KO pools are independent."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "KO minus WT within PNOC-IP, not IP/input enrichment or a diet intervention. The author's downstream enriched-gene selection is an additional scope restriction not applied by Explorer."
+        },
+        "features": {
+          "status": "limited",
+          "note": "Strict exact-symbol follow-up excludes every ambiguous author-symbol occurrence (13 rows, six symbols) and one missing local symbol, yielding 13,116 paired-finite comparisons. The legacy first-row mapping has 13,121 pairs; policies must remain explicit."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Strict registered comparison Pearson 0.994616; all 993 shared author FDR<=0.05 directions agree. The separate Ensembl DESeq2 reconstruction matches 13,989 effects within 0.000447 log2FC but does not establish registered-output equality."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Registered strict shared-finite FDR<=0.05 calls: author 993 versus Explorer 95, overlap 95/Jaccard 0.095670. Separate raw-count DESeq2 gives 1,045 overlapping whole called IDs out of 1,052 each, not exact sets. GEO and publisher selection rules conflict."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The author union contains 10,416 missing genotype effect/FDR pairs. Explorer has 16,833 rows; one missing symbol and ambiguous mappings are separately excluded. Matching union rows is not complete inference coverage; missing q values are not negative calls."
+        }
+      },
+      "criteria": "Descriptive effect/direction and FDR<=0.05 comparisons on paired-finite values, with separate whole observed-call counts. The reconstruction also audits FDR<=0.01 and documented independent-filter alpha values without tuning exclusions. No full-result acceptance criterion or sign-off is established; residual magnitudes are measured, not predeclared pass tolerances.",
+      "conclusion": "Replication is resolved and raw-count author fitting is strongly supported empirically. Registered inference, symbol projection and conflicting source selection rules still need review; reconstruction agreement does not confer an Explorer full badge."
+    },
+    "mouse_pvn_hfd_gse198437": {
+      "registeredContrastIds": [
+        "hfd_vs_chow"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered Explorer pairwise HFD effect.",
+      "reference": "Manuscript Table 1, 1,796 trajectory-selected PVN genes.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "The primary RNA-seq methods specify three independent mice per group. Exact HFD and control source profiles form the registered pairwise contrast; the minocycline arm is excluded from the local pairwise fit but contributes to the author model and selection."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Reported pairwise effect is HFD minus control."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "1,789 of all 1,796 original integer Geneid values join current registered effects exactly; seven remain unmatched. No local-result selection or symbol remapping is used."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "The compared published quantity is HFD-0 minus CTRL-0 from centered coefficients. Log2 units are plausible from the edgeR methods but not explicitly labeled; numerical agreement alone is insufficient to establish the definition."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Author FDR is from a three-group omnibus/selected analysis, not the local pairwise test."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Trajectory-selected rows are not the complete pairwise tested universe."
+        }
+      },
+      "criteria": "All published selected rows remain in the comparison denominator. Require explicit effect-definition confirmation; omit author omnibus P/FDR from pairwise inference. Author concordance criteria are unchanged.",
+      "conclusion": "Selected effects are numerically similar; the coefficient-unit definition remains unresolved."
+    },
+    "mouse_agrp_fedfast_gse68177": {
+      "registeredContrastIds": [
+        "fast_vs_fed"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered Explorer TMM edgeR-QL versus author TMM limma-voom.",
+      "reference": "eLife 09800 supplement 1 version 2, AgRP fed/food-deprived results.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "The author workbook, original counts and registered sheet contain the same six fasted and five fed AgRP samples; FD/fast is an explicit naming translation. The primary manuscript states individual animals are replicates. See advancement-comparisons-2026-09-05/cohort-and-recovery-audit.json."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "24-hour food deprivation minus fed AgRP neurons."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 27 Excel-date labels are recovered unambiguously using the original counts' Ensembl ID plus genomic locus, including both Marc2/March2. 14548 unique finite effect pairs cover 99.43% of registered genes. Effects and source bytes are unchanged; unmatched genes remain explicit filtering coverage limits."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both registered edgeR-QL and author limma-voom coefficients are log2 fold changes for fasting minus fed neurons. Whole-table Pearson is 0.93189446; the separately declared 8183-gene expressed subset has Pearson 0.98686784. Whole-table policy checks are not replaced by the expressed subset."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Paper-rule calls are 826 author and 551 local, with 528 shared. Unfiltered shared-gene FDR calls are 2028 author and 2119 local, with 1760 shared. Model-specific P/FDR differences remain contextual to effect concordance."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "14548 of 14632 local and 16513 finite author effects join after source-ID recovery. Filtering leaves 84 local and 1965 author effects unpaired. Full-table and expressed-subset metrics retain their separate denominators."
+        }
+      },
+      "criteria": "Each method's mean CPM>20, q/FDR<0.05 and |log2FC|>1 are applied separately; overall FDR overlap is also reported. No full-result acceptance is established.",
+      "conclusion": "Cohort/identifier evidence now supports the biological-effect comparison. Historical inference and full-author-result coverage limits remain explicit; no exact-reproduction sign-off is inferred."
+    },
+    "mouse_hypo_pomc_estrogen_gse328990": {
+      "registeredContrastIds": [
+        "ko_vs_wt"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered edgeR-QL against the deposited DESeq2 table; rounded-count, no-offset DESeq2 is a separate diagnostic.",
+      "reference": "23,950-row deposited DESeq2 table and 18-gene Supplementary Table 4, with Figure 3 pool labels visually checked.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "All eight pool/genotype assignments match explicit GEO Library names and Figure 3. Four independent two-animal pools per genotype, 16-week-old females. This replaces the prior sample-order inference."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "POMC-C451Af/f minus wildtype in bulk hypothalamus. Manipulation targets POMC neurons; RNA-seq does not isolate POMC cells."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 18,615 registered IDs join the full author result exactly. Fresh deposited gene-estimate bytes match the local source; no transcript quantification or length-offset object is deposited."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "All 16 retained paper-hit directions agree, but Cenpf is -2.2713 in the author result versus -0.1350 locally. Across shared genes Pearson is 0.8989 and median absolute delta 0.0158. Direction agreement does not resolve magnitude residuals."
+        },
+        "inference": {
+          "status": "different",
+          "note": "18,608 pairs have finite author/local FDR: 29 author/four local/four shared calls. The full author table has 31 FDR calls. Separate no-offset DESeq2 gives 21 versus 31, with 19 shared, so a framework change alone does not recover author inference."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All 18 paper effect/P-value pairs correspond to the deposited reference, but Fam205a3 and Gm8116 are absent from the registered filter. Seven registered rows lack author FDR. Missing reconstruction inputs must not be confused with missing author results."
+        }
+      },
+      "criteria": "Paper rule FDR<=0.05 and abs(log2FC)>0.5 gives 18 author/four registered/four shared calls. Use only paired finite tests for symmetric inferential metrics. PDF effect/P values correspond at printed precision; Gm49510's printed FDR differs slightly, so no exact all-statistics claim is made.",
+      "conclusion": "Cohort mapping and the published reference are reconciled. Specific filtered hits and effect/inference residuals still require review of exact tximport and model settings."
+    },
+    "mouse_hypo_maternal_care_gse305688": {
+      "registeredContrastIds": [
+        "artificial_vs_maternal"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered Explorer artificial-minus-maternal rearing result; the author list supplies no effect orientation.",
+      "reference": "Supplementary Table 7, 20 author-listed DE genes without numerical statistics.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Rearing groups correspond; complete sample/model equivalence is not documented by this list."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "The same two rearing groups are compared; the list cannot verify the artificial-minus-maternal effect orientation."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 20 identifiers join after three documented alias resolutions."
+        },
+        "effects": {
+          "status": "not_tested",
+          "note": "No author effect estimates or directions are supplied."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "All 20 listed genes have local FDR<0.05; author P/FDR values are absent."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Twenty selected names are not the full tested universe or all local discoveries."
+        }
+      },
+      "criteria": "Selected-list recall is 20/20 at local FDR<0.05; absence from the list is not author nonsignificance. No full-result acceptance is established.",
+      "conclusion": "Gene-list support only, not effect or full-inference verification."
+    },
+    "mouse_tanycyte_insulin_gse185074": {
+      "registeredContrastIds": [
+        "hfd_vs_ncd"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered edgeR WT HFD-minus-NCD IP result against the deposited author workbook. Three bounded DESeq2 diagnostics remain separate and none is accepted as an author reconstruction.",
+      "reference": "13,721-row WT HFD/NCD author workbook, original GEO count workbook and SOFT, and paper PMC8688146. New evidence in continued-sources/ten-dataset-followup-2026-09-04/GSE185074/REVIEW.md.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "All seven eligible WT-IP libraries map exactly to GEO: three NCD and four HFD pools. Other deposited inputs and IR-KO samples are excluded from this contrast. Per-pool animal rosters are not deposited; paper/GEO pooled-animal ranges differ slightly."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "WT HFD minus NCD within tanycyte IP, not IR deletion or IP/input enrichment."
+        },
+        "features": {
+          "status": "limited",
+          "note": "13,457 exact Ensembl joins; 264 author IDs, including 32 discoveries, are absent from the final registered table. Another 4,454 registered IDs, including 856 discoveries, have no author-table counterpart."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "13,457 finite effects; r=0.99996055, median absolute delta 0.0263085. All 5,012 strong effects and 7,259 shared author-significant signs agree. Effects are close, not equal."
+        },
+        "inference": {
+          "status": "different",
+          "note": "13,455 finite FDR pairs yield 7,259 author and 5,041 registered calls with 5,021 shared, Jaccard 0.689793. Two shared missing-author FDRs are unknown. Three separate DESeq2 model-scope sensitivities fail to reproduce author inference."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Author protein-coding/TPM and tanycyte-enrichment selection differs from the genome-wide registered output. The deposited marker subset still differs, with 4,697/3,395 calls and 3,383 shared on 7,878 paired genes. Full tested-universe and offset/filter-order reconstruction is incomplete."
+        }
+      },
+      "criteria": "Exact source/sample/ID checks, paired-finite FDR < 0.05 and |author log2FC|>= 0.5 direction checks. Published marker selection is evaluated separately. No full-result acceptance threshold or sign-off is established.",
+      "conclusion": "The registered cohort and close effects are supported. Author inference and complete coverage remain unresolved, with processed data available."
+    },
+    "mouse_arc_pomc_drd2_gse210311": {
+      "registeredContrastIds": [
+        "drd2pomc_vs_pomc"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered Explorer Drd2-positive minus broad-POMC IP result. The six-IP author-compatible DESeq2 call-set reproduction is a separate analysis, not the registered output.",
+      "reference": "Full deposited drd2_dre_ip contrast, 21,368 IDs, original counts/SOFT and PMC9675440. New evidence in continued-sources/ten-dataset-followup-2026-09-04/GSE210311/REVIEW.md.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Exact six IP libraries: three Drd2-positive-POMC pools from 56 mice and three broad-POMC pools from 9 mice. Randomly fed 11-13-week pooled hypothalami; no local missing-replicate exclusion. Input fractions are paired within pools but not included in this direct-IP contrast."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Drd2-positive minus broad-POMC IP. This compares captured populations, not dopamine treatment, knockout, IP/input enrichment or the separate interaction-effect column."
+        },
+        "features": {
+          "status": "limited",
+          "note": "14,402 exact registered/author Ensembl joins. Of 6,966 author IDs outside the registered table, 108 are author discoveries; 2,025 registered IDs, including 384 discoveries, have no author-table comparator."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Registered effects r=0.99911188, median delta 0.0116783, all 8,552 strong and 5,649 shared author-significant directions agree. Separate reconstruction has one missing-FDR low-expression effect residual and cannot certify every effect."
+        },
+        "inference": {
+          "status": "different",
+          "note": "On 14,383 paired-finite FDR rows, 5,649 author and 5,154 registered calls share 5,071, Jaccard 0.88468248. Nineteen shared author FDRs are missing, including seven Explorer discoveries. Separate DESeq2 matches all 5,757 author discovery IDs and all missingness masks, not Explorer's inference."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The full author table includes coding genes with missing effects/FDR. Paired-finite inference is explicit and outside-table IDs remain unknown. Final registered symbol projection and the 108 absent author discoveries require coverage review."
+        }
+      },
+      "criteria": "Exact source/cohort/ID checks; paired-finite FDR < 0.05 and |author log2FC|>= 0.5 sign checks. Separate reconstruction is assessed for full author call-set and missingness-mask equality, not substituted for registered output verification.",
+      "conclusion": "Author discoveries are reproducible in a separate six-IP DESeq2 fit. Registered effects are supported with remaining inference and coverage differences, and no full-verification sign-off."
+    },
+    "mouse_pvn_dex_gse190712": {
+      "registeredContrastIds": [
+        "dex_vs_control"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered Explorer dexamethasone-versus-vehicle result.",
+      "reference": "Original archived Table S5, 598 uniquely identified PVN selected result rows; full re-extraction replaces the previous 593-row description.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "PVN treatment groups correspond; selected table alone does not establish complete eligibility."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Dexamethasone minus vehicle."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "493 of 598 author-listed Ensembl IDs join exactly; stable IDs replace the earlier 476 symbol joins."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Pearson 0.98784266 and Spearman 0.98227461; all 493 paired nonzero effects, including 231 strong effects, agree in direction."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Among 493 finite pairs, FDR<0.05 calls are 411 author and 409 local, with 361 shared. These selected-list statistics do not represent the full tested universe."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Only a selected significant list is available; omitted genes are unassessed."
+        }
+      },
+      "criteria": "Exact unique Ensembl join; all identified author rows retained before joining. Shared finite FDR<0.05 is descriptive; same-gene direction and magnitude use the unchanged project concordance policy. No full-result acceptance is inferred.",
+      "conclusion": "Selected effect support is not whole-universe inference agreement."
+    },
+    "mouse_hypo_hibernation_gse295250": {
+      "registeredContrastIds": [
+        "ko_vs_wt"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered six-sample KO-minus-WT edgeR-QL/BH. Separate edgeR LRT/QL diagnostics on author-retained and filterByExpr universes.",
+      "reference": "GSE295250_FtoE3KO_Fed_edgeR_Ens_Feb2023.txt.gz, matching fed count matrix and six GEO RNAseq_Fed_E3 records.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "GSM8944231, GSM8944235 through GSM8944239 map explicitly by fed E3 genotype/replicate titles to all six registered count columns; all 130,494 count cells are conserved."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Author WT-minus-KO effects are negated to the registered fed E3-KO-minus-WT direction."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "21,749 source genes, 18,055 author result rows and 14,594 registered genes. Seventy author QValue<0.05 calls are outside the registered output."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Registered Pearson 0.999783, median absolute log2FC difference 0.000796 and all 950 strong directions agree after orientation correction."
+        },
+        "inference": {
+          "status": "different",
+          "note": "All 14,594 shared tests are finite. Author QValue<0.05 has 185 shared/255 full calls, registered BH-FDR has zero. Recomputed BH on author P has 182 shared/247 full calls. PAdjust is Holm. Separate author-universe LRT gives 131 BH calls, 119 shared with author QValue calls; QL gives zero."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The precise historical filter/dispersion/q-value settings remain unresolved. Main paper and processed data are available, but the original supplement download is blocked. Seventy author discoveries lie outside Explorer."
+        }
+      },
+      "criteria": "Match samples/counts exactly, negate author effects, verify chi-squared LR P values and Holm separately, and distinguish source QValue from BH. Compare only finite shared tests and keep full author/universe counts visible. Diagnostic models are not registered replacements.",
+      "conclusion": "Cohort, counts, orientation and multiple-testing semantics are resolved. The author inference is only partly reconstructed and needs review."
+    },
+    "mouse_hypo_obob_fgf1_gse153551": {
+      "registeredContrastIds": [
+        "fgf1_vs_vehicle"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered Explorer day 5-only edgeR FGF1-minus-vehicle result. Successful reproduction of author Data 11 uses a separate DESeq2 all 47-library six-group model and does not verify registered inference.",
+      "reference": "GSE153549 bulk subseries, Data 11 sheet b.d5_deg, deposited metadata and commit-pinned author Figure 7 code. Evidence in continued-sources/ten-dataset-followup-2026-09-04/GSE153551/REVIEW.md.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Registered nine FGF1/fourteen vehicle day 5 libraries exactly match deposited metadata and published code, but Figure 7 says nine/seven. GEO labels seven controls diabetic and seven non-diabetic; manuscript diabetes-exclusion text conflicts. This is not established as a local-only cohort error."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Day 5 FGF1 minus pair-fed vehicle in bulk hypothalamus, same coefficient direction. Author inference fits all timegroups together, unlike registered day 5-only edgeR."
+        },
+        "features": {
+          "status": "limited",
+          "note": "All 14,193 Data 11 symbols join exactly. The 28 extra registered genes comprise 25 failures of the author-code count filter and three Cook-filtered author-result omissions. Five are Explorer discoveries and lack author inference."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Registered r=0.99509793, median delta 0.0141896 and 468/469 strong signs agree. Separate code reconstruction matches all author effects within 4.50e-9. It resolves the Gbp2 sign difference through documented DESeq2 outlier replacement, without changing Explorer."
+        },
+        "inference": {
+          "status": "different",
+          "note": "On 14,193 finite pairs, 1,766 author versus 4,973 registered FDR calls share 1,762; Jaccard 0.35402853. Separate published-code DESeq2 matches all 1,766 author calls; day 5-only DESeq2 calls 4,880. Paper effect-filtered FDR rule gives 387 author genes, while plotting code nominal P rule gives 452."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Full published table is covered and all 28 omissions are explained by author-code filtering/Cook eligibility. Registered inferential scope remains different and the paper-versus-code cohort and threshold contradictions are not resolved."
+        }
+      },
+      "criteria": "Exact source/cohort/symbol checks and paired-finite FDR < 0.05 comparisons. Figure 7 FDR < 0.05 with |log2FC|> 0.5 and author-code nominal P < 0.05 with the same effect cutoff are reported separately. Reconstruction tolerances and call-set equality do not promote registered-output verification.",
+      "conclusion": "Published Data 11 is reproducible from code, and major model differences are explained. Registered inference remains distinct; contradictory cohort and DEG claims still require review before any full sign-off."
+    },
+    "mouse_hypo_oxaliplatin_gse285906": {
+      "registeredContrastIds": [
+        "oxali_vs_control"
+      ],
+      "target": "author_method_reconstruction",
+      "resultScope": "selected_results",
+      "basis": "Primary numerical reproduction is a separate Npy DESeq2 refit; the registered Explorer edgeR-QL result remains distinct.",
+      "reference": "Published hypothalamic Npy fold change 5.88 and FDR 0.0024.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Paper/GEO confirm four oxaliplatin and three control male mice; source counts are pinned."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Oxaliplatin minus control hypothalamus."
+        },
+        "features": {
+          "status": "limited",
+          "note": "Only Npy has a quantitative author result available for comparison."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Separate DESeq2 gives fold change 5.87533; this is not a registered-track match."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Registered Npy FDR is 0.135; separate DESeq2 gives 0.002734."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "No full hypothalamus DE table or author-wide count was located."
+        }
+      },
+      "criteria": "Single-gene effect/FDR comparison. Separate refit counts at FDR<0.05 and fold-change magnitude>1.5 lack a genome-wide author reference. No full-result acceptance is established.",
+      "conclusion": "A compatible sensitivity explains Npy; Explorer is not fully reproduced."
+    },
+    "mouse_pomc_fedfast_gse68177": {
+      "registeredContrastIds": [
+        "fast_vs_fed"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered Explorer TMM edgeR-QL versus author TMM limma-voom.",
+      "reference": "eLife 09800 supplement 1 version 2, POMC fed/food-deprived results.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "The author workbook, original counts and registered sheet contain the same five fasted and five fed POMC samples; FD/fast is an explicit naming translation. The primary manuscript states individual animals are replicates. See advancement-comparisons-2026-09-05/cohort-and-recovery-audit.json."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "24-hour food deprivation minus fed POMC neurons."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 27 Excel-date labels are recovered unambiguously using the original counts' Ensembl ID plus genomic locus, including both Marc2/March2. 14270 unique finite effect pairs cover 99.33% of registered genes. Effects and source bytes are unchanged; unmatched genes remain explicit filtering coverage limits."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both registered edgeR-QL and author limma-voom coefficients are log2 fold changes for fasting minus fed neurons. Whole-table Pearson is 0.86069966; the separately declared 8172-gene expressed subset has Pearson 0.95276054. Whole-table policy checks are not replaced by the expressed subset."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Paper-rule calls are 47 author and 67 local, with 40 shared. Unfiltered shared-gene FDR calls are 73 author and 63 local, with 50 shared. Model-specific P/FDR differences remain contextual to effect concordance."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "14270 of 14366 local and 16513 finite author effects join after source-ID recovery. Filtering leaves 96 local and 2243 author effects unpaired. Full-table and expressed-subset metrics retain their separate denominators."
+        }
+      },
+      "criteria": "Each method's mean CPM>20, q/FDR<0.05 and |log2FC|>1 are applied separately; unfiltered calls are distinct. No full-result acceptance is established.",
+      "conclusion": "Cohort and identifier gaps resolved. Whole-table correlation remains below the unchanged biological-effect policy; expressed-subset support is separately scoped."
+    },
+    "mouse_hypo_glylow_gse234483": {
+      "registeredContrastIds": [
+        "glylow_vs_control"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered Explorer acute-cohort edgeR; DESeq2 and limma sensitivities remain separate.",
+      "reference": "Table S1 Figure 3A/B, 32 selected genes and 128 normalized sample effects.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Exact acute four-Gly-Low/five-control cohort and source matrices verified."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "One-week Gly-Low minus control at four months."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 32 selected genes join."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "32/32 directions; Pearson 0.9985657. Sample-ratio agreement is independently documented."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Explorer calls 10,213 at FDR<0.05 versus the paper's 1,407; tested sensitivities do not resolve this."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "No complete acute author DE table; Table S2 remains access-blocked."
+        }
+      },
+      "criteria": "Selected effects and source ratios only; author P/FDR unavailable on these figure values. Genome-wide totals cannot establish gene-set agreement. No full-result acceptance is established.",
+      "conclusion": "Strong selected effects do not resolve the author discovery-count discrepancy."
+    },
+    "mouse_arc_agrp_trap_gse240484": {
+      "registeredContrastIds": [
+        "fast_vs_fed"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered seven-pool Explorer fasting contrast; the separately reproduced original author model is supporting evidence, not the signed-off output.",
+      "reference": "Zenodo 10967242 dea-rna-ffl-agrp archive, original fed_fasted.txt, design.tsv and dea.r; Supplementary Table 2.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "Exact same three fed/four fasted four-mouse pools. The author's joint model also uses four leptin pools, explicitly identified in the archived design."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Fasted minus fed AgRP ribosome-associated RNA, with the identical group contrast in original code and Explorer."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 21 numeric Excel-date IDs recovered from unique original-result matches. 12,916 shared gene IDs; six author genes are filtered from Explorer, including Fgb."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Registered Pearson 0.98572, median absolute log2FC difference 0.0289, and 999/999 strong author effects agree in sign. Separate author-code refit maximum log2FC residual 0.00000363."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Original three-condition/four-batch robust QL refit reproduces all 3,255 author FDR calls. Registered shared-test calls remain 3,254 author versus 445 Explorer, overlap 444. Whole-table Explorer has 491 calls, not 445."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Full 12,922-row author table with no missing P/FDR. 12,916 shared finite tests. Six author genes and 2,326 Explorer genes are unmatched; 46 Explorer discoveries without author rows are unassessed, not negative author tests."
+        }
+      },
+      "criteria": "Exact sample/gene mapping and input checksum. Unique five-statistic original-table matches recover corrupted workbook IDs. Compare finite shared FDR<0.05 tests separately from full positive sets. Source-code selection is FDR<=0.05, |log2FC|>=0.5 and logCPM>=1. Refit calls and normalized-cell precision match; small runtime residuals and registered inference still require review.",
+      "conclusion": "The author analysis and paper-selected list are reproduced with recovered code. The unchanged Explorer analysis has a documented model/filter difference and no full sign-off."
+    },
+    "mouse_hypo_maternal_hcd_gse242187": {
+      "registeredContrastIds": [
+        "mat_hcd_vs_rd"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered six-library male HCD-HCD versus RD-HCD edgeR-QL. Separate group-only DESeq2 diagnostics retain all deposited raw counts.",
+      "reference": "GSE242187_5A_vs_3A_control_vs_comparison.deseq.counts.csv.gz and .deseq.res.csv.gz; PMC10806294 section 3.3 and Figure 3.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "All six source count columns are conserved and six GEO male diet-history records match the contrast. Individual Mona library-number to GSM mapping remains inferred rather than explicitly deposited."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "HCD-HCD minus RD-HCD in male offspring, with postnatal HCD in both arms; maternal diet is the exposure."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "24,421 source/author rows; 15,358 registered genes. Five author discoveries are outside the registered output: Calcr, Ckm, Fezf1, Gabra6 and Sim1."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Registered Pearson 0.955187 and median absolute log2FC difference 0.071014; all 1,755 strong effects agree. Six-sample author baseMeans reproduce within 5.10e-10."
+        },
+        "inference": {
+          "status": "different",
+          "note": "15,290 paired finite-FDR tests contain 20 author discoveries and zero registered discoveries. Complete author 25 calls match the paper's seven up/eighteen down. Separate DESeq2 fits produce 55 or 57 calls, with only 12 author calls shared."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Five author discoveries lie outside the registered gene universe and 68 registered genes have missing author FDR. Original model settings and explicit individual library identifiers remain unresolved."
+        }
+      },
+      "criteria": "Exact count-cell preservation, author baseMean reproduction, explicit maternal-versus-offspring orientation, and FDR<0.05 comparisons limited to finite paired tests. Reconcile paper and full source totals before comparing the retained Explorer subset.",
+      "conclusion": "Source counts, normalization and published DEG totals are reconciled. Sample-identity and inference residuals require review."
+    },
+    "mouse_hypo_celastrol_gse252779": {
+      "registeredContrastIds": [
+        "celastrol_vs_vehicle"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered corrected integer-count edgeR; the DESeq2 reconstruction is separate.",
+      "reference": "GSE252779 Expression_data.xlsx, shifted PF_v_Veh.deseq sheet matching CS minus vehicle.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "GEO/SRA-defined four-versus-four CS/vehicle cohort; integer count sheet authenticated."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Five-sheet audit supports a systematic filename shift; the matching sheet is explicitly recorded."
+        },
+        "features": {
+          "status": "limited",
+          "note": "Documented Excel-date symbol recovery; 14,533 local genes join 19,661 author genes."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Registered Pearson 0.7950, Spearman 0.9420; all 298 author-significant directions agree."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Registered author/local calls are 298/93, overlap 83. Refit overlap 287 is not Explorer agreement."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Local filter retains only part of the author universe."
+        }
+      },
+      "criteria": "Registered effects and FDR<0.05 calls are separate from DESeq2 reconstruction metrics; identifier repairs are evidence-backed. No full-result acceptance is established.",
+      "conclusion": "Corrected source and sheet matching support a qualified, method-dependent comparison."
+    },
+    "mouse_hypo_fasting_gse289833": {
+      "registeredContrastIds": [
+        "fast18h_vs_fed"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered Explorer 18-hour fasting result.",
+      "reference": "Original PDF Table S1: 70 hypothalamus-only genes; Table S3: 11 shared HTH/hippocampus genes using only HTH columns. Table S2 is hippocampus only and excluded.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Manuscript whole-transcriptome sequencing specifies three fed and three fasted hypothalami; local FED1-3_Hypo and FASTED1-3_Hypo match GEO sample titles and the 18-hour fast."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Fasted minus fed orientation."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "80 of 81 author genes map locally."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Pearson 0.999985; all 80 mapped signs agree."
+        },
+        "inference": {
+          "status": "different",
+          "note": "78 mapped genes have local FDR<0.05; local FDR/effect-rule list has 105 genes."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Thresholded 81-gene reference omits the tested nonsignificant tail."
+        }
+      },
+      "criteria": "Mapped effects, FDR<0.05 and |log2FC|>1 list counts; absent rows are not author negatives. No full-result acceptance is established.",
+      "conclusion": "Selected effects agree closely; complete result equivalence remains untested."
+    },
+    "mouse_hypo_aging_gse314817": {
+      "registeredContrastIds": [
+        "aged_vs_young"
+      ],
+      "target": "derived_author_effect",
+      "resultScope": "effects_only",
+      "basis": "Derived average of sex-specific author effects is compared descriptively with the registered additive-sex age effect.",
+      "reference": "Table S2, separately filtered male/female aging trajectories, 27 versus six months.",
+      "assessment": "not_comparable",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Explorer uses 16 young and 20 old animals; author eligibility/filtering is sex-stratified."
+        },
+        "contrast": {
+          "status": "different",
+          "note": "Averaging sex-specific listed effects is not the registered additive-sex model estimand."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "753 listed genes join after endpoint reconstruction."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Reconstructed-average Pearson 0.93550; all 710 strong signs agree, but not the same estimand."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "Trajectory P/FDR cannot be converted into the pooled endpoint test."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Sex-filtered trajectory lists do not cover the full pooled tested universe."
+        }
+      },
+      "criteria": "Descriptive averaged-endpoint effects and |author log2FC|>=0.5 signs only; no combined author P/FDR. No full-result acceptance is established.",
+      "conclusion": "Related age effects support interpretation but cannot validate the displayed model directly."
+    },
+    "mouse_hypo_astro_aging_gse99791": {
+      "registeredContrastIds": [
+        "aged_vs_young"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered Explorer GFAP-RiboTag aging result.",
+      "reference": "Original Table S3 HTH up aged and HTH down aged sheets,769 rows including 767 finite arithmetic-FPKM fold changes, raw P and adjusted P.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Paper states three separate GFAP-RiboTag mice per age and region; GEO/local HTH IP samples are GSM2652332-34 and GSM2652336-38. Input samples and other regions are excluded."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Two years minus four months after conversion to log2."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "748 author-listed genes join."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Pearson 0.99876; 653/654 strong effects agree."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "Selected original P/FDR columns are now parsed; paired finite tests give 748 author and 593 local FDR<0.05 calls. Selected-list absence is not a negative author test."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Selected 767-row reference does not cover all 1,152 local FDR calls or author-tested genes."
+        }
+      },
+      "criteria": "Converted effects, |author log2FC|>=0.5 directions and local FDR<0.05 retention of listed genes. No full-result acceptance is established.",
+      "conclusion": "Selected aging effects are supported; all-gene inference remains limited."
+    },
+    "mouse_hypo_spatial_aging_gse270383": {
+      "registeredContrastIds": [
+        "aged_vs_young"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered animal-pseudobulk edgeR-QL, not author profile-level Monocle2.",
+      "reference": "Author Table S5, Section_3 hypothalamus, 33 selected genes.",
+      "assessment": "not_established",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Three female animals per age locally; the author's final retained-profile/barcode cohort is unpublished."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Both report 23-month minus four-month hypothalamus, but biological units differ."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 33 listed genes join."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "All 33 directions agree; Pearson 0.984086."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Profile-level Monocle2 P/q are not comparable animal-level P/FDR; 12 listed genes pass local FDR."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Selected list and unknown final profile eligibility prevent whole-result comparability."
+        }
+      },
+      "criteria": "Author selection q<0.05, FC>3 and maximum TPM>50; compare selected effects only. Profile P/q are not imported as equivalent negative/positive tests. No full-result acceptance is established.",
+      "conclusion": "Unknown final profile cohort prevents establishing an equivalent author analysis."
+    },
+    "mouse_hypo_spatial_cr_gse273038": {
+      "registeredContrastIds": [
+        "cr_vs_al"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered animal-level edgeR-QL, not author spot-level Monocle2.",
+      "reference": "Official Table S3, 59 selected hypothalamus CR-versus-ad-libitum genes.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "Local two-section aggregation yields three animals per group; author tests spots."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "CR minus ad-libitum tissue contrast matches, with different units of analysis."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "58 of 59 author genes map."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Pearson 0.99232; all 58 strong signs agree."
+        },
+        "inference": {
+          "status": "different",
+          "note": "All 59 author-listed genes are spot-level significant; local animal-level FDR<0.05 has none."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Selected spot-level genes are not a full animal-level testing reference."
+        }
+      },
+      "criteria": "Effect comparisons and descriptive local FDR<0.05; spot-level significance is not treated as an equivalent animal test. No full-result acceptance is established.",
+      "conclusion": "Regional effects are comparable with qualifications; inference is not."
+    },
+    "mouse_mhypoa_palmitate_gse280030": {
+      "registeredContrastIds": [
+        "palmitate_vs_vehicle"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered seven-library edgeR-QL; a separate all-15-culture DESeq2 reconstruction reproduces the 1,418 significant IDs, not every statistic exactly.",
+      "reference": "Data_Sheet_2.xlsx, full 27,978-gene PA-versus-CTR result.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "Same four PA and three control cultures; author dispersion model also uses eight other-condition cultures."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "PA minus control."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 11,309 local Ensembl IDs join."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Registered effect Pearson 0.99981992; all 1,358 shared author-significant directions agree."
+        },
+        "inference": {
+          "status": "different",
+          "note": "On 11,292 paired finite-FDR genes, 1,358 author/836 local calls overlap at 812; separate refit exactness does not transfer."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "17 shared genes lack author FDR; 60 author-significant genes lie outside the local filter."
+        }
+      },
+      "criteria": "FDR<0.05 shared-finite Jaccard 0.58755427. Missing FDR, including Ctsw/Dynap, is unassessed. The 1,418-ID refit match is not an Explorer acceptance criterion. No full-result acceptance is established.",
+      "conclusion": "Strong effect agreement; registered inference remains different despite successful author-model reconstruction."
+    },
+    "rat_son_dehydration_gse175461": {
+      "registeredContrastIds": [
+        "dehydrated_vs_euhydrated"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered Explorer edgeR-QL versus the full deposited DESeq2 table. The all-source-gene DESeq2 reconstruction is separate.",
+      "reference": "GSE175461_author_DE.csv.gz: 32,402 source-matching rows, 22,159 finite effects, 22,154 raw P values and 14,613 finite FDR values.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Five euhydrated and five 72-hour-dehydrated rat SON libraries match GEO and the author sample columns. All 324,020 normalized sample values reproduce at their saved precision; original and renumbered control tokens remain distinct."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Dehydrated minus euhydrated SON, confirmed by the source cohort and full author-compatible reconstruction."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 15,305 registered Ensembl IDs join. The full 32,402-ID author set exactly equals source counts; local filtering removes 10,243 zero and 6,854 nonzero author rows."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Registered Pearson 0.99978186 and median absolute difference 0.00280814; all 619 strong and 2,246 strict author-significant effects agree in direction. Separate reconstruction agrees within every printed effect interval."
+        },
+        "inference": {
+          "status": "different",
+          "note": "On 14,605 paired finite-FDR genes, strict calls are 2,246 author/1,916 registered with 1,901 shared. Source-compatible DESeq2 with alpha=0.05 reproduces author statistics and exclusions within saved precision, but this does not transfer to registered edgeR."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "700 registered genes lack author FDR, including 20 local discoveries. Two published FDR values round to 0.0500 and are threshold-ambiguous. Eight finite-FDR author rows are filtered locally, none strictly significant."
+        }
+      },
+      "criteria": "Use original strict FDR<0.05 on paired finite statistics: Jaccard 0.84077842, denominator 14,605. Excluding two rounded boundary genes leaves 14,603 and the same calls. Missing FDR is unassessed. The separate reconstruction uses per-token rounding intervals and exactly matching missingness; its 2,247 reconstructed discoveries are not a registered-output acceptance criterion.",
+      "conclusion": "Cohort, normalization and author-model reconstruction now have direct numerical support; the unchanged registered model retains inferential and reference-coverage limitations."
+    },
+    "rat_pvn_adolescent_stress_gse169296": {
+      "registeredContrastIds": [
+        "stress_vs_nonstress"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered edgeR-QL versus proprietary CLC bROC confidence result.",
+      "reference": "GSE169296_Male_control_and_stress_PVN.csv.gz.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "The retained CLC export and registered sheet contain exactly six male PVN animals: controls M9/M17/M24 and stressed M2/M11/M12, with matching GEO accessions and3 biological replicates per group. Author bootstrap pseudo-replicates are confined to inference. See advancement-comparisons-2026-09-05/cohort-and-recovery-audit.json."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Adolescent restraint stress minus control."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 13,839 local genes join."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Registered edgeR log2FC and deposited bROC log2-scale fold change both measure stress minus control in the same male PVN cohort. The paper documents log2 transformation and MMV normalization for bROC. Quantitative differences are evaluated independently; GINI confidence is not an adjusted P value."
+        },
+        "inference": {
+          "status": "different",
+          "note": "GINI/bROC confidence from pseudo-replicates is not a BH-adjusted P value."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "13,839 shared of 32,623 author rows; confidence coverage is not FDR coverage."
+        }
+      },
+      "criteria": "Effect/sign comparison and author bROC confidence>=0.95. Do not interpret confidence as FDR or compare zero local FDR calls as failed bROC replication. No full-result acceptance is established.",
+      "conclusion": "Cohort/identifier evidence now supports the biological-effect comparison. Historical inference and full-author-result coverage limits remain explicit; no exact-reproduction sign-off is inferred."
+    },
+    "mouse_agrp_fedfast_gse124693": {
+      "registeredContrastIds": [
+        "fast24h_vs_fed"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered limma on deposited log2-normalized expression versus author raw-count DESeq2.",
+      "reference": "Table S2D in NIHMS1022948 TableS2.xlsx, 1,950 selected ZT14 AgRP RiboTag genes.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "Matching ZT14 AgRP-Cre RiboTag feeding comparison; ribosome-associated RNA is the measured material."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "ZT14 fasted minus ad-libitum fed."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 1,950 genes join after documented Excel-date/Entrez recovery."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Pearson 0.950889; five opposite local estimates are near-zero and nonsignificant."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Local limma retains 658 author-listed calls at FDR<0.05; unavailable raw-count precision prevents identical inference."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Significant-only author list; absent genes are not author negatives."
+        }
+      },
+      "criteria": "Selected effects/directions and local FDR<0.05 retention. No full-universe Jaccard or absent-row negative classification. No full-result acceptance is established.",
+      "conclusion": "Selected translatome effects are supported; a different expression-scale model remains."
+    },
+    "mouse_gt17_mkrn3_gse160467": {
+      "registeredContrastIds": [
+        "mkrn3_overexpression_vs_wild_type"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered edgeR-QL versus deposited DESeq2 after count-vector-backed author-label recovery. The separate author-normalization DESeq2 reconstruction is supporting evidence only.",
+      "reference": "GSE160467_MKRN3_control_DEseq2.csv.gz: 13,040 author rows, including 20 labels resolved by exact six-library counts; 9,500 finite adjusted P values.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Three empty-vector controls and three MKRN3-overexpression GT1-7 cultures; six source count columns exactly match registered inputs."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "MKRN3 overexpression minus empty-vector control. The registry's wild_type label denotes this culture control, not an in-vivo genotype."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "6,252 exact source-symbol joins after 20 uniquely count-backed label recoveries. No guessed date-symbol substitutions or duplicate-label collapse."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Registered log2FC Pearson 0.998917, median absolute difference 0.026082, maximum 0.699822 on 6,252 joined genes."
+        },
+        "inference": {
+          "status": "different",
+          "note": "On 6,252 paired finite tests, FDR<=0.05 calls are 760/1,129 with 756 overlap; adding |log2FC|>=1 yields 642/922 with 635 overlap. Separate refit agreement is not registered inference."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "6,252 of 6,259 registered genes join. The seven missing author rows are local discoveries and remain unassessed. Full author FDR is missing for 3,540 of 13,040 rows, not set to one."
+        }
+      },
+      "criteria": "Unique six-count-vector recovery (normalization reversal within 0.01 raw count, then exact integer-vector equality); descriptive effects; finite shared FDR<=0.05 Jaccard 0.667255 and paper FDR<=0.05 plus |log2FC|>=1 Jaccard 0.683531. Full observed author/local positives are reported separately from shared-finite counts. No full-result acceptance is established.",
+      "conclusion": "Author labels, normalization and the published 749-gene rule are reconciled in separate evidence. Registered discovery breadth and incomplete author coverage still prevent full verification."
+    },
+    "mouse_mhypoa_cbd_gse270378": {
+      "registeredContrastIds": [
+        "cbd_3um_24h_vs_vehicle_24h"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered six-library edgeR-QL versus author 24-hour DESeq2. A separate source-supported 15-library group model reproduces the 13 significant IDs but is not Explorer.",
+      "reference": "Official 13353_2025_970_MOESM3_ESM.xlsx, 24h sheet, CTR_24h_A-CBD3_24h_A columns: 20,510 finite effects and 9,374 finite FDRs within 56,943 annotation rows.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "Exact three CBD3/three vehicle cultures at 24h define the target contrast and raw counts match. Author fitting across all 15 same-time dose/vehicle libraries is strongly supported by the workbook and separate reconstruction, not an identical registered fitting cohort."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "CBD3 at 24h minus vehicle at 24h; negate the workbook's control-minus-CBD effect."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 11,242 registered genes have exact Ensembl effect joins; 20,510 author effects are finite."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Registered Pearson 0.998920, median absolute log2FC difference 0.008668 and maximum 0.146868 on 11,242 genes."
+        },
+        "inference": {
+          "status": "different",
+          "note": "9,373 paired finite FDRs; paper FDR<0.1 calls 13 author/one registered, overlap one (Jaccard 0.076923). Author raw P is unavailable."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "1,869 registered effect rows lack author FDR; none is a local FDR<0.1 call. One finite author FDR lies outside Explorer. Matching all local effects is not full inferential coverage."
+        }
+      },
+      "criteria": "Exact source-count equality, exact Ensembl joins, reversed contrast orientation, descriptive effects and paired-finite paper FDR<0.1 calls; FDR<=0.05 is separately seven versus one. Missing adjusted P is excluded, never assigned one. No full-result acceptance is established.",
+      "conclusion": "The author all-dose model context now has strong numerical support, but registered pairwise inference, missing author tests and historical-setting residuals keep verification partial."
+    },
+    "mouse_hypo_clic1_gse229799": {
+      "registeredContrastIds": [
+        "clic1_ko_vs_wild_type"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered conservative four-versus-four limma; alternative cohort fits are sensitivities.",
+      "reference": "Deposited 14,351-gene author result, intended five-KO/five-WT comparison.",
+      "assessment": "not_established",
+      "dimensions": {
+        "cohort": {
+          "status": "different",
+          "note": "Author intends five/five; registered four/four avoids K10/WT10 and W15 provenance conflicts."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "KO minus WT concept matches, but disputed sample labels prevent an equivalent cohort."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 14,333 local genes join."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Registered Pearson 0.737711; better five/five sensitivity agreement does not establish genotype provenance."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Author limma-voom raw-count precision is unavailable; 30 FDR calls overlap the registered fit."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Near-complete row overlap cannot resolve disputed source samples or missing voom information."
+        }
+      },
+      "criteria": "Registered effects and FDR<0.05 overlap only. Alternative cohort correlations are not a basis for choosing genotypes. No full-result acceptance is established.",
+      "conclusion": "Equivalent cohort comparability is not established; no silent cohort change."
+    },
+    "mouse_hypo_lps_gse281503": {
+      "registeredContrastIds": [
+        "lps_vs_saline_vehicle"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered four-versus-four edgeR-QL versus full deposited CLC EDGE.",
+      "reference": "GEO daridorexant/LPS workbook, 49,585-gene LPS+vehicle versus saline+vehicle result; paper S1 is a distinct view.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Same four deposited animals per group; not the two-column subset displayed in paper S1."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "LPS plus vehicle minus saline plus vehicle."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 16,974 local genes join the full author table."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Pearson 0.70337876 overall; 350/351 retained author-significant directions agree. Pde4b reverses."
+        },
+        "inference": {
+          "status": "different",
+          "note": "FDR<0.05 gives 374 full author/565 local calls, overlap 317; inference models differ."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "23 author FDR calls are filtered locally; S1's 214 names are not the complete author result."
+        }
+      },
+      "criteria": "Full and shared universes are separate. Paper rule FDR<0.05 and |log2FC|>=1 gives 265/318 calls, overlap 225. No full-result acceptance is established.",
+      "conclusion": "A full reference is available, but effects and inference are not uniformly reproduced."
+    },
+    "mouse_hypo_smc3_gse243287": {
+      "registeredContrastIds": [
+        "smc3_cko_vs_control"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered limma-trend on deposited transformed CPM versus author edgeR.",
+      "reference": "GSE243287_Top-et.Fix4.txt.gz; original bioRxiv preprint 10.1101/2024.04.07.588459v1, inspected through the browser. Source findings: data/author-validation/continued-sources/round4-2026-09-05/GSE243287/BROWSER_SOURCE_REVIEW.md.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Same deposited seven WT/five cKO genotype comparison. The original preprint Figure 5 says six weeks after tamoxifen, whereas GEO labels five weeks; that source discrepancy remains unresolved. Raw counts needed for identical count-model processing were not deposited."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Smc3 cKO minus WT."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 31,802 local genes join 32,494 author rows."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Overall Pearson 0.361963 and 97.2% all-gene sign agreement remain unchanged. The original preprint specifies DESeq2, while the prior deposited-table comparison describes edgeR; the exact reference model is unresolved. The expressed-gene subset does not replace the full comparison."
+        },
+        "inference": {
+          "status": "different",
+          "note": "FDR<0.05 calls are 1,604 author/1,814 local in shared rows, overlap 1,225."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Low-expression coefficients and different filtering limit whole-table equivalence."
+        }
+      },
+      "criteria": "Report all genes and the 15,567-gene author logCPM>=0 subset separately; FDR<0.05 calls do not make raw-count inference reproducible. No full-result acceptance is established.",
+      "conclusion": "Close expressed-gene effects do not establish all-gene or exact inference agreement."
+    },
+    "mouse_mpoa_pnoc_bactrap_gse306829": {
+      "registeredContrastIds": [
+        "pnoc_ip_vs_input"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered paired edgeR-QL versus the deposited author result. A separate group-only DESeq2 diagnostic empirically reproduces the author's inference and is not the Explorer output.",
+      "reference": "GSE306829_IPvsInput_deg.txt.gz, 27,884 source genes and six matched Input/IP count columns; follow-up evidence reviewed 2026-09-04.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Current GEO SOFT confirms three independent pools of three female mice and their six matched IP/input libraries. No cohort exclusions or promoted animal replicates."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "PNOC-IP minus matched input is pooled-animal translatome enrichment, not an intervention or whole-tissue expression contrast."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 19,952 final Explorer genes join exact Ensembl IDs. All 167,304 source counts are conserved. Registered expression filtering retains 19,958 genes, with six absent after final projection."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Registered effect Pearson 0.998468 and all 10,900 shared author effects of magnitude at least 0.5 have matching directions. Near-exact separate group-only DESeq2 effects do not establish equality for Explorer."
+        },
+        "inference": {
+          "status": "different",
+          "note": "On 19,929 modeled-finite shared FDR rows, Explorer has 7,278 FDR<0.05 calls versus 6,564 author calls, overlap 6,412 and Jaccard 0.862988. Exclude 23 shared author-missing tests and report their 17 Explorer-significant calls as author-unevaluable. Historical placeholder-inclusive local 7,295/Jaccard 0.861018 is secondary only. A separate group-only DESeq2 default-filter fit reproduces all 6,642 whole-author calls; original formula/version remains undocumented."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The author table has 27,884 genes, registered expression filtering retains 19,958, and final Explorer has 19,952. Missing author tests and 5,432 author-exported adjusted-P placeholder 1s remain separately identified; absent Explorer genes are not fabricated negative calls."
+        }
+      },
+      "criteria": "Predeclared absolute tolerances were 1e-6 for effects and 1e-8 for raw/adjusted P values; the separate reconstruction does not pass them for every row despite identical FDR<0.05 sets. Compare whole and shared universes and paired-finite P values separately. No full-result acceptance is established for the registered output.",
+      "conclusion": "Source counts, normalization and strong enrichment effects are supported. Author group-only inference is empirically reconciled, but registered paired inference, feature projection and missing original model documentation keep Explorer partially verified."
+    },
+    "human_ipsc_hypo_obesity_gse95243": {
+      "registeredContrastIds": [
+        "obesity_vs_control_sex_adjusted"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered edgeR-QL; group-only/OLS/rounding diagnostics are separate.",
+      "reference": "GSE95243_author_DE.csv.gz, obesity-derived/control hypothalamic neurons.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Donor-group comparison corresponds; author model/covariate equivalence is not fully reconstructed."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Obesity-derived minus control neurons; local sex adjustment is explicit."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 17,421 local genes join."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Pearson 0.679679 overall, 0.821919 at author baseMean>=1000; 23 shared author-significant directions reverse."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Author has 645 shared FDR calls; local and tested alternative diagnostics have none."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "17,421 shared of 25,199 author genes; expressed-subset agreement does not cover the remainder."
+        }
+      },
+      "criteria": "FDR<0.05 and effect comparisons; baseMean>=1000 subset is reported separately. Diagnostics do not prove historical-model equivalence. No full-result acceptance is established.",
+      "conclusion": "Partial effect support with substantial unresolved inferential differences."
+    },
+    "mouse_hypo_lef1_gse98519": {
+      "registeredContrastIds": [
+        "lef1_cko_vs_control_p22"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered six-library edgeR-QL versus author P22 DESeq2. The separate DESeq2 reconstruction's four-ID agreement does not apply to Explorer.",
+      "reference": "Official GSE98519_P22_S6_Table.xlsx, Analyzed Genes: 17,779 rows; mutant-minus-WT effects, raw P and -10log10(adjusted P).",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Three P22 male single-hypothalamus samples per genotype; every embedded raw count matches the official six-library matrix. Embryonic pooled samples are excluded."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "P22 Lef1 conditional knockout minus littermate control; no invented litter-pair term."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Exact Ensembl joins cover all 16,819 registered genes within 17,779 author rows."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Registered Pearson 0.999139, median absolute log2FC difference 0.001138; descriptive agreement, not numeric identity."
+        },
+        "inference": {
+          "status": "different",
+          "note": "16,818 paired finite FDR values; four author versus two registered FDR<=0.05 calls, overlap two. Ambiguous transformed-zero author FDRs are excluded."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All registered effects join, but 960 author rows are outside the local universe and one registered row has author-missing/ambiguous inference; matching effects is not complete test coverage."
+        }
+      },
+      "criteria": "Exact raw-count equality, exact Ensembl joins, descriptive effect deltas, and paired-finite FDR<=0.05 calls (Jaccard 0.5). Author adjusted P is 10^(-score/10), except zero scores remain unknown. No full-result acceptance tolerance is established.",
+      "conclusion": "Cohort/count provenance is reconciled and effects are close. Separate DESeq2 call-set reproduction does not resolve registered inferential differences or all historical numerical residuals."
+    },
+    "mouse_vmh_thrb_gse98690": {
+      "registeredContrastIds": [
+        "vmh_thrb_knockout_vs_control"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered limma on deposited log2-CPM versus author edgeR-LRT.",
+      "reference": "Official Table S1, 1,960 significant VMH Thrb-knockdown genes.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Exact three-control/four-knockdown contrast; log2-CPM source and metadata are pinned."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "AAV-Cre Thrb knockdown minus AAV-GFP."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "1,959 author genes join the symbol-deduplicated local output."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Pearson 0.982240; all 1,959 directions agree."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Local limma retains 1,642 author calls and has 1,987 FDR calls overall."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Selected significant list lacks the full author-tested tail; one listed gene is not joined."
+        }
+      },
+      "criteria": "Effects and author-list retention at FDR<0.05; list overlap is not full-universe inference agreement. No full-result acceptance is established.",
+      "conclusion": "Selected effects agree, while model and coverage remain qualified."
+    },
+    "mouse_gt17_orexin_gse99690": {
+      "registeredContrastIds": [
+        "orexin_a_3h_vs_vehicle_paired"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered six-library replicate-blocked edgeR-QL; nine-library three-condition DESeq2 sensitivities are separate evidence.",
+      "reference": "GSE99690_GT1-7-OxR1-RNA-Seq_mm10_Results.xlsx, RawGeneCounts, NormalizedGeneCounts and Oxa3h_VS_Neg; PLOS methods, DESeq2 1.10.1.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "All six registered vehicle/three-hour GSMs match titles, descriptions and workbook columns. Author normalization also includes three eight-hour libraries, handled as a model-scope difference."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Three-hour orexin-A minus vehicle. Registered model blocks replicate series; source-supported author diagnostic uses all nine libraries and a three-condition group term without that block."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 15,800 registered genes join the 37,411-row author table. It has 25,989 finite effects and 17,129 finite FDRs; 860 genes are expressed only in the eight-hour arm."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Registered Pearson 0.928194 and median absolute difference 0.018905; all 1,792 strong author effects agree in direction. Separate nine-library legacy-prior diagnostic Pearson 0.999669."
+        },
+        "inference": {
+          "status": "different",
+          "note": "15,799 paired finite tests: 5,104 author BH-FDR<0.05, 6,434 registered, 5,101 shared, Jaccard 0.792450. Crtam is a registered discovery with missing author FDR. Full call sets are 5,118 and 6,435."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Six-library counts are conserved, but original model/filter settings and author-to-registered feature eligibility are not fully reconciled. The successful nine-library normalization is not a registered-output sign-off."
+        }
+      },
+      "criteria": "Check identifiers and integer counts exactly, normalize all nine columns independently, retain missing author FDR, compare registered effects and paired finite BH-FDR<0.05 sets. Historical-style refits are separate evidence, not replacements.",
+      "conclusion": "The nine-library normalization discrepancy is resolved. Registered model scope, inference and one unavailable author FDR still prevent full verification."
+    },
+    "chicken_poah_ehc_gse298648": {
+      "registeredContrastIds": [
+        "ehc_vs_control_poah_hour2_sex_adjusted"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered sex-adjusted eight-sample POAH result; no author-wide model reconstruction.",
+      "reference": "Open Table 5, 18 hour-two EHC/control genes with Ensembl IDs, effects and P/FDR.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Local sex-balanced hour-two cohort is known; author dispersion fitting across the study is not specified."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Hour-two POAH EHC minus control."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 18 original Ensembl IDs map uniquely through the registered source map; 15 are fitted and three are filtered out. No symbol guesses or selected-row omissions are used."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "All 15 matched published logFC directions agree; Pearson 0.96917116 and Spearman 0.975. Original effect signs match the author direction labels."
+        },
+        "inference": {
+          "status": "different",
+          "note": "All 18 author rows meet FDR<=0.1; local minimum FDR is 0.120695. Stated effect cutoff conflicts with BEND3."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All 18 author-selected genes are retained in the reference; 15 join and three remain unassessed. Coverage is 83.3%, and the selected list is not a full tested universe."
+        }
+      },
+      "criteria": "All 18 original Table 5 rows are measured through exact Ensembl mappings. Author FDR<0.1 is distinguished from generic FDR<0.05 metrics. The selected 18-gene table is below the badge minimum of 30; no cutoff is lowered.",
+      "conclusion": "Complete selected-table comparison supports 15 matching directions but leaves cohort/model, source threshold and reference-coverage limitations."
+    },
+    "mouse_arc_corticosterone_gse128148": {
+      "registeredContrastIds": [
+        "corticosterone_4week_vs_vehicle"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered edgeR-QL; beta-prior and author-universe DESeq2 diagnostics remain separate.",
+      "reference": "Official 2019_Wray_4week_normalised_outliers_excluded.txt.gz, 22,048 rows with DESeq2 results.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Same three vehicle/four Cort libraries; all source counts and normalization were checked."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Four-week corticosterone minus vehicle in male ARC."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 11,208 local Ensembl IDs join."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Registered Pearson 0.899632; all 42 retained author-significant directions agree."
+        },
+        "inference": {
+          "status": "different",
+          "note": "At FDR<0.1 author 43/local nine, overlap six. Conditional refit recovery of 43 is not Explorer inference."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Only 14,207 author raw P and 9,082 adjusted P values are finite; missing tests are unassessed."
+        }
+      },
+      "criteria": "FDR<0.1 paper rule, shared finite-value comparisons and explicit missing-P exclusion. Npy figure raw/adjusted-P labeling conflicts with the deposit. No full-result acceptance is established.",
+      "conclusion": "The compatible sensitivity explains much of the gap but does not validate historical filtering or registered inference."
+    },
+    "rat_fetal_hypo_ozone_gse156859": {
+      "registeredContrastIds": [
+        "female_fetal_ozone_vs_air"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered limma mean-log effects; arithmetic-ratio diagnostics are separate estimators.",
+      "reference": "mmc1.docx Table S5, 168 selected female GD21 hypothalamus genes.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Six air and six ozone litters; group means match the deposited values."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Female fetal hypothalamus ozone minus air."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 168 selected genes join."
+        },
+        "effects": {
+          "status": "different",
+          "note": "Author arithmetic ratios and registered mean-log differences are algebraically distinct; all 168 signs agree."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Author Partek multimodel versus limma. Nominal rounded P is supplied, no author FDR."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Selected genes only; 13 extra local diagnostic calls cannot be labeled author negatives."
+        }
+      },
+      "criteria": "Published signed ratios match within 0.005 rounding. Nominal P<=0.05 and arithmetic FC>=1.3 are checked separately from local FDR; rounded 0.00 is not exact zero. No full-result acceptance is established.",
+      "conclusion": "Source and effect interpretation are supported; exact inferential replication is not."
+    },
+    "mouse_hypo_thrb_k146q_gse167105": {
+      "registeredContrastIds": [
+        "thrb_k146q_vs_wild_type"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered limma on deposited transformed normalized expression versus author edgeR.",
+      "reference": "GSE167105_Hypothalamus_3Hb_vs_3WT_all.txt.gz.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Matching genotype groups; raw counts needed for original count-model reconstruction are absent."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "K146Q mutant minus WT."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 19,771 local genes join 24,052 author rows."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "All-gene Pearson 0.445671, Spearman 0.926561; high-expression agreement is stronger."
+        },
+        "inference": {
+          "status": "different",
+          "note": "All six author FDR directions agree, but registered analysis has zero FDR calls."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Author logCPM>=4 subset contains 9,848 shared genes, not the whole modeled universe."
+        }
+      },
+      "criteria": "FDR<0.05, strong-effect signs and the documented logCPM>=4 subset are distinct descriptive checks; missing raw counts prevent exact model reproduction. No full-result acceptance is established.",
+      "conclusion": "Low-expression effects and count-versus-matrix inference limit comparability."
+    },
+    "mouse_scn_trf_gse190389": {
+      "registeredContrastIds": [
+        "trf_vs_ad_libitum_zt_adjusted"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered ZT-adjusted edgeR-QL; no-ZT/legacy reruns are separate sensitivities.",
+      "reference": "Mendeley V1 full SCN DE workbook and normalized-expression/sample-list workbook.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Same 45 libraries, 23 ALF/22 TRF, after the three explicitly listed exclusions."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "TRF minus ALF; local adjusts ZT, author mean-expression model does not."
+        },
+        "features": {
+          "status": "limited",
+          "note": "16,192 shared unique symbols; 37 source-expression rows differ between representations despite exact local extraction."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Registered Pearson 0.689151; all 22 author-significant directions agree."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Only one of 22 author calls is locally significant; tested model sensitivities do not resolve the gap."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "16,192 of 16,999 local and 18,846 author rows join; historical runtime provenance is incomplete."
+        }
+      },
+      "criteria": "Author FDR<=0.05 with logCPM>0; local FDR<=0.05 on its registered filter. Whole versus shared coverage and source residuals stay separate. No full-result acceptance is established.",
+      "conclusion": "Cohort agreement is established, but source-row and inference discrepancies remain."
+    },
+    "chicken_hypo_development_gse104255": {
+      "registeredContrastIds": [
+        "six_week_vs_three_week"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered edgeR-QL versus author DESeq2.",
+      "reference": "GSE104255_res.pod.csv.gz, six-week/three-week male broiler hypothalamus.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "Same processed counts and age contrast; no independent complete eligibility sign-off is recorded."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Six weeks minus three weeks."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "14,350 shared of 14,912 local and 14,371 author genes."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Pearson 0.902588; four shared author-significant directions reverse."
+        },
+        "inference": {
+          "status": "different",
+          "note": "FDR<0.05 shared counts are 2,395 author/158 local, overlap 157."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Nearly all author rows join, but filtering and usable sign/test denominators differ."
+        }
+      },
+      "criteria": "Effects, |author log2FC|>=0.5 signs and FDR<0.05 calls; missing/nonfinite values cannot become negative tests. No full-result acceptance is established.",
+      "conclusion": "Age effects have qualified support; registered inference is substantially narrower."
+    },
+    "chicken_hypo_lcitrulline_gse202003": {
+      "registeredContrastIds": [
+        "lcitrulline_vs_basal_thermoneutral"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered edgeR-QL versus deposited DESeq2.",
+      "reference": "GSE202003_CON_vs_A.DESeq.xlsx, basal diet versus 1% L-citrulline at 24 C.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "All 12 thermoneutral source samples match: GSM6086522\u20136086527 / CON 1\u20136 controls and GSM6086528\u20136086533 / A1\u20136 L-citrulline. The original expression workbook, GEO sample titles and registered sheet agree; one bird from each of six independent replicates per group was sampled at day 42. See advancement-comparisons-2026-09-05/cohort-and-recovery-audit.json."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Group A L-citrulline minus control."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 13,446 local genes join 15,564 author rows."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Pearson 0.999572; all 600 strong signs agree."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "Neither result calls a shared gene at FDR<0.05; empty call sets do not prove identical P/FDR."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Local filtering retains only part of the author result."
+        }
+      },
+      "criteria": "Effect/direction checks and FDR<0.05 shared calls. An empty-set Jaccard is not evidence of exact inference agreement. No full-result acceptance is established.",
+      "conclusion": "Cohort/identifier evidence now supports the biological-effect comparison. Historical inference and full-author-result coverage limits remain explicit; no exact-reproduction sign-off is inferred."
+    },
+    "pig_hypo_genotype_gse201408": {
+      "registeredContrastIds": [
+        "iberian_vs_crossbred_sex_adjusted"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered sex-adjusted 10/10 normalized-expression limma; no animal is removed by this review.",
+      "reference": "PLOS S4, 51 selected Iberian/crossbred significant genes.",
+      "assessment": "not_established",
+      "dimensions": {
+        "cohort": {
+          "status": "different",
+          "note": "Author excludes an unidentified male Iberian outlier, using 9/10 versus registered 10/10."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Author crossbred-minus-Iberian effects are negated to registered Iberian minus crossbred."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 51 Ensembl IDs join uniquely."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "All 51 signs agree; Pearson 0.974212."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Author count DESeq2 versus local transformed-expression limma; only one listed gene passes the local author-rule test."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Selected list and unresolved excluded-animal identity prevent full-cohort/full-universe equivalence."
+        }
+      },
+      "criteria": "FDR<0.1 and absolute FC>=1.2; compare listed genes only, with the two-versus-51 whole-call totals explicitly non-equivalent in cohort. No full-result acceptance is established.",
+      "conclusion": "Equivalent cohort comparability is not established despite strong selected effects."
+    },
+    "chicken_hypo_rfi_gse278826": {
+      "registeredContrastIds": [
+        "high_vs_low_residual_feed_intake"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered edgeR-QL high-minus-low RFI; sample-normalization checks are source diagnostics.",
+      "reference": "mmc5.xlsx Table S4, 257 nominal-P/FC-selected genes and ten sample columns.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Five two-bird pools per group; all 257 sample-expression rows match deposited counts after sample scaling."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Author low-minus-high effects are negated to high minus low."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 257 source IDs match; 90 remain in the local fitted universe."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "90/90 fitted directions agree; Pearson 0.99994994."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Author DESeq2 versus edgeR-QL; two selected author FDR<0.05 genes versus zero locally."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "167 selected genes are outside local filtering; the selected reference lacks the full nonsignificant tail."
+        }
+      },
+      "criteria": "Nominal P<0.05 and |log2FC|>1 separately from FDR. Seventy of 90 matched genes pass locally. Source-scaling residual below 6.2e-12 is not an inferential tolerance. No full-result acceptance is established.",
+      "conclusion": "Source and selected effects agree; inference and tested coverage remain qualified."
+    },
+    "zebrafish_hypo_cyp19a1b_gse299412": {
+      "registeredContrastIds": [
+        "cyp19a1b_mutant_vs_wild_type_male"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered edgeR effect versus selected author rlog means/direction flags; normalization diagnostics are separate.",
+      "reference": "Table S4, male-hypothalamus subset of 231 genes from a 703-gene cross-comparison union.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Six WT and five mutant biological pools, three fish per pool."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Male hypothalamus mutant minus WT, not the 12-comparison union."
+        },
+        "features": {
+          "status": "limited",
+          "note": "All 231 source symbols exist; 179 join the local fitted table and 52 are filtered out."
+        },
+        "effects": {
+          "status": "different",
+          "note": "Author rlog-mean differences are not edgeR logFC; 170/179 signs agree, with nine unresolved reversals."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "Author table has no P/FDR values; 55 local FDR calls among listed genes cannot establish inferential agreement."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Selected union/subset lacks all-tested coverage; absent rows are not negatives."
+        }
+      },
+      "criteria": "Direction and rlog-mean comparison only. Local FDR<0.05 is descriptive, not comparable author significance; diagnostic 223/231 signs do not replace Explorer results. No full-result acceptance is established.",
+      "conclusion": "Qualified selected effects remain insufficient to resolve direction and inference questions."
+    },
+    "rat_son_aging_gse231617": {
+      "registeredContrastIds": [
+        "age_125d_vs_35d"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered normalized-matrix limma versus full author DESeq2; source reconstruction is distinct from model agreement.",
+      "reference": "Table_1.XLSX/allResults, 33,294 genes, with DepthNormCounts/FPKM sheets.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Same four male SON biological pools per age; normalized sample values match within 9.1e-13."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "125-day minus 35-day SON."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 26,696 local symbols join; author-only genes have zero/near-zero local variance."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Pearson 0.895544 overall, 0.997749 at author baseMean>20; local mean-log coefficients reconstruct exactly."
+        },
+        "inference": {
+          "status": "different",
+          "note": "DESeq2 versus limma inference; only 20,054 pairs have finite FDR. Missing author FDR includes 139 local discoveries."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Complete local row joining is not full FDR coverage; 6,642 shared author FDR values are absent."
+        }
+      },
+      "criteria": "Paper rule FDR<=0.05, baseMean>20, |log2FC|>log2(1.5) gives shared-finite Jaccard 0.852832 across 16,075 genes. FDR-only shared-finite Jaccard is 0.619340; missing FDR is unassessed. No full-result acceptance is established.",
+      "conclusion": "Strong expression-filtered agreement is qualified by model and inferential-coverage differences."
+    },
+    "mouse_mbh_maternal_emulsifier_gse231769": {
+      "registeredContrastIds": [
+        "maternal_emulsifier_vs_control"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered limma on submitted TMM log2-CPM versus author workbook result.",
+      "reference": "PLOS S1, Differentially Expressed Genes sheet, 14,483 identified results.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Same P21 male MBH cohort, four control and five maternal CMC/P80 litters."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Maternal emulsifier minus control."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "14,483 unique named author symbols join exactly, without alias inference or duplicate resolution. The 109 absent local genes and one unidentified author statistical row remain unassessed; the separate measured coverage check uses the full registered denominator (14,592)."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Pearson 0.991707; all 81 author-labelled directions agree; local coefficients reproduce source mean-log differences."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Shared finite-FDR calls are five author/two local. Eighty-one labels follow an empirical nominal-P/effect rule, not the stated FDR rule."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Worksheet row count is not coverage. Missing rows, including nominally positive Mylk4, are unassessed."
+        }
+      },
+      "criteria": "Compare 14,483 finite named pairs. FDR<0.05 and nominal P<0.05/FC>1.5 are separate; |logFC|>0.65 is an observed label rule, not a confirmed author setting. No full-result acceptance is established.",
+      "conclusion": "High effect correlation does not resolve missing rows, threshold labels or inference differences."
+    },
+    "mouse_sst_neuron_sex_gse224254": {
+      "registeredContrastIds": [
+        "male_vs_female"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered edgeR-QL; length-aware/shrunk DESeq2 sensitivity is separate.",
+      "reference": "GSE224254_hypothalamus_FoverM.csv, 24,909 author Wald-result rows.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Four female/four male biological samples; technical transcript-block sums reproduce source counts."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Author female-minus-male effects are negated to registered male minus female."
+        },
+        "features": {
+          "status": "limited",
+          "note": "15,162 local/author Ensembl joins; 225 local IDs absent. Source-map and normalized-mean residuals remain."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Registered Pearson 0.873749; three shared author-significant genes reverse at near-zero local effects."
+        },
+        "inference": {
+          "status": "different",
+          "note": "On 14,414 finite-FDR pairs, author/local calls are 502/25 with 23 shared. Refit 501/505 overlap is not Explorer agreement."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Shared missing FDR and absent IDs are unassessed; full author availability does not imply full local/reference coverage."
+        }
+      },
+      "criteria": "Original adjusted P<0.05, no effect cutoff; shared-finite Jaccard 0.04563492. Separate length-aware reconstruction and five residual calls are not substituted. No full-result acceptance is established.",
+      "conclusion": "The sensitivity explains much of the discrepancy without making registered inference equivalent."
+    },
+    "cattle_hypo_nutrition_gse153495": {
+      "registeredContrastIds": [
+        "high_vs_moderate_plane_nutrition"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered mean-log limma; arithmetic-ratio reconstruction is a separate effect definition.",
+      "reference": "Workbook S6, 39 selected remaining-hypothalamus genes, four malformed numeric rows.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "All 29 author QC subjects match, 14 high and 15 moderate nutrition."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "High minus moderate nutrition in remaining hypothalamus, not ARC."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 39 IDs join, but only 35 author effects/FDR are numerically usable."
+        },
+        "effects": {
+          "status": "different",
+          "note": "Registered r=0.878049 with two sign changes; arithmetic-ratio r=0.999975 explains the different estimators."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Author count-model edgeR versus matrix limma; 35 usable q<0.1 rows versus zero local calls."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Selected reference only; malformed FC/FDR remain missing, not imputed from means."
+        }
+      },
+      "criteria": "Use valid rows only. Methods q<0.10/|FC|>1.5 differs from title q<0.05, where 27 rows qualify. All-local coefficient reconstruction is implementation evidence, not author-inference acceptance. No full-result acceptance is established.",
+      "conclusion": "Effect definitions are reconciled; malformed rows and count-model inference remain unverified."
+    },
+    "cattle_arc_nutrition_gse153498": {
+      "registeredContrastIds": [
+        "high_vs_moderate_plane_nutrition"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered mean-log limma; arithmetic-ratio diagnostics remain separate.",
+      "reference": "Workbook S2, 80 selected ARC high/moderate-nutrition genes.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "All 29 QC subjects match, 14 high/15 moderate; source 981_F is the documented ARC subject."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "High minus moderate nutrition in ARC."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 80 selected Ensembl IDs join."
+        },
+        "effects": {
+          "status": "different",
+          "note": "Registered r=0.853854, 79/80 signs. AVP reversal follows estimator choice; arithmetic ratios retain up to 0.183519 log2 residual."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Author edgeR exact-test/TMM versus local limma; 80 q<0.1 author rows versus zero local calls."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Selected list lacks the author testing universe; normalization/exact-test residual is unresolved."
+        }
+      },
+      "criteria": "Methods q<0.10/|FC|>1.5 checked separately from title q<0.05, where 57 rows qualify. All-local coefficient reconstruction does not prove author-model equivalence. No full-result acceptance is established.",
+      "conclusion": "The estimator explanation does not eliminate the remaining quantitative and inference differences."
+    },
+    "human_hypo_pituitary_organoid_gse301692": {
+      "registeredContrastIds": [
+        "success_vs_failure_day15"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered edgeR with reporter quarantine; eight-library DESeq2 reconstruction is separate.",
+      "reference": "Table S4, PDF pages 20-21, 56-row day-15 excerpt, not a significant-gene list.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Same four day-15 success and four failure libraries."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Success minus failure at day 15."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "51 of 56 excerpt Ensembl IDs join; five low-expression rows are outside local filtering."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Registered Pearson 0.9999861 and 51/51 signs; near-exact 56-row refit is a separate result."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "All excerpt author adjusted P values are 0.992850493; zero discoveries alone does not prove identical inference."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Only a raw-P-sorted 56-row excerpt is available, not the full RNA-seq testing universe."
+        }
+      },
+      "criteria": "Registered excerpt effect/P/FDR comparison only. Separate DESeq2 maximum effect residual 2.33e-6 and FDR residual 5.22e-7 do not confer a full-track match. No full-result acceptance is established.",
+      "conclusion": "Partial direct evidence and a compatible reconstruction do not establish full coverage."
+    },
+    "cattle_hypo_diet_restriction_gse49540": {
+      "registeredContrastIds": [
+        "restricted_anovulatory_vs_control"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered seven-RA/seven-control edgeR-QL; no cohort change or author refit.",
+      "reference": "S1 DOCX, 132 annotated RA/control genes with log2FC only.",
+      "assessment": "not_established",
+      "dimensions": {
+        "cohort": {
+          "status": "different",
+          "note": "Paper states seven RA/six controls; deposited and registered data have seven controls. Excluded identity is unknown."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "RA minus control includes both diet and ovulatory-status differences."
+        },
+        "features": {
+          "status": "limited",
+          "note": "102 exact symbols join; 30 historical/unmatched symbols remain uncomparable."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "102/102 directions agree; Pearson 0.977610."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "No author numeric P/FDR is supplied; DESeq1 and registered edgeR are different tests."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "132 annotated rows are fewer than the 137-gene headline and omit all-tested coverage."
+        }
+      },
+      "criteria": "Selected log2FC comparison and descriptive local FDR<0.10 only. Missing author P/FDR and unmatched symbols remain unassessed. No full-result acceptance is established.",
+      "conclusion": "The unresolved six-versus-seven-control cohort prevents establishing equivalent analysis comparability."
+    },
+    "dormouse_hypo_torpor_gse207494": {
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "registeredContrastIds": [
+        "early_torpor_vs_interbout_arousal_author_mouse_projection"
+      ],
+      "basis": "Registered eight-animal ET-minus-IBA edgeR result against original File S1 ET-vs-IBA columns.",
+      "reference": "FEB4-14-241-s002.xlsx,14862analyzedgenes, columns geneID,padj,log2(FC) for ET vs IBA.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Published four-animal ET and IBA target arms and sex covariate match the eight named GEO/local samples; excluded LT01 is outside the target contrast."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Published ET-versus-IBA direction matches registered ET-minus-IBA; same target animals and sex covariate."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "14,528 of 14,529 current registered GeneIDs join the 14,862-row author table; 334 author IDs are outside the local filter."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Pearson 0.830899, Spearman 0.833134 and 84.313% directional agreement. Median delta 0.064018 and RMS ratio 0.873019 do not erase correlation/direction differences."
+        },
+        "inference": {
+          "status": "different",
+          "note": "14,256 finite paired FDR tests contain 764 author/1,164 local calls, 563 shared. Whole tables contain 765 author/1,174 local calls. Ten local discoveries have missing author adjustedP and remain unknown."
+        },
+        "coverage": {
+          "status": "compatible",
+          "note": "Complete deposited 14,862-row tested-gene table is retained; unmatched IDs and missing adjustedP remain explicit."
+        }
+      },
+      "criteria": "Exact GeneID joins and registered ET-minus-IBA orientation; source and local finite paired FDR<0.05 counted separately. Standard effect-concordance thresholds are not met.",
+      "conclusion": "Full author ET-vs-IBA results are retrieved and numerically assessed. Effects/inference differ; no full sign-off."
+    },
+    "hamster_hypo_torpor_gse179663": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "spontaneous_torpor_vs_normothermia_author_mouse_projection"
+      ],
+      "basis": "Registered HT-minus-NT result versus literal published Table S3 HT-vs-NT effects; no inferred reorientation.",
+      "reference": "FEB4-12-443-s001.docx, Table S3 SP:HTvsNT columns; main Tables 3/4 confirm stated baseline.",
+      "assessment": "not_comparable",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Supplementary Table 1 and Figure 1 identify the same four SP-HT/four SP-NT animals sacrificed near ZT04; LP animals are outside the registered torpor contrast."
+        },
+        "contrast": {
+          "status": "different",
+          "note": "Author HT-minus-NT labels conflict with deposited-count and registered directions; no automatic author sign flip."
+        },
+        "features": {
+          "status": "limited",
+          "note": "68 predefined indicators; 61 have numeric effects, 53 unique exact-symbol matches. Alternative labels and absent genes stay unjoined."
+        },
+        "effects": {
+          "status": "different",
+          "note": "Pearson -0.930018, only 5/53 same nonzero directions. Original RSEM count cells for Rbm3-ps, Jun, Avp reproduce local source and support registered orientation while published effects oppose them."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "Selected adjustedP values are rounded to three decimals; printed 0.000 is not an exact zero. Missing/outlier fields remain unavailable."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Selected 68-gene indicator list is not the full 16,195-gene author analysis."
+        }
+      },
+      "criteria": "Preserve literal publication direction, rounded values and missing/outlier fields. Exact-symbol joins; no guessed aliases. Verify illustrative effects against original per-sample RSEM expected counts.",
+      "conclusion": "New numerical evidence exposes an unresolved source-result direction conflict. Production outputs are unchanged; author effects are not negated just to improve agreement."
+    },
+    "hamster_mbh_photoperiod_gse274003": {
+      "target": "registered_output",
+      "resultScope": "effects_only",
+      "registeredContrastIds": [
+        "four_week_short_day_vs_long_day_author_mouse_projection"
+      ],
+      "basis": "Registered week 4 SP-minus-LP against the published logFC.Group4wk column only.",
+      "reference": "eLife Source data 1 version 1, EdgeR sheet; publication-linked NanoFlow_Report.Rmd commit f4fd4d2a43ac9887ee04f75e49462a7c009885fe.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Local contrast uses six 4-week SP and six LP libraries. Author code normalizes and fits the full time series; exact historical config and retained library list are not included alongside this result."
+        },
+        "contrast": {
+          "status": "limited",
+          "note": "Group4wk is one coefficient relative to the configured referenceGroup. Eight SP timepoint columns omit LP, but the exact historical config file is not in the repository; this is not fully signed off."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "6,671 exact local IDs join 23,941 published author symbols; all unmatched author effects remain in the reference table."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Published week 4 coefficient versus registered: Pearson 0.996101, directional agreement 96.597%, median delta 0.025652."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "Code runs glmQLFTest(fit,coef=2:numberofgroups). The shared F/P/FDR columns test all eight timepoint coefficients and are intentionally not used as week 4 significance."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Complete published effect column is available but no week 4-specific P/FDR or exact historical config/design is included."
+        }
+      },
+      "criteria": "Exact gene-symbol joins; preserve whole 23,941-row coefficient table. Do not reuse omnibus eight-coefficient P/FDR as a week 4-specific test. Baseline/history needs explicit reconciliation.",
+      "conclusion": "Author week 4 effect coefficients are now compared. Inference remains unavailable for this individual contrast and the historical baseline/cohort configuration is not fully established."
+    },
+    "gse278158": {
+      "registeredContrastIds": [
+        "ko_vs_wt"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Unchanged registered edgeR-QL output compared directly with the complete publisher Supplementary Data 1, using its explicit signed model-effect column and exact gene labels.",
+      "reference": "Publisher workbook, Supplementary Data sheet A2:I501; all 499 selected genes, plus original GEO family and primary RNA-Seq methods.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "Primary methods describe hypothalamus from 20-week SRC-1-KO mice and WT littermates, three RNA libraries per group. Exact complete GEO descriptions YX3878-YX3883 bind the six current BAM labels to GSM8540989-GSM8540994 and their Wild-type/SRC1 KO genotype fields. No secondary aging, culture, human or SRC-1L1376P cohort enters this comparison. Missing litter allocation limits independent-replication claims; it does not establish a different source cohort between these two estimates."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "KO minus WT is fixed by original worksheet I2 log2(src1KO/wt) and current groupcase. Column I is the negative of generic column C for all 499 rows and exactly reproduces the paper 103-up/396-down result. Direction was fixed from the explicit header before calculating concordance."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "499 unique author gene labels and 20,257 unique current symbols use exact case-sensitive joins without aliases. 498 author rows match; Gm42318 is present in source counts but fails the unchanged current expression filter. Complete filter replay recovers every retained current DE key in order."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "The primary methods identify DESeq2-Wald differential expression, the worksheet explicitly labels a signed model log2 SRC-1-KO/WT coefficient, and the current logFC is the groupcase coefficient of a log-link count model for the same genotype comparison. Both target a signed log2 expression ratio. There is no evidence of a mean-of-logs contrast, transformed per-sample geometric-mean estimand, a ratio of FPKM means, or a different source cohort. Different model fitting, normalization and dispersion affect estimates and inference without changing the declared biological effect. Magnitude/correlation measurements provide separate numerical evidence rather than defining comparability."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Author DESeq2 1.36.0 Wald and current edgeR 4.10.1 QL use different fitting and inference procedures. All 499 author rows satisfy author FDR<0.05 and >1.5-fold. Only 98/498 paired rows satisfy current FDR<0.05; current complete output has 108 FDR discoveries and 100 also exceed 1.5-fold. FDR differences are contextual under author-concordance-v2, and exact statistical reproduction is not established."
+        },
+        "coverage": {
+          "status": "compatible",
+          "note": "Complete selected-list denominator is 499, with 498 matched effects, 99.7996% coverage. The one excluded author gene is explicitly retained with all counts and its filter decision. The full author tested-gene universe is unavailable; 19,759 unpaired current DE rows are not author-negative tests. Coverage is scoped to selected_results, not genome-wide concordance."
+        }
+      },
+      "criteria": "Apply unchanged author-concordance-v2 selected-results coverage and correlation-or-matched-direction requirements after independently reviewing source cohort, contrast, feature identity and effect definition. Keep FDR and magnitude differences contextual. Exact full statistical reproduction is a separate claim.",
+      "conclusion": "Primary evidence supports the same genotype effect, exact selected-list coverage and both numerical acceptance routes. Selected-result biological-effect concordance is supported; full author statistical reproduction and independent litter allocation remain separate limitations."
+    },
+    "rat_mbh_eed_gse102471": {
+      "registeredContrastIds": [
+        "eed_overexpression_vs_gfp"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Direct comparison with the complete published RNA-seq Table S2, including nonsignificant rows.",
+      "reference": "PMC7819995; Supplementary Table S2, rows4\u201315320, column E logFC; eight deposited GEO samples.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "Four GFP controls C2/C3/C5/C7 and four EED samples E4/E5/E7/E8 match all eight GEO descriptions. Primary RNA-seq methods identify ARC-ME fragments from the corresponding injected female rats; collection day28. The manuscript day22 versus GEO day21 injection discrepancy is disclosed, and does not identify different samples."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Source logFC is EED overexpression minus GFP control, fixed by primary RNA-seq module6 Eed/Kat2b increases and module7 Kiss1/Kdm6b decreases; same current groupcase."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Exact case-sensitive Ensembl joins only, using the shared Rnor6/Ensembl83 source IDs. No symbol aliases or replacement representatives enter the join; all 21 current projection losses are documented."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "The primary paper explicitly uses gene-level edgeR generalized linear models for LV-EED versus LV-GFP. Its voom/WGCNA paragraph concerns a separate coexpression analysis, not this Table S2 DE coefficient. Current edgeR 4.2.2 QL/TMM groupcase also estimates the signed count-model log2 EED/GFP ratio. The source does not archive the exact historical filter, normalization, dispersion and test settings; inference is not reproduced."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Author edgeR GLM exact settings are not archived; current edgeR4.2.2 QL independently replays. Author327 FDR<0.05 versus current4; effects may agree without reproducing significance."
+        },
+        "coverage": {
+          "status": "compatible",
+          "note": "15317 complete author tested rows and16500 current rows;15296 match (99.8629% author,92.7030% current). All21 author exclusions pass filterByExpr and lose the existing symbol projection. Current1204 additional rows are not treated as author-negative results."
+        }
+      },
+      "criteria": "Unchanged author-concordance-v2 full-results coverage and correlation-or-direction policy; inference and magnitude are context.",
+      "conclusion": "Same-cohort, same-direction count-model effects and complete-table coverage support biological-effect concordance; exact statistical reproduction is not established."
+    },
+    "gse148252": {
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "registeredContrastIds": [
+        "ko_vs_wt_dark"
+      ],
+      "basis": "Current registered edgeR-QL ko_vs_wt_dark is compared with every row of the archived DESeq2 WDvsKD table. Count-source identity is measured across all 12 libraries.",
+      "reference": "Neuron 2021 DOI 10.1016/j.neuron.2021.07.026; author Zenodo DOI 10.5281/zenodo.5111722, SCN_Proj-v1.0.0; complete NPAS4_Degs/output table. Publisher selected Table S5 is evaluated separately.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "The archived count matrix and deposited source are compared by every gene and sample alias. This contrast uses ['WD1', 'WD2', 'WD3'] and ['KD1', 'KD2', 'KD3']. Each library pools six SCN pairs; constituent identities and independence remain in the separate replication review."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "The source code computes DD minus LI and explicitly negates log2FoldChange before saving, yielding the second arm minus the first arm. Registered case minus baseline has the same direction; orientation factor is +1, fixed from code."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Exact symbol joins with unique unmodified identifiers. Author RPKM>=0.5 in every replicate of at least one arm retains 13306 genes; current edgeR retains 14793. Different retained universes are assessed under coverage; complete author-only and local-only lists are retained."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "The primary paper explicitly links this archived author output. DESeq2 betaPrior=TRUE and registered edgeR-QL estimate the same signed case/baseline log2 count-expression ratio; shrinkage changes the estimator without changing the biological quantity. Magnitude and inference differences remain contextual."
+        },
+        "inference": {
+          "status": "different",
+          "note": "DESeq2 Wald inference with betaPrior=TRUE, cooksCutoff=FALSE and BH differs from registered edgeR quasi-likelihood inference. Missing adjusted P values remain unknown. Full calls at adjusted P<.05 are measured without replacing missing values."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "13303 finite effects cover 89.927668491854% of all 14793 registered genes, below unchanged 90% full-result coverage requirement. The complete reference is not reclassified as selected results."
+        }
+      },
+      "criteria": "Unchanged author-concordance-v2 requires >=30 shared genes, >=90% full-result coverage, supported contrast scope and compatible cohort/contrast/identifier/effect definitions. Numerical agreement may pass by BOTH Pearson and Spearman>=.90 OR by >=30 nonzero paired genes covering>=90% of pairs with direction agreement>=.90. Median absolute log2FC delta<=.25 and paired RMS effect scale between2/3 and1.5 are contextual optional magnitude checks. P values and FDR are contextual and do not gate effect concordance.",
+      "conclusion": "Review: the required full-result gene coverage is below90%, even though matched-gene direction passes the alternative numerical route. Effect magnitude and inference differences are contextual; neither is an additional mandatory numerical blocker. The two light-versus-dark publisher-selected sheets are evaluated separately and do not invalidate the explicitly linked archived effects. No full verification or badge is borrowed by another contrast."
+    },
+    "rat_poa_lbn_gse174753": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "lbn_vs_control"
+      ],
+      "basis": "Direct complete176-row male Supplementary Table2 compared with the unchanged male registered output.",
+      "reference": "PMC9019015; DOI10.1038/s41386-022-01282-9, Supplementary Table2 pages11\u201315.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "Naive adult male medial preoptic area, six LBN and six controls; primary RNA cohort and all12 exact current sample identities match. Litter/cage independence remains an internal-QC review."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Positive author logFC is male LBN minus male control, fixed by primary Figure3F comparison and the reported 81/176 downregulated male and 110/212 downregulated female genes; current case-minus-control uses the same direction."
+        },
+        "features": {
+          "status": "matched",
+          "note": "All176 printed male symbols match exact current id and symbol, with no aliases or exclusions."
+        },
+        "effects": {
+          "status": "different",
+          "note": "Author DESeq2 models gene counts. The registered limma coefficient is the mean difference in log2(gene FPKM+1), after summing inverse-transformed deposited transcript FPKM. These are different effect quantities; every current logFC was independently reproduced as that mean difference."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Author DESeq2 count inference and FDR<.1 selection differ from current limma inference on transformed FPKM. This remains context and cannot rescue effect mismatch."
+        },
+        "coverage": {
+          "status": "compatible",
+          "note": "Every one of176 selected male author genes is compared. The separate212 female rows are retained but do not represent this male contrast."
+        }
+      },
+      "criteria": "Unchanged author-concordance-v2; complete selected-author coverage and compatible biological effect definitions required. Both correlations>=.9 or matched direction>=.9; magnitude and FDR contextual.",
+      "conclusion": "Review. Full selected male coverage passes; both correlations and direction remain below policy. The different count-model versus mean-log FPKM effect quantity also requires review. No author pass or inference equivalence is claimed."
+    },
+    "gse309435": {
+      "target": "not_tested",
+      "resultScope": "not_tested",
+      "registeredContrastIds": [
+        "shr_vs_wistar"
+      ],
+      "basis": "Current registered Explorer outputs; this bounded author-source availability review does not substitute source integrity for author-result comparison.",
+      "reference": "Publisher19-table archive recovered; reported strain effects are separated by sex",
+      "assessment": "not_comparable",
+      "dimensions": {
+        "cohort": {
+          "status": "not_tested",
+          "note": "No equivalent author-result cohort has been tested in this availability record."
+        },
+        "contrast": {
+          "status": "different",
+          "note": "Nineteen original supplementary workbooks were recovered from the publisher RAR. Table8 has3013 male SHR-versus-Wistar genes andTable10 has1122 female SHR-versus-Wistar genes. Other tables concern sex differences, selected shared genes, pathways, correlations and additional brain regions. No current pooled, sex-adjusted SHR-versus-Wistar coefficient was located in these19tables. Male/female coefficients were not averaged or substituted for the registered pooled estimate; unresolved litter/pairing is reviewed separately."
+        },
+        "features": {
+          "status": "not_tested",
+          "note": "Complete equivalent author tested-gene universe has not been compared."
+        },
+        "effects": {
+          "status": "not_tested",
+          "note": "No effect agreement is inferred from retained source files."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "No equivalent author P-value or FDR comparison has been completed."
+        },
+        "coverage": {
+          "status": "not_tested",
+          "note": "No full registered contrast coverage is inferred from source availability."
+        }
+      },
+      "criteria": "Bounded source searches document what was found and retrieved. No numerical acceptance tolerance is applied without a comparable paired-gene measurement.",
+      "conclusion": "Nineteen original supplementary workbooks were recovered from the publisher RAR. Table8 has3013 male SHR-versus-Wistar genes andTable10 has1122 female SHR-versus-Wistar genes. Other tables concern sex differences, selected shared genes, pathways, correlations and additional brain regions. No current pooled, sex-adjusted SHR-versus-Wistar coefficient was located in these19tables. Male/female coefficients were not averaged or substituted for the registered pooled estimate; unresolved litter/pairing is reviewed separately."
+    },
+    "gse281701": {
+      "target": "not_tested",
+      "resultScope": "not_tested",
+      "registeredContrastIds": [
+        "cachexia_vs_control"
+      ],
+      "basis": "Current registered Explorer outputs; this bounded author-source availability review does not substitute source integrity for author-result comparison.",
+      "reference": "Paper and versioned supplement recovered; full result workbook contains muscle comparisons",
+      "assessment": "not_comparable",
+      "dimensions": {
+        "cohort": {
+          "status": "not_tested",
+          "note": "No equivalent author-result cohort has been tested in this availability record."
+        },
+        "contrast": {
+          "status": "different",
+          "note": "The new primary publication and Figshare v5 supplement were linked to GSE281701. The recovered Supplemental tableS3 contains colorectal, lung and pancreatic cachexia comparisons from skeletal muscle. It contains no hypothalamus tissue rows. TableS2 in the recovered DOCX mentions GSE281701 hypothalamus and a fold-change1.5/adjustedP.01 criterion, but does not supply its full gene effects. Muscle coefficients cannot verify the registered hypothalamus contrast."
+        },
+        "features": {
+          "status": "not_tested",
+          "note": "Complete equivalent author tested-gene universe has not been compared."
+        },
+        "effects": {
+          "status": "not_tested",
+          "note": "No effect agreement is inferred from retained source files."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "No equivalent author P-value or FDR comparison has been completed."
+        },
+        "coverage": {
+          "status": "not_tested",
+          "note": "No full registered contrast coverage is inferred from source availability."
+        }
+      },
+      "criteria": "Bounded source searches document what was found and retrieved. No numerical acceptance tolerance is applied without a comparable paired-gene measurement.",
+      "conclusion": "The new primary publication and Figshare v5 supplement were linked to GSE281701. The recovered Supplemental tableS3 contains colorectal, lung and pancreatic cachexia comparisons from skeletal muscle. It contains no hypothalamus tissue rows. TableS2 in the recovered DOCX mentions GSE281701 hypothalamus and a fold-change1.5/adjustedP.01 criterion, but does not supply its full gene effects. Muscle coefficients cannot verify the registered hypothalamus contrast."
+    },
+    "gse308884": {
+      "target": "not_tested",
+      "resultScope": "not_tested",
+      "registeredContrastIds": [
+        "dio_vs_lean",
+        "tn783_vs_vehicle"
+      ],
+      "basis": "Current registered Explorer outputs; this bounded author-source availability review does not substitute source integrity for author-result comparison.",
+      "reference": "Matching preprint recovered; deposited expression workbook has no DE result sheet",
+      "assessment": "not_established",
+      "dimensions": {
+        "cohort": {
+          "status": "not_tested",
+          "note": "No equivalent author-result cohort has been tested in this availability record."
+        },
+        "contrast": {
+          "status": "not_tested",
+          "note": "A matching primary preprint and supplement were recovered for GSE308884. The18-library deposited workbook contains sample metadata, gene annotation, counts and log2CPMs, with no author DE sheet. The preprint reports protein-coding filtering, TMM and voomLmFit(sample.weights=TRUE); the current registered limma analysis of deposited log2CPMs is distinct. The supplement contains volcano plots and selected expression examples, with no recovered machine-readable full gene-effect table. No coefficient values were inferred from plotted pixels."
+        },
+        "features": {
+          "status": "not_tested",
+          "note": "Complete equivalent author tested-gene universe has not been compared."
+        },
+        "effects": {
+          "status": "not_tested",
+          "note": "No effect agreement is inferred from retained source files."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "No equivalent author P-value or FDR comparison has been completed."
+        },
+        "coverage": {
+          "status": "not_tested",
+          "note": "No full registered contrast coverage is inferred from source availability."
+        }
+      },
+      "criteria": "Bounded source searches document what was found and retrieved. No numerical acceptance tolerance is applied without a comparable paired-gene measurement.",
+      "conclusion": "A matching primary preprint and supplement were recovered for GSE308884. The18-library deposited workbook contains sample metadata, gene annotation, counts and log2CPMs, with no author DE sheet. The preprint reports protein-coding filtering, TMM and voomLmFit(sample.weights=TRUE); the current registered limma analysis of deposited log2CPMs is distinct. The supplement contains volcano plots and selected expression examples, with no recovered machine-readable full gene-effect table. No coefficient values were inferred from plotted pixels."
+    },
+    "gse135007": {
+      "target": "not_tested",
+      "resultScope": "not_tested",
+      "registeredContrastIds": [
+        "gough_vs_wsb"
+      ],
+      "basis": "Current registered Explorer outputs; this bounded author-source availability review does not substitute source integrity for author-result comparison.",
+      "reference": "Primary supplement recovered and Dryad table precisely located; full equivalent results remain unavailable",
+      "assessment": "not_established",
+      "dimensions": {
+        "cohort": {
+          "status": "not_tested",
+          "note": "No equivalent author-result cohort has been tested in this availability record."
+        },
+        "contrast": {
+          "status": "not_tested",
+          "note": "The official PMC supplementary ZIP was recovered and inventoried: GO/KEGG enrichment, selected pathway genes, QTL-related genes and liver transcription-factor results. The linked Dryad dataset and file inventory are retained, includingTable3 expectedSHA2561fa62cb145f5bfff73726c27288e6be7950e8b666910692cffc4f63594ac0b64. Its API download returned401 and public file_stream route403; both exact responses are retained and are not XLSX sources. A complete equivalent hypothalamus Gough-versus-WSB author coefficient table has not been retrieved. Existing serialized-input numeric review remains separate."
+        },
+        "features": {
+          "status": "not_tested",
+          "note": "Complete equivalent author tested-gene universe has not been compared."
+        },
+        "effects": {
+          "status": "not_tested",
+          "note": "No effect agreement is inferred from retained source files."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "No equivalent author P-value or FDR comparison has been completed."
+        },
+        "coverage": {
+          "status": "not_tested",
+          "note": "No full registered contrast coverage is inferred from source availability."
+        }
+      },
+      "criteria": "Bounded source searches document what was found and retrieved. No numerical acceptance tolerance is applied without a comparable paired-gene measurement.",
+      "conclusion": "The official PMC supplementary ZIP was recovered and inventoried: GO/KEGG enrichment, selected pathway genes, QTL-related genes and liver transcription-factor results. The linked Dryad dataset and file inventory are retained, includingTable3 expectedSHA2561fa62cb145f5bfff73726c27288e6be7950e8b666910692cffc4f63594ac0b64. Its API download returned401 and public file_stream route403; both exact responses are retained and are not XLSX sources. A complete equivalent hypothalamus Gough-versus-WSB author coefficient table has not been retrieved. Existing serialized-input numeric review remains separate."
+    },
+    "gse113576": {
+      "target": "not_tested",
+      "resultScope": "not_tested",
+      "registeredContrastIds": [
+        "male_vs_female"
+      ],
+      "basis": "Current registered Explorer outputs; this bounded author-source availability review does not substitute source integrity for author-result comparison.",
+      "reference": "Primary full text and exact supplement names recovered; equivalent aggregate sex table not located",
+      "assessment": "not_established",
+      "dimensions": {
+        "cohort": {
+          "status": "not_tested",
+          "note": "No equivalent author-result cohort has been tested in this availability record."
+        },
+        "contrast": {
+          "status": "not_tested",
+          "note": "The complete primary article XML and official PMC object inventory were freshly retained. The XML identifiesTablesS1,S2,S3,S6,S7,S8,S10,S11 and a methodsPDF, while the public object prefix contains only articleXML/JSON/text. The paper includes cell-cluster markers, targeted MERFISH measurements and selected sex-related expression; no equivalent whole-preoptic all-cell, six-library male-versus-female coefficient table was recovered. A selected cluster or spatial-cell comparison cannot be assigned to the registered all-cell result."
+        },
+        "features": {
+          "status": "not_tested",
+          "note": "Complete equivalent author tested-gene universe has not been compared."
+        },
+        "effects": {
+          "status": "not_tested",
+          "note": "No effect agreement is inferred from retained source files."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "No equivalent author P-value or FDR comparison has been completed."
+        },
+        "coverage": {
+          "status": "not_tested",
+          "note": "No full registered contrast coverage is inferred from source availability."
+        }
+      },
+      "criteria": "Bounded source searches document what was found and retrieved. No numerical acceptance tolerance is applied without a comparable paired-gene measurement.",
+      "conclusion": "The complete primary article XML and official PMC object inventory were freshly retained. The XML identifiesTablesS1,S2,S3,S6,S7,S8,S10,S11 and a methodsPDF, while the public object prefix contains only articleXML/JSON/text. The paper includes cell-cluster markers, targeted MERFISH measurements and selected sex-related expression; no equivalent whole-preoptic all-cell, six-library male-versus-female coefficient table was recovered. A selected cluster or spatial-cell comparison cannot be assigned to the registered all-cell result."
+    },
+    "gse317867": {
+      "target": "not_tested",
+      "resultScope": "not_tested",
+      "registeredContrastIds": [
+        "rebound_vs_control"
+      ],
+      "basis": "Current registered Explorer outputs; this bounded author-source availability review does not substitute source integrity for author-result comparison.",
+      "reference": "Bounded author-result availability audit completed without a matching result table",
+      "assessment": "not_established",
+      "dimensions": {
+        "cohort": {
+          "status": "not_tested",
+          "note": "No equivalent author-result cohort has been tested in this availability record."
+        },
+        "contrast": {
+          "status": "not_tested",
+          "note": "Original study metadata and processed-file listings were retained; no comparable author coefficient table or linked matching primary paper was found in this bounded accession/title review. The current accession query returned no indexed publication. GEO count/expression matrices are inputs, not author differential-expression results."
+        },
+        "features": {
+          "status": "not_tested",
+          "note": "Complete equivalent author tested-gene universe has not been compared."
+        },
+        "effects": {
+          "status": "not_tested",
+          "note": "No effect agreement is inferred from retained source files."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "No equivalent author P-value or FDR comparison has been completed."
+        },
+        "coverage": {
+          "status": "not_tested",
+          "note": "No full registered contrast coverage is inferred from source availability."
+        }
+      },
+      "criteria": "Bounded source searches document what was found and retrieved. No numerical acceptance tolerance is applied without a comparable paired-gene measurement.",
+      "conclusion": "Original study metadata and processed-file listings were retained; no comparable author coefficient table or linked matching primary paper was found in this bounded accession/title review. The current accession query returned no indexed publication. GEO count/expression matrices are inputs, not author differential-expression results."
+    },
+    "gse337822": {
+      "target": "not_tested",
+      "resultScope": "not_tested",
+      "registeredContrastIds": [
+        "isoflurane_vs_oxygen"
+      ],
+      "basis": "Current registered Explorer outputs; this bounded author-source availability review does not substitute source integrity for author-result comparison.",
+      "reference": "Bounded author-result availability audit completed without a matching result table",
+      "assessment": "not_established",
+      "dimensions": {
+        "cohort": {
+          "status": "not_tested",
+          "note": "No equivalent author-result cohort has been tested in this availability record."
+        },
+        "contrast": {
+          "status": "not_tested",
+          "note": "Original study metadata and processed-file listings were retained; no comparable author coefficient table or linked matching primary paper was found in this bounded accession/title review. The current accession query returned no indexed publication. GEO count/expression matrices are inputs, not author differential-expression results."
+        },
+        "features": {
+          "status": "not_tested",
+          "note": "Complete equivalent author tested-gene universe has not been compared."
+        },
+        "effects": {
+          "status": "not_tested",
+          "note": "No effect agreement is inferred from retained source files."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "No equivalent author P-value or FDR comparison has been completed."
+        },
+        "coverage": {
+          "status": "not_tested",
+          "note": "No full registered contrast coverage is inferred from source availability."
+        }
+      },
+      "criteria": "Bounded source searches document what was found and retrieved. No numerical acceptance tolerance is applied without a comparable paired-gene measurement.",
+      "conclusion": "Original study metadata and processed-file listings were retained; no comparable author coefficient table or linked matching primary paper was found in this bounded accession/title review. The current accession query returned no indexed publication. GEO count/expression matrices are inputs, not author differential-expression results."
+    },
+    "emtab15488": {
+      "target": "not_tested",
+      "resultScope": "not_tested",
+      "registeredContrastIds": [
+        "dss_vs_control",
+        "opa1_vs_flox"
+      ],
+      "basis": "Current registered Explorer outputs; this bounded author-source availability review does not substitute source integrity for author-result comparison.",
+      "reference": "Bounded author-result availability audit completed without a matching result table",
+      "assessment": "not_established",
+      "dimensions": {
+        "cohort": {
+          "status": "not_tested",
+          "note": "No equivalent author-result cohort has been tested in this availability record."
+        },
+        "contrast": {
+          "status": "not_tested",
+          "note": "Original study metadata and processed-file listings were retained; no comparable author coefficient table or linked matching primary paper was found in this bounded accession/title review. The current accession query returned no indexed publication. The IDF publication title, DOI and PubMed fields are blank. Related intestinal Opa1 biology does not establish publication equivalence for these brain-region libraries."
+        },
+        "features": {
+          "status": "not_tested",
+          "note": "Complete equivalent author tested-gene universe has not been compared."
+        },
+        "effects": {
+          "status": "not_tested",
+          "note": "No effect agreement is inferred from retained source files."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "No equivalent author P-value or FDR comparison has been completed."
+        },
+        "coverage": {
+          "status": "not_tested",
+          "note": "No full registered contrast coverage is inferred from source availability."
+        }
+      },
+      "criteria": "Bounded source searches document what was found and retrieved. No numerical acceptance tolerance is applied without a comparable paired-gene measurement.",
+      "conclusion": "Original study metadata and processed-file listings were retained; no comparable author coefficient table or linked matching primary paper was found in this bounded accession/title review. The current accession query returned no indexed publication. The IDF publication title, DOI and PubMed fields are blank. Related intestinal Opa1 biology does not establish publication equivalence for these brain-region libraries."
+    },
+    "emtab15489": {
+      "target": "not_tested",
+      "resultScope": "not_tested",
+      "registeredContrastIds": [
+        "dss_vs_control"
+      ],
+      "basis": "Current registered Explorer outputs; this bounded author-source availability review does not substitute source integrity for author-result comparison.",
+      "reference": "Bounded author-result availability audit completed without a matching result table",
+      "assessment": "not_established",
+      "dimensions": {
+        "cohort": {
+          "status": "not_tested",
+          "note": "No equivalent author-result cohort has been tested in this availability record."
+        },
+        "contrast": {
+          "status": "not_tested",
+          "note": "Original study metadata and processed-file listings were retained; no comparable author coefficient table or linked matching primary paper was found in this bounded accession/title review. The unquoted accession query returned one2015 Escherichia coli sigma54 paper, which is unrelated and is rejected as a study match. The IDF publication title, DOI and PubMed fields are blank. Related intestinal Opa1 biology does not establish publication equivalence for these brain-region libraries."
+        },
+        "features": {
+          "status": "not_tested",
+          "note": "Complete equivalent author tested-gene universe has not been compared."
+        },
+        "effects": {
+          "status": "not_tested",
+          "note": "No effect agreement is inferred from retained source files."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "No equivalent author P-value or FDR comparison has been completed."
+        },
+        "coverage": {
+          "status": "not_tested",
+          "note": "No full registered contrast coverage is inferred from source availability."
+        }
+      },
+      "criteria": "Bounded source searches document what was found and retrieved. No numerical acceptance tolerance is applied without a comparable paired-gene measurement.",
+      "conclusion": "Original study metadata and processed-file listings were retained; no comparable author coefficient table or linked matching primary paper was found in this bounded accession/title review. The unquoted accession query returned one2015 Escherichia coli sigma54 paper, which is unrelated and is rejected as a study match. The IDF publication title, DOI and PubMed fields are blank. Related intestinal Opa1 biology does not establish publication equivalence for these brain-region libraries."
+    },
+    "gse224274": {
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "registeredContrastIds": [
+        "food_cues_vs_object"
+      ],
+      "basis": "Current registered Explorer outputs; this bounded author-source availability review does not substitute source integrity for author-result comparison.",
+      "reference": "Original authorFig.1c and deposited expression have disjoint readable gene universes",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Both sources describe Pomc-RiboTag food detection versus non-edible object,6libraries perarm; exact animals/cage assignment remains in independent replication review."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Fig.1c source caption identifies SENS food detection versus NEO non-edible object, matching the registered comparison."
+        },
+        "features": {
+          "status": "different",
+          "note": "Review: every readable author gene is absent from both deposited expression and registered DE universes. Four source gene cells are dates and remain unresolved; no claim covers their unknown true identities. The cause of the disjoint sets is not established by this audit. No zero filling, inferred aliases, date repair or force join is performed. The recovered authorFig.1c has14956data rows:14952readable unique labels and4date-typed unresolved identifiers. Every readable label has zero exact and case-folded intersection with all5764depositedCPM and5143currentDE genes. Every current id equals its symbol and belongs to the deposit. No matching effect or inference statistic is computable; missing intersections are not correlations of zero."
+        },
+        "effects": {
+          "status": "not_tested",
+          "note": "Zero readable gene joins; no effect correlation or direction agreement is computable."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Author caption reports unpaired two-tailed t tests; current limma inference differs and cannot be joined."
+        },
+        "coverage": {
+          "status": "different",
+          "note": "Zero of5143current genes join the14952readable author labels. Four unresolved date identifiers are excluded from the readable-universe claim, with unknown true identities."
+        }
+      },
+      "criteria": "Bounded source searches document what was found and retrieved. No numerical acceptance tolerance is applied without a comparable paired-gene measurement.",
+      "conclusion": "Review: every readable author gene is absent from both deposited expression and registered DE universes. Four source gene cells are dates and remain unresolved; no claim covers their unknown true identities. The cause of the disjoint sets is not established by this audit. No zero filling, inferred aliases, date repair or force join is performed. The recovered authorFig.1c has14956data rows:14952readable unique labels and4date-typed unresolved identifiers. Every readable label has zero exact and case-folded intersection with all5764depositedCPM and5143currentDE genes. Every current id equals its symbol and belongs to the deposit. No matching effect or inference statistic is computable; missing intersections are not correlations of zero."
+    },
+    "gse262407": {
+      "target": "not_tested",
+      "resultScope": "not_tested",
+      "registeredContrastIds": [
+        "glucose_vs_saline_chow",
+        "glucose_vs_saline_hfd",
+        "hfd_vs_chow_glucose",
+        "hfd_vs_chow_saline"
+      ],
+      "basis": "Current registered Explorer outputs; this bounded author-source availability review does not substitute source integrity for author-result comparison.",
+      "reference": "Twelve selected author comparisons measured; all28registered contexts explicitly accounted for",
+      "assessment": "not_established",
+      "dimensions": {
+        "cohort": {
+          "status": "not_tested",
+          "note": "No equivalent author-result cohort has been tested in this availability record."
+        },
+        "contrast": {
+          "status": "not_tested",
+          "note": "The new primary paper is bound through GSE262411 SuperSeries and GSE262407 SubSeries. Seven original workbooks, supplement descriptions, full accepted manuscript and15code files at commit773a267395c0c0b21e47312c1de3a14d77b4e02d are retained. Twelve selected comparisons are measured separately across astrocytes,OPC,oligodendrocytes andGhrh for three contrasts: all have100%paired-gene direction agreement, Pearson.9751-.9935, Spearman.9642-.9871 and selected-author coverage99.22%-100%. Sixteen of28registered track/contrast contexts have no directly matching coefficient. NominalP<.05selection is explicitly documented by the publisher, not chosen during comparison. Exact author/current eligible-mouse and cell-population membership remains unresolved, so these strong numeric results remain review candidates and are not an aggregate badge."
+        },
+        "features": {
+          "status": "not_tested",
+          "note": "Complete equivalent author tested-gene universe has not been compared."
+        },
+        "effects": {
+          "status": "not_tested",
+          "note": "No effect agreement is inferred from retained source files."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "No equivalent author P-value or FDR comparison has been completed."
+        },
+        "coverage": {
+          "status": "not_tested",
+          "note": "No full registered contrast coverage is inferred from source availability."
+        }
+      },
+      "criteria": "Bounded source searches document what was found and retrieved. No numerical acceptance tolerance is applied without a comparable paired-gene measurement.",
+      "conclusion": "The new primary paper is bound through GSE262411 SuperSeries and GSE262407 SubSeries. Seven original workbooks, supplement descriptions, full accepted manuscript and15code files at commit773a267395c0c0b21e47312c1de3a14d77b4e02d are retained. Twelve selected comparisons are measured separately across astrocytes,OPC,oligodendrocytes andGhrh for three contrasts: all have100%paired-gene direction agreement, Pearson.9751-.9935, Spearman.9642-.9871 and selected-author coverage99.22%-100%. Sixteen of28registered track/contrast contexts have no directly matching coefficient. NominalP<.05selection is explicitly documented by the publisher, not chosen during comparison. Exact author/current eligible-mouse and cell-population membership remains unresolved, so these strong numeric results remain review candidates and are not an aggregate badge."
+    },
+    "mouse_cvh_hfd_gse104709": {
+      "target": "not_tested",
+      "resultScope": "not_tested",
+      "registeredContrastIds": [],
+      "basis": "Registered Explorer outputs; internal source and numerical replay checks do not establish author-result agreement.",
+      "reference": "The article supplies a significant-gene membership table across filtering/model choices, targeted expression figures, and an ANOVA result supplement; these do not provide a complete comparable chronic-HFD gene-effect table. The GSEA supplement tests opposing diet-switch arms, which differs from the chronic HFD versus chow comparison. The linked Dryad processed-data download returned HTTP 401/403; no missing-data or concordance claim is inferred.",
+      "assessment": "not_established",
+      "dimensions": {
+        "cohort": {
+          "status": "not_tested",
+          "note": "No full author-result comparison is claimed by this source registration."
+        },
+        "contrast": {
+          "status": "not_tested",
+          "note": "No full author-result comparison is claimed by this source registration."
+        },
+        "features": {
+          "status": "not_tested",
+          "note": "No full author-result comparison is claimed by this source registration."
+        },
+        "effects": {
+          "status": "not_tested",
+          "note": "No full author-result comparison is claimed by this source registration."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "No full author-result comparison is claimed by this source registration."
+        },
+        "coverage": {
+          "status": "not_tested",
+          "note": "No full author-result comparison is claimed by this source registration."
+        }
+      },
+      "criteria": "Comparable author effects and coverage must be assessed separately from file identity and numerical replay.",
+      "conclusion": "The article supplies a significant-gene membership table across filtering/model choices, targeted expression figures, and an ANOVA result supplement; these do not provide a complete comparable chronic-HFD gene-effect table. The GSEA supplement tests opposing diet-switch arms, which differs from the chronic HFD versus chow comparison. The linked Dryad processed-data download returned HTTP 401/403; no missing-data or concordance claim is inferred."
+    },
+    "rat_hypo_maternal_hfd_gse107324": {
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "registeredContrastIds": [
+        "hfd_vs_control"
+      ],
+      "basis": "Default male track against the complete deposited male author table; female results retained separately, never reused as male evidence.",
+      "reference": "Original GEO male differential-count workbook, with control-minus-HFD logFC reversed according to the primary paper.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "The twelve male samples in the workbook supply the registered six-per-diet columns. The paper defines n as litters; GSM-to-litter pairing across sexes is not available."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Maternal HFD minus control in PN10 male hypothalamus; source control-minus-HFD effects are negated once."
+        },
+        "features": {
+          "status": "limited",
+          "note": "Exact source feature IDs are joined. Author-only filtered genes and Excel-damaged identifiers remain visible exclusions; the complete author reference is not reduced to shared genes to inflate coverage."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "male: 11455 named gene pairs, Pearson 0.99988830, direction agreement 99.467%, author/registered FDR<0.05 calls 8/0; female: 11388 named gene pairs, Pearson 0.99989977, direction agreement 99.491%, author/registered FDR<0.05 calls 86/0. Both quantities are modeled log2 diet effects; differences in inferential method are reported separately."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The original likelihood-ratio-style author output has discoveries that the standardized edgeR quasi-likelihood fits do not reproduce: eight male and 86 female paired author FDR<0.05 genes versus zero in either registered fit."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All deposited author effect rows remain the reference denominator. The registered expression filter retains about 81% of source genes; no full-universe author concordance claim is made."
+        }
+      },
+      "criteria": "Report paired effect correlations and direction, complete reference/output coverage, missing identifiers and FDR separately. Never tune the expression filter to force author significance or a coverage threshold.",
+      "conclusion": "The default-track author record compares male offspring. Both sexes also have independent workbook-based paired measurements retained in data/author-validation/hfd-intake-2026-09-12/GSE107324. male: 11455 named gene pairs, Pearson 0.99988830, direction agreement 99.467%, author/registered FDR<0.05 calls 8/0; female: 11388 named gene pairs, Pearson 0.99989977, direction agreement 99.491%, author/registered FDR<0.05 calls 86/0. Author control-minus-HFD effects are reversed once. High effect agreement does not reproduce author significance; filtered author genes and damaged identifiers remain explicit omissions."
+    },
+    "rat_son_salt_gse65663": {
+      "target": "not_tested",
+      "resultScope": "not_tested",
+      "registeredContrastIds": [],
+      "basis": "The registered salt_vs_control analysis is defined as salt loading minus euhydrated control on deposited median-baselined RMA log2 expression. Source-design and pipeline-output audits are separate from author-result comparison.",
+      "reference": "GSE65663 deposited sample-expression matrix and source metadata; primary publication doi:10.1152/ajpregu.00444.2014, PMID 25632023. No matching full author effect/P-value/FDR table has been located in the retained review sources.",
+      "assessment": "not_established",
+      "dimensions": {
+        "cohort": {
+          "status": "not_tested",
+          "note": "The source-defined analysis uses five independent five-rat RNA pools per arm. Eligibility of a future author result table must be reconciled explicitly; a measured pool never supplies five independent expression replicates."
+        },
+        "contrast": {
+          "status": "not_tested",
+          "note": "The registered question is seven-day 2% saline loading minus euhydrated control in bulk SON. No author coefficient has been joined or directionally compared; GSE3110 water-deprivation arrays remain excluded."
+        },
+        "features": {
+          "status": "not_tested",
+          "note": "Preparation retains every source probe and quarantines missing or ambiguous annotation. A direct comparison must reconcile author probe-level results with the shared pre-fit symbol averaging and retained unlabelled fitting rows."
+        },
+        "effects": {
+          "status": "not_tested",
+          "note": "No paired author-versus-registered effects, correlations or directional agreement have been measured. Relative log-expression group effects must be distinguished from linear fold ratios or absolute transcript abundance."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "The source review records GeneSpring Welch tests with BH correction. Registered inference uses limma empirical-Bayes moderation. No author P-value, FDR, testing-family or discovery-set comparison has been completed."
+        },
+        "coverage": {
+          "status": "not_tested",
+          "note": "No full tested-gene author reference is available for a measured coverage denominator. A sample matrix, selected examples and successful pipeline replay do not establish full author-result coverage."
+        }
+      },
+      "criteria": "Obtain a source-supported author table for the same biological comparison before evaluating numerical acceptance. Reconcile cohort, direction, identifiers and effect definitions; report paired effects and reference/output coverage under the shared author-concordance policy, with P values and FDR reported separately. No thresholds are selected to force agreement.",
+      "conclusion": "Author-result comparability and concordance are not established. The retained evidence supports a source-defined standardized analysis, subject to its current source/model/output audit; no author verification sign-off is granted."
+    }
+  }
+}

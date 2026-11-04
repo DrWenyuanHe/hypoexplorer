@@ -1,0 +1,2020 @@
+{
+ "generated_utc": "2026-10-29T15:47:17Z",
+ "human_microarray_hba": {
+  "hypothalamus_structure": {
+   "value": {
+    "id": 4540,
+    "acronym": "Hy",
+    "graph_id": 10
+   },
+   "status": "verified-by-request",
+   "source": "h_hy_root.json"
+  },
+  "hypothalamic_structure_set": {
+   "value": 176,
+   "status": "verified-by-request",
+   "source": "h_hy_desc.json",
+   "note": "Structures in graph 10 whose structure_id_path contains /4540/ (includes 4540 itself and both lateralized left/right and unlateralized nodes). Earlier probe's 92 used a different filter."
+  },
+  "working_sample_query": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,tissue_sample_data_set(specimen(donor[id$eq{DONOR}])),structure[structure_id_path$il'*/4540/*'],rma::include,microarray_slides,tissue_sample_data_set(specimen),structure,rma::options[num_rows$eqall]",
+  "per_donor": {
+   "15697": {
+    "hy_samples": {
+     "value": 18,
+     "status": "verified-by-request",
+     "source": "h_hy_samples_15697.json"
+    },
+    "hy_microarray_slides": {
+     "value": 23,
+     "status": "verified-by-request",
+     "source": "h_hy_samples_15697.json",
+     "note": "some samples have >1 slide (replicate hybridisation)"
+    },
+    "hy_distinct_structures": {
+     "value": 17,
+     "status": "verified-by-request",
+     "source": "h_hy_samples_15697.json"
+    },
+    "hemisphere_by_structure_name": {
+     "value": {
+      "left": 18
+     },
+     "status": "verified-by-request",
+     "source": "h_hy_samples_15697.json"
+    },
+    "specimen_hemisphere_field": {
+     "value": {
+      "left": 18
+     },
+     "status": "verified-by-request",
+     "source": "h_hy_samples_15697.json"
+    },
+    "donor_total_samples": {
+     "value": 501,
+     "status": "verified-by-request",
+     "source": "h_all_samples_15697.json"
+    }
+   },
+   "9861": {
+    "hy_samples": {
+     "value": 9,
+     "status": "verified-by-request",
+     "source": "h_hy_samples_9861.json"
+    },
+    "hy_microarray_slides": {
+     "value": 9,
+     "status": "verified-by-request",
+     "source": "h_hy_samples_9861.json",
+     "note": "some samples have >1 slide (replicate hybridisation)"
+    },
+    "hy_distinct_structures": {
+     "value": 8,
+     "status": "verified-by-request",
+     "source": "h_hy_samples_9861.json"
+    },
+    "hemisphere_by_structure_name": {
+     "value": {
+      "left": 5,
+      "right": 4
+     },
+     "status": "verified-by-request",
+     "source": "h_hy_samples_9861.json"
+    },
+    "specimen_hemisphere_field": {
+     "value": {
+      "null": 9
+     },
+     "status": "verified-by-request",
+     "source": "h_hy_samples_9861.json"
+    },
+    "donor_total_samples": {
+     "value": 930,
+     "status": "verified-by-request",
+     "source": "h_all_samples_9861.json"
+    }
+   },
+   "10021": {
+    "hy_samples": {
+     "value": 22,
+     "status": "verified-by-request",
+     "source": "h_hy_samples_10021.json"
+    },
+    "hy_microarray_slides": {
+     "value": 23,
+     "status": "verified-by-request",
+     "source": "h_hy_samples_10021.json",
+     "note": "some samples have >1 slide (replicate hybridisation)"
+    },
+    "hy_distinct_structures": {
+     "value": 20,
+     "status": "verified-by-request",
+     "source": "h_hy_samples_10021.json"
+    },
+    "hemisphere_by_structure_name": {
+     "value": {
+      "right": 11,
+      "left": 11
+     },
+     "status": "verified-by-request",
+     "source": "h_hy_samples_10021.json"
+    },
+    "specimen_hemisphere_field": {
+     "value": {
+      "null": 22
+     },
+     "status": "verified-by-request",
+     "source": "h_hy_samples_10021.json"
+    },
+    "donor_total_samples": {
+     "value": 893,
+     "status": "verified-by-request",
+     "source": "h_all_samples_10021.json"
+    }
+   },
+   "12876": {
+    "hy_samples": {
+     "value": 17,
+     "status": "verified-by-request",
+     "source": "h_hy_samples_12876.json"
+    },
+    "hy_microarray_slides": {
+     "value": 17,
+     "status": "verified-by-request",
+     "source": "h_hy_samples_12876.json",
+     "note": "some samples have >1 slide (replicate hybridisation)"
+    },
+    "hy_distinct_structures": {
+     "value": 15,
+     "status": "verified-by-request",
+     "source": "h_hy_samples_12876.json"
+    },
+    "hemisphere_by_structure_name": {
+     "value": {
+      "left": 17
+     },
+     "status": "verified-by-request",
+     "source": "h_hy_samples_12876.json"
+    },
+    "specimen_hemisphere_field": {
+     "value": {
+      "left": 17
+     },
+     "status": "verified-by-request",
+     "source": "h_hy_samples_12876.json"
+    },
+    "donor_total_samples": {
+     "value": 363,
+     "status": "verified-by-request",
+     "source": "h_all_samples_12876.json"
+    }
+   },
+   "14380": {
+    "hy_samples": {
+     "value": 20,
+     "status": "verified-by-request",
+     "source": "h_hy_samples_14380.json"
+    },
+    "hy_microarray_slides": {
+     "value": 22,
+     "status": "verified-by-request",
+     "source": "h_hy_samples_14380.json",
+     "note": "some samples have >1 slide (replicate hybridisation)"
+    },
+    "hy_distinct_structures": {
+     "value": 17,
+     "status": "verified-by-request",
+     "source": "h_hy_samples_14380.json"
+    },
+    "hemisphere_by_structure_name": {
+     "value": {
+      "left": 20
+     },
+     "status": "verified-by-request",
+     "source": "h_hy_samples_14380.json"
+    },
+    "specimen_hemisphere_field": {
+     "value": {
+      "left": 20
+     },
+     "status": "verified-by-request",
+     "source": "h_hy_samples_14380.json"
+    },
+    "donor_total_samples": {
+     "value": 529,
+     "status": "verified-by-request",
+     "source": "h_all_samples_14380.json"
+    }
+   },
+   "15496": {
+    "hy_samples": {
+     "value": 16,
+     "status": "verified-by-request",
+     "source": "h_hy_samples_15496.json"
+    },
+    "hy_microarray_slides": {
+     "value": 17,
+     "status": "verified-by-request",
+     "source": "h_hy_samples_15496.json",
+     "note": "some samples have >1 slide (replicate hybridisation)"
+    },
+    "hy_distinct_structures": {
+     "value": 15,
+     "status": "verified-by-request",
+     "source": "h_hy_samples_15496.json"
+    },
+    "hemisphere_by_structure_name": {
+     "value": {
+      "left": 16
+     },
+     "status": "verified-by-request",
+     "source": "h_hy_samples_15496.json"
+    },
+    "specimen_hemisphere_field": {
+     "value": {
+      "left": 16
+     },
+     "status": "verified-by-request",
+     "source": "h_hy_samples_15496.json"
+    },
+    "donor_total_samples": {
+     "value": 470,
+     "status": "verified-by-request",
+     "source": "h_all_samples_15496.json"
+    }
+   }
+  },
+  "hy_samples_total": {
+   "value": 102,
+   "status": "verified-by-request",
+   "source": "sum of per-donor; cross-checked by t3.json total_rows=102 (structure filter only, all donors)"
+  },
+  "donor_samples_total": {
+   "value": 3686,
+   "status": "verified-by-request",
+   "source": "sum of h_all_samples_*.json",
+   "note": "API gives 930 for donor 9861 vs 946 rows commonly cited for its SampleAnnot.csv (not downloaded; unverified)"
+  },
+  "platform_probes": {
+   "value": 58784,
+   "status": "verified-by-request",
+   "source": "h_probe_count.json, h_probes_p*.json",
+   "note": "model::Probe with products[id$eq2]; includes control/unannotated probes"
+  },
+  "platform_distinct_gene_ids": {
+   "value": 29180,
+   "status": "verified-by-request",
+   "source": "h_probes_p*.json",
+   "note": "distinct Allen gene_id over those probes; not distinct HGNC symbols"
+  },
+  "normalized_microarray_donor_zips": {
+   "value": {
+    "14380": {
+     "wkf_id": 178238316,
+     "path": "/external/human/prod17/specimen_710911/normalized_microarray_donor14380.zip",
+     "file_size_field": null,
+     "head_status": 200,
+     "head_headers": {
+      "Content-Type": "application/zip",
+      "Content-Length": "241359585",
+      "Content-Disposition": "attachment; filename=\"normalized_microarray_donor14380.zip\"",
+      "Last-Modified": "Tue, 17 Sep 2013 03:52:20 GMT",
+      "ETag": "\"4e68c3f616500\""
+     },
+     "head_error": null,
+     "head_url": "https://api.brain-map.org/api/v2/well_known_file_download/178238316",
+     "retrieved_utc": "2026-10-29T15:42:25Z"
+    },
+    "12876": {
+     "wkf_id": 178238359,
+     "path": "/external/human/prod14/specimen_708900/normalized_microarray_donor12876.zip",
+     "file_size_field": null,
+     "head_status": 200,
+     "head_headers": {
+      "Content-Type": "application/zip",
+      "Content-Length": "166233851",
+      "Content-Disposition": "attachment; filename=\"normalized_microarray_donor12876.zip\"",
+      "Last-Modified": "Tue, 17 Sep 2013 03:52:06 GMT",
+      "ETag": "\"4e68c3e8bc580\""
+     },
+     "head_error": null,
+     "head_url": "https://api.brain-map.org/api/v2/well_known_file_download/178238359",
+     "retrieved_utc": "2026-10-29T15:42:26Z"
+    },
+    "10021": {
+     "wkf_id": 178238373,
+     "path": "/external/human/prod5/specimen_701925/normalized_microarray_donor10021.zip",
+     "file_size_field": null,
+     "head_status": 200,
+     "head_headers": {
+      "Content-Type": "application/zip",
+      "Content-Length": "400957002",
+      "Content-Disposition": "attachment; filename=\"normalized_microarray_donor10021.zip\"",
+      "Last-Modified": "Tue, 17 Sep 2013 03:51:55 GMT",
+      "ETag": "\"4e68c3de3ecc0\""
+     },
+     "head_error": null,
+     "head_url": "https://api.brain-map.org/api/v2/well_known_file_download/178238373",
+     "retrieved_utc": "2026-10-29T15:42:27Z"
+    },
+    "9861": {
+     "wkf_id": 178238387,
+     "path": "/external/human/prod0/specimen_701603/normalized_microarray_donor9861.zip",
+     "file_size_field": null,
+     "head_status": 200,
+     "head_headers": {
+      "Content-Type": "application/zip",
+      "Content-Length": "425988059",
+      "Content-Disposition": "attachment; filename=\"normalized_microarray_donor9861.zip\"",
+      "Last-Modified": "Tue, 17 Sep 2013 03:53:14 GMT",
+      "ETag": "\"4e68c42995e80\""
+     },
+     "head_error": null,
+     "head_url": "https://api.brain-map.org/api/v2/well_known_file_download/178238387",
+     "retrieved_utc": "2026-10-29T15:42:28Z"
+    },
+    "15697": {
+     "wkf_id": 178236545,
+     "path": "/external/human/prod23/specimen_713215/normalized_microarray_donor15697.zip",
+     "file_size_field": null,
+     "head_status": 200,
+     "head_headers": {
+      "Content-Type": "application/zip",
+      "Content-Length": "230640408",
+      "Content-Disposition": "attachment; filename=\"normalized_microarray_donor15697.zip\"",
+      "Last-Modified": "Tue, 17 Sep 2013 03:52:49 GMT",
+      "ETag": "\"4e68c411be640\""
+     },
+     "head_error": null,
+     "head_url": "https://api.brain-map.org/api/v2/well_known_file_download/178236545",
+     "retrieved_utc": "2026-10-29T15:42:29Z"
+    },
+    "15496": {
+     "wkf_id": 178238266,
+     "path": "/external/human/prod22/specimen_712858/normalized_microarray_donor15496.zip",
+     "file_size_field": null,
+     "head_status": 200,
+     "head_headers": {
+      "Content-Type": "application/zip",
+      "Content-Length": "216077630",
+      "Content-Disposition": "attachment; filename=\"normalized_microarray_donor15496.zip\"",
+      "Last-Modified": "Tue, 17 Sep 2013 03:52:36 GMT",
+      "ETag": "\"4e68c40558900\""
+     },
+     "head_error": null,
+     "head_url": "https://api.brain-map.org/api/v2/well_known_file_download/178238266",
+     "retrieved_utc": "2026-10-29T15:42:29Z"
+    }
+   },
+   "status": "verified-by-request",
+   "source": "wkf_nmd.json + HEAD requests (no body downloaded)"
+  },
+  "zips_total_bytes": {
+   "value": 1681256535,
+   "status": "verified-by-request",
+   "source": "sum of HEAD Content-Length"
+  }
+ },
+ "mouse_ish_aba": {
+  "product": 1,
+  "sds_not_failed_coronal": {
+   "value": 5940,
+   "status": "verified-by-request",
+   "source": "m_sds_count_coronal.json"
+  },
+  "sds_not_failed_sagittal": {
+   "value": 30430,
+   "status": "verified-by-request",
+   "source": "m_sds_count_sagittal.json"
+  },
+  "sds_not_failed_any_plane": {
+   "value": 36371,
+   "status": "verified-by-request",
+   "source": "m_sds_count_all.json",
+   "note": "1 dataset is in neither coronal nor sagittal"
+  },
+  "sds_including_failed": {
+   "value": 39148,
+   "status": "verified-by-request",
+   "source": "m_sds_count_incl_failed.json"
+  },
+  "by_plane_breakdown": {
+   "value": {
+    "coronal": {
+     "with_gene_expr_true": 3318,
+     "with_gene_expr_false": 1027,
+     "no_gene_expr_true": 0,
+     "no_gene_expr_false": 1595,
+     "distinct_genes_with_expr_true": 3190
+    },
+    "sagittal": {
+     "with_gene_expr_true": 18834,
+     "with_gene_expr_false": 2899,
+     "no_gene_expr_true": 0,
+     "no_gene_expr_false": 8697,
+     "distinct_genes_with_expr_true": 17547
+    }
+   },
+   "status": "verified-by-request",
+   "source": "m_sds_genes_*_p*.json",
+   "note": "datasets with no gene are reference/Nissl-type; expression flag = SectionDataSet.expression"
+  },
+  "distinct_genes_coronal_all_not_failed": {
+   "value": 4082,
+   "status": "verified-by-request",
+   "source": "m_sds_genes_coronal_p*.json"
+  },
+  "distinct_genes_sagittal_all_not_failed": {
+   "value": 19929,
+   "status": "verified-by-request",
+   "source": "m_sds_genes_sagittal_p*.json"
+  },
+  "distinct_genes_union": {
+   "value": 19948,
+   "status": "verified-by-request",
+   "source": "derived from the same pages"
+  },
+  "distinct_genes_both_planes": {
+   "value": 4063,
+   "status": "verified-by-request",
+   "source": "derived from the same pages"
+  },
+  "hy_1097_descendants_graph1": {
+   "value": 91,
+   "status": "verified-by-request",
+   "source": "m_hy_desc.json",
+   "note": "structure_id_path contains /1097/, includes 1097 itself"
+  },
+  "unionize_timing": {
+   "value": {
+    "single": {
+     "sds_id": 248560,
+     "status": 200,
+     "elapsed_s": 0.66,
+     "rows": 71,
+     "bytes": 21962,
+     "ok": true
+    },
+    "single_times_s": [
+     0.66,
+     0.398,
+     0.602,
+     0.432
+    ],
+    "batch50": {
+     "status": 200,
+     "elapsed_s": 8.55,
+     "rows": 3345,
+     "bytes": 1040190,
+     "ok": true,
+     "err": null
+    }
+   },
+   "status": "verified-by-request",
+   "source": "m_unionize_*.json",
+   "note": "single-SDS restricted to HY returns 71 rows (unionized HY structures), ~0.4-0.66 s; 50-SDS $in batch: 8.55 s, 3345 rows, 1.04 MB"
+  },
+  "crawl_estimate": {
+   "value": {
+    "target_sds": 22152,
+    "sequential_single_hours": 3.2,
+    "batched_50_minutes": 63.0,
+    "batched_raw_json_MB_unfiltered_fields": 461.0
+   },
+   "status": "inferred",
+   "source": "extrapolated from 4 single and 1 batched timing",
+   "note": "target = gene-bearing, expression=true, not-failed SDS; server load variance not measured"
+  }
+ },
+ "abc_atlas": {
+  "release": {
+   "value": "20261031 (latest prefix under releases/)",
+   "status": "verified-by-request",
+   "source": "abc_releases_list.xml, abc_manifest_20261031.json"
+  },
+  "wmb_total_clusters": {
+   "value": 5322,
+   "status": "verified-by-request",
+   "source": "abc/metadata__WMB-taxonomy__20231215__cluster.csv"
+  },
+  "wmb_hy_clusters_strict_class": {
+   "value": 773,
+   "status": "verified-by-request",
+   "source": "abc/..._cluster_to_cluster_annotation_membership_pivoted.csv",
+   "note": "column `class`, classes whose name has standalone token HY: 12 HY GABA (420), 14 HY Glut (339), 15 HY Gnrh1 Glut (1), 16 HY MM Glut (13)"
+  },
+  "wmb_hy_clusters_incl_CNU_HYa": {
+   "value": 1404,
+   "status": "verified-by-request",
+   "source": "same file",
+   "note": "adds 11 CNU-HYa GABA (395) and 13 CNU-HYa Glut (236); equals HY-EA-Glut-GABA neighborhood (1404) in WMB-neighborhoods cluster_group_membership.csv"
+  },
+  "wmb_class_counts": {
+   "value": {
+    "01 IT-ET Glut": 402,
+    "02 NP-CT-L6b Glut": 83,
+    "03 OB-CR Glut": 16,
+    "04 DG-IMN Glut": 16,
+    "05 OB-IMN GABA": 105,
+    "06 CTX-CGE GABA": 101,
+    "07 CTX-MGE GABA": 105,
+    "08 CNU-MGE GABA": 105,
+    "09 CNU-LGE GABA": 94,
+    "10 LSX GABA": 146,
+    "11 CNU-HYa GABA": 395,
+    "12 HY GABA": 420,
+    "13 CNU-HYa Glut": 236,
+    "14 HY Glut": 339,
+    "15 HY Gnrh1 Glut": 1,
+    "16 HY MM Glut": 13,
+    "17 MH-LH Glut": 35,
+    "18 TH Glut": 113,
+    "19 MB Glut": 661,
+    "20 MB GABA": 451,
+    "21 MB Dopa": 43,
+    "22 MB-HB Sero": 32,
+    "23 P Glut": 288,
+    "24 MY Glut": 406,
+    "25 Pineal Glut": 1,
+    "26 P GABA": 206,
+    "27 MY GABA": 353,
+    "28 CB GABA": 30,
+    "29 CB Glut": 9,
+    "30 Astro-Epen": 60,
+    "31 OPC-Oligo": 23,
+    "32 OEC": 4,
+    "33 Vascular": 19,
+    "34 Immune": 11
+   },
+   "status": "verified-by-request",
+   "source": "pivoted csv"
+  },
+  "wmb_cluster_anatomical_annotation_file": {
+   "value": null,
+   "status": "verified-by-request",
+   "source": "manifest search",
+   "note": "No cluster-level anatomical/dominant-region CSV exists in the WMB-taxonomy metadata; dominant region would need metadata/WMB-10X/20241115/cell_metadata.csv (1,008,037,855 B) region_of_interest per cell -- not downloaded (>50 MB)"
+  },
+  "wmb_precomputed_stats_h5": {
+   "value": {
+    "path": "mapmycells/WMB-taxonomy/20240831/precomputed_stats_ABC_revision_230821.h5",
+    "bytes": 1376366584
+   },
+   "status": "verified-by-request",
+   "source": "HEAD + manifest size agree"
+  },
+  "whb_total_subclusters": {
+   "value": 3313,
+   "status": "verified-by-request",
+   "source": "abc/metadata__WHB-taxonomy__20240330__cluster.csv"
+  },
+  "whb_distinct_clusters": {
+   "value": 461,
+   "status": "verified-by-request",
+   "source": "WHB membership csv"
+  },
+  "whb_hy_named_superclusters": {
+   "value": {
+    "names": [
+     "Mammillary body"
+    ],
+    "subclusters": 47,
+    "clusters": 11
+   },
+   "status": "verified-by-request",
+   "source": "WHB term + membership csv",
+   "note": "only 'Mammillary body' is region-named; other hypothalamic neurons sit in e.g. 'Splatter'/'Miscellaneous'"
+  },
+  "whb_precomputed_stats_h5": {
+   "value": {
+    "path": "mapmycells/WHB-taxonomy/20240831/precomputed_stats.siletti.training.h5",
+    "bytes": 8724563136
+   },
+   "status": "verified-by-request",
+   "source": "HEAD"
+  },
+  "human_cluster_level_files_under_2GB": {
+   "value": [
+    {
+     "path": "metadata/WHB-taxonomy/20240330/cluster.csv",
+     "bytes": 84820,
+     "content": "cluster metadata, no expression, no dissection"
+    },
+    {
+     "path": "metadata/WHB-taxonomy/20240330/cluster_annotation_term.csv",
+     "bytes": 546616,
+     "content": "taxonomy terms"
+    },
+    {
+     "path": "metadata/WHB-taxonomy/20240330/cluster_to_cluster_annotation_membership.csv",
+     "bytes": 1018425,
+     "content": "taxonomy membership"
+    },
+    {
+     "path": "mapmycells/WHB-taxonomy/20240831/query_markers.n10.20240221800.json",
+     "bytes": 2090976,
+     "content": "marker gene lists for MapMyCells, no expression values"
+    },
+    {
+     "path": "mapmycells/HMBA-BG-taxonomy/20261031/precomputed_stats.HMBA.BG.HUMAN.2026-10-31.h5",
+     "bytes": 664075888,
+     "content": "cluster stats, basal-ganglia taxonomy; hypothalamic dissections not established"
+    }
+   ],
+   "status": "verified-by-request",
+   "source": "manifest sizes",
+   "note": "None of these is a cluster x gene expression summary that is known to include hypothalamic dissections; the WHB stats h5 is 8.7 GB and dissection info is per cell in WHB-10Xv3 cell_metadata.csv (829,603,481 B)"
+  },
+  "whb_hypothalamic_dissection_rois": {
+   "value": [
+    "HTHma",
+    "HTHma-HTHtub",
+    "HTHpo",
+    "HTHpo-HTHso",
+    "HTHso",
+    "HTHso-HTHtub",
+    "HTHtub",
+    "MN"
+   ],
+   "status": "verified-by-request",
+   "source": "abc/metadata__WHB-10Xv3__20241115__region_of_interest_structure_map.csv",
+   "note": "ROI labels prefixed 'Human '; anatomical division 'Hypothalamus' = DHBA:10467"
+  }
+ },
+ "failures": [
+  {
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,donor[id$eq9861],structure[...]",
+   "msg": "Data Access error in query"
+  },
+  {
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,specimen(donor[id$eq9861]),...",
+   "msg": "Data Access error in query"
+  },
+  {
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::TissueSample,...",
+   "msg": "uninitialized constant TissueSample"
+  },
+  {
+   "note": "model::Well has only id, donor_id and a donor association (describe_well.json); it cannot be filtered by structure. 2337 wells for donor 9861."
+  },
+  {
+   "note": "model::Gene,probes(products[id$eq2]) total_rows=58784 equals probe count (join rows, not distinct genes)"
+  }
+ ],
+ "requests": [
+  {
+   "name": "h_hy_root.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Structure,rma::criteria,[graph_id$eq10],[acronym$eqHY],rma::options[only$eq'id,acronym,name,structure_id_path']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:40:01Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"8adfb5249d8cead1b44d41f23f2d5002\""
+   },
+   "elapsed_s": 0.34,
+   "bytes": 85,
+   "sha256": "3370431813a2de3afb606ef7f234ea7b0345af95df7b9816963e18389258a2b2"
+  },
+  {
+   "name": "m_hy_root.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Structure,rma::criteria,[graph_id$eq1],[id$eq1097],rma::options[only$eq'id,acronym,name,structure_id_path']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:40:02Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"856b37fc3a175e8e0172f1ffb3ce4098\""
+   },
+   "elapsed_s": 0.208,
+   "bytes": 177,
+   "sha256": "24a1c3eb7e6c2f0f52073430d597f1382be723a43e02beac74ec8c5d0d15393b"
+  },
+  {
+   "name": "h_products.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Product,rma::criteria,[name$il'*microarray*'],rma::options[only$eq'id,name,abbreviation']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:40:02Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"7ed726b22f67a425f11855fd2c9a2f6b\""
+   },
+   "elapsed_s": 0.203,
+   "bytes": 414,
+   "sha256": "8d0940c0841242e5265655ecf205462de0840dde0fa3206beb43274b9fbb0680"
+  },
+  {
+   "name": "h_hy_root.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Structure,rma::criteria,[graph_id$eq10],[name$eq'hypothalamus'],rma::options[only$eq'id,acronym,name,structure_id_path']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:40:10Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"af63007035a1dc4ac5677e3bf884bea7\""
+   },
+   "elapsed_s": 0.224,
+   "bytes": 177,
+   "sha256": "c46b650a3597a2e75d264818c8d898745029d109d2ce849220a824f6914f62c3"
+  },
+  {
+   "name": "h_hy_desc.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Structure,rma::criteria,[graph_id$eq10],[structure_id_path$il'*/4540/*'],rma::options[num_rows$eqall][only$eq'id,acronym,name,structure_id_path']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:40:33Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"60dc3ca1d153700ed4be3cd7cafa46f3\""
+   },
+   "elapsed_s": 0.379,
+   "bytes": 26491,
+   "sha256": "df266aae2aaa1542764b718b90298fbd035780fa87bea6f77e90c827e5027048"
+  },
+  {
+   "name": "try_sample_a.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,donor[id$eq9861],structure[structure_id_path$il'*/4540/*'],rma::options[num_rows$eq2]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:40:33Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"5426231a6279168f186748d631b78f54\""
+   },
+   "elapsed_s": 0.269,
+   "bytes": 228,
+   "sha256": "dd471efff9084a24f0313eb5bc8511599022a26d8b600356d5648e4151b3a043"
+  },
+  {
+   "name": "try_sample_b.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,specimen(donor[id$eq9861]),structure[structure_id_path$il'*/4540/*'],rma::options[num_rows$eq2]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:40:34Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"aa7c9579a39d3685438a32b7a9f4e7b7\""
+   },
+   "elapsed_s": 0.326,
+   "bytes": 238,
+   "sha256": "cd54d5eea951e0bf402abdd648028e383c1422befbae07a0ad430918cb39ece5"
+  },
+  {
+   "name": "try_well.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Well,rma::criteria,[id$gt0],rma::options[num_rows$eq2]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:40:34Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"7b9e42b57b2f1e09593bdc5d09f76dc9\""
+   },
+   "elapsed_s": 0.311,
+   "bytes": 154,
+   "sha256": "815b7915bc846addbc7f294ebe20562d4d4ebfa7d4d399f909927e8f87af85c2"
+  },
+  {
+   "name": "try_tissuesample.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::TissueSample,rma::criteria,[id$gt0],rma::options[num_rows$eq2]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:40:34Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"bbe00d1d9472cb782b21c14a8039b12a\""
+   },
+   "elapsed_s": 0.331,
+   "bytes": 209,
+   "sha256": "84776c3077ecb218d74e4fd5fedc0d054679f70fe927eb738ca16b8f5fdacc74"
+  },
+  {
+   "name": "h_probe_count.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Probe,rma::criteria,products[id$eq2],rma::options[num_rows$eq1][only$eq'id']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:40:35Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"3b3da1527ccbbcf86fc371fa26fa3f0d\""
+   },
+   "elapsed_s": 0.469,
+   "bytes": 103,
+   "sha256": "18dcb42db0137bdd5036956d4acda17a7b199aff016211ef8d54403eeea63fc9"
+  },
+  {
+   "name": "h_gene_count.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Gene,rma::criteria,probes(products[id$eq2]),rma::options[num_rows$eq1][only$eq'id']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:40:35Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"69849b4368818ace3566f15b2ef864d5\""
+   },
+   "elapsed_s": 0.668,
+   "bytes": 101,
+   "sha256": "7da9c402fdd81dff51dd1fa63888cf77406b7502635dc81ff47ea72112915a08"
+  },
+  {
+   "name": "wkf_types.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::WellKnownFileType,rma::criteria,[name$il'*icroarray*'],rma::options[num_rows$eqall]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:40:36Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"da5b86eb1e55c3c310cd73b96047ec82\""
+   },
+   "elapsed_s": 0.231,
+   "bytes": 1182,
+   "sha256": "d6e4b27a17464c8f992ca763ae29c037188f8b529fa6cce272335d0972f84f06"
+  },
+  {
+   "name": "try_sample_c.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,[id$gt0],rma::options[num_rows$eq2]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:40:52Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"bbe8db2f46cd75a6732093cd4706a7cc\""
+   },
+   "elapsed_s": 0.554,
+   "bytes": 280,
+   "sha256": "52c6936c3b50e3b14eb66f600cc474b999af855bc5cfddbd76c087574186c900"
+  },
+  {
+   "name": "try_well_d.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Well,rma::criteria,[donor_id$eq9861],rma::options[num_rows$eq2]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:40:53Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"174a27097cf4b4319916183a30b58c53\""
+   },
+   "elapsed_s": 0.428,
+   "bytes": 139,
+   "sha256": "706f7bbab09a70b93b2409ad72b6204bb42380564af49a780d5b412d8eb83444"
+  },
+  {
+   "name": "try_well_e.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Well,rma::criteria,[donor_id$eq9861],rma::include,samples,rma::options[num_rows$eq1]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:40:53Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"aa2df122865e8da729c976712bd8884a\""
+   },
+   "elapsed_s": 0.535,
+   "bytes": 206,
+   "sha256": "1c6aa4e502a5cb6ec81a8eb19573390d48efc416a580c48c217ae34871fff1b1"
+  },
+  {
+   "name": "try_well_f.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Well,rma::criteria,[donor_id$eq9861],rma::include,sample(structure),rma::options[num_rows$eq1]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:40:54Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"5d4a23878122390d124407a1e197f285\""
+   },
+   "elapsed_s": 0.233,
+   "bytes": 216,
+   "sha256": "8b500026273b7ecaef9268926fae0abaa3e74622593746e3fffaa414e0b49dd2"
+  },
+  {
+   "name": "try_sample_d.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,donors[id$eq9861],rma::options[num_rows$eq2]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:40:54Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"1c15fe808964f52ef08d28ad866897dc\""
+   },
+   "elapsed_s": 0.213,
+   "bytes": 187,
+   "sha256": "1911b220251296d785f9205c2987d7772d2247fa11d7d2a56c65fe8ff2bc45b5"
+  },
+  {
+   "name": "wkf_nmd.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::WellKnownFile,rma::criteria,well_known_file_type[id$eq177377237],rma::options[num_rows$eqall][only$eq'id,path,download_link,attachable_id,attachable_type,file_size']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:40:54Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"29f82c8f07bf359109bb168809697ec8\""
+   },
+   "elapsed_s": 0.228,
+   "bytes": 2181,
+   "sha256": "979f0889b9a46ff797ea1bfa48e0bc0499afab648f21907c1df482a6e5ef28d6"
+  },
+  {
+   "name": "t1.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,wells[donor_id$eq9861],rma::options[num_rows$eq2]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:41:13Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"9b20af2ee4856dce02433a40ee99a071\""
+   },
+   "elapsed_s": 0.262,
+   "bytes": 192,
+   "sha256": "5a129f61cfd4cea88f2653cd8c51f3b7ec399df52397006f7ccdd6b01f554126"
+  },
+  {
+   "name": "t2.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,well[donor_id$eq9861],rma::options[num_rows$eq2]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:41:13Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"d07f6c1dfbaf1e55b0fb401f08fa1e4b\""
+   },
+   "elapsed_s": 0.2,
+   "bytes": 191,
+   "sha256": "f5039d520163e1775952322fa9b65832f66ec10e3a6151797cb852650d778a37"
+  },
+  {
+   "name": "t3.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,structure[structure_id_path$il'*/4540/*'],rma::options[num_rows$eq2]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:41:13Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"2ecca5a8e978f3302c57cef8a2afef90\""
+   },
+   "elapsed_s": 0.232,
+   "bytes": 282,
+   "sha256": "2b756f3f91465cd519b886ff778964f4d6a7836123fca8b6096a51b3ce2fbc45"
+  },
+  {
+   "name": "t4.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Well,rma::criteria,[donor_id$eq9861],rma::include,sample,rma::options[num_rows$eq1]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:41:13Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"2f370f8632b32c104b1b947bd22c61db\""
+   },
+   "elapsed_s": 0.217,
+   "bytes": 205,
+   "sha256": "73a9ae33dc3cd51861e102ba91d028033dc3815aa08d103e8aaa9dcfd7dd4a6f"
+  },
+  {
+   "name": "t5.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,tissue_sample_data_set(donor[id$eq9861]),rma::options[num_rows$eq2]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:41:13Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"d3f6a08e23c18dffa19055f8df057883\""
+   },
+   "elapsed_s": 0.206,
+   "bytes": 210,
+   "sha256": "d78e81b7db858162a9a740f14c5251ac026ea63300e9a5d4e0b2552b50c63f4b"
+  },
+  {
+   "name": "t6.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,tissue_sample_data_set(specimen(donor[id$eq9861])),rma::options[num_rows$eq2]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:41:14Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"702934d1c1185cf26c7b5e929e54d2e6\""
+   },
+   "elapsed_s": 0.255,
+   "bytes": 280,
+   "sha256": "9b365ae1169b0fc23cdd6f3b78ee0a225e81080cbcf6e1e99326f25261d9ec5f"
+  },
+  {
+   "name": "t7.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Well,rma::criteria,[donor_id$eq9861],rma::include,structure,rma::options[num_rows$eq1]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:41:14Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"fb7e3c4a50a6e9f18a02dd669e59fd25\""
+   },
+   "elapsed_s": 0.205,
+   "bytes": 208,
+   "sha256": "1d3cd2dbf5c2a0fa2715a5e2e6297ed3562ede577c6f923956bfbe8ad72127b4"
+  },
+  {
+   "name": "t8.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::TissueSampleDataSet,rma::criteria,[id$eq100096805],rma::options[num_rows$eq1]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:41:14Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"28cb4d45b42b1d776b65bf758cfec20a\""
+   },
+   "elapsed_s": 0.215,
+   "bytes": 465,
+   "sha256": "bf01703e83faea4a6cc7e734183751449dcca41870af841573598de74542c91d"
+  },
+  {
+   "name": "t9.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Well,rma::criteria,[donor_id$eq9861],rma::include,polygon,rma::options[num_rows$eq1]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:41:14Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"602facd1633f9403c916d0cd9a7b18df\""
+   },
+   "elapsed_s": 0.195,
+   "bytes": 206,
+   "sha256": "0dbd3cb3a66dd5501cf14a408a29049d70a819c60cdcf15a06b9f64c426bbab9"
+  },
+  {
+   "name": "describe_well.json",
+   "url": "https://api.brain-map.org/api/v2/data/Well/describe.json",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:41:29Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"41bfad84fd1dcb5d1b54f701bb5e8121\""
+   },
+   "elapsed_s": 0.253,
+   "bytes": 348,
+   "sha256": "bf7f10139c3b115334cf1eb0268958d6d77230abe80c8d30ff323b869d832113"
+  },
+  {
+   "name": "describe_sample.json",
+   "url": "https://api.brain-map.org/api/v2/data/Sample/describe.json",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:41:29Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"feba0809004d9e8f9d93d1f981563b62\""
+   },
+   "elapsed_s": 0.2,
+   "bytes": 886,
+   "sha256": "1aa1d12f2010dfeb8d6e7546f69a82108f9dd7b4ec016ea566b89b5a3c1e454d"
+  },
+  {
+   "name": "describe_MicroarraySlide.json",
+   "url": "https://api.brain-map.org/api/v2/data/MicroarraySlide/describe.json",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:41:40Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"19a4ad02bce7a9f3d467ae14114f9fc7\""
+   },
+   "elapsed_s": 0.477,
+   "bytes": 1067,
+   "sha256": "5250a568f7c929468a80d4b1d48c634b29364c5c1f13766d170881a94f52306a"
+  },
+  {
+   "name": "describe_MicroarrayDataSet.json",
+   "url": "https://api.brain-map.org/api/v2/data/MicroarrayDataSet/describe.json",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:41:40Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"136de290b41d38fb449338ca4b359b56\""
+   },
+   "elapsed_s": 0.202,
+   "bytes": 3285,
+   "sha256": "03d956b26f46946abc8d498040d01c1180d58ba5326b60c7e6384bfd6d153ad8"
+  },
+  {
+   "name": "describe_TissueSampleDataSet.json",
+   "url": "https://api.brain-map.org/api/v2/data/TissueSampleDataSet/describe.json",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:41:41Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"45adad5971b38de31c5fbd297eeec97a\""
+   },
+   "elapsed_s": 0.427,
+   "bytes": 3130,
+   "sha256": "0464b164e350b5cf20985f67672cbf136472d24973cb0e8bbe5afc654611086a"
+  },
+  {
+   "name": "describe_Specimen.json",
+   "url": "https://api.brain-map.org/api/v2/data/Specimen/describe.json",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:41:41Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"04f9ff3de649c0b60c2343442043a8d5\""
+   },
+   "elapsed_s": 0.196,
+   "bytes": 5013,
+   "sha256": "ecc42d1b614d5c686305fcc7a599f8cdcafa583f76fc7134658cfe7d2a6b046e"
+  },
+  {
+   "name": "h_hy_samples_15697.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,tissue_sample_data_set(specimen(donor[id$eq15697])),structure[structure_id_path$il'*/4540/*'],rma::include,microarray_slides,tissue_sample_data_set(specimen),structure,rma::options[num_rows$eqall]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:42:00Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"3b1209f751bed92db8ac77ee7f322db7\""
+   },
+   "elapsed_s": 0.575,
+   "bytes": 33485,
+   "sha256": "0a480de8774c59817e7d91caad04e717d4cd712f01212be5e26379fc951e81c7"
+  },
+  {
+   "name": "h_all_samples_15697.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,tissue_sample_data_set(specimen(donor[id$eq15697])),rma::include,microarray_slides,rma::options[num_rows$eqall][only$eq'id,structure_id']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:42:00Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"d0b6ed1165c7d9a80eeb503728d663a5\""
+   },
+   "elapsed_s": 0.716,
+   "bytes": 39209,
+   "sha256": "6e56f2658662d16adea5ef61e6068ea8ba9d115b5a80f80b0718b56282492d10"
+  },
+  {
+   "name": "h_hy_samples_9861.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,tissue_sample_data_set(specimen(donor[id$eq9861])),structure[structure_id_path$il'*/4540/*'],rma::include,microarray_slides,tissue_sample_data_set(specimen),structure,rma::options[num_rows$eqall]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:42:01Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"6dc18f070c90733efbbe5021d3c2538c\""
+   },
+   "elapsed_s": 0.342,
+   "bytes": 15872,
+   "sha256": "c86c8e38894667cdc8e6c6e684730274da2a4883489b740b741fe4671bbaaa45"
+  },
+  {
+   "name": "h_all_samples_9861.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,tissue_sample_data_set(specimen(donor[id$eq9861])),rma::include,microarray_slides,rma::options[num_rows$eqall][only$eq'id,structure_id']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:42:01Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"593c2f419de186b725484657d3298564\""
+   },
+   "elapsed_s": 0.686,
+   "bytes": 61175,
+   "sha256": "4f60af34950c53e15a051bf395de1d82c5ca0f8ff24de8c784c1469ba21b57e3"
+  },
+  {
+   "name": "h_hy_samples_10021.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,tissue_sample_data_set(specimen(donor[id$eq10021])),structure[structure_id_path$il'*/4540/*'],rma::include,microarray_slides,tissue_sample_data_set(specimen),structure,rma::options[num_rows$eqall]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:42:02Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"cd669cd1dead927b188d5a7be72edf11\""
+   },
+   "elapsed_s": 0.702,
+   "bytes": 39605,
+   "sha256": "933bb457fb4d016b24745896c4f55171d4d42da17f84cd1d07c6afc3d1ec952d"
+  },
+  {
+   "name": "h_all_samples_10021.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,tissue_sample_data_set(specimen(donor[id$eq10021])),rma::include,microarray_slides,rma::options[num_rows$eqall][only$eq'id,structure_id']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:42:03Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"fbc5062acdb920378c2e48e7f032bfc0\""
+   },
+   "elapsed_s": 0.595,
+   "bytes": 60014,
+   "sha256": "ceeb9b0ade028ca92250af23fe86c3190591653eb19dce4746c6257283e4640c"
+  },
+  {
+   "name": "h_hy_samples_12876.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,tissue_sample_data_set(specimen(donor[id$eq12876])),structure[structure_id_path$il'*/4540/*'],rma::include,microarray_slides,tissue_sample_data_set(specimen),structure,rma::options[num_rows$eqall]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:42:03Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"45a5691af84a0d0e3e4e189d907e11ba\""
+   },
+   "elapsed_s": 0.428,
+   "bytes": 30532,
+   "sha256": "4f1f15234044894567e674537a1c2062cdf2598fbf84ccd1a8f69be74bb91651"
+  },
+  {
+   "name": "h_all_samples_12876.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,tissue_sample_data_set(specimen(donor[id$eq12876])),rma::include,microarray_slides,rma::options[num_rows$eqall][only$eq'id,structure_id']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:42:04Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"6444cd5ee3b35f2d33133167c60b4303\""
+   },
+   "elapsed_s": 0.614,
+   "bytes": 24845,
+   "sha256": "a6fecc9cb94d24eb0b89c51443a6560e629fd0b0300fc481c2a5ae7ee2a76392"
+  },
+  {
+   "name": "h_hy_samples_14380.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,tissue_sample_data_set(specimen(donor[id$eq14380])),structure[structure_id_path$il'*/4540/*'],rma::include,microarray_slides,tissue_sample_data_set(specimen),structure,rma::options[num_rows$eqall]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:42:04Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"fe6ac8442b7202454aaf52c2927bd08c\""
+   },
+   "elapsed_s": 0.628,
+   "bytes": 36509,
+   "sha256": "f82bc21c61fdc9b27a40353b8c2dac967b1653b9d7c509b3f7ee3600d252f2ea"
+  },
+  {
+   "name": "h_all_samples_14380.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,tissue_sample_data_set(specimen(donor[id$eq14380])),rma::include,microarray_slides,rma::options[num_rows$eqall][only$eq'id,structure_id']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:42:05Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"69acf1c3c455f310c6032221f026d447\""
+   },
+   "elapsed_s": 0.511,
+   "bytes": 41096,
+   "sha256": "c4c39f4a836bc5365eaddad623690634fe14fc2d0a6fc6cedc8b4a7c6b228135"
+  },
+  {
+   "name": "h_hy_samples_15496.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,tissue_sample_data_set(specimen(donor[id$eq15496])),structure[structure_id_path$il'*/4540/*'],rma::include,microarray_slides,tissue_sample_data_set(specimen),structure,rma::options[num_rows$eqall]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:42:05Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"76e1d7facc1c5880f006e42ff11428da\""
+   },
+   "elapsed_s": 1.41,
+   "bytes": 29282,
+   "sha256": "9ad900f3b55ff2aac20855b822261ba61c239de2618bd3b8c5ec4c3037b036f0"
+  },
+  {
+   "name": "h_all_samples_15496.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Sample,rma::criteria,tissue_sample_data_set(specimen(donor[id$eq15496])),rma::include,microarray_slides,rma::options[num_rows$eqall][only$eq'id,structure_id']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:42:07Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"82fffa184744bc0d7838b853c5bae681\""
+   },
+   "elapsed_s": 0.444,
+   "bytes": 36510,
+   "sha256": "8fbf2a9c10c373544647a77bc90113ba0f2fe0c2221cfd6d8f8029e41191c907"
+  },
+  {
+   "name": null,
+   "url": "https://api.brain-map.org/api/v2/well_known_file_download/178238316",
+   "method": "HEAD",
+   "retrieved_utc": "2026-10-29T15:42:25Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/zip",
+    "Content-Length": "241359585",
+    "Content-Disposition": "attachment; filename=\"normalized_microarray_donor14380.zip\"",
+    "Last-Modified": "Tue, 17 Sep 2013 03:52:20 GMT",
+    "ETag": "\"4e68c3f616500\""
+   },
+   "elapsed_s": 1.125
+  },
+  {
+   "name": null,
+   "url": "https://api.brain-map.org/api/v2/well_known_file_download/178238359",
+   "method": "HEAD",
+   "retrieved_utc": "2026-10-29T15:42:26Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/zip",
+    "Content-Length": "166233851",
+    "Content-Disposition": "attachment; filename=\"normalized_microarray_donor12876.zip\"",
+    "Last-Modified": "Tue, 17 Sep 2013 03:52:06 GMT",
+    "ETag": "\"4e68c3e8bc580\""
+   },
+   "elapsed_s": 0.525
+  },
+  {
+   "name": null,
+   "url": "https://api.brain-map.org/api/v2/well_known_file_download/178238373",
+   "method": "HEAD",
+   "retrieved_utc": "2026-10-29T15:42:27Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/zip",
+    "Content-Length": "400957002",
+    "Content-Disposition": "attachment; filename=\"normalized_microarray_donor10021.zip\"",
+    "Last-Modified": "Tue, 17 Sep 2013 03:51:55 GMT",
+    "ETag": "\"4e68c3de3ecc0\""
+   },
+   "elapsed_s": 1.171
+  },
+  {
+   "name": null,
+   "url": "https://api.brain-map.org/api/v2/well_known_file_download/178238387",
+   "method": "HEAD",
+   "retrieved_utc": "2026-10-29T15:42:28Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/zip",
+    "Content-Length": "425988059",
+    "Content-Disposition": "attachment; filename=\"normalized_microarray_donor9861.zip\"",
+    "Last-Modified": "Tue, 17 Sep 2013 03:53:14 GMT",
+    "ETag": "\"4e68c42995e80\""
+   },
+   "elapsed_s": 0.787
+  },
+  {
+   "name": null,
+   "url": "https://api.brain-map.org/api/v2/well_known_file_download/178236545",
+   "method": "HEAD",
+   "retrieved_utc": "2026-10-29T15:42:29Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/zip",
+    "Content-Length": "230640408",
+    "Content-Disposition": "attachment; filename=\"normalized_microarray_donor15697.zip\"",
+    "Last-Modified": "Tue, 17 Sep 2013 03:52:49 GMT",
+    "ETag": "\"4e68c411be640\""
+   },
+   "elapsed_s": 0.799
+  },
+  {
+   "name": null,
+   "url": "https://api.brain-map.org/api/v2/well_known_file_download/178238266",
+   "method": "HEAD",
+   "retrieved_utc": "2026-10-29T15:42:29Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/zip",
+    "Content-Length": "216077630",
+    "Content-Disposition": "attachment; filename=\"normalized_microarray_donor15496.zip\"",
+    "Last-Modified": "Tue, 17 Sep 2013 03:52:36 GMT",
+    "ETag": "\"4e68c40558900\""
+   },
+   "elapsed_s": 0.203
+  },
+  {
+   "name": "h_probes_p0.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Probe,rma::criteria,products[id$eq2],rma::options[num_rows$eq20000][start_row$eq0][order$eq'probes.id'][only$eq'probes.id,probes.gene_id']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:42:30Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"8c15e09ac1bad3963aeb7a63d2b66d84\""
+   },
+   "elapsed_s": 5.841,
+   "bytes": 619520,
+   "sha256": "dd4d89060b4d02b0220e3c7b959f2288887beac4c20fdfe98f6d0341e18cf3a4"
+  },
+  {
+   "name": "h_probes_p20000.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Probe,rma::criteria,products[id$eq2],rma::options[num_rows$eq20000][start_row$eq20000][order$eq'probes.id'][only$eq'probes.id,probes.gene_id']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:42:35Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"de3efbc3aceca0c21237ffe77c567875\""
+   },
+   "elapsed_s": 5.459,
+   "bytes": 617157,
+   "sha256": "abf64ccdef323590574d3763e3a01d247ec9b46b9645b2378ea409019a0f0ae7"
+  },
+  {
+   "name": "h_probes_p40000.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Probe,rma::criteria,products[id$eq2],rma::options[num_rows$eq20000][start_row$eq40000][order$eq'probes.id'][only$eq'probes.id,probes.gene_id']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:42:41Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"17b361840f42c289069a70b225766231\""
+   },
+   "elapsed_s": 3.824,
+   "bytes": 594374,
+   "sha256": "f24ae611645387af4a7db0fa7d55f6b51e7aeb710419183db9c03e5de36c2984"
+  },
+  {
+   "name": "m_sds_count_coronal.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::SectionDataSet,rma::criteria,[failed$eqfalse],products[id$eq1],plane_of_section[name$eq'coronal'],rma::options[num_rows$eq1][only$eq'id']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:43:04Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"405310a055a0648fdfbddea73ac4a600\""
+   },
+   "elapsed_s": 0.326,
+   "bytes": 103,
+   "sha256": "18d290bd1b18d5487a9e5f24bfb1da19b43f3b04d1bbd941dede9028a7f9b845"
+  },
+  {
+   "name": "m_sds_count_sagittal.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::SectionDataSet,rma::criteria,[failed$eqfalse],products[id$eq1],plane_of_section[name$eq'sagittal'],rma::options[num_rows$eq1][only$eq'id']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:43:05Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"dad5366aead242dd4bf9c7589ad058b5\""
+   },
+   "elapsed_s": 0.339,
+   "bytes": 104,
+   "sha256": "43dafbb5cc0d1a3cfa3e4f4eb01923884bb578a98d194f39b0ef1e6528649d86"
+  },
+  {
+   "name": "m_sds_count_all.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::SectionDataSet,rma::criteria,[failed$eqfalse],products[id$eq1],rma::options[num_rows$eq1][only$eq'id']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:43:05Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"1fb151d3a084e387a2990c8acb9041ed\""
+   },
+   "elapsed_s": 0.422,
+   "bytes": 104,
+   "sha256": "425f7d9aedd5eb474f9a857dc7ff44fc8e4e237767dde13f84e1eed719fe74f0"
+  },
+  {
+   "name": "m_sds_count_incl_failed.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::SectionDataSet,rma::criteria,products[id$eq1],rma::options[num_rows$eq1][only$eq'id']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:43:06Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"59b13e73200007a4a62bd46169e10201\""
+   },
+   "elapsed_s": 0.344,
+   "bytes": 104,
+   "sha256": "f102e52812b9c338177261e5a8e8d3cd219714996ec6b97a11281d85e858901e"
+  },
+  {
+   "name": "m_hy_desc.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::Structure,rma::criteria,[graph_id$eq1],[structure_id_path$il'*/1097/*'],rma::options[num_rows$eqall][only$eq'id,acronym,name']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:43:06Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"4dd457280e34a949a8f5696ccadeee2b\""
+   },
+   "elapsed_s": 0.428,
+   "bytes": 7175,
+   "sha256": "42adff04133c720710e8d42c408b6eb982c39e905146b33c23543d816928f75b"
+  },
+  {
+   "name": "m_sds_genes_coronal_p0.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::SectionDataSet,rma::criteria,[failed$eqfalse],products[id$eq1],plane_of_section[name$eq'coronal'],rma::include,genes,rma::options[num_rows$eq5000][start_row$eq0][order$eq'data_sets.id'][only$eq'data_sets.id,data_sets.expression,genes.id,genes.acronym']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:43:25Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"78d2767daf4e7657e6cd8c234f239633\""
+   },
+   "elapsed_s": 3.686,
+   "bytes": 334723,
+   "sha256": "a3cb2963044cf42fcdf41ffb1c461d22d4928f579a91f21912c385ab452ab459"
+  },
+  {
+   "name": "m_sds_genes_coronal_p5000.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::SectionDataSet,rma::criteria,[failed$eqfalse],products[id$eq1],plane_of_section[name$eq'coronal'],rma::include,genes,rma::options[num_rows$eq5000][start_row$eq5000][order$eq'data_sets.id'][only$eq'data_sets.id,data_sets.expression,genes.id,genes.acronym']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:43:28Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"a36f22b9d1a239b8797ce6e6db2efcea\""
+   },
+   "elapsed_s": 1.638,
+   "bytes": 63295,
+   "sha256": "f85e4321ac2991675cfb6ea4794ac60464820101b3fbb0a8488b8f35ed2d1150"
+  },
+  {
+   "name": "m_sds_genes_sagittal_p0.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::SectionDataSet,rma::criteria,[failed$eqfalse],products[id$eq1],plane_of_section[name$eq'sagittal'],rma::include,genes,rma::options[num_rows$eq5000][start_row$eq0][order$eq'data_sets.id'][only$eq'data_sets.id,data_sets.expression,genes.id,genes.acronym']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:43:30Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"cb3e65fc705f6905ad8884ac23e023d3\""
+   },
+   "elapsed_s": 3.729,
+   "bytes": 371567,
+   "sha256": "af39bcced29c25e6d8e15b4ab1dd196acbf0497f705a4c2fe16035cff89c5432"
+  },
+  {
+   "name": "m_sds_genes_sagittal_p5000.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::SectionDataSet,rma::criteria,[failed$eqfalse],products[id$eq1],plane_of_section[name$eq'sagittal'],rma::include,genes,rma::options[num_rows$eq5000][start_row$eq5000][order$eq'data_sets.id'][only$eq'data_sets.id,data_sets.expression,genes.id,genes.acronym']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:43:34Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"766f67a7c280af0fa7519232336bcb81\""
+   },
+   "elapsed_s": 3.421,
+   "bytes": 362199,
+   "sha256": "01f446137ba3c296ad6974b1cd1195183b407f4afa195cd6854b763486157867"
+  },
+  {
+   "name": "m_sds_genes_sagittal_p10000.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::SectionDataSet,rma::criteria,[failed$eqfalse],products[id$eq1],plane_of_section[name$eq'sagittal'],rma::include,genes,rma::options[num_rows$eq5000][start_row$eq10000][order$eq'data_sets.id'][only$eq'data_sets.id,data_sets.expression,genes.id,genes.acronym']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:43:37Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"ccf420183f677fe14df0b436473e4308\""
+   },
+   "elapsed_s": 3.647,
+   "bytes": 315722,
+   "sha256": "bee458805c9af9a965128b9e074f5682c36acaa5306f6bc021490194462a061a"
+  },
+  {
+   "name": "m_sds_genes_sagittal_p15000.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::SectionDataSet,rma::criteria,[failed$eqfalse],products[id$eq1],plane_of_section[name$eq'sagittal'],rma::include,genes,rma::options[num_rows$eq5000][start_row$eq15000][order$eq'data_sets.id'][only$eq'data_sets.id,data_sets.expression,genes.id,genes.acronym']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:43:41Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"50e0149bb8e55179df6588f593138f7f\""
+   },
+   "elapsed_s": 3.311,
+   "bytes": 324493,
+   "sha256": "70b5e99606de0e39c91b5d94a18470dd12f603108fb2c8be35fa228ed7e3ea38"
+  },
+  {
+   "name": "m_sds_genes_sagittal_p20000.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::SectionDataSet,rma::criteria,[failed$eqfalse],products[id$eq1],plane_of_section[name$eq'sagittal'],rma::include,genes,rma::options[num_rows$eq5000][start_row$eq20000][order$eq'data_sets.id'][only$eq'data_sets.id,data_sets.expression,genes.id,genes.acronym']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:43:44Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"bccc72dd00013202f6b58b119f643148\""
+   },
+   "elapsed_s": 5.28,
+   "bytes": 314571,
+   "sha256": "2b887cf56c7407fab48ee646989d247c859bac986c42b8fb4508f27622521e52"
+  },
+  {
+   "name": "m_sds_genes_sagittal_p25000.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::SectionDataSet,rma::criteria,[failed$eqfalse],products[id$eq1],plane_of_section[name$eq'sagittal'],rma::include,genes,rma::options[num_rows$eq5000][start_row$eq25000][order$eq'data_sets.id'][only$eq'data_sets.id,data_sets.expression,genes.id,genes.acronym']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:43:49Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"9885b5b4c33d7945d4c9e37cbeaecc37\""
+   },
+   "elapsed_s": 3.286,
+   "bytes": 338869,
+   "sha256": "d936c7d21c1b1209ed82b3dfcd5183d6277313470032af3c036e513aa66b18c4"
+  },
+  {
+   "name": "m_sds_genes_sagittal_p30000.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::SectionDataSet,rma::criteria,[failed$eqfalse],products[id$eq1],plane_of_section[name$eq'sagittal'],rma::include,genes,rma::options[num_rows$eq5000][start_row$eq30000][order$eq'data_sets.id'][only$eq'data_sets.id,data_sets.expression,genes.id,genes.acronym']",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:43:53Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"a08a59b285a959aa604d02601613252a\""
+   },
+   "elapsed_s": 0.545,
+   "bytes": 28750,
+   "sha256": "024fe294b4b060dfb2459a6f0fe62ddeb9a26430f70301ba4457cf882fb12a7a"
+  },
+  {
+   "name": "m_unionize_one_hy.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::StructureUnionize,rma::criteria,section_data_set[id$eq248560],structure[structure_id_path$il'*/1097/*'],rma::options[num_rows$eqall]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:44:12Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"90eeed6b10ac19fa82852732a0c51609\""
+   },
+   "elapsed_s": 0.66,
+   "bytes": 21962,
+   "sha256": "f8a46dd0d3b6a72e713c21776a5c13897f847fe78f9694cd385f4a99607bad5b"
+  },
+  {
+   "name": "m_unionize_one_hy_0.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::StructureUnionize,rma::criteria,section_data_set[id$eq67850952],structure[structure_id_path$il'*/1097/*'],rma::options[num_rows$eqall]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:44:12Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"a46ee4ffa9403b10ef948ec4e34eb51f\""
+   },
+   "elapsed_s": 0.398,
+   "bytes": 22194,
+   "sha256": "3b4dfae87375c891471d2831ef5be683cfee99d62be409355e3873ee4bced47f"
+  },
+  {
+   "name": "m_unionize_one_hy_1.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::StructureUnionize,rma::criteria,section_data_set[id$eq67850953],structure[structure_id_path$il'*/1097/*'],rma::options[num_rows$eqall]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:44:13Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"58072bb0c9dcb68c7c73eefe892850df\""
+   },
+   "elapsed_s": 0.602,
+   "bytes": 22317,
+   "sha256": "bfb7362172ececc398dcb1f7b170baf455065f33818bca092d54bc22c8e8c775"
+  },
+  {
+   "name": "m_unionize_one_hy_2.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::StructureUnionize,rma::criteria,section_data_set[id$eq67853369],structure[structure_id_path$il'*/1097/*'],rma::options[num_rows$eqall]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:44:13Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"b7c1eacb12cbd5c32e7e70e1e10494c5\""
+   },
+   "elapsed_s": 0.432,
+   "bytes": 22387,
+   "sha256": "065f2762fcccecb612c3bf788be47c95dbf7c6078487d6f161fd5bc83af1f963"
+  },
+  {
+   "name": "m_unionize_batch50_hy.json",
+   "url": "https://api.brain-map.org/api/v2/data/query.json?criteria=model::StructureUnionize,rma::criteria,section_data_set[id$in67764935,67764936,67764937,67764944,67764945,67765696,67765697,67765698,67765699,67765700,67765702,67765703,67765704,67765705,67765706,67765707,67765709,67765710,67765712,67765714,67765715,67765717,67765718,67765719,67765720,67765722,67765723,67765724,67765725,67765726,67765728,67765729,67765730,67765732,67767437,67767438,67767439,67767440,67767442,67767443,67767444,67767445,67767446,67767447,67767448,67767450,67767451,67767452,67767456,67767459],structure[structure_id_path$il'*/1097/*'],rma::options[num_rows$eqall]",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:44:14Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "ETag": "\"a98a6376e9bf1bc4a080d9b805d97c0c\""
+   },
+   "elapsed_s": 8.55,
+   "bytes": 1040190,
+   "sha256": "070642e9c7a0f27365db77e80387d351609a5d45be0ec8edd32fa724b555ef90"
+  },
+  {
+   "name": "abc/metadata__WMB-taxonomy__20231215__cluster.csv",
+   "url": "https://allen-brain-cell-atlas.s3.us-west-2.amazonaws.com/metadata/WMB-taxonomy/20231215/cluster.csv",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:45:20Z",
+   "status": 200,
+   "headers": {
+    "Content-Length": "130749",
+    "Last-Modified": "Thu, 09 Nov 2023 03:58:49 GMT",
+    "ETag": "\"8a980695605a3d3e105c3e82d2614264\"",
+    "Content-Type": "text/csv"
+   },
+   "elapsed_s": 10.391,
+   "bytes": 130749,
+   "sha256": "cd3bd90f90accc8c679fc07ccba78c34bf2ea43e526f1a9c4aa6deb9b0e09c76"
+  },
+  {
+   "name": "abc/metadata__WMB-taxonomy__20231215__cluster_annotation_term.csv",
+   "url": "https://allen-brain-cell-atlas.s3.us-west-2.amazonaws.com/metadata/WMB-taxonomy/20231215/cluster_annotation_term.csv",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:45:30Z",
+   "status": 200,
+   "headers": {
+    "Last-Modified": "Thu, 09 Nov 2023 03:58:49 GMT",
+    "ETag": "\"bf307de084140187706b8efd3378f015\"",
+    "Content-Type": "text/csv",
+    "Content-Length": "861405"
+   },
+   "elapsed_s": 25.966,
+   "bytes": 861405,
+   "sha256": "a14df2b81d9b557f53bc550e2e7143ed25f6fc2f2ebffd20071ae95bd04d6f76"
+  },
+  {
+   "name": "abc/metadata__WMB-taxonomy__20231215__cluster_annotation_term_set.csv",
+   "url": "https://allen-brain-cell-atlas.s3.us-west-2.amazonaws.com/metadata/WMB-taxonomy/20231215/cluster_annotation_term_set.csv",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:45:56Z",
+   "status": 200,
+   "headers": {
+    "Content-Length": "1107",
+    "Last-Modified": "Thu, 09 Nov 2023 03:58:49 GMT",
+    "ETag": "\"6da16f35aad825efeb7230322fbf6cfd\"",
+    "Content-Type": "text/csv"
+   },
+   "elapsed_s": 0.312,
+   "bytes": 1107,
+   "sha256": "03d9ff53778a14800c1dfd7f63a20581e96d6bec7c586f58c6d115eb0bd1e78a"
+  },
+  {
+   "name": "abc/metadata__WMB-taxonomy__20231215__cluster_to_cluster_annotation_membership.csv",
+   "url": "https://allen-brain-cell-atlas.s3.us-west-2.amazonaws.com/metadata/WMB-taxonomy/20231215/cluster_to_cluster_annotation_membership.csv",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:45:57Z",
+   "status": 200,
+   "headers": {
+    "Content-Length": "2208190",
+    "Last-Modified": "Thu, 09 Nov 2023 03:58:49 GMT",
+    "ETag": "\"9257eef8bc89e05467eaeeb0dad5d625\"",
+    "Content-Type": "text/csv"
+   },
+   "elapsed_s": 1.392,
+   "bytes": 2208190,
+   "sha256": "b06ca6c3ee8d9d5c2f87e92e8a50536c28845678fde63a04e8847c8a4040da83"
+  },
+  {
+   "name": "abc/metadata__WMB-taxonomy__20231215__views__cluster_to_cluster_annotation_membership_pivoted.csv",
+   "url": "https://allen-brain-cell-atlas.s3.us-west-2.amazonaws.com/metadata/WMB-taxonomy/20231215/views/cluster_to_cluster_annotation_membership_pivoted.csv",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:45:58Z",
+   "status": 200,
+   "headers": {
+    "Last-Modified": "Thu, 09 Nov 2023 03:58:49 GMT",
+    "ETag": "\"06a0f8cd2b2181fed0fc6e3597af5c20\"",
+    "Content-Type": "text/csv",
+    "Content-Length": "530641"
+   },
+   "elapsed_s": 0.857,
+   "bytes": 530641,
+   "sha256": "396e690a16638791dd0ef4d29e3053cf92b01e373f9f7a7b0688f7c209337f8d"
+  },
+  {
+   "name": "abc/metadata__WMB-taxonomy__20231215__views__cluster_annotation_term_with_counts.csv",
+   "url": "https://allen-brain-cell-atlas.s3.us-west-2.amazonaws.com/metadata/WMB-taxonomy/20231215/views/cluster_annotation_term_with_counts.csv",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:45:59Z",
+   "status": 200,
+   "headers": {
+    "Last-Modified": "Thu, 09 Nov 2023 03:58:49 GMT",
+    "ETag": "\"379607af48e7960b94d3a94687d84f6f\"",
+    "Content-Type": "text/csv",
+    "Content-Length": "902272"
+   },
+   "elapsed_s": 0.834,
+   "bytes": 902272,
+   "sha256": "653606461801393cd0a7708a084e3f9c989ffb2ac696ac30629f6ef6180e76c5"
+  },
+  {
+   "name": "abc/metadata__WMB-neighborhoods__20231215__cluster_group.csv",
+   "url": "https://allen-brain-cell-atlas.s3.us-west-2.amazonaws.com/metadata/WMB-neighborhoods/20231215/cluster_group.csv",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:46:00Z",
+   "status": 200,
+   "headers": {
+    "Last-Modified": "Thu, 09 Nov 2023 03:58:51 GMT",
+    "ETag": "\"bdabab6ce4c722c6709c1a03ffbf3d58\"",
+    "Content-Type": "text/csv",
+    "Content-Length": "1617"
+   },
+   "elapsed_s": 0.254,
+   "bytes": 1617,
+   "sha256": "6537358bfafea4a9e44f65521b3398776ba94cccc3433fa72501ff634396668b"
+  },
+  {
+   "name": "abc/metadata__WMB-neighborhoods__20231215__cluster_group_membership.csv",
+   "url": "https://allen-brain-cell-atlas.s3.us-west-2.amazonaws.com/metadata/WMB-neighborhoods/20231215/cluster_group_membership.csv",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:46:00Z",
+   "status": 200,
+   "headers": {
+    "Last-Modified": "Thu, 09 Nov 2023 03:58:51 GMT",
+    "ETag": "\"586b55bcdae5fea0b7930993192e7d26\"",
+    "Content-Type": "text/csv",
+    "Content-Length": "673963"
+   },
+   "elapsed_s": 0.722,
+   "bytes": 673963,
+   "sha256": "60cdf353bd6da26205d708f6e070af5abe3c374582b370ab80e925bd47978507"
+  },
+  {
+   "name": "abc/metadata__WMB-10X__20241115__region_of_interest_metadata.csv",
+   "url": "https://allen-brain-cell-atlas.s3.us-west-2.amazonaws.com/metadata/WMB-10X/20241115/region_of_interest_metadata.csv",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:46:01Z",
+   "status": 200,
+   "headers": {
+    "Last-Modified": "Wed, 23 Oct 2024 21:52:27 GMT",
+    "ETag": "\"22ad37813565d331d4080c0c81f5b8c7\"",
+    "Content-Type": "text/csv",
+    "Content-Length": "1400"
+   },
+   "elapsed_s": 0.26,
+   "bytes": 1400,
+   "sha256": "19dfa4768f7e0a4d2234e55050fd0e0c0f299e7dae50a701623c900166ca39cd"
+  },
+  {
+   "name": "abc/metadata__WHB-taxonomy__20240330__cluster.csv",
+   "url": "https://allen-brain-cell-atlas.s3.us-west-2.amazonaws.com/metadata/WHB-taxonomy/20240330/cluster.csv",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:46:01Z",
+   "status": 200,
+   "headers": {
+    "Last-Modified": "Sat, 03 Feb 2024 01:01:14 GMT",
+    "ETag": "\"c5648d1c646f64c590ff9c9dac53e17b\"",
+    "Content-Type": "text/csv",
+    "Content-Length": "84820"
+   },
+   "elapsed_s": 0.45,
+   "bytes": 84820,
+   "sha256": "c76549049633c7c3595be311a882c546f750b6fb9a36978318eb3022215523af"
+  },
+  {
+   "name": "abc/metadata__WHB-taxonomy__20240330__cluster_annotation_term.csv",
+   "url": "https://allen-brain-cell-atlas.s3.us-west-2.amazonaws.com/metadata/WHB-taxonomy/20240330/cluster_annotation_term.csv",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:46:01Z",
+   "status": 200,
+   "headers": {
+    "Last-Modified": "Sat, 03 Feb 2024 01:01:14 GMT",
+    "ETag": "\"2533ac1498b35a1ce386a3d97137e9c3\"",
+    "Content-Type": "text/csv",
+    "Content-Length": "546616"
+   },
+   "elapsed_s": 1.958,
+   "bytes": 546616,
+   "sha256": "98e8a8d5e004154d3ed084311f7d2b3e40a5453e07ad7ac9364fcb3b8dcd3caf"
+  },
+  {
+   "name": "abc/metadata__WHB-taxonomy__20240330__cluster_annotation_term_set.csv",
+   "url": "https://allen-brain-cell-atlas.s3.us-west-2.amazonaws.com/metadata/WHB-taxonomy/20240330/cluster_annotation_term_set.csv",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:46:03Z",
+   "status": 200,
+   "headers": {
+    "Last-Modified": "Sat, 03 Feb 2024 01:01:14 GMT",
+    "ETag": "\"89d131f4afabf925019e4d405c2a150d\"",
+    "Content-Type": "text/csv",
+    "Content-Length": "1330"
+   },
+   "elapsed_s": 0.666,
+   "bytes": 1330,
+   "sha256": "4e33086864300f696b1eec00e1ce8ba720a0f045b9fe934c32341a563d1f256b"
+  },
+  {
+   "name": "abc/metadata__WHB-taxonomy__20240330__cluster_to_cluster_annotation_membership.csv",
+   "url": "https://allen-brain-cell-atlas.s3.us-west-2.amazonaws.com/metadata/WHB-taxonomy/20240330/cluster_to_cluster_annotation_membership.csv",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:46:04Z",
+   "status": 200,
+   "headers": {
+    "Last-Modified": "Sat, 03 Feb 2024 01:01:14 GMT",
+    "ETag": "\"ae0850e319e8a3162d72bdcc971106e1\"",
+    "Content-Type": "text/csv",
+    "Content-Length": "1018425"
+   },
+   "elapsed_s": 4.453,
+   "bytes": 1018425,
+   "sha256": "06b45a467e4c5c2d5d50a2bc3a24d59ad5e3f711dc8241c9296ebc1da81d1f3b"
+  },
+  {
+   "name": "abc/metadata__WHB-10Xv3__20241115__anatomical_division_structure_map.csv",
+   "url": "https://allen-brain-cell-atlas.s3.us-west-2.amazonaws.com/metadata/WHB-10Xv3/20241115/anatomical_division_structure_map.csv",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:46:09Z",
+   "status": 200,
+   "headers": {
+    "Content-Length": "928",
+    "Last-Modified": "Wed, 23 Oct 2024 21:42:55 GMT",
+    "ETag": "\"908bef716c5af7b831ed41f8aaf0bcde\"",
+    "Content-Type": "text/csv"
+   },
+   "elapsed_s": 0.235,
+   "bytes": 928,
+   "sha256": "fc5a120baf7e4c01b320ab435b58fa9ddaf31fceae169c84bd9f46498b15ff32"
+  },
+  {
+   "name": "abc/metadata__WHB-10Xv3__20241115__region_of_interest_structure_map.csv",
+   "url": "https://allen-brain-cell-atlas.s3.us-west-2.amazonaws.com/metadata/WHB-10Xv3/20241115/region_of_interest_structure_map.csv",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:46:09Z",
+   "status": 200,
+   "headers": {
+    "Content-Length": "8823",
+    "Last-Modified": "Wed, 23 Oct 2024 21:42:55 GMT",
+    "ETag": "\"0376261ba66d7ada9bad7cdc58db5e4a\"",
+    "Content-Type": "text/csv"
+   },
+   "elapsed_s": 0.492,
+   "bytes": 8823,
+   "sha256": "8691d1648298e3a9599bcee0cdde2c1698fa240957d62dd8a8611c2539b9ebac"
+  },
+  {
+   "name": "abc/metadata__WHB-10Xv3__20241115__donor.csv",
+   "url": "https://allen-brain-cell-atlas.s3.us-west-2.amazonaws.com/metadata/WHB-10Xv3/20241115/donor.csv",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:46:09Z",
+   "status": 200,
+   "headers": {
+    "Content-Length": "300",
+    "Last-Modified": "Wed, 23 Oct 2024 21:42:55 GMT",
+    "ETag": "\"13d555f61d45ab0273ce1baca9076ef8\"",
+    "Content-Type": "text/csv"
+   },
+   "elapsed_s": 1.046,
+   "bytes": 300,
+   "sha256": "b541ee4716781da729caf895f791e1ef79f7024bb601ead0d686324087684186"
+  },
+  {
+   "name": null,
+   "url": "https://allen-brain-cell-atlas.s3.us-west-2.amazonaws.com/mapmycells/WMB-taxonomy/20240831/precomputed_stats_ABC_revision_230821.h5",
+   "method": "HEAD",
+   "retrieved_utc": "2026-10-29T15:46:10Z",
+   "status": 200,
+   "headers": {
+    "Last-Modified": "Fri, 29 Aug 2025 17:57:48 GMT",
+    "ETag": "\"da450e4c21704f340e4e84006ae8e749-165\"",
+    "Content-Length": "1376366584",
+    "Content-Type": "binary/octet-stream"
+   },
+   "elapsed_s": 0.226
+  },
+  {
+   "name": null,
+   "url": "https://allen-brain-cell-atlas.s3.us-west-2.amazonaws.com/mapmycells/WHB-taxonomy/20240831/precomputed_stats.siletti.training.h5",
+   "method": "HEAD",
+   "retrieved_utc": "2026-10-29T15:46:11Z",
+   "status": 200,
+   "headers": {
+    "Last-Modified": "Fri, 29 Aug 2025 17:57:15 GMT",
+    "ETag": "\"23d57e262edc04bf83bfefa3e5663d36-1041\"",
+    "Content-Length": "8724563136",
+    "Content-Type": "binary/octet-stream"
+   },
+   "elapsed_s": 0.265
+  },
+  {
+   "name": null,
+   "url": "https://allen-brain-cell-atlas.s3.us-west-2.amazonaws.com/releases/20261031/manifest.json",
+   "method": "HEAD",
+   "retrieved_utc": "2026-10-29T15:46:11Z",
+   "status": 200,
+   "headers": {
+    "Last-Modified": "Wed, 14 Oct 2026 17:38:41 GMT",
+    "ETag": "\"3a801d7a32c1974ed1400e30cb89f63e\"",
+    "Content-Length": "443730",
+    "Content-Type": "application/json"
+   },
+   "elapsed_s": 0.23
+  },
+  {
+   "name": "abc_releases_list.xml",
+   "url": "https://allen-brain-cell-atlas.s3.us-west-2.amazonaws.com/?list-type=2&prefix=releases/&delimiter=/",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:47:17Z",
+   "status": 200,
+   "headers": {
+    "Content-Type": "application/xml"
+   },
+   "elapsed_s": 0.282,
+   "bytes": 1511,
+   "sha256": "4dc6300d88090dde7781c4cd01be2d22312ce0e0103e8a534a7a0da94f43d619"
+  },
+  {
+   "name": "abc_manifest_20261031.json",
+   "url": "https://allen-brain-cell-atlas.s3.us-west-2.amazonaws.com/releases/20261031/manifest.json",
+   "method": "GET",
+   "retrieved_utc": "2026-10-29T15:47:17Z",
+   "status": 200,
+   "headers": {
+    "Content-Length": "443730",
+    "Last-Modified": "Wed, 14 Oct 2026 17:38:41 GMT",
+    "ETag": "\"3a801d7a32c1974ed1400e30cb89f63e\"",
+    "Content-Type": "application/json"
+   },
+   "elapsed_s": 0.786,
+   "bytes": 443730,
+   "sha256": "e7b1aa9ef7971786e8acdb9324fa020614d8d26b56166b3f74a54b64b6322990"
+  }
+ ]
+}

@@ -1,0 +1,1 @@
+var HX_MOUSE_SCN_PHOTOPERIOD_GSE266472_META = {"populations":["scn"],"labels":{"scn":"Suprachiasmatic nucleus"},"types":{"scn":"Tissue"},"nGenes":{"scn":18335},"colors":{"scn":"#4E79A7"},"qcFlags":{"scn":{"is3v3":false,"nNormal":9,"nObese":9,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

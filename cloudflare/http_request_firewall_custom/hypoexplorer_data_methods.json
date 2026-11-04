@@ -1,0 +1,7 @@
+{
+  "ref": "hypoexplorer_data_methods",
+  "description": "Data host: block methods other than GET and HEAD",
+  "expression": "(http.host eq \"data.hypoexplorer.com\" and not http.request.method in {\"GET\" \"HEAD\"})",
+  "action": "block",
+  "enabled": true
+}

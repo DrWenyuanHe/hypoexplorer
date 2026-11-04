@@ -1,0 +1,1 @@
+var HX_CATTLE_HYPO_DIET_RESTRICTION_GSE49540_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":11831},"colors":{"hypothalamus":"#E15759"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":7,"nObese":7,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

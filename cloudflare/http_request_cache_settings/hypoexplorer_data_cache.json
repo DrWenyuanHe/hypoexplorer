@@ -1,0 +1,25 @@
+{
+  "ref": "hypoexplorer_data_cache",
+  "description": "Data host: cache everything, cache key ignores the query string, respect origin TTLs",
+  "expression": "(http.host eq \"data.hypoexplorer.com\")",
+  "action": "set_cache_settings",
+  "action_parameters": {
+    "cache": true,
+    "cache_key": {
+      "custom_key": {
+        "query_string": {
+          "exclude": {
+            "all": true
+          }
+        }
+      }
+    },
+    "edge_ttl": {
+      "mode": "respect_origin"
+    },
+    "browser_ttl": {
+      "mode": "respect_origin"
+    }
+  },
+  "enabled": true
+}

@@ -1,0 +1,1 @@
+var HX_CHICKEN_HYPO_RFI_GSE278826_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":11342},"colors":{"hypothalamus":"#F28E2B"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":5,"nObese":5,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

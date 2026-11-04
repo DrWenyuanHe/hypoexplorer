@@ -1,0 +1,1 @@
+var HX_HAMSTER_TANYCYTE_PHOTOPERIOD_GSE204883_META = {"populations":["tanycytes"],"labels":{"tanycytes":"Third-ventricle tanycytes (LCM)"},"types":{"tanycytes":"Tissue"},"nGenes":{"tanycytes":13938},"colors":{"tanycytes":"#76B7B2"},"qcFlags":{"tanycytes":{"is3v3":false,"nNormal":5,"nObese":5,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

@@ -1,0 +1,1 @@
+var HX_MOUSE_POMC_FEDFAST_GSE68177_META = {"populations":["pomc"],"labels":{"pomc":"Arcuate POMC neurons (FACS)"},"types":{"pomc":"Tissue"},"nGenes":{"pomc":14364},"colors":{"pomc":"#E45756"},"qcFlags":{"pomc":{"is3v3":false,"nNormal":5,"nObese":5,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

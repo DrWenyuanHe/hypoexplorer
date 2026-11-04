@@ -1,0 +1,1 @@
+var HX_MOUSE_VMHVL_ESTRADIOL_GSE181204_META = {"populations":["vmhvl"],"labels":{"vmhvl":"Ventrolateral VMH (VMHvl)"},"types":{"vmhvl":"Tissue"},"nGenes":{"vmhvl":18387},"colors":{"vmhvl":"#4E79A7"},"qcFlags":{"vmhvl":{"is3v3":false,"nNormal":3,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

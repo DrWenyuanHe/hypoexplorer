@@ -1,0 +1,1 @@
+var HX_MOUSE_HYPO_OXT_TRAP_GSE242245_META = {"populations":["oxytocin"],"labels":{"oxytocin":"Oxytocin neurons (RiboTag)"},"types":{"oxytocin":"Tissue"},"nGenes":{"oxytocin":17013},"colors":{"oxytocin":"#17BECF"},"qcFlags":{"oxytocin":{"is3v3":false,"nNormal":4,"nObese":3,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

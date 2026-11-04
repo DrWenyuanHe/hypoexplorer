@@ -1,0 +1,92 @@
+[
+  {
+    "id": "mouse_cvh_hfd_gse104709",
+    "name": "Mouse ventral hypothalamus - chronic high-fat diet",
+    "organism": "Mus musculus",
+    "category": "Diet-induced obesity",
+    "region": "Ventral hypothalamus",
+    "preparation": "Bulk tissue",
+    "perturbation": "Diet & obesity",
+    "modality": "bulk RNA-seq",
+    "featureType": "gene",
+    "featureLabel": "Gene",
+    "supportsPathways": true,
+    "isDefault": false,
+    "defaultTrack": "cvh",
+    "trackNoun": "track",
+    "trackCategoryOrder": [
+      "Tissue"
+    ],
+    "expressionUnit": "log2(PORT-normalized read count + 1)",
+    "citation": "Chronic 45%-fat HFD versus regular chow in male C57BL/6J ventral/circumventricular hypothalamus. Five RNA pools per arm, each pooled from two mice; individual pool members are not deposited. Diet-switch arms are excluded. Technical sequencing runs were merged by the authors and are not replicates. The author supplied PORT-normalized resampled read counts, not raw counts. Same-symbol rows are summed on the deposited linear scale and transformed as log2(PORT-normalized read count + 1) for the matrix/limma route. All mice underwent three hours of forced wakefulness before ZT6-7 collection with food available. The chronic contrast includes diet and resulting obesity, and does not isolate diet from body weight. The downloaded file contains 21,654 Ensembl rows and 21,518 unique trimmed author symbols, whereas the paper reports 21,517 detected genes; the authentic file is retained without forcing its dimensions to match the paper.",
+    "geo": "GSE104709",
+    "doi": "10.1371/journal.pone.0196743",
+    "pmid": "29746501",
+    "groups": [
+      {
+        "key": "control",
+        "label": "Regular chow",
+        "color": "#3775BA"
+      },
+      {
+        "key": "case",
+        "label": "Chronic high-fat diet",
+        "color": "#B64342"
+      }
+    ],
+    "contrasts": [
+      {
+        "id": "hfd_vs_chow",
+        "label": "Chronic HFD vs regular chow",
+        "baseline": "control",
+        "case": "case",
+        "isDefault": true
+      }
+    ]
+  },
+  {
+    "id": "rat_hypo_maternal_hfd_gse107324",
+    "name": "Rat neonatal hypothalamus maternal HFD",
+    "organism": "Rattus norvegicus",
+    "category": "Developmental programming",
+    "region": "Whole hypothalamus",
+    "preparation": "Bulk tissue",
+    "perturbation": "Diet & obesity",
+    "modality": "bulk RNA-seq",
+    "featureType": "gene",
+    "featureLabel": "Gene",
+    "supportsPathways": true,
+    "isDefault": false,
+    "defaultTrack": "male",
+    "trackNoun": "track",
+    "trackCategoryOrder": [
+      "Tissue"
+    ],
+    "expressionUnit": "CPM (TMM-normalized)",
+    "citation": "Maternal 43% versus 12% fat-derived energy exposure through gestation and lactation; offspring sampled at postnatal day 10. Six samples per diet are analyzed separately within each sex. The paper defines n as litters, but GEO omits sample-to-litter identifiers. Deposited workbooks include authentic per-sample raw counts; the analysis universe is restricted to their submitted rows. Excel-damaged symbols remain unassigned feature IDs.",
+    "geo": "GSE107324",
+    "doi": "10.1371/journal.pone.0189492",
+    "pmid": "29240779",
+    "groups": [
+      {
+        "key": "control",
+        "label": "Maternal control diet",
+        "color": "#3775BA"
+      },
+      {
+        "key": "case",
+        "label": "Maternal high-fat diet",
+        "color": "#B64342"
+      }
+    ],
+    "contrasts": [
+      {
+        "id": "hfd_vs_control",
+        "label": "Maternal HFD vs control",
+        "baseline": "control",
+        "case": "case",
+        "isDefault": true
+      }
+    ]
+  }
+]

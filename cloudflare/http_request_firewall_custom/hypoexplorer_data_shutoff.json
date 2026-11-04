@@ -1,0 +1,7 @@
+{
+  "ref": "hypoexplorer_data_shutoff",
+  "description": "Data host shutoff: blocks every request. Toggled by the spend guard Worker; created disabled",
+  "expression": "(http.host eq \"data.hypoexplorer.com\")",
+  "action": "block",
+  "enabled": false
+}

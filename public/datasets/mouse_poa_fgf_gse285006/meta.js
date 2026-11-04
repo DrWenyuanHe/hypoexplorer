@@ -1,0 +1,1 @@
+var HX_MOUSE_POA_FGF_GSE285006_META = {"populations":["poa"],"labels":{"poa":"Preoptic area (POA)"},"types":{"poa":"Tissue"},"nGenes":{"poa":16923},"colors":{"poa":"#BAB0AC"},"qcFlags":{"poa":{"is3v3":false,"nNormal":10,"nObese":10,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

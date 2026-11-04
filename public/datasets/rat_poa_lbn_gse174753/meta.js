@@ -1,0 +1,1 @@
+var HX_RAT_POA_LBN_GSE174753_META = {"populations":["poa"],"labels":{"poa":"Medial preoptic area (mPOA)"},"types":{"poa":"Tissue"},"nGenes":{"poa":21145},"colors":{"poa":"#8C564B"},"qcFlags":{"poa":{"is3v3":false,"nNormal":6,"nObese":6,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

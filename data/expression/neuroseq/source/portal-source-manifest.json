@@ -1,0 +1,2193 @@
+{
+  "schemaVersion": 1,
+  "retrievedDate": "2026-09-15",
+  "apiUrl": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm",
+  "method": "POST (read-only public expression query)",
+  "contentType": "application/x-www-form-urlencoded",
+  "parameters": {
+    "q": "",
+    "script": "",
+    "filter": "Columns(include=[\"HY.ARH_GABA_NPY-hrGFP_m46_99\", \"HY.ARH_GABA_NPY-hrGFP_m46_100\", \"HY.PVH_glu_Oxytocin-GFP_m58_117\", \"HY.PVH_glu_Oxytocin-GFP_m59_118\", \"HY.PVH_glu_Oxytocin-GFP_f59_119\", \"HY.PVH_glu_Oxytocin-GFP_f63_120\", \"HY.PVH_glu_Oxytocin-GFP_m34_124\", \"HY.PVH_glu_Crh.ZJH_m46_380\", \"HY.ARH_glu_Pomc-GFP_m51_381\", \"HY.ARH_glu_Pomc-GFP_m51_382\", \"HY.ARH_glu_Pomc-GFP_m51_383\", \"HY.SFO_glu,GABA_Gng7.KH67_f110_409\", \"HY.SFO_glu,GABA_Gng7.KH67_f110_410\", \"HY.MM_glu_Slc17a6.OX23_f182_414\", \"HY.MM_glu_Slc17a6.OX23_f182_415\", \"HY.MM_glu_Slc17a6.OX23_m183_416\", \"HY.PVH_glu_Crh.ZJH_m51_595\", \"HY.SFO_glu,GABA_Grm2.MR90_m116_667\", \"HY.MM_glu_HSD2-Cre_m112_811\", \"HY.ARH_GABA_NPY-hrGFP_m51_931\", \"HY.ARH_GABA_NPY-hrGFP_m55_932\", \"HY.ARH_glu_Pomc-GFP_m69_1266\", \"HY.SCH_GABA_AVP.QZ20_m40_1269\", \"HY.SCH_GABA_AVP.QZ20_m40_1270\", \"HY.PVHp_glu_AVP.QZ20_f74_1271\", \"HY.SCH_GABA_AVP.QZ20_f74_1272\", \"HY.DMHp_glu_Grp.KH288_f131_1312\", \"HY.ARH_glu_Pomc-GFP_m56_1358\", \"HY.ARH_GABA_NPY-hrGFP_m55_1359\", \"HY.ARH_glu_Pomc-GFP_m55_1362\", \"HY.ARH_glu_Pomc-GFP_m55_1363\", \"HY.ARH_glu_Pomc-GFP_f55_1365\", \"HY.PVHp_glu_AVP.QZ20_f48_1431\", \"HY.PVHp_glu_AVP.QZ20_f48_1432\", \"HY.SO_glu_AVP.QZ20_f103_1433\", \"HY.SO_glu_AVP.QZ20_m103_1434\", \"HY.SO_glu_AVP.QZ20_m109_1435\", \"HY.SO_glu_AVP.QZ20_m109_1436\", \"HY.SO_glu_AVP.QZ20_m110_1437\", \"HY.SO_glu_AVP.QZ20_m31_1438\", \"HY.SCH_GABA_AVP.QZ20_f39_1585\", \"HY.PVHd_glu_MCH_m116_1596\", \"HY.LHA_glu_MCH_m116_1597\", \"HY.LHA_glu_MCH_m116_1598\", \"HY.PVHd_glu_MCH_m109_1599\", \"HY.LHA_glu_MCH_m109_1600\", \"HY.PVHd_glu_MCH_m109_1601\", \"HY.LHA_glu_MCH_m109_1602\", \"HY.ARH_GABA_NPY-hrGFP_m55_1762\", \"HY.ARH_GABA_NPY-hrGFP_m55_1763\", \"HY.MPN_GABA_P170_m36_1783\", \"HY.MPN_GABA_P170_m36_1785\", \"HY.MPN_GABA_P170_m37_1787\", \"HY.MPN_GABA_P170_m37_1789\"])",
+    "page": "1..354"
+  },
+  "pageCount": 354,
+  "geneCount": 35358,
+  "sampleCount": 54,
+  "sourcePrecision": "JSON TPM numbers at two decimal places",
+  "portalDatasetLabel": "Gene level NeuroSeq dataset (TPM from counts quantified by HTSeq, Gencode.vM4)",
+  "archive": {
+    "file": "portal-export.zip",
+    "bytes": 7211151,
+    "sha256": "fce0716addd1dc8a709e3af8ba449d74ed770faa111f7b76a872f2c8331bacfa"
+  },
+  "catalog": {
+    "file": "catalog.json",
+    "sha256": "8e0fe64164abc63fba58230ffd216b4c28dc8d1f0a09c767c10a47432a04ed8f",
+    "sampleMetadataUrl": "https://cdn.elifesciences.org/articles/38619/elife-38619-supp2-v2.xlsx",
+    "sampleMetadataSha256": "494fe867f1a9f217dd46ba4033126c5afe3eb01e1db88c78f04ea2470f15699a"
+  },
+  "entries": [
+    {
+      "file": "help.html",
+      "bytes": 17035,
+      "sha256": "0ba77e99b9e78ce0dbe2a8619816be66a9ea1a4f598417d0634099b0e009eed6",
+      "url": "https://neuroseq.janelia.org/help/"
+    },
+    {
+      "file": "nseq-bb.js",
+      "bytes": 100091,
+      "sha256": "b32bfc616be1e9fbf601a686d62de4af0c8be9ecefc1c5a63d451dbfa27e8fdb",
+      "url": "https://neuroseq.janelia.org/heatmap/static/js/nseq-bb.js"
+    },
+    {
+      "file": "pages/page-001.json",
+      "bytes": 73269,
+      "sha256": "a4db7cbc271ebe6feda67c35678d5d30900cbf9096a97ec48f7e3d004b69bcb9",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-002.json",
+      "bytes": 67049,
+      "sha256": "ad2ba708a54092713e65d41b00adb764e63b4dd76513f219e90d5b3f5f443d68",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-003.json",
+      "bytes": 66299,
+      "sha256": "fd4bdd6e236c7b76cc86bfe671f36090ac06b42d298e4d7f871b4fbd5c1753dd",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-004.json",
+      "bytes": 63582,
+      "sha256": "cda64aef4f325fedc331b618468a69a0a41f9dbe6bf6d3ecd77daf14c88204cd",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-005.json",
+      "bytes": 63881,
+      "sha256": "dd98d1a7df40c4649e32f7b46adf438e249362d33483a1152bf9627885b2f0da",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-006.json",
+      "bytes": 73325,
+      "sha256": "2e904c9c080b7380e45e949f98a91222cdfd4386f73e06635aabc722cdeec8e6",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-007.json",
+      "bytes": 67217,
+      "sha256": "71e47b35473ff2b5405bdec625dce1253095e8498a1c2c75e4d3c40af83274c8",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-008.json",
+      "bytes": 69973,
+      "sha256": "8291bfbfab4be418aea2f019f3cf5c8b762aabb68ca64e18a8638e52ae57c0f4",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-009.json",
+      "bytes": 67778,
+      "sha256": "c05633efcdfae8f5ec3da53f360ca13ad5d4f46dcf7510a7c9e3d0cc49c32583",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-010.json",
+      "bytes": 68154,
+      "sha256": "de348b971087195751a00df2560f006742e8e3df34e7099f57241b792e385838",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-011.json",
+      "bytes": 66472,
+      "sha256": "41c7f4afe88fd83ff5df581487185caa09545a6fb996294bdc1470321f818486",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-012.json",
+      "bytes": 66473,
+      "sha256": "fbbd3d3d6f64b88f9d1294853bb243ddb65cd39f856f58799d8a0e8c8ee064e6",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-013.json",
+      "bytes": 70037,
+      "sha256": "aefb35e94ebdfc79caa9b6ff5d86e45b06d202c3104138f7bd9ae12c431255af",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-014.json",
+      "bytes": 68612,
+      "sha256": "d09084dd323151b752a8075336978836a418db7d63bcaebae9c8e8cc3f146637",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-015.json",
+      "bytes": 68771,
+      "sha256": "5e588ea04ce593ea356146e8299f8fdba5502e1cb8ea571a1e2491e4ef981f21",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-016.json",
+      "bytes": 71712,
+      "sha256": "ad54d692ce07575c51c6b26d26b8d131cce9506d5da2edd99e568dacbe056223",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-017.json",
+      "bytes": 69206,
+      "sha256": "75a2b196363e2eca634d5e227562edf7b930c3ab89e01e730c93160b2e6a961b",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-018.json",
+      "bytes": 70127,
+      "sha256": "af4c86d80fae8567e1be80fbbbf4f0881a3278747ff8ba57c41b337d82b097fe",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-019.json",
+      "bytes": 64006,
+      "sha256": "9b08e54375a823cc7269f6e304c6b82acf9a7583f951961226e8476f12da481e",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-020.json",
+      "bytes": 84494,
+      "sha256": "065972c31630ba7e5018ea858826382726abf2bef96a5c524ddea91d6763614f",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-021.json",
+      "bytes": 107899,
+      "sha256": "eb775b89254a2fbc25c54ba0d69b511506f5a6cd57f898e62a58e61ed29f7c9e",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-022.json",
+      "bytes": 117565,
+      "sha256": "12bc2586a79151d6fff2325e3b8694bd73ef276696ebe6858e7088fc60b28fb7",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-023.json",
+      "bytes": 129068,
+      "sha256": "48f874205ac5032b77dbea11c622d7dd04d07589812ba954c151a99ab53a9150",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-024.json",
+      "bytes": 126844,
+      "sha256": "2a071dd521c9aaa4cc29baa89f2e595f1a0c321a5f9b86cee1af88206f24b65b",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-025.json",
+      "bytes": 125161,
+      "sha256": "aec94ca99cf7ac5f4c2ac1f269f7e8201299de0833b1f71a01961309205075d9",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-026.json",
+      "bytes": 120881,
+      "sha256": "ce85194b5fbe1e3a7f7c1ee0437daf2e9cdee17fe188a9afc784e67304881766",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-027.json",
+      "bytes": 109484,
+      "sha256": "f8e895e5c0d8555b4f2e2d4a51baf5064b64d63e5ce71ad1d26e949619ed1a1f",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-028.json",
+      "bytes": 132567,
+      "sha256": "bafb3bbaf1fc0f095606c9ea1dec8f9afdb8cbe3c7eda589f72c4e17cdbc17b1",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-029.json",
+      "bytes": 144006,
+      "sha256": "9bc2186e5df6cedbd82537b5e9f6a53102093535c4e3b0006dd0efa3ea97348d",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-030.json",
+      "bytes": 110569,
+      "sha256": "cf88193eab94c602c9ca3f89c4cd8c2dc78e7f7716ca9be9bcd3be55d383958a",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-031.json",
+      "bytes": 120823,
+      "sha256": "12ba74dbc2f4bfccc5649a3b19981b09b4f18598fd9af0426a4d0580bccb9fb4",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-032.json",
+      "bytes": 109989,
+      "sha256": "fb9f64bc3c1f9c8f69cf10ab5dfa1ac2b3100541a788f13dce0a1f249110104d",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-033.json",
+      "bytes": 122941,
+      "sha256": "a03782aa12e4d4be4af29ef3471c68c54c411614e9ac2513e6d27669c40fa72d",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-034.json",
+      "bytes": 99149,
+      "sha256": "ef1fecbeafd31f103bac4b09e1db852d6352edde57828b88dbdd2b8e9f45a3d8",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-035.json",
+      "bytes": 68969,
+      "sha256": "ef1ec2a1d2569652e78d59afa2352841acc8a6e89917e7d4a5df2b8a1a289fd6",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-036.json",
+      "bytes": 147340,
+      "sha256": "72bea896bec00fc50f25330eea0be45feb117ecd6d950b439b793cf9216828c4",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-037.json",
+      "bytes": 137592,
+      "sha256": "9fd137b6efb063623f4cbce557ee314ce2572c5175ca015c860db7f58686a98a",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-038.json",
+      "bytes": 112743,
+      "sha256": "16443343486aa10da301fca2e02286bce4fd618a1ab3e37dc4981d211a854c32",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-039.json",
+      "bytes": 89454,
+      "sha256": "a41c00d067f7e4c30dab7eb2eb6b5f248421b87bbf71bafb7de50a8883aceafc",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-040.json",
+      "bytes": 72782,
+      "sha256": "c3bc3032dbbb07afa8cee10b903716945c58f365f6f175e19d7205b869e9fd46",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-041.json",
+      "bytes": 107698,
+      "sha256": "a25a5484ecfe295bf2183d2cc1514a7efdf3d2e293dd7b68ce60f4bb2ab4f3fc",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-042.json",
+      "bytes": 112176,
+      "sha256": "1a8fb82e91666c3b3a146a14a02ae649655d903c805cfc1a1709d27e74be6996",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-043.json",
+      "bytes": 103863,
+      "sha256": "d8277824b5ebd8309eadeb421ea1c94bf6c2a421b41375331c9b862b2301258d",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-044.json",
+      "bytes": 84782,
+      "sha256": "c9802734a201ad7e97f2a775dff0c670a6a99388fc1256ce6bd88ba774f22533",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-045.json",
+      "bytes": 145471,
+      "sha256": "5bcce551c930ce7279ebcf71663375370587e585c601f384fcbebda80ae562b1",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-046.json",
+      "bytes": 133599,
+      "sha256": "138266a776793a314ce334488badbc24997ad7381039fd812fc4b64eec2ea0be",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-047.json",
+      "bytes": 130505,
+      "sha256": "3f52aab80a82c7efc55f2db956ac6f54da1c8803c6fd2ddb15ba99ae4bc914d0",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-048.json",
+      "bytes": 115300,
+      "sha256": "2ae9bff8a5e5b090b8b160c6d0cddd60302eed94ac47e68c000f7aaa7cb480b6",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-049.json",
+      "bytes": 97958,
+      "sha256": "496db12a52445ce2c3e5dd0ef227accb4a583a6b14d56b643b1f00712263051a",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-050.json",
+      "bytes": 137509,
+      "sha256": "2533a25ef9b120db400da2926f6ffcb1690c766eab214688e4ab296a2b834d2f",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-051.json",
+      "bytes": 111779,
+      "sha256": "1983f04afec3c397c11e1f68a878701a7f78314913aa57999c1b6bfbcab0a3a5",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-052.json",
+      "bytes": 102504,
+      "sha256": "2f1a02f116793e99e26f0bcfa1714584638178e528cafb27b900fc7240f2609b",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-053.json",
+      "bytes": 113975,
+      "sha256": "6aaa6958b571362e171a3ce53fa63043c1ad9b4dd3c4ce2b7c81c759380e348e",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-054.json",
+      "bytes": 91272,
+      "sha256": "94119d414d3ce0f5ea466b337613acf2ab0587031d7effbdfff98d52dddd2965",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-055.json",
+      "bytes": 116654,
+      "sha256": "900ce5f3ccd57d335bed05c2ea771547056193e0fff77c0c45403b5d3e2f101c",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-056.json",
+      "bytes": 115944,
+      "sha256": "28a9c4d87c5cde518e3d20ae46fa7c4db916d7432c0d56bd2e746b344816066a",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-057.json",
+      "bytes": 111748,
+      "sha256": "c7dcd9b7c46af3f85c123650e75ea8871b49a7a04517bf58c3c3a95e243772d1",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-058.json",
+      "bytes": 141731,
+      "sha256": "c7f96454fc4070a84a309a495bf89adeac824267979db3cd92d54d1d14945f48",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-059.json",
+      "bytes": 130908,
+      "sha256": "fbd93106f342593fcf98443bf6c7787fc09398bf036b5158b36606f54d6cf55a",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-060.json",
+      "bytes": 73264,
+      "sha256": "a829decc7620e7ba72fe17bcc220e507c41f3eb7672755a304a4324573e8d4b1",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-061.json",
+      "bytes": 103432,
+      "sha256": "98fd9a65ec29d5dfd8658248e56adcf8e25e2927ea06308bb8aa8c13916e1132",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-062.json",
+      "bytes": 135807,
+      "sha256": "85985edd96af0cb79a8a73199d39e687a15dac5bf22e3caf56d35d9c94868371",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-063.json",
+      "bytes": 108675,
+      "sha256": "ae49ef0f1e55769c51926d3567c889792e09e1423629371722dbdc84343d5462",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-064.json",
+      "bytes": 116706,
+      "sha256": "0a384bb88240b78c076a1815ee05c64a71a61348bf739c584901c2e8a45d545d",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-065.json",
+      "bytes": 126080,
+      "sha256": "2aced04fa337307ef35ebed37abd17f54984a1e5080a1388e1daf333ced824c3",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-066.json",
+      "bytes": 118145,
+      "sha256": "ee2ae70df2fc04fa51e2689e073d48e39344784d74d89070fac1affe8d7bfafd",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-067.json",
+      "bytes": 135608,
+      "sha256": "8e91df530ea5232bd0652a3ca3a4d7df24af0b5f954739ef37016957202a3169",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-068.json",
+      "bytes": 65139,
+      "sha256": "f948f3099c7d1d9ee46e541234d5b46dc5fc9675af476f26949913001be84cc8",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-069.json",
+      "bytes": 84647,
+      "sha256": "8812347b6a30f0d3c39b866984e887eb48151f9ab70c32389b9b9e7811192062",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-070.json",
+      "bytes": 131335,
+      "sha256": "c96abc6fb588f77498e27415142a8cdc664f73d411906c3a05a12d672162ebe6",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-071.json",
+      "bytes": 129831,
+      "sha256": "3510c0c9fecde97ff47c46590186feadf1c762d97cdcbba65341ce7b8d5f1ff1",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-072.json",
+      "bytes": 126600,
+      "sha256": "ecb41379888e874b7cbccb474aa375ba1dacb8a09038dee9c2ac4c6fabaefded",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-073.json",
+      "bytes": 112607,
+      "sha256": "09c91ff7f9a7a2f6e0a299e85e4e521e7151c24290a3f8be52e2ffb110c042e4",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-074.json",
+      "bytes": 124117,
+      "sha256": "242a23b03c70caa6623601bc0fa5670a8343e7fe300b032066afa5dc81912755",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-075.json",
+      "bytes": 97135,
+      "sha256": "f6ff2b488fe3e949a3d11a7f51716a8846fb5080aa74f4fa61a61cce1fd576ee",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-076.json",
+      "bytes": 85118,
+      "sha256": "cd82e113728ee574236d970db32b22d5ae82c7bdcfe920e1e9d815c6e9c10f60",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-077.json",
+      "bytes": 86786,
+      "sha256": "14e55eb1223f6baa1410c50373057539f93141a9d484f2417bae85ca92ee416d",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-078.json",
+      "bytes": 103103,
+      "sha256": "a9d4d93d8f2dac6f684126dfe1a911b3f3dd005ba869fdaed88cab1f07d42f2f",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-079.json",
+      "bytes": 139276,
+      "sha256": "0a75a1756faa98cea4050a7c5b39c64b988025c456d60c971ff72f1271635592",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-080.json",
+      "bytes": 112849,
+      "sha256": "9e7a247f664287cf45a51dd89d79c5937f048f45f8a9a5f64a0eb46b9d7243b6",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-081.json",
+      "bytes": 173068,
+      "sha256": "9c9b9c7a7d5c0a10d6943dbcb08f16da65119c11aa196d31675fc33eaa495a59",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-082.json",
+      "bytes": 128287,
+      "sha256": "75b2f7001bd3679aa2ced6cc104e03db6c8d454d409a989e1670b7e1f3d8242c",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-083.json",
+      "bytes": 132660,
+      "sha256": "4a0027e822f5c34bfd62e400b9f46a09b377a73a276145b5fce8ba4ea0fbd342",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-084.json",
+      "bytes": 140779,
+      "sha256": "fde930b19ce3276eb7337415c6328dd9fa1b3ce1c74168dcf23d7778bd6e704c",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-085.json",
+      "bytes": 127294,
+      "sha256": "a19bfd0dd9947a045be638bbd08f06cfd6d6bd84cfcb8617e5473cd087b7f65c",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-086.json",
+      "bytes": 101790,
+      "sha256": "e82e622ca80a254521aa776b38795ad0368b22a6393514eb4b80163e3ac430a0",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-087.json",
+      "bytes": 73406,
+      "sha256": "afd9f95c9a103aa5c48cff8fa72fabcf6999273f5db3b2c19230bf3ccc00637e",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-088.json",
+      "bytes": 71225,
+      "sha256": "c0abf4f60563d1502c26dbd3787c05b6d7dc7858d1e85069168662e166b4caa0",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-089.json",
+      "bytes": 64908,
+      "sha256": "735fa3ce99d99eb44589ef28290899c2c3c35c674c85ef190139ad4cfa05eb10",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-090.json",
+      "bytes": 62539,
+      "sha256": "f8c65a85fc08fa46a012a0e4b03b302ac9f5f90589696ed73493051c59f14ccf",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-091.json",
+      "bytes": 60177,
+      "sha256": "9bcc423f7a3b62ec86c1494f6cba28e47ae6797babf0d080589a26c0995a88b1",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-092.json",
+      "bytes": 59769,
+      "sha256": "7a77ba4088d4986add2e84df2f5ad89a739f1a92b4870089295f1c090033ed4c",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-093.json",
+      "bytes": 60788,
+      "sha256": "fd868b7cb0657e53a1970c580be8a1c63fdff2866c78d69b38223b093031ad30",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-094.json",
+      "bytes": 60310,
+      "sha256": "c3cef426fc0e2c70ec7b31c5ab3a1a4c279d83cedebcedfd82afe3efe378c09d",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-095.json",
+      "bytes": 63444,
+      "sha256": "ce70bdd25402eb7d79485cd662a39ffcd7bf60eeea0b1a5a9cef9612037b2e24",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-096.json",
+      "bytes": 77566,
+      "sha256": "b16bda79ea1d73e26f3edf2cf97fc29a5b1f375908025d0f9079c7bb2e245283",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-097.json",
+      "bytes": 59311,
+      "sha256": "7a389cdee5fea46b916aaa5b61d9f1c1d810842bdc9922a61069ef8c6841c652",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-098.json",
+      "bytes": 61936,
+      "sha256": "c236aaa21d9992699c486d97383bcae9a5f1daf4e06f3f364b3885ef80cd5d99",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-099.json",
+      "bytes": 61400,
+      "sha256": "40297e25ad7145f1a5dec5692eeb2bedeec6375f6455f39134bb5289a286db95",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-100.json",
+      "bytes": 67109,
+      "sha256": "a338c1c7f17bdaa48f4646b721591feb1af273cb2264eca4f00f35b1c0bdf157",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-101.json",
+      "bytes": 63000,
+      "sha256": "b7f9e268a317756cbd6477dd4d83102c462a3f287d5d9670fd70a5ca10c968d1",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-102.json",
+      "bytes": 63339,
+      "sha256": "fbe653b5de14058536f1f33e91503a82479a45af1fb981b31063038e69d0e492",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-103.json",
+      "bytes": 60878,
+      "sha256": "4e2bca1ebc47bdcea4e4d0aff477f66dec165606c49cae0211e1f5fcb97a75e7",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-104.json",
+      "bytes": 60104,
+      "sha256": "3635fbbd039eb86a9fb81731464f9c3508a301234781e80a50abf2032a9252d7",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-105.json",
+      "bytes": 60291,
+      "sha256": "d1a1c25c9dbf8db7cc8060a7583de096b7edb72b44b688d69b388af19ab3fdd0",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-106.json",
+      "bytes": 59158,
+      "sha256": "66f8963b6281bb6ca30e6b084d83f7b6177d7985ccf88905f9766846db9335ad",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-107.json",
+      "bytes": 60031,
+      "sha256": "d9ea4633e05cf512006b812dc2a02f77cca8604935f23fcb6ae788674ad33b36",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-108.json",
+      "bytes": 66335,
+      "sha256": "abd5dc0d2630d7d2a048da655edc7d5b0022f7cc2e45a51d465dfc034bc30bed",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-109.json",
+      "bytes": 61047,
+      "sha256": "f30582e5d7e25bb679d225c827043d9cabe94329727b237d072cbaf53fe20934",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-110.json",
+      "bytes": 60526,
+      "sha256": "b4bd6e9bc53cba37a057fe76a3fbf482fdddfc787ae2c1673537d516233efda5",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-111.json",
+      "bytes": 63219,
+      "sha256": "40993f652472d5a886f2d3ff2510bbf570448619b398a2c79ccfb60b301650e0",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-112.json",
+      "bytes": 68091,
+      "sha256": "1793559ddc1db11891cd54fc92c33ad0ecbf47a5d8a87d18466564a221aab37b",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-113.json",
+      "bytes": 73642,
+      "sha256": "81794153188daf281cd7062838ae1124a697fbe62499821b7dfd3661fefceeb3",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-114.json",
+      "bytes": 80439,
+      "sha256": "9d6656f2141a6f75c1db72fb69e9a332611610b84a9ab714831d707f1312de4d",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-115.json",
+      "bytes": 64555,
+      "sha256": "074b6adac2a49e7bb13567a11bd23d1a66d663188e0540bda5c8a81b1798a091",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-116.json",
+      "bytes": 66083,
+      "sha256": "03f5fa4d8f651866d9c61d9ab7c8204fcd77dd5b75bca82bdd94df6269919335",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-117.json",
+      "bytes": 58068,
+      "sha256": "74bbd8a5f611f0c4720f919005cce7c218bdb2d2cef595daba0a1f13982b5001",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-118.json",
+      "bytes": 57829,
+      "sha256": "2cb342243bfa5382becd59f89975f2aee12062716ebae81917b0910788b28248",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-119.json",
+      "bytes": 58369,
+      "sha256": "7ea80797b550c24062781d2fbfcf98209fed99258ebda86cb50a04f7a4ce9599",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-120.json",
+      "bytes": 58176,
+      "sha256": "8ff9769850fded9eeca22368eed9be9cc7feaa43d086431b48d934d347e57af7",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-121.json",
+      "bytes": 58269,
+      "sha256": "45e504c872ce8c6463e948263ae6f284cd8d00d24a4572668b67395f4fe0dde6",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-122.json",
+      "bytes": 58045,
+      "sha256": "4da3fb96a70dc75854b5052d076d46493bccfdd8370c1c990d034c3ff691e545",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-123.json",
+      "bytes": 58296,
+      "sha256": "1a0288fe2c89e7e28df339d461df4502c3db3f4ccc61239bbfbc46aea0f6c53d",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-124.json",
+      "bytes": 57939,
+      "sha256": "fb456f139dbb085d12b35e17e7696d5e309c77a89a28e2fe60934b684f6ffc5c",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-125.json",
+      "bytes": 57874,
+      "sha256": "5f6c94b43b53a916ddec1e436bb066e4e722772f0467158453925812924690a5",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-126.json",
+      "bytes": 58057,
+      "sha256": "76227f509a48d9edb56226daf2040a50c697141c90ea521e4c839128cdea82d7",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-127.json",
+      "bytes": 58488,
+      "sha256": "3f2e86efb7efe7be95b525f80e14303f55844bef3483e20ddcc579745cfab29e",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-128.json",
+      "bytes": 57823,
+      "sha256": "fef5364b7c499e00b82559533ec68ef28627bddefb12f3b6969531065cf24f5d",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-129.json",
+      "bytes": 58033,
+      "sha256": "bdf04d3e41b0c183ab8fa9d565c5ea11dddc37ecac467f1b95381c5470121ab2",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-130.json",
+      "bytes": 58135,
+      "sha256": "6845433b73730ebf30a48950535ed36cabfc8c5fb7c112bf9b5a75e4cee9a5af",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-131.json",
+      "bytes": 58042,
+      "sha256": "52c88845b9bd8429fa8a654908bd17fef187952dcb6a1e78d573f99a985c1126",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-132.json",
+      "bytes": 58162,
+      "sha256": "2dfaa333fa8d18a15d6cc4a2765b6efd83e17113a735efc2febc94206b3b3643",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-133.json",
+      "bytes": 57903,
+      "sha256": "176ce7b94a02dd1db3d1949ab9440c6e14186ad2467180f853974a217c178b9c",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-134.json",
+      "bytes": 58185,
+      "sha256": "1ccee0cf0c3ec906d82aa73063a9061bf10d51aadd6cabd316a844c24b4822b3",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-135.json",
+      "bytes": 58226,
+      "sha256": "8b75d2e036536e1206e30825bb7a8a012d2087ba8bbc19d62e4388652dd808df",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-136.json",
+      "bytes": 58487,
+      "sha256": "34ae33bebb1c5f004c0b3ba981b8c2f0e6ab34091b509bc88a17da0ed26235ee",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-137.json",
+      "bytes": 58622,
+      "sha256": "7149e8d7ad485c2c876162ffafa2f4eeacc3fd7fbdefa32863b5528add89ca3c",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-138.json",
+      "bytes": 58099,
+      "sha256": "26185404120ec658bf63a38327cd8209465f5229e986d0f5ff27b640d4472b8a",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-139.json",
+      "bytes": 58046,
+      "sha256": "cf92c1603576c4c2b232dcc5a29eb839dc9b183de466ec1097a734e2ed36f79e",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-140.json",
+      "bytes": 57756,
+      "sha256": "0a0ab666c18a683f12fb792c19bf04c0a86b0b3ad63e6c57cc255b8192bc1378",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-141.json",
+      "bytes": 57563,
+      "sha256": "9a97a7dde7c8bfd6bbbf2a4aa4ad68726657957777acbfb557ce1a4b86f1e5b8",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-142.json",
+      "bytes": 58221,
+      "sha256": "250c419cd4b2e28cb0781a7c06873881d84c3593dd970e402b4eec28a848c32b",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-143.json",
+      "bytes": 58082,
+      "sha256": "5fdd9092121eddb4fe4a62db7dcf35ddd86748d4406b61df27269304233b7b09",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-144.json",
+      "bytes": 58409,
+      "sha256": "8dcc6b3a16c9a06b515dbe2d344dac2e40086b9b92086ea5600e95ab97f33ba3",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-145.json",
+      "bytes": 58203,
+      "sha256": "5d0ba4681898ae8600025c1cf2eddcc28586422ec8082499a5a7c08793df9796",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-146.json",
+      "bytes": 58528,
+      "sha256": "0fc7cadba2d7762d83fa7f9fa0c18850911f46fee0f7f66b61d1c15166722db5",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-147.json",
+      "bytes": 58163,
+      "sha256": "2f4a9295190355c7bc572f90f2fd2438816d63217b6ef76fa2987d51a9462916",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-148.json",
+      "bytes": 58073,
+      "sha256": "49642addf0b6f79aac8251cea92da142b32b1f5a794552eb84d2d6a1790fd280",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-149.json",
+      "bytes": 59276,
+      "sha256": "a0b2dd16a42ee80fe9690fca6cb0aeb747e6586e7dced8a0e6b5fb5e2d4eeddd",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-150.json",
+      "bytes": 58221,
+      "sha256": "dfa14ce8316f7977596ec0076834f77405fd20f63a3761555b7fd37543161685",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-151.json",
+      "bytes": 58391,
+      "sha256": "08f581979cce3684eddd2bd91e75ff992cd9548bdd03773ff7eecf2f72389dde",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-152.json",
+      "bytes": 58351,
+      "sha256": "0c86b154cad3669ae19d84af54dad38cd8c194b057fb4169ddb4c665bebeafc6",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-153.json",
+      "bytes": 57770,
+      "sha256": "b7990745a5ee45b812cc22dec87edfa8873128d4a485fa0c4b836172417b8f7c",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-154.json",
+      "bytes": 57847,
+      "sha256": "338436953538d5cfdaccb574ddab81e4d7f04339a16041b938673fc0848c432e",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-155.json",
+      "bytes": 58438,
+      "sha256": "4bd2a20d0468fb2eeec8a47652a5d76a5a58f24f0b26e8ff600d3232eac1985c",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-156.json",
+      "bytes": 58729,
+      "sha256": "a9e33f37a8f4cf2e2d64edcd73942950f1cbc8ef09aff83d21d9aca2038fba35",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-157.json",
+      "bytes": 59968,
+      "sha256": "084edff1631b8f0cb23bc1410e23b1bcb280c877a9c7f46c08bab1d5eecf4428",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-158.json",
+      "bytes": 60671,
+      "sha256": "2ca920c872eb1eb110f41f8f6acbf0e6f26f1b147119e3a43cba67ac0eccaf71",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-159.json",
+      "bytes": 60383,
+      "sha256": "b0542d1f579e160e5b19f38a14158c43772a1610a51f01a19c3995e4b5ad9e41",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-160.json",
+      "bytes": 60827,
+      "sha256": "adf8a4f89e38d1c8995a6649f791272469e56999341ac2e61104588354c8fc5d",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-161.json",
+      "bytes": 60934,
+      "sha256": "b408755a04fe66aed1def17064212cdaae9ac1e6df3c294129d7ddd309bfd39b",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-162.json",
+      "bytes": 58539,
+      "sha256": "a73de3cdf404fe61532d576021019307d2f9dca633cc5587f1a369e492a11840",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-163.json",
+      "bytes": 58200,
+      "sha256": "6c5764c887ab3ba56496696af69f933ae3f588215988337615963441c57d980e",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-164.json",
+      "bytes": 57655,
+      "sha256": "68ca14926075dae04048f3d7430785bf0e3ff4ba10b1285768f624a2d48c218f",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-165.json",
+      "bytes": 60376,
+      "sha256": "d9dcf64b5b6380e261fb536ad06c76c0bb62bc42f88b0b09b16e981a50f30203",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-166.json",
+      "bytes": 60636,
+      "sha256": "86af382026ba8e3bf6dc409cfc1831401fc79b327111766b63c201fc0435c102",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-167.json",
+      "bytes": 58937,
+      "sha256": "114b210e0a4c20633c84f0513da08e9a56cc7cf9ae5670cd3e1119fd28cf484e",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-168.json",
+      "bytes": 58097,
+      "sha256": "f08502b0f6cce4068fed9eef8cbd44653e2dc956c381e88e2c9e6b0c512fe0e3",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-169.json",
+      "bytes": 59597,
+      "sha256": "971e781bd7768adbd2f335aede6843c32d5daa6cf7b7923f803107174ebe2e07",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-170.json",
+      "bytes": 58784,
+      "sha256": "6fcd1b257424e91cd695a1341bedf716f2cc583cdc0143f2bcb3284d5b903241",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-171.json",
+      "bytes": 58397,
+      "sha256": "0ce9d30163aaa26bc75a8647e0d961279044aa0d1c8b5a0cfb69bf71e37ae0bd",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-172.json",
+      "bytes": 58325,
+      "sha256": "9dfaee47c1d1d43e94d15d87c591f3c24f8ea264626d3e00521cc746d0b65766",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-173.json",
+      "bytes": 57743,
+      "sha256": "db8d4092c6d094d71482446138e98ce70286fd6f716054b30905716b9a49a98f",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-174.json",
+      "bytes": 58309,
+      "sha256": "3c307ee68daf04f371a43271d4bab06210599abd24f5bf4fe5027b0bd09629b8",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-175.json",
+      "bytes": 66462,
+      "sha256": "289acb289d4132e016cb4ba80a70619e8af5987939732b8289416842296a9a4b",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-176.json",
+      "bytes": 73463,
+      "sha256": "b63aedaebe6c27376eb7819f126fb761b6b198724bfa3d0c13f1c294afd1e2b7",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-177.json",
+      "bytes": 76975,
+      "sha256": "260f0f9c488cc4abcee5d44964d48053f981a8c8f089530f15ce9825a417317b",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-178.json",
+      "bytes": 74199,
+      "sha256": "b7a09f96152ed723116307cb8b659cb3c764ebc4f13b3600e3bb2fd24a81aa19",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-179.json",
+      "bytes": 75498,
+      "sha256": "0249f0ee01f88cbb86557b84e547062674984491f4b181d5ebc8145a37681606",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-180.json",
+      "bytes": 74647,
+      "sha256": "2125bc33265416d3a7933463c76d7607363376d4fc4046726dca78fca2679854",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-181.json",
+      "bytes": 71684,
+      "sha256": "507db21d419414111ab1ce8a4127bbd5dcac9922129b8d3a8207b6d232627be5",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-182.json",
+      "bytes": 75595,
+      "sha256": "5a0ee6a637add6f6911d5b4e73e2fd52b507cde5d65a117df992400f61fb964a",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-183.json",
+      "bytes": 94588,
+      "sha256": "45fbbc2bf1da8955e1378c92b7d770e0e2fc0c0734a5bc613bcaf89b86f08d7b",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-184.json",
+      "bytes": 110219,
+      "sha256": "acdde1bd63bf4a6a15799dd42ff87ff5834d7d05ca1f0be3ac6bf0fe62045976",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-185.json",
+      "bytes": 111883,
+      "sha256": "6506343660b56d0414fad1b8aa13d7d32e61abf131e744b5bce67d94e5776391",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-186.json",
+      "bytes": 132298,
+      "sha256": "7926567c6921e1519be0ca7a6008820556e2ee4720a260fcf6f71be5078a998a",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-187.json",
+      "bytes": 111329,
+      "sha256": "b19446d311e68ece26bb5a9224415f6bbc4f9f20deee3b2eeae977bc9b305a38",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-188.json",
+      "bytes": 122577,
+      "sha256": "b70480b124b9f5f624513ff2ecdf6fbff93767f088095ba02cde905493affdb4",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-189.json",
+      "bytes": 124563,
+      "sha256": "864152a391071408329421b105367c59df1e8558233d96568c4648e63a5604c8",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-190.json",
+      "bytes": 121676,
+      "sha256": "fdcbda3db46e516016312b9b4fc74c5c2a720e60a65b43c82d828e2a90b27f1f",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-191.json",
+      "bytes": 158586,
+      "sha256": "a9eb763f6045684c6693d6773eef042d7e079b94b9d4a794ef2f3cd9e95386ad",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-192.json",
+      "bytes": 134980,
+      "sha256": "b79210e8356b77079d2abaf5246b58e10fa4fbdf655bba8911a0da26a08d335d",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-193.json",
+      "bytes": 136682,
+      "sha256": "25fe94db1ce2c02bc41cb3e2df5dfc63516db7c3892180b28d393de14afbe805",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-194.json",
+      "bytes": 128479,
+      "sha256": "d6c643a8a119ecee2c3db82af74caebee5785e1202ed557b629ae62cdf58effc",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-195.json",
+      "bytes": 99484,
+      "sha256": "18599be68621cea525797fc556e886f20d2837280b564c7600c99ae620ed3247",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-196.json",
+      "bytes": 101426,
+      "sha256": "fa712e57464ad902c71ac999830a1cedf0a46cc971685bb523ca948ad3900af5",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-197.json",
+      "bytes": 75068,
+      "sha256": "43a1e4e8efec0419a96b8de725fd156380a6357dfe7383b75711051021a47748",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-198.json",
+      "bytes": 113694,
+      "sha256": "3115fd0e76fd43f7cc910b98b8e5ce3af10283b83bc846c758555b18d2816fb2",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-199.json",
+      "bytes": 135895,
+      "sha256": "4f98307d4f9005737b939241f4912ddddf1bf91ee880b225cc7ee3de1ef82234",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-200.json",
+      "bytes": 101761,
+      "sha256": "fb3dc8c2a8a92e6e8f826ed1e668474aea51a1bdcbb4ddcd84e6f7b9a9bad0e2",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-201.json",
+      "bytes": 105043,
+      "sha256": "7d421c00505c0651530a64979edbeb8e8a4428d24d65a07e22b37bf920380e15",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-202.json",
+      "bytes": 168365,
+      "sha256": "9f23d654450f9570caded1f6c01aedfa1ea3490eb16fc577ed2721f9d9283796",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-203.json",
+      "bytes": 113209,
+      "sha256": "6c30805c88f1ddf6eeab21c66e7af94a53e091dbece5f8c19f678484c6be23cd",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-204.json",
+      "bytes": 121420,
+      "sha256": "a248907a9b8c80b867bb55aea015e9e2729bb487af3728d74fff2a7876154deb",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-205.json",
+      "bytes": 119882,
+      "sha256": "de71aa6bdd11aabb248af817c41aaaade96b1579778c755c246da1af08a587f7",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-206.json",
+      "bytes": 99246,
+      "sha256": "b36676adb6d611ddc71b8f7180c43faf4d8a140ac46085d8c02a496c60d55775",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-207.json",
+      "bytes": 96905,
+      "sha256": "9b29f2e471ccdf56833881c84d76a28a770a2fb0219cd35df7c5688357b1af42",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-208.json",
+      "bytes": 105234,
+      "sha256": "1c658d71edc482180182ef8bcbeaf0761c54d7d70c9cf8c905bb9e81f9fd50ec",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-209.json",
+      "bytes": 102605,
+      "sha256": "d61f2960d845f668233c75e349900c05bb95c1a699793b3f0535bf433e8de7a5",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-210.json",
+      "bytes": 117093,
+      "sha256": "c7920d5dceabfb6c5ee813b97eaf6a3d9e4f7278f79d9c750aabab2870f0ebb7",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-211.json",
+      "bytes": 101654,
+      "sha256": "1d9ba3213bd6405ad872d36a82230a9d56bd77d2f564eedd14c612b964f5c5c3",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-212.json",
+      "bytes": 99530,
+      "sha256": "e9d29a36b9181173d2de347446a9fb0fca4d45e8967dc8a74ebb69dbd19a9ce2",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-213.json",
+      "bytes": 109121,
+      "sha256": "ac2bb3090089c5f631d242a99182d9f712228d0f48cc090a68bdddf9f8a07a06",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-214.json",
+      "bytes": 125386,
+      "sha256": "8c68d7e74233ab2a3632143a31fbb72ec00cef5ebb3bc4f0e4a3bf4ccc0ac1c2",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-215.json",
+      "bytes": 111108,
+      "sha256": "d8db2cb5dd403c228f5bc290d9b81714170b92c0a4be19d9b71246c6b2dea493",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-216.json",
+      "bytes": 105986,
+      "sha256": "6f3f9ed5afef8279f23a4ad9b73d9b391aa759691e61c0728f7a728f2e955b8d",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-217.json",
+      "bytes": 109090,
+      "sha256": "b187c330a0f277edcc65497eae893790bf4ecc8acf74d996858c9d40d4301d7a",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-218.json",
+      "bytes": 75335,
+      "sha256": "f438a58a87fe8d4774cf8fb277b41b3c5d3b3037910f38094e939496d0a7edd3",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-219.json",
+      "bytes": 69402,
+      "sha256": "2382762ac91c8d49abdc64ffab5fd2d952aee3cee8cd00981ba6a2cc33597fec",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-220.json",
+      "bytes": 69779,
+      "sha256": "7b6e517e9b78782fd194cbe4283afb110f260feaecf87c9d8c7c2102f3163276",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-221.json",
+      "bytes": 61554,
+      "sha256": "827b6329e1f3602dbff2547f449c4d318ab75b58613a4cc286e8f888b4b31e96",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-222.json",
+      "bytes": 59202,
+      "sha256": "f13fe551f3138a260fc4b316ed0cba174f78457ab7773a3bf4f045ff6b3eb800",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-223.json",
+      "bytes": 58124,
+      "sha256": "2e703b55201b486afe84e79ef325ac8c7ec242730a0bde61f55f6e8b5af8d6d2",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-224.json",
+      "bytes": 59063,
+      "sha256": "9fbfee09f2a3d670301f577081628442c5ae75f1255dc3d19e7ba7bc176d703f",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-225.json",
+      "bytes": 57869,
+      "sha256": "712b6506788067c98db4eb5b33fe7bb244126f80d082713f5be1ff3bda79abbf",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-226.json",
+      "bytes": 57525,
+      "sha256": "fd541feb913b37ebbc5cd7c2df422751873877ee23d84d4a29405300cf0aeabf",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-227.json",
+      "bytes": 57514,
+      "sha256": "c3b73ff9f4047c3fc99b7b3e2e1c9355f157df25e96c8aabb7dcaaed57c444a7",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-228.json",
+      "bytes": 65372,
+      "sha256": "1b87849b82016cad2aeea9192c43ab2edbc37393e4a34680a0629b4c55a0be18",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-229.json",
+      "bytes": 114085,
+      "sha256": "3ddb3f624e1c76ddc333c85f68af111104b64ae06384a6f320ad4bcb8afb1018",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-230.json",
+      "bytes": 97425,
+      "sha256": "a5f9357d54f30c8ec52a73d77b9952846cf018dd955f19a36609ff6f31593580",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-231.json",
+      "bytes": 86870,
+      "sha256": "738005417a1e8727f15e8e20e104992e192fa909a62f8e26a2b8d2d6f8310658",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-232.json",
+      "bytes": 100545,
+      "sha256": "e805881724bfd9b30b17bc1c71704675ddc97dfeeee8ef64be3bd1fe83b61a84",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-233.json",
+      "bytes": 118021,
+      "sha256": "5195261f51089102c6901a3879b76eca3a9779a302dc61def0dd8eeb2b3ef3b2",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-234.json",
+      "bytes": 122540,
+      "sha256": "597d5a7c43bbf8618555c5eb173aac9fd6ae406630a1c39c4eb181d3e77f9d02",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-235.json",
+      "bytes": 111478,
+      "sha256": "2a9fd56cf561f2716b47c66f039652cf8aa4c8f286f8a3d3cb21ae824c78e4ea",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-236.json",
+      "bytes": 130208,
+      "sha256": "ca445011d5b71d1becd49194f521ac1ad4dca3eee9d6f80aba73818d1a8886f8",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-237.json",
+      "bytes": 140703,
+      "sha256": "62d4ebe40b2a8f6ee08e60a7fa08a5ed980c63d9f4d2dfed576933aaaadac5e1",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-238.json",
+      "bytes": 150443,
+      "sha256": "9ba459748a339d1da409df5a0d88dae197be4c2b81a5bfd369ccf5044ab10a9e",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-239.json",
+      "bytes": 145330,
+      "sha256": "85e4ae44c101bd8df5bc8fea239fdac5bb33724a5b7dbbb551645bee6840a4aa",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-240.json",
+      "bytes": 129253,
+      "sha256": "f904d443fa8b45e461fed779915d000f430e34524dc7194456de45fb48dfbbad",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-241.json",
+      "bytes": 117644,
+      "sha256": "f73328e019eebc44191d38ce5d38b9f767d07c067d660b2ce44e0d3dd669bfd6",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-242.json",
+      "bytes": 108407,
+      "sha256": "fd96214638596e2552197a182f75a7d74aec9226de139ea943dee98d3d3d46cf",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-243.json",
+      "bytes": 170046,
+      "sha256": "32ba1b49111da8cfad91475745d38c6c1de9489b0e840880db7351e92ca26853",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-244.json",
+      "bytes": 168535,
+      "sha256": "0a49bc754fa50290966b558317a9ea2133fe236ff0dcc7319de77d64e80aec09",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-245.json",
+      "bytes": 175881,
+      "sha256": "186f8d113a2730b0b995be93bff2f46b753838b43e3317513b939784012ce348",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-246.json",
+      "bytes": 168909,
+      "sha256": "16281b645323dd1a24c6e78ce7b7a07c2c8aa94452d3b4adccec3ad8342eec6b",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-247.json",
+      "bytes": 168929,
+      "sha256": "e22c3de1fac1da0cedb0b298b82b9510c0b9d9655904a16b60bfd11a08021a09",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-248.json",
+      "bytes": 173976,
+      "sha256": "a428d47eedb445ae93ae76f2d475cd31830734557b1040c8c38628d937120982",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-249.json",
+      "bytes": 168466,
+      "sha256": "974b82415dedc6c81029d47f56c1f5699265c5b55e86050b553db851abf04dbb",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-250.json",
+      "bytes": 164766,
+      "sha256": "bd4e3b21fd94e893be26c3ed6c9ba94e0edf57fc1583ebbeab356506b4c64915",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-251.json",
+      "bytes": 170898,
+      "sha256": "387a8d86927ef4802a9de952d22878dd08ef7f515a613e2165988c165793405f",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-252.json",
+      "bytes": 158357,
+      "sha256": "b5a6cb88db80cca184af188587aea9124155d1dc2b648402dcc5c1cb782645f7",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-253.json",
+      "bytes": 165027,
+      "sha256": "eebe3cad02a6313ae94aa852d0fd0ef5280107601a4dd099f7d35a99eae4bdca",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-254.json",
+      "bytes": 113496,
+      "sha256": "c3c3c7326961d3b5d8ac6dc818b292822dfff14ae82d7b8ea872755839a2d09c",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-255.json",
+      "bytes": 112900,
+      "sha256": "04c0cb1a7de9e373ec524bd2ac884c77b3e41ee61e0d41eacf59b55d9f48557e",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-256.json",
+      "bytes": 122360,
+      "sha256": "844eb5e779d4a77337b3ef03f34f10af62bfcc55a8ed037e23ad8b714c33049b",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-257.json",
+      "bytes": 125049,
+      "sha256": "50399976480148a785fa53470b58664b1d87eb8f9ff306d7b4cb3b0f9c4cdc6f",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-258.json",
+      "bytes": 113207,
+      "sha256": "9687ca678d0b8170d001723124f2d0f8500d74b42b111ab5a9b2db34abfb736d",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-259.json",
+      "bytes": 118563,
+      "sha256": "c7f46dfbe397f7adbb6338c9c6cddf31e158c9e5a51ca61b93cf00d380836461",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-260.json",
+      "bytes": 109917,
+      "sha256": "7bb82d839b4d0e4790428337500e0ccb843f0138eb330487db60a5a22bbbb829",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-261.json",
+      "bytes": 123223,
+      "sha256": "eb9a3fd3e2105916e63f652ebc758a057775b5711ab0d83ca4c1ff30e84c4b8f",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-262.json",
+      "bytes": 110276,
+      "sha256": "cfa5bbfee0af5281e00d256a8492bc3c32ed53dcebd907e634db63e56fe31414",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-263.json",
+      "bytes": 101068,
+      "sha256": "2bb447c2417ad2a8b547fb689d0c3bb9a924011f498521bfd2c004cf116f73d7",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-264.json",
+      "bytes": 122202,
+      "sha256": "05318b0d01536075ca397af82539a7ca55ee8e45f368d1284cbfbc67fc703a8b",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-265.json",
+      "bytes": 105003,
+      "sha256": "38b6603e07ed752705d614401807043b6a0e001eac18e96cb485a6790ce960fa",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-266.json",
+      "bytes": 106619,
+      "sha256": "b804add2a40553169857f9ea3c4c747f89833e09a45d5e2a592342da8a8aecc3",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-267.json",
+      "bytes": 139064,
+      "sha256": "d829d7be188ff38cd747a84e453f5db5a8f7fc50a87780fe7fe9b520cd15379c",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-268.json",
+      "bytes": 103032,
+      "sha256": "72ef3853e45eccc483e74eef66a535fa0bd8fb4d0540937d446a8e19026c0632",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-269.json",
+      "bytes": 118018,
+      "sha256": "f71bdd1b96ca032276899751c19cce0dd2ba1a298ac2304e0c94f35ea4bb71bb",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-270.json",
+      "bytes": 128995,
+      "sha256": "93dd09cf90f8b5d50e2aab2390252f7bbe2e05855e6d9e1df843fcbbc2c61103",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-271.json",
+      "bytes": 89892,
+      "sha256": "a307d8425d56c4f6f71d84a5f80589709f44e50a7546237904cbf9c1b216c699",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-272.json",
+      "bytes": 50709,
+      "sha256": "ab86f52956c1e20b2e789ab3faf9fb150a2954b850940e87dd4823bb0e65270f",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-273.json",
+      "bytes": 50752,
+      "sha256": "d7c283638f959f7da8ecc4329e6610ade2f6b73a37c1c4664c5189de817faaf2",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-274.json",
+      "bytes": 50522,
+      "sha256": "d56df896d921f701d1129db928205d767e63691ede60c7140354ff9c39ef4be4",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-275.json",
+      "bytes": 50693,
+      "sha256": "59ccb4f78a58707c2f1e1e7b8d69e46608518239dd96c1656999e422fd48a709",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-276.json",
+      "bytes": 50433,
+      "sha256": "7c398eff6fef089aa29a7964678018153261c0268b48dfdfa9c87ecd6fc1c07a",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-277.json",
+      "bytes": 50727,
+      "sha256": "9e42ef1b82f1bcd1d6273d5bea26ffc4c4524bea8d5f0fc16dbad6326e54d53d",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-278.json",
+      "bytes": 50779,
+      "sha256": "bdafe893424c063a1383328d4e17a1a1a98c58d74dca0573599d5f3ee86318f8",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-279.json",
+      "bytes": 51015,
+      "sha256": "b3b6ec07e10017f61adbcce6790fadbbbf4e53f8cdb5682aba20ee3ed83d995d",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-280.json",
+      "bytes": 50565,
+      "sha256": "15605b744770790f157923d9a491a64ac7799dba33232126cc55351d07056358",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-281.json",
+      "bytes": 49661,
+      "sha256": "5dfa338f2cd0a06c6bbc689b85a1faa104bea9946fa5d49535c20c1b49d03a12",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-282.json",
+      "bytes": 50598,
+      "sha256": "7a764bc3a59719bb12842aac9b6629f17923b9a1e962a8c932d8ad0c9ebe9a9e",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-283.json",
+      "bytes": 50294,
+      "sha256": "73525c8d1f74531db46674f7ecd94d1c0fe00e37be25437069d6913cd2f6e687",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-284.json",
+      "bytes": 49802,
+      "sha256": "a5d2cccefde5008126fd9a4a3f83b3d86a75223e7388019b7418002c095ae6c6",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-285.json",
+      "bytes": 50358,
+      "sha256": "b3a0c990ec8644d115f3aac148bf8e924b6aea10a6eacc1e4f1aeb3d063d7d3a",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-286.json",
+      "bytes": 49729,
+      "sha256": "0108a11dad88f6996ca0fb1be752661c422e0bbb5f3a7a688d9b9b0d435eba73",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-287.json",
+      "bytes": 110478,
+      "sha256": "7987a1f3c5f3d55ae2f72cb4c3a133bccd69c3422bf5ca6d1dec1e0f422065f2",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-288.json",
+      "bytes": 123474,
+      "sha256": "d23fd77f8849ff895ac0fe65fab2903d08d96307a7a2894182c562ecc0b342a1",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-289.json",
+      "bytes": 104771,
+      "sha256": "2501b6c8f3a94bb1a3ec90ba37b72ff780f1ffb1d80253ac1f8b794d218cc143",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-290.json",
+      "bytes": 131205,
+      "sha256": "c0efe5c6b15e469a97a0b02fc1309a6e1561eaa33f62870771ab18219c2b52ac",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-291.json",
+      "bytes": 118013,
+      "sha256": "17bf1379d4148a322f4b4dcff4f95625db9f079364b9132f8ecaf92a508494d4",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-292.json",
+      "bytes": 97449,
+      "sha256": "bfb2e50c8ec17b39c6807f8570fffdfbd60d6315e1cc0c46b89057f647b37b94",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-293.json",
+      "bytes": 115415,
+      "sha256": "e043cd6f3e6b094278f888231eaef0f8e60386fd80f1d6ca1b220ea89f3f9efc",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-294.json",
+      "bytes": 111671,
+      "sha256": "e5d29b191b4f1221cf5b37431fbfc9906440ffdf0b4dedc72c586528cece62c4",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-295.json",
+      "bytes": 102770,
+      "sha256": "6242dc9a99e563f67d826dcd15cfb75135879653012037d1ff1b7fdf4a3e6712",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-296.json",
+      "bytes": 111915,
+      "sha256": "d436e4f31984253a884cd9833a93a5efbdbcd12e05ff57fdf3172ca2cf452aae",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-297.json",
+      "bytes": 122529,
+      "sha256": "6ff06eab22b41170974f61e944b8ac0bcb272d81a2b3df36c6ad142b5f328290",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-298.json",
+      "bytes": 100294,
+      "sha256": "0d5d501b8848a4b86b7f7369e0a4cbdb475d21d101c481a7cd25f9f0bb3bf694",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-299.json",
+      "bytes": 117719,
+      "sha256": "f69bc11fdc7e135a9940e1a800b9844b8f73336e837ec05931408576a016a187",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-300.json",
+      "bytes": 111598,
+      "sha256": "13879f89b13ad855967ce72e8289e463fa9a2e511e57b8cdbadb10c0094ae6d5",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-301.json",
+      "bytes": 126566,
+      "sha256": "f140c8c47af01eaf9cecbc11545b8597d6084a2bcc3244de4a9b47dab2ed450a",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-302.json",
+      "bytes": 113170,
+      "sha256": "50d3726ce696e3ba83c29158e22196ee54fe6555e697b1654230049e4b87621c",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-303.json",
+      "bytes": 132544,
+      "sha256": "eca544bdc8c41e1f22643a0bcee6d3beef5bbfef2401c9f2c5c5be7f4ee60bd2",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-304.json",
+      "bytes": 130900,
+      "sha256": "f550fa8c1c002133aed82f8bd3f9799fb48c044387b8e5c4b2a8fb4a7efc3878",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-305.json",
+      "bytes": 120298,
+      "sha256": "5cd1a740b234c60a85e5a5bdf85784b459346488bca27a25788d6cac89dd3dd0",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-306.json",
+      "bytes": 109523,
+      "sha256": "7c08e2d2ccfc7ccb80a7fddbdc7ff600c3d3e83ea9f2f174a6d9645221637df7",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-307.json",
+      "bytes": 121683,
+      "sha256": "663df10ca83f474301a21b05c61f9b18bd57b541b43ce9221b10903262762aed",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-308.json",
+      "bytes": 115001,
+      "sha256": "cbefbfeb8b671c71bc9bf28dbbf586d05219149b6af2c936a65c654c75e2c9fd",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-309.json",
+      "bytes": 91802,
+      "sha256": "558cf56ceefca55ca74b74acb004852a4f2e963aba18f5faa35d22931d81983c",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-310.json",
+      "bytes": 77151,
+      "sha256": "55cf1ab75155d8f9820ad6ac6776c624e1716167de6f22b849214f55659521a5",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-311.json",
+      "bytes": 177992,
+      "sha256": "7ef82dffdc8cf9f7641e6162d1aa0dcf7c3602ab99dc3302d7f7bbf25325aefa",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-312.json",
+      "bytes": 95736,
+      "sha256": "c23efa2a467f4fa8c6ee6c3187d87a9b61f1498dc0abf7f4f3b4e5d9bced55a1",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-313.json",
+      "bytes": 134571,
+      "sha256": "0375429eab86450fa9f89d8ae8ff37dc847420e63497a8eee6c79bfbc8c7ff2f",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-314.json",
+      "bytes": 123184,
+      "sha256": "f3f01a276df3617ebefe4f91a24c78e7bbc7912d40095acdac4aa8eedc569af4",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-315.json",
+      "bytes": 122004,
+      "sha256": "71b13fcf7be15ba1d1f09cbdcfba99dd00e3b8cac40889668e144d9f8557f8f8",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-316.json",
+      "bytes": 104161,
+      "sha256": "5f62a12dbcb4ba120a30f43f9bc55cfc422ce4e55a1c52783f1a5444adb458f7",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-317.json",
+      "bytes": 101471,
+      "sha256": "ece13680f90c45a5c5d6cd6a3c6bc22c2f7336e4c135956f78868779d886f15c",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-318.json",
+      "bytes": 128120,
+      "sha256": "b32bca2a9ecccd4d8233a7949cd89ddb784956631e5fa599132c1c9e871ea6a7",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-319.json",
+      "bytes": 113497,
+      "sha256": "5f8c043d1ece28b1fe7f3439ea43df09e6214c03df8430cd25cc6d0c939b5e39",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-320.json",
+      "bytes": 102074,
+      "sha256": "a1f1da0036b9b4cdc19dd88d138a8db03533102fa16e2dea537af9f157b26036",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-321.json",
+      "bytes": 108430,
+      "sha256": "68a8fdc78dfeeba86faf370565bdd836454b89f0dbfffe2a473d73fa3da5db51",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-322.json",
+      "bytes": 118853,
+      "sha256": "639d58ec6fe75d5c295b5e6411c42a1299dec34c2d1ffd36c045b17e8298da0b",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-323.json",
+      "bytes": 114222,
+      "sha256": "ca468b467a88eb196a100ec7874074cab91b36e95190386e4357d6f1391096f9",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-324.json",
+      "bytes": 96348,
+      "sha256": "9d4880de6366526a8e17ad8259f8d61b519c8b79e31205815f439215e38df809",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-325.json",
+      "bytes": 88691,
+      "sha256": "50b510965f3f0ac952ccb135ea4d85836034a095e65e1ea7e69db9190862f0a0",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-326.json",
+      "bytes": 95976,
+      "sha256": "e094462ec27be3d364f3b341dc26962173ece8e9970c33615db0a7b330b7b56a",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-327.json",
+      "bytes": 126114,
+      "sha256": "d65f9cfb6c02ada85b94701bebf9edb8d220b85641a10db80020fa0f99182058",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-328.json",
+      "bytes": 102568,
+      "sha256": "285646bf986848ed0ee5c5edf277841aaf2e567906a44185c860b92cb63a95b6",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-329.json",
+      "bytes": 72972,
+      "sha256": "4aa0f9fb7ae136355fde1c634524389c05b7a3881fa02a0a443f3303e8bfba3e",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-330.json",
+      "bytes": 70600,
+      "sha256": "6332b46fecd26de51a4d894cb61b05904dbe7d5fc2a23c9bcf04a59be2da8ffd",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-331.json",
+      "bytes": 109041,
+      "sha256": "abd7d9dfaf9afa52f7315be32bd4fc6c967f7c65f7bb158083ae5c2db91b6ae5",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-332.json",
+      "bytes": 130522,
+      "sha256": "9a2f01891d3403a897a17df65e232a6dda486979708e8df3297d54a03b0e83d8",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-333.json",
+      "bytes": 99338,
+      "sha256": "54b3f753a5e1497ab84b7c1c72caf4c1cf038685c474c71e20a31991ad86ffa3",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-334.json",
+      "bytes": 110456,
+      "sha256": "bf72bc3e1fabeefda0fa77d5e8fbb38ce2dd84d670fba9978f0137ac45472e4a",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-335.json",
+      "bytes": 102403,
+      "sha256": "a69505ab935b969ad0c4a981858dbe81fac9b5ddf6bb69710a64bfa7c77bd8c3",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-336.json",
+      "bytes": 113333,
+      "sha256": "faa22b6ec747318d7b9e44b6ff3115ef1fbf43613313275c29accca80fcfc7dc",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-337.json",
+      "bytes": 108360,
+      "sha256": "b54c32aa4a8791b01aaca8c523553052416e2c32bccc843b24542b5455e84d78",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-338.json",
+      "bytes": 122181,
+      "sha256": "196173f3373f796b34fedb6d7754d9ccc89ba85ad678badf237b31a61c391592",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-339.json",
+      "bytes": 123495,
+      "sha256": "b439dc3d516c90568ef7fb0fc4c553540746020d246d398ef807ffd9027ac0f8",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-340.json",
+      "bytes": 135248,
+      "sha256": "78c92bd20902eed15448162773cfe1fbd7829cbf2bc08febe3a8a7962cdbe946",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-341.json",
+      "bytes": 129629,
+      "sha256": "b6c158db8085c6ad1f55c3c0dd523958c4991b1d5be9818c93eb4e761e22448c",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-342.json",
+      "bytes": 110215,
+      "sha256": "f7f79021244f2bb9877a179775997d0ced1552d232b154e453b8e1daaf66f28d",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-343.json",
+      "bytes": 87523,
+      "sha256": "186e2ade02e65b7c8d75fdb35ff771285bdec5bbca41f48099bc08a411750b7e",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-344.json",
+      "bytes": 142627,
+      "sha256": "45af96cabc1de925dba1a41810cbd311bb3c9314c910df7aa0a0319b60eb759c",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-345.json",
+      "bytes": 118180,
+      "sha256": "ad8a25ba088b31cd73dc441ea7d6d7e8662b1499bfc3cb89da2297661ad637a0",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-346.json",
+      "bytes": 112409,
+      "sha256": "c4753424318a9209b6229faf41594ae6d3f577dba2c036bce6429bdebdf47f6f",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-347.json",
+      "bytes": 103154,
+      "sha256": "819b5c7b26a7d1ef007265e4a6c53a26dd8579162855ec5bd9e644d6d7da1241",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-348.json",
+      "bytes": 106953,
+      "sha256": "d641ae9caeeab979ecb93564cbfdd52b96dcd85b71247d6719a26da50bb3c1f1",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-349.json",
+      "bytes": 98411,
+      "sha256": "eb6df75c51d7c3866fb135d7e86e5b7cd04f9dc660a4b6434b18154ef0b7a1f2",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-350.json",
+      "bytes": 97365,
+      "sha256": "5a887fcc8feb8a85dac2f1bd1c135db06efcf1b8b920f57ef96be5f0753a80d1",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-351.json",
+      "bytes": 102434,
+      "sha256": "975a3406af536ff267445ef3bb245493e92a8ed8697a57db0568229d4ebcd426",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-352.json",
+      "bytes": 91465,
+      "sha256": "9d392208b59c2f15ff75ab8a756cecc4386c83b8838ad8dcf1c728f6d2308073",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-353.json",
+      "bytes": 59136,
+      "sha256": "e59bb7d823a7e7bbc9315abc4c7493bfaede97e8d1291df0f1d1e448d4865583",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "pages/page-354.json",
+      "bytes": 37168,
+      "sha256": "fb74d5896a523803b4fbdc50e8ee685694680588eae19ae13ed381a2276e78f6",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "scripting.html",
+      "bytes": 44660,
+      "sha256": "53493ec84a9e9ca212fb27aacbd4d227c6e406e9e30124874119ddfb9487d517",
+      "url": "https://neuroseq.janelia.org/help/scripting"
+    },
+    {
+      "file": "sentinel-response.json",
+      "bytes": 2613,
+      "sha256": "b4b4e34bf314a61d2b496ac39158bdabbc2c93b60517146499d810bf14bdc61e",
+      "url": "https://neuroseq.janelia.org/heatmap/filter/gene_tpm"
+    },
+    {
+      "file": "viewer.html",
+      "bytes": 23633,
+      "sha256": "78b4de943c0f3056bd820d5323266f16ae180c874729721aee9d3ef512fb6c52",
+      "url": "https://neuroseq.janelia.org/heatmap/d/gene_tpm"
+    },
+    {
+      "file": "webdb3-bb.js",
+      "bytes": 47451,
+      "sha256": "549d0cb32442090d67343fad874164ea81b2f0fba0244c79f005033f60e953f9",
+      "url": "https://neuroseq.janelia.org/heatmap/static/js/webdb3-bb.js"
+    }
+  ],
+  "sentinelFilter": "Find([\"Lepr\",\"Agrp\",\"Pomc\"], filter_type=\"fname\")\nColumns(include=[\"HY.ARH_glu_Pomc-GFP_m51_383\",\"HY.ARH_GABA_NPY-hrGFP_m46_100\"])",
+  "acquisition": "Public client MatrixSearch POST, Columns(include=sample labels), unscaled and unstandardized; all pages retained."
+}

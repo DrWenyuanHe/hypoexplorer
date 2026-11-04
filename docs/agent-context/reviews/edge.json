@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "area": "edge",
+  "fingerprint": "68f7c7445374f8a8a21851bd5bab14df0d3c08d4e3559d93f98b562bf48886d6",
+  "outcome": "updated",
+  "explanation": "Spend guard now targets the new Hypoexplorer Cloudflare account. The Cloudflare account and zone moved: account 39986f7a… became 2991a2961440d6e0618f39bc2a0a423b and zone 6d17e33e… became 2646afd72ee9db3111c4a475c4d43a58. Only the identifiers changed (plus an explicit account_id pin in both wrangler configs); behavior, rules and test logic are unchanged.",
+  "references": [
+    "workers/spend-guard/wrangler.jsonc",
+    "workers/spend-guard/src/guard.ts",
+    "docs/EDGE_PROTECTION.md"
+  ]
+}

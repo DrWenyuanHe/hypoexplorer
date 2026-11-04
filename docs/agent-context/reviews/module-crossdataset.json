@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "area": "module-crossdataset",
+  "fingerprint": "64ffa7c4564fd0fe457da6849e488d05e95e84a4f5479122e2d5b99e22c75c1b",
+  "outcome": "no-impact",
+  "explanation": "GeneReport keeps rendering GeneExpressionCards before the differential-expression card; only the default header subtitle changes from \"Differential expression across datasets\" to \"Where it is expressed and how it changes across datasets\". Queries, previews and study selection are unchanged.",
+  "references": [
+    "src/crossdataset/GeneReport.tsx"
+  ]
+}

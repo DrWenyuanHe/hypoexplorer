@@ -1,0 +1,1 @@
+var HX_MOUSE_HYPO_SPATIAL_AGING_GSE270383_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Hypothalamus (spatial animal pseudobulk)"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":12337},"colors":{"hypothalamus":"#8F6BB3"},"qcFlags":{"hypothalamus":{"is3v3":true,"nNormal":3,"nObese":3,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

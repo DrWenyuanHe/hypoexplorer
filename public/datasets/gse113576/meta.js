@@ -1,0 +1,1 @@
+var HX_GSE113576_META = {"populations":["preoptic"],"labels":{"preoptic":"Preoptic cells"},"types":{"preoptic":"Tissue"},"nGenes":{"preoptic":16145},"colors":{"preoptic":"#3775BA"},"qcFlags":{"preoptic":{"is3v3":true,"nNormal":3,"nObese":3,"minCells":451,"status":"ok"}},"qaReportFilenames":{}};

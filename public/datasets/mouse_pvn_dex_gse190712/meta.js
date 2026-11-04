@@ -1,0 +1,1 @@
+var HX_MOUSE_PVN_DEX_GSE190712_META = {"populations":["pvn"],"labels":{"pvn":"Paraventricular nucleus (PVN)"},"types":{"pvn":"Tissue"},"nGenes":{"pvn":9233},"colors":{"pvn":"#E15759"},"qcFlags":{"pvn":{"is3v3":false,"nNormal":14,"nObese":15,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

@@ -1,0 +1,1 @@
+var HX_MOUSE_ARC_PYY_GLP1_GSE160802_META = {"populations":["arcuate"],"labels":{"arcuate":"Arcuate nucleus (ARC)"},"types":{"arcuate":"Tissue"},"nGenes":{"arcuate":13452},"colors":{"arcuate":"#D7B5A6"},"qcFlags":{"arcuate":{"is3v3":false,"nNormal":9,"nObese":10,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

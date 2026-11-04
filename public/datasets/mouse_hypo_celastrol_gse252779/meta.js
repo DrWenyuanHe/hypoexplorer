@@ -1,0 +1,1 @@
+var HX_MOUSE_HYPO_CELASTROL_GSE252779_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":14533},"colors":{"hypothalamus":"#D37295"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":4,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

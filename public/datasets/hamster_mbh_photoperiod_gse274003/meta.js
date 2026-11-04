@@ -1,0 +1,1 @@
+var HX_HAMSTER_MBH_PHOTOPERIOD_GSE274003_META = {"populations":["mbh"],"labels":{"mbh":"Mediobasal hypothalamus"},"types":{"mbh":"Tissue"},"nGenes":{"mbh":6671},"colors":{"mbh":"#76B7B2"},"qcFlags":{"mbh":{"is3v3":false,"nNormal":6,"nObese":6,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

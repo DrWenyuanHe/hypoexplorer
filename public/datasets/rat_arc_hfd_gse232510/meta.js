@@ -1,0 +1,1 @@
+var HX_RAT_ARC_HFD_GSE232510_META = {"populations":["arcuate"],"labels":{"arcuate":"Arcuate nucleus (ARC)"},"types":{"arcuate":"Tissue"},"nGenes":{"arcuate":10539},"colors":{"arcuate":"#E76F51"},"qcFlags":{"arcuate":{"is3v3":true,"nNormal":3,"nObese":3,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

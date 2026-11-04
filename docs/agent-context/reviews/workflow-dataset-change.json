@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "area": "workflow-dataset-change",
+  "fingerprint": "2a65fb4553249631c0c0e9f0afaa0e75bc45f0959ce360f669831f17817b7cbb",
+  "outcome": "no-impact",
+  "explanation": "Adds scripts/public-export/ (export.mts, manifest.mjs, overlay/ and its README): a maintainer-only tool that writes the public hypoexplorer repository tree from committed HEAD blobs (overlays included, and only from a committed exporter), applies the reviewed edits and overlays, and refuses to finish on secrets, the owner's writing, personal paths or missing third-party notices. It is run by hand, is excluded from its own export, and changes no application code, registry entry, data product, build or check.",
+  "references": [
+    "scripts/public-export/README.md",
+    "docs/agent-context/workflows.md"
+  ]
+}

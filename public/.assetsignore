@@ -1,0 +1,14 @@
+# Files that live in dist/ but must NOT be uploaded as Cloudflare static assets.
+# Read by `wrangler deploy` from the assets directory (dist/), which is where
+# Vite copies this file from public/.
+
+# Precompressed sidecars. These exist for Apache/LiteSpeed on Hostinger, which
+# size-caps on-the-fly compression (see public/.htaccess). Cloudflare compresses
+# at the edge, so uploading these would ship a second, unreachable copy of every
+# asset and burn file-count budget for nothing.
+*.br
+*.gz
+
+# Apache config. Inert on Cloudflare, and served as a readable text file at
+# /.htaccess if uploaded — a small config disclosure for zero benefit.
+.htaccess

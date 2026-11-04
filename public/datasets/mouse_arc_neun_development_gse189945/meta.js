@@ -1,0 +1,1 @@
+var HX_MOUSE_ARC_NEUN_DEVELOPMENT_GSE189945_META = {"populations":["arc_neun"],"labels":{"arc_neun":"Arcuate NeuN-positive nuclei"},"types":{"arc_neun":"Tissue"},"nGenes":{"arc_neun":23480},"colors":{"arc_neun":"#EDC949"},"qcFlags":{"arc_neun":{"is3v3":false,"nNormal":5,"nObese":5,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

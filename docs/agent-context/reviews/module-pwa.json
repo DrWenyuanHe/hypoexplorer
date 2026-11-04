@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "area": "module-pwa",
+  "fingerprint": "aa4449773afa65226c5cf1c65af989c23f71965997d2169f188ddea9361b261d",
+  "outcome": "updated",
+  "explanation": "The version watcher now compares an optional validated release fingerprint as well as package version, preserving legacy stamp compatibility and reload-loop protection. The version dialog exposes release metadata and citation/reuse links.",
+  "references": [
+    "src/pwa/versionWatch.ts",
+    "src/pwa/VersionBadge.tsx",
+    "src/__tests__/versionWatch.test.ts"
+  ]
+}

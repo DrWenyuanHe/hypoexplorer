@@ -1,0 +1,38 @@
+{
+  "key": "round5-keyed",
+  "auditor": "data/internal-qc/source-authenticity-2026-09-05/round5-keyed/audit_relationship.mts",
+  "auditorSha256": "9acb225d27faef85cf6a8285043da421707152c2291ff28bc4215a47b804fdda",
+  "report": "data/internal-qc/source-authenticity-2026-09-05/round5-keyed/reader-evaluations.json",
+  "projection": "scripts/run_sealed_ts_check.mts supersession projection",
+  "beforeSha256": "a1c5aae16fb00dda967f6f495c4cbb49f576ec31de6daa3fcadd08919e07c300",
+  "candidateSha256": "8b400efa3a9be79e72507bc3a4ff5782f5e2d344b9db73400cb409ccac6df86b",
+  "configReferencesChanged": 1,
+  "addedRowsListed": [],
+  "allScientificAndOtherFieldsUnchanged": true,
+  "currentConfig": {
+    "path": "geo_replication/config/datasets.tsv",
+    "sha256": "c2463a8d08af93a8f28c772540b263f4dd0334b68f36d26f44c80b9f3780f9da",
+    "bytes": 53559
+  },
+  "statuses": [
+    {
+      "accession": "GSE254155",
+      "status": "pass"
+    }
+  ],
+  "differences": [
+    {
+      "path": "/records/0/checkedReferences/13",
+      "before": {
+        "path": "geo_replication/config/datasets.tsv",
+        "sha256": "2b89ca7d8231622817b5fec41d32d76ec746088f56029319b1d20d54973ebaeb",
+        "bytes": 53320
+      },
+      "after": {
+        "path": "geo_replication/config/datasets.tsv",
+        "sha256": "c2463a8d08af93a8f28c772540b263f4dd0334b68f36d26f44c80b9f3780f9da",
+        "bytes": 53559
+      }
+    }
+  ]
+}

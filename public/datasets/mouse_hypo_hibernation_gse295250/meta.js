@@ -1,0 +1,1 @@
+var HX_MOUSE_HYPO_HIBERNATION_GSE295250_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":14586},"colors":{"hypothalamus":"#59A14F"},"qcFlags":{"hypothalamus":{"is3v3":true,"nNormal":3,"nObese":3,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

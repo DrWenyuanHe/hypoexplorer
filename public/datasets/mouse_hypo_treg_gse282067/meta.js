@@ -1,0 +1,1 @@
+var HX_MOUSE_HYPO_TREG_GSE282067_META = {"populations":["treg"],"labels":{"treg":"Hypothalamic Tregs (sorted)"},"types":{"treg":"Tissue"},"nGenes":{"treg":5191},"colors":{"treg":"#17BECF"},"qcFlags":{"treg":{"is3v3":false,"nNormal":4,"nObese":4,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

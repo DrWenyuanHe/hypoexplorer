@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "area": "module-nomenclature",
+  "fingerprint": "bff90e1e3bdf048fab3fd72a5d00889f39200aa89d749e5f8e1cf7b7acb1bcde",
+  "outcome": "updated",
+  "explanation": "The nomenclature interface exposes an appended Ambiguous status for unresolved active RGD same-symbol collisions, their aliases and affected retired-ID chains. Those rows retain candidate IDs and supply no chosen authority link or alias redirect. A unique approved record can resolve provisional alternatives. Other existing one-to-many alias handling keeps its prior behavior; authority status does not relabel measured expression or infer organism identity.",
+  "references": [
+    "src/nomenclature/NomenclatureView.tsx",
+    "src/data/nomenclatureWire.ts",
+    "src/data/nomenclature.ts",
+    "scripts/lib/rgdRecords.mts",
+    "CONTEXT.md",
+    "data/intake/oxt-avp-2026-10-19/README.md"
+  ]
+}

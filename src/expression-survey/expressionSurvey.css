@@ -1,0 +1,870 @@
+.expression-survey {
+  color: var(--text-primary);
+  font-size: 13px;
+  line-height: 1.5;
+  max-width: 1100px;
+  padding: 0 24px 48px;
+  margin: 0 auto;
+  min-width: 0;
+}
+.expression-survey * {
+  box-sizing: border-box;
+}
+.expression-survey h1,
+.expression-survey h2,
+.expression-survey h3,
+.expression-survey h4,
+.expression-survey p {
+  margin: 0;
+}
+.expression-survey h1 {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+.expression-survey h2 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+.expression-survey h3 {
+  font-size: 15px;
+  font-weight: 600;
+}
+.expression-survey h4 {
+  font-size: 13px;
+  font-weight: 600;
+}
+.expression-survey button,
+.expression-survey input,
+.expression-survey select {
+  font: inherit;
+  color: inherit;
+}
+.expression-survey button {
+  cursor: pointer;
+  padding: 6px 11px;
+  border: 1px solid var(--border-dark);
+  border-radius: 4px;
+  background: var(--bg-panel);
+}
+.expression-survey button:hover {
+  background: var(--bg-app);
+}
+.expression-survey button:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+.expression-survey button:focus-visible,
+.expression-survey input:focus-visible,
+.expression-survey select:focus-visible,
+.expression-survey summary:focus-visible,
+.expression-survey a:focus-visible {
+  outline: 2px solid var(--color-selected);
+  outline-offset: 2px;
+}
+.expression-survey a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.expression-survey input:not([type="checkbox"]),
+.expression-survey select {
+  min-width: 0;
+  max-width: 100%;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-dark);
+  border-radius: 4px;
+  padding: 8px 9px;
+}
+.expression-survey input[type="checkbox"] {
+  accent-color: var(--accent);
+  flex-shrink: 0;
+  margin: 3px 0 0;
+  width: 14px;
+  height: 14px;
+}
+.expression-survey .ex-mono,
+.expression-survey .ex-number,
+.expression-survey .ex-source-id {
+  font-family: var(--ex-font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.expression-survey .ex-muted {
+  color: var(--text-muted);
+}
+.expression-survey .ex-page-heading {
+  padding: 32px 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.expression-survey .ex-page-heading p {
+  color: var(--text-muted);
+  margin-top: 9px;
+  max-width: 680px;
+  font-size: 14px;
+}
+.expression-survey .ex-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.expression-survey .ex-tag {
+  display: inline-block;
+  padding: 3px 7px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font-size: 10px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  background: var(--bg-app);
+}
+.expression-survey .ex-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+  gap: 27px;
+}
+.expression-survey .ex-tabs button {
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  padding: 11px 0 13px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.expression-survey .ex-tabs button[aria-selected="true"] {
+  border-bottom-color: var(--color-selected);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.expression-survey .ex-content {
+  padding: 20px 0 0;
+}
+.expression-survey .ex-survey-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+}
+.expression-survey .ex-query-panel {
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-panel);
+}
+.expression-survey .ex-sidebar {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 14px 20px;
+  min-width: 0;
+}
+.expression-survey .ex-sidebar .ex-field {
+  margin-bottom: 0;
+}
+.expression-survey .ex-scope-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-top: 1px solid var(--border);
+  margin-top: 16px;
+  padding-top: 16px;
+}
+.expression-survey .ex-scope-footer .ex-note {
+  margin: 0;
+}
+.expression-survey .ex-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 17px;
+  min-width: 0;
+}
+.expression-survey .ex-field > span {
+  font-size: 12px;
+  font-weight: 600;
+}
+.expression-survey .ex-field select,
+.expression-survey .ex-field input {
+  width: 100%;
+}
+.expression-survey .ex-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+}
+.expression-survey .ex-population-picker {
+  grid-column: 1 / -1;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px;
+}
+.expression-survey .ex-population-picker summary {
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.expression-survey .ex-population-picker summary::before {
+  content: "▾";
+  color: var(--text-muted);
+}
+.expression-survey .ex-population-picker:not([open]) summary::before {
+  content: "▸";
+}
+.expression-survey .ex-population-picker summary span {
+  margin-left: auto;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+.expression-survey .ex-picker-actions {
+  display: flex;
+  gap: 13px;
+  margin: 7px 0 11px;
+}
+.expression-survey .ex-text-button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  text-align: left;
+  line-height: inherit;
+}
+.expression-survey .ex-text-button:hover {
+  text-decoration: underline;
+  background: transparent;
+}
+.expression-survey .ex-population-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 16px;
+  max-height: 250px;
+  overflow: auto;
+  padding-right: 4px;
+}
+.expression-survey .ex-population-option {
+  display: flex;
+  gap: 8px;
+  padding: 7px 0;
+  cursor: pointer;
+  line-height: 1.35;
+}
+.expression-survey .ex-population-option strong {
+  font-weight: 500;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.expression-survey .ex-population-option small {
+  display: block;
+  color: var(--text-muted);
+  font-size: 10px;
+  margin-top: 3px;
+  overflow-wrap: anywhere;
+}
+.expression-survey .ex-sidebar-note {
+  grid-column: 1 / -1;
+  font-size: 11px;
+  color: var(--text-muted);
+  padding-top: 0;
+}
+.expression-survey .ex-results {
+  min-width: 0;
+}
+.expression-survey .ex-gene-form {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+.expression-survey .ex-gene-form > label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+.expression-survey .ex-search-row {
+  display: flex;
+  gap: 8px;
+}
+.expression-survey .ex-search-row input {
+  flex: 1;
+  font-family: var(--ex-font-mono);
+  font-size: 14px;
+  min-height: 46px;
+}
+.expression-survey .ex-primary {
+  background: var(--color-selected);
+  color: var(--text-primary);
+  border-color: var(--color-selected);
+  font-weight: 600;
+  padding: 8px 17px;
+  white-space: nowrap;
+}
+.expression-survey .ex-primary:hover {
+  filter: brightness(0.96);
+  background: var(--color-selected);
+}
+.expression-survey .ex-note {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  overflow-wrap: anywhere;
+}
+.expression-survey .ex-results-heading,
+.expression-survey .ex-screen-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.expression-survey .ex-screen-heading > div > p {
+  color: var(--text-muted);
+  margin-top: 7px;
+  max-width: 700px;
+}
+.expression-survey .ex-export-controls {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+  font-size: 11px;
+}
+.expression-survey .ex-export-controls select {
+  padding: 6px 8px;
+  max-width: 215px;
+}
+.expression-survey .ex-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.expression-survey .ex-segment {
+  display: flex;
+  gap: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.expression-survey .ex-segment button {
+  font-size: 11px;
+  padding: 5px 9px;
+  border-radius: 0;
+}
+.expression-survey .ex-segment button:first-child {
+  border-radius: 3px 0 0 3px;
+}
+.expression-survey .ex-segment button:last-child {
+  border-radius: 0 3px 3px 0;
+  border-left: 0;
+}
+.expression-survey .ex-segment button[aria-pressed="true"] {
+  background: var(--border);
+  font-weight: 600;
+}
+.expression-survey .ex-reading-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 8px 0 18px;
+}
+.expression-survey .ex-result-panel {
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-panel);
+  margin-top: 19px;
+}
+.expression-survey .ex-panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 13px;
+}
+.expression-survey .ex-panel-head > a {
+  font-size: 11px;
+  white-space: nowrap;
+}
+.expression-survey .ex-axis-note {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 10px;
+  color: var(--text-muted);
+  margin: 8px 0;
+}
+.expression-survey .ex-table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-panel);
+}
+.expression-survey table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.expression-survey th {
+  padding: 9px 11px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 10px;
+  color: var(--text-muted);
+  background: var(--bg-app);
+  border-bottom: 1px solid var(--border);
+}
+.expression-survey td {
+  padding: 10px 11px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.expression-survey tr:last-child td {
+  border-bottom: 0;
+}
+.expression-survey tbody tr:hover {
+  background: var(--bg-app);
+}
+.expression-survey .ex-number {
+  text-align: right;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.expression-survey .ex-subline {
+  display: block;
+  color: var(--text-muted);
+  font-size: 10px;
+  margin-top: 3px;
+  overflow-wrap: anywhere;
+  font-family: inherit;
+}
+.expression-survey .ex-source-id {
+  font-size: 10px;
+  overflow-wrap: anywhere;
+}
+.expression-survey .ex-rank-table {
+  min-width: 580px;
+  table-layout: fixed;
+}
+.expression-survey .ex-rank-table th:first-child {
+  width: 34%;
+}
+.expression-survey .ex-rank-table th:nth-child(2) {
+  width: 7%;
+}
+.expression-survey .ex-rank-table th:last-child {
+  width: 20%;
+}
+.expression-survey .ex-bar-track {
+  height: 13px;
+  position: relative;
+  background: var(--bg-app);
+  border-radius: 1px;
+}
+.expression-survey .ex-bar {
+  height: 100%;
+  display: block;
+  position: absolute;
+  background: var(--accent);
+  opacity: 0.72;
+  border-radius: 1px;
+}
+.expression-survey .ex-zero {
+  display: block;
+  position: absolute;
+  height: 19px;
+  top: -3px;
+  width: 1px;
+  background: var(--border-dark);
+}
+.expression-survey .ex-matrix {
+  min-width: 480px;
+}
+.expression-survey .ex-matrix th:first-child {
+  min-width: 200px;
+}
+.expression-survey .ex-matrix td:not(:first-child) {
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+}
+.expression-survey .ex-caption {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-top: 12px;
+  max-width: 105ch;
+}
+.expression-survey .ex-interpretation {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 12px;
+}
+.expression-survey .ex-interpretation summary {
+  cursor: pointer;
+}
+.expression-survey .ex-unavailable {
+  font-size: 11px;
+  color: var(--text-muted);
+  padding: 11px 0;
+}
+.expression-survey .ex-unavailable summary {
+  cursor: pointer;
+  color: var(--text-primary);
+}
+.expression-survey .ex-unavailable p {
+  margin-top: 6px;
+}
+.expression-survey .ex-empty {
+  padding: 22px;
+  border: 1px dashed var(--border-dark);
+  border-radius: 4px;
+  color: var(--text-muted);
+  background: var(--bg-panel);
+  font-size: 12px;
+  margin: 15px 0;
+}
+.expression-survey .ex-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 24px 0;
+  color: var(--text-muted);
+}
+.expression-survey .ex-notice {
+  border: 1px solid var(--border-dark);
+  padding: 14px;
+  border-radius: 4px;
+  margin: 0 0 18px;
+  background: var(--bg-panel);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.expression-survey .ex-notice button {
+  margin: 8px 8px 0 0;
+  font-size: 11px;
+}
+.expression-survey .ex-error {
+  font-size: 12px;
+  margin-top: 8px;
+  color: var(--color-obese);
+}
+.expression-survey .ex-tissue-choices {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+}
+.expression-survey .ex-tissue-choices button {
+  text-align: left;
+  padding: 12px;
+  display: block;
+  line-height: 1.35;
+}
+.expression-survey .ex-tissue-choices strong {
+  font-weight: 500;
+  font-size: 12px;
+  display: block;
+}
+.expression-survey .ex-tissue-choices span {
+  font-size: 10px;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 5px;
+}
+.expression-survey .ex-tissue-choices button[aria-pressed="true"] {
+  background: var(--border);
+  border-color: var(--accent);
+}
+.expression-survey .ex-catalog-filters {
+  display: grid;
+  grid-template-columns: minmax(230px, 1fr) 220px 190px;
+  gap: 18px;
+  margin-top: 24px;
+}
+.expression-survey .ex-catalog-table {
+  min-width: 900px;
+}
+.expression-survey .ex-catalog-table th:first-child {
+  width: 19%;
+}
+.expression-survey .ex-catalog-table th:nth-child(3) {
+  width: 34%;
+}
+.expression-survey .ex-related {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 19px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  margin-top: 27px;
+}
+.expression-survey .ex-related p {
+  font-size: 12px;
+  color: var(--text-muted);
+  max-width: 740px;
+  margin-top: 6px;
+}
+.expression-survey .ex-validation-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 34px;
+  margin-top: 26px;
+}
+.expression-survey .ex-check {
+  display: flex;
+  gap: 15px;
+  padding: 19px 0;
+  border-bottom: 1px solid var(--border);
+}
+.expression-survey .ex-check > span {
+  font-family: var(--ex-font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  padding-top: 2px;
+}
+.expression-survey .ex-check p {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+.expression-survey .ex-validation-report {
+  min-width: 0;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 18px;
+}
+.expression-survey .ex-validation-report h4 {
+  margin: 18px 0 10px;
+}
+.expression-survey .ex-validation-report > a {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 11px;
+}
+.expression-survey .ex-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin: 18px 0;
+}
+.expression-survey .ex-facts dt {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.expression-survey .ex-facts dd {
+  font-size: 12px;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.expression-survey .ex-source-list-heading {
+  margin: 30px 0 15px;
+}
+.expression-survey .ex-source-table {
+  min-width: 800px;
+}
+.expression-survey .ex-detail {
+  padding: 23px;
+  font-family: inherit;
+  color: var(--text-primary);
+}
+.expression-survey .ex-detail > h3 {
+  margin: 24px 0 12px;
+}
+.expression-survey .ex-detail > h2 {
+  font-size: 19px;
+}
+.expression-survey .ex-detail-gene {
+  margin-top: 20px;
+}
+.expression-survey .ex-detail-gene h4 {
+  margin-bottom: 10px;
+}
+.expression-survey .ex-sample-table {
+  min-width: 590px;
+}
+.expression-survey .ex-sample-table td:first-child {
+  overflow-wrap: anywhere;
+}
+.expression-survey .ex-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+@media (max-width: 1000px) {
+  .expression-survey .ex-validation-layout {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .expression-survey .ex-catalog-filters {
+    grid-template-columns: minmax(180px, 1fr) 180px 140px;
+    gap: 12px;
+  }
+}
+@media (max-width: 760px) {
+  .expression-survey .ex-page-heading {
+    padding: 24px 0 20px;
+  }
+  .expression-survey .ex-content {
+    padding: 20px 0 0;
+  }
+  .expression-survey .ex-tabs {
+    padding: 0;
+    gap: 23px;
+  }
+  .expression-survey .ex-survey-layout {
+    grid-template-columns: 1fr;
+  }
+  .expression-survey .ex-sidebar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 17px;
+  }
+  .expression-survey .ex-population-picker {
+    grid-column: 1 / -1;
+  }
+  .expression-survey .ex-population-options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 15px;
+    max-height: 245px;
+  }
+  .expression-survey .ex-sidebar-note {
+    grid-column: 1 / -1;
+  }
+  .expression-survey .ex-tissue-choices {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .expression-survey .ex-catalog-filters {
+    grid-template-columns: 1fr 1fr;
+  }
+  .expression-survey .ex-catalog-filters > .ex-field:first-child {
+    grid-column: 1 / -1;
+  }
+  .expression-survey .ex-screen-heading {
+    gap: 14px;
+  }
+}
+@media (max-width: 480px) {
+  .expression-survey {
+    padding: 0 16px 32px;
+  }
+  .expression-survey .ex-query-panel,
+  .expression-survey .ex-result-panel {
+    padding: 16px;
+  }
+  .expression-survey h1 {
+    font-size: 24px;
+  }
+  .expression-survey .ex-page-heading {
+    padding: 24px 0 20px;
+    gap: 12px;
+  }
+  .expression-survey .ex-page-heading p {
+    font-size: 13px;
+  }
+  .expression-survey .ex-content {
+    padding: 16px 0 0;
+  }
+  .expression-survey .ex-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0;
+    gap: 0 16px;
+  }
+  .expression-survey .ex-tabs button {
+    text-align: left;
+    padding: 10px 3px;
+    font-size: 12px;
+  }
+  .expression-survey .ex-sidebar {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+  .expression-survey .ex-population-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 11px;
+  }
+  .expression-survey .ex-field select {
+    font-size: 12px;
+    padding: 8px 5px;
+  }
+  .expression-survey .ex-search-row {
+    gap: 6px;
+  }
+  .expression-survey .ex-primary {
+    padding: 8px 12px;
+  }
+  .expression-survey .ex-results-heading {
+    gap: 14px;
+  }
+  .expression-survey .ex-controls {
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .expression-survey .ex-axis-note {
+    flex-direction: column;
+    gap: 2px;
+  }
+  .expression-survey .ex-panel-head {
+    gap: 10px;
+  }
+  .expression-survey .ex-export-controls {
+    width: 100%;
+  }
+  .expression-survey .ex-export-controls select {
+    flex: 1;
+    max-width: none;
+  }
+  .expression-survey .ex-catalog-filters {
+    gap: 0 12px;
+  }
+  .expression-survey .ex-detail {
+    padding: 14px;
+  }
+  .expression-survey .ex-validation-report {
+    padding: 13px;
+  }
+  .expression-survey .ex-facts {
+    gap: 14px;
+  }
+  .expression-survey .ex-related {
+    padding: 15px;
+  }
+}

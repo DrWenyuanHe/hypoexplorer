@@ -1,0 +1,60 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": [
+      "ES2020",
+      "ES2022.Error",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "types": [
+      "vite/client",
+      "vitest/globals",
+      "node"
+    ],
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "allowJs": true,
+    "checkJs": false,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "tsBuildInfoFile": ".tmp/tsc/app.tsbuildinfo"
+  },
+  "include": [
+    "src",
+    "dataset-tracker/src"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "public",
+    "dataset-tracker/node_modules",
+    "dataset-tracker/dist",
+    "src/__tests__/analysisCorpusIntegrity.test.ts",
+    "src/__tests__/concordanceReviewEvidence.test.ts",
+    "src/__tests__/matrixShape.test.ts",
+    "src/__tests__/seoStudyContent.test.ts",
+    "src/__tests__/agentExport.test.ts",
+    "src/__tests__/existingExpression.test.ts",
+    "src/__tests__/expressionIndex.test.ts",
+    "src/__tests__/dedicatedReplicationEvidence.test.ts",
+    "src/__tests__/keyedSourceRelationship.test.ts",
+    "src/__tests__/qualityConsistency.test.ts",
+    "src/__tests__/replicationEvidence.test.ts",
+    "src/__tests__/reviewedReplicationMapping.test.ts",
+    "src/__tests__/reviewedTextEvidence.test.ts",
+    "src/__tests__/sealedEvidenceProjection.test.ts",
+    "src/__tests__/verificationAdvancement.test.ts",
+    "src/__tests__/countConservationEvidence.test.ts",
+    "src/__tests__/reviewedFgseaSpecies.test.ts"
+  ]
+}

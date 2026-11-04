@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "area": "module-explorer",
+  "fingerprint": "321c56c5f288d63c987a35f9ead51df7a20529cd959790053772acc8c2b0b06a",
+  "outcome": "updated",
+  "explanation": "geneVocabulary.ts binds a gene selection to one or more vocabularies: case policy (stored spelling, upper-case across studies), shared nomenclature authority (null for mixed species) and per-chip facts. useGeneSelection gains replace(), used by restoreAnalysis; state and RESET_MATRIX resets stay in the explorer session. geneChips asks nothing of a source with no authority, so no chip borrows a namespace its study never used.",
+  "references": [
+    "src/explorer/geneVocabulary.ts",
+    "src/explorer/explorerSession.ts",
+    "CONTEXT.md"
+  ]
+}

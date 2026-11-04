@@ -1,0 +1,1 @@
+var HX_MOUSE_HYPO_CIRCADIAN_AGING_GSE201207_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":20574},"colors":{"hypothalamus":"#B28ACF"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":12,"nObese":12,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

@@ -1,0 +1,1 @@
+var HX_MOUSE_GNRH_ANDROGEN_GSE162563_META = {"populations":["poa"],"labels":{"poa":"GnRH / preoptic area (TRAP)"},"types":{"poa":"Tissue"},"nGenes":{"poa":15713},"colors":{"poa":"#B07AA1"},"qcFlags":{"poa":{"is3v3":false,"nNormal":5,"nObese":6,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

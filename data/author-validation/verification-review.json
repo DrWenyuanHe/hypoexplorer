@@ -1,0 +1,947 @@
+{
+  "schemaVersion": 1,
+  "description": "Explicit evidence-availability classifications from the cited per-dataset reviews. Missing entries remain not assessed for source-only records; absence of a record never means absence of author data.",
+  "records": {
+    "mouse_hypo_obob_fgf1_gse153551": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "The full author table, source counts, metadata and published analysis code are available. An all-timepoint DESeq2 reconstruction reproduces the author Data 11 result and explains major registered differences, but Explorer is a distinct day 5-only edgeR analysis. The manuscript's 9-versus 7 day 5 caption and diabetes-exclusion text conflict with its code/deposit 9-versus 14 cohort, and its FDR DEG rule conflicts with the nominal P plotting rule. These remaining source-claim conflicts require review, not a missing-data label.",
+      "nextStep": "Resolve Figure 7's sample-size/diabetic-control eligibility and FDR-versus-nominal P claims against the deposited code and Data 11. Explicitly decide whether Explorer retains a standardized day 5-only estimand or offers the author-compatible all-timepoint model as a separate result. Keep 25 code-filtered and three Cook-filtered author omissions distinct; do not remove controls, substitute the reconstruction for production, or grant full verification automatically.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_arc_pomc_drd2_gse210311": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "2026-09-05 advancement: 14,402 finite matched effects from 17,231 author numeric effects; Pearson 0.99911188, Spearman 0.99928530, nonzero direction agreement 99.313%, median absolute log2FC difference 0.011678, paired RMS effect ratio 0.990664. Full author result table for the registered contrast. Author discoveries are reproducible in a separate six-IP DESeq2 fit. Registered effects are supported with remaining inference and coverage differences, and no full-verification sign-off. Missing author adjusted P remains unavailable; full local discovery counts and finite paired tests are reported separately. Numerical values are recalculated from the unchanged current registered DE table. Evidence and reproducible extraction are in continued-sources/advancement-sources-a-2026-09-05/GSE210311/.",
+      "nextStep": "Adjudicate the registered edgeR-versus-author inferential differences using an explicit acceptance criterion. Audit 108 author discoveries absent from the final registered ID table, retain seven missing-author-FDR Explorer discoveries as unknown, and resolve paper/GEO version conflicts and the missing-FDR low-count effect residual before requiring exact historical reproduction. Keep the successful separate DESeq2 fit out of the Explorer full-verification badge.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_tanycyte_insulin_gse185074": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "The full author effect/FDR workbook and original counts are available and the registered seven-pool cohort is confirmed. Marker-restricted and full-table finite-pair checks still show inferential differences. No bounded DESeq2 sensitivity reproduces the author discovery set. Historical code retrieval failed, but this is not absence of author processed results.",
+      "nextStep": "Recover archived study code, original TPM/length inputs and the exact tested-gene/filtering order; establish which IP/input groups entered author dispersion fitting, then reproduce the author's DESeq2 inference against explicit tolerances. Review 32 author discoveries absent from the registered output and distinguish marker-only from genome-wide coverage. Keep all sensitivities separate from Explorer and do not promote full verification.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_mhypoa_cbd_gse270378": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "The full official author workbook, cohort metadata and raw counts are available. A source-supported all-15-library reconstruction closely reproduces author effects/FDR and both discovery sets, while a six-library DESeq2 diagnostic remains as narrow as the registered track. Author inference is missing for 1,869 registered rows; none is a registered paper-threshold hit. The remaining gap concerns fitting context, filtering and registered-model comparability, not absent processed data.",
+      "nextStep": "Document and adjudicate the author all-dose versus registered pairwise fitting context; recover exact original design, software and independent-filter settings. Retain 9,373 as the paired finite-FDR denominator, leave author-missing tests unknown, and assess the registered one-versus-13 discovery difference under explicit acceptance criteria. Do not transfer the separate all-dose refit's match to the Explorer badge.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_gt17_mkrn3_gse160467": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "Complete deposited author results are available, including normalized sample columns that resolve all 20 damaged labels and author size factors. A separate reconstruction reproduces all 867 FDR-only and all 749 paper-rule called IDs with near-identical effects/P/FDR. Registered edgeR inference remains different, and eight eligible source genes lack author results; absent rows and 3,540 missing author FDRs are not negative evidence.",
+      "nextStep": "Recover the reason for the eight-gene author-universe omission and assess registered-versus-author inference using explicit acceptance criteria. The count-vector mappings and separate FDR/paper-rule comparisons are now implemented. Keep seven registered discoveries without author rows unassessed and do not transfer the separate reconstruction agreement to Explorer.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_hypo_lef1_gse98519": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "Full author results, sample metadata and identical embedded raw counts are available. A separate DESeq2 reconstruction recovers the complete four-gene author discovery set, but registered edgeR inference is narrower. Historical numeric and missing-value export residuals remain; they are not a missing-processed-data case or full registered-result agreement.",
+      "nextStep": "Recover the exact historical DESeq2/USeq runtime or parameters and adjudicate ENSMUSG00000044265 plus the author-missing ENSMUSG00000082697 test. Review the registered two-versus-four FDR breadth under an explicit acceptance policy. Keep ambiguous author transformed-zero values unassessed and the successful separate reconstruction outside the Explorer full-verification badge.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_gt17_orexin_gse99690": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "The full author workbook and count matrix are available. Nine-library normalization is reproduced exactly to saved numeric precision and resolves the earlier two-condition assumption. The registered six-library blocked model still differs, and separate historical-style reconstructions do not establish identical inference.",
+      "nextStep": "Recover the original DESeq2 1.10.1 design/filter settings to resolve the residual nine-library reconstruction differences. Adjudicate the registered six-library replicate-blocked edgeR contrast against that author model under an explicit scientific acceptance rule. Keep Crtam's missing author FDR unassessed and do not substitute the diagnostic for Explorer data.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_hypo_hibernation_gse295250": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "2026-09-05 advancement: 14,594 finite matched effects from 18,055 author numeric effects; Pearson 0.99978253, Spearman 0.99977674, nonzero direction agreement 99.705%, median absolute log2FC difference 0.000796, paired RMS effect ratio 1.001584. Full author result table for the registered contrast. Cohort, counts, orientation and multiple-testing semantics are resolved. The author inference is only partly reconstructed and needs review. Missing author adjusted P remains unavailable; full local discovery counts and finite paired tests are reported separately. Numerical values are recalculated from the unchanged current registered DE table. Evidence and reproducible extraction are in continued-sources/advancement-sources-a-2026-09-05/GSE295250/.",
+      "nextStep": "Retrieve the original supplementary methods or analysis code to recover the fed-E3 dispersion, gene-filter and q-value settings. Reconcile the residual author-versus-LRT differences on the 18,055 author-retained genes, then adjudicate the registered QL/BH result separately. Keep QValue, recomputed BH and Holm thresholds explicit and account for 70 author QValue discoveries outside Explorer.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_hypo_maternal_hcd_gse242187": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "The author result and count tables are available. Count conservation, normalization and the paper's 25-gene total are resolved. Library-to-GSM identifiers and author inference settings remain incomplete, and separate DESeq2 fits still disagree with the observed author calls. This is an unresolved method/provenance difference, not missing processed data.",
+      "nextStep": "Locate an explicit internal-library-number to GSM mapping and the original Banana Slug/BaseSpace DESeq2 version, design and dispersion/shrinkage/filter settings. Reconcile the 13 author discoveries not reproduced by either diagnostic before adjudicating the registered edgeR result. Preserve the five author calls outside Explorer and 68 missing author FDRs as separate coverage limits.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_arc_agrp_trap_gse240484": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "2026-09-05 advancement: 12,916 finite matched effects from 12,922 author numeric effects; Pearson 0.98571977, Spearman 0.97529077, nonzero direction agreement 93.365%, median absolute log2FC difference 0.028915, paired RMS effect ratio 0.992025. Full author result table for the registered contrast. The author analysis and paper-selected list are reproduced with recovered code. The unchanged Explorer analysis has a documented model/filter difference and no full sign-off. Missing author adjusted P remains unavailable; full local discovery counts and finite paired tests are reported separately. Numerical values are recalculated from the unchanged current registered DE table. Evidence and reproducible extraction are in continued-sources/advancement-sources-a-2026-09-05/GSE240484/.",
+      "nextStep": "Adjudicate the registered omission of the documented four-batch adjustment and author filtering. Review 2,810 author-only and one Explorer-only shared-test discovery, six excluded author genes and 46 Explorer discoveries without an author row before signing off or changing the registered analysis.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_arc_pnoc_trap_gse292416": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "Full deposited author results and both count matrices are available. Exact library/pool assignments are resolved, and a separate raw-count independent 4-vs-4 DESeq2 reconstruction nearly reproduces all 13,989 author-finite effects and shared-finite FDR calls. The registered edgeR output remains inferentially different. GEO and publisher PNOC-enrichment thresholds conflict, and historical filter/offset/model settings remain incomplete. These are observed method/selection residuals, not absence of processed data.",
+      "nextStep": "Reconcile the GEO versus publisher enrichment and genotype-DE thresholds; recover historical DESeq2 1.38.3 input/filter/offset/shrinkage settings or code. Adjudicate the registered edgeR effect/FDR comparison using an explicit acceptance criterion and a declared symbol-mapping policy. Preserve missing author/refit FDRs as uncomparable and keep the separate reconstruction out of the Explorer full-verification badge.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_mpoa_pnoc_bactrap_gse306829": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "The complete 27,884-gene author table and all six raw count columns are available and checked. A separate group-only DESeq2 default-filter reconstruction reproduces the author's entire 6,642-gene FDR<0.05 set and near-identical effects/raw P values. The registered output remains paired edgeR-QL with a smaller projected feature universe and different inference. Original formula/version documentation and small numeric residuals remain unresolved; this is not a missing-processed-data case and not full verification.",
+      "nextStep": "Review the disclosed group-only author versus paired Explorer inference difference for the registered PNOC-IP/input contrast, confirm the original formula/version when manuscript or code becomes available, and adjudicate the extreme Gm10800 missing-test effect and feature-projection scope. Preserve the paired biological units and do not promote the separate reconstruction's agreement to an Explorer full-verification badge.",
+      "fullyVerifiedContrasts": []
+    },
+    "rat_son_dehydration_gse175461": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "The ten-sample cohort, source counts and author normalization are reconciled. A separate DESeq2 reconstruction reproduces all author columns and missingness within saved decimal precision, including the paper's 2,247-gene total after explaining two rounded threshold values. Registered edgeR inference still differs on paired finite-FDR genes. Seven hundred registered rows have no published author FDR, including twenty local discoveries, and remain unassessed. Full verification of the registered output is not granted.",
+      "nextStep": "Retain the reproduced author-method analysis as separate evidence. Review the 345 author-only and 15 registered-only calls on paired finite-FDR genes under an explicit registered-model acceptance policy, and document how the 700 absent author FDR values and two rounding-boundary genes are handled. Do not substitute reconstructed FDR for published evidence or promote the current Explorer output automatically.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_arc_hfd_gse284408": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "2026-09-05 advancement: 14,174 finite matched effects from 22,322 author numeric effects; Pearson 0.92734069, Spearman 0.92168175, nonzero direction agreement 91.490%, median absolute log2FC difference 0.026989, paired RMS effect ratio 0.928157. Full author result table for the registered contrast. Cohort, source and author inference are supported. Published selection inconsistencies and registered effect/inference differences still require review. Missing author adjusted P remains unavailable; full local discovery counts and finite paired tests are reported separately. Numerical values are recalculated from the unchanged current registered DE table. Evidence and reproducible extraction are in continued-sources/advancement-sources-a-2026-09-05/GSE284408/.",
+      "nextStep": "Review the ten Table S1 genes below the published 1.5-fold cutoff and resolve the narrative total. Evaluate the registered edgeR versus author FPKM-ratio effects and discovery sets under an explicit scientific acceptance criterion. Keep the successful DESeq2 sensitivity separate from the registered result.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_hypo_pomc_estrogen_gse328990": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "Eight explicit pool/genotype assignments and all 18 published effect/P-value pairs are reconciled. Author full results are available. Two paper hits are filtered locally, Cenpf has a large effect residual, and a no-offset DESeq2 diagnostic still differs. The missing evidence concerns exact reconstruction inputs/settings, not the processed author table.",
+      "nextStep": "Recover Salmon quant.sf or a tximport object plus countsFromAbundance, filtering, Cook handling and design settings. Reconcile Fam205a3 and Gm8116 filtering and Cenpf effect magnitude, then assess registered effect/FDR agreement. Do not assume length offsets alone explain the residuals.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_hypo_heat_stress_gse128660": {
+      "resultAvailability": "access_blocked",
+      "comparisonOutcome": "not_tested",
+      "reason": "The paper is accessible and the workbook is known, but verified binary retrieval failed through PMC, EuropePMC and publisher routes and no browser connection is available. Public sample files contain FPKM only. Author-result agreement is untested because of a documented retrieval barrier, not observed disagreement.",
+      "nextStep": "Retrieve the official XLSX through a functioning browser or obtain an author-provided copy, inspect whether it contains full or selected hypothalamic DE statistics, then perform a scope- and threshold-matched comparison. Do not reconstruct DESeq2 counts from FPKM.",
+      "fullyVerifiedContrasts": []
+    },
+    "pig_hypo_mia_gse245146": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The official supplement has been retrieved and inspected. Its whole-factorial main/interaction effects do not provide the registered saline-only sex-adjusted maternal effect.",
+      "nextStep": "Locate author simple-effect results or original fitted-model contrasts for saline-only PRRSV minus control. Retain the recovered factorial table as source evidence, without treating it as a matching comparator.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_scn_photoperiod_gse266472": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "Full author DE results are retrieved and their published totals reproduce, but they estimate the whole-day photoperiod effect. Local results estimate pZT12 only. This known scope difference does not demonstrate a pipeline mismatch.",
+      "nextStep": "Obtain an author pZT12-specific result or separately reconstruct the full-time-series analysis with documented sample exclusions, filtering and normalization. Retain the registered pZT12 result as a distinct contrast.",
+      "fullyVerifiedContrasts": []
+    },
+    "chicken_hypo_rfi_gse278826": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "2026-09-05 advancement: 90 finite matched effects from 257 author numeric effects; Pearson 0.99994994, Spearman 0.99932502, nonzero direction agreement 100.000%, median absolute log2FC difference 0.014295, paired RMS effect ratio 0.990873. Selected author reference: Table S4. Source and selected effects agree; inference and tested coverage remain qualified. Missing author adjusted P remains unavailable; full local discovery counts and finite paired tests are reported separately. Numerical values are recalculated from the unchanged current registered DE table. Evidence and reproducible extraction are in continued-sources/advancement-sources-a-2026-09-05/GSE278826/.",
+      "nextStep": "Reproduce the author DESeq2 1.20.0 filter/normalization and nominal-P selection separately if full inferential verification is needed. Obtain an all-gene author result or exact analysis code. Keep the 167 unretained source IDs and 2-versus-0 selected FDR calls explicit.",
+      "fullyVerifiedContrasts": []
+    },
+    "pig_hypo_formula_gse281726": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "Author supplementary results were retrieved and inspected. Its brain table reports selected ILA-producer/nonproducer subgroup effects, not the registered pooled ALAC-versus-WPI sex-adjusted comparison. This is a scope/evidence limitation, not an observed numeric mismatch.",
+      "nextStep": "Obtain complete author results for pooled ALAC versus WPI brain/hypothalamus with exact sex/covariate settings, or perform a separately labelled author-compatible subgroup reconstruction. Do not use subgroup results or absence of a table to validate the registered contrast.",
+      "fullyVerifiedContrasts": []
+    },
+    "zebrafish_hypo_cyp19a1b_gse299412": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "Author selected results were retrieved and compared. Most directions agree, but specific direction and significance/filter differences remain; limited reference coverage must not conceal the observed disagreement.",
+      "nextStep": "Recover the full author normalized matrix, P/FDR results and exact rlog/limma filtering code. Reconcile the nine opposite directions and 52 author-selected genes outside the local filter before full sign-off."
+    },
+    "rat_son_aging_gse231617": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "An author result row is available for every local gene. Source values, local input transformation, excluded invariant genes, orientation, and the published 1,852-gene count are reconciled. Author FDR is missing for 6,642 matched genes, including 139 local FDR calls, so those calls are unassessed rather than mismatches. Shared-finite inference is reported separately and still differs between local normalized-matrix limma and author DESeq2. Full sign-off requires both model reconciliation and explicit treatment of unavailable author statistics.",
+      "nextStep": "Retain partial verification and the scope-specific numerical comparison. Before full sign-off, reproduce the author's count-model analysis or independently reconcile all remaining effect and inferential differences for the registered contrast. Do not treat the former GO-versus-DEG threshold misreading as an unresolved author discrepancy.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_mbh_maternal_emulsifier_gse231769": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "Near-complete author results are available and compared, but109 identified local genes lack reference rows, the workbook contains81 labelled DEGs rather than the paper's83, and the labels do not implement the stated FDR/1.5-fold rule. Exact statistical/model differences are not reconciled. This is observed unresolved evidence, not a failure to find data.",
+      "nextStep": "Obtain the missing109 author result rows and exact limma/normalization/threshold code, reconcile81 versus83 DEGs and nominal-P versus FDR wording, and repeat the full gene-level comparison. Keep this dataset clearly flagged for review; no full sign-off.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_sst_neuron_sex_gse224254": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "Full author results are directly compared. Transcript-length correction and shrinkage reconcile nearly all effect sizes and 501 of 505 significant genes in a separate sensitivity, but specific inference and annotation/input differences remain unresolved.",
+      "nextStep": "Resolve the five residual significance calls, 82 shared-gene normalized-mean differences and missing IDs using the author's exact transcript annotation and Galaxy import/filter/shrinkage history. Preserve registered edgeR results and compatible reconstructions as distinct analyses; do not grant full sign-off yet."
+    },
+    "cattle_hypo_nutrition_gse153495": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "2026-09-05 advancement: 35 finite matched effects from 35 author numeric effects; Pearson 0.87804942, Spearman 0.69747899, nonzero direction agreement 94.286%, median absolute log2FC difference 0.624355, paired RMS effect ratio 0.505174. Selected author reference: Supplemental Table S6. Effect definitions are reconciled; malformed rows and count-model inference remain unverified. Missing author adjusted P remains unavailable; full local discovery counts and finite paired tests are reported separately. Numerical values are recalculated from the unchanged current registered DE table. Evidence and reproducible extraction are in continued-sources/advancement-sources-a-2026-09-05/GSE153495/.",
+      "nextStep": "Obtain corrected S6 rows and the original count-model result/code or integer counts for inference reproduction. Preserve both effect definitions and the q<0.05 versus q<0.10 source contradiction; do not silently replace malformed author fields with calculated effects.",
+      "fullyVerifiedContrasts": []
+    },
+    "cattle_arc_nutrition_gse153498": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "2026-09-05 advancement: 80 finite matched effects from 80 author numeric effects; Pearson 0.85385449, Spearman 0.75675549, nonzero direction agreement 98.750%, median absolute log2FC difference 0.338201, paired RMS effect ratio 0.541910. Selected author reference: Supplemental Table S2. The estimator explanation does not eliminate the remaining quantitative and inference differences. Missing author adjusted P remains unavailable; full local discovery counts and finite paired tests are reported separately. Numerical values are recalculated from the unchanged current registered DE table. Evidence and reproducible extraction are in continued-sources/advancement-sources-a-2026-09-05/GSE153498/.",
+      "nextStep": "Resolve the author normalization/exact-test effect residual against original count-model results or code, and clarify the source's0.05-versus0.10 threshold. Keep all80 selected genes separate from the unknown full author universe and preserve the registered matrix-route results.",
+      "fullyVerifiedContrasts": []
+    },
+    "human_hypo_pituitary_organoid_gse301692": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "2026-09-05 advancement: 51 finite matched effects from 56 author numeric effects; Pearson 0.99998611, Spearman 1.00000000, nonzero direction agreement 100.000%, median absolute log2FC difference 0.000642, paired RMS effect ratio 0.998332. Selected 56-row day15 Table S4 excerpt.  Missing author adjusted P remains unavailable; full local discovery counts and finite paired tests are reported separately. Numerical values are recalculated from the unchanged current registered DE table. Evidence and reproducible extraction are in continued-sources/advancement-sources-a-2026-09-05/GSE301692/.",
+      "nextStep": "Obtain the complete historical author gene-wide DESeq2 result and settings for an all-gene/contrast sign-off. Retain the validated 56-row scope and do not promote joint zero DEG calls to full verification.",
+      "fullyVerifiedContrasts": []
+    },
+    "pig_hypo_low_growth_gse324226": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "Processed expression data are publicly deposited. No independent author result or matching manuscript was located in this bounded review; this is an evidence gap, not a demonstrated mismatch.",
+      "nextStep": "Extend the publication/result search using study authors and title, or obtain an independent author day-39 hypothalamus DE table. Raw/normalized workbook sheet inventories have now been inspected and contain expression values only."
+    },
+    "cattle_hypo_diet_restriction_gse49540": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "2026-09-05 advancement: 102 finite matched effects from 132 author numeric effects; Pearson 0.97760965, Spearman 0.96607381, nonzero direction agreement 100.000%, median absolute log2FC difference 0.069713, paired RMS effect ratio 0.941703. Selected author reference: Supplementary Table 1, annotated RA versus C genes. The unresolved six-versus-seven-control cohort prevents establishing equivalent analysis comparability. Missing author adjusted P remains unavailable; full local discovery counts and finite paired tests are reported separately. Numerical values are recalculated from the unchanged current registered DE table. Evidence and reproducible extraction are in continued-sources/advancement-sources-a-2026-09-05/GSE49540/.",
+      "nextStep": "Establish whether the paper's control count is a reporting error or identify the documented excluded control before any cohort change. Obtain the original complete DESeq result and a supported mapping for the30 unmatched symbols. No full verification until cohort/inference questions are resolved.",
+      "fullyVerifiedContrasts": []
+    },
+    "hamster_tanycyte_photoperiod_gse204883": {
+      "resultAvailability": "access_blocked",
+      "comparisonOutcome": "not_tested",
+      "reason": "Exact author code and the Data S1 inventory are recovered, but numerical results remain behind a publisher challenge. SPIP19 is author-excluded and locally retained.",
+      "nextStep": "Obtain the original Data S1 workbook through an accessible authorized source. Reconcile the SPIP19 exclusion and four-group model before any registered-concordance pass."
+    },
+    "hamster_hypo_torpor_gse179663": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "2026-09-05 advancement: 53 finite matched effects from 61 author numeric effects; Pearson -0.93001810, Spearman -0.91247890, nonzero direction agreement 9.434%, median absolute log2FC difference 0.305445, paired RMS effect ratio 1.028252. Selected 68 predefined indicator-gene reference; missing effect cells are preserved. The table explicitly labels HT-minus-NT but most matched directions oppose the registered result. Original per-sample count estimates support the local orientation for Rbm3-ps, Jun and Avp. The source contrast/direction disagreement remains unresolved; no sign flip is applied to force concordance. Exact-symbol joins only; alternative labels and absent genes are not remapped speculatively. Printed rounded P values remain descriptive; absent/outlier cells are missing. Missing author adjusted P remains unavailable; full local discovery counts and finite paired tests are reported separately. Numerical values are recalculated from the unchanged current registered DE table. Evidence and reproducible extraction are in continued-sources/advancement-sources-a-2026-09-05/GSE179663/.",
+      "nextStep": "Recover the exact original DESeq2 contrast and author sample-label map, and resolve the published HT/NT sign conflict against GEO per-sample counts. Do not negate author effects or reverse production labels without independent source evidence. Retain selected scope and rounded/missing statistics.",
+      "fullyVerifiedContrasts": []
+    },
+    "zebrafish_hypo_fluoxetine_gse141144": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "The workbook is now retrieved. All 86 exactly matched selected gene directions agree, but ten selected genes are unassessed and the file contains no full numerical gene-effect/FDR reference.",
+      "nextStep": "Recover the full unstressed-hypothalamus author DE table and exact FLX/stress coefficient scope. Resolve the ten unmatched selected symbols with authoritative mappings before extending direction coverage."
+    },
+    "pig_hypo_mia_gse227725": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The linked study provides molecular results for a different sample/analysis scope, not an established comparator for the registered RNA track.",
+      "nextStep": "Establish RNA sample correspondence and exact nursed-cohort coefficient, then locate gene-wide RNA statistics."
+    },
+    "pig_hypo_genotype_gse201408": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "Author significant-only results are retrieved and all 51 directions agree. A known cohort difference and significance discrepancy remain unresolved.",
+      "nextStep": "Identify the excluded male Iberian authoritatively; perform a labeled 19-sample sensitivity and author-compatible inference without guessing the outlier."
+    },
+    "hamster_mbh_photoperiod_gse274003": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "2026-09-05 advancement: 6,671 finite matched effects from 23,941 author numeric effects; Pearson 0.99610088, Spearman 0.99558061, nonzero direction agreement 96.597%, median absolute log2FC difference 0.025652, paired RMS effect ratio 0.982143. Complete published 23,941-gene Group4wk coefficient table, effects only. The shared F/P/FDR tests all eight non-reference coefficients together, proven by glmQLFTest(fit,coef=2:numberofgroups) in the publication-linked code. Exact historical config/referenceGroup and membership of the 54 retained libraries must be reconciled before a full scope sign-off. Missing author adjusted P remains unavailable; full local discovery counts and finite paired tests are reported separately. Numerical values are recalculated from the unchanged current registered DE table. Evidence and reproducible extraction are in continued-sources/advancement-sources-a-2026-09-05/GSE274003/.",
+      "nextStep": "Retrieve the exact historical config.yaml and design file to confirm LP reference and retained time-series samples. Obtain a dedicated week 4-versus-LP P/FDR result or run a clearly labeled author-compatible coefficient test; do not use omnibus FDR as a substitute.",
+      "fullyVerifiedContrasts": []
+    },
+    "dormouse_hypo_torpor_gse207494": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "2026-09-05 advancement: 14,528 finite matched effects from 14,862 author numeric effects; Pearson 0.83089862, Spearman 0.83313354, nonzero direction agreement 84.313%, median absolute log2FC difference 0.064018, paired RMS effect ratio 0.873019. Full 14,862-gene author ET-vs-IBA result table. The paper specifies four ET and four IBA animals with sex adjustment; excluded LT01 belongs to the unused LT arm. Local edgeR uses the same eight target animals with sex adjustment. Author normalization across all 11 retained libraries differs from local normalization of eight libraries. Missing author adjusted P remains unavailable; full local discovery counts and finite paired tests are reported separately. Numerical values are recalculated from the unchanged current registered DE table. Evidence and reproducible extraction are in continued-sources/advancement-sources-a-2026-09-05/GSE207494/.",
+      "nextStep": "Retrieve the original OPARU statistical script and historical normalization/design settings; reconcile the measured ET-vs-IBA effect differences using the 11-library author model versus eight-library registered model. Keep 272 shared missing-author-FDR rows separate from negative tests.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_scn_exercise_gse207992": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_tested",
+      "reason": "Only selected or aggregate author results were identified in the reviewed article/inventory; no genome-wide result comparison is recorded.",
+      "nextStep": "Inspect figure-source numerical evidence and locate any author all-gene outputs; compare the exact WT exercise coefficient and normalization/model."
+    },
+    "human_hypo_neuron_mkrn3_gse208722": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "All three official supplemental artifacts were retrieved through EuropePMC on 2026-09-05 and inspected. s092.xlsx contains Sample Metadata, Proteins and Filtered mouse TMT-proteomics sheets, 9,490 filtered proteins across 11 mouse samples. s093.xlsx is the 85-interactor CompPASS table. s091.pdf has 8 pages of proteomic methods, figures, fertility and PCR-primer tables. No human KO1-versus-WT1 RNA-seq DE table is present in these artifacts. The previous statement that Supplemental Table 3 contains human gene-expression results was incorrect. The manuscript describes 3 independent differentiations per clone, 404 RNA-seq DEGs and DESeq2/Wald/BH filtering, but those numeric gene-wide RNA results remain not located within this complete supplement inventory. This is a corrected source target, not a detected RNA mismatch.",
+      "nextStep": "Locate a human day 30 KO1-versus-WT1 gene-level RNA-seq result or original analysis code. Do not pursue Supplemental Table 3 as an RNA comparator; its mouse proteomics scope has been confirmed.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_hypo_plx3397_gse243697": {
+      "resultAvailability": "access_blocked",
+      "comparisonOutcome": "not_tested",
+      "reason": "GEO counts and a supplement are accessible, but main-paper methods/results are restricted and no complete DE comparator was found in the inspected supplement.",
+      "nextStep": "Obtain a lawfully accessible main manuscript/methods and exact author DE artifact; keep the retrieved supplement and restricted paper states separate."
+    },
+    "rat_hypo_exercise_gse242354": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The reviewed manuscript analyzes eight other tissues and supplies no equivalent hypothalamus result. The deposited hypothalamus RSEM count source remains accessible.",
+      "nextStep": "Locate author hypothalamus-specific statistics for the registered exercise comparison; results from other tissues cannot validate this track."
+    },
+    "rat_arc_hfd_gse232510": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "A documented paper/deposit cohort difference prevents a same-cohort result comparison. A paper headline is accessible, while supplementary file retrieval is blocked.",
+      "nextStep": "Obtain final retained CS/HFS IDs, missing-group/exclusion documentation, and the author gene-level result."
+    },
+    "mouse_hypo_prenatal_benzene_gse229440": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "Selected author results exist, but the registered biological replicate unit is litter rather than individual offspring.",
+      "nextStep": "Locate complete author statistics and explicitly reconstruct the individual-offspring comparison if needed, without replacing the registered litter analysis."
+    },
+    "mouse_mhypoa_palmitate_gse280030": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "Full author results are available. Source/cohort and registered effects agree, and an author-compatible reconstruction reproduces all 1,418 original significant gene IDs. The registered standardized edgeR analysis remains distinct.",
+      "nextStep": "Retain the reconciled author-compatible evidence separately; recover historical local package/annotation versions and resolve the current-environment rerun limitation before full sign-off."
+    },
+    "chicken_poah_ehc_gse298648": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The complete original 18-gene POAH table is now compared: 15 retained genes agree in direction, with three filtered out. Author/local FDR, incubation replication and model scope remain unresolved.",
+      "nextStep": "Recover exact incubation replicate identities, fitting universe and the Table 5 selection rule; locate a full author tested-gene result and resolve the three filtered author genes. Preserve the registered result and current source discrepancies."
+    },
+    "mouse_hypo_estrous_cycle_gse131172": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "No comparable complete hypothalamus result table was located in the inspected manuscript/inventory. This is an evidence gap, not a tested disagreement.",
+      "nextStep": "Inspect the listed supplementary artifacts or obtain author gene-level results and the ortholog/filter mapping."
+    },
+    "mouse_hypo_puberty_emtab12340": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The linked publication is a methods reference for the same animals, not an author hypothalamus result benchmark.",
+      "nextStep": "Locate a dedicated hypothalamus result/code artifact or compare an explicitly documented author-compatible hypothalamus reconstruction."
+    },
+    "mouse_arc_corticosterone_gse128148": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "Full original results and exact source/cohort are verified. A documented prior/testing-universe sensitivity recovers all 43 author-significant genes, but historical settings and the registered edgeR difference are not fully resolved.",
+      "nextStep": "Confirm original DESeq2 version, coefficient prior and filtering/Cook's settings; preserve the conditional diagnostic and Npy reporting discrepancy without replacing the standardized result."
+    },
+    "rat_fetal_hypo_ozone_gse156859": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "All 168 selected author genes, directions and reported group means/ratios are quantitatively supported. The effect-estimator difference is explained; only partial author inference is available and nominal calls differ by model.",
+      "nextStep": "Obtain complete author nonsignificant-gene P/FDR and exact Partek model settings for inferential replication; retain the documented linear/log2 wording issue and nine nominal-call differences."
+    },
+    "mouse_arc_neun_development_gse189945": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The retrieved full result is pooled-sex neuronal age, while the registered comparison is female-only. The source cohort and VSD input are supported, but equivalent female-age numerical output was not found in the published tables or code archive. This is a scope/evidence limitation, not observed disagreement.",
+      "nextStep": "Obtain the author's female-age output or original STAR counts plus annotation to reconstruct the archived group_neuron35f_vs_neuron12f model. Do not infer DESeq2 counts from VSD or combine shrunken pooled and sex effects.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_scn_trf_gse190389": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "Complete author results are accessible and the exact cohort/source extraction is confirmed. Numerical inference, a limited set of source-expression rows and historical rerun differences remain genuinely unresolved.",
+      "nextStep": "Resolve the original stable-ID count/annotation bridge, 37 discrepant source rows and exact edgeR normalization/filter/fitting/runtime settings. Preserve both deposits and current results; do not substitute rows or tune thresholds."
+    },
+    "mouse_arc_hfd_gse225038": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "mouse_hypo_hfd_emtab6929": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "mouse_hypo_hfd_gse236077": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "mouse_hypo_astro_trap_gse214683": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_tested",
+      "reason": "Complete21-sheet publisher-linked Figshare workbook contains four gene-level result tables and16 enrichment tables. Gene tables are HFD gonadectomy versus HFD sham or an ordered three-group ChowSham/HFDSham/HFDGDX trend in IP and SN fractions. Current hfd_vs_chow uses13 sham IP samples (7chow,6HFD), so no matching diet-only comparison was found in this workbook or the inspected primary author analysis script. Description-sheet IPOrdinal/SNPairwise labels are transposed; actual row fraction/analysis and source code resolve the table meanings. No comparison or author pass is proposed.",
+      "nextStep": "Obtain the same-sham IP HFD-versus-chow gene table and its cohort/model record; current author gonadectomy or ordinal effects cannot substitute.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_hypo_obesity_gse329539": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "mouse_leprb_stat3_gse123983": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "mouse_arc_clock_gse248462": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "mouse_arc_pyy_glp1_gse160802": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "mouse_hypo_insulin_gse132352": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "mouse_arc_kcnb1_gse246918": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "mouse_hypo_risperidone_gse158751": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "mouse_gnrh_androgen_gse162563": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "mouse_vmhvl_estradiol_gse181204": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "mouse_hypo_abi3_gse212299": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "mouse_hypo_cox10_gse224780": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "mouse_hypo_pel_gse229838": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "mouse_hypo_oxt_trap_gse242245": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "mouse_hypo_glp1_gse245727": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "rat_mbh_edc_gse168151": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "rat_mbh_perinatal_des_gse225359": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "rat_hypo_ozone_gse133293": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "rat_pvn_stress_gse261833": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "mouse_hypo_cp_ins2_gse218188": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "rat_rph_noise_stress_gse229159": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "rat_vmh_hfd_gse330152": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The processed source and contrast were reviewed, but no complete same-contrast author result table was located in the sources documented below. This is an evidence gap, not an observed result mismatch.",
+      "nextStep": "Obtain a comparable author gene-level result table and analysis settings; compare effects, directions, filtering, and significance before full sign-off."
+    },
+    "mouse_hypo_hfhs_gse235479": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "No same-contrast author result was located in the reviewed deposit and no linked publication was available for comparison. Deposited processed-source checks do not establish author-result agreement.",
+      "nextStep": "Locate a linked manuscript or author result/code artifact. Record any newly accessible comparator and its exact sample and contrast scope."
+    },
+    "mouse_hypo_obob_gse167264": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "No same-contrast author result was located in the reviewed deposit and no linked publication was available for comparison. Deposited processed-source checks do not establish author-result agreement.",
+      "nextStep": "Locate a linked manuscript or author result/code artifact. Record any newly accessible comparator and its exact sample and contrast scope."
+    },
+    "mouse_hypo_hfd_tc_gse305719": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "No same-contrast author result was located in the reviewed deposit and no linked publication was available for comparison. Deposited processed-source checks do not establish author-result agreement.",
+      "nextStep": "Locate a linked manuscript or author result/code artifact. Record any newly accessible comparator and its exact sample and contrast scope."
+    },
+    "mouse_scn_mcd_gse252364": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "No same-contrast author result was located in the reviewed deposit and no linked publication was available for comparison. Deposited processed-source checks do not establish author-result agreement.",
+      "nextStep": "Locate a linked manuscript or author result/code artifact. Record any newly accessible comparator and its exact sample and contrast scope."
+    },
+    "mouse_hypo_diabetes_gse329555": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "No same-contrast author result was located in the reviewed deposit and no linked publication was available for comparison. Deposited processed-source checks do not establish author-result agreement.",
+      "nextStep": "Locate a linked manuscript or author result/code artifact. Record any newly accessible comparator and its exact sample and contrast scope."
+    },
+    "mouse_hypo_diabetes_gse235792": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "No same-contrast author result was located in the reviewed deposit and no linked publication was available for comparison. Deposited processed-source checks do not establish author-result agreement.",
+      "nextStep": "Locate a linked manuscript or author result/code artifact. Record any newly accessible comparator and its exact sample and contrast scope."
+    },
+    "mouse_hypo_akkermansia_gse212491": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "No same-contrast author result was located in the reviewed deposit and no linked publication was available for comparison. Deposited processed-source checks do not establish author-result agreement.",
+      "nextStep": "Locate a linked manuscript or author result/code artifact. Record any newly accessible comparator and its exact sample and contrast scope."
+    },
+    "mouse_arc_fasting_gse96627": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "No same-contrast author result was located in the reviewed deposit and no linked publication was available for comparison. Deposited processed-source checks do not establish author-result agreement.",
+      "nextStep": "Locate a linked manuscript or author result/code artifact. Record any newly accessible comparator and its exact sample and contrast scope."
+    },
+    "rat_poa_lbn_gse174753": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "Complete176-gene male author table recovered and compared, with176 exact matches. Pearson 0.517837099, Spearman 0.521058772, direction 0.767045455; effect definition also differs. All388 male/female source rows retained and independently parsed; no excluded male row.",
+      "nextStep": "Retain review; an author count-model reproduction requires raw counts and documented methods. Do not change registered FPKM output or borrow female effects.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_hypothalamic_cells_mogroside_gse275887": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "No same-contrast author result was located in the reviewed deposit and no linked publication was available for comparison. Deposited processed-source checks do not establish author-result agreement.",
+      "nextStep": "Locate a linked manuscript or author result/code artifact. Record any newly accessible comparator and its exact sample and contrast scope."
+    },
+    "mouse_gt17_alisolb_gse253875": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "No same-contrast author result was located in the reviewed deposit and no linked publication was available for comparison. Deposited processed-source checks do not establish author-result agreement.",
+      "nextStep": "Locate a linked manuscript or author result/code artifact. Record any newly accessible comparator and its exact sample and contrast scope."
+    },
+    "human_htnsc_differentiation_gse214877": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "No same-contrast author result was located in the reviewed deposit and no linked publication was available for comparison. Deposited processed-source checks do not establish author-result agreement.",
+      "nextStep": "Locate a linked manuscript or author result/code artifact. Record any newly accessible comparator and its exact sample and contrast scope."
+    },
+    "mouse_hypo_astro_hfhs_gse205313": {
+      "resultAvailability": "access_blocked",
+      "comparisonOutcome": "not_tested",
+      "reason": "Primary methods and author code are recovered, but original DE objects are not in the repository and the publisher supplement download is unavailable. Exact author/local sample correspondence remains unresolved.",
+      "nextStep": "Recover the original hypothalamus dge result and source column order, or an equivalent published numerical table. Link the author-excluded columns to GSM identities before comparing the registered fit."
+    },
+    "mouse_hypo_aging_gse240365": {
+      "resultAvailability": "access_blocked",
+      "comparisonOutcome": "not_tested",
+      "reason": "Processed data are accessible, but the documented full-text or supplementary-result access limitation prevents a complete author-result comparison. The access limitation is not a mismatch.",
+      "nextStep": "Retry the specific official paper or supplement links below when access is available; preserve access outcomes and compare the equivalent author result."
+    },
+    "mouse_hypo_fedfast_gse254155": {
+      "resultAvailability": "access_blocked",
+      "comparisonOutcome": "not_tested",
+      "reason": "Processed data are accessible, but the documented full-text or supplementary-result access limitation prevents a complete author-result comparison. The access limitation is not a mismatch.",
+      "nextStep": "Retry the specific official paper or supplement links below when access is available; preserve access outcomes and compare the equivalent author result."
+    },
+    "mouse_hypo_dr_gse227689": {
+      "resultAvailability": "access_blocked",
+      "comparisonOutcome": "not_tested",
+      "reason": "Processed data are accessible, but the documented full-text or supplementary-result access limitation prevents a complete author-result comparison. The access limitation is not a mismatch.",
+      "nextStep": "Retry the specific official paper or supplement links below when access is available; preserve access outcomes and compare the equivalent author result."
+    },
+    "mouse_hypo_aging_gse212336": {
+      "resultAvailability": "access_blocked",
+      "comparisonOutcome": "not_tested",
+      "reason": "Primary PMC10528304 identifies TableS1 at the exact linked NIHMS1924184-supplement-11.xlsx URL. Fresh retrieval returned1816-byte HTML browser-check content, not the described6MB workbook; the normal browser attempt also produced no usable artifact. No workbook rows were inspected or compared. Complete linked GitHub tree inventory was retained, but repository file contents and Shiny results were not exhaustively inspected. This is an access limitation, not evidence of missing or discordant results.",
+      "nextStep": "Retrieve the exact TableS1 workbook through an available official route and establish the hypothalamus21-versus3month contrast; the linked Shiny app remains an uninspected alternative.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_hypo_fasting_gse87544": {
+      "resultAvailability": "access_blocked",
+      "comparisonOutcome": "not_tested",
+      "reason": "Processed data are accessible, but the documented full-text or supplementary-result access limitation prevents a complete author-result comparison. The access limitation is not a mismatch.",
+      "nextStep": "Retry the specific official paper or supplement links below when access is available; preserve access outcomes and compare the equivalent author result."
+    },
+    "mouse_hypo_crd_gse264350": {
+      "resultAvailability": "access_blocked",
+      "comparisonOutcome": "not_tested",
+      "reason": "Processed data are accessible, but the documented full-text or supplementary-result access limitation prevents a complete author-result comparison. The access limitation is not a mismatch.",
+      "nextStep": "Retry the specific official paper or supplement links below when access is available; preserve access outcomes and compare the equivalent author result."
+    },
+    "mouse_hypo_glp1_dexa_gse102415": {
+      "resultAvailability": "access_blocked",
+      "comparisonOutcome": "not_tested",
+      "reason": "Processed data are accessible, but the documented full-text or supplementary-result access limitation prevents a complete author-result comparison. The access limitation is not a mismatch.",
+      "nextStep": "Retry the specific official paper or supplement links below when access is available; preserve access outcomes and compare the equivalent author result."
+    },
+    "rat_hypo_hfd_wtts_gse100349": {
+      "resultAvailability": "access_blocked",
+      "comparisonOutcome": "not_tested",
+      "reason": "Processed data are accessible, but the documented full-text or supplementary-result access limitation prevents a complete author-result comparison. The access limitation is not a mismatch.",
+      "nextStep": "Retry the specific official paper or supplement links below when access is available; preserve access outcomes and compare the equivalent author result."
+    },
+    "rat_pvn_sodium_depletion_gse145431": {
+      "resultAvailability": "access_blocked",
+      "comparisonOutcome": "not_tested",
+      "reason": "Processed data are accessible, but the documented full-text or supplementary-result access limitation prevents a complete author-result comparison. The access limitation is not a mismatch.",
+      "nextStep": "Retry the specific official paper or supplement links below when access is available; preserve access outcomes and compare the equivalent author result."
+    },
+    "mouse_hypo_hypoxia_gse162673": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_tested",
+      "reason": "The accessible manuscript contains selected, headline, or figure-level results, not a complete comparable all-gene result. These limited observations do not establish genome-wide agreement.",
+      "nextStep": "Obtain a complete same-contrast table with gene identifiers, effects, statistical values, filtering, and sample membership."
+    },
+    "mouse_hypo_maternal_protein_gse162744": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_tested",
+      "reason": "The accessible manuscript contains selected, headline, or figure-level results, not a complete comparable all-gene result. These limited observations do not establish genome-wide agreement.",
+      "nextStep": "Obtain a complete same-contrast table with gene identifiers, effects, statistical values, filtering, and sample membership."
+    },
+    "mouse_hypo_aging_glp1r_gse280382": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_tested",
+      "reason": "The accessible manuscript contains selected, headline, or figure-level results, not a complete comparable all-gene result. These limited observations do not establish genome-wide agreement.",
+      "nextStep": "Obtain a complete same-contrast table with gene identifiers, effects, statistical values, filtering, and sample membership."
+    },
+    "mouse_hypo_ube3a_gse217420": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_tested",
+      "reason": "Complete publisher supplement archive and all six nested tables retained. TablesS1\u2013S3 each contain12,315 annotation rows with the same Ensembl universe; supplementary legends identify the PFC interaction analysis, sex and genotype effects. They do not provide a matching hypothalamus genotype-effect table. TablesS4\u2013S6 contain enrichment statistics, backgrounds and gene lists. The complete11-page supplementary PDF was read for table scope. Primary paper reports a hypothalamus result, but PFC effects cannot verify the registered hypothalamus comparison. No numerical author comparison ran.",
+      "nextStep": "Obtain the hypothalamus genotype-effect table and its sex/interactions/RIN/SVA model definition; do not borrow PFC or headline-only effects.",
+      "fullyVerifiedContrasts": []
+    },
+    "rat_mbh_eed_gse102471": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "Complete 15,317-row Table S2; 15,296 exact Ensembl matches. All 21 unpaired author rows passed current expression filtering but were removed by current strongest-statistic symbol projection. Every excluded row and representative is retained. Pearson 0.999948778, Spearman 0.999883308; FDR calls differ (327 author, 4 current). Primary count-model effect definitions and cohort agree. This supports effect concordance, not exact significance reproduction.",
+      "nextStep": "For exact statistical reproduction obtain the archived author edgeR design, filter, normalization, dispersion and testing settings. Preserve all source rows and current scientific outputs.",
+      "fullyVerifiedContrasts": []
+    },
+    "rat_hypo_fructose_gse56238": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_tested",
+      "reason": "The accessible manuscript contains selected, headline, or figure-level results, not a complete comparable all-gene result. These limited observations do not establish genome-wide agreement.",
+      "nextStep": "Obtain a complete same-contrast table with gene identifiers, effects, statistical values, filtering, and sample membership."
+    },
+    "mouse_hypo_hfd_gse220533": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
+      "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match."
+    },
+    "mouse_hypo_treg_gse282067": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
+      "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match."
+    },
+    "mouse_poa_fgf_gse285006": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
+      "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match."
+    },
+    "mouse_scn_hfd_gse157077": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
+      "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match."
+    },
+    "mouse_hypo_circadian_aging_gse201207": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
+      "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match."
+    },
+    "macaque_hypo_aging_gse128537": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
+      "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match."
+    },
+    "rat_hypo_aging_gse314970": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
+      "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match."
+    },
+    "mouse_vlpo_galanin_sleep_gse132308": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
+      "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match."
+    },
+    "mouse_hypo_glp1_gse314029": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The reviewed source supports the registered track, but a complete author comparator with the same cohort and analysis target is unavailable. The scope limitation is documented below.",
+      "nextStep": "Obtain the same-comparison author statistics or reconstruct an explicitly labeled author-compatible analysis; preserve the registered track's stated scope."
+    },
+    "mouse_arc_reverb_gse148641": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The reviewed source supports the registered track, but a complete author comparator with the same cohort and analysis target is unavailable. The scope limitation is documented below.",
+      "nextStep": "Obtain the same-comparison author statistics or reconstruct an explicitly labeled author-compatible analysis; preserve the registered track's stated scope."
+    },
+    "mouse_pomc_maternal_hfd_gse135639": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The reviewed source supports the registered track, but a complete author comparator with the same cohort and analysis target is unavailable. The scope limitation is documented below.",
+      "nextStep": "Obtain the same-comparison author statistics or reconstruct an explicitly labeled author-compatible analysis; preserve the registered track's stated scope."
+    },
+    "mouse_vmh_sf1_sex_gse143818": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The reviewed source supports the registered track, but a complete author comparator with the same cohort and analysis target is unavailable. The scope limitation is documented below.",
+      "nextStep": "Obtain the same-comparison author statistics or reconstruct an explicitly labeled author-compatible analysis; preserve the registered track's stated scope."
+    },
+    "mouse_hypo_glylow_gse234483": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The published DEG headline differs materially from local results. Selected figure-source values are available, but the complete gene-level table and exact selection rule are not; one supplement download was also blocked.",
+      "nextStep": "Reconcile the 1,407-gene author set using the exact cohort, DESeq2 settings, filtering rule, and full author result. Do not choose a threshold merely to reproduce the headline."
+    },
+    "mouse_hypo_spatial_aging_gse270383": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "Selected author hypothalamic effects agree strongly, but the final retained-profile cohort cannot be reconstructed from the deposited inputs and public code. Effect agreement does not resolve cohort provenance.",
+      "nextStep": "Obtain the retained-profile/cluster list or the referenced processed object and reproduce the author cohort before full sign-off."
+    },
+    "mouse_lha_hfd_gse130597": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "An observed deposited-versus-author cohort difference remains unresolved. Author summaries or cluster tables do not supply the exact retained-cell membership needed to reconcile it.",
+      "nextStep": "Obtain authoritative retained barcodes, biological-unit/cell-type metadata, and any accession crosswalk specified below; rerun the author-compatible comparison without guessing exclusions."
+    },
+    "mouse_pvn_crh_ela_gse174085": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "An observed deposited-versus-author cohort difference remains unresolved. Author summaries or cluster tables do not supply the exact retained-cell membership needed to reconcile it.",
+      "nextStep": "Obtain authoritative retained barcodes, biological-unit/cell-type metadata, and any accession crosswalk specified below; rerun the author-compatible comparison without guessing exclusions."
+    },
+    "mouse_arc_mettl14_gse289461": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "An observed deposited-versus-author cohort difference remains unresolved. Author summaries or cluster tables do not supply the exact retained-cell membership needed to reconcile it.",
+      "nextStep": "Obtain authoritative retained barcodes, biological-unit/cell-type metadata, and any accession crosswalk specified below; rerun the author-compatible comparison without guessing exclusions."
+    },
+    "mouse_hypo_clic1_gse229799": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "The author's processed 5-versus-5 analysis can be compared, but conflicting K10/WT10 annotations and missing W15 sample provenance prevent an unqualified cohort sign-off.",
+      "nextStep": "Resolve K10/WT10 genotype and W15 raw-sample mapping with an authoritative accession/sample crosswalk; keep conservative and author-processed comparisons explicitly separate."
+    },
+    "mouse_arc_cagrilintide_gse296488": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The relevant author hypothalamic result reports 404 DEGs, while the registered all-deposited-sample analysis has zero at FDR < 0.05. The author gene-level table, exact DEG rule, and final sample identities are unavailable; comparisons in other brain regions do not resolve this difference.",
+      "nextStep": "Obtain the final retained WT ARC cohort and author gene-level results with the exact Figure 6 DEG criterion. Reconcile the result without assuming the two study-wide ARC exclusions belong to this contrast."
+    },
+    "mouse_hypo_oxaliplatin_gse285906": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "An author-method reconstruction closely reproduces the published Npy fold change and FDR. Only a selected-gene result is available; the complete hypothalamus author table is not, and the registered edgeR analysis is a different method.",
+      "nextStep": "Compare the complete author hypothalamus result and exact Partek/DESeq2 settings before whole-contrast sign-off."
+    },
+    "mouse_agrp_fedfast_gse68177": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "The author workbook, original counts and registered sheet contain the same six fasted and five fed AgRP samples; FD/fast is an explicit naming translation. The primary manuscript states individual animals are replicates. See advancement-comparisons-2026-09-05/cohort-and-recovery-audit.json. All 27 Excel-date labels are recovered unambiguously using the original counts' Ensembl ID plus genomic locus, including both Marc2/March2. 14548 unique finite effect pairs cover 99.43% of registered genes. Effects and source bytes are unchanged; unmatched genes remain explicit filtering coverage limits. Current paired effects: 14548 genes, Pearson 0.93189446, Spearman 0.92608281, same-gene direction 0.92988727, median absolute log2FC delta 0.07159076, paired RMS scale 0.83230655. Cohort/identifier evidence now supports the biological-effect comparison. Historical inference and full-author-result coverage limits remain explicit; no exact-reproduction sign-off is inferred.",
+      "nextStep": "Effect-concordance evidence is complete for the registered contrast. Retain independent internal QC requirements and document inference/coverage differences; exact-author-reproduction sign-off remains separate.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_pomc_fedfast_gse68177": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "The author workbook, original counts and registered sheet contain the same five fasted and five fed POMC samples; FD/fast is an explicit naming translation. The primary manuscript states individual animals are replicates. See advancement-comparisons-2026-09-05/cohort-and-recovery-audit.json. All 27 Excel-date labels are recovered unambiguously using the original counts' Ensembl ID plus genomic locus, including both Marc2/March2. 14270 unique finite effect pairs cover 99.33% of registered genes. Effects and source bytes are unchanged; unmatched genes remain explicit filtering coverage limits. Current paired effects: 14270 genes, Pearson 0.86069966, Spearman 0.87294148, same-gene direction 0.9058164, median absolute log2FC delta 0.07232186, paired RMS scale 0.88992396. Cohort and identifier gaps resolved. Whole-table correlation remains below the unchanged biological-effect policy; expressed-subset support is separately scoped.",
+      "nextStep": "Investigate whole-table effect disagreement without substituting the expressed-gene subset for the registered universe. Keep edgeR/limma inference differences explicit.",
+      "fullyVerifiedContrasts": []
+    },
+    "chicken_hypo_lcitrulline_gse202003": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "All 12 thermoneutral source samples match: GSM6086522\u20136086527 / CON 1\u20136 controls and GSM6086528\u20136086533 / A1\u20136 L-citrulline. The original expression workbook, GEO sample titles and registered sheet agree; one bird from each of six independent replicates per group was sampled at day 42. See advancement-comparisons-2026-09-05/cohort-and-recovery-audit.json.  Current paired effects: 13446 genes, Pearson 0.99957184, Spearman 0.99952025, same-gene direction 0.9918935, median absolute log2FC delta 0.00185717, paired RMS scale 1.0008244. Cohort/identifier evidence now supports the biological-effect comparison. Historical inference and full-author-result coverage limits remain explicit; no exact-reproduction sign-off is inferred.",
+      "nextStep": "Effect-concordance evidence is complete for the registered contrast. Retain independent internal QC requirements and document inference/coverage differences; exact-author-reproduction sign-off remains separate.",
+      "fullyVerifiedContrasts": []
+    },
+    "rat_pvn_adolescent_stress_gse169296": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "The retained CLC export and registered sheet contain exactly six male PVN animals: controls M9/M17/M24 and stressed M2/M11/M12, with matching GEO accessions and3 biological replicates per group. Author bootstrap pseudo-replicates are confined to inference. See advancement-comparisons-2026-09-05/cohort-and-recovery-audit.json.  Current paired effects: 13839 genes, Pearson 0.90228077, Spearman 0.92884352, same-gene direction 0.93467736, median absolute log2FC delta 0.03163327, paired RMS scale 0.8540673. Cohort/identifier evidence now supports the biological-effect comparison. Historical inference and full-author-result coverage limits remain explicit; no exact-reproduction sign-off is inferred.",
+      "nextStep": "Effect-concordance evidence is complete for the registered contrast. Retain independent internal QC requirements and document inference/coverage differences; exact-author-reproduction sign-off remains separate.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_hypo_astro_aging_gse99791": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "2026-09-05 advancement: 748 finite matched effects from 767 author numeric effects; Pearson 0.99875995, Spearman 0.99813194, nonzero direction agreement 99.866%, median absolute log2FC difference 0.109207, paired RMS effect ratio 0.988660. Selected HTH up/down aged Table S3 sheets; all source rows retained. Re-read numeric raw/adjusted P columns, which were available in the original workbook. Full-universe negative calls cannot be inferred from this selected list. Missing author adjusted P remains unavailable; full local discovery counts and finite paired tests are reported separately. Numerical values are recalculated from the unchanged current registered DE table. Evidence and reproducible extraction are in continued-sources/advancement-sources-a-2026-09-05/GSE99791/.",
+      "nextStep": "Reconcile author-compatible cohort, effects, and statistical results for every registered contrast before full sign-off.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_hypo_fasting_gse289833": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "2026-09-05 advancement: 80 finite matched effects from 81 author numeric effects; Pearson 0.99998543, Spearman 0.99967179, nonzero direction agreement 100.000%, median absolute log2FC difference 0.007261, paired RMS effect ratio 1.000689. Selected 81-gene reference: 70 hypothalamus-only Table S1 rows plus 11 shared Table S3 HTH effects. Corrects the earlier Table S2 reference: S2 is hippocampus only. Some rounded FDR values exceed 0.05 despite the caption; the source values are preserved. Missing author adjusted P remains unavailable; full local discovery counts and finite paired tests are reported separately. Numerical values are recalculated from the unchanged current registered DE table. Evidence and reproducible extraction are in continued-sources/advancement-sources-a-2026-09-05/GSE289833/.",
+      "nextStep": "Reconcile author-compatible cohort, effects, and statistical results for every registered contrast before full sign-off.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_pvn_hfd_gse198437": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "The original selected workbook is checksum-pinned and numerically compared, but its centered coefficient units are not explicitly declared and omnibus FDR is not a pairwise reference.",
+      "nextStep": "Recover the exact coefficient-generation definition and, if available, the complete HFD-versus-control author result; do not infer units or pairwise FDR from agreement alone."
+    },
+    "gse278158": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "The original published 499-gene selected list has now been compared directly with registered output: 498 exact matched symbols, all directions agreeing, Pearson 0.99949805 and Spearman 0.99992101. Gm42318 is excluded by the current expression filter, independently replayed over all 50,559 input genes. Same-cohort signed log2 genotype effects support selected-result concordance; 98 paired current FDR discoveries versus 499 listed author discoveries do not establish exact statistical reproduction.",
+      "nextStep": "For exact statistical reproduction, obtain the complete author tested-gene result table and archived DESeq2 design, normalization and filtering settings. Recover source animal-to-litter and cage allocation for independent-replication review. Retain the current registered pipeline and all 499 author rows.",
+      "fullyVerifiedContrasts": []
+    },
+    "gse314184": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "2026-09-11 bounded review: no deposited author effect table matching the four current whole-MPOA comparisons (alloparental versus control, infanticidal versus control, sire versus control, dam versus sire) was located in the complete PMC13019464 manuscript, its 31-page Supplementary Information, or all 12 files at author repository commit 521ac9ae008b6448debaeb394879c3648e18dd14. The paper reports infanticidal-versus-allopaternal neuronal and neuronal-subcluster DE, a different contrast and cell scope. Supplementary Tables 1\u20138 concern behavior/FOS measurements, and Table 9 lists cluster markers and predicted cell types without comparison effect estimates. The manuscript attachment inventory lists no result spreadsheet. This classification is limited to these inspected sources: the behavioral Figshare deposit, reporting summary, peer-review file, and multimedia were not inspected for result contents. It does not assert global absence or an author-result mismatch. Source pins and review scope are retained in data/internal-qc/intake-replication-2026-09-11/supplementary-followup/author-availability-review.json.",
+      "nextStep": "Obtain an author result table for an exact registered whole-MPOA comparison, or document a compatible comparison before author concordance testing. Resolve the independent species/feature and biological pairing reviews separately. No author code was executed and no scientific input, contrast, model, threshold or output was changed.",
+      "fullyVerifiedContrasts": []
+    },
+    "gse148252": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "Complete archived author tables were measured separately for all four registered contrasts. All263,988 archived counts equal deposited counts. Required full local gene coverage is89.691%-89.985%, so all four remain review under unchanged criteria despite passing the matched-gene direction alternative. DESeq2 betaPrior and edgeR estimate the same signed case/baseline log2 count-expression ratio; effect definitions are compatible. Paired RMS effect scales1.627-2.268 are contextual optional magnitude findings. Publisher TableS5 contains two selected light-versus-dark sheets with opposite-sign and quantitatively different estimates; this publication-version context does not invalidate the explicitly linked archive, and no discrepancy is inferred for the two genotype contrasts. No author-compatible refit or registered inference equivalence is claimed.",
+      "nextStep": "Resolve selected-publisher versus archived-complete result versions and DESeq2 shrinkage versus edgeR effect scale; retain full gene universe and unchanged coverage policy.",
+      "fullyVerifiedContrasts": []
+    },
+    "gse309435": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "Nineteen original supplementary workbooks were recovered from the publisher RAR. Table8 has3013 male SHR-versus-Wistar genes andTable10 has1122 female SHR-versus-Wistar genes. Other tables concern sex differences, selected shared genes, pathways, correlations and additional brain regions. No current pooled, sex-adjusted SHR-versus-Wistar coefficient was located in these19tables. Male/female coefficients were not averaged or substituted for the registered pooled estimate; unresolved litter/pairing is reviewed separately.",
+      "nextStep": "Recover a source pooled sex-adjusted strain result, or perform a separately scoped author-method reconstruction without changing registered outputs.",
+      "fullyVerifiedContrasts": []
+    },
+    "gse281701": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The new primary publication and Figshare v5 supplement were linked to GSE281701. The recovered Supplemental tableS3 contains colorectal, lung and pancreatic cachexia comparisons from skeletal muscle. It contains no hypothalamus tissue rows. TableS2 in the recovered DOCX mentions GSE281701 hypothalamus and a fold-change1.5/adjustedP.01 criterion, but does not supply its full gene effects. Muscle coefficients cannot verify the registered hypothalamus contrast.",
+      "nextStep": "Locate the GSE281701 hypothalamus coefficient table or a retained source underlying the hypothalamus supplemental figure.",
+      "fullyVerifiedContrasts": []
+    },
+    "gse308884": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "A matching primary preprint and supplement were recovered for GSE308884. The18-library deposited workbook contains sample metadata, gene annotation, counts and log2CPMs, with no author DE sheet. The preprint reports protein-coding filtering, TMM and voomLmFit(sample.weights=TRUE); the current registered limma analysis of deposited log2CPMs is distinct. The supplement contains volcano plots and selected expression examples, with no recovered machine-readable full gene-effect table. No coefficient values were inferred from plotted pixels.",
+      "nextStep": "Find a complete source coefficient table or explicitly scoped author-method result; preserve current matrices and methods.",
+      "fullyVerifiedContrasts": []
+    },
+    "gse135007": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_tested",
+      "reason": "The official PMC supplementary ZIP was recovered and inventoried: GO/KEGG enrichment, selected pathway genes, QTL-related genes and liver transcription-factor results. The linked Dryad dataset and file inventory are retained, includingTable3 expectedSHA2561fa62cb145f5bfff73726c27288e6be7950e8b666910692cffc4f63594ac0b64. Its API download returned401 and public file_stream route403; both exact responses are retained and are not XLSX sources. A complete equivalent hypothalamus Gough-versus-WSB author coefficient table has not been retrieved. Existing serialized-input numeric review remains separate.",
+      "nextStep": "Retrieve the public Dryad original through an authorized working route, inspect its actual scope and compare complete hypothalamus coefficients; do not treat failed response files as workbooks.",
+      "fullyVerifiedContrasts": []
+    },
+    "gse113576": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The complete primary article XML and official PMC object inventory were freshly retained. The XML identifiesTablesS1,S2,S3,S6,S7,S8,S10,S11 and a methodsPDF, while the public object prefix contains only articleXML/JSON/text. The paper includes cell-cluster markers, targeted MERFISH measurements and selected sex-related expression; no equivalent whole-preoptic all-cell, six-library male-versus-female coefficient table was recovered. A selected cluster or spatial-cell comparison cannot be assigned to the registered all-cell result.",
+      "nextStep": "Recover original Science supplements using their listed names, review full table scope and retain any equivalent all-cell result; do not infer agreement from reused single-cell data.",
+      "fullyVerifiedContrasts": []
+    },
+    "gse317867": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "Original study metadata and processed-file listings were retained; no comparable author coefficient table or linked matching primary paper was found in this bounded accession/title review. The current accession query returned no indexed publication. GEO count/expression matrices are inputs, not author differential-expression results.",
+      "nextStep": "Revisit a linked primary publication or newly deposited coefficient tables when available; this bounded search is not evidence that no result exists.",
+      "fullyVerifiedContrasts": []
+    },
+    "gse337822": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "Original study metadata and processed-file listings were retained; no comparable author coefficient table or linked matching primary paper was found in this bounded accession/title review. The current accession query returned no indexed publication. GEO count/expression matrices are inputs, not author differential-expression results.",
+      "nextStep": "Revisit a linked primary publication or newly deposited coefficient tables when available; this bounded search is not evidence that no result exists.",
+      "fullyVerifiedContrasts": []
+    },
+    "emtab15488": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "Original study metadata and processed-file listings were retained; no comparable author coefficient table or linked matching primary paper was found in this bounded accession/title review. The current accession query returned no indexed publication. The IDF publication title, DOI and PubMed fields are blank. Related intestinal Opa1 biology does not establish publication equivalence for these brain-region libraries.",
+      "nextStep": "Revisit a linked primary publication or newly deposited coefficient tables when available; this bounded search is not evidence that no result exists.",
+      "fullyVerifiedContrasts": []
+    },
+    "emtab15489": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "Original study metadata and processed-file listings were retained; no comparable author coefficient table or linked matching primary paper was found in this bounded accession/title review. The unquoted accession query returned one2015 Escherichia coli sigma54 paper, which is unrelated and is rejected as a study match. The IDF publication title, DOI and PubMed fields are blank. Related intestinal Opa1 biology does not establish publication equivalence for these brain-region libraries.",
+      "nextStep": "Revisit a linked primary publication or newly deposited coefficient tables when available; this bounded search is not evidence that no result exists.",
+      "fullyVerifiedContrasts": []
+    },
+    "gse224274": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "Review: every readable author gene is absent from both deposited expression and registered DE universes. Four source gene cells are dates and remain unresolved; no claim covers their unknown true identities. The cause of the disjoint sets is not established by this audit. No zero filling, inferred aliases, date repair or force join is performed. The recovered authorFig.1c has14956data rows:14952readable unique labels and4date-typed unresolved identifiers. Every readable label has zero exact and case-folded intersection with all5764depositedCPM and5143currentDE genes. Every current id equals its symbol and belongs to the deposit. No matching effect or inference statistic is computable; missing intersections are not correlations of zero.",
+      "nextStep": "Resolve the source feature-universe discrepancy and four date-typed gene cells using primary originals; retain both full sets without inferred mappings.",
+      "fullyVerifiedContrasts": []
+    },
+    "gse262407": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The new primary paper is bound through GSE262411 SuperSeries and GSE262407 SubSeries. Seven original workbooks, supplement descriptions, full accepted manuscript and15code files at commit773a267395c0c0b21e47312c1de3a14d77b4e02d are retained. Twelve selected comparisons are measured separately across astrocytes,OPC,oligodendrocytes andGhrh for three contrasts: all have100%paired-gene direction agreement, Pearson.9751-.9935, Spearman.9642-.9871 and selected-author coverage99.22%-100%. Sixteen of28registered track/contrast contexts have no directly matching coefficient. NominalP<.05selection is explicitly documented by the publisher, not chosen during comparison. Exact author/current eligible-mouse and cell-population membership remains unresolved, so these strong numeric results remain review candidates and are not an aggregate badge.",
+      "nextStep": "Independently reconcile source cell/mouse eligibility and review the12measurements. Preserve16unmatched contexts and never substitute narrower populations or other contrasts for them.",
+      "fullyVerifiedContrasts": []
+    },
+    "mouse_cvh_hfd_gse104709": {
+      "resultAvailability": "access_blocked",
+      "comparisonOutcome": "not_tested",
+      "reason": "The article supplies a significant-gene membership table across filtering/model choices, targeted expression figures, and an ANOVA result supplement; these do not provide a complete comparable chronic-HFD gene-effect table. The GSEA supplement tests opposing diet-switch arms, which differs from the chronic HFD versus chow comparison. The linked Dryad processed-data download returned HTTP 401/403; no missing-data or concordance claim is inferred.",
+      "nextStep": "Retrieve the accessible chronic-HFD author effect table or document its absence in the original downloadable archive; keep the separate limma replay as internal verification.",
+      "fullyVerifiedContrasts": []
+    },
+    "rat_hypo_maternal_hfd_gse107324": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "The default-track author record compares male offspring. Both sexes also have independent workbook-based paired measurements retained in data/author-validation/hfd-intake-2026-09-12/GSE107324. male: 11455 named gene pairs, Pearson 0.99988830, direction agreement 99.467%, author/registered FDR<0.05 calls 8/0; female: 11388 named gene pairs, Pearson 0.99989977, direction agreement 99.491%, author/registered FDR<0.05 calls 86/0. Author control-minus-HFD effects are reversed once. High effect agreement does not reproduce author significance; filtered author genes and damaged identifiers remain explicit omissions.",
+      "nextStep": "Review the different QL-versus-author inference and the deposited/filtering universe before any full reproduction sign-off; keep the two sex-specific comparisons separate.",
+      "fullyVerifiedContrasts": []
+    },
+    "rat_son_salt_gse65663": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The retained GEO source matrix, GPL1355 annotation and source-design review support the five-independent-pools-per-arm salt-loading comparison. They are sample-expression and source evidence, not a full author effect/P-value/FDR table for direct result comparison. The source review records GeneSpring Welch/BH inference, whereas the registered analysis is standardized limma after explicit pre-fit symbol aggregation. A matching full author result has not been located in the reviewed sources; this is neither a claim that such a result is globally absent nor evidence of disagreement.",
+      "nextStep": "Retrieve the primary publication's salt-loading supplementary full result table. Reconcile the independent-pool cohort, salt-minus-control direction, probe-to-symbol mapping, tested-gene universe and effect definitions, then compare paired effects and reference/output coverage. Report author P values and FDR separately from the standardized limma inference; do not transfer source or pipeline checks into author concordance.",
+      "fullyVerifiedContrasts": []
+    }
+  }
+}

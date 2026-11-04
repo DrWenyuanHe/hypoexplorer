@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "provider": "gtex",
+  "release": "GTEx Analysis Release V10",
+  "retrieved": "2026-10-29",
+  "inputs": [
+    {
+      "name": "gene_tpm_v10_brain_hypothalamus.gct.gz",
+      "url": "https://storage.googleapis.com/adult-gtex/bulk-gex/v10/rna-seq/tpms-by-tissue/gene_tpm_v10_brain_hypothalamus.gct.gz",
+      "bytes": 33274517,
+      "sha256": "513dfce4de7766b43709bd624f85cb2a3e956a71c5ee276f4986169c2276db48",
+      "retained": {
+        "file": "gene_tpm_v10_brain_hypothalamus.gct.gz",
+        "kind": "original",
+        "rule": "Original bytes (Git LFS).",
+        "bytes": 33274517,
+        "sha256": "513dfce4de7766b43709bd624f85cb2a3e956a71c5ee276f4986169c2276db48"
+      }
+    },
+    {
+      "name": "GTEx_Analysis_v10_Annotations_SampleAttributesDS.txt",
+      "url": "https://storage.googleapis.com/adult-gtex/annotations/v10/metadata-files/GTEx_Analysis_v10_Annotations_SampleAttributesDS.txt",
+      "bytes": 38497961,
+      "sha256": "98c246b3855edf62cb050982a7ca50f3069d010624baea47ef84a9465900ca4b",
+      "retained": {
+        "file": "sample-attributes-hypothalamus.tsv.gz",
+        "kind": "extract",
+        "rule": "Header plus every row whose SAMPID is a GCT sample column, in source order, unmodified; gzip level 9.",
+        "bytes": 100776,
+        "sha256": "1969c4b4b290e513a73df2f8a9dd09c7b6f3279af733fb2640a0b0d491c9b32a"
+      }
+    },
+    {
+      "name": "GTEx_Analysis_v10_Annotations_SubjectPhenotypesDS.txt",
+      "url": "https://storage.googleapis.com/adult-gtex/annotations/v10/metadata-files/GTEx_Analysis_v10_Annotations_SubjectPhenotypesDS.txt",
+      "bytes": 20292,
+      "sha256": "2313caeaaf3718ac8aead8c6b9eab92b3f613509cfe1a6f7b6286310a7200e73",
+      "retained": {
+        "file": "subject-phenotypes.tsv.gz",
+        "kind": "gzip",
+        "rule": "Original bytes, gzip level 9.",
+        "bytes": 4464,
+        "sha256": "5d951af2be1a115b1450a2a699078af104d36a7bdfe22fcb970475718f4d3af8"
+      }
+    },
+    {
+      "name": "portal-api-medians.json",
+      "url": "https://gtexportal.org/api/v2/expression/medianGeneExpression",
+      "bytes": 3057,
+      "sha256": "5b5e5334a3d623419eb90fcb04713eed6079d5048936d8737950ba5ca94e781b",
+      "retained": {
+        "file": "portal-api-medians.json",
+        "kind": "api",
+        "rule": "GTEx Portal API v2 median TPM responses for the checkpoint genes, retained as an independent agreement check.",
+        "bytes": 3057,
+        "sha256": "5b5e5334a3d623419eb90fcb04713eed6079d5048936d8737950ba5ca94e781b"
+      }
+    }
+  ]
+}

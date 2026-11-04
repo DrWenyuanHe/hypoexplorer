@@ -1,0 +1,57 @@
+{
+  "_comment": "Tracker-only provenance accessions for the datasets integrated into HypoExplorer. Used by vite.config.js to detect a candidate that is the SAME raw data re-deposited under a different accession (e.g. a BioProject or a non-GEO mirror that the explorer's datasets.js does not record). This file does NOT affect the deployed explorer. Resolved via the dedup-verify workflow on 2026-06-19; extend it whenever a dataset is added to src/data/datasets.js.",
+  "macaque_snrna": {
+    "accessions": ["CNP0003785"],
+    "note": "Lei et al., Cell Metab 2024 (PMID 38325338). Raw data in CNGB/CNSA (China National GeneBank) under CNP0003785 — no GEO/SRA/GSA/OEP mirror. datasets.js records only the DOI."
+  },
+  "mouse_hypo_hfd_gse220533": {
+    "accessions": ["PRJNA910145"],
+    "note": "Parent BioProject of GSE220533 (Gpr101 loss, whole hypothalamus; Helmholtz Munich). 32 SRA experiments."
+  },
+  "mouse_arc_hfd_gse225038": {
+    "accessions": ["PRJNA933607"],
+    "pmids": ["38145289"],
+    "note": "Parent BioProject of GSE225038 (Klf4 deletion in Agrp cells, arcuate; MCW/Grobe). PMID 38145289 — NOTE the same paper also deposited GSE224716 (GT1-7 cell line), a DIFFERENT dataset the explorer does not include; PMID-only matches are flagged as 'same paper', not 'integrated'."
+  },
+  "mouse_hypo_maternal_hcd_gse242187": {
+    "accessions": ["GSE242189", "PRJNA1011935", "PRJNA1011920"],
+    "note": "GSE242187 is the RNA-seq SubSeries; GSE242189 is its SuperSeries and the survey carries BOTH as separate candidates. They are the SAME six libraries — the SuperSeries ships no data of its own and GEO serves the identical GSE242187_5A_vs_3A_control_vs_comparison.deseq.counts.csv.gz for both. Listed here so the SuperSeries candidate is marked integrated rather than left open as a duplicate of work already done. PRJNA1011935 is the SubSeries BioProject, PRJNA1011920 the SuperSeries one."
+  },
+  "mouse_hypo_glp1_gse245727": {
+    "accessions": ["GSE245728"],
+    "note": "GSE245727 is SubSeries [II] (hypothalamus) of SuperSeries GSE245728. SubSeries [I] = GSE244607 is brainstem + nucleus accumbens with a different arm set and is deliberately NOT listed: it is other tissue, not the same data under another accession."
+  },
+  "mouse_vlpo_galanin_sleep_gse132308": {
+    "accessions": ["PRJNA547578"],
+    "pmids": ["32928100"],
+    "note": "PRJNA547578 is the BioProject/SRA parent of GEO GSE132308. The explorer uses the official GSE132308 unnormalized gene-count matrix and the matched-ZT6 sleep-deprivation contrast."
+  },
+  "rat_pvn_stress_gse261833": {
+    "accessions": ["PRJNA1089181"],
+    "note": "PRJNA1089181 is the BioProject/SRA parent of GEO GSE261833. Both accessions describe the same 15 rat-PVN control, stress-model, and minocycline libraries; the explorer integrates the focused control-versus-model contrast once."
+  },
+  "cattle_hypo_nutrition_gse153495": {
+    "accessions": ["PRJNA642849", "SRP269219"],
+    "pmids": ["34234169"],
+    "note": "PRJNA642849/SRP269219 are the BioProject/SRA parent identifiers for the same 29 GSE153495 remaining-hypothalamus libraries; integrated once under GSE153495."
+  },
+  "cattle_arc_nutrition_gse153498": {
+    "accessions": ["PRJNA642856", "SRP269224"],
+    "pmids": ["34234169"],
+    "note": "PRJNA642856/SRP269224 are the BioProject/SRA parent identifiers for the same 29 GSE153498 arcuate-region libraries; integrated once under GSE153498."
+  },
+  "human_hypo_pituitary_organoid_gse301692": {
+    "accessions": ["PRJNA1285990"],
+    "pmids": ["40763741"],
+    "note": "PRJNA1285990 is the BioProject/SRA parent of GSE301692; the explorer integrates the focused day-15 success-versus-failure organoid contrast once."
+  },
+  "pig_hypo_low_growth_gse324226": {
+    "accessions": ["PRJNA1429082", "SRP681584"],
+    "note": "PRJNA1429082/SRP681584 are the BioProject/SRA parent identifiers for the 48 GSE324226 pig libraries; the explorer integrates the day-39 hypothalamus contrast once."
+  },
+  "cattle_hypo_diet_restriction_gse49540": {
+    "accessions": ["PRJNA214208", "SRP028518"],
+    "pmids": ["29121875"],
+    "note": "PRJNA214208/SRP028518 are the BioProject/SRA parent identifiers for the same 21 GSE49540 cattle hypothalamus libraries; the explorer integrates the focused control-versus-restricted-anovulatory contrast once."
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "provider": "hpa",
+  "release": "HPA version 25",
+  "retrieved": "2026-10-29",
+  "inputs": [
+    {
+      "name": "rna_brain_hpa.tsv.zip",
+      "url": "https://v25.proteinatlas.org/download/tsv/rna_brain_hpa.tsv.zip",
+      "bytes": 33070387,
+      "sha256": "bb1f2f67df13a9f3b6b8091d6d84741d02ffa64d0570efb789d02387f37bd8a4",
+      "retained": {
+        "file": "rna_brain_hpa.hypothalamus.tsv.gz",
+        "kind": "extract",
+        "member": "rna_brain_hpa.tsv",
+        "rule": "Header plus every unmodified row whose Subregion is one of HPA's eight hypothalamus subregions; gzip level 9.",
+        "filter": {
+          "column": "Subregion",
+          "values": [
+            "arcuate nucleus",
+            "dorsomedial nucleus",
+            "lateral hypothalamic area",
+            "mammillary body",
+            "paraventricular nucleus",
+            "preoptic area",
+            "supraoptic nucleus",
+            "ventromedial nucleus"
+          ]
+        },
+        "bytes": 1477388,
+        "sha256": "83f621a32b29e03dcabb332ea0af156f29afbf42da87e931ef7152c20e5588f1"
+      }
+    },
+    {
+      "name": "rna_brain_hpa_subregions.tsv.zip",
+      "url": "https://v25.proteinatlas.org/download/tsv/rna_brain_hpa_subregions.tsv.zip",
+      "bytes": 1834,
+      "sha256": "3544182193a0ed9bd1bc1092554c4209807ae2360a586719c7582eacf2250f62",
+      "retained": {
+        "file": "rna_brain_hpa_subregions.tsv.gz",
+        "kind": "gzip",
+        "member": "rna_brain_hpa_subregions.tsv",
+        "rule": "Whole zip member, gzip level 9.",
+        "bytes": 1628,
+        "sha256": "8f0c5b9788b419ed0148ee0db9b0429bb99dbfdc1e48b9f9ae322d6b692fed8a"
+      }
+    },
+    {
+      "name": "rna_brain_region_hpa.tsv.zip",
+      "url": "https://v25.proteinatlas.org/download/tsv/rna_brain_region_hpa.tsv.zip",
+      "bytes": 2453093,
+      "sha256": "108fb699eccc3f8611b475caa7968ad67f10ee47c4cc88db16d2fcaa0214a0f3",
+      "retained": {
+        "file": "rna_brain_region_hpa.hypothalamus.tsv.gz",
+        "kind": "extract",
+        "member": "rna_brain_region_hpa.tsv",
+        "rule": "Header plus every unmodified row whose Brain region is hypothalamus; gzip level 9. Used only to verify that HPA's region value is the subregion maximum.",
+        "filter": {
+          "column": "Brain region",
+          "values": [
+            "hypothalamus"
+          ]
+        },
+        "bytes": 256323,
+        "sha256": "94cf3256075475af0f898ba8c4103e76c00857278062fcf359748cfbbd4952e2"
+      }
+    },
+    {
+      "name": "rna_single_nuclei_brain_cluster.tsv.zip",
+      "url": "https://v25.proteinatlas.org/download/tsv/rna_single_nuclei_brain_cluster.tsv.zip",
+      "bytes": 37047974,
+      "sha256": "6d60466e383e7e020bb9ffe04fe1fa10a1d9c0bd2fbd056684efda2f032883cc",
+      "retained": {
+        "file": "rna_single_nuclei_brain_cluster.hypothalamus.tsv.gz",
+        "kind": "extract",
+        "member": "rna_single_nuclei_brain_cluster.tsv",
+        "rule": "Header plus every unmodified row whose Brain region is hypothalamus; gzip level 9.",
+        "filter": {
+          "column": "Brain region",
+          "values": [
+            "hypothalamus"
+          ]
+        },
+        "bytes": 3740709,
+        "sha256": "88c1b3dc35db5a7f418641c8ecc86aeed5eb48ca9793059895b7a2d4abdf7b90"
+      }
+    },
+    {
+      "name": "rna_single_nuclei_brain_datasets.tsv.zip",
+      "url": "https://v25.proteinatlas.org/download/tsv/rna_single_nuclei_brain_datasets.tsv.zip",
+      "bytes": 536,
+      "sha256": "3d513eebeb8b8b4a43bdf0102a899adc90813de81f4ff1d1b8a9f7b13781ecd0",
+      "retained": {
+        "file": "rna_single_nuclei_brain_datasets.tsv.gz",
+        "kind": "gzip",
+        "member": "rna_single_nuclei_brain_datasets.tsv",
+        "rule": "Whole zip member, gzip level 9.",
+        "bytes": 331,
+        "sha256": "f019b4355184b78f47348892ce5d847374c21cce8b39d7125ef9a054c11d448e"
+      }
+    },
+    {
+      "name": "rna_mouse_brain_sample_hpa.tsv.zip",
+      "url": "https://v25.proteinatlas.org/download/tsv/rna_mouse_brain_sample_hpa.tsv.zip",
+      "bytes": 20991056,
+      "sha256": "f2e9720405be193b6ce76ffd941101cb09f42e6e6f5b87fc49df87545202495d",
+      "retained": {
+        "file": "rna_mouse_brain_sample_hpa.hypothalamus.tsv.gz",
+        "kind": "extract",
+        "member": "rna_mouse_brain_sample_hpa.tsv",
+        "rule": "Header plus every unmodified row whose Main_region is hypothalamus; gzip level 9.",
+        "filter": {
+          "column": "Main_region",
+          "values": [
+            "hypothalamus"
+          ]
+        },
+        "bytes": 1087854,
+        "sha256": "ae826ee1bed74cefcfc77d33c23889be51661818ae23d0dec1faf66c977fd715"
+      }
+    },
+    {
+      "name": "rna_pig_brain_sample_hpa.tsv.zip",
+      "url": "https://v25.proteinatlas.org/download/tsv/rna_pig_brain_sample_hpa.tsv.zip",
+      "bytes": 44123850,
+      "sha256": "3f79b5cf7e709a3604705562a61113ca00a57e4c2e4be74ab16825ad5c0ed681",
+      "retained": {
+        "file": "rna_pig_brain_sample_hpa.hypothalamus.tsv.gz",
+        "kind": "extract",
+        "member": "rna_pig_brain_sample_hpa.tsv",
+        "rule": "Header plus every unmodified row whose Main_region is hypothalamus; gzip level 9.",
+        "filter": {
+          "column": "Main_region",
+          "values": [
+            "hypothalamus"
+          ]
+        },
+        "bytes": 1190754,
+        "sha256": "1d13e7a7aac9b9a54305e11abb509a852424f3dea356724580ae852f42505484"
+      }
+    },
+    {
+      "name": "hpa-api-checkpoints.json",
+      "url": "https://www.proteinatlas.org/api/search_download.php",
+      "bytes": 1486,
+      "sha256": "6381500be6323fa744a17e71a0bbae2f111046a1be535dc52cd7da7ef9229960",
+      "retained": {
+        "file": "hpa-api-checkpoints.json",
+        "kind": "api",
+        "rule": "HPA search API hypothalamus nTPM for the checkpoint genes, retained as an independent agreement check. The v25 host redirects this API to the current site, which served version 25 at retrieval.",
+        "bytes": 1486,
+        "sha256": "6381500be6323fa744a17e71a0bbae2f111046a1be535dc52cd7da7ef9229960"
+      }
+    },
+    {
+      "name": "mmus_ens2sym.json",
+      "url": "https://www.informatics.jax.org/downloads/reports/MRK_ENSEMBL.rpt",
+      "bytes": 2394738,
+      "sha256": "bde9008d7396df3efa081b63b419413045fde32acd99c5961cf78b6f2df37aaa",
+      "retained": {
+        "file": "scripts/lib/mmus_ens2sym.json",
+        "kind": "repository",
+        "rule": "The repository's committed MGI Ensembl-to-symbol table (see scripts/lib/geneSymbol.mts), pinned by hash.",
+        "bytes": 2394738,
+        "sha256": "bde9008d7396df3efa081b63b419413045fde32acd99c5961cf78b6f2df37aaa"
+      }
+    },
+    {
+      "name": "Sus_scrofa.gene_info.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/gene/DATA/GENE_INFO/Mammalia/Sus_scrofa.gene_info.gz",
+      "bytes": 1573899,
+      "sha256": "804d64608ec272bfa70d9029a9098d63346af8f6882f14cddaec5c6c8a41722d",
+      "retained": {
+        "file": "geo_replication/datasets/GSE281726_sscr_hypothalamus/metadata/Sus_scrofa.gene_info.gz",
+        "kind": "repository",
+        "rule": "The repository's committed NCBI Sus scrofa gene_info retained for GSE281726, pinned by hash; only unique Ensembl cross-references supply a symbol.",
+        "bytes": 1573899,
+        "sha256": "804d64608ec272bfa70d9029a9098d63346af8f6882f14cddaec5c6c8a41722d"
+      }
+    }
+  ]
+}

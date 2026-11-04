@@ -1,0 +1,1 @@
+var HX_CATTLE_ARC_NUTRITION_GSE153498_META = {"populations":["arcuate"],"labels":{"arcuate":"Arcuate nucleus region"},"types":{"arcuate":"Tissue"},"nGenes":{"arcuate":15708},"colors":{"arcuate":"#F28E2B"},"qcFlags":{"arcuate":{"is3v3":false,"nNormal":15,"nObese":14,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

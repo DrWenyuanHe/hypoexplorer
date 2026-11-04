@@ -1,0 +1,3 @@
+# Claude startup
+
+@AGENTS.md

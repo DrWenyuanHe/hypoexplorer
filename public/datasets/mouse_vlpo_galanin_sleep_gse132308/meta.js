@@ -1,0 +1,1 @@
+var HX_MOUSE_VLPO_GALANIN_SLEEP_GSE132308_META = {"populations":["vlpo_galanin"],"labels":{"vlpo_galanin":"VLPO galanin neurons (LCM)"},"types":{"vlpo_galanin":"Tissue"},"nGenes":{"vlpo_galanin":13281},"colors":{"vlpo_galanin":"#7651A8"},"qcFlags":{"vlpo_galanin":{"is3v3":false,"nNormal":6,"nObese":6,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

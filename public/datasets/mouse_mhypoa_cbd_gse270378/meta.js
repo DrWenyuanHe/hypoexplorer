@@ -1,0 +1,1 @@
+var HX_MOUSE_MHYPOA_CBD_GSE270378_META = {"populations":["mhypoa"],"labels":{"mhypoa":"mHypoA-2/12 hypothalamic neurons"},"types":{"mhypoa":"Tissue"},"nGenes":{"mhypoa":11224},"colors":{"mhypoa":"#59A14F"},"qcFlags":{"mhypoa":{"is3v3":true,"nNormal":3,"nObese":3,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

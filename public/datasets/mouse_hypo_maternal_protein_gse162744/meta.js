@@ -1,0 +1,1 @@
+var HX_MOUSE_HYPO_MATERNAL_PROTEIN_GSE162744_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":16947},"colors":{"hypothalamus":"#86BCB6"},"qcFlags":{"hypothalamus":{"is3v3":true,"nNormal":3,"nObese":3,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

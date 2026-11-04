@@ -1,0 +1,1 @@
+var HX_MOUSE_SCN_MCD_GSE252364_META = {"populations":["scn"],"labels":{"scn":"Suprachiasmatic nucleus (SCN)"},"types":{"scn":"Tissue"},"nGenes":{"scn":15720},"colors":{"scn":"#A0CBE8"},"qcFlags":{"scn":{"is3v3":true,"nNormal":3,"nObese":3,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

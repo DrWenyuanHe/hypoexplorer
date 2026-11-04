@@ -1,0 +1,1633 @@
+{
+  "schemaVersion": 1,
+  "status": "reviewed",
+  "review": "Root reviewed all 15 source/model rationales; independent reader review is recorded separately.",
+  "proposal": {
+    "path": "data/quality/pipeline-separation-2026-09-11/review/source-model-proposal.json",
+    "sha256": "cad37c7f8d9420633960bd77a2c3e6b5805ca5b0cc24b16d49e02f517dd80dff"
+  },
+  "sourceLedger": {
+    "path": "data/internal-qc/assessments.generated.json",
+    "sha256": "e221814d052e61ab7797e5d8390c169cf9b34707751371ca2ab1f2b926d071e5"
+  },
+  "records": [
+    {
+      "datasetId": "mouse_hypo_overfeed_gse247825",
+      "trackId": null,
+      "contrastId": null,
+      "scope": "Mouse hypothalamus — pooled 14/17-day overfeeding effect (bulk RNA-seq); all 1 registered contrasts on default track hypothalamus",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "pass",
+          "note": "12 baseline and 12 case animal units are supported by primary sources. Source-replicate aliases identify the documented sampling units; unpublished animal or donor IDs are not invented. All 24 exact GEO titles match the registered hypothalamic columns. The paper states single housing throughout experimental overfeeding and recovery, followed by terminal collection in separate day-14 and day-17 cohorts. Each arm contains twelve source animal profiles; day is retained in the registered batch model. The authors removed one day-14 control for poor RNA quality, while the current registered input retains all 24. This replication pass does not override that author-analysis cohort difference or certify that excluded sample quality.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE247825_mmus_hypothalamus_overfeed/metadata/GSE247825_samplesheet.tsv",
+            "data/internal-qc/replication-2026-09-05/round3-a/sources/GSE247825/GSE247825_family.soft.gz",
+            "data/internal-qc/replication-2026-09-05/round3-a/sources/GSE247825/PMC10853283.xml",
+            "data/internal-qc/replication-2026-09-05/round3-a/mappings/GSE247825.json"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed day + group design rank is 3/3, with 21 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE247825_mmus_hypothalamus_overfeed/metadata/GSE247825_samplesheet.tsv",
+            "geo_replication/datasets/GSE247825_mmus_hypothalamus_overfeed/processed/GSE247825_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/overfeed_vs_control: The current 24 profiles retain the day-14 control removed by the authors for poor RNA quality. Biological replication can pass while the decision to retain a specifically reported poor-quality input still needs pipeline review. This does not require reproducing every author exclusion or authorize removing this sample.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE247825_mmus_hypothalamus_overfeed/metadata/GSE247825_samplesheet.tsv",
+          "data/internal-qc/replication-2026-09-05/round3-a/sources/GSE247825/GSE247825_family.soft.gz",
+          "data/internal-qc/replication-2026-09-05/round3-a/sources/GSE247825/PMC10853283.xml",
+          "data/internal-qc/replication-2026-09-05/round3-a/mappings/GSE247825.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_overfeed_gse247825",
+      "trackId": null,
+      "contrastId": "overfeed_vs_control",
+      "scope": "Mouse hypothalamus — pooled 14/17-day overfeeding effect (bulk RNA-seq); overfeed_vs_control; default track hypothalamus",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "pass",
+          "note": "12 baseline and 12 case animal units are supported by primary sources. Source-replicate aliases identify the documented sampling units; unpublished animal or donor IDs are not invented. All 24 exact GEO titles match the registered hypothalamic columns. The paper states single housing throughout experimental overfeeding and recovery, followed by terminal collection in separate day-14 and day-17 cohorts. Each arm contains twelve source animal profiles; day is retained in the registered batch model. The authors removed one day-14 control for poor RNA quality, while the current registered input retains all 24. This replication pass does not override that author-analysis cohort difference or certify that excluded sample quality.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE247825_mmus_hypothalamus_overfeed/metadata/GSE247825_samplesheet.tsv",
+            "data/internal-qc/replication-2026-09-05/round3-a/sources/GSE247825/GSE247825_family.soft.gz",
+            "data/internal-qc/replication-2026-09-05/round3-a/sources/GSE247825/PMC10853283.xml",
+            "data/internal-qc/replication-2026-09-05/round3-a/mappings/GSE247825.json"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed day + group design rank is 3/3, with 21 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE247825_mmus_hypothalamus_overfeed/metadata/GSE247825_samplesheet.tsv",
+            "geo_replication/datasets/GSE247825_mmus_hypothalamus_overfeed/processed/GSE247825_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/overfeed_vs_control: The current 24 profiles retain the day-14 control removed by the authors for poor RNA quality. Biological replication can pass while the decision to retain a specifically reported poor-quality input still needs pipeline review. This does not require reproducing every author exclusion or authorize removing this sample.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE247825_mmus_hypothalamus_overfeed/metadata/GSE247825_samplesheet.tsv",
+          "data/internal-qc/replication-2026-09-05/round3-a/sources/GSE247825/GSE247825_family.soft.gz",
+          "data/internal-qc/replication-2026-09-05/round3-a/sources/GSE247825/PMC10853283.xml",
+          "data/internal-qc/replication-2026-09-05/round3-a/mappings/GSE247825.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_hfd_gse236077",
+      "trackId": null,
+      "contrastId": null,
+      "scope": "Mouse hypothalamus — chow vs HFD (brain atlas; bulk RNA-seq); all 1 registered contrasts on default track hypothalamus",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. The complete author Zenodo archive resolves the misleading GSM-looking local aliases to twelve actual hypothalamic profiles. Its 57,010-gene by 185-library count body exactly matches the deposited GEO matrix, and unique author names join whole original GEO descriptions. Current aliases GSM7517823-7517828 map to hypothalamic GSM7517799-GSM7517804; GSM7517883-GSM7517888 map to GSM7517859-GSM7517864. The alias-named PFC records remain preserved as the original mistaken interpretation, not the tissue identity of the selected count columns. Actual HY metadata preserves animals 1-6 and 13-18 in cages 34-36 and 40-42, two animals per cage. Primary study 1 randomized three cages per diet; the current model has no cage adjustment. HY GSM7517859, retained as local GSM7517883, additionally has the deposited qc: fail PCA flag. Source identity is resolved, but cage-level dependency and the selected flagged profile require model/filtering review. The separately housed twenty-four-hour fasting study is excluded. Scientific input bytes, aliases, selection and model are unchanged.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE236077_mmus_hypothalamus_hfd/metadata/GSE236077_samplesheet.tsv",
+            "data/internal-qc/replication-2026-09-05/round5-e/sources/GSE236077/GSE236077_family.soft.gz",
+            "data/internal-qc/replication-2026-09-05/round5-e/sources/GSE236077/PMC10771486.xml",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/replays/GSE236077/region-column-proof.json",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/region_mapping.py",
+            "geo_replication/datasets/GSE236077_mmus_hypothalamus_hfd/raw/GSE236077_counts.csv.gz",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/dmb-zenodo_0.9.2.zip",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/fetch_region_code.py",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/fetch_region_metadata.py",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/zenodo-10116113.json",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/zenodo-10116113.download.json",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/dmb-zenodo_0.9.2.zip.download.json",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/GSE236077_family.soft.gz",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/GSE236077_family.soft.gz.download.json",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/PMC10771486.xml",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/PMC10771486.xml.download.json",
+            "data/internal-qc/replication-2026-09-05/round5-e/mappings/GSE236077.json"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed group design rank is 2/2, with 10 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE236077_mmus_hypothalamus_hfd/metadata/GSE236077_samplesheet.tsv",
+            "geo_replication/datasets/GSE236077_mmus_hypothalamus_hfd/processed/GSE236077_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/hfd_vs_chow: The exact recovered source crosswalk places the 12 selected animals in six named cages, two animals per cage; three cages were randomized to each diet. The current group-only model lacks cage structure. In addition, actual HY GSM7517859, retained under local alias GSM7517883, has the deposited qc: fail PCA flag. Both source-model handling and retention of the flagged input require review; source aliases and counts stay unchanged.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE236077_mmus_hypothalamus_hfd/metadata/GSE236077_samplesheet.tsv",
+          "data/internal-qc/replication-2026-09-05/round5-e/sources/GSE236077/GSE236077_family.soft.gz",
+          "data/internal-qc/replication-2026-09-05/round5-e/sources/GSE236077/PMC10771486.xml",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/replays/GSE236077/region-column-proof.json",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/region_mapping.py",
+          "geo_replication/datasets/GSE236077_mmus_hypothalamus_hfd/raw/GSE236077_counts.csv.gz",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/dmb-zenodo_0.9.2.zip",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/fetch_region_code.py",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/fetch_region_metadata.py",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/zenodo-10116113.json",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/zenodo-10116113.download.json",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/dmb-zenodo_0.9.2.zip.download.json",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/GSE236077_family.soft.gz",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/GSE236077_family.soft.gz.download.json",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/PMC10771486.xml",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/PMC10771486.xml.download.json",
+          "data/internal-qc/replication-2026-09-05/round5-e/mappings/GSE236077.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_hfd_gse236077",
+      "trackId": null,
+      "contrastId": "hfd_vs_chow",
+      "scope": "Mouse hypothalamus — chow vs HFD (brain atlas; bulk RNA-seq); hfd_vs_chow; default track hypothalamus",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. The complete author Zenodo archive resolves the misleading GSM-looking local aliases to twelve actual hypothalamic profiles. Its 57,010-gene by 185-library count body exactly matches the deposited GEO matrix, and unique author names join whole original GEO descriptions. Current aliases GSM7517823-7517828 map to hypothalamic GSM7517799-GSM7517804; GSM7517883-GSM7517888 map to GSM7517859-GSM7517864. The alias-named PFC records remain preserved as the original mistaken interpretation, not the tissue identity of the selected count columns. Actual HY metadata preserves animals 1-6 and 13-18 in cages 34-36 and 40-42, two animals per cage. Primary study 1 randomized three cages per diet; the current model has no cage adjustment. HY GSM7517859, retained as local GSM7517883, additionally has the deposited qc: fail PCA flag. Source identity is resolved, but cage-level dependency and the selected flagged profile require model/filtering review. The separately housed twenty-four-hour fasting study is excluded. Scientific input bytes, aliases, selection and model are unchanged.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE236077_mmus_hypothalamus_hfd/metadata/GSE236077_samplesheet.tsv",
+            "data/internal-qc/replication-2026-09-05/round5-e/sources/GSE236077/GSE236077_family.soft.gz",
+            "data/internal-qc/replication-2026-09-05/round5-e/sources/GSE236077/PMC10771486.xml",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/replays/GSE236077/region-column-proof.json",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/region_mapping.py",
+            "geo_replication/datasets/GSE236077_mmus_hypothalamus_hfd/raw/GSE236077_counts.csv.gz",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/dmb-zenodo_0.9.2.zip",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/fetch_region_code.py",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/fetch_region_metadata.py",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/zenodo-10116113.json",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/zenodo-10116113.download.json",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/dmb-zenodo_0.9.2.zip.download.json",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/GSE236077_family.soft.gz",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/GSE236077_family.soft.gz.download.json",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/PMC10771486.xml",
+            "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/PMC10771486.xml.download.json",
+            "data/internal-qc/replication-2026-09-05/round5-e/mappings/GSE236077.json"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed group design rank is 2/2, with 10 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE236077_mmus_hypothalamus_hfd/metadata/GSE236077_samplesheet.tsv",
+            "geo_replication/datasets/GSE236077_mmus_hypothalamus_hfd/processed/GSE236077_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/hfd_vs_chow: The exact recovered source crosswalk places the 12 selected animals in six named cages, two animals per cage; three cages were randomized to each diet. The current group-only model lacks cage structure. In addition, actual HY GSM7517859, retained under local alias GSM7517883, has the deposited qc: fail PCA flag. Both source-model handling and retention of the flagged input require review; source aliases and counts stay unchanged.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE236077_mmus_hypothalamus_hfd/metadata/GSE236077_samplesheet.tsv",
+          "data/internal-qc/replication-2026-09-05/round5-e/sources/GSE236077/GSE236077_family.soft.gz",
+          "data/internal-qc/replication-2026-09-05/round5-e/sources/GSE236077/PMC10771486.xml",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/replays/GSE236077/region-column-proof.json",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/region_mapping.py",
+          "geo_replication/datasets/GSE236077_mmus_hypothalamus_hfd/raw/GSE236077_counts.csv.gz",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/dmb-zenodo_0.9.2.zip",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/fetch_region_code.py",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/fetch_region_metadata.py",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/zenodo-10116113.json",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/zenodo-10116113.download.json",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/dmb-zenodo_0.9.2.zip.download.json",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/GSE236077_family.soft.gz",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/GSE236077_family.soft.gz.download.json",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/PMC10771486.xml",
+          "data/internal-qc/source-authenticity-2026-09-05/round5/region-code/PMC10771486.xml.download.json",
+          "data/internal-qc/replication-2026-09-05/round5-e/mappings/GSE236077.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_maternal_care_gse305688",
+      "trackId": null,
+      "contrastId": null,
+      "scope": "Mouse hypothalamus — maternal vs artificial rearing (bulk RNA-seq); all 1 registered contrasts on default track hypothalamus",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "required": true,
+          "status": "review",
+          "note": "Primary RNA-seq methods identify four maternally reared and three artificially reared terminal PND13 hypothalami and describe three litters for the RNA cohort. The seven current S1–S7 profiles preserve the four-MR/three-AR source metadata grouping, but no selected pup-to-dam/litter or rearing-allocation crosswalk is supplied. These profiles cannot be certified as seven independent rearing units. The wording is not interpreted as seven distinct litters or as a published cross-arm pairing map. The current group-only model and biological assignment require review.",
+          "evidence": [
+            "geo_replication/datasets/GSE305688_mmus_hypo_maternal_care/metadata/GSE305688_samplesheet.tsv",
+            "data/internal-qc/replication-round2-2026-09-11/proposed-review-supplements.json",
+            "data/internal-qc/replication-round2-2026-09-11/prepare_review_supplements.py",
+            "data/internal-qc/replication-2026-09-05/round4-d/sources/GSE305688_PMC13332149.xml",
+            "data/internal-qc/replication-2026-09-05/round4-d/sources/GSE305688_family.soft.gz",
+            "data/internal-qc/replication-2026-09-05/round4-d/sources/GSE305688_metadata.csv.gz",
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE305688_mmus_hypo_maternal_care/raw/GSE305688_count.clean.csv.gz"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed group design rank is 2/2, with 5 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE305688_mmus_hypo_maternal_care/metadata/GSE305688_samplesheet.tsv",
+            "geo_replication/datasets/GSE305688_mmus_hypo_maternal_care/processed/GSE305688_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/artificial_vs_maternal: The retained primary RNA methods give seven current profiles from three RNA-cohort litters. Shared litter membership is therefore unavoidable, rather than merely hypothetical; the current group-only model has no litter structure. Missing membership prevents resolving that known clustering and does not justify inventing cross-arm pairs.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "geo_replication/datasets/GSE305688_mmus_hypo_maternal_care/metadata/GSE305688_samplesheet.tsv",
+          "data/internal-qc/replication-round2-2026-09-11/proposed-review-supplements.json",
+          "data/internal-qc/replication-round2-2026-09-11/prepare_review_supplements.py",
+          "data/internal-qc/replication-2026-09-05/round4-d/sources/GSE305688_PMC13332149.xml",
+          "data/internal-qc/replication-2026-09-05/round4-d/sources/GSE305688_family.soft.gz",
+          "data/internal-qc/replication-2026-09-05/round4-d/sources/GSE305688_metadata.csv.gz",
+          "geo_replication/config/datasets.tsv",
+          "geo_replication/datasets/GSE305688_mmus_hypo_maternal_care/raw/GSE305688_count.clean.csv.gz"
+        ]
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_maternal_care_gse305688",
+      "trackId": null,
+      "contrastId": "artificial_vs_maternal",
+      "scope": "Mouse hypothalamus — maternal vs artificial rearing (bulk RNA-seq); artificial_vs_maternal; default track hypothalamus",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "required": true,
+          "status": "review",
+          "note": "Primary RNA-seq methods identify four maternally reared and three artificially reared terminal PND13 hypothalami and describe three litters for the RNA cohort. The seven current S1–S7 profiles preserve the four-MR/three-AR source metadata grouping, but no selected pup-to-dam/litter or rearing-allocation crosswalk is supplied. These profiles cannot be certified as seven independent rearing units. The wording is not interpreted as seven distinct litters or as a published cross-arm pairing map. The current group-only model and biological assignment require review.",
+          "evidence": [
+            "geo_replication/datasets/GSE305688_mmus_hypo_maternal_care/metadata/GSE305688_samplesheet.tsv",
+            "data/internal-qc/replication-round2-2026-09-11/proposed-review-supplements.json",
+            "data/internal-qc/replication-round2-2026-09-11/prepare_review_supplements.py",
+            "data/internal-qc/replication-2026-09-05/round4-d/sources/GSE305688_PMC13332149.xml",
+            "data/internal-qc/replication-2026-09-05/round4-d/sources/GSE305688_family.soft.gz",
+            "data/internal-qc/replication-2026-09-05/round4-d/sources/GSE305688_metadata.csv.gz",
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE305688_mmus_hypo_maternal_care/raw/GSE305688_count.clean.csv.gz"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed group design rank is 2/2, with 5 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE305688_mmus_hypo_maternal_care/metadata/GSE305688_samplesheet.tsv",
+            "geo_replication/datasets/GSE305688_mmus_hypo_maternal_care/processed/GSE305688_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/artificial_vs_maternal: The retained primary RNA methods give seven current profiles from three RNA-cohort litters. Shared litter membership is therefore unavoidable, rather than merely hypothetical; the current group-only model has no litter structure. Missing membership prevents resolving that known clustering and does not justify inventing cross-arm pairs.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "geo_replication/datasets/GSE305688_mmus_hypo_maternal_care/metadata/GSE305688_samplesheet.tsv",
+          "data/internal-qc/replication-round2-2026-09-11/proposed-review-supplements.json",
+          "data/internal-qc/replication-round2-2026-09-11/prepare_review_supplements.py",
+          "data/internal-qc/replication-2026-09-05/round4-d/sources/GSE305688_PMC13332149.xml",
+          "data/internal-qc/replication-2026-09-05/round4-d/sources/GSE305688_family.soft.gz",
+          "data/internal-qc/replication-2026-09-05/round4-d/sources/GSE305688_metadata.csv.gz",
+          "geo_replication/config/datasets.tsv",
+          "geo_replication/datasets/GSE305688_mmus_hypo_maternal_care/raw/GSE305688_count.clean.csv.gz"
+        ]
+      }
+    },
+    {
+      "datasetId": "mouse_arc_mettl14_gse289461",
+      "trackId": null,
+      "contrastId": null,
+      "scope": "Mouse postnatal arcuate nucleus — Mettl14 KO (scRNA-seq); all 1 registered contrasts on default track arcuate",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. The primary Cell Stem Cell paper explicitly profiles individual M14NKO mice and control littermates as four pairs at P0. All eight GSMs join exactly, but the deposited replicate ordinals do not identify the four actual litter pairs, and the registered design has no paired/litter term. Do not assume control replicate1 and knockout replicate1 are a pair. Animal origins are established; exact litter-pair mapping and compatible analysis remain required. Multiple droplet runs were pooled within each animal and do not add biological replicates.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE289461_mmus_arcuate_scrna_mettl14_ko/metadata/GSE289461_samplesheet.tsv",
+            "data/internal-qc/replication-2026-09-05/round3-b/sources/GSE289461_family.soft.gz",
+            "data/internal-qc/replication-2026-09-05/round3-b/sources/GSE289461_article.pdf",
+            "data/internal-qc/replication-2026-09-05/round3-b/mappings/GSE289461.json"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed group design rank is 2/2, with 6 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE289461_mmus_arcuate_scrna_mettl14_ko/metadata/GSE289461_samplesheet.tsv",
+            "geo_replication/datasets/GSE289461_mmus_arcuate_scrna_mettl14_ko/processed/GSE289461_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/mettl14ko_vs_control: The primary source explicitly defines four control/knockout litter pairs and the current eight-animal group-only model has no paired/litter term. This is a recorded paired design with an unmodeled block. Actual pair membership is absent and must not be inferred from replicate suffixes.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE289461_mmus_arcuate_scrna_mettl14_ko/metadata/GSE289461_samplesheet.tsv",
+          "data/internal-qc/replication-2026-09-05/round3-b/sources/GSE289461_family.soft.gz",
+          "data/internal-qc/replication-2026-09-05/round3-b/sources/GSE289461_article.pdf",
+          "data/internal-qc/replication-2026-09-05/round3-b/mappings/GSE289461.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "mouse_arc_mettl14_gse289461",
+      "trackId": null,
+      "contrastId": "mettl14ko_vs_control",
+      "scope": "Mouse postnatal arcuate nucleus — Mettl14 KO (scRNA-seq); mettl14ko_vs_control; default track arcuate",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. The primary Cell Stem Cell paper explicitly profiles individual M14NKO mice and control littermates as four pairs at P0. All eight GSMs join exactly, but the deposited replicate ordinals do not identify the four actual litter pairs, and the registered design has no paired/litter term. Do not assume control replicate1 and knockout replicate1 are a pair. Animal origins are established; exact litter-pair mapping and compatible analysis remain required. Multiple droplet runs were pooled within each animal and do not add biological replicates.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE289461_mmus_arcuate_scrna_mettl14_ko/metadata/GSE289461_samplesheet.tsv",
+            "data/internal-qc/replication-2026-09-05/round3-b/sources/GSE289461_family.soft.gz",
+            "data/internal-qc/replication-2026-09-05/round3-b/sources/GSE289461_article.pdf",
+            "data/internal-qc/replication-2026-09-05/round3-b/mappings/GSE289461.json"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed group design rank is 2/2, with 6 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE289461_mmus_arcuate_scrna_mettl14_ko/metadata/GSE289461_samplesheet.tsv",
+            "geo_replication/datasets/GSE289461_mmus_arcuate_scrna_mettl14_ko/processed/GSE289461_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/mettl14ko_vs_control: The primary source explicitly defines four control/knockout litter pairs and the current eight-animal group-only model has no paired/litter term. This is a recorded paired design with an unmodeled block. Actual pair membership is absent and must not be inferred from replicate suffixes.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE289461_mmus_arcuate_scrna_mettl14_ko/metadata/GSE289461_samplesheet.tsv",
+          "data/internal-qc/replication-2026-09-05/round3-b/sources/GSE289461_family.soft.gz",
+          "data/internal-qc/replication-2026-09-05/round3-b/sources/GSE289461_article.pdf",
+          "data/internal-qc/replication-2026-09-05/round3-b/mappings/GSE289461.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_fasting_gse87544",
+      "trackId": null,
+      "contrastId": null,
+      "scope": "Mouse whole hypothalamus — 24-hour food deprivation (scRNA-seq); all 1 registered contrasts on default track hypothalamus",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. Complete GEO distinguishes seventeen Drop-seq libraries from eight source mice. The seven current processed groups merge both B0 normal mice into B0_Normal, while later batch/condition groups collapse multiple libraries from one mouse. Original animal methods explicitly separate each mouse into an individual cage before fasting. However, the current input mixes a computational two-mouse aggregate with single-animal aggregates; labels such as Hungry2 do not consistently denote mouse 2. All seventeen whole source descriptions are preserved in the reviewed crosswalk, but no uniform seven-animal identity is asserted. Replication/model review of this mixed aggregation remains required; original data and current count aggregation are unchanged.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE87544_mmus_hypothalamus_scrna_fasting/metadata/GSE87544_samplesheet.tsv",
+            "data/internal-qc/replication-2026-09-05/round5-e/sources/GSE87544/GSE87544_family.soft.gz",
+            "data/internal-qc/replication-2026-09-05/round5-e/sources/GSE87544/PMC5782816_efetch.xml",
+            "data/internal-qc/replication-2026-09-05/round5-e/mappings/GSE87544.json"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed batch + group design rank is 6/6, with 1 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE87544_mmus_hypothalamus_scrna_fasting/metadata/GSE87544_samplesheet.tsv",
+            "geo_replication/datasets/GSE87544_mmus_hypothalamus_scrna_fasting/processed/GSE87544_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/deprived_vs_fed: The current seven computational groups combine two B0 normal mice in one profile but later profiles aggregate one mouse each. The input therefore mixes biological aggregation units. The current batch-plus-group model and one residual degree of freedom do not establish compatible treatment of that mixture. This is a concrete current preparation issue, separate from missing animal labels.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE87544_mmus_hypothalamus_scrna_fasting/metadata/GSE87544_samplesheet.tsv",
+          "data/internal-qc/replication-2026-09-05/round5-e/sources/GSE87544/GSE87544_family.soft.gz",
+          "data/internal-qc/replication-2026-09-05/round5-e/sources/GSE87544/PMC5782816_efetch.xml",
+          "data/internal-qc/replication-2026-09-05/round5-e/mappings/GSE87544.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_fasting_gse87544",
+      "trackId": null,
+      "contrastId": "deprived_vs_fed",
+      "scope": "Mouse whole hypothalamus — 24-hour food deprivation (scRNA-seq); deprived_vs_fed; default track hypothalamus",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. Complete GEO distinguishes seventeen Drop-seq libraries from eight source mice. The seven current processed groups merge both B0 normal mice into B0_Normal, while later batch/condition groups collapse multiple libraries from one mouse. Original animal methods explicitly separate each mouse into an individual cage before fasting. However, the current input mixes a computational two-mouse aggregate with single-animal aggregates; labels such as Hungry2 do not consistently denote mouse 2. All seventeen whole source descriptions are preserved in the reviewed crosswalk, but no uniform seven-animal identity is asserted. Replication/model review of this mixed aggregation remains required; original data and current count aggregation are unchanged.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE87544_mmus_hypothalamus_scrna_fasting/metadata/GSE87544_samplesheet.tsv",
+            "data/internal-qc/replication-2026-09-05/round5-e/sources/GSE87544/GSE87544_family.soft.gz",
+            "data/internal-qc/replication-2026-09-05/round5-e/sources/GSE87544/PMC5782816_efetch.xml",
+            "data/internal-qc/replication-2026-09-05/round5-e/mappings/GSE87544.json"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed batch + group design rank is 6/6, with 1 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE87544_mmus_hypothalamus_scrna_fasting/metadata/GSE87544_samplesheet.tsv",
+            "geo_replication/datasets/GSE87544_mmus_hypothalamus_scrna_fasting/processed/GSE87544_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/deprived_vs_fed: The current seven computational groups combine two B0 normal mice in one profile but later profiles aggregate one mouse each. The input therefore mixes biological aggregation units. The current batch-plus-group model and one residual degree of freedom do not establish compatible treatment of that mixture. This is a concrete current preparation issue, separate from missing animal labels.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE87544_mmus_hypothalamus_scrna_fasting/metadata/GSE87544_samplesheet.tsv",
+          "data/internal-qc/replication-2026-09-05/round5-e/sources/GSE87544/GSE87544_family.soft.gz",
+          "data/internal-qc/replication-2026-09-05/round5-e/sources/GSE87544/PMC5782816_efetch.xml",
+          "data/internal-qc/replication-2026-09-05/round5-e/mappings/GSE87544.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "rat_son_dehydration_gse175461",
+      "trackId": null,
+      "contrastId": null,
+      "scope": "Rat supraoptic nucleus — 72-hour water deprivation (bulk RNA-seq); all 1 registered contrasts on default track son",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. Publisher section 2.1 states twelve rats housed three per cage and random assignment of cages to treatment; section 3.1 sequences five rats per arm. The starting housing implies four cages, but sample-to-cage allocation is unpublished. Ten sequenced animals do not establish ten independent treatment units. The earlier sample-size-only pass is corrected to review pending cage membership and clustered-allocation model review. All ten registered GSM joins remain exact, including Sample_C3 resolved by GSM despite its Sample_C4 library token. No cage IDs or treatment allocations are invented.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE175461_rnor_son_dehydration/metadata/GSE175461_samplesheet.tsv",
+            "geo_replication/datasets/GSE175461_rnor_son_dehydration/metadata/GSE175461_family.soft.gz",
+            "data/internal-qc/replication-2026-09-05/round2/sources/GSE175461-cage-randomization-review.json"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed group design rank is 2/2, with 8 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE175461_rnor_son_dehydration/metadata/GSE175461_samplesheet.tsv",
+            "geo_replication/datasets/GSE175461_rnor_son_dehydration/processed/GSE175461_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/dehydrated_vs_euhydrated: The source assigns cages to treatment and describes 12 rats housed three per cage, while 10 animals enter the current group-only fit. The four possible source cages are fewer than the selected animals, so shared treatment units are unavoidable. The unrecorded cage map prevents a compatible cluster-level model review; no cage IDs are inferred.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE175461_rnor_son_dehydration/metadata/GSE175461_samplesheet.tsv",
+          "geo_replication/datasets/GSE175461_rnor_son_dehydration/metadata/GSE175461_family.soft.gz",
+          "data/internal-qc/replication-2026-09-05/round2/sources/GSE175461-cage-randomization-review.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "rat_son_dehydration_gse175461",
+      "trackId": null,
+      "contrastId": "dehydrated_vs_euhydrated",
+      "scope": "Rat supraoptic nucleus — 72-hour water deprivation (bulk RNA-seq); dehydrated_vs_euhydrated; default track son",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. Publisher section 2.1 states twelve rats housed three per cage and random assignment of cages to treatment; section 3.1 sequences five rats per arm. The starting housing implies four cages, but sample-to-cage allocation is unpublished. Ten sequenced animals do not establish ten independent treatment units. The earlier sample-size-only pass is corrected to review pending cage membership and clustered-allocation model review. All ten registered GSM joins remain exact, including Sample_C3 resolved by GSM despite its Sample_C4 library token. No cage IDs or treatment allocations are invented.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE175461_rnor_son_dehydration/metadata/GSE175461_samplesheet.tsv",
+            "geo_replication/datasets/GSE175461_rnor_son_dehydration/metadata/GSE175461_family.soft.gz",
+            "data/internal-qc/replication-2026-09-05/round2/sources/GSE175461-cage-randomization-review.json"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed group design rank is 2/2, with 8 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE175461_rnor_son_dehydration/metadata/GSE175461_samplesheet.tsv",
+            "geo_replication/datasets/GSE175461_rnor_son_dehydration/processed/GSE175461_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/dehydrated_vs_euhydrated: The source assigns cages to treatment and describes 12 rats housed three per cage, while 10 animals enter the current group-only fit. The four possible source cages are fewer than the selected animals, so shared treatment units are unavoidable. The unrecorded cage map prevents a compatible cluster-level model review; no cage IDs are inferred.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE175461_rnor_son_dehydration/metadata/GSE175461_samplesheet.tsv",
+          "geo_replication/datasets/GSE175461_rnor_son_dehydration/metadata/GSE175461_family.soft.gz",
+          "data/internal-qc/replication-2026-09-05/round2/sources/GSE175461-cage-randomization-review.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_clic1_gse229799",
+      "trackId": null,
+      "contrastId": null,
+      "scope": "Mouse hypothalamus — Clic1 knockout (bulk RNA-seq); all 1 registered contrasts on default track hypothalamus",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. All eight current K/W aliases join exact GEO source records, with the deposited WT10 profile excluded by the current sheet. Source metadata conflict: tissue is Hypothalamus, the extraction/treatment text names frozen perigonadal adipose tissue, and the reported C57b/6J strain differs from the linked manuscript CD-1 knockout/littermate cohort. The paper describes hypothalamic RNA, but those contradictory source-cohort fields remain unresolved. Exact aliases do not by themselves authenticate eight independent animals from the intended RNA cohort.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE229799_mmus_hypo_clic1ko/metadata/GSE229799_samplesheet.tsv",
+            "data/internal-qc/replication-2026-09-05/round4-c/sources/GSE229799/GSE229799_family.soft.gz",
+            "data/internal-qc/replication-2026-09-05/round4-c/sources/GSE229799/PMC10480059.xml",
+            "data/internal-qc/replication-2026-09-05/round4-c/mappings/GSE229799.json"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "limma matches the configured matrix input. Recomputed group design rank is 2/2, with 6 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE229799_mmus_hypo_clic1ko/metadata/GSE229799_samplesheet.tsv",
+            "geo_replication/datasets/GSE229799_mmus_hypo_clic1ko/processed/GSE229799_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/clic1_ko_vs_wild_type: Selected GEO tissue and strain fields conflict with extraction prose and the linked primary cohort: Hypothalamus versus perigonadal adipose protocol, and C57b/6J versus the manuscript CD-1 cohort. The intended current input identity remains unresolved. Exact byte and alias matches do not settle those contradictory biological source fields. This review does not assert which field is correct or authorize relabelling the input.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE229799_mmus_hypo_clic1ko/metadata/GSE229799_samplesheet.tsv",
+          "data/internal-qc/replication-2026-09-05/round4-c/sources/GSE229799/GSE229799_family.soft.gz",
+          "data/internal-qc/replication-2026-09-05/round4-c/sources/GSE229799/PMC10480059.xml",
+          "data/internal-qc/replication-2026-09-05/round4-c/mappings/GSE229799.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_clic1_gse229799",
+      "trackId": null,
+      "contrastId": "clic1_ko_vs_wild_type",
+      "scope": "Mouse hypothalamus — Clic1 knockout (bulk RNA-seq); clic1_ko_vs_wild_type; default track hypothalamus",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. All eight current K/W aliases join exact GEO source records, with the deposited WT10 profile excluded by the current sheet. Source metadata conflict: tissue is Hypothalamus, the extraction/treatment text names frozen perigonadal adipose tissue, and the reported C57b/6J strain differs from the linked manuscript CD-1 knockout/littermate cohort. The paper describes hypothalamic RNA, but those contradictory source-cohort fields remain unresolved. Exact aliases do not by themselves authenticate eight independent animals from the intended RNA cohort.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE229799_mmus_hypo_clic1ko/metadata/GSE229799_samplesheet.tsv",
+            "data/internal-qc/replication-2026-09-05/round4-c/sources/GSE229799/GSE229799_family.soft.gz",
+            "data/internal-qc/replication-2026-09-05/round4-c/sources/GSE229799/PMC10480059.xml",
+            "data/internal-qc/replication-2026-09-05/round4-c/mappings/GSE229799.json"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "limma matches the configured matrix input. Recomputed group design rank is 2/2, with 6 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE229799_mmus_hypo_clic1ko/metadata/GSE229799_samplesheet.tsv",
+            "geo_replication/datasets/GSE229799_mmus_hypo_clic1ko/processed/GSE229799_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/clic1_ko_vs_wild_type: Selected GEO tissue and strain fields conflict with extraction prose and the linked primary cohort: Hypothalamus versus perigonadal adipose protocol, and C57b/6J versus the manuscript CD-1 cohort. The intended current input identity remains unresolved. Exact byte and alias matches do not settle those contradictory biological source fields. This review does not assert which field is correct or authorize relabelling the input.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE229799_mmus_hypo_clic1ko/metadata/GSE229799_samplesheet.tsv",
+          "data/internal-qc/replication-2026-09-05/round4-c/sources/GSE229799/GSE229799_family.soft.gz",
+          "data/internal-qc/replication-2026-09-05/round4-c/sources/GSE229799/PMC10480059.xml",
+          "data/internal-qc/replication-2026-09-05/round4-c/mappings/GSE229799.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "human_htnsc_differentiation_gse214877",
+      "trackId": null,
+      "contrastId": null,
+      "scope": "Human hypothalamic neural stem cells — hPSC differentiation; all 1 registered contrasts on default track hypothalamic_nsc",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. All six local aliases join explicit GSM/title fields. The three hPSC controls are H9, CMC11 and AG09908R1 cell lines, whereas all three htNSC profiles derive from H9 at different differentiation batches and days. The current model has no cell-line or differentiation-time adjustment. Three source batch labels do not establish three independent donors or eliminate the condition/cell-line confounding. Independent culture derivation and the intended comparative model require review.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE214877_hsap_hypothalamic_nsc/metadata/GSE214877_samplesheet.tsv",
+            "data/internal-qc/replication-2026-09-05/round4-c/sources/GSE214877/GSE214877_family.soft.gz",
+            "data/internal-qc/replication-2026-09-05/round4-c/mappings/GSE214877.json"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed group design rank is 2/2, with 4 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE214877_hsap_hypothalamic_nsc/metadata/GSE214877_samplesheet.tsv",
+            "geo_replication/datasets/GSE214877_hsap_hypothalamic_nsc/processed/GSE214877_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/htnsc_vs_hpsc: The three controls span H9, CMC11 and AG09908R1 cell lines, whereas all three differentiated profiles derive from H9 at varying differentiation batches/days. The current group-only fit does not separate those recorded source structures from its condition effect. Source-cohort and model interpretation therefore require review. This does not mandate a potentially unidentifiable adjusted model or assert an incorrect numerical fit.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE214877_hsap_hypothalamic_nsc/metadata/GSE214877_samplesheet.tsv",
+          "data/internal-qc/replication-2026-09-05/round4-c/sources/GSE214877/GSE214877_family.soft.gz",
+          "data/internal-qc/replication-2026-09-05/round4-c/mappings/GSE214877.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "human_htnsc_differentiation_gse214877",
+      "trackId": null,
+      "contrastId": "htnsc_vs_hpsc",
+      "scope": "Human hypothalamic neural stem cells — hPSC differentiation; htnsc_vs_hpsc; default track hypothalamic_nsc",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. All six local aliases join explicit GSM/title fields. The three hPSC controls are H9, CMC11 and AG09908R1 cell lines, whereas all three htNSC profiles derive from H9 at different differentiation batches and days. The current model has no cell-line or differentiation-time adjustment. Three source batch labels do not establish three independent donors or eliminate the condition/cell-line confounding. Independent culture derivation and the intended comparative model require review.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE214877_hsap_hypothalamic_nsc/metadata/GSE214877_samplesheet.tsv",
+            "data/internal-qc/replication-2026-09-05/round4-c/sources/GSE214877/GSE214877_family.soft.gz",
+            "data/internal-qc/replication-2026-09-05/round4-c/mappings/GSE214877.json"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed group design rank is 2/2, with 4 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE214877_hsap_hypothalamic_nsc/metadata/GSE214877_samplesheet.tsv",
+            "geo_replication/datasets/GSE214877_hsap_hypothalamic_nsc/processed/GSE214877_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/htnsc_vs_hpsc: The three controls span H9, CMC11 and AG09908R1 cell lines, whereas all three differentiated profiles derive from H9 at varying differentiation batches/days. The current group-only fit does not separate those recorded source structures from its condition effect. Source-cohort and model interpretation therefore require review. This does not mandate a potentially unidentifiable adjusted model or assert an incorrect numerical fit.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE214877_hsap_hypothalamic_nsc/metadata/GSE214877_samplesheet.tsv",
+          "data/internal-qc/replication-2026-09-05/round4-c/sources/GSE214877/GSE214877_family.soft.gz",
+          "data/internal-qc/replication-2026-09-05/round4-c/mappings/GSE214877.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "rat_rph_noise_stress_gse229159",
+      "trackId": null,
+      "contrastId": null,
+      "scope": "Rat rostral posterior hypothalamus — repeated noise stress; all 1 registered contrasts on default track rph",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "pass",
+          "note": "6 baseline and 6 case animal units are supported by primary sources. Source-replicate aliases identify the documented sampling units; unpublished animal or donor IDs are not invented. The RNA experiment randomly assigns twenty-four rats to four groups and collects a terminal brain specimen from each rat. Whole PH01-PH06 and PH19-PH24 GEO descriptions identify the current six repeated-noise and six control rat profiles. No chamber or cage identities are invented; the primary design explicitly assigns rats, rather than cages, to treatment. Importantly, the primary analysis subsequently excluded one low-quality library per arm and retained five rats per group, whereas this registered contrast retains all six deposited profiles per arm. Biological replication is supported, but this does not certify the retained libraries against the authors' sequencing-quality exclusions or imply exact author-cohort reproduction.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE229159_rnor_rph_noise_stress/metadata/GSE229159_samplesheet.tsv",
+            "geo_replication/datasets/GSE229159_rnor_rph_noise_stress/metadata/GSE229159_family.soft.gz",
+            "data/author-validation/continued-sources/advancement-sources-b-2026-09-05/GSE229159/PMC10288150.xml",
+            "data/internal-qc/replication-2026-09-05/remaining-a/prepare_specifications.py",
+            "data/internal-qc/replication-2026-09-05/remaining-a/observations.json",
+            "data/internal-qc/replication-2026-09-05/remaining-a/sourceMapping.mts",
+            "data/internal-qc/replication-2026-09-05/remaining-a/acquisitions.json",
+            "data/internal-qc/replication-2026-09-05/remaining-a/mappings/GSE229159.json"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed group design rank is 2/2, with 10 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE229159_rnor_rph_noise_stress/metadata/GSE229159_samplesheet.tsv",
+            "geo_replication/datasets/GSE229159_rnor_rph_noise_stress/processed/GSE229159_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/noise_stress_7d_vs_control: All six original profiles per selected arm are retained although the primary sequencing methods exclude one library in each experimental condition for low reads or adapter/GC quality. The current 12-profile fit includes those two selected-condition exclusions. Pipeline review of their retention remains necessary even though the individual animal replication check passes. No exclusion identity is guessed.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE229159_rnor_rph_noise_stress/metadata/GSE229159_samplesheet.tsv",
+          "geo_replication/datasets/GSE229159_rnor_rph_noise_stress/metadata/GSE229159_family.soft.gz",
+          "data/author-validation/continued-sources/advancement-sources-b-2026-09-05/GSE229159/PMC10288150.xml",
+          "data/internal-qc/replication-2026-09-05/remaining-a/prepare_specifications.py",
+          "data/internal-qc/replication-2026-09-05/remaining-a/observations.json",
+          "data/internal-qc/replication-2026-09-05/remaining-a/sourceMapping.mts",
+          "data/internal-qc/replication-2026-09-05/remaining-a/acquisitions.json",
+          "data/internal-qc/replication-2026-09-05/remaining-a/mappings/GSE229159.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "rat_rph_noise_stress_gse229159",
+      "trackId": null,
+      "contrastId": "noise_stress_7d_vs_control",
+      "scope": "Rat rostral posterior hypothalamus — repeated noise stress; noise_stress_7d_vs_control; default track rph",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "pass",
+          "note": "6 baseline and 6 case animal units are supported by primary sources. Source-replicate aliases identify the documented sampling units; unpublished animal or donor IDs are not invented. The RNA experiment randomly assigns twenty-four rats to four groups and collects a terminal brain specimen from each rat. Whole PH01-PH06 and PH19-PH24 GEO descriptions identify the current six repeated-noise and six control rat profiles. No chamber or cage identities are invented; the primary design explicitly assigns rats, rather than cages, to treatment. Importantly, the primary analysis subsequently excluded one low-quality library per arm and retained five rats per group, whereas this registered contrast retains all six deposited profiles per arm. Biological replication is supported, but this does not certify the retained libraries against the authors' sequencing-quality exclusions or imply exact author-cohort reproduction.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE229159_rnor_rph_noise_stress/metadata/GSE229159_samplesheet.tsv",
+            "geo_replication/datasets/GSE229159_rnor_rph_noise_stress/metadata/GSE229159_family.soft.gz",
+            "data/author-validation/continued-sources/advancement-sources-b-2026-09-05/GSE229159/PMC10288150.xml",
+            "data/internal-qc/replication-2026-09-05/remaining-a/prepare_specifications.py",
+            "data/internal-qc/replication-2026-09-05/remaining-a/observations.json",
+            "data/internal-qc/replication-2026-09-05/remaining-a/sourceMapping.mts",
+            "data/internal-qc/replication-2026-09-05/remaining-a/acquisitions.json",
+            "data/internal-qc/replication-2026-09-05/remaining-a/mappings/GSE229159.json"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed group design rank is 2/2, with 10 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE229159_rnor_rph_noise_stress/metadata/GSE229159_samplesheet.tsv",
+            "geo_replication/datasets/GSE229159_rnor_rph_noise_stress/processed/GSE229159_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/noise_stress_7d_vs_control: All six original profiles per selected arm are retained although the primary sequencing methods exclude one library in each experimental condition for low reads or adapter/GC quality. The current 12-profile fit includes those two selected-condition exclusions. Pipeline review of their retention remains necessary even though the individual animal replication check passes. No exclusion identity is guessed.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE229159_rnor_rph_noise_stress/metadata/GSE229159_samplesheet.tsv",
+          "geo_replication/datasets/GSE229159_rnor_rph_noise_stress/metadata/GSE229159_family.soft.gz",
+          "data/author-validation/continued-sources/advancement-sources-b-2026-09-05/GSE229159/PMC10288150.xml",
+          "data/internal-qc/replication-2026-09-05/remaining-a/prepare_specifications.py",
+          "data/internal-qc/replication-2026-09-05/remaining-a/observations.json",
+          "data/internal-qc/replication-2026-09-05/remaining-a/sourceMapping.mts",
+          "data/internal-qc/replication-2026-09-05/remaining-a/acquisitions.json",
+          "data/internal-qc/replication-2026-09-05/remaining-a/mappings/GSE229159.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "chicken_poah_ehc_gse298648",
+      "trackId": null,
+      "contrastId": null,
+      "scope": "Chicken POAH — embryonic heat conditioning; all 1 registered contrasts on default track poah",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. Exact GSM joins identify four control and four embryonic-heat-conditioned chicks. GEO assigns all selected control samples biological-replicate label Rep_D and all selected treated samples Rep_C, and describes separate treatment-specific incubators. Independent incubation/experimental-batch replication is unresolved; sex adjustment does not resolve the treatment-confounded source replicate labels.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE298648_ggal_poah_ehc/metadata/GSE298648_samplesheet.tsv",
+            "geo_replication/datasets/GSE298648_ggal_poah_ehc/metadata/GSE298648_family.soft.gz"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed sex + group design rank is 3/3, with 5 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE298648_ggal_poah_ehc/metadata/GSE298648_samplesheet.tsv",
+            "geo_replication/datasets/GSE298648_ggal_poah_ehc/processed/GSE298648_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/ehc_vs_control_poah_hour2_sex_adjusted: Original GEO explicitly places the control and EHC groups in two treatment-labelled incubators. All four selected controls have source biological-replicate Rep_D and all four selected treated profiles Rep_C. The current sex-plus-group fit cannot separate treatment from the recorded source incubation/replicate grouping. This is explicit source confounding, not an inferred unknown cage effect; independent batches must not be invented.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE298648_ggal_poah_ehc/metadata/GSE298648_samplesheet.tsv",
+          "geo_replication/datasets/GSE298648_ggal_poah_ehc/metadata/GSE298648_family.soft.gz"
+        ]
+      }
+    },
+    {
+      "datasetId": "chicken_poah_ehc_gse298648",
+      "trackId": null,
+      "contrastId": "ehc_vs_control_poah_hour2_sex_adjusted",
+      "scope": "Chicken POAH — embryonic heat conditioning; ehc_vs_control_poah_hour2_sex_adjusted; default track poah",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. Exact GSM joins identify four control and four embryonic-heat-conditioned chicks. GEO assigns all selected control samples biological-replicate label Rep_D and all selected treated samples Rep_C, and describes separate treatment-specific incubators. Independent incubation/experimental-batch replication is unresolved; sex adjustment does not resolve the treatment-confounded source replicate labels.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE298648_ggal_poah_ehc/metadata/GSE298648_samplesheet.tsv",
+            "geo_replication/datasets/GSE298648_ggal_poah_ehc/metadata/GSE298648_family.soft.gz"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed sex + group design rank is 3/3, with 5 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE298648_ggal_poah_ehc/metadata/GSE298648_samplesheet.tsv",
+            "geo_replication/datasets/GSE298648_ggal_poah_ehc/processed/GSE298648_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/ehc_vs_control_poah_hour2_sex_adjusted: Original GEO explicitly places the control and EHC groups in two treatment-labelled incubators. All four selected controls have source biological-replicate Rep_D and all four selected treated profiles Rep_C. The current sex-plus-group fit cannot separate treatment from the recorded source incubation/replicate grouping. This is explicit source confounding, not an inferred unknown cage effect; independent batches must not be invented.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE298648_ggal_poah_ehc/metadata/GSE298648_samplesheet.tsv",
+          "geo_replication/datasets/GSE298648_ggal_poah_ehc/metadata/GSE298648_family.soft.gz"
+        ]
+      }
+    },
+    {
+      "datasetId": "pig_hypo_mia_gse227725",
+      "trackId": null,
+      "contrastId": null,
+      "scope": "Piglet hypothalamus — maternal immune activation; all 1 registered contrasts on default track hypothalamus",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. Primary methods assign maternal infection to eight gilts per arm; offspring remain with their dams, and nursing withdrawal is split within litters. The current contrast selects only 35 nursed offspring and adjusts sex, not dam/litter. Whole GEO titles identify each current profile, but repeated A1/A2-style sample IDs occur across sex and treatment strata and are not unique animals or verified maternal IDs. No complete current offspring-to-gilt/litter allocation is retained. Independent maternal treatment units and model adequacy require review; offspring libraries are not counted as independent maternal assignments.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE227725_sscr_hypothalamus_mia/metadata/GSE227725_samplesheet.tsv",
+            "geo_replication/datasets/GSE227725_sscr_hypothalamus_mia/metadata/GSE227725_family.soft.gz",
+            "data/internal-qc/replication-2026-09-05/remaining-b/sources/GSE227725/PMC10584192.xml",
+            "data/internal-qc/replication-2026-09-05/remaining-b/mappings/GSE227725.json"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "limma matches the configured matrix input. Recomputed sex + group design rank is 3/3, with 32 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE227725_sscr_hypothalamus_mia/metadata/GSE227725_samplesheet.tsv",
+            "geo_replication/datasets/GSE227725_sscr_hypothalamus_mia/processed/GSE227725_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/maternal_immune_activation_vs_control_nursed: The current fit includes 35 nursed offspring, while maternal infection was assigned to only 16 gilts, eight per arm. Repeated maternal units among those offspring are unavoidable. The current sex-plus-group model omits dam/litter structure. The unknown allocation blocks resolution of a known dependency; repeated A1/A2 source tokens are not dam IDs.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE227725_sscr_hypothalamus_mia/metadata/GSE227725_samplesheet.tsv",
+          "geo_replication/datasets/GSE227725_sscr_hypothalamus_mia/metadata/GSE227725_family.soft.gz",
+          "data/internal-qc/replication-2026-09-05/remaining-b/sources/GSE227725/PMC10584192.xml",
+          "data/internal-qc/replication-2026-09-05/remaining-b/mappings/GSE227725.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "pig_hypo_mia_gse227725",
+      "trackId": null,
+      "contrastId": "maternal_immune_activation_vs_control_nursed",
+      "scope": "Piglet hypothalamus — maternal immune activation; maternal_immune_activation_vs_control_nursed; default track hypothalamus",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. Primary methods assign maternal infection to eight gilts per arm; offspring remain with their dams, and nursing withdrawal is split within litters. The current contrast selects only 35 nursed offspring and adjusts sex, not dam/litter. Whole GEO titles identify each current profile, but repeated A1/A2-style sample IDs occur across sex and treatment strata and are not unique animals or verified maternal IDs. No complete current offspring-to-gilt/litter allocation is retained. Independent maternal treatment units and model adequacy require review; offspring libraries are not counted as independent maternal assignments.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE227725_sscr_hypothalamus_mia/metadata/GSE227725_samplesheet.tsv",
+            "geo_replication/datasets/GSE227725_sscr_hypothalamus_mia/metadata/GSE227725_family.soft.gz",
+            "data/internal-qc/replication-2026-09-05/remaining-b/sources/GSE227725/PMC10584192.xml",
+            "data/internal-qc/replication-2026-09-05/remaining-b/mappings/GSE227725.json"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "limma matches the configured matrix input. Recomputed sex + group design rank is 3/3, with 32 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE227725_sscr_hypothalamus_mia/metadata/GSE227725_samplesheet.tsv",
+            "geo_replication/datasets/GSE227725_sscr_hypothalamus_mia/processed/GSE227725_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/maternal_immune_activation_vs_control_nursed: The current fit includes 35 nursed offspring, while maternal infection was assigned to only 16 gilts, eight per arm. Repeated maternal units among those offspring are unavoidable. The current sex-plus-group model omits dam/litter structure. The unknown allocation blocks resolution of a known dependency; repeated A1/A2 source tokens are not dam IDs.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE227725_sscr_hypothalamus_mia/metadata/GSE227725_samplesheet.tsv",
+          "geo_replication/datasets/GSE227725_sscr_hypothalamus_mia/metadata/GSE227725_family.soft.gz",
+          "data/internal-qc/replication-2026-09-05/remaining-b/sources/GSE227725/PMC10584192.xml",
+          "data/internal-qc/replication-2026-09-05/remaining-b/mappings/GSE227725.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "pig_hypo_genotype_gse201408",
+      "trackId": null,
+      "contrastId": null,
+      "scope": "Pig hypothalamus — Iberian genotype; all 1 registered contrasts on default track hypothalamus",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. The primary paper states ten litters contribute one purebred and one crossbred pig each. Arms therefore share litter blocks. The GEO/sample sheet lacks sample-to-litter pairs and the registered model adjusts sex but not litter; both mapping and model review are required.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE201408_sscr_hypothalamus_weaning/metadata/GSE201408_samplesheet.tsv",
+            "geo_replication/datasets/GSE201408_sscr_hypothalamus_weaning/metadata/GSE201408_family.soft.gz",
+            "data/internal-qc/replication-2026-09-05/sources/PMC9380940.xml"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "limma matches the configured matrix input. Recomputed sex + group design rank is 3/3, with 17 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE201408_sscr_hypothalamus_weaning/metadata/GSE201408_samplesheet.tsv",
+            "geo_replication/datasets/GSE201408_sscr_hypothalamus_weaning/processed/GSE201408_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/iberian_vs_crossbred_sex_adjusted: The primary source explicitly states that each of 10 litters supplied one purebred and one crossbred pig. The current 20-profile sex-plus-group model omits these shared litter blocks. Pair membership must be recovered before compatible paired inference; ordinal pairing is prohibited.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE201408_sscr_hypothalamus_weaning/metadata/GSE201408_samplesheet.tsv",
+          "geo_replication/datasets/GSE201408_sscr_hypothalamus_weaning/metadata/GSE201408_family.soft.gz",
+          "data/internal-qc/replication-2026-09-05/sources/PMC9380940.xml"
+        ]
+      }
+    },
+    {
+      "datasetId": "pig_hypo_genotype_gse201408",
+      "trackId": null,
+      "contrastId": "iberian_vs_crossbred_sex_adjusted",
+      "scope": "Pig hypothalamus — Iberian genotype; iberian_vs_crossbred_sex_adjusted; default track hypothalamus",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. The primary paper states ten litters contribute one purebred and one crossbred pig each. Arms therefore share litter blocks. The GEO/sample sheet lacks sample-to-litter pairs and the registered model adjusts sex but not litter; both mapping and model review are required.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE201408_sscr_hypothalamus_weaning/metadata/GSE201408_samplesheet.tsv",
+            "geo_replication/datasets/GSE201408_sscr_hypothalamus_weaning/metadata/GSE201408_family.soft.gz",
+            "data/internal-qc/replication-2026-09-05/sources/PMC9380940.xml"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "limma matches the configured matrix input. Recomputed sex + group design rank is 3/3, with 17 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE201408_sscr_hypothalamus_weaning/metadata/GSE201408_samplesheet.tsv",
+            "geo_replication/datasets/GSE201408_sscr_hypothalamus_weaning/processed/GSE201408_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/iberian_vs_crossbred_sex_adjusted: The primary source explicitly states that each of 10 litters supplied one purebred and one crossbred pig. The current 20-profile sex-plus-group model omits these shared litter blocks. Pair membership must be recovered before compatible paired inference; ordinal pairing is prohibited.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE201408_sscr_hypothalamus_weaning/metadata/GSE201408_samplesheet.tsv",
+          "geo_replication/datasets/GSE201408_sscr_hypothalamus_weaning/metadata/GSE201408_family.soft.gz",
+          "data/internal-qc/replication-2026-09-05/sources/PMC9380940.xml"
+        ]
+      }
+    },
+    {
+      "datasetId": "pig_hypo_mia_gse245146",
+      "trackId": null,
+      "contrastId": null,
+      "scope": "Pig hypothalamus — maternal PRRSV exposure; all 1 registered contrasts on default track hypothalamus",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. The intervention is assigned to twenty gestating dams, with 112 offspring profiled. The registered saline subset contains multiple offspring per arm and sex, but no pig-to-dam mapping is retained. SampleID A1 etc. repeats across strata and cannot be treated as a dam identifier; maternal independence remains unresolved.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE245146_sscr_hypothalamus_mia/metadata/GSE245146_samplesheet.tsv",
+            "geo_replication/datasets/GSE245146_sscr_hypothalamus_mia/metadata/GSE245146_family.soft.gz",
+            "data/author-validation/continued-sources/advancement-sources-b-2026-09-05/GSE245146/PMC11283907.xml"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "limma matches the configured matrix input. Recomputed sex + group design rank is 3/3, with 35 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE245146_sscr_hypothalamus_mia/metadata/GSE245146_samplesheet.tsv",
+            "geo_replication/datasets/GSE245146_sscr_hypothalamus_mia/processed/GSE245146_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/maternal_prrsv_vs_control_saline_sex_adjusted: The primary source describes 20 treated/control dams and the current saline subset contains 38 offspring, 21 control and 17 case. Repeated maternal units are unavoidable, including within each arm of at most 10 dams. The current sex-plus-group model omits dam/litter structure. Exact maternal identities remain unknown and are not inferred from repeated SampleID tokens.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE245146_sscr_hypothalamus_mia/metadata/GSE245146_samplesheet.tsv",
+          "geo_replication/datasets/GSE245146_sscr_hypothalamus_mia/metadata/GSE245146_family.soft.gz",
+          "data/author-validation/continued-sources/advancement-sources-b-2026-09-05/GSE245146/PMC11283907.xml"
+        ]
+      }
+    },
+    {
+      "datasetId": "pig_hypo_mia_gse245146",
+      "trackId": null,
+      "contrastId": "maternal_prrsv_vs_control_saline_sex_adjusted",
+      "scope": "Pig hypothalamus — maternal PRRSV exposure; maternal_prrsv_vs_control_saline_sex_adjusted; default track hypothalamus",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. The intervention is assigned to twenty gestating dams, with 112 offspring profiled. The registered saline subset contains multiple offspring per arm and sex, but no pig-to-dam mapping is retained. SampleID A1 etc. repeats across strata and cannot be treated as a dam identifier; maternal independence remains unresolved.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE245146_sscr_hypothalamus_mia/metadata/GSE245146_samplesheet.tsv",
+            "geo_replication/datasets/GSE245146_sscr_hypothalamus_mia/metadata/GSE245146_family.soft.gz",
+            "data/author-validation/continued-sources/advancement-sources-b-2026-09-05/GSE245146/PMC11283907.xml"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "limma matches the configured matrix input. Recomputed sex + group design rank is 3/3, with 35 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE245146_sscr_hypothalamus_mia/metadata/GSE245146_samplesheet.tsv",
+            "geo_replication/datasets/GSE245146_sscr_hypothalamus_mia/processed/GSE245146_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/maternal_prrsv_vs_control_saline_sex_adjusted: The primary source describes 20 treated/control dams and the current saline subset contains 38 offspring, 21 control and 17 case. Repeated maternal units are unavoidable, including within each arm of at most 10 dams. The current sex-plus-group model omits dam/litter structure. Exact maternal identities remain unknown and are not inferred from repeated SampleID tokens.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE245146_sscr_hypothalamus_mia/metadata/GSE245146_samplesheet.tsv",
+          "geo_replication/datasets/GSE245146_sscr_hypothalamus_mia/metadata/GSE245146_family.soft.gz",
+          "data/author-validation/continued-sources/advancement-sources-b-2026-09-05/GSE245146/PMC11283907.xml"
+        ]
+      }
+    },
+    {
+      "datasetId": "pig_hypo_formula_gse281726",
+      "trackId": null,
+      "contrastId": null,
+      "scope": "Piglet hypothalamus — formula composition; all 1 registered contrasts on default track hypothalamus",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. The study individually randomizes piglets after matching weight, sex and litter, then explicitly group-houses them by assigned formula in two farrowing pens during intervention. Current data cover 12 WPI and 11 ALAC terminal hypothalamic profiles from the reported three sow litters. Independent pen-level treatment replication and a full selected pig-to-pen/litter map are not established; the current model adjusts sex only. Pen and litter dependence therefore remain under review. Individual bottle feeding and biological specimen identity do not resolve formula-specific shared housing.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE281726_sscr_hypothalamus/metadata/GSE281726_samplesheet.tsv",
+            "geo_replication/datasets/GSE281726_sscr_hypothalamus/metadata/GSE281726_family.soft.gz",
+            "data/author-validation/continued-sources/advancement-sources-b-2026-09-05/GSE281726/PMC12533098.xml",
+            "data/internal-qc/replication-2026-09-05/remaining-b/mappings/GSE281726.json"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed sex + group design rank is 3/3, with 20 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE281726_sscr_hypothalamus/metadata/GSE281726_samplesheet.tsv",
+            "geo_replication/datasets/GSE281726_sscr_hypothalamus/processed/GSE281726_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/alpha_lactalbumin_vs_wpi_formula_sex_adjusted: The selected 23 formula-fed piglets come from the stated three sow litters and share two farrowing pens during intervention. The current sex-plus-group model has neither pen nor litter structure. Repeated source environments/lineages are established; exact pen or litter assignment and any claim of perfect pen-treatment confounding remain unresolved. Individual bottle feeding does not remove this known shared structure.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE281726_sscr_hypothalamus/metadata/GSE281726_samplesheet.tsv",
+          "geo_replication/datasets/GSE281726_sscr_hypothalamus/metadata/GSE281726_family.soft.gz",
+          "data/author-validation/continued-sources/advancement-sources-b-2026-09-05/GSE281726/PMC12533098.xml",
+          "data/internal-qc/replication-2026-09-05/remaining-b/mappings/GSE281726.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "pig_hypo_formula_gse281726",
+      "trackId": null,
+      "contrastId": "alpha_lactalbumin_vs_wpi_formula_sex_adjusted",
+      "scope": "Piglet hypothalamus — formula composition; alpha_lactalbumin_vs_wpi_formula_sex_adjusted; default track hypothalamus",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. The study individually randomizes piglets after matching weight, sex and litter, then explicitly group-houses them by assigned formula in two farrowing pens during intervention. Current data cover 12 WPI and 11 ALAC terminal hypothalamic profiles from the reported three sow litters. Independent pen-level treatment replication and a full selected pig-to-pen/litter map are not established; the current model adjusts sex only. Pen and litter dependence therefore remain under review. Individual bottle feeding and biological specimen identity do not resolve formula-specific shared housing.",
+          "evidence": [
+            "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+            "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+            "geo_replication/datasets/GSE281726_sscr_hypothalamus/metadata/GSE281726_samplesheet.tsv",
+            "geo_replication/datasets/GSE281726_sscr_hypothalamus/metadata/GSE281726_family.soft.gz",
+            "data/author-validation/continued-sources/advancement-sources-b-2026-09-05/GSE281726/PMC12533098.xml",
+            "data/internal-qc/replication-2026-09-05/remaining-b/mappings/GSE281726.json"
+          ]
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed sex + group design rank is 3/3, with 20 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE281726_sscr_hypothalamus/metadata/GSE281726_samplesheet.tsv",
+            "geo_replication/datasets/GSE281726_sscr_hypothalamus/processed/GSE281726_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "default track/alpha_lactalbumin_vs_wpi_formula_sex_adjusted: The selected 23 formula-fed piglets come from the stated three sow litters and share two farrowing pens during intervention. The current sex-plus-group model has neither pen nor litter structure. Repeated source environments/lineages are established; exact pen or litter assignment and any claim of perfect pen-treatment confounding remain unresolved. Individual bottle feeding does not remove this known shared structure.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/replication-2026-09-05/replication-evidence.json",
+          "data/internal-qc/replication-2026-09-05/reviewed-specifications.json",
+          "geo_replication/datasets/GSE281726_sscr_hypothalamus/metadata/GSE281726_samplesheet.tsv",
+          "geo_replication/datasets/GSE281726_sscr_hypothalamus/metadata/GSE281726_family.soft.gz",
+          "data/author-validation/continued-sources/advancement-sources-b-2026-09-05/GSE281726/PMC12533098.xml",
+          "data/internal-qc/replication-2026-09-05/remaining-b/mappings/GSE281726.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "gse135007",
+      "trackId": null,
+      "contrastId": null,
+      "scope": "Mouse hypothalamus Gough Island divergence; all 1 registered tracks and 1 comparisons",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "0/1 assessments pass this check. Primary-source replication review remains unresolved. All 20 current GSMs and whole source titles identify 28-day hypothalamus specimens, balanced five animals per sex/strain. Other tissues from these same animals and other ages are excluded. The primary paper states that all four-week island males came from one litter, island females from four litters, and mainland conditions from two to four litters; weanlings were group-housed. Source metadata does not map each selected animal to its litter/cage. The group-plus-sex model cannot separate those dependencies. A source claim treating mice as independent does not resolve the documented sibling structure.",
+          "evidence": [
+            "data/internal-qc/intake-replication-2026-09-11/specifications.json",
+            "data/internal-qc/intake-replication-2026-09-11/mappings/GSE135007.json",
+            "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/GSE135007_family.soft.gz",
+            "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/PMC7487164.xml",
+            "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/publication-search.json"
+          ],
+          "required": true
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "1/1 assessments pass this check. edgeR-QL matches the configured counts input. Recomputed sex + group design rank is 3/3, with 17 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE135007_discovery_20260905/metadata/GSE135007_samples.tsv",
+            "geo_replication/datasets/GSE135007_discovery_20260905/processed/GSE135007_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "hypothalamus/gough_vs_wsb: The current four-week cohort includes five island males that the primary source states came from one litter. The sex-plus-group model does not represent that known shared litter. Unknown identities of the remaining litters do not erase the documented sibling cluster. This additional model review is independent of the existing serialized-input normalization discrepancy.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/intake-replication-2026-09-11/specifications.json",
+          "data/internal-qc/intake-replication-2026-09-11/mappings/GSE135007.json",
+          "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/GSE135007_family.soft.gz",
+          "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/PMC7487164.xml",
+          "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/publication-search.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "gse135007",
+      "trackId": null,
+      "contrastId": "gough_vs_wsb",
+      "scope": "Mouse hypothalamus Gough Island divergence; Gough Island vs WSB, adjusted for sex; all 1 registered tracks",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "0/1 assessments pass this check. Primary-source replication review remains unresolved. All 20 current GSMs and whole source titles identify 28-day hypothalamus specimens, balanced five animals per sex/strain. Other tissues from these same animals and other ages are excluded. The primary paper states that all four-week island males came from one litter, island females from four litters, and mainland conditions from two to four litters; weanlings were group-housed. Source metadata does not map each selected animal to its litter/cage. The group-plus-sex model cannot separate those dependencies. A source claim treating mice as independent does not resolve the documented sibling structure.",
+          "evidence": [
+            "data/internal-qc/intake-replication-2026-09-11/specifications.json",
+            "data/internal-qc/intake-replication-2026-09-11/mappings/GSE135007.json",
+            "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/GSE135007_family.soft.gz",
+            "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/PMC7487164.xml",
+            "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/publication-search.json"
+          ],
+          "required": true
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "1/1 assessments pass this check. edgeR-QL matches the configured counts input. Recomputed sex + group design rank is 3/3, with 17 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE135007_discovery_20260905/metadata/GSE135007_samples.tsv",
+            "geo_replication/datasets/GSE135007_discovery_20260905/processed/GSE135007_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "hypothalamus/gough_vs_wsb: The current four-week cohort includes five island males that the primary source states came from one litter. The sex-plus-group model does not represent that known shared litter. Unknown identities of the remaining litters do not erase the documented sibling cluster. This additional model review is independent of the existing serialized-input normalization discrepancy.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/intake-replication-2026-09-11/specifications.json",
+          "data/internal-qc/intake-replication-2026-09-11/mappings/GSE135007.json",
+          "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/GSE135007_family.soft.gz",
+          "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/PMC7487164.xml",
+          "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/publication-search.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "gse135007",
+      "trackId": "hypothalamus",
+      "contrastId": null,
+      "scope": "Mouse hypothalamus Gough Island divergence; all 1 registered contrasts on default track hypothalamus",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. All 20 current GSMs and whole source titles identify 28-day hypothalamus specimens, balanced five animals per sex/strain. Other tissues from these same animals and other ages are excluded. The primary paper states that all four-week island males came from one litter, island females from four litters, and mainland conditions from two to four litters; weanlings were group-housed. Source metadata does not map each selected animal to its litter/cage. The group-plus-sex model cannot separate those dependencies. A source claim treating mice as independent does not resolve the documented sibling structure.",
+          "evidence": [
+            "data/internal-qc/intake-replication-2026-09-11/specifications.json",
+            "data/internal-qc/intake-replication-2026-09-11/mappings/GSE135007.json",
+            "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/GSE135007_family.soft.gz",
+            "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/PMC7487164.xml",
+            "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/publication-search.json"
+          ],
+          "required": true
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed sex + group design rank is 3/3, with 17 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE135007_discovery_20260905/metadata/GSE135007_samples.tsv",
+            "geo_replication/datasets/GSE135007_discovery_20260905/processed/GSE135007_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "hypothalamus/gough_vs_wsb: The current four-week cohort includes five island males that the primary source states came from one litter. The sex-plus-group model does not represent that known shared litter. Unknown identities of the remaining litters do not erase the documented sibling cluster. This additional model review is independent of the existing serialized-input normalization discrepancy.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/intake-replication-2026-09-11/specifications.json",
+          "data/internal-qc/intake-replication-2026-09-11/mappings/GSE135007.json",
+          "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/GSE135007_family.soft.gz",
+          "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/PMC7487164.xml",
+          "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/publication-search.json"
+        ]
+      }
+    },
+    {
+      "datasetId": "gse135007",
+      "trackId": "hypothalamus",
+      "contrastId": "gough_vs_wsb",
+      "scope": "Mouse hypothalamus Gough Island divergence; Gough Island vs WSB, adjusted for sex; default track hypothalamus",
+      "sourceChecks": [
+        {
+          "id": "independent_replication",
+          "label": "Independent biological replication",
+          "status": "review",
+          "note": "Primary-source replication review remains unresolved. All 20 current GSMs and whole source titles identify 28-day hypothalamus specimens, balanced five animals per sex/strain. Other tissues from these same animals and other ages are excluded. The primary paper states that all four-week island males came from one litter, island females from four litters, and mainland conditions from two to four litters; weanlings were group-housed. Source metadata does not map each selected animal to its litter/cage. The group-plus-sex model cannot separate those dependencies. A source claim treating mice as independent does not resolve the documented sibling structure.",
+          "evidence": [
+            "data/internal-qc/intake-replication-2026-09-11/specifications.json",
+            "data/internal-qc/intake-replication-2026-09-11/mappings/GSE135007.json",
+            "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/GSE135007_family.soft.gz",
+            "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/PMC7487164.xml",
+            "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/publication-search.json"
+          ],
+          "required": true
+        },
+        {
+          "id": "model_validity",
+          "label": "Model design and input scale",
+          "status": "pass",
+          "note": "edgeR-QL matches the configured counts input. Recomputed sex + group design rank is 3/3, with 17 residual degrees of freedom. This checks identifiability and the declared route, not every biological confounder.",
+          "evidence": [
+            "geo_replication/config/datasets.tsv",
+            "geo_replication/datasets/GSE135007_discovery_20260905/metadata/GSE135007_samples.tsv",
+            "geo_replication/datasets/GSE135007_discovery_20260905/processed/GSE135007_DE.tsv"
+          ]
+        }
+      ],
+      "check": {
+        "id": "reviewed_source_model_limitations",
+        "label": "Reviewed source and model limitations",
+        "status": "review",
+        "required": true,
+        "note": "hypothalamus/gough_vs_wsb: The current four-week cohort includes five island males that the primary source states came from one litter. The sex-plus-group model does not represent that known shared litter. Unknown identities of the remaining litters do not erase the documented sibling cluster. This additional model review is independent of the existing serialized-input normalization discrepancy.",
+        "evidence": [
+          "data/internal-qc/assessments.generated.json",
+          "data/internal-qc/intake-replication-2026-09-11/specifications.json",
+          "data/internal-qc/intake-replication-2026-09-11/mappings/GSE135007.json",
+          "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/GSE135007_family.soft.gz",
+          "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/PMC7487164.xml",
+          "data/internal-qc/intake-replication-2026-09-11/sources/GSE135007/publication-search.json"
+        ]
+      }
+    }
+  ]
+}

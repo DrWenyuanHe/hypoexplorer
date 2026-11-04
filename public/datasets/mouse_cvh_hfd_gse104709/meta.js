@@ -1,0 +1,1 @@
+var HX_MOUSE_CVH_HFD_GSE104709_META = {"populations":["cvh"],"labels":{"cvh":"Ventral / circumventricular hypothalamus"},"types":{"cvh":"Tissue"},"nGenes":{"cvh":20681},"colors":{"cvh":"#3775BA"},"qcFlags":{"cvh":{"is3v3":false,"nNormal":5,"nObese":5,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

@@ -1,0 +1,1 @@
+var HX_MOUSE_PVN_CRH_ELA_GSE174085_META = {"populations":["crh_pvn"],"labels":{"crh_pvn":"PVN CRH neurons (animal pseudobulk)"},"types":{"crh_pvn":"Tissue"},"nGenes":{"crh_pvn":24181},"colors":{"crh_pvn":"#8C564B"},"qcFlags":{"crh_pvn":{"is3v3":false,"nNormal":14,"nObese":10,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

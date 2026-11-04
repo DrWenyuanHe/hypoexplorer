@@ -1,0 +1,1 @@
+var HX_MOUSE_HYPO_ASTRO_HFHS_GSE205313_META = {"populations":["astrocytes"],"labels":{"astrocytes":"Hypothalamic astrocytes (ACSA-2+)"},"types":{"astrocytes":"Tissue"},"nGenes":{"astrocytes":19307},"colors":{"astrocytes":"#8CD17D"},"qcFlags":{"astrocytes":{"is3v3":false,"nNormal":6,"nObese":5,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

@@ -1,0 +1,157 @@
+# Line endings.
+#
+# The index is LF for essentially every text file already; this makes that a
+# rule rather than a side effect of each contributor's core.autocrlf. Without
+# it, one file committed from an autocrlf=false Windows checkout lands with
+# CRLF in the index and every later edit shows as a whole-file rewrite —
+# scripts/build_normalized_bundles.mts did exactly that (~880 lines of
+# line-ending-only churn on a 12-line change, and git blame lost with it).
+#
+# text=auto: git decides what is text and stores it LF-normalized. Working
+# trees still get CRLF on Windows via core.autocrlf — this governs the index,
+# not the checkout. Binary files are detected and left alone; the LFS entries
+# below carry an explicit -text for the same reason.
+* text=auto
+
+# Source and config: never guessed, always LF in the index.
+*.ts    text eol=lf
+*.tsx   text eol=lf
+*.mts   text eol=lf
+*.js    text eol=lf
+*.jsx   text eol=lf
+*.json  text eol=lf
+data/expression/neuroseq/source/catalog.json -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+*.css   text eol=lf
+*.html  text eol=lf
+*.md    text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.R     text eol=lf
+*.py    text eol=lf
+*.sh    text eol=lf
+# Vitest writes snapshots with LF. A CRLF checkout made every test run rewrite
+# the file and leave it modified.
+*.snap  text eol=lf
+
+# Tabular data files are text; keep them LF so a re-export does not rewrite
+# every row. .htaccess ships to an Apache/LiteSpeed host that wants LF.
+*.tsv       text eol=lf
+*.csv       text eol=lf
+
+# Generated dataset bundles are pinned by exact-byte SHA-256 in the expression
+# and retained evidence ledgers. Checkout must not renormalize their bytes or
+# a local rebuild can replace a valid pin with a platform-specific checksum.
+public/datasets/**/*.js -text !eol
+
+# This downloaded manuscript is pinned by its source-file manifest. Preserve
+# the original bytes on checkout, as with the reviewed manuscripts below.
+
+# Font provenance records pin these license bytes too, including the tracker
+# copy. Checkout must not renormalize the retained originals.
+brand/fonts/OFL.txt -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+public/fonts/source/sourceserif4-OFL.txt -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+dataset-tracker/public/licenses/sourceserif4-OFL.txt -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+
+# These generated analysis artifacts are bound by exact-byte SHA-256 provenance.
+# Do not normalize R's platform-specific TSV line endings on commit/checkout:
+# changing even only CRLF to LF would invalidate the published evidence pins.
+# -text disables conversion, not ordinary text diffs. Recognize intentional CRLF
+# while retaining the normal whitespace checks. Other tables stay LF.
+geo_replication/**/processed/*_DE.tsv -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Numeric replay pins each unchanged sample sheet along with the DE output.
+# Preserve its existing bytes across checkout so Git cannot invalidate the replay.
+geo_replication/**/metadata/*samplesheet.tsv -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# The source-file manifest beside it is pinned the same way by the September 5
+# discovery evidence; normalizing it to LF invalidates that pin.
+geo_replication/**/metadata/*_source_files.tsv -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+geo_replication/**/processed/*_FGSEA_*.tsv -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+geo_replication/**/processed/*_fgsea.tsv -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# The GSE135007 serialization successor pins its LF session records by exact SHA-256.
+geo_replication/datasets/GSE135007_discovery_20260905/processed/*sessionInfo.txt -text !eol whitespace=-blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+data/author-validation/fgsea-baselines/**/*.tsv -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Original author CSV is pinned to its downloaded CRLF bytes.
+# Downloaded Zenodo author result is also pinned to its original bytes.
+# Newly recovered original archives, extracted originals and pinned replay artifacts.
+# Keep their independently measured bytes; the saved atlas-output audit has a
+# separately declared canonical-LF text hash convention.
+data/author-validation/continued-sources/continuation-2026-09-05/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+data/author-validation/continued-sources/round2-2026-09-05/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+scripts/prepare_author_round2.py -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+data/internal-qc/source-authenticity-2026-09-05/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+data/internal-qc/replication-2026-09-05/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+scripts/prepare_author_continuation.py -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+scripts/prep_GSE201207.R -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+scripts/prep_GSE314817.R -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+scripts/audit_replication_evidence.mts -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+scripts/lib/replicationEvidence.mts -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Retained primary manuscript/download bytes used by the new exact-pin reviews.
+# The celastrol source validator also byte-compares these two regenerated files.
+
+# GTEx V10 hypothalamus TPM: original bytes, pinned in data/expression/gtex/source-manifest.json.
+# Allen Human Brain Atlas hypothalamic expression columns, pinned in data/expression/allen-human/source-manifest.json.
+# Preserve the exact original dedicated scripts consumed by the reviewed replays.
+scripts/de_gse135639.R -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+scripts/de_gse157077.R -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+data/author-validation/continued-sources/round4-2026-09-05/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Primary manuscripts reused by the replication reviews (round 5 and the
+# remaining-study rounds). The reviews pinned their CRLF copies, which a Windows
+# checkout had written; the acquisition manifests record the LF bytes Europe PMC
+# served. The pinned CRLF bytes are what is committed, so every checkout
+# reproduces the reviewed evidence. PMC8263617.xml (GSE153495/GSE153498) falls
+# under the data/author-validation/** rule below and is committed the same way.
+
+# The 2026-09-05 advancement, conservation and quality ledgers pin their own
+# bytes by SHA-256. Those pins were measured on the original CRLF output, so
+# checkout must not renormalize them or every byte-level replay check fails.
+data/internal-qc/advancement-2026-09-05/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+data/internal-qc/conservation-2026-09-05/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# R 4.6.0 successor evidence (September 25, 2026): pinned by exact-byte SHA-256 as well.
+data/internal-qc/advancement-r460-2026-09-25/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+data/internal-qc/conservation-r460-2026-09-25/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+data/quality/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+
+# Author-validation evidence is likewise pinned by SHA-256 against its original
+# bytes, so it must survive checkout unmodified.
+data/author-validation/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+
+# HFD intake sources, fitted outputs and replay reports carry exact-byte pins.
+# Keep their current bytes on every platform, including the shared roster pin.
+geo_replication/datasets/GSE104709_mmus_cvh_hfd_rnaseq/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+geo_replication/datasets/GSE107324_rnor_hypothalamus_maternal_hfd/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+data/intake/hfd-2026-09-12/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+data/internal-qc/hfd-intake-2026-09-12/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+geo_replication/config/datasets.tsv -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+scripts/build_hfd_bundles.mts -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+scripts/run_hfd_pipeline.R -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Empty final TSV fields and downloaded article whitespace are source content.
+# R's retained sessionInfo output pads package/version columns with spaces.
+
+# Retained source downloads and sealed replay reports preserve original spacing.
+# Whitespace cleanup would change their checksum-bound scientific evidence.
+data/author-validation/continuation-round2-2026-09-11/** -whitespace
+data/author-validation/hfd-intake-2026-09-12/** -whitespace
+data/internal-qc/conservation-round2-2026-09-11/** -whitespace
+data/internal-qc/hfd-intake-2026-09-12/** -whitespace
+data/internal-qc/intake-numeric-2026-09-11/** -whitespace
+data/internal-qc/intake-replication-2026-09-11/** -whitespace
+data/internal-qc/replication-round2-2026-09-11/** -whitespace
+data/internal-qc/source-recovery-2026-09-11/** -whitespace
+data/quality/continuation-2026-09-11/** -whitespace
+data/quality/continuation-round2-2026-09-11/** -whitespace
+data/quality/hfd-intake-2026-09-12/** -whitespace
+data/quality/pipeline-separation-2026-09-11/** -whitespace
+
+# The OXT/AVP intake pins retained source metadata, model outputs and audit bytes.
+# Preserve them through Git just as the earlier source-reviewed intake does.
+geo_replication/datasets/GSE65663_rnor_son_salt/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+data/intake/oxt-avp-2026-10-19/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# R's session record retains the package columns' original padding.
+
+# The Claude SEO toolkit lock (seo-skills.lock.json) pins raw bytes by SHA-256;
+# preserve them across Windows checkouts. See docs/seo-tooling.md.
+vendor/claude-seo/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+.agents/skills/seo/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+.agents/skills/seo-*/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+
+# pnpm hashes patch files into pnpm-lock.yaml; keep their bytes identical on every checkout.
+patches/*.patch text eol=lf

@@ -1,0 +1,72 @@
+{
+  "key": "source-recovery",
+  "auditor": "data/internal-qc/source-recovery-2026-09-11/audit_recovery.mts",
+  "auditorSha256": "f06fa646bda4ff17cadcd3c0e19fc1393a3955112f565b4e87bafe8bba6d1b68",
+  "report": "data/internal-qc/source-recovery-2026-09-11/reader-evaluations.json",
+  "projection": "scripts/run_sealed_ts_check.mts supersession projection",
+  "beforeSha256": "169c1f9e389c760468a8be1db5b6fc16168c318085a5530ff741e7d2e705cd9c",
+  "candidateSha256": "df4294507afd88fb112dca04e73fdde1112dd2d491f75c669af8f53b2d598f0a",
+  "configReferencesChanged": 3,
+  "addedRowsListed": [],
+  "allScientificAndOtherFieldsUnchanged": true,
+  "currentConfig": {
+    "path": "geo_replication/config/datasets.tsv",
+    "sha256": "c2463a8d08af93a8f28c772540b263f4dd0334b68f36d26f44c80b9f3780f9da",
+    "bytes": 53559
+  },
+  "statuses": [
+    {
+      "accession": "E-MTAB-6929",
+      "status": "pass"
+    },
+    {
+      "accession": "GSE132308",
+      "status": "pass"
+    },
+    {
+      "accession": "GSE95243",
+      "status": "pass"
+    }
+  ],
+  "differences": [
+    {
+      "path": "/records/0/checkedReferences/9",
+      "before": {
+        "path": "geo_replication/config/datasets.tsv",
+        "sha256": "2b89ca7d8231622817b5fec41d32d76ec746088f56029319b1d20d54973ebaeb",
+        "bytes": 53320
+      },
+      "after": {
+        "path": "geo_replication/config/datasets.tsv",
+        "sha256": "c2463a8d08af93a8f28c772540b263f4dd0334b68f36d26f44c80b9f3780f9da",
+        "bytes": 53559
+      }
+    },
+    {
+      "path": "/records/1/checkedReferences/9",
+      "before": {
+        "path": "geo_replication/config/datasets.tsv",
+        "sha256": "2b89ca7d8231622817b5fec41d32d76ec746088f56029319b1d20d54973ebaeb",
+        "bytes": 53320
+      },
+      "after": {
+        "path": "geo_replication/config/datasets.tsv",
+        "sha256": "c2463a8d08af93a8f28c772540b263f4dd0334b68f36d26f44c80b9f3780f9da",
+        "bytes": 53559
+      }
+    },
+    {
+      "path": "/records/2/checkedReferences/9",
+      "before": {
+        "path": "geo_replication/config/datasets.tsv",
+        "sha256": "2b89ca7d8231622817b5fec41d32d76ec746088f56029319b1d20d54973ebaeb",
+        "bytes": 53320
+      },
+      "after": {
+        "path": "geo_replication/config/datasets.tsv",
+        "sha256": "c2463a8d08af93a8f28c772540b263f4dd0334b68f36d26f44c80b9f3780f9da",
+        "bytes": 53559
+      }
+    }
+  ]
+}

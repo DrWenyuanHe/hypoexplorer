@@ -1,0 +1,36 @@
+# Compatibility shim for clients still asking the APP ORIGIN for data.
+#
+# WHY THIS EXISTS
+# ---------------
+# Before the R2 cutover (2026-08-31) the data trees were same-origin: the app
+# fetched /datasets/**, /query/** and /qc/** from hypoexplorer.com itself. Those
+# builds shipped a DISMISSIBLE update prompt, so a client that keeps declining
+# never reaches the mandatory-update code and keeps asking this origin for data
+# forever. TODOS.md P3 therefore kept the legacy trees alive on Hostinger and
+# set a straggler window to ~2026-09-21 before deleting them.
+#
+# Moving the apex onto this Worker (2026-09-04) ended that window early without
+# meaning to: the Worker serves only dist/, so every one of those requests became
+# a 404 and any straggler broke silently — exactly the failure the window existed
+# to prevent.
+#
+# Redirecting to R2 is strictly better than what Hostinger was doing. The keys
+# match the old paths one-for-one (upload_bundles_r2.mts mirrors public/ with
+# paths intact), so an old client follows the redirect and gets the SAME bytes it
+# used to, now from the origin the current build already uses. It also frees the
+# legacy Hostinger trees to be deleted whenever, rather than on a date.
+#
+# 302, not 301: this is a compatibility shim for old clients, not a permanent
+# truth about where these paths live. A 301 would be cached by browsers
+# indefinitely and would outlive the stragglers it is here to serve.
+#
+# Redirects are evaluated BEFORE assets and before _headers, so these win over
+# the 404 that not_found_handling: "none" would otherwise produce.
+#
+# NOT HERE: a www -> apex redirect. Workers static assets does not support
+# domain-level redirects (the source is matched on path only), so that has to be
+# a zone-level Redirect Rule in the Cloudflare dashboard.
+
+/datasets/* https://data.hypoexplorer.com/datasets/:splat 302
+/query/* https://data.hypoexplorer.com/query/:splat 302
+/qc/* https://data.hypoexplorer.com/qc/:splat 302

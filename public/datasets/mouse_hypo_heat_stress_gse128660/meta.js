@@ -1,0 +1,1 @@
+var HX_MOUSE_HYPO_HEAT_STRESS_GSE128660_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":33714},"colors":{"hypothalamus":"#E15759"},"qcFlags":{"hypothalamus":{"is3v3":false,"nNormal":8,"nObese":8,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};

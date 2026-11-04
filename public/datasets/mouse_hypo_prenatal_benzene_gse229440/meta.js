@@ -1,0 +1,1 @@
+var HX_MOUSE_HYPO_PRENATAL_BENZENE_GSE229440_META = {"populations":["hypothalamus"],"labels":{"hypothalamus":"Whole hypothalamus (litter aggregate)"},"types":{"hypothalamus":"Tissue"},"nGenes":{"hypothalamus":21796},"colors":{"hypothalamus":"#8C564B"},"qcFlags":{"hypothalamus":{"is3v3":true,"nNormal":3,"nObese":3,"minCells":0,"status":"ok"}},"qaReportFilenames":{}};
