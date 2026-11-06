@@ -1,0 +1,10 @@
+name: HypoExplorer CodeQL
+
+# vendor/ is a pinned third-party snapshot (the Claude SEO toolkit); its
+# findings belong upstream. dist/ and public/query are build or fetch output.
+paths-ignore:
+  - vendor
+  - node_modules
+  - dist
+  - public/query
+  - public/tracker

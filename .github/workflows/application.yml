@@ -14,15 +14,37 @@ concurrency:
   group: application-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  # The dataset bundles are not in this repository; the app reads them, and
+  # the query catalog it is built against, from the published data origin.
+  VITE_BUNDLE_BASE_URL: https://data.hypoexplorer.com
+  NODE_OPTIONS: --max-old-space-size=6144
+
+# Each job is a separate required check on main. Keep the job names stable:
+# renaming one silently drops it from the branch ruleset.
 jobs:
-  application:
+  static:
+    name: Lint and typecheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run lint --reporter=summary
+      # check:upstream replays raw GEO inputs, so it runs in the maintainer's checkout.
+      - run: pnpm run typecheck
+      - name: Test the agent-context tooling
+        run: pnpm run test:context
+
+  test:
+    name: Unit tests
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    env:
-      # The dataset bundles are not in this repository; the app reads them, and
-      # the query catalog it is built against, from the published data origin.
-      VITE_BUNDLE_BASE_URL: https://data.hypoexplorer.com
-      NODE_OPTIONS: --max-old-space-size=6144
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v6
@@ -34,12 +56,37 @@ jobs:
       - run: pnpm run fetch:query
       # The GTEx, HPA and Allen atlases (~230 MB) back the Expression survey and its tests.
       - run: pnpm run fetch:expression
-      - run: pnpm run lint --reporter=summary
-      # check:upstream replays raw GEO inputs, so it runs in the maintainer's checkout.
-      - run: pnpm run typecheck
       - name: Run tests
         # Tests that read retained evidence or pre-publication history are left
         # out of this repository's vite.config.ts; the maintainer runs them.
         run: pnpm test --maxWorkers=2
+
+  build:
+    name: Build and browser smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run fetch:query
       - name: Build production application
         run: pnpm run build
+      # Release metadata, the bootstrap script, the static guide pages and the
+      # citation version must agree with the committed source.
+      - run: pnpm run verify:release
+      - name: Install Chromium for built-site smoke checks
+        run: pnpm exec playwright install --with-deps chromium --only-shell
+      # The built site, served locally, loads its catalog and a study bundle from R2.
+      - run: pnpm run test:smoke
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: browser-smoke-report
+          path: .tmp/browser-smoke/
+          if-no-files-found: ignore
+          retention-days: 7

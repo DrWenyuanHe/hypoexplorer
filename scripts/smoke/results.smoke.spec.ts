@@ -28,6 +28,9 @@ test('result tables and analysis sharing remain readable and keyboard accessible
 }, testInfo) => {
   await page.goto('/#/dataset/mouse_arc_hfd_gse225038', { waitUntil: 'domcontentloaded' });
   const search = page.getByRole('textbox', { name: 'Search gene', exact: true });
+  // The study bundle may come from the remote data origin; a cold fetch outlasts
+  // the 5 s default (the public repository's CI smokes against R2).
+  await expect(search).toBeVisible({ timeout: 30_000 });
   await tabTo(page, search);
   await page.keyboard.type('Pomc');
   await page.keyboard.press('Enter');

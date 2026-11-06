@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "66a5a1278ba56c8178ca7d63ee14479d9bef00dd4452ae07b5bf642b7322f92b",
+  "fingerprint": "dc89863079318e1af41ddf05f587c0292c12366bd86fe6ce50fce2633ebaa240",
   "outcome": "no-impact",
-  "explanation": "Adds scripts/public-export/ (export.mts, manifest.mjs, overlay/ and its README): a maintainer-only tool that writes the public hypoexplorer repository tree from committed HEAD blobs (overlays included, and only from a committed exporter), applies the reviewed edits and overlays, and refuses to finish on secrets, the owner's writing, personal paths or missing third-party notices. It is run by hand, is excluded from its own export, and changes no application code, registry entry, data product, build or check. Also: Tracker survey prose only: one correction note is reworded and score rationale and risks leave the published catalog; evidence records, QC policy and ledgers are unchanged.",
+  "explanation": "Public-repository CI only: the exporter overlay now splits the public Application workflow into lint/typecheck, unit-test and build/verify:release/browser-smoke jobs and adds a Security workflow (CodeQL, dependency review) with a CodeQL config ignoring vendor/. The results smoke spec waits up to 30 s for the first study bundle, which the public CI fetches from R2. No application code, registry entry, data product, evidence record, QC policy or private CI workflow changes.",
   "references": [
     "scripts/public-export/README.md",
-    "docs/agent-context/workflows.md",
-    "nar-research/dataset-survey/scout_master_combined.json",
-    "scripts/lib/trackerIntegration.mts"
+    "scripts/smoke/results.smoke.spec.ts",
+    "docs/agent-context/workflows.md"
   ]
 }
