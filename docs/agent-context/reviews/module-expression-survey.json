@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-expression-survey",
-  "fingerprint": "a6cf205ac87c08c1330172fcbb3695160e06584aba3d71223fd6461638f8c0a9",
+  "fingerprint": "424f0a5200971e114c92789ced44ca3f3d45234fe79d5c970ae6badc90414503",
   "outcome": "no-impact",
-  "explanation": "Dead-code gate fix: knip.json now configures the root workspace under workspaces[\".\"] with src/main.tsx as an entry, ignores vendor/, the Rscript binary and @typescript/typescript6, and excludes the sealed datasetQuality.ts from export findings. externalFeatureKeys in externalReferenceFormat.ts gains a /** @public */ JSDoc tag because only the atlas builder scripts/lib/externalReference.mts imports it. Its behaviour and the shard format are unchanged.",
+  "explanation": "Dead-code removal (cleanup B1): unused exports knip reported are deleted, with no caller anywhere in src, scripts, data or tests. expressionTypes.ts no longer re-exports ExpressionSampleValue, which no expression-survey module imported; the interface itself stays in src/types/index.ts. Loaders and formats are unchanged.",
   "references": [
-    "src/expression-survey/externalReferenceFormat.ts",
-    "scripts/lib/externalReference.mts",
-    "knip.json"
+    "src/expression-survey/expressionTypes.ts",
+    "src/types/index.ts"
   ]
 }

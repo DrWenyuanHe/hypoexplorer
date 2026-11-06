@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "71d1ab5437fb3fa29abede882455f35127f7a1ff607b689cfd87caadebcc400b",
+  "fingerprint": "1a9df57c01c589367de3b14874c3a358f647220e1c2d80d428731f581705b104",
   "outcome": "no-impact",
-  "explanation": "Dead-code gate fix: knip.json now configures the root workspace under workspaces[\".\"] with src/main.tsx as an entry, ignores vendor/, the Rscript binary and @typescript/typescript6, and excludes the sealed datasetQuality.ts from export findings. Only JSDoc tags change in siteInfo.ts and externalReferenceFormat.ts; no view, navigation, route or export behaviour changes.",
+  "explanation": "Dead-code removal (cleanup B1): unused exports knip reported are deleted, with no caller anywhere in src, scripts, data or tests. Unused icons and a search constant are removed and the explorer store reuses the shared COMPARE_TRACK; no view, route, navigation or export behaviour changes.",
   "references": [
-    "knip.json",
-    "src/expression-survey/externalReferenceFormat.ts",
+    "src/common/toolIcons.tsx",
+    "src/data/explorerStore.ts",
     "docs/REFACTOR_CHECKLIST.md"
   ]
 }

@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "df6fb64390dec72865b2c6eb7c23b48937d992723e10911f7b214ec31cb90c80",
+  "fingerprint": "6c1d9cf43fa7da44dc556dd1538af95baeb117b8b8dffc07fa103e11ab17f4dd",
   "outcome": "no-impact",
-  "explanation": "Merged main brings in the contributor credit (CONTRIBUTOR_NAMES in siteInfo.ts, CITATION.cff) and the public-export README overlay. This branch fixes the knip gate: knip.json configures workspaces[\".\"] with src/main.tsx as an entry, ignores vendor/, Rscript and @typescript/typescript6, and excludes the sealed datasetQuality.ts from export findings. The exclusion keeps datasetQuality.ts byte-identical to the sha256 in the pipeline-separation reader review; no evidence record, QC policy or validation status changes.",
+  "explanation": "Dead-code removal (cleanup B1): unused exports knip reported are deleted, with no caller anywhere in src, scripts, data or tests. authorValidation.ts loses an unused label helper and key list; its pinned bytes in runtime-reader-review.json were already historical before this change. No evidence record, QC policy, concordance assessment or validation status changes.",
   "references": [
-    "knip.json",
-    "src/data/datasetQuality.ts",
+    "src/data/authorValidation.ts",
+    "src/data/authorConcordanceR460.ts",
     "data/author-validation/README.md"
   ]
 }

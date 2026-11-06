@@ -45,7 +45,6 @@ import {
 } from './nomenclatureWire';
 export {
   NOMENCLATURE_AUTHORITIES,
-  NOMENCLATURE_AUTHORITY_BY_ORGANISM,
   NOMENCLATURE_AUTHORITY_ID_PREFIX,
   NOMENCLATURE_STATUS,
   nomenclatureAuthorityForOrganism,

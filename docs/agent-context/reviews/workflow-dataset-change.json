@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "65232007811f1fb1cc5809dc2f266cc9217514b5a8f48794f537b37fdc4106fc",
+  "fingerprint": "b9bd4ea231f40e6086ebed8a2e786e93381062fa931e50ecc7f42ca10c38603f",
   "outcome": "no-impact",
-  "explanation": "Merged main brings in the contributor credit (CONTRIBUTOR_NAMES in siteInfo.ts, CITATION.cff) and the public-export README overlay. This branch fixes the knip gate: knip.json configures workspaces[\".\"] with src/main.tsx as an entry, ignores vendor/, Rscript and @typescript/typescript6, and excludes the sealed datasetQuality.ts from export findings. Only JSDoc tags change in src/data/siteInfo.ts; no registry entry, sidecar, bundle builder or dataset contract changes.",
+  "explanation": "Dead-code removal (cleanup B1): unused exports knip reported are deleted, with no caller anywhere in src, scripts, data or tests. Only unused exports and re-exports leave src/data; no registry entry, sidecar, loader, bundle builder or dataset contract changes.",
   "references": [
-    "knip.json",
-    "src/data/siteInfo.ts",
+    "src/data/authorValidation.ts",
     "docs/DATASET_CONTRACT.md"
   ]
 }

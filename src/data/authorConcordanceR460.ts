@@ -1,9 +1,7 @@
-import { assessAuthorConcordance, AUTHOR_CONCORDANCE_POLICY } from './authorConcordance';
+import { assessAuthorConcordance } from './authorConcordance';
 import type { AuthorValidationRecord } from './authorValidation';
 import { ACTIVE_CONCORDANCE_REVIEWS, CONCORDANCE_REVIEW_LEDGERS } from './concordanceReviews';
 import type { QualityAssessment, QualityCheck } from './qualityChecks';
-
-export { AUTHOR_CONCORDANCE_POLICY };
 
 /**
  * Current author concordance after the R 4.6.0 regeneration.

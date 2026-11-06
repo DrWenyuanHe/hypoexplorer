@@ -1,1 +1,1 @@
-export type { ExpressionCondition, ExpressionSource, ExpressionSampleValue, ExpressionGroupResult, ExpressionGeneResult } from '../types';
+export type { ExpressionCondition, ExpressionSource, ExpressionGroupResult, ExpressionGeneResult } from '../types';

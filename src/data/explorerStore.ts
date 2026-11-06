@@ -27,14 +27,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { peekBundle, peekGlobalBundle } from './bundleSource';
 import { resolveTrackGlobalKey, resolvePathwayGlobalKey, resolveTrackUrl } from './bundleLocators';
+import { COMPARE_TRACK } from '../explorer/explorerPosition';
 import { loadDatasetMeta, loadDatasetQC } from './loadDatasetMeta';
 import { loadTrackData, type PathwayPolicy } from './trackData';
 import { siblingDefaultPathways, siblingPathwaysByContrast } from './rawTrack';
 import { useBundleProgress, type LoadProgress } from './useBundleProgress';
 import type { Dataset, DatasetMeta, PathwaySibling, QcGlobal, RawTrack } from '../types';
-
-/** The pseudo-track the Compare view selects; it has no bundle of its own. */
-const COMPARE_TRACK = 'compare';
 
 // ── Eager globals ───────────────────────────────────────────────────────────
 // index.html can eager-load the default dataset's meta + default track so the

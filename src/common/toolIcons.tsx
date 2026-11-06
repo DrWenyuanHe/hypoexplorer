@@ -25,15 +25,11 @@ function Icon({ d, paths }: { d?: string; paths?: ReactNode }) {
 export const ICONS: Record<string, ReactNode> = {
   expression: <Icon paths={<><path d="M3 3v18h18" /><rect x="7" y="4" width="13" height="3" rx="0.6" /><rect x="7" y="10" width="7" height="3" rx="0.6" /><rect x="7" y="16" width="10" height="3" rx="0.6" /></>} />,
   gene: <Icon paths={<><path d="M3 3v18h18" /><circle cx="8" cy="14" r="1.3" /><circle cx="12" cy="8" r="1.3" /><circle cx="16" cy="15" r="1.3" /><circle cx="18" cy="6" r="1.3" /><circle cx="7" cy="9" r="1.3" /></>} />,
-  pathway: <Icon paths={<><circle cx="6" cy="6" r="2.2" /><circle cx="18" cy="9" r="2.2" /><circle cx="9" cy="18" r="2.2" /><path d="M8 7.2 16 8.4M7.5 16 10 11M16.3 11 11 16.5" /></>} />,
-  compare: <Icon d="M8 3v18M16 3v18M3 8h5M3 16h5M16 8h5M16 16h5" />,
-  compareset: <Icon paths={<><rect x="3" y="5" width="7" height="14" rx="1.4" /><rect x="14" y="5" width="7" height="14" rx="1.4" /><path d="M6.5 9.5v5M4 12h5" /></>} />,
   cells: <Icon paths={<><circle cx="7" cy="7" r="2" /><circle cx="17" cy="7" r="2" /><circle cx="7" cy="17" r="2" /><circle cx="17" cy="17" r="2" /><circle cx="12" cy="12" r="2" /></>} />,
   contrast: <Icon paths={<><circle cx="8" cy="12" r="4.5" /><circle cx="16" cy="12" r="3" /></>} />,
   insulin: <Icon d="M3 12c3 0 3-5 6-5s3 10 6 10 3-5 6-5" />,
   leptin: <Icon paths={<><path d="M12 3v4M12 17v4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M3 12h4M17 12h4" /><circle cx="12" cy="12" r="3" /></>} />,
   inflammatory: <Icon paths={<><path d="M12 2c1.5 3 5 4 5 8a5 5 0 0 1-10 0c0-1.5.6-2.6 1.4-3.6" /><path d="M12 13a2.5 2.5 0 0 0 2.5 2.5" /></>} />,
-  reversible: <Icon paths={<><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8" /><path d="M21 4v5h-5" /><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16" /><path d="M3 20v-5h5" /></>} />,
   coexpression: <Icon paths={<><circle cx="5" cy="6" r="1.6" /><circle cx="12" cy="4" r="1.6" /><circle cx="19" cy="7" r="1.6" /><circle cx="7" cy="14" r="1.6" /><circle cx="15" cy="13" r="1.6" /><circle cx="11" cy="20" r="1.6" /><path d="M6.4 6.6 10.6 4.6M13.4 4.4 17.5 6.4M6 7.6 6.7 12.4M12.8 5.4 14.4 11.4M8.4 14.6 13.5 13.4M14.7 14.4 11.6 18.6M8 15.3 10.4 18.7" /></>} />,
   circadian: <Icon paths={<><circle cx="12" cy="12" r="8" /><path d="M12 8v4l2.5 2.5" /></>} />,
   aging: <Icon paths={<path d="M7 3h10M7 21h10M8 3c0 4 1.5 6 4 7.5C9.5 12 8 14 8 21M16 3c0 4-1.5 6-4 7.5 2.5 1.5 4 3.5 4 10.5" />} />,
@@ -41,11 +37,3 @@ export const ICONS: Record<string, ReactNode> = {
   tracker: <Icon paths={<><path d="M4 5h16M4 12h16M4 19h16" /><circle cx="8" cy="5" r="1.4" /><circle cx="14" cy="12" r="1.4" /><circle cx="11" cy="19" r="1.4" /></>} />,
   library: <Icon paths={<><rect x="3" y="4" width="7.5" height="7" rx="1.4" /><rect x="13.5" y="4" width="7.5" height="7" rx="1.4" /><rect x="3" y="13" width="7.5" height="7" rx="1.4" /><rect x="13.5" y="13" width="7.5" height="7" rx="1.4" /></>} />,
 };
-
-/** The right-pointing arrow used on every "go here" affordance. */
-export const ARROW = (
-  <svg className="arr" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-    strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M5 12h14" /><path d="m13 6 6 6-6 6" />
-  </svg>
-);
