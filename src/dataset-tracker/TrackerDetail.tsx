@@ -249,21 +249,9 @@ export function TrackerDetail({
         </table>
 
         {r.score ? (
-          <>
-            <div className="sectlabel">
-              Recorded intake assessment (fit {r.score.fit}/100 · {r.score.rec})
-            </div>
-            <div className="note-prose">
-              {r.score.rationale}
-              {r.score.risks ? (
-                <>
-                  <br />
-                  <br />
-                  <b>Risks:</b> {r.score.risks}
-                </>
-              ) : null}
-            </div>
-          </>
+          <div className="sectlabel">
+            Recorded intake assessment (fit {r.score.fit}/100 · {r.score.rec})
+          </div>
         ) : null}
 
         {r.correctionNotes ? (

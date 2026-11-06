@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "333b259d1ebac3aa811cc046538d9033a976ed48808eddf4ecddef81d0af5b45",
+  "fingerprint": "2ddd41b26173ef88f573dbf5b3c930a65885bdb312e0402e60998fc5d9f8fd06",
   "outcome": "no-impact",
-  "explanation": "Adds scripts/public-export/ (export.mts, manifest.mjs, overlay/ and its README): a maintainer-only tool that writes the public hypoexplorer repository tree from committed HEAD blobs (overlays included, and only from a committed exporter), applies the reviewed edits and overlays, and refuses to finish on secrets, the owner's writing, personal paths or missing third-party notices. It is run by hand, is excluded from its own export, and changes no application code, registry entry, data product, build or check.",
+  "explanation": "Adds scripts/public-export/ (export.mts, manifest.mjs, overlay/ and its README): a maintainer-only tool that writes the public hypoexplorer repository tree from committed HEAD blobs (overlays included, and only from a committed exporter), applies the reviewed edits and overlays, and refuses to finish on secrets, the owner's writing, personal paths or missing third-party notices. It is run by hand, is excluded from its own export, and changes no application code, registry entry, data product, build or check. Also: The regenerated public/tracker/catalog.js omits survey score rationale and risks, and one survey correction note is reworded to drop a manuscript reference.",
   "references": [
     "scripts/public-export/README.md",
     "scripts/public-export/manifest.mjs",
-    "AGENTS.md"
+    "AGENTS.md",
+    "public/tracker/catalog.js",
+    "nar-research/dataset-survey/scout_master_combined.json"
   ]
 }

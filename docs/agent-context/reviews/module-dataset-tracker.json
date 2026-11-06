@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "module-dataset-tracker",
-  "fingerprint": "9287e46d414d96bc60c2f79d6d58c0b7e394bd581b1dabbd60f2592ceb5d071e",
-  "outcome": "updated",
-  "explanation": "TrackerDetail.tsx, TrackerFilters.tsx and trackerLogic.ts switch their datasetQuality, qualitySearchText and badge imports to datasetQualityR460.ts, so tracker rows, quality filters and search text follow the current author-concordance reviews after the regeneration. Tracker status logic, catalog loading and the view structure are unchanged. The integrated tracker stylesheet uses var(--font-mono); the standalone tracker imports Geist Mono, Hanken Grotesk and Source fonts, ships their licenses, and uses the warm neutral palette.",
+  "fingerprint": "b4305ab1de9fa17e64c465d3fde59d8db5d6b5c64c8acab2f1c2080c93cf7af9",
+  "outcome": "no-impact",
+  "explanation": "trimRecord no longer copies the survey score rationale and risks into the published tracker catalog, because that prose is internal publication strategy; TrackerDetail now shows only the fit score and recommendation line for scored candidates. Catalog loading, integration matching, filters and the view structure are unchanged.",
   "references": [
-    "src/dataset-tracker/trackerLogic.ts",
+    "scripts/lib/trackerIntegration.mts",
     "src/dataset-tracker/TrackerDetail.tsx",
-    "src/data/datasetQualityR460.ts",
-    "dataset-tracker/src/styles.css"
+    "scripts/build_tracker_catalog.mts"
   ]
 }

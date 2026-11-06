@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "be3be9ec2c3eb13d7d06764a414091bc9fce2561402f824528e356ccaa908446",
-  "outcome": "updated",
-  "explanation": "portalCards tests follow the merged expression section: BaselineSection no longer owns the survey button, a new GeneExpressionCards suite checks the mouse and human columns and the single survey link, and the HPA cluster and none-of-the-atlases cases now render ReferenceAtlasSection (four atlases). The gene report test opens the survey from the section and expects one \"could not be loaded\" line when the atlases resolve to nothing.",
+  "fingerprint": "8b78b4b94a0537df0ec2c25f0220962659cf0538d8215be3f806758480c7062d",
+  "outcome": "no-impact",
+  "explanation": "The shared tracker catalog fixture in setup.ts drops the score rationale and risks fields to match the trimmed catalog shape; no test expectations or suites change.",
   "references": [
-    "src/__tests__/portalCards.test.tsx",
-    "src/__tests__/geneReport.test.tsx"
+    "src/__tests__/setup.ts",
+    "src/__tests__/datasetTracker.test.tsx"
   ]
 }

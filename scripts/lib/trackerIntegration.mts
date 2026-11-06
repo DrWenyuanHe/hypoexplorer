@@ -120,13 +120,13 @@ export function trimRecord(r: any) {
     correctionNotes: r.correctionNotes || '',
     verdict: r.verdict || '',
     confidence: r.confidence || '',
+    // The survey's score rationale and risks are internal publication-strategy
+    // notes, so the public catalog carries only the fit score and recommendation.
     score: r.score
       ? {
           fit: r.score.fit_score,
           rec: r.score.recommendation,
           tier: r.score.tier,
-          rationale: r.score.rationale,
-          risks: r.score.risks,
         }
       : null,
     feas: r.feas || null,
