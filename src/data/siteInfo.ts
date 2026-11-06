@@ -4,6 +4,8 @@ export const SITE_NAME = 'HypoExplorer';
 export const AUTHOR_NAME = 'Wenyuan He';
 export const AUTHOR_EMAIL = 'wenyuan.he@mail.utoronto.ca';
 export const AUTHOR_BIO = 'Wenyuan He created HypoExplorer and holds a PhD from the University of Toronto.';
+/** People credited alongside the author, on the About page and in CITATION.cff. */
+export const CONTRIBUTOR_NAMES: readonly string[] = ['Helene Li'];
 export const BETA_NOTICE = 'HypoExplorer is in beta testing.';
 /**
  * Zenodo DOI of the full-dataset agent export (`pnpm run build:agent-export`),

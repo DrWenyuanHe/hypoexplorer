@@ -6,7 +6,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { datasetsByCategory, listDatasets } from '../../src/data/datasets';
 import {
-  AUTHOR_BIO, AUTHOR_EMAIL, AUTHOR_NAME, BETA_NOTICE, SITE_NAME, SITE_URL,
+  AUTHOR_BIO, AUTHOR_EMAIL, AUTHOR_NAME, BETA_NOTICE, CONTRIBUTOR_NAMES, SITE_NAME, SITE_URL,
 } from '../../src/data/siteInfo';
 import { datasetExternalLinks, datasetPmid, repositoryName } from '../../src/utils/datasetLinks';
 import { upstreamDisplay, upstreamProcessingFor } from '../../src/data/upstreamProcessing';
@@ -298,12 +298,14 @@ export function renderAboutPage(): string {
     alumniOf: { '@type': 'CollegeOrUniversity', name: 'University of Toronto' },
   };
   return page({ title: `About ${SITE_NAME} | ${AUTHOR_NAME}`, description: `${SITE_NAME} is a hypothalamus transcriptomics explorer by ${AUTHOR_NAME}, who holds a PhD from the University of Toronto. The app is in beta testing.`, path: '/about/', section: 'about', schema: [
-    { '@type': 'AboutPage', '@id': `${SITE_URL}/about/#page`, url: `${SITE_URL}/about/`, name: `About ${SITE_NAME}`, description: AUTHOR_BIO, mainEntity: { '@id': person['@id'] } },
+    { '@type': 'AboutPage', '@id': `${SITE_URL}/about/#page`, url: `${SITE_URL}/about/`, name: `About ${SITE_NAME}`, description: AUTHOR_BIO, mainEntity: { '@id': person['@id'] },
+      contributor: CONTRIBUTOR_NAMES.map((name) => ({ '@type': 'Person', name })) },
     person, breadcrumbs([{ name: 'About', path: '/about/' }]),
   ], body: `<div class="about"><div class="breadcrumbs"><a href="/">Home</a> / About</div><div class="eyebrow">About the project</div><h1>About ${SITE_NAME}</h1>
 <p class="intro">${SITE_NAME} lets you inspect gene expression, differential expression and pathway enrichment in public hypothalamus datasets through your browser.</p>
 <section class="panel"><h2>The study collection</h2><p>The datasets cover multiple species, brain regions and experimental conditions. Each study page links the comparisons in the app to the original source records.</p><p>Browse the <a href="/studies/">study collection</a> for repository accessions and source publications, or use the <a href="/#/library">dataset library</a> to find data by organism, brain region and assay.</p></section>
 <section class="panel"><div class="eyebrow">Author</div><h2 class="author-name">${escapeHtml(AUTHOR_NAME)}</h2><p>${escapeHtml(AUTHOR_BIO)}</p><p>Send questions, corrections or beta feedback to:</p><p class="contact"><a href="mailto:${escapeHtml(AUTHOR_EMAIL)}">${escapeHtml(AUTHOR_EMAIL)}</a></p></section>
+<section class="panel"><div class="eyebrow">Contributors</div><p>${CONTRIBUTOR_NAMES.map(escapeHtml).join(', ')}</p></section>
 <section class="panel"><h2>Beta testing</h2><p>${escapeHtml(BETA_NOTICE)} Features, dataset coverage and analyses may change.</p><p>When reporting a problem, include the dataset accession, the comparison you were viewing and the steps needed to reproduce it.</p></section>
 <section class="panel"><h2>Data sources and attribution</h2><p>The original researchers produced the study data and deposited them in public repositories. ${SITE_NAME} displays selected analyses, with source links and study-specific caveats.</p><p>When using a dataset in research, cite the original publication and repository record, and review the methods for the selected analysis.</p></section></div>` });
 }

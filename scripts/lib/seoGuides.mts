@@ -2,7 +2,7 @@
 // Avoid importing the HTML renderer here: it consumes these document bodies.
 import { listDatasets } from '../../src/data/datasets';
 import { QUALITY_STATUS } from '../../src/data/datasetQualityR460';
-import { AUTHOR_BIO, AUTHOR_EMAIL, AUTHOR_NAME, DATA_EXPORT_DOI, SITE_NAME, SITE_URL, studyPageHref } from '../../src/data/siteInfo';
+import { AUTHOR_BIO, AUTHOR_EMAIL, AUTHOR_NAME, CONTRIBUTOR_NAMES, DATA_EXPORT_DOI, SITE_NAME, SITE_URL, studyPageHref } from '../../src/data/siteInfo';
 import sourceMetadata from '../../data/seo/studySources.json';
 
 export interface GuideDocument {
@@ -141,9 +141,9 @@ ${dataExportParagraph()}
 <section class="panel"><h2>What to cite</h2><ol>
 <li><strong>Original publication.</strong> Cite the source article using its authors, title and DOI or PMID. The <a href="/studies/">study overview pages</a> link to verified publication records where available. Retrieve the final journal formatting from the publisher or PubMed.</li>
 <li><strong>Deposited dataset.</strong> Include the repository name and accession, such as a GEO series number, plus its source-record link. If a deposit has no linked paper, cite the deposit without inventing a publication.</li>
-<li><strong>Interface and selected analysis.</strong> Credit ${escapeHtml(AUTHOR_NAME)} as the author of ${escapeHtml(SITE_NAME)}. Include the study overview URL and your access date. State the comparison, track or population, relevant settings and any exported data or figure you used.</li></ol>
+<li><strong>Interface and selected analysis.</strong> Credit ${escapeHtml([AUTHOR_NAME, ...CONTRIBUTOR_NAMES].join(' and '))} as the authors of ${escapeHtml(SITE_NAME)}. Include the study overview URL and your access date. State the comparison, track or population, relevant settings and any exported data or figure you used.</li></ol>
 <p>The <a href="/about/">About page</a> has the app author's biography and contact details.</p></section>
-<section class="panel"><h2>Suggested interface reference</h2><p class="note">He, Wenyuan. <em>${escapeHtml(SITE_NAME)}</em> [web application; beta]. <a href="${escapeHtml(SITE_URL)}">${escapeHtml(SITE_URL)}</a>. Accessed [your actual access date].</p>
+<section class="panel"><h2>Suggested interface reference</h2><p class="note">He, Wenyuan${CONTRIBUTOR_NAMES.map((name) => `, and ${escapeHtml(name)}`).join('')}. <em>${escapeHtml(SITE_NAME)}</em> [web application; beta]. <a href="${escapeHtml(SITE_URL)}">${escapeHtml(SITE_URL)}</a>. Accessed [your actual access date].</p>
 <p>Replace the access-date placeholder with the date you used the app. Download the <a href="/CITATION.cff">software citation file</a> and save the <a href="/release.json">release metadata</a> with your results. Record the app version, full release identifier, source fingerprint and data build identifiers supplied in your export. The source fingerprint identifies working-tree builds too. This reference cites the website, not a peer-reviewed software paper. Do not assign an original study's DOI to ${escapeHtml(SITE_NAME)}.</p>
 <p>The <a href="https://github.com/DrWenyuanHe/hypoexplorer">source repository</a> contains the release packaging command and checksums. A public archive DOI has not yet been assigned; until an immutable archive is deposited, retain the exported result files and release metadata.</p></section>
 <section class="panel"><h2>Source citation examples</h2>${publicationExample('mouse_hypo_hfd_gse236077')}${publicationExample('macaque_snrna')}</section>
