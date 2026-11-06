@@ -125,7 +125,11 @@ export function externalValueFile(bucket: number): string {
   return `values/v${String(bucket).padStart(4, '0')}.json`;
 }
 
-/** Every lookup key a feature answers to: its symbol, ID and unversioned Ensembl ID. */
+/**
+ * Every lookup key a feature answers to: its symbol, ID and unversioned Ensembl ID.
+ *
+ * @public Used by the atlas builder in scripts/lib/externalReference.mts.
+ */
 export function externalFeatureKeys(entry: Pick<ExternalLookupEntry, 'id' | 'symbol' | 'ensemblId'>): string[] {
   return [...new Set([entry.symbol, entry.id, entry.ensemblId].filter(Boolean).map(externalKey))];
 }

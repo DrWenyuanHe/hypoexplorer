@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "bceaf6d828dbebc0f43fd6ab3ae104c3a394c25c072149898575dfa2b99426e3",
-  "outcome": "no-impact",
-  "explanation": "Credits and public presentation only: src/data/siteInfo.ts adds CONTRIBUTOR_NAMES (Helene Li), which the About page and how-to-cite page render, and CITATION.cff lists her as a second author. The public-export overlay replaces the README preamble with a full public README, docs/DEVELOPMENT.md and two screenshots. No registry entry, loader, data product, evidence record, QC policy or check changes.",
+  "fingerprint": "4cc6c338ba1948f2a83fb412d9e10bf34910d3456fb7d1d70e87ed0ac27c0e13",
+  "outcome": "updated",
+  "explanation": "Merged main brings in the contributor credit (CONTRIBUTOR_NAMES in siteInfo.ts, CITATION.cff) and the public-export README overlay. This branch fixes the knip gate: knip.json configures workspaces[\".\"] with src/main.tsx as an entry, ignores vendor/, Rscript and @typescript/typescript6, and excludes the sealed datasetQuality.ts from export findings. PROJECT_GUIDANCE.md now explains the workspaces[\".\"] placement, the src/ project scope, the @public convention for script-only exports and the datasetQuality.ts exclusion. No dependency, build or private CI workflow changes.",
   "references": [
-    "src/data/siteInfo.ts",
-    "scripts/lib/seoPages.mts",
+    "knip.json",
+    "docs/PROJECT_GUIDANCE.md",
     "scripts/public-export/README.md"
   ]
 }
