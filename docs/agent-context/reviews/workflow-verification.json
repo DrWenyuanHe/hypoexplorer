@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "dc89863079318e1af41ddf05f587c0292c12366bd86fe6ce50fce2633ebaa240",
+  "fingerprint": "cbbd2668e0a4064c2419dbef8132201f54dfb686da0644369c550ed77364aceb",
   "outcome": "no-impact",
-  "explanation": "Public-repository CI only: the exporter overlay now splits the public Application workflow into lint/typecheck, unit-test and build/verify:release/browser-smoke jobs and adds a Security workflow (CodeQL, dependency review) with a CodeQL config ignoring vendor/. The results smoke spec waits up to 30 s for the first study bundle, which the public CI fetches from R2. No application code, registry entry, data product, evidence record, QC policy or private CI workflow changes.",
+  "explanation": "Credits and public presentation only: src/data/siteInfo.ts adds CONTRIBUTOR_NAMES (Helene Li), which the About page and how-to-cite page render, and CITATION.cff lists her as a second author. The public-export overlay replaces the README preamble with a full public README, docs/DEVELOPMENT.md and two screenshots. No registry entry, loader, data product, evidence record, QC policy or check changes.",
   "references": [
-    "scripts/public-export/README.md",
-    "scripts/smoke/results.smoke.spec.ts",
-    "docs/agent-context/workflows.md"
+    "src/data/siteInfo.ts",
+    "scripts/lib/seoPages.mts",
+    "scripts/public-export/README.md"
   ]
 }

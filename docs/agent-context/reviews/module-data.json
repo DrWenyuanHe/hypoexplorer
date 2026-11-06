@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "46201ebd4b033844adad1fdf811da2cd37bd144f1d82c63befe77f3865b1281a",
-  "outcome": "updated",
-  "explanation": "From main: internalQc.ts imports schemaVersion, policyVersion and records from the internal QC ledger by name instead of reading them off the default object. Rolldown tree-shakes unused named JSON exports, so the unused inputs fingerprint table stays out of the evidence chunk. Validation, records and badges are unchanged; build_quality_report_r460 and the sealed pipeline-separation audit still pass. From this branch: siteInfo.ts gains DATA_EXPORT_DOI, the Zenodo DOI of the full-dataset agent export, null until the archive is deposited. No registry, loader, contrast or index behaviour changes; the export reuses rawTrack strict readers and the contrast helpers read-only.",
+  "fingerprint": "2feb8482a6cbd93f2293f332a5b129217ccc01ccb1c43b709cefad7c6302e839",
+  "outcome": "no-impact",
+  "explanation": "Credits and public presentation only: src/data/siteInfo.ts adds CONTRIBUTOR_NAMES (Helene Li), which the About page and how-to-cite page render, and CITATION.cff lists her as a second author. The public-export overlay replaces the README preamble with a full public README, docs/DEVELOPMENT.md and two screenshots. No registry entry, loader, data product, evidence record, QC policy or check changes.",
   "references": [
-    "src/data/internalQc.ts",
-    "vite.config.ts",
-    "data/quality/pipeline-separation-2026-09-11/audit.mts",
     "src/data/siteInfo.ts",
-    "docs/AGENT_EXPORT.md"
+    "scripts/lib/seoPages.mts",
+    "scripts/public-export/README.md"
   ]
 }
