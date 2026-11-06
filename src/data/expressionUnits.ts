@@ -26,8 +26,3 @@ export function parseLog2WithOffset(unit: string | null | undefined): { base: st
   const offset = Number(match[2]);
   return Number.isFinite(offset) ? { base: match[1], offset } : null;
 }
-
-/** True for either counts-per-million label (TMM-normalized or plain). */
-export function isCpmUnit(unit: string | null | undefined): boolean {
-  return unit === CPM_TMM_UNIT || unit === LEGACY_CPM_UNIT;
-}

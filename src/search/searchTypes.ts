@@ -8,8 +8,6 @@
 /** The results page's breakdown. 'all' is the default. */
 export type SearchFilter = 'all' | 'gene' | 'pathway';
 
-export const SEARCH_FILTERS: readonly SearchFilter[] = ['all', 'gene', 'pathway'];
-
 /** One gene the corpus stores, with the names a visitor might search it by. */
 export interface GeneEntry {
   /** UPPERCASE stored symbol: the key the cross-dataset query index uses. */

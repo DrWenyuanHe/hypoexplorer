@@ -48,9 +48,6 @@ export const AUTHOR_VALIDATION_STATUS = {
 } as const;
 
 export type AuthorValidationStatus = keyof typeof AUTHOR_VALIDATION_STATUS;
-export const AUTHOR_VALIDATION_STATUS_KEYS = Object.keys(
-  AUTHOR_VALIDATION_STATUS,
-) as AuthorValidationStatus[];
 
 export type AuthorComparisonLevel =
   | 'direct'
@@ -252,10 +249,6 @@ export function requireAuthorValidation(datasetId: string): AuthorValidationReco
   const record = getAuthorValidation(datasetId);
   if (!record) throw new Error(`[authorValidation] no validation record for ${datasetId}`);
   return record;
-}
-
-export function authorValidationStatusLabel(status: AuthorValidationStatus): string {
-  return AUTHOR_VALIDATION_STATUS[status].label;
 }
 
 export function paperAccessLabel(access: AuthorPaperAccess): string {

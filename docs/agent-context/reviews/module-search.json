@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "6f184e2524c1ec0179e2007f205a12546b6a6f93295a464b40fb14d73229ad0f",
-  "outcome": "updated",
-  "explanation": "GeneExpressionCards becomes one \"Where <gene> is expressed\" section: a mouse column (NeuroSeq populations and the reserved mouse single-cell slot) beside a human column (GTEx, Allen, HPA subregions and HPA snRNA-seq clusters), separated by a hairline, with one Open expression survey button in the section footer. ReferenceAtlasSection now renders the whole human column from one loadReferenceAtlases call, so HumanClustersSection is gone and BaselineSection no longer takes onOpenExpression. Sources share one SourceTitle anatomy; search.css replaces portal-ref-grid and portal-grid--three with gene-expr rules that stack the columns at 900px and the human sources at 600px. Loaders and values are unchanged. The Allen block becomes a table with Probe, Median and Donor range headers and a plain note on what a probe is and what log2 signal means; its values are unchanged. The Allen note says each donor mean is over that donor's hypothalamic samples.",
+  "fingerprint": "f072c4dd515b8cc2c9b2eb62aef6ffded60b14c437a6f9cab8dd862a75206455",
+  "outcome": "no-impact",
+  "explanation": "Dead-code removal (cleanup B1): unused exports knip reported are deleted, with no caller anywhere in src, scripts, data or tests. searchTypes.ts drops the unused SEARCH_FILTERS list; the SearchFilter type that the router and results page use is unchanged.",
   "references": [
-    "src/search/portalCards.tsx",
-    "src/search/search.css",
-    "docs/EXPRESSION_SURVEY.md"
+    "src/search/searchTypes.ts",
+    "src/search/SearchPage.tsx"
   ]
 }
