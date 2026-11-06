@@ -44,6 +44,8 @@ SheetJS (`xlsx`) is installed from the SheetJS CDN tarball, because npm stopped 
 
 `tsc` is TypeScript 7, the native compiler, which has no JavaScript compiler API. Code that parses TypeScript in Node (`scripts/agent-context/source.mjs`) imports `@typescript/typescript6` instead of `typescript`; knip 6 parses with oxc and needs neither.
 
+`knip.json` configures the root workspace under `workspaces["."]`, because the pnpm workspace makes knip ignore top-level `entry` and `project`. Its project scope is `src/`, so an export that only `scripts/` imports carries a `/** @public */` tag. `vendor/` is ignored, and the sealed `datasetQuality.ts` is excluded from export findings because its bytes are pinned by the reader review. `pnpm run deadcode` passes only when no unused file, dependency or export remains.
+
 Both `tsc` configs are incremental. Their build info lives in the ignored `.tmp/tsc/`, so a repeated `tsc -p ... --noEmit` re-checks only what changed; delete that directory to force a full check.
 
 Biome force-ignores (`!!`) `data/`, `geo_replication/`, `public/`, `.agents/`, `.claude/` and `.worktrees/`. These source evidence, tool and checkout trees are outside the lint scope; without the double bang Biome's scanner can still traverse them.

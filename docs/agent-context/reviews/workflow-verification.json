@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "cbbd2668e0a4064c2419dbef8132201f54dfb686da0644369c550ed77364aceb",
+  "fingerprint": "df6fb64390dec72865b2c6eb7c23b48937d992723e10911f7b214ec31cb90c80",
   "outcome": "no-impact",
-  "explanation": "Credits and public presentation only: src/data/siteInfo.ts adds CONTRIBUTOR_NAMES (Helene Li), which the About page and how-to-cite page render, and CITATION.cff lists her as a second author. The public-export overlay replaces the README preamble with a full public README, docs/DEVELOPMENT.md and two screenshots. No registry entry, loader, data product, evidence record, QC policy or check changes.",
+  "explanation": "Merged main brings in the contributor credit (CONTRIBUTOR_NAMES in siteInfo.ts, CITATION.cff) and the public-export README overlay. This branch fixes the knip gate: knip.json configures workspaces[\".\"] with src/main.tsx as an entry, ignores vendor/, Rscript and @typescript/typescript6, and excludes the sealed datasetQuality.ts from export findings. The exclusion keeps datasetQuality.ts byte-identical to the sha256 in the pipeline-separation reader review; no evidence record, QC policy or validation status changes.",
   "references": [
-    "src/data/siteInfo.ts",
-    "scripts/lib/seoPages.mts",
-    "scripts/public-export/README.md"
+    "knip.json",
+    "src/data/datasetQuality.ts",
+    "data/author-validation/README.md"
   ]
 }

@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "module-expression-survey",
-  "fingerprint": "c3c67b0b8a77f536a5006bbae0cc47934b52679f6466316652187cffd579a490",
-  "outcome": "updated",
-  "explanation": "The reader accepts the Allen provider and probe-level sources: one result per probe carrying its probe name, several probes of one gene are not an ambiguity, and negative values pass only on a log-scale unit. The view adds a probe column to CSV exports, probe-keyed panels, matrix cells and ranked rows, groups the matched note per query, and names Allen in the reference-atlas choice and caption.",
+  "fingerprint": "a6cf205ac87c08c1330172fcbb3695160e06584aba3d71223fd6461638f8c0a9",
+  "outcome": "no-impact",
+  "explanation": "Dead-code gate fix: knip.json now configures the root workspace under workspaces[\".\"] with src/main.tsx as an entry, ignores vendor/, the Rscript binary and @typescript/typescript6, and excludes the sealed datasetQuality.ts from export findings. externalFeatureKeys in externalReferenceFormat.ts gains a /** @public */ JSDoc tag because only the atlas builder scripts/lib/externalReference.mts imports it. Its behaviour and the shard format are unchanged.",
   "references": [
-    "src/expression-survey/externalReference.ts",
     "src/expression-survey/externalReferenceFormat.ts",
-    "src/expression-survey/ExpressionSurveyView.tsx",
-    "docs/EXPRESSION_SURVEY.md"
+    "scripts/lib/externalReference.mts",
+    "knip.json"
   ]
 }
