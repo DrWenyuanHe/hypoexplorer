@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "84bae5f5afc59edb87677330d886be6b60620c43cd2d8ccdbe7fae8b86c47669",
+  "fingerprint": "6aca24ebfba3aac4819b241a0ae7bc918f8c85934932956eaa184c03d09fd5ba",
   "outcome": "no-impact",
-  "explanation": "Doc and comment drift only (cleanup B3); no code path, export, route or data changes. README.md drops the dataset-selector and tile wording for the search-first hub, gives the cross-dataset routes instead of \"Explore all\", and lists search/, expression-survey/, local-datasets/ and verification/ in the source tree. TODOS.md notes loadPopulation is now ensureTrack. The tracker catalog generator banner and both generated headers (reverseIndex.generated.js, public/tracker/catalog.js) now name build_tracker_catalog.mts instead of a nonexistent .mjs; their quality-evidence pins were already historical.",
+  "explanation": "Merged main brings in the B3 wording fixes (README routes and source tree, TODOS ensureTrack note, tracker banner). This branch removes the unused fonts (cleanup B4): IBM Plex Sans (6 WOFF2 files, 18 faces in public/fonts/ibm-plex.css) and Source Serif 4 (6 WOFF2 files, 6 faces in source.css, its OFL copy and .gitattributes eol pin). No page, stylesheet or script names either family; ibm-plex.css stays for IBM Plex Mono and Source Sans 3 stays as the Hanken fallback. Font manifests record the removal with unchanged hashes for the remaining files.",
   "references": [
-    "README.md",
-    "TODOS.md",
-    "scripts/build_tracker_catalog.mts"
+    ".gitattributes",
+    "brand/README.md",
+    "README.md"
   ]
 }
