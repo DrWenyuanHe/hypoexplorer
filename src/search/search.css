@@ -30,9 +30,7 @@
 .portal-head { display: grid; gap: 4px; margin-bottom: 16px; }
 .portal-kind { display: inline-flex; align-items: center; gap: 10px; font-size: var(--fs-10); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
 .portal-kind .db-badge { letter-spacing: normal; text-transform: none; font-weight: 500; }
-.portal-symbol { margin: 0; font-family: var(--font-mono); font-size: var(--fs-32); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: var(--text-primary); }
 .portal-title { margin: 0; font-family: var(--font-heading); font-size: var(--fs-24); font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; color: var(--text-primary); overflow-wrap: anywhere; }
-.portal-name { margin: 0; font-size: var(--fs-16); color: var(--text-mono); }
 .portal-id { margin: 0; font-family: var(--font-mono); font-size: var(--fs-12); color: var(--text-muted); overflow-wrap: anywhere; }
 
 .portal-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
@@ -203,7 +201,6 @@
 
 @media (max-width: 600px) {
   .search-tabs { gap: 16px; }
-  .portal-symbol { font-size: var(--fs-28); }
   .portal-title { font-size: var(--fs-18); }
   .portal-card { padding: 12px; }
   .search-row { grid-template-columns: minmax(0, 1fr) auto; }

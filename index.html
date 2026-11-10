@@ -47,11 +47,7 @@
       --color-normal: #4C78A8;
       --color-obese: #E45756;
       --color-selected: #F28E2B;
-      --color-normal-dot: #2F5D8A;
-      --color-obese-dot: #B63A39;
       --color-neutral: #aaaaaa;
-      --color-up: #E45756;
-      --color-down: #4C78A8;
 
       /* ── Design tokens (additive) ───────────────────────────────── */
       /* Spacing scale (4px base) */
@@ -79,11 +75,9 @@
       --r-sm: 3px;
       --r-md: 4px;
       --r-lg: 6px;
-      --r-xl: 12px;
 
       /* Elevation */
       --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.10);
-      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
       --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.25);
 
       /* Motion */
@@ -141,55 +135,6 @@
     #skeleton h1 { font-size: clamp(28px, 5vw, 44px); line-height: 1.2; margin-bottom: 20px; }
     #skeleton h2 { font-size: 22px; margin: 28px 0 12px; }
     #skeleton p { margin-bottom: 16px; }
-    .sk-header {
-      height: 38px;
-      background: var(--bg-panel);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      padding: 0 16px;
-      gap: 16px;
-    }
-    .sk-bar {
-      background: var(--border);
-      border-radius: 3px;
-      animation: sk-pulse 1.5s ease-in-out infinite;
-    }
-    .sk-tabs {
-      height: 36px;
-      background: var(--bg-panel);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: flex-end;
-      padding: 0 16px;
-      gap: 8px;
-    }
-    .sk-tab {
-      width: 120px;
-      height: 28px;
-      background: var(--border);
-      border-radius: 3px 3px 0 0;
-      animation: sk-pulse 1.5s ease-in-out infinite;
-    }
-    .sk-body {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      padding: 12px 16px;
-      gap: 12px;
-    }
-    .sk-search-row {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-    .sk-volcano {
-      flex: 1;
-      background: var(--bg-panel);
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      animation: sk-pulse 1.5s ease-in-out infinite;
-    }
     @keyframes sk-pulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.5; }
@@ -291,12 +236,7 @@
     /* Entrance animations — opt-in, gated on reduced-motion preference */
     @media (prefers-reduced-motion: no-preference) {
       .fade-in { animation: fade-in var(--t-med) var(--ease); }
-      .slide-in { animation: slide-in var(--t-med) var(--ease); }
       @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
-      @keyframes slide-in {
-        from { opacity: 0; transform: translateY(6px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
       /* Modal open: backdrop fades, panel rises + settles */
       .modal-backdrop { animation: modal-fade var(--t-med) var(--ease); }
       .modal-panel { animation: modal-pop var(--t-med) var(--ease); }
@@ -371,8 +311,6 @@
     .qsearch-examples .lbl { font-size: var(--fs-11); color: var(--text-muted); }
     .qsearch-chip { font-family: var(--font-mono); font-size: var(--fs-12); color: var(--accent); background: var(--row-selected); border: 1px solid transparent; border-radius: var(--r-md); padding: 4px 10px; cursor: pointer; }
     .qsearch-chip:hover { background: var(--row-selected); border-color: var(--accent); }
-    .qsearch-scope { margin-top: var(--sp-3); display: flex; align-items: center; gap: var(--sp-2); flex-wrap: wrap; }
-    .qsearch-scope .lbl { font-size: var(--fs-10); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-right: 2px; }
     /* Study categories and evidence filters share selectable cards. */
     .qsearch-presets { margin: var(--sp-4) 0 0; padding: 0; min-width: 0; border: 0; }
     .qsearch-presets .lbl { display: block; font-size: var(--fs-10); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }

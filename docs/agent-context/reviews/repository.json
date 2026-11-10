@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "4cc6c338ba1948f2a83fb412d9e10bf34910d3456fb7d1d70e87ed0ac27c0e13",
-  "outcome": "updated",
-  "explanation": "Merged main brings in the contributor credit (CONTRIBUTOR_NAMES in siteInfo.ts, CITATION.cff) and the public-export README overlay. This branch fixes the knip gate: knip.json configures workspaces[\".\"] with src/main.tsx as an entry, ignores vendor/, Rscript and @typescript/typescript6, and excludes the sealed datasetQuality.ts from export findings. PROJECT_GUIDANCE.md now explains the workspaces[\".\"] placement, the src/ project scope, the @public convention for script-only exports and the datasetQuality.ts exclusion. No dependency, build or private CI workflow changes.",
+  "fingerprint": "5dfb947e8a0cfaa5e838b0c67ce750711db3c1681c5ee2b51f4a3c317ba0d592",
+  "outcome": "no-impact",
+  "explanation": "Dead CSS removal (cleanup B2): rules and custom properties with no remaining selector, class name or var() reference anywhere in src, scripts or public are deleted. index.html loses the .sk-header through .sk-volcano skeleton rules (their markup went in d4ad57dd), .slide-in with its keyframes, .qsearch-scope, and the tokens --color-normal-dot, --color-obese-dot, --color-up, --color-down, --r-xl and --shadow-md. @keyframes sk-pulse stays because .skeleton uses it.",
   "references": [
-    "knip.json",
-    "docs/PROJECT_GUIDANCE.md",
-    "scripts/public-export/README.md"
+    "index.html",
+    "src/common/Skeleton.tsx",
+    "DESIGN.md"
   ]
 }
