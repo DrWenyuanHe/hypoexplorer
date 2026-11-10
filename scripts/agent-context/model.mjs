@@ -28,7 +28,7 @@ export function isSource(name) {
   // Data products (CSV/TSV, bundles, archives) have their own scientific checks.
   // Include repository-owned analysis code/docs, excluding downloaded author code.
   if (/(?:^|\/)(?:node_modules|__pycache__|archive|downloads|extracted-source|runtime|region-code|author-code)\//.test(name)) return false;
-  if (/^(?:src|scripts|workers|docs|data|geo_replication|dataset-tracker|nar-research|\.github|\.agents|\.claude|\.codex)\//.test(name)) {
+  if (/^(?:src|scripts|workers|docs|data|geo_replication|nar-research|\.github|\.agents|\.claude|\.codex)\//.test(name)) {
     const ext = /\.(?:[cm]?[jt]sx?|md|sql|py|[rR]|ps1|ya?ml|toml|css|html|sh|jsonc?)$/.test(name);
     if (/^(?:data|geo_replication|nar-research)\//.test(name) && /\.json$/.test(name)) return false;
     return ext;

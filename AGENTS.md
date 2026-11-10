@@ -38,7 +38,6 @@ Directories:
 - `workers/`: Scheduled R2 spend guard for the data origin.
 - `cloudflare/`: Edge cache, WAF and rate-limit rule payloads for the data host.
 - `docs/`: Data contracts, runbooks and maintained context.
-- `dataset-tracker/`: Standalone tracker application.
 - `vendor/`: Pinned Claude SEO toolkit snapshot behind the project-local SEO skills.
 
 Source areas:

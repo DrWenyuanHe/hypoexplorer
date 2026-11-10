@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "84bae5f5afc59edb87677330d886be6b60620c43cd2d8ccdbe7fae8b86c47669",
-  "outcome": "no-impact",
-  "explanation": "Doc and comment drift only (cleanup B3); no code path, export, route or data changes. README.md drops the dataset-selector and tile wording for the search-first hub, gives the cross-dataset routes instead of \"Explore all\", and lists search/, expression-survey/, local-datasets/ and verification/ in the source tree. TODOS.md notes loadPopulation is now ensureTrack. The tracker catalog generator banner and both generated headers (reverseIndex.generated.js, public/tracker/catalog.js) now name build_tracker_catalog.mts instead of a nonexistent .mjs; their quality-evidence pins were already historical.",
+  "fingerprint": "f16a5383f15c855447519f0d757028c35dcdc8dbde54f520e2a856f9a369d2a4",
+  "outcome": "updated",
+  "explanation": "Standalone tracker removal (cleanup B5, owner-approved): the independent dataset-tracker/ Vite app is deleted. The integrated tracker under src/dataset-tracker/ (#/tracker) is unchanged and nothing imported the standalone app. pnpm-workspace.yaml drops its only package and pnpm-lock.yaml loses that importer; tsconfig.json, tsconfig.node.json, .gitattributes, the agent-context sparse checkout, the public-export allowlist, isSource in model.mjs, releaseBuild.mts and the agent-context catalog no longer name it. With no workspace package left, knip.json is flat again and PROJECT_GUIDANCE.md says so. brand/README.md, workflows.md and the font provenance roles drop the standalone-tracker wording. The public atlas fetch overlay now retries dropped connections and 429/5xx with backoff.",
   "references": [
-    "README.md",
-    "TODOS.md",
-    "scripts/build_tracker_catalog.mts"
+    "pnpm-workspace.yaml",
+    "knip.json",
+    "docs/PROJECT_GUIDANCE.md",
+    "scripts/agent-context/model.mjs"
   ]
 }

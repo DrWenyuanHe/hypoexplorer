@@ -23,15 +23,13 @@ The Manrope font and license are retained locally from [Google Fonts' Manrope di
 
 ### Interface typography
 
-The explorer, public documents and standalone tracker set all text in **Hanken Grotesk**: body text, controls and compact interface labels at weights 400–700, and page and section headings at **weight 600** with `letter-spacing: -0.01em`. Headings are distinguished by weight and size, not by a second family. Hanken Grotesk is the closest open-licence match to the calm interface grotesk of search tools such as Perplexity (whose own typeface is proprietary); it replaced Source Serif 4 headings and Source Sans 3 body text on 2026-09-30.
+The explorer and public documents set all text in **Hanken Grotesk**: body text, controls and compact interface labels at weights 400–700, and page and section headings at **weight 600** with `letter-spacing: -0.01em`. Headings are distinguished by weight and size, not by a second family. Hanken Grotesk is the closest open-licence match to the calm interface grotesk of search tools such as Perplexity (whose own typeface is proprietary); it replaced Source Serif 4 headings and Source Sans 3 body text on 2026-09-30.
 
 Hanken Grotesk has no Greek or Cyrillic. It also lacks a few symbols the interface uses, such as some arrows. **Source Sans 3** therefore stays second in the stack and supplies those characters, for example the α in TNF-α; its Unicode-range subsets download only when such characters appear on a page, which in practice includes its Latin subset (about 28 KB) on most views.
 
 Explicit gene symbols, accessions, numerical readouts and counts are set in **Geist Mono** (weights 400–600), the monospace companion to the grotesk; it replaced IBM Plex Mono on 2026-09-30, and IBM Plex Mono stays second in the stack for any glyph Geist Mono lacks. Geist Mono is served from `public/fonts/geist-mono/` with its SIL Open Font License and [provenance](../public/fonts/geist-mono/provenance.json); the shared stack is `--font-mono` in `public/fonts/typography.css` and `FONT_MONO` in `src/styles/constants.ts`. The approved raster logo is unchanged, and Manrope remains the companion face for brand lettering only; do not use Manrope or Hanken Grotesk to redraw the logo.
 
 Shared CSS stacks and heading defaults live in `public/fonts/typography.css`; React inline styles use `FONT_HEADING` and `FONT_SANS` from `src/styles/constants.ts`. Hanken Grotesk subsets are served locally from `public/fonts/hanken/`, retrieved from Google Fonts on 2026-09-30, with the SIL Open Font License and a source URL/SHA-256 record in [its provenance](../public/fonts/hanken/provenance.json). The Source Sans 3 fallback subsets remain in `public/fonts/source/` with [their provenance](../public/fonts/source/provenance.json). All font-face declarations use `font-display: swap` and Unicode ranges so the browser requests only the subsets it needs.
-
-The standalone tracker bundles the same Geist Mono, Hanken Grotesk and Source font files through Vite and ships their license copies from `dataset-tracker/public/licenses/`.
 
 ## Palette and usage
 

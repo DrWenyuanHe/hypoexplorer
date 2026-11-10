@@ -1,22 +1,18 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "ignoreExportsUsedInFile": true,
+  "entry": [
+    "src/main.tsx",
+    "src/__tests__/**/*.test.{js,jsx,ts,tsx}"
+  ],
+  "project": [
+    "src/**/*.{js,jsx,ts,tsx}",
+    "!src/**/*.test.{js,jsx,ts,tsx}"
+  ],
   "ignore": ["vendor/**"],
   "ignoreBinaries": ["Rscript"],
+  "ignoreDependencies": ["@typescript/typescript6"],
   "ignoreIssues": {
     "src/data/datasetQuality.ts": ["exports"]
-  },
-  "workspaces": {
-    ".": {
-      "entry": [
-        "src/main.tsx",
-        "src/__tests__/**/*.test.{js,jsx,ts,tsx}"
-      ],
-      "project": [
-        "src/**/*.{js,jsx,ts,tsx}",
-        "!src/**/*.test.{js,jsx,ts,tsx}"
-      ],
-      "ignoreDependencies": ["@typescript/typescript6"]
-    }
   }
 }

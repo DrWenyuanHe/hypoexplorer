@@ -23,7 +23,7 @@ export function isReleaseSource(path: string): boolean {
   if (/^geo_replication\/config\/.+\.(?:json|tsv)$/.test(path)) return true;
   // Data bundles and immutable indexes have their own identities and archive.
   if (/^public\/(?!datasets\/|query\/)/.test(path)) return true;
-  return /^(?:src|scripts|e2e|dataset-tracker|brand|geo_replication\/scripts)\/.+\.(?:ts|tsx|mts|mjs|js|jsx|css|json|svg|R|py|md|txt|html)$/.test(path);
+  return /^(?:src|scripts|e2e|brand|geo_replication\/scripts)\/.+\.(?:ts|tsx|mts|mjs|js|jsx|css|json|svg|R|py|md|txt|html)$/.test(path);
 }
 
 function git(root: string, args: string[]): string {

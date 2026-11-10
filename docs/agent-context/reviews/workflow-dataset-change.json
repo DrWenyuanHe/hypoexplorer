@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "766845e44119fadfa07ccb2403b40357d1fb57cbedc5131e38647b893a6a0cf7",
+  "fingerprint": "25177a3bde9512156c6983b2be36199ca689837b336af2b6335ddf8c3aa60c95",
   "outcome": "no-impact",
-  "explanation": "Doc and comment drift only (cleanup B3); no code path, export, route or data changes. The tracker catalog generator banner and both generated headers (reverseIndex.generated.js, public/tracker/catalog.js) now name build_tracker_catalog.mts instead of a nonexistent .mjs; their quality-evidence pins were already historical. No registry entry, sidecar, bundle builder or dataset contract changes.",
+  "explanation": "Standalone tracker removal (cleanup B5, owner-approved): the independent dataset-tracker/ Vite app is deleted. The integrated tracker under src/dataset-tracker/ (#/tracker) is unchanged and nothing imported the standalone app. No registry entry, sidecar, bundle builder, tracker catalog builder or dataset contract changes; build_tracker_catalog.mts and the integrated tracker still read the same catalog.",
   "references": [
     "scripts/build_tracker_catalog.mts",
+    "src/dataset-tracker/DatasetTrackerView.tsx",
     "docs/DATASET_CONTRACT.md"
   ]
 }
