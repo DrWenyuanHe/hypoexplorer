@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-dataset-tracker",
-  "fingerprint": "b4305ab1de9fa17e64c465d3fde59d8db5d6b5c64c8acab2f1c2080c93cf7af9",
+  "fingerprint": "947037b17e4a085e9e5b114e32a77f7a43b4454f0c8e92038370eb0e7e0dd3b8",
   "outcome": "no-impact",
-  "explanation": "trimRecord no longer copies the survey score rationale and risks into the published tracker catalog, because that prose is internal publication strategy; TrackerDetail now shows only the fit score and recommendation line for scored candidates. Catalog loading, integration matching, filters and the view structure are unchanged.",
+  "explanation": "Dead CSS removal (cleanup B2): rules and custom properties with no remaining selector, class name or var() reference anywhere in src, scripts or public are deleted. tracker.css drops the unused --t-panel and --t-panel2 tokens; every other tracker token and rule is unchanged, and the tracker view renders the same in the dev preview.",
   "references": [
-    "scripts/lib/trackerIntegration.mts",
-    "src/dataset-tracker/TrackerDetail.tsx",
-    "scripts/build_tracker_catalog.mts"
+    "src/dataset-tracker/tracker.css",
+    "src/dataset-tracker/DatasetTrackerView.tsx"
   ]
 }

@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "f072c4dd515b8cc2c9b2eb62aef6ffded60b14c437a6f9cab8dd862a75206455",
+  "fingerprint": "b8956b029ee1eaee690a5fef02489799b4cf9eb745bd1443ab1c34d01dc5d2b2",
   "outcome": "no-impact",
-  "explanation": "Dead-code removal (cleanup B1): unused exports knip reported are deleted, with no caller anywhere in src, scripts, data or tests. searchTypes.ts drops the unused SEARCH_FILTERS list; the SearchFilter type that the router and results page use is unchanged.",
+  "explanation": "Dead CSS removal (cleanup B2): rules and custom properties with no remaining selector, class name or var() reference anywhere in src, scripts or public are deleted. search.css drops .portal-symbol and .portal-name, including the 600px override; the portal head now renders only .portal-kind, .portal-title and .portal-id, which are unchanged.",
   "references": [
-    "src/search/searchTypes.ts",
+    "src/search/search.css",
     "src/search/SearchPage.tsx"
   ]
 }
