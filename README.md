@@ -71,8 +71,11 @@ pnpm dev                    # http://localhost:5173
 ```
 
 The dataset bundles (about 1.2 GB) are not in this repository. The app reads them
-from `https://data.hypoexplorer.com`. [The developer guide](docs/DEVELOPMENT.md)
-covers configuration, the checks CI runs and what each folder holds.
+from `https://data.hypoexplorer.com`. To run without it, `pnpm run data:offline`
+restores them from the [data release](https://github.com/DrWenyuanHe/hypoexplorer-data)
+and `pnpm run dev:offline` serves them locally; that copy has no KEGG results.
+[The developer guide](docs/DEVELOPMENT.md) covers configuration, the checks CI
+runs and what each folder holds.
 
 ## What is in this repository
 
