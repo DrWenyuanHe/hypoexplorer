@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "6aca24ebfba3aac4819b241a0ae7bc918f8c85934932956eaa184c03d09fd5ba",
-  "outcome": "no-impact",
-  "explanation": "Merged main brings in the B3 wording fixes (README routes and source tree, TODOS ensureTrack note, tracker banner). This branch removes the unused fonts (cleanup B4): IBM Plex Sans (6 WOFF2 files, 18 faces in public/fonts/ibm-plex.css) and Source Serif 4 (6 WOFF2 files, 6 faces in source.css, its OFL copy and .gitattributes eol pin). No page, stylesheet or script names either family; ibm-plex.css stays for IBM Plex Mono and Source Sans 3 stays as the Hanken fallback. Font manifests record the removal with unchanged hashes for the remaining files.",
+  "fingerprint": "f16a5383f15c855447519f0d757028c35dcdc8dbde54f520e2a856f9a369d2a4",
+  "outcome": "updated",
+  "explanation": "Standalone tracker removal (cleanup B5, owner-approved): the independent dataset-tracker/ Vite app is deleted. The integrated tracker under src/dataset-tracker/ (#/tracker) is unchanged and nothing imported the standalone app. pnpm-workspace.yaml drops its only package and pnpm-lock.yaml loses that importer; tsconfig.json, tsconfig.node.json, .gitattributes, the agent-context sparse checkout, the public-export allowlist, isSource in model.mjs, releaseBuild.mts and the agent-context catalog no longer name it. With no workspace package left, knip.json is flat again and PROJECT_GUIDANCE.md says so. brand/README.md, workflows.md and the font provenance roles drop the standalone-tracker wording. The public atlas fetch overlay now retries dropped connections and 429/5xx with backoff.",
   "references": [
-    ".gitattributes",
-    "brand/README.md",
-    "README.md"
+    "pnpm-workspace.yaml",
+    "knip.json",
+    "docs/PROJECT_GUIDANCE.md",
+    "scripts/agent-context/model.mjs"
   ]
 }

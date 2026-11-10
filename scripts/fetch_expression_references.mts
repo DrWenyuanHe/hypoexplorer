@@ -19,12 +19,29 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const app = (process.env.HYPOEXPLORER_APP_ORIGIN || 'https://hypoexplorer.com').replace(/\/+$/, '');
 const PROVIDERS = ['gtex', 'hpa', 'allen-human'];
 const CONCURRENCY = 16;
+const ATTEMPTS = 3;
 
+class HttpError extends Error {
+  constructor(url: string, readonly status: number) {
+    super(`${url}: HTTP ${status}`);
+  }
+}
+
+// One dropped connection (ECONNRESET, a socket closed mid-body) or a 429/5xx
+// must not fail a whole CI run over 8,200 files, so those are retried with
+// backoff. Other 4xx responses are real errors and fail at once.
 async function fetchBytes(relative: string): Promise<Buffer> {
+  const url = `${app}/expression/${relative}`;
   for (let attempt = 1; ; attempt++) {
-    const response = await fetch(`${app}/expression/${relative}`);
-    if (response.ok) return Buffer.from(await response.arrayBuffer());
-    if (attempt === 3 || response.status < 500) throw new Error(`${app}/expression/${relative}: HTTP ${response.status}`);
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new HttpError(url, response.status);
+      return Buffer.from(await response.arrayBuffer());
+    } catch (error) {
+      const retryable = !(error instanceof HttpError) || error.status === 429 || error.status >= 500;
+      if (!retryable || attempt === ATTEMPTS) throw error;
+      await new Promise((resolve) => setTimeout(resolve, 500 * 2 ** (attempt - 1)));
+    }
   }
 }
 

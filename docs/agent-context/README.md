@@ -60,7 +60,7 @@ overwrite unstaged authored AGENTS text. It never stages anything.
 The executable allowlist is `isSource` in
 [model.mjs](../../scripts/agent-context/model.mjs). It covers text code/config/docs
 under `src`, `scripts`, `workers`, `docs`, `data`, `geo_replication`,
-`dataset-tracker`, `nar-research`, `.github`, `.agents`, `.claude` and `.codex`,
+`nar-research`, `.github`, `.agents`, `.claude` and `.codex`,
 tracked hooks and root configuration/instruction files. Extensions include
 TS/JS, JSON/JSONC, Markdown, SQL, Python, R, PowerShell, YAML, TOML, CSS, HTML and
 shell. Root ignore rules and VERSION participate. Ignored files do not enter any

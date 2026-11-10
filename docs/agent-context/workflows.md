@@ -154,8 +154,7 @@ headings (600), with Source Sans 3 as the fallback for Greek, Cyrillic and
 missing symbols, and `--font-mono` (Geist Mono, then IBM Plex Mono) for figures;
 inline styles use the constants in `src/styles/constants.ts`, where `FONT_MONO`
 stays a literal list so exported SVG figures keep their font. Preserve explicit
-monospace data labels. The standalone tracker imports the same Geist Mono, Hanken
-and Source font assets and typography stylesheet.
+monospace data labels.
 Expected outputs are the requested behavior and relevant regression coverage.
 Run the app and script TypeScript checks documented in
 [project guidance](../PROJECT_GUIDANCE.md) and focused Vitest tests. Use a browser

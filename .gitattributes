@@ -46,10 +46,9 @@ public/datasets/**/*.js -text !eol
 # This downloaded manuscript is pinned by its source-file manifest. Preserve
 # the original bytes on checkout, as with the reviewed manuscripts below.
 
-# Font provenance records pin these license bytes too, including the tracker
-# copy. Checkout must not renormalize the retained originals.
+# Font provenance records pin this license's bytes too. Checkout must not
+# renormalize the retained original.
 brand/fonts/OFL.txt -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
-dataset-tracker/public/licenses/sourceserif4-OFL.txt -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 
 # These generated analysis artifacts are bound by exact-byte SHA-256 provenance.
 # Do not normalize R's platform-specific TSV line endings on commit/checkout:

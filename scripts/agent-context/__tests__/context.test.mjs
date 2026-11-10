@@ -157,7 +157,7 @@ test('generated outputs and reviews do not invalidate themselves; agent/config/R
   files.set('docs/agent-context/generated/old.md', 'old'); files.set('docs/agent-context/reviews/old.json', '{}');
   assert.deepEqual(fingerprints(memory(files), model(files)), initial);
   for (const name of ['.agents/skills/demo/SKILL.md', '.codex/config.toml', '.github/workflows/check.yml', 'scripts/model.R', 'data/quality/audit.py', 'workers/demo/rules.ts']) assert.equal(isSource(name), true, name);
-  for (const name of ['public/datasets/a.js', 'data/results.csv', 'data/evidence.json', 'data/archive/author.py', 'dataset-tracker/node_modules/pkg/a.ts']) assert.equal(isSource(name), false, name);
+  for (const name of ['public/datasets/a.js', 'data/results.csv', 'data/evidence.json', 'data/archive/author.py', 'src/node_modules/pkg/a.ts']) assert.equal(isSource(name), false, name);
 });
 test('review gate rejects missing, stale, invalid and obsolete records', () => {
   const files = generatedFixture(), areas = fingerprints(memory(files), model(files)), name = 'docs/agent-context/reviews/repository.json';
