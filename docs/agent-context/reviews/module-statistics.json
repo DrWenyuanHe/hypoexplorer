@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-statistics",
-  "fingerprint": "4c4b8c193d351b0345729f76615ab2a82e0d344d6a878de16017abe04e5eff85",
+  "fingerprint": "7dcae3ade8e26de174cf8749b112769d7a42b024d81727145d13f8b6f1c2a8fb",
   "outcome": "no-impact",
-  "explanation": "StatisticsView.tsx adds a glossary entry for CPM (TMM-normalized), notes that the BH family includes unpublished features without a symbol or with an ambiguous one, and states that every statistic was computed under R 4.6.0 with a stored session record. Explanatory text only; statistics policy and cross-dataset computations are unchanged.",
+  "explanation": "Doc and comment drift only (cleanup B3); no code path, export, route or data changes. StatisticsView.tsx says its prose mirrors MethodologyView instead of the deleted MethodologyTab.",
   "references": [
     "src/statistics/StatisticsView.tsx",
-    "src/statistics/policy.ts"
+    "src/methodology/MethodologyView.tsx"
   ]
 }

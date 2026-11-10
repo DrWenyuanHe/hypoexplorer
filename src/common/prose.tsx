@@ -5,7 +5,7 @@
 //
 // Scope is deliberately honest — this is NOT one prose system for all three:
 //   - `Mono` was byte-identical in all three, so all three import it.
-//   - `H2` / `P` / `thStyle` / `tdStyle` were identical between MethodologyTab
+//   - `H2` / `P` / `thStyle` / `tdStyle` were identical between MethodologyView
 //     and DataSourcesTab; those two adopt them. StatisticsView runs a
 //     DELIBERATELY larger scale (H2 at 15/600 with wider margins, P capped at
 //     70ch) because it is a full-page reference rather than a tab, so it keeps

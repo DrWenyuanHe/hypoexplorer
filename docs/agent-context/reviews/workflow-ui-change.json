@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "7d29bb3e24ddcd75bf9d11baec8f81ea88507a4338f492aa801a257220611f18",
+  "fingerprint": "1b553feb3d4a0e0f458fe9b1702b8c0fe4f0ee363b7bd97f4e0b285a42221ffa",
   "outcome": "no-impact",
-  "explanation": "Dead CSS removal (cleanup B2): rules and custom properties with no remaining selector, class name or var() reference anywhere in src, scripts or public are deleted. Checked in the dev preview: the hub, search results, gene page and tracker render without console errors, and .skeleton still animates with sk-pulse. No view, route or export behaviour changes.",
+  "explanation": "Doc and comment drift only (cleanup B3); no code path, export, route or data changes. README, App.tsx, prose.tsx and StatisticsView.tsx comments now name the current views and routes; rendering is unchanged.",
   "references": [
-    "index.html",
-    "src/search/search.css",
+    "README.md",
+    "src/App.tsx",
     "docs/REFACTOR_CHECKLIST.md"
   ]
 }

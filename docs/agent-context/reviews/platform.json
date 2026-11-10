@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "249ece913b07414e0b88808c1e81c2a76524822892f3ec86a30373217c5b9935",
-  "outcome": "updated",
-  "explanation": "App wires the gene page's new card handlers: onShowPathway runs the unified search for a pathway id, onOpenPathway opens the pathway report and onOpenExpression opens the expression survey. SearchPage no longer receives onOpenExpression, and its gene rows open the gene report through the existing searchGeneFromHub. The index.html skeleton heading changes copy only. Routes, views and query loading are unchanged.",
+  "fingerprint": "43663b56024cb045d794c7d24b87941e59e448dd880fa85b02e8aa3012365454",
+  "outcome": "no-impact",
+  "explanation": "Doc and comment drift only (cleanup B3); no code path, export, route or data changes. App.tsx relabels a comment that called the local-datasets branch the hub's \"Explore all\" destination; the gene report now has its own comment naming #/gene/<symbol>.",
   "references": [
     "src/App.tsx",
-    "index.html",
-    "src/crossdataset/GeneReport.tsx"
+    "src/utils/appLinks.ts"
   ]
 }

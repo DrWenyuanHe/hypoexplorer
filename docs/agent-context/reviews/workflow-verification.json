@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "6c1d9cf43fa7da44dc556dd1538af95baeb117b8b8dffc07fa103e11ab17f4dd",
+  "fingerprint": "680a0e26834eb3c9aec6bf8f23c1e8eca6d8f34c8e23e1fdef9a9ed630857e04",
   "outcome": "no-impact",
-  "explanation": "Dead-code removal (cleanup B1): unused exports knip reported are deleted, with no caller anywhere in src, scripts, data or tests. authorValidation.ts loses an unused label helper and key list; its pinned bytes in runtime-reader-review.json were already historical before this change. No evidence record, QC policy, concordance assessment or validation status changes.",
+  "explanation": "Doc and comment drift only (cleanup B3); no code path, export, route or data changes. The tracker catalog generator banner and both generated headers (reverseIndex.generated.js, public/tracker/catalog.js) now name build_tracker_catalog.mts instead of a nonexistent .mjs; their quality-evidence pins were already historical. No evidence record, QC policy or validation status changes.",
   "references": [
-    "src/data/authorValidation.ts",
-    "src/data/authorConcordanceR460.ts",
+    "scripts/build_tracker_catalog.mts",
     "data/author-validation/README.md"
   ]
 }

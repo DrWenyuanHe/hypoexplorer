@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "5dfb947e8a0cfaa5e838b0c67ce750711db3c1681c5ee2b51f4a3c317ba0d592",
+  "fingerprint": "84bae5f5afc59edb87677330d886be6b60620c43cd2d8ccdbe7fae8b86c47669",
   "outcome": "no-impact",
-  "explanation": "Dead CSS removal (cleanup B2): rules and custom properties with no remaining selector, class name or var() reference anywhere in src, scripts or public are deleted. index.html loses the .sk-header through .sk-volcano skeleton rules (their markup went in d4ad57dd), .slide-in with its keyframes, .qsearch-scope, and the tokens --color-normal-dot, --color-obese-dot, --color-up, --color-down, --r-xl and --shadow-md. @keyframes sk-pulse stays because .skeleton uses it.",
+  "explanation": "Doc and comment drift only (cleanup B3); no code path, export, route or data changes. README.md drops the dataset-selector and tile wording for the search-first hub, gives the cross-dataset routes instead of \"Explore all\", and lists search/, expression-survey/, local-datasets/ and verification/ in the source tree. TODOS.md notes loadPopulation is now ensureTrack. The tracker catalog generator banner and both generated headers (reverseIndex.generated.js, public/tracker/catalog.js) now name build_tracker_catalog.mts instead of a nonexistent .mjs; their quality-evidence pins were already historical.",
   "references": [
-    "index.html",
-    "src/common/Skeleton.tsx",
-    "DESIGN.md"
+    "README.md",
+    "TODOS.md",
+    "scripts/build_tracker_catalog.mts"
   ]
 }

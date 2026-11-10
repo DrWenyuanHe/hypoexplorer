@@ -5,7 +5,7 @@
 // unchanged) from the standalone tracker's dev-server, then made pure: the
 // functions here take already-loaded data (the DATASETS array, the provenance
 // sidecar object, a catalog record) and never touch the filesystem — so the same
-// code runs in the build generator (scripts/build_tracker_catalog.mjs) and is
+// code runs in the build generator (scripts/build_tracker_catalog.mts) and is
 // trivially unit-testable.
 //
 // Two tiers of match:

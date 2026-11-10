@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-common",
-  "fingerprint": "676b16f7ebff73f0010f1486e1627c9285b46a9aab7afc2e01c1c0fe503baecc",
+  "fingerprint": "ff86aafcc517b7065c112da15a273b017dc3485541c36594fe81c1cc0dac3c7c",
   "outcome": "no-impact",
-  "explanation": "Dead-code removal (cleanup B1): unused exports knip reported are deleted, with no caller anywhere in src, scripts, data or tests. toolIcons.tsx drops the unused ARROW element and the ICONS keys pathway, compare, compareset and reversible; the hub and geneStudyScope reference none of them. Remaining icons render unchanged.",
+  "explanation": "Doc and comment drift only (cleanup B3); no code path, export, route or data changes. prose.tsx names MethodologyView, the page that imports its H2, P and table styles, instead of the deleted MethodologyTab.",
   "references": [
-    "src/common/toolIcons.tsx",
-    "src/hub/LandingHub.tsx",
-    "src/crossdataset/geneStudyScope.tsx"
+    "src/common/prose.tsx",
+    "src/methodology/MethodologyView.tsx"
   ]
 }
