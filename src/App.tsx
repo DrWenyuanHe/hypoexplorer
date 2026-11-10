@@ -355,7 +355,7 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
   const datasetLinks = useMemo(() => datasetExternalLinks(dataset), [dataset]);
   const primaryLink = datasetLinks.find((l) => l.kind === 'repository') ?? datasetLinks[0] ?? null;
 
-  // ── Cross-dataset gene report (the hub's "Explore all" destination) ──
+  // ── Full-page views outside the explorer shell ──
   if (view === 'local-datasets') {
     return <ErrorBoundary><Suspense fallback={<div style={{ padding: 32 }}>Opening local workspace...</div>}><LocalDatasetsView onHome={goHome} /></Suspense></ErrorBoundary>;
   }
@@ -364,6 +364,7 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
     return <ErrorBoundary><Suspense fallback={<div role="status" style={{ padding: 32 }}>Opening expression survey…</div>}><ExpressionSurveyView onHome={goHome} /></Suspense></ErrorBoundary>;
   }
 
+  // Cross-dataset gene report (#/gene/<symbol>), opened from search results.
   const geneReport = (gene: string | null) => (
     <ErrorBoundary key={`report-${gene}-${(reportScope ?? []).join(',')}`}>
       <GeneReport

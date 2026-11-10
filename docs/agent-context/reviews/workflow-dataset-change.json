@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "b9bd4ea231f40e6086ebed8a2e786e93381062fa931e50ecc7f42ca10c38603f",
+  "fingerprint": "766845e44119fadfa07ccb2403b40357d1fb57cbedc5131e38647b893a6a0cf7",
   "outcome": "no-impact",
-  "explanation": "Dead-code removal (cleanup B1): unused exports knip reported are deleted, with no caller anywhere in src, scripts, data or tests. Only unused exports and re-exports leave src/data; no registry entry, sidecar, loader, bundle builder or dataset contract changes.",
+  "explanation": "Doc and comment drift only (cleanup B3); no code path, export, route or data changes. The tracker catalog generator banner and both generated headers (reverseIndex.generated.js, public/tracker/catalog.js) now name build_tracker_catalog.mts instead of a nonexistent .mjs; their quality-evidence pins were already historical. No registry entry, sidecar, bundle builder or dataset contract changes.",
   "references": [
-    "src/data/authorValidation.ts",
+    "scripts/build_tracker_catalog.mts",
     "docs/DATASET_CONTRACT.md"
   ]
 }

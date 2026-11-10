@@ -1,6 +1,6 @@
 // Cross-dataset gene query: one gene's differential-expression stats across
-// EVERY track of EVERY registered dataset, so the gene report (the hub's
-// "Explore all") can compare a single-cell population against a bulk tissue on
+// EVERY track of EVERY registered dataset, so the gene report (#/gene/<symbol>)
+// can compare a single-cell population against a bulk tissue on
 // one axis.
 //
 // Each track bundle carries the full per-gene DE table, so the first query for

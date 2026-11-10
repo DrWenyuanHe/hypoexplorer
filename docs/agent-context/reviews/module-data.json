@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "59c8d085cb0658c0715191a0efc4eab17d46f63687e0432c38bf492c74ea9d8c",
+  "fingerprint": "be7bf730128305e40270d426fdcf7e06c9516ca0fecac1666d5ff234568aa9e8",
   "outcome": "no-impact",
-  "explanation": "Dead-code removal (cleanup B1): unused exports knip reported are deleted, with no caller anywhere in src, scripts, data or tests. authorValidation.ts drops AUTHOR_VALIDATION_STATUS_KEYS and authorValidationStatusLabel; expressionUnits.ts drops isCpmUnit; nomenclature.ts and authorConcordanceR460.ts drop dead re-exports (scripts import nomenclatureWire and authorConcordance directly); explorerStore.ts imports COMPARE_TRACK from explorerPosition instead of redefining it. The sealed authorConcordance.ts and datasetQuality.ts are untouched.",
+  "explanation": "Doc and comment drift only (cleanup B3); no code path, export, route or data changes. crossDataset.ts calls its consumer the gene report (#/gene/<symbol>) instead of the retired \"Explore all\" hub entry. The tracker catalog generator banner and both generated headers (reverseIndex.generated.js, public/tracker/catalog.js) now name build_tracker_catalog.mts instead of a nonexistent .mjs; their quality-evidence pins were already historical.",
   "references": [
-    "src/data/authorValidation.ts",
-    "src/data/explorerStore.ts",
-    "src/explorer/explorerPosition.ts"
+    "src/data/crossDataset.ts",
+    "scripts/build_tracker_catalog.mts",
+    "src/data/tracker/reverseIndex.generated.js"
   ]
 }

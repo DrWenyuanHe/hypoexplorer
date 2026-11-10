@@ -7,7 +7,7 @@
 // so a pooled number averaged questions that are not the same question.
 //
 // Prose is written directly as JSX (the app has no markdown renderer), mirroring
-// MethodologyTab. It is a page-level `view` (like GeneReport / DatasetTracker)
+// MethodologyView. It is a page-level `view` (like GeneReport / DatasetTracker)
 // rather than a track-scoped tab, because nothing here depends on a loaded track.
 
 import type { CSSProperties, ReactNode } from 'react';
