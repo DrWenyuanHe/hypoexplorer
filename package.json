@@ -62,7 +62,12 @@
     "check:bundle-eol": "tsx --test scripts/lib/bundleEol.test.mts && tsx scripts/check_bundle_eol.mts",
     "restore:bundle-eol": "tsx scripts/check_bundle_eol.mts --fix",
     "fetch:query": "tsx scripts/fetch_query_catalog.mts",
-    "fetch:expression": "tsx scripts/fetch_expression_references.mts"
+    "fetch:expression": "tsx scripts/fetch_expression_references.mts",
+    "fetch:data": "node --max-old-space-size=6144 ./node_modules/tsx/dist/cli.mjs scripts/fetch_data.mts",
+    "data:offline": "pnpm run fetch:data --no-matrices && pnpm run build:query-index && pnpm run build:expression-index",
+    "dev:offline": "node scripts/dev_offline.mjs",
+    "check:public-safety": "tsx scripts/check_public_safety.mts",
+    "hooks:install": "node scripts/install_safety_hook.mjs"
   },
   "dependencies": {
     "html2canvas": "^1",

@@ -35,6 +35,38 @@ the hub fetches the default dataset's metadata, and the explorer loads a track t
 first time it is opened. Cross-dataset questions are answered from the prebuilt
 query index in a few requests, not by downloading every study.
 
+### Running without the data origin
+
+The [hypoexplorer-data](https://github.com/DrWenyuanHe/hypoexplorer-data)
+releases carry the same dataset bundles and QC reports, so you can
+run the app entirely from your own checkout:
+
+```bash
+pnpm install
+pnpm run data:offline   # restore the pinned release, then build the query indexes
+pnpm run dev:offline    # http://localhost:5173, reading public/ only
+```
+
+- `data:offline` runs `fetch:data --no-matrices` (the release in
+  `data-release.json`, checked against its SHA-256 values), then
+  `build:query-index` and `build:expression-index` over the restored bundles.
+- `dev:offline` (`scripts/dev_offline.mjs`) starts Vite in `offline` mode with
+  `VITE_BUNDLE_BASE_URL` forced empty, even if your shell sets it, so every bundle
+  and index is read same-origin from `public/`. It refuses to start until
+  `data:offline` has run.
+- **KEGG is not included.** Each pathway bundle keeps an empty KEGG collection, so
+  the app shows GO Biological Process, Hallmark and Reactome results and no KEGG
+  results. `public/datasets/KEGG_NOT_INCLUDED.md` explains why;
+  hypoexplorer.com still shows them.
+- **Macaque per-animal values are not included.** The macaque bundles keep their
+  DE and FGSEA results but not the per-animal normalized CPM, so that study's
+  sample-level plots and exports are empty.
+- The Dataset Tracker page is not available offline; its catalog is not in the
+  release.
+- The GTEx, HPA and Allen reference atlases are third-party data and are not in
+  the release. Run `pnpm run fetch:expression` for them, or the Expression survey
+  shows those three collections as unavailable.
+
 ## Commands that work from a fresh clone
 
 | Command | What it does |

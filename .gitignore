@@ -12,6 +12,7 @@ dist/
 !.env.example
 !.env.development
 !.env.production
+!.env.offline
 # Also tracked, and also secret-free BY CONSTRUCTION: an empty file whose only
 # job is to stop `wrangler deploy` auto-loading .env.local. See the file itself.
 !.env.cfdeploy
@@ -32,6 +33,8 @@ dist/
 # To track it anyway: `git add -f public/query`.
 public/query/
 public/tracker/catalog.js
+# Private public-safety rules (personal identifiers); see scripts/lib/publicSafety.mts.
+.public-safety.local.json
 .gstack/
 .claude/scheduled_tasks.lock
 .claude/*.lock

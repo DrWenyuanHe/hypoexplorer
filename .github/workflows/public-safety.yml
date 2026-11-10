@@ -1,0 +1,34 @@
+name: Public safety
+
+# Everything in this repository is public. This check blocks credentials, the
+# owner's writing, personal information and missing third-party notices
+# (scripts/lib/publicSafety.mts). Keep the job name stable: it is a required
+# check on main.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  safety:
+    name: Public safety
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Check every tracked file
+        env:
+          # Private rules (personal identifiers) live only in this secret, never in the repository.
+          HYPOEXPLORER_PRIVATE_PATTERNS: ${{ secrets.HYPOEXPLORER_PRIVATE_PATTERNS }}
+        run: pnpm run check:public-safety
