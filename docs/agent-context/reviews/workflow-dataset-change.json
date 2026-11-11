@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "25177a3bde9512156c6983b2be36199ca689837b336af2b6335ddf8c3aa60c95",
+  "fingerprint": "d4edccf8b0b7703bccecaa1d0bef1c28e0c7738495e49abbd85e1deb1f67227c",
   "outcome": "no-impact",
-  "explanation": "Standalone tracker removal (cleanup B5, owner-approved): the independent dataset-tracker/ Vite app is deleted. The integrated tracker under src/dataset-tracker/ (#/tracker) is unchanged and nothing imported the standalone app. No registry entry, sidecar, bundle builder, tracker catalog builder or dataset contract changes; build_tracker_catalog.mts and the integrated tracker still read the same catalog.",
+  "explanation": "The dataset-change workflow is untouched: no registry entry, builder, bundle or study input changes. The new public data release reads committed bundles and analysis outputs from HEAD and publishes copies (KEGG collections emptied, macaque per-animal CPM withheld) to hypoexplorer-data; adding or changing a dataset here still follows the same runbook, and a new data release is built afterwards with data-release.mts. A follow-up typing fix in data-release.mts (reduce<number>) changes no behavior.",
   "references": [
-    "scripts/build_tracker_catalog.mts",
-    "src/dataset-tracker/DatasetTrackerView.tsx",
-    "docs/DATASET_CONTRACT.md"
+    "scripts/public-export/data-release.mts",
+    "docs/PROJECT_GUIDANCE.md"
   ]
 }

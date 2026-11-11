@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "89bc01ddd49d6ef827367b7efe013054aff162df5d893973091786fd66df2be8",
+  "fingerprint": "428d273c520ae26c1f35ced9581b00aa664ae706ada8d626e4ccc5ff97b2a443",
   "outcome": "no-impact",
-  "explanation": "Standalone tracker removal (cleanup B5, owner-approved): the independent dataset-tracker/ Vite app is deleted. The integrated tracker under src/dataset-tracker/ (#/tracker) is unchanged and nothing imported the standalone app. The standalone app held only triage statuses and font licence copies; no evidence record, QC policy, author-validation input or verification status changes.",
+  "explanation": "No evidence record, QC policy, author-validation input or verification status changes. The data release copies selected evidence and QC records to the public hypoexplorer-data repository, scrubbing personal paths, third-party emails and GEO contacts and excluding copied author tables and KEGG content; the private ledgers and their checks here are unchanged and remain the source of truth. A follow-up typing fix in data-release.mts (reduce<number>) changes no behavior.",
   "references": [
-    "src/dataset-tracker/TrackerDetail.tsx",
+    "scripts/public-export/data-manifest.mjs",
     "data/author-validation/README.md"
   ]
 }

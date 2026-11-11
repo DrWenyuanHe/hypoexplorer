@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "f16a5383f15c855447519f0d757028c35dcdc8dbde54f520e2a856f9a369d2a4",
-  "outcome": "updated",
-  "explanation": "Standalone tracker removal (cleanup B5, owner-approved): the independent dataset-tracker/ Vite app is deleted. The integrated tracker under src/dataset-tracker/ (#/tracker) is unchanged and nothing imported the standalone app. pnpm-workspace.yaml drops its only package and pnpm-lock.yaml loses that importer; tsconfig.json, tsconfig.node.json, .gitattributes, the agent-context sparse checkout, the public-export allowlist, isSource in model.mjs, releaseBuild.mts and the agent-context catalog no longer name it. With no workspace package left, knip.json is flat again and PROJECT_GUIDANCE.md says so. brand/README.md, workflows.md and the font provenance roles drop the standalone-tracker wording. The public atlas fetch overlay now retries dropped connections and 429/5xx with backoff.",
+  "fingerprint": "72ce12378ebbecd7a0980efb3ebc76687dcf4df6d1c9724e1b4eee14f9f5f7d3",
+  "outcome": "no-impact",
+  "explanation": "Public data release tooling: scripts/public-export gains the shared public-safety guard, the data-release builder (data-release.mts, data-manifest.mjs, sources.mts), the KEGG and withheld-field stripping for browser bundles, and the public-repository overlays (fetch:data, data:offline, dev:offline, the Public safety CI job). A root data-release.json pins the published hypoexplorer-data release. These only shape what the public repositories receive; this repository's structure, app code, builders and runbooks are unchanged, so the startup map and catalog stay accurate. A follow-up typing fix in data-release.mts (reduce<number>) changes no behavior.",
   "references": [
-    "pnpm-workspace.yaml",
-    "knip.json",
-    "docs/PROJECT_GUIDANCE.md",
-    "scripts/agent-context/model.mjs"
+    "scripts/public-export/data-release.mts",
+    "scripts/public-export/data-manifest.mjs",
+    "data-release.json"
   ]
 }
