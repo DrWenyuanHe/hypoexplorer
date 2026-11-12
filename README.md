@@ -117,3 +117,10 @@ During release review, pass the candidate archive as a positional argument.
 Offline development serves it from `public/hypomap`. Hosted deployments copy
 that same versioned directory to the configured bundle origin with CORS
 enabled for the app origin.
+
+The Spatial tab uses the same heatmap for every gene with HypoMap spatial data.
+Its legend shows mean expression among detected cells in `ln(1 + counts per 10k)`.
+The color range runs from zero to the highest mean among regions shown on the
+coronal schematic for that gene. Selecting a region keeps that range fixed.
+Separate swatches identify regions with no detected cells and regions with
+unavailable data.

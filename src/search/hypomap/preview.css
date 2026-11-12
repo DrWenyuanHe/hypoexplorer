@@ -30,3 +30,10 @@
 .hm-table { overflow: auto; max-height: 55vh; }
 .hm-table :is(th, td) { padding: 6px 10px; text-align: left; border-bottom: 1px solid var(--border-dark); }
 @media (max-width: 650px) { .hm-grid { grid-template-columns: 1fr; } }
+.hm-map-legend { margin: 0 auto 12px; max-width: 490px; font-size: 0.85rem; }
+.hm-map-legend small { display: block; color: var(--text-muted); }
+.hm-map-ramp { height: 10px; margin-top: 6px; border-radius: 3px; }
+.hm-map-ticks, .hm-map-states { display: flex; justify-content: space-between; gap: 4px 12px; }
+.hm-map-states { justify-content: flex-start; flex-wrap: wrap; margin-top: 8px; }
+.hm-map-states span { display: inline-flex; align-items: center; gap: 5px; }
+.hm-map-states i { width: 11px; height: 11px; border: 1px solid #a8adb5; border-radius: 2px; }

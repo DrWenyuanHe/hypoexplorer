@@ -105,7 +105,6 @@ function AtlasViews({ data }: { data: Ready }) {
         <div className="hm-grid">
           <section className="hm-card">
             <h5>Coronal hypothalamus schematic</h5>
-            <small>Blue intensity shows mean expression among detected cells.</small>
             <AtlasMap summaries={summaries} region={region} onSelect={name => setRegion(region === name ? whole : name)} />
             {!!offPlane.length && <details><summary>Regions off this plane</summary>
               <div className="hm-controls">{offPlane.map(name => (
