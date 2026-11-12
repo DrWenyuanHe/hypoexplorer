@@ -24,12 +24,23 @@ export function checkLinks(snapshot, output) {
   return errors;
 }
 
+// Removes markup until none remains, so a removal cannot join a new tag.
+function stripTags(text) {
+  let previous;
+  let current = text;
+  do {
+    previous = current;
+    current = current.replace(/<[^>]*>/g, "");
+  } while (current !== previous);
+  return current;
+}
+
 function markdownAnchors(text) {
   const anchors = new Set(), counts = new Map();
   // These repository references use ATX headings and optional explicit HTML ids.
   const prose = text.replace(/^\s*(`{3,}|~{3,})[^\n]*\n[\s\S]*?^\s*\1\s*$/gm, "");
   for (const match of prose.matchAll(/^#{1,6}\s+(.+?)\s*#*$/gm)) {
-    const slug = match[1].replace(/\[([^\]]+)\]\([^)]*\)/g, "$1").replace(/<[^>]*>/g, "").toLowerCase().replace(/[^\p{L}\p{N}\p{M}_\-\s]/gu, "").replace(/\s/g, "-");
+    const slug = stripTags(match[1].replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")).toLowerCase().replace(/[^\p{L}\p{N}\p{M}_\-\s]/gu, "").replace(/\s/g, "-");
     const count = counts.get(slug) ?? 0;
     anchors.add(count ? `${slug}-${count}` : slug);
     counts.set(slug, count + 1);

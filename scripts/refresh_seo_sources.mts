@@ -48,11 +48,25 @@ const snapshot: Record<string, SourceRecord> = Object.fromEntries(
   Object.entries(previous).filter(([key]) => keys.has(key)),
 );
 
+// Removes markup until none remains, so a removal cannot join a new tag.
+function stripTags(value: string): string {
+  let previous: string;
+  let current = value;
+  do {
+    previous = current;
+    current = current.replace(/<[^>]*>/g, '');
+  } while (current !== previous);
+  return current;
+}
+
+const NAMED_ENTITIES: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'" };
+
+// Decodes every entity in one pass, so an escaped entity such as &amp;lt; stays the text "&lt;".
 function plain(value: string): string {
-  return value.replace(/<[^>]*>/g, '').replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
-    .replace(/&#x([\da-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)))
-    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/\s+/g, ' ').trim();
+  return stripTags(value)
+    .replace(/&(?:#(\d+)|#[xX]([\da-fA-F]+)|(amp|lt|gt|quot|apos));/g, (_, decimal, hex, name) => (
+      decimal ? String.fromCodePoint(Number(decimal)) : hex ? String.fromCodePoint(parseInt(hex, 16)) : NAMED_ENTITIES[name]))
+    .replace(/\s+/g, ' ').trim();
 }
 
 let localTitles = 0;
