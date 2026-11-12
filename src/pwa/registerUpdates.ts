@@ -105,8 +105,15 @@ export async function applyWaitingWorker(
 
   // Nothing parked in "waiting" means SKIP_WAITING has no recipient, so no
   // controller change is coming. Don't spend the timeout discovering that.
+  //
+  // This only runs after onNeedRefresh, i.e. once a newer worker reached
+  // "waiting". If none is waiting or installing now, that worker has already
+  // activated (another tab accepted first, or the last controlled tab closed),
+  // so an ordinary reload is served by it. forceRefresh() would unregister that
+  // healthy worker and delete its precache, losing the offline shell for
+  // nothing; keep it for a registration with no active worker at all.
   if (registration && !registration.waiting && !registration.installing) {
-    finish(true);
+    finish(!registration.active);
     return;
   }
 

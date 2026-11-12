@@ -75,13 +75,26 @@ describe('applyWaitingWorker — the SKIP_WAITING handover', () => {
     expect(reload).toHaveBeenCalledTimes(1);
   });
 
-  it('recovers without waiting when no worker is parked in "waiting"', async () => {
+  it('recovers without waiting when no worker is parked in "waiting" or active', async () => {
     // SKIP_WAITING has no recipient here — workbox posts nothing and returns.
     const updateSW = vi.fn().mockResolvedValue(undefined);
     await applyWaitingWorker(updateSW, nothingWaiting());
 
     expect(forceRefresh).toHaveBeenCalledTimes(1);
     expect(updateSW).not.toHaveBeenCalled(); // pointless; skipped
+  });
+
+  // Another tab accepted the same update first (or the last controlled tab
+  // closed), so the worker this prompt was for is already active. A plain
+  // reload is served by it; wiping its precache would only cost the offline shell.
+  it('reloads plainly when the new worker has already activated elsewhere', async () => {
+    const updateSW = vi.fn().mockResolvedValue(undefined);
+    const activated = { waiting: null, installing: null, active: {} } as unknown as ServiceWorkerRegistration;
+    await applyWaitingWorker(updateSW, activated);
+
+    expect(reload).toHaveBeenCalledTimes(1);
+    expect(forceRefresh).not.toHaveBeenCalled();
+    expect(updateSW).not.toHaveBeenCalled();
   });
 
   it('recovers when the handover is accepted but no controller ever arrives', async () => {
