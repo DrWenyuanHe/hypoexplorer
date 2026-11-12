@@ -1,0 +1,16 @@
+.hm-coexpression-search { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; margin-block: 12px; }
+.hm-coexpression-search label { display: grid; gap: 4px; }
+.hm-coexpression-search input { padding: 7px; font: inherit; border: 1px solid var(--border-dark); border-radius: 5px; }
+.hm-ranking { max-width: 360px; padding-inline-start: 24px; }
+.hm-ranking li { margin-block: 4px; }
+.hm-ranking button { display: flex; justify-content: space-between; width: 100%; }
+.hm-ranking [aria-pressed="true"], .hm-quadrants [aria-expanded="true"] { border-color: #21547d; background: #e4eef7; }
+.hm-pair { margin-block: 12px; }
+.hm-pair h4 { margin: 0; }
+.hm-quadrants { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 6px; margin-block: 10px; }
+.hm-quadrants .hm-swatch { display: inline-block; margin-inline-end: 5px; }
+.hm-quadrants button:disabled { opacity: 1; cursor: default; }
+.hm-coexpression-method { margin-top: 12px; }
+.hm-pair-chart { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.hm-pair-chart .hm-quadrants { flex: 1 1 280px; }
+.hm-pair-chart small { display: block; }

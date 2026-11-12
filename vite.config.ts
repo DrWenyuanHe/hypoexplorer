@@ -691,6 +691,14 @@ export default defineConfig(async ({ mode }): Promise<ViteUserConfig> => {
   },
   server: {
     fs: { allow: ['.'] },
+    ...(mode === 'offline' && process.env.VITE_HYPOMAP_COEXPRESSION === '1' ? {
+      proxy: {
+        '/hypomap-preview-api/': {
+          target: 'http://127.0.0.1:8765',
+          rewrite: (url: string) => url.replace('/hypomap-preview-api/', '/api/'),
+        },
+      },
+    } : {}),
     // Launchers (the desktop preview, autoPort) pick a free port and pass it
     // as PORT; honour it strictly so the dev server never drifts onto a port
     // another project already holds on the other IP stack.

@@ -23,6 +23,7 @@ import {
 } from './searchSummaries';
 import type { Dataset, Direction } from '../types';
 import './search.css';
+import { Coexpression } from './hypomap/Coexpression';
 import { HypoMapPreview } from './hypomap/HypoMapPreview';
 
 // ── Small async helper ──────────────────────────────────────────────────────
@@ -576,9 +577,9 @@ export function GeneContextCards({ symbol, studies, onShowPathway, onOpenPathway
   return (
     <div className="portal-grid" data-cards="context">
       <ConditionPathwaysSection key={symbol} symbol={symbol} studies={studies} onShowPathway={onShowPathway} onOpenPathway={onOpenPathway} />
-      <PlaceholderSlot slot="coexpression" title="Co-expression" wide>
+      {import.meta.env.VITE_HYPOMAP_COEXPRESSION === '1' ? <Coexpression key={`coexpression-${symbol}`} symbol={symbol} /> : <PlaceholderSlot slot="coexpression" title="Co-expression" wide>
         Genes whose expression rises and falls with {symbol} across populations and studies.
-      </PlaceholderSlot>
+      </PlaceholderSlot>}
     </div>
   );
 }
