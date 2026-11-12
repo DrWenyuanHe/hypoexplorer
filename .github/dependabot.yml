@@ -26,6 +26,12 @@ updates:
       # (docs/PROJECT_GUIDANCE.md).
       - dependency-name: jsdom
         update-types: [version-update:semver-major]
+      # Node types follow the Node major that CI runs (22), not the latest.
+      - dependency-name: '@types/node'
+        update-types: [version-update:semver-major]
+      # TypeScript is pinned to a 7.x prerelease (the native compiler).
+      # Dependabot offers nightly dev builds from there, so upgrade by hand.
+      - dependency-name: typescript
 
   - package-ecosystem: github-actions
     directory: /
