@@ -65,11 +65,8 @@ class ComparisonIndex:
                 self.datasets[name]['rows'] = np.load(root / f'{key}.rows.npy', mmap_mode='r')
                 self.datasets[name]['columns'] = np.load(root / f'{key}.columns.npy', mmap_mode='r')
 
-    @lru_cache(maxsize=512)
-    def recommendations(self, gene_id):
-        if self.marginals is None or gene_id not in self.lookup:
-            raise ValueError('Atlas recommendations unavailable for this gene')
-        i = self.lookup[gene_id]
+    @lru_cache(maxsize=32)
+    def detection_overlaps(self, i):
         both = np.zeros(len(self.genes), dtype=np.int64)
         query_positive = 0
         for ds in self.datasets.values():
@@ -83,11 +80,28 @@ class ComparisonIndex:
                 both += np.bincount(detected, minlength=len(self.genes))
         if query_positive != self.marginals[i] or both[i] != query_positive:
             raise ValueError('Recommendation detection indexes disagree')
-        both[i] = 0
+        return both
+
+    def ranked_partners(self, i):
+        both = self.detection_overlaps(i)
         candidates = np.flatnonzero(both)
-        ranking = np.lexsort((candidates, -self.marginals[candidates].astype(np.int64), -both[candidates]))
-        partners = [[int(j), int(both[j])] for j in candidates[ranking[:5]]]
-        return [i, list(range(len(self.datasets))), query_positive, partners]
+        candidates = candidates[candidates != i]
+        order = np.lexsort((candidates, -self.marginals[candidates].astype(np.int64), -both[candidates]))
+        return candidates[order]
+
+    @lru_cache(maxsize=512)
+    def recommendations(self, gene_id):
+        if self.marginals is None or gene_id not in self.lookup:
+            raise ValueError('Atlas recommendations unavailable for this gene')
+        i = self.lookup[gene_id]
+        both = self.detection_overlaps(i)
+        partners = []
+        for j in self.ranked_partners(i)[:5]:
+            reverse_rank = np.flatnonzero(self.ranked_partners(int(j)) == i)
+            if len(reverse_rank) != 1 or self.detection_overlaps(int(j))[i] != both[j]:
+                raise ValueError('Reciprocal detection indexes disagree')
+            partners.append([int(j), int(both[j]), int(reverse_rank[0]) + 1])
+        return [i, list(range(len(self.datasets))), int(self.marginals[i]), partners]
 
 
     @lru_cache(maxsize=512)

@@ -23,7 +23,7 @@ type Comparison = {
   c7: Population[];
   datasets: (Counts & { dataset: string; c7: Population[] })[];
 };
-type Ranking = { cohort: string; record: [number, number[], number, [number, number][]] };
+type Ranking = { cohort: string; record: [number, number[], number, [number, number, number][]] };
 const format = new Intl.NumberFormat('en-US');
 const colors = ['#225d88', '#618bb1', '#bc753d', '#e1e8ef'];
 const percent = (n: number | null) => n === null ? '—' : `${n.toFixed(2)}%`;
@@ -155,12 +155,17 @@ function PairExplorer({ atlas }: { atlas: Ready }) {
         retryRanking(n => n + 1);
       }}>Retry</button></p>}
       {ranking && ranking !== 'error' && (
-        ranking[3].length ? <ol className="hm-ranking">{ranking[3].map(([i, both]) => {
+        ranking[3].length ? <ol className="hm-ranking">{ranking[3].map(([i, both, reverseRank]) => {
           const candidate = geneAt(i);
-          return <li key={candidate[0]}><button type="button" className="portal-secondary" aria-pressed={partner?.[0] === candidate[0]}
-            disabled={lookingUp} title={`${format.format(both)} of ${format.format(ranking[2])} cells`} onClick={() => selectPartner(candidate)}>
-            <span>{candidate[1]}</span><strong>{percent(100 * both / ranking[2])}</strong>
-          </button></li>;
+          return (
+            <li key={candidate[0]}>
+              <button type="button" className="portal-secondary" aria-pressed={partner?.[0] === candidate[0]}
+                disabled={lookingUp} title={`${format.format(both)} of ${format.format(ranking[2])} cells`} onClick={() => selectPartner(candidate)}>
+                <span>{candidate[1]}</span><strong>{percent(100 * both / ranking[2])}</strong>
+              </button>
+              <small className="hm-reverse-rank">{gene[1]} ranks #{format.format(reverseRank)} for {candidate[1]}</small>
+            </li>
+          );
         })}</ol> : <p>No co-detected partners in the atlas.</p>
       )}
       {partner && <section className="hm-card hm-pair" aria-label={`${gene[1]} × ${partner[1]}`}>
@@ -215,7 +220,7 @@ function PairExplorer({ atlas }: { atlas: Ready }) {
       </section>}
       <details className="hm-coexpression-method">
         <summary>How co-detection is calculated</summary>
-        <p>A gene is detected when a cell has at least one stored raw count. The conditional score divides cells detecting both genes by cells detecting {gene[1]}. Category percentages divide by all eligible cells. Counts are pooled across the selected datasets before percentages are calculated.</p>
+        <p>A gene is detected when a cell has at least one stored raw count. The conditional score divides cells detecting both genes by cells detecting {gene[1]}. Reverse rank is the position of {gene[1]} among all genes co-detected with the partner. Ties use higher total detection, then atlas index order. Category percentages divide by all eligible cells. Counts are pooled across the selected datasets before percentages are calculated.</p>
       </details>
       {csv && <CsvDialog csv={csv} onClose={() => setCsv(null)} />}
     </>

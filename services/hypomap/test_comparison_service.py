@@ -47,6 +47,22 @@ class ComparisonTests(unittest.TestCase):
         self.assertEqual(zero['counts']['partnerOnly'], 1)
         self.assertIsNone(zero['conditionalPercent'])
 
+    def test_reverse_rank_includes_partners_outside_top_five(self):
+        # Gene 0 shares one cell with gene 1. Genes 2–7 each share two.
+        cells = [[0, 1], [1, 2, 3, 4, 5, 6, 7], [1, 2, 3, 4, 5, 6, 7], [2]]
+        self.index.genes = [[str(i), str(i)] for i in range(8)]
+        self.index.lookup = {str(i): i for i in range(8)}
+        self.index.marginals = np.bincount([gene for cell in cells for gene in cell], minlength=8)
+        flags = np.array([[gene in cell for cell in cells] for gene in range(8)])
+        self.index.datasets = {'fixture': {
+            'bits': np.packbits(flags, axis=1, bitorder='little'),
+            'n': len(cells),
+            'rows': np.cumsum([0, *map(len, cells)]),
+            'columns': np.array([gene for cell in cells for gene in cell]),
+        }}
+        self.assertEqual(self.index.recommendations('0')[3], [[1, 1, 7]])
+        self.assertEqual(self.index.ranked_partners(1).tolist(), [2, 3, 4, 5, 6, 7, 0])
+
     def test_invalid_requests_and_integrity(self):
         for a, b, ds in [('0', '0', ('fixture',)), ('bad', '1', ('fixture',)),
                           ('0', '1', ()), ('0', '1', ('fixture', 'fixture'))]:

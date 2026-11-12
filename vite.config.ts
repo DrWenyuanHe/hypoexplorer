@@ -694,7 +694,7 @@ export default defineConfig(async ({ mode }): Promise<ViteUserConfig> => {
     ...(mode === 'offline' && process.env.VITE_HYPOMAP_COEXPRESSION === '1' ? {
       proxy: {
         '/hypomap-preview-api/': {
-          target: 'http://127.0.0.1:8765',
+          target: `http://127.0.0.1:${process.env.HYPOMAP_COMPARISON_PORT ?? '8765'}`,
           rewrite: (url: string) => url.replace('/hypomap-preview-api/', '/api/'),
         },
       },
