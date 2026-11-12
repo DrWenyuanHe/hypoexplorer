@@ -28,6 +28,7 @@ import { fileURLToPath } from 'node:url';
 import { listDatasets } from '../src/data/datasets';
 import { manifestFreshness, REBUILD_HINT } from '../src/data/indexFreshness';
 import { readReleaseBuild } from './lib/releaseBuild.mjs';
+import { ATLAS_DIRS, TRACKER_CATALOG } from './lib/deployInputs.mjs';
 import { verifyServedReleaseData } from './lib/deployedDataVerification.mjs';
 import { releaseBundleVersion } from '../src/data/releaseIdentity';
 
@@ -764,6 +765,15 @@ for (const result of await verifyServedReleaseData(path.resolve(__dirname, '..')
   dataOrigin: DATA_ORIGIN, bundleVersion: BUNDLE_VERSION,
   querySha256: EXPECTED_RELEASE.dataBuildSha256, expressionBuildId: EXPECTED_RELEASE.expressionBuildId,
 }, fetchBytes)) check(result.ok, result.name, result.detail);
+
+// ── Site assets that are not in the repository ───────────────────────────────
+// The reference atlases and the tracker catalog are gitignored and reach dist/
+// only when prepare:deploy put them in public/. A deploy without them still
+// loads, and the Expression survey just reports three collections unavailable.
+for (const relative of [...ATLAS_DIRS.map((dir) => `expression/${dir}/manifest.json`), TRACKER_CATALOG]) {
+  const { status } = await fetchBytes(`${ORIGIN}/${relative}`);
+  check(status === 200, `/${relative} served`, `HTTP ${status}`);
+}
 
 // ── Deployed build identity ──────────────────────────────────────────────────
 // dist/ is gitignored and uploaded by hand, so "did the upload actually happen"

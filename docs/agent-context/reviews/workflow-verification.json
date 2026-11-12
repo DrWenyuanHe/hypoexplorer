@@ -1,11 +1,14 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "89bc01ddd49d6ef827367b7efe013054aff162df5d893973091786fd66df2be8",
-  "outcome": "no-impact",
-  "explanation": "Standalone tracker removal (cleanup B5, owner-approved): the independent dataset-tracker/ Vite app is deleted. The integrated tracker under src/dataset-tracker/ (#/tracker) is unchanged and nothing imported the standalone app. The standalone app held only triage statuses and font licence copies; no evidence record, QC policy, author-validation input or verification status changes.",
+  "fingerprint": "95381a27d8a7f3e4397230952174da257e965384f6011311e0b7a27f52cacb7a",
+  "outcome": "updated",
+  "explanation": "The verification route no longer links evidence absent from this repository: the HFD historical-compatibility note is named as restored by fetch:data, the GSE135007 serialization runbook as held only by the maintainer, and run_historical_check.py, historical_native_runtime.py and its tests as private-only; check:quality is marked as not present. Script differences from the private source are export scrubs (an identity path normalization in audit_author_validation, backslash escaping in build_author_validation Markdown cells, generic interpreter and output paths). No evidence record, QC policy or verification status changes.",
   "references": [
-    "src/dataset-tracker/TrackerDetail.tsx",
+    "docs/agent-context/workflows.md",
+    "docs/HISTORICAL_NATIVE_RUNTIME.md",
+    "scripts/audit_author_validation.mts",
+    "scripts/build_author_validation.mts",
     "data/author-validation/README.md"
   ]
 }

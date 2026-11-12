@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "c2bed6f512460acdb2aea7a4ca8ad737474e70366f828e9d4d70422216df3535",
-  "outcome": "no-impact",
-  "explanation": "Two assertions are hardened for code scanning: the GSE285906 paper link is matched by its parsed nature.com hostname instead of a URL substring, and the portal heading title escapes every regular-expression metacharacter in the dataset name instead of only parentheses. Both expect the same values as before; no suites, fixtures or shared test contracts change.",
+  "fingerprint": "781429481924304631afe3f28f74b97b451d39db813cd7e90f975520151b23dc",
+  "outcome": "updated",
+  "explanation": "Adds deployGuards.test.ts for the two delivery guards: atlas completeness (manifest, validation report and every lookup/value shard, for public/ or dist/) and recognition of public-data-release bundles (fetch:data marker, KEGG_NOT_INCLUDED.md, empty macaque cpm, an all-empty KEGG corpus, and the narrower --only scope where one study may lack KEGG). It writes only temporary directories. The earlier hostname and regular-expression hardening of two assertions is unchanged.",
   "references": [
-    "src/__tests__/authorValidation.test.ts",
-    "src/__tests__/portalCards.test.tsx"
+    "src/__tests__/deployGuards.test.ts",
+    "scripts/lib/deployInputs.mts",
+    "scripts/lib/publicDataRelease.mts"
   ]
 }

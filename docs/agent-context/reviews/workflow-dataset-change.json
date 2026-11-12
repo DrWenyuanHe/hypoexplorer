@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "25177a3bde9512156c6983b2be36199ca689837b336af2b6335ddf8c3aa60c95",
-  "outcome": "no-impact",
-  "explanation": "Standalone tracker removal (cleanup B5, owner-approved): the independent dataset-tracker/ Vite app is deleted. The integrated tracker under src/dataset-tracker/ (#/tracker) is unchanged and nothing imported the standalone app. No registry entry, sidecar, bundle builder, tracker catalog builder or dataset contract changes; build_tracker_catalog.mts and the integrated tracker still read the same catalog.",
+  "fingerprint": "575d4729246b576192f27d4d6206cf71360b9e141938ee2f01b58ca50811f17b",
+  "outcome": "updated",
+  "explanation": "The dataset-change route now says the verification-advancement replay runs in the maintainer's checkout (record it as pending here), and that a fresh checkout takes the reference atlases with fetch:expression because build:expression-external needs retained source downloads this repository lacks. Script differences from the private source are the upload and fetch:data guards for reduced public-release bundles, comment and path scrubs (datasets.ts and batch-2 builder comments, generic R output paths) and backslash escaping in author-validation Markdown; no registry entry, builder output or dataset contract changes.",
   "references": [
-    "scripts/build_tracker_catalog.mts",
-    "src/dataset-tracker/DatasetTrackerView.tsx",
-    "docs/DATASET_CONTRACT.md"
+    "docs/agent-context/workflows.md",
+    "scripts/upload_bundles_r2.mts",
+    "scripts/fetch_data.mts",
+    "scripts/build_explorer_bundles_batch2.mts",
+    "src/data/datasets.ts"
   ]
 }

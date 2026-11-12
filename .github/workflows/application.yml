@@ -40,6 +40,10 @@ jobs:
       - run: pnpm run typecheck
       - name: Test the agent-context tooling
         run: pnpm run test:context
+      # Generated maps, links and review fingerprints must match the committed
+      # sources (docs/agent-context/README.md). Reads files only; writes nothing.
+      - name: Check the agent context
+        run: pnpm run context:check
 
   test:
     name: Unit tests
@@ -73,11 +77,14 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm run fetch:query
+      # The same preparation as deploy:cf: the query catalog from R2, the tracker
+      # catalog and the GTEx, HPA and Allen atlases (~230 MB) from the app host.
+      - run: pnpm run prepare:deploy
       - name: Build production application
         run: pnpm run build
-      # Release metadata, the bootstrap script, the static guide pages and the
-      # citation version must agree with the committed source.
+      # Release metadata, the bootstrap script, the static guide pages, the
+      # citation version and the shipped atlases and tracker catalog must agree
+      # with the committed source.
       - run: pnpm run verify:release
       - name: Install Chromium for built-site smoke checks
         run: pnpm exec playwright install --with-deps chromium --only-shell

@@ -49,7 +49,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (222):
+Covered source files (223):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -123,6 +123,7 @@ Covered source files (222):
 - [src/__tests__/dbPill.test.tsx](<../../../src/__tests__/dbPill.test.tsx>)
 - [src/__tests__/deTable.test.ts](<../../../src/__tests__/deTable.test.ts>)
 - [src/__tests__/dedicatedReplicationEvidence.test.ts](<../../../src/__tests__/dedicatedReplicationEvidence.test.ts>)
+- [src/__tests__/deployGuards.test.ts](<../../../src/__tests__/deployGuards.test.ts>)
 - [src/__tests__/deployedDataVerification.test.ts](<../../../src/__tests__/deployedDataVerification.test.ts>)
 - [src/__tests__/edgePurge.test.ts](<../../../src/__tests__/edgePurge.test.ts>)
 - [src/__tests__/edgeRules.test.ts](<../../../src/__tests__/edgeRules.test.ts>)
