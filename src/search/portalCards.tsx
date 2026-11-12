@@ -23,6 +23,7 @@ import {
 } from './searchSummaries';
 import type { Dataset, Direction } from '../types';
 import './search.css';
+import { HypoMapPreview } from './hypomap/HypoMapPreview';
 
 // ── Small async helper ──────────────────────────────────────────────────────
 
@@ -537,10 +538,11 @@ export function ReferenceAtlasSection({ symbol }: { symbol: string }) {
  * reference atlases, each source in its own unit, then the way to the survey.
  */
 export function GeneExpressionCards({ symbol, onOpenExpression }: { symbol: string; onOpenExpression?: () => void }) {
+  const showHypoMap = import.meta.env.VITE_HYPOMAP_EXPRESSION === '1';
   return (
     <section className="portal-card gene-expr" data-cards="expression" aria-labelledby="gene-expr-title">
       <h2 id="gene-expr-title" className="portal-card-title">Where {symbol} is expressed</h2>
-      <div className="gene-expr-lanes">
+      {showHypoMap ? <HypoMapPreview key={symbol} symbol={symbol} /> : <div className="gene-expr-lanes">
         <section className="gene-expr-lane" data-species="mouse" aria-labelledby="gene-expr-mouse-title">
           <h3 id="gene-expr-mouse-title" className="gene-expr-lane-title">Mouse hypothalamus</h3>
           <BaselineSection symbol={symbol} />
@@ -550,7 +552,7 @@ export function GeneExpressionCards({ symbol, onOpenExpression }: { symbol: stri
           </section>
         </section>
         <ReferenceAtlasSection symbol={symbol} />
-      </div>
+      </div>}
       <div className="gene-expr-foot">
         <p className="portal-note">
           Each source keeps its own published unit, and its bars are scaled to its own highest value. Every sample,
