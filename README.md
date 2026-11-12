@@ -109,3 +109,11 @@ wenyuan.he@mail.utoronto.ca.
 The application code is MIT-licensed ([`LICENSE`](LICENSE)). The original studies,
 data deposits and derived analysis outputs keep their own terms; see
 [`REUSE.md`](REUSE.md) before reusing data or figures.
+
+### Mouse HypoMap data
+
+`pnpm run fetch:hypomap` installs and verifies the pinned browser export.
+During release review, pass the candidate archive as a positional argument.
+Offline development serves it from `public/hypomap`. Hosted deployments copy
+that same versioned directory to the configured bundle origin with CORS
+enabled for the app origin.
