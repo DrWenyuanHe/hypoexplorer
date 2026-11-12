@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "8b78b4b94a0537df0ec2c25f0220962659cf0538d8215be3f806758480c7062d",
+  "fingerprint": "c2bed6f512460acdb2aea7a4ca8ad737474e70366f828e9d4d70422216df3535",
   "outcome": "no-impact",
-  "explanation": "The shared tracker catalog fixture in setup.ts drops the score rationale and risks fields to match the trimmed catalog shape; no test expectations or suites change.",
+  "explanation": "Two assertions are hardened for code scanning: the GSE285906 paper link is matched by its parsed nature.com hostname instead of a URL substring, and the portal heading title escapes every regular-expression metacharacter in the dataset name instead of only parentheses. Both expect the same values as before; no suites, fixtures or shared test contracts change.",
   "references": [
-    "src/__tests__/setup.ts",
-    "src/__tests__/datasetTracker.test.tsx"
+    "src/__tests__/authorValidation.test.ts",
+    "src/__tests__/portalCards.test.tsx"
   ]
 }

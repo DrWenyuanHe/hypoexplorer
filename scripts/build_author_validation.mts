@@ -483,7 +483,7 @@ const tsvRows = records.map((record) => {
   ].map(tsvCell).join('\t');
 });
 const tsvSerialized = `${[tsvHeaders.join('\t'), ...tsvRows].join('\n')}\n`;
-const mdCell = (value: unknown) => tsvCell(value).replace(/\|/g, '\\|');
+const mdCell = (value: unknown) => tsvCell(value).replace(/\\/g, '\\\\').replace(/\|/g, '\\|');
 const mdNumber = (value: number | null | undefined, digits = 4) => (
   value == null ? 'n/a' : value.toFixed(digits)
 );
