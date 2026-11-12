@@ -215,7 +215,9 @@ function Results({ results, query, filter, onSearch, onFilterChange, onOpenGene,
           <GeneList
             title={match ? 'Also matching' : 'Genes'}
             genes={filter === 'all' ? others.slice(0, ALL_PREVIEW) : others}
-            total={others.length}
+            // A capped result list leaves more genes beyond these, so the count
+            // must read "100+" here as on the Genes tab, not the visible remainder.
+            total={genes.length >= RESULT_LIMIT ? RESULT_LIMIT : others.length}
             onOpenGene={onOpenGene}
             onShowAll={filter === 'all' && others.length > ALL_PREVIEW ? () => onFilterChange('gene') : undefined}
             showAllCount={genes.length}

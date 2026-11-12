@@ -140,6 +140,15 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
   const all = useMemo(() => groups.flatMap((group) => group.tracks.map((track) => ({ group, track }))), [groups]);
   const significant = useMemo(() => all.filter((r) => r.track.significant), [all]);
   const measured = groups.filter((g) => g.tracks.length > 0);
+  // A study whose data did not load says nothing about the gene, so it is
+  // named rather than counted as not measuring it.
+  const failed = groups.filter((g) => g.error);
+  const failedNote = failed.length > 0 && (
+    <p className="portal-note" role="status">
+      {failed.length} selected {failed.length === 1 ? 'study' : 'studies'} could not be loaded
+      ({failed.map((g) => g.dataset.name).join(', ')}), so {gene} may be measured there.
+    </p>
+  );
   const studiesSignificant = measured.filter((g) => g.tracks.some((t) => t.significant)).length;
   const up = significant.filter((r) => r.track.direction === 'up').length;
   const down = significant.filter((r) => r.track.direction === 'down').length;
@@ -166,10 +175,19 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
   const toggleArea = (area: AreaGroup) => setFolded((f) => ({ ...f, [area.category]: isOpen(area) }));
   const areasId = useId();
 
-  if (measured.length === 0) return <p className="portal-note">{gene} is not measured in any selected study.</p>;
+  if (measured.length === 0) {
+    if (failed.length === 0) return <p className="portal-note">{gene} is not measured in any selected study.</p>;
+    return (
+      <>
+        {failed.length < groups.length && <p className="portal-note">{gene} is not measured in any selected study that loaded.</p>}
+        {failedNote}
+      </>
+    );
+  }
 
   return (
     <>
+      {failedNote}
       <p className="portal-verdict">
         Significant in <b>{studiesSignificant}</b> of <b>{measured.length}</b> datasets
         {significant.length > 0 && (

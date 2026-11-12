@@ -25,6 +25,7 @@ const OXTR = gene('OXTR', 'oxytocin receptor', 'name-prefix', 'oxytocin receptor
 const SECRETION = pathway('GOBP_OXYTOCIN_SECRETION', 'Oxytocin secretion');
 const SIGNALING = pathway('KEGG_OXYTOCIN_SIGNALING_PATHWAY', 'Oxytocin signaling pathway');
 const TWELVE = Array.from({ length: 12 }, (_, i) => gene(`G${i}`, `gene ${i}`, 'name-word'));
+const HUNDRED = Array.from({ length: 100 }, (_, i) => gene(`H${i}`, `gene ${i}`, 'name-word'));
 
 const FIXTURES: Record<string, SearchResults> = {
   oxytocin: { query: 'oxytocin', genes: [OXT, OXTR], pathways: [SECRETION, SIGNALING], best: { kind: 'gene', hit: OXT } },
@@ -33,6 +34,8 @@ const FIXTURES: Record<string, SearchResults> = {
   G0: { query: 'G0', genes: TWELVE, pathways: [], best: { kind: 'gene', hit: TWELVE[0] } },
   // No decisive match.
   many: { query: 'many', genes: TWELVE, pathways: [SECRETION], best: null },
+  // A direct match at the head of a list cut off at the 100-gene limit.
+  H0: { query: 'H0', genes: HUNDRED, pathways: [], best: { kind: 'gene', hit: HUNDRED[0] } },
 };
 
 function geneReport(): CrossDatasetGeneReport {
@@ -212,6 +215,12 @@ describe('SearchPage', () => {
     expect(within(listed).getAllByRole('listitem')).toHaveLength(11);
     expect(listed.querySelector('.search-more')).toBeNull();
     expect(screen.queryByRole('region', { name: /^Pathways/ })).toBeNull();
+  });
+
+  it('marks the other genes as capped when the result list hit its limit', () => {
+    renderPage('H0', 'gene');
+    expect(matchList()).toBeTruthy();
+    expect(screen.getByRole('region', { name: 'Also matching 100+' })).toBeTruthy();
   });
 
   it('lists the genes without a lead row when no gene is a direct match, capped under All', () => {
