@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "54b475ebe08be6e64ff30d0ae749d51ba7f2d0f049da568b4b61c640d2d4b6bd",
+  "fingerprint": "58eb01ce6eef9825bb4666540930d8253225c25f00f7db5bc9c4bcc410952a53",
   "outcome": "no-impact",
-  "explanation": "scripts/fetch_hypomap.mts installs the pinned HypoMap browser export into the git-ignored public/hypomap after checking the archive, manifest and every member's SHA-256. It is not a registered dataset: datasets.ts, the bundle builders, the query and expression indexes and the dataset-change runbook are unchanged.",
+  "explanation": "The uploader can now publish the pinned HypoMap atlas, but only from public/hypomap/<tag>/ and never through --only. Dataset registration, bundle builders, the query and expression indexes, the reduced-release refusal and the index checks for full uploads are unchanged; --hypomap-only skips them because it uploads no dataset, query or QC object.",
   "references": [
-    "scripts/fetch_hypomap.mts",
-    "hypomap-release.json",
+    "scripts/upload_bundles_r2.mts",
+    "scripts/lib/hypomapAtlas.mts",
     "docs/agent-context/workflows.md"
   ]
 }

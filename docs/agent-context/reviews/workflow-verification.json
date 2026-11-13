@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "8064486fce4018e36f454b9292968e2fc6946781011650d4fd708a8429e536f5",
+  "fingerprint": "89f2025f592de1765023a7cccb7343b9899c551e941aa465e0db6b85cc40876d",
   "outcome": "no-impact",
-  "explanation": "scripts/fetch_hypomap.mts falls in this area's script prefix but only verifies checksums for the pinned HypoMap export. No evidence record, QC policy, author-validation input or verification status changes, and no registered dataset gains or loses a verification claim.",
+  "explanation": "The changed scripts verify HypoMap atlas checksums before upload and probe edge rules and CORS for the atlas. No evidence record, QC policy, author-validation input or dataset verification status changes, so the verification runbook and its claims stay as they are.",
   "references": [
-    "scripts/fetch_hypomap.mts",
+    "scripts/lib/hypomapAtlas.mts",
+    "scripts/verify_edge.mts",
     "data/author-validation/README.md"
   ]
 }

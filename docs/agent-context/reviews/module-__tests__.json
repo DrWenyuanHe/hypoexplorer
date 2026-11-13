@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "70baa10d3033c73a7dea58d46e104052cf7049d298a9aa7c52668a4315bca1ab",
+  "fingerprint": "a7a08d99c4b579142a9f1bd27ac75f83a0e644f6be74389a9d16b8e279394406",
   "outcome": "no-impact",
-  "explanation": "PR 21 adds one portalCards case: with VITE_HYPOMAP_EXPRESSION stubbed on, the mouse baseline and the human reference atlases still render, the single-cell placeholder is replaced, and the HypoMap preview sits outside the mouse lane. loadAtlasGene is mocked because the atlas export is not checked in. It uses the existing jsdom project; no setup, exclusion or environment changes.",
+  "explanation": "Adds hypomapAtlas.test.ts (pinned-tag atlas verification with the release pin mocked), HypoMap path cases and a 4,096-character expression bound in edgeRules.test.ts, and a gzip-object metadata case in r2Incremental.test.ts. All run in the existing node test project with temporary directories; no setup, exclusion or environment change, so the test map needs only the regenerated file list.",
   "references": [
-    "src/__tests__/portalCards.test.tsx",
-    "src/search/portalCards.tsx"
+    "src/__tests__/hypomapAtlas.test.ts",
+    "src/__tests__/edgeRules.test.ts",
+    "src/__tests__/r2Incremental.test.ts",
+    "docs/agent-context/generated/codebase.md"
   ]
 }

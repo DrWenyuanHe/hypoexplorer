@@ -1,10 +1,16 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "4e694db122f5be46a89d4e0916e4b4de38c05c13fa4a837525da08554828e88b",
-  "outcome": "no-impact",
-  "explanation": "README Contributors now credits Helene Li as creator and contributor. Credit text only; no command, file layout, configuration or documented structure changes.",
+  "fingerprint": "04b5ecf50f547bac31fbcc3e186fa60f55c46ee5a41ed41854bae0f99a5341b5",
+  "outcome": "updated",
+  "explanation": "Adds scripts/lib/hypomapAtlas.mts, the one definition of the pinned HypoMap atlas file shape shared by the edge rule builder, the R2 uploader and verify:edge. The Cloudflare path and burst payloads are re-rendered from scripts/lib/edgeRules.mts, r2Incremental stores .gz objects as application/gzip, vite.config.ts drops dist/hypomap from off-origin builds, and the README now says which manual Cloudflare and R2 steps remain before hosted builds can turn the expression view on. Both flags stay off. The README Contributors section also credits Helene Li as creator and contributor; that is credit text only.",
   "references": [
-    "README.md"
+    "scripts/lib/hypomapAtlas.mts",
+    "scripts/lib/edgeRules.mts",
+    "scripts/lib/r2Incremental.mts",
+    "scripts/upload_bundles_r2.mts",
+    "vite.config.ts",
+    "README.md",
+    "docs/agent-context/delivery.md"
   ]
 }

@@ -147,3 +147,77 @@ dataset filenames, metadata, nomenclature and query pointers use the first 32
 hexadecimal characters of the release fingerprint as their `?v=` cache key,
 so a same-version release cannot reuse an earlier generation's cached data.
 Unverified development/test builds retain the app-version fallback.
+
+## HypoMap atlas
+
+The HypoMap views are build-flagged and off: `VITE_HYPOMAP_EXPRESSION` and
+`VITE_HYPOMAP_COEXPRESSION`. When on, they read the atlas pinned in
+[hypomap-release.json](../../hypomap-release.json) from
+`${VITE_BUNDLE_BASE_URL}/hypomap/<tag>/` ([atlas.ts](../../src/search/hypomap/atlas.ts)).
+Hosted builds are off-origin, so the atlas lives in R2. `pnpm run fetch:hypomap`
+installs it in the ignored `public/hypomap/<tag>/`. A full `upload:bundles`
+publishes it when that directory exists. `--hypomap-only` publishes only the atlas
+and skips the dataset, query and QC trees and their checks. The uploader reads only
+the pinned tag. Before any remote request it checks `manifest.json` against
+`manifestSha256` and every listed file against the manifest's size and SHA-256
+([hypomapAtlas.mts](../../scripts/lib/hypomapAtlas.mts)). Off-origin builds also
+remove `dist/hypomap/`. The atlas cannot be served same-origin from Workers static
+assets, because `public/.assetsignore` excludes `*.gz`. Only the Vite dev server
+serves it from `public/`. Co-expression also calls `/hypomap-preview-api/`, which
+only the offline dev server proxies to the loopback service in `services/hypomap/`.
+The steps below therefore make the expression view deliverable, not co-expression.
+
+Every atlas object is immutable under its tag. The uploader stores the `.json.gz`
+files unchanged, with `Content-Type: application/gzip` and no `Content-Encoding`.
+R2 returns the HTTP metadata stored with an object, and Cloudflare does not
+compress `application/gzip`, so `fetch()` returns the gzip bytes. `atlas.ts` checks
+them against the manifest's SHA-256 and decompresses them. If an object were stored
+with `Content-Encoding: gzip`, for example by a manual upload, the browser would
+decode it before `fetch()` returned. `atlas.ts` would still parse the JSON, but it
+would skip that file's checksum, because it verifies only gzip bytes.
+`manifest.json` follows the uploader's brotli rule for text; it is checked against
+`manifestSha256` after decoding either way. This follows from the uploader and
+`atlas.ts`, not from a live response. The atlas has not been uploaded, and the
+current path rule blocks `/hypomap/`.
+
+The spend guard counts Class B operations for the whole bucket, and the shutoff
+rule blocks the whole data host, so atlas reads are covered without a change. A
+gene lookup reads the manifest, metadata and search index once, then one shard.
+
+`atlas.ts` reads with `fetch()`, so the bucket needs a CORS policy for the app
+origins whatever `VITE_BUNDLE_CORS` says:
+
+```json
+{ "rules": [ { "allowed": { "origins": ["https://hypoexplorer.com", "https://www.hypoexplorer.com"], "methods": ["GET", "HEAD"] } } ] }
+```
+
+R2 CORS applies to the whole bucket. It does not change how bundles load; they
+stay script tags until `VITE_BUNDLE_CORS` is set, which is a separate decision. The
+data host caches every response, and R2's documentation says cached objects keep
+their CORS headers until they are refreshed. It is not verified whether a response
+first cached for a request without `Origin` (a crawler, `curl`) or for the other
+app origin is later served to the app without a matching
+`Access-Control-Allow-Origin`. `pnpm run verify:edge --hypomap` tests the
+no-`Origin` case; run it again with `APP_ORIGIN=https://www.hypoexplorer.com`. If
+either fails, add a response header transform rule on `data.hypoexplorer.com`
+for `starts_with(http.request.uri.path, "/hypomap/")` that sets
+`Access-Control-Allow-Origin: *`, and purge `data.hypoexplorer.com/hypomap/<tag>/`.
+The atlas is public and read without credentials. `edge:apply` does not manage
+transform rules, so that rule is added by hand.
+
+To publish an atlas tag, in order:
+
+1. Publish the release asset named in `hypomap-release.json`, then run
+   `pnpm run fetch:hypomap`.
+2. `pnpm run edge:apply`. The dry run should show updates to
+   `hypoexplorer_data_paths` and `hypoexplorer_data_burst` only. Then run
+   `pnpm run edge:apply --apply` and `pnpm run verify:edge`.
+3. Write the CORS policy above to a file and run
+   `pnpm exec wrangler r2 bucket cors set hypoexplorer-datasets --file <file>`.
+4. `pnpm run upload:bundles --hypomap-only --remote-dry-run --env-file .env.local`,
+   then the same command without `--remote-dry-run` for the authorized upload. It
+   purges `hypomap/<tag>/`.
+5. `pnpm run verify:edge --hypomap`, once for each app origin.
+6. Only then decide whether a hosted build turns on `VITE_HYPOMAP_EXPRESSION`.
+
+A new tag repeats steps 1, 2, 4 and 5, because the path rule names the tag.
