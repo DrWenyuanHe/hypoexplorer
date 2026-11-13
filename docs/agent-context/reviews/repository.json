@@ -1,15 +1,15 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "fe563b68776057b67a2d05167ab907967bc93a1a496e00c753db46e789ce70c0",
+  "fingerprint": "19133acd79c9087bd86fb3335ec6e267788d3a4162c6305105881915b6321f7a",
   "outcome": "updated",
-  "explanation": "Re-reviewed as the public repository rather than the private source. Public-only files: the public-safety check and hook, Dependabot and CodeQL configuration, the security and public-safety workflows, the fetch:query, fetch:expression, fetch:data and dev:offline scripts and docs/DEVELOPMENT.md. Private-only files are absent: the agent-context CI workflow, the maintainer's private notes and the historical-replay runners. In this change the Application workflow runs context:check in its lint job and prepare:deploy before the build, package.json adds prepare:deploy and makes deploy:cf and deploy:cf:dry prepare inputs and run verify:release, and the guidance docs say what is tracked here. Rebased onto #18, #19 and #22: Dependabot ignores and a dev-dependency lockfile bump, a .gitattributes LF rule for the OXT reference LICENSE, the service-worker clientsClaim setting in vite.config.ts, and the agent-export and ZipWriter fixes; none changes a command or documented structure.",
+  "explanation": "PR 21 adds the gated HypoMap views. New root and script files: hypomap-release.json pins the atlas export, scripts/fetch_hypomap.mts (pnpm run fetch:hypomap) verifies and installs it into the git-ignored public/hypomap, and services/hypomap holds the loopback comparison service. vite.config.ts proxies /hypomap-preview-api/ to that service only in offline mode with VITE_HYPOMAP_COEXPRESSION=1. The catalog and AGENTS directory map now list services/, and the README documents the export and why hosted delivery stays off.",
   "references": [
-    ".github/workflows/application.yml",
-    ".github/dependabot.yml",
-    ".gitattributes",
-    "package.json",
-    "docs/PROJECT_GUIDANCE.md",
-    "docs/DEVELOPMENT.md"
+    "hypomap-release.json",
+    "scripts/fetch_hypomap.mts",
+    "services/hypomap/README.md",
+    "vite.config.ts",
+    "README.md",
+    "docs/agent-context/catalog.json"
   ]
 }

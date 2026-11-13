@@ -173,6 +173,14 @@ handling and within-gene versus gene-wise corrections explicit in the UI and
 exports. A matched numerical reference does not establish biological calibration
 or measured human usability.
 
+HypoMap views in `src/search/hypomap/` sit behind two build flags that stay off in
+hosted builds: `VITE_HYPOMAP_EXPRESSION` adds the atlas preview under the gene
+report's expression lanes, and `VITE_HYPOMAP_COEXPRESSION` replaces the
+co-expression placeholder. The preview reads the export pinned in
+`hypomap-release.json` (installed by `pnpm run fetch:hypomap`); co-expression needs
+the loopback service in `services/hypomap/`. Hosted delivery is blocked until the
+data host's path rules and CORS allow `/hypomap/`; see the README.
+
 Responsive layouts share the 900px breakpoint in `useCompactLayout` and
 `src/styles/responsive.css`. `ResponsiveSidebar` keeps cell navigation and
 compare-set studies in a desktop rail or a mobile dialog, using the shared Modal

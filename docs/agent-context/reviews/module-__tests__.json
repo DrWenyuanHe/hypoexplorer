@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "255bef7a5dc4d30adee82a0fe6a11a82923cd5e10942bc244331841e65805065",
+  "fingerprint": "70baa10d3033c73a7dea58d46e104052cf7049d298a9aa7c52668a4315bca1ab",
   "outcome": "no-impact",
-  "explanation": "Rebased onto #22. New and extended tests: swHandover.test.ts (the SKIP_WAITING handover, including a worker that already activated), pwaUpdate and forceRefresh cases, a failed-dataset case in queryIndex and geneReport, a versioned Ensembl lookup in externalReference and the capped \"100+\" count in searchPage. They follow the existing node and jsdom project split; no test exclusion, environment or setup changes.",
+  "explanation": "PR 21 adds one portalCards case: with VITE_HYPOMAP_EXPRESSION stubbed on, the mouse baseline and the human reference atlases still render, the single-cell placeholder is replaced, and the HypoMap preview sits outside the mouse lane. loadAtlasGene is mocked because the atlas export is not checked in. It uses the existing jsdom project; no setup, exclusion or environment changes.",
   "references": [
-    "src/__tests__/swHandover.test.ts",
-    "src/__tests__/queryIndex.test.ts"
+    "src/__tests__/portalCards.test.tsx",
+    "src/search/portalCards.tsx"
   ]
 }

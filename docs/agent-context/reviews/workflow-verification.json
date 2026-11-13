@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "4585698970154a7e1d2824c0f9020caea8698054c762444d6d437141ae54b6fc",
+  "fingerprint": "8064486fce4018e36f454b9292968e2fc6946781011650d4fd708a8429e536f5",
   "outcome": "no-impact",
-  "explanation": "Rebased onto #22. No evidence record, QC policy, author-validation input or verification status changes. The agent-export unit precedence and ZipWriter publishing, and the failed-dataset flag in crossDataset.ts, touch files this area covers without changing what is verified or how.",
+  "explanation": "scripts/fetch_hypomap.mts falls in this area's script prefix but only verifies checksums for the pinned HypoMap export. No evidence record, QC policy, author-validation input or verification status changes, and no registered dataset gains or loses a verification claim.",
   "references": [
-    "scripts/build_agent_export.mts",
-    "src/data/crossDataset.ts"
+    "scripts/fetch_hypomap.mts",
+    "data/author-validation/README.md"
   ]
 }

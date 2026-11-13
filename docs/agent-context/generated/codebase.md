@@ -712,18 +712,26 @@ Covered source files (3):
 
 ## search
 
-Unified gene and pathway search, synonym dictionary and results portal.
+Unified gene and pathway search, synonym dictionary, results portal and gated HypoMap atlas views.
 
 Start here:
 - [src/search/searchTypes.ts](<../../../src/search/searchTypes.ts>)
 - [src/search/searchVocabulary.ts](<../../../src/search/searchVocabulary.ts>)
 - [src/search/searchSummaries.ts](<../../../src/search/searchSummaries.ts>)
 - [src/search/SearchPage.tsx](<../../../src/search/SearchPage.tsx>)
+- [src/search/hypomap/atlas.ts](<../../../src/search/hypomap/atlas.ts>)
 
-Covered source files (11):
+Covered source files (18):
 - [src/search/DbBadge.tsx](<../../../src/search/DbBadge.tsx>)
 - [src/search/SearchPage.tsx](<../../../src/search/SearchPage.tsx>)
 - [src/search/UnifiedSearchBox.tsx](<../../../src/search/UnifiedSearchBox.tsx>)
+- [src/search/hypomap/AtlasMap.tsx](<../../../src/search/hypomap/AtlasMap.tsx>)
+- [src/search/hypomap/Coexpression.tsx](<../../../src/search/hypomap/Coexpression.tsx>)
+- [src/search/hypomap/CsvDialog.tsx](<../../../src/search/hypomap/CsvDialog.tsx>)
+- [src/search/hypomap/HypoMapPreview.tsx](<../../../src/search/hypomap/HypoMapPreview.tsx>)
+- [src/search/hypomap/atlas.ts](<../../../src/search/hypomap/atlas.ts>)
+- [src/search/hypomap/coexpression.css](<../../../src/search/hypomap/coexpression.css>)
+- [src/search/hypomap/preview.css](<../../../src/search/hypomap/preview.css>)
 - [src/search/pathwaySpecificity.ts](<../../../src/search/pathwaySpecificity.ts>)
 - [src/search/portalCards.tsx](<../../../src/search/portalCards.tsx>)
 - [src/search/search.css](<../../../src/search/search.css>)

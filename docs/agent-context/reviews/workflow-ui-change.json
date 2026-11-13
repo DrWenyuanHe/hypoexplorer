@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "d37e6aba0a7675999df988c8357b709592e41d14299d5c9e53e7001f2fc66b6d",
-  "outcome": "no-impact",
-  "explanation": "Rebased onto #22. User-visible copy changes only: the gene report names studies that failed to load, the reference atlas matches versioned Ensembl IDs, and search shows \"100+\" for a capped list. Navigation, views, routes and exports are unchanged, so the UI-change runbook stays accurate.",
+  "fingerprint": "556defd2f737fadef8d786ac842cac293aabd19f424e8183d4b9c232768135cd",
+  "outcome": "updated",
+  "explanation": "The UI-change runbook now covers the gated HypoMap views: which build flag mounts which card, where the pinned export and the comparison service come from, and that hosted delivery stays off until the data host's path rules and CORS allow /hypomap/. Routes, explorer navigation and existing exports are unchanged.",
   "references": [
-    "src/crossdataset/GeneReport.tsx",
-    "src/search/SearchPage.tsx"
+    "docs/agent-context/workflows.md",
+    "src/search/portalCards.tsx",
+    "README.md"
   ]
 }

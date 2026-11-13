@@ -36,6 +36,7 @@ Directories:
 - `data/`: Analysis inputs, retained evidence and reviewed assessments.
 - `geo_replication/`: Tracked study inputs and analysis outputs.
 - `workers/`: Scheduled R2 spend guard for the data origin.
+- `services/`: Loopback HypoMap co-detection service behind the gated co-expression card.
 - `cloudflare/`: Edge cache, WAF and rate-limit rule payloads for the data host.
 - `docs/`: Data contracts, runbooks and maintained context.
 - `vendor/`: Pinned Claude SEO toolkit snapshot behind the project-local SEO skills.
@@ -62,7 +63,7 @@ Source areas:
 - `pathway-explorer`: Enrichment tables, leading edges and pathway plots.
 - `pwa`: Service-worker updates and version handling.
 - `qc`: Track-level QC tables and enrichment diagnostics.
-- `search`: Unified gene and pathway search, synonym dictionary and results portal.
+- `search`: Unified gene and pathway search, synonym dictionary, results portal and gated HypoMap atlas views.
 - `statistics`: Statistical definitions and interpretation limits.
 - `styles`: Shared display constants.
 - `types`: Shared registry, track, report and time-series contracts.

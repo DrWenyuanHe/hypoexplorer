@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "db9180212938a78a90954e457acf492b493abe5c3b7225256c833d9ab5c63fff",
-  "outcome": "updated",
-  "explanation": "Rebased onto #22. build_agent_export.mts now takes the registry expressionUnit before the bundle unit, matching the browser, and ZipWriter publishes the archive only on close from a per-process partial file. workflows.md now names the agent export among the readers that prefer the registry unit. The dataset-change runbook, registry edits and bundle builders are otherwise unchanged.",
+  "fingerprint": "54b475ebe08be6e64ff30d0ae749d51ba7f2d0f049da568b4b61c640d2d4b6bd",
+  "outcome": "no-impact",
+  "explanation": "scripts/fetch_hypomap.mts installs the pinned HypoMap browser export into the git-ignored public/hypomap after checking the archive, manifest and every member's SHA-256. It is not a registered dataset: datasets.ts, the bundle builders, the query and expression indexes and the dataset-change runbook are unchanged.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "scripts/build_agent_export.mts",
-    "docs/AGENT_EXPORT.md"
+    "scripts/fetch_hypomap.mts",
+    "hypomap-release.json",
+    "docs/agent-context/workflows.md"
   ]
 }
