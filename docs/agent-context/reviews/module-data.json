@@ -1,12 +1,10 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "be7bf730128305e40270d426fdcf7e06c9516ca0fecac1666d5ff234568aa9e8",
+  "fingerprint": "86b01aafb3ed359fb6e09f8d6f3f5d091f141d0bd4623d90cd64ba329449bd47",
   "outcome": "no-impact",
-  "explanation": "Doc and comment drift only (cleanup B3); no code path, export, route or data changes. crossDataset.ts calls its consumer the gene report (#/gene/<symbol>) instead of the retired \"Explore all\" hub entry. The tracker catalog generator banner and both generated headers (reverseIndex.generated.js, public/tracker/catalog.js) now name build_tracker_catalog.mts instead of a nonexistent .mjs; their quality-evidence pins were already historical.",
+  "explanation": "Rebased onto #22. runTrackQuery in crossDataset.ts marks a dataset group with error when every one of its track loads failed, the same flag a failed meta load already set, so the cross-dataset contract gains no field. No registry, bundle loader or index change.",
   "references": [
-    "src/data/crossDataset.ts",
-    "scripts/build_tracker_catalog.mts",
-    "src/data/tracker/reverseIndex.generated.js"
+    "src/data/crossDataset.ts"
   ]
 }

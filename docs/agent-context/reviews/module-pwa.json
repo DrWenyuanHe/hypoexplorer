@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-pwa",
-  "fingerprint": "aa4449773afa65226c5cf1c65af989c23f71965997d2169f188ddea9361b261d",
+  "fingerprint": "d0e99dd9792bb7d7ceb9da0ecc6f586d61ee4345542187529a8d3e2f8eb53188",
   "outcome": "updated",
-  "explanation": "The version watcher now compares an optional validated release fingerprint as well as package version, preserving legacy stamp compatibility and reload-loop protection. The version dialog exposes release metadata and citation/reuse links.",
+  "explanation": "Rebased onto #22, which adds clientsClaim, an ungated controllerchange reload, an 8-second handover watchdog falling back to forceRefresh(), a plain reload when the update worker is already active, and a check for tabs claimed by a worker they did not accept. Updates remain prompt-gated. delivery.md now describes this handover.",
   "references": [
-    "src/pwa/versionWatch.ts",
-    "src/pwa/VersionBadge.tsx",
-    "src/__tests__/versionWatch.test.ts"
+    "src/pwa/registerUpdates.ts",
+    "src/pwa/forceRefresh.ts",
+    "docs/agent-context/delivery.md"
   ]
 }

@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "c2bed6f512460acdb2aea7a4ca8ad737474e70366f828e9d4d70422216df3535",
+  "fingerprint": "255bef7a5dc4d30adee82a0fe6a11a82923cd5e10942bc244331841e65805065",
   "outcome": "no-impact",
-  "explanation": "Two assertions are hardened for code scanning: the GSE285906 paper link is matched by its parsed nature.com hostname instead of a URL substring, and the portal heading title escapes every regular-expression metacharacter in the dataset name instead of only parentheses. Both expect the same values as before; no suites, fixtures or shared test contracts change.",
+  "explanation": "Rebased onto #22. New and extended tests: swHandover.test.ts (the SKIP_WAITING handover, including a worker that already activated), pwaUpdate and forceRefresh cases, a failed-dataset case in queryIndex and geneReport, a versioned Ensembl lookup in externalReference and the capped \"100+\" count in searchPage. They follow the existing node and jsdom project split; no test exclusion, environment or setup changes.",
   "references": [
-    "src/__tests__/authorValidation.test.ts",
-    "src/__tests__/portalCards.test.tsx"
+    "src/__tests__/swHandover.test.ts",
+    "src/__tests__/queryIndex.test.ts"
   ]
 }

@@ -23,6 +23,14 @@
 //   npm run upload:bundles -- --skip-index-check    # skip the index/corpus verify
 //   R2_BUCKET=other-bucket npm run upload:bundles    # override bucket name
 //   npm run upload:bundles -- --no-purge        # skip the post-upload edge purge (see below)
+//   npm run upload:bundles -- --allow-reduced-bundles  # publish bundles that look like the public release
+//
+// Reduced bundles: the public data release (fetch:data, data:offline) empties
+// every KEGG collection and the macaque per-animal CPM. Publishing it would
+// replace the full production bundles, so the uploader refuses when it finds
+// signs of it (scripts/lib/publicDataRelease.mts), in every mode including the
+// dry runs. --allow-reduced-bundles overrides that, for a deliberate reduced
+// publication or a reviewed false positive.
 //
 // Edge purge: the data host's cache rule ignores the query string, so ?v= no
 // longer separates releases at the edge. After a real upload the publisher
@@ -66,6 +74,7 @@ import { acquireR2LocalLock, prepareR2Object, queryPublicationPrefixes, R2_POINT
 import { createR2InventoryReader } from './lib/r2RemoteInventory.mjs';
 import { createCloudflareClient, resolveEdgeCredentials } from './lib/cloudflareApi.mjs';
 import { manualPurgeInstructions, purgeEdgeCache, purgeRequestForKeys } from './lib/edgePurge.mjs';
+import { reducedBundleFindings } from './lib/publicDataRelease.mjs';
 
 const BUCKET = process.env.R2_BUCKET ?? 'hypoexplorer-datasets';
 const PUBLIC_ROOT = path.resolve('public'); // keys are computed relative to here
@@ -117,6 +126,7 @@ const remoteDryRun = argv.includes('--remote-dry-run');
 // their previous bytes from the edge (docs/EDGE_PROTECTION.md).
 const noPurge = argv.includes('--no-purge');
 const expressionOnly = argv.includes('--expression-only');
+const allowReduced = argv.includes('--allow-reduced-bundles');
 const envFileIndex = argv.indexOf('--env-file');
 const envFile = envFileIndex >= 0 ? argv[envFileIndex + 1] : undefined;
 if (envFileIndex >= 0 && (!envFile || envFile.startsWith('--'))) throw new Error('--env-file requires a filename.');
@@ -307,6 +317,23 @@ files.sort((a, b) => {
 
 const summary = Object.entries(perDir).map(([d, n]) => `${n} in public/${d}/`).join(', ');
 console.log(`Found ${files.length} files (${summary})${only ? ` (filtered: ${only})` : ''} → bucket "${BUCKET}"`);
+// Before any index check: those pass on the public release too, because its
+// query indexes are rebuilt from the same reduced bundles.
+const reduced = await reducedBundleFindings(PUBLIC_ROOT, { only });
+if (reduced.length && !allowReduced) {
+  console.error('\nERROR: refusing to publish — these bundles look restored from the public data release:');
+  for (const finding of reduced) console.error(`  ✗ ${finding}`);
+  console.error('\nThat release has KEGG emptied and the macaque per-animal CPM withheld; uploading it would');
+  console.error('replace the full production bundles. Publish from the full analysis bundles instead.');
+  console.error('If these are full bundles rebuilt over a restore, delete the marker and the KEGG note named');
+  console.error('above and re-run; the content checks still apply. --allow-reduced-bundles overrides this.');
+  process.exit(1);
+}
+if (reduced.length) {
+  console.warn('\nWARNING: --allow-reduced-bundles: publishing bundles that look like the public data release:');
+  for (const finding of reduced) console.warn(`  ! ${finding}`);
+}
+
 if (!only) {
   const requiredPointers = expressionOnly ? ['query/expression-manifest.js'] : [...R2_POINTER_KEYS];
   for (const key of requiredPointers) {

@@ -1,11 +1,14 @@
 {
   "version": 1,
   "area": "analysis",
-  "fingerprint": "7583621480159243db1354e9d26b96de209880866b8f8da9f1aa08f3d6ceaeef",
+  "fingerprint": "5546a261422300484c2133e5d1004055f46764c271f4e838c5c7df871dd8caba",
   "outcome": "no-impact",
-  "explanation": "Adds a read-only GSE224274 deposit measurement (measure.py with --check, its pinned JSON and a README) and a pointer from the September 11 intake review. It reads retained files only; no producer, ledger, registered output, pinned script or check chain changes, and the measurement is not wired into any build.",
+  "explanation": "Re-reviewed for the public repository, compared with the private source main branch. Four tracked files differ only by the export: the OXT reference README says the compressed inputs are not public and points to the reproduced Goff Lab MIT LICENSE; the pipeline-separation review README names a generic python instead of a local interpreter path; run_atlas_r460.R defaults ATLAS_INPUT_DIR and ATLAS_OUT_ROOT to relative atlas-input and regen-r460/macaque instead of the maintainer's drive paths (both remain overridable and no statistical code changes); and run_all.sh no longer calls the withheld build_scorecard.R. About 100 retained evidence files of this area (measure.py, continuation and HFD-intake reports and their producers) are not tracked here; part is restored by fetch:data. The September 11 intake review this record cited is one of them, so it is no longer referenced.",
   "references": [
     "data/author-validation/gse224274-deposit-slice-2026-10-29/README.md",
-    "data/author-validation/continuation-round2-2026-09-11/intake-author/README.md"
+    "data/expression/oxt-reference/README.md",
+    "data/raw/scripts/run_atlas_r460.R",
+    "geo_replication/scripts/run_all.sh",
+    "docs/PROJECT_GUIDANCE.md"
   ]
 }
