@@ -98,7 +98,7 @@ so the exact build can be identified.
 ## Contributors
 
 - **Wenyuan He**: creator and maintainer
-- **Helene Li**: contributor
+- **Helene Li**: creator and contributor
 
 Questions, corrections and beta feedback: open an
 [issue](https://github.com/DrWenyuanHe/hypoexplorer/issues) or write to

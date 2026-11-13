@@ -1,15 +1,10 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "19133acd79c9087bd86fb3335ec6e267788d3a4162c6305105881915b6321f7a",
-  "outcome": "updated",
-  "explanation": "PR 21 adds the gated HypoMap views. New root and script files: hypomap-release.json pins the atlas export, scripts/fetch_hypomap.mts (pnpm run fetch:hypomap) verifies and installs it into the git-ignored public/hypomap, and services/hypomap holds the loopback comparison service. vite.config.ts proxies /hypomap-preview-api/ to that service only in offline mode with VITE_HYPOMAP_COEXPRESSION=1. The catalog and AGENTS directory map now list services/, and the README documents the export and why hosted delivery stays off.",
+  "fingerprint": "4e694db122f5be46a89d4e0916e4b4de38c05c13fa4a837525da08554828e88b",
+  "outcome": "no-impact",
+  "explanation": "README Contributors now credits Helene Li as creator and contributor. Credit text only; no command, file layout, configuration or documented structure changes.",
   "references": [
-    "hypomap-release.json",
-    "scripts/fetch_hypomap.mts",
-    "services/hypomap/README.md",
-    "vite.config.ts",
-    "README.md",
-    "docs/agent-context/catalog.json"
+    "README.md"
   ]
 }
