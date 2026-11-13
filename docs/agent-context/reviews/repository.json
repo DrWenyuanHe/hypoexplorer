@@ -1,15 +1,16 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "19133acd79c9087bd86fb3335ec6e267788d3a4162c6305105881915b6321f7a",
+  "fingerprint": "9125024b3d82d27578b23af12c0ac8c7eb66fc8ba9584e84f826fdb5a3abbd9e",
   "outcome": "updated",
-  "explanation": "PR 21 adds the gated HypoMap views. New root and script files: hypomap-release.json pins the atlas export, scripts/fetch_hypomap.mts (pnpm run fetch:hypomap) verifies and installs it into the git-ignored public/hypomap, and services/hypomap holds the loopback comparison service. vite.config.ts proxies /hypomap-preview-api/ to that service only in offline mode with VITE_HYPOMAP_COEXPRESSION=1. The catalog and AGENTS directory map now list services/, and the README documents the export and why hosted delivery stays off.",
+  "explanation": "Adds scripts/lib/hypomapAtlas.mts, the one definition of the pinned HypoMap atlas file shape shared by the edge rule builder, the R2 uploader and verify:edge. The Cloudflare path and burst payloads are re-rendered from scripts/lib/edgeRules.mts, r2Incremental stores .gz objects as application/gzip, vite.config.ts drops dist/hypomap from off-origin builds, and the README now says which manual Cloudflare and R2 steps remain before hosted builds can turn the expression view on. Both flags stay off.",
   "references": [
-    "hypomap-release.json",
-    "scripts/fetch_hypomap.mts",
-    "services/hypomap/README.md",
+    "scripts/lib/hypomapAtlas.mts",
+    "scripts/lib/edgeRules.mts",
+    "scripts/lib/r2Incremental.mts",
+    "scripts/upload_bundles_r2.mts",
     "vite.config.ts",
     "README.md",
-    "docs/agent-context/catalog.json"
+    "docs/agent-context/delivery.md"
   ]
 }

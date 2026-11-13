@@ -1,7 +1,7 @@
 {
   "ref": "hypoexplorer_data_burst",
   "description": "Data paths: 400 requests per 10 s per IP, block 10 s",
-  "expression": "(starts_with(http.request.uri.path, \"/datasets/\") or starts_with(http.request.uri.path, \"/query/\") or starts_with(http.request.uri.path, \"/qc/\"))",
+  "expression": "(starts_with(http.request.uri.path, \"/datasets/\") or starts_with(http.request.uri.path, \"/query/\") or starts_with(http.request.uri.path, \"/qc/\") or starts_with(http.request.uri.path, \"/hypomap/hypomap-atlas-2026-11-05/\"))",
   "action": "block",
   "ratelimit": {
     "characteristics": [

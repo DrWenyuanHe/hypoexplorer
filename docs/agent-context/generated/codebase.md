@@ -49,7 +49,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (224):
+Covered source files (225):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -166,6 +166,7 @@ Covered source files (224):
 - [src/__tests__/geneVocabulary.test.tsx](<../../../src/__tests__/geneVocabulary.test.tsx>)
 - [src/__tests__/hubSections.test.ts](<../../../src/__tests__/hubSections.test.ts>)
 - [src/__tests__/hubUnits.test.tsx](<../../../src/__tests__/hubUnits.test.tsx>)
+- [src/__tests__/hypomapAtlas.test.ts](<../../../src/__tests__/hypomapAtlas.test.ts>)
 - [src/__tests__/indexFreshness.test.ts](<../../../src/__tests__/indexFreshness.test.ts>)
 - [src/__tests__/indexProducts.test.ts](<../../../src/__tests__/indexProducts.test.ts>)
 - [src/__tests__/internalQc.test.ts](<../../../src/__tests__/internalQc.test.ts>)
