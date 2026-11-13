@@ -87,6 +87,17 @@ describe('verified incremental R2 publication', () => {
     expect((await synchronizeR2Objects([object], origin)).uploaded).toEqual([object.key]);
   });
 
+  it('stores HypoMap .json.gz shards as gzip bytes with no Content-Encoding', async () => {
+    const directory = await workspace();
+    const file = path.join(directory, 'genes-0000.json.gz');
+    const gzip = zlib.gzipSync(Buffer.from(JSON.stringify(Array.from({ length: 2000 }, (_, index) => [index, Math.random()]))));
+    expect(gzip.length).toBeGreaterThanOrEqual(4096);
+    await writeFile(file, gzip);
+    const object = await prepareR2Object(file, 'hypomap/hypomap-atlas-2026-11-05/genes-0000.json.gz', path.join(directory, 'cache'));
+    expect(object.httpMetadata).toEqual({ contentType: 'application/gzip', cacheControl: 'public, max-age=31536000, immutable' });
+    expect((await readFile(object.uploadPath)).equals(gzip)).toBe(true);
+  });
+
   it('detects changed content, wrong size and non-MD5/multipart etags instead of trusting a local record', async () => {
     const object = await fixture('datasets/example/a.js', await workspace());
     expect(remoteMatches(object, { ...remote(object), etag: 'a'.repeat(32) })).toBe(false);

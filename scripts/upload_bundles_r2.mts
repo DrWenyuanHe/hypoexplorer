@@ -24,6 +24,18 @@
 //   R2_BUCKET=other-bucket npm run upload:bundles    # override bucket name
 //   npm run upload:bundles -- --no-purge        # skip the post-upload edge purge (see below)
 //   npm run upload:bundles -- --allow-reduced-bundles  # publish bundles that look like the public release
+//   npm run upload:bundles -- --hypomap-only    # the pinned HypoMap atlas alone
+//
+// HypoMap atlas: when public/hypomap/<tag>/ is installed (pnpm run fetch:hypomap,
+// tag pinned in hypomap-release.json), a full upload also publishes it under
+// hypomap/<tag>/, after verifying every file against the pinned manifest
+// (scripts/lib/hypomapAtlas.mts). Only the pinned tag is read; other installed
+// tags and temporary install directories are ignored. --hypomap-only publishes
+// the atlas without the dataset, query and QC trees, and skips their checks.
+// The atlas is versioned by tag, so every object is immutable. The .json.gz
+// files are stored as-is with Content-Type application/gzip and no
+// Content-Encoding: the app verifies their checksums on the gzip bytes and
+// decompresses them itself. manifest.json follows the usual brotli rule below.
 //
 // Reduced bundles: the public data release (fetch:data, data:offline) empties
 // every KEGG collection and the macaque per-animal CPM. Publishing it would
@@ -75,6 +87,7 @@ import { createR2InventoryReader } from './lib/r2RemoteInventory.mjs';
 import { createCloudflareClient, resolveEdgeCredentials } from './lib/cloudflareApi.mjs';
 import { manualPurgeInstructions, purgeEdgeCache, purgeRequestForKeys } from './lib/edgePurge.mjs';
 import { reducedBundleFindings } from './lib/publicDataRelease.mjs';
+import { HYPOMAP_KEY_PREFIX, installedHypomapAtlas } from './lib/hypomapAtlas.mjs';
 
 const BUCKET = process.env.R2_BUCKET ?? 'hypoexplorer-datasets';
 const PUBLIC_ROOT = path.resolve('public'); // keys are computed relative to here
@@ -127,6 +140,7 @@ const remoteDryRun = argv.includes('--remote-dry-run');
 const noPurge = argv.includes('--no-purge');
 const expressionOnly = argv.includes('--expression-only');
 const allowReduced = argv.includes('--allow-reduced-bundles');
+const hypomapOnly = argv.includes('--hypomap-only');
 const envFileIndex = argv.indexOf('--env-file');
 const envFile = envFileIndex >= 0 ? argv[envFileIndex + 1] : undefined;
 if (envFileIndex >= 0 && (!envFile || envFile.startsWith('--'))) throw new Error('--env-file requires a filename.');
@@ -150,6 +164,7 @@ if (onlyIdx >= 0) {
   only = val;
 }
 if (only && expressionOnly) throw new Error('--only and --expression-only cannot be combined.');
+if (hypomapOnly && (only || expressionOnly)) throw new Error('--hypomap-only cannot be combined with --only or --expression-only.');
 
 
 // Store these as brotli bytes (Content-Encoding: br) when big enough to matter.
@@ -267,7 +282,7 @@ function putObject(object: R2PreparedObject): Promise<void> {
   });
 }
 
-const queryPrefixes = only ? [] : queryPublicationPrefixes(
+const queryPrefixes = only || hypomapOnly ? [] : queryPublicationPrefixes(
   (await readBundleFile<{ buildId?: unknown }>(path.join(PUBLIC_ROOT, 'query/tracks.js')))?.buildId,
   (await readBundleFile<{ buildId?: unknown }>(path.join(PUBLIC_ROOT, 'query/expression-manifest.js')))?.buildId,
   expressionOnly,
@@ -275,7 +290,7 @@ const queryPrefixes = only ? [] : queryPublicationPrefixes(
 const selectedQueryKey = (key: string) => queryPrefixes.some((prefix) => prefix.endsWith('/') ? key.startsWith(prefix) : key === prefix);
 const files: string[] = [];
 const perDir: Record<string, number> = {};
-for (const dir of UPLOAD_DIRS) {
+for (const dir of hypomapOnly ? [] : UPLOAD_DIRS) {
   const abs = path.join(PUBLIC_ROOT, dir);
   if (!existsSync(abs)) {
     // `query` is generated, not committed in every checkout — say so rather than
@@ -301,6 +316,18 @@ for (const dir of UPLOAD_DIRS) {
   }
   perDir[dir] = n;
 }
+// The atlas is optional on a full upload (the HypoMap views are build-flagged),
+// required with --hypomap-only, and never part of --only / --expression-only.
+const hypomapFiles = only || expressionOnly ? [] : await installedHypomapAtlas(PUBLIC_ROOT) ?? [];
+if (hypomapOnly && !hypomapFiles.length) {
+  console.error(`Error: --hypomap-only needs public/${HYPOMAP_KEY_PREFIX}. Run pnpm run fetch:hypomap first.`);
+  process.exit(2);
+}
+if (!only && !expressionOnly && !hypomapFiles.length) console.log(`  · public/${HYPOMAP_KEY_PREFIX} is not installed; the HypoMap atlas is not part of this upload.`);
+if (hypomapFiles.length) {
+  files.push(...hypomapFiles);
+  perDir.hypomap = hypomapFiles.length;
+}
 // Publish order matters. query/tracks.js is the POINTER: it names the build id
 // that every shard URL derives from, so it must be written only AFTER every
 // shard of that build is in place. Uploading it early opens a window where
@@ -319,7 +346,8 @@ const summary = Object.entries(perDir).map(([d, n]) => `${n} in public/${d}/`).j
 console.log(`Found ${files.length} files (${summary})${only ? ` (filtered: ${only})` : ''} → bucket "${BUCKET}"`);
 // Before any index check: those pass on the public release too, because its
 // query indexes are rebuilt from the same reduced bundles.
-const reduced = await reducedBundleFindings(PUBLIC_ROOT, { only });
+// --hypomap-only publishes no dataset bundles, so the reduced-release check has nothing to protect.
+const reduced = hypomapOnly ? [] : await reducedBundleFindings(PUBLIC_ROOT, { only });
 if (reduced.length && !allowReduced) {
   console.error('\nERROR: refusing to publish — these bundles look restored from the public data release:');
   for (const finding of reduced) console.error(`  ✗ ${finding}`);
@@ -334,7 +362,7 @@ if (reduced.length) {
   for (const finding of reduced) console.warn(`  ! ${finding}`);
 }
 
-if (!only) {
+if (!only && !hypomapOnly) {
   const requiredPointers = expressionOnly ? ['query/expression-manifest.js'] : [...R2_POINTER_KEYS];
   for (const key of requiredPointers) {
     if (!files.some((file) => toKey(file) === key)) throw new Error(`Required query pointer is missing: ${key}. Rebuild the indexes before publication.`);
@@ -346,7 +374,7 @@ if (!only) {
 // instead of ~100 KB, with nothing failing to signal it. That is precisely the
 // kind of regression a CI run should refuse to publish, so exit non-zero rather
 // than warn. `--only` targets a single dataset subtree and is exempt.
-if (!only && !perDir.query) {
+if (!only && !hypomapOnly && !perDir.query) {
   console.error('\nERROR: no query-index files staged (public/query/ is missing or empty).');
   console.error('Publishing datasets alone would silently leave production on the full-download');
   console.error('path — ~284 MB per cross-dataset query instead of ~100 KB.');
@@ -358,7 +386,7 @@ if (!only && !perDir.query) {
 // Refuse to publish an index that was not built against these bundles. On
 // --only the query tree is not uploaded, so a local mismatch does not change
 // what lands on R2 — demoted to a warning so a staged dataset can still ship.
-const staleness = expressionOnly ? [] : await indexFreshnessProblems();
+const staleness = expressionOnly || hypomapOnly ? [] : await indexFreshnessProblems();
 if (staleness.length) {
   if (only) {
     console.warn('\nWARNING: the local query index disagrees with public/datasets metas:');
@@ -386,7 +414,7 @@ if (staleness.length) {
 // costs one full pass over public/datasets/ (~357 MB off local disk); an upload
 // about to push hundreds of megabytes over the network can afford it.
 // --skip-index-check exists for re-running an upload that already passed.
-if (!only && !expressionOnly && !skipIndexCheck) {
+if (!only && !expressionOnly && !hypomapOnly && !skipIndexCheck) {
   console.log('\nverifying the query index against the source bundles (build_query_index.mts --check)…');
   const check = spawnSync(
     process.execPath,
@@ -400,7 +428,7 @@ if (!only && !expressionOnly && !skipIndexCheck) {
     process.exit(1);
   }
 }
-if (!only && !skipIndexCheck) {
+if (!only && !hypomapOnly && !skipIndexCheck) {
   console.log('\nverifying the lossless expression index against the source bundles (build_expression_index.mts --check)…');
   const check = spawnSync(process.execPath, [require.resolve('tsx/cli'), 'scripts/build_expression_index.mts', '--check'], { stdio: 'inherit' });
   if (check.status !== 0) throw new Error('Refusing to publish: the expression index does not match its source bundles. Run npm run build:expression-index.');
@@ -469,8 +497,9 @@ try {
   if ((auth.type !== 'api_token' && auth.type !== 'oauth') || typeof auth.token !== 'string') throw new Error();
   token = auth.token;
 } catch { throw new Error('Wrangler did not return a supported API/OAuth token.'); }
-const list = createR2InventoryReader({ account, bucket: BUCKET, token, prefixes: expressionOnly
-  ? queryPrefixes : only ? [`datasets/${only}/`] : ['datasets/', 'qc/', ...queryPrefixes] });
+const hypomapPrefixes = hypomapFiles.length ? [HYPOMAP_KEY_PREFIX] : [];
+const list = createR2InventoryReader({ account, bucket: BUCKET, token, prefixes: hypomapOnly ? hypomapPrefixes
+  : expressionOnly ? queryPrefixes : only ? [`datasets/${only}/`] : ['datasets/', 'qc/', ...queryPrefixes, ...hypomapPrefixes] });
 const releaseLock = await acquireR2LocalLock(path.join(os.tmpdir(), 'hypoexplorer-r2-locks'), account, BUCKET);
 try {
   const cache = path.resolve('.wrangler/r2-upload-cache');

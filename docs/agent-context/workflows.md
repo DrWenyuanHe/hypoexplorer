@@ -178,8 +178,13 @@ hosted builds: `VITE_HYPOMAP_EXPRESSION` adds the atlas preview under the gene
 report's expression lanes, and `VITE_HYPOMAP_COEXPRESSION` replaces the
 co-expression placeholder. The preview reads the export pinned in
 `hypomap-release.json` (installed by `pnpm run fetch:hypomap`); co-expression needs
-the loopback service in `services/hypomap/`. Hosted delivery is blocked until the
-data host's path rules and CORS allow `/hypomap/`; see the README.
+the loopback service in `services/hypomap/`, reached only through the offline dev
+server's proxy. Hosted builds read the atlas from R2 under `/hypomap/<tag>/`.
+`scripts/lib/hypomapAtlas.mts` defines the file shape for the data host's path
+rule and the uploader (`upload:bundles --hypomap-only`). The path rule names the
+pinned tag, so a tag change regenerates the Cloudflare payloads. The manual rule,
+CORS and upload steps are in [delivery](delivery.md#hypomap-atlas); until they are
+done, the flags stay off in hosted builds.
 
 Responsive layouts share the 900px breakpoint in `useCompactLayout` and
 `src/styles/responsive.css`. `ResponsiveSidebar` keeps cell navigation and

@@ -1,7 +1,7 @@
 {
   "ref": "hypoexplorer_data_paths",
-  "description": "Data host: block paths outside /datasets/, /query/, /qc/ with .js or .pdf",
-  "expression": "(http.host eq \"data.hypoexplorer.com\" and (not (starts_with(http.request.uri.path, \"/datasets/\") or starts_with(http.request.uri.path, \"/query/\") or starts_with(http.request.uri.path, \"/qc/\")) or not (ends_with(http.request.uri.path, \".js\") or ends_with(http.request.uri.path, \".pdf\")) or http.request.uri.path contains \"..\" or http.request.uri.path contains \"//\" or len(http.request.uri.path) gt 256))",
+  "description": "Data host: block paths outside /datasets/, /query/, /qc/ with .js or .pdf and the pinned /hypomap/ atlas files",
+  "expression": "(http.host eq \"data.hypoexplorer.com\" and (not (((starts_with(http.request.uri.path, \"/datasets/\") or starts_with(http.request.uri.path, \"/query/\") or starts_with(http.request.uri.path, \"/qc/\")) and (ends_with(http.request.uri.path, \".js\") or ends_with(http.request.uri.path, \".pdf\"))) or (http.request.uri.path in {\"/hypomap/hypomap-atlas-2026-11-05/manifest.json\" \"/hypomap/hypomap-atlas-2026-11-05/metadata.json.gz\" \"/hypomap/hypomap-atlas-2026-11-05/search-index.json.gz\"} or (starts_with(http.request.uri.path, \"/hypomap/hypomap-atlas-2026-11-05/genes-\") and ends_with(http.request.uri.path, \".json.gz\") and len(http.request.uri.path) eq 52))) or http.request.uri.path contains \"..\" or http.request.uri.path contains \"//\" or len(http.request.uri.path) gt 256))",
   "action": "block",
   "enabled": true
 }

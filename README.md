@@ -116,11 +116,16 @@ data deposits and derived analysis outputs keep their own terms; see
 During release review, pass the candidate archive as a positional argument.
 Offline development serves it from `public/hypomap`. Both HypoMap flags
 (`VITE_HYPOMAP_EXPRESSION`, `VITE_HYPOMAP_COEXPRESSION`) stay off for hosted
-builds for now. The data host's firewall rule
+builds for now. Hosted builds would read the atlas from the R2 data host. The
+repository has the changes for that: the data host's path rule
 ([`cloudflare/http_request_firewall_custom/hypoexplorer_data_paths.json`](cloudflare/http_request_firewall_custom/hypoexplorer_data_paths.json))
-blocks `/hypomap/` and `.json`/`.gz` paths, and the site upload skips `*.gz`.
-The atlas files are also read with `fetch()`, so the data host would need CORS
-for the app origin. Hosted delivery needs those rules changed first.
+admits only the pinned tag's atlas files, and `pnpm run upload:bundles --hypomap-only`
+publishes the verified atlas. Before a hosted build can turn the expression view on,
+the release must be published, the rules applied, the bucket given a CORS policy
+for the app origins and the atlas uploaded. Those are manual steps in
+[the delivery runbook](docs/agent-context/delivery.md#hypomap-atlas). Co-expression
+also needs the loopback comparison service, which only the offline dev server
+reaches, so it stays local.
 
 The Spatial tab uses the same heatmap for every gene with HypoMap spatial data.
 Its legend shows mean expression among detected cells in `ln(1 + counts per 10k)`.

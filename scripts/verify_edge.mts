@@ -4,6 +4,7 @@
 //
 //   npm run verify:edge
 //   npm run verify:edge -- --allow-gate      # before the gate Worker is deleted
+//   npm run verify:edge -- --hypomap         # also probe the published HypoMap atlas
 //   DATA_ORIGIN=https://data.example.org npm run verify:edge
 //
 // Checks:
@@ -13,10 +14,18 @@
 //   3. a disallowed method and disallowed paths are blocked (403) by the WAF,
 //      with no sign of an R2 response (no ETag / Last-Modified / cf-cache-status);
 //   4. GET and HEAD of a real object still succeed;
-//   5. no response carries x-hypoexplorer-gate (the retired gate Worker is gone).
+//   5. no response carries x-hypoexplorer-gate (the retired gate Worker is gone);
+//   6. with --hypomap, after the pinned HypoMap atlas is uploaded and the bucket
+//      has a CORS policy: the atlas answers app-origin reads with CORS, its
+//      .json.gz files arrive as gzip bytes without Content-Encoding, and a cached
+//      response to a request without Origin still carries CORS for the app.
+//      APP_ORIGIN overrides the app origin (default https://hypoexplorer.com).
 import { randomBytes } from 'node:crypto';
+import { HYPOMAP_PATH_PREFIX } from './lib/hypomapAtlas.mjs';
 
 const origin = (process.env.DATA_ORIGIN ?? 'https://data.hypoexplorer.com').replace(/\/+$/, '');
+const appOrigin = (process.env.APP_ORIGIN ?? 'https://hypoexplorer.com').replace(/\/+$/, '');
+const checkAtlas = process.argv.includes('--hypomap');
 // --allow-gate: the cutover check run while the retired gate Worker is still
 // routed (runbook step 3). It skips check 5 and only reports whether the gate answered.
 const allowGate = process.argv.includes('--allow-gate');
@@ -71,6 +80,34 @@ await blocked('OPTIONS', POINTERS[0], 'method rule');
 await blocked('GET', `/robots.txt?v=${version()}`, 'path rule');
 await blocked('GET', `/elsewhere/${version()}.js`, 'path rule');
 await blocked('GET', `/datasets/${version()}.txt`, 'path rule');
+await blocked('GET', `${HYPOMAP_PATH_PREFIX}${version()}.json`, 'path rule');
+await blocked('GET', `/hypomap/${version()}/manifest.json`, 'path rule');
+
+// 6 (--hypomap): the published atlas is served as the app reads it.
+if (checkAtlas) {
+  const atlas = async (file: string, withOrigin: boolean) => {
+    const response = await fetch(`${origin}${HYPOMAP_PATH_PREFIX}${file}`, {
+      redirect: 'manual', cache: 'no-store', signal: AbortSignal.timeout(30_000),
+      headers: { 'user-agent': 'hypoexplorer-verify-edge/1', ...(withOrigin ? { origin: appOrigin } : {}) },
+    });
+    const bytes = new Uint8Array(await response.arrayBuffer());
+    const cors = response.headers.get('access-control-allow-origin');
+    return { response, bytes, cors, corsOk: cors === '*' || cors === appOrigin };
+  };
+  const manifest = await atlas('manifest.json', true);
+  check('atlas manifest.json served with CORS', manifest.response.status === 200 && manifest.corsOk,
+    `${describe(manifest.response)}, access-control-allow-origin=${manifest.cors ?? '-'}`);
+  const metadata = await atlas('metadata.json.gz', true);
+  const encoding = metadata.response.headers.get('content-encoding');
+  check('atlas metadata.json.gz is gzip bytes without Content-Encoding',
+    metadata.response.status === 200 && metadata.corsOk && !encoding && metadata.bytes[0] === 0x1f && metadata.bytes[1] === 0x8b,
+    `${describe(metadata.response)}, content-type=${metadata.response.headers.get('content-type') ?? '-'}, content-encoding=${encoding ?? '-'}, access-control-allow-origin=${metadata.cors ?? '-'}`);
+  // A response cached for a request without Origin must not strip CORS from later app reads.
+  await atlas('search-index.json.gz', false);
+  const after = await atlas('search-index.json.gz', true);
+  check('atlas CORS survives a cached no-Origin response', after.response.status === 200 && after.corsOk,
+    `${describe(after.response)}, access-control-allow-origin=${after.cors ?? '-'}`);
+}
 
 for (const result of results) console.log(`${result.ok ? 'PASS' : 'FAIL'}  ${result.name}  (${result.detail})`);
 if (allowGate) console.log(`INFO  gate Worker ${gateSeen ? 'still answers (expected before its deletion)' : 'did not answer'}; rerun without --allow-gate after deleting it.`);

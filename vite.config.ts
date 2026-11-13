@@ -202,7 +202,7 @@ function dropOffOriginData(): Plugin {
     },
     closeBundle() {
       if (!bundleBase) return;
-      for (const dir of ['datasets', 'query', 'qc']) {
+      for (const dir of ['datasets', 'query', 'qc', 'hypomap']) {
         const target = resolve(__dirname, outDir, dir);
         if (!existsSync(target)) continue;
         rmSync(target, { recursive: true, force: true });

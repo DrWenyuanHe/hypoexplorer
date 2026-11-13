@@ -1,13 +1,18 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "79f2f0eb7cd46df5cc7c64011a37e09625dab7bd5fd7ab9f65c3d0d7b096d846",
-  "outcome": "no-impact",
-  "explanation": "package.json adds fetch:hypomap, and vite.config.ts adds a dev-server proxy that exists only in offline mode with VITE_HYPOMAP_COEXPRESSION=1. Hosted builds keep both HypoMap flags off, public/hypomap is git-ignored, and the PWA precache, deploy, R2 upload and verify steps are unchanged. Hosted HypoMap delivery would first need the data host's path rule and CORS changed (see README); that is deliberately not part of this change.",
+  "fingerprint": "53f319ef061bf43bd9029859940d8c61f30468a9fac2f7577898d70cf13a7114",
+  "outcome": "updated",
+  "explanation": "Prepares hosted delivery of the pinned HypoMap atlas without turning either flag on. The data-host path rule and the burst rule now admit only hypomap/<tag>/ manifest.json, metadata.json.gz, search-index.json.gz and length-pinned genes-NNNN.json.gz shards (scripts/lib/hypomapAtlas.mts); upload:bundles publishes the verified atlas on full uploads or with --hypomap-only, storing .json.gz as application/gzip with no Content-Encoding; off-origin builds drop dist/hypomap; verify:edge gains --hypomap probes. delivery.md documents the CORS requirement, the Content-Encoding effect on checksums, the unverified cached-CORS risk and the manual publication order.",
   "references": [
-    "vite.config.ts",
-    "package.json",
     "docs/agent-context/delivery.md",
-    "cloudflare/http_request_firewall_custom/hypoexplorer_data_paths.json"
+    "docs/EDGE_PROTECTION.md",
+    "scripts/upload_bundles_r2.mts",
+    "scripts/lib/hypomapAtlas.mts",
+    "scripts/lib/edgeRules.mts",
+    "scripts/verify_edge.mts",
+    "cloudflare/http_request_firewall_custom/hypoexplorer_data_paths.json",
+    "cloudflare/http_ratelimit/hypoexplorer_data_burst.json",
+    "vite.config.ts"
   ]
 }
