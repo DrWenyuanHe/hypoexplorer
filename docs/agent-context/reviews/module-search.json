@@ -1,10 +1,12 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "fb14bb7b6c928a7089aaa02d8f78c94262d8d90ee18504456a27e8e1436c3edd",
-  "outcome": "no-impact",
-  "explanation": "Rebased onto #22. SearchPage passes the result limit as the \"Also matching\" total when the gene list hit it, so that list reads \"100+\" as the Genes tab does. Search ranking, routes and the synonym dictionary are unchanged.",
+  "fingerprint": "a7ae9371ab2e5e3f564e67a801b5694ac2e587ab2194f17eda1167d9d63e1806",
+  "outcome": "updated",
+  "explanation": "PR 21 adds src/search/hypomap: a checksum-verified loader for the pinned HypoMap export (atlas.ts), Spatial and By dataset views, a co-expression explorer that calls the loopback comparison service, and a CSV preview. portalCards mounts them only behind VITE_HYPOMAP_EXPRESSION and VITE_HYPOMAP_COEXPRESSION, both off by default. The catalog summary and start-here references now name the HypoMap views and atlas.ts.",
   "references": [
-    "src/search/SearchPage.tsx"
+    "src/search/hypomap/atlas.ts",
+    "src/search/portalCards.tsx",
+    "docs/agent-context/catalog.json"
   ]
 }

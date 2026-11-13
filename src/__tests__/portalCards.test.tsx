@@ -111,6 +111,11 @@ vi.mock('../search/searchSummaries', async (original) => ({
   ...await original<typeof import('../search/searchSummaries')>(),
   loadBaselineTeaser: mocks.loadBaselineTeaser,
 }));
+// The HypoMap export is not checked in; these tests cover where its preview sits, not its data.
+vi.mock('../search/hypomap/atlas', async (original) => ({
+  ...await original<typeof import('../search/hypomap/atlas')>(),
+  loadAtlasGene: async () => ({ state: 'missing' }) as const,
+}));
 
 beforeEach(() => {
   resetSearchSummaries();
@@ -534,5 +539,23 @@ describe('GeneExpressionCards', () => {
     render(<GeneExpressionCards symbol="OXT" />);
     expect(await screen.findByText('PVH oxytocin')).toBeTruthy();
     expect(screen.queryByRole('button', { name: 'Open expression survey' })).toBeNull();
+  });
+
+  it('adds the HypoMap preview in place of the single-cell placeholder, keeping every other source', async () => {
+    vi.stubEnv('VITE_HYPOMAP_EXPRESSION', '1');
+    try {
+      productFetch();
+      render(<GeneExpressionCards symbol="OXT" onOpenExpression={vi.fn()} />);
+      const section = screen.getByRole('region', { name: 'Where OXT is expressed' });
+      const mouse = within(section).getByRole('region', { name: 'Mouse hypothalamus' });
+      expect(await within(mouse).findByText('PVH oxytocin')).toBeTruthy();
+      expect(mouse.querySelector('[data-slot="single-cell-mouse"]')).toBeNull();
+      expect(section.querySelector('[data-section="reference-atlases"]')).toBeTruthy();
+      const preview = within(section).getByRole('region', { name: 'Mouse single-cell expression in HypoMap' });
+      expect(preview.contains(mouse)).toBe(false);
+      expect(await within(preview).findByText('No HypoMap feature matched OXT.')).toBeTruthy();
+    } finally {
+      vi.unstubAllEnvs();
+    }
   });
 });

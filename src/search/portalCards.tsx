@@ -23,6 +23,8 @@ import {
 } from './searchSummaries';
 import type { Dataset, Direction } from '../types';
 import './search.css';
+import { Coexpression } from './hypomap/Coexpression';
+import { HypoMapPreview } from './hypomap/HypoMapPreview';
 
 // ── Small async helper ──────────────────────────────────────────────────────
 
@@ -537,6 +539,7 @@ export function ReferenceAtlasSection({ symbol }: { symbol: string }) {
  * reference atlases, each source in its own unit, then the way to the survey.
  */
 export function GeneExpressionCards({ symbol, onOpenExpression }: { symbol: string; onOpenExpression?: () => void }) {
+  const showHypoMap = import.meta.env.VITE_HYPOMAP_EXPRESSION === '1';
   return (
     <section className="portal-card gene-expr" data-cards="expression" aria-labelledby="gene-expr-title">
       <h2 id="gene-expr-title" className="portal-card-title">Where {symbol} is expressed</h2>
@@ -544,13 +547,17 @@ export function GeneExpressionCards({ symbol, onOpenExpression }: { symbol: stri
         <section className="gene-expr-lane" data-species="mouse" aria-labelledby="gene-expr-mouse-title">
           <h3 id="gene-expr-mouse-title" className="gene-expr-lane-title">Mouse hypothalamus</h3>
           <BaselineSection symbol={symbol} />
-          <section className="portal-source portal-source--soon" data-slot="single-cell-mouse" aria-label="Single-cell atlases (coming soon)">
-            <h4 className="portal-source-title">Single-cell atlases <span className="portal-soon">Coming soon</span></h4>
-            <p className="portal-note">{symbol} expression by cell type across mouse hypothalamic single-cell atlases.</p>
-          </section>
+          {!showHypoMap && (
+            <section className="portal-source portal-source--soon" data-slot="single-cell-mouse" aria-label="Single-cell atlases (coming soon)">
+              <h4 className="portal-source-title">Single-cell atlases <span className="portal-soon">Coming soon</span></h4>
+              <p className="portal-note">{symbol} expression by cell type across mouse hypothalamic single-cell atlases.</p>
+            </section>
+          )}
         </section>
         <ReferenceAtlasSection symbol={symbol} />
       </div>
+      {/* The mouse single-cell slot, given the card's full width: its map and summary need more than the mouse lane. */}
+      {showHypoMap && <HypoMapPreview key={symbol} symbol={symbol} />}
       <div className="gene-expr-foot">
         <p className="portal-note">
           Each source keeps its own published unit, and its bars are scaled to its own highest value. Every sample,
@@ -574,9 +581,9 @@ export function GeneContextCards({ symbol, studies, onShowPathway, onOpenPathway
   return (
     <div className="portal-grid" data-cards="context">
       <ConditionPathwaysSection key={symbol} symbol={symbol} studies={studies} onShowPathway={onShowPathway} onOpenPathway={onOpenPathway} />
-      <PlaceholderSlot slot="coexpression" title="Co-expression" wide>
+      {import.meta.env.VITE_HYPOMAP_COEXPRESSION === '1' ? <Coexpression key={`coexpression-${symbol}`} symbol={symbol} /> : <PlaceholderSlot slot="coexpression" title="Co-expression" wide>
         Genes whose expression rises and falls with {symbol} across populations and studies.
-      </PlaceholderSlot>
+      </PlaceholderSlot>}
     </div>
   );
 }

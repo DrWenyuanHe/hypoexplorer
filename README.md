@@ -109,3 +109,22 @@ wenyuan.he@mail.utoronto.ca.
 The application code is MIT-licensed ([`LICENSE`](LICENSE)). The original studies,
 data deposits and derived analysis outputs keep their own terms; see
 [`REUSE.md`](REUSE.md) before reusing data or figures.
+
+### Mouse HypoMap data
+
+`pnpm run fetch:hypomap` installs and verifies the pinned browser export.
+During release review, pass the candidate archive as a positional argument.
+Offline development serves it from `public/hypomap`. Both HypoMap flags
+(`VITE_HYPOMAP_EXPRESSION`, `VITE_HYPOMAP_COEXPRESSION`) stay off for hosted
+builds for now. The data host's firewall rule
+([`cloudflare/http_request_firewall_custom/hypoexplorer_data_paths.json`](cloudflare/http_request_firewall_custom/hypoexplorer_data_paths.json))
+blocks `/hypomap/` and `.json`/`.gz` paths, and the site upload skips `*.gz`.
+The atlas files are also read with `fetch()`, so the data host would need CORS
+for the app origin. Hosted delivery needs those rules changed first.
+
+The Spatial tab uses the same heatmap for every gene with HypoMap spatial data.
+Its legend shows mean expression among detected cells in `ln(1 + counts per 10k)`.
+The color range runs from zero to the highest mean among regions shown on the
+coronal schematic for that gene. Selecting a region keeps that range fixed.
+Separate swatches identify regions with no detected cells and regions with
+unavailable data.

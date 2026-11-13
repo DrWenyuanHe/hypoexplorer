@@ -8,6 +8,7 @@
     "data": "Analysis inputs, retained evidence and reviewed assessments",
     "geo_replication": "Tracked study inputs and analysis outputs",
     "workers": "Scheduled R2 spend guard for the data origin",
+    "services": "Loopback HypoMap co-detection service behind the gated co-expression card",
     "cloudflare": "Edge cache, WAF and rate-limit rule payloads for the data host",
     "docs": "Data contracts, runbooks and maintained context",
     "vendor": "Pinned Claude SEO toolkit snapshot behind the project-local SEO skills"
@@ -183,12 +184,13 @@
       ]
     },
     "search": {
-      "summary": "Unified gene and pathway search, synonym dictionary and results portal",
+      "summary": "Unified gene and pathway search, synonym dictionary, results portal and gated HypoMap atlas views",
       "references": [
         "src/search/searchTypes.ts",
         "src/search/searchVocabulary.ts",
         "src/search/searchSummaries.ts",
-        "src/search/SearchPage.tsx"
+        "src/search/SearchPage.tsx",
+        "src/search/hypomap/atlas.ts"
       ]
     },
     "statistics": {
