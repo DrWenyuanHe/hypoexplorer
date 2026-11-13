@@ -440,6 +440,26 @@ describe('GeneReport — differential expression table', () => {
     expect(card.querySelector('table')).toBeNull();
   });
 
+  it('names a study that failed to load instead of calling the gene unmeasured there', async () => {
+    const [loaded, broken] = report().groups;
+    REPORT_REF.current = { ...report(), groups: [loaded, { ...broken, tracks: [], error: true }] };
+    renderReport();
+    const card = await findDeCard();
+    expect(within(card).getByText(
+      `1 selected study could not be loaded (${broken.dataset.name}), so POMC may be measured there.`,
+    )).toBeTruthy();
+    expect(card.querySelector('table')).not.toBeNull();
+  });
+
+  it('does not call the gene unmeasured when no selected study loaded', async () => {
+    const broken = report().groups[1];
+    REPORT_REF.current = { ...report(), groups: [{ ...broken, tracks: [], error: true }] };
+    renderReport();
+    const card = await findDeCard();
+    expect(within(card).queryByText(/not measured/)).toBeNull();
+    expect(within(card).getByText(/^1 selected study could not be loaded/)).toBeTruthy();
+  });
+
   it('narrows the table to the active categories', async () => {
     renderReport(undefined, vi.fn(), { scope: ['Primate atlas'] });
     const card = await findDeCard();

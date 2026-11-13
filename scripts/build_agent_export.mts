@@ -27,6 +27,7 @@ import { listDatasets } from '../src/data/datasets';
 import { contrastArmCounts, getActiveContrast, listContrasts } from '../src/data/contrasts';
 import { groupSamplesOf, strictDeTableFor, strictSiblingPathwaysFor } from '../src/data/rawTrack';
 import { datasetQuality } from '../src/data/datasetQualityR460';
+import { CPM_TMM_UNIT } from '../src/data/expressionUnits';
 import { requireAuthorValidation } from '../src/data/authorValidation';
 import { sourceAccession, upstreamProcessingFor } from '../src/data/upstreamProcessing';
 import { DEFAULT_FDR_CUTOFF, isFdrSignificant } from '../src/statistics/policy';
@@ -234,7 +235,8 @@ for (const dataset of selected) {
       ]);
     });
 
-    const unit = raw.meta?.expressionUnit ?? dataset.expressionUnit ?? 'CPM';
+    // The registry's unit wins, as in the browser (src/data/buildPopData.ts).
+    const unit = dataset.expressionUnit ?? raw.meta?.expressionUnit ?? CPM_TMM_UNIT;
     const flags = meta.qcFlags?.[trackId];
     const lowPower = flags ? Math.min(flags.nNormal ?? 3, flags.nObese ?? 3) < 3 : false;
     tracksCsv.push([
@@ -342,7 +344,7 @@ for (const dataset of selected) {
 
   datasetsCsv.push([
     id, dataset.name, dataset.category, dataset.organism, dataset.modality, dataset.region, dataset.perturbation,
-    dataset.preparation, dataset.featureType, dataset.featureLabel, dataset.expressionUnit ?? 'CPM',
+    dataset.preparation, dataset.featureType, dataset.featureLabel, dataset.expressionUnit ?? CPM_TMM_UNIT,
     dataset.supportsPathways, meta.populations.length, contrasts.length, dataset.defaultTrack, defaultContrast.id,
     sourceAccession(dataset), dataset.geo, dataset.doi, dataset.pmid, dataset.citation, publication?.paperTitle,
     publication?.paperAuthors?.[0], publication?.paperRelationship, repositoryUrl(dataset), upstream?.aligner,

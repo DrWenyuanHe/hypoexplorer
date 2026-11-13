@@ -141,7 +141,11 @@ export async function loadExternalExpression(source: ExpressionSource, genes: st
     }
     const candidates: ExternalLookupEntry[] = rows.filter((row) => row[0] === sourceIndex)
       .map(([, id, symbol, ensemblId]) => ({ source: known.id, id, symbol, ensemblId }));
-    const matches = resolveNeuroseqGenes(candidates.map((entry) => ({ ...entry, shard: '' })), query);
+    const entries = candidates.map((entry) => ({ ...entry, shard: '' }));
+    // The lookup key drops an Ensembl version; when the literal query names no
+    // feature (HPA stores ENSG IDs unversioned), match on that key instead.
+    let matches = resolveNeuroseqGenes(entries, query);
+    if (!matches.length && key !== query.trim().toUpperCase()) matches = resolveNeuroseqGenes(entries, key);
     if (!matches.length) return [{ ...base, status: 'not-retained' as const }];
     // Several probes of one gene are separate measurements, not an ambiguity.
     const probes = known.featureLevel === 'probe' && new Set(matches.map((entry) => entry.symbol)).size === 1;

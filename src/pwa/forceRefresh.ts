@@ -15,6 +15,11 @@
 // then reloads from the network with no SW controlling the next load.
 // Distinct from applyUpdate() (updateStore.ts), which only works when the
 // browser has already detected a new waiting SW.
+//
+// It is ALSO the fallback the service-worker handover falls back TO
+// (registerUpdates.ts): whenever SKIP_WAITING fails to produce a new controller,
+// this runs instead. That makes one property load-bearing — this function must
+// ALWAYS end in a reload, and must always do so promptly. See CLEANUP_BUDGET_MS.
 
 // The one cache this deliberately PRESERVES (matches options.cacheName on the
 // dataset runtimeCaching rule in vite.config.ts).
@@ -41,18 +46,35 @@
 // ~40–140 KB each.
 const PRESERVED_CACHES = new Set(['hypoexplorer-data-bundles']);
 
+// How long the cleanup gets before the reload happens anyway.
+//
+// try/catch only covers promises that REJECT. A promise that never settles —
+// getRegistrations() against a wedged worker, caches.delete() on a storage layer
+// that has stopped responding — would leave the `finally` unreached and hang the
+// caller forever, which for the UpdateModal means a spinner that never resolves.
+// Cleanup is best-effort by design, so cap it: unregistering and clearing are
+// worth a few seconds, never the reload itself.
+const CLEANUP_BUDGET_MS = 4_000;
+
+async function clearWorkersAndCaches(): Promise<void> {
+  if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
+    const regs = await navigator.serviceWorker.getRegistrations();
+    await Promise.all(regs.map((r) => r.unregister()));
+  }
+  if (typeof caches !== 'undefined') {
+    const keys = await caches.keys();
+    await Promise.all(
+      keys.filter((k) => !PRESERVED_CACHES.has(k)).map((k) => caches.delete(k)),
+    );
+  }
+}
+
 export async function forceRefresh(): Promise<void> {
   try {
-    if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
-      const regs = await navigator.serviceWorker.getRegistrations();
-      await Promise.all(regs.map((r) => r.unregister()));
-    }
-    if (typeof caches !== 'undefined') {
-      const keys = await caches.keys();
-      await Promise.all(
-        keys.filter((k) => !PRESERVED_CACHES.has(k)).map((k) => caches.delete(k)),
-      );
-    }
+    await Promise.race([
+      clearWorkersAndCaches(),
+      new Promise<void>((resolve) => setTimeout(resolve, CLEANUP_BUDGET_MS)),
+    ]);
   } catch {
     // Best-effort: private mode or a blocked SW/Cache API can throw. Fall
     // through to the reload regardless so the user is never left stuck.

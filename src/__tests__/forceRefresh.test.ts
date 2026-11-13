@@ -66,4 +66,22 @@ describe('forceRefresh — manual cache reset', () => {
     await forceRefresh();
     expect(reload).toHaveBeenCalledTimes(1);
   });
+
+  // try/catch only covers a promise that REJECTS. One that never settles would
+  // leave the finally unreached — and this is the fallback the update handover
+  // relies on, so a hang here is a spinner the user cannot leave. The cleanup is
+  // best-effort; the reload is not.
+  it('still reloads if the cleanup never settles', async () => {
+    vi.useFakeTimers();
+    try {
+      (navigator.serviceWorker.getRegistrations as any).mockReturnValue(new Promise(() => {}));
+      const done = forceRefresh();
+      expect(reload).not.toHaveBeenCalled();
+      await vi.advanceTimersByTimeAsync(5_000);
+      await done;
+      expect(reload).toHaveBeenCalledTimes(1);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
 });
