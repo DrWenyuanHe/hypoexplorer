@@ -188,7 +188,8 @@ def handler_for(index):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--index-dir', type=Path, default=Path('processed/comparison_index'))
-    parser.add_argument('--processed-dir', type=Path, default=Path('processed'))
+    # Optional: when given, also re-verify the index against its processed source files.
+    parser.add_argument('--processed-dir', type=Path, default=None)
     parser.add_argument('--export-dir', type=Path, default=Path('navigation_export'))
     parser.add_argument('--port', type=int, default=8765)
     args = parser.parse_args()

@@ -10,7 +10,8 @@ from comparison_service import ComparisonIndex, digest
 
 class ComparisonTests(unittest.TestCase):
     def setUp(self):
-        self.temp = tempfile.TemporaryDirectory()
+        # The index memory-maps its .npy files; Windows cannot delete a mapped file.
+        self.temp = tempfile.TemporaryDirectory(ignore_cleanup_errors=True)
         self.root = Path(self.temp.name)
         np.save(self.root / 'fixture.npy', np.array([[3], [6], [0], [0]], dtype=np.uint8))
         (self.root / 'fixture.json').write_text(json.dumps({

@@ -51,7 +51,7 @@ function Chart({ rows, field, checked, onExport }: {
     <section className="hm-card">
       <h5>{title}</h5>
       <small>{field === 'mean' ? unit : 'Percent of eligible cells'}</small>
-      <svg className="hm-chart" viewBox="0 0 235 215" role="group" aria-label={title}>
+      <svg className="hm-chart" viewBox="0 0 235 215" aria-label={title}>
         {[0, .25, .5, .75, 1].map(tick => (
           <g key={tick}>
             <line x1="42" x2="222" y1={y(tick * max)} y2={y(tick * max)} stroke="#dbe2e8" />
@@ -97,7 +97,7 @@ function AtlasViews({ data }: { data: Ready }) {
 
   return (
     <>
-      <div className="hm-controls" aria-label="HypoMap view">
+      <div className="hm-controls">
         <button className="portal-secondary" type="button" aria-pressed={view === 'spatial'} onClick={() => setView('spatial')}>Spatial</button>
         <button className="portal-secondary" type="button" aria-pressed={view === 'datasets'} onClick={() => setView('datasets')}>By dataset</button>
       </div>
@@ -166,6 +166,7 @@ function AtlasViews({ data }: { data: Ready }) {
 export function HypoMapPreview({ symbol }: { symbol: string }) {
   const [result, setResult] = useState<AtlasResult | 'error' | null>(null);
   const [attempt, setAttempt] = useState(0);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: `attempt` is the Retry trigger, not read inside.
   useEffect(() => {
     let active = true;
     loadAtlasGene(symbol).then(

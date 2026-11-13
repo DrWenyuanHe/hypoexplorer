@@ -53,6 +53,12 @@ function read<T>(file: string): Promise<T> {
   return pending as Promise<T>;
 }
 
+/** Own-property lookup, so a symbol such as "constructor" never reads the prototype. */
+function own<T>(record: Record<string, T>, key: string): T | undefined {
+  // biome-ignore lint/suspicious/noPrototypeBuiltins: Object.hasOwn requires ES2022; the app targets ES2020.
+  return Object.prototype.hasOwnProperty.call(record, key) ? record[key] : undefined;
+}
+
 export async function loadAtlasGene(symbol: string) {
   const [manifest, metadata, index] = await Promise.all([
     read<Manifest>('manifest.json'),
@@ -63,10 +69,9 @@ export async function loadAtlasGene(symbol: string) {
     throw new Error('Expected the published 18-dataset HypoMap export');
   }
   const key = symbol.trim().toLowerCase();
-  const exact = Object.prototype.hasOwnProperty.call(index.current_symbols, key) ? index.current_symbols[key] : undefined;
-  const matches = exact ?? (Object.prototype.hasOwnProperty.call(index.aliases, key) ? index.aliases[key] : []);
-  const outside = !exact && Object.prototype.hasOwnProperty.call(index.outside_export_candidates, key)
-    ? index.outside_export_candidates[key] : [];
+  const exact = own(index.current_symbols, key);
+  const matches = exact ?? own(index.aliases, key) ?? [];
+  const outside = (!exact && own(index.outside_export_candidates, key)) || [];
   if (matches.length + outside.length > 1) {
     return { state: 'ambiguous', candidates: [...matches.map(i => index.genes[i][1]), ...outside.map(g => g.canonical_symbol)] } as const;
   }

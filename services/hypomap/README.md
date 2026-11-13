@@ -8,6 +8,9 @@ python3 services/hypomap/comparison_service.py \
   --export-dir /path/to/atlas-export
 ```
 
+Add `--processed-dir /path/to/processed` to also re-verify the index against
+the processed source files it was built from.
+
 For the local app, start offline Vite with `VITE_HYPOMAP_COEXPRESSION=1`.
 Vite proxies the card's requests to the loopback service. The independent
 `VITE_HYPOMAP_EXPRESSION=1` flag enables Spatial and By dataset.

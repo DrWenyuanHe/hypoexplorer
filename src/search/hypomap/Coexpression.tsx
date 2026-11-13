@@ -50,6 +50,7 @@ function PairExplorer({ atlas }: { atlas: Ready }) {
   const [expanded, setExpanded] = useState<Category | null>(null);
   const [csv, setCsv] = useState<Csv | null>(null);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: `rankingAttempt` is the Retry trigger, not read inside.
   useEffect(() => {
     const controller = new AbortController();
     read<Ranking>('recommendations', { gene: gene[0] }, controller.signal).then(data => {
@@ -59,6 +60,7 @@ function PairExplorer({ atlas }: { atlas: Ready }) {
     return () => controller.abort();
   }, [gene, metadata, record, rankingAttempt]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: `pairAttempt` is the Retry trigger, not read inside.
   useEffect(() => {
     if (!partner || !datasets.length) return;
     const controller = new AbortController();
@@ -143,7 +145,7 @@ function PairExplorer({ atlas }: { atlas: Ready }) {
         if (query.trim() && !lookingUp) void findPartner(query.trim());
       }}>
         <label>Compare with a mouse gene <input value={query} onChange={event => setQuery(event.target.value)} placeholder="e.g. Agrp" /></label>
-        <button className="portal-secondary" disabled={lookingUp || !query.trim()}>Compare genes</button>
+        <button type="submit" className="portal-secondary" disabled={lookingUp || !query.trim()}>Compare genes</button>
       </form>
       {queryError && <p role="status">{queryError}</p>}
       {!!choices.length && <p role="status">Multiple matches. Search a canonical symbol: {choices.join(', ')}.</p>}
@@ -230,6 +232,7 @@ function PairExplorer({ atlas }: { atlas: Ready }) {
 export function Coexpression({ symbol }: { symbol: string }) {
   const [atlas, setAtlas] = useState<Awaited<ReturnType<typeof loadAtlasGene>> | 'error' | null>(null);
   const [attempt, retry] = useState(0);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: `attempt` is the Retry trigger, not read inside.
   useEffect(() => {
     let active = true;
     loadAtlasGene(symbol).then(
