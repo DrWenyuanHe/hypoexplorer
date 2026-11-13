@@ -132,11 +132,13 @@ async function runTrackQuery<Row>(
   const tick = () => { loaded++; onProgress?.(loaded, total); };
 
   // ONE queue across every dataset (see the FANOUT comment).
+  const failed = new Set<number>();
   const rows = await mapLimit(jobs, FANOUT, async (job): Promise<{ groupIndex: number; row: Row } | null> => {
     try {
       const row = await step(job, { contrast: plan[job.groupIndex].contrast, tick });
       return row === null ? null : { groupIndex: job.groupIndex, row };
     } catch {
+      failed.add(job.groupIndex);
       tick();
       return null;
     }
@@ -146,6 +148,9 @@ async function runTrackQuery<Row>(
   // so each group's tracks come out in the same order the serial loop produced.
   const groups = plan.map((g) => ({ ...g, tracks: [] as Row[] }));
   for (const r of rows) if (r) groups[r.groupIndex].tracks.push(r.row);
+  // A dataset left with no rows because its track loads failed is flagged like
+  // one whose meta failed, so it never reads as "not measured".
+  for (const index of failed) if (groups[index].tracks.length === 0) groups[index].error = true;
 
   return { total, loaded, groups };
 }

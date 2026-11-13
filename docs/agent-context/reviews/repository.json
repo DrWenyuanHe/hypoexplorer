@@ -1,13 +1,15 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "f16a5383f15c855447519f0d757028c35dcdc8dbde54f520e2a856f9a369d2a4",
+  "fingerprint": "fe563b68776057b67a2d05167ab907967bc93a1a496e00c753db46e789ce70c0",
   "outcome": "updated",
-  "explanation": "Standalone tracker removal (cleanup B5, owner-approved): the independent dataset-tracker/ Vite app is deleted. The integrated tracker under src/dataset-tracker/ (#/tracker) is unchanged and nothing imported the standalone app. pnpm-workspace.yaml drops its only package and pnpm-lock.yaml loses that importer; tsconfig.json, tsconfig.node.json, .gitattributes, the agent-context sparse checkout, the public-export allowlist, isSource in model.mjs, releaseBuild.mts and the agent-context catalog no longer name it. With no workspace package left, knip.json is flat again and PROJECT_GUIDANCE.md says so. brand/README.md, workflows.md and the font provenance roles drop the standalone-tracker wording. The public atlas fetch overlay now retries dropped connections and 429/5xx with backoff.",
+  "explanation": "Re-reviewed as the public repository rather than the private source. Public-only files: the public-safety check and hook, Dependabot and CodeQL configuration, the security and public-safety workflows, the fetch:query, fetch:expression, fetch:data and dev:offline scripts and docs/DEVELOPMENT.md. Private-only files are absent: the agent-context CI workflow, the maintainer's private notes and the historical-replay runners. In this change the Application workflow runs context:check in its lint job and prepare:deploy before the build, package.json adds prepare:deploy and makes deploy:cf and deploy:cf:dry prepare inputs and run verify:release, and the guidance docs say what is tracked here. Rebased onto #18, #19 and #22: Dependabot ignores and a dev-dependency lockfile bump, a .gitattributes LF rule for the OXT reference LICENSE, the service-worker clientsClaim setting in vite.config.ts, and the agent-export and ZipWriter fixes; none changes a command or documented structure.",
   "references": [
-    "pnpm-workspace.yaml",
-    "knip.json",
+    ".github/workflows/application.yml",
+    ".github/dependabot.yml",
+    ".gitattributes",
+    "package.json",
     "docs/PROJECT_GUIDANCE.md",
-    "scripts/agent-context/model.mjs"
+    "docs/DEVELOPMENT.md"
   ]
 }

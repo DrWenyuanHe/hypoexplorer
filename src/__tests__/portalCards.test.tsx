@@ -231,7 +231,7 @@ describe('ConditionPathwaysSection', () => {
         [OBESE, '+0.70', 'no-analysis'],
         [HFD, '+0.40', 'read'],
       ]);
-    expect(heads[0].title).toMatch(new RegExp(`^${MACAQUE.name.replace(/[()]/g, '\\$&')} · SON cells: Obese vs Normal\\. OXT log2FC -0\\.90, q .+\\. 2 pathways\\.$`));
+    expect(heads[0].title).toMatch(new RegExp(`^${MACAQUE.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} · SON cells: Obese vs Normal\\. OXT log2FC -0\\.90, q .+\\. 2 pathways\\.$`));
     expect(heads[2].title).toMatch(/· ARC cells: Obese vs Normal\. OXT log2FC \+0\.70, q .+\. no pathway analysis\.$/);
     expect(heads[3].title).toContain(`${MOUSE.name} · whole cells`);
     // The first up column is marked so the groups stand apart.

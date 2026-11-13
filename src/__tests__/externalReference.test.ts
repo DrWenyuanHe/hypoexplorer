@@ -61,6 +61,13 @@ describe('external reference atlases', () => {
     expect(externalKey('ensg00000115138.11')).toBe('ENSG00000115138');
   });
 
+  it('finds a versioned Ensembl ID in a source that stores IDs unversioned', async () => {
+    localFetch();
+    const subregions = await source('hpa-human-hypothalamic-subregions');
+    const [pomc] = await loadExternalExpression(subregions, ['ENSG00000115138.11']);
+    expect(pomc).toMatchObject({ status: 'available', gene: 'POMC', geneId: 'ENSG00000115138' });
+  });
+
   it('keeps HPA subregion and cluster values as published summaries', async () => {
     localFetch();
     const subregions = await source('hpa-human-hypothalamic-subregions');

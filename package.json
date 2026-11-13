@@ -32,8 +32,9 @@
     "verify:release": "tsx scripts/verify_release.mts",
     "prepare:publication": "tsx scripts/prepare_publication_release.mts",
     "build:agent-export": "node --max-old-space-size=6144 ./node_modules/tsx/dist/cli.mjs scripts/build_agent_export.mts",
-    "deploy:cf": "pnpm run deploy:dist && wrangler deploy --env-file .env.cfdeploy && pnpm run verify:deploy",
-    "deploy:cf:dry": "wrangler deploy --dry-run",
+    "prepare:deploy": "tsx scripts/prepare_deploy.mts",
+    "deploy:cf": "pnpm run prepare:deploy && pnpm run deploy:dist && pnpm run verify:release && wrangler deploy --env-file .env.cfdeploy && pnpm run verify:deploy",
+    "deploy:cf:dry": "pnpm run prepare:deploy && pnpm run deploy:dist && pnpm run verify:release && wrangler deploy --dry-run",
     "optimize:bundles": "tsx scripts/optimize_bundles.mts",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.node.json --noEmit && pnpm run typecheck:guard",
     "typecheck:app": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.node.json --noEmit",
@@ -79,8 +80,8 @@
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.6.3",
-    "@playwright/test": "^1.64.1",
+    "@biomejs/biome": "2.6.6",
+    "@playwright/test": "^1.65.0",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
@@ -88,18 +89,18 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@typescript/typescript6": "^6.0.2",
-    "@vitejs/plugin-react": "^6.1.2",
-    "esbuild": "0.21.5",
+    "@vitejs/plugin-react": "^6.3.0",
+    "esbuild": "0.28.2",
     "jsdom": "^26.1.0",
-    "knip": "^6.43.0",
+    "knip": "^6.44.2",
     "sharp": "^0.35.5",
     "tsx": "^4.23.15",
     "typescript": "7.1.0-beta",
-    "vite": "^8.3.5",
+    "vite": "^8.3.7",
     "vite-plugin-pwa": "^2.0.0",
-    "vitest": "^5.0.5",
+    "vitest": "^5.1.0",
     "workbox-window": "^7.4.1",
-    "wrangler": "^4.154.0"
+    "wrangler": "^4.159.0"
   },
   "engines": {
     "node": ">=22"

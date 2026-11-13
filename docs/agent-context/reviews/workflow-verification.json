@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "89bc01ddd49d6ef827367b7efe013054aff162df5d893973091786fd66df2be8",
+  "fingerprint": "4585698970154a7e1d2824c0f9020caea8698054c762444d6d437141ae54b6fc",
   "outcome": "no-impact",
-  "explanation": "Standalone tracker removal (cleanup B5, owner-approved): the independent dataset-tracker/ Vite app is deleted. The integrated tracker under src/dataset-tracker/ (#/tracker) is unchanged and nothing imported the standalone app. The standalone app held only triage statuses and font licence copies; no evidence record, QC policy, author-validation input or verification status changes.",
+  "explanation": "Rebased onto #22. No evidence record, QC policy, author-validation input or verification status changes. The agent-export unit precedence and ZipWriter publishing, and the failed-dataset flag in crossDataset.ts, touch files this area covers without changing what is verified or how.",
   "references": [
-    "src/dataset-tracker/TrackerDetail.tsx",
-    "data/author-validation/README.md"
+    "scripts/build_agent_export.mts",
+    "src/data/crossDataset.ts"
   ]
 }

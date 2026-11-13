@@ -1,15 +1,12 @@
 {
   "version": 1,
   "area": "module-nomenclature",
-  "fingerprint": "bff90e1e3bdf048fab3fd72a5d00889f39200aa89d749e5f8e1cf7b7acb1bcde",
+  "fingerprint": "f7a41fc104c4b9e9bf92128fbcebcf4b728bba5dec981237fa29031c7f39dc88",
   "outcome": "updated",
-  "explanation": "The nomenclature interface exposes an appended Ambiguous status for unresolved active RGD same-symbol collisions, their aliases and affected retired-ID chains. Those rows retain candidate IDs and supply no chosen authority link or alias redirect. A unique approved record can resolve provisional alternatives. Other existing one-to-many alias handling keeps its prior behavior; authority status does not relabel measured expression or infer organism identity.",
+  "explanation": "The nomenclature page links its source table, data/nomenclature/nomenclature.tsv, on the public DrWenyuanHe/hypoexplorer repository instead of the private MONKEYBRAIN repository, which visitors cannot open. This is the only difference from the private source; the Ambiguous status, alias handling and authority rules described in the previous review are unchanged.",
   "references": [
     "src/nomenclature/NomenclatureView.tsx",
-    "src/data/nomenclatureWire.ts",
-    "src/data/nomenclature.ts",
-    "scripts/lib/rgdRecords.mts",
-    "CONTEXT.md",
-    "data/intake/oxt-avp-2026-10-19/README.md"
+    "data/nomenclature/nomenclature.tsv",
+    "src/data/nomenclature.ts"
   ]
 }

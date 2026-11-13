@@ -19,12 +19,13 @@ the corpus changes. For the rat intake, the
 [dedicated runbook](../../data/intake/oxt-avp-2026-10-19/README.md) documents
 `pnpm run build:nomenclature --refresh-authority=RGD`, which refreshes rat
 classifications while preserving other retained authorities. A new dataset also changes the shared quality and author
-ledgers that dated verification reports pin, so run
-`pnpm run check:verification-advancement`, which prebuild omits (see
+ledgers that dated verification reports pin. Those pins are replayed in the
+maintainer's checkout (its `check:verification-advancement`), which this
+repository does not carry; record the replay as pending in `TODOS.md` (see
 [verification](#verification)). Context generation does not rebuild scientific data.
 
-The registry's `expressionUnit` is authoritative for display: `buildPopData` and
-`loadTimeSeries` prefer it to the unit stamped in a bundle, and the bundle
+The registry's `expressionUnit` is authoritative for display: `buildPopData`,
+`loadTimeSeries` and the agent export prefer it to the unit stamped in a bundle, and the bundle
 builders take the registry unit, so a unit relabel need not rebuild hash-pinned
 bundle bytes. Changing a field of a dataset registered before the R 4.6.0 swap
 needs a reviewed reason in `scripts/regen-r460/build_registry_edits.mts`
@@ -63,8 +64,11 @@ LFS), [`data/expression/hpa/`](../../data/expression/hpa/README.md) and
 (hypothalamic extracts of the six donor zips, expression under Git LFS). Their
 products under `public/expression/{gtex,hpa,allen-human}/` are gitignored build
 artifacts. Allen is probe-level: one result per probe, never collapsed.
-Run `pnpm run build:expression-external` after a source or builder change, or in
-a fresh checkout before a dev server. `--check` byte-compares the products. A
+Run `pnpm run build:expression-external` after a source or builder change; it
+needs the retained source downloads, which this repository does not carry. A
+fresh checkout takes the deployed products with `pnpm run fetch:expression`, and
+`pnpm run prepare:deploy` fetches any atlas a deploy would otherwise drop.
+`--check` byte-compares the products. A
 release update goes through `--fetch --record`, never a hand edit of the manifest.
 
 ## verification
@@ -75,17 +79,19 @@ Inputs are source availability, reproducible inputs and the intended comparison.
 Keep pipeline QC, experimental design and author concordance separate.
 Inspect `src/data/datasetQualityR460.ts`, `pipelineQc.ts`,
 `authorConcordanceR460.ts` and the relevant audit/builder scripts; the pinned
-`datasetQuality.ts` and `authorConcordance.ts` serve sealed producers only. Use `check:author-validation`,
-`check:quality` and the applicable dated intake/replay checks from package.json.
+`datasetQuality.ts` and `authorConcordance.ts` serve sealed producers only. Use `check:author-validation` and the applicable dated intake/replay checks from
+package.json; they need retained inputs that `pnpm run fetch:data` restores only
+in part. The maintainer's checkout also runs `check:quality`, which is not here.
 Run `pnpm run check:bundle-eol` before an audit records any SHA-256 pin: pin
 writers hash the working file, and a stale copy whose line endings differ from
 the committed blob yields a pin that no clean checkout reproduces.
-Sealed producers run through `scripts/run_historical_check.py`, or for the
-September 11 reports and scientific snapshot `scripts/run_sealed_report_check.py`.
+Sealed producers run through `scripts/run_historical_check.py` (in the
+maintainer's repository, not here), or for the September 11 reports and
+scientific snapshot `scripts/run_sealed_report_check.py`.
 When a sealed pin cannot be reproduced after a dataset addition or in another
 checkout or shell, add a verified projection to the runner, as
-[described here](../../data/internal-qc/hfd-intake-2026-09-12/HISTORICAL_COMPATIBILITY.md);
-never edit the pin or the producer. Outputs replaced by the R 4.6.0
+`data/internal-qc/hfd-intake-2026-09-12/HISTORICAL_COMPATIBILITY.md` describes
+(restored by `pnpm run fetch:data`, not tracked); never edit the pin or the producer. Outputs replaced by the R 4.6.0
 regeneration are served to sealed producers from git history through the
 [supersession manifest](../../data/quality/regeneration-r460-2026-09-25/README.md);
 a pinned producer that needs new behavior gets a successor file. A live cumulative report is regenerated
@@ -100,17 +106,18 @@ bounded GSE135007 serialization and GSE157077 time-series-unit chains before
 `isRecordedCurrentOutput` accepts their current bytes. Each chain retains its
 predecessor and explicit verification. The current bulk entry point is
 `scripts/regenerate_bulk_de_current.R`; its GSE135007 specialization requires a
-staging root and fits the exact reread canonical matrix. Read the
-[serialization runbook](../../data/quality/gse135007-serialization-2026-10-23/README.md)
-before adopting a new product.
+staging root and fits the exact reread canonical matrix. Read the maintainer's serialization runbook
+(`data/quality/gse135007-serialization-2026-10-23/README.md`, which neither this
+repository nor the public data release carries) before adopting a new product.
 The current September intake audit is
 `scripts/audit_september5_intake_current.mts`, checked by `pnpm run check:intake`;
 its earlier audit remains a historical record.
 
 `scripts/historical_native_runtime.py` relocates only its three allow-listed
 native replay invocations after verifying code, executable and package identity;
-follow the [native runtime runbook](../HISTORICAL_NATIVE_RUNTIME.md).
-Run `python scripts/test_historical_native_runtime.py` for the relocation tests.
+follow the [native runtime runbook](../HISTORICAL_NATIVE_RUNTIME.md). It and its
+tests (`scripts/test_historical_native_runtime.py`) are in the maintainer's
+repository, not here.
 Missing source files or retrieval receipts still fail closed; the source-
 relationship audit records unavailable paths explicitly instead of treating an
 early unavailable reader as a verified successor chain.
@@ -341,7 +348,10 @@ Local results stay on the user's device and are not added to the public registry
 
 Read the [delivery runbook](delivery.md). Inputs are the intended source revision,
 build configuration, matching scientific bundles and deployment authorization.
-Inspect package scripts, Vite configuration, worker configuration and verify
-scripts. Expected outputs are a validated build and, when explicitly requested,
+Inspect package scripts, Vite configuration, worker configuration, the deploy
+preparation and verify scripts. The gitignored deploy inputs (query catalog,
+tracker catalog, reference atlases) come from `pnpm run prepare:deploy`, and
+`upload:bundles` refuses bundles restored from the public data release.
+Expected outputs are a validated build and, when explicitly requested,
 a verified deployment. Retrieve current deployment and edge rule state during the
 task; generated context contains no live operational state.

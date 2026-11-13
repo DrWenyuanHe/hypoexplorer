@@ -19,6 +19,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gunzipSync } from 'node:zlib';
 import { readTar } from './lib/tarball.mjs';
+import { PUBLIC_RELEASE_MARKER } from './lib/publicDataRelease.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const skipMatrices = process.argv.includes('--no-matrices');
@@ -70,6 +71,19 @@ for (const part of pin.parts) {
   }
   if (count !== part.files) throw new Error(`${part.name}: expected ${part.files} files, unpacked ${count}`);
   console.log(`verified ${part.name}: ${count.toLocaleString()} files`);
+}
+
+// The release's bundles are reduced (KEGG emptied, macaque per-animal CPM
+// withheld). Mark them, so upload:bundles refuses to publish them over the full
+// production bundles. The marker is a dotfile, which the uploader never sends.
+if (staged.some(({ file }) => file.startsWith('public/datasets/'))) {
+  staged.push({
+    file: `public/${PUBLIC_RELEASE_MARKER}`,
+    bytes: Buffer.from(`${JSON.stringify({
+      tag: pin.tag,
+      note: 'Bundles restored from the public data release by pnpm run fetch:data. KEGG and the macaque per-animal CPM are not included; do not upload them to the data origin.',
+    }, null, 2)}\n`, 'utf8'),
+  });
 }
 
 // Phase 2: install. Each target must resolve inside this checkout with no

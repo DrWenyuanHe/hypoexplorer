@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-expression-survey",
-  "fingerprint": "424f0a5200971e114c92789ced44ca3f3d45234fe79d5c970ae6badc90414503",
+  "fingerprint": "25149e4dbb2343773d4bab93b8d58c8404cd6fc2e4ea70d70f2c27574fffd853",
   "outcome": "no-impact",
-  "explanation": "Dead-code removal (cleanup B1): unused exports knip reported are deleted, with no caller anywhere in src, scripts, data or tests. expressionTypes.ts no longer re-exports ExpressionSampleValue, which no expression-survey module imported; the interface itself stays in src/types/index.ts. Loaders and formats are unchanged.",
+  "explanation": "Rebased onto #22. loadExternalExpression retries the lookup on the unversioned Ensembl key when a versioned query names no feature, so HPA, which stores unversioned IDs, now matches. Atlas formats, manifests and the survey contract are unchanged.",
   "references": [
-    "src/expression-survey/expressionTypes.ts",
-    "src/types/index.ts"
+    "src/expression-survey/externalReference.ts",
+    "docs/EXPRESSION_SURVEY.md"
   ]
 }

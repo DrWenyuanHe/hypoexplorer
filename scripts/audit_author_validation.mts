@@ -282,7 +282,7 @@ function globalKey(dataset: Dataset, trackId: string): string {
 
 function bundlePath(dataset: Dataset, trackId: string): string {
   const relativePath = dataset.bundleFileTemplate.replace('{trackId}', trackId).replace(/^\//, '');
-  return resolve(ROOT, 'public', relativePath.replace(/^datasets\//, 'datasets/'));
+  return resolve(ROOT, 'public', relativePath);
 }
 
 function numberCell(value: string): number {

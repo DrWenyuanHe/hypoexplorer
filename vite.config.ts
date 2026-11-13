@@ -526,6 +526,23 @@ export default defineConfig(async ({ mode }): Promise<ViteUserConfig> => {
         // Complete QC evidence is about 4.04 MiB after minification. Keep it
         // available offline alongside the shell, with room for additional notes.
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+        // Take control of pages that no worker is currently controlling, as
+        // soon as this worker activates.
+        //
+        // NOT the same switch as skipWaiting, which stays off: activation is
+        // still gated on the app sending SKIP_WAITING, so "prompt" semantics are
+        // untouched — a new worker cannot jump in front of a running session.
+        // This only decides who controls a page that has NO controller once the
+        // handover the user asked for has already happened.
+        //
+        // It is load-bearing for the reload. An uncontrolled page (hard reload,
+        // a first visit the installing worker never claimed, the tab
+        // forceRefresh() leaves behind) gets no controllerchange event without
+        // it, and controllerchange is the signal registerUpdates.ts reloads on.
+        // Without this, those tabs could accept an update and then sit there —
+        // the "spinning forever" report. registerUpdates.ts still carries a
+        // timeout for the cases this cannot reach.
+        clientsClaim: true,
         cleanupOutdatedCaches: true,
         // The app uses hash routes, so only the root document needs a fallback.
         // Static study/About pages and unknown paths must retain their own HTML

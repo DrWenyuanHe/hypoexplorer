@@ -21,6 +21,9 @@
 *.jsx   text eol=lf
 *.json  text eol=lf
 data/expression/neuroseq/source/catalog.json -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# The upstream MIT notice is pinned by SHA-256 (public-safety.json), and
+# check:public-safety reads the working tree, so a CRLF checkout would fail it.
+data/expression/oxt-reference/LICENSE text eol=lf
 *.css   text eol=lf
 *.html  text eol=lf
 *.md    text eol=lf
