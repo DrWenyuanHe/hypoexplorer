@@ -24,8 +24,8 @@ maintainer's checkout (its `check:verification-advancement`), which this
 repository does not carry; record the replay as pending in `TODOS.md` (see
 [verification](#verification)). Context generation does not rebuild scientific data.
 
-The registry's `expressionUnit` is authoritative for display: `buildPopData` and
-`loadTimeSeries` prefer it to the unit stamped in a bundle, and the bundle
+The registry's `expressionUnit` is authoritative for display: `buildPopData`,
+`loadTimeSeries` and the agent export prefer it to the unit stamped in a bundle, and the bundle
 builders take the registry unit, so a unit relabel need not rebuild hash-pinned
 bundle bytes. Changing a field of a dataset registered before the R 4.6.0 swap
 needs a reviewed reason in `scripts/regen-r460/build_registry_edits.mts`

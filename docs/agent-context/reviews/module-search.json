@@ -1,11 +1,10 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "b8956b029ee1eaee690a5fef02489799b4cf9eb745bd1443ab1c34d01dc5d2b2",
+  "fingerprint": "fb14bb7b6c928a7089aaa02d8f78c94262d8d90ee18504456a27e8e1436c3edd",
   "outcome": "no-impact",
-  "explanation": "Dead CSS removal (cleanup B2): rules and custom properties with no remaining selector, class name or var() reference anywhere in src, scripts or public are deleted. search.css drops .portal-symbol and .portal-name, including the 600px override; the portal head now renders only .portal-kind, .portal-title and .portal-id, which are unchanged.",
+  "explanation": "Rebased onto #22. SearchPage passes the result limit as the \"Also matching\" total when the gene list hit it, so that list reads \"100+\" as the Genes tab does. Search ranking, routes and the synonym dictionary are unchanged.",
   "references": [
-    "src/search/search.css",
     "src/search/SearchPage.tsx"
   ]
 }

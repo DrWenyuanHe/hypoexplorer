@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "781429481924304631afe3f28f74b97b451d39db813cd7e90f975520151b23dc",
-  "outcome": "updated",
-  "explanation": "Adds deployGuards.test.ts for the two delivery guards: atlas completeness (manifest, validation report and every lookup/value shard, for public/ or dist/) and recognition of public-data-release bundles (fetch:data marker, KEGG_NOT_INCLUDED.md, empty macaque cpm, an all-empty KEGG corpus, and the narrower --only scope where one study may lack KEGG). It writes only temporary directories. The earlier hostname and regular-expression hardening of two assertions is unchanged.",
+  "fingerprint": "255bef7a5dc4d30adee82a0fe6a11a82923cd5e10942bc244331841e65805065",
+  "outcome": "no-impact",
+  "explanation": "Rebased onto #22. New and extended tests: swHandover.test.ts (the SKIP_WAITING handover, including a worker that already activated), pwaUpdate and forceRefresh cases, a failed-dataset case in queryIndex and geneReport, a versioned Ensembl lookup in externalReference and the capped \"100+\" count in searchPage. They follow the existing node and jsdom project split; no test exclusion, environment or setup changes.",
   "references": [
-    "src/__tests__/deployGuards.test.ts",
-    "scripts/lib/deployInputs.mts",
-    "scripts/lib/publicDataRelease.mts"
+    "src/__tests__/swHandover.test.ts",
+    "src/__tests__/queryIndex.test.ts"
   ]
 }

@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "1b553feb3d4a0e0f458fe9b1702b8c0fe4f0ee363b7bd97f4e0b285a42221ffa",
+  "fingerprint": "d37e6aba0a7675999df988c8357b709592e41d14299d5c9e53e7001f2fc66b6d",
   "outcome": "no-impact",
-  "explanation": "Doc and comment drift only (cleanup B3); no code path, export, route or data changes. README, App.tsx, prose.tsx and StatisticsView.tsx comments now name the current views and routes; rendering is unchanged.",
+  "explanation": "Rebased onto #22. User-visible copy changes only: the gene report names studies that failed to load, the reference atlas matches versioned Ensembl IDs, and search shows \"100+\" for a capped list. Navigation, views, routes and exports are unchanged, so the UI-change runbook stays accurate.",
   "references": [
-    "README.md",
-    "src/App.tsx",
-    "docs/REFACTOR_CHECKLIST.md"
+    "src/crossdataset/GeneReport.tsx",
+    "src/search/SearchPage.tsx"
   ]
 }

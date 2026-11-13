@@ -1,14 +1,11 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "95381a27d8a7f3e4397230952174da257e965384f6011311e0b7a27f52cacb7a",
-  "outcome": "updated",
-  "explanation": "The verification route no longer links evidence absent from this repository: the HFD historical-compatibility note is named as restored by fetch:data, the GSE135007 serialization runbook as held only by the maintainer, and run_historical_check.py, historical_native_runtime.py and its tests as private-only; check:quality is marked as not present. Script differences from the private source are export scrubs (an identity path normalization in audit_author_validation, backslash escaping in build_author_validation Markdown cells, generic interpreter and output paths). No evidence record, QC policy or verification status changes.",
+  "fingerprint": "4585698970154a7e1d2824c0f9020caea8698054c762444d6d437141ae54b6fc",
+  "outcome": "no-impact",
+  "explanation": "Rebased onto #22. No evidence record, QC policy, author-validation input or verification status changes. The agent-export unit precedence and ZipWriter publishing, and the failed-dataset flag in crossDataset.ts, touch files this area covers without changing what is verified or how.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "docs/HISTORICAL_NATIVE_RUNTIME.md",
-    "scripts/audit_author_validation.mts",
-    "scripts/build_author_validation.mts",
-    "data/author-validation/README.md"
+    "scripts/build_agent_export.mts",
+    "src/data/crossDataset.ts"
   ]
 }

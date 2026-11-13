@@ -1,18 +1,12 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "cfe567b62bb96e1a829389866ee8dda9593794ea89554687a316aa845c9fdacd",
+  "fingerprint": "afeb5f0d1b056b26dcbe6e896ad5d6815373740016ee49fef0135d73c48a97eb",
   "outcome": "updated",
-  "explanation": "deploy:cf now runs prepare:deploy first: it fetches the query catalog from the data origin, the tracker catalog and any missing or incomplete GTEx/HPA/Allen atlas, keeps complete local atlases, and stops when local query pointers differ from the origin (--refresh-query takes them). verify:release then fails if dist/ lacks an atlas file or the tracker catalog, and verify:deploy checks the live site serves them. upload:bundles refuses bundles restored from the public data release (fetch:data marker, KEGG note, empty macaque cpm, all-empty KEGG corpus) in every mode unless --allow-reduced-bundles. delivery.md no longer claims a scientific prebuild or tracked atlas inputs. vite.config.ts differs from the private source only by its test exclusions.",
+  "explanation": "Rebased onto #22. The service worker now sets clientsClaim and the update handover in registerUpdates.ts reloads on controllerchange, reloads plainly when the update worker is already active, and otherwise falls back to forceRefresh() after a watchdog. delivery.md gains a sentence describing this; the deploy, upload and verify commands are unchanged.",
   "references": [
-    "scripts/prepare_deploy.mts",
-    "scripts/lib/deployInputs.mts",
-    "scripts/verify_release.mts",
-    "scripts/verify_deploy.mts",
-    "scripts/upload_bundles_r2.mts",
-    "scripts/lib/publicDataRelease.mts",
-    "scripts/fetch_data.mts",
     "docs/agent-context/delivery.md",
-    "package.json"
+    "vite.config.ts",
+    "src/pwa/registerUpdates.ts"
   ]
 }

@@ -1,10 +1,11 @@
 {
   "version": 1,
   "area": "module-crossdataset",
-  "fingerprint": "64ffa7c4564fd0fe457da6849e488d05e95e84a4f5479122e2d5b99e22c75c1b",
+  "fingerprint": "a5f22818a9d2ddd5b45fcfd17f192e9ce7a0402441eb7cf62c4823058e2ddee1",
   "outcome": "no-impact",
-  "explanation": "GeneReport keeps rendering GeneExpressionCards before the differential-expression card; only the default header subtitle changes from \"Differential expression across datasets\" to \"Where it is expressed and how it changes across datasets\". Queries, previews and study selection are unchanged.",
+  "explanation": "Rebased onto #22. GeneReport names the selected studies whose data failed to load instead of counting them as not measuring the gene, and shows only that note when nothing loaded. The report contract, route and table structure are unchanged; it reads the existing group error flag.",
   "references": [
-    "src/crossdataset/GeneReport.tsx"
+    "src/crossdataset/GeneReport.tsx",
+    "src/data/crossDataset.ts"
   ]
 }

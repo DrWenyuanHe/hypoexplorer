@@ -121,7 +121,12 @@ cache rules and the post-upload purge described in
 `public/query/` is generated and ignored. Off-origin builds remove dataset,
 query and QC trees from site assets; the tracker catalog stays origin-relative.
 Prerendered public documents are real assets, and service-worker navigation
-fallback is scoped to the root document.
+fallback is scoped to the root document. Updates stay prompt-gated
+(`registerType: 'prompt'`, no `skipWaiting`), while `clientsClaim` lets an
+activated worker control tabs that had no controller. `applyWaitingWorker()` in
+`src/pwa/registerUpdates.ts` reloads on `controllerchange`, reloads plainly when
+the update's worker is already active, and falls back to `forceRefresh()` after
+an 8-second watchdog.
 
 The [brand guide](../../brand/README.md) identifies the approved raster masters
 and regeneration command. Header art and browser/app icons ship from
