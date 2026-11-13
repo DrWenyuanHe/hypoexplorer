@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "9125024b3d82d27578b23af12c0ac8c7eb66fc8ba9584e84f826fdb5a3abbd9e",
+  "fingerprint": "04b5ecf50f547bac31fbcc3e186fa60f55c46ee5a41ed41854bae0f99a5341b5",
   "outcome": "updated",
-  "explanation": "Adds scripts/lib/hypomapAtlas.mts, the one definition of the pinned HypoMap atlas file shape shared by the edge rule builder, the R2 uploader and verify:edge. The Cloudflare path and burst payloads are re-rendered from scripts/lib/edgeRules.mts, r2Incremental stores .gz objects as application/gzip, vite.config.ts drops dist/hypomap from off-origin builds, and the README now says which manual Cloudflare and R2 steps remain before hosted builds can turn the expression view on. Both flags stay off.",
+  "explanation": "Adds scripts/lib/hypomapAtlas.mts, the one definition of the pinned HypoMap atlas file shape shared by the edge rule builder, the R2 uploader and verify:edge. The Cloudflare path and burst payloads are re-rendered from scripts/lib/edgeRules.mts, r2Incremental stores .gz objects as application/gzip, vite.config.ts drops dist/hypomap from off-origin builds, and the README now says which manual Cloudflare and R2 steps remain before hosted builds can turn the expression view on. Both flags stay off. The README Contributors section also credits Helene Li as creator and contributor; that is credit text only.",
   "references": [
     "scripts/lib/hypomapAtlas.mts",
     "scripts/lib/edgeRules.mts",
