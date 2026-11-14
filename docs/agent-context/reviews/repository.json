@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "38c06f655851480a3ed599c281a4b8cb29688fb775f9c84dd0c598d0b39bf853",
+  "fingerprint": "2784ae0020c73103ac039d92af37b585ee45ffadacf6f47b051a25dec0b358aa",
   "outcome": "updated",
-  "explanation": "knip.json now ignores unresolved imports of the maintainer-held evidence readers under data/internal-qc/ (imported by scripts/build_internal_qc_r460.mts and keyedSourceRelationship.test.ts) and lists gitleaks as an optional binary, so pnpm run deadcode passes on a public checkout; CI's Lint and typecheck job now runs it. PROJECT_GUIDANCE.md and DEVELOPMENT.md say so. The .gitignore query-index comment drops a reference to a git-history purge that no TODO or issue tracks. No scientific inputs, outputs or app behaviour change.",
+  "explanation": "knip.json now ignores unresolved imports of the maintainer-held evidence readers under data/internal-qc/ (imported by scripts/build_internal_qc_r460.mts and keyedSourceRelationship.test.ts) and lists gitleaks as an optional binary, so pnpm run deadcode passes on a public checkout; CI's Lint and typecheck job now runs it. PROJECT_GUIDANCE.md and DEVELOPMENT.md say so. The .gitignore query-index comment drops a reference to a git-history purge that no TODO or issue tracks. No scientific inputs, outputs or app behaviour change. A follow-up fetches the query catalog before knip in CI, because knip loads vite.config.ts and that config reads the gitignored public/query/tracks.js.",
   "references": [
     "knip.json",
     ".github/workflows/application.yml",

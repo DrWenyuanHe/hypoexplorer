@@ -91,7 +91,7 @@ first, and `pnpm test` needs `pnpm run fetch:expression` as well.
 | `pnpm run test:context` | Tests for the agent-context tooling |
 | `pnpm run context:check` | Checks the agent-context maps, links and reviews against the sources ([maintenance](agent-context/README.md)) |
 | `pnpm run check:public-safety` | Checks every tracked file for credentials, personal information and missing third-party notices |
-| `pnpm run deadcode` | knip: unused files, dependencies and exports in `src/` |
+| `pnpm run deadcode` | knip: unused files, dependencies and exports in `src/` (run `fetch:query` first on a fresh checkout) |
 | `pnpm run prepare:deploy` | Fetches whatever the production build ships but the repository does not carry (below) |
 
 ## Deploying

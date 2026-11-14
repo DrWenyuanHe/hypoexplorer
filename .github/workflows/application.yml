@@ -38,7 +38,10 @@ jobs:
       - run: pnpm run lint --reporter=summary
       # check:upstream replays raw GEO inputs, so it runs in the maintainer's checkout.
       - run: pnpm run typecheck
-      # Unused files, dependencies and exports in src/ (knip.json).
+      # Unused files, dependencies and exports in src/ (knip.json). knip loads
+      # vite.config.ts to find the test setup and entries, and the config reads
+      # the gitignored query catalog, so fetch it first.
+      - run: pnpm run fetch:query
       - run: pnpm run deadcode
       - name: Test the agent-context tooling
         run: pnpm run test:context
