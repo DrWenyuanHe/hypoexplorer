@@ -10,8 +10,9 @@
     "!src/**/*.test.{js,jsx,ts,tsx}"
   ],
   "ignore": ["vendor/**"],
-  "ignoreBinaries": ["Rscript"],
+  "ignoreBinaries": ["Rscript", "gitleaks"],
   "ignoreDependencies": ["@typescript/typescript6"],
+  "ignoreUnresolved": ["^(\\.\\./)+data/internal-qc/"],
   "ignoreIssues": {
     "src/data/datasetQuality.ts": ["exports"]
   }

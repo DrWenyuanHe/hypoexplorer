@@ -1,18 +1,12 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "53f319ef061bf43bd9029859940d8c61f30468a9fac2f7577898d70cf13a7114",
+  "fingerprint": "1c38108575f358f9d445bfea922ce88db78fdba9d12cd3a97c408b188c365e4e",
   "outcome": "updated",
-  "explanation": "Prepares hosted delivery of the pinned HypoMap atlas without turning either flag on. The data-host path rule and the burst rule now admit only hypomap/<tag>/ manifest.json, metadata.json.gz, search-index.json.gz and length-pinned genes-NNNN.json.gz shards (scripts/lib/hypomapAtlas.mts); upload:bundles publishes the verified atlas on full uploads or with --hypomap-only, storing .json.gz as application/gzip with no Content-Encoding; off-origin builds drop dist/hypomap; verify:edge gains --hypomap probes. delivery.md documents the CORS requirement, the Content-Encoding effect on checksums, the unverified cached-CORS risk and the manual publication order.",
+  "explanation": "The app CI workflow's Lint and typecheck job gains a pnpm run deadcode (knip) step, and delivery.md's list of CI checks now names it. Build, deploy, R2 upload and edge rules are unchanged; the job name stays the same, so the required check on main is not renamed. The step runs pnpm run fetch:query first, since knip loads vite.config.ts and the config reads the gitignored query catalog.",
   "references": [
     "docs/agent-context/delivery.md",
-    "docs/EDGE_PROTECTION.md",
-    "scripts/upload_bundles_r2.mts",
-    "scripts/lib/hypomapAtlas.mts",
-    "scripts/lib/edgeRules.mts",
-    "scripts/verify_edge.mts",
-    "cloudflare/http_request_firewall_custom/hypoexplorer_data_paths.json",
-    "cloudflare/http_ratelimit/hypoexplorer_data_burst.json",
-    "vite.config.ts"
+    ".github/workflows/application.yml",
+    "docs/DEVELOPMENT.md"
   ]
 }
