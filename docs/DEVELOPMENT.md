@@ -91,7 +91,7 @@ first, and `pnpm test` needs `pnpm run fetch:expression` as well.
 | `pnpm run test:context` | Tests for the agent-context tooling |
 | `pnpm run context:check` | Checks the agent-context maps, links and reviews against the sources ([maintenance](agent-context/README.md)) |
 | `pnpm run check:public-safety` | Checks every tracked file for credentials, personal information and missing third-party notices |
-| `pnpm run deadcode` | knip |
+| `pnpm run deadcode` | knip: unused files, dependencies and exports in `src/` |
 | `pnpm run prepare:deploy` | Fetches whatever the production build ships but the repository does not carry (below) |
 
 ## Deploying
@@ -126,7 +126,7 @@ Every pull request to `main` must pass these checks:
 
 | Check | Workflow | Runs |
 |---|---|---|
-| Lint and typecheck | `application.yml` | `lint`, `typecheck`, `test:context`, `context:check` |
+| Lint and typecheck | `application.yml` | `lint`, `typecheck`, `deadcode`, `test:context`, `context:check` |
 | Unit tests | `application.yml` | `pnpm test` with the fetched catalogs and atlases |
 | Build and browser smoke | `application.yml` | `prepare:deploy`, `build`, `verify:release`, `test:smoke` against R2 |
 | Public safety | `public-safety.yml` | `check:public-safety` over every tracked file |

@@ -1,16 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "04b5ecf50f547bac31fbcc3e186fa60f55c46ee5a41ed41854bae0f99a5341b5",
+  "fingerprint": "38c06f655851480a3ed599c281a4b8cb29688fb775f9c84dd0c598d0b39bf853",
   "outcome": "updated",
-  "explanation": "Adds scripts/lib/hypomapAtlas.mts, the one definition of the pinned HypoMap atlas file shape shared by the edge rule builder, the R2 uploader and verify:edge. The Cloudflare path and burst payloads are re-rendered from scripts/lib/edgeRules.mts, r2Incremental stores .gz objects as application/gzip, vite.config.ts drops dist/hypomap from off-origin builds, and the README now says which manual Cloudflare and R2 steps remain before hosted builds can turn the expression view on. Both flags stay off. The README Contributors section also credits Helene Li as creator and contributor; that is credit text only.",
+  "explanation": "knip.json now ignores unresolved imports of the maintainer-held evidence readers under data/internal-qc/ (imported by scripts/build_internal_qc_r460.mts and keyedSourceRelationship.test.ts) and lists gitleaks as an optional binary, so pnpm run deadcode passes on a public checkout; CI's Lint and typecheck job now runs it. PROJECT_GUIDANCE.md and DEVELOPMENT.md say so. The .gitignore query-index comment drops a reference to a git-history purge that no TODO or issue tracks. No scientific inputs, outputs or app behaviour change.",
   "references": [
-    "scripts/lib/hypomapAtlas.mts",
-    "scripts/lib/edgeRules.mts",
-    "scripts/lib/r2Incremental.mts",
-    "scripts/upload_bundles_r2.mts",
-    "vite.config.ts",
-    "README.md",
-    "docs/agent-context/delivery.md"
+    "knip.json",
+    ".github/workflows/application.yml",
+    "docs/PROJECT_GUIDANCE.md",
+    "docs/DEVELOPMENT.md",
+    ".gitignore"
   ]
 }

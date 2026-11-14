@@ -38,6 +38,8 @@ jobs:
       - run: pnpm run lint --reporter=summary
       # check:upstream replays raw GEO inputs, so it runs in the maintainer's checkout.
       - run: pnpm run typecheck
+      # Unused files, dependencies and exports in src/ (knip.json).
+      - run: pnpm run deadcode
       - name: Test the agent-context tooling
         run: pnpm run test:context
       # Generated maps, links and review fingerprints must match the committed
