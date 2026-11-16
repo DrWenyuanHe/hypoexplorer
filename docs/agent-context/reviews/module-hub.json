@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "module-hub",
-  "fingerprint": "5f34b1946eb530830f412e1bf1e1ac45d08043b0403c51bc2f52ae0e81b51d06",
+  "fingerprint": "21b9563272cd630b2e84bbe948355dfa523481250d76706744513189fa28b875",
   "outcome": "updated",
-  "explanation": "Copy only: the hub tagline now reads 'Where a gene is expressed in the hypothalamus, and how it changes across N public studies', with N still the registered study count; the crawlable skeleton heading in index.html matches without the count. Layout, search box, cards and navigation are unchanged.",
+  "explanation": "The hub Reference navigation drops its Research topics link because the prerendered /topics/ guides no longer exist. The Dataset library, Study pages and remaining reference links are unchanged, and the crawlable index.html skeleton loses the same link.",
   "references": [
     "src/hub/LandingHub.tsx",
     "index.html"

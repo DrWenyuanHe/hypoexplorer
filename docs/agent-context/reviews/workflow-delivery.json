@@ -1,12 +1,15 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "1bc1383646f046e0e47450238bd1b20411857b0a5ee34c8b128558f35b511d9e",
-  "outcome": "no-impact",
-  "explanation": "fetch:data now authenticates to download the private data release, but it writes the same reduced bundles and the same marker, so the uploader's refusal of restored bundles in delivery.md and scripts/lib/publicDataRelease.mts still applies unchanged. Build, deploy, R2 and edge rules are untouched.",
+  "fingerprint": "7cd1da02d91a7317959868a268acf00a8ec3b2b0065b99173855bb1e4cdbd1f9",
+  "outcome": "updated",
+  "explanation": "The build no longer emits /topics/ documents: vite.config.ts drops topics from the dev SEO route matcher and from the Workbox precache exclusions, and the sitemap shrinks by the five topic URLs. Prerendered documents are still real assets with the navigation fallback scoped to the root, as delivery.md states. DEVELOPMENT.md no longer describes a vendor directory or a CodeQL vendor exclusion. From main, fetch:data authenticates to download the private data release but writes the same reduced bundles and marker, so the uploader refusal described in delivery.md still applies. scripts/verify_release.mts now checks only the methods, how-to-cite, about and studies documents, since the build no longer emits topics.",
   "references": [
-    "scripts/fetch_data.mts",
     "docs/agent-context/delivery.md",
-    "scripts/lib/publicDataRelease.mts"
+    "vite.config.ts",
+    "docs/DEVELOPMENT.md",
+    "scripts/fetch_data.mts",
+    "scripts/lib/publicDataRelease.mts",
+    "scripts/verify_release.mts"
   ]
 }

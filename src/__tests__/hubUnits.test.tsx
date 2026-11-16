@@ -140,7 +140,7 @@ describe('hub routes', () => {
     expect(h.onOpenLocalDatasets).toHaveBeenCalledTimes(1);
     fireEvent.click(within(nav).getByRole('button', { name: 'Dataset tracker' }));
     expect(h.onOpenTracker).toHaveBeenCalledTimes(1);
-    for (const href of ['/studies/', '/topics/', '/methods/', '/how-to-cite/', '/about/']) {
+    for (const href of ['/studies/', '/methods/', '/how-to-cite/', '/about/']) {
       expect(nav.querySelector(`a[href="${href}"]`)).not.toBeNull();
     }
     fireEvent.click(screen.getByRole('button', { name: 'Changelog' }));

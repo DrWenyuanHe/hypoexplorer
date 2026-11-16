@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "d36794573a63489e0f5a1d386b8344d3865662377214dc6c99ca2d01e28dd778",
+  "fingerprint": "c14ffdea2db5cb08e4b86df8bf313924703ce9f88c9596a48a0c8b39e3083e75",
   "outcome": "no-impact",
-  "explanation": "fetch:data restores the same verified archives (SHA-256 checked against data-release.json) through an authenticated path when a GitHub token is present. Evidence records, QC policy, author-validation inputs and what the restore provides to check:author-validation are unchanged.",
+  "explanation": "The deleted topic guides only held curated prose; the Methods guide in seoGuides.mts now points readers to the study directory instead. Verification evidence, author-validation records and the rendering of evidence status on study pages are untouched, so the verification workflow is unchanged. From main, fetch:data restores the same SHA-256-verified archives through an authenticated path; evidence records, QC policy and author-validation inputs are unchanged. The release verifier dropping its topics-page assertion does not touch evidence or QC checks.",
   "references": [
+    "docs/agent-context/workflows.md",
+    "scripts/lib/seoGuides.mts",
     "scripts/fetch_data.mts",
     "data-release.json",
-    "data/author-validation/README.md"
+    "scripts/verify_release.mts"
   ]
 }

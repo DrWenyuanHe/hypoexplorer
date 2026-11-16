@@ -369,7 +369,7 @@ function publicStudyPages(): Plugin {
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         const pathname = new URL(req.url ?? '/', 'http://localhost').pathname;
-        if (!/^\/(?:studies|about|topics|methods|how-to-cite)(?:\/|$)/.test(pathname)
+        if (!/^\/(?:studies|about|methods|how-to-cite)(?:\/|$)/.test(pathname)
           && pathname !== '/robots.txt' && pathname !== '/sitemap.xml') return next();
         if (req.method !== 'GET' && req.method !== 'HEAD') return next();
         const document = renderSeoRoute(pathname);
@@ -513,7 +513,7 @@ export default defineConfig(async ({ mode }): Promise<ViteUserConfig> => {
           'pop_*.js', 'qc_global.js', 'qc/**', 'datasets/**', 'query/**', 'tracker/**',
           // Public documents load independently; do not download the entire
           // study directory every time somebody installs the app shell.
-          'studies/**', 'about/**', 'topics/**', 'methods/**', 'how-to-cite/**',
+          'studies/**', 'about/**', 'methods/**', 'how-to-cite/**',
           // The nomenclature table (2.4 MB + 5.8 MB) is reference data that most
           // sessions never touch: the alias file loads on the first gene search
           // and the full table only when its page is opened. Precaching would

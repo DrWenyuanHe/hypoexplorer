@@ -3,19 +3,6 @@
 Read [project guidance](docs/PROJECT_GUIDANCE.md) for this repository's project structure, data provenance,
 and validation commands.
 
-## SEO skills
-
-The SEO suite is installed only in this repository, under `.agents/skills/`.
-Use it when the current task requires SEO work or the user explicitly invokes an
-SEO skill. Ordinary code changes, page reviews, and content edits do not trigger
-the suite by themselves. Read only the relevant `SKILL.md` and supporting files.
-
-For broad SEO work, start with `.agents/skills/seo/SKILL.md`. For a focused task,
-load the matching `seo-*` skill directly. Shared upstream files are in
-`vendor/claude-seo/`; run tools through `python scripts/seo_runtime.py` from this
-repository's root and keep any requested dependency setup local to this repository.
-Installation, updates and recovery are in [SEO tooling](docs/seo-tooling.md).
-
 ## Context maintenance
 
 Read the task's detailed map and canonical runbook before changing code. After a
@@ -39,7 +26,6 @@ Directories:
 - `services/`: Loopback HypoMap co-detection service behind the gated co-expression card.
 - `cloudflare/`: Edge cache, WAF and rate-limit rule payloads for the data host.
 - `docs/`: Data contracts, runbooks and maintained context.
-- `vendor/`: Pinned Claude SEO toolkit snapshot behind the project-local SEO skills.
 
 Source areas:
 - `__tests__`: App, data-contract and regression tests.
