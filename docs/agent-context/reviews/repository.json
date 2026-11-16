@@ -1,10 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "c81f8df18ecdcdff57dab37a6e1fe39513d60f5a44d5ca41825a1f262bfe7019",
+  "fingerprint": "59afffd37f0df4089ec1e5a77fa9807e31d30a37aa2c493edc7f02bd74abe837",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31, #32, #34). CONTEXT.md keeps every Architecture bullet: the CSV seam added on this branch (and the gene-list bullet naming it), plus the Expression-source reader, Explorer session, Expression-survey derivation + load and Co-detection client bullets from main. The survey keeps its own CSV cell writer in expressionSurvey.ts; adopting writeCsv there is a follow-up. No data, bundle or delivery behaviour changes.",
+  "explanation": "Merged main (#30, #31, #34, #32, #33) into the query-wire branch. From this branch: scripts/build_query_index.mts becomes the write adapter of src/data/queryWire.ts (no private wire types, isLowPower copy, cardGlobalName or hand-spelled HX_QUERY_* names; rows built by shared encoders; --check reads a typed QueryManifest), with byte-identical output (build 1cpqpf5dmmhsv, 1675 files hash-equal), and CONTEXT.md gains the query-wire module bullet. From main: CONTEXT.md keeps every Architecture bullet: the CSV seam added on this branch (and the gene-list bullet naming it), plus the Expression-source reader, Explorer session, Expression-survey derivation + load and Co-detection client bullets from main. The survey keeps its own CSV cell writer in expressionSurvey.ts; adopting writeCsv there is a follow-up. No data, bundle or delivery behaviour changes.",
   "references": [
+    "scripts/build_query_index.mts",
+    "src/data/queryWire.ts",
     "CONTEXT.md",
     "src/utils/csv.ts",
     "src/expression-survey/expressionSurvey.ts",
