@@ -1,14 +1,11 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "70257b19bc9d3006be883b31cf29a94729775c8abe2e5c64009976b6e7b8ad7a",
+  "fingerprint": "6c19ede291148395849354fc3b9663bdc36d4099371eb26697c6b200ad57d2cf",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31, #32, #34). From this branch: the HypoMap CsvDialog keeps its props and preview but downloads through writeCsv and exportFilename instead of its own quoting, slug regex and Blob anchor, so the co-detection comparisonCsv rows from main are written under the shared CSV policy. From main: codetection.ts validates the loopback service and fails closed on export mismatch, useLoad replaces the duplicated load/retry effects, and loadBaselineTeaser projects the survey NeuroSeq results as source groups.",
+  "explanation": "portal-table-wrap is now position: relative so absolutely positioned screen-reader labels inside wide portal tables stay in their scroller instead of widening the gene page past a phone width and zooming it out.",
   "references": [
-    "src/search/hypomap/CsvDialog.tsx",
-    "src/utils/csv.ts",
-    "src/search/hypomap/codetection.ts",
-    "src/search/hypomap/useLoad.ts",
-    "src/search/searchSummaries.ts"
+    "src/search/search.css",
+    "docs/agent-context/workflows.md"
   ]
 }

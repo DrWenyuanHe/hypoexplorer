@@ -1,12 +1,10 @@
 {
   "version": 1,
   "area": "module-verification",
-  "fingerprint": "0634de91897afd39f5c25a3ce47e3f610057e76dff631ead4e8bd2736210cedd",
+  "fingerprint": "b6cc47443bcbfd5ccefca99401cdb85b8ebb806a990fe3539c374a9da1e31164",
   "outcome": "no-impact",
-  "explanation": "VerificationView.tsx imports datasetQuality and QUALITY_STATUS from datasetQualityR460.ts, so the verification page summarizes current decisions that apply the r460 concordance re-reviews. Its structure, policy text and the author-validation guide are unchanged; the regenerated evidence it reads is described in the regeneration record.",
+  "explanation": "VerificationView row headers wrap between words, the status-count table headers may wrap, and the review-note lists break long checksums, so the page fits a phone; counts, wording and verification semantics are unchanged.",
   "references": [
-    "src/verification/VerificationView.tsx",
-    "src/data/datasetQualityR460.ts",
-    "data/quality/regeneration-r460-2026-09-25/README.md"
+    "src/verification/VerificationView.tsx"
   ]
 }

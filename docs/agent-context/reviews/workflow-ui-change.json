@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "caae62e67e10b25bcddde41de6d2eee027a0de407e5d7d2443aa190e752b7d84",
+  "fingerprint": "5be8e1265e6d339463eb556b42a3c2b507eb15705a4cf8ab6d470d47cc522462",
   "outcome": "updated",
-  "explanation": "The UI-change runbook now records that CSVs may carry per-row provenance and split long metadata JSON under the spreadsheet cell limit, that multi-file downloads are stored ZIPs from utils/zip, and that Compare offers long-format Excel/CSV data with per-animal values and per-chart PNG or SVG ZIPs.",
+  "explanation": "The UI-change runbook now records the phone restacking of the gene and pathway result rows, the one-line hub nav and 3 x 2 explorer header, the library starting on cards at phone width, the positioned portal-table-wrap rule, and a check that window.innerWidth equals the device width after load.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/utils/csv.ts",
-    "src/utils/zip.ts",
-    "src/compare/compareFigureExport.ts"
+    "src/crossdataset/forestReport.css",
+    "src/search/search.css",
+    "src/styles/responsive.css"
   ]
 }

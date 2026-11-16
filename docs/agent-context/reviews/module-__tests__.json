@@ -1,14 +1,11 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "c591c957f21e1cef42e1d5eb033a2a307cb1b44edc8042ac2a007234f35f9733",
-  "outcome": "updated",
-  "explanation": "New zip.test reads stored archives back through an independent parser (CRC-32 check value, UTF-8 names, folders, empty archive); compareDownloads covers the long Compare rows, the per-animal Values rows, the workbook sheet order and per-row CSV provenance; csv.test covers rowProvenance and splitting an over-long metadata JSON down its column; compareTabToolbar and exportProvenance follow the renamed Download menu items and the Values sheet.",
+  "fingerprint": "66c4d40647ddb8d95a38843a56769e931ba83b5da7428b3eb2d523a5c1ba34bd",
+  "outcome": "no-impact",
+  "explanation": "pathwayToolbar.test.tsx now finds the pager arrows by their new accessible names, Previous page and Next page, instead of the bare chevron glyphs; test responsibilities and coverage are unchanged.",
   "references": [
-    "src/__tests__/zip.test.ts",
-    "src/__tests__/compareDownloads.test.ts",
-    "src/__tests__/csv.test.ts",
-    "src/__tests__/compareTabToolbar.test.tsx",
-    "src/__tests__/exportProvenance.test.ts"
+    "src/__tests__/pathwayToolbar.test.tsx",
+    "src/pathway-explorer/PathwayToolbar.tsx"
   ]
 }

@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-crossdataset",
-  "fingerprint": "a5f22818a9d2ddd5b45fcfd17f192e9ce7a0402441eb7cf62c4823058e2ddee1",
-  "outcome": "no-impact",
-  "explanation": "Rebased onto #22. GeneReport names the selected studies whose data failed to load instead of counting them as not measuring the gene, and shows only that note when nothing loaded. The report contract, route and table structure are unchanged; it reads the existing group error flag.",
+  "fingerprint": "1318cb1998c909e236aad71a316b5ce38345b7f5977acbec1019fa8f50b3fbf7",
+  "outcome": "updated",
+  "explanation": "forestReport.css restacks the gene page differential-expression rows and the pathway page forest rows under 640px so the change, q/FDR and study actions stay on a phone screen; PathwayReport tags its axis header for that layout. Data, ordering and preview behaviour are unchanged.",
   "references": [
-    "src/crossdataset/GeneReport.tsx",
-    "src/data/crossDataset.ts"
+    "src/crossdataset/forestReport.css",
+    "src/crossdataset/PathwayReport.tsx",
+    "docs/agent-context/workflows.md"
   ]
 }

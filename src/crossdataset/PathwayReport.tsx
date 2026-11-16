@@ -72,7 +72,7 @@ function categorize(groups: PathwayDatasetGroup[]) {
 }
 
 function AxisHeader({ bound }: { bound: number }) {
-  return <div style={{ display: 'grid', gridTemplateColumns: FOREST_GRID, gap: 12, padding: '2px 8px 4px', fontSize: 10, fontWeight: 700, color: 'var(--text-muted)' }}>
+  return <div className="report-forest-axis" style={{ display: 'grid', gridTemplateColumns: FOREST_GRID, gap: 12, padding: '2px 8px 4px', fontSize: 10, fontWeight: 700, color: 'var(--text-muted)' }}>
     <span>TRACK</span>
     <span style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid var(--border-dark)', fontFamily: FONT_MONO, fontSize: 9, fontWeight: 400 }}>
       <span>−{bound.toFixed(1)}</span><span>0</span><span>+{bound.toFixed(1)}</span>

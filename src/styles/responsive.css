@@ -331,7 +331,6 @@
 @media (max-width: 600px) {
   .site-header { position: static !important; --site-header-padding: 12px; }
   .site-header-controls { gap: 4px !important; width: 100%; }
-  .explorer-shell .site-header-controls > button { padding-inline: 8px !important; font-size: 11px !important; }
   .site-header-breadcrumbs { flex-basis: 100%; }
   .page-shell .site-header-breadcrumbs { order: 3; }
   .site-header-breadcrumbs > button { max-width: 100% !important; }
@@ -357,6 +356,19 @@
   .report-dataset-actions { gap: 8px; padding-left: 0; }
   .report-dataset-actions > a { display: inline-flex; align-items: center; }
   .report-dataset-name, .report-preview-heading strong { overflow-wrap: anywhere; }
+  .pager-step { min-width: 44px; }
+  /* A taller tap area for the notice's link without making the line taller. */
+  .beta-notice a { display: inline-block; padding-block: 12px; margin-block: -12px; }
+  /* The explorer's six header controls sit in an even 3 × 2 grid of 44px
+     targets instead of three ragged wrapped rows of mixed heights. */
+  .explorer-shell .site-header-controls { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px !important; }
+  .explorer-shell .site-header-controls > span { display: flex !important; min-width: 0; }
+  .explorer-shell .site-header-controls > button,
+  .explorer-shell .site-header-controls > a,
+  .explorer-shell .site-header-controls > span > button {
+    display: inline-flex !important; align-items: center; justify-content: center; width: 100%; min-width: 0; min-height: 44px;
+    padding-inline: 6px !important; font-size: 11.5px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
 }
 
 @media (max-width: 480px) {

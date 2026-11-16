@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "67711ada4319445ea234cd9b0fcaad01de688cec0c748d7ea4049598a0947dfd",
-  "outcome": "updated",
-  "explanation": "Repository-level inputs change only through the UI-change runbook text on Compare downloads, the CSV writer and ZIP archives, and regenerated codebase-map coverage for the new zip module and tests; no directories, scripts, dependencies or delivery steps change.",
+  "fingerprint": "33f0f09af41b67d1f3a41fa635f9c953e6af178cb57cbb25438f3fe6569daeea",
+  "outcome": "no-impact",
+  "explanation": "index.html keeps the hub bar from shrinking (which let the nav overlap the beta notice at 320px) and puts the phone hub nav on one sideways-scrolling line beside the compare pill; repository structure, commands and startup context are unchanged.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "docs/agent-context/generated/codebase.md"
+    "index.html",
+    "AGENTS.md"
   ]
 }

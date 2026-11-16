@@ -1,10 +1,11 @@
 {
   "version": 1,
   "area": "module-styles",
-  "fingerprint": "2bebdd5b0e65cdd9e451fed903dfc9af960dc02a8c35b52ede7c2fa7e65e1049",
+  "fingerprint": "3aebf69d469e997aabb275bc7c195782aeae2a0df07edf7645f73e2f2a6fb230",
   "outcome": "updated",
-  "explanation": "responsive.css only retunes explorer hero and study-line padding at the 1100px and 900px breakpoints, keeps the slim Compare row at 5px, and pads the opened study details panel on mobile; no shared tokens or breakpoints change.",
+  "explanation": "responsive.css lays the explorer header controls out as an even 3 x 2 grid of 44px targets at 600px and under, enlarges the beta-notice link tap area without changing its line height, and gives pager arrows a 44px minimum width; shared tokens and breakpoints are unchanged.",
   "references": [
-    "src/styles/responsive.css"
+    "src/styles/responsive.css",
+    "docs/agent-context/workflows.md"
   ]
 }
