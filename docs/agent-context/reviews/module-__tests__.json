@@ -1,16 +1,18 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "5e9e8809105f94b6558ac11a46123406fa1b72d317ea2a376adabf0c0d7a93e7",
+  "fingerprint": "0fd351dd7cc675915678657bd8e1228006a226e08dcf32c0f3ee2a9c95e87f4b",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31, #34, #32) into the query-wire branch. From this branch: queryWire.test.ts pins the published query-index names and row layouts, round-trips every row codec, checks trackEntry against the qcFlags low-power rule and proves the client reads where the generator writes; resultBars.test.tsx drops its client-only cardGlobalName pin. From main: From this branch: hypomapCodetection.test.ts runs the co-detection client against the golden services/hypomap/codetection_wire.json responses (export mismatch, contract breaks, transport failure, CSV rows), hypomapCoexpression.test.tsx covers rendered partial, unsupported, export-mismatch and Retry states, and hypomapMetrics.test.ts covers datasetMetrics/poolMetrics; the Python service test consumes the same golden. From main: expressionSurvey.test.ts, expressionSurveyLoad.test.tsx and the slimmer expressionSurveyView.test.tsx cover the survey derivation and load lifecycle, and sourceJson/teaser tests cover the shared expression-source reader.",
+  "explanation": "Merged main (#30, #31, #34, #32, #33) into the query-wire branch. From this branch: queryWire.test.ts pins the published query-index names and row layouts, round-trips every row codec, checks trackEntry against the qcFlags low-power rule and proves the client reads where the generator writes; resultBars.test.tsx drops its client-only cardGlobalName pin. From main: From this branch: csv.test.ts pins the CSV seam (escaping table, formula guard, BOM/CRLF, provenance columns), csvDownload.ts is the shared reader for a mocked downloadFile, csvDialog.test.tsx covers the HypoMap dialog download, and the library, gene-list, gene and circadian export tests read files through that helper. From main: hypomapCodetection, hypomapCoexpression and hypomapMetrics tests cover the co-detection client, expressionSurvey and expressionSurveyLoad tests the survey derivation and load lifecycle, and sourceJson tests the expression-source reader.",
   "references": [
     "src/__tests__/queryWire.test.ts",
     "src/__tests__/resultBars.test.tsx",
     "src/data/queryWire.ts",
+    "src/__tests__/csv.test.ts",
+    "src/__tests__/csvDownload.ts",
+    "src/__tests__/csvDialog.test.tsx",
     "src/__tests__/hypomapCodetection.test.ts",
-    "src/__tests__/hypomapCoexpression.test.tsx",
     "src/__tests__/expressionSurvey.test.ts",
-    "src/__tests__/expressionSurveyLoad.test.tsx"
+    "src/__tests__/sourceJson.test.ts"
   ]
 }

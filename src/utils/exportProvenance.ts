@@ -16,7 +16,8 @@
 //  2. The provenance snapshot (`exportProvenance`): one object per file, which
 //     both formats serialize.
 //  3. The Metadata sheet rows (`provenanceRows` / `metadataSheet`) for XLSX.
-//  4. The appended provenance columns (`provenanceColumns`) for CSV.
+//  4. The provenance columns (`provenanceColumns`) that the CSV seam
+//     (utils/csv.ts) appends to every provenance-carrying CSV.
 //
 // A view supplies only its own kind and settings (thresholds, filters, the
 // selected pathway, the compared columns) plus the subject it already holds:
@@ -513,8 +514,9 @@ interface TrackRecord {
 }
 
 /**
- * Appended CSV columns preserve existing scientific column names and order.
- * A columns subject joins one value per column with ' | ', in column order.
+ * The provenance columns the CSV seam (utils/csv.ts) appends after a file's
+ * scientific columns, in this order. A columns subject joins one value per
+ * column with ' | ', in column order.
  */
 export function provenanceColumns(metadata: ExportProvenance): WorkbookRow {
   const tracks: TrackRecord[] = 'columns' in metadata ? metadata.columns : [metadata];
@@ -531,11 +533,6 @@ export function provenanceColumns(metadata: ExportProvenance): WorkbookRow {
     ExpressionUnit: value((track) => track.expression.unit),
     ExportMetadataJSON: JSON.stringify(metadata),
   };
-}
-
-/** Keep file-level JSON once; stable dataset/contrast/unit columns stay per row. */
-export function provenanceColumnValues(columns: WorkbookRow, rowIndex: number): WorkbookRow[string][] {
-  return Object.entries(columns).map(([key, value]) => key === 'ExportMetadataJSON' && rowIndex > 0 ? '' : value);
 }
 
 export function provenanceRows(metadata: ExportProvenance | LocalExportProvenance): WorkbookRow[] {
@@ -557,10 +554,4 @@ export function provenanceRows(metadata: ExportProvenance | LocalExportProvenanc
 /** The Metadata sheet every provenance-carrying workbook ends with. */
 export function metadataSheet(metadata: ExportProvenance | LocalExportProvenance): WorkbookSheet {
   return { name: 'Metadata', rows: provenanceRows(metadata) };
-}
-
-/** Escape scientific identifiers and structured metadata using the same CSV rule. */
-export function exportCsvCell(value: string | number | boolean | null | undefined): string {
-  const text = value == null ? '' : String(value);
-  return /[,"\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
 }

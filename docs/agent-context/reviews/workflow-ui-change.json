@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "e13c46fe131b1aa6717d1a436456ee46246d04bebef01e1a500ed91487540804",
+  "fingerprint": "b608d402b226e5d1203e963d83d74e853d99bd91d8e487754401193759d7dbee",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31, #34, #32). From this branch: CONTEXT.md gains a query-wire module bullet and queryIndex.ts re-exports the wire types its callers already imported; the library popover loads card detail through loadCardDetail with the shared card global, so no view or route changes. From main: The HypoMap paragraph routes co-expression work through the codetection.ts client and its shared wire golden; the card stays behind VITE_HYPOMAP_COEXPRESSION and the vite.config.ts dev proxy is unchanged. From main, the expression survey derivation and load lifecycle moved into expressionSurvey.ts and useSurveyLoad.ts, the NeuroSeq teaser shows source groups and analysis-snapshot defaults live in the explorer session; routes and views are unchanged and the runbook steps still hold.",
+  "explanation": "Merged main (#30, #31, #34, #32, #33). From this branch: CONTEXT.md gains a query-wire module bullet and queryIndex.ts re-exports the wire types its callers already imported; the library popover loads card detail through loadCardDetail with the shared card global, so no view or route changes. From main: The UI-change runbook says every CSV is written by src/utils/csv.ts (escaping, formula guard, BOM/CRLF), beside the export-provenance rule, and from main routes HypoMap co-expression work through the codetection.ts client and its shared wire golden. The survey derivation and load lifecycle moved into expressionSurvey.ts and useSurveyLoad.ts; routes and views are unchanged and the remaining runbook steps still hold.",
   "references": [
     "CONTEXT.md",
     "src/data/queryIndex.ts",
     "docs/agent-context/workflows.md",
+    "src/utils/csv.ts",
     "src/search/hypomap/codetection.ts",
     "src/expression-survey/useSurveyLoad.ts"
   ]

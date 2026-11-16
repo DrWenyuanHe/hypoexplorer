@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { PageShell } from '../common/PageShell';
 import { writeWorkbook } from '../utils/workbook';
+import { useExportAction } from '../utils/exportAction';
 import { localExportName, localExportProvenance, metadataSheet } from '../utils/exportProvenance';
 import { ImportPanel } from './ImportPanel';
 import { LocalExplorer } from './LocalExplorer';
@@ -25,6 +26,7 @@ export default function LocalDatasetsView({ onHome }: { onHome: () => void }) {
   const [busy, setBusy] = useState(false);
   const [deleted, setDeleted] = useState<LocalDataset | null>(null);
   const mutationLock = useRef(false);
+  const { busy: exporting, run: runExport } = useExportAction();
   const active = datasets.find((dataset) => dataset.id === activeId);
   useEffect(() => {
     let cancelled = false;
@@ -80,57 +82,57 @@ export default function LocalDatasetsView({ onHome }: { onHome: () => void }) {
       setBusy(false);
     }
   }
-  async function exportActive() {
+  // The export-action seam owns the busy state. The rows are built
+  // synchronously from the active dataset, so a later mutation cannot change
+  // a workbook already in flight; only a running mutation blocks an export.
+  function exportActive() {
     if (!active || mutationLock.current) return;
-    mutationLock.current = true;
-    setBusy(true);
     try {
-      // Named and recorded by the export-provenance module, which marks the
-      // file as local and records no release or evidence it does not have.
-      await writeWorkbook(localExportName(active, ['results'], 'xlsx'), [
-        {
-          name: 'Differential expression',
-          rows: active.genes.map((row) => ({
-            gene: row.gene,
-            gene_id: row.geneId ?? '',
-            log2FoldChange: row.logFC,
-            padj: row.padj,
-            pvalue: row.pvalue,
-          })),
-        },
-        {
-          name: 'Pathway enrichment',
-          rows: active.pathways.map((row) => ({
-            pathway: row.pathway,
-            Description: row.name,
-            NES: row.nes,
-            padj: row.padj,
-            pvalue: row.pvalue,
-            size: row.size,
-            leadingEdge: row.genes.join(';'),
-            database: row.database,
-          })),
-        },
-        {
-          name: 'Dataset details',
-          rows: [
-            {
-              name: active.name,
-              organism: active.organism,
-              savedAt: active.updatedAt,
-              sources: active.sources
-                .map((source) => `${source.fileName} / ${source.sheetName}`)
-                .join('; '),
-            },
-          ],
-        },
-        metadataSheet(localExportProvenance(active)),
-      ]);
+      runExport(() =>
+        // Named and recorded by the export-provenance module, which marks the
+        // file as local and records no release or evidence it does not have.
+        writeWorkbook(localExportName(active, ['results'], 'xlsx'), [
+          {
+            name: 'Differential expression',
+            rows: active.genes.map((row) => ({
+              gene: row.gene,
+              gene_id: row.geneId ?? '',
+              log2FoldChange: row.logFC,
+              padj: row.padj,
+              pvalue: row.pvalue,
+            })),
+          },
+          {
+            name: 'Pathway enrichment',
+            rows: active.pathways.map((row) => ({
+              pathway: row.pathway,
+              Description: row.name,
+              NES: row.nes,
+              padj: row.padj,
+              pvalue: row.pvalue,
+              size: row.size,
+              leadingEdge: row.genes.join(';'),
+              database: row.database,
+            })),
+          },
+          {
+            name: 'Dataset details',
+            rows: [
+              {
+                name: active.name,
+                organism: active.organism,
+                savedAt: active.updatedAt,
+                sources: active.sources
+                  .map((source) => `${source.fileName} / ${source.sheetName}`)
+                  .join('; '),
+              },
+            ],
+          },
+          metadataSheet(localExportProvenance(active)),
+        ]),
+      );
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Could not export this dataset. Try again.');
-    } finally {
-      mutationLock.current = false;
-      setBusy(false);
     }
   }
   return (
@@ -231,10 +233,10 @@ export default function LocalDatasetsView({ onHome }: { onHome: () => void }) {
                   <div>
                     <button
                       type="button"
-                      disabled={!active || busy}
-                      onClick={() => void exportActive()}
+                      disabled={!active || busy || exporting}
+                      onClick={exportActive}
                     >
-                      Export selected dataset
+                      {exporting ? 'Exporting…' : 'Export selected dataset'}
                     </button>
                     <button
                       type="button"

@@ -1,14 +1,16 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "502fda33913e628f8c1763dae95a495d1ff8df912b401c68e5d2f63dfaf74da2",
+  "fingerprint": "59afffd37f0df4089ec1e5a77fa9807e31d30a37aa2c493edc7f02bd74abe837",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31, #34, #32) into the query-wire branch. From this branch: scripts/build_query_index.mts becomes the write adapter of src/data/queryWire.ts (no private wire types, isLowPower copy, cardGlobalName or hand-spelled HX_QUERY_* names; rows built by shared encoders; --check reads a typed QueryManifest), with byte-identical output (build 1cpqpf5dmmhsv, 1675 files hash-equal), and CONTEXT.md gains the query-wire module bullet. From main: CONTEXT.md keeps every Architecture bullet: the Expression-source reader, explorer-session snapshot and Expression-survey derivation + load bullets from main, and this branch's Co-detection client (codetection.ts, ready/partial/unsupported/rejected unions, export-hash fail-closed, the shared wire golden). The ui-change workflow paragraph names codetection.ts and services/hypomap/codetection_wire.json, and the service README documents the manifest hash now also returned by /api/recommendations. No data, bundle or delivery behaviour changes.",
+  "explanation": "Merged main (#30, #31, #34, #32, #33) into the query-wire branch. From this branch: scripts/build_query_index.mts becomes the write adapter of src/data/queryWire.ts (no private wire types, isLowPower copy, cardGlobalName or hand-spelled HX_QUERY_* names; rows built by shared encoders; --check reads a typed QueryManifest), with byte-identical output (build 1cpqpf5dmmhsv, 1675 files hash-equal), and CONTEXT.md gains the query-wire module bullet. From main: CONTEXT.md keeps every Architecture bullet: the CSV seam added on this branch (and the gene-list bullet naming it), plus the Expression-source reader, Explorer session, Expression-survey derivation + load and Co-detection client bullets from main. The survey keeps its own CSV cell writer in expressionSurvey.ts; adopting writeCsv there is a follow-up. No data, bundle or delivery behaviour changes.",
   "references": [
     "scripts/build_query_index.mts",
     "src/data/queryWire.ts",
     "CONTEXT.md",
-    "docs/agent-context/workflows.md",
+    "src/utils/csv.ts",
+    "src/expression-survey/expressionSurvey.ts",
+    "src/search/hypomap/codetection.ts",
     "services/hypomap/README.md"
   ]
 }
