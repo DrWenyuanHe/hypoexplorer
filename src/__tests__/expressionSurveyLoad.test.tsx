@@ -1,8 +1,10 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { EXISTING_EXPRESSION_SOURCES } from '../expression-survey/existingCatalog';
-import { loadExpressionGenes } from '../expression-survey/expressionData';
-import { createSourceQueue, useKeyedLoad, useSurveyLoad } from '../expression-survey/useSurveyLoad';
+import { loadExpressionGenes, loadExternalValidation } from '../expression-survey/expressionData';
+import { EXTERNAL_PROVIDERS } from '../expression-survey/externalReferenceFormat';
+import type { ExternalValidation } from '../expression-survey/externalReferenceFormat';
+import { createSourceQueue, useExternalValidation, useKeyedLoad, useSurveyLoad } from '../expression-survey/useSurveyLoad';
 import type { ExpressionGeneResult, ExpressionSource } from '../types';
 
 vi.mock('../expression-survey/expressionData', () => ({ loadExpressionGenes: vi.fn(), loadExternalValidation: vi.fn() }));
@@ -112,6 +114,32 @@ describe('useSurveyLoad', () => {
     rerender({ enabled: true, genes: [] });
     expect(loadExpressionGenes).not.toHaveBeenCalled();
     expect(load.current).toMatchObject({ loading: false, results: [], errors: {} });
+  });
+});
+
+describe('useExternalValidation', () => {
+  it('reports each atlas as it settles and re-requests only failed reports on return or retry', async () => {
+    const gates = new Map(EXTERNAL_PROVIDERS.map((provider) => [provider, deferred<ExternalValidation>()]));
+    vi.mocked(loadExternalValidation).mockImplementation((provider) => gates.get(provider)!.promise);
+    const { result: state, rerender } = renderHook(({ active }) => useExternalValidation(active), { initialProps: { active: false } });
+    expect(loadExternalValidation).not.toHaveBeenCalled();
+    rerender({ active: true });
+    expect(loadExternalValidation).toHaveBeenCalledTimes(EXTERNAL_PROVIDERS.length);
+    const [first, second] = EXTERNAL_PROVIDERS;
+    const report = { provider: first } as unknown as ExternalValidation;
+    await act(async () => { gates.get(first)!.resolve(report); });
+    expect(state.current.reports).toEqual({ [first]: report });
+    await act(async () => { gates.get(second)!.reject(new Error('offline')); });
+    expect(state.current.reports[second]).toBe('offline');
+    rerender({ active: false });
+    rerender({ active: true });
+    const requested = () => vi.mocked(loadExternalValidation).mock.calls.slice(EXTERNAL_PROVIDERS.length).map(([provider]) => provider);
+    expect(requested()).not.toContain(first);
+    expect(requested()).toContain(second);
+    const before = requested().length;
+    act(() => state.current.retry());
+    expect(requested().slice(before)).not.toContain(first);
+    expect(requested().slice(before)).toContain(second);
   });
 });
 

@@ -47,10 +47,11 @@ export interface KeyedLoad<T> {
 }
 
 /**
- * Loads when `key` changes to a key that has not loaded yet, and when `retry`
- * is called. A null key loads nothing and keeps the last value, so a view can
- * name its key only while it needs the data; a key that failed loads again when
- * it returns. A late result of a superseded key is dropped.
+ * Loads when `key` changes to anything but the last successfully loaded key, and
+ * when `retry` is called. A null key loads nothing and keeps the last value, so
+ * a view can name its key only while it needs the data: returning to the loaded
+ * key does not reload it, while a key that failed loads again when it returns.
+ * A late result of a superseded key is dropped.
  */
 export function useKeyedLoad<T>(key: string | null, load: () => Promise<T>, failure: string): KeyedLoad<T> {
   const [state, setState] = useState<{ value: T | undefined; error: string; loading: boolean }>({

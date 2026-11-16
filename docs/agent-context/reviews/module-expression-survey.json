@@ -1,7 +1,7 @@
 {
   "version": 1,
   "area": "module-expression-survey",
-  "fingerprint": "d1a4099e582a741e1874d97c1594de49ba9fd5734ddf54d783a1b7cb9a2b4d33",
+  "fingerprint": "7ab338fcbce4ff6409a60d0e6a65b851ac459841ba658880616cf833f406e285",
   "outcome": "updated",
   "explanation": "The survey view no longer derives its own data. expressionSurvey.ts is the pure derivation module: selectSources (collection, region, SFO boundary, AgRP and tissue-preparation filters), catalogEntries, surveyPanel (ranked rows, bar axis, per-probe matrix cells, the Matched X -> Y note, empty states) and surveyExport (samples/cohort-means CSV and values + metadata JSON, survey CSV escaping unchanged). Reference eligibility is applied once through inReferenceScope and value status has one ValueStatus code-to-label mapping. useSurveyLoad.ts owns the four-request source queue, per-source errors and a per-source retry; useKeyedLoad and useExternalValidation give the catalog, validation reports and sample metadata their own cancelled-flag lifecycles and retries, replacing the single shared reload token. Loader imports and signatures are unchanged; export bytes are unchanged.",
   "references": [

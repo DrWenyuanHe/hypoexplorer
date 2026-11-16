@@ -1,7 +1,7 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "bf9cb4908f83974bf30e5dcad1eeb0ba461596ad425f07f5e827aceaa6a0a380",
+  "fingerprint": "9037accd735f103036177ce6356f97031cd0677c37d9c2b4b042ea1329339699",
   "outcome": "no-impact",
   "explanation": "The expression survey refactor moves derivation and load lifecycle into expressionSurvey.ts and useSurveyLoad.ts without touching routing, explorer navigation, track loading, the export-action seam or gene pickers; the survey still downloads through downloadFile and exportFilename. The UI-change runbook steps and entry points stay as written; typecheck, lint, knip, focused Vitest tests and a browser check covered the change.",
   "references": [
