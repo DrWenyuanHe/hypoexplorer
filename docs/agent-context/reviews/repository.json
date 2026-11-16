@@ -1,12 +1,15 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "a1674693349699a97e219b417f9d4874369a3f231e64daadc0d07cb9e4d4a2f6",
+  "fingerprint": "f160cedf64d545ef65d0fdccb417ffb9ca42b17519eb471a3630081247b79658",
   "outcome": "updated",
-  "explanation": "scripts/build_query_index.mts becomes the write adapter of src/data/queryWire.ts: its private DatasetMeta, DatasetSummary, DiscoverySummary, TrackEntry, ExprRow, track-pathway row and volcano types, its isLowPower copy, cardGlobalName and every hand-spelled HX_QUERY_* name and shard path are gone, rows are built by the shared encoders and the --check path reads a typed QueryManifest instead of as-unknown casts. A before/after build over the restored bundles produced build 1cpqpf5dmmhsv with all 1675 files byte-identical. CONTEXT.md gains the query-wire module bullet.",
+  "explanation": "Merged main (#30, #31) into the query-wire branch. From this branch: scripts/build_query_index.mts becomes the write adapter of src/data/queryWire.ts (no private wire types, isLowPower copy, cardGlobalName or hand-spelled HX_QUERY_* names; rows built by shared encoders; --check reads a typed QueryManifest), with byte-identical output (build 1cpqpf5dmmhsv, 1675 files hash-equal), and CONTEXT.md gains the query-wire module bullet. From main: CONTEXT.md now carries both new Architecture bullets: the Expression-source reader (src/expression-survey/sourceJson.ts; the teaser is a projection of the survey's NeuroSeq results; the HypoMap atlas client keeps its own cross-origin, checksummed transport) and the explorer session owning both sides of the analysis snapshot. The context catalog lists sourceJson.ts. No scripts, data, configuration or delivery paths change.",
   "references": [
     "scripts/build_query_index.mts",
     "src/data/queryWire.ts",
-    "CONTEXT.md"
+    "CONTEXT.md",
+    "docs/agent-context/catalog.json",
+    "src/expression-survey/sourceJson.ts",
+    "src/explorer/explorerSession.ts"
   ]
 }

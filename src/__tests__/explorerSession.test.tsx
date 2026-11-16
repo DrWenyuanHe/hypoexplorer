@@ -9,7 +9,10 @@ import {
   useGeneSelection,
   useVolcanoView,
   usePathwayView,
+  type AnalysisContext,
 } from '../explorer/explorerSession';
+import { DB_NAMES } from '../data/constants';
+import { parseExplorerAnalysis } from '../utils/analysisState';
 
 // Before this module the reset policy was spelled out four times inside App's
 // navigation callbacks, and could only be observed by mounting the whole app and
@@ -210,5 +213,99 @@ describe('useExplorerSession — resetFor applies the matrix', () => {
     expect(result.current.cellSearch).toBe('');
     // Still preserved: the cutoff sweep survives a dataset switch.
     expect(result.current.volcano.logFCThresh).toBe(1.5);
+  });
+});
+
+describe('useExplorerSession — snapshot and restoreAnalysis are inverses', () => {
+  type Session = ReturnType<typeof useExplorerSession<{ id: string }>>;
+  const AT_DEFAULTS: AnalysisContext = { contrastId: 'default', defaultContrastId: 'default', chartScale: 'native' };
+
+  function mount() {
+    return renderHook(() => useExplorerSession<{ id: string }>());
+  }
+
+  it('is undefined when the session, contrast and chart scale are all at their defaults', () => {
+    const { result } = mount();
+    expect(result.current.snapshot(AT_DEFAULTS)).toBeUndefined();
+    // A dataset with no resolvable contrast is at its default too.
+    expect(result.current.snapshot({ ...AT_DEFAULTS, contrastId: null, defaultContrastId: null })).toBeUndefined();
+  });
+
+  it('a session-wide reset leaves nothing to snapshot', () => {
+    const { result } = mount();
+    act(() => {
+      result.current.genes.add('POMC');
+      result.current.pathway.setSearch('glycolysis');
+    });
+    act(() => { result.current.resetFor('dataset'); });
+    expect(result.current.snapshot(AT_DEFAULTS)).toBeUndefined();
+  });
+
+  // Each field on its own is enough to make the analysis worth a link.
+  const FLIPS: Array<[string, (s: Session) => void, Partial<AnalysisContext>?]> = [
+    ['a selected gene', (s) => s.genes.add('POMC')],
+    ['the volcano metric', (s) => { s.volcano.selectMetric('fdr'); s.volcano.setSigThresh(METRIC_DEFAULT_SIG_THRESH.pval); }],
+    ['the fold-change cutoff', (s) => s.volcano.setLogFCThresh(1)],
+    ['the significance cutoff', (s) => s.volcano.setSigThresh(3)],
+    ['the pathway search', (s) => s.pathway.setSearch('glycolysis')],
+    ['the pathway FDR cutoff', (s) => s.pathway.setFdrThresh(0.05)],
+    ['the pathway sort', (s) => s.pathway.setSortKey('pval')],
+    ...DB_NAMES.map((db): [string, (s: Session) => void] => [`disabling ${db}`, (s) => s.pathway.setDatabaseEnabled(db, false)]),
+    ['a non-default contrast', () => {}, { contrastId: 'other' }],
+    ['a non-default chart scale', () => {}, { chartScale: 'log2' }],
+  ];
+
+  it.each(FLIPS)('%s alone makes it defined', (_label, flip, context) => {
+    const { result } = mount();
+    act(() => { flip(result.current); });
+    expect(result.current.snapshot({ ...AT_DEFAULTS, ...context })).toBeDefined();
+  });
+
+  it('restoring a snapshot into a fresh session reproduces it', () => {
+    const source = mount();
+    act(() => {
+      source.result.current.genes.addMany(['POMC', 'AGRP']);
+      source.result.current.volcano.selectMetric('fdr');
+      source.result.current.volcano.setLogFCThresh(1.5);
+      source.result.current.pathway.setSearch('glycolysis');
+      source.result.current.pathway.setDatabaseEnabled('KEGG', false);
+      source.result.current.pathway.setFdrThresh(0.1);
+      source.result.current.pathway.setSortKey('rawpval');
+      // A pathway SELECTION is not part of the analysis: it is re-found in the
+      // data the link loads, so it must not leak into the snapshot.
+      source.result.current.pathway.select({ id: 'GO:1' });
+    });
+    const context: AnalysisContext = { contrastId: 'other', defaultContrastId: 'default', chartScale: 'log2' };
+    const saved = source.result.current.snapshot(context);
+    expect(saved).toBeDefined();
+    if (!saved) return;
+
+    const target = mount();
+    act(() => { target.result.current.pathway.select({ id: 'GO:2' }); });
+    act(() => { target.result.current.restoreAnalysis(saved); });
+    expect(target.result.current.snapshot(context)).toEqual(saved);
+    expect(target.result.current.pathway.selected).toBeNull();
+    // And it survives the trip through the URL's validating parser.
+    expect(parseExplorerAnalysis(JSON.parse(JSON.stringify(saved)))).toEqual(saved);
+  });
+
+  it('keeps the serialized shape existing links were written in', () => {
+    const { result } = mount();
+    act(() => { result.current.genes.add('POMC'); });
+    // `analysis=` is this object serialized; field names AND order are the
+    // public link format (version 1), so this string must not change.
+    expect(JSON.stringify(result.current.snapshot({ ...AT_DEFAULTS, contrastId: null }))).toBe(
+      '{"version":1,"contrastId":null,"genes":["POMC"],"chartScale":"native",'
+      + '"volcano":{"metric":"pval","logFCThresh":0,"sigThresh":2},'
+      + '"pathway":{"search":"","dbFilter":{"GO_BP":true,"HALLMARK":true,"KEGG":true,"REACTOME":true},'
+      + '"fdrThresh":1,"sortKey":"nes"}}',
+    );
+  });
+
+  it('does not mint a new snapshot function when only the pathway selection changes', () => {
+    const { result } = mount();
+    const before = result.current.snapshot;
+    act(() => { result.current.pathway.select({ id: 'GO:1' }); });
+    expect(result.current.snapshot).toBe(before);
   });
 });

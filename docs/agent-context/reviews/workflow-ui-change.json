@@ -1,12 +1,15 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "e85436c6042c84444b852e236fe104e01bba4341bc9b6527a759c12a2f834ca0",
-  "outcome": "no-impact",
-  "explanation": "CONTEXT.md gains a query-wire module bullet and queryIndex.ts re-exports the same wire types its callers already imported, so no view, navigation or export changes. The library card popover still loads its card detail through loadCardDetail; only the card global name now comes from the shared queryWire module rather than a client copy.",
+  "fingerprint": "326c9f65ba3bed0603420e103c5bec2eb9efbf42e0b60b5175bab533cebd21e7",
+  "outcome": "updated",
+  "explanation": "Merged main (#30, #31). From this branch: CONTEXT.md gains a query-wire module bullet and queryIndex.ts re-exports the wire types its callers already imported; the library popover loads card detail through loadCardDetail with the shared card global, so no view or route changes. From main: The gene page and search portal NeuroSeq teaser now shows source groups rather than pooled populations (top five of 17 by the survey's group mean, with the group named under NPY reporter / AgRP and SO AVP), documented in EXPRESSION_SURVEY.md. From main, analysis-snapshot defaults moved from App into the explorer session; routes and views are unchanged and the runbook steps still hold.",
   "references": [
     "CONTEXT.md",
     "src/data/queryIndex.ts",
+    "src/search/portalCards.tsx",
+    "docs/EXPRESSION_SURVEY.md",
+    "src/explorer/explorerSession.ts",
     "docs/agent-context/workflows.md"
   ]
 }

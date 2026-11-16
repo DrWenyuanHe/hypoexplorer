@@ -49,7 +49,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (225):
+Covered source files (227):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -82,6 +82,7 @@ Covered source files (225):
 - [src/__tests__/axes.test.ts](<../../../src/__tests__/axes.test.ts>)
 - [src/__tests__/barSEMChart.test.tsx](<../../../src/__tests__/barSEMChart.test.tsx>)
 - [src/__tests__/barSEMChartScale.test.tsx](<../../../src/__tests__/barSEMChartScale.test.tsx>)
+- [src/__tests__/baselineTeaser.test.ts](<../../../src/__tests__/baselineTeaser.test.ts>)
 - [src/__tests__/brand.test.tsx](<../../../src/__tests__/brand.test.tsx>)
 - [src/__tests__/browseArmCounts.test.ts](<../../../src/__tests__/browseArmCounts.test.ts>)
 - [src/__tests__/buildPopData.test.ts](<../../../src/__tests__/buildPopData.test.ts>)
@@ -251,6 +252,7 @@ Covered source files (225):
 - [src/__tests__/smoke.test.tsx](<../../../src/__tests__/smoke.test.tsx>)
 - [src/__tests__/sortableHeaderA11y.test.tsx](<../../../src/__tests__/sortableHeaderA11y.test.tsx>)
 - [src/__tests__/sortableRows.test.tsx](<../../../src/__tests__/sortableRows.test.tsx>)
+- [src/__tests__/sourceJson.test.ts](<../../../src/__tests__/sourceJson.test.ts>)
 - [src/__tests__/spendGuard.test.ts](<../../../src/__tests__/spendGuard.test.ts>)
 - [src/__tests__/statistics.test.tsx](<../../../src/__tests__/statistics.test.tsx>)
 - [src/__tests__/statisticsPolicy.test.ts](<../../../src/__tests__/statisticsPolicy.test.ts>)
@@ -544,13 +546,14 @@ Baseline expression by population, study condition and tissue.
 Start here:
 - [src/expression-survey/ExpressionSurveyView.tsx](<../../../src/expression-survey/ExpressionSurveyView.tsx>)
 - [src/expression-survey/expressionData.ts](<../../../src/expression-survey/expressionData.ts>)
+- [src/expression-survey/sourceJson.ts](<../../../src/expression-survey/sourceJson.ts>)
 - [docs/EXPRESSION_SURVEY.md](<../../EXPRESSION_SURVEY.md>)
 - [src/expression-survey/expressionIndex.ts](<../../../src/expression-survey/expressionIndex.ts>)
 - [data/expression/existing/README.md](<../../../data/expression/existing/README.md>)
 - [src/expression-survey/referenceExpression.ts](<../../../src/expression-survey/referenceExpression.ts>)
 - [data/expression/oxt-reference/README.md](<../../../data/expression/oxt-reference/README.md>)
 
-Covered source files (13):
+Covered source files (14):
 - [src/expression-survey/ExpressionSurveyView.tsx](<../../../src/expression-survey/ExpressionSurveyView.tsx>)
 - [src/expression-survey/existingCatalog.ts](<../../../src/expression-survey/existingCatalog.ts>)
 - [src/expression-survey/existingExpression.ts](<../../../src/expression-survey/existingExpression.ts>)
@@ -564,6 +567,7 @@ Covered source files (13):
 - [src/expression-survey/externalReferenceFormat.ts](<../../../src/expression-survey/externalReferenceFormat.ts>)
 - [src/expression-survey/neuroseqExpression.ts](<../../../src/expression-survey/neuroseqExpression.ts>)
 - [src/expression-survey/referenceExpression.ts](<../../../src/expression-survey/referenceExpression.ts>)
+- [src/expression-survey/sourceJson.ts](<../../../src/expression-survey/sourceJson.ts>)
 
 ## gene-explorer
 

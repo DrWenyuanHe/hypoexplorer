@@ -1,12 +1,16 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "7bf2fd341a6077bd10f9a34e03936c7026993d9a4de23dd212e0b8ca2d31df2d",
+  "fingerprint": "2a6006542711e22fb5b4dcf2b0921cd0c971937c194321181a86d4802c61a3bf",
   "outcome": "updated",
-  "explanation": "queryWire.test.ts pins the published file and global names and row layouts, round-trips every row codec (including the expression row omitting sym when it equals its uppercase key), checks trackEntry against the qcFlags low-power rule, and serves files at the paths and globals the shared functions name to prove the client reads where the generator writes. resultBars.test.tsx drops its cardGlobalName pin, which tested only the client copy against a literal.",
+  "explanation": "Merged main (#30, #31) into the query-wire branch. From this branch: queryWire.test.ts pins the published query-index names and row layouts, round-trips every row codec, checks trackEntry against the qcFlags low-power rule and proves the client reads where the generator writes; resultBars.test.tsx drops its client-only cardGlobalName pin. From main: From this branch: sourceJson.test.ts covers the transport's family allow-list, version cache-bust, shared requests, forget-on-failure and reset; baselineTeaser.test.ts checks over the real reader that every teaser row equals the survey's group mean and that AgRP groups are not pooled; survey loader tests use resetSourceRequests/sourceJson and portal/gene-report fixtures use the groups shape. From main: explorerSession.test.tsx pins the analysis snapshot against the session's defaults.",
   "references": [
     "src/__tests__/queryWire.test.ts",
     "src/__tests__/resultBars.test.tsx",
-    "src/data/queryWire.ts"
+    "src/data/queryWire.ts",
+    "src/__tests__/sourceJson.test.ts",
+    "src/__tests__/baselineTeaser.test.ts",
+    "src/__tests__/explorerSession.test.tsx",
+    "src/explorer/explorerSession.ts"
   ]
 }

@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "a927565991e245e77717aacc8aba019239fe3b67c2e3c018813f9276fcc967c2",
+  "fingerprint": "58e312260d8a78f299df9d34b6dd01a6e3bad781c7c5202aef3cdc5285fe21f0",
   "outcome": "no-impact",
-  "explanation": "Refactor only: build_query_index.mts now takes its wire shapes, names and row codecs from src/data/queryWire.ts, and its emitted bytes are identical (same build id, all files hash-equal in a before/after build). Adding or changing a dataset still ends with build:query-index and check:query-index exactly as before; the registry, bundle contract and dataset procedure are untouched.",
+  "explanation": "Merged main (#30, #31). From this branch: build_query_index.mts takes its wire shapes, names and row codecs from src/data/queryWire.ts and emits identical bytes, so build:query-index and check:query-index close a dataset change exactly as before. From main: The expression survey's JSON transport moved into sourceJson.ts and the search teaser now reads through the survey's NeuroSeq loader. Dataset registration, bundle builders, release-local product formats and their check commands are unchanged, so the dataset-change procedure is unaffected.",
   "references": [
     "scripts/build_query_index.mts",
     "src/data/queryWire.ts",
-    "docs/agent-context/workflows.md"
+    "docs/EXPRESSION_SURVEY.md",
+    "src/expression-survey/sourceJson.ts"
   ]
 }
