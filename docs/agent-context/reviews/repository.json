@@ -1,15 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "f160cedf64d545ef65d0fdccb417ffb9ca42b17519eb471a3630081247b79658",
+  "fingerprint": "11a6cc1c2ea40621b8b8a7b05777df92a961fbc7a8c2d8a1a445d6da27289bba",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31) into the query-wire branch. From this branch: scripts/build_query_index.mts becomes the write adapter of src/data/queryWire.ts (no private wire types, isLowPower copy, cardGlobalName or hand-spelled HX_QUERY_* names; rows built by shared encoders; --check reads a typed QueryManifest), with byte-identical output (build 1cpqpf5dmmhsv, 1675 files hash-equal), and CONTEXT.md gains the query-wire module bullet. From main: CONTEXT.md now carries both new Architecture bullets: the Expression-source reader (src/expression-survey/sourceJson.ts; the teaser is a projection of the survey's NeuroSeq results; the HypoMap atlas client keeps its own cross-origin, checksummed transport) and the explorer session owning both sides of the analysis snapshot. The context catalog lists sourceJson.ts. No scripts, data, configuration or delivery paths change.",
+  "explanation": "Merged main (#30, #31, #34) into the query-wire branch. From this branch: scripts/build_query_index.mts becomes the write adapter of src/data/queryWire.ts (no private wire types, isLowPower copy, cardGlobalName or hand-spelled HX_QUERY_* names; rows built by shared encoders; --check reads a typed QueryManifest), with byte-identical output (build 1cpqpf5dmmhsv, 1675 files hash-equal), and CONTEXT.md gains the query-wire module bullet. From main: CONTEXT.md gains one Architecture bullet, Expression-survey derivation + load, naming expressionSurvey.ts and useSurveyLoad.ts as the place the survey selects sources, builds panels and exports, applies reference eligibility and value status once, and retries each request on its own. No repository configuration, command, data release or scientific input or output changes. From main: CONTEXT.md also gains the Expression-source reader bullet (sourceJson.ts) and the explorer-session snapshot work; both bullets are kept.",
   "references": [
     "scripts/build_query_index.mts",
     "src/data/queryWire.ts",
     "CONTEXT.md",
-    "docs/agent-context/catalog.json",
-    "src/expression-survey/sourceJson.ts",
-    "src/explorer/explorerSession.ts"
+    "src/expression-survey/expressionSurvey.ts",
+    "src/expression-survey/useSurveyLoad.ts"
   ]
 }

@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "58e312260d8a78f299df9d34b6dd01a6e3bad781c7c5202aef3cdc5285fe21f0",
+  "fingerprint": "07f1e07a2d7b29d1bd555adb40322952f7f81e1e2785bfc7fde2e4cbb3f05503",
   "outcome": "no-impact",
-  "explanation": "Merged main (#30, #31). From this branch: build_query_index.mts takes its wire shapes, names and row codecs from src/data/queryWire.ts and emits identical bytes, so build:query-index and check:query-index close a dataset change exactly as before. From main: The expression survey's JSON transport moved into sourceJson.ts and the search teaser now reads through the survey's NeuroSeq loader. Dataset registration, bundle builders, release-local product formats and their check commands are unchanged, so the dataset-change procedure is unaffected.",
+  "explanation": "Merged main (#30, #31, #34). From this branch: build_query_index.mts takes its wire shapes, names and row codecs from src/data/queryWire.ts and emits identical bytes, so build:query-index and check:query-index close a dataset change exactly as before. From main: The survey runbook gains one sentence: a failed source offers its own retry, and the catalog and validation reports retry separately. Expression-only source registration, the expression index, reference imports and their checks are unchanged, so the dataset-change procedure stays as written. From main, the survey runbook names sourceJson.ts as the one transport for release-local survey JSON; registration steps are unchanged.",
   "references": [
     "scripts/build_query_index.mts",
     "src/data/queryWire.ts",
-    "docs/EXPRESSION_SURVEY.md",
-    "src/expression-survey/sourceJson.ts"
+    "docs/agent-context/workflows.md",
+    "docs/EXPRESSION_SURVEY.md"
   ]
 }

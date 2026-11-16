@@ -1,15 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "326c9f65ba3bed0603420e103c5bec2eb9efbf42e0b60b5175bab533cebd21e7",
+  "fingerprint": "3925039bb851f2a58c2d947229a3049adf9da272393af9d8a34b8e54e712339b",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31). From this branch: CONTEXT.md gains a query-wire module bullet and queryIndex.ts re-exports the wire types its callers already imported; the library popover loads card detail through loadCardDetail with the shared card global, so no view or route changes. From main: The gene page and search portal NeuroSeq teaser now shows source groups rather than pooled populations (top five of 17 by the survey's group mean, with the group named under NPY reporter / AgRP and SO AVP), documented in EXPRESSION_SURVEY.md. From main, analysis-snapshot defaults moved from App into the explorer session; routes and views are unchanged and the runbook steps still hold.",
+  "explanation": "Merged main (#30, #31, #34). From this branch: CONTEXT.md gains a query-wire module bullet and queryIndex.ts re-exports the wire types its callers already imported; the library popover loads card detail through loadCardDetail with the shared card global, so no view or route changes. From main: The expression survey refactor moves derivation and load lifecycle into expressionSurvey.ts and useSurveyLoad.ts without touching routing, explorer navigation, track loading, the export-action seam or gene pickers; the survey still downloads through downloadFile and exportFilename. The UI-change runbook steps and entry points stay as written; typecheck, lint, knip, focused Vitest tests and a browser check covered the change. From main, the explorer analysis snapshot moved into the explorer session and the survey loaders share sourceJson.ts; neither changes the UI-change runbook.",
   "references": [
     "CONTEXT.md",
     "src/data/queryIndex.ts",
-    "src/search/portalCards.tsx",
-    "docs/EXPRESSION_SURVEY.md",
-    "src/explorer/explorerSession.ts",
-    "docs/agent-context/workflows.md"
+    "docs/agent-context/workflows.md",
+    "src/expression-survey/ExpressionSurveyView.tsx"
   ]
 }

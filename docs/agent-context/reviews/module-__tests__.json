@@ -1,16 +1,16 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "2a6006542711e22fb5b4dcf2b0921cd0c971937c194321181a86d4802c61a3bf",
+  "fingerprint": "9201e961962084647056ae89b59f3f23ddbd8f68bc31b3f74cf92d694dec6942",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31) into the query-wire branch. From this branch: queryWire.test.ts pins the published query-index names and row layouts, round-trips every row codec, checks trackEntry against the qcFlags low-power rule and proves the client reads where the generator writes; resultBars.test.tsx drops its client-only cardGlobalName pin. From main: From this branch: sourceJson.test.ts covers the transport's family allow-list, version cache-bust, shared requests, forget-on-failure and reset; baselineTeaser.test.ts checks over the real reader that every teaser row equals the survey's group mean and that AgRP groups are not pooled; survey loader tests use resetSourceRequests/sourceJson and portal/gene-report fixtures use the groups shape. From main: explorerSession.test.tsx pins the analysis snapshot against the session's defaults.",
+  "explanation": "Merged main (#30, #31, #34) into the query-wire branch. From this branch: queryWire.test.ts pins the published query-index names and row layouts, round-trips every row codec, checks trackEntry against the qcFlags low-power rule and proves the client reads where the generator writes; resultBars.test.tsx drops its client-only cardGlobalName pin. From main: expressionSurvey.test.ts adds table-driven pure tests for source selection, the catalog filter, panel grouping, reference eligibility, value status, ranking and bar axes, probe splitting and the matched note, matrix cell labels, empty states and the CSV/JSON export columns and rows. expressionSurveyLoad.test.tsx tests the source queue, useSurveyLoad (selection order, per-source retry, superseded surveys), useExternalValidation (progressive reports, failed-only re-requests) and useKeyedLoad. expressionSurveyView.test.tsx keeps nine DOM wiring tests and now asserts that a source retry re-requests only that source and that the catalog retries on its own; the queue, stale-query and unit tests moved to the new files. From main: sourceJson.test.ts and the loader, portal-card, teaser and gene-report tests cover the shared expression-source reader.",
   "references": [
     "src/__tests__/queryWire.test.ts",
     "src/__tests__/resultBars.test.tsx",
     "src/data/queryWire.ts",
-    "src/__tests__/sourceJson.test.ts",
-    "src/__tests__/baselineTeaser.test.ts",
-    "src/__tests__/explorerSession.test.tsx",
-    "src/explorer/explorerSession.ts"
+    "src/__tests__/expressionSurvey.test.ts",
+    "src/__tests__/expressionSurveyLoad.test.tsx",
+    "src/__tests__/expressionSurveyView.test.tsx",
+    "docs/agent-context/generated/codebase.md"
   ]
 }
