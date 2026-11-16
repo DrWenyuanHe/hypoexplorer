@@ -667,18 +667,27 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
             ) : (
               <span>{dataset.name}</span>
             )}
-            <span style={{ color: 'var(--border-dark)' }}>/</span>
-            <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>
-              {isCompare ? 'Compare all' : `${activeTrackId} · ${getCellSubname(activeTrackId, datasetMeta?.labels)}`}
-            </span>
-            {!isCompare && (
-              <>
-                <span style={{ color: 'var(--border-dark)' }}>/</span>
-                <span style={{ color: 'var(--text-mono)' }}>
-                  {explorerTabLabel(activeTab)}
+            {/* Each separator travels with the crumb after it, so a wrapped
+                trail never leaves a slash dangling at the end of a line. On a
+                phone the trail starts its own line under the dataset picker and
+                drops its leading slash (responsive.css). */}
+            <span className="site-crumb-trail" style={{ display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: '2px 8px', minWidth: 0 }}>
+              <span className="site-crumb" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
+                <span className="site-crumb-sep site-crumb-sep--lead" style={{ color: 'var(--border-dark)' }}>/</span>
+                {(() => {
+                  const crumb = isCompare ? 'Compare all' : `${activeTrackId} · ${getCellSubname(activeTrackId, datasetMeta?.labels)}`;
+                  return <span title={crumb} style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{crumb}</span>;
+                })()}
+              </span>
+              {!isCompare && (
+                <span className="site-crumb" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, whiteSpace: 'nowrap' }}>
+                  <span className="site-crumb-sep" style={{ color: 'var(--border-dark)' }}>/</span>
+                  <span style={{ color: 'var(--text-mono)' }}>
+                    {explorerTabLabel(activeTab)}
+                  </span>
                 </span>
-              </>
-            )}
+              )}
+            </span>
           </div>
           <div style={{ flex: 1 }} />
           <div className="site-header-controls" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>

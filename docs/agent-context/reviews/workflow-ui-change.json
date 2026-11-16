@@ -1,11 +1,15 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "8c616bdcab737a40f1d5b3a1f5f879ae38a19b1aebeffdd62da7af8675c52166",
+  "fingerprint": "fae1b717aca117f392b06352d6a3c8077b04b1f7ee649dc441660b636a63318a",
   "outcome": "updated",
-  "explanation": "The UI-change runbook now states that Compare links carry their view (/compare[/pathways]?pops=…&genes=…, parsed in appLinks) so a refresh, Back or copied link reopens the same comparison, and that the Compare summary table reads down one row per gene × population.",
+  "explanation": "The UI-change runbook states that Compare links carry their view (/compare[/pathways]?pops=…&genes=…, parsed in appLinks) so a refresh, Back or copied link reopens the same comparison, and that the Compare summary table reads down one row per gene × population. It also records the phone restacking of the gene and pathway result rows, the one-line hub nav and 3 x 2 explorer header, the library starting on cards at phone width, the positioned portal-table-wrap rule, and a check that window.innerWidth equals the device width after load. The explorer breadcrumb now pairs each separator with the crumb after it, so a wrap never strands a slash; on phones the population and tab start a line under the dataset picker without a leading slash. The explorer breadcrumb takes its own header row below 1500px (was 1100px), so between 1101 and 1499px the controls no longer wrap under a half-empty first row; wider, the breadcrumb shares the row, the spacer yields its space, and the population label truncates (full text in its title) before the controls could move.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/utils/appLinks.ts"
+    "src/utils/appLinks.ts",
+    "src/crossdataset/forestReport.css",
+    "src/search/search.css",
+    "src/styles/responsive.css",
+    "src/App.tsx"
   ]
 }
