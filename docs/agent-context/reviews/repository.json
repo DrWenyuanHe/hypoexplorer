@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "d0291314ee8d8384f6818cc550778fc55bffdbb9859c4f9ad9a2dfe526a4750e",
+  "fingerprint": "1c6035338ce7b7082c1fda40bb30e93d95857f915a1544663a0e7b6751b5183d",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31). CONTEXT.md carries every Architecture bullet: the CSV seam added on this branch (and the gene-list bullet naming it), plus the Expression-source reader and Explorer session bullets from main. The context catalog lists sourceJson.ts. No scripts, data, configuration or delivery paths change.",
+  "explanation": "Merged main (#30, #31, #34). CONTEXT.md keeps every Architecture bullet: the CSV seam added on this branch (and the gene-list bullet naming it), plus the Expression-source reader, Explorer session and Expression-survey derivation + load bullets from main. The survey keeps its own CSV cell writer in expressionSurvey.ts; adopting writeCsv there is a follow-up. No repository configuration, command, data release or scientific output changes.",
   "references": [
     "CONTEXT.md",
-    "docs/agent-context/catalog.json",
     "src/utils/csv.ts",
+    "src/expression-survey/expressionSurvey.ts",
     "src/expression-survey/sourceJson.ts",
     "src/explorer/explorerSession.ts"
   ]

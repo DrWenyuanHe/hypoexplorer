@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "f7a9687fec9379f23ef688ef61492276e45e5f04fe70788236920a207e8990a8",
+  "fingerprint": "464c75f2d176782a5a05b76dee885fd3d08c3586f580fad666cbdab2e60d2ded",
   "outcome": "no-impact",
-  "explanation": "The expression survey's JSON transport moved into sourceJson.ts and the search teaser now reads through the survey's NeuroSeq loader. Dataset registration, bundle builders, release-local product formats and their check commands are unchanged, so the dataset-change procedure is unaffected.",
+  "explanation": "The survey runbook gains one sentence: a failed source offers its own retry, and the catalog and validation reports retry separately. Expression-only source registration, the expression index, reference imports and their checks are unchanged, so the dataset-change procedure stays as written. From main, the survey runbook names sourceJson.ts as the one transport for release-local survey JSON; registration steps are unchanged.",
   "references": [
-    "docs/EXPRESSION_SURVEY.md",
-    "src/expression-survey/sourceJson.ts"
+    "docs/agent-context/workflows.md",
+    "docs/EXPRESSION_SURVEY.md"
   ]
 }

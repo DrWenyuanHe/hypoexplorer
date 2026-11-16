@@ -1,85 +1,75 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import type { CSSProperties, FormEvent, KeyboardEvent } from 'react';
 import { PageShell } from '../common/PageShell';
 import { Modal } from '../common/Modal';
 import { ExportButton } from '../common/ExportButton';
 import { Spinner } from '../common/Spinner';
 import { FONT_MONO, FONT_SANS } from '../styles/constants';
-import { downloadFile, exportFilename, useExportAction } from '../utils/exportAction';
+import { downloadFile, useExportAction } from '../utils/exportAction';
 import { EXISTING_EXPRESSION_SOURCES } from './existingCatalog';
 import {
-  loadExpressionGenes,
   loadExpressionSources,
   loadExpressionValidation,
   loadExternalManifest,
   loadExternalSourceErrors,
-  loadExternalValidation,
 } from './expressionData';
 import { loadNeuroseqManifest } from './neuroseqExpression';
-import type { NeuroseqSample } from './neuroseqExpression';
 import { loadReferenceManifest } from './referenceExpression';
 import { providerOf } from './externalReference';
 import { EXTERNAL_PROVIDERS, EXTERNAL_REFERENCE_ROOTS } from './externalReferenceFormat';
-import type { ExternalProvider, ExternalValidation } from './externalReferenceFormat';
 import type { ExpressionGeneResult, ExpressionSource } from './expressionTypes';
+import {
+  barGeometry,
+  catalogEntries as filterCatalog,
+  catalogRegions,
+  exportManifestNeeds,
+  formatValue,
+  groupValue,
+  inReferenceScope,
+  isBoundary,
+  isSummary,
+  missingLabel,
+  panelGroups,
+  sampleCount,
+  sampleStatus,
+  selectSources,
+  sourceCollection,
+  surveyExport,
+  surveyPanel,
+  VALUE_STATUS_LABEL,
+} from './expressionSurvey';
+import type { Collection, ExportFormat, ExportManifests, SurveySection, TissueKind } from './expressionSurvey';
+import { useExternalValidation, useKeyedLoad, useSurveyLoad } from './useSurveyLoad';
 import './expressionSurvey.css';
 
-type Section = 'survey' | 'catalog' | 'tissue' | 'sources';
-type Collection = 'neuroseq' | 'existing' | 'reference' | 'external' | 'all' | 'agrp';
-type LoadState = {
-  key: string;
-  loading: boolean;
-  results: ExpressionGeneResult[];
-  errors: Record<string, string>;
-};
-type Validation = Awaited<ReturnType<typeof loadExpressionValidation>>;
-type ResultGroup = ExpressionGeneResult['groups'][number];
-type DisplayRow = { source: ExpressionSource; group: ResultGroup; result: ExpressionGeneResult };
-
-const SECTIONS: { id: Section; label: string }[] = [
+const SECTIONS: { id: SurveySection; label: string }[] = [
   { id: 'survey', label: 'Gene survey' },
   { id: 'catalog', label: 'Population catalog' },
   { id: 'tissue', label: 'Tissue & bulk' },
   { id: 'sources', label: 'Sources & validation' },
 ];
-const EMPTY_LOAD: LoadState = { key: '', loading: false, results: [], errors: {} };
+const TISSUE_CHOICES: { id: TissueKind; label: string; note: string }[] = [
+  { id: 'whole', label: 'Whole hypothalamus', note: 'Bulk tissue' },
+  { id: 'arc', label: 'Arcuate nucleus', note: 'Regional dissection' },
+  {
+    id: 'isolated',
+    label: 'Broad neuronal isolation',
+    note: 'Sorted neurons / nuclei',
+  },
+  {
+    id: 'external',
+    label: 'Reference atlases',
+    note: 'GTEx, HPA, Allen · human, mouse, pig',
+  },
+  {
+    id: 'all',
+    label: 'All tissue sources',
+    note: 'Includes other hypothalamic regions',
+  },
+];
+/** The study-library sources ship with the app, so the survey works before (or without) the catalog. */
+const BUNDLED_SOURCES: ExpressionSource[] = [...EXISTING_EXPRESSION_SOURCES];
 const MONO_STYLE = { '--ex-font-mono': FONT_MONO, fontFamily: FONT_SANS } as CSSProperties;
-
-/** Keep one queue across query changes; shared in-flight loads finish and warm the cache. */
-function createSourceQueue(limit: number) {
-  const waiting: Array<() => Promise<void>> = [];
-  let active = 0;
-  function drain() {
-    while (active < limit && waiting.length) {
-      const task = waiting.shift()!;
-      active++;
-      void task().finally(() => { active--; drain(); });
-    }
-  }
-  return <T,>(work: () => Promise<T>, cancelled: () => boolean): Promise<T | null> =>
-    new Promise((resolve, reject) => {
-      waiting.push(async () => {
-        if (cancelled()) { resolve(null); return; }
-        try { resolve(await work()); } catch (error) { reject(error); }
-      });
-      drain();
-    });
-}
-
-function sourceCollection(source: ExpressionSource): string {
-  if (source.collection === 'neuroseq') return 'NeuroSeq';
-  if (source.collection === 'external') return source.provider?.name ?? 'External reference';
-  return source.sourceUrl.match(/[?&]acc=(GSE\d+)/i)?.[1] ?? 'Study library';
-}
-
-function isSummary(source: ExpressionSource | undefined): boolean {
-  return source?.valueKind === 'summary';
-}
-
-/** A summary group's published value, otherwise the stored-value mean; never a mean of summaries. */
-function groupValue(group: ResultGroup): number | null {
-  return group.summary !== undefined ? group.summary : group.mean;
-}
 
 function ProviderCredit({ source }: { source: ExpressionSource }) {
   if (!source.provider) return null;
@@ -93,47 +83,10 @@ function ProviderCredit({ source }: { source: ExpressionSource }) {
   );
 }
 
-function isBoundary(source: ExpressionSource): boolean {
-  return /\bSFO\b/i.test(source.region) || source.id.includes('.SFO_');
-}
-
-function isAgrp(source: ExpressionSource): boolean {
-  return source.populationId === 'agrp';
-}
-
-function formatValue(value: number | null | undefined): string {
-  if (value == null || !Number.isFinite(value)) return '—';
-  if (value === 0) return '0';
-  return value < 0.01 || value >= 100000
-    ? value.toExponential(2)
-    : value.toLocaleString('en-US', { maximumFractionDigits: 3 });
-}
-
-function csvCell(value: unknown): string {
-  const text = value == null ? '' : String(value);
-  // Keep text identifiers literal in spreadsheet applications. Numeric values,
-  // including negative transformed expression, retain their numeric spelling.
-  const literal = typeof value === 'string' && /^[\t\r\n ]*[=+@-]/.test(text) ? `'${text}` : text;
-  return `"${literal.replace(/"/g, '""')}"`;
-}
-
 function saveText(filename: string, content: string, type: string): void {
   const url = URL.createObjectURL(new Blob([content], { type }));
   downloadFile(filename, url);
   window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
-function sampleCount(source: ExpressionSource): string {
-  // Counts belong to the catalog when provided; do not invent them from DE arms.
-  const count = 'sampleCount' in source ? source.sampleCount : null;
-  return typeof count === 'number' ? String(count) : 'See cohorts';
-}
-
-function missingLabel(result: ExpressionGeneResult | undefined): string {
-  if (!result) return 'Unavailable';
-  if (result.status === 'ambiguous')
-    return `Ambiguous identifier${result.candidates?.length ? `: ${result.candidates.join(', ')}` : ''}`;
-  return 'Not retained in this source';
 }
 
 function ExportControls({
@@ -152,123 +105,22 @@ function ExportControls({
   disabledReason?: string;
 }) {
   const { busy, run } = useExportAction();
-  const [format, setFormat] = useState('samples');
+  const [format, setFormat] = useState<ExportFormat>('samples');
   const [error, setError] = useState('');
   const exportData = async () => {
-    const stamp = new Date().toISOString();
-    const filtered = results.map((result) => ({
-      ...result,
-      groups: result.groups.filter((g) => !referenceOnly || g.referenceEligible),
-    }));
-    const filename = exportFilename(
-      ['expression', genes.join('-'), format],
-      format === 'metadata' ? 'json' : 'csv',
-    );
+    const exportedAt = new Date().toISOString();
+    let manifests: ExportManifests | undefined;
     if (format === 'metadata') {
-      const neuroseqIds = new Set(
-        sources.filter((source) => source.collection === 'neuroseq').map((source) => source.id),
-      );
-      const referenceIds = new Set(sources.filter((source) => source.collection === 'reference').map((source) => source.id));
-      const external = sources.filter((source) => source.collection === 'external');
-      const externalIds = new Set(external.map((source) => source.id));
-      const providers = [...new Set(external.map(providerOf))];
-      const [neuroseq, reference, externalManifests] = await Promise.all([
-        neuroseqIds.size ? loadNeuroseqManifest() : null,
-        referenceIds.size ? loadReferenceManifest() : null,
-        Promise.all(providers.map((provider) => loadExternalManifest(provider))),
+      const needs = exportManifestNeeds(sources);
+      const [neuroseq, reference, external] = await Promise.all([
+        needs.neuroseq ? loadNeuroseqManifest() : null,
+        needs.reference ? loadReferenceManifest() : null,
+        Promise.all(needs.providers.map((provider) => loadExternalManifest(provider))),
       ]);
-      // External groups are never reference-eligible, so the filter excludes their samples.
-      const sampleMetadata = [...(neuroseq?.samples.filter(
-        (sample) =>
-          neuroseqIds.has(sample.populationId) && (!referenceOnly || sample.referenceEligible),
-      ) ?? []), ...(reference?.samples.filter((sample) => referenceIds.has(sample.sourceId) && (!referenceOnly || sample.referenceEligible)) ?? []),
-      ...(referenceOnly ? [] : externalManifests.flatMap((manifest) => manifest.samples.filter((sample) => externalIds.has(sample.sourceId))))];
-      saveText(
-        filename,
-        JSON.stringify(
-          {
-            exportedAt: stamp,
-            genes,
-            referenceOnly,
-            summary:
-              'Arithmetic mean of available stored sample values within each source and cohort; no cross-study mean. Summary sources carry the provider\'s published value in `summary` and no computed mean.',
-            sources,
-            sampleMetadata,
-            results: filtered,
-          },
-          null,
-          2,
-        ),
-        'application/json',
-      );
-      return;
+      manifests = { neuroseq, reference, external };
     }
-    const sourceMap = new Map(sources.map((source) => [source.id, source]));
-    const header = [
-      'source_id',
-      'source_url',
-      'population',
-      'species',
-      'region',
-      'assay',
-      'rna_fraction',
-      'query',
-      'gene',
-      'gene_id',
-      'probe',
-      'identifier_candidates',
-      'gene_status',
-      'cohort_key',
-      'cohort',
-      'reference_eligible',
-      'unit',
-      ...(format === 'samples'
-        ? ['sample_id', 'value', 'value_status']
-        : ['mean_stored_value', 'measured_samples', 'total_samples', 'value_kind']),
-    ];
-    const rows: unknown[][] = [];
-    for (const result of filtered) {
-      const source = sourceMap.get(result.sourceId);
-      if (!source) continue;
-      const base = [
-        source.id,
-        source.sourceUrl,
-        source.populationLabel,
-        source.species,
-        source.region,
-        source.assay,
-        source.rnaFraction,
-        result.query,
-        result.gene,
-        result.geneId,
-        result.probe,
-        result.candidates?.join('; '),
-        result.status,
-      ];
-      if (!result.groups.length) rows.push([...base, '', '', '', result.unit, '', '', '', ...(format === 'samples' ? [] : [''])]);
-      for (const group of result.groups) {
-        const cohort = [...base, group.key, group.label, group.referenceEligible, result.unit];
-        if (group.summary !== undefined) {
-          // A published summary has no sample; it is exported as stated, never as a mean.
-          rows.push(format === 'samples'
-            ? [...cohort, '', group.summary, group.summary == null ? 'missing' : 'published-summary']
-            : [...cohort, group.summary, '', '', 'published-summary']);
-        } else if (format === 'samples') {
-          for (const sample of group.samples)
-            rows.push([
-              ...cohort,
-              sample.id,
-              sample.value,
-              sample.value == null ? 'missing' : sample.value === 0 ? 'measured-zero' : 'measured',
-            ]);
-        } else rows.push([...cohort, group.mean, group.n, group.totalSamples, 'mean']);
-      }
-    }
-    saveText(
-      filename,
-      [header, ...rows].map((row) => row.map(csvCell).join(',')).join('\r\n'),
-      'text/csv;charset=utf-8',
-    );
+    const file = surveyExport(format, { sources, results, genes, referenceOnly, exportedAt, manifests });
+    saveText(file.filename, file.content, file.type);
   };
   return (
     <div className="ex-export-controls">
@@ -278,7 +130,7 @@ function ExportControls({
       <select
         id="expression-export-format"
         value={format}
-        onChange={(e) => setFormat(e.target.value)}
+        onChange={(e) => setFormat(e.target.value as ExportFormat)}
       >
         <option value="samples">Sample values · CSV</option>
         <option value="summary">Cohort means · CSV</option>
@@ -328,40 +180,18 @@ function SourceDetail({
   onClose: () => void;
 }) {
   const sourceResults = results.filter((result) => result.sourceId === source.id);
-  const [metadata, setMetadata] = useState<NeuroseqSample[] | null>(null);
-  const [metadataError, setMetadataError] = useState('');
-  const [externalSamples, setExternalSamples] = useState<Array<{ id: string; label: string; metadata: Record<string, string> }> | null>(null);
-  useEffect(() => {
-    if (source.collection !== 'external' || isSummary(source)) return;
-    let cancelled = false;
-    loadExternalManifest(providerOf(source))
-      .then((manifest) => {
-        if (!cancelled) setExternalSamples(manifest.samples.filter((sample) => sample.sourceId === source.id));
-      })
-      .catch((error: unknown) => {
-        if (!cancelled)
-          setMetadataError(error instanceof Error ? error.message : 'Sample metadata unavailable.');
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [source]);
-  useEffect(() => {
-    if (source.collection !== 'neuroseq') return;
-    let cancelled = false;
-    loadNeuroseqManifest()
-      .then((manifest) => {
-        if (!cancelled)
-          setMetadata(manifest.samples.filter((sample) => sample.populationId === source.id));
-      })
-      .catch((error: unknown) => {
-        if (!cancelled)
-          setMetadataError(error instanceof Error ? error.message : 'Sample metadata unavailable.');
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [source]);
+  const libraries = useKeyedLoad(
+    source.collection === 'neuroseq' ? source.id : null,
+    () => loadNeuroseqManifest().then((manifest) => manifest.samples.filter((sample) => sample.populationId === source.id)),
+    'Sample metadata unavailable.',
+  );
+  const atlasSamples = useKeyedLoad(
+    source.collection === 'external' && !isSummary(source) ? source.id : null,
+    () => loadExternalManifest(providerOf(source)).then((manifest) => manifest.samples.filter((sample) => sample.sourceId === source.id)),
+    'Sample metadata unavailable.',
+  );
+  const metadata = libraries.value;
+  const externalSamples = atlasSamples.value;
   return (
     <Modal
       title={`${source.populationLabel} · source record`}
@@ -485,8 +315,8 @@ function SourceDetail({
         {source.collection === 'neuroseq' && (
           <>
             <h3>Original library metadata</h3>
-            {metadataError ? (
-              <p role="alert">{metadataError}</p>
+            {libraries.error ? (
+              <p role="alert">{libraries.error}</p>
             ) : !metadata ? (
               <p role="status">Loading library metadata…</p>
             ) : (
@@ -542,8 +372,8 @@ function SourceDetail({
         {source.collection === 'external' && !isSummary(source) && (
           <>
             <h3>Original sample metadata</h3>
-            {metadataError ? (
-              <p role="alert">{metadataError}</p>
+            {atlasSamples.error ? (
+              <p role="alert">{atlasSamples.error}</p>
             ) : !externalSamples ? (
               <p role="status">Loading sample metadata…</p>
             ) : (
@@ -609,7 +439,7 @@ function SourceDetail({
                     </thead>
                     <tbody>
                       {result.groups
-                        .filter((group) => !referenceOnly || group.referenceEligible)
+                        .filter((group) => inReferenceScope(group, referenceOnly))
                         .map((group) => (
                           <tr key={group.key}>
                             <td>{group.label}</td>
@@ -632,20 +462,14 @@ function SourceDetail({
                     </thead>
                     <tbody>
                       {result.groups
-                        .filter((group) => !referenceOnly || group.referenceEligible)
+                        .filter((group) => inReferenceScope(group, referenceOnly))
                         .flatMap((group) =>
                           group.samples.map((sample) => (
                             <tr key={`${group.key}:${sample.id}`}>
                               <td className="ex-mono">{sample.id}</td>
                               <td>{group.label}</td>
                               <td className="ex-number">{formatValue(sample.value)}</td>
-                              <td>
-                                {sample.value == null
-                                  ? 'Missing value'
-                                  : sample.value === 0
-                                    ? 'Measured zero'
-                                    : 'Measured'}
-                              </td>
+                              <td>{VALUE_STATUS_LABEL[sampleStatus(sample.value)]}</td>
                             </tr>
                           )),
                         )}
@@ -678,40 +502,10 @@ function ResultPanel({
 }) {
   const [first] = sources;
   const primary = genes[0];
-  const sourceMap = new Map(sources.map((source) => [source.id, source]));
-  const panelResults = results.filter((result) => sourceMap.has(result.sourceId));
-  const rows: DisplayRow[] = [];
-  for (const result of panelResults.filter((r) => r.query === primary)) {
-    const source = sourceMap.get(result.sourceId);
-    if (source && result.status === 'available')
-      for (const group of result.groups) {
-        if (!referenceOnly || group.referenceEligible) rows.push({ source, group, result });
-      }
-  }
-  rows.sort((a, b) => (groupValue(b.group) ?? -Infinity) - (groupValue(a.group) ?? -Infinity));
-  // The axis changes between studies. Within NeuroSeq, populations share the
-  // same source matrix and unit, so a common axis is scientifically meaningful.
-  const maximum = Math.max(0, ...rows.map((row) => groupValue(row.group) ?? 0));
-  const minimum = Math.min(0, ...rows.map((row) => groupValue(row.group) ?? 0));
-  const range = maximum - minimum || 1;
-  const unavailable = panelResults.filter((result) => result.status !== 'available');
   const summary = isSummary(first);
-  // Name the matched feature whenever it differs from the query (case, species or ID).
-  const matched = panelResults.filter(
-    (result) => result.status === 'available' && result.gene && result.gene !== result.query,
-  );
-  const sourceGroups = matrix
-    ? sources.flatMap((source) => {
-        const result = panelResults.find(
-          (r) => r.sourceId === source.id && r.status === 'available',
-        );
-        return (
-          result?.groups
-            .filter((group) => !referenceOnly || group.referenceEligible)
-            .map((group) => ({ source, group })) ?? []
-        );
-      })
-    : [];
+  const panel = surveyPanel(sources, results, genes, { referenceOnly, matrix });
+  const { rows, axis } = panel;
+  const populationLabel = (id: string) => sources.find((source) => source.id === id)?.populationLabel;
   return (
     <section className="ex-result-panel">
       <header className="ex-panel-head">
@@ -732,17 +526,9 @@ function ResultPanel({
           Source ↗
         </a>
       </header>
-      {matched.length > 0 && (
+      {panel.matched && (
         <p className="ex-note">
-          Matched{' '}
-          {[...new Set(matched.map((result) => result.query))]
-            .map((query) => {
-              const hits = matched.filter((result) => result.query === query);
-              const probes = hits.flatMap((result) => (result.probe ? [result.probe] : []));
-              return `${query} → ${hits[0].gene} (${probes.length ? `${probes.length === 1 ? 'probe' : `${probes.length} probes`} ${probes.join(', ')}` : hits[0].geneId})`;
-            })
-            .join(' · ')}{' '}
-          in {first.species}.
+          Matched {panel.matched} in {first.species}.
         </p>
       )}
       <div className="ex-axis-note">
@@ -752,7 +538,7 @@ function ResultPanel({
         <span>
           {matrix
             ? 'Values retain source units'
-            : `Axis ${formatValue(minimum)}–${formatValue(maximum)}`}
+            : `Axis ${formatValue(axis.minimum)}–${formatValue(axis.maximum)}`}
         </span>
       </div>
       {matrix ? (
@@ -769,7 +555,7 @@ function ResultPanel({
               </tr>
             </thead>
             <tbody>
-              {sourceGroups.map(({ source, group }) => (
+              {panel.matrix.map(({ source, group, cells }) => (
                 <tr key={`${source.id}:${group.key}`}>
                   <td>
                     <button
@@ -781,32 +567,11 @@ function ResultPanel({
                     </button>
                     <span className="ex-subline">{group.label}</span>
                   </td>
-                  {genes.map((gene) => {
-                    // A probe-level source has one result per probe; show each, never a merge.
-                    const found = panelResults.filter(
-                      (r) => r.sourceId === source.id && r.query === gene,
-                    );
-                    const result = found[0];
-                    const cells = found.map((r) => r.groups.find((g) => g.key === group.key));
-                    const probes = found.flatMap((r) => (r.probe ? [r.probe] : []));
-                    return (
-                      <td
-                        className="ex-number"
-                        key={gene}
-                        title={
-                          result?.status === 'available'
-                            ? summary
-                              ? `Published value · ${result.unit}`
-                              : `${probes.length ? `Probes ${probes.join(', ')} · ` : ''}${cells[0]?.n ?? 0} measured samples · ${result.unit}`
-                            : missingLabel(result)
-                        }
-                      >
-                        {cells.length
-                          ? cells.map((cell) => formatValue(cell ? groupValue(cell) : null)).join(' · ')
-                          : formatValue(null)}
-                      </td>
-                    );
-                  })}
+                  {cells.map((cell) => (
+                    <td className="ex-number" key={cell.gene} title={cell.title}>
+                      {cell.text}
+                    </td>
+                  ))}
                 </tr>
               ))}
             </tbody>
@@ -827,7 +592,9 @@ function ResultPanel({
                 </tr>
               </thead>
               <tbody>
-                {rows.map(({ source, group, result }) => (
+                {rows.map(({ source, group, result }) => {
+                  const bar = barGeometry(groupValue(group), axis);
+                  return (
                   <tr key={`${source.id}:${result.probe ?? ''}:${group.key}`}>
                     <td>
                       <button
@@ -861,44 +628,30 @@ function ResultPanel({
                         aria-label={`${formatValue(groupValue(group))} ${first.unit}`}
                         role="img"
                       >
-                        <span
-                          className="ex-zero"
-                          style={{ left: `${(-minimum / range) * 100}%` }}
-                        />
-                        <span
-                          className="ex-bar"
-                          style={{
-                            left: `${((Math.min(0, groupValue(group) ?? 0) - minimum) / range) * 100}%`,
-                            width: `${(Math.abs(groupValue(group) ?? 0) / range) * 100}%`,
-                          }}
-                        />
+                        <span className="ex-zero" style={{ left: `${bar.zero}%` }} />
+                        <span className="ex-bar" style={{ left: `${bar.left}%`, width: `${bar.width}%` }} />
                       </div>
                     </td>
                     <td className="ex-number">{formatValue(groupValue(group))}</td>
                   </tr>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
           </div>
         )
       )}
-      {!rows.length && (!matrix || !sourceGroups.length) && (
-        <p className="ex-empty">
-          {referenceOnly && panelResults.some((r) => r.status === 'available')
-            ? 'No explicitly eligible reference cohort in this selection. Use all reported states to inspect the source.'
-            : 'No expression value is available for this selection.'}
-        </p>
-      )}
-      {unavailable.length > 0 && (
+      {panel.empty && <p className="ex-empty">{panel.empty}</p>}
+      {panel.unavailable.length > 0 && (
         <details className="ex-unavailable">
           <summary>
-            {unavailable.length} gene / source {unavailable.length === 1 ? 'lookup' : 'lookups'}{' '}
+            {panel.unavailable.length} gene / source {panel.unavailable.length === 1 ? 'lookup' : 'lookups'}{' '}
             unavailable
           </summary>
-          {unavailable.map((result) => (
+          {panel.unavailable.map((result) => (
             <p key={`${result.sourceId}:${result.query}`}>
               <span className="ex-mono">{result.query}</span> ·{' '}
-              {sourceMap.get(result.sourceId)?.populationLabel}: {missingLabel(result)}.
+              {populationLabel(result.sourceId)}: {missingLabel(result)}.
             </p>
           ))}
         </details>
@@ -924,11 +677,7 @@ function ResultPanel({
 }
 
 export function ExpressionSurveyView({ onHome }: { onHome: () => void }) {
-  const [section, setSection] = useState<Section>('survey');
-  const [sources, setSources] = useState<ExpressionSource[]>([...EXISTING_EXPRESSION_SOURCES]);
-  const [catalogError, setCatalogError] = useState('');
-  const [catalogLoading, setCatalogLoading] = useState(true);
-  const [reload, setReload] = useState(0);
+  const [section, setSection] = useState<SurveySection>('survey');
   const [collection, setCollection] = useState<Collection>('neuroseq');
   const [region, setRegion] = useState('all');
   const [selectedIds, setSelectedIds] = useState<string[] | null>(null);
@@ -936,214 +685,48 @@ export function ExpressionSurveyView({ onHome }: { onHome: () => void }) {
   const [referenceOnly, setReferenceOnly] = useState(false);
   const [input, setInput] = useState('');
   const [genes, setGenes] = useState<string[]>([]);
-  const [queueSource] = useState(() => createSourceQueue(4));
   const [queryError, setQueryError] = useState('');
   const [matrix, setMatrix] = useState(false);
-  const [tissueKind, setTissueKind] = useState('whole');
+  const [tissueKind, setTissueKind] = useState<TissueKind>('whole');
   const [catalogQuery, setCatalogQuery] = useState('');
   const [catalogCollection, setCatalogCollection] = useState('neuroseq');
   const [catalogRegion, setCatalogRegion] = useState('all');
   const [detail, setDetail] = useState<ExpressionSource | null>(null);
-  const [load, setLoad] = useState<LoadState>(EMPTY_LOAD);
-  const [validation, setValidation] = useState<Validation | null>(null);
-  const [validationError, setValidationError] = useState('');
-  const [externalErrors, setExternalErrors] = useState<Partial<Record<ExternalProvider, string>>>({});
-  const [externalValidation, setExternalValidation] = useState<Partial<Record<ExternalProvider, ExternalValidation | string>>>({});
   const catalogExport = useExportAction();
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: reload is the explicit user retry token for failed catalog requests.
-  useEffect(() => {
-    let cancelled = false;
-    loadExternalSourceErrors()
-      .then((errors) => {
-        if (!cancelled) setExternalErrors(errors);
-      })
-      .catch(() => undefined);
-    return () => {
-      cancelled = true;
-    };
-  }, [reload]);
+  // Each request retries on its own: the catalog (with the atlas errors it
+  // reports), the validation reports, and each source's survey values.
+  const catalog = useKeyedLoad('catalog', loadExpressionSources, 'Source catalog could not be loaded.');
+  const atlasErrors = useKeyedLoad('atlas-errors', loadExternalSourceErrors, 'Reference atlas status could not be loaded.');
+  const retryCatalog = () => {
+    catalog.retry();
+    atlasErrors.retry();
+  };
+  const sources = catalog.value ?? BUNDLED_SOURCES;
+  const externalErrors = atlasErrors.value ?? {};
+  const validationReport = useKeyedLoad(
+    section === 'sources' ? 'validation' : null,
+    loadExpressionValidation,
+    'Validation report could not be loaded.',
+  );
+  const validation = validationReport.value ?? null;
+  const validationError = validationReport.error;
+  const externalValidation = useExternalValidation(section === 'sources');
+  const retryReports = () => {
+    validationReport.retry();
+    externalValidation.retry();
+  };
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: reload lets the user retry failed validation reports.
-  useEffect(() => {
-    if (section !== 'sources') return;
-    let cancelled = false;
-    for (const provider of EXTERNAL_PROVIDERS) {
-      if (typeof externalValidation[provider] === 'object') continue;
-      loadExternalValidation(provider)
-        .then((report) => {
-          if (!cancelled) setExternalValidation((current) => ({ ...current, [provider]: report }));
-        })
-        .catch((error: unknown) => {
-          if (!cancelled)
-            setExternalValidation((current) => ({
-              ...current,
-              [provider]: error instanceof Error ? error.message : 'Validation report could not be loaded.',
-            }));
-        });
-    }
-    return () => {
-      cancelled = true;
-    };
-  }, [section, reload]);
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: reload is the explicit user retry token for failed catalog requests.
-  useEffect(() => {
-    let cancelled = false;
-    setCatalogLoading(true);
-    setCatalogError('');
-    loadExpressionSources()
-      .then((next) => {
-        if (!cancelled) setSources(next);
-      })
-      .catch((error: unknown) => {
-        if (!cancelled)
-          setCatalogError(
-            error instanceof Error ? error.message : 'Source catalog could not be loaded.',
-          );
-      })
-      .finally(() => {
-        if (!cancelled) setCatalogLoading(false);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [reload]);
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: reload lets the user retry a failed validation report without changing tabs.
-  useEffect(() => {
-    if (section !== 'sources' || validation) return;
-    let cancelled = false;
-    setValidationError('');
-    loadExpressionValidation()
-      .then((report) => {
-        if (!cancelled) setValidation(report);
-      })
-      .catch((error: unknown) => {
-        if (!cancelled)
-          setValidationError(
-            error instanceof Error ? error.message : 'Validation report could not be loaded.',
-          );
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [section, validation, reload]);
-
-  const populationSources = useMemo(
-    () => sources.filter((source) => source.scope === 'population'),
-    [sources],
+  const { regions, choices, selected: selectedSources } = useMemo(
+    () => selectSources(sources, { section, collection, region, includeSfo, selectedIds, tissueKind }),
+    [sources, section, collection, region, includeSfo, selectedIds, tissueKind],
   );
-  const collectionSources = useMemo(
-    () =>
-      populationSources.filter(
-        (source) =>
-          (collection === 'all' ||
-            (collection === 'agrp' ? isAgrp(source) : source.collection === collection)) &&
-          (includeSfo || !isBoundary(source)),
-      ),
-    [populationSources, collection, includeSfo],
-  );
-  const regions = useMemo(
-    () => [...new Set(collectionSources.map((source) => source.region))].sort(),
-    [collectionSources],
-  );
-  const choices = useMemo(
-    () => collectionSources.filter((source) => region === 'all' || source.region === region),
-    [collectionSources, region],
-  );
-  const tissueSources = useMemo(
-    () =>
-      sources.filter((source) => {
-        if (source.scope === 'population') return false;
-        if (tissueKind === 'all') return true;
-        if (tissueKind === 'external') return source.collection === 'external';
-        if (tissueKind === 'isolated') return source.scope === 'isolated-neurons';
-        if (source.scope !== 'tissue') return false;
-        return tissueKind === 'arc'
-          ? /arcuate|\bAR[CH]\b/i.test(source.region)
-          : /whole|^hypothalamus$/i.test(source.region);
-      }),
-    [sources, tissueKind],
-  );
-  const selectedSources = useMemo(
-    () =>
-      section === 'tissue'
-        ? tissueSources
-        : choices.filter((source) => selectedIds == null || selectedIds.includes(source.id)),
-    [section, tissueSources, choices, selectedIds],
-  );
-  const requestKey = JSON.stringify([selectedSources.map((source) => source.id), genes, reload]);
   const isSurvey = section === 'survey' || section === 'tissue';
-  const currentLoad =
-    load.key === requestKey ? load : { ...EMPTY_LOAD, loading: genes.length > 0 && selectedSources.length > 0 };
-
-  useEffect(() => {
-    if (!isSurvey || genes.length === 0) return;
-    let cancelled = false;
-    setLoad({ key: requestKey, loading: selectedSources.length > 0, results: [], errors: {} });
-    Promise.all(
-      selectedSources.map((source) => queueSource(async () => {
-        try {
-          return {
-            sourceId: source.id,
-            results: await loadExpressionGenes(source, genes),
-            error: null,
-          };
-        } catch (error: unknown) {
-          return {
-            sourceId: source.id,
-            results: [],
-            error:
-              error instanceof Error ? error.message : 'Expression values could not be loaded.',
-          };
-        }
-      }, () => cancelled)),
-    ).then((entries) => {
-      if (cancelled) return;
-      setLoad({
-        key: requestKey,
-        loading: false,
-        results: entries.flatMap((entry) => entry?.results ?? []),
-        errors: Object.fromEntries(
-          entries.flatMap((entry) => entry?.error ? [[entry.sourceId, entry.error]] : []),
-        ),
-      });
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [requestKey, isSurvey, selectedSources, genes, queueSource]);
-
-  const groupedPanels = useMemo(() => {
-    const groups = new Map<string, ExpressionSource[]>();
-    for (const source of selectedSources) {
-      const key = source.collection === 'neuroseq' ? 'neuroseq' : source.id;
-      groups.set(key, [...(groups.get(key) ?? []), source]);
-    }
-    return [...groups.entries()];
-  }, [selectedSources]);
+  const currentLoad = useSurveyLoad({ enabled: isSurvey, sources: selectedSources, genes });
+  const groupedPanels = useMemo(() => panelGroups(selectedSources), [selectedSources]);
   const catalogEntries = useMemo(
-    () =>
-      populationSources.filter(
-        (source) =>
-          (catalogCollection === 'all' || source.collection === catalogCollection) &&
-          (catalogRegion === 'all' || source.region === catalogRegion) &&
-          [
-            source.label,
-            source.id,
-            source.populationLabel,
-            source.region,
-            source.assay,
-            source.datasetId,
-            source.notes,
-            source.driverOrMarker,
-          ]
-            .join(' ')
-            .toLowerCase()
-            .includes(catalogQuery.toLowerCase()),
-      ),
-    [populationSources, catalogCollection, catalogRegion, catalogQuery],
+    () => filterCatalog(sources, { collection: catalogCollection, region: catalogRegion, query: catalogQuery }),
+    [sources, catalogCollection, catalogRegion, catalogQuery],
   );
 
   function search(event?: FormEvent) {
@@ -1190,7 +773,7 @@ export function ExpressionSurveyView({ onHome }: { onHome: () => void }) {
     if (isBoundary(source)) setIncludeSfo(true);
   }
 
-  function tabKey(event: KeyboardEvent<HTMLButtonElement>, current: Section) {
+  function tabKey(event: KeyboardEvent<HTMLButtonElement>, current: SurveySection) {
     if (event.ctrlKey || event.metaKey || event.altKey) return;
     const index = SECTIONS.findIndex((tab) => tab.id === current);
     const next =
@@ -1264,11 +847,11 @@ export function ExpressionSurveyView({ onHome }: { onHome: () => void }) {
           ))}
         </div>
         <div className="ex-content">
-          {catalogError && (
+          {catalog.error && (
             <div className="ex-notice" role="alert">
-              <strong>NeuroSeq catalog could not be loaded.</strong> {catalogError} Existing study
+              <strong>NeuroSeq catalog could not be loaded.</strong> {catalog.error} Existing study
               sources remain available.{' '}
-              <button type="button" onClick={() => setReload((value) => value + 1)}>
+              <button type="button" onClick={retryCatalog}>
                 Retry
               </button>
               <button
@@ -1289,7 +872,7 @@ export function ExpressionSurveyView({ onHome }: { onHome: () => void }) {
                 .map(([provider, error]) => `${provider.toUpperCase()}: ${error}`)
                 .join(' ')}{' '}
               Other sources remain available.{' '}
-              <button type="button" onClick={() => setReload((value) => value + 1)}>
+              <button type="button" onClick={retryCatalog}>
                 Retry
               </button>
             </div>
@@ -1383,25 +966,7 @@ export function ExpressionSurveyView({ onHome }: { onHome: () => void }) {
                     <>
                       <div className="ex-eyebrow">Tissue preparation</div>
                       <div className="ex-tissue-choices">
-                        {[
-                          { id: 'whole', label: 'Whole hypothalamus', note: 'Bulk tissue' },
-                          { id: 'arc', label: 'Arcuate nucleus', note: 'Regional dissection' },
-                          {
-                            id: 'isolated',
-                            label: 'Broad neuronal isolation',
-                            note: 'Sorted neurons / nuclei',
-                          },
-                          {
-                            id: 'external',
-                            label: 'Reference atlases',
-                            note: 'GTEx, HPA, Allen · human, mouse, pig',
-                          },
-                          {
-                            id: 'all',
-                            label: 'All tissue sources',
-                            note: 'Includes other hypothalamic regions',
-                          },
-                        ].map((item) => (
+                        {TISSUE_CHOICES.map((item) => (
                           <button
                             type="button"
                             key={item.id}
@@ -1484,7 +1049,7 @@ export function ExpressionSurveyView({ onHome }: { onHome: () => void }) {
                       Choose your sources, enter a gene, then select Survey to load expression values.
                     </p>
                   ) : currentLoad.loading ||
-                  (catalogLoading && collection === 'neuroseq' && section === 'survey') ? (
+                  (catalog.loading && collection === 'neuroseq' && section === 'survey') ? (
                     <div className="ex-loading">
                       <Spinner size={18} /> Loading source expression…
                     </div>
@@ -1502,7 +1067,7 @@ export function ExpressionSurveyView({ onHome }: { onHome: () => void }) {
                   <div className="ex-notice" role="alert" key={id}>
                     <strong>{selectedSources.find((source) => source.id === id)?.label}</strong>
                     <p>{error}</p>
-                    <button type="button" onClick={() => setReload((value) => value + 1)}>
+                    <button type="button" onClick={() => currentLoad.retry(id)}>
                       Retry source data
                     </button>
                   </div>
@@ -1607,9 +1172,7 @@ export function ExpressionSurveyView({ onHome }: { onHome: () => void }) {
                     onChange={(event) => setCatalogRegion(event.target.value)}
                   >
                     <option value="all">All regions</option>
-                    {[...new Set(populationSources.map((source) => source.region))]
-                      .sort()
-                      .map((value) => (
+                    {catalogRegions(sources).map((value) => (
                         <option key={value}>{value}</option>
                       ))}
                   </select>
@@ -1622,7 +1185,7 @@ export function ExpressionSurveyView({ onHome }: { onHome: () => void }) {
                   including 2 SFO boundary records.
                 </span>
               </div>
-              {catalogLoading && <p role="status">Loading source catalog…</p>}
+              {catalog.loading && <p role="status">Loading source catalog…</p>}
               <div className="ex-table-scroll">
                 <table className="ex-catalog-table">
                   <thead>
@@ -1790,7 +1353,7 @@ export function ExpressionSurveyView({ onHome }: { onHome: () => void }) {
                   {validationError ? (
                     <div role="alert">
                       <p>{validationError}</p>
-                      <button type="button" onClick={() => setReload((value) => value + 1)}>
+                      <button type="button" onClick={retryReports}>
                         Retry report
                       </button>
                     </div>
@@ -1876,7 +1439,7 @@ export function ExpressionSurveyView({ onHome }: { onHome: () => void }) {
                   </thead>
                   <tbody>
                     {EXTERNAL_PROVIDERS.map((provider) => {
-                      const report = externalValidation[provider];
+                      const report = externalValidation.reports[provider];
                       const providerSources = sources.filter(
                         (source) => source.collection === 'external' && providerOf(source) === provider,
                       );
