@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "ed2e62926cad27ae5fa32acbe95b4bead82155b53258d678ae56d52c2d3fc1ef",
+  "fingerprint": "359da2c45f48c661bb22d3228bea507a660be2cd7ef2c3c4625e0b1d267fad68",
   "outcome": "updated",
-  "explanation": "The dataset-change route names scripts/lib/bundleReader.mts for script reads beside the writer, and says the agent export takes the registry unit through resolveExpressionUnit; check_datasets, refresh_fgsea_bundles and audit_author_validation read through it with unchanged output. From main, the survey runbook names sourceJson.ts as the transport for release-local JSON and documents per-source retry; expression-only registration and its checks are unchanged.",
+  "explanation": "The dataset-change route names scripts/lib/bundleReader.mts for script reads beside the writer, and says the agent export takes the registry unit through resolveExpressionUnit; check_datasets, refresh_fgsea_bundles and audit_author_validation read through it with unchanged output. From main, the survey runbook names sourceJson.ts as the transport for release-local JSON and documents per-source retry; expression-only registration and its checks are unchanged. The reader's comment-header scan is now linear (CodeQL fix) with unchanged results on the full corpus.",
   "references": [
     "docs/agent-context/workflows.md",
     "scripts/check_datasets.mts",

@@ -1,14 +1,15 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "2782b7345c03ad5baef61d63c6dd5355cc725b42b5652287a54bd29faac7a54b",
+  "fingerprint": "ab210e11340670ab1335e96601fb5e2dd1d853e1853e82cda4c3f6dd0b707402",
   "outcome": "updated",
-  "explanation": "Merged main (#30-#34) into the bundle-reader branch. From this branch: bundleReader.test.ts pins the writer-to-reader round trip, strict JSONP parsing and registry unit precedence; bundleReaderParity.test.ts pins Node reader labels to loadDatasetMeta for every committed meta.js; agentExport.test.ts reads published bytes through readJsonp and asserts the reviewed GSE174085 label. From main: csv.test.ts and csvDownload.ts pin the CSV seam, the hypomap tests cover the co-detection client, expressionSurvey/expressionSurveyLoad tests cover survey derivation, and sourceJson tests cover the expression-source reader.",
+  "explanation": "Merged main (#30-#34) into the bundle-reader branch. From this branch: bundleReader.test.ts pins the writer-to-reader round trip, strict JSONP parsing and registry unit precedence; bundleReaderParity.test.ts pins Node reader labels to loadDatasetMeta for every committed meta.js; agentExport.test.ts reads published bytes through readJsonp and asserts the reviewed GSE174085 label. From main: csv.test.ts and csvDownload.ts pin the CSV seam, the hypomap tests cover the co-detection client, expressionSurvey/expressionSurveyLoad tests cover survey derivation, and sourceJson tests cover the expression-source reader. bundleReader.test.ts also feeds parseJsonp an adversarial unclosed /* */ header and requires a linear-time refusal.",
   "references": [
     "src/__tests__/bundleReader.test.ts",
     "src/__tests__/bundleReaderParity.test.ts",
     "src/__tests__/agentExport.test.ts",
     "src/__tests__/csv.test.ts",
-    "src/__tests__/hypomapCodetection.test.ts"
+    "src/__tests__/hypomapCodetection.test.ts",
+    "scripts/lib/bundleReader.mts"
   ]
 }

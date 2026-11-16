@@ -70,19 +70,42 @@ export class BundleReadError extends Error {
   }
 }
 
-// Leading `//` or `/* */` comment lines (the macaque generator's header), then
-// `var NAME =` or `window.NAME =`. Everything after `=` must be one JSON value,
-// optionally followed by `;` and whitespace — no slicing to the first brace.
-const JSONP_HEAD = /^﻿?\s*(?:(?:\/\/[^\n]*(?:\n|$)|\/\*[\s\S]*?\*\/)\s*)*(?:var\s+|window\.)([A-Za-z_$][\w$]*)\s*=/;
+// A bundle is optional leading `//` or `/* */` comments (the macaque
+// generator's header), then `var NAME =` or `window.NAME =`. Everything after
+// `=` must be one JSON value, optionally followed by `;` and whitespace — no
+// slicing to the first brace. Comments are skipped by a linear scan rather
+// than a repeated regex group, which could backtrack exponentially.
+const ASSIGNMENT = /(?:var\s+|window\.)([A-Za-z_$][\w$]*)\s*=/y;
+
+/** Index of the first character after any leading BOM, whitespace and comments; -1 for an unclosed block comment. */
+function afterLeadingComments(source: string): number {
+  let at = source.charCodeAt(0) === 0xfeff ? 1 : 0;
+  for (;;) {
+    while (at < source.length && /\s/.test(source[at])) at++;
+    if (source.startsWith('//', at)) {
+      const newline = source.indexOf('\n', at);
+      at = newline < 0 ? source.length : newline + 1;
+    } else if (source.startsWith('/*', at)) {
+      const close = source.indexOf('*/', at + 2);
+      if (close < 0) return -1;
+      at = close + 2;
+    } else {
+      return at;
+    }
+  }
+}
 
 /** Parse JSONP source text that must assign `expectedGlobal`. `file` only labels errors. */
 export function parseJsonp<T>(source: string, expectedGlobal: string, file = '(bundle)'): T {
-  const head = JSONP_HEAD.exec(source);
+  const start = afterLeadingComments(source);
+  ASSIGNMENT.lastIndex = Math.max(start, 0);
+  const head = start < 0 ? null : ASSIGNMENT.exec(source);
   if (!head) throw new BundleReadError(file, 'malformed', 'is not a `var NAME = <json>;` bundle');
   if (head[1] !== expectedGlobal) {
     throw new BundleReadError(file, 'wrong-global', `assigns ${head[1]}; expected ${expectedGlobal}`);
   }
-  const payload = source.slice(head[0].length).replace(/;?\s*$/, '');
+  let payload = source.slice(ASSIGNMENT.lastIndex).trimEnd();
+  if (payload.endsWith(';')) payload = payload.slice(0, -1);
   try {
     return JSON.parse(payload) as T;
   } catch (error) {

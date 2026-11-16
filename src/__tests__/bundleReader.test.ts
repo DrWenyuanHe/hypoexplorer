@@ -136,6 +136,15 @@ describe('parseJsonp', () => {
     expect(parseJsonp('/* header */\nwindow.HX_A = {"y":[]}', 'HX_A')).toEqual({ y: [] });
   });
 
+  it('skips comments in linear time and refuses an unclosed block comment', () => {
+    const adversarial = `/*${'*//*'.repeat(50_000)}`;
+    const startedAt = performance.now();
+    expect(failure(() => parseJsonp(adversarial, 'HX_A')).reason).toBe('malformed');
+    expect(performance.now() - startedAt).toBeLessThan(1_000);
+    expect(parseJsonp('/* a */ /* b */\n// c\r\nvar HX_A = 1', 'HX_A')).toBe(1);
+    expect(parseJsonp('﻿// header\nvar HX_A = {};', 'HX_A')).toEqual({});
+  });
+
   it('refuses a bundle that assigns a different global', () => {
     const error = failure(() => parseJsonp('var HX_OTHER = {};', 'HX_A', 'x.js'));
     expect(error.reason).toBe('wrong-global');
