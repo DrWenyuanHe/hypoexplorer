@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "8f4272d65efbced1d0b4ef51d5b42589fdc6668e8107a209969eb12d0fc0f65a",
+  "fingerprint": "b065b8d62418d66656753e1cf068c121c81b8d26c56de1a3f28e581deb5ca9fb",
   "outcome": "updated",
-  "explanation": "CONTEXT.md gains an Architecture bullet for the explorer session: it holds and resets the selected state, and it owns both sides of the analysis snapshot (snapshot and restoreAnalysis) against its own defaults. The shell supplies only the contrast and chart scale. No scripts, data, configuration or delivery paths change.",
+  "explanation": "Merged main (#30). CONTEXT.md now carries both new Architecture bullets: the Expression-source reader (src/expression-survey/sourceJson.ts; the teaser is a projection of the survey's NeuroSeq results; the HypoMap atlas client keeps its own cross-origin, checksummed transport) and the explorer session owning both sides of the analysis snapshot. The context catalog lists sourceJson.ts. No scripts, data, configuration or delivery paths change.",
   "references": [
     "CONTEXT.md",
+    "docs/agent-context/catalog.json",
+    "src/expression-survey/sourceJson.ts",
     "src/explorer/explorerSession.ts"
   ]
 }

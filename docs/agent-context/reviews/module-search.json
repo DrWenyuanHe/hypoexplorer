@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "a7ae9371ab2e5e3f564e67a801b5694ac2e587ab2194f17eda1167d9d63e1806",
+  "fingerprint": "63ed9f94c9adf182def115dc3c875505ec276051101109e73898e4c571e4aa9b",
   "outcome": "updated",
-  "explanation": "PR 21 adds src/search/hypomap: a checksum-verified loader for the pinned HypoMap export (atlas.ts), Spatial and By dataset views, a co-expression explorer that calls the loopback comparison service, and a CSV preview. portalCards mounts them only behind VITE_HYPOMAP_EXPRESSION and VITE_HYPOMAP_COEXPRESSION, both off by default. The catalog summary and start-here references now name the HypoMap views and atlas.ts.",
+  "explanation": "loadBaselineTeaser no longer reads the NeuroSeq index and shard itself: it projects loadNeuroseqExpression's per-population results, one row per source group with the survey's group mean, so the teaser cannot pool the AgRP fed and feeding-unreported groups or skip the survey's value checks. Ambiguity candidates use the survey's spelling and the cache key is the symbol as typed. BaselineTeaser now carries groups (SourceGroupLevel) instead of populations; BaselineSection labels a multi-group population's rows with the group.",
   "references": [
-    "src/search/hypomap/atlas.ts",
+    "src/search/searchSummaries.ts",
     "src/search/portalCards.tsx",
-    "docs/agent-context/catalog.json"
+    "docs/EXPRESSION_SURVEY.md",
+    "CONTEXT.md"
   ]
 }

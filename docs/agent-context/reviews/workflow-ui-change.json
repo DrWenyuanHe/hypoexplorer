@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "c986febd3f15f1edfbe6a20241d8eee5f44a5a52f03aaa0b57ce997e01c16336",
-  "outcome": "no-impact",
-  "explanation": "The UI-change runbook steps still hold: navigation still goes through appRouter and explorer position intents, and the routes and views are unchanged. Only where the analysis-snapshot defaults live moved from App into the explorer session, which CONTEXT.md (already required reading in this runbook) now describes. Typecheck, focused Vitest tests and a browser deep-link check covered it.",
+  "fingerprint": "965b87844e484357981296ab4e10584f0b74a1e49e7dd0afdabfb56dc7d39808",
+  "outcome": "updated",
+  "explanation": "Merged main (#30). The gene page and search portal NeuroSeq teaser now shows source groups rather than pooled populations (top five of 17 by the survey's group mean, with the group named under NPY reporter / AgRP and SO AVP), documented in EXPRESSION_SURVEY.md. From main, analysis-snapshot defaults moved from App into the explorer session; routes and views are unchanged and the runbook steps still hold.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "CONTEXT.md",
-    "src/explorer/explorerSession.ts"
+    "src/search/portalCards.tsx",
+    "docs/EXPRESSION_SURVEY.md",
+    "src/explorer/explorerSession.ts",
+    "docs/agent-context/workflows.md"
   ]
 }

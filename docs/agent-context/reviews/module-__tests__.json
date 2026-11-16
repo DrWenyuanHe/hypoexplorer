@@ -1,10 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "925b3e4940f6b1d7d9172e468761610dd633fea29a46c7f6b627aed4597bcb00",
+  "fingerprint": "f973822a5b5f2d07a26b66cf9a8e9b59ae5a58e8d844f5427f289299efee3c73",
   "outcome": "updated",
-  "explanation": "explorerSession.test.tsx adds snapshot tests against the session interface: all defaults (including a null default contrast) give undefined, each field alone (genes, metric, both volcano cutoffs, pathway search, FDR, sort, every database, contrast, chart scale) makes it defined, restoreAnalysis into a fresh session reproduces a snapshot that also survives parseExplorerAnalysis, the serialized version-1 string is pinned, and a pathway selection does not change the snapshot function.",
+  "explanation": "Merged main (#30) into the expression-source reader branch. From this branch: sourceJson.test.ts covers the transport's family allow-list, version cache-bust, shared requests, forget-on-failure and reset; baselineTeaser.test.ts checks over the real reader that every teaser row equals the survey's group mean and that AgRP groups are not pooled; survey loader tests use resetSourceRequests/sourceJson and portal/gene-report fixtures use the groups shape. From main: explorerSession.test.tsx pins the analysis snapshot against the session's defaults.",
   "references": [
+    "src/__tests__/sourceJson.test.ts",
+    "src/__tests__/baselineTeaser.test.ts",
     "src/__tests__/explorerSession.test.tsx",
     "src/explorer/explorerSession.ts"
   ]

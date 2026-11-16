@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { loadReferenceExpression, loadReferenceManifest, referenceGeneResult, referenceJson, resetReferenceRequests } from '../expression-survey/referenceExpression';
+import { loadReferenceExpression, loadReferenceManifest, referenceGeneResult } from '../expression-survey/referenceExpression';
+import { resetSourceRequests, sourceJson } from '../expression-survey/sourceJson';
 import type { ReferenceManifest } from '../expression-survey/referenceExpression';
 
 function publicJson(path: string): unknown {
@@ -9,7 +10,7 @@ function publicJson(path: string): unknown {
 function localFetch() {
   vi.stubGlobal('fetch', vi.fn(async (url: string) => ({ ok: true, json: async () => publicJson(url) })));
 }
-afterEach(() => { resetReferenceRequests(); vi.unstubAllGlobals(); });
+afterEach(() => { resetSourceRequests(); vi.unstubAllGlobals(); });
 
 describe('OXT cell expression reference', () => {
   it('retains cell identity and animal/pool qualifications without registering a contrast', async () => {
@@ -53,8 +54,8 @@ describe('OXT cell expression reference', () => {
     manifest.samples[0].groupId = 'invented';
     vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, json: async () => manifest })));
     await expect(loadReferenceManifest()).rejects.toThrow('cohort metadata');
-    resetReferenceRequests();
-    await expect(referenceJson('/expression/oxt-reference/../neuroseq/manifest.json')).rejects.toThrow('asset path');
+    resetSourceRequests();
+    await expect(sourceJson('oxt-reference', '/expression/oxt-reference/../neuroseq/manifest.json')).rejects.toThrow('asset path');
     const fetcher = vi.fn().mockRejectedValueOnce(new Error('offline'))
       .mockImplementation(async (url: string) => ({ ok: true, json: async () => publicJson(url) }));
     vi.stubGlobal('fetch', fetcher);
