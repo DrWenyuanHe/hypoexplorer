@@ -12,7 +12,6 @@ import { datasetExternalLinks, datasetPmid, repositoryName } from '../../src/uti
 import { upstreamDisplay, upstreamProcessingFor } from '../../src/data/upstreamProcessing';
 import type { Dataset, DatasetMeta } from '../../src/types';
 import { renderStudyContext, studySearchDescription, studySearchTitle } from './seoStudyContent.mjs';
-import { getTopicDocuments, topicLinksForDataset } from './seoTopics.mjs';
 import { getGuideDocuments } from './seoGuides.mjs';
 import { BRAND, BRAND_HEAD } from '../../src/common/brand';
 
@@ -112,7 +111,7 @@ function breadcrumbs(items: Array<{ name: string; path: string }>): Record<strin
   };
 }
 
-function page(input: { title: string; description: string; path: string; section: 'studies' | 'about' | 'topics' | 'methods' | 'how-to-cite'; body: string; schema: unknown[] }): string {
+function page(input: { title: string; description: string; path: string; section: 'studies' | 'about' | 'methods' | 'how-to-cite'; body: string; schema: unknown[] }): string {
   const canonical = SITE_URL + input.path;
   return `<!doctype html>
 <html lang="en"><head>
@@ -144,10 +143,10 @@ ${BRAND_HEAD}
 </head><body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header"><div class="header-inner"><a class="site-brand" href="${BRAND.home}" aria-label="${BRAND.label}"><img src="${BRAND.logo}" width="${BRAND.width}" height="${BRAND.height}" alt="HypoExplorer"></a>
-<nav aria-label="Main navigation"><a href="/">Home</a><a href="/studies/"${input.section === 'studies' ? ' aria-current="page"' : ''}>Studies</a><a href="/topics/"${input.section === 'topics' ? ' aria-current="page"' : ''}>Topics</a><a href="/methods/"${input.section === 'methods' ? ' aria-current="page"' : ''}>Methods</a><a href="/about/"${input.section === 'about' ? ' aria-current="page"' : ''}>About</a></nav></div>
+<nav aria-label="Main navigation"><a href="/">Home</a><a href="/studies/"${input.section === 'studies' ? ' aria-current="page"' : ''}>Studies</a><a href="/methods/"${input.section === 'methods' ? ' aria-current="page"' : ''}>Methods</a><a href="/about/"${input.section === 'about' ? ' aria-current="page"' : ''}>About</a></nav></div>
 <div class="beta"><div class="beta-inner"><strong>Beta testing</strong>${escapeHtml(BETA_NOTICE)}</div></div></header>
 <main id="main">${input.body}</main>
-<footer><p>${SITE_NAME} · Hypothalamus transcriptomics<br>Created by ${escapeHtml(AUTHOR_NAME)}.</p><div class="footer-links"><a href="/topics/">Research topics</a><a href="/methods/">Methods</a><a href="/how-to-cite/">How to cite</a><a href="/about/">About &amp; contact</a><a href="/#/library">Dataset library</a></div></footer>
+<footer><p>${SITE_NAME} · Hypothalamus transcriptomics<br>Created by ${escapeHtml(AUTHOR_NAME)}.</p><div class="footer-links"><a href="/methods/">Methods</a><a href="/how-to-cite/">How to cite</a><a href="/about/">About &amp; contact</a><a href="/#/library">Dataset library</a></div></footer>
 </body></html>\n`;
 }
 
@@ -261,7 +260,6 @@ ${trackTable(dataset, meta)}
 <section class="panel"><h2>Expression and analysis results</h2><p>Open this dataset to inspect ${escapeHtml(dataset.featureLabel.toLowerCase())} expression and differential-expression results across the available ${escapeHtml(dataset.trackNoun === 'population' ? 'cell populations' : 'tracks')}.${dataset.supportsPathways ? ' Pathway enrichment is also available. The pathway databases differ by dataset.' : ''}</p><p class="small">${escapeHtml(BETA_NOTICE)} Features and analyses may change during testing. Review the original source, analysis methods and quality-control checks before using a result in research.</p></section>
 </div><aside aria-label="Study details"><section class="panel"><h2>At a glance</h2><dl class="facts">${facts.map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('')}<div><dt>Experimental groups</dt><dd>${dataset.groups.map((group) => escapeHtml(group.label)).join('<br>')}</dd></div></dl></section>
 ${related.length ? `<section class="panel"><h2>Related studies</h2><ul class="related">${related.map((entry) => `<li><a href="${studyPath(entry)}">${escapeHtml(entry.geo ? `${entry.geo}: ${entry.name}` : entry.name)}</a></li>`).join('')}</ul></section>` : ''}
-${topicLinksForDataset(dataset).length ? `<section class="panel"><h2>Explore this research topic</h2><ul class="related">${topicLinksForDataset(dataset).map((topic) => `<li><a href="${topic.path}">${escapeHtml(topic.title)}</a></li>`).join('')}</ul></section>` : ''}
 </aside></div>` });
 }
 
@@ -281,7 +279,7 @@ export function renderStudiesPage(datasets: Dataset[], details: Record<string, S
 <div class="breadcrumbs"><a href="/">Home</a> / Studies</div>
 <div class="eyebrow">The study collection</div><h1>Hypothalamus datasets and source studies</h1>
 <p class="intro">Browse ${datasets.length} datasets across ${speciesCount} species. The collection includes the macaque single-nucleus atlas, bulk tissue datasets and cell-type-specific expression studies. Each entry links the data in ${SITE_NAME} to its repository accession, publication and available comparisons.</p>
-<p>Use the <a href="/topics/">research guides</a> to choose a study, or read the <a href="/methods/">analysis methods and limitations</a> before comparing results.</p>
+<p>Read the <a href="/methods/">analysis methods and limitations</a> before comparing results.</p>
 <p class="small">Use your browser's find function to search this page for a GEO accession or paper. Open the dataset library to filter by species, anatomy and assay.</p>
 <div class="actions"><a class="button" href="/#/library">Open dataset library</a></div>
 <nav class="category-links" aria-label="Study themes">${groups.map(({ category, datasets: entries }) => `<a href="#${categoryId(category)}">${escapeHtml(category)} (${entries.length})</a>`).join('')}</nav>
@@ -344,24 +342,17 @@ function relatedStudies(dataset: Dataset, datasets: Dataset[]): Dataset[] {
     .sort((a, b) => Number(b.organism === dataset.organism) - Number(a.organism === dataset.organism)).slice(0, 3);
 }
 
-function supportingDocuments(datasets: Dataset[]) {
-  return [...getTopicDocuments(datasets), ...getGuideDocuments()];
-}
-
-function renderSupportingDocument(document: ReturnType<typeof supportingDocuments>[number]): string {
-  const section = document.path.split('/')[1] as 'topics' | 'methods' | 'how-to-cite';
-  const heading = escapeHtml(document.title.split(' | ')[0]);
-  const trail = document.path.startsWith('/topics/') && document.path !== '/topics/'
-    ? [{ name: 'Research topics', path: '/topics/' }, { name: document.title.split(' | ')[0], path: document.path }]
-    : [{ name: document.title.split(' | ')[0], path: document.path }];
+function renderSupportingDocument(document: ReturnType<typeof getGuideDocuments>[number]): string {
+  const section = document.path.split('/')[1] as 'methods' | 'how-to-cite';
+  const name = document.title.split(' | ')[0];
   return page({ ...document, section,
-    body: `<div class="breadcrumbs"><a href="/">Home</a> / ${trail.length > 1 ? '<a href="/topics/">Research topics</a> / ' : ''}${heading}</div>${document.body}`,
-    schema: [...document.schema, breadcrumbs(trail)],
+    body: `<div class="breadcrumbs"><a href="/">Home</a> / ${escapeHtml(name)}</div>${document.body}`,
+    schema: [...document.schema, breadcrumbs([{ name, path: document.path }])],
   });
 }
 
 function sitemap(datasets: Dataset[]): string {
-  const paths = ['/', '/studies/', ...datasets.map(studyPath), '/about/', ...supportingDocuments(datasets).map((document) => document.path)];
+  const paths = ['/', '/studies/', ...datasets.map(studyPath), '/about/', ...getGuideDocuments().map((document) => document.path)];
   // No fabricated lastmod: a build timestamp is not a content-change timestamp.
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${paths.map((path) => `  <url><loc>${escapeHtml(SITE_URL + path)}</loc></url>`).join('\n')}\n</urlset>\n`;
 }
@@ -374,8 +365,8 @@ export function renderSeoRoute(pathname: string): { body: string; contentType: s
   if (path === '/robots.txt') return { body: ROBOTS, contentType: 'text/plain; charset=utf-8' };
   if (path === '/sitemap.xml') return { body: sitemap(listDatasets()), contentType: 'application/xml; charset=utf-8' };
   if (path === '/about') return { body: renderAboutPage(), contentType: 'text/html; charset=utf-8' };
-  if (/^\/(?:topics|methods|how-to-cite)(?:\/|$)/.test(path)) {
-    const document = supportingDocuments(listDatasets()).find((document) => document.path.slice(0, -1) === path);
+  if (/^\/(?:methods|how-to-cite)(?:\/|$)/.test(path)) {
+    const document = getGuideDocuments().find((document) => document.path.slice(0, -1) === path);
     return document ? { body: renderSupportingDocument(document), contentType: 'text/html; charset=utf-8' } : null;
   }
   if (path !== '/studies' && !/^\/studies\/[a-z0-9_-]+$/.test(path)) return null;
@@ -405,7 +396,7 @@ export function generateSeoPages(outDir: string): { studyCount: number; pageCoun
   };
   write('studies/index.html', renderStudiesPage(datasets, details));
   write('about/index.html', renderAboutPage());
-  const documents = supportingDocuments(datasets);
+  const documents = getGuideDocuments();
   for (const document of documents) write(`${document.path.slice(1)}index.html`, renderSupportingDocument(document));
   for (const dataset of datasets) {
     write(`${studyPath(dataset).slice(1)}index.html`, renderStudyPage(dataset, details[dataset.id], relatedStudies(dataset, datasets)));

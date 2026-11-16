@@ -1,14 +1,13 @@
 # Search discovery for HypoExplorer
 
 HypoExplorer serves one public HTML page for each integrated dataset at
-`/studies/<dataset-id>/`, a browsable directory at `/studies/`, curated research
-guides at `/topics/`, methods at `/methods/`, citation guidance at `/how-to-cite/`,
-and an author and contact page at `/about/`. These pages work without JavaScript and link to the
+`/studies/<dataset-id>/`, a browsable directory at `/studies/`, methods at
+`/methods/`, citation guidance at `/how-to-cite/`, and an author and contact page at `/about/`. These pages work without JavaScript and link to the
 existing interactive hash routes. `/datasets/` remains reserved for data bundles.
 
 `scripts/lib/seoPages.mts` generates the pages, `sitemap.xml`, and `robots.txt`
 during `pnpm run build`. The same renderer serves these routes in `pnpm run dev`.
-The sitemap contains the homepage, directory, About page, all seven supporting
+The sitemap contains the homepage, directory, About page, the two supporting
 documents, and every registered study. It excludes interactive filter combinations and invents no modification
 dates. Workbox excludes these public documents from precaching and limits its HTML
 fallback to the root application, preserving public documents and missing-page
@@ -63,19 +62,13 @@ describes that relationship; the [pituitary paper](https://pmc.ncbi.nlm.nih.gov/
 deposits E-MTAB-9459 and E-MTAB-9460. The snapshot retains this reviewed annotation
 across refreshes, and the page and directory label it explicitly.
 
-## Curated guides
+## Methods and citation guides
 
-`seoTopics.mts` defines four reviewed collections with 34 total study memberships:
+The `/topics/` research guides (aging, obesity, fasting and feeding, single-cell)
+were removed on 2026-11-15 because their curated text had not been reviewed by
+the maintainer. Their URLs now return 404. The dated verification notes below
+still describe them as they were at the time.
 
-- `/topics/hypothalamic-aging/`: eight age-comparison datasets.
-- `/topics/hypothalamic-obesity/`: nine obesity and metabolic datasets.
-- `/topics/hypothalamic-fasting-feeding/`: ten fasting and feeding datasets.
-- `/topics/single-cell-hypothalamus/`: seven single-cell/single-nucleus datasets.
-
-Membership follows the comparison actually served, rather than every condition
-in a source paper. The guides distinguish age comparisons from maturation,
-feeding interventions from obesity, and population tracks from animal pseudobulk.
-Study pages link back to their guides. Missing or duplicate members fail generation.
 `seoGuides.mts` documents source-specific methods and gives real citation examples;
 it does not invent an app publication, DOI, release date or dataset license.
 
@@ -94,8 +87,8 @@ structured data, source attribution, safe HTML/JSON rendering, development route
 sample-count semantics, and author contact details.
 
 After publishing the built assets, confirm the homepage, `/studies/`, `/about/`,
-`/topics/`, `/methods/`, `/how-to-cite/`, and a study page return their own HTML
-with status 200. Unknown study or guide paths must
+`/methods/`, `/how-to-cite/`, and a study page return their own HTML
+with status 200. Unknown study or guide paths, and `/topics/`, must
 return 404. Check a browser with an existing service worker as well as a fresh
 session. Verify the canonical host is `https://hypoexplorer.com` and that `www`
 permanently redirects to it; [Workers static-asset redirects](https://developers.cloudflare.com/workers/static-assets/redirects/)
@@ -212,8 +205,8 @@ self-canonicals, and are reachable within two internal document links.
 Repository changes add social previews, local licensed IBM Plex fonts, clearer
 gene-search/export guidance, topic navigation/bylines/cross-links, Dataset
 canonical identities, a missing-DOI citation guard and homepage text contrast.
-Scientific data and source identities are unchanged. The SEO suite remains
-repository-local under `.agents/skills/` and is used only when relevant.
+Scientific data and source identities are unchanged. The repository-local SEO
+skill suite used for this audit was removed on 2026-11-15.
 
 The public mobile Lighthouse baseline was performance 73 with 4.5-second LCP;
 desktop was 98 with 0.9-second LCP. No CrUX field data was available. Local font

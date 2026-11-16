@@ -130,7 +130,7 @@ Every pull request to `main` must pass these checks:
 | Unit tests | `application.yml` | `pnpm test` with the fetched catalogs and atlases |
 | Build and browser smoke | `application.yml` | `prepare:deploy`, `build`, `verify:release`, `test:smoke` against R2 |
 | Public safety | `public-safety.yml` | `check:public-safety` over every tracked file |
-| CodeQL (actions, javascript-typescript, python) | `security.yml` | Code scanning; `vendor/` is ignored |
+| CodeQL (actions, javascript-typescript, python) | `security.yml` | Code scanning |
 | Dependency review | `security.yml` | Fails on a new dependency with a high or critical advisory |
 
 ## Where things are
@@ -150,7 +150,6 @@ Every pull request to `main` must pass these checks:
 | `workers/`, `cloudflare/` | The R2 spend guard and the edge cache and WAF rules |
 | `geo_replication/` | GEO reanalysis configuration and pipeline scripts |
 | `brand/` | Logo masters, exports and the Manrope font (OFL) |
-| `vendor/` | A pinned SEO toolkit snapshot used by the project-local skills |
 
 ## Further reading
 

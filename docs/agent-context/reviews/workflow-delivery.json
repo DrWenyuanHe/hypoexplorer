@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "1c38108575f358f9d445bfea922ce88db78fdba9d12cd3a97c408b188c365e4e",
+  "fingerprint": "3961bc75622af17d3094c6573b295e0f207ca59c416b856fd460a8be01ef7c26",
   "outcome": "updated",
-  "explanation": "The app CI workflow's Lint and typecheck job gains a pnpm run deadcode (knip) step, and delivery.md's list of CI checks now names it. Build, deploy, R2 upload and edge rules are unchanged; the job name stays the same, so the required check on main is not renamed. The step runs pnpm run fetch:query first, since knip loads vite.config.ts and the config reads the gitignored query catalog.",
+  "explanation": "The build no longer emits /topics/ documents: vite.config.ts drops topics from the dev SEO route matcher and from the Workbox precache exclusions, and the sitemap shrinks by the five topic URLs. Prerendered documents are still real assets with the navigation fallback scoped to the root, as delivery.md states. DEVELOPMENT.md no longer describes a vendor directory or a CodeQL vendor exclusion.",
   "references": [
     "docs/agent-context/delivery.md",
-    ".github/workflows/application.yml",
+    "vite.config.ts",
     "docs/DEVELOPMENT.md"
   ]
 }

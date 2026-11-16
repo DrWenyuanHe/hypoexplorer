@@ -195,7 +195,6 @@ export function LandingHub({
             <div className="hub-util-links">
               <button type="button" onClick={() => onOpenLibrary()}>Dataset library</button>
               <a className="site-reference-link" href="/studies/">Study pages</a>
-              <a className="site-reference-link" href="/topics/">Research topics</a>
               {secondary.items.map((item) => (
                 <button key={item.name} type="button" onClick={item.go}>
                   {item.name === 'Explore Local Datasets' ? 'Local datasets' : item.name}

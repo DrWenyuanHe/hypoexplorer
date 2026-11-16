@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "58eb01ce6eef9825bb4666540930d8253225c25f00f7db5bc9c4bcc410952a53",
+  "fingerprint": "ffc7a4823c4b13d758b5ea636a479633cd53f1dca0628de1985403463f1afc2b",
   "outcome": "no-impact",
-  "explanation": "The uploader can now publish the pinned HypoMap atlas, but only from public/hypomap/<tag>/ and never through --only. Dataset registration, bundle builders, the query and expression indexes, the reduced-release refusal and the index checks for full uploads are unchanged; --hypomap-only skips them because it uploads no dataset, query or QC object.",
+  "explanation": "seoPages.mts no longer imports the deleted seoTopics module, so a study page has no topic panel and a dataset change no longer has curated topic memberships to keep in step. Study pages, the directory and the sitemap still derive from the registry, so the dataset-change procedure is unchanged.",
   "references": [
-    "scripts/upload_bundles_r2.mts",
-    "scripts/lib/hypomapAtlas.mts",
-    "docs/agent-context/workflows.md"
+    "docs/agent-context/workflows.md",
+    "scripts/lib/seoPages.mts"
   ]
 }

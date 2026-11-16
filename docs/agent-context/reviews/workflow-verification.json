@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "89f2025f592de1765023a7cccb7343b9899c551e941aa465e0db6b85cc40876d",
+  "fingerprint": "3e3db0adb3815521a727d5d1b3e54ee31d561dd36582521be73b0bf5f25a71ad",
   "outcome": "no-impact",
-  "explanation": "The changed scripts verify HypoMap atlas checksums before upload and probe edge rules and CORS for the atlas. No evidence record, QC policy, author-validation input or dataset verification status changes, so the verification runbook and its claims stay as they are.",
+  "explanation": "The deleted topic guides only held curated prose; the Methods guide in seoGuides.mts now points readers to the study directory instead. Verification evidence, author-validation records and the rendering of evidence status on study pages are untouched, so the verification workflow is unchanged.",
   "references": [
-    "scripts/lib/hypomapAtlas.mts",
-    "scripts/verify_edge.mts",
-    "data/author-validation/README.md"
+    "docs/agent-context/workflows.md",
+    "scripts/lib/seoGuides.mts"
   ]
 }
