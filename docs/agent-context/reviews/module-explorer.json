@@ -1,11 +1,10 @@
 {
   "version": 1,
   "area": "module-explorer",
-  "fingerprint": "321c56c5f288d63c987a35f9ead51df7a20529cd959790053772acc8c2b0b06a",
+  "fingerprint": "64dcb24c0eeb0848adb3e80f34e627ea6ef3ebaa7499721158e0e7ea86ce8352",
   "outcome": "updated",
-  "explanation": "geneVocabulary.ts binds a gene selection to one or more vocabularies: case policy (stored spelling, upper-case across studies), shared nomenclature authority (null for mixed species) and per-chip facts. useGeneSelection gains replace(), used by restoreAnalysis; state and RESET_MATRIX resets stay in the explorer session. geneChips asks nothing of a source with no authority, so no chip borrows a namespace its study never used.",
+  "explanation": "explorerSession.ts now owns both sides of the analysis snapshot: snapshot(context) writes the gene selection, volcano and pathway settings into the version-1 ExplorerAnalysisState, or returns undefined at defaults, beside the existing restoreAnalysis. It compares against the session's own defaults (VOLCANO_DEFAULT, PATHWAY_SEARCH_DEFAULT, PATHWAY_FDR_DEFAULT, PATHWAY_SORT_DEFAULT, DB_DEFAULT_FILTER), and the volcano and pathway slices open at those same constants. The caller supplies the contrast, the dataset default contrast and the chart scale through AnalysisContext.",
   "references": [
-    "src/explorer/geneVocabulary.ts",
     "src/explorer/explorerSession.ts",
     "CONTEXT.md"
   ]

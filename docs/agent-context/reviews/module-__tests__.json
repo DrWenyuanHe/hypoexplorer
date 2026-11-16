@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "fda4b8e023d9346ec3e993631f381c9842f3059e4ca51a5b404cbec0e24dc2e2",
+  "fingerprint": "f973822a5b5f2d07a26b66cf9a8e9b59ae5a58e8d844f5427f289299efee3c73",
   "outcome": "updated",
-  "explanation": "New sourceJson.test.ts covers the transport's family allow-list, version cache-bust, shared requests, forget-on-failure and reset. New baselineTeaser.test.ts checks, over the real reader and public NeuroSeq products, that every teaser row equals the survey's group mean and that AgRP groups are not pooled. Survey loader tests use resetSourceRequests/sourceJson; portal and gene-report fixtures use the BaselineTeaser groups shape.",
+  "explanation": "Merged main (#30) into the expression-source reader branch. From this branch: sourceJson.test.ts covers the transport's family allow-list, version cache-bust, shared requests, forget-on-failure and reset; baselineTeaser.test.ts checks over the real reader that every teaser row equals the survey's group mean and that AgRP groups are not pooled; survey loader tests use resetSourceRequests/sourceJson and portal/gene-report fixtures use the groups shape. From main: explorerSession.test.tsx pins the analysis snapshot against the session's defaults.",
   "references": [
     "src/__tests__/sourceJson.test.ts",
     "src/__tests__/baselineTeaser.test.ts",
-    "src/__tests__/portalCards.test.tsx",
-    "src/__tests__/neuroseqExpression.test.ts"
+    "src/__tests__/explorerSession.test.tsx",
+    "src/explorer/explorerSession.ts"
   ]
 }

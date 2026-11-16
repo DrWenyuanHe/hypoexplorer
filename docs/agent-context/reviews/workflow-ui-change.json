@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "b9cc8a446be45401fb1614a7f4e3e67693b1cda7b81bdfd6abbec05848fbf5cb",
+  "fingerprint": "965b87844e484357981296ab4e10584f0b74a1e49e7dd0afdabfb56dc7d39808",
   "outcome": "updated",
-  "explanation": "The gene page and search portal's NeuroSeq teaser now shows source groups rather than pooled populations: top five of 17 groups by the survey's group mean, with the group named under a multi-group population (NPY reporter / AgRP, SO AVP). EXPRESSION_SURVEY.md documents the change; BaselineSection rendering is in portalCards.tsx.",
+  "explanation": "Merged main (#30). The gene page and search portal NeuroSeq teaser now shows source groups rather than pooled populations (top five of 17 by the survey's group mean, with the group named under NPY reporter / AgRP and SO AVP), documented in EXPRESSION_SURVEY.md. From main, analysis-snapshot defaults moved from App into the explorer session; routes and views are unchanged and the runbook steps still hold.",
   "references": [
     "src/search/portalCards.tsx",
-    "docs/EXPRESSION_SURVEY.md"
+    "docs/EXPRESSION_SURVEY.md",
+    "src/explorer/explorerSession.ts",
+    "docs/agent-context/workflows.md"
   ]
 }
