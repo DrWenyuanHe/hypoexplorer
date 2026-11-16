@@ -1,13 +1,11 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "965b87844e484357981296ab4e10584f0b74a1e49e7dd0afdabfb56dc7d39808",
-  "outcome": "updated",
-  "explanation": "Merged main (#30). The gene page and search portal NeuroSeq teaser now shows source groups rather than pooled populations (top five of 17 by the survey's group mean, with the group named under NPY reporter / AgRP and SO AVP), documented in EXPRESSION_SURVEY.md. From main, analysis-snapshot defaults moved from App into the explorer session; routes and views are unchanged and the runbook steps still hold.",
+  "fingerprint": "62dcefc075c7d86614e52974e8e9f16b08d8ef6d69884c563ee4b5e486577743",
+  "outcome": "no-impact",
+  "explanation": "The expression survey refactor moves derivation and load lifecycle into expressionSurvey.ts and useSurveyLoad.ts without touching routing, explorer navigation, track loading, the export-action seam or gene pickers; the survey still downloads through downloadFile and exportFilename. The UI-change runbook steps and entry points stay as written; typecheck, lint, knip, focused Vitest tests and a browser check covered the change. From main, the explorer analysis snapshot moved into the explorer session and the survey loaders share sourceJson.ts; neither changes the UI-change runbook.",
   "references": [
-    "src/search/portalCards.tsx",
-    "docs/EXPRESSION_SURVEY.md",
-    "src/explorer/explorerSession.ts",
-    "docs/agent-context/workflows.md"
+    "docs/agent-context/workflows.md",
+    "src/expression-survey/ExpressionSurveyView.tsx"
   ]
 }

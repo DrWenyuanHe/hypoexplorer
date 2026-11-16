@@ -49,7 +49,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (226):
+Covered source files (228):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -139,6 +139,8 @@ Covered source files (226):
 - [src/__tests__/expressionIndex.test.ts](<../../../src/__tests__/expressionIndex.test.ts>)
 - [src/__tests__/expressionIndexBuild.test.ts](<../../../src/__tests__/expressionIndexBuild.test.ts>)
 - [src/__tests__/expressionRoute.test.tsx](<../../../src/__tests__/expressionRoute.test.tsx>)
+- [src/__tests__/expressionSurvey.test.ts](<../../../src/__tests__/expressionSurvey.test.ts>)
+- [src/__tests__/expressionSurveyLoad.test.tsx](<../../../src/__tests__/expressionSurveyLoad.test.tsx>)
 - [src/__tests__/expressionSurveyView.test.tsx](<../../../src/__tests__/expressionSurveyView.test.tsx>)
 - [src/__tests__/externalReference.test.ts](<../../../src/__tests__/externalReference.test.ts>)
 - [src/__tests__/fdr.test.ts](<../../../src/__tests__/fdr.test.ts>)
@@ -552,7 +554,7 @@ Start here:
 - [src/expression-survey/referenceExpression.ts](<../../../src/expression-survey/referenceExpression.ts>)
 - [data/expression/oxt-reference/README.md](<../../../data/expression/oxt-reference/README.md>)
 
-Covered source files (14):
+Covered source files (16):
 - [src/expression-survey/ExpressionSurveyView.tsx](<../../../src/expression-survey/ExpressionSurveyView.tsx>)
 - [src/expression-survey/existingCatalog.ts](<../../../src/expression-survey/existingCatalog.ts>)
 - [src/expression-survey/existingExpression.ts](<../../../src/expression-survey/existingExpression.ts>)
@@ -561,12 +563,14 @@ Covered source files (14):
 - [src/expression-survey/expressionIndex.ts](<../../../src/expression-survey/expressionIndex.ts>)
 - [src/expression-survey/expressionIndexFormat.ts](<../../../src/expression-survey/expressionIndexFormat.ts>)
 - [src/expression-survey/expressionSurvey.css](<../../../src/expression-survey/expressionSurvey.css>)
+- [src/expression-survey/expressionSurvey.ts](<../../../src/expression-survey/expressionSurvey.ts>)
 - [src/expression-survey/expressionTypes.ts](<../../../src/expression-survey/expressionTypes.ts>)
 - [src/expression-survey/externalReference.ts](<../../../src/expression-survey/externalReference.ts>)
 - [src/expression-survey/externalReferenceFormat.ts](<../../../src/expression-survey/externalReferenceFormat.ts>)
 - [src/expression-survey/neuroseqExpression.ts](<../../../src/expression-survey/neuroseqExpression.ts>)
 - [src/expression-survey/referenceExpression.ts](<../../../src/expression-survey/referenceExpression.ts>)
 - [src/expression-survey/sourceJson.ts](<../../../src/expression-survey/sourceJson.ts>)
+- [src/expression-survey/useSurveyLoad.ts](<../../../src/expression-survey/useSurveyLoad.ts>)
 
 ## gene-explorer
 
