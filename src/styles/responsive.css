@@ -254,8 +254,24 @@
 }
 .study-record-details .study-record-section:first-of-type { margin-top: 14px; }
 
-@media (max-width: 1100px) {
+/* The explorer header needs about 1450px for logo, breadcrumb and controls on
+   one line. Narrower, the breadcrumb takes a row of its own below them, instead
+   of the controls wrapping under a half-empty first row. */
+@media (max-width: 1499px) {
   .explorer-shell .site-header-breadcrumbs { flex-basis: 100%; order: 3; margin-left: 0 !important; }
+}
+/* Wider, the breadcrumb takes the free space and never wraps the controls: a
+   long population label truncates first (its full text stays in the title). */
+@media (min-width: 1500px) {
+  .explorer-shell .site-header-breadcrumbs { flex: 1 1 0; min-width: 0; flex-wrap: nowrap; }
+  /* The spacer would otherwise split the free space with the breadcrumb. */
+  .explorer-shell .site-header-breadcrumbs + div { flex: 0 0 0 !important; }
+  .explorer-shell .site-crumb-trail { flex-wrap: nowrap !important; min-width: 0; }
+  .explorer-shell .site-crumb:first-child { flex: 0 1 auto; }
+  .explorer-shell .site-crumb:first-child > :last-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .explorer-shell .site-header-controls { flex-shrink: 0; margin-left: 16px; }
+}
+@media (max-width: 1100px) {
   .explorer-hero { gap: 8px 12px !important; padding: 8px 16px !important; }
   .explorer-hero--compare { padding-block: 5px !important; }
 }

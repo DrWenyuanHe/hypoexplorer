@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "ba54dfabc454bcd7da260d4c11bc662589ceca6e2eb5cb8df8d5e14a1eb77b1c",
+  "fingerprint": "007d321db581fb2ee32a008494cf015c4a3aea95774a9014b3bd38843836434b",
   "outcome": "updated",
-  "explanation": "From main: vite.config.ts gates VitePWA on VITE_SERVICE_WORKER (selfDestroying when unset, full Workbox config kept for opt-in); deploy:cf and deploy:cf:dry run build instead of deploy:dist, so precompress is now Apache-only; verify_deploy treats the app sidecar yardstick as optional on the edge model, and the delivery, development, guidance and release docs and catalog describe this. From the mobile pass: index.html keeps the hub bar from shrinking under the beta notice at 320px and puts the phone hub nav on one sideways-scrolling line beside the compare pill. The UI-change runbook also records the explorer breadcrumb's phone layout; repository structure and commands are unchanged.",
+  "explanation": "From main: vite.config.ts gates VitePWA on VITE_SERVICE_WORKER (selfDestroying when unset, full Workbox config kept for opt-in); deploy:cf and deploy:cf:dry run build instead of deploy:dist, so precompress is now Apache-only; verify_deploy treats the app sidecar yardstick as optional on the edge model, and the delivery, development, guidance and release docs and catalog describe this. From the mobile pass: index.html keeps the hub bar from shrinking under the beta notice at 320px and puts the phone hub nav on one sideways-scrolling line beside the compare pill. The UI-change runbook also records the explorer breadcrumb's phone layout; repository structure and commands are unchanged. It now also records the explorer header's 1500px breadcrumb breakpoint.",
   "references": [
     "vite.config.ts",
     "package.json",

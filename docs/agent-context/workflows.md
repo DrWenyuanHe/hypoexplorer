@@ -230,7 +230,10 @@ actions stay on screen. On phones the hub nav stays one line that scrolls
 sideways beside the compare pill, and the explorer's header controls form an
 even 3 × 2 grid. Each explorer breadcrumb separator travels with the crumb
 after it, so a wrap never strands a slash; on phones the population and tab
-start a line under the dataset picker, without a leading slash. A scroller that holds absolutely positioned screen-reader
+start a line under the dataset picker, without a leading slash. Below 1500px
+the explorer breadcrumb takes its own header row, so the controls never wrap
+under a half-empty first row; wider, it shares the row and truncates the
+population label (full text in its title) before the controls would move. A scroller that holds absolutely positioned screen-reader
 labels (`.portal-table-wrap`) is itself positioned, or the labels escape it and
 widen the page. When changing these layouts, check 320px and 390px phones,
 768px tablets and a 1024px laptop, including a short landscape viewport, dialog
