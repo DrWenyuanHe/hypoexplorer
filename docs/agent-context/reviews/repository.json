@@ -1,11 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "4f42ee03d232b346eb8b28eb9fadade17a0b4f2746f8153b0f4f7d1444dc7999",
+  "fingerprint": "d0291314ee8d8384f6818cc550778fc55bffdbb9859c4f9ad9a2dfe526a4750e",
   "outcome": "updated",
-  "explanation": "CONTEXT.md adds the CSV seam bullet to the Architecture section and notes that saveGeneList writes CSV through it; no repository configuration, scripts or release policy changed.",
+  "explanation": "Merged main (#30, #31). CONTEXT.md carries every Architecture bullet: the CSV seam added on this branch (and the gene-list bullet naming it), plus the Expression-source reader and Explorer session bullets from main. The context catalog lists sourceJson.ts. No scripts, data, configuration or delivery paths change.",
   "references": [
     "CONTEXT.md",
-    "src/utils/csv.ts"
+    "docs/agent-context/catalog.json",
+    "src/utils/csv.ts",
+    "src/expression-survey/sourceJson.ts",
+    "src/explorer/explorerSession.ts"
   ]
 }

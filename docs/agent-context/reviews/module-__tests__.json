@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "a727aaa6a947917ddaea12405f7669d2e11699ec6f2a3af9e45973ce6666a3d6",
+  "fingerprint": "074e11ff081f7072b5b575acb2d6a4842bd5de86ed44767a430f0818f53a488a",
   "outcome": "updated",
-  "explanation": "csv.test.ts pins the CSV seam (escaping table, formula guard, BOM/CRLF, provenance columns); csvDownload.ts is the shared reader for a mocked downloadFile; csvDialog.test.tsx covers the HypoMap dialog download. Library, gene-list, gene and circadian export tests now read files through that helper, and the escaper-specific geneListFileText and libraryCsv tests were replaced.",
+  "explanation": "Merged main (#30, #31) into the CSV seam branch. From this branch: csv.test.ts pins the CSV seam (escaping table, formula guard, BOM/CRLF, provenance columns), csvDownload.ts is the shared reader for a mocked downloadFile, csvDialog.test.tsx covers the HypoMap dialog download, and the library, gene-list, gene and circadian export tests read files through that helper. From main: sourceJson.test.ts and baselineTeaser.test.ts cover the expression-source reader, and explorerSession.test.tsx pins the analysis snapshot defaults.",
   "references": [
     "src/__tests__/csv.test.ts",
     "src/__tests__/csvDownload.ts",
     "src/__tests__/csvDialog.test.tsx",
-    "src/__tests__/libraryExport.test.ts",
-    "src/__tests__/geneListFile.test.ts"
+    "src/__tests__/sourceJson.test.ts",
+    "src/__tests__/explorerSession.test.tsx"
   ]
 }

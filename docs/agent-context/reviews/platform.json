@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "43663b56024cb045d794c7d24b87941e59e448dd880fa85b02e8aa3012365454",
-  "outcome": "no-impact",
-  "explanation": "Doc and comment drift only (cleanup B3); no code path, export, route or data changes. App.tsx relabels a comment that called the local-datasets branch the hub's \"Explore all\" destination; the gene report now has its own comment naming #/gene/<symbol>.",
+  "fingerprint": "df9ad479b996ad6fadd333f2c3bf157ef90a3e1bdbe55af47b8c79232c069536",
+  "outcome": "updated",
+  "explanation": "App.tsx no longer decides which analysis is non-default from hand-typed literals. explorerAnalysis is session.snapshot({ contrastId, defaultContrastId: getActiveContrast(dataset), chartScale }), so the router still receives the same ExplorerAnalysisState (same field names and order, version 1), and existing deep links restore as before. App drops its DB_DEFAULT_FILTER and ExplorerAnalysisState imports.",
   "references": [
     "src/App.tsx",
-    "src/utils/appLinks.ts"
+    "src/explorer/explorerSession.ts"
   ]
 }

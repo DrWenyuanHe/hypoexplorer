@@ -1,13 +1,14 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { loadNeuroseqExpression, neuroseqSources, resetExpressionRequests, resolveNeuroseqGenes } from '../expression-survey/neuroseqExpression';
+import { loadNeuroseqExpression, neuroseqSources, resolveNeuroseqGenes } from '../expression-survey/neuroseqExpression';
+import { resetSourceRequests } from '../expression-survey/sourceJson';
 import type { NeuroseqManifest } from '../expression-survey/neuroseqExpression';
 
 function publicJson(path: string): unknown {
   return JSON.parse(readFileSync(`public${path.split('?')[0]}`, 'utf8'));
 }
 
-afterEach(() => { resetExpressionRequests(); vi.unstubAllGlobals(); });
+afterEach(() => { resetSourceRequests(); vi.unstubAllGlobals(); });
 
 describe('NeuroSeq expression import and sample mapping', () => {
   it('reproduces the independent browser values through the production loader', async () => {

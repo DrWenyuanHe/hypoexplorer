@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "0c4e21c05ea8825bfbbd107876bc70b76d440fed6872647e2b5487e47ed8811c",
+  "fingerprint": "865677ec9ca7b52d767f6809b70cc6cb2bd440c552e7e4b2727e472bcde7c392",
   "outcome": "updated",
-  "explanation": "The UI-change runbook now says every CSV is written by src/utils/csv.ts (escaping, formula guard, BOM/CRLF), beside the existing export-provenance rule, so new export buttons adopt the seam instead of escaping cells by hand.",
+  "explanation": "Merged main (#30, #31). The UI-change runbook now says every CSV is written by src/utils/csv.ts (escaping, formula guard, BOM/CRLF), beside the export-provenance rule. From main, the NeuroSeq teaser shows source groups rather than pooled populations and the analysis-snapshot defaults live in the explorer session; routes and views are unchanged and the remaining runbook steps still hold.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/utils/csv.ts",
-    "CONTEXT.md"
+    "src/search/portalCards.tsx",
+    "docs/EXPRESSION_SURVEY.md",
+    "src/explorer/explorerSession.ts"
   ]
 }

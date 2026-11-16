@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "528f592bfbae87e9924976bc4e681f09af72ca38c1be873d67051114c2899080",
-  "outcome": "no-impact",
-  "explanation": "The HypoMap CsvDialog keeps its props and preview but downloads through writeCsv and exportFilename instead of its own quoting, slug regex and Blob anchor. Search, synonym and atlas behaviour are unchanged.",
+  "fingerprint": "4ef240a2e299fb18d53a5bab0f2c3659f8b850689dca00cb3d759a7d87d7ca8c",
+  "outcome": "updated",
+  "explanation": "Merged main (#31). From this branch: the HypoMap CsvDialog keeps its props and preview but downloads through writeCsv and exportFilename instead of its own quoting, slug regex and Blob anchor. From main: loadBaselineTeaser projects the survey NeuroSeq results one row per source group, and BaselineTeaser carries groups (SourceGroupLevel) instead of populations.",
   "references": [
     "src/search/hypomap/CsvDialog.tsx",
     "src/utils/csv.ts",
-    "src/utils/exportAction.ts"
+    "src/search/searchSummaries.ts",
+    "src/search/portalCards.tsx",
+    "docs/EXPRESSION_SURVEY.md"
   ]
 }

@@ -45,8 +45,6 @@ import { PathwayReport } from './crossdataset/PathwayReport';
 import { ExplorerSearchDialog, type SearchMode } from './crossdataset/ExplorerSearchDialog';
 import { SearchPage } from './search/SearchPage';
 import { useCategoryScope } from './crossdataset/forestReport';
-import type { ExplorerAnalysisState } from './utils/analysisState';
-import { DB_DEFAULT_FILTER } from './data/constants';
 import { useChartScale, setChartScale } from './common/chartScaleStore';
 import { ShareAnalysisButton } from './common/ShareAnalysisButton';
 import { CrossDatasetCompare } from './crossdataset/CrossDatasetCompare';
@@ -201,18 +199,15 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
   // hands over one whole intent and never sets a position field itself.
   const explorerNav = useMemo(() => ({ navigate }), [navigate]);
 
-  const explorerAnalysis = useMemo<ExplorerAnalysisState | undefined>(() => {
-    const nonDefault = chartScale !== 'native' || contrast?.id !== getActiveContrast(dataset)?.id || geneSelection.genes.length > 0
-      || volcano.metric !== 'pval' || volcano.logFCThresh !== 0 || volcano.sigThresh !== 2
-      || pathway.search !== '' || pathway.fdrThresh !== 1 || pathway.sortKey !== 'nes'
-      || Object.entries(DB_DEFAULT_FILTER).some(([db, enabled]) => pathway.dbFilter[db] !== enabled);
-    return nonDefault ? {
-      version: 1, contrastId: contrast?.id ?? null, genes: geneSelection.genes, chartScale,
-      volcano: { metric: volcano.metric, logFCThresh: volcano.logFCThresh, sigThresh: volcano.sigThresh },
-      pathway: { search: pathway.search, dbFilter: pathway.dbFilter, fdrThresh: pathway.fdrThresh, sortKey: pathway.sortKey },
-    } : undefined;
-  }, [dataset, contrast, geneSelection.genes, chartScale, volcano.metric, volcano.logFCThresh, volcano.sigThresh,
-    pathway.search, pathway.dbFilter, pathway.fdrThresh, pathway.sortKey]);
+  // What counts as non-default, and how it is written down, is the session's
+  // call (explorerSession's `snapshot`, the inverse of `restoreAnalysis`); App
+  // only supplies the two pieces the session does not hold.
+  const { snapshot: snapshotAnalysis } = session;
+  const explorerAnalysis = useMemo(() => snapshotAnalysis({
+    contrastId: contrast?.id ?? null,
+    defaultContrastId: getActiveContrast(dataset)?.id ?? null,
+    chartScale,
+  }), [snapshotAnalysis, contrast, dataset, chartScale]);
 
   // The read side of that same seam: where the explorer currently IS, so the
   // router can put it in the URL. These three stay shell state — they drive a
