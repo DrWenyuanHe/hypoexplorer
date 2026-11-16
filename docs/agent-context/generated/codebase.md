@@ -49,7 +49,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (238):
+Covered source files (241):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -97,11 +97,13 @@ Covered source files (238):
 - [src/__tests__/chartScale.test.ts](<../../../src/__tests__/chartScale.test.ts>)
 - [src/__tests__/chartScaleToggle.test.tsx](<../../../src/__tests__/chartScaleToggle.test.tsx>)
 - [src/__tests__/circadianTimeSeries.test.ts](<../../../src/__tests__/circadianTimeSeries.test.ts>)
+- [src/__tests__/compareDownloads.test.ts](<../../../src/__tests__/compareDownloads.test.ts>)
 - [src/__tests__/compareSet.test.tsx](<../../../src/__tests__/compareSet.test.tsx>)
 - [src/__tests__/compareSetStore.test.ts](<../../../src/__tests__/compareSetStore.test.ts>)
 - [src/__tests__/compareSetView.test.tsx](<../../../src/__tests__/compareSetView.test.tsx>)
 - [src/__tests__/compareTabContrast.test.tsx](<../../../src/__tests__/compareTabContrast.test.tsx>)
 - [src/__tests__/compareTabLoading.test.tsx](<../../../src/__tests__/compareTabLoading.test.tsx>)
+- [src/__tests__/compareTabToolbar.test.tsx](<../../../src/__tests__/compareTabToolbar.test.tsx>)
 - [src/__tests__/concordanceReviewEvidence.test.ts](<../../../src/__tests__/concordanceReviewEvidence.test.ts>)
 - [src/__tests__/confirmDialog.test.tsx](<../../../src/__tests__/confirmDialog.test.tsx>)
 - [src/__tests__/contrastMatrix.test.tsx](<../../../src/__tests__/contrastMatrix.test.tsx>)
@@ -288,6 +290,7 @@ Covered source files (238):
 - [src/__tests__/versionWatch.test.ts](<../../../src/__tests__/versionWatch.test.ts>)
 - [src/__tests__/volcanoPlot.test.tsx](<../../../src/__tests__/volcanoPlot.test.tsx>)
 - [src/__tests__/workbook.test.ts](<../../../src/__tests__/workbook.test.ts>)
+- [src/__tests__/zip.test.ts](<../../../src/__tests__/zip.test.ts>)
 
 ## acknowledgements
 
@@ -390,11 +393,13 @@ Start here:
 - [src/compare/CompareTab.tsx](<../../../src/compare/CompareTab.tsx>)
 - [src/compare/CompareGenesView.tsx](<../../../src/compare/CompareGenesView.tsx>)
 
-Covered source files (6):
+Covered source files (8):
 - [src/compare/CompareGenesView.tsx](<../../../src/compare/CompareGenesView.tsx>)
 - [src/compare/ComparePathwayView.tsx](<../../../src/compare/ComparePathwayView.tsx>)
 - [src/compare/CompareTab.tsx](<../../../src/compare/CompareTab.tsx>)
+- [src/compare/DownloadMenu.tsx](<../../../src/compare/DownloadMenu.tsx>)
 - [src/compare/compareColumns.ts](<../../../src/compare/compareColumns.ts>)
+- [src/compare/compareFigureExport.ts](<../../../src/compare/compareFigureExport.ts>)
 - [src/compare/compareSummary.ts](<../../../src/compare/compareSummary.ts>)
 - [src/compare/resolveGene.ts](<../../../src/compare/resolveGene.ts>)
 
@@ -807,7 +812,7 @@ Start here:
 - [src/utils/sampleValues.ts](<../../../src/utils/sampleValues.ts>)
 - [src/utils/geneListFile.ts](<../../../src/utils/geneListFile.ts>)
 
-Covered source files (23):
+Covered source files (24):
 - [src/utils/analysisState.ts](<../../../src/utils/analysisState.ts>)
 - [src/utils/appLinks.ts](<../../../src/utils/appLinks.ts>)
 - [src/utils/axes.ts](<../../../src/utils/axes.ts>)
@@ -831,6 +836,7 @@ Covered source files (23):
 - [src/utils/sampleValues.ts](<../../../src/utils/sampleValues.ts>)
 - [src/utils/seRecovery.ts](<../../../src/utils/seRecovery.ts>)
 - [src/utils/workbook.ts](<../../../src/utils/workbook.ts>)
+- [src/utils/zip.ts](<../../../src/utils/zip.ts>)
 
 ## verification
 

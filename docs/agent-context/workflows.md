@@ -157,7 +157,9 @@ the reset/load each move costs, so no caller sets that state directly. A view
 that loads tracks outside the main explorer uses `src/data/trackColumns.ts`
 (per-column loading, failed and Retry states); every download names itself and
 writes its Metadata through `src/utils/exportProvenance.ts`; every CSV is written
-by `src/utils/csv.ts` (escaping, formula guard, BOM/CRLF); every gene picker is
+by `src/utils/csv.ts` (escaping, formula guard, BOM/CRLF, per-row provenance for
+long tables, and a metadata JSON split down its column under Excel's cell limit);
+multi-file downloads are stored ZIPs from `src/utils/zip.ts`; every gene picker is
 `GenePicker` over `src/explorer/geneVocabulary.ts`; sample
 values and export labels use sampleValues; bundle loading uses trackData.
 Header identity uses BrandLink and the shared brand asset constants. For logo,
@@ -206,8 +208,16 @@ record grid, and its chips scroll sideways on phones. A study opens as a record
 page (`StudyRecord`, `#/library/<id>`) in place of the hidden list: header
 actions, a fact strip, Overview/Verification tabs and a details panel that
 stacks below them under 900px; Escape and the breadcrumb return to the list. Selection and filters
-remain owned by their existing views. `ResponsiveDetails` folds study
-metadata and plot controls on small screens. The selected population, comparison
+remain owned by their existing views. The explorer shows the study as one
+compact line (name, organism, modality, arm pills and any exploratory-contrast
+warning) at every width; region, preparation and the dataset verification record
+sit behind its "Study details & verification" toggle. `ResponsiveDetails` folds
+plot controls on small screens. Compare keeps its population chips to one line
+("+N more" expands them), scrolls as one column under 900px or 700px tall, and
+offers long-format data (Excel with Compare, Values and Metadata sheets: one row
+per gene × population and one per animal; matching CSVs) and charts (one stitched
+PNG, or a ZIP of per-chart PNG or SVG drawn from each chart's own SVG through
+`src/compare/compareFigureExport.ts`) from one Download menu. The selected population, comparison
 and Plot/Table switch remain visible. Mobile pages use document scrolling and a
 minimum chart height; wide result tables scroll within their own containers.
 When changing these layouts, check 320px and 390px phones, 768px tablets and a

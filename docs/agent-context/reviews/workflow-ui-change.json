@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "cf13d6c22e046691ad0962a80e2036e997472dc60c27ebb9b3554b1aa46f4fd7",
-  "outcome": "no-impact",
-  "explanation": "No view, navigation or export changed. The QC table keeps its \"Sig (P<0.01)\" heading; qcTables.test.ts now asserts that heading against the writer's NSIG_P_THRESHOLD, and three studies' published nSig values now follow that rule instead of an FDR<0.05 count. The remaining churn is in bundle-writer and intake tests that this workflow's test set includes.",
+  "fingerprint": "caae62e67e10b25bcddde41de6d2eee027a0de407e5d7d2443aa190e752b7d84",
+  "outcome": "updated",
+  "explanation": "The UI-change runbook now records that CSVs may carry per-row provenance and split long metadata JSON under the spreadsheet cell limit, that multi-file downloads are stored ZIPs from utils/zip, and that Compare offers long-format Excel/CSV data with per-animal values and per-chart PNG or SVG ZIPs.",
   "references": [
-    "src/qc/qcTables.ts",
-    "src/__tests__/qcTables.test.ts",
-    "scripts/lib/bundleWriter.mts"
+    "docs/agent-context/workflows.md",
+    "src/utils/csv.ts",
+    "src/utils/zip.ts",
+    "src/compare/compareFigureExport.ts"
   ]
 }

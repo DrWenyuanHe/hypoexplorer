@@ -399,13 +399,23 @@
     .hub-search-go { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0; border: 0; border-radius: 50%; background: #2F5D8A; color: #ffffff; cursor: pointer; transition: background var(--t-fast) var(--ease); }
     .hub-search-go:hover { background: #264d73; }
 
-    .hub-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 28px; }
+    .hub-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 28px; }
     .hub-card { display: grid; gap: 5px; align-content: start; padding: 14px 16px 13px; text-align: left; background: var(--bg-panel); border: 1px solid var(--border); border-radius: 12px; font-family: inherit; color: var(--text-primary); cursor: pointer; transition: border-color var(--t-fast) var(--ease); }
     .hub-card:hover { border-color: var(--border-dark); }
     .hub-card strong { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; line-height: 1.3; }
     .hub-card-icon { display: inline-flex; color: var(--text-mono); }
     .hub-card-icon svg { width: 16px; height: 16px; }
-    .hub-card > span { font-size: var(--fs-13); line-height: 1.4; color: var(--text-muted); }
+    .hub-card > span, .hub-card-main > span { font-size: var(--fs-13); line-height: 1.4; color: var(--text-muted); }
+    /* A card with two actions: the main button stretches over the whole card
+       (its ::after), and the secondary link sits above that layer. */
+    .hub-card--split { position: relative; grid-template-rows: auto 1fr; }
+    .hub-card-main { display: grid; gap: 5px; align-content: start; padding: 0; text-align: left; background: none; border: 0; font: inherit; color: inherit; cursor: pointer; }
+    .hub-card-main::after { content: ''; position: absolute; inset: -1px; border-radius: 12px; }
+    .hub-card-sub { position: relative; z-index: 1; align-self: end; justify-self: start; margin-top: 4px; padding: 0; font: inherit; font-size: var(--fs-13); font-weight: 600; color: var(--text-mono); background: none; border: 0; cursor: pointer; }
+    .hub-card-sub:hover { color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px; }
+    .hub-card-main:focus-visible { outline: none; }
+    .hub-card-main:focus-visible::after { outline: 2px solid var(--color-selected); outline-offset: 2px; }
+    .hub-card-sub:focus-visible { outline: 2px solid var(--color-selected); outline-offset: 2px; border-radius: var(--r-sm); }
 
     .hub-nav button:focus-visible, .hub-search-go:focus-visible, .hub-search-clear:focus-visible, .hub-card:focus-visible, .hub-foot-link:focus-visible {
       outline: 2px solid var(--color-selected); outline-offset: 2px;
@@ -434,6 +444,8 @@
       .hub-main { padding: 48px 16px 32px; }
       .hub-search-kbd { display: none; }
       .hub-cards { grid-template-columns: 1fr; gap: 10px; margin-top: 20px; }
+      /* The secondary link gets the 44px touch height the footer links do. */
+      .hub-card-sub { display: inline-flex; align-items: center; min-height: 44px; margin: 0 0 -10px; }
       .hub-foot { padding: 20px 16px; }
       .hub-util-row { grid-template-columns: minmax(0, 1fr); gap: 4px; }
       /* Links get the same 44px touch height the buttons beside them do, so a

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { writeCsv, type CsvCell } from '../utils/csv';
+import { cellChunks, writeCsv, type CsvCell } from '../utils/csv';
 import { exportProvenance, trackSubject } from '../utils/exportProvenance';
 import { csvDownloadTable, csvDownloadText } from './csvDownload';
 import { makePopData, MACAQUE_DATASET } from './fixtures';
@@ -136,6 +136,44 @@ describe('writeCsv — provenance columns', () => {
     expect(second[header.indexOf('TrackID')]).toBe('e9');
     expect(JSON.parse(first[header.indexOf('ExportMetadataJSON')]).exportKind).toBe('genes_summary');
     expect(second[header.indexOf('ExportMetadataJSON')]).toBe('');
+  });
+
+  it('lets each row of a long table name its own track, keeping the file JSON once', () => {
+    const track = (code: string) => exportProvenance(
+      'compare', trackSubject(makePopData({ dataset: MACAQUE_DATASET, meta: { code } })), {},
+    );
+    const own = [track('e9'), track('i23')];
+    writeCsv('t.csv', ['Population'], [['e9'], ['i23']], { provenance, rowProvenance: (i) => own[i] });
+    const [header, first, second] = csvDownloadTable(downloadFile.mock.calls[0][1]);
+    expect(first[header.indexOf('TrackID')]).toBe('e9');
+    expect(second[header.indexOf('TrackID')]).toBe('i23');
+    // The file-level snapshot is the export's, not the first row's track.
+    expect(JSON.parse(first[header.indexOf('ExportMetadataJSON')]).exportKind).toBe('genes_summary');
+    expect(second[header.indexOf('ExportMetadataJSON')]).toBe('');
+  });
+
+  it('splits a metadata JSON longer than a spreadsheet cell down its column', () => {
+    const many = exportProvenance(
+      'genes_summary', trackSubject(makePopData({ dataset: MACAQUE_DATASET, meta: { code: 'e9' } })),
+      { note: 'x'.repeat(70_000) },
+    );
+    writeCsv('t.csv', ['Gene'], [['POMC'], ['AGRP']], { provenance: many });
+    const table = csvDownloadTable(downloadFile.mock.calls[0][1]);
+    const col = table[0].indexOf('ExportMetadataJSON');
+    const pieces = table.slice(1).map((row) => row[col]);
+    // Two data rows, then a third row that only continues the JSON.
+    expect(table).toHaveLength(4);
+    expect(table[3][0]).toBe('');
+    for (const piece of pieces) expect(piece.length).toBeLessThanOrEqual(32_767);
+    expect(JSON.parse(pieces.join('')).settings.note).toHaveLength(70_000);
+  });
+
+  it('never starts a piece where the formula guard would alter it', () => {
+    const text = `${'a'.repeat(9)}-1=2+3@x 😀${'b'.repeat(20)}`;
+    const pieces = cellChunks(text, 10);
+    expect(pieces.join('')).toBe(text);
+    for (const piece of pieces.slice(1)) expect(piece).not.toMatch(/^[\s=+\-@]/);
+    for (const piece of pieces) expect(piece).not.toMatch(/[\uD800-\uDBFF]$/);
   });
 
   it('writes the provenance header even when there are no rows', () => {

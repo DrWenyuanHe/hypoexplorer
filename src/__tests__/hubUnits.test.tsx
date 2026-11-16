@@ -1,8 +1,9 @@
 import { beforeEach, describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent, within } from '@testing-library/react';
 
-import { LandingHub } from '../hub/LandingHub';
-import { listDatasets } from '../data/datasets';
+import { HUB_ATLAS_ID, LandingHub } from '../hub/LandingHub';
+import { getDataset, listDatasets } from '../data/datasets';
+import { datasetHref } from '../utils/appLinks';
 
 // The box itself is covered by unifiedSearchBox.test.tsx; here the hub's own
 // wiring: one box, no mode switch, submitting to onSearch, and no vocabulary
@@ -107,6 +108,34 @@ describe('hub routes', () => {
     expect(h.onOpenLibrary.mock.calls[0][0]).toBeUndefined();
     fireEvent.click(screen.getByRole('button', { name: /^Survey baseline expression/ }));
     expect(h.onOpenExpression).toHaveBeenCalledTimes(1);
+  });
+
+  it('opens the macaque atlas and its population Compare view from the atlas card', () => {
+    window.location.hash = '';
+    renderHub();
+    const atlas = getDataset(HUB_ATLAS_ID);
+    expect(atlas).not.toBeNull();
+    const open = screen.getByRole('button', { name: /^Explore the macaque atlas/ });
+    // The detail line is read off the registry entry, not written down.
+    expect(open.textContent).toContain(atlas?.modality);
+    expect(open.textContent).toContain(atlas?.groups.map((g) => g.label).join(' vs '));
+    fireEvent.click(open);
+    expect(window.location.hash).toBe(datasetHref('macaque_snrna'));
+    expect(window.location.hash).toBe('#/dataset/macaque_snrna');
+
+    const compare = screen.getByRole('button', { name: 'Compare cell populations' });
+    // Two sibling controls: neither button sits inside the other.
+    expect(open.contains(compare)).toBe(false);
+    expect(compare.contains(open)).toBe(false);
+    fireEvent.click(compare);
+    expect(window.location.hash).toBe('#/dataset/macaque_snrna/compare');
+    window.location.hash = '';
+  });
+
+  it('leaves the atlas card out when the registry has no such study', () => {
+    render(<LandingHub datasets={listDatasets().filter((d) => d.id !== HUB_ATLAS_ID)} {...handlers()} />);
+    expect(screen.queryByRole('button', { name: /^Explore the macaque atlas/ })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Compare cell populations' })).toBeNull();
   });
 
   it('opens each side of the search dialog from the section nav', () => {

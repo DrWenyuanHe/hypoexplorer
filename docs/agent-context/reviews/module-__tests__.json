@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "cd54af4dbe446c9c7eab2c7b61429f18e4169cae4996b67469cb21456bd46d01",
+  "fingerprint": "c591c957f21e1cef42e1d5eb033a2a307cb1b44edc8042ac2a007234f35f9733",
   "outcome": "updated",
-  "explanation": "bundleWriter.test.ts gains a study-level block: one call writes several tracks, the merged meta/QC/pathway index, groupN from the registry default track, derived arm counts and is3v3 with stated-value agreement, and nSig counted as finite PValue < 0.01 regardless of a builder's stated count. New intakeStudies.test.ts runs a two-study fixture intake through buildIntakeStudies (publish, --check stale/missing detection, no partial publish, --only, value-compared registry, path and table guards). qcTables.test.ts pins the column heading to NSIG_P_THRESHOLD.",
+  "explanation": "New zip.test reads stored archives back through an independent parser (CRC-32 check value, UTF-8 names, folders, empty archive); compareDownloads covers the long Compare rows, the per-animal Values rows, the workbook sheet order and per-row CSV provenance; csv.test covers rowProvenance and splitting an over-long metadata JSON down its column; compareTabToolbar and exportProvenance follow the renamed Download menu items and the Values sheet.",
   "references": [
-    "src/__tests__/bundleWriter.test.ts",
-    "src/__tests__/intakeStudies.test.ts",
-    "src/__tests__/qcTables.test.ts",
-    "scripts/lib/intakeStudies.mts"
+    "src/__tests__/zip.test.ts",
+    "src/__tests__/compareDownloads.test.ts",
+    "src/__tests__/csv.test.ts",
+    "src/__tests__/compareTabToolbar.test.tsx",
+    "src/__tests__/exportProvenance.test.ts"
   ]
 }

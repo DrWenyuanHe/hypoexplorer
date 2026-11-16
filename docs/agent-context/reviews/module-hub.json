@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-hub",
-  "fingerprint": "21b9563272cd630b2e84bbe948355dfa523481250d76706744513189fa28b875",
+  "fingerprint": "b7ac016aabb17b1e2be50fb2746353b34178aed859b77f55689efcac4e756cd0",
   "outcome": "updated",
-  "explanation": "The hub Reference navigation drops its Research topics link because the prerendered /topics/ guides no longer exist. The Dataset library, Study pages and remaining reference links are unchanged, and the crawlable index.html skeleton loses the same link.",
+  "explanation": "LandingHub adds a third hero card for the macaque snRNA-seq atlas (HUB_ATLAS_ID) beside the library and expression survey cards: the card opens #/dataset/macaque_snrna and a sibling button opens its population Compare view through datasetHref and COMPARE_TRACK. The card is omitted when the registry lacks the atlas; hub CSS lays the cards out in three columns above 768px.",
   "references": [
     "src/hub/LandingHub.tsx",
-    "index.html"
+    "index.html",
+    "src/utils/appLinks.ts"
   ]
 }

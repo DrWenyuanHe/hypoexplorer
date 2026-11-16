@@ -65,3 +65,45 @@ describe('CellSelectorPopup — dialog chrome', () => {
     expect(document.body.style.overflow).toBe('');
   });
 });
+
+// With every population selected the chips wrapped to a dozen rows and pushed
+// the charts off screen. Collapsed, the row shows at most `collapsedChipCount`
+// chips (fewer when they do not fit one line; jsdom has no layout, so the cap
+// decides here) and a "+N more" that expands the list inline.
+describe('CellSelectorPopup — collapsed chip row', () => {
+  const ALL = ['e9', 'i23', 'e33', 'i26', 'i40', 'o30', 'e38'];
+
+  it('shows the first chips and "+N more", expands with it and collapses with Show less', () => {
+    render(<CellSelectorPopup meta={POP_META_FIXTURE} selectedPops={ALL} onChange={() => {}} collapsedChipCount={3} />);
+    expect(screen.getAllByLabelText(/^Remove /)).toHaveLength(3);
+    const more = screen.getByRole('button', { name: 'Show all 7 selected populations' });
+    expect(more.textContent).toBe('+4 more');
+    expect(more.getAttribute('aria-expanded')).toBe('false');
+
+    fireEvent.click(more);
+    expect(screen.getAllByLabelText(/^Remove /)).toHaveLength(7);
+    const less = screen.getByRole('button', { name: 'Show less' });
+    expect(less.getAttribute('aria-expanded')).toBe('true');
+
+    fireEvent.click(less);
+    expect(screen.getAllByLabelText(/^Remove /)).toHaveLength(3);
+  });
+
+  it('has no toggle when every chip fits under the cap', () => {
+    render(<CellSelectorPopup meta={POP_META_FIXTURE} selectedPops={['e9', 'i23', 'e33']} onChange={() => {}} collapsedChipCount={3} />);
+    expect(screen.queryByRole('button', { name: /Show all/ })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Show less' })).toBeNull();
+  });
+
+  it('offers Reset outside the modal only when the selection differs from the default', () => {
+    const onChange = vi.fn();
+    const { rerender } = render(<CellSelectorPopup meta={POP_META_FIXTURE} selectedPops={['i23', 'e9']}
+      onChange={onChange} defaultSelection={['e9', 'i23']} />);
+    // Same set in another order is still the default.
+    expect(screen.queryByRole('button', { name: 'Reset to the default selection' })).toBeNull();
+
+    rerender(<CellSelectorPopup meta={POP_META_FIXTURE} selectedPops={ALL} onChange={onChange} defaultSelection={['e9', 'i23']} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Reset to the default selection' }));
+    expect(onChange).toHaveBeenCalledWith(['e9', 'i23']);
+  });
+});

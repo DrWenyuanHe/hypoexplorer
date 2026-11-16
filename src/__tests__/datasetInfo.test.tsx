@@ -80,6 +80,32 @@ describe('explorer hero — Dataset info button', () => {
   });
 });
 
+// The study line stays one line: region, preparation and the verification
+// record sit behind a disclosure that is collapsed by default but always present.
+describe('explorer study line — Study details & verification disclosure', () => {
+  it('keeps study facts and verification one click away', () => {
+    const { container } = render(<App initialView="explorer" />);
+    const toggle = screen.getByRole('button', { name: /Study details & verification/i });
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    expect(container.querySelector('#explorer-study-details')).toBeNull();
+
+    fireEvent.click(toggle);
+    expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    const details = container.querySelector('#explorer-study-details') as HTMLElement;
+    expect(details).toBeTruthy();
+    expect(toggle).toHaveAttribute('aria-controls', 'explorer-study-details');
+    const dataset = getDataset('macaque_snrna')!;
+    expect(within(details).getByText(dataset.region)).toBeTruthy();
+    expect(within(details).getByText(dataset.preparation)).toBeTruthy();
+    // The verification record (or its explicit "not assessed" fallback) rides inside.
+    expect(details.textContent).toMatch(/Dataset verification|Verification not assessed/);
+
+    fireEvent.click(toggle);
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    expect(container.querySelector('#explorer-study-details')).toBeNull();
+  });
+});
+
 // ── Factorial replicate counts ──────────────────────────────────────────
 // A 2x2 dataset has six groups (the two pooled diet arms plus the four cells),
 // but the legacy qcFlags pair only ever knows the DEFAULT contrast's baseline

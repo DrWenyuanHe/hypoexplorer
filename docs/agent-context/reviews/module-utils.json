@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "module-utils",
-  "fingerprint": "f95c31c8f4614907b42adc40775baabf32bd832ac7282f9052d53da504ec0d20",
+  "fingerprint": "27bf32a5e7ff01cb0f09a72e7fef0a5a61ed5b1610e4fe23a622e105b9f01ff2",
   "outcome": "updated",
-  "explanation": "New CSV seam src/utils/csv.ts: writeCsv(filename, columns, rows, { provenance? }) owns the one CSV byte policy (UTF-8 BOM, CRLF, minimal quoting), the spreadsheet formula guard for string cells, the provenance-column layout and the downloadFile hand-off. exportProvenance.ts drops exportCsvCell and provenanceColumnValues; geneListFile.ts saves its CSV through the seam. CONTEXT.md gains the CSV seam bullet.",
+  "explanation": "utils/zip adds a dependency-free store-only ZIP writer (CRC-32, UTF-8 names, size limits refused rather than written corrupt). utils/csv gains an optional rowProvenance so a long table names each row's own track, and splits ExportMetadataJSON down its column in chunks under Excel's 32,767-character cell limit; small JSON is still one cell in the first data row.",
   "references": [
+    "src/utils/zip.ts",
     "src/utils/csv.ts",
-    "src/utils/exportProvenance.ts",
-    "src/utils/geneListFile.ts",
-    "src/utils/exportAction.ts",
-    "CONTEXT.md"
+    "src/utils/exportProvenance.ts"
   ]
 }
