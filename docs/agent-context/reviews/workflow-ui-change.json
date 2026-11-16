@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "cdf3154d7ccda3b68f0d90125b1e11fa66e47286903599c61fdf674c26a07e53",
+  "fingerprint": "c986febd3f15f1edfbe6a20241d8eee5f44a5a52f03aaa0b57ce997e01c16336",
   "outcome": "no-impact",
-  "explanation": "The tracker change uses no routing, explorer navigation, track loading, export or gene-picker path, so the UI-change runbook steps and their canonical entry points stay as written. Typecheck, focused Vitest tests and a browser check at desktop and phone widths covered it, as the runbook asks.",
+  "explanation": "The UI-change runbook steps still hold: navigation still goes through appRouter and explorer position intents, and the routes and views are unchanged. Only where the analysis-snapshot defaults live moved from App into the explorer session, which CONTEXT.md (already required reading in this runbook) now describes. Typecheck, focused Vitest tests and a browser deep-link check covered it.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/dataset-tracker/DatasetTrackerView.tsx"
+    "CONTEXT.md",
+    "src/explorer/explorerSession.ts"
   ]
 }
