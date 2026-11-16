@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-qc",
-  "fingerprint": "4f1e3b1f00c7a99b58f590db4ed6817d8d295c2ca12c6e9f1f5c7aad39b1deed",
+  "fingerprint": "a8595d8540abb65f88734bf2b07b78fb3d8b168ff53dfd4710cfe02c3fa08d66",
   "outcome": "updated",
-  "explanation": "QCTab takes a single onSelectTrack callback in place of switchPop plus setActiveTab. Landing on the Gene Explorer after a QC row click is now the explorer position rule for dataset-scoped tabs, not the tab component naming a tab itself.",
+  "explanation": "The QC table's nSig column heading changes from 'Sig (P<0.01)' to 'Sig (FDR<0.05)', the same significance call the rest of the app uses. deSummary[].nSig is now counted by the bundle writer as finite FDR < NSIG_FDR_THRESHOLD in the default-contrast table; qcTables only renders it. The macaque atlas has no nSig and keeps its own FDR/logFC DEG columns.",
   "references": [
-    "src/qc/QCTab.tsx",
-    "src/explorer/explorerPosition.ts"
+    "src/qc/qcTables.ts",
+    "scripts/lib/bundleWriter.mts",
+    "src/__tests__/qcTables.test.ts"
   ]
 }

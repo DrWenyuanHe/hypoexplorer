@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "fe1272e101875338d0daeca56478706f8531194f59383ab97f7b60ceef158fa5",
+  "fingerprint": "25cb029c8808345b946a56187e4daf46bc6fb3b33bac1d468801fc500dd2ca8b",
   "outcome": "updated",
-  "explanation": "From main: vite.config.ts gates VitePWA on VITE_SERVICE_WORKER (selfDestroying when unset, full Workbox config kept for opt-in); deploy:cf and deploy:cf:dry run build instead of deploy:dist, so precompress is now Apache-only; verify_deploy treats the app sidecar yardstick as optional on the edge model, and the delivery, development, guidance and release docs and catalog describe this. From the mobile pass: index.html keeps the hub bar from shrinking under the beta notice at 320px and puts the phone hub nav on one sideways-scrolling line beside the compare pill; the UI-change runbook records the explorer breadcrumb's phone layout and its 1500px breakpoint. From this branch: the catalog's statistics area names the shared FDR / p < 0.05 listing toggle and references listingModeStore.ts, the generated AGENTS.md map line follows it, and the UI-change runbook names the listing mode, TierLabel and QTerm as the shared pieces for significance tables. Repository structure and commands are unchanged.",
+  "explanation": "From main: vite.config.ts gates VitePWA on VITE_SERVICE_WORKER (selfDestroying when unset, full Workbox config kept for opt-in); deploy:cf and deploy:cf:dry run build instead of deploy:dist, so precompress is now Apache-only; verify_deploy treats the app sidecar yardstick as optional on the edge model, and the delivery, development, guidance and release docs and catalog describe this. From the mobile pass: index.html keeps the hub bar from shrinking under the beta notice at 320px and puts the phone hub nav on one sideways-scrolling line beside the compare pill; the UI-change runbook records the explorer breadcrumb's phone layout and its 1500px breakpoint. From this branch: the catalog's statistics area names the shared FDR / p < 0.05 listing toggle and references listingModeStore.ts, the generated AGENTS.md map line follows it, and the UI-change runbook names the listing mode, TierLabel and QTerm as the shared pieces for significance tables. Repository structure and commands are unchanged. From the nSig branch: CONTEXT.md's Bundle-writer seam bullet now states the nSig rule as finite FDR < 0.05, matching the QC heading and the app's significance call, instead of nominal P < 0.01. The geo, batch2 and normalized builders log the FDR count. Every bulk study's qc_global.js nSig changes on the next bundle rebuild except the studies already counted at FDR < 0.05.",
   "references": [
     "vite.config.ts",
     "package.json",
@@ -14,6 +14,10 @@
     "docs/agent-context/catalog.json",
     "index.html",
     "docs/agent-context/workflows.md",
-    "src/statistics/listingModeStore.ts"
+    "src/statistics/listingModeStore.ts",
+    "CONTEXT.md",
+    "scripts/lib/bundleWriter.mts",
+    "scripts/build_geo_datasets.mts",
+    "scripts/build_normalized_bundles.mts"
   ]
 }

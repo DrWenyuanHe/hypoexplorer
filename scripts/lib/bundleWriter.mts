@@ -75,14 +75,16 @@ export function defaultContrastBinding(
 
 /**
  * The one rule behind every bundle's `deSummary[].nSig`, the QC table's
- * "Sig (P<0.01)" column: rows of the default-contrast table with a finite
- * nominal P below this threshold. The writer counts it; builders never do.
+ * "Sig (FDR<0.05)" column and the app's significance call everywhere else:
+ * rows of the default-contrast table with a finite FDR below this threshold.
+ * A null FDR (R's NA on small-n designs) is not significant. The writer counts
+ * it; builders never do.
  */
-export const NSIG_P_THRESHOLD = 0.01;
+export const NSIG_FDR_THRESHOLD = 0.05;
 
 /** `deSummary[].nSig` for one default-contrast table. */
-export function countNominallySignificant(de: readonly Pick<GeneDERecord, 'PValue'>[]): number {
-  return de.filter((row) => Number.isFinite(row.PValue) && row.PValue < NSIG_P_THRESHOLD).length;
+export function countFdrSignificant(de: readonly Pick<GeneDERecord, 'FDR'>[]): number {
+  return de.filter((row) => typeof row.FDR === 'number' && Number.isFinite(row.FDR) && row.FDR < NSIG_FDR_THRESHOLD).length;
 }
 
 /**
@@ -103,7 +105,7 @@ export interface TrackBundlePayload {
   extraContrastBindings?: readonly ContrastBinding[];
   color: string;
   /**
-   * @deprecated Ignored: the writer counts nSig itself (countNominallySignificant).
+   * @deprecated Ignored: the writer counts nSig itself (countFdrSignificant).
    * Accepted only so the audited intake builders, whose bytes are fingerprinted,
    * keep compiling unchanged.
    */
@@ -384,7 +386,7 @@ export function planPathwayBundles(
  * `qc_global.js`, and one `pathways_index.js` over every track's pathway
  * blocks. `tracks` is the study's complete track list in display order and
  * must include the registry's `defaultTrack`. The writer derives each track's
- * `nSig` (countNominallySignificant), arm counts and `is3v3`; `groupN` comes
+ * `nSig` (countFdrSignificant), arm counts and `is3v3`; `groupN` comes
  * from the default track when it declares factorial design cells.
  */
 export function writeDatasetBundles(
@@ -480,7 +482,7 @@ export function writeDatasetBundles(
       cluster: qc.cluster,
       clusterLabel: qc.clusterLabel,
       nGenes: track.meta.nGenes,
-      nSig: countNominallySignificant(track.de),
+      nSig: countFdrSignificant(track.de),
     })),
     fgseaSummary: [],
     composition: {

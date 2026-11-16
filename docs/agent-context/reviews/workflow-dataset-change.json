@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "0d306baff97d37d8822e856521b9c1d0892506caea2a39ab907de98da05b4053",
-  "outcome": "no-impact",
-  "explanation": "Only scripts/precompress_dist.mts comments and verify_deploy.mts app-origin compression handling changed. Dataset registration, bundle building, R2 upload ordering, ?v= cache keys and the data-origin probes in verify_deploy are untouched, so the dataset change workflow is unaffected.",
+  "fingerprint": "bca6703e76064c9f9834400a9001801f02814e339e3832c1fce47629ecd5b38d",
+  "outcome": "updated",
+  "explanation": "The dataset-change route now says the writer derives nSig at FDR < 0.05 rather than P < 0.01. Builders still pass every track of a study to one writeDatasetBundles call; after this change, rebuilt bundles carry FDR counts in qc_global.js and must be uploaded before the matching app build goes live.",
   "references": [
-    "scripts/verify_deploy.mts",
-    "scripts/precompress_dist.mts",
-    "docs/agent-context/workflows.md"
+    "docs/agent-context/workflows.md",
+    "scripts/lib/bundleWriter.mts",
+    "scripts/build_normalized_bundles.mts"
   ]
 }
