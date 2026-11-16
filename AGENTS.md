@@ -47,7 +47,7 @@ Source areas:
 - `methodology`: Methodology reference page for the collection.
 - `nomenclature`: Symbol and authority reference interface.
 - `pathway-explorer`: Enrichment tables, leading edges and pathway plots.
-- `pwa`: Service-worker updates and version handling.
+- `pwa`: Version-stamp update prompt and the opt-in service worker.
 - `qc`: Track-level QC tables and enrichment diagnostics.
 - `search`: Unified gene and pathway search, synonym dictionary, results portal and gated HypoMap atlas views.
 - `statistics`: Statistical definitions and interpretation limits.

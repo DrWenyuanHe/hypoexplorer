@@ -5,7 +5,8 @@ The [package scripts](../../package.json) define the canonical command chains.
 the scientific checks (`check:*`) are separate commands, most of which need
 retained inputs that are not here. The build needs the gitignored query catalog in
 `public/query/` (`pnpm run fetch:query` or `pnpm run prepare:deploy`).
-`pnpm run deploy:dist` builds and precompresses delivery assets.
+`pnpm run deploy:dist` builds and writes brotli/gzip sidecars for an Apache
+upload; the Cloudflare deploy does not use it (see below).
 The app CI workflow runs type checks, lint, `deadcode` (knip), `context:check`, tests and a
 built-site Chromium smoke check. It fetches the query catalog and the reference
 atlases from the live origins instead of building them, so it checks the app
@@ -36,7 +37,7 @@ file sizes first, so it stays a few seconds. The expression-index builder refuse
 to pin such an input rather than record a checksum no other checkout reproduces.
 
 The site is an assets Worker configured in [wrangler.jsonc](../../wrangler.jsonc).
-`pnpm run deploy:cf` runs `prepare:deploy`, `deploy:dist`, `verify:release`,
+`pnpm run deploy:cf` runs `prepare:deploy`, `build`, `verify:release`,
 `wrangler deploy` and `verify:deploy`; `deploy:cf:dry` stops at
 `wrangler deploy --dry-run`. [prepare_deploy.mts](../../scripts/prepare_deploy.mts)
 fetches the gitignored inputs the build ships (query catalog, tracker catalog,
@@ -45,7 +46,10 @@ when the local query pointers differ from the data origin's, because the app
 would pin an index R2 does not serve (`--refresh-query` takes the origin's).
 `verify:release` fails when `dist/` lacks an atlas file or the tracker catalog,
 and `verify:deploy` checks that the live site serves them. Keep the
-assets-only site on native Cloudflare delivery.
+assets-only site on native Cloudflare delivery. Cloudflare compresses at the
+edge and ignores the sidecars, so `public/.htaccess`, `scripts/precompress_dist.mts`
+and `deploy:dist` are kept only as an Apache rollback; `public/_headers` is the
+live cache policy.
 
 The R2 custom domain `data.hypoexplorer.com` serves bundles directly; no Worker
 sits in front of it (the earlier data gate Worker was retired in 2026-10). R2
@@ -113,15 +117,25 @@ check-and-write sequence is not a distributed atomic transaction.
 
 The uploader stores `public, max-age=300` on `/query/tracks.js` and
 `/query/expression-manifest.js`, the only mutable objects, and year-long
-immutable caching on everything else. The service worker also limits mutable
-pointers to 300 seconds. App version 0.14.2 changes their browser URLs to escape
+immutable caching on everything else. When enabled, the service worker also
+limits mutable pointers to 300 seconds. App version 0.14.2 changes their browser URLs to escape
 previously cached responses. The edge lifetime of the pointers follows the edge
 cache rules and the post-upload purge described in
 [edge protection](../EDGE_PROTECTION.md).
 `public/query/` is generated and ignored. Off-origin builds remove dataset,
 query and QC trees from site assets; the tracker catalog stays origin-relative.
-Prerendered public documents are real assets, and service-worker navigation
-fallback is scoped to the root document. Updates stay prompt-gated
+Prerendered public documents are real assets.
+
+The service worker is off by default: unless a build sets
+`VITE_SERVICE_WORKER=1`, `vite.config.ts` emits vite-plugin-pwa's self-destroying
+`sw.js`, which unregisters a returning visitor's old worker, clears its caches and
+reloads its tabs, and `registerUpdates()` registers nothing. On this hosting the
+worker no longer paid for itself: cross-origin bundles arrive opaque, so its data
+caches stayed empty, and the assets Worker deploys atomically. `public/_headers`
+keeps `/sw.js` on `no-cache` so the self-destroying stub reaches old installs.
+`src/pwa/versionWatch.ts` polls `/version.json` and is the stale-tab detector
+either way. The full worker code is kept for a host where it would help. With
+the flag on, navigation fallback is scoped to the root document. Updates stay prompt-gated
 (`registerType: 'prompt'`, no `skipWaiting`), while `clientsClaim` lets an
 activated worker control tabs that had no controller. `applyWaitingWorker()` in
 `src/pwa/registerUpdates.ts` reloads on `controllerchange`, reloads plainly when
@@ -130,7 +144,8 @@ an 8-second watchdog.
 
 The [brand guide](../../brand/README.md) identifies the approved raster masters
 and regeneration command. Header art and browser/app icons ship from
-`public/brand/v1/`; the PWA precaches them with the shared brand CSS. Confirm
+`public/brand/v1/`; with the service worker enabled, the PWA precaches them
+with the shared brand CSS. Confirm
 the root document and public pages both emit the shared icon links, and check
 `dist/manifest.webmanifest` when changing installed-app icons.
 

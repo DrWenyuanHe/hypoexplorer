@@ -213,7 +213,10 @@ remain owned by their existing views. The explorer shows the study as one
 compact line (name, organism, modality, arm pills and any exploratory-contrast
 warning) at every width; region, preparation and the dataset verification record
 sit behind its "Study details & verification" toggle. `ResponsiveDetails` folds
-plot controls on small screens. Compare keeps its population chips to one line
+plot controls on small screens. Compare's link carries its view
+(`/compare[/pathways]?pops=…&genes=…`, parsed in `src/utils/appLinks.ts`), so a
+refresh, Back or a copied link reopens the same comparison; its summary table
+reads down, one row per gene × population. Compare keeps its population chips to one line
 ("+N more" expands them), scrolls as one column under 900px or 700px tall, and
 offers long-format data (Excel with Compare, Values and Metadata sheets: one row
 per gene × population and one per animal; matching CSVs) and charts (one stitched

@@ -1,5 +1,12 @@
 // Service-worker registration for the mandatory update flow.
 //
+// DORMANT ON CLOUDFLARE. Nothing here runs unless the build sets
+// VITE_SERVICE_WORKER=1; by default the build ships a self-destroying sw.js
+// instead (see the note above VitePWA() in vite.config.ts for why). The code is
+// kept, not deleted, so a move to a host that benefits from an offline worker
+// is a flag flip. Registering while the self-destroying worker is deployed
+// would reload every page on every visit, which is why the gate below matters.
+//
 // Called once at bootstrap (main.tsx), fire-and-forget. It dynamically imports
 // vite-plugin-pwa's virtual module and wires registerSW so that when a newly
 // deployed SW parks itself in "waiting", we surface <UpdateModal> instead of
@@ -147,7 +154,15 @@ export function watchForSilentTakeover(): void {
   });
 }
 
+// Build-time switch, mirrored from vite.config.ts. Read through a widened type,
+// as bundleBase.ts does for VITE_BUNDLE_CORS, so no ImportMetaEnv entry is needed.
+export const SERVICE_WORKER_ENABLED =
+  (import.meta as { env?: Record<string, string | undefined> }).env?.VITE_SERVICE_WORKER === '1';
+
 export async function registerUpdates(): Promise<void> {
+  // Off (the default): the deployed sw.js is the self-destroying one.
+  if (!SERVICE_WORKER_ENABLED) return;
+
   // Dev: the production SW isn't generated, so there's nothing to register.
   if (import.meta.env.DEV) return;
 

@@ -22,6 +22,23 @@ export interface ExplorerAnalysisState {
   pathway: { search: string; dbFilter: Record<string, boolean>; fdrThresh: number; sortKey: string };
 }
 
+/**
+ * What the explorer's Compare view is showing, as its link carries it:
+ * `#/dataset/<id>/compare[/pathways]?pops=a,b&genes=X,Y`. An absent field is
+ * that field's default (the dataset's curated pair, no genes, the Genes
+ * sub-tab), so an untouched Compare keeps the plain `/compare` link.
+ */
+export interface CompareViewState {
+  pops?: string[];
+  genes?: string[];
+  mode?: 'genes' | 'pathways';
+}
+
+/** Compare-view lists: non-empty, bounded, deduplicated ids. Null when malformed. */
+export function parseCompareList(value: string[], limit: number): string[] | null {
+  return value.length > 0 && strings(value, limit) ? [...new Set(value)] : null;
+}
+
 export const DEFAULT_STUDY_ANALYSIS: StudyAnalysisState = {
   version: 1, datasetIds: null, categories: null, filters: { minSamples: 0, requiredChecks: [] },
 };

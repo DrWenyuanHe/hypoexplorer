@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "4215ddf3d716e1bca5c00f9f5ecf393f14484ff31cbc357e53ff66dc69dfb09b",
+  "fingerprint": "3b54d4a79d1cf677cdafd400d14534d6c643c5011cc6a21ec871aa0e528d0d02",
   "outcome": "no-impact",
-  "explanation": "Only the VerificationView presentation changed (word wrapping in its tables and review-note lists for phones); the verification workflow, evidence sources, statuses and acceptance criteria are unchanged.",
+  "explanation": "verify_deploy.mts changes only the app-origin compression check (sidecar yardstick optional on the Cloudflare edge model, explicit failure if an Apache host serves sidecars without a local one) and its redeploy hints, and VerificationView only changes word wrapping in its tables and review-note lists for phones. Scientific evidence, QC review, statuses and verification records are unaffected.",
   "references": [
+    "scripts/verify_deploy.mts",
     "src/verification/VerificationView.tsx",
+    "docs/agent-context/workflows.md",
     "data/author-validation/README.md"
   ]
 }

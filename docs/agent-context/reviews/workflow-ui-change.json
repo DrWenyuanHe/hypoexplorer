@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "5be8e1265e6d339463eb556b42a3c2b507eb15705a4cf8ab6d470d47cc522462",
+  "fingerprint": "dc4ea4234610f6bcc3001d95f053cffd43c59a37b8a3115c5f67a14a7910b7c8",
   "outcome": "updated",
-  "explanation": "The UI-change runbook now records the phone restacking of the gene and pathway result rows, the one-line hub nav and 3 x 2 explorer header, the library starting on cards at phone width, the positioned portal-table-wrap rule, and a check that window.innerWidth equals the device width after load.",
+  "explanation": "The UI-change runbook states that Compare links carry their view (/compare[/pathways]?pops=…&genes=…, parsed in appLinks) so a refresh, Back or copied link reopens the same comparison, and that the Compare summary table reads down one row per gene × population. It also records the phone restacking of the gene and pathway result rows, the one-line hub nav and 3 x 2 explorer header, the library starting on cards at phone width, the positioned portal-table-wrap rule, and a check that window.innerWidth equals the device width after load.",
   "references": [
     "docs/agent-context/workflows.md",
+    "src/utils/appLinks.ts",
     "src/crossdataset/forestReport.css",
     "src/search/search.css",
     "src/styles/responsive.css"
