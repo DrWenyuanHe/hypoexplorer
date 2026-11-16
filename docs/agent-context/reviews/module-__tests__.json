@@ -1,14 +1,11 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "c591c957f21e1cef42e1d5eb033a2a307cb1b44edc8042ac2a007234f35f9733",
+  "fingerprint": "c7ca893a2515d3310e2c667e665fe6ee180344296413c8a3b7b6c1a9acd29ac5",
   "outcome": "updated",
-  "explanation": "New zip.test reads stored archives back through an independent parser (CRC-32 check value, UTF-8 names, folders, empty archive); compareDownloads covers the long Compare rows, the per-animal Values rows, the workbook sheet order and per-row CSV provenance; csv.test covers rowProvenance and splitting an over-long metadata JSON down its column; compareTabToolbar and exportProvenance follow the renamed Download menu items and the Values sheet.",
+  "explanation": "New compareLinks tests pin the Compare link codec (pops, genes and the /pathways sub-tab round-trip, an id comma stays inside it, analysis-only links stay byte-identical, malformed or unknown fields are rejected) and, in the mounted app, that a Compare link restores its populations and genes, drops ids the dataset lacks and rewrites the URL on change; compareTabToolbar checks the summary table reads one row per gene × population.",
   "references": [
-    "src/__tests__/zip.test.ts",
-    "src/__tests__/compareDownloads.test.ts",
-    "src/__tests__/csv.test.ts",
-    "src/__tests__/compareTabToolbar.test.tsx",
-    "src/__tests__/exportProvenance.test.ts"
+    "src/__tests__/compareLinks.test.tsx",
+    "src/__tests__/compareTabToolbar.test.tsx"
   ]
 }

@@ -51,7 +51,10 @@ import { COMPARE_TRACK, type NavigationIntent } from './explorer/explorerPositio
 import { loadDatasetMeta } from './data/loadDatasetMeta';
 import { type AppRoute, type CompareSetRouteItem, parseRoute, routeHref } from './utils/appLinks';
 import { COMPARE_SET_MAX, compareSetKey, type CompareSetItem } from './compareset/compareSetStore';
-import { DEFAULT_STUDY_ANALYSIS, hasStudyAnalysis, type ExplorerAnalysisState, type StudyAnalysisState } from './utils/analysisState';
+import {
+  DEFAULT_STUDY_ANALYSIS, hasStudyAnalysis,
+  type CompareViewState, type ExplorerAnalysisState, type StudyAnalysisState,
+} from './utils/analysisState';
 import { listContrasts } from './data/contrasts';
 import { setChartScale, useChartScale } from './common/chartScaleStore';
 import type { SearchFilter } from './search/searchTypes';
@@ -112,6 +115,8 @@ export interface ExplorerAt {
   trackId: string;
   tab: string;
   analysis?: ExplorerAnalysisState;
+  /** In Compare: what it shows, defaults already left out (see CompareViewState). */
+  compare?: CompareViewState;
 }
 
 export interface AppRouter {
@@ -255,6 +260,19 @@ interface BootState {
 }
 
 /** Keep an explicitly empty or obsolete study set empty, never widen it. */
+/**
+ * A Compare link's view, checked against the dataset's real populations: an id
+ * the dataset no longer has is dropped, and fewer than two left means the
+ * dataset's default pair (a comparison of one is not a comparison). Genes and
+ * the sub-tab need no check here; a gene a population lacks shows as such.
+ */
+function compareViewFor(view: CompareViewState | undefined, populations: readonly string[]): CompareViewState {
+  if (!view) return {};
+  const { pops, ...rest } = view;
+  const known = pops?.filter((id) => populations.includes(id));
+  return known && known.length >= 2 ? { ...rest, pops: known } : rest;
+}
+
 function resolveStudyAnalysis(analysis?: StudyAnalysisState): StudyAnalysisState {
   return analysis ? {
     ...analysis,
@@ -623,9 +641,10 @@ export function useAppRouter(
         // One atomic intent: the explorer position applies the tab (degrading
         // one this track does not offer), Compare and the saved contrast
         // together, so no intermediate position ever renders.
-        const land = (trackId?: string, compare = false) => {
+        const land = (trackId?: string, compare = false, compareView?: CompareViewState) => {
           explorerRef.current.navigate({
             type: 'open', datasetId: ds.id, compare,
+            ...(compare ? { compareView: compareView ?? {} } : {}),
             // A saved default-track analysis must also restore that track when
             // opened from another population of the same dataset.
             trackId: compare ? undefined : trackId ?? (route.analysis ? ds.defaultTrack : undefined),
@@ -656,7 +675,11 @@ export function useAppRouter(
               setRoutePending(false);
               return;
             }
-            land(known && !wantsCompare ? route.trackId : undefined, Boolean(known && wantsCompare));
+            land(
+              known && !wantsCompare ? route.trackId : undefined,
+              Boolean(known && wantsCompare),
+              wantsCompare && known ? compareViewFor(route.compare, meta.populations ?? []) : undefined,
+            );
             setRoutePending(false);
           })
           .catch(() => {
@@ -779,6 +802,7 @@ export function useAppRouter(
         // Compare is its own segment and carries no tab, so it always names itself.
         if (explorerAt.trackId === COMPARE_TRACK) {
           return routeHref({ view: 'explorer', datasetId: explorerAt.datasetId, trackId: COMPARE_TRACK,
+            ...(explorerAt.compare ? { compare: explorerAt.compare } : {}),
             ...(explorerAt.analysis ? { analysis: explorerAt.analysis } : {}) });
         }
         const ds = getDataset(explorerAt.datasetId);

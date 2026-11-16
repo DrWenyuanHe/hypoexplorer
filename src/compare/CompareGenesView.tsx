@@ -51,6 +51,13 @@ interface CompareGenesViewProps {
    * windows, where a fixed footer and fixed toolbars left the charts a sliver.
    */
   layout?: 'fill' | 'flow';
+  /**
+   * 'wide' (default): one row per gene, four cells per column across — right
+   * for a handful of studies, and where the compare-set tally leads each row.
+   * 'long': one row per gene × column, read DOWN, so sixty populations are a
+   * list you scroll rather than 240 cells you scroll sideways past.
+   */
+  summaryLayout?: 'wide' | 'long';
 }
 
 /** The attribute each gene's block of charts carries, for whole-grid export. */
@@ -93,8 +100,9 @@ const CHART_CAP = 50;
 
 export function CompareGenesView({
   columns, popDataMap, selectedGenes, onRemoveGene, showTally = false, summaryActions, caveat, emptyState,
-  chartDownloads = false, layout = 'fill',
+  chartDownloads = false, layout = 'fill', summaryLayout = 'wide',
 }: CompareGenesViewProps) {
+  const long = summaryLayout === 'long';
   const [showAllCharts, setShowAllCharts] = useState(false);
   // The summary table folds away so the charts can have the room; the
   // numbers it holds are also in the Excel/CSV download.
@@ -211,7 +219,8 @@ export function CompareGenesView({
         } : {
           // Capped by the viewport too: 200px of a 500px-tall panel was 40% of it.
           flexShrink: 0, borderTop: '1px solid var(--border)', padding: '4px 8px', background: 'var(--bg-panel)',
-          maxHeight: tableOpen ? 'min(200px, 30vh)' : undefined, overflowY: 'auto',
+          // A long table is many short rows, so it gets a little more height.
+          maxHeight: tableOpen ? (long ? 'min(260px, 36vh)' : 'min(200px, 30vh)') : undefined, overflowY: 'auto',
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: tableOpen ? 4 : 0 }}>
             <button type="button" onClick={() => setTableOpen((v) => !v)} aria-expanded={tableOpen}
@@ -227,7 +236,8 @@ export function CompareGenesView({
             </button>
             {summaryActions}
           </div>
-          {tableOpen && <div style={{ overflowX: 'auto' }}>
+          {tableOpen && long && <LongSummaryTable columns={columns} popDataMap={popDataMap} genes={selectedGenes} />}
+          {tableOpen && !long && <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', minWidth: 'max-content', borderCollapse: 'separate', borderSpacing: 0, fontSize: 11, fontFamily: FONT_MONO }}>
               <thead>
                 <tr>
@@ -312,6 +322,81 @@ export function CompareGenesView({
         </div>
       )}
     </>
+  );
+}
+
+// ── Long summary table ──────────────────────────────────────────────────────
+
+const LONG_CELL: CSSProperties = { padding: '3px 6px', borderBottom: '1px solid var(--border)', whiteSpace: 'nowrap' };
+// The header stays in view while the rows scroll under it. No horizontal
+// scroller wraps this table (it is six columns), so `top: 0` sticks to the
+// panel that scrolls vertically.
+const LONG_HEAD: CSSProperties = {
+  ...LONG_CELL, position: 'sticky', top: 0, zIndex: 1, background: 'var(--bg-panel)',
+  fontSize: 10, color: 'var(--text-muted)', fontWeight: 600,
+};
+
+/**
+ * The summary read down: a block per gene, a row per population. The gene is
+ * named on its block's first row, and a heavier rule separates blocks, so a
+ * long block stays attributable without repeating the name on every row.
+ */
+function LongSummaryTable({ columns, popDataMap, genes }: {
+  columns: readonly CompareColumn[]; popDataMap: Record<string, PopData | null>; genes: readonly string[];
+}) {
+  return (
+    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: 0, fontSize: 11, fontFamily: FONT_MONO }}>
+      <thead>
+        <tr>
+          <th style={{ ...LONG_HEAD, textAlign: 'left' }}>Gene</th>
+          <th style={{ ...LONG_HEAD, textAlign: 'left' }}>Population</th>
+          <th style={{ ...LONG_HEAD, textAlign: 'right' }}>logFC</th>
+          <th style={{ ...LONG_HEAD, textAlign: 'right' }}>P</th>
+          <th style={{ ...LONG_HEAD, textAlign: 'right' }}>FDR</th>
+          <th style={{ ...LONG_HEAD, textAlign: 'center' }}>Stars</th>
+        </tr>
+      </thead>
+      {genes.map((gene) => (
+        <tbody key={gene} data-summary-gene={gene}>
+          {columns.map((col, i) => {
+            const first = i === 0;
+            const rule: CSSProperties = first ? { borderTop: '2px solid var(--border-dark, var(--border))' } : {};
+            const de = col.unavailable ? undefined : resolveGeneCI(popDataMap[col.key], gene);
+            return (
+              <tr key={col.key}>
+                <td style={{ ...LONG_CELL, ...rule, fontWeight: 600 }}>{first ? gene : ''}</td>
+                <td style={{ ...LONG_CELL, ...rule }} title={col.chartLabel ?? col.label}>
+                  <span aria-hidden="true" style={{
+                    display: 'inline-block', width: 7, height: 7, borderRadius: '50%', background: col.color, marginRight: 6,
+                  }} />
+                  <span style={{ fontWeight: 600 }}>{col.label}</span>
+                  {col.chartLabel && col.chartLabel !== col.label && (
+                    <span style={{ color: 'var(--text-muted)', fontFamily: FONT_SANS }}> {col.chartLabel.replace(col.label, '').trim()}</span>
+                  )}
+                </td>
+                {col.unavailable ? (
+                  <td colSpan={4} style={{
+                    ...LONG_CELL, ...rule, textAlign: 'center', fontStyle: 'italic',
+                    color: col.unavailable.status === 'failed' ? COLOR_WARNING_TEXT : 'var(--text-muted)',
+                  }}>
+                    {unavailableText(col)}
+                  </td>
+                ) : (
+                  <>
+                    <td style={{ ...LONG_CELL, ...rule, textAlign: 'right', color: de ? (de.logFC > 0 ? 'var(--accent-up)' : 'var(--accent-down)') : undefined }}>
+                      {de ? de.logFC.toFixed(3) : '–'}
+                    </td>
+                    <td style={{ ...LONG_CELL, ...rule, textAlign: 'right' }}>{de ? fmtP(de.PValue) : '–'}</td>
+                    <td style={{ ...LONG_CELL, ...rule, textAlign: 'right', color: 'var(--text-muted)' }}>{de && de.FDR != null ? fmtFDR(de.FDR) : '–'}</td>
+                    <td style={{ ...LONG_CELL, ...rule, textAlign: 'center' }}>{de ? pToStar(de.PValue) : '–'}</td>
+                  </>
+                )}
+              </tr>
+            );
+          })}
+        </tbody>
+      ))}
+    </table>
   );
 }
 

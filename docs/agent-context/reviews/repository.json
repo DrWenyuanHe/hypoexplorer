@@ -1,10 +1,11 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "67711ada4319445ea234cd9b0fcaad01de688cec0c748d7ea4049598a0947dfd",
+  "fingerprint": "f11eca0bf74f038876eba367d7c0768257aeb3c757f087da5fd5af7ebdc072c9",
   "outcome": "updated",
-  "explanation": "Repository-level inputs change only through the UI-change runbook text on Compare downloads, the CSV writer and ZIP archives, and regenerated codebase-map coverage for the new zip module and tests; no directories, scripts, dependencies or delivery steps change.",
+  "explanation": "Repository-level context changes only through CONTEXT.md's App router entry and the UI-change runbook describing the Compare link format and vertical summary, plus regenerated codebase-map coverage for the new test; no directories, scripts, dependencies or delivery steps change.",
   "references": [
+    "CONTEXT.md",
     "docs/agent-context/workflows.md",
     "docs/agent-context/generated/codebase.md"
   ]

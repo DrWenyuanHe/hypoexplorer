@@ -118,6 +118,20 @@ describe('CompareTab — download menu', () => {
     fireEvent.click(toggle);
     expect(screen.getByRole('button', { name: /Compare summary/ }).getAttribute('aria-expanded')).toBe('false');
   });
+
+  it('lists the summary down the page: one row per gene × population', async () => {
+    renderCompare(['whole', 'other_population']);
+    await waitFor(() => expect(screen.queryByText(/Loading \d+ of/)).toBeNull());
+    selectGene('IGFBP2');
+    const table = screen.getByRole('table');
+    const headers = within(table).getAllByRole('columnheader').map((th) => th.textContent);
+    expect(headers).toEqual(['Gene', 'Population', 'logFC', 'P', 'FDR', 'Stars']);
+    // A header row, then one row per population — not four cells per population across.
+    const rows = within(table).getAllByRole('row');
+    expect(rows).toHaveLength(3);
+    expect(rows[1].textContent).toMatch(/^IGFBP2whole/);
+    expect(rows[2].textContent).toMatch(/^other_population/);
+  });
 });
 
 

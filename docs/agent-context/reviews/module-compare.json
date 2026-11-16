@@ -1,12 +1,10 @@
 {
   "version": 1,
   "area": "module-compare",
-  "fingerprint": "eaf37adba3478974e42b8773f68c14fe2374c377b0e616c62d0e72e7dda305ff",
+  "fingerprint": "1206033fa9d16041f5646560ee836ae6344d1d30bef3a66e74d3315f07df2275",
   "outcome": "updated",
-  "explanation": "Compare downloads are long format: compareGenesWorkbook writes Compare (one row per gene × population with arm n, mean and SEM), Values (one row per animal, as deposited) and Metadata sheets, with matching summary and values CSVs whose rows carry their own track provenance; the wide compareSummaryRows stays for the on-screen and compare-set tables. compareFigureExport adds chartTileExport, a per-chart PNG drawn from the chart SVG with loaded fonts inlined, and saveChartTilesZip for per-chart PNG or SVG ZIPs.",
+  "explanation": "CompareTab takes an initialView (populations, genes, sub-tab) and reports its view, defaults left out and keyed by value, through onViewChange so the shell can put it in the URL. CompareGenesView gains summaryLayout=\"long\", which the Compare tab uses: one row per gene × population with a sticky header and no sideways scroll; the compare-set view keeps the wide table and its tally.",
   "references": [
-    "src/compare/compareSummary.ts",
-    "src/compare/compareFigureExport.ts",
     "src/compare/CompareTab.tsx",
     "src/compare/CompareGenesView.tsx"
   ]
