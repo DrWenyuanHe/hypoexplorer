@@ -3155,6 +3155,120 @@
       },
       "criteria": "Direction-only comparison of all 96 selected genes in the denominator; exact symbol joins after whitespace and trailing-asterisk normalisation, with raw-string and whitespace-only sensitivities reported. No magnitudes or correlations are derived from colours. No full-result acceptance is established.",
       "conclusion": "Selected directions agree completely; scope is author-selected, coverage clears 90% only after symbol normalisation, and the author coefficient is undocumented."
+    },
+    "mouse_hypo_maternal_protein_gse162744": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "mat_hfhs_vs_lowfat"
+      ],
+      "basis": "Registered Explorer maternal HFHS-minus-low-fat edgeR-QL output (GSE162744_DE.tsv, identical logFC in the public track bundle), compared only for genes in author Supplementary Table S1.",
+      "reference": "Publisher Supplementary Table S1: member genes of nine GO categories enriched among author DESeq2 nominal P<0.05 HP-versus-LP upregulated DEGs; 39 unique genes, direction only.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "GEO sample titles assign the same six libraries (LP: Lg42_P1, Lg63_P2, Lg63_P3; HP: Hg43_P1, Hg43_P2, Hg13_P3) to both analyses; the 4-PBA arm is excluded on both sides. Litter independence remains an internal-QC question."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "S1 is titled upregulated in HP compared with LP, the same maternal HFHS-minus-low-fat question and orientation as the registered contrast."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Exact symbol join; 39 unique author symbols, none duplicated; 38 pair and Fkbp6 is absent from the registered output."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Author direction only (all up); 38/38 nonzero local logFC are positive (median 0.211). No author magnitudes, so correlation is not computable."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "Per-gene author P/FDR are not published; 34/38 have local nominal P<0.05 and none FDR<0.05, context only."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "38 of 39 selected genes (97.44%) pair; the scope is about 10% of 408 author up-DEGs and none of 381 down-DEGs."
+        }
+      },
+      "criteria": "author-concordance-v2 direction route within the declared selected scope: at least 30 nonzero pairs covering 90% of pairs and 90% reference coverage, with 90% same-gene direction agreement. Correlations are unavailable, not failed. No full-result acceptance is established.",
+      "conclusion": "Direction agrees for every paired author-listed upregulated chaperone/UPR gene; this is selected-gene support, not effect, inference or genome-wide verification."
+    },
+    "mouse_vlpo_galanin_sleep_gse132308": {
+      "registeredContrastIds": [
+        "sleep_deprivation_vs_spontaneous_sleep_zt6"
+      ],
+      "target": "registered_output",
+      "resultScope": "effects_only",
+      "basis": "Registered edgeR-QL ZT6 sleep-deprivation output against the author per-timepoint ZT6 SD-vs-SS effect for every author-tested gene; author inference is not ZT6-specific and is not compared.",
+      "reference": "BMC Genomics 2020 (PMC7491139) Additional file 2, 12864_2020_7050_MOESM2_ESM.xlsx sheet DEG, column SDvsSS_6hr.FC (13,856 genes), retrieved and hashed on 2026-11-16.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "GEO lists 52 samples, matching the paper's 52 mice; ZT6 has exactly 6 SS6hr and 6 SD6hr libraries, the 12 registered libraries. The author effect is estimated in a fit over all 52 samples (shared normalization and variance), so the estimator differs although the ZT6 animals are the same."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Sleep deprivation minus spontaneous sleep at 6 h after lights-on in both; orientation agrees (Hspa8 +0.444 author, +0.455 registered)."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Exact author Ensembl IDs joined through the registered feature map; 374 IDs without a current symbol and 15 IDs in symbols summed over several features are excluded unresolved. 283 author genes lie outside the registered expression filter."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "13,184 pairs: Pearson 0.944669, Spearman 0.958157, direction agreement 95.00%, median absolute log2FC difference 0.014146, RMS ratio 0.901098. The author column is labelled FC and read as a limma log2 coefficient."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "Authors report only a 4-timepoint moderated-F FDR; no ZT6 P/FDR exists. Missing author ZT6 inference is unassessed, not a mismatch."
+        },
+        "coverage": {
+          "status": "compatible",
+          "note": "The author table is the full 13,856-gene tested universe; 13,184 pairs cover 95.15% of author rows and 99.27% of registered rows (the author-concordance-v2 coverage gate uses registered coverage)."
+        }
+      },
+      "criteria": "author-concordance-v2 on exact Ensembl joins with finite effects: at least 30 pairs, at least 90% coverage, Pearson and Spearman at least 0.90 or direction agreement at least 90%. No threshold, exclusion or mapping tuning; inference is not compared.",
+      "conclusion": "Author ZT6 effects for 95% of tested genes (13,184 of 13,856) agree with the registered output by correlation and direction (effects only). ZT6 inference and the whole-cohort versus ZT6-only estimator difference remain unassessed."
+    },
+    "rat_arc_hfd_gse232510": {
+      "registeredContrastIds": [
+        "hfd_vs_chow"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered edgeR-QL HFD-sedentary minus chow-sedentary female ARC, 3 versus 3 deposited libraries GSM7349354-GSM7349359.",
+      "reference": "Author Supplementary Table S1 (ijms-25-07188-s001.zip via Europe PMC): 431 DESeq2 CS-vs-HFS rows at FDR<0.1 (one at 0.1001), log2FoldChange CS over HFS, negated.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Deposited HTSeq counts match author columns exactly for GSM7349354 (CS1), GSM7349356 (CS12), GSM7349357 (HFS2) and GSM7349359 (HFS9); GSM7349355 and GSM7349358 match none of the 14 author libraries (unexplained), and author CS16, HFS and HFS17 are not deposited. Author fit: 3 CS + 4 HFS within 14 libraries. Identity was computed from the pinned GSE232510_RAW.tar, which is not retained in the evidence folder."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Both HFD-sedentary versus chow-sedentary female ARC. Author orientation CS over HFS is established from the table's own per-library values (Pearson 1.0000 with log2 mean CS/HFS) and the positive correlation with the registered sign, not from the paper's wording; negated to HFS minus CS."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "406/431 author Ensembl IDs join registered rows through the registered feature map; 21 features without a registered symbol, one summed symbol and three absent rows stay unpaired, none resolved by name."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Author unshrunk DESeq2 Wald LFC from a 14-library fit versus registered edgeR-QL logFC from 3 versus 3; both log2 ratios. 402/406 nonzero directions agree, Pearson 0.8976, Spearman 0.9026, OLS slope 0.446 (registered effects about half the author magnitude). Four of six registered libraries are author libraries, so the agreement is not independent replication."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Author 405 of 406 paired genes at FDR<0.1; registered output has 0 genes at FDR<0.1 (minimum 0.288). Cohorts and models differ."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Selected FDR<0.1 DEG list only (0.9420 of it paired); the author tested universe and nonsignificant tail are not available."
+        }
+      },
+      "criteria": "author-concordance-v2 on 406 nonzero pairs covering 0.9420 of the selected reference: direction route numerically met (402/406 agree); correlation route not met (Pearson 0.8976 < 0.90; Spearman 0.9026). Not accepted, because cohort compatibility is not supported (2 of 6 registered libraries are not author libraries); a significant-only list also cannot establish full-universe agreement.",
+      "conclusion": "Selected author CS/HFS effects agree in direction (402/406), but the correlation route is not met, part of the agreement reflects 4 shared libraries, and the cohort-identity discrepancy, inference and coverage remain unresolved or qualified."
     }
   }
 }

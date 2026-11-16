@@ -1,0 +1,27 @@
+{
+  "datasetId": "mouse_arc_cagrilintide_gse296488",
+  "accession": "GSE296488",
+  "outcome": "documented_no_change",
+  "summary": "The existing reason still holds. The paper (PMC12270663) has one supplement, mmc1.docx, which holds in vivo statistics only and no RNA-seq results. Its data-sharing statement points to GEO and says full datasets are available on request. Figure 6 gives only DEG counts (WT cagrilintide MBH 404: 96 up, 308 down). The only GEO series supplement is GSE296488_RAW.tar, the per-sample TPM files already pinned. With no gene-level author effects there are 0 paired genes, below the 30 that author-concordance-v2 needs, so concordance stays not assessed. This is missing evidence, not a mismatch. No ledger changes are proposed.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE296488/turbo-2026-11-16-wave2/",
+  "proposed": {
+    "manualReview": null,
+    "verificationReview": null,
+    "comparabilityReview": null,
+    "additionalComparisonSpec": null
+  },
+  "metrics": {
+    "pairedGenes": 0,
+    "authorGeneLevelTableAvailable": false,
+    "authorReferenceType": "figure_6_deg_counts_only",
+    "authorMbhWtCagrilintideDegCount": 404,
+    "authorMbhWtCagrilintideUp": 96,
+    "authorMbhWtCagrilintideDown": 308,
+    "articleSupplementaryFiles": ["mmc1.docx"],
+    "geoSeriesSupplementaryFiles": ["GSE296488_RAW.tar"],
+    "pearson": null,
+    "spearman": null,
+    "directionAgreement": null,
+    "coverage": null
+  }
+}

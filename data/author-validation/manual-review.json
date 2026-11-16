@@ -975,23 +975,28 @@
     },
     "rat_arc_hfd_gse232510": {
       "status": "review_required",
-      "summary": "All deposited ARC samples retained; paper's larger author cohort is unresolved",
-      "note": "The paper (Methods 5.6.2/Figure 2) reports 3 chow-sedentary, 3 chow-running, 4 HFD-sedentary and 4 HFD-running RNA libraries. Official GEO SOFT/RAW.tar instead contain 3 CS, 3 HFS and 4 HFR, with no CR group (plus 8 miRNA-manipulation samples). Our 3-versus-3 CS/HFS cohort uses all six deposited libraries GSM7349354-GSM7349359; no local dropped sample explains the missing fourth HFS. The paper reports 430 CS/HFS DEGs (265 down, 165 up), DESeq2 across the running-study groups, FDR<0.1, and a Figure 2 log2FC>0.5 condition. No explanatory RNA QC exclusion was found. The 3.1 MB supplementary ZIP was located but retrieval returned an HTML challenge; its exact gene-list contents remain uninspected. This is an author-paper/deposit cohort gap, not source corruption.",
-      "reviewFlags": [
-        "Final author CS/HFS sample membership and the discrepancy between paper and deposited groups require reconciliation.",
-        "Supplement file exists but access was blocked; no gene-level result mismatch has been established."
-      ],
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
       "auditState": "complete",
-      "reviewedAt": "2026-09-04",
+      "summary": "Author Table S1 retrieved; selected CS/HFS effects agree in direction, but 2 of 6 registered libraries are not author libraries",
+      "note": "The paper (Methods/Figure 2) reports 3 chow-sedentary, 3 chow-running, 4 HFD-sedentary and 4 HFD-running RNA libraries; official GEO SOFT/RAW.tar contain 3 CS, 3 HFS and 4 HFR (no CR) plus 8 miRNA-manipulation samples, and the registered 3-versus-3 cohort uses GSM7349354-GSM7349359. The 3.1 MB author supplement ZIP blocked on PMC in 2026-09 was retrieved on 2026-11-16 through Europe PMC (ijms-25-07188-s001.zip SHA-256 5c63f7e868043522a755ba284debaa4d697b7dc32ccb55ae350de8aef93d197a). Its Supplementary Table S1 (SHA-256 9f4a36246bd83ee1db8eef7e99b0f9c822b2d1b05dabccb5da3f08f67b9d4ffc) lists 431 DESeq2 CS-vs-HFS rows (430 with padj<0.1) with per-library values for all 14 author libraries. Author log2FoldChange equals log2(mean CS/mean HFS) of those values (Pearson 1.0000, 100% sign agreement; no other group pair exceeds 0.92), so it is negated to HFS minus CS; the registered effects then correlate positively with it. The 265 negative/166 positive split matches the paper's 265 down/165 up count (one row has padj 0.1001), but the paper describes changes relative to the CS group, which leaves its direction wording ambiguous; orientation rests on the per-library values and the registered sign, not on the paper text. Library identity against the deposited HTSeq counts: GSM7349354=CS1, GSM7349356=CS12, GSM7349357=HFS2, GSM7349359=HFS9 and all four HFR libraries match exactly, but GSM7349355 (CS_Rep4) and GSM7349358 (HFS_Rep2) match none of the 14 author columns, and author CS16, HFS and HFS17 are not deposited. This is an unexplained sample-identity discrepancy, not a documented method difference. On the author-selected genes GSM7349355 resembles the author HFS libraries more than any CS library; this is an observation, not a label correction. The identity check used GSE232510_RAW.tar re-downloaded on 2026-11-16 with SHA-256 equal to the pin in geo_replication/datasets/GSE232510_rnor_arc_hfd/metadata/GSE232510_source_files.tsv (5acf8b2d...); the archive and its per-library members are not retained, so the result rests on this pass's run (scripts/library_identity.py, outputs/library-identity.json) and cannot be recomputed from retained files. 2026-11-16 scoped comparison against the unchanged current R 4.6.0 registered edgeR-QL output (GSE232510_DE.tsv SHA-256 2de6397f..., HFS minus CS): 406/431 author rows pair by exact Ensembl feature through the registered feature map (coverage 0.9420; 21 features without a registered symbol, the summed symbol Tmt1a and absent Ptbp2, Prkcb and Atf3 stay unpaired; none resolved by name); nonzero direction agreement 402/406 (0.9901; Vsnl1, Ndufs1, Clasp2 and Myl9 reversed, all local |logFC|<0.1 and FDR>0.98); Pearson 0.8976, Spearman 0.9026, OLS slope 0.446 (local on author); median absolute LFC 0.806 author versus 0.408 local. An author-symbol join gives 391 pairs, Pearson 0.8952, Spearman 0.8996, 387/391 directions. Registered FDR<0.1 calls: 0 (minimum 0.288) versus 405 of 406 paired author genes. Under author-concordance-v2 the direction route is numerically met, but the correlation route is not (Pearson 0.8976 < 0.90; Spearman 0.9026), and neither is accepted because cohort compatibility is not supported. Four of the six registered libraries are the same libraries as author columns, so the effect agreement partly reflects shared data and is not independent replication. Selected-gene evidence only; the author nonsignificant tail is not available. Evidence is in continued-sources/GSE232510/turbo-2026-11-16-wave2/.",
+      "reviewFlags": [
+        "Two registered libraries (GSM7349355 CS_Rep4, GSM7349358 HFS_Rep2) match no author Table S1 library, and three author libraries (CS16, HFS, HFS17) are not deposited; this sample-identity discrepancy is unexplained.",
+        "Author DESeq2 fit over 14 libraries (CS, CR, HFR, HFS) versus registered edgeR-QL 3 versus 3; 405 versus 0 FDR<0.1 calls among paired genes.",
+        "Selected 431-gene FDR<0.1 reference only; the author tested universe and nonsignificant tail are not available.",
+        "Effect agreement is not independent replication: 4 of the 6 registered libraries (GSM7349354, GSM7349356, GSM7349357, GSM7349359) are author libraries CS1, CS12, HFS2 and HFS9, so part of the agreement reflects shared data.",
+        "Library identity was computed from GSE232510_RAW.tar matching the pinned SHA-256 (5acf8b2d...) in the dataset source-files manifest; the archive and per-library HTSeq hashes are not retained in the evidence folder, so the identity result cannot be recomputed from retained files alone."
+      ],
+      "reviewedAt": "2026-11-16",
       "evidenceLinks": [
         {
-          "label": "Reviewed manuscript and methods",
+          "label": "Open manuscript and methods",
           "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11241292/",
           "kind": "paper"
         },
         {
-          "label": "Located supplement (access blocked)",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/instance/11241292/bin/ijms-25-07188-s001.zip",
+          "label": "Author supplement Table S1 (CS vs HFS DESeq2 DEGs), via Europe PMC",
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11241292/supplementaryFiles",
           "kind": "author_result"
         }
       ]
@@ -1668,13 +1673,36 @@
       "reviewedAt": "2026-09-04"
     },
     "mouse_vlpo_galanin_sleep_gse132308": {
-      "status": "processed_source_match",
-      "comparisonLevel": "processed_source",
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
       "sourceComparison": "checksum_match",
       "auditState": "complete",
-      "summary": "Deposited VLPO raw-count source verified",
-      "note": "The official raw-count matrix and SOFT match the SHA-256 values documented in the dataset README. The local exact-ZT6 comparison is not the manuscript's combined multi-timepoint estimand, so the author result is not directly comparable.",
-      "reviewFlags": []
+      "summary": "Author ZT6 effects for 95% of tested genes agree with the registered output (effects only)",
+      "note": "The official raw-count matrix and SOFT match the SHA-256 values documented in the dataset README. The paper's headline 263 DEGs come from a limma moderated F-test pooling the four SD-versus-SS timepoints, which is not the registered ZT6 estimand. However, BMC Genomics Additional file 2 (12864_2020_7050_MOESM2_ESM.xlsx, SHA-256 2600a3b7..., sheet DEG) lists all 13,856 author-tested genes with separate per-timepoint SD-vs-SS effects. Its SDvsSS_6hr.FC column is the registered contrast in the same orientation. GEO lists 52 samples, matching the paper's 52 mice, with exactly 6 SS6hr and 6 SD6hr libraries at ZT6; these are the 12 registered libraries. The author fit uses all 52 samples with shared TMM normalization and limma variance moderation, while the registered edgeR-QL fit uses only the 12 ZT6 libraries. Author Ensembl IDs were joined exactly through the registered feature map (SHA-256 afa3efb8..., as recorded in provenance); 374 IDs without a current symbol and 15 IDs whose symbol is summed over several features were excluded, with no symbol renaming. Against the current registered DE table, the R 4.6.0 regeneration (SHA-256 5fb5171c...), 13,184 pairs (95.15% of 13,856 author rows; 99.27% of 13,281 registered rows) give Pearson 0.944669, Spearman 0.958157, direction agreement 95.00% (12,525/13,184), median absolute log2FC difference 0.014146 and paired RMS effect ratio 0.901098. All 258 paired author F-test DEGs agree in direction (Pearson 0.986937). The other 672 author rows (4.85%) are unpaired, so agreement covers 95% of the author-tested genes. Of those 672, 283 author genes have no registered row because the expression filters differ. The author FC column is read as a limma log2 coefficient. No author ZT6 P/FDR is reported, so inference is not assessed. Evidence and reproducible extraction are in continued-sources/GSE132308/turbo-2026-11-16-wave2/.",
+      "reviewFlags": [
+        "Author ZT6 effects come from a whole-cohort limma fit over all 52 samples; the registered edgeR-QL fit uses only the 12 ZT6 libraries.",
+        "The only author FDR is a 4-timepoint moderated-F test; ZT6-specific author inference is not reported and is not assessed.",
+        "The author effect column is labelled FC; it is treated as a limma log2 coefficient (signed values, median absolute difference 0.014 from registered log2FC).",
+        "The registered feature map used for the Ensembl join (SHA-256 afa3efb8..., equal to provenance) is not in this checkout's pinned release; the comparison used a byte-identical copy, so it cannot be rerun from a clean checkout alone."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "GEO record",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE132308",
+          "kind": "database"
+        },
+        {
+          "label": "Open full text",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7491139/",
+          "kind": "paper"
+        },
+        {
+          "label": "Author Additional file 2 (all tested genes, per-timepoint effects)",
+          "url": "https://static-content.springer.com/esm/art%3A10.1186%2Fs12864-020-07050-7/MediaObjects/12864_2020_7050_MOESM2_ESM.xlsx",
+          "kind": "author_result"
+        }
+      ],
+      "reviewedAt": "2026-11-16"
     },
     "human_htnsc_differentiation_gse214877": {
       "status": "processed_source_match",
@@ -2789,15 +2817,18 @@
       ]
     },
     "mouse_hypo_maternal_protein_gse162744": {
-      "status": "processed_source_match",
-      "comparisonLevel": "processed_source",
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
       "sourceComparison": "manual_structure_match",
       "auditState": "complete",
       "paperAccess": "publisher_full_text",
-      "summary": "Deposited maternal-diet hypothalamus counts verified",
-      "note": "The official count/FPKM deposit is accessible, supports the registered maternal low-fat to maternal HFHS comparison, and the local file was rehashed (SHA-256 c41eaa64...). GEO reports the authors' DESeq2 headline of 789 nominal P<0.05 genes (408 up, 381 down), while local edgeR-QL has 1,094 nominal P<0.05 genes (547/547) but only five FDR<0.05; no full author table is deposited for gene-level reconciliation.",
+      "reviewedAt": "2026-11-16",
+      "summary": "Author S1 up-regulated chaperone genes agree in direction; no author effects or full table",
+      "note": "The official count/FPKM deposit is accessible, supports the registered maternal low-fat to maternal HFHS comparison, and the local file was rehashed (SHA-256 c41eaa64...). GEO reports the authors' DESeq2 headline of 789 nominal P<0.05 genes (408 up, 381 down), while the registered edgeR-QL output has 1,105 nominal P<0.05 genes (585 up, 520 down) and three FDR<0.05. 2026-11-16 (this pass reached the publisher supplement host only; the article HTML returned a bot challenge): publisher Supplementary Table S1 (mmc1.xlsx, SHA-256 cc23c758...) gives the member genes of nine GO categories enriched among HP-versus-LP upregulated DEGs: 39 unique genes, direction only, no per-gene effects, P or FDR. 38 pair by exact symbol with the registered output (97.44%); 38/38 are positive locally (34 nominal P<0.05, none FDR<0.05); Fkbp6 is absent from the registered output. Pearson/Spearman are not computable on a direction-only reference. The selection is author-significant, upregulated and chaperone/UPR-biased from the same six libraries, so sign agreement is expected and does not establish genome-wide agreement. Supplementary Table S2 covers the unregistered 4-PBA contrast. Evidence and script: continued-sources/GSE162744/turbo-2026-11-16-wave2/.",
       "reviewFlags": [
-        "Only headline nominal-P counts are available; author/local gene membership and effect sizes cannot be compared.",
+        "Selected-gene evidence: 39 Supplementary Table S1 GO-member genes (author up-DEGs only) are not the full tested universe; no down-regulated author genes are available.",
+        "Author reference is direction only; author effect sizes, P values and FDR are not published, so correlation and author inference are not assessed.",
+        "paperAccess publisher_full_text is inherited from the prior record and was not re-confirmed on 2026-11-16: the article HTML returned a bot challenge, so only the publisher supplement host was reached, and the S1 DEG definition (DESeq2 P<0.05) is taken from the GEO summary, not the paper's methods.",
         "This legacy source has no committed source-file checksum manifest."
       ],
       "evidenceLinks": [
@@ -2805,6 +2836,11 @@
           "label": "Open publisher full text",
           "url": "https://www.sciencedirect.com/science/article/pii/S0303720721000629",
           "kind": "paper"
+        },
+        {
+          "label": "Supplementary Table S1 (HP vs LP up GO genes)",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0303720721000629-mmc1.xlsx",
+          "kind": "author_result"
         }
       ]
     },

@@ -1765,6 +1765,63 @@
         "sha256": "d408ab9ae58777ca7f4226f36f5897cb4d6089f778ea2f671142644db5274f2c",
         "bytes": 1989884
       }
+    },
+    {
+      "datasetId": "rat_arc_hfd_gse232510",
+      "accession": "GSE232510",
+      "contrast": "hfd_vs_chow",
+      "localPath": "geo_replication/datasets/GSE232510_rnor_arc_hfd/processed/GSE232510_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE232510/turbo-2026-11-16-wave2/outputs/author-effects.tsv",
+      "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11241292/supplementaryFiles",
+      "sha256": "369a15b1ed3256773cba39c2321b8ce37c059e2fae0aa67ebfef32ee6e31dca6",
+      "format": "tsv",
+      "authorKey": "output_id",
+      "authorEffect": "logFC",
+      "authorAdjustedP": "padj",
+      "orientationSign": 1,
+      "localMethod": "edgeR quasi-likelihood, 3 versus 3 deposited libraries",
+      "authorMethod": "DESeq2 Wald (unshrunk LFC) fitted across 14 CS/CR/HFR/HFS libraries; CS versus HFS; FDR<0.1",
+      "orientation": "Author log2FoldChange (CS over HFS, established from the table's per-library values) is negated in the extraction to HFS minus CS; the logFC column is already oriented.",
+      "note": "Selected author reference: Supplementary Table S1, 431 CS-vs-HFS DESeq2 rows (430 with padj<0.1). Author Ensembl IDs join through the registered feature map; unpaired rows keep their Ensembl ID as key and stay unpaired. Only 4 of 6 registered libraries are author libraries (GSM7349355 and GSM7349358 match no author column, unexplained), and those 4 shared libraries mean the agreement is not independent replication. The 2026-11-16 review figures (402/406 directions; Pearson 0.8976, below the 0.90 correlation-route minimum) were computed on the current R 4.6.0 registered output (SHA-256 2de6397f...), not on an R 4.4.1 output. Numerical values are recalculated from the unchanged current registered DE table.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE232510/turbo-2026-11-16-wave2/sources/Supplementry_Table_S1.xlsx",
+          "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/instance/11241292/bin/ijms-25-07188-s001.zip",
+          "sha256": "9f4a36246bd83ee1db8eef7e99b0f9c822b2d1b05dabccb5da3f08f67b9d4ffc",
+          "bytes": 122230
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE232510/turbo-2026-11-16-wave2/sources/ijms-25-07188-s001.zip",
+          "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/instance/11241292/bin/ijms-25-07188-s001.zip",
+          "sha256": "5c63f7e868043522a755ba284debaa4d697b7dc32ccb55ae350de8aef93d197a",
+          "bytes": 3272142
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE232510/turbo-2026-11-16-wave2/sources/PMC11241292.xml",
+          "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11241292/fullTextXML",
+          "sha256": "546badaca4460a4dbc93dbd6ec80e6a79f842b63a4fdc28826cea8b8b3d68c67",
+          "bytes": 162374
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE232510/turbo-2026-11-16-wave2/sources/registered_GSE232510_feature_map.tsv.gz",
+          "sourceUrl": "Registered GSE232510 feature map (R 4.6.0 regeneration output) used for the exact Ensembl join",
+          "sha256": "171b0e1ac9c2c11cb49f7896b7fb7e3dc7ecf8a84cae97c788be0f02db9680f7",
+          "bytes": 187527
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE232510/turbo-2026-11-16-wave2/scripts/compare_table_s1.py",
+          "sourceUrl": "Reproducible original-table extraction and scoped comparison script",
+          "sha256": "3a9bc99d4e2dcb0df85304f7a58a0bbdc823eb002897e5d11b174ac4c28e53f5",
+          "bytes": 12849
+        }
+      ],
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE232510_rnor_arc_hfd/processed/GSE232510_DE.tsv",
+        "sha256": "2de6397ff76a47a0f3237df23f528fb7fc2c30c5e03eb7e421f26381dd24c8a1",
+        "bytes": 1040744
+      }
     }
   ]
 }

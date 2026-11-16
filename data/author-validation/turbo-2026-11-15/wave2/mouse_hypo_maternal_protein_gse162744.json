@@ -1,0 +1,104 @@
+{
+ "datasetId": "mouse_hypo_maternal_protein_gse162744",
+ "accession": "GSE162744",
+ "outcome": "advanced",
+ "summary": "The prior position (only GEO headline DEG counts) no longer holds: the publisher supplement host serves Supplementary Table S1, the gene members of nine GO categories enriched among author DESeq2 P<0.05 HP-versus-LP upregulated DEGs (39 genes, direction only). Against the registered edgeR-QL output, 38/39 pair (97.44%) and 38/38 agree in direction (34 local nominal P<0.05, 0 FDR<0.05); Pearson/Spearman are not computable. This meets the v2 direction route within a declared, biased selected scope (about 10% of author up-DEGs, no down genes). No full author table exists in GEO or the supplement. No additionalComparisonSpec is proposed: the AdditionalSpec builder requires a numeric author effect and S1 has none.",
+ "evidenceFolder": "data/author-validation/continued-sources/GSE162744/turbo-2026-11-16-wave2",
+ "proposed": {
+  "manualReview": {
+   "status": "validated_with_notes",
+   "comparisonLevel": "direct",
+   "sourceComparison": "manual_structure_match",
+   "auditState": "complete",
+   "paperAccess": "publisher_full_text",
+   "reviewedAt": "2026-11-16",
+   "summary": "Author S1 up-regulated chaperone genes agree in direction; no author effects or full table",
+   "note": "The official count/FPKM deposit is accessible, supports the registered maternal low-fat to maternal HFHS comparison, and the local file was rehashed (SHA-256 c41eaa64...). GEO reports the authors' DESeq2 headline of 789 nominal P<0.05 genes (408 up, 381 down), while local edgeR-QL has 1,094 nominal P<0.05 genes (547/547) but only five FDR<0.05. 2026-11-16: publisher Supplementary Table S1 (mmc1.xlsx, SHA-256 cc23c758...) gives the member genes of nine GO categories enriched among HP-versus-LP upregulated DEGs: 39 unique genes, direction only, no per-gene effects, P or FDR. 38 pair by exact symbol with the registered output (97.44%); 38/38 are positive locally (34 nominal P<0.05, none FDR<0.05); Fkbp6 is absent from the registered output. Pearson/Spearman are not computable on a direction-only reference. The selection is author-significant, upregulated and chaperone/UPR-biased from the same six libraries, so sign agreement is expected and does not establish genome-wide agreement. Supplementary Table S2 covers the unregistered 4-PBA contrast. Evidence and script: continued-sources/GSE162744/turbo-2026-11-16-wave2/.",
+   "reviewFlags": [
+    "Selected-gene evidence: 39 Supplementary Table S1 GO-member genes (author up-DEGs only) are not the full tested universe; no down-regulated author genes are available.",
+    "Author reference is direction only; author effect sizes, P values and FDR are not published, so correlation and author inference are not assessed.",
+    "This legacy source has no committed source-file checksum manifest."
+   ],
+   "evidenceLinks": [
+    {
+     "label": "Open publisher full text",
+     "url": "https://www.sciencedirect.com/science/article/pii/S0303720721000629",
+     "kind": "paper"
+    },
+    {
+     "label": "Supplementary Table S1 (HP vs LP up GO genes)",
+     "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0303720721000629-mmc1.xlsx",
+     "kind": "author_result"
+    }
+   ]
+  },
+  "verificationReview": {
+   "resultAvailability": "partial",
+   "comparisonOutcome": "method_differences",
+   "reason": "2026-11-16 selected-scope comparison: publisher Supplementary Table S1 (mmc1.xlsx, SHA-256 cc23c758...) lists nine GO categories enriched among author DESeq2 nominal P<0.05 DEGs upregulated in HP (maternal HFHS + vehicle) versus LP (maternal low-fat + vehicle), with 39 unique member genes and no per-gene effects, P or FDR. 38 of 39 pair by exact symbol with the registered edgeR-QL output (97.44% of the selected scope); all 38 are nonzero and 38/38 (100%) are positive locally. Pearson and Spearman are not computable because the reference is direction only. Locally 34/38 have nominal P<0.05 and 0/38 FDR<0.05. Fkbp6 is absent from the registered output. The scope is about 10% of the 408 author up-DEGs, none of the 381 down-DEGs, and is chaperone/UPR-biased; author inference is not assessed. No full author DESeq2 table is deposited in GEO or the supplement. Evidence: continued-sources/GSE162744/turbo-2026-11-16-wave2/.",
+   "nextStep": "Keep the 39-gene direction-only scope explicit. Full-universe or effect-level concordance needs the authors' complete HP-versus-LP DESeq2 table (gene IDs, log2FC, P, padj), which is not deposited; request it from the corresponding author.",
+   "fullyVerifiedContrasts": []
+  },
+  "comparabilityReview": {
+   "target": "registered_output",
+   "resultScope": "selected_results",
+   "registeredContrastIds": [
+    "mat_hfhs_vs_lowfat"
+   ],
+   "basis": "Registered Explorer maternal HFHS-minus-low-fat edgeR-QL output (GSE162744_DE.tsv, identical logFC in the public track bundle), compared only for genes in author Supplementary Table S1.",
+   "reference": "Publisher Supplementary Table S1: member genes of nine GO categories enriched among author DESeq2 nominal P<0.05 HP-versus-LP upregulated DEGs; 39 unique genes, direction only.",
+   "assessment": "limited",
+   "dimensions": {
+    "cohort": {
+     "status": "matched",
+     "note": "GEO sample titles assign the same six libraries (LP: Lg42_P1, Lg63_P2, Lg63_P3; HP: Hg43_P1, Hg43_P2, Hg13_P3) to both analyses; the 4-PBA arm is excluded on both sides. Litter independence remains an internal-QC question."
+    },
+    "contrast": {
+     "status": "matched",
+     "note": "S1 is titled upregulated in HP compared with LP, the same maternal HFHS-minus-low-fat question and orientation as the registered contrast."
+    },
+    "features": {
+     "status": "compatible",
+     "note": "Exact symbol join; 39 unique author symbols, none duplicated; 38 pair and Fkbp6 is absent from the registered output."
+    },
+    "effects": {
+     "status": "limited",
+     "note": "Author direction only (all up); 38/38 nonzero local logFC are positive (median 0.21). No author magnitudes, so correlation is not computable."
+    },
+    "inference": {
+     "status": "not_tested",
+     "note": "Per-gene author P/FDR are not published; 34/38 have local nominal P<0.05 and none FDR<0.05, context only."
+    },
+    "coverage": {
+     "status": "limited",
+     "note": "38 of 39 selected genes (97.44%) pair; the scope is about 10% of 408 author up-DEGs and none of 381 down-DEGs."
+    }
+   },
+   "criteria": "author-concordance-v2 direction route within the declared selected scope: at least 30 nonzero pairs covering 90% of pairs and 90% reference coverage, with 90% same-gene direction agreement. Correlations are unavailable, not failed. No full-result acceptance is established.",
+   "conclusion": "Direction agrees for every paired author-listed upregulated chaperone/UPR gene; this is selected-gene support, not effect, inference or genome-wide verification."
+  },
+  "additionalComparisonSpec": null
+ },
+ "metrics": {
+  "basis": "Selected scope: Supplementary Table S1 GO-member genes (author HP-vs-LP up-DEGs), direction only, versus geo_replication/datasets/GSE162744_mmus_hypo_maternal_protein/processed/GSE162744_DE.tsv.",
+  "authorGenesInScope": 39,
+  "pairedGenes": 38,
+  "referenceCoverage": 0.9744,
+  "nonzeroPairs": 38,
+  "sameDirection": 38,
+  "directionAgreement": 1.0,
+  "pearson": null,
+  "spearman": null,
+  "correlationNote": "Not computable: the author reference carries direction only (all +1); no author effect sizes are published.",
+  "localNominalP05": 34,
+  "localFDR05": 0,
+  "missingFromLocal": [
+   "Fkbp6"
+  ],
+  "authorPadjAssessed": false,
+  "v2Eligible": true,
+  "v2Route": "direction (selected scope)",
+  "s1Sha256": "cc23c75828dc986ea86d8b7c94b7775dca35b42e47ed114916124f9826637b93",
+  "localDeSha256": "33ae92539274c6828d9f71db28bcee56ab0d6436482a24be5831620a0f798032"
+ }
+}

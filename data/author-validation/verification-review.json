@@ -275,8 +275,9 @@
     "rat_arc_hfd_gse232510": {
       "resultAvailability": "partial",
       "comparisonOutcome": "unresolved",
-      "reason": "A documented paper/deposit cohort difference prevents a same-cohort result comparison. A paper headline is accessible, while supplementary file retrieval is blocked.",
-      "nextStep": "Obtain final retained CS/HFS IDs, missing-group/exclusion documentation, and the author gene-level result."
+      "reason": "2026-11-16: author Supplementary Table S1 (431 CS-vs-HFS DESeq2 DEGs, padj<=0.1001) retrieved via Europe PMC and compared with the current R 4.6.0 registered output. 406 paired by exact Ensembl feature (coverage 0.9420); nonzero direction agreement 402/406 (0.9901); Pearson 0.8976 (below the 0.90 correlation-route minimum), Spearman 0.9026, OLS slope 0.446. The cohort-identity discrepancy is unresolved: GSM7349355 and GSM7349358 match no author library, author CS16/HFS/HFS17 are not deposited, and the author fit used 3 CS + 4 HFS within 14 libraries. Four registered libraries are shared with the author fit, so the effect agreement is not independent replication. Author 405 versus registered 0 FDR<0.1 calls among paired genes. Evidence is in continued-sources/GSE232510/turbo-2026-11-16-wave2/.",
+      "nextStep": "Obtain author documentation of the deposited GSM7349355/GSM7349358 libraries versus author CS16/HFS/HFS17 (and the undeposited CR and fourth HFS libraries) or the full author count matrix; any same-cohort author-compatible reconstruction must remain separate from the registered 3-versus-3 analysis.",
+      "fullyVerifiedContrasts": []
     },
     "mouse_hypo_prenatal_benzene_gse229440": {
       "resultAvailability": "partial",
@@ -631,9 +632,10 @@
     },
     "mouse_hypo_maternal_protein_gse162744": {
       "resultAvailability": "partial",
-      "comparisonOutcome": "not_tested",
-      "reason": "The accessible manuscript contains selected, headline, or figure-level results, not a complete comparable all-gene result. These limited observations do not establish genome-wide agreement.",
-      "nextStep": "Obtain a complete same-contrast table with gene identifiers, effects, statistical values, filtering, and sample membership."
+      "comparisonOutcome": "method_differences",
+      "reason": "2026-11-16 selected-scope comparison: publisher Supplementary Table S1 (mmc1.xlsx, SHA-256 cc23c758...) lists nine GO categories enriched among author DESeq2 nominal P<0.05 DEGs upregulated in HP (maternal HFHS + vehicle) versus LP (maternal low-fat + vehicle), with 39 unique member genes and no per-gene effects, P or FDR. 38 of 39 pair by exact symbol with the registered edgeR-QL output (97.44% of the selected scope); all 38 are nonzero and 38/38 (100%) are positive locally. Pearson and Spearman are not computable because the reference is direction only. Locally 34/38 have nominal P<0.05 and 0/38 FDR<0.05. Fkbp6 is absent from the registered output. The scope is about 10% of the 408 author up-DEGs, none of the 381 down-DEGs, and is chaperone/UPR-biased; author inference is not assessed. No full author DESeq2 table is deposited in GEO or the supplement. Evidence: continued-sources/GSE162744/turbo-2026-11-16-wave2/.",
+      "nextStep": "Keep the 39-gene direction-only scope explicit. Full-universe or effect-level concordance needs the authors' complete HP-versus-LP DESeq2 table (gene IDs, log2FC, P, padj), which is not deposited; request it from the corresponding author.",
+      "fullyVerifiedContrasts": []
     },
     "mouse_hypo_aging_glp1r_gse280382": {
       "resultAvailability": "partial",
@@ -704,10 +706,11 @@
       "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match."
     },
     "mouse_vlpo_galanin_sleep_gse132308": {
-      "resultAvailability": "partial",
-      "comparisonOutcome": "not_comparable",
-      "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
-      "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match."
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "2026-11-16 full-table comparison against Additional file 2 sheet DEG column SDvsSS_6hr.FC (all 13,856 author-tested genes; same ZT6 SD-minus-SS contrast) and the current R 4.6.0 registered DE table (SHA-256 5fb5171c...). 13,184 finite matched effects (95.15% of author rows, 99.27% of registered rows); Pearson 0.944669, Spearman 0.958157, nonzero direction agreement 95.000% (12,525/13,184), median absolute log2FC difference 0.014146, paired RMS effect ratio 0.901098. The 12 registered ZT6 libraries are the author's ZT6 groups (GEO 52 samples = paper 52 mice). Exact Ensembl joins via the registered feature map. Author effects come from a 52-sample limma fit; the only author FDR is a 4-timepoint moderated-F test, so ZT6 inference is not assessed. Evidence and reproducible extraction are in continued-sources/GSE132308/turbo-2026-11-16-wave2/.",
+      "nextStep": "Keep inference unassessed unless ZT6-specific author P/FDR becomes available. The 283 author genes outside the registered filter remain coverage gaps, not mismatches. A whole-cohort limma reconstruction could be added as a separate sensitivity analysis. Before an additional comparison spec is added, regenerate the derived author-effects.tsv to keep all 13,856 author rows (unpaired rows keyed by Ensembl ID) without the registered columns, and retain a checksummed copy of the feature map with the evidence.",
+      "fullyVerifiedContrasts": []
     },
     "mouse_hypo_glp1_gse314029": {
       "resultAvailability": "partial",
