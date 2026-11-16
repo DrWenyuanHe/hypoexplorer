@@ -50,7 +50,7 @@ Source areas:
 - `pwa`: Version-stamp update prompt and the opt-in service worker.
 - `qc`: Track-level QC tables and enrichment diagnostics.
 - `search`: Unified gene and pathway search, synonym dictionary, results portal and gated HypoMap atlas views.
-- `statistics`: Statistical definitions and interpretation limits.
+- `statistics`: Statistical definitions, interpretation limits and the shared FDR / p < 0.05 listing toggle.
 - `styles`: Shared display constants.
 - `types`: Shared registry, track, report and time-series contracts.
 - `utils`: Routing, sample values, symbol handling and exports.

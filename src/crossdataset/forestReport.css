@@ -40,7 +40,7 @@
 @media (max-width: 640px) {
   .report-main { padding: 20px 12px 40px; }
   /* Pathway forest rows stack on a phone: the track, then the NES axis across
-     the full width, then P, FDR and direction, each labelled in its cell. The
+     the full width, then P, FDR and the call, each labelled in its cell. The
      axis header keeps only the scale and NES, aligned over the row's bar. */
   .report-dataset-results { overflow-x: visible; }
   .report-forest-table { min-width: 0; }
@@ -89,7 +89,10 @@
 .report-de-col-comparison { width: 23%; }
 .report-de-col-bar { width: 120px; }
 .report-de-col-effect { width: 200px; }
-.report-de-col-q { width: 64px; }
+.report-de-col-q { width: 96px; }
+.report-de-qlabel { color: var(--text-muted); }
+.report-de-mode { display: flex; justify-content: flex-end; margin-bottom: 6px; }
+.report-de-tier { display: block; width: fit-content; margin: 3px 0 0 auto; font-family: var(--font-sans); font-size: 10px; line-height: 1.5; }
 .report-de-col-actions { width: 176px; }
 .report-de-table td { padding: 9px 14px 9px 0; vertical-align: middle; color: var(--text-mono); border-top: 1px solid var(--border); }
 .report-de-table td:first-child { padding-left: 14px; }
@@ -148,7 +151,7 @@
   .report-de-table td:nth-child(6) { grid-area: actions; }
   .report-de-source { white-space: normal; }
   .report-de-table .report-effect-trigger { margin: -4px; padding: 4px; }
-  .report-de-table td.num::before { content: "q "; color: var(--text-muted); }
+  /* No "q " prefix here: the q cell names its value itself (QTerm) at every width. */
   .report-de-table td.report-de-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0 18px; text-align: left; white-space: normal; }
   .report-de-actions > * + * { margin-left: 0; }
   .report-de-actions a { display: inline-flex; align-items: center; min-height: 44px; }

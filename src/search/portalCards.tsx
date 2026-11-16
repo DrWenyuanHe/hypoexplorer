@@ -12,7 +12,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { dirGlyph } from '../crossdataset/forestReport';
-import { DEFAULT_FDR_CUTOFF } from '../statistics/policy';
+import { DEFAULT_FDR_CUTOFF, NOMINAL_P_CUTOFF, type SignificanceTier } from '../statistics/policy';
 import { DOWN_TEXT_COLOR, NEUTRAL_TEXT_COLOR, UP_TEXT_COLOR } from '../styles/constants';
 import { fmtFDR, fmtP, fmtSigned } from '../utils/format';
 import { DbBadge } from './DbBadge';
@@ -56,6 +56,17 @@ export function Effect({ value, direction, significant }: { value: number; direc
       <span aria-hidden="true">{dirGlyph(direction)} </span>{fmtSigned(value, 2)}
     </span>
   );
+}
+
+/**
+ * A row's call: the FDR survivors are labelled; the nominal tier is named as
+ * uncorrected. Shared by the search portal and the pathway report, so the same
+ * result carries the same words wherever it appears.
+ */
+export function TierLabel({ tier }: { tier: SignificanceTier }) {
+  if (tier === 'fdr') return <span className="portal-tier portal-tier--fdr">FDR &lt; {DEFAULT_FDR_CUTOFF}</span>;
+  if (tier === 'nominal') return <span className="portal-tier portal-tier--nominal">p &lt; {NOMINAL_P_CUTOFF} only</span>;
+  return <span className="portal-tier portal-tier--none">n.s.</span>;
 }
 
 export function plural(n: number, one: string, many = `${one}s`): string {

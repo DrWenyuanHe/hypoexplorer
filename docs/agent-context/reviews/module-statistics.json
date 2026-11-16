@@ -1,11 +1,15 @@
 {
   "version": 1,
   "area": "module-statistics",
-  "fingerprint": "7dcae3ade8e26de174cf8749b112769d7a42b024d81727145d13f8b6f1c2a8fb",
-  "outcome": "no-impact",
-  "explanation": "Doc and comment drift only (cleanup B3); no code path, export, route or data changes. StatisticsView.tsx says its prose mirrors MethodologyView instead of the deleted MethodologyTab.",
+  "fingerprint": "38fbab062649a735eb2b396c5d8d30d80dc334629449bf91f4cfa4b46f7beeb1",
+  "outcome": "updated",
+  "explanation": "policy.ts adds NOMINAL_P_CUTOFF and significanceTier ('fdr' | 'nominal' | 'none'), a display label beneath isFdrSignificant; the FDR call itself is unchanged. listingModeStore.ts holds the global, localStorage-backed listing choice ('nominal' default, or 'fdr'), modelled on chartScaleStore, and ListingModeToggle.tsx renders its segmented control (the pick filled in the brand blue, bold and ticked, so the state never rests on colour alone) plus QTerm, an abbr carrying Q_EXPLANATION (what q is) for every q / FDR / padj column. The listing changes what the views list, never what counts as significant. StatisticsView's callout explains the nominal tier in search and both reports and names the toggle.",
   "references": [
+    "src/statistics/policy.ts",
+    "src/statistics/listingModeStore.ts",
+    "src/statistics/ListingModeToggle.tsx",
+    "src/statistics/listingMode.css",
     "src/statistics/StatisticsView.tsx",
-    "src/methodology/MethodologyView.tsx"
+    "src/common/chartScaleStore.ts"
   ]
 }
