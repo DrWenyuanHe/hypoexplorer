@@ -1,15 +1,14 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "fba279e80a3336b16dd7b733de8a53cc78546e2a1f81fea784dfc852449515a6",
+  "fingerprint": "293f334130b7ec25edc3c4534227f0137afde47ba50ab2138d1f34eaf165750e",
   "outcome": "updated",
-  "explanation": "src/data/queryWire.ts now owns the whole query-index wire format: shard counts and hash, indexKey, every file path and JSONP global, the ShardEnvelope, the manifest, browse-summary, discovery and card-detail shapes, and encode/decode codecs for the gene, pathway, expression and track-pathway row layouts, plus trackEntry, which precomputes lowPower with src/utils/qcFlags. queryIndex.ts is its read adapter: it re-exports the wire types for existing callers, loads every family through the shared names, and no longer declares cardGlobalName or any type of its own. crossDataset.ts and crossDatasetCompare.ts read gene, pathway and expression rows through decodeGeneRow, decodePathwayRow and decodeExprRow instead of tuple positions. Output bytes are unchanged.",
+  "explanation": "From this branch: expressionUnits.ts gains resolveExpressionUnit, the one spelling of the registry-first unit rule, which buildPopData and the Node bundle reader share; browser behaviour is unchanged. From main (#35): src/data/queryWire.ts owns the query-index wire format (names, envelopes, row codecs, trackEntry with qcFlags lowPower) and queryIndex.ts is its read adapter; crossDataset readers decode rows through it with unchanged bytes.",
   "references": [
+    "src/data/expressionUnits.ts",
+    "src/data/buildPopData.ts",
     "src/data/queryWire.ts",
     "src/data/queryIndex.ts",
-    "src/data/crossDataset.ts",
-    "src/data/crossDatasetCompare.ts",
-    "src/utils/qcFlags.ts",
     "CONTEXT.md"
   ]
 }

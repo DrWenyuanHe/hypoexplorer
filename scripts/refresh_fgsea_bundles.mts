@@ -10,14 +10,9 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, isAbsolute, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import {
-  resolveTimeSeriesUrl,
-  resolveTrackGlobalKey,
-  resolveTrackUrl,
-  sameOriginDataset,
-} from '../src/data/bundleLocators';
 import { DATASETS } from '../src/data/datasets';
 import type { PathwayDatabase, RawTrack } from '../src/types';
+import { datasetBundlePaths, readJsonp } from './lib/bundleReader.mjs';
 import { planPathwayBundles, type PlannedBundleFile } from './lib/bundleWriter.mjs';
 import { assertMechanicalAuditFresh, carriedForwardWarning, missingLocalInputs } from './lib/authorValidationAudit.mjs';
 import { readVerifiedFgseaSet, resolveConfiguredFgseaSpecies } from './lib/fgseaProvenance.mjs';
@@ -85,13 +80,6 @@ function localFile(root: string, path: string): string {
   return file;
 }
 
-function readJsonp<T>(path: string, key: string): T {
-  const text = readFileSync(path, 'utf8').trim();
-  const prefix = `var ${key} = `;
-  if (!text.startsWith(prefix) || !text.endsWith(';')) throw new Error(`${path}: unexpected JSONP wrapper`);
-  return JSON.parse(text.slice(prefix.length, -1)) as T;
-}
-
 const plans: PlannedBundleFile[] = [];
 const protectedFiles: string[] = [];
 let contrastCount = 0;
@@ -116,23 +104,23 @@ for (const dataset of selected) {
     || new Set(evidence.contrasts.map((contrast) => contrast.table)).size !== ids.length) {
     throw new Error(`${dataset.id}: mechanical audit has no exact passing contrast-to-DE mapping`);
   }
-  const located = sameOriginDataset(dataset);
+  const bundles = datasetBundlePaths(dataset, { publicRoot: PUBLIC });
   if ([...SEPTEMBER5_STUDIES, ...HFD_STUDIES].some((study) => study.id === dataset.id)) {
     // New multi-population studies have an explicit per-track analysis ledger.
     // Preserve every track and form the shared pathway index from their union.
-    const metaPath = localFile(PUBLIC, located.metaFile);
-    const meta = readJsonp<{ populations: string[] }>(metaPath, dataset.metaGlobalKey);
+    const metaPath = bundles.meta.file;
+    const meta = readJsonp<{ populations: string[] }>(metaPath, bundles.meta.global);
     const analyses = [...SEPTEMBER5_ANALYSES, ...HFD_ANALYSES].filter((analysis) => analysis.studyId === dataset.id);
     const trackIds = [...new Set(analyses.map((analysis) => analysis.track))];
     if (JSON.stringify([...trackIds].sort()) !== JSON.stringify([...meta.populations].sort())) {
       throw new Error(`${dataset.id}: intake track ledger does not match metadata`);
     }
-    protectedFiles.push(metaPath, localFile(PUBLIC, located.qcFile));
+    protectedFiles.push(metaPath, bundles.qc.file);
     const names = new Set<string>();
     let indexPlan: PlannedBundleFile | undefined;
     for (const trackId of trackIds) {
-      const trackPath = localFile(PUBLIC, resolveTrackUrl(located, trackId));
-      const track = readJsonp<RawTrack>(trackPath, resolveTrackGlobalKey(dataset, trackId));
+      const { file: trackPath, global: trackGlobal } = bundles.track(trackId);
+      const track = readJsonp<RawTrack>(trackPath, trackGlobal);
       if (track.pathways || track.pathwaysByContrast) throw new Error(`${dataset.id}/${trackId}: embedded pathways`);
       protectedFiles.push(trackPath);
       const active = analyses.filter((analysis) => analysis.track === trackId);
@@ -157,18 +145,18 @@ for (const dataset of selected) {
     plans.push({ ...indexPlan, body: `var ${indexPlan.key} = ${JSON.stringify([...names].sort())};\n` });
     continue;
   }
-  const trackPath = localFile(PUBLIC, resolveTrackUrl(located, dataset.defaultTrack));
-  const raw = readJsonp<RawTrack>(trackPath, resolveTrackGlobalKey(dataset, dataset.defaultTrack));
+  const { file: trackPath, global: trackGlobal } = bundles.track(dataset.defaultTrack);
+  const raw = readJsonp<RawTrack>(trackPath, trackGlobal);
   if (raw.pathways || raw.pathwaysByContrast) {
     throw new Error(`${dataset.id}: embedded pathways must be split before a pathway-only refresh`);
   }
-  const metaPath = localFile(PUBLIC, located.metaFile);
-  const meta = readJsonp<{ populations?: string[] }>(metaPath, dataset.metaGlobalKey);
+  const metaPath = bundles.meta.file;
+  const meta = readJsonp<{ populations?: string[] }>(metaPath, bundles.meta.global);
   if (meta.populations?.length !== 1 || meta.populations[0] !== dataset.defaultTrack) {
     throw new Error(`${dataset.id}: refresh requires exactly the audited default track`);
   }
-  protectedFiles.push(trackPath, metaPath, localFile(PUBLIC, located.qcFile));
-  const timeseriesPath = localFile(PUBLIC, resolveTimeSeriesUrl(located, dataset.defaultTrack));
+  protectedFiles.push(trackPath, metaPath, bundles.qc.file);
+  const timeseriesPath = bundles.timeSeries(dataset.defaultTrack).file;
   if (existsSync(timeseriesPath)) protectedFiles.push(timeseriesPath);
   const processedRoot = localFile(ROOT, `${evidence.directory}/processed`);
   const blocks: Record<string, PathwayDatabase> = {};

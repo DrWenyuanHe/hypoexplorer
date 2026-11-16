@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "dde25b3687492fa345da9f6795c6fc6ee79c080f2f06b3a38a26b26a4d040a2a",
+  "fingerprint": "08329ee1946aa17ff91a1b1062bead97877c0829f7475450981754da3850f961",
   "outcome": "no-impact",
-  "explanation": "No evidence, QC policy or scientific value changes: the query index keeps the same rounding and significance-safe prob() rule in the generator, and its output bytes are identical to the previous builder over the same bundles (build 1cpqpf5dmmhsv, 1675 files hash-equal, --check passes). Only where the wire shapes and names are declared moved.",
+  "explanation": "No evidence, QC policy or scientific value changes. From this branch: audit_author_validation.mts reads its default-track bundle with the strict bundle reader instead of vm evaluation; a full regeneration on this checkout gave a byte-identical mechanical audit apart from generatedAt. From main: the query index keeps its rounding and significance-safe rule with byte-identical output (build 1cpqpf5dmmhsv); only where wire shapes are declared moved.",
   "references": [
+    "scripts/audit_author_validation.mts",
+    "scripts/lib/bundleReader.mts",
     "scripts/build_query_index.mts",
-    "src/data/queryWire.ts",
     "docs/agent-context/workflows.md"
   ]
 }

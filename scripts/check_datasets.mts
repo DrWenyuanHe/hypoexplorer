@@ -5,15 +5,6 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import {
-  resolvePathwayIndexUrl,
-  resolvePathwayUrl,
-  resolveTimeSeriesGlobalKey,
-  resolveTimeSeriesUrl,
-  resolveTrackGlobalKey,
-  resolveTrackUrl,
-  sameOriginDataset,
-} from '../src/data/bundleLocators';
 import { getActiveContrast } from '../src/data/contrasts';
 import { listDatasets } from '../src/data/datasets';
 import { manifestFreshness, REBUILD_HINT, type MetaShape } from '../src/data/indexFreshness';
@@ -21,6 +12,13 @@ import { groupSamplesOf } from '../src/data/rawTrack';
 import { sourceAccession, UPSTREAM_PROCESSING } from '../src/data/upstreamProcessing';
 import { TRACKER_REVERSE_INDEX } from '../src/data/tracker/reverseIndex.generated.js';
 import type { Dataset, DatasetMeta, RawTrack, TimeSeriesBundle, TrackerCatalog } from '../src/types';
+import {
+  BundleReadError,
+  datasetBundlePaths,
+  readJsonp,
+  type DatasetBundlePaths,
+  type DiskBundle,
+} from './lib/bundleReader.mjs';
 import { buildRegistry } from './lib/trackerIntegration.mjs';
 
 type QueryManifest = Parameters<typeof manifestFreshness>[0] & {
@@ -35,10 +33,6 @@ const registryIds = new Set(datasets.map((dataset) => dataset.id));
 const failures: string[] = [];
 const warnings: string[] = [];
 const notes: string[] = [];
-
-function localPublic(locator: string): string {
-  return path.join(ROOT, 'public', locator.replace(/^[/\\]+/, ''));
-}
 
 function fail(check: string, message: string): void {
   failures.push(`✗ ${check}: ${message}`);
@@ -67,75 +61,46 @@ function checkGeneKeys(check: string, owner: string, genes: Iterable<string>): v
   }
 }
 
-function readJsonp<T>(file: string, expectedGlobal: string): T {
-  const source = readFileSync(file, 'utf8');
-  const equals = source.indexOf('=');
-  if (equals < 0) throw new Error('has no assignment');
-  const lhs = source.slice(0, equals).trim().split(/\r?\n/).at(-1)?.trim() ?? '';
-  const match = /^(?:var\s+|window\.)([A-Za-z_$][\w$]*)$/.exec(lhs);
-  const assigned = match?.[1];
-  if (assigned !== expectedGlobal) {
-    throw new Error(`assigns ${assigned ?? '(unrecognised)'}; expected ${expectedGlobal}`);
-  }
-  const rest = source.slice(equals + 1).trim();
-  const start = Math.min(...['{', '['].map((token) => {
-    const index = rest.indexOf(token);
-    return index < 0 ? Number.POSITIVE_INFINITY : index;
-  }));
-  if (!Number.isFinite(start)) throw new Error('has no JSON object or array payload');
-  return JSON.parse(rest.slice(start).replace(/;\s*$/, '')) as T;
-}
-
-function readRequiredJsonp<T>(check: string, file: string, globalName: string): T | null {
-  if (!existsSync(file)) {
-    fail(check, `missing ${path.relative(ROOT, file)}`);
-    return null;
-  }
+// Parsing (expected global, no evaluation) and bundle names both come from the
+// shared bundle reader — the checker must not re-derive by string surgery the
+// very names whose drift it exists to catch. It reads the PUBLISHED bytes, with
+// no display correction applied: this is a structural check of the files.
+function readRequired<T>(check: string, bundle: DiskBundle): T | null {
   try {
-    return readJsonp<T>(file, globalName);
+    return readJsonp<T>(bundle.file, bundle.global);
   } catch (error) {
-    fail(check, `${path.relative(ROOT, file)}: ${error instanceof Error ? error.message : String(error)}`);
+    const file = path.relative(ROOT, bundle.file);
+    if (error instanceof BundleReadError && error.reason === 'missing') fail(check, `missing ${file}`);
+    else fail(check, `${file}: ${error instanceof BundleReadError ? error.detail : String(error)}`);
     return null;
   }
 }
 
-// Bundle names come from the shared locators — the checker must not re-derive
-// by string surgery the very names whose drift it exists to catch. Locators
-// prepend bundleBaseUrl, so hand them the shared same-origin projection and
-// map the rooted locator path onto public/. Memoized: the sweep derives a
-// handful of names per track and there is no reason to respread per call.
-const locatedCache = new WeakMap<Dataset, Dataset>();
-function located(dataset: Dataset): Dataset {
-  let loc = locatedCache.get(dataset);
-  if (!loc) {
-    loc = sameOriginDataset(dataset);
-    locatedCache.set(dataset, loc);
+// Memoized: the sweep derives a handful of names per track.
+const pathsCache = new WeakMap<Dataset, DatasetBundlePaths>();
+function bundlesOf(dataset: Dataset): DatasetBundlePaths {
+  let paths = pathsCache.get(dataset);
+  if (!paths) {
+    paths = datasetBundlePaths(dataset, { publicRoot: path.join(ROOT, 'public') });
+    pathsCache.set(dataset, paths);
   }
-  return loc;
-}
-
-function trackFile(dataset: Dataset, trackId: string): string {
-  return localPublic(resolveTrackUrl(located(dataset), trackId));
-}
-
-function trackGlobal(dataset: Dataset, trackId: string): string {
-  return resolveTrackGlobalKey(dataset, trackId);
-}
-
-function pathwayFile(dataset: Dataset, trackId: string): string {
-  return localPublic(resolvePathwayUrl(located(dataset), trackId));
-}
-
-function pathwayIndexFile(dataset: Dataset): string {
-  return localPublic(resolvePathwayIndexUrl(located(dataset)));
+  return paths;
 }
 
 const diskMeta = new Map<string, DatasetMeta>();
 let declaredTracks = 0;
 
 for (const dataset of datasets) {
-  const meta = readRequiredJsonp<DatasetMeta>('disk', localPublic(dataset.metaFile), dataset.metaGlobalKey);
-  readRequiredJsonp<unknown>('disk', localPublic(dataset.qcFile), dataset.qcGlobalKey);
+  let bundles: DatasetBundlePaths;
+  try {
+    bundles = bundlesOf(dataset);
+  } catch (error) {
+    // An unsafe or non-local locator is a registry defect to report, not a crash.
+    fail('disk', `${dataset.id}: ${error instanceof Error ? error.message : String(error)}`);
+    continue;
+  }
+  const meta = readRequired<DatasetMeta>('disk', bundles.meta);
+  readRequired<unknown>('disk', bundles.qc);
   if (!meta) continue;
   diskMeta.set(dataset.id, meta);
 
@@ -150,35 +115,31 @@ for (const dataset of datasets) {
 
   const declaredFiles = new Set<string>();
   for (const trackId of meta.populations) {
-    const file = trackFile(dataset, trackId);
+    const { file } = bundles.track(trackId);
     declaredFiles.add(path.basename(file));
     if (!existsSync(file)) fail('disk', `${dataset.id}: missing ${path.relative(ROOT, file)}`);
-    if (dataset.supportsPathways && !existsSync(pathwayFile(dataset, trackId))) {
+    if (dataset.supportsPathways && !existsSync(bundles.pathways(trackId).file)) {
       warn('disk', `${dataset.id}/${trackId}: optional pathway sibling is absent`);
     }
   }
-  if (dataset.supportsPathways && !existsSync(pathwayIndexFile(dataset))) {
+  if (dataset.supportsPathways && !existsSync(bundles.pathwayIndex.file)) {
     warn('disk', `${dataset.id}: optional pathways_index.js is absent`);
   }
 
-  const datasetDir = path.dirname(localPublic(dataset.metaFile));
-  for (const name of readdirSync(datasetDir)) {
+  for (const name of readdirSync(bundles.dir)) {
     if (!name.startsWith('track_') || !name.endsWith('.js') || name.endsWith('.pathways.js')) continue;
     if (!declaredFiles.has(name)) {
       warn('disk', `${dataset.id}: staged track file ${name} is not declared by meta.populations`);
     }
   }
 
-    if (dataset.timeSeries) {
+  if (dataset.timeSeries) {
     const populations = new Set(meta.populations);
     for (const trackId of dataset.timeSeries.tracks) {
       if (!populations.has(trackId)) {
         fail('disk', `${dataset.id}: time-series track "${trackId}" is absent from meta.populations`);
       }
-      const file = localPublic(resolveTimeSeriesUrl(located(dataset), trackId));
-      const series = readRequiredJsonp<TimeSeriesBundle>(
-        'time-series', file, resolveTimeSeriesGlobalKey(dataset, trackId),
-      );
+      const series = readRequired<TimeSeriesBundle>('time-series', bundles.timeSeries(trackId));
       if (!series) continue;
       const genes = Object.keys(series.values ?? {});
       checkGeneKeys('public identifiers', `${dataset.id}/${trackId} time-series`, genes);
@@ -313,7 +274,7 @@ for (const dataset of datasets) {
   }
 
   for (const trackId of selected) {
-    const raw = readRequiredJsonp<RawTrack>('bundle groups', trackFile(dataset, trackId), trackGlobal(dataset, trackId));
+    const raw = readRequired<RawTrack>('bundle groups', bundlesOf(dataset).track(trackId));
     if (!raw) continue;
     bundlesParsed++;
     const owner = `${dataset.id}/${trackId}`;

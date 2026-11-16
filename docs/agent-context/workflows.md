@@ -6,7 +6,9 @@ Start with the [dataset contract](../DATASET_CONTRACT.md),
 [real shapes](../REAL_DATA_SHAPES.md) and [dataset map](generated/datasets.md).
 Inputs are the study identity, source files, sample design, contrasts and
 analysis outputs. Inspect `src/data/datasets.ts`, registered sidecars and the
-appropriate builder; shared writes use `scripts/lib/bundleWriter.mts`.
+appropriate builder; shared writes use `scripts/lib/bundleWriter.mts` and script
+reads use `scripts/lib/bundleReader.mts` (`readJsonp` for published bytes,
+`readDatasetFromDisk` for what the explorer shows).
 Expected outputs are registry metadata, bundles and their retained evidence.
 Use `pnpm exec tsx scripts/check_datasets.mts` for structural closure (`--all-tracks`
 for full track coverage) and `pnpm run check:query-index` for index freshness.
@@ -25,7 +27,7 @@ repository does not carry; record the replay as pending in `TODOS.md` (see
 [verification](#verification)). Context generation does not rebuild scientific data.
 
 The registry's `expressionUnit` is authoritative for display: `buildPopData`,
-`loadTimeSeries` and the agent export prefer it to the unit stamped in a bundle, and the bundle
+`loadTimeSeries` and the agent export (through `resolveExpressionUnit`) prefer it to the unit stamped in a bundle, and the bundle
 builders take the registry unit, so a unit relabel need not rebuild hash-pinned
 bundle bytes. Changing a field of a dataset registered before the R 4.6.0 swap
 needs a reviewed reason in `scripts/regen-r460/build_registry_edits.mts`

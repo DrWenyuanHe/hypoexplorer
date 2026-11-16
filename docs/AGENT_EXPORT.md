@@ -9,9 +9,12 @@ this repository.
 
 ## What it reads and writes
 
-- **Reads** the published bundles under `public/datasets/` through the strict
-  contrast rules in `src/data/rawTrack.ts` (the same ones the query index
-  uses), plus the registry (`src/data/datasets.ts`), quality decisions,
+- **Reads** the published bundles under `public/datasets/` through the bundle
+  reader (`scripts/lib/bundleReader.mts`), which resolves them as the explorer
+  does: reviewed display labels (`src/data/reviewedTrackLabels.ts`), the
+  registry's expression unit, the shared low-power rule and the strict contrast
+  rules in `src/data/rawTrack.ts` (the same ones the query index uses). It also
+  reads the registry (`src/data/datasets.ts`), quality decisions,
   upstream-processing records, `data/seo/studySources.json`,
   `data/nomenclature/nomenclature.tsv` and `CITATION.cff`.
 - **Writes** `dist-export/hypoexplorer-data-v<version>.zip` and its `.sha256`

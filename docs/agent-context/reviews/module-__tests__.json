@@ -1,18 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "0fd351dd7cc675915678657bd8e1228006a226e08dcf32c0f3ee2a9c95e87f4b",
+  "fingerprint": "9b0a4e2191e0bf9242934a57c463818039f43c659b8d14391f2fa106a1af1f94",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31, #34, #32, #33) into the query-wire branch. From this branch: queryWire.test.ts pins the published query-index names and row layouts, round-trips every row codec, checks trackEntry against the qcFlags low-power rule and proves the client reads where the generator writes; resultBars.test.tsx drops its client-only cardGlobalName pin. From main: From this branch: csv.test.ts pins the CSV seam (escaping table, formula guard, BOM/CRLF, provenance columns), csvDownload.ts is the shared reader for a mocked downloadFile, csvDialog.test.tsx covers the HypoMap dialog download, and the library, gene-list, gene and circadian export tests read files through that helper. From main: hypomapCodetection, hypomapCoexpression and hypomapMetrics tests cover the co-detection client, expressionSurvey and expressionSurveyLoad tests the survey derivation and load lifecycle, and sourceJson tests the expression-source reader.",
+  "explanation": "Merged main (#30-#35) into the bundle-reader branch. From this branch: bundleReader.test.ts pins the writer-to-reader round trip, strict JSONP parsing (including a linear-time refusal of an adversarial unclosed comment header) and registry unit precedence; bundleReaderParity.test.ts pins Node reader labels to loadDatasetMeta for every committed meta.js; agentExport.test.ts reads published bytes through readJsonp and asserts the reviewed GSE174085 label. From main: queryWire.test.ts pins the query-index wire names, row codecs and lowPower rule; csv tests pin the CSV seam; hypomap, expressionSurvey and sourceJson tests cover the co-detection client, survey derivation and expression-source reader.",
   "references": [
+    "src/__tests__/bundleReader.test.ts",
+    "src/__tests__/bundleReaderParity.test.ts",
+    "src/__tests__/agentExport.test.ts",
     "src/__tests__/queryWire.test.ts",
-    "src/__tests__/resultBars.test.tsx",
-    "src/data/queryWire.ts",
-    "src/__tests__/csv.test.ts",
-    "src/__tests__/csvDownload.ts",
-    "src/__tests__/csvDialog.test.tsx",
-    "src/__tests__/hypomapCodetection.test.ts",
-    "src/__tests__/expressionSurvey.test.ts",
-    "src/__tests__/sourceJson.test.ts"
+    "src/__tests__/csv.test.ts"
   ]
 }

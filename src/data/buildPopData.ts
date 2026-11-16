@@ -11,7 +11,7 @@
 // the module no longer imports the dataset registry to look up a fallback.
 // `contrast` stays nullable, since a dataset can legitimately resolve none.
 import { DB_NAMES } from './constants';
-import { CPM_TMM_UNIT } from './expressionUnits';
+import { resolveExpressionUnit } from './expressionUnits';
 import { deTableFor, strictDeTableFor, groupSamplesOf } from './rawTrack';
 import type {
   Dataset,
@@ -155,6 +155,6 @@ export function buildPopData(
     // Per-dataset expression unit for honest axis labelling (count datasets =
     // CPM (TMM-normalized), GSE220533 = log2-normalized). Manifest is
     // authoritative; fall back to the count-dataset unit.
-    expressionUnit: dataset.expressionUnit ?? rawTrack.meta?.expressionUnit ?? CPM_TMM_UNIT,
+    expressionUnit: resolveExpressionUnit(dataset, rawTrack),
   };
 }

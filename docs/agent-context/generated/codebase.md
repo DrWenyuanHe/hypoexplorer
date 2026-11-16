@@ -49,7 +49,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (235):
+Covered source files (237):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -87,6 +87,8 @@ Covered source files (235):
 - [src/__tests__/browseArmCounts.test.ts](<../../../src/__tests__/browseArmCounts.test.ts>)
 - [src/__tests__/buildPopData.test.ts](<../../../src/__tests__/buildPopData.test.ts>)
 - [src/__tests__/bundleProgress.test.ts](<../../../src/__tests__/bundleProgress.test.ts>)
+- [src/__tests__/bundleReader.test.ts](<../../../src/__tests__/bundleReader.test.ts>)
+- [src/__tests__/bundleReaderParity.test.ts](<../../../src/__tests__/bundleReaderParity.test.ts>)
 - [src/__tests__/bundleSlim.test.ts](<../../../src/__tests__/bundleSlim.test.ts>)
 - [src/__tests__/bundleSource.test.ts](<../../../src/__tests__/bundleSource.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
