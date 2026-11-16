@@ -1,15 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "2a43065968a3b6adba124d1a729ed36f2c1754d1b61cfb98fd12996f8a4319f8",
+  "fingerprint": "fda4b8e023d9346ec3e993631f381c9842f3059e4ca51a5b404cbec0e24dc2e2",
   "outcome": "updated",
-  "explanation": "The /topics/ research guides are removed, so seoTopics.test.ts is deleted, seoPages.test.ts builds its supporting documents from the Methods and How to cite guides only, and the brand and hub footer tests no longer expect a /topics/ link. The renderSeoRoute assertion that /topics/missing-topic/ returns null now covers every topic path. From main: tracker tests follow the new filter layout (removing the default n≥3 chip, opening More filters, checking the active count and Clear all), the verification-claim test opens More filters before reading the Detailed author review select, and a firstN unit test pins list-comma handling.",
+  "explanation": "New sourceJson.test.ts covers the transport's family allow-list, version cache-bust, shared requests, forget-on-failure and reset. New baselineTeaser.test.ts checks, over the real reader and public NeuroSeq products, that every teaser row equals the survey's group mean and that AgRP groups are not pooled. Survey loader tests use resetSourceRequests/sourceJson; portal and gene-report fixtures use the BaselineTeaser groups shape.",
   "references": [
-    "src/__tests__/seoPages.test.ts",
-    "src/__tests__/brand.test.tsx",
-    "src/__tests__/hubUnits.test.tsx",
-    "docs/agent-context/generated/codebase.md",
-    "src/__tests__/datasetTracker.test.tsx",
-    "src/__tests__/trackerVerificationClaims.test.tsx"
+    "src/__tests__/sourceJson.test.ts",
+    "src/__tests__/baselineTeaser.test.ts",
+    "src/__tests__/portalCards.test.tsx",
+    "src/__tests__/neuroseqExpression.test.ts"
   ]
 }

@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "cdf3154d7ccda3b68f0d90125b1e11fa66e47286903599c61fdf674c26a07e53",
-  "outcome": "no-impact",
-  "explanation": "The tracker change uses no routing, explorer navigation, track loading, export or gene-picker path, so the UI-change runbook steps and their canonical entry points stay as written. Typecheck, focused Vitest tests and a browser check at desktop and phone widths covered it, as the runbook asks.",
+  "fingerprint": "b3d9e4a8f83a583d96ff9dc4447d03c5bc3d931e9457bfe8f94c5febe03e6301",
+  "outcome": "updated",
+  "explanation": "The gene page and search portal's NeuroSeq teaser now shows source groups rather than pooled populations: top five of 17 groups by the survey's group mean, with the group named under a multi-group population (NPY reporter / AgRP, SO AVP). EXPRESSION_SURVEY.md documents the change; BaselineSection rendering is in portalCards.tsx.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "src/dataset-tracker/DatasetTrackerView.tsx"
+    "src/search/portalCards.tsx",
+    "docs/EXPRESSION_SURVEY.md"
   ]
 }
