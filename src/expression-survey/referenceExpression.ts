@@ -1,5 +1,6 @@
 import { resolveNeuroseqGenes } from './neuroseqExpression';
 import type { ExpressionGeneResult, ExpressionSource } from './expressionTypes';
+import { sourceJson } from './sourceJson';
 
 export interface ReferenceSample {
   id: string;
@@ -25,23 +26,7 @@ export interface ReferenceManifest {
 
 interface GeneEntry { id: string; symbol: string; ensemblId: string; shard: string }
 interface GeneValues extends Omit<GeneEntry, 'shard'> { values: number[] }
-const requests = new Map<string, Promise<unknown>>();
-
-/** Release-local source data; accept only this reference's generated products. */
-export function referenceJson<T>(path: string): Promise<T> {
-  if (!/^\/expression\/oxt-reference\/(?:manifest|gene-index|validation|shards\/[a-f0-9]{2})\.json$/.test(path)) {
-    return Promise.reject(new Error('Invalid reference expression asset path.'));
-  }
-  let request = requests.get(path);
-  if (!request) {
-    request = fetch(`${path}?v=${encodeURIComponent(__APP_VERSION__)}`, { cache: 'no-cache' }).then(async (response) => {
-      if (!response.ok) throw new Error(`Reference expression unavailable (${response.status}). Please retry.`);
-      return response.json();
-    }).catch((error: unknown) => { requests.delete(path); throw error; });
-    requests.set(path, request);
-  }
-  return request as Promise<T>;
-}
+const referenceJson = <T>(path: string): Promise<T> => sourceJson<T>('oxt-reference', path);
 
 export async function loadReferenceManifest(): Promise<ReferenceManifest> {
   const manifest = await referenceJson<ReferenceManifest>('/expression/oxt-reference/manifest.json');
@@ -107,4 +92,3 @@ export async function loadReferenceExpression(sourceId: string, genes: string[])
   }));
 }
 
-export function resetReferenceRequests(): void { requests.clear(); }

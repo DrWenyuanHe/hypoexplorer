@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "9037accd735f103036177ce6356f97031cd0677c37d9c2b4b042ea1329339699",
+  "fingerprint": "62dcefc075c7d86614e52974e8e9f16b08d8ef6d69884c563ee4b5e486577743",
   "outcome": "no-impact",
-  "explanation": "The expression survey refactor moves derivation and load lifecycle into expressionSurvey.ts and useSurveyLoad.ts without touching routing, explorer navigation, track loading, the export-action seam or gene pickers; the survey still downloads through downloadFile and exportFilename. The UI-change runbook steps and entry points stay as written; typecheck, lint, knip, focused Vitest tests and a browser check covered the change.",
+  "explanation": "The expression survey refactor moves derivation and load lifecycle into expressionSurvey.ts and useSurveyLoad.ts without touching routing, explorer navigation, track loading, the export-action seam or gene pickers; the survey still downloads through downloadFile and exportFilename. The UI-change runbook steps and entry points stay as written; typecheck, lint, knip, focused Vitest tests and a browser check covered the change. From main, the explorer analysis snapshot moved into the explorer session and the survey loaders share sourceJson.ts; neither changes the UI-change runbook.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/expression-survey/ExpressionSurveyView.tsx"

@@ -8,26 +8,13 @@ import type {
   ExternalValidation, ExternalValueShard,
 } from './externalReferenceFormat';
 import type { ExpressionGeneResult, ExpressionGroupResult, ExpressionSource } from './expressionTypes';
+import { sourceJson } from './sourceJson';
 
-const requests = new Map<string, Promise<unknown>>();
 const checked = new WeakSet<object>();
-const FILE = /^(?:manifest|validation|lookup\/l\d{4}|values\/v\d{4})\.json$/;
 
-/** Same-origin generated products; only this family's file names are accepted. */
-export function externalJson<T>(provider: ExternalProvider, file: string): Promise<T> {
-  if (!EXTERNAL_PROVIDERS.includes(provider) || !FILE.test(file)) {
-    return Promise.reject(new Error('Invalid external reference asset path.'));
-  }
-  const path = `${EXTERNAL_REFERENCE_ROOTS[provider]}/${file}`;
-  let request = requests.get(path);
-  if (!request) {
-    request = fetch(`${path}?v=${encodeURIComponent(__APP_VERSION__)}`, { cache: 'no-cache' }).then(async (response) => {
-      if (!response.ok) throw new Error(`External reference unavailable (${response.status}). Please retry.`);
-      return response.json();
-    }).catch((error: unknown) => { requests.delete(path); throw error; });
-    requests.set(path, request);
-  }
-  return request as Promise<T>;
+/** One generated file of a provider, through the survey's one transport. */
+function externalJson<T>(provider: ExternalProvider, file: string): Promise<T> {
+  return sourceJson<T>(provider, `${EXTERNAL_REFERENCE_ROOTS[provider]}/${file}`);
 }
 
 function validateManifest(manifest: ExternalReferenceManifest, provider: ExternalProvider): void {
@@ -180,4 +167,3 @@ export async function loadExternalValidation(provider: ExternalProvider): Promis
   return report;
 }
 
-export function resetExternalRequests(): void { requests.clear(); }

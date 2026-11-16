@@ -4,7 +4,7 @@ import { render, screen, fireEvent, waitFor, within } from '@testing-library/rea
 
 import { BaselineSection, ConditionPathwaysSection, GeneExpressionCards, ReferenceAtlasSection } from '../search/portalCards';
 import { resetSearchSummaries } from '../search/searchSummaries';
-import { resetExternalRequests } from '../expression-survey/externalReference';
+import { resetSourceRequests } from '../expression-survey/sourceJson';
 import { getDataset } from '../data/datasets';
 import { getActiveContrast } from '../data/contrasts';
 import { geneRow } from '../data/crossDatasetRows';
@@ -124,10 +124,10 @@ beforeEach(() => {
   mocks.loadQueryManifest.mockResolvedValue(indexManifest());
   mocks.loadTrackPathways.mockImplementation((_d: Dataset[], _m: QueryManifest, i: number) => Promise.resolve(TRACK_PATHWAYS[i] ?? null));
   mocks.loadBaselineTeaser.mockResolvedValue({
-    status: 'available', gene: 'Oxt', description: 'oxytocin', populationCount: 15, max: 9000,
-    populations: [
-      { id: 'HY.PVH_glu_Oxytocin-GFP', label: 'PVH oxytocin', region: 'PVH', meanTpm: 9000, libraries: 4 },
-      { id: 'HY.SO_glu_AVP.QZ20', label: 'SO AVP', region: 'SO', meanTpm: 1200, libraries: 3 },
+    status: 'available', gene: 'Oxt', populationCount: 15, max: 9000,
+    groups: [
+      { id: 'Oxytocin-GFP_PVH', populationId: 'HY.PVH_glu_Oxytocin-GFP', label: 'PVH oxytocin', group: null, region: 'PVH', meanTpm: 9000, libraries: 4 },
+      { id: 'AVP.QZ20.Ai_sup', populationId: 'HY.SO_glu_AVP.QZ20', label: 'SO AVP', group: 'AVP.QZ20.Ai_sup', region: 'SO', meanTpm: 1200, libraries: 2 },
     ],
   });
 });
@@ -429,14 +429,17 @@ describe('ConditionPathwaysSection', () => {
 // ── Baseline expression ─────────────────────────────────────────────────────
 
 describe('BaselineSection', () => {
-  it('shows the highest populations', async () => {
+  it('shows the highest source groups, naming the group of a multi-group population', async () => {
     render(<BaselineSection symbol="OXT" />);
     const card = document.querySelector('[data-section="baseline-expression"]') as HTMLElement;
     expect(within(card).getByRole('status').textContent).toMatch(/Loading population expression/);
     expect(await within(card).findByText('PVH oxytocin')).toBeTruthy();
     expect(within(card).getByText('9000')).toBeTruthy();
     expect(within(card).getByText('SO AVP')).toBeTruthy();
-    expect(within(card).getByText(/top 5 of 15 populations/)).toBeTruthy();
+    expect(within(card).getByText('AVP.QZ20.Ai_sup')).toBeTruthy();
+    expect(within(card).getByTitle('SO AVP, source group AVP.QZ20.Ai_sup')).toBeTruthy();
+    expect(within(card).getByTitle('PVH oxytocin').textContent).toBe('PVH oxytocin');
+    expect(within(card).getByText(/top 2 of 2 source groups in 15 populations/)).toBeTruthy();
     expect(mocks.loadBaselineTeaser).toHaveBeenCalledWith('OXT');
   });
 });
@@ -454,7 +457,7 @@ function productFetch(fail?: (url: string) => boolean) {
 }
 
 describe('ReferenceAtlasSection', () => {
-  beforeEach(() => resetExternalRequests());
+  beforeEach(() => resetSourceRequests());
   afterEach(() => { vi.unstubAllGlobals(); });
 
   it('shows GTEx, HPA subregions and every Allen probe for the human gene of a mouse symbol', async () => {
@@ -515,7 +518,7 @@ describe('ReferenceAtlasSection', () => {
 });
 
 describe('GeneExpressionCards', () => {
-  beforeEach(() => resetExternalRequests());
+  beforeEach(() => resetSourceRequests());
   afterEach(() => { vi.unstubAllGlobals(); });
 
   it('sets the mouse sources beside the human atlases in one section, with one survey link', async () => {

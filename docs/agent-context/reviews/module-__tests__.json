@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "71cfdb98aeb7f6b9def32ebb40084aefd1d498077bfbe21d227ebdd23a924638",
+  "fingerprint": "7058519f38ca4dd65bd1f66641c15da4e65bcd00f0903f8bffec486f3c03433d",
   "outcome": "updated",
-  "explanation": "expressionSurvey.test.ts adds table-driven pure tests for source selection, the catalog filter, panel grouping, reference eligibility, value status, ranking and bar axes, probe splitting and the matched note, matrix cell labels, empty states and the CSV/JSON export columns and rows. expressionSurveyLoad.test.tsx tests the source queue, useSurveyLoad (selection order, per-source retry, superseded surveys), useExternalValidation (progressive reports, failed-only re-requests) and useKeyedLoad. expressionSurveyView.test.tsx keeps nine DOM wiring tests and now asserts that a source retry re-requests only that source and that the catalog retries on its own; the queue, stale-query and unit tests moved to the new files.",
+  "explanation": "expressionSurvey.test.ts adds table-driven pure tests for source selection, the catalog filter, panel grouping, reference eligibility, value status, ranking and bar axes, probe splitting and the matched note, matrix cell labels, empty states and the CSV/JSON export columns and rows. expressionSurveyLoad.test.tsx tests the source queue, useSurveyLoad (selection order, per-source retry, superseded surveys), useExternalValidation (progressive reports, failed-only re-requests) and useKeyedLoad. expressionSurveyView.test.tsx keeps nine DOM wiring tests and now asserts that a source retry re-requests only that source and that the catalog retries on its own; the queue, stale-query and unit tests moved to the new files. From main: sourceJson.test.ts and the loader, portal-card, teaser and gene-report tests cover the shared expression-source reader.",
   "references": [
     "src/__tests__/expressionSurvey.test.ts",
     "src/__tests__/expressionSurveyLoad.test.tsx",

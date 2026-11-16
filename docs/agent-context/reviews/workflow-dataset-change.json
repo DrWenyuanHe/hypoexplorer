@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "1e94434e0b0b5eca1982fc1db90ed4e055b8cc49f59e5d43c1f9b3d2164d4565",
+  "fingerprint": "464c75f2d176782a5a05b76dee885fd3d08c3586f580fad666cbdab2e60d2ded",
   "outcome": "no-impact",
-  "explanation": "The survey runbook gains one sentence: a failed source offers its own retry, and the catalog and validation reports retry separately. Expression-only source registration, the expression index, reference imports and their checks are unchanged, so the dataset-change procedure stays as written.",
+  "explanation": "The survey runbook gains one sentence: a failed source offers its own retry, and the catalog and validation reports retry separately. Expression-only source registration, the expression index, reference imports and their checks are unchanged, so the dataset-change procedure stays as written. From main, the survey runbook names sourceJson.ts as the one transport for release-local survey JSON; registration steps are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
     "docs/EXPRESSION_SURVEY.md"
