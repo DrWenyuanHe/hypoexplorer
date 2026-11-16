@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "4ef240a2e299fb18d53a5bab0f2c3659f8b850689dca00cb3d759a7d87d7ca8c",
+  "fingerprint": "70257b19bc9d3006be883b31cf29a94729775c8abe2e5c64009976b6e7b8ad7a",
   "outcome": "updated",
-  "explanation": "Merged main (#31). From this branch: the HypoMap CsvDialog keeps its props and preview but downloads through writeCsv and exportFilename instead of its own quoting, slug regex and Blob anchor. From main: loadBaselineTeaser projects the survey NeuroSeq results one row per source group, and BaselineTeaser carries groups (SourceGroupLevel) instead of populations.",
+  "explanation": "Merged main (#30, #31, #32, #34). From this branch: the HypoMap CsvDialog keeps its props and preview but downloads through writeCsv and exportFilename instead of its own quoting, slug regex and Blob anchor, so the co-detection comparisonCsv rows from main are written under the shared CSV policy. From main: codetection.ts validates the loopback service and fails closed on export mismatch, useLoad replaces the duplicated load/retry effects, and loadBaselineTeaser projects the survey NeuroSeq results as source groups.",
   "references": [
     "src/search/hypomap/CsvDialog.tsx",
     "src/utils/csv.ts",
-    "src/search/searchSummaries.ts",
-    "src/search/portalCards.tsx",
-    "docs/EXPRESSION_SURVEY.md"
+    "src/search/hypomap/codetection.ts",
+    "src/search/hypomap/useLoad.ts",
+    "src/search/searchSummaries.ts"
   ]
 }

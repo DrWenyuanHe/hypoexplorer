@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "c2b6973d03e36f94fe02c5b9b2e309f7524e40d330c39ca38d625c07cfd12c50",
+  "fingerprint": "e43dfa1dfeebe7ca8eb2b8a897e08b6cc349e55d53d2a9dcbd136c3f8d3ff28f",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31, #34). The UI-change runbook now says every CSV is written by src/utils/csv.ts (escaping, formula guard, BOM/CRLF), beside the export-provenance rule. From main, the survey derivation and load lifecycle moved into expressionSurvey.ts and useSurveyLoad.ts, the NeuroSeq teaser shows source groups and the analysis-snapshot defaults live in the explorer session; routes and views are unchanged and the remaining runbook steps still hold.",
+  "explanation": "Merged main (#30, #31, #32, #34). The UI-change runbook says every CSV is written by src/utils/csv.ts (escaping, formula guard, BOM/CRLF), beside the export-provenance rule, and from main routes HypoMap co-expression work through the codetection.ts client and its shared wire golden. The survey derivation and load lifecycle moved into expressionSurvey.ts and useSurveyLoad.ts; routes and views are unchanged and the remaining runbook steps still hold.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/utils/csv.ts",
-    "src/expression-survey/expressionSurvey.ts",
-    "src/expression-survey/ExpressionSurveyView.tsx",
-    "src/explorer/explorerSession.ts"
+    "src/search/hypomap/codetection.ts",
+    "src/expression-survey/useSurveyLoad.ts"
   ]
 }

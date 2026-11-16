@@ -49,7 +49,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (231):
+Covered source files (234):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -173,6 +173,9 @@ Covered source files (231):
 - [src/__tests__/hubSections.test.ts](<../../../src/__tests__/hubSections.test.ts>)
 - [src/__tests__/hubUnits.test.tsx](<../../../src/__tests__/hubUnits.test.tsx>)
 - [src/__tests__/hypomapAtlas.test.ts](<../../../src/__tests__/hypomapAtlas.test.ts>)
+- [src/__tests__/hypomapCodetection.test.ts](<../../../src/__tests__/hypomapCodetection.test.ts>)
+- [src/__tests__/hypomapCoexpression.test.tsx](<../../../src/__tests__/hypomapCoexpression.test.tsx>)
+- [src/__tests__/hypomapMetrics.test.ts](<../../../src/__tests__/hypomapMetrics.test.ts>)
 - [src/__tests__/indexFreshness.test.ts](<../../../src/__tests__/indexFreshness.test.ts>)
 - [src/__tests__/indexProducts.test.ts](<../../../src/__tests__/indexProducts.test.ts>)
 - [src/__tests__/internalQc.test.ts](<../../../src/__tests__/internalQc.test.ts>)
@@ -732,7 +735,7 @@ Start here:
 - [src/search/SearchPage.tsx](<../../../src/search/SearchPage.tsx>)
 - [src/search/hypomap/atlas.ts](<../../../src/search/hypomap/atlas.ts>)
 
-Covered source files (18):
+Covered source files (20):
 - [src/search/DbBadge.tsx](<../../../src/search/DbBadge.tsx>)
 - [src/search/SearchPage.tsx](<../../../src/search/SearchPage.tsx>)
 - [src/search/UnifiedSearchBox.tsx](<../../../src/search/UnifiedSearchBox.tsx>)
@@ -741,8 +744,10 @@ Covered source files (18):
 - [src/search/hypomap/CsvDialog.tsx](<../../../src/search/hypomap/CsvDialog.tsx>)
 - [src/search/hypomap/HypoMapPreview.tsx](<../../../src/search/hypomap/HypoMapPreview.tsx>)
 - [src/search/hypomap/atlas.ts](<../../../src/search/hypomap/atlas.ts>)
+- [src/search/hypomap/codetection.ts](<../../../src/search/hypomap/codetection.ts>)
 - [src/search/hypomap/coexpression.css](<../../../src/search/hypomap/coexpression.css>)
 - [src/search/hypomap/preview.css](<../../../src/search/hypomap/preview.css>)
+- [src/search/hypomap/useLoad.ts](<../../../src/search/hypomap/useLoad.ts>)
 - [src/search/pathwaySpecificity.ts](<../../../src/search/pathwaySpecificity.ts>)
 - [src/search/portalCards.tsx](<../../../src/search/portalCards.tsx>)
 - [src/search/search.css](<../../../src/search/search.css>)

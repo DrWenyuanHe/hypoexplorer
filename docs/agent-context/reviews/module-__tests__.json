@@ -1,15 +1,15 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "ee3030a85022f7c9b7fcb2553a0f39216cd2f51c50b7ce1890055ae8bde7134b",
+  "fingerprint": "6470edc2674ed4d14657b960969cee6614b20a9b295020d33d0d5cb806983546",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31, #34) into the CSV seam branch. From this branch: csv.test.ts pins the CSV seam (escaping table, formula guard, BOM/CRLF, provenance columns), csvDownload.ts is the shared reader for a mocked downloadFile, csvDialog.test.tsx covers the HypoMap dialog download, and the library, gene-list, gene and circadian export tests read files through that helper. From main: expressionSurvey.test.ts and expressionSurveyLoad.test.tsx cover the survey derivation and load lifecycle, sourceJson.test.ts the expression-source reader, and explorerSession.test.tsx the analysis snapshot defaults.",
+  "explanation": "Merged main (#30, #31, #32, #34) into the CSV seam branch. From this branch: csv.test.ts pins the CSV seam (escaping table, formula guard, BOM/CRLF, provenance columns), csvDownload.ts is the shared reader for a mocked downloadFile, csvDialog.test.tsx covers the HypoMap dialog download, and the library, gene-list, gene and circadian export tests read files through that helper. From main: hypomapCodetection, hypomapCoexpression and hypomapMetrics tests cover the co-detection client, expressionSurvey and expressionSurveyLoad tests the survey derivation and load lifecycle, and sourceJson tests the expression-source reader.",
   "references": [
     "src/__tests__/csv.test.ts",
     "src/__tests__/csvDownload.ts",
     "src/__tests__/csvDialog.test.tsx",
+    "src/__tests__/hypomapCodetection.test.ts",
     "src/__tests__/expressionSurvey.test.ts",
-    "src/__tests__/expressionSurveyLoad.test.tsx",
     "src/__tests__/sourceJson.test.ts"
   ]
 }
