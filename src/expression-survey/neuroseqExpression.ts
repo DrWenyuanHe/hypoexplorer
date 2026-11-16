@@ -1,4 +1,5 @@
 import type { ExpressionGeneResult, ExpressionSource } from './expressionTypes';
+import { sourceJson } from './sourceJson';
 
 export interface NeuroseqSample {
   id: string;
@@ -41,22 +42,9 @@ export interface NeuroseqManifest {
 interface GeneEntry { id: string; symbol: string; ensemblId: string; shard: string }
 interface GeneValues extends Omit<GeneEntry, 'shard'> { description: string; values: number[] }
 
-const requests = new Map<string, Promise<unknown>>();
-
-/** Same-origin JSON belongs to the app release; failed loads remain retryable. */
+/** Same-origin NeuroSeq products, through the survey's one transport. */
 export function expressionJson<T>(path: string): Promise<T> {
-  if (!path.startsWith('/expression/neuroseq/') || path.includes('..')) {
-    return Promise.reject(new Error('Invalid NeuroSeq asset path.'));
-  }
-  let request = requests.get(path);
-  if (!request) {
-    request = fetch(`${path}?v=${encodeURIComponent(__APP_VERSION__)}`, { cache: 'no-cache' }).then(async (response) => {
-      if (!response.ok) throw new Error(`Expression data unavailable (${response.status}). Please retry.`);
-      return response.json();
-    }).catch((error: unknown) => { requests.delete(path); throw error; });
-    requests.set(path, request);
-  }
-  return request as Promise<T>;
+  return sourceJson<T>('neuroseq', path);
 }
 
 export async function loadNeuroseqManifest(): Promise<NeuroseqManifest> {
@@ -145,12 +133,25 @@ export function neuroseqGeneResult(manifest: NeuroseqManifest, sourceId: string,
   };
 }
 
+type GeneIndex = { schemaVersion: number; genes: GeneEntry[] };
+
+/** Resolutions per loaded index: every population's read of one gene resolves it once. */
+const resolutions = new WeakMap<GeneIndex, Map<string, GeneEntry[]>>();
+
+function resolveInIndex(index: GeneIndex, query: string): GeneEntry[] {
+  let memo = resolutions.get(index);
+  if (!memo) { memo = new Map(); resolutions.set(index, memo); }
+  let matches = memo.get(query);
+  if (!matches) { matches = resolveNeuroseqGenes(index.genes, query); memo.set(query, matches); }
+  return matches;
+}
+
 export async function loadNeuroseqExpression(sourceId: string, genes: string[]): Promise<ExpressionGeneResult[]> {
   const manifest = await loadNeuroseqManifest();
-  const index = await expressionJson<{ schemaVersion: number; genes: GeneEntry[] }>(manifest.geneIndexPath);
+  const index = await expressionJson<GeneIndex>(manifest.geneIndexPath);
   if (index.schemaVersion !== 1 || index.genes.length !== manifest.geneCount) throw new Error('NeuroSeq gene index is inconsistent.');
   return Promise.all(genes.map(async (query) => {
-    const matches = resolveNeuroseqGenes(index.genes, query);
+    const matches = resolveInIndex(index, query);
     const base = { sourceId, query, unit: 'TPM', groups: [] };
     if (!matches.length) return { ...base, status: 'not-retained' as const };
     if (matches.length > 1) return { ...base, status: 'ambiguous' as const, candidates: matches.map((m) => `${m.symbol} (${geneIdentifier(m)})`) };
@@ -161,5 +162,3 @@ export async function loadNeuroseqExpression(sourceId: string, genes: string[]):
     return neuroseqGeneResult(manifest, sourceId, query, row);
   }));
 }
-
-export function resetExpressionRequests(): void { requests.clear(); }

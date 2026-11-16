@@ -338,18 +338,23 @@ export function BaselineSection({ symbol }: { symbol: string }) {
       ) : (
         <>
           <ul className="portal-bars" aria-label={`Highest mean expression of ${teaser.gene}, TPM`}>
-            {teaser.populations.slice(0, BASELINE_TOP).map((p) => (
-              <li key={p.id}>
-                <span className="portal-bar-label">{p.label}</span>
-                <span className="portal-bar-track" aria-hidden="true">
-                  <span className="portal-bar" style={{ width: `${teaser.max > 0 ? Math.max(1, (p.meanTpm / teaser.max) * 100) : 0}%` }} />
+            {teaser.groups.slice(0, BASELINE_TOP).map((g) => (
+              <li key={g.id}>
+                <span className="portal-bar-label" title={g.group ? `${g.label}, source group ${g.group}` : g.label}>
+                  {g.label}
+                  {/* A population with several source groups gets a row per group, named as the survey names it. */}
+                  {g.group && <span className="portal-card-sub" style={{ display: 'block', overflow: 'hidden', textOverflow: 'ellipsis' }}>{g.group}</span>}
                 </span>
-                <span className="portal-bar-value">{fmtTpm(p.meanTpm)}</span>
+                <span className="portal-bar-track" aria-hidden="true">
+                  <span className="portal-bar" style={{ width: `${teaser.max > 0 ? Math.max(1, (g.meanTpm / teaser.max) * 100) : 0}%` }} />
+                </span>
+                <span className="portal-bar-value">{fmtTpm(g.meanTpm)}</span>
               </li>
             ))}
           </ul>
           <p className="portal-note">
-            Mean TPM across sorted-neuron libraries; top {BASELINE_TOP} of {teaser.populationCount} populations.
+            Mean TPM across each source group's sorted-neuron libraries; top {Math.min(BASELINE_TOP, teaser.groups.length)} of{' '}
+            {teaser.groups.length} source groups in {teaser.populationCount} populations. Source groups are not pooled, as in the survey.
           </p>
         </>
       )}

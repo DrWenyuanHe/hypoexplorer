@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "6b822180b0cb01ccc78821dc64c7cd60f3d7e13bc412db860e8f7cfe44b0458d",
+  "fingerprint": "70e5570c2161662d07f678fd4971e9e3f503e8bde13318b0af7b8ab5212de1e6",
   "outcome": "updated",
-  "explanation": "CONTEXT.md gains one Architecture bullet for the co-detection client seam, and the ui-change workflow paragraph on HypoMap now names src/search/hypomap/codetection.ts as the only path to the loopback service and services/hypomap/codetection_wire.json as the shared wire golden. services/hypomap/README.md documents the manifest hash now also returned by /api/recommendations and how to run the Python test. No data, bundle or deployment behaviour changes.",
+  "explanation": "Merged main (#30, #31). CONTEXT.md keeps every Architecture bullet: the Expression-source reader and explorer-session snapshot from main, and this branch's Co-detection client (codetection.ts, the ready/partial/unsupported/rejected unions, export-hash fail-closed, the shared wire golden). The ui-change workflow paragraph names codetection.ts and services/hypomap/codetection_wire.json, and the service README documents the manifest hash now also returned by /api/recommendations. No data, bundle or delivery behaviour changes.",
   "references": [
     "CONTEXT.md",
     "docs/agent-context/workflows.md",
-    "services/hypomap/README.md"
+    "services/hypomap/README.md",
+    "docs/agent-context/catalog.json"
   ]
 }

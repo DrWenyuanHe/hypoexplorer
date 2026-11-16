@@ -2,9 +2,9 @@
 import { readFileSync } from 'node:fs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
-  externalGeneResult, externalJson, loadExternalExpression, loadExternalManifest, loadExternalSources, loadExternalValidation,
-  resetExternalRequests,
+  externalGeneResult, loadExternalExpression, loadExternalManifest, loadExternalSources, loadExternalValidation,
 } from '../expression-survey/externalReference';
+import { resetSourceRequests, sourceJson } from '../expression-survey/sourceJson';
 import { externalKey } from '../expression-survey/externalReferenceFormat';
 import type { ExternalReferenceManifest } from '../expression-survey/externalReferenceFormat';
 
@@ -14,7 +14,7 @@ function publicJson(path: string): unknown {
 function localFetch() {
   vi.stubGlobal('fetch', vi.fn(async (url: string) => ({ ok: true, json: async () => publicJson(url) })));
 }
-afterEach(() => { resetExternalRequests(); vi.unstubAllGlobals(); });
+afterEach(() => { resetSourceRequests(); vi.unstubAllGlobals(); });
 
 async function source(id: string) {
   const { sources } = await loadExternalSources();
@@ -102,7 +102,7 @@ describe('external reference atlases', () => {
       expect(report.exactMatches).toBe(report.comparedValues);
       expect(report.notes.join(' ')).toMatch(/API/);
     }
-    resetExternalRequests();
+    resetSourceRequests();
     const tampered = { ...(publicJson('/expression/gtex/validation.json') as object), exactMatches: 1 };
     vi.stubGlobal('fetch', vi.fn(async (url: string) => ({
       ok: true, json: async () => (String(url).includes('validation') ? tampered : publicJson(url)) })));
@@ -110,12 +110,12 @@ describe('external reference atlases', () => {
   });
 
   it('rejects unsafe paths and inconsistent cohorts, and retries failed loads', async () => {
-    await expect(externalJson('gtex', '../neuroseq/manifest.json')).rejects.toThrow('asset path');
+    await expect(sourceJson('gtex', '/expression/gtex/../neuroseq/manifest.json')).rejects.toThrow('asset path');
     const manifest = structuredClone(publicJson('/expression/hpa/manifest.json')) as ExternalReferenceManifest;
     manifest.columns['hpa-mouse-hypothalamus'].pop();
     vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, json: async () => manifest })));
     await expect(loadExternalManifest('hpa')).rejects.toThrow('cohort metadata');
-    resetExternalRequests();
+    resetSourceRequests();
     const fetcher = vi.fn().mockRejectedValueOnce(new Error('offline'))
       .mockImplementation(async (url: string) => ({ ok: true, json: async () => publicJson(url) }));
     vi.stubGlobal('fetch', fetcher);

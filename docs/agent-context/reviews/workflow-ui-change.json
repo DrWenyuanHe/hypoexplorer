@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "982ebb3840bfdc7d5e3778d535f389103790b43674bfcf1b4adc2715d7579471",
+  "fingerprint": "12ebca7d95ca4adc8a10a3f71de91ea0dbc3ab4a072cfbb5680dfaf0b9f4e965",
   "outcome": "updated",
-  "explanation": "The UI-change runbook HypoMap paragraph now routes co-expression work through the codetection.ts client and its shared wire golden; the card stays behind VITE_HYPOMAP_COEXPRESSION and the dev proxy in vite.config.ts is unchanged. Typecheck, lint and focused Vitest tests cover the change, including rendered unsupported and partial states.",
+  "explanation": "Merged main (#30, #31). The HypoMap paragraph routes co-expression work through the codetection.ts client and its shared wire golden; the card stays behind VITE_HYPOMAP_COEXPRESSION and the vite.config.ts dev proxy is unchanged. From main, the NeuroSeq teaser shows source groups and analysis-snapshot defaults live in the explorer session; routes and views are unchanged and the runbook steps still hold.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/search/hypomap/codetection.ts",
-    "vite.config.ts"
+    "docs/EXPRESSION_SURVEY.md"
   ]
 }

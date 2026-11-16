@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "a4936f2f23166933651c69a9fbbc737de1a0c05261d7cb18746575b942d9eea1",
+  "fingerprint": "59023f8a791619e02adf3b9dbcf6a02604cb1761bae36ee45cfbb8c1e0bf8a96",
   "outcome": "updated",
-  "explanation": "Adds hypomapCodetection.test.ts (client against the golden services/hypomap/codetection_wire.json responses, export mismatch, contract breaks with their specific messages, transport failure and CSV rows), hypomapCoexpression.test.tsx (rendered partial, unsupported, export-mismatch and Retry states) and hypomapMetrics.test.ts (datasetMetrics/poolMetrics). The Python service test consumes the same golden, so the wire is pinned on both sides.",
+  "explanation": "Merged main (#30, #31). From this branch: hypomapCodetection.test.ts runs the client against the golden services/hypomap/codetection_wire.json responses (export mismatch, contract breaks, transport failure, CSV rows), hypomapCoexpression.test.tsx covers rendered partial, unsupported, export-mismatch and Retry states, and hypomapMetrics.test.ts covers datasetMetrics/poolMetrics; the Python service test consumes the same golden. From main: sourceJson.test.ts, baselineTeaser.test.ts and the explorer session snapshot tests.",
   "references": [
     "src/__tests__/hypomapCodetection.test.ts",
     "src/__tests__/hypomapCoexpression.test.tsx",
-    "src/__tests__/hypomapMetrics.test.ts",
-    "services/hypomap/codetection_wire.json"
+    "src/__tests__/sourceJson.test.ts",
+    "src/__tests__/baselineTeaser.test.ts"
   ]
 }
