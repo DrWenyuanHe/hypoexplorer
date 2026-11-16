@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "e514c627d5619f2c123c5412676b01f5d0b63771240becad1df21f175e05c760",
+  "fingerprint": "a927565991e245e77717aacc8aba019239fe3b67c2e3c018813f9276fcc967c2",
   "outcome": "no-impact",
-  "explanation": "seoPages.mts no longer imports the deleted seoTopics module, so a study page has no topic panel and a dataset change no longer has curated topic memberships to keep in step. Study pages, the directory and the sitemap still derive from the registry, so the dataset-change procedure is unchanged. From main, only the transport of pnpm run fetch:data changes (authenticated GitHub releases API); the archives and hashes pinned in data-release.json are unchanged. The release verifier stops expecting a topics page; it has no bearing on dataset registration.",
+  "explanation": "Refactor only: build_query_index.mts now takes its wire shapes, names and row codecs from src/data/queryWire.ts, and its emitted bytes are identical (same build id, all files hash-equal in a before/after build). Adding or changing a dataset still ends with build:query-index and check:query-index exactly as before; the registry, bundle contract and dataset procedure are untouched.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "scripts/lib/seoPages.mts",
-    "scripts/fetch_data.mts",
-    "docs/DATASET_CONTRACT.md",
-    "scripts/verify_release.mts"
+    "scripts/build_query_index.mts",
+    "src/data/queryWire.ts",
+    "docs/agent-context/workflows.md"
   ]
 }

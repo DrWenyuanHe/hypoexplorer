@@ -1,20 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "587eac80d9d1c83c9c36b0cfba3fdfe24c4060890e07a8ef7ae5d5cbd5ed8546",
+  "fingerprint": "a1674693349699a97e219b417f9d4874369a3f231e64daadc0d07cb9e4d4a2f6",
   "outcome": "updated",
-  "explanation": "The repository-local Claude SEO skill suite is removed: .agents/skills/seo*, vendor/claude-seo, seo-skills.lock.json, scripts/seo_skills.py, scripts/seo_runtime.py, tests/seo_skills and docs/seo-tooling.md. AGENTS.md loses its SEO skills section, the catalog drops the vendor directory, and .gitattributes, .gitignore, knip, CodeQL and public-safety allowances no longer name those paths. SEO.md, PROJECT_GUIDANCE.md, DEVELOPMENT.md and CHANGELOG.md record the removal of the /topics/ guides. No scientific inputs or outputs change. From main: scripts/fetch_data.mts can restore the pinned data release while hypoexplorer-data is private, resolving each pinned release-asset URL through the GitHub releases API when GH_TOKEN, GITHUB_TOKEN or a gh login is available; SHA-256 pins and the files written are unchanged, and README.md and DEVELOPMENT.md say the restore needs repository access until publication. scripts/verify_release.mts no longer requires dist/topics/index.html among the public pages it checks.",
+  "explanation": "scripts/build_query_index.mts becomes the write adapter of src/data/queryWire.ts: its private DatasetMeta, DatasetSummary, DiscoverySummary, TrackEntry, ExprRow, track-pathway row and volcano types, its isLowPower copy, cardGlobalName and every hand-spelled HX_QUERY_* name and shard path are gone, rows are built by the shared encoders and the --check path reads a typed QueryManifest instead of as-unknown casts. A before/after build over the restored bundles produced build 1cpqpf5dmmhsv with all 1675 files byte-identical. CONTEXT.md gains the query-wire module bullet.",
   "references": [
-    "AGENTS.md",
-    "docs/agent-context/catalog.json",
-    "docs/SEO.md",
-    "docs/PROJECT_GUIDANCE.md",
-    "docs/DEVELOPMENT.md",
-    "public-safety.json",
-    "knip.json",
-    "scripts/fetch_data.mts",
-    "data-release.json",
-    "README.md",
-    "scripts/verify_release.mts"
+    "scripts/build_query_index.mts",
+    "src/data/queryWire.ts",
+    "CONTEXT.md"
   ]
 }

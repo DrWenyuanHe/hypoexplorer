@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "cdf3154d7ccda3b68f0d90125b1e11fa66e47286903599c61fdf674c26a07e53",
+  "fingerprint": "e85436c6042c84444b852e236fe104e01bba4341bc9b6527a759c12a2f834ca0",
   "outcome": "no-impact",
-  "explanation": "The tracker change uses no routing, explorer navigation, track loading, export or gene-picker path, so the UI-change runbook steps and their canonical entry points stay as written. Typecheck, focused Vitest tests and a browser check at desktop and phone widths covered it, as the runbook asks.",
+  "explanation": "CONTEXT.md gains a query-wire module bullet and queryIndex.ts re-exports the same wire types its callers already imported, so no view, navigation or export changes. The library card popover still loads its card detail through loadCardDetail; only the card global name now comes from the shared queryWire module rather than a client copy.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "src/dataset-tracker/DatasetTrackerView.tsx"
+    "CONTEXT.md",
+    "src/data/queryIndex.ts",
+    "docs/agent-context/workflows.md"
   ]
 }

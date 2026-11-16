@@ -39,8 +39,9 @@ import { buildPopData } from './buildPopData';
 import { manifestFreshness, REBUILD_HINT } from './indexFreshness';
 import {
   loadQueryManifest, loadExprRows, loadGeneRows, manifestSupportsExpr,
-  type DatasetSummary, type ExprIndexRow, type GeneIndexRow, type QueryManifest,
+  type DatasetSummary, type QueryManifest,
 } from './queryIndex';
+import { type ExprRowFields, type GeneRowFields, decodeExprRow, decodeGeneRow, indexKey } from './queryWire';
 import type { Dataset, PopData, RawTrack, ResolvedContrast } from '../types';
 
 /** One dataset's chart, however it was loaded. Mirrors the view's own shape. */
@@ -108,10 +109,11 @@ export async function loadCompareEntriesViaIndex(
   // is in no track" — the difference is a fallback versus a claim of absence.
   if (geneRows === null || exprRows === null) return null;
 
-  const deByTrack = new Map<number, GeneIndexRow>();
-  for (const r of geneRows) deByTrack.set(r[0], r);
-  const exprByTrack = new Map<number, ExprIndexRow>();
-  for (const r of exprRows) exprByTrack.set(r[0], r);
+  const key = indexKey(gene);
+  const deByTrack = new Map<number, GeneRowFields>();
+  for (const r of geneRows) { const d = decodeGeneRow(r); deByTrack.set(d.trackIdx, d); }
+  const exprByTrack = new Map<number, ExprRowFields>();
+  for (const r of exprRows) { const d = decodeExprRow(r, key); exprByTrack.set(d.trackIdx, d); }
 
   const entries: CompareEntry[] = [];
   for (const ds of datasets) {
@@ -125,7 +127,7 @@ export async function loadCompareEntriesViaIndex(
     const expr = exprByTrack.get(ti);
     const de = deByTrack.get(ti);
 
-    const values = expr?.[1];
+    const values = expr?.values;
     // A row whose length no longer matches the sample list cannot be read
     // positionally, and reading it anyway would attribute values to the wrong
     // animals. The shards and the manifest are stamped with the same build id,
@@ -140,7 +142,7 @@ export async function loadCompareEntriesViaIndex(
 
     // The source symbol, so each chart prints its dataset's own spelling
     // (macaque POMC, mouse Pomc) even though the lookup was case-insensitive.
-    const sym = expr?.[2] ?? gene.toUpperCase();
+    const sym = expr?.sym ?? key;
     const contrast = getActiveContrast(ds);
 
     // The minimal raw track: exactly the fields buildPopData reads, for one
@@ -163,8 +165,8 @@ export async function loadCompareEntriesViaIndex(
       // pickerGeneNames in the generator). Measured on this corpus: cpm and de
       // cover identical gene sets on all 43 default tracks, so this is a guard
       // against future drift, not a live branch.
-      de: de && de[1] !== null && de[2] !== null
-        ? [{ gene: sym, logFC: de[1], PValue: de[2], FDR: de[3], se: de[4] ?? undefined }]
+      de: de && de.logFC !== null && de.pval !== null
+        ? [{ gene: sym, logFC: de.logFC, PValue: de.pval, FDR: de.fdr, se: de.se ?? undefined }]
         : [],
       cpm: values ? { [sym]: values } : {},
     };

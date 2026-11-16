@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "c14ffdea2db5cb08e4b86df8bf313924703ce9f88c9596a48a0c8b39e3083e75",
+  "fingerprint": "dde25b3687492fa345da9f6795c6fc6ee79c080f2f06b3a38a26b26a4d040a2a",
   "outcome": "no-impact",
-  "explanation": "The deleted topic guides only held curated prose; the Methods guide in seoGuides.mts now points readers to the study directory instead. Verification evidence, author-validation records and the rendering of evidence status on study pages are untouched, so the verification workflow is unchanged. From main, fetch:data restores the same SHA-256-verified archives through an authenticated path; evidence records, QC policy and author-validation inputs are unchanged. The release verifier dropping its topics-page assertion does not touch evidence or QC checks.",
+  "explanation": "No evidence, QC policy or scientific value changes: the query index keeps the same rounding and significance-safe prob() rule in the generator, and its output bytes are identical to the previous builder over the same bundles (build 1cpqpf5dmmhsv, 1675 files hash-equal, --check passes). Only where the wire shapes and names are declared moved.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "scripts/lib/seoGuides.mts",
-    "scripts/fetch_data.mts",
-    "data-release.json",
-    "scripts/verify_release.mts"
+    "scripts/build_query_index.mts",
+    "src/data/queryWire.ts",
+    "docs/agent-context/workflows.md"
   ]
 }

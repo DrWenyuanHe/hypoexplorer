@@ -1,15 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "2a43065968a3b6adba124d1a729ed36f2c1754d1b61cfb98fd12996f8a4319f8",
+  "fingerprint": "7bf2fd341a6077bd10f9a34e03936c7026993d9a4de23dd212e0b8ca2d31df2d",
   "outcome": "updated",
-  "explanation": "The /topics/ research guides are removed, so seoTopics.test.ts is deleted, seoPages.test.ts builds its supporting documents from the Methods and How to cite guides only, and the brand and hub footer tests no longer expect a /topics/ link. The renderSeoRoute assertion that /topics/missing-topic/ returns null now covers every topic path. From main: tracker tests follow the new filter layout (removing the default n≥3 chip, opening More filters, checking the active count and Clear all), the verification-claim test opens More filters before reading the Detailed author review select, and a firstN unit test pins list-comma handling.",
+  "explanation": "queryWire.test.ts pins the published file and global names and row layouts, round-trips every row codec (including the expression row omitting sym when it equals its uppercase key), checks trackEntry against the qcFlags low-power rule, and serves files at the paths and globals the shared functions name to prove the client reads where the generator writes. resultBars.test.tsx drops its cardGlobalName pin, which tested only the client copy against a literal.",
   "references": [
-    "src/__tests__/seoPages.test.ts",
-    "src/__tests__/brand.test.tsx",
-    "src/__tests__/hubUnits.test.tsx",
-    "docs/agent-context/generated/codebase.md",
-    "src/__tests__/datasetTracker.test.tsx",
-    "src/__tests__/trackerVerificationClaims.test.tsx"
+    "src/__tests__/queryWire.test.ts",
+    "src/__tests__/resultBars.test.tsx",
+    "src/data/queryWire.ts"
   ]
 }
