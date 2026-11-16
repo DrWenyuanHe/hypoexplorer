@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "27b800852fca419a8b9671e3252595aad3f5094d4b9d06b0d14150640b7dc85d",
+  "fingerprint": "d88a04276990d710ce8fc5af6a244a537b2ae9027c7792d85905ac5e9f82551f",
   "outcome": "no-impact",
-  "explanation": "verify_deploy.mts changes only the app-origin compression check (sidecar yardstick optional on the Cloudflare edge model, explicit failure if an Apache host serves sidecars without a local one) and its redeploy hints. Scientific evidence, QC review and verification records are unaffected.",
+  "explanation": "No evidence ledger, audit or fingerprinted producer changed: build_hfd_bundles_r460.mts and build_oxt_avp_bundles_r460.mts keep their bytes, and neither intake audit pins bundleWriter.mts. Audits pin track and pathway bundles, which stay byte-identical; only qc_global.js deSummary nSig changes (to FDR < 0.05 counts), and no audit pins qc_global.js.",
   "references": [
-    "scripts/verify_deploy.mts",
-    "docs/agent-context/workflows.md"
+    "scripts/lib/oxtAvpIntakeEvidence.mts",
+    "scripts/audit_hfd_intake_r460.mts",
+    "data/intake/oxt-avp-2026-10-19/audit.generated.json",
+    "scripts/lib/bundleWriter.mts"
   ]
 }

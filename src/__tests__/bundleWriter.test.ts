@@ -3,9 +3,9 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
 import {
-  countNominallySignificant,
+  countFdrSignificant,
   defaultContrastBinding,
-  NSIG_P_THRESHOLD,
+  NSIG_FDR_THRESHOLD,
   outDirFromArgv,
   planPathwayBundles,
   registryDefaultContrast,
@@ -529,7 +529,7 @@ describe('bundleWriter study-level derivations', () => {
     ]);
     expect(qc.payload.deSummary).toEqual([
       { cluster: 'whole', clusterLabel: 'Whole tissue', nGenes: 2, nSig: 1 },
-      { cluster: 'arc', clusterLabel: 'Arcuate', nGenes: 1, nSig: 1 },
+      { cluster: 'arc', clusterLabel: 'Arcuate', nGenes: 1, nSig: 0 },
     ]);
 
     const index = parseJsonp<string[]>(localFile(out, resolvePathwayIndexUrl(located)));
@@ -561,11 +561,11 @@ describe('bundleWriter study-level derivations', () => {
     expect(() => writeDatasetBundles(ds, [], { outRoot: tempRoot() })).toThrow(/defaultTrack/);
   });
 
-  it(`counts nSig as finite PValue < ${NSIG_P_THRESHOLD} in the default table, whatever a builder states`, () => {
+  it(`counts nSig as finite FDR < ${NSIG_FDR_THRESHOLD} in the default table, whatever a builder states`, () => {
     const rows = [
-      { PValue: 0.0099 }, { PValue: 0.01 }, { PValue: 0.2 }, { PValue: Number.NaN }, { PValue: 0 },
+      { FDR: 0.0499 }, { FDR: 0.05 }, { FDR: 0.2 }, { FDR: Number.NaN }, { FDR: null }, { FDR: 0 },
     ];
-    expect(countNominallySignificant(rows)).toBe(2);
+    expect(countFdrSignificant(rows)).toBe(2);
 
     const ds = dataset('nsig_rule', false);
     const out = tempRoot();
@@ -574,8 +574,9 @@ describe('bundleWriter study-level derivations', () => {
       { gene: 'A', logFC: 1, logCPM: 1, PValue: 0.001, FDR: 0.9, rank_score: 3 }, // nominal only
       { gene: 'B', logFC: 1, logCPM: 1, PValue: 0.02, FDR: 0.01, rank_score: 2 }, // FDR-significant only
       { gene: 'C', logFC: 1, logCPM: 1, PValue: 0.005, FDR: 0.04, rank_score: 1 },
+      { gene: 'D', logFC: 1, logCPM: 1, PValue: 0.0001, FDR: null, rank_score: 0 }, // NA FDR
     ];
-    track.cpm = { A: [1, 2], B: [1, 2], C: [1, 2] };
+    track.cpm = { A: [1, 2], B: [1, 2], C: [1, 2], D: [1, 2] };
     track.nSig = 99; // the deprecated builder count is ignored
     writeDatasetBundles(ds, [track], { outRoot: out });
     const qc = parseJsonp<{ deSummary: Array<{ nSig: number }> }>(localFile(out, ds.qcFile));

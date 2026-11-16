@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "8c616bdcab737a40f1d5b3a1f5f879ae38a19b1aebeffdd62da7af8675c52166",
+  "fingerprint": "bb1f5063641f9e57607beb242b2e31a9f05dcd981bf2f8b78caa7e8360f655b1",
   "outcome": "updated",
-  "explanation": "The UI-change runbook now states that Compare links carry their view (/compare[/pathways]?pops=…&genes=…, parsed in appLinks) so a refresh, Back or copied link reopens the same comparison, and that the Compare summary table reads down one row per gene × population.",
+  "explanation": "The QC table's nSig heading now reads 'Sig (FDR<0.05)', matching the counts the bundle writer publishes and the FDR < 0.05 call used by search, Compare and the volcano. No view, navigation or export changed otherwise. Deploy order matters: the new heading must not go live before the rebuilt qc_global.js bundles are uploaded, or it would label the old P<0.01 counts.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "src/utils/appLinks.ts"
+    "src/qc/qcTables.ts",
+    "src/__tests__/qcTables.test.ts",
+    "scripts/lib/bundleWriter.mts"
   ]
 }
