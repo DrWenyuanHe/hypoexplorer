@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "90b91d6d5fd55f4c251a090bbea5f63ce48f5c589fe5f7f48af409758eaed131",
+  "fingerprint": "1ea05c40421d90431ed325d298d8c870d409fff55f85fdafc8982409d7e88815",
   "outcome": "updated",
-  "explanation": "From main: the UI-change runbook now states that Compare links carry their view (/compare[/pathways]?pops=…&genes=…, parsed in appLinks) so a refresh, Back or copied link reopens the same comparison, and that the Compare summary table reads down one row per gene × population. From this branch: the nominal p < 0.05 tier in the search summaries and the gene report changes what those tables list and label, not routing, navigation intents, track loading, exports or layout, so it needs no runbook change.",
+  "explanation": "From main: the UI-change runbook now states that Compare links carry their view (/compare[/pathways]?pops=…&genes=…, parsed in appLinks) so a refresh, Back or copied link reopens the same comparison, and that the Compare summary table reads down one row per gene × population. From this branch: the nominal p < 0.05 tier in the search summaries and the gene report changes what those tables list and label (including the gene report's visible q label), not routing, navigation intents, track loading, exports or layout, so it needs no runbook change.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/utils/appLinks.ts",

@@ -289,7 +289,9 @@ describe('GeneReport — differential expression table', () => {
     expect(mouse.cells[3].querySelector('.report-de-phrase')).toHaveTextContent(expectedPhrase(0.8, MOUSE_CONTRAST.caseGroup.label));
     expect(mouse.cells[3].querySelector('.report-de-phrase')).toHaveTextContent(/^1\.7× higher in /);
     expect(mouse.cells[3].querySelector('.report-de-fc')?.textContent).toBe('log2FC +0.80');
-    expect(mouse.cells[4]).toHaveTextContent('0.02');
+    // The q is named in the cell, so it is never read as the p-value.
+    expect(mouse.cells[4]).toHaveTextContent(/^q 0\.020/);
+    expect(mouse.cells[4].querySelector('.report-de-qlabel')).toHaveTextContent('q');
     // The FDR survivor is labelled under its q.
     expect(mouse.cells[4].querySelector('.report-de-tier')).toHaveTextContent('FDR < 0.05');
     expect(mouse).toHaveAttribute('data-tier', 'fdr');
@@ -433,6 +435,8 @@ describe('GeneReport — differential expression table', () => {
     expect(e2).toHaveAttribute('data-tier', 'nominal');
     expect(e2.querySelector('.report-de-fc')?.textContent).toBe('log2FC -0.90 · p 0.004');
     expect(e2.querySelector('.report-de-tier')).toHaveTextContent('p < 0.05 only');
+    // Its q and p are each named: q 0.600 in the q cell, p 0.004 beside log2FC.
+    expect(e2.cells[4].textContent).toBe('q 0.600p < 0.05 only');
     expect(rowFor(card, 'e9 population').querySelector('.report-de-tier')).toHaveTextContent('FDR < 0.05');
     const more = moreButton(card) as HTMLButtonElement;
     expect(more).toHaveTextContent('Show all 6 measured tracks');

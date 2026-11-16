@@ -333,7 +333,9 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
                         </GeneEffectPreview>
                       </td>
                       <td className="num mono">
-                        {fmtFDR(track.fdr)}
+                        {/* Named in the cell: the column headers are for screen readers only, and a bare
+                            number above "p < 0.05 only" reads as the p-value. */}
+                        <span className="report-de-qlabel" title="q: FDR-adjusted p-value">q</span> {fmtFDR(track.fdr)}
                         {tier === 'fdr' && <span className="report-de-tier portal-tier portal-tier--fdr">FDR &lt; {DEFAULT_FDR_CUTOFF}</span>}
                         {tier === 'nominal' && <span className="report-de-tier portal-tier portal-tier--nominal">p &lt; {NOMINAL_P_CUTOFF} only</span>}
                       </td>
