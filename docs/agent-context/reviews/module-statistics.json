@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "module-statistics",
-  "fingerprint": "3913f718350ac8c8021b32f774e15a022ee382bb4d1ed6804470ae995621abb6",
+  "fingerprint": "aed3a014f78b04304a28430fedaf20cbafe7beeb00cd29fa1628adf5499095dc",
   "outcome": "updated",
-  "explanation": "policy.ts adds NOMINAL_P_CUTOFF and significanceTier ('fdr' | 'nominal' | 'none'), a display label beneath isFdrSignificant that the search summaries use; the FDR call itself is unchanged. StatisticsView gains a callout under Across many datasets explaining that search lists raw p < 0.05 results, labels the FDR survivors, and counts only the FDR results.",
+  "explanation": "policy.ts adds NOMINAL_P_CUTOFF and significanceTier ('fdr' | 'nominal' | 'none'), a display label beneath isFdrSignificant that the search summaries and the gene report use; the FDR call itself is unchanged. StatisticsView gains a callout under Across many datasets explaining that search and the gene report list raw p < 0.05 results, label the FDR survivors, and count only the FDR results.",
   "references": [
     "src/statistics/policy.ts",
     "src/statistics/StatisticsView.tsx",
-    "src/search/searchSummaries.ts"
+    "src/search/searchSummaries.ts",
+    "src/crossdataset/GeneReport.tsx"
   ]
 }

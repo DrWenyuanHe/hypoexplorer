@@ -200,8 +200,9 @@ export function StatisticsView({ onHome }: StatisticsViewProps) {
           </Callout>
 
           <Callout tone="warn">
-            <strong>Search also lists nominal results.</strong> Search summaries list every track
-            with raw <Mono>p &lt; 0.05</Mono> and label the ones that also pass{' '}
+            <strong>Search and the gene report also list nominal results.</strong> The search summaries
+            and the gene report list every track with raw <Mono>p &lt; 0.05</Mono> and label the ones
+            that also pass{' '}
             <Mono>FDR &lt; 0.05</Mono>. The others are marked <Mono>p &lt; 0.05 only</Mono>: they are
             not corrected for the thousands of genes or pathways each study tested, nor for the many
             tracks searched, so a share of them are expected by chance. The significant counts and

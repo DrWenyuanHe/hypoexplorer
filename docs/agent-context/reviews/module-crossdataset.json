@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-crossdataset",
-  "fingerprint": "a5f22818a9d2ddd5b45fcfd17f192e9ce7a0402441eb7cf62c4823058e2ddee1",
-  "outcome": "no-impact",
-  "explanation": "Rebased onto #22. GeneReport names the selected studies whose data failed to load instead of counting them as not measuring the gene, and shows only that note when nothing loaded. The report contract, route and table structure are unchanged; it reads the existing group error flag.",
+  "fingerprint": "f9cd44512ed55ffb5a4ae4fb91e6626c83a0bfdae0644bb0ddc693e663f76af9",
+  "outcome": "updated",
+  "explanation": "The gene report's differential-expression table now leads with every track at raw p < 0.05: FDR survivors by q, then nominal tracks (FDR fails) by p, each labelled under its q (FDR < 0.05 or p < 0.05 only) with a data-tier attribute, and nominal rows show their p beside log2FC uncoloured. Area captions, the verdict, the notes, the quiet-area line and the Show-all toggle name the nominal tier; significant counts, directions and colours still follow the FDR call, and the report contract and routes are unchanged.",
   "references": [
     "src/crossdataset/GeneReport.tsx",
-    "src/data/crossDataset.ts"
+    "src/crossdataset/forestReport.css",
+    "src/statistics/policy.ts"
   ]
 }

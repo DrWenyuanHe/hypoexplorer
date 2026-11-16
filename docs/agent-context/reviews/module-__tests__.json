@@ -1,14 +1,15 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "eb6e2efabd28124fafc624c82e8a7a9f7dafc7d5758edb14a57aa445cb93c7fe",
+  "fingerprint": "b112966e5566ab3898295d9c5aeb5839845eec0d9fdb9d68d2e54a7b47329a7d",
   "outcome": "updated",
-  "explanation": "From main: compareLinks pins the Compare link codec and its in-app restore; compareTabToolbar checks the Compare summary starts folded with its row count, opens on request and reads one row per gene × population; compareTabContrast opens the folded summary before reading its cells. From this branch: statisticsPolicy.test.ts pins the significanceTier boundaries, and searchPage.test.tsx covers nominal-only and mixed gene rows, nominal pathway rows ordered after FDR rows with their Call labels, and the no-p<0.05 fallback.",
+  "explanation": "From main: compareLinks pins the Compare link codec and its in-app restore; compareTabToolbar checks the Compare summary starts folded with its row count, opens on request and reads one row per gene × population; compareTabContrast opens the folded summary before reading its cells. From this branch: statisticsPolicy.test.ts pins the significanceTier boundaries; searchPage.test.tsx covers nominal-only and mixed gene rows, nominal pathway rows ordered after FDR rows with their Call labels, and the no-p<0.05 fallback; geneReport.test.tsx covers nominal tracks listed after the FDR ones with their labels, uncoloured and uncounted, the nominal-only lead when nothing passes FDR, and its no-p<0.05 fixtures now raise raw p as well as q.",
   "references": [
     "src/__tests__/compareLinks.test.tsx",
     "src/__tests__/compareTabToolbar.test.tsx",
     "src/__tests__/compareTabContrast.test.tsx",
     "src/__tests__/statisticsPolicy.test.ts",
-    "src/__tests__/searchPage.test.tsx"
+    "src/__tests__/searchPage.test.tsx",
+    "src/__tests__/geneReport.test.tsx"
   ]
 }
