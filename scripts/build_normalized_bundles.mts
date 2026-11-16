@@ -22,7 +22,7 @@ import { existsSync, readFileSync, statSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gunzipSync } from 'node:zlib';
-import { countNominallySignificant, defaultContrastBinding, outDirFromArgv, requireDataset, writeDatasetBundles } from './lib/bundleWriter.mjs';
+import { countFdrSignificant, defaultContrastBinding, outDirFromArgv, requireDataset, writeDatasetBundles } from './lib/bundleWriter.mjs';
 import { assertUniqueKeys, readSymbolDe, readSymbolMatrix, readTsv } from './lib/regenTables.mjs';
 import { seFromStat } from '../src/utils/seRecovery';
 
@@ -338,7 +338,7 @@ function build(e: Entry) {
     const p = readPathways(resolve(base, 'processed'), c.prefix);
     if (p) pathwaysByContrast[c.id] = p;
   }
-  const nFdr = deFinal.filter((d) => Number.isFinite(d.FDR) && d.FDR < 0.05).length;
+  const nSig = countFdrSignificant(deFinal);
 
   log(`\n[${e.datasetId}]`);
   const controlLabel = dataset.groups.find((group) => group.key === e.armKeys[0])?.label ?? e.armKeys[0];
@@ -348,8 +348,7 @@ function build(e: Entry) {
     log(`  design cells  : ${Object.entries(cellSamples).map(([k, s]) => `${k}:${s.length}`).join(' ')}`);
   }
   log(`  genes         : ${deFinal.length} (of ${deRows.length} DE rows)`);
-  log(`  FDR < 0.05    : ${nFdr}`);
-  log(`  P < 0.01 (QC) : ${countNominallySignificant(deFinal)}`);
+  log(`  FDR < 0.05    : ${nSig}`);
   for (const [cid, table] of Object.entries(deByContrast)) {
     const n = table.filter((d) => Number.isFinite(d.FDR) && (d.FDR as number) < 0.05).length;
     log(`  contrast ${cid}: ${table.length} genes, FDR<0.05: ${n}`);

@@ -7,6 +7,14 @@ export interface ChangelogEntry {
 export const CHANGELOG: ChangelogEntry[] = [
   {
     date: '2026-11-16',
+    title: 'Quality control counts at FDR < 0.05',
+    items: [
+      'The significant-gene column in the Quality control tab now counts genes at FDR < 0.05, the same call that search, Compare and the volcano use, and its heading reads "Sig (FDR<0.05)". Before, it counted genes at nominal P < 0.01, except in GSE65663, GSE157077 and GSE135639, which already counted FDR < 0.05 under the P < 0.01 heading.',
+      'The count changes for 167 tracks in 158 studies; GSE220533, for example, goes from 325 to 0. The macaque atlas has no such column. No gene, pathway or other result changed.',
+    ],
+  },
+  {
+    date: '2026-11-16',
     title: 'Results at p < 0.05, labelled against FDR',
     items: [
       'Search, the gene page and the pathway report now also list results that reach p < 0.05 but miss FDR < 0.05, after the ones that pass FDR. Each row is labelled "FDR < 0.05" or "p < 0.05 only", and only rows that pass FDR are coloured by direction. Counts, up and down tallies and the "Pathways changing in these conditions" card still use FDR < 0.05 alone.',

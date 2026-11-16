@@ -137,8 +137,8 @@ describe('buildIntakeStudies fixture intake', () => {
       'datasets/fixture_two/track_pvn.pathways.js',
     ]);
     const qc = readFileSync(resolve(publicRoot, 'datasets/fixture_two/qc_global.js'), 'utf8');
-    // P<0.01 counts A (0.001) and C (0.009), not B (FDR 0.2, P 0.03).
-    expect(qc).toContain('"deSummary":[{"cluster":"arc","clusterLabel":"Arcuate","nGenes":3,"nSig":2}');
+    // FDR<0.05 counts only A (0.02); C has P 0.009 but FDR 0.06.
+    expect(qc).toContain('"deSummary":[{"cluster":"arc","clusterLabel":"Arcuate","nGenes":3,"nSig":1}');
     expect(readFileSync(resolve(publicRoot, 'datasets/fixture_two/pathways_index.js'), 'utf8'))
       .toContain('["HALLMARK_ARC","HALLMARK_PVN"]');
     const registry = JSON.parse(readFileSync(resolve(root, 'registry.generated.json'), 'utf8'));
