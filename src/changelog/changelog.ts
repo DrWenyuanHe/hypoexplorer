@@ -6,6 +6,111 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-11-16',
+    title: 'Quality control counts at FDR < 0.05',
+    items: [
+      'The significant-gene column in the Quality control tab now counts genes at FDR < 0.05, the same call that search, Compare and the volcano use, and its heading reads "Sig (FDR<0.05)". Before, it counted genes at nominal P < 0.01, except in GSE65663, GSE157077 and GSE135639, which already counted FDR < 0.05 under the P < 0.01 heading.',
+      'The count changes for 167 tracks in 158 studies; GSE220533, for example, goes from 325 to 0. The macaque atlas has no such column. No gene, pathway or other result changed.',
+    ],
+  },
+  {
+    date: '2026-11-16',
+    title: 'Results at p < 0.05, labelled against FDR',
+    items: [
+      'Search, the gene page and the pathway report now also list results that reach p < 0.05 but miss FDR < 0.05, after the ones that pass FDR. Each row is labelled "FDR < 0.05" or "p < 0.05 only", and only rows that pass FDR are coloured by direction. Counts, up and down tallies and the "Pathways changing in these conditions" card still use FDR < 0.05 alone.',
+      'A List switch on search results and both reports chooses between FDR (q < 0.05) and p < 0.05. It starts on p < 0.05, applies everywhere at once and is remembered in your browser. FDR lists only the results that pass FDR, as before.',
+      'A gene that passes FDR somewhere adds how many more tracks reach p < 0.05 only. A gene that passes nowhere reads "Not significant after FDR", with how many tracks reach p < 0.05 uncorrected and its closest track\'s p and q.',
+      'Pathway search results gain a Call column, and the pathway report\'s DIR column becomes CALL, with the same labels. Direction stays in the sign of the NES.',
+      'Hovering a q, FDR or padj label explains what q is, and each gene page row names its q value. The Statistics page explains the p < 0.05 listing and why some of those results are expected by chance.',
+    ],
+  },
+  {
+    date: '2026-11-16',
+    title: 'Gene, pathway and explorer pages on phones',
+    items: [
+      'On phones, the gene page and the Verification page no longer load wider than the screen and pan sideways.',
+      'On screens narrower than 640 px, each gene page row stacks: comparison, population, the change beside its bar, then the actions beside q. Before, the change, q and the Info, Open and Compare buttons sat off-screen. Pathway report rows stack the same way, with P and FDR labelled.',
+      'On phones, the home page links form one line that scrolls sideways beside the compare-set button, and the explorer\'s six header buttons form an even grid of 44 px targets.',
+      'Each "/" in the explorer breadcrumb now stays with the item after it, so a line never ends on a stray slash. Below 1500 px wide the breadcrumb takes its own row, so the header buttons no longer wrap on laptop screens.',
+      'The library starts on cards on screens 600 px wide or narrower, where the table showed only a cut-off study column.',
+      'Verification tables no longer split words on phones, and Pathway Explorer\'s page arrows are named Previous page and Next page and are easier to tap.',
+    ],
+  },
+  {
+    date: '2026-11-16',
+    title: 'Macaque atlas on the home page and a tidier Compare',
+    items: [
+      'The home page has a third card, Explore the macaque atlas, which opens the macaque snRNA-seq study. Its second button, Compare cell populations, opens that study in Compare.',
+      'The explorer header is one line: study name, organism, modality and groups. Region, preparation and the verification record open from "Study details & verification", which starts closed. The warning on exploratory comparisons stays visible.',
+      'In the explorer, the beta notice is a slim strip that you can dismiss for the rest of the browser session. Other pages keep the full notice.',
+      'Compare\'s population chips stay on one line, with "+N more" for the rest and Reset when the selection differs from the default. Before, the 60 macaque populations wrapped onto about 12 rows.',
+      'While populations load, Compare reads "Loading X of Y populations…" instead of listing every population. When more than three fail, one alert says how many, with Retry all and a Show which list that retries each one. The other populations stay usable.',
+      'The Compare summary reads down: one row per gene and population, with logFC, P, FDR and stars under a header that stays in view. It starts folded, for example "Compare summary · 8 rows (2 genes × 4) — show". The compare set keeps its wide table.',
+      'A Compare link now carries its populations, genes and Genes or Pathways view, so refreshing the page or opening a shared link restores them. Back and Forward step between Genes and Pathways, and leaving Compare and returning resumes the same view. Unknown populations in a link are dropped.',
+      'Compare\'s Export Excel button is now a Download menu. The workbook\'s Compare sheet has one row per gene and population, and a new Values sheet has one row per animal. The menu also offers Summary and Per-animal values CSV files, all charts in one PNG, and ZIP files of the individual charts as PNG or SVG. Each chart has its own PNG and SVG buttons. Downloads become available once every selected population has loaded.',
+      'In CSV downloads, a metadata record longer than about 32,000 characters is split down its column, so Excel no longer spills it into neighbouring cells.',
+      'Fixed bar charts hiding per-animal dots that fell inside a bar. Dots and significance brackets now draw on top in every bar chart on the site.',
+    ],
+  },
+  {
+    date: '2026-11-16',
+    title: 'Dataset tracker, expression previews, CSV files and offline use',
+    items: [
+      'Dataset tracker rows are one line each. The filter bar shows search, Species, Modality and Sample size; the other nine filters sit under More filters, which shows how many are set. Each active filter is a chip you can remove, the count reads "X of Y shown", and Clear all removes every filter. Species and region share a column, n shows the total with the smallest group, and the three verification checks are icons that open the same checklist. Statuses with no studies are hidden, and the column headers sort from the keyboard.',
+      'Fixed tracker sample sizes such as "6, 6 per group" showing as "6,".',
+      'On the gene page, the NeuroSeq preview under "Where <gene> is expressed" shows one row per source group, as the expression survey does, instead of one pooled mean per population. Its values now equal the survey\'s group means.',
+      'In the expression survey, Retry source data reloads only the source that failed. Before, it also reloaded the catalog, the validation reports and every source that had already loaded.',
+      'CSV downloads of gene summaries, contrast matrices, circadian results and gene lists now start with a UTF-8 byte-order mark and use Windows line endings, as the library export already did. Columns and values are unchanged. A text cell that begins with =, +, - or @ gets a leading apostrophe so a spreadsheet does not run it as a formula. A circadian CSV with no rows now keeps its header row.',
+      'The four research topic guides and their index under /topics/ are removed, with the links to them from study pages, the study directory, Methods and the home page.',
+      'The site no longer installs a service worker. Browsers that had one remove it and its cached files, and open tabs reload once. The app no longer opens offline; offline it could not show study data anyway. The update prompt still announces new versions.',
+    ],
+  },
+  {
+    date: '2026-11-13',
+    title: 'Gene page, search and update fixes',
+    items: [
+      'On the gene page, a selected study whose data fails to load is now named, with a note that the gene may be measured there. Before, it was counted as not measuring the gene.',
+      'When a gene search reaches the 100-result limit, the Also matching heading reads 100+, as the Genes tab does.',
+      'A versioned human Ensembl ID such as ENSG00000115138.11 now finds Human Protein Atlas values, which are stored without the version. Before, it read as not retained.',
+      'The update prompt no longer spins forever. If the reload has not gone through after 20 seconds, it says so and offers Force refresh, which clears this tab\'s cached app files and reloads.',
+    ],
+  },
+  {
+    date: '2026-11-06',
+    title: 'Contributor credit',
+    items: [
+      'Helene Li is credited as a contributor on the About page and as an author of HypoExplorer on the How to cite page and in the citation file.',
+    ],
+  },
+  {
+    date: '2026-11-04',
+    title: 'Public release: library record pages, human atlases and a new look',
+    items: [
+      'The dataset library opens as a table, with a filter bar in place of the side panel: a menu of themed views, a sort chip, a removable chip for each filter and an Add filter menu that keeps the counts. The header and Study column stay in view, and Export CSV saves the studies shown. Cards remain one click away.',
+      'Selecting a study opens its record as a page at #/library/<id> instead of a dialog, with Previous and Next study buttons, Compare, Open in explorer, Overview and Verification tabs and a Details panel. Escape returns to the list. Nothing loads into the explorer until you choose Open in explorer.',
+      'Show volcano plot on a study record draws the default comparison at FDR < 0.05 beside its top genes up and down. Its gene search tells apart a gene that was tested but did not pass from one that is not in the results, and Download all saves every passing gene. Nothing downloads until you ask.',
+      'The expression survey adds human reference atlases under Tissue & bulk: GTEx V10 hypothalamus (257 donors, per-sample TPM), the Allen Human Brain Atlas microarray (102 hypothalamic samples from 6 donors, one row per probe, log2), and Human Protein Atlas version 25 (8 human subregions, and mouse and pig hypothalamus). The 26 HPA snRNA-seq clusters appear in the population survey. Values are replayed exactly from pinned releases, nothing is fetched from the providers while you browse, and values are never pooled across species or units. No atlas group counts as a fed reference. Sources & validation and Data sources & acknowledgements credit each provider.',
+      'The macaque atlas\'s Upstream processing row now reads STAR 2.5.3 with the Macaca_fascicularis_5.0 genome, from the methods of Lei et al., and states that the annotation and counting details are not given.',
+      'Text and headings use Hanken Grotesk, replacing Source Serif 4 and Source Sans 3, and numbers and identifiers use Geist Mono, replacing IBM Plex Mono. All fonts are served from the site. Pages use a warm off-white background, and muted text is darker to meet WCAG AA contrast.',
+      'Direction and significance text uses a darker red and blue that are easier to read. Plots keep their colours.',
+      'The version badge shows the release ID, and the update prompt also catches a new release that keeps the same version number.',
+      'How to cite states the reuse terms: MIT for the code and CC BY 4.0 for HypoExplorer\'s own contributions to derived results, with third-party terms kept.',
+    ],
+  },
+  {
+    date: '2026-11-04',
+    title: 'Public release: one search box and a rebuilt gene page',
+    items: [
+      'The home page leads with the line "Where a gene is expressed in the hypothalamus, and how it changes across 162 public studies", one search box, and cards for the dataset library and the expression survey. Press / to jump to the box from anywhere on the page. A top bar (Library, Genes, Pathways, Survey, Methods) and the footer link to every other tool.',
+      'One search finds genes and pathways, with no switch between them. Suggestions come in two groups, and a search opens a results page with All, Genes and Pathways tabs. Genes match by symbol, official name, selected aliases and a short list of common names, so "oxytocin" finds OXT and "orexin" finds HCRT, and a suggestion says why it matched. Pathway names match from the start of each word, so "insulin" lists the insulin gene and the insulin pathways.',
+      'Gene results are a list. A direct match leads, followed by Also matching, and each row summarizes the gene across studies: how many datasets it is significant in, tracks up and down, and its strongest change. A row opens that gene\'s page. A pathway match opens its enrichment across studies.',
+      'The gene page is rebuilt around a table of differential expression across studies, replacing the forest plot. Tracks are grouped by research area, each with its tally, and significant tracks lead; Show all adds every track that measured the gene. Each row states the change in words, for example "4.1× lower in Stat3 KO", with log2FC, q and a bar on one shared axis, and names the population, species, preparation and accession. Info, Open and Compare stay on each row, and the study filters sit inside the card.',
+      'The gene page opens with "Where <gene> is expressed": the top NeuroSeq sorted populations in mouse, and a Human hypothalamus column with GTEx median TPM, Allen Human Brain Atlas probes, and the top Human Protein Atlas subregions and snRNA-seq clusters, each in its own unit. A mouse gene is matched to the human gene of the same symbol, and the page says so. Human and mouse values are never pooled.',
+      '"Pathways changing in these conditions" follows the gene into the conditions where it changes most, up to 12 at FDR < 0.05 within the selected studies. It draws one column per condition, grouped by whether the gene went down or up there, and one row per pathway, with its NES where it is enriched: red above 0, blue below. Pathways are ranked by how much more often they recur here than across all studies, so pathways enriched almost everywhere no longer lead every list. "How is this ranked?" explains the order.',
+      'Share analysis links restore the selected studies, contrasts, genes, chart scales, thresholds and study filters. A damaged link no longer widens to every study. Compare as bars keeps the exact studies selected on the gene page.',
+    ],
+  },
+  {
     date: '2026-10-26',
     title: 'Explorer navigation, Compare loading, downloads and gene picker',
     items: [
