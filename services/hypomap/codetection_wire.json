@@ -1,0 +1,544 @@
+{
+  "description": "Golden wire contract between services/hypomap/comparison_service.py and src/search/hypomap/codetection.ts. test_comparison_service.py builds a comparison index from `index`, serves it over HTTP and requires every response byte-for-byte equal (as JSON) to `requests[].response`; codetection.test.ts serves the same responses to the client. Change a response only together with the service and client behaviour it pins.",
+  "index": {
+    "cohort": "fixture cohort",
+    "source_export_manifest_sha256": "6f1c0e3fa4b14f0b8f9c5a7d2e6b3c1a0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a",
+    "genes": [
+      [
+        "G0",
+        "Agrp",
+        "agouti related neuropeptide"
+      ],
+      [
+        "G1",
+        "Npy",
+        "neuropeptide Y"
+      ],
+      [
+        "G2",
+        "Pomc",
+        "pro-opiomelanocortin-alpha"
+      ],
+      [
+        "G3",
+        "Cartpt",
+        "CART prepropeptide"
+      ]
+    ],
+    "datasets": [
+      {
+        "id": "D1",
+        "label": "Fixture study one",
+        "cells": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          []
+        ],
+        "states": [
+          "supported",
+          "supported",
+          "supported",
+          "supported"
+        ],
+        "c7": {
+          "GABA": [
+            0,
+            1,
+            2
+          ],
+          "GLU": [
+            3,
+            4,
+            5
+          ]
+        },
+        "regions": {
+          "ARC": [
+            0,
+            1,
+            2
+          ]
+        }
+      },
+      {
+        "id": "D2",
+        "label": "Fixture study two",
+        "cells": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1
+          ],
+          [
+            3
+          ]
+        ],
+        "states": [
+          "supported",
+          "supported",
+          "supported",
+          "supported"
+        ],
+        "c7": {
+          "GABA": [
+            0,
+            1,
+            2
+          ],
+          "GLU": [
+            3
+          ]
+        },
+        "regions": {}
+      },
+      {
+        "id": "D3",
+        "label": "Fixture study three",
+        "cells": [
+          [
+            0
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            2
+          ]
+        ],
+        "states": [
+          "supported",
+          "gene_not_found",
+          "supported",
+          "duplicate_dataset_mapping"
+        ],
+        "c7": {
+          "GABA": [
+            0,
+            1
+          ],
+          "GLU": [
+            2
+          ]
+        },
+        "regions": {}
+      }
+    ]
+  },
+  "requests": [
+    {
+      "name": "recommendations for Agrp",
+      "endpoint": "recommendations",
+      "params": {
+        "gene": "G0"
+      },
+      "response": {
+        "cohort": "fixture cohort",
+        "record": [
+          0,
+          [
+            0,
+            1,
+            2
+          ],
+          7,
+          [
+            [
+              1,
+              3,
+              1
+            ],
+            [
+              2,
+              1,
+              1
+            ],
+            [
+              3,
+              1,
+              1
+            ]
+          ]
+        ],
+        "source_export_manifest_sha256": "6f1c0e3fa4b14f0b8f9c5a7d2e6b3c1a0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a"
+      }
+    },
+    {
+      "name": "ready: every selected dataset measures both genes",
+      "endpoint": "compare",
+      "params": {
+        "a": "G0",
+        "b": "G1",
+        "datasets": "D1,D2"
+      },
+      "response": {
+        "query": "G0",
+        "partner": "G1",
+        "region": "Whole hypothalamus",
+        "state": "ready",
+        "datasets": [
+          {
+            "dataset": "D1",
+            "eligible": 6,
+            "counts": {
+              "both": 2,
+              "queryOnly": 1,
+              "partnerOnly": 1,
+              "neither": 2
+            },
+            "percentages": {
+              "both": 33.333333333333336,
+              "queryOnly": 16.666666666666668,
+              "partnerOnly": 16.666666666666668,
+              "neither": 33.333333333333336
+            },
+            "conditionalPercent": 66.66666666666667,
+            "c7": [
+              {
+                "label": "GABA",
+                "eligible": 3,
+                "counts": {
+                  "both": 2,
+                  "queryOnly": 1,
+                  "partnerOnly": 0,
+                  "neither": 0
+                },
+                "percentages": {
+                  "both": 66.66666666666667,
+                  "queryOnly": 33.333333333333336,
+                  "partnerOnly": 0.0,
+                  "neither": 0.0
+                },
+                "conditionalPercent": 66.66666666666667
+              },
+              {
+                "label": "GLU",
+                "eligible": 3,
+                "counts": {
+                  "both": 0,
+                  "queryOnly": 0,
+                  "partnerOnly": 1,
+                  "neither": 2
+                },
+                "percentages": {
+                  "both": 0.0,
+                  "queryOnly": 0.0,
+                  "partnerOnly": 33.333333333333336,
+                  "neither": 66.66666666666667
+                },
+                "conditionalPercent": null
+              }
+            ]
+          },
+          {
+            "dataset": "D2",
+            "eligible": 4,
+            "counts": {
+              "both": 1,
+              "queryOnly": 1,
+              "partnerOnly": 1,
+              "neither": 1
+            },
+            "percentages": {
+              "both": 25.0,
+              "queryOnly": 25.0,
+              "partnerOnly": 25.0,
+              "neither": 25.0
+            },
+            "conditionalPercent": 50.0,
+            "c7": [
+              {
+                "label": "GABA",
+                "eligible": 3,
+                "counts": {
+                  "both": 1,
+                  "queryOnly": 1,
+                  "partnerOnly": 1,
+                  "neither": 0
+                },
+                "percentages": {
+                  "both": 33.333333333333336,
+                  "queryOnly": 33.333333333333336,
+                  "partnerOnly": 33.333333333333336,
+                  "neither": 0.0
+                },
+                "conditionalPercent": 50.0
+              },
+              {
+                "label": "GLU",
+                "eligible": 1,
+                "counts": {
+                  "both": 0,
+                  "queryOnly": 0,
+                  "partnerOnly": 0,
+                  "neither": 1
+                },
+                "percentages": {
+                  "both": 0.0,
+                  "queryOnly": 0.0,
+                  "partnerOnly": 0.0,
+                  "neither": 100.0
+                },
+                "conditionalPercent": null
+              }
+            ]
+          }
+        ],
+        "unsupported": [],
+        "whole": {
+          "eligible": 10,
+          "counts": {
+            "both": 3,
+            "queryOnly": 2,
+            "partnerOnly": 2,
+            "neither": 3
+          },
+          "percentages": {
+            "both": 30.0,
+            "queryOnly": 20.0,
+            "partnerOnly": 20.0,
+            "neither": 30.0
+          },
+          "conditionalPercent": 60.0
+        },
+        "c7": [
+          {
+            "label": "GABA",
+            "eligible": 6,
+            "counts": {
+              "both": 3,
+              "queryOnly": 2,
+              "partnerOnly": 1,
+              "neither": 0
+            },
+            "percentages": {
+              "both": 50.0,
+              "queryOnly": 33.333333333333336,
+              "partnerOnly": 16.666666666666668,
+              "neither": 0.0
+            },
+            "conditionalPercent": 60.0
+          },
+          {
+            "label": "GLU",
+            "eligible": 4,
+            "counts": {
+              "both": 0,
+              "queryOnly": 0,
+              "partnerOnly": 1,
+              "neither": 3
+            },
+            "percentages": {
+              "both": 0.0,
+              "queryOnly": 0.0,
+              "partnerOnly": 25.0,
+              "neither": 75.0
+            },
+            "conditionalPercent": null
+          }
+        ],
+        "method": "raw_count >= 1; cell-pooled; fixture cohort",
+        "cohort": "fixture cohort",
+        "source_export_manifest_sha256": "6f1c0e3fa4b14f0b8f9c5a7d2e6b3c1a0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a"
+      }
+    },
+    {
+      "name": "partial: one selected dataset lacks the partner",
+      "endpoint": "compare",
+      "params": {
+        "a": "G0",
+        "b": "G1",
+        "datasets": "D1,D3"
+      },
+      "response": {
+        "query": "G0",
+        "partner": "G1",
+        "region": "Whole hypothalamus",
+        "state": "ready",
+        "datasets": [
+          {
+            "dataset": "D1",
+            "eligible": 6,
+            "counts": {
+              "both": 2,
+              "queryOnly": 1,
+              "partnerOnly": 1,
+              "neither": 2
+            },
+            "percentages": {
+              "both": 33.333333333333336,
+              "queryOnly": 16.666666666666668,
+              "partnerOnly": 16.666666666666668,
+              "neither": 33.333333333333336
+            },
+            "conditionalPercent": 66.66666666666667,
+            "c7": [
+              {
+                "label": "GABA",
+                "eligible": 3,
+                "counts": {
+                  "both": 2,
+                  "queryOnly": 1,
+                  "partnerOnly": 0,
+                  "neither": 0
+                },
+                "percentages": {
+                  "both": 66.66666666666667,
+                  "queryOnly": 33.333333333333336,
+                  "partnerOnly": 0.0,
+                  "neither": 0.0
+                },
+                "conditionalPercent": 66.66666666666667
+              },
+              {
+                "label": "GLU",
+                "eligible": 3,
+                "counts": {
+                  "both": 0,
+                  "queryOnly": 0,
+                  "partnerOnly": 1,
+                  "neither": 2
+                },
+                "percentages": {
+                  "both": 0.0,
+                  "queryOnly": 0.0,
+                  "partnerOnly": 33.333333333333336,
+                  "neither": 66.66666666666667
+                },
+                "conditionalPercent": null
+              }
+            ]
+          }
+        ],
+        "unsupported": [
+          {
+            "dataset": "D3",
+            "query": "supported",
+            "partner": "gene_not_found"
+          }
+        ],
+        "whole": {
+          "eligible": 6,
+          "counts": {
+            "both": 2,
+            "queryOnly": 1,
+            "partnerOnly": 1,
+            "neither": 2
+          },
+          "percentages": {
+            "both": 33.333333333333336,
+            "queryOnly": 16.666666666666668,
+            "partnerOnly": 16.666666666666668,
+            "neither": 33.333333333333336
+          },
+          "conditionalPercent": 66.66666666666667
+        },
+        "c7": [
+          {
+            "label": "GABA",
+            "eligible": 3,
+            "counts": {
+              "both": 2,
+              "queryOnly": 1,
+              "partnerOnly": 0,
+              "neither": 0
+            },
+            "percentages": {
+              "both": 66.66666666666667,
+              "queryOnly": 33.333333333333336,
+              "partnerOnly": 0.0,
+              "neither": 0.0
+            },
+            "conditionalPercent": 66.66666666666667
+          },
+          {
+            "label": "GLU",
+            "eligible": 3,
+            "counts": {
+              "both": 0,
+              "queryOnly": 0,
+              "partnerOnly": 1,
+              "neither": 2
+            },
+            "percentages": {
+              "both": 0.0,
+              "queryOnly": 0.0,
+              "partnerOnly": 33.333333333333336,
+              "neither": 66.66666666666667
+            },
+            "conditionalPercent": null
+          }
+        ],
+        "method": "raw_count >= 1; cell-pooled; fixture cohort",
+        "cohort": "fixture cohort",
+        "source_export_manifest_sha256": "6f1c0e3fa4b14f0b8f9c5a7d2e6b3c1a0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a"
+      }
+    },
+    {
+      "name": "unsupported: no selected dataset measures both genes",
+      "endpoint": "compare",
+      "params": {
+        "a": "G0",
+        "b": "G1",
+        "datasets": "D3"
+      },
+      "response": {
+        "query": "G0",
+        "partner": "G1",
+        "region": "Whole hypothalamus",
+        "state": "unsupported",
+        "datasets": [],
+        "unsupported": [
+          {
+            "dataset": "D3",
+            "query": "supported",
+            "partner": "gene_not_found"
+          }
+        ],
+        "whole": {
+          "eligible": 0,
+          "counts": {
+            "both": 0,
+            "queryOnly": 0,
+            "partnerOnly": 0,
+            "neither": 0
+          },
+          "percentages": {
+            "both": null,
+            "queryOnly": null,
+            "partnerOnly": null,
+            "neither": null
+          },
+          "conditionalPercent": null
+        },
+        "c7": [],
+        "method": "raw_count >= 1; cell-pooled; fixture cohort",
+        "cohort": "fixture cohort",
+        "source_export_manifest_sha256": "6f1c0e3fa4b14f0b8f9c5a7d2e6b3c1a0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a"
+      }
+    }
+  ]
+}

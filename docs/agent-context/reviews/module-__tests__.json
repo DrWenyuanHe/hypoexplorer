@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "54f76baa710ed0bbac3aa6eb7fa866dc3235433de16824937f26827afbcd3b6c",
+  "fingerprint": "ed12d3df3cc6fb1a58714d7945cc79f5966296320fa1f5d67ab6d4d8ce84bfa3",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31, #34) into the bundle-reader branch. From this branch: bundleReader.test.ts pins the writer-to-reader round trip, strict JSONP parsing and registry unit precedence; bundleReaderParity.test.ts pins Node reader labels to loadDatasetMeta for every committed meta.js; agentExport.test.ts reads published bytes through readJsonp and asserts the reviewed GSE174085 label. From main: expressionSurvey.test.ts, expressionSurveyLoad.test.tsx and expressionSurveyView.test.tsx cover survey derivation and per-source retry, sourceJson.test.ts the shared expression-source reader, and explorerSession.test.tsx the analysis snapshot defaults.",
+  "explanation": "Merged main (#30, #31, #32, #34) into the bundle-reader branch. From this branch: bundleReader.test.ts pins the writer-to-reader round trip, strict JSONP parsing and registry unit precedence; bundleReaderParity.test.ts pins Node reader labels to loadDatasetMeta for every committed meta.js; agentExport.test.ts reads published bytes through readJsonp and asserts the reviewed GSE174085 label. From main: hypomapCodetection/hypomapCoexpression/hypomapMetrics tests cover the co-detection client against its wire golden, expressionSurvey and expressionSurveyLoad tests cover survey derivation and per-source retry, and sourceJson tests cover the shared expression-source reader.",
   "references": [
     "src/__tests__/bundleReader.test.ts",
     "src/__tests__/bundleReaderParity.test.ts",
     "src/__tests__/agentExport.test.ts",
-    "src/__tests__/expressionSurvey.test.ts",
-    "src/__tests__/sourceJson.test.ts"
+    "src/__tests__/hypomapCodetection.test.ts",
+    "src/__tests__/expressionSurvey.test.ts"
   ]
 }
