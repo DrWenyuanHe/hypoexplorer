@@ -1,0 +1,126 @@
+{
+  "datasetId": "mouse_leprb_stat3_gse123983",
+  "manualReview": {
+    "status": "processed_source_match",
+    "comparisonLevel": "processed_source",
+    "sourceComparison": "manual_structure_match",
+    "auditState": "complete",
+    "summary": "Deposited LepRb TRAP count source verified",
+    "note": "The official count matrix is accessible, supports control versus Stat3 knockout within LepRb TRAP samples, and was rehashed locally (source SHA-256 951a05b8...; cleaned matrix c8781814...). The open paper supplements emphasize pathway/regulator summaries and do not provide a complete same-contrast all-gene statistics table. 2026-11-15 turbo notloc1: Europe PMC OA supplement mmc1.xlsx (SHA-256 93ca2691...) Table2 provides 196 author-selected genes that are LepRb-enriched (from the 2,463 bead/sup-enriched set) and regulated in at least one STAT3KO or ob/ob comparison, with DESeq2 STAT3KO-vs-control log2 effects and an unlabelled P (raw vs adjusted not stated). The retained paper full text (PMC6437596 JATS XML, SHA-256 24364c77...) states DESeq2 on Ensembl v94 protein-coding genes with no threshold for genotype-regulated genes, and pooling of hypothalami from 5-8 mice per TRAP replicate (the Table 2 legend says 4-6). 188 pair by exact symbol with the registered edgeR-QL output: Pearson 0.99931, Spearman 0.99978, nonzero direction agreement 99.47% (sole discordant gene Vwa5a, author P 0.995), 100% among 128 author P<0.05 pairs, median absolute log2FC difference 0.0125 (max 0.691, F830016B08Rik). Eight author symbols (Fam159a, Gm4951, Svs2, Trim55, Ddx58, Fam159b, Gm8773, Olfr56) were left unmatched rather than renamed. The selected table does not establish full-universe agreement, and DESeq2 versus edgeR-QL inference is not reconciled. Evidence and reproducible extraction (xlsx2tsv.py, make_author_effects.py, compare_table2.py) are in continued-sources/GSE123983/turbo-2026-11-15-notloc1/.",
+    "reviewFlags": [
+      "This is a TRAP translatome contrast, not whole-tissue expression.",
+      "This legacy source has no committed source-file checksum manifest.",
+      "Author reference is a 196-gene selected table (Supplemental Table 2: LepRb-enriched genes regulated in at least one STAT3KO or ob/ob comparison); the P column is not labelled raw or adjusted."
+    ],
+    "reviewedAt": "2026-11-15"
+  },
+  "verificationReview": {
+    "resultAvailability": "partial",
+    "comparisonOutcome": "method_differences",
+    "reason": "2026-11-15: An author selected-gene table (Supplemental Table 2, 196 LepRb-enriched and regulated genes, STAT3KO versus control DESeq2 effects with an unlabelled P) was retrieved from the Europe PMC open-access bundle. On 188 exact-symbol pairs it tracks the registered edgeR-QL output closely (Pearson 0.99931, Spearman 0.99978, nonzero direction agreement 99.47%, 100% among 128 author P<0.05 pairs, median absolute log2FC difference 0.0125). DESeq2 versus edgeR-QL inference and the unlabelled author P remain unreconciled, and the table is not a complete same-contrast author result. Evidence is in continued-sources/GSE123983/turbo-2026-11-15-notloc1/.",
+    "nextStep": "Obtain the complete author DESeq2 table and the P-value definition before any full-coverage or inferential claim. Keep the eight unmatched author symbols unmatched rather than renaming them to raise coverage.",
+    "fullyVerifiedContrasts": []
+  },
+  "comparabilityReview": {
+    "registeredContrastIds": [
+      "stat3ko_vs_control"
+    ],
+    "target": "registered_output",
+    "resultScope": "selected_results",
+    "basis": "Registered edgeR-QL bead-fraction result against the author's selected Supplemental Table 2 STAT3KO-vs-control effects.",
+    "reference": "PMC6437596 Supplemental Table 2 (196 genes) from mmc1.xlsx, retrieved via the Europe PMC OA bundle and hashed on 2026-11-15.",
+    "assessment": "limited",
+    "dimensions": {
+      "cohort": {
+        "status": "compatible",
+        "note": "GEO series matrix maps three Stat3KO bead and three Ctrl bead libraries to the registered case/control. Each TRAP replicate pools hypothalami from 5-8 mice (paper Methods 2.5; the Table 2 legend says 4-6 animals). Author Table 2 also involves separate ob/ob comparisons not in this series; author sample membership for the KO-vs-control test is inferred from GEO, not stated per sample."
+      },
+      "contrast": {
+        "status": "matched",
+        "note": "STAT3KO minus control within LepRb TRAP bead fractions; same orientation (Agrp +1.85 author, +1.84 registered)."
+      },
+      "features": {
+        "status": "limited",
+        "note": "188 of 196 author symbols pair exactly; eight older or unmatched symbols left unmatched without renaming. Author universe restricted to protein-coding genes (Ensembl v94)."
+      },
+      "effects": {
+        "status": "compatible",
+        "note": "Pearson 0.99931, Spearman 0.99978, median absolute log2FC difference 0.0125, max 0.691 on 188 pairs. Author DESeq2 shrinkage status not stated."
+      },
+      "inference": {
+        "status": "different",
+        "note": "Author P column is not labelled raw or adjusted; 128 paired genes have author P<0.05 (all direction-concordant) and 76 paired genes have registered FDR<0.05. Calls were not reconciled."
+      },
+      "coverage": {
+        "status": "limited",
+        "note": "Table 2 rows are LepRb-enriched genes (from the 2,463 bead/sup-enriched set) that are regulated in at least one STAT3KO or ob/ob comparison, so the reference is narrower than a regulated-gene list. The narrative's 243 regulated enriched genes differ from the 196 rows. Full tested universe unavailable."
+      }
+    },
+    "criteria": "Exact-symbol pairing only; finite effects; no threshold or mapping tuning. Selected-gene references remain scoped and cannot confer full verification.",
+    "conclusion": "Selected author effects agree closely with the registered output in direction and magnitude. Inference and full-universe coverage remain unestablished."
+  },
+  "additionalComparisonSpec": {
+    "datasetId": "mouse_leprb_stat3_gse123983",
+    "accession": "GSE123983",
+    "contrast": "stat3ko_vs_control",
+    "localPath": "geo_replication/datasets/GSE123983_mmus_leprb_stat3_trap/processed/GSE123983_DE.tsv",
+    "localKey": "symbol",
+    "authorPath": "data/author-validation/continued-sources/GSE123983/turbo-2026-11-15-notloc1/author-effects.tsv",
+    "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6437596/supplementaryFiles",
+    "sha256": "c9e3f5709a652bfec99a907c5761d08c9975663e8af1c721f6939e80f01a1088",
+    "format": "tsv",
+    "authorKey": "output_id",
+    "authorEffect": "logFC",
+    "orientationSign": 1,
+    "localMethod": "edgeR-QL",
+    "authorMethod": "DESeq2; Supplemental Table 2 STAT3KO vs. Control",
+    "orientation": "STAT3KO minus control bead fraction; unchanged author orientation.",
+    "note": "Selected 196-gene author reference (Supplemental Table 2: LepRb-enriched genes regulated in at least one STAT3KO or ob/ob comparison). The P column is unlabelled (raw vs adjusted unknown) and is not mapped as adjusted P. Missing author adjusted P remains unavailable. Numerical values are recalculated from the unchanged current registered DE table.",
+    "interpretation": "effects_compared",
+    "originalReferences": [
+      {
+        "path": "data/author-validation/continued-sources/GSE123983/turbo-2026-11-15-notloc1/original/mmc1.xlsx",
+        "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6437596/supplementaryFiles",
+        "sha256": "93ca26916ccafb8518cac4720d76fe29e995b37bdc0230958313e572c0db2577",
+        "bytes": 372142
+      },
+      {
+        "path": "data/author-validation/continued-sources/GSE123983/turbo-2026-11-15-notloc1/xlsx2tsv.py",
+        "sourceUrl": "Reviewed original-table extraction code",
+        "sha256": "232b06248f9ab9892d09da5f6fd306a962010a9deae16a71c299ec597c563afd",
+        "bytes": 1683
+      },
+      {
+        "path": "data/author-validation/continued-sources/GSE123983/turbo-2026-11-15-notloc1/make_author_effects.py",
+        "sourceUrl": "Reviewed original-table extraction code",
+        "sha256": "c3b21449b77495191fae4c69533a92956e019e77e768b00d959a3b234c641812",
+        "bytes": 1141
+      },
+      {
+        "path": "data/author-validation/continued-sources/GSE123983/turbo-2026-11-15-notloc1/compare_table2.py",
+        "sourceUrl": "Reviewed original-table extraction code",
+        "sha256": "c5c413d48090a1f96ffe54e258fbca0c50069cdf147759e13378f03d60932d6d",
+        "bytes": 4336
+      }
+    ],
+    "normalizationScript": "data/author-validation/continued-sources/GSE123983/turbo-2026-11-15-notloc1/make_author_effects.py",
+    "resultScope": "Selected author reference: Supplemental Table 2.",
+    "localSnapshot": {
+      "path": "geo_replication/datasets/GSE123983_mmus_leprb_stat3_trap/processed/GSE123983_DE.tsv",
+      "sourceUrl": "Registered Explorer DE source; no public author-result claim",
+      "sha256": "a0efe85e76a6d17d782c6e5b0bc2f229619ac7a8c9a8ed70dca08342212ef4a6",
+      "bytes": 1716231
+    }
+  },
+  "appliedCorrections": [
+    "comparabilityReview.dimensions.inference.status changed from 'not_established' (invalid for a dimension) to 'different'; note kept.",
+    "verificationReview.comparisonOutcome changed from 'not_tested' to 'method_differences'; resultAvailability 'partial' and fullyVerifiedContrasts [] kept; reason/nextStep reworded to match direct selected-gene evidence.",
+    "Provenance gap closed: added make_author_effects.py to the evidence folder (writes author-effects.tsv verbatim from extracted/Table2.tsv; re-run output byte-identical, SHA-256 c9e3f570...). normalizationScript now points to it; originalReferences add xlsx2tsv.py, make_author_effects.py and compare_table2.py as 'Reviewed original-table extraction code' with sha256 and bytes. xlsx2tsv.py re-run on mmc1.xlsx reproduced extracted/Table1-3.tsv byte-identically.",
+    "Paper full text retained and hashed: original/PMC6437596_fullTextXML.xml (Europe PMC fullTextXML, 127495 bytes, SHA-256 24364c773de1c39ce70ba404220113e7eaf9256098eff5cf1b757912d02c988d) added to SOURCES.tsv; README cites it for DESeq2, protein-coding Ensembl v94 universe, no regulated-gene threshold, 243 regulated genes and pooling.",
+    "SOURCES.tsv: added extracted/Table1.tsv (455242 bytes, 940f14a5...), extracted/Table3.tsv and make_author_effects.py rows.",
+    "Coverage/features scope corrected (comparability coverage note, manual note, reviewFlag, spec note, README): Table 2 rows are LepRb-enriched genes (2,463 bead/sup set) regulated in at least one STAT3KO or ob/ob comparison.",
+    "comparabilityReview.dimensions.cohort.note: added that each TRAP replicate pools hypothalami from 5-8 mice (Methods 2.5).",
+    "README notes that metrics.json median 0.012491 is the upper-middle element for even n=188; the conventional median is 0.012481 (both round to 0.0125)."
+  ],
+  "notes": "No status upgrade: manualReview keeps status processed_source_match, comparisonLevel processed_source and auditState complete; only note, reviewFlags and reviewedAt change (reviewedAt 2026-11-15 is newly added because the record had none; drop it if the integrator wants only fields the record already carried). comparabilityReview is a new record (none existed). additionalComparisonSpec is new (no entry in additional-comparison-specs.json and no row in direct-comparisons.generated.json); localSnapshot gains bytes 1716231 (verified against the current file). The retained full text shows the Supplemental Table 2 legend states 4-6 pooled animals per sample while Methods 2.5 says 5-8; this is recorded in the cohort note and README, not reconciled. Concordance and experimental-design proposals were null/dropped per integration decisions. Evidence-folder edits: README.md and SOURCES.tsv updated; make_author_effects.py and original/PMC6437596_fullTextXML.xml added."
+}

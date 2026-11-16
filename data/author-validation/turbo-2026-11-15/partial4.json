@@ -1,0 +1,751 @@
+{
+ "agent": "partial4",
+ "datasets": [
+  {
+   "datasetId": "gse262407",
+   "accession": "GSE262407",
+   "outcome": "advanced",
+   "summary": "Recomputed all 12 previously measured selected-author contexts against the current regenerated registered tables (numeric routes pass in all: Pearson .9751-.9935, Spearman .9642-.9871, 100% direction, coverage 99.22-100% of selected rows) and reconciled mouse eligibility with the published Methods rule (>=2 cells per sample). Astrocyte contexts (3) select identical mice and deposited nuclei; OPC, oligodendrocyte and Ghrh contexts (9) gain 1-3 low-count mice under the author rule, so their cohorts differ. Proposes three explicitly selected-scope astrocyte comparison specs plus cohort reviews; 16 unmatched contexts unchanged; no dataset-level pass.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4",
+   "proposed": {
+    "manualReview": {
+     "status": "review_required",
+     "comparisonLevel": "direct",
+     "auditState": "complete",
+     "reviewedAt": "2026-11-15",
+     "summary": "Three astrocyte selected-gene contexts cohort-reconciled; nine glial/Ghrh contexts differ by low-count mice",
+     "note": "2026-11-15 continuation: publisher Supplementary Data 1/4, GEO cell metadata and accepted manuscript re-retrieved with SHA-256 equal to the 2026-09-11 record. The registered DE tables were regenerated after 2026-09-11; recomputation against current tables reproduces the twelve selected measurements (Pearson .9751-.9935, Spearman .9642-.9871, 100% paired direction, selected-author coverage 99.22%-100%). The accepted-manuscript Methods require at least two cells per sample. Under that rule the three astrocyte contexts select the same 20 mice and deposited nuclei as the registered 20-nucleus rule (major.class equals author sub.class); OPC, oligodendrocyte and Ghrh contexts gain 1-3 low-count mice (for example OPC Arc23 with 5 and Arc30 with 3 nuclei), so their cohorts differ from the registered result. The 75 nuclei separating the paper total 75,787 from the deposited 75,862 are unidentified. All author rows are nominal P<.05 selections, not the tested universe. Sixteen of 28 registered contexts have no matching author coefficient. Evidence: continued-sources/GSE262407/turbo-2026-11-15-partial4/.",
+     "reviewFlags": [
+      "Selected nominal-P author rows are not the full tested universe.",
+      "OPC, oligodendrocyte and Ghrh author cohorts include low-count mice excluded from registered tracks.",
+      "Sixteen registered contexts have no matching author coefficient.",
+      "No full-verification sign-off."
+     ],
+     "evidenceLinks": [
+      {
+       "label": "New primary paper",
+       "url": "https://doi.org/10.1038/s41467-026-77116-9",
+       "kind": "paper"
+      },
+      {
+       "label": "Pinned author code",
+       "url": "https://github.com/perslab/Brown-2025/tree/773a267395c0c0b21e47312c1de3a14d77b4e02d",
+       "kind": "author_result"
+      },
+      {
+       "label": "Supplementary Data 1 (glia)",
+       "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-026-77116-9/MediaObjects/41467_2026_77116_MOESM4_ESM.xlsx",
+       "kind": "author_result"
+      }
+     ]
+    },
+    "verificationReview": {
+     "resultAvailability": "partial",
+     "comparisonOutcome": "unresolved",
+     "reason": "2026-11-15 continuation: publisher Supplementary Data 1/4, GEO cell metadata and accepted manuscript re-retrieved with SHA-256 equal to the 2026-09-11 record. The registered DE tables were regenerated after 2026-09-11; recomputation against current tables reproduces the twelve selected measurements (Pearson .9751-.9935, Spearman .9642-.9871, 100% paired direction, selected-author coverage 99.22%-100%). The accepted-manuscript Methods require at least two cells per sample. Under that rule the three astrocyte contexts select the same 20 mice and deposited nuclei as the registered 20-nucleus rule (major.class equals author sub.class); OPC, oligodendrocyte and Ghrh contexts gain 1-3 low-count mice (for example OPC Arc23 with 5 and Arc30 with 3 nuclei), so their cohorts differ from the registered result. The 75 nuclei separating the paper total 75,787 from the deposited 75,862 are unidentified. All author rows are nominal P<.05 selections, not the tested universe. Sixteen of 28 registered contexts have no matching author coefficient. Evidence: continued-sources/GSE262407/turbo-2026-11-15-partial4/.",
+     "nextStep": "Admit the three astrocyte contexts as selected-scope comparisons if accepted; keep the nine cohort-different glial/Ghrh contexts and sixteen unmatched contexts explicit; never substitute other populations or contrasts.",
+     "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+     "target": "registered_output",
+     "resultScope": "selected_results",
+     "registeredContrastIds": [
+      "glucose_vs_saline_chow",
+      "glucose_vs_saline_hfd",
+      "hfd_vs_chow_glucose",
+      "hfd_vs_chow_saline"
+     ],
+     "basis": "Current registered Explorer per-track tables, recomputed 2026-11-15; compared only where a named author cell type and publisher-defined contrast exist.",
+     "reference": "Publisher Supplementary Data 1 (ARC/VMH glia) and 4 (neurons): complete named cell-type rows, all nominal PValue<0.05.",
+     "assessment": "limited",
+     "dimensions": {
+      "cohort": {
+       "status": "limited",
+       "note": "Astrocyte contexts: identical mice and deposited nuclei under the published two-cell rule. OPC, oligodendrocyte and Ghrh contexts: author rule admits 1-3 low-count mice excluded by the registered 20/10-nucleus rules. 75 primary-versus-deposited nuclei unidentified."
+      },
+      "contrast": {
+       "status": "matched",
+       "note": "Publisher descriptions define glucose minus saline within diet and HFD minus control under saline, matching registered case minus baseline. hfd_vs_chow_glucose has no author table."
+      },
+      "features": {
+       "status": "compatible",
+       "note": "Exact symbol join; 0 duplicated author symbols; 6 unmatched selected rows across three non-astrocyte contexts; author code excludes ^Gm|Rik$ and Methods exclude genes in <=10% of cells."
+      },
+      "effects": {
+       "status": "compatible",
+       "note": "Both edgeR log2 fold change case minus baseline; Pearson .9751-.9935, Spearman .9642-.9871, 100% direction across the twelve selected contexts."
+      },
+      "inference": {
+       "status": "different",
+       "note": "Registered edgeR-QL two-arm fit versus author robust-dispersion glmLRT; FDR calls differ widely and are contextual."
+      },
+      "coverage": {
+       "status": "limited",
+       "note": "12 of 28 registered contexts have a selected author reference; selected rows omit the tested nonsignificant tail."
+      }
+     },
+     "criteria": "author-concordance-v2 per context within selected scope: >=30 paired genes, >=90% selected-row coverage, Pearson and Spearman >=0.90 or >=90% direction; cohort, contrast, identifier and effect compatibility required. Absent rows are not author negatives.",
+     "conclusion": "Three astrocyte contexts meet every scoped criterion including cohort compatibility; nine contexts agree numerically but have a documented cohort difference; sixteen contexts unassessed. No dataset-level pass."
+    },
+    "concordanceReview": [
+     {
+      "datasetId": "gse262407",
+      "contrastId": "glucose_vs_saline_chow",
+      "reviewedAt": "2026-11-15",
+      "dimension": "cohort",
+      "status": "compatible",
+      "evidenceFingerprint": null,
+      "localMethod": "edgeR-QL two-arm per-mouse pseudobulk (astrocytes track)",
+      "authorMethod": "edgeR robust-dispersion glmFit/glmLRT per-mouse pseudobulk",
+      "orientation": "Glucose minus saline infusion within control (chow) diet; publisher sheet Glucose_Response_Control_Diet, unchanged sign.",
+      "priorReview": {
+       "status": "not_tested",
+       "note": "Current 20-nucleus class eligibility differs from author minimum 2 per sample; exact eligible mouse and cell identities not reconciled."
+      },
+      "note": "Astrocytes track only. The accepted-manuscript Methods require at least two cells per sample. In the deposited GEO metadata (already discard/doublet filtered) every one of the 20 ARC mice has at least 25 astrocyte nuclei, and major.class equals the author code grouping column sub.class for all 5,588 astrocyte nuclei. The published rule and the registered rule therefore select identical mice and deposited nuclei in this context. The 75 nuclei separating the paper total 75,787 from the deposited 75,862 remain unidentified. evidenceFingerprint must be computed by the shared builder; it is not supplied by this fragment.",
+      "sources": [
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/downloads/GSE262407_metadata.csv.gz",
+        "sha256": "132ebc629d9cab20bdd4f363cc8bc64aad41cdbc91b752d5a6224cde8aa6b790"
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/downloads/accepted-manuscript.pdf",
+        "sha256": "5e978cbe6f3a245353d5faacca52936f806b860b6c1896a069018547f06caf04"
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/eligibility-audit.json",
+        "sha256": "c3d51327dd5b27175e86c5ba5586a586bc22b433e59a8130c9b118793b521d8f"
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/eligibility_audit.py",
+        "sha256": "c93a65ba83d6406af68e4212853581ec8ad0ab68056c31998e2256f5f6e7cbea"
+       },
+       {
+        "path": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_astrocytes_glucose_vs_saline_chow_DE.tsv",
+        "sha256": "804dbe173d822be91f9d61906d43c553e5e166591632e6b5d6208a6161e5f457"
+       }
+      ]
+     },
+     {
+      "datasetId": "gse262407",
+      "contrastId": "glucose_vs_saline_hfd",
+      "reviewedAt": "2026-11-15",
+      "dimension": "cohort",
+      "status": "compatible",
+      "evidenceFingerprint": null,
+      "localMethod": "edgeR-QL two-arm per-mouse pseudobulk (astrocytes track)",
+      "authorMethod": "edgeR robust-dispersion glmFit/glmLRT per-mouse pseudobulk",
+      "orientation": "Glucose minus saline infusion within HFD; publisher sheet Glucose_Response_HFD, unchanged sign.",
+      "priorReview": {
+       "status": "not_tested",
+       "note": "Current 20-nucleus class eligibility differs from author minimum 2 per sample; exact eligible mouse and cell identities not reconciled."
+      },
+      "note": "Astrocytes track only. The accepted-manuscript Methods require at least two cells per sample. In the deposited GEO metadata (already discard/doublet filtered) every one of the 20 ARC mice has at least 25 astrocyte nuclei, and major.class equals the author code grouping column sub.class for all 5,588 astrocyte nuclei. The published rule and the registered rule therefore select identical mice and deposited nuclei in this context. The 75 nuclei separating the paper total 75,787 from the deposited 75,862 remain unidentified. evidenceFingerprint must be computed by the shared builder; it is not supplied by this fragment.",
+      "sources": [
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/downloads/GSE262407_metadata.csv.gz",
+        "sha256": "132ebc629d9cab20bdd4f363cc8bc64aad41cdbc91b752d5a6224cde8aa6b790"
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/downloads/accepted-manuscript.pdf",
+        "sha256": "5e978cbe6f3a245353d5faacca52936f806b860b6c1896a069018547f06caf04"
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/eligibility-audit.json",
+        "sha256": "c3d51327dd5b27175e86c5ba5586a586bc22b433e59a8130c9b118793b521d8f"
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/eligibility_audit.py",
+        "sha256": "c93a65ba83d6406af68e4212853581ec8ad0ab68056c31998e2256f5f6e7cbea"
+       },
+       {
+        "path": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_astrocytes_glucose_vs_saline_hfd_DE.tsv",
+        "sha256": "1d2e50a3a80dc63e13991a227e7e4d3ef05fee3ab37c30c0e7a0abe23e581a39"
+       }
+      ]
+     },
+     {
+      "datasetId": "gse262407",
+      "contrastId": "hfd_vs_chow_saline",
+      "reviewedAt": "2026-11-15",
+      "dimension": "cohort",
+      "status": "compatible",
+      "evidenceFingerprint": null,
+      "localMethod": "edgeR-QL two-arm per-mouse pseudobulk (astrocytes track)",
+      "authorMethod": "edgeR robust-dispersion glmFit/glmLRT per-mouse pseudobulk",
+      "orientation": "HFD minus control diet under saline infusion; publisher sheet Diet_Response_Saline_Infusion, unchanged sign.",
+      "priorReview": {
+       "status": "not_tested",
+       "note": "Current 20-nucleus class eligibility differs from author minimum 2 per sample; exact eligible mouse and cell identities not reconciled."
+      },
+      "note": "Astrocytes track only. The accepted-manuscript Methods require at least two cells per sample. In the deposited GEO metadata (already discard/doublet filtered) every one of the 20 ARC mice has at least 25 astrocyte nuclei, and major.class equals the author code grouping column sub.class for all 5,588 astrocyte nuclei. The published rule and the registered rule therefore select identical mice and deposited nuclei in this context. The 75 nuclei separating the paper total 75,787 from the deposited 75,862 remain unidentified. evidenceFingerprint must be computed by the shared builder; it is not supplied by this fragment.",
+      "sources": [
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/downloads/GSE262407_metadata.csv.gz",
+        "sha256": "132ebc629d9cab20bdd4f363cc8bc64aad41cdbc91b752d5a6224cde8aa6b790"
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/downloads/accepted-manuscript.pdf",
+        "sha256": "5e978cbe6f3a245353d5faacca52936f806b860b6c1896a069018547f06caf04"
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/eligibility-audit.json",
+        "sha256": "c3d51327dd5b27175e86c5ba5586a586bc22b433e59a8130c9b118793b521d8f"
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/eligibility_audit.py",
+        "sha256": "c93a65ba83d6406af68e4212853581ec8ad0ab68056c31998e2256f5f6e7cbea"
+       },
+       {
+        "path": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_astrocytes_DE.tsv",
+        "sha256": "fd65d5c5a428a028eee7d6d6441907f3db1a94d1ede7193c462f38367dd1e29e"
+       }
+      ]
+     }
+    ],
+    "additionalComparisonSpec": [
+     {
+      "datasetId": "gse262407",
+      "accession": "GSE262407",
+      "contrast": "glucose_vs_saline_chow",
+      "localPath": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_astrocytes_glucose_vs_saline_chow_DE.tsv",
+      "localKey": "id",
+      "authorPath": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/author-effects/astrocytes-glucose_vs_saline_chow.tsv",
+      "sourceUrl": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-026-77116-9/MediaObjects/41467_2026_77116_MOESM4_ESM.xlsx",
+      "sha256": "e8d893d792e7a7c0398d4e8ca66167323d6f93bd2e8ab814ee51373ab0405f6c",
+      "format": "tsv",
+      "authorKey": "output_id",
+      "authorEffect": "logFC",
+      "authorAdjustedP": "padj",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL",
+      "authorMethod": "edgeR estimateGLMRobustDisp, glmFit and glmLRT on per-mouse pseudobulk; BH FDR",
+      "orientation": "Glucose minus saline infusion within control (chow) diet; publisher sheet Glucose_Response_Control_Diet, unchanged sign.",
+      "note": "Selected 529-row ARC/VMH Astrocytes author reference (Supplementary Data 1 sheet Glucose_Response_Control_Diet; every row nominal PValue<0.05); not the tested universe. Astrocyte track only; localPath identifies the registered astrocyte table. Recomputed 2026-11-15 against the current registered table: 529/529 paired, Pearson 0.9935, Spearman 0.9842, 100% same-gene direction. Published author eligibility (at least two nuclei per sample) and the registered 20-nucleus rule select the same 20 ARC mice and the same deposited astrocyte nuclei; the 75 nuclei separating the paper total 75,787 from the deposited 75,862 cannot be identified. Author FDR derives from robust LRT on author-filtered genes and is not equated with local FDR. Missing author rows are not author negatives.",
+      "interpretation": "effect_match_inference_differs",
+      "originalReferences": [
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/downloads/SupplementaryData1.xlsx",
+        "sourceUrl": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-026-77116-9/MediaObjects/41467_2026_77116_MOESM4_ESM.xlsx",
+        "sha256": "fc6e15db3530e5efe76cbe51776cb47f0b075ac8fd7dcda516e2368193e4d7f2",
+        "bytes": 604604
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/compare_selected.py",
+        "sourceUrl": "Reproducible original-table extraction and comparison script",
+        "sha256": "dcc34ac449b06c8f6f7c031e1c65061ec9160b702240aa2f20d5979990fd56fa",
+        "bytes": 5998
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/eligibility_audit.py",
+        "sourceUrl": "Mouse-eligibility audit against the published Methods rule",
+        "sha256": "c93a65ba83d6406af68e4212853581ec8ad0ab68056c31998e2256f5f6e7cbea",
+        "bytes": 5101
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/downloads/accepted-manuscript.pdf",
+        "sourceUrl": "https://www.nature.com/articles/s41467-026-77116-9_reference.pdf",
+        "sha256": "5e978cbe6f3a245353d5faacca52936f806b860b6c1896a069018547f06caf04",
+        "bytes": 5198524
+       }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/compare_selected.py",
+      "resultScope": "Selected 529-row ARC/VMH Astrocytes author reference (Supplementary Data 1 sheet Glucose_Response_Control_Diet; every row nominal PValue<0.05); not the tested universe.",
+      "localSnapshot": {
+       "path": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_astrocytes_glucose_vs_saline_chow_DE.tsv",
+       "sourceUrl": "Registered Explorer DE source; no public author-result claim",
+       "sha256": "804dbe173d822be91f9d61906d43c553e5e166591632e6b5d6208a6161e5f457",
+       "bytes": 959473
+      }
+     },
+     {
+      "datasetId": "gse262407",
+      "accession": "GSE262407",
+      "contrast": "glucose_vs_saline_hfd",
+      "localPath": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_astrocytes_glucose_vs_saline_hfd_DE.tsv",
+      "localKey": "id",
+      "authorPath": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/author-effects/astrocytes-glucose_vs_saline_hfd.tsv",
+      "sourceUrl": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-026-77116-9/MediaObjects/41467_2026_77116_MOESM4_ESM.xlsx",
+      "sha256": "11393284bd19b1e4853f8316bff7cfc6548f2c1c85f821e39e7677676bda6c2c",
+      "format": "tsv",
+      "authorKey": "output_id",
+      "authorEffect": "logFC",
+      "authorAdjustedP": "padj",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL",
+      "authorMethod": "edgeR estimateGLMRobustDisp, glmFit and glmLRT on per-mouse pseudobulk; BH FDR",
+      "orientation": "Glucose minus saline infusion within HFD; publisher sheet Glucose_Response_HFD, unchanged sign.",
+      "note": "Selected 513-row ARC/VMH Astrocytes author reference (Supplementary Data 1 sheet Glucose_Response_HFD; every row nominal PValue<0.05); not the tested universe. Astrocyte track only; localPath identifies the registered astrocyte table. Recomputed 2026-11-15 against the current registered table: 513/513 paired, Pearson 0.9795, Spearman 0.9743, 100% same-gene direction. Published author eligibility (at least two nuclei per sample) and the registered 20-nucleus rule select the same 20 ARC mice and the same deposited astrocyte nuclei; the 75 nuclei separating the paper total 75,787 from the deposited 75,862 cannot be identified. Author FDR derives from robust LRT on author-filtered genes and is not equated with local FDR. Missing author rows are not author negatives.",
+      "interpretation": "effect_match_inference_differs",
+      "originalReferences": [
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/downloads/SupplementaryData1.xlsx",
+        "sourceUrl": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-026-77116-9/MediaObjects/41467_2026_77116_MOESM4_ESM.xlsx",
+        "sha256": "fc6e15db3530e5efe76cbe51776cb47f0b075ac8fd7dcda516e2368193e4d7f2",
+        "bytes": 604604
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/compare_selected.py",
+        "sourceUrl": "Reproducible original-table extraction and comparison script",
+        "sha256": "dcc34ac449b06c8f6f7c031e1c65061ec9160b702240aa2f20d5979990fd56fa",
+        "bytes": 5998
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/eligibility_audit.py",
+        "sourceUrl": "Mouse-eligibility audit against the published Methods rule",
+        "sha256": "c93a65ba83d6406af68e4212853581ec8ad0ab68056c31998e2256f5f6e7cbea",
+        "bytes": 5101
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/downloads/accepted-manuscript.pdf",
+        "sourceUrl": "https://www.nature.com/articles/s41467-026-77116-9_reference.pdf",
+        "sha256": "5e978cbe6f3a245353d5faacca52936f806b860b6c1896a069018547f06caf04",
+        "bytes": 5198524
+       }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/compare_selected.py",
+      "resultScope": "Selected 513-row ARC/VMH Astrocytes author reference (Supplementary Data 1 sheet Glucose_Response_HFD; every row nominal PValue<0.05); not the tested universe.",
+      "localSnapshot": {
+       "path": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_astrocytes_glucose_vs_saline_hfd_DE.tsv",
+       "sourceUrl": "Registered Explorer DE source; no public author-result claim",
+       "sha256": "1d2e50a3a80dc63e13991a227e7e4d3ef05fee3ab37c30c0e7a0abe23e581a39",
+       "bytes": 982787
+      }
+     },
+     {
+      "datasetId": "gse262407",
+      "accession": "GSE262407",
+      "contrast": "hfd_vs_chow_saline",
+      "localPath": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_astrocytes_DE.tsv",
+      "localKey": "id",
+      "authorPath": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/author-effects/astrocytes-hfd_vs_chow_saline.tsv",
+      "sourceUrl": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-026-77116-9/MediaObjects/41467_2026_77116_MOESM4_ESM.xlsx",
+      "sha256": "b30f4277be1ef208c5034895d94615074146dff213329a74782e535cc876091a",
+      "format": "tsv",
+      "authorKey": "output_id",
+      "authorEffect": "logFC",
+      "authorAdjustedP": "padj",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL",
+      "authorMethod": "edgeR estimateGLMRobustDisp, glmFit and glmLRT on per-mouse pseudobulk; BH FDR",
+      "orientation": "HFD minus control diet under saline infusion; publisher sheet Diet_Response_Saline_Infusion, unchanged sign.",
+      "note": "Selected 535-row ARC/VMH Astrocytes author reference (Supplementary Data 1 sheet Diet_Response_Saline_Infusion; every row nominal PValue<0.05); not the tested universe. Astrocyte track only; localPath identifies the registered astrocyte table. Recomputed 2026-11-15 against the current registered table: 535/535 paired, Pearson 0.9889, Spearman 0.9846, 100% same-gene direction. Published author eligibility (at least two nuclei per sample) and the registered 20-nucleus rule select the same 20 ARC mice and the same deposited astrocyte nuclei; the 75 nuclei separating the paper total 75,787 from the deposited 75,862 cannot be identified. Author FDR derives from robust LRT on author-filtered genes and is not equated with local FDR. Missing author rows are not author negatives.",
+      "interpretation": "effect_match_inference_differs",
+      "originalReferences": [
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/downloads/SupplementaryData1.xlsx",
+        "sourceUrl": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-026-77116-9/MediaObjects/41467_2026_77116_MOESM4_ESM.xlsx",
+        "sha256": "fc6e15db3530e5efe76cbe51776cb47f0b075ac8fd7dcda516e2368193e4d7f2",
+        "bytes": 604604
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/compare_selected.py",
+        "sourceUrl": "Reproducible original-table extraction and comparison script",
+        "sha256": "dcc34ac449b06c8f6f7c031e1c65061ec9160b702240aa2f20d5979990fd56fa",
+        "bytes": 5998
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/eligibility_audit.py",
+        "sourceUrl": "Mouse-eligibility audit against the published Methods rule",
+        "sha256": "c93a65ba83d6406af68e4212853581ec8ad0ab68056c31998e2256f5f6e7cbea",
+        "bytes": 5101
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/downloads/accepted-manuscript.pdf",
+        "sourceUrl": "https://www.nature.com/articles/s41467-026-77116-9_reference.pdf",
+        "sha256": "5e978cbe6f3a245353d5faacca52936f806b860b6c1896a069018547f06caf04",
+        "bytes": 5198524
+       }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/compare_selected.py",
+      "resultScope": "Selected 535-row ARC/VMH Astrocytes author reference (Supplementary Data 1 sheet Diet_Response_Saline_Infusion; every row nominal PValue<0.05); not the tested universe.",
+      "localSnapshot": {
+       "path": "geo_replication/datasets/GSE262407_discovery_20260905/processed/GSE262407_astrocytes_DE.tsv",
+       "sourceUrl": "Registered Explorer DE source; no public author-result claim",
+       "sha256": "fd65d5c5a428a028eee7d6d6441907f3db1a94d1ede7193c462f38367dd1e29e",
+       "bytes": 983111
+      }
+     }
+    ],
+    "experimentalDesign": null
+   },
+   "metrics": {
+    "policy": "author-concordance-v2",
+    "scope": "Selected author rows (nominal PValue<0.05) for one named cell type; not the full tested universe.",
+    "contexts": [
+     {
+      "track": "astrocytes",
+      "contrast": "glucose_vs_saline_chow",
+      "authorRows": 529,
+      "pairedGenes": 529,
+      "referenceCoverage": 1.0,
+      "pearsonLogFC": 0.9934717462600245,
+      "spearmanLogFC": 0.9841517864380511,
+      "directionAgreement": 1.0,
+      "nonzeroPairs": 529,
+      "medianAbsLogFCDelta": 0.015188140354225999,
+      "authorFdrBelow05": 76,
+      "localPadjBelow05": 10,
+      "localSha256": "804dbe173d822be91f9d61906d43c553e5e166591632e6b5d6208a6161e5f457",
+      "mouseSetsIdenticalUnderTwoNucleusRule": true,
+      "extraMiceUnderTwoNucleusRule": [],
+      "numericRoutePasses": true
+     },
+     {
+      "track": "astrocytes",
+      "contrast": "glucose_vs_saline_hfd",
+      "authorRows": 513,
+      "pairedGenes": 513,
+      "referenceCoverage": 1.0,
+      "pearsonLogFC": 0.9795007111833829,
+      "spearmanLogFC": 0.9742942315459533,
+      "directionAgreement": 1.0,
+      "nonzeroPairs": 513,
+      "medianAbsLogFCDelta": 0.023544741215327986,
+      "authorFdrBelow05": 20,
+      "localPadjBelow05": 0,
+      "localSha256": "1d2e50a3a80dc63e13991a227e7e4d3ef05fee3ab37c30c0e7a0abe23e581a39",
+      "mouseSetsIdenticalUnderTwoNucleusRule": true,
+      "extraMiceUnderTwoNucleusRule": [],
+      "numericRoutePasses": true
+     },
+     {
+      "track": "astrocytes",
+      "contrast": "hfd_vs_chow_saline",
+      "authorRows": 535,
+      "pairedGenes": 535,
+      "referenceCoverage": 1.0,
+      "pearsonLogFC": 0.9889087009388801,
+      "spearmanLogFC": 0.9845628258999031,
+      "directionAgreement": 1.0,
+      "nonzeroPairs": 535,
+      "medianAbsLogFCDelta": 0.020248235045632,
+      "authorFdrBelow05": 34,
+      "localPadjBelow05": 0,
+      "localSha256": "fd65d5c5a428a028eee7d6d6441907f3db1a94d1ede7193c462f38367dd1e29e",
+      "mouseSetsIdenticalUnderTwoNucleusRule": true,
+      "extraMiceUnderTwoNucleusRule": [],
+      "numericRoutePasses": true
+     },
+     {
+      "track": "opc",
+      "contrast": "glucose_vs_saline_chow",
+      "authorRows": 404,
+      "pairedGenes": 403,
+      "referenceCoverage": 0.9975247524752475,
+      "pearsonLogFC": 0.9898203604666901,
+      "spearmanLogFC": 0.9870993043528641,
+      "directionAgreement": 1.0,
+      "nonzeroPairs": 403,
+      "medianAbsLogFCDelta": 0.036592207980463975,
+      "authorFdrBelow05": 9,
+      "localPadjBelow05": 0,
+      "localSha256": "d46219d308888f4d3af35c8f4c56059e9edc46d58a86559ca5c6825e9b44a1c7",
+      "mouseSetsIdenticalUnderTwoNucleusRule": false,
+      "extraMiceUnderTwoNucleusRule": [
+       "Arc15",
+       "Arc23"
+      ],
+      "numericRoutePasses": true
+     },
+     {
+      "track": "opc",
+      "contrast": "glucose_vs_saline_hfd",
+      "authorRows": 477,
+      "pairedGenes": 477,
+      "referenceCoverage": 1.0,
+      "pearsonLogFC": 0.9860619383528619,
+      "spearmanLogFC": 0.9799723315551845,
+      "directionAgreement": 1.0,
+      "nonzeroPairs": 477,
+      "medianAbsLogFCDelta": 0.030626183137556995,
+      "authorFdrBelow05": 1,
+      "localPadjBelow05": 0,
+      "localSha256": "bee0a65659e2a88e2da73e12cb9d0266eb2fc8058c4a852029c8a6c222d2c04e",
+      "mouseSetsIdenticalUnderTwoNucleusRule": false,
+      "extraMiceUnderTwoNucleusRule": [
+       "Arc28",
+       "Arc30"
+      ],
+      "numericRoutePasses": true
+     },
+     {
+      "track": "opc",
+      "contrast": "hfd_vs_chow_saline",
+      "authorRows": 504,
+      "pairedGenes": 504,
+      "referenceCoverage": 1.0,
+      "pearsonLogFC": 0.9879215919024303,
+      "spearmanLogFC": 0.9793452392668976,
+      "directionAgreement": 1.0,
+      "nonzeroPairs": 504,
+      "medianAbsLogFCDelta": 0.03584120784090403,
+      "authorFdrBelow05": 10,
+      "localPadjBelow05": 2,
+      "localSha256": "62b0ba700b24e3c2537a2fe41606fba209ee795b8f765e42a1bdfc2bf106f50c",
+      "mouseSetsIdenticalUnderTwoNucleusRule": false,
+      "extraMiceUnderTwoNucleusRule": [
+       "Arc15",
+       "Arc28"
+      ],
+      "numericRoutePasses": true
+     },
+     {
+      "track": "oligodendrocytes",
+      "contrast": "glucose_vs_saline_chow",
+      "authorRows": 290,
+      "pairedGenes": 290,
+      "referenceCoverage": 1.0,
+      "pearsonLogFC": 0.9861686172990207,
+      "spearmanLogFC": 0.9741029353336033,
+      "directionAgreement": 1.0,
+      "nonzeroPairs": 290,
+      "medianAbsLogFCDelta": 0.045658666974690953,
+      "authorFdrBelow05": 4,
+      "localPadjBelow05": 0,
+      "localSha256": "a30dbc07f713724d984ad1173981ef777f8309e4d02937924cbbbe1ab4343861",
+      "mouseSetsIdenticalUnderTwoNucleusRule": false,
+      "extraMiceUnderTwoNucleusRule": [
+       "Arc15",
+       "Arc23"
+      ],
+      "numericRoutePasses": true
+     },
+     {
+      "track": "oligodendrocytes",
+      "contrast": "glucose_vs_saline_hfd",
+      "authorRows": 387,
+      "pairedGenes": 387,
+      "referenceCoverage": 1.0,
+      "pearsonLogFC": 0.975083920218841,
+      "spearmanLogFC": 0.9656903970130133,
+      "directionAgreement": 1.0,
+      "nonzeroPairs": 387,
+      "medianAbsLogFCDelta": 0.04839547988895598,
+      "authorFdrBelow05": 2,
+      "localPadjBelow05": 1,
+      "localSha256": "557207862ef6ba191833ad0d6c429c514bf5067c26558c42ea56eca0cf15ea0e",
+      "mouseSetsIdenticalUnderTwoNucleusRule": false,
+      "extraMiceUnderTwoNucleusRule": [
+       "Arc28",
+       "Arc30"
+      ],
+      "numericRoutePasses": true
+     },
+     {
+      "track": "oligodendrocytes",
+      "contrast": "hfd_vs_chow_saline",
+      "authorRows": 338,
+      "pairedGenes": 338,
+      "referenceCoverage": 1.0,
+      "pearsonLogFC": 0.9868337836254115,
+      "spearmanLogFC": 0.9731988292162658,
+      "directionAgreement": 1.0,
+      "nonzeroPairs": 338,
+      "medianAbsLogFCDelta": 0.049349547215750494,
+      "authorFdrBelow05": 14,
+      "localPadjBelow05": 0,
+      "localSha256": "3d3d37a3fa2cfbe260ac606c07a8be9eb7fd4b7043b4aaa7b48e6af37d55ead2",
+      "mouseSetsIdenticalUnderTwoNucleusRule": false,
+      "extraMiceUnderTwoNucleusRule": [
+       "Arc15",
+       "Arc28"
+      ],
+      "numericRoutePasses": true
+     },
+     {
+      "track": "ghrh",
+      "contrast": "glucose_vs_saline_chow",
+      "authorRows": 484,
+      "pairedGenes": 484,
+      "referenceCoverage": 1.0,
+      "pearsonLogFC": 0.9869129759126409,
+      "spearmanLogFC": 0.9736649561269585,
+      "directionAgreement": 1.0,
+      "nonzeroPairs": 484,
+      "medianAbsLogFCDelta": 0.04030328477503706,
+      "authorFdrBelow05": 40,
+      "localPadjBelow05": 2,
+      "localSha256": "a4af0ac66ada84c010a578ad2547bb7671750449e34474d06065fa45660a7b90",
+      "mouseSetsIdenticalUnderTwoNucleusRule": false,
+      "extraMiceUnderTwoNucleusRule": [
+       "Arc15"
+      ],
+      "numericRoutePasses": true
+     },
+     {
+      "track": "ghrh",
+      "contrast": "glucose_vs_saline_hfd",
+      "authorRows": 512,
+      "pairedGenes": 508,
+      "referenceCoverage": 0.9921875,
+      "pearsonLogFC": 0.9856756320295695,
+      "spearmanLogFC": 0.9641958880760393,
+      "directionAgreement": 1.0,
+      "nonzeroPairs": 508,
+      "medianAbsLogFCDelta": 0.050224229049103064,
+      "authorFdrBelow05": 19,
+      "localPadjBelow05": 1,
+      "localSha256": "955eeaaa71fed5ff5f603060b6bdb8705aa8a17691f47ec2d1e4074c5bf4b9c3",
+      "mouseSetsIdenticalUnderTwoNucleusRule": false,
+      "extraMiceUnderTwoNucleusRule": [
+       "Arc28",
+       "Arc30",
+       "Arc7"
+      ],
+      "numericRoutePasses": true
+     },
+     {
+      "track": "ghrh",
+      "contrast": "hfd_vs_chow_saline",
+      "authorRows": 529,
+      "pairedGenes": 528,
+      "referenceCoverage": 0.998109640831758,
+      "pearsonLogFC": 0.9844194188492362,
+      "spearmanLogFC": 0.9703787207580483,
+      "directionAgreement": 1.0,
+      "nonzeroPairs": 528,
+      "medianAbsLogFCDelta": 0.041286339266581595,
+      "authorFdrBelow05": 24,
+      "localPadjBelow05": 0,
+      "localSha256": "e0d934846675bb55370c1b097e948bb3ade8150c21f1dcaa73e6cf5ca69a4984",
+      "mouseSetsIdenticalUnderTwoNucleusRule": false,
+      "extraMiceUnderTwoNucleusRule": [
+       "Arc15",
+       "Arc28"
+      ],
+      "numericRoutePasses": true
+     }
+    ]
+   }
+  },
+  {
+   "datasetId": "mouse_scn_exercise_gse207992",
+   "accession": "GSE207992",
+   "outcome": "documented_no_change",
+   "summary": "Re-inspected GEO workbook (normalized counts only) and the complete Europe PMC supplement (mmc1.pdf figures S1-S6 only): no numerical author gene-level effect for the WT exercise contrast exists, so no valid scoped comparison (0 paired genes). Author concordance stays not assessed.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE207992/turbo-2026-11-15-partial4",
+   "proposed": {
+    "manualReview": null,
+    "verificationReview": null,
+    "comparabilityReview": null,
+    "concordanceReview": null,
+    "additionalComparisonSpec": null,
+    "experimentalDesign": null
+   },
+   "metrics": null
+  },
+  {
+   "datasetId": "gse135007",
+   "accession": "GSE135007",
+   "outcome": "blocked",
+   "summary": "Dryad Table 3 (expected SHA-256 1fa62cb1...0b64), the candidate full coefficient table, is still blocked on 2026-11-15 (API 401 bearer-token, file_stream 403). No author table available; no metrics.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE135007/turbo-2026-11-15-partial4",
+   "proposed": {
+    "manualReview": null,
+    "verificationReview": null,
+    "comparabilityReview": null,
+    "concordanceReview": null,
+    "additionalComparisonSpec": null,
+    "experimentalDesign": null
+   },
+   "metrics": null
+  },
+  {
+   "datasetId": "pig_hypo_mia_gse227725",
+   "accession": "GSE227725",
+   "outcome": "blocked",
+   "summary": "Supporting DOCX still blocked (PMC HTML challenge, EPMC not OA/403); recorded scope is 24-animal integrated methylation/RNA, not the 35-animal nursed RNA-only sex-adjusted MIA effect. No valid scoped comparison.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE227725/turbo-2026-11-15-partial4",
+   "proposed": {
+    "manualReview": null,
+    "verificationReview": null,
+    "comparabilityReview": null,
+    "concordanceReview": null,
+    "additionalComparisonSpec": null,
+    "experimentalDesign": null
+   },
+   "metrics": null
+  },
+  {
+   "datasetId": "pig_hypo_mia_gse245146",
+   "accession": "GSE245146",
+   "outcome": "documented_no_change",
+   "summary": "Recorded Table S1 gives 159 whole-factorial maternal main-effect rows; registered estimand is the saline-only simple effect. Contrast incompatible, so no valid scoped comparison; no change.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE245146/turbo-2026-11-15-partial4",
+   "proposed": {
+    "manualReview": null,
+    "verificationReview": null,
+    "comparabilityReview": null,
+    "concordanceReview": null,
+    "additionalComparisonSpec": null,
+    "experimentalDesign": null
+   },
+   "metrics": null
+  },
+  {
+   "datasetId": "mouse_scn_photoperiod_gse266472",
+   "accession": "GSE266472",
+   "outcome": "documented_no_change",
+   "summary": "Full author table exists but estimates the whole-day photoperiod effect (batch+photoperiod across times); registered contrast is pZT12-only. Contrast incompatible; no valid comparison; no change.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE266472/turbo-2026-11-15-partial4",
+   "proposed": {
+    "manualReview": null,
+    "verificationReview": null,
+    "comparabilityReview": null,
+    "concordanceReview": null,
+    "additionalComparisonSpec": null,
+    "experimentalDesign": null
+   },
+   "metrics": null
+  },
+  {
+   "datasetId": "pig_hypo_formula_gse281726",
+   "accession": "GSE281726",
+   "outcome": "documented_no_change",
+   "summary": "Brain rows of Supplementary Table 3 are 22 ILA-subgroup genes (contrast incompatible, below the 30-gene minimum). No valid scoped comparison; no change.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE281726/turbo-2026-11-15-partial4",
+   "proposed": {
+    "manualReview": null,
+    "verificationReview": null,
+    "comparabilityReview": null,
+    "concordanceReview": null,
+    "additionalComparisonSpec": null,
+    "experimentalDesign": null
+   },
+   "metrics": null
+  },
+  {
+   "datasetId": "gse309435",
+   "accession": "GSE309435",
+   "outcome": "documented_no_change",
+   "summary": "Author tables are male-only (3,013) and female-only (1,122) strain DEG lists; registered contrast is pooled sex-adjusted. Contrast incompatible; no valid comparison; no change.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE309435/turbo-2026-11-15-partial4",
+   "proposed": {
+    "manualReview": null,
+    "verificationReview": null,
+    "comparabilityReview": null,
+    "concordanceReview": null,
+    "additionalComparisonSpec": null,
+    "experimentalDesign": null
+   },
+   "metrics": null
+  },
+  {
+   "datasetId": "gse281701",
+   "accession": "GSE281701",
+   "outcome": "documented_no_change",
+   "summary": "Figshare v5 tables are muscle (S3), melanoma scRNA (S5) and summaries; none holds hypothalamus effects. No valid comparison; no change.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE281701/turbo-2026-11-15-partial4",
+   "proposed": {
+    "manualReview": null,
+    "verificationReview": null,
+    "comparabilityReview": null,
+    "concordanceReview": null,
+    "additionalComparisonSpec": null,
+    "experimentalDesign": null
+   },
+   "metrics": null
+  }
+ ]
+}

@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "c14ffdea2db5cb08e4b86df8bf313924703ce9f88c9596a48a0c8b39e3083e75",
+  "fingerprint": "75d9a85b59eb29c93ccf0bbea6732783597978a69852297b343e53f043ec67c7",
   "outcome": "no-impact",
-  "explanation": "The deleted topic guides only held curated prose; the Methods guide in seoGuides.mts now points readers to the study directory instead. Verification evidence, author-validation records and the rendering of evidence status on study pages are untouched, so the verification workflow is unchanged. From main, fetch:data restores the same SHA-256-verified archives through an authenticated path; evidence records, QC policy and author-validation inputs are unchanged. The release verifier dropping its topics-page assertion does not touch evidence or QC checks.",
+  "explanation": "Ledger entries for 13 datasets and five additional comparison specs were added through the documented manual-review, verification-review, comparability-review and additional-spec route; no concordance reviews, design specifications, policies, validators or runbooks changed. The verification workflow is unchanged. The new findings README records that evidence folders await the next data release and that generated records must be regenerated where all retained inputs exist.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "scripts/lib/seoGuides.mts",
-    "scripts/fetch_data.mts",
-    "data-release.json",
-    "scripts/verify_release.mts"
+    "data/author-validation/README.md",
+    "data/author-validation/turbo-2026-11-15/README.md",
+    "docs/agent-context/workflows.md"
   ]
 }

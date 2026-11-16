@@ -732,17 +732,18 @@
       "comparisonLevel": "direct"
     },
     "zebrafish_hypo_fluoxetine_gse141144": {
-      "summary": "Fluoxetine workbook recovered; all 86 matched selected gene directions agree",
+      "summary": "Fluoxetine workbook re-extracted; all 89 matched selected gene directions agree",
       "paperAccess": "pmc_full_text",
       "pmcId": "PMC9097470",
       "pmcUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9097470/",
-      "note": "Retrieved the authentic Table_1.xlsx from the official Europe PMC supplementary archive. All eight sheets were inspected. Supp 5 and Supp 7 encode directions by colored cells; the legend identifies red as up and green as down. The unstressed hypothalamus column provides 96 unique selected Danio rerio symbols. Of these, 86 exactly join registered nonzero effects and all 86 agree in direction; ten are unassessed. Coverage is 89.6%, below the project 90% threshold. These are selected lifelong/depressive-disorder gene lists, with no numerical gene fold changes or adjusted P values. No effect magnitudes, correlations or FDR values are invented from colors. Supp 1-4 and 8 are enrichment tables, not full DE references. The local cohort is six unstressed adult male fish pools per lineage; author joint FLX/stress model scope still requires reconciliation. Evidence: continued-sources/advancement-sources-b-2026-09-05/GSE141144/direction-comparison.json.",
+      "note": "Re-retrieved Table_1.xlsx (sha256 96a14a98cc0d80910af9409c140e57cd147826c873c262dfd6319fb31fd61fcf) from the official Europe PMC supplementary archive on 2026-11-15. Supp 5 and Supp 7 unstressed hypothalamus column D encode directions by colour (legend: red up, green down); grey/blank cells are not calls. 96 unique Danio rerio symbols carry a call with no colour conflicts. With exact case-sensitive joins after Unicode-whitespace trimming and removal of a trailing asterisk, 89 join registered nonzero effects and all 89 agree in direction (coverage 92.7%). The raw-string join reproduces the earlier 86/96 (89.6%); trimming a non-breaking space alone gives 87/96 (90.6%). Of the seven unmatched genes, three si: names contain colons and are not published under the registered identifier rule (fit inclusion after expression filtering not verified), tbc1d9 names two Ensembl 92 genes and is left unresolved, and cckb, mfsd14bb and slc9a3r1b are absent from Ensembl 92 gene names; no alias mapping was applied. No numerical fold changes, correlations or FDR values exist or are invented from colours. The author DESeq2 model includes FLX and stress factors; separate unstressed/stressed supplement columns indicate condition-specific calls, but the exact coefficient is not stated. Evidence: continued-sources/GSE141144/turbo-2026-11-15-partial3/metrics.json.",
       "reviewFlags": [
-        "Selected direction-only evidence covers 86 of 96 genes; no full gene-effect/FDR table is present in this workbook.",
-        "Author joint FLX/stress model scope is not fully reconciled with the registered unstressed-only fit."
+        "Selected direction-only evidence: 89 of 96 selected genes pair; no full gene-effect/FDR table is present in this workbook.",
+        "Reference coverage reaches 90% only after trimming a non-breaking space from one author symbol (87/96); the primary 89/96 also removes a trailing asterisk the workbook never defines from two symbols. The raw-string join is 86/96, so the coverage pass depends on reviewer acceptance of this normalisation.",
+        "Author joint FLX/stress DESeq2 coefficient is not stated; condition-specific supplement columns support but do not document the unstressed simple effect."
       ],
       "auditState": "complete",
-      "reviewedAt": "2026-09-05",
+      "reviewedAt": "2026-11-15",
       "evidenceLinks": [
         {
           "label": "Reviewed manuscript",
@@ -1076,14 +1077,20 @@
       ]
     },
     "mouse_hypo_puberty_emtab12340": {
-      "summary": "Hypothalamus source checked; linked pituitary paper is a methods reference",
-      "note": "BioStudies lists 48 hypothalamus libraries across P12/P22/P27/P32/P37 and both sexes, with a count matrix, IDF and SDRF. It cites PMID 36221127 (PMC9552479) for protocols and states these tissues came from the same mice as the pituitary experiment. That manuscript's result datasets are pituitary E-MTAB-9459/-9460, not this hypothalamus series. It is a valid methods citation, not a same-tissue author-result comparator for the registered female P37-versus-P22 track. No dedicated hypothalamus author-result publication was identified in this bounded review; no numerical disagreement is claimed.",
+      "summary": "Dedicated hypothalamus paper and author DE list located; no female P37-versus-P22 author table",
+      "note": "BioStudies lists 48 hypothalamus libraries across P12/P22/P27/P32/P37 and both sexes, with a count matrix, IDF and SDRF. It cites PMID 36221127 (PMC9552479) for protocols and states these tissues came from the same mice as the pituitary experiment; that manuscript's result datasets are pituitary E-MTAB-9459/-9460, so it remains a methods reference only. 2026-11-15: the dedicated hypothalamus paper is Sokolowski et al. 2024, Biol Sex Differ 15:83 (PMID 39449090, PMC11515584), whose data availability names E-MTAB-12340, a Zenodo Shiny app and Figshare code/data. The author Shiny repository wilsonlabgroup/hypothalamus_gene_shiny at commit 9b05a52 holds hypo_utr_2021_de_result_list_2022-10-19.rds, a list of 17 author DE comparisons (sex at each age; within-sex d22/d27/d32/d37 plus d32_22 and d37_27 for each sex). None is a female PD37-versus-PD22 comparison. The logCPM, F and PValue columns are constant 1 placeholders, so only logFC and FDR are informative. The registered female P37-versus-P22 track therefore has no same-contrast author table; no reconstruction was performed and no numerical disagreement is claimed.",
       "reviewFlags": [
-        "Do not use the linked pituitary results as verification of the hypothalamus contrast."
+        "Do not use the linked pituitary results as verification of the hypothalamus contrast.",
+        "Author consecutive-age contrasts (d32_22F, d37_27F) are not the registered PD37-vs-PD22 contrast; do not sum LFCs into a pseudo-contrast."
       ],
       "auditState": "complete",
-      "reviewedAt": "2026-09-04",
+      "reviewedAt": "2026-11-15",
       "evidenceLinks": [
+        {
+          "label": "Dedicated hypothalamus paper",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11515584/",
+          "kind": "paper"
+        },
         {
           "label": "Reviewed manuscript and methods",
           "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9552479/",
@@ -1256,13 +1263,24 @@
       "reviewedAt": "2026-09-05"
     },
     "rat_hypo_exercise_gse242354": {
-      "status": "processed_source_match",
-      "comparisonLevel": "processed_source",
+      "status": "review_required",
+      "comparisonLevel": "direct",
       "sourceComparison": "checksum_match",
       "auditState": "complete",
-      "summary": "Deposited RSEM expected-count source verified",
-      "note": "The fractional RSEM expected-count matrix and SOFT match their pinned hashes and fractional values are retained without rounding. The linked manuscript analyzes eight other tissues and supplies no hypothalamus same-contrast author result.",
-      "reviewFlags": []
+      "summary": "Official MoTrPAC hypothalamus result compared; cohort, model and effect differences remain unresolved",
+      "note": "The fractional RSEM expected-count matrix and SOFT match their pinned hashes and fractional values are retained without rounding. The linked PMC11228891 manuscript analyzes eight other tissues and has no hypothalamus result, but the consortium MotrpacRatTraining6moData TRNSCRPT_HYPOTH_DA table (SHA-256 c92379487df7edf00fd23cb433c4d1fcfcfda06fac295e50d0e6245dc2f4ab62; 16,955 tested genes per sex and time point) was retrieved and compared. Male 8w-versus-sedentary rows were mapped through the same pinned Rnor_6.0 Ensembl 96 GTF; 155 rows in 71 ambiguous symbols are excluded unresolved. Against the current registered output (R 4.6.0 regeneration, SHA-256 a7036f08ed771f64eff68b0902d2a838a0b315834c9d403ded79f1eaea4f84f4), 16,798 paired genes give Pearson 0.3046, Spearman 0.5667 and 70.89% direction agreement over 16,796 nonzero pairs; author-concordance-v2 fails on both routes. Author FDR<0.05 calls: 11 (10 paired, all same sign locally); registered FDR<0.05 calls: 0. The DA table records covariates pct_globin, rin, pct_umi_dup, median_5_3_bias and lists 90217015402 in its removed_samples column without a stated reason. The low registered-on-author slope (0.041) is driven largely by extreme author logFCs at low expression (52 rows with |logFC|>5, up to 43.8). Evidence: continued-sources/GSE242354/turbo-2026-11-15-notloc2/README.md, SOURCES.tsv and analysis/metrics.json. Production data and analysis remain unchanged.",
+      "reviewFlags": [
+        "MoTrPAC removed_samples lists 90217015402 (registered Hypoth_Control_M_8w_1); registered 5/5 versus author 4/5 controls is an observed unresolved cohort difference.",
+        "Registered effects fail author-concordance-v2 (Pearson 0.3046, Spearman 0.5667, direction 70.89%); the author covariate model and the excluded sample are untested explanations."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Official MoTrPAC hypothalamus transcriptome timewise DA table",
+          "url": "https://raw.githubusercontent.com/MoTrPAC/MotrpacRatTraining6moData/main/data/TRNSCRPT_HYPOTH_DA.rda",
+          "kind": "author_result"
+        }
+      ],
+      "reviewedAt": "2026-11-15"
     },
     "mouse_agrp_fedfast_gse124693": {
       "status": "validated_with_notes",
@@ -1562,14 +1580,24 @@
       "comparisonLevel": "processed_source",
       "sourceComparison": "checksum_match",
       "auditState": "complete",
-      "summary": "Deposited VMH VST matrix verified",
-      "note": "The official VST matrix and SOFT match the SHA-256 values documented in the dataset README. The 391-rat analysis uses sex as a covariate and preserves individual genotype rather than collapsing it into treatment groups; the open preprint has no comparable all-gene supplement.",
-      "reviewFlags": [],
+      "summary": "Selected author diet DE genes compared against current registered output",
+      "note": "The official VST matrix and SOFT match the SHA-256 values documented in the dataset README. GEO now links PMID 42239780 (Le et al. 2026, Research Square rs-9695368 v1, PMC13228855). The official preprint supplement XLSX (SHA-256 8a987444ab1c7523afa8731d1a7d02df1b3eb318318496f6302d6030c617f48b) Supp Table 7 'Full Dataset' block lists 101 VMH genes DE by diet with sex as covariate (DESeq2 ~ W1+W2+W3+seqbatch+Sex+Diet+Sex_Diet, RUVg factors, Wald test, ashr-shrunken LFC, BH FDR<0.1). The methods also state the model as ~ Sex + Diet + Sequencing Batch and describe Sex_Diet as a factorized interaction term, so whether the Full-block Diet coefficient is the additive sex-adjusted effect registered locally is not confirmed. Orientation high-fat minus low-fat is inferred, not labelled: Table 7 has no orientation label, and the inference rests on the ECM pathway (Supp Table 8 GSEA) text and positive collagen LFCs; the 96/97 sign agreement is consistent with it. 2026-11-15 scoped comparison against the unchanged registered limma-on-VST output (sex covariate, HIGH.FAT minus LOW.FAT): 97/101 author genes pair by exact symbol (LOC100910088, Ccn3, LOC102555037 and Ifitm2 unjoined; none resolved arbitrarily); nonzero direction agreement 96/97 (Rgs9 reversed); Pearson 0.323, Spearman 0.322, OLS slope 0.168 (local on author) within the range-restricted significant-only list; median absolute LFC 0.0624 author versus 0.0627 local. Author ashr-shrunken DESeq2 count-model LFC and the unshrunk limma coefficient on VST are both log2 scale but not the same estimator. Local padj<0.1 for 1 of 97 author FDR genes and 1 gene in the full 20,211-gene published universe; 53/97 have local raw P<0.05. Female- and male-stratified blocks are not the registered contrast. Selected-gene evidence only; it does not establish full-universe or inferential agreement. The PMC full-text XML (sole source for the model, orientation and 101-gene statement) is retained with the evidence in continued-sources/GSE330152/turbo-2026-11-15-notloc3/.",
+      "reviewFlags": [
+        "Selected 101-gene FDR<0.1 reference only; the author nonsignificant tail is not available.",
+        "Author DESeq2 with RUVg W1-W3, seqbatch and ashr shrinkage versus registered limma on VST with sex only; 101 versus 1 FDR<0.1 calls.",
+        "Author model includes a Sex_Diet term and the methods state two different models; the Full-block Diet estimand is not confirmed as the registered additive sex-adjusted effect."
+      ],
+      "reviewedAt": "2026-11-15",
       "evidenceLinks": [
         {
           "label": "Open preprint",
           "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13228855/",
           "kind": "paper"
+        },
+        {
+          "label": "Preprint supplement, Supp Table 7 Full Dataset block",
+          "url": "https://assets-eu.researchsquare.com/files/rs-9695368/v1/3dd5c4c0742af7e0823e55d1.xlsx",
+          "kind": "author_result"
         }
       ]
     },
@@ -1915,7 +1943,8 @@
       "summary": "Stalk-lesion processed matrix and day-10 contrast verified",
       "note": "GEO provides GSE229838_Processed_data_file.txt.gz, and sample annotations map to day-10 stalk-lesion minus sham in the registered orientation. The PMC paper is open, but its accessible supplement does not provide a complete same-contrast author DE table.",
       "reviewFlags": [
-        "Legacy source has no committed checksum manifest; verification is structural rather than byte-pinned."
+        "Legacy source has no committed checksum manifest; verification is structural rather than byte-pinned.",
+        "Author Fig. 2A legend (PMC11127955) states the RNA-seq DEG heatmap used n = 3 PEL and n = 2 Sham; the text separately notes an unidentified Sham outlier \"not analyzed\" (Fig. S2I, supplement not retained). The registered contrast retains all three Sham libraries; which library the authors omitted is not established."
       ]
     },
     "mouse_hypo_glylow_gse234483": {
@@ -2146,18 +2175,31 @@
       "comparisonLevel": "reconstructed",
       "sourceComparison": "manual_structure_match",
       "auditState": "complete",
-      "summary": "Aging endpoint effects validate against sex-stratified author trajectories",
-      "note": "GEO provides a raw-count matrix and a reanalyzed archive of per-sample count files. The local result estimates a common 27-month-minus-6-month effect with sex as an additive covariate (16 young, 20 old), whereas the author Table S2 reports separately filtered male and female aging trajectories. Averaging the author male/female 27-versus-6 effects gives Pearson r=0.93550 across 753 shared listed genes, median absolute log2FC difference=0.1436, and 710/710 strong effects with concordant signs, but this is not the same estimand.",
+      "summary": "Derived both-sex aging effects agree with the registered sex-adjusted endpoint",
+      "note": "GEO provides a raw-count matrix and a reanalyzed archive of per-sample count files. Table S1 mouse_sample_info reconciles all 36 author-used 6- and 27-month hypothalamus samples to the 36 registered libraries by library ID, age and sex, with no exclusions on either side. Table S1 mouse_sample_info animal_ID: 36 distinct animal IDs, one hypothalamus library each (8F/8M at 6 mo, 10F/10M at 27 mo). The authors fit each sex separately (edgeR filterByExpr/TMM, limma log2CPM, all ages as groups); Table S2 lists age-related genes (>=1.5-fold at any age, BH P<0.05, BIC trajectory filter) per sex. The reference effect is derived, not author-reported: the arithmetic mean of the male and female 27-versus-6 log2FC, defined only for genes listed in both sexes. Because each age group has the same sex composition, the registered additive-sex coefficient targets this equal-weight mean; the equality is exact for linear models and approximate for the NB GLM. Of the 246 hypothalamus genes listed in both sexes, 241 pair with the registered output (97.97%): Pearson r=0.995957, Spearman 0.991571, 241/241 signs agree, median absolute log2FC difference 0.0315. Five listed genes are absent from the registered tested table. 241 of 817 hypothalamus genes listed in either sex (29.5%) are in scope; prior 753-gene reconstructed comparison r=0.93550 is retained for context. The scope keeps only genes significant in both sexes of the same author data, which favours high correlation. Sex-specific listed genes, the nonsignificant tail and pooled inference remain outside this scope. Evidence and reproducible extraction are in continued-sources/GSE314817/turbo-2026-11-15-partial2/.",
       "reviewFlags": [
-        "This is a reconstructed effect validation, not exact inferential reproduction: author results are sex-stratified trajectory-filtered lists, while the local model estimates one sex-adjusted endpoint effect."
+        "Reference effect is the arithmetic mean of separately fitted per-sex author effects (derived, not author-reported).",
+        "Selected-gene evidence: Table S2 lists only age-related genes, and the scope requires listing in both sexes (241 of 817 listed hypothalamus genes in scope); it is not the full tested universe.",
+        "No combined author P/FDR exists for the pooled sex-adjusted endpoint; per-sex adjusted P values are context only."
       ],
       "evidenceLinks": [
+        {
+          "label": "GEO record",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE314817",
+          "kind": "database"
+        },
+        {
+          "label": "Open full text",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13082319/",
+          "kind": "paper"
+        },
         {
           "label": "Author aging tables S1-S5",
           "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13082319.1/sciadv.ady8401_tables_s1_to_s5.zip",
           "kind": "author_result"
         }
-      ]
+      ],
+      "reviewedAt": "2026-11-15"
     },
     "mouse_hypo_circadian_aging_gse201207": {
       "status": "processed_source_match",
@@ -2461,23 +2503,26 @@
       "sourceComparison": "manual_structure_match",
       "auditState": "complete",
       "summary": "Deposited HFHS expression source verified",
-      "note": "The official processed expression table is accessible, matches the registered control-diet to HFHS samples structurally, and was rehashed locally (clean SHA-256 b67ac03c...; source 9994d45b...). GEO links no publication and deposits no author DE/statistics table.",
+      "note": "The official processed expression table is accessible, matches the registered control-diet to HFHS samples structurally, and was rehashed locally (clean SHA-256 b67ac03c...; source 9994d45b...). GEO links no publication and deposits no author DE/statistics table. A 2026-11-15 design re-review found the GSE235479 and superseries GSE235498 SOFT byte-identical to the retained 2026-09-05 copies; no sample field records an animal, pool or cage, so the experimental-design status stays not_assessed (unit unresolved). Unconfirmed lead: bioRxiv 10.1101/2025.02.12.637923 (Baker, Harder ... Churchill, posted 2025-02-16) has an abstract consistent with the GEO summary, and the GEO Series_contributor names (Baker, Harder, Churchill) match its first, second and last authors. GEO does not cite the preprint, Europe PMC mines no accession number from it, and its full text and methods have not been read, so it is not treated as a linked publication or author-result source. Evidence: data/author-validation/continued-sources/GSE235479/turbo-2026-11-15-design/README.md, SOURCES.tsv and sources/.",
       "reviewFlags": [
-        "No linked paper is available for an author-result comparison.",
+        "No linked paper is available for an author-result comparison; candidate preprint bioRxiv 10.1101/2025.02.12.637923 is an unconfirmed, unread lead that GEO does not cite.",
         "This legacy source has no committed source-file checksum manifest."
-      ]
+      ],
+      "reviewedAt": "2026-11-15"
     },
     "mouse_hypo_hfd_emtab6929": {
-      "status": "processed_source_match",
-      "comparisonLevel": "processed_source",
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
       "sourceComparison": "manual_structure_match",
       "auditState": "complete",
-      "summary": "BioStudies hypothalamus count source verified",
-      "note": "BioStudies exposes the deposited Final_Counts artifact and the local copy was rehashed (SHA-256 1a162066...; cleaned matrix 56e7b62b...). The registered LFD-to-HFD sample mapping is supported, while the manuscript supplement contains microbiome/OTU results rather than a same-contrast hypothalamic all-gene table.",
+      "summary": "Main-text six-gene selected table compared; author FDR calls not reproduced",
+      "note": "BioStudies exposes the deposited Final_Counts artifact and the local copy was rehashed (SHA-256 1a162066...; cleaned matrix 56e7b62b...). The registered LFD-to-HFD sample mapping is supported, while the manuscript supplement contains microbiome/OTU results rather than a same-contrast hypothalamic all-gene table. On 2026-11-15 the manuscript main-text Table 1 (PMC6199263) was parsed from the retained JATS XML: it lists six edgeR FDR<0.05 HFD-vs-LFD genes with log fold change printed in LFD-minus-HFD orientation (the results text states all six are higher on HFD). Five pair with the registered output (Serpina3n, Stat3, Gm6210, Socs3, and Gm15459 via case-insensitive match). LOC10524359 is a truncated identifier and was not resolved; the only registered candidate, LOC105243599 (logFC 0.063, FDR 0.92), is inconsistent with the author 5.97 and was left unpaired. All five effects agree after sign flip (max absolute difference 0.0073), but registered FDR is 0.199-0.328 for all five against author FDR <=0.040. The author edgeR 3.16.5 test is unspecified and the paper analysed 16,841 of 46,095 features versus 20,557 registered genes. Gm6210/Gm15459 are elevated in only three HFD libraries. Evidence: data/author-validation/continued-sources/E-MTAB-6929/turbo-2026-11-15-notloc1/.",
       "reviewFlags": [
         "The accessible manuscript supplements do not contain a comparable hypothalamic DE table.",
-        "This legacy source has no committed source-file checksum manifest."
-      ]
+        "This legacy source has no committed source-file checksum manifest.",
+        "Author reference is a six-gene FDR-selected main-text table; registered edgeR-QL makes no FDR call for any paired gene."
+      ],
+      "reviewedAt": "2026-11-15"
     },
     "mouse_hypo_obob_gse167264": {
       "status": "processed_source_match",
@@ -2509,10 +2554,11 @@
       "sourceComparison": "manual_structure_match",
       "auditState": "complete",
       "summary": "Seventy-two-hour fasting effect reconstructs from author tables",
-      "note": "The authors deposited Fed-versus-24h and 24h-versus-72h edgeR tables rather than a direct Fed-versus-72h table. Algebraically combining their log2 fold changes yields the registered 72h-minus-fed effect: 15,326 genes join, Pearson=0.99995, median absolute delta=0.0286, and all 3,564 strong effects agree in sign. P values and FDR cannot be reconstructed from separately fitted adjacent contrasts.",
+      "note": "The authors deposited Fed-versus-24h and 24h-versus-72h edgeR tables rather than a direct Fed-versus-72h table. Algebraically combining their log2 fold changes yields the registered 72h-minus-fed effect: 15,326 genes join, Pearson=0.99995, median absolute delta=0.0286, and all 3,564 strong effects agree in sign. P values and FDR cannot be reconstructed from separately fitted adjacent contrasts. GSE294478 shares the exact title and contributors of Ferris et al., Science 2025 (PMID 40743333, PMC12434793); the paper's data statement cites BioProject PRJNA1238491 but does not list GSE294478 among its GEO accessions. The authors' sequential RNA-seq comparisons do not include fed vs 72-h fasted directly, so the registered fasted72h_vs_fed contrast is a re-analysis, not an author contrast. The paper's main text gives only 'n=3-4' for the bulk RNA-seq heatmap (Fig. 1C) and does not say whether each library is one mouse; GEO gives no sex or animal field for the bulk libraries. The adult female CLAMS physiology cohort (n = 10) and snRNA-seq cohort (n = 3 per state) are separate experiments and are not transferred. The reviewed crosswalk from registered CTRL_CV/3CR_CV columns to RNAseq_Ctrl/RNAseq_3CR libraries is an alias interpretation, not a published animal-ID table. The Science supplement (not open access; not retrieved) and the bioRxiv preprint 10.1101/2024.06.26.600891 remain to be checked for per-library animal and sex statements.",
       "reviewFlags": [
         "This validates effect size and orientation only; author significance for the exact contrast is unavailable.",
-        "This legacy source has no committed source-file checksum manifest."
+        "This legacy source has no committed source-file checksum manifest.",
+        "Paper identity is inferred from the matching title and contributors; the paper's GEO accession list omits GSE294478, and no retrieved primary source states one animal per bulk RNA-seq library or the sex of those mice."
       ]
     },
     "mouse_hypo_overfeed_gse247825": {
@@ -2692,11 +2738,13 @@
       "sourceComparison": "manual_structure_match",
       "auditState": "complete",
       "summary": "Deposited LepRb TRAP count source verified",
-      "note": "The official count matrix is accessible, supports control versus Stat3 knockout within LepRb TRAP samples, and was rehashed locally (source SHA-256 951a05b8...; cleaned matrix c8781814...). The open paper supplements emphasize pathway/regulator summaries and do not provide a complete same-contrast all-gene statistics table.",
+      "note": "The official count matrix is accessible, supports control versus Stat3 knockout within LepRb TRAP samples, and was rehashed locally (source SHA-256 951a05b8...; cleaned matrix c8781814...). The open paper supplements emphasize pathway/regulator summaries and do not provide a complete same-contrast all-gene statistics table. 2026-11-15 turbo notloc1: Europe PMC OA supplement mmc1.xlsx (SHA-256 93ca2691...) Table2 provides 196 author-selected genes that are LepRb-enriched (from the 2,463 bead/sup-enriched set) and regulated in at least one STAT3KO or ob/ob comparison, with DESeq2 STAT3KO-vs-control log2 effects and an unlabelled P (raw vs adjusted not stated). The retained paper full text (PMC6437596 JATS XML, SHA-256 24364c77...) states DESeq2 on Ensembl v94 protein-coding genes with no threshold for genotype-regulated genes, and pooling of hypothalami from 5-8 mice per TRAP replicate (the Table 2 legend says 4-6). 188 pair by exact symbol with the registered edgeR-QL output: Pearson 0.99931, Spearman 0.99978, nonzero direction agreement 99.47% (sole discordant gene Vwa5a, author P 0.995), 100% among 128 author P<0.05 pairs, median absolute log2FC difference 0.0125 (max 0.691, F830016B08Rik). Eight author symbols (Fam159a, Gm4951, Svs2, Trim55, Ddx58, Fam159b, Gm8773, Olfr56) were left unmatched rather than renamed. The selected table does not establish full-universe agreement, and DESeq2 versus edgeR-QL inference is not reconciled. Evidence and reproducible extraction (xlsx2tsv.py, make_author_effects.py, compare_table2.py) are in continued-sources/GSE123983/turbo-2026-11-15-notloc1/.",
       "reviewFlags": [
         "This is a TRAP translatome contrast, not whole-tissue expression.",
-        "This legacy source has no committed source-file checksum manifest."
-      ]
+        "This legacy source has no committed source-file checksum manifest.",
+        "Author reference is a 196-gene selected table (Supplemental Table 2: LepRb-enriched genes regulated in at least one STAT3KO or ob/ob comparison); the P column is not labelled raw or adjusted."
+      ],
+      "reviewedAt": "2026-11-15"
     },
     "mouse_poa_fgf_gse285006": {
       "status": "processed_source_match",
@@ -2761,16 +2809,37 @@
       ]
     },
     "mouse_pomc_maternal_hfd_gse135639": {
-      "status": "processed_source_match",
-      "comparisonLevel": "processed_source",
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
       "sourceComparison": "manual_structure_match",
       "auditState": "complete",
-      "summary": "POMC maternal-HFD source verified; diet contrast is exploratory",
-      "note": "The official normalized CPM matrix is accessible, supports the registered P0/P21 and diet axes, and was rehashed locally (SHA-256 bce4b726...). Authors ran edgeR on raw counts that were not deposited and emphasized P0-to-P21 maturation within chow and HFD. The library's P21 HFD-versus-chow result is a valid labeled contrast on the deposited matrix, but it is explicitly an exploratory axis rather than an author-result reproduction.",
+      "summary": "Author maturation TF effects agree with the registered chow P21-vs-P0 contrast (selected 227-TF scope); HFD age agreement retained as supporting evidence; diet contrasts exploratory",
+      "note": "The official normalized CPM matrix is accessible, supports the registered P0/P21 and diet axes, and was rehashed locally (SHA-256 bce4b726...). Authors ran edgeR on raw counts that were not deposited and emphasized P0-to-P21 maturation within chow and HFD. The only supplementary file, mmc1.pdf, contains Supplementary Table 1: 227 transcription factors DE during maturation in either diet, with signed fold changes and FDR for CD0vsCD21 and HFD0vsHFD21. Coordinate-based extraction recovers all 227 rows. The ledgered scoped comparison is p21_vs_p0_chow only: within this selected TF scope it pairs 223 of 227 genes (Pearson r=0.998204, Spearman 0.998717, 222/223 signs agree); Glmp, Kmt2a, Ybx3 and Zfp638 are unmatched. The p21_vs_p0_hfd agreement (223/227 paired, Pearson 0.998265, Spearman 0.998443, 221/222 nonzero signs agree) is retained as supporting evidence only and is not registered, because the legacy one-comparison-per-dataset pipeline cannot hold a second scored contrast. The P21 HFD-versus-chow and P0 HFD-versus-chow results remain valid labeled exploratory contrasts on the deposited matrix with no author comparator. Evidence and reproducible extraction are in continued-sources/GSE135639/turbo-2026-11-15-partial2/.",
       "reviewFlags": [
-        "Exact author p-values cannot be reconstructed because raw counts were not deposited; author-compatible age contrasts should be treated as approximations.",
-        "This legacy source has no committed source-file checksum manifest."
-      ]
+        "Exact author p-values cannot be reconstructed because raw counts were not deposited; author FDR cells are reported as context only.",
+        "Selected-gene evidence: Supplementary Table 1 lists 227 maturation TFs only; it is not the full tested universe.",
+        "Only p21_vs_p0_chow is a registered scoped comparison; the p21_vs_p0_hfd agreement is retained supporting evidence, and hfd_vs_chow_p0, hfd_vs_chow_p21 and p21_vs_p0_hfd have no registered scoped comparison.",
+        "The two maternal-diet contrasts have no author comparator and remain exploratory.",
+        "The deposited GEO CPM matrix has no committed source-file checksum manifest; author-result sources are hashed in continued-sources/GSE135639/turbo-2026-11-15-partial2/SOURCES.tsv."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "GEO record",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE135639",
+          "kind": "database"
+        },
+        {
+          "label": "Open full text",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7152705/",
+          "kind": "paper"
+        },
+        {
+          "label": "Europe PMC supplementary bundle (contains mmc1.pdf with Supplementary Table 1)",
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7152705/supplementaryFiles",
+          "kind": "author_result"
+        }
+      ],
+      "reviewedAt": "2026-11-15"
     },
     "mouse_hypo_maternal_care_gse305688": {
       "status": "validated_with_notes",
@@ -2785,16 +2854,18 @@
       ]
     },
     "mouse_scn_mcd_gse252364": {
-      "status": "processed_source_match",
-      "comparisonLevel": "processed_source",
+      "status": "review_required",
+      "comparisonLevel": "direct",
       "sourceComparison": "manual_structure_match",
       "auditState": "complete",
-      "summary": "Deposited SCN MCD time-series counts verified",
-      "note": "The official GEO counts/DEXSeq artifacts are accessible, support control versus MCD across circadian samples, and the local count source was rehashed (SHA-256 28790256...). GEO links no publication and supplies no same-contrast author statistics table.",
+      "summary": "Author SCN CT00 table compared; cohort and model unresolved",
+      "note": "The official GEO counts/DEXSeq artifacts are accessible, support control versus MCD across circadian samples, and the local count source was rehashed (SHA-256 28790256...). GEO links no publication and supplies no same-contrast author statistics table. 2026-11-15 turbo notloc1: Europe PMC full-text search links GSE252364 to bioRxiv preprint 10.1101/2024.01.04.574014 (Saer et al. 2024, Fustin lab, v1, unpublished; not linked by GEO). The preprint text was access-blocked (bioRxiv Cloudflare 1015; Europe PMC PDF link expired) on 2026-11-15, but supplements were retrieved. Supplemental Data 4 (SHA-256 f0255396..., recorded in SOURCES.tsv) gives SCN per-timepoint DESeq2 MCD-vs-CTL tables. On CT00 versus the registered CT0 3-v-3 edgeR-QL output: 15,440 exact-symbol pairs (98.2% of registered rows; 297 duplicated author symbols excluded), Pearson 0.663, Spearman 0.921, nonzero direction 93.05%, median absolute log2FC difference 0.018. Extreme unshrunk near-zero-count author values (e.g. Sftpc -22) depress Pearson. Author q<0.05 has 39 paired genes (94.9% direction-concordant); registered FDR<0.05 has 3 genes (Fosl2, Dusp4, Pcdha7), all shared. Gstm3 is a sign conflict: the registered CT0 input has 0 counts in all three CTL libraries and about 3.6-3.8 in MCD on the same Ensembl ID (ENSMUSG00000004038), so a CT0 estimate from identical libraries and counts could not be negative, yet the author CT00 log2FC is -2.33 (SE 2.17; registered +10.47). This is incompatible with identical CT0 libraries and counts and is evidence against assuming the same CT00 sample membership, labels or count source. Rab43 is a magnitude/inference conflict (author -5.79, q 2e-75 at baseMean 537; registered -1.37, FDR 0.93). The author model and CT00 membership are unconfirmed; the supplement sample-label match rests on Supplemental Data 2, which was inspected and hashed but not retained. Pairing is by symbol, not Ensembl ID. Evidence: continued-sources/GSE252364/turbo-2026-11-15-notloc1/.",
       "reviewFlags": [
-        "No linked paper is available for an author-result comparison.",
+        "GEO links no publication; bioRxiv preprint 10.1101/2024.01.04.574014 was matched by Europe PMC accession search; its text was access-blocked (Cloudflare 1015) on 2026-11-15.",
+        "Author per-timepoint DESeq2 model (possibly joint across timepoints) and CT00 sample membership are unconfirmed; the Gstm3 sign conflict (registered CT0 CTL counts all zero) is incompatible with identical CT0 libraries and counts, and the Rab43 magnitude/inference conflict needs source-level review.",
         "This legacy source has no committed source-file checksum manifest."
-      ]
+      ],
+      "reviewedAt": "2026-11-15"
     },
     "mouse_scn_hfd_gse157077": {
       "status": "processed_source_match",
@@ -3282,11 +3353,14 @@
       "status": "review_required",
       "comparisonLevel": "direct",
       "auditState": "complete",
-      "reviewedAt": "2026-09-11",
-      "summary": "Twelve selected author comparisons measured; all28registered contexts explicitly accounted for",
-      "note": "The new primary paper is bound through GSE262411 SuperSeries and GSE262407 SubSeries. Seven original workbooks, supplement descriptions, full accepted manuscript and15code files at commit773a267395c0c0b21e47312c1de3a14d77b4e02d are retained. Twelve selected comparisons are measured separately across astrocytes,OPC,oligodendrocytes andGhrh for three contrasts: all have100%paired-gene direction agreement, Pearson.9751-.9935, Spearman.9642-.9871 and selected-author coverage99.22%-100%. Sixteen of28registered track/contrast contexts have no directly matching coefficient. NominalP<.05selection is explicitly documented by the publisher, not chosen during comparison. Exact author/current eligible-mouse and cell-population membership remains unresolved, so these strong numeric results remain review candidates and are not an aggregate badge.",
+      "reviewedAt": "2026-11-15",
+      "summary": "Twelve selected-gene contexts reproduce numerically; astrocyte cohort match inferred from Methods, nine glial/Ghrh contexts differ by low-count mice",
+      "note": "2026-11-15 continuation: publisher Supplementary Data 1/4, GEO cell metadata and accepted manuscript re-retrieved with SHA-256 equal to the 2026-09-11 record. The registered DE tables were regenerated after 2026-09-11; recomputation against current tables reproduces the twelve selected measurements (Pearson .9751-.9935, Spearman .9642-.9871, 100% paired direction, selected-author coverage 99.22%-100%). The accepted-manuscript Methods require at least two cells per sample. Under the published Methods rule (>=2 cells per sample) the three astrocyte contexts would select identical mice and deposited nuclei to the registered 20-nucleus rule; the author DE script is unavailable, Arc15 sits exactly at 25 astrocyte nuclei (the pinned PCA helper uses a strict >25 cut), and 75 nuclei are unidentified, so author membership is inferred, not demonstrated. The sub.class grouping cited for the author comes from pinned figure/PCA code, not the DE script; major.class equals sub.class in the deposited metadata for all 5,588 astrocyte, 1,253 OPC and 1,317 oligodendrocyte ARC nuclei. OPC, oligodendrocyte and Ghrh contexts gain 1-3 low-count mice under that rule (for example OPC Arc23 with 5 and Arc30 with 3 nuclei), so their cohorts differ from the registered result. The 75 nuclei separating the paper total 75,787 from the deposited 75,862 are unidentified. All author rows are nominal P<.05 selections, not the tested universe. Sixteen of 28 registered contexts have no matching author coefficient. Evidence: continued-sources/GSE262407/turbo-2026-11-15-partial4/.",
       "reviewFlags": [
-        "Availability search and source inventory do not establish author-result agreement.",
+        "Selected nominal-P author rows are not the full tested universe.",
+        "Author DE-generating code is unavailable; astrocyte cohort identity is inferred from the Methods eligibility rule.",
+        "OPC, oligodendrocyte and Ghrh author cohorts include low-count mice excluded from registered tracks.",
+        "Sixteen registered contexts have no matching author coefficient.",
         "No full-verification sign-off."
       ],
       "evidenceLinks": [
@@ -3298,6 +3372,11 @@
         {
           "label": "Pinned author code",
           "url": "https://github.com/perslab/Brown-2025/tree/773a267395c0c0b21e47312c1de3a14d77b4e02d",
+          "kind": "author_result"
+        },
+        {
+          "label": "Supplementary Data 1 (glia)",
+          "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-026-77116-9/MediaObjects/41467_2026_77116_MOESM4_ESM.xlsx",
           "kind": "author_result"
         }
       ]

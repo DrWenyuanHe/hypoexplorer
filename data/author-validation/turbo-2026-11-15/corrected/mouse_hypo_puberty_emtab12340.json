@@ -1,0 +1,41 @@
+{
+  "datasetId": "mouse_hypo_puberty_emtab12340",
+  "manualReview": {
+    "summary": "Dedicated hypothalamus paper and author DE list located; no female P37-versus-P22 author table",
+    "note": "BioStudies lists 48 hypothalamus libraries across P12/P22/P27/P32/P37 and both sexes, with a count matrix, IDF and SDRF. It cites PMID 36221127 (PMC9552479) for protocols and states these tissues came from the same mice as the pituitary experiment; that manuscript's result datasets are pituitary E-MTAB-9459/-9460, so it remains a methods reference only. 2026-11-15: the dedicated hypothalamus paper is Sokolowski et al. 2024, Biol Sex Differ 15:83 (PMID 39449090, PMC11515584), whose data availability names E-MTAB-12340, a Zenodo Shiny app and Figshare code/data. The author Shiny repository wilsonlabgroup/hypothalamus_gene_shiny at commit 9b05a52 holds hypo_utr_2021_de_result_list_2022-10-19.rds, a list of 17 author DE comparisons (sex at each age; within-sex d22/d27/d32/d37 plus d32_22 and d37_27 for each sex). None is a female PD37-versus-PD22 comparison. The logCPM, F and PValue columns are constant 1 placeholders, so only logFC and FDR are informative. The registered female P37-versus-P22 track therefore has no same-contrast author table; no reconstruction was performed and no numerical disagreement is claimed.",
+    "reviewFlags": [
+      "Do not use the linked pituitary results as verification of the hypothalamus contrast.",
+      "Author consecutive-age contrasts (d32_22F, d37_27F) are not the registered PD37-vs-PD22 contrast; do not sum LFCs into a pseudo-contrast."
+    ],
+    "auditState": "complete",
+    "reviewedAt": "2026-11-15",
+    "evidenceLinks": [
+      {
+        "label": "Dedicated hypothalamus paper",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11515584/",
+        "kind": "paper"
+      },
+      {
+        "label": "Reviewed manuscript and methods",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9552479/",
+        "kind": "paper"
+      }
+    ]
+  },
+  "verificationReview": {
+    "resultAvailability": "partial",
+    "comparisonOutcome": "not_comparable",
+    "reason": "2026-11-15: the dedicated hypothalamus paper is Sokolowski et al. 2024, Biol Sex Differ 15:83 (PMID 39449090, PMC11515584); its data availability names E-MTAB-12340, a Zenodo Shiny app (10.5281/zenodo.10899706) and Figshare code/data (10.6084/m9.figshare.25517503). The paper's methods list author DE (DESeq2, FDR<0.05 and |FC|>=1.5) between sexes at each age and, within sex, between consecutive ages only (12-22, 22-27, 27-32, 32-37). The author Shiny repository wilsonlabgroup/hypothalamus_gene_shiny (commit 9b05a52) holds hypo_utr_2021_de_result_list_2022-10-19.rds with 17 comparisons, including female d22_F, d27_F, d32_F, d37_F, d32_22F and d37_27F; d32_22F and d37_27F are inferred from their labels to be 32-vs-22 and 37-vs-27 comparisons, which no retained source documents. None is a female PD37-versus-PD22 comparison. Its logCPM, F and PValue columns are constant 1 placeholders, so only logFC and FDR are informative and raw P cannot be assessed. The registered female P37-versus-P22 track therefore has no same-contrast author table; combining contrasts would be a derived reconstruction and was not done. Paper-content claims rest on full text and supplements whose hashes are recorded but which were not retained; the RDS and scripts.R independently corroborate the thresholds. Evidence is in continued-sources/E-MTAB-12340/turbo-2026-11-15-notloc3/.",
+    "nextStep": "Inspect the Figshare 10.6084/m9.figshare.25517503 archive (2.0 GB) or the Zenodo app snapshot for a female PD37-versus-PD22 result or full DESeq2 outputs; otherwise record a scoped comparison against the nearest author contrasts, labelled as non-registered.",
+    "fullyVerifiedContrasts": []
+  },
+  "comparabilityReview": null,
+  "additionalComparisonSpec": null,
+  "appliedCorrections": [
+    "verificationReview.resultAvailability changed from 'available' to 'partial'; comparisonOutcome 'not_comparable' and fullyVerifiedContrasts [] kept.",
+    "Added a full-replacement manualReview record: replaced the stale 'No dedicated hypothalamus author-result publication was identified' sentence with the Sokolowski et al. 2024 (PMID 39449090, PMC11515584) finding, the 17-comparison author RDS at wilsonlabgroup/hypothalamus_gene_shiny@9b05a52 with no female PD37-vs-PD22 table, and the placeholder logCPM/F/PValue columns; added the 'Dedicated hypothalamus paper' evidence link and kept PMC9552479 as the methods reference; reviewedAt set to 2026-11-15; auditState kept 'complete'; existing reviewFlag kept and the consecutive-age/no-summing flag added.",
+    "verificationReview.reason now states that d32_22F and d37_27F are inferred from their labels to be 32-vs-22 and 37-vs-27 comparisons and that the paper's methods list only consecutive-age contrasts; it also discloses that paper-content claims rest on unretained files corroborated by the retained RDS and scripts.R.",
+    "Evidence README (continued-sources/E-MTAB-12340/turbo-2026-11-15-notloc3/README.md) updated with the same label-inference wording and the unretained-source caveat."
+  ],
+  "notes": "Not an upgrade beyond the verifier: verdict upheld_with_corrections, outcome stays not_comparable with partial availability. Dropped: concordance-reviews and experimental-design proposals (none were proposed anyway); no additionalComparisonSpec (none existing, none built-in, and the verifier asked for none since no same-contrast table exists). Not done: (1) the verifier's 'fix the truncated summary field in notloc3.json' correction, because notloc3.json is outside the files this step may edit; the integrator should treat this corrected file and the evidence README as the authoritative summary. (2) The optional retention of PMC11515584.xml in the evidence folder was not performed (no downloads in this step); SOURCES.tsv still marks it retained=no with its hash. comparabilityReview left unchanged (no current record; none proposed)."
+}

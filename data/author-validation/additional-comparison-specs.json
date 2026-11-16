@@ -1540,6 +1540,231 @@
         "bytes": 1148644,
         "sha256": "1028953e3fc7d393749aa9f9730d055259f432c26990448bdf5f33647e5bdacf"
       }
+    },
+    {
+      "datasetId": "mouse_hypo_aging_gse314817",
+      "accession": "GSE314817",
+      "contrast": "aged_vs_young",
+      "localPath": "geo_replication/datasets/GSE314817_mmus_hypothalamus_aging/processed/GSE314817_6v27mo_DE.tsv",
+      "localKey": "id",
+      "authorPath": "data/author-validation/continued-sources/GSE314817/turbo-2026-11-15-partial2/author-effects-primary-scope.tsv",
+      "sourceUrl": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13082319.1/sciadv.ady8401_tables_s1_to_s5.zip",
+      "sha256": "ca2d406f625526282150484473d74e9e3da7919870cb02486b55edc9b4abf9d5",
+      "format": "tsv",
+      "authorKey": "gene",
+      "authorEffect": "mean_log2FC_27vs6",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL",
+      "authorMethod": "Per-sex limma log2CPM after edgeR filterByExpr/TMM; equal-weight mean of male and female 27-vs-6-month log2FC",
+      "orientation": "27 months minus 6 months hypothalamus; unchanged author orientation.",
+      "note": "Derived 246-gene reference: Table S2 hypothalamus age-related genes listed in both male and female mouse sheets. The reference effect is the arithmetic mean of the per-sex log2FC.27vs6 values, an effect the authors did not report; it matches the additive-sex estimand in this design, where each age group has the same sex composition (exact for linear models, approximate for the NB GLM). 241 of 817 hypothalamus genes listed in either sex (29.5%) are in scope. No combined author adjusted P exists, and the per-sex adj.pval.27vs6 columns are retained in the extraction as context only. Numerical values are recalculated from the unchanged current registered DE table.",
+      "interpretation": "effect_match_inference_differs",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE314817/turbo-2026-11-15-partial2/download/sciadv.ady8401_tables_s1_to_s5.zip",
+          "sourceUrl": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13082319.1/sciadv.ady8401_tables_s1_to_s5.zip",
+          "sha256": "b7cbb7e5a446641e2a1376ca139a9782ad6695b3c1ba633e7a36a9b017d5a54e",
+          "bytes": 28825838
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE314817/turbo-2026-11-15-partial2/compare_gse314817.py",
+          "sourceUrl": "Reproducible original-table extraction and scoped comparison script",
+          "sha256": "9114a4a5e9c47e04e12a1c9b04ae7b1eda9c9ddd39540187229491b6c7a5433f",
+          "bytes": 7979
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE314817/turbo-2026-11-15-partial2/compare_gse314817.py",
+      "resultScope": "Derived 246-gene reference: Table S2 hypothalamus age-related genes listed in both sexes (241 of 817 listed genes pair); equal-weight mean of per-sex 27-vs-6 effects.",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE314817_mmus_hypothalamus_aging/processed/GSE314817_6v27mo_DE.tsv",
+        "sourceUrl": "Registered Explorer DE source; no public author-result claim",
+        "sha256": "a67879aeaf0993dc5689907270e90dde9194685342884503ca4474eb5621f4b6",
+        "bytes": 1588942
+      }
+    },
+    {
+      "datasetId": "mouse_leprb_stat3_gse123983",
+      "accession": "GSE123983",
+      "contrast": "stat3ko_vs_control",
+      "localPath": "geo_replication/datasets/GSE123983_mmus_leprb_stat3_trap/processed/GSE123983_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE123983/turbo-2026-11-15-notloc1/author-effects.tsv",
+      "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6437596/supplementaryFiles",
+      "sha256": "c9e3f5709a652bfec99a907c5761d08c9975663e8af1c721f6939e80f01a1088",
+      "format": "tsv",
+      "authorKey": "output_id",
+      "authorEffect": "logFC",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL",
+      "authorMethod": "DESeq2; Supplemental Table 2 STAT3KO vs. Control",
+      "orientation": "STAT3KO minus control bead fraction; unchanged author orientation.",
+      "note": "Selected 196-gene author reference (Supplemental Table 2: LepRb-enriched genes regulated in at least one STAT3KO or ob/ob comparison). The P column is unlabelled (raw vs adjusted unknown) and is not mapped as adjusted P. Missing author adjusted P remains unavailable. Numerical values are recalculated from the unchanged current registered DE table.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE123983/turbo-2026-11-15-notloc1/original/mmc1.xlsx",
+          "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6437596/supplementaryFiles",
+          "sha256": "93ca26916ccafb8518cac4720d76fe29e995b37bdc0230958313e572c0db2577",
+          "bytes": 372142
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE123983/turbo-2026-11-15-notloc1/xlsx2tsv.py",
+          "sourceUrl": "Reviewed original-table extraction code",
+          "sha256": "232b06248f9ab9892d09da5f6fd306a962010a9deae16a71c299ec597c563afd",
+          "bytes": 1683
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE123983/turbo-2026-11-15-notloc1/make_author_effects.py",
+          "sourceUrl": "Reviewed original-table extraction code",
+          "sha256": "c3b21449b77495191fae4c69533a92956e019e77e768b00d959a3b234c641812",
+          "bytes": 1141
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE123983/turbo-2026-11-15-notloc1/compare_table2.py",
+          "sourceUrl": "Reviewed original-table extraction code",
+          "sha256": "c5c413d48090a1f96ffe54e258fbca0c50069cdf147759e13378f03d60932d6d",
+          "bytes": 4336
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE123983/turbo-2026-11-15-notloc1/make_author_effects.py",
+      "resultScope": "Selected author reference: Supplemental Table 2.",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE123983_mmus_leprb_stat3_trap/processed/GSE123983_DE.tsv",
+        "sourceUrl": "Registered Explorer DE source; no public author-result claim",
+        "sha256": "a0efe85e76a6d17d782c6e5b0bc2f229619ac7a8c9a8ed70dca08342212ef4a6",
+        "bytes": 1716231
+      }
+    },
+    {
+      "datasetId": "mouse_pomc_maternal_hfd_gse135639",
+      "accession": "GSE135639",
+      "contrast": "p21_vs_p0_chow",
+      "localPath": "geo_replication/datasets/GSE135639_mmus_pomc_maternal_hfd/processed/GSE135639_ageChow_DE.tsv",
+      "localKey": "id",
+      "authorPath": "data/author-validation/continued-sources/GSE135639/turbo-2026-11-15-partial2/author-table-s1-extracted.tsv",
+      "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7152705/supplementaryFiles",
+      "sha256": "4f439921e1f46037f2c083fd22d210e989a312672a93bf3670f9b3a7159306fc",
+      "format": "tsv",
+      "authorKey": "gene",
+      "authorEffect": "log2FC_P21_vs_P0_chow",
+      "authorAdjustedP": "FDR_CD0vsCD21",
+      "orientationSign": 1,
+      "localMethod": "limma-trend",
+      "authorMethod": "edgeR on undeposited raw counts; signed linear FC in Supplementary Table 1 converted to log2",
+      "orientation": "P21 minus P0 within chow; positive author FC is higher at P21 (caption and Myc/Mycn/Dbp maturation biology), no reversal.",
+      "note": "Selected 227-TF reference: mmc1.pdf Supplementary Table 1, TFs differentially expressed during P0-to-P21 POMC maturation in either diet; the chow column is used for every listed TF. Rows rebuilt from PDF word coordinates; 227/227 rows recovered. 223 of 227 join exactly; Glmp, Kmt2a, Ybx3 and Zfp638 are unmatched and former symbols are not substituted. Author FDR cells reported as <0.0001 (56 of 223 paired chow genes) are non-numeric and are treated as missing adjusted P by the adapter; FDR context is limited to the remaining genes. Numerical values are recalculated from the unchanged current registered DE table.",
+      "interpretation": "effect_match_inference_differs",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE135639/turbo-2026-11-15-partial2/download/mmc1.pdf",
+          "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7152705/supplementaryFiles",
+          "sha256": "37a420a748306b07c81ddecd3d3597cf3606fe6aabb7cba5770c2214e4ed5ea4",
+          "bytes": 4778133
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE135639/turbo-2026-11-15-partial2/download/PMC7152705_fullTextXML.xml",
+          "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7152705/fullTextXML",
+          "sha256": "5bd4adc6df88b4a2d942909fd7718bff9c96721985567dbb5ea7cdfb83eecf28",
+          "bytes": 114023
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE135639/turbo-2026-11-15-partial2/compare_gse135639.py",
+          "sourceUrl": "Reproducible coordinate-based PDF table extraction and scoped comparison script",
+          "sha256": "cd185b41836a89e2db470b7c03bd864c425a33caa9ef63d41a6d3613be5a6a2b",
+          "bytes": 8097
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE135639/turbo-2026-11-15-partial2/compare_gse135639.py",
+      "resultScope": "Selected 227-TF Supplementary Table 1 reference for p21_vs_p0_chow only; p21_vs_p0_hfd agreement is retained evidence in the continued-sources folder, not a registered comparison; the diet contrasts have no author comparator.",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE135639_mmus_pomc_maternal_hfd/processed/GSE135639_ageChow_DE.tsv",
+        "sourceUrl": "Registered Explorer DE source; no public author-result claim",
+        "sha256": "70b78dd911db87e2e29e1898c9b7b5e4bd71bc00a00d4e26a6f68b58bfd44552",
+        "bytes": 1572232
+      }
+    },
+    {
+      "datasetId": "rat_hypo_exercise_gse242354",
+      "accession": "GSE242354",
+      "contrast": "exercise8w_vs_sedentary",
+      "localPath": "geo_replication/datasets/GSE242354_rnor_hypothalamus_exercise/processed/GSE242354_DE.tsv",
+      "localKey": "id",
+      "authorPath": "data/author-validation/continued-sources/GSE242354/turbo-2026-11-15-notloc2/analysis/author_male_8w_unambiguous.tsv",
+      "sourceUrl": "https://raw.githubusercontent.com/MoTrPAC/MotrpacRatTraining6moData/main/data/TRNSCRPT_HYPOTH_DA.rda",
+      "sha256": "3ea571ed9108586671559cc54bf0ab1de14aeffc4f6c06e03b1062526992b53a",
+      "format": "tsv",
+      "authorKey": "symbol",
+      "authorEffect": "logFC",
+      "authorAdjustedP": "adj_p_value",
+      "orientationSign": 1,
+      "orientation": "MoTrPAC logFC is trained 8w minus sex-matched sedentary control; registered is case minus control; no reversal.",
+      "localMethod": "limma",
+      "authorMethod": "MoTrPAC timewise limma model with covariates pct_globin, rin, pct_umi_dup, median_5_3_bias (per DA table); sample 90217015402 listed in the DA table removed_samples column",
+      "note": "Male 8w rows only; 155 rows in 71 ambiguous symbols excluded unresolved. 16798 pairs, Pearson 0.304585, Spearman 0.566689, direction 70.892%. Author FDR<0.05 11 (10 paired), registered 0. The low slope (0.041) is driven largely by 52 extreme author logFCs (|logFC|>5) at low expression. These figures were computed directly on the current R 4.6.0 registered output (SHA-256 a7036f08ed771f64eff68b0902d2a838a0b315834c9d403ded79f1eaea4f84f4); no R 4.4.1 figures are quoted.",
+      "interpretation": "effect_disagreement_review",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE242354/turbo-2026-11-15-notloc2/source/TRNSCRPT_HYPOTH_DA.rda",
+          "bytes": 8407428,
+          "sha256": "c92379487df7edf00fd23cb433c4d1fcfcfda06fac295e50d0e6245dc2f4ab62",
+          "sourceUrl": "https://raw.githubusercontent.com/MoTrPAC/MotrpacRatTraining6moData/main/data/TRNSCRPT_HYPOTH_DA.rda"
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE242354/turbo-2026-11-15-notloc2/analysis/compare_motrpac_hypoth.R",
+      "resultScope": "full_results",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE242354_rnor_hypothalamus_exercise/processed/GSE242354_DE.tsv",
+        "bytes": 2108470,
+        "sha256": "a7036f08ed771f64eff68b0902d2a838a0b315834c9d403ded79f1eaea4f84f4"
+      }
+    },
+    {
+      "datasetId": "rat_vmh_hfd_gse330152",
+      "accession": "GSE330152",
+      "contrast": "hfd_vs_lfd_sex_adjusted",
+      "localPath": "geo_replication/datasets/GSE330152_rnor_vmh_rnaseq/processed/GSE330152_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE330152/turbo-2026-11-15-notloc3/author-effects.tsv",
+      "sourceUrl": "https://assets-eu.researchsquare.com/files/rs-9695368/v1/3dd5c4c0742af7e0823e55d1.xlsx",
+      "sha256": "e7a01904c64ad14a1febabe57cdf896c2fc5dd01fd4c9a0a710975d1b0913aac",
+      "format": "tsv",
+      "authorKey": "output_id",
+      "authorEffect": "logFC",
+      "authorAdjustedP": "padj",
+      "orientationSign": 1,
+      "localMethod": "limma on deposited VST, sex covariate",
+      "authorMethod": "DESeq2 v1.24-era with RUVg W1-W3, seqbatch, Sex_Diet; Wald; ashr-shrunken LFC",
+      "orientation": "Both taken as high-fat minus low-fat; the author orientation is inferred (Table 7 is unlabelled) from ECM pathway up-regulation text and positive collagen LFCs.",
+      "note": "Selected author reference: Supp Table 7 Full Dataset block, 101 FDR<0.1 genes. Selected author effects mostly agree in direction (96/97); contrast estimand, effect definition, inference and coverage remain qualified. The methods state two different author models (one with a Sex_Diet interaction term), so the Diet estimand is not confirmed as the registered additive sex-adjusted effect. Numerical values are recalculated from the unchanged current registered DE table.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE330152/turbo-2026-11-15-notloc3/ResearchSquare_rs-9695368_v1_supplementary_tables.xlsx",
+          "sourceUrl": "https://assets-eu.researchsquare.com/files/rs-9695368/v1/3dd5c4c0742af7e0823e55d1.xlsx",
+          "sha256": "8a987444ab1c7523afa8731d1a7d02df1b3eb318318496f6302d6030c617f48b",
+          "bytes": 1506176
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE330152/turbo-2026-11-15-notloc3/PMC13228855.xml",
+          "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13228855/fullTextXML",
+          "sha256": "b7b736cb79c3e8b33f85062b86236dc6e758460392652afbecc8e5fa7432087f",
+          "bytes": 204457
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE330152/turbo-2026-11-15-notloc3/compare_supp_table7.cjs",
+          "sourceUrl": "Reproducible original-table extraction and scoped comparison script",
+          "sha256": "309cceb147e167a213ba7e2557253fbcb3ab7681d2ad5e673fc73a1faed2ef77",
+          "bytes": 5833
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE330152/turbo-2026-11-15-notloc3/compare_supp_table7.cjs",
+      "resultScope": "Selected author reference: Supp Table 7 Full Dataset block (101 FDR<0.1 genes).",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE330152_rnor_vmh_rnaseq/processed/GSE330152_DE.tsv",
+        "sourceUrl": "Registered Explorer DE source; no public author-result claim",
+        "sha256": "d408ab9ae58777ca7f4226f36f5897cb4d6089f778ea2f671142644db5274f2c",
+        "bytes": 1989884
+      }
     }
   ]
 }

@@ -1,0 +1,124 @@
+{
+ "agent": "partial1",
+ "datasets": [
+  {
+   "datasetId": "mouse_hypo_fasting_gse294478",
+   "accession": "GSE294478",
+   "outcome": "documented_no_change",
+   "summary": "Re-downloaded both author edgeR tables (hashes match manifest) and compared the derived 72h-minus-Fed effect with the registered Explorer output: Pearson 0.99983, Spearman 0.99970, direction 0.97188 over 15,009 strict-symbol pairs. Not valid for author-concordance-v2: the reference combines two separately fitted pairwise analyses (shared 24h libraries carry different per-library normalization constants), and registered-output coverage is 0.774 (0.787 with the recorded Ensembl join), below 0.90 because 4,390 registered genes are outside the author filter.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE294478/turbo-2026-11-15-partial1",
+   "proposed": {
+    "manualReview": null,
+    "verificationReview": {
+     "resultAvailability": "partial",
+     "comparisonOutcome": "method_differences",
+     "reason": "GEO deposits only adjacent Fed-versus-24h and 24h-versus-72h edgeR tables from separate pairwise fits; the same 24-hour libraries carry different per-library normalization constants (0.99630, 1.01554, 0.99946) and each table has its own filtered universe. The derived 72h-minus-Fed effect agrees closely with the registered output (Pearson 0.99983, 15,009 strict-symbol pairs) but is reconstructed evidence, and 4,390 registered genes lie outside the author filter (registered coverage 0.774). Author P/FDR for the exact contrast is unavailable.",
+     "nextStep": "Obtain a direct author Fed-versus-72h table or joint-model output; keep author concordance not assessed until then. Do not restrict the scope to author-filtered genes to meet coverage.",
+     "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": null,
+    "concordanceReview": null,
+    "additionalComparisonSpec": null,
+    "experimentalDesign": null
+   },
+   "metrics": {
+    "basis": "Registered Explorer output versus project-derived -(author Fed-24h)+(author 72h-24h); strict unique author symbols",
+    "localGenes": 19400,
+    "authorGenes": 18020,
+    "sharedGenes": 15009,
+    "localCoverage": 0.77365979,
+    "authorCoverage": 0.83290788,
+    "pearsonLogFC": 0.99983068,
+    "spearmanLogFC": 0.9997019,
+    "medianAbsLogFCDelta": 0.0282013,
+    "rootMeanSquareLogFCDelta": 0.0300412,
+    "effectScaleRatio": 1.00138669,
+    "signComparableGenes": 15008,
+    "signConcordance": 0.97188166,
+    "strongEffectGenes": 3467,
+    "strongEffectSignConcordance": 0.99971157,
+    "authorSignificantGenes": null,
+    "v2Eligible": false,
+    "v2BlockingReasons": [
+     "derived_effect_from_separate_fits",
+     "registered_coverage_below_0.90"
+    ]
+   }
+  },
+  {
+   "datasetId": "mouse_hypo_hfd_gse220533",
+   "accession": "GSE220533",
+   "outcome": "documented_no_change",
+   "summary": "Retrieved the paper supplements (Europe PMC bundle; PMC bin links returned an HTML challenge). Tables S2-S6 are P/padj<0.1 selected lists with linear fold change only; none gives the registered WT-only HFD-versus-CD effect. S6 (HFD vs CD pooled across Gpr101 genotypes, 327 genes) agrees strongly with the registered output as non-equivalent context (320 pairs, Pearson 0.978, 100% same direction), but its cohort includes KO animals and its estimand is genotype-pooled, so no v2 comparison is valid.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE220533/turbo-2026-11-15-partial1",
+   "proposed": {
+    "manualReview": null,
+    "verificationReview": {
+     "resultAvailability": "partial",
+     "comparisonOutcome": "not_comparable",
+     "reason": "The paper supplements (mmc2.xlsx Tables S2-S6) give only P/padj<0.1 selected genes with linear fold changes for KO-versus-WT, within-diet KO-versus-WT, interaction and genotype-pooled HFD-versus-CD effects. No table gives the registered WT-only HFD-versus-CD effect; the genotype-pooled Table S6 includes Gpr101 KO animals. Its close agreement with the registered output (320 pairs, Pearson 0.978) is non-equivalent context, not author concordance.",
+     "nextStep": "Obtain the authors' WT-only HFD-versus-CD result or model object; do not relabel the genotype-pooled Table S6 as an author-result match.",
+     "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": null,
+    "concordanceReview": null,
+    "additionalComparisonSpec": null,
+    "experimentalDesign": null
+   },
+   "metrics": {
+    "basis": "NON-EQUIVALENT CONTEXT: registered WT HFD-vs-CD limma logFC versus author Table S6 genotype-pooled HFD-vs-CD signed linear FC (log2-transformed), unique author symbols",
+    "authorGenes": 327,
+    "localGenes": 37035,
+    "sharedGenes": 320,
+    "selectedReferenceCoverage": 0.97859327,
+    "pearsonLog2FC": 0.97841094,
+    "spearmanLog2FC": 0.98378842,
+    "signComparableGenes": 320,
+    "signConcordance": 1,
+    "v2Eligible": false,
+    "v2BlockingReasons": [
+     "cohort_includes_knockout_animals",
+     "genotype_pooled_estimand_not_wt_only"
+    ]
+   }
+  },
+  {
+   "datasetId": "mouse_hypo_hypoxia_gse162673",
+   "accession": "GSE162673",
+   "outcome": "documented_no_change",
+   "summary": "Retrieved all publisher supplementary datasets (PMC returned an HTML challenge; Europe PMC reports not open access). Dataset EV1/EV2 are liver DEX-by-hypoxia gene tables and EV3 is figure-level two-way ANOVA; the hypothalamic 313-upregulated-gene result exists only as text, heatmap and motif analysis. No hypothalamic gene-level author table exists, so no v2 comparison is possible.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE162673/turbo-2026-11-15-partial1",
+   "proposed": {
+    "manualReview": null,
+    "verificationReview": {
+     "resultAvailability": "partial",
+     "comparisonOutcome": "not_tested",
+     "reason": "The publisher supplements contain liver-only gene tables (Dataset EV1/EV2: DEX-responsive genes gained under 6 h and 24 h hypoxia), figure-level two-way ANOVA results (Dataset EV3) and a Figure EV1A source-data PDF. The hypothalamic result is reported only as 313 upregulated genes (LFC>0.3, P<0.05) in text and a heatmap, with no machine-readable gene identifiers, effects or statistics.",
+     "nextStep": "Request the 313-gene hypothalamic DE table with identifiers, effects and P values from the authors; liver tables cannot substitute.",
+     "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": null,
+    "concordanceReview": null,
+    "additionalComparisonSpec": null,
+    "experimentalDesign": null
+   },
+   "metrics": null
+  },
+  {
+   "datasetId": "mouse_arc_reverb_gse148641",
+   "accession": "GSE148641",
+   "outcome": "documented_no_change",
+   "summary": "Re-read the PMC full text and supplementary inventory (one PDF; no gene-level spreadsheet). The only author DEG table described (169 up/101 down, DESeq2 FDR<0.05) is for HFD ARC, while the registered track is normal chow; normal-chow results are a figure-level clock-gene panel (Supplemental Figure 4A) far below 30 genes. No v2 comparison is valid.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE148641/turbo-2026-11-15-partial1",
+   "proposed": {
+    "manualReview": null,
+    "verificationReview": null,
+    "comparabilityReview": null,
+    "concordanceReview": null,
+    "additionalComparisonSpec": null,
+    "experimentalDesign": null
+   },
+   "metrics": null
+  }
+ ]
+}

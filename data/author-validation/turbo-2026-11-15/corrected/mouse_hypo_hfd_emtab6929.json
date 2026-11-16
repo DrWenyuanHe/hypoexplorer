@@ -1,0 +1,74 @@
+{
+  "datasetId": "mouse_hypo_hfd_emtab6929",
+  "manualReview": {
+    "status": "validated_with_notes",
+    "comparisonLevel": "direct",
+    "sourceComparison": "manual_structure_match",
+    "auditState": "complete",
+    "summary": "Main-text six-gene selected table compared; author FDR calls not reproduced",
+    "note": "BioStudies exposes the deposited Final_Counts artifact and the local copy was rehashed (SHA-256 1a162066...; cleaned matrix 56e7b62b...). The registered LFD-to-HFD sample mapping is supported, while the manuscript supplement contains microbiome/OTU results rather than a same-contrast hypothalamic all-gene table. On 2026-11-15 the manuscript main-text Table 1 (PMC6199263) was parsed from the retained JATS XML: it lists six edgeR FDR<0.05 HFD-vs-LFD genes with log fold change printed in LFD-minus-HFD orientation (the results text states all six are higher on HFD). Five pair with the registered output (Serpina3n, Stat3, Gm6210, Socs3, and Gm15459 via case-insensitive match). LOC10524359 is a truncated identifier and was not resolved; the only registered candidate, LOC105243599 (logFC 0.063, FDR 0.92), is inconsistent with the author 5.97 and was left unpaired. All five effects agree after sign flip (max absolute difference 0.0073), but registered FDR is 0.199-0.328 for all five against author FDR <=0.040. The author edgeR 3.16.5 test is unspecified and the paper analysed 16,841 of 46,095 features versus 20,557 registered genes. Gm6210/Gm15459 are elevated in only three HFD libraries. Evidence: data/author-validation/continued-sources/E-MTAB-6929/turbo-2026-11-15-notloc1/.",
+    "reviewFlags": [
+      "The accessible manuscript supplements do not contain a comparable hypothalamic DE table.",
+      "This legacy source has no committed source-file checksum manifest.",
+      "Author reference is a six-gene FDR-selected main-text table; registered edgeR-QL makes no FDR call for any paired gene."
+    ],
+    "reviewedAt": "2026-11-15"
+  },
+  "verificationReview": {
+    "resultAvailability": "partial",
+    "comparisonOutcome": "method_differences",
+    "reason": "The manuscript's main-text Table 1 gives six edgeR FDR-significant HFD-versus-LFD genes with effects and statistics. Five pair with nearly identical effects, but the registered edgeR-QL analysis calls none of them at FDR<0.05. The author's edgeR test is not named, so attributing the FDR gap to test choice and filtering (16,841 genes analysed by the author versus 20,557 in the registered output) is inferred from matching effects and divergent raw P values, not documented. No complete author table was located in BioStudies or the open-access supplement.",
+    "nextStep": "Obtain the author's edgeR test and filtering settings or the complete table. Keep the six-gene scoped comparison separate from full-universe claims, do not resolve the truncated LOC10524359 identifier, and do not tune the registered model to reproduce author calls.",
+    "fullyVerifiedContrasts": []
+  },
+  "comparabilityReview": {
+    "registeredContrastIds": [
+      "hfd_vs_lfd"
+    ],
+    "target": "registered_output",
+    "resultScope": "selected_results",
+    "basis": "Registered edgeR-QL result against the six-gene manuscript Table 1.",
+    "reference": "PMC6199263 main-text Table 1 parsed from the Europe PMC JATS XML retrieved and hashed on 2026-11-15.",
+    "assessment": "limited",
+    "dimensions": {
+      "cohort": {
+        "status": "compatible",
+        "note": "Deposit has 16 libraries (8 LFD, 8 HFD) and the registered contrast uses all 16. Paper Table 1 derives from the 20-week RNA-seq study; per-sample membership in the author test is not stated. Inference only: the Gm6210 and Gm15459 effects, driven by three HFD libraries, match to within 0.0006, which supports the same 16-sample membership."
+      },
+      "contrast": {
+        "status": "matched",
+        "note": "HFD versus LFD hypothalamus. The printed log fold changes are LFD minus HFD (negative for increased genes); orientation sign -1."
+      },
+      "features": {
+        "status": "limited",
+        "note": "Five of six author IDs pair; GM15459 pairs case-insensitively; LOC10524359 is truncated and unresolved. The only registered LOC10524359x candidate, LOC105243599, has logFC 0.063 (FDR 0.92), inconsistent with the author 5.97; left unpaired."
+      },
+      "effects": {
+        "status": "compatible",
+        "note": "All five paired effects agree after sign flip, max absolute difference 0.0073."
+      },
+      "inference": {
+        "status": "different",
+        "note": "Author FDR 8.5e-5 to 0.040; registered edgeR-QL FDR 0.199-0.328 for the paired genes. Author edgeR test unspecified; the test and filtering cause of the gap is inferred, not documented."
+      },
+      "coverage": {
+        "status": "limited",
+        "note": "Six FDR-selected genes only; no complete author table located. The paper reports 16,841 of 46,095 features analysed; the registered output publishes 20,557 genes."
+      }
+    },
+    "criteria": "Exact or case-insensitive symbol pairing; no resolution of truncated identifiers; no threshold tuning. A six-gene reference is scoped and cannot pass the 30-pair concordance minimum.",
+    "conclusion": "Selected author effects are reproduced in magnitude and direction; author FDR calls are not reproduced by the registered model. Coverage is far from complete."
+  },
+  "additionalComparisonSpec": null,
+  "appliedCorrections": [
+    "manualReview: status processed_source_match -> validated_with_notes and comparisonLevel processed_source -> direct, so evidenceLevel derives as author_results, consistent with the verification and comparability entries; sourceComparison and auditState kept.",
+    "manualReview: summary changed to 'Main-text six-gene selected table compared; author FDR calls not reproduced'.",
+    "comparabilityReview.dimensions.coverage.note: appended the 16,841-of-46,095 author analysed universe versus 20,557 registered genes.",
+    "comparabilityReview.dimensions.features.note: appended that the only registered LOC10524359x candidate, LOC105243599 (logFC 0.063, FDR 0.92), is inconsistent with the author 5.97 and left unpaired.",
+    "README (turbo-2026-11-15-notloc1): removed the unverifiable claim that several LOC10524359x rows exist in the count file (the count file was not retained); replaced it with the registered-output LOC105243599 evidence.",
+    "verificationReview.reason: states the author edgeR test is unnamed and that attributing the FDR gap to test choice and filtering (16,841 vs 20,557 genes) is inferred, not documented.",
+    "Optional correction applied: comparabilityReview.dimensions.cohort.note adds, labelled as inference, that the three-library HFD-driven Gm6210/Gm15459 effects match to within 0.0006.",
+    "Consistency: the tested-universe and inferred-cause wording was also added to the inference note, the manual-review note and the README result section."
+  ],
+  "notes": "Proposal outcome was 'advanced' and the verifier upheld it with corrections; no status goes beyond what was upheld (partial / method_differences / limited, fullyVerifiedContrasts empty). The manual-review record previously carried no reviewedAt. reviewedAt 2026-11-15 was added because the status changes to validated_with_notes and build_author_validation uses reviewedAt for validatedAt; drop it if the integrator wants to keep only fields the record already carried. No paperAccess or evidenceLinks were added, so the inventory fallback still applies. The registered contrast ID hfd_vs_lfd matches src/data/datasets.ts. additionalComparisonSpec is null because the proposal offered none and a six-gene reference cannot meet the 30-pair minimum; the dataset has no existing additional spec or direct-comparisons.generated.json entry. Concordance and experimental-design proposals were null in the source and none were added. The README edit does not affect SOURCES.tsv because the README is not hashed there; metrics.json and extract_compare.py are unchanged."
+}
