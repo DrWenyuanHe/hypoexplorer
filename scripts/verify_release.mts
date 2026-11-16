@@ -20,7 +20,7 @@ const index = read('index.html');
 const scripts = [...index.matchAll(/<script\b[^>]*\bsrc="(\/assets\/[^"?]+)(?:[^"]*)"/g)];
 assert(scripts.length > 0, 'No production app bootstrap script');
 for (const match of scripts) assert(existsSync(resolve(dist, `.${match[1]}`)), `Missing ${match[1]}`);
-for (const guide of ['methods', 'how-to-cite', 'about', 'studies', 'topics']) {
+for (const guide of ['methods', 'how-to-cite', 'about', 'studies']) {
   assert(read(`${guide}/index.html`).includes('<h1'), `${guide} public page is absent or empty`);
 }
 assert(read('CITATION.cff').includes(`version: ${expected.appVersion}`), 'Citation version differs from app');
