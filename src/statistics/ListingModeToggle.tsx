@@ -61,6 +61,9 @@ export function ListingModeToggle({ style }: { style?: CSSProperties }) {
             title={option.title}
             onClick={() => setListingMode(option.value)}
           >
+            {/* Always rendered, shown only when pressed, so the buttons keep their width.
+                With the fill, the state never rests on colour alone. */}
+            <span className="listing-mode-check" aria-hidden="true">✓</span>
             {option.label}
           </button>
         ))}

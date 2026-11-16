@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "module-statistics",
-  "fingerprint": "e2bce7be661c3e7d6d8de0c93c8eaf225eb75a624608e6176be7108a9eeea66d",
+  "fingerprint": "38fbab062649a735eb2b396c5d8d30d80dc334629449bf91f4cfa4b46f7beeb1",
   "outcome": "updated",
-  "explanation": "policy.ts adds NOMINAL_P_CUTOFF and significanceTier ('fdr' | 'nominal' | 'none'), a display label beneath isFdrSignificant; the FDR call itself is unchanged. listingModeStore.ts holds the global, localStorage-backed listing choice ('nominal' default, or 'fdr'), modelled on chartScaleStore, and ListingModeToggle.tsx renders its segmented control plus QTerm, an abbr carrying Q_EXPLANATION (what q is) for every q / FDR / padj column. The listing changes what the views list, never what counts as significant. StatisticsView's callout explains the nominal tier in search and both reports and names the toggle.",
+  "explanation": "policy.ts adds NOMINAL_P_CUTOFF and significanceTier ('fdr' | 'nominal' | 'none'), a display label beneath isFdrSignificant; the FDR call itself is unchanged. listingModeStore.ts holds the global, localStorage-backed listing choice ('nominal' default, or 'fdr'), modelled on chartScaleStore, and ListingModeToggle.tsx renders its segmented control (the pick filled in the brand blue, bold and ticked, so the state never rests on colour alone) plus QTerm, an abbr carrying Q_EXPLANATION (what q is) for every q / FDR / padj column. The listing changes what the views list, never what counts as significant. StatisticsView's callout explains the nominal tier in search and both reports and names the toggle.",
   "references": [
     "src/statistics/policy.ts",
     "src/statistics/listingModeStore.ts",
