@@ -1,15 +1,11 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "2a43065968a3b6adba124d1a729ed36f2c1754d1b61cfb98fd12996f8a4319f8",
+  "fingerprint": "925b3e4940f6b1d7d9172e468761610dd633fea29a46c7f6b627aed4597bcb00",
   "outcome": "updated",
-  "explanation": "The /topics/ research guides are removed, so seoTopics.test.ts is deleted, seoPages.test.ts builds its supporting documents from the Methods and How to cite guides only, and the brand and hub footer tests no longer expect a /topics/ link. The renderSeoRoute assertion that /topics/missing-topic/ returns null now covers every topic path. From main: tracker tests follow the new filter layout (removing the default n≥3 chip, opening More filters, checking the active count and Clear all), the verification-claim test opens More filters before reading the Detailed author review select, and a firstN unit test pins list-comma handling.",
+  "explanation": "explorerSession.test.tsx adds snapshot tests against the session interface: all defaults (including a null default contrast) give undefined, each field alone (genes, metric, both volcano cutoffs, pathway search, FDR, sort, every database, contrast, chart scale) makes it defined, restoreAnalysis into a fresh session reproduces a snapshot that also survives parseExplorerAnalysis, the serialized version-1 string is pinned, and a pathway selection does not change the snapshot function.",
   "references": [
-    "src/__tests__/seoPages.test.ts",
-    "src/__tests__/brand.test.tsx",
-    "src/__tests__/hubUnits.test.tsx",
-    "docs/agent-context/generated/codebase.md",
-    "src/__tests__/datasetTracker.test.tsx",
-    "src/__tests__/trackerVerificationClaims.test.tsx"
+    "src/__tests__/explorerSession.test.tsx",
+    "src/explorer/explorerSession.ts"
   ]
 }
