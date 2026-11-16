@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "b86203f9ae9da8ce81d876760a30f3a5842095e437d39aafdf676c5e5c0aab7d",
+  "fingerprint": "08329ee1946aa17ff91a1b1062bead97877c0829f7475450981754da3850f961",
   "outcome": "no-impact",
-  "explanation": "audit_author_validation.mts now reads the default-track bundle with the strict bundle reader instead of evaluating it in a vm context; a full regeneration on this checkout produced a byte-identical mechanical audit apart from generatedAt. Verification evidence, ledgers and the review procedure are unchanged. The bundle reader it uses now skips comment headers with a linear scan; the parsed values are unchanged.",
+  "explanation": "No evidence, QC policy or scientific value changes. From this branch: audit_author_validation.mts reads its default-track bundle with the strict bundle reader instead of vm evaluation; a full regeneration on this checkout gave a byte-identical mechanical audit apart from generatedAt. From main: the query index keeps its rounding and significance-safe rule with byte-identical output (build 1cpqpf5dmmhsv); only where wire shapes are declared moved.",
   "references": [
     "scripts/audit_author_validation.mts",
-    "docs/agent-context/workflows.md",
-    "scripts/lib/bundleReader.mts"
+    "scripts/lib/bundleReader.mts",
+    "scripts/build_query_index.mts",
+    "docs/agent-context/workflows.md"
   ]
 }

@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "359da2c45f48c661bb22d3228bea507a660be2cd7ef2c3c4625e0b1d267fad68",
+  "fingerprint": "a54cf25129a17469fe03cb2673d5ae571d1c13c0215d337c8f1edb1f91928862",
   "outcome": "updated",
-  "explanation": "The dataset-change route names scripts/lib/bundleReader.mts for script reads beside the writer, and says the agent export takes the registry unit through resolveExpressionUnit; check_datasets, refresh_fgsea_bundles and audit_author_validation read through it with unchanged output. From main, the survey runbook names sourceJson.ts as the transport for release-local JSON and documents per-source retry; expression-only registration and its checks are unchanged. The reader's comment-header scan is now linear (CodeQL fix) with unchanged results on the full corpus.",
+  "explanation": "The dataset-change route names scripts/lib/bundleReader.mts for script reads beside the writer, and says the agent export takes the registry unit through resolveExpressionUnit; check_datasets, refresh_fgsea_bundles and audit_author_validation read through it with unchanged output. From main: build_query_index.mts takes its wire shapes and codecs from queryWire.ts with identical bytes, so build:query-index and check:query-index close a dataset change as before, and the survey runbook names sourceJson.ts and per-source retry.",
   "references": [
     "docs/agent-context/workflows.md",
     "scripts/check_datasets.mts",
     "scripts/lib/bundleReader.mts",
+    "scripts/build_query_index.mts",
     "docs/EXPRESSION_SURVEY.md"
   ]
 }

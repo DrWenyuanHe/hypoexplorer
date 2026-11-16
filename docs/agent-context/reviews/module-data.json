@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "ae6aab8efbff29e441699c4419c8ad81868b4ac0d7cefe80a433c44517a43a6a",
+  "fingerprint": "293f334130b7ec25edc3c4534227f0137afde47ba50ab2138d1f34eaf165750e",
   "outcome": "updated",
-  "explanation": "expressionUnits.ts gains resolveExpressionUnit, the one spelling of the registry-first unit rule (registry, then bundle meta, then CPM (TMM-normalized)); buildPopData calls it and the Node bundle reader shares it. Behaviour is unchanged for the browser. No registry, loader, cache or index contract changes.",
+  "explanation": "From this branch: expressionUnits.ts gains resolveExpressionUnit, the one spelling of the registry-first unit rule, which buildPopData and the Node bundle reader share; browser behaviour is unchanged. From main (#35): src/data/queryWire.ts owns the query-index wire format (names, envelopes, row codecs, trackEntry with qcFlags lowPower) and queryIndex.ts is its read adapter; crossDataset readers decode rows through it with unchanged bytes.",
   "references": [
     "src/data/expressionUnits.ts",
     "src/data/buildPopData.ts",
+    "src/data/queryWire.ts",
+    "src/data/queryIndex.ts",
     "CONTEXT.md"
   ]
 }

@@ -1,15 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "ab210e11340670ab1335e96601fb5e2dd1d853e1853e82cda4c3f6dd0b707402",
+  "fingerprint": "9b0a4e2191e0bf9242934a57c463818039f43c659b8d14391f2fa106a1af1f94",
   "outcome": "updated",
-  "explanation": "Merged main (#30-#34) into the bundle-reader branch. From this branch: bundleReader.test.ts pins the writer-to-reader round trip, strict JSONP parsing and registry unit precedence; bundleReaderParity.test.ts pins Node reader labels to loadDatasetMeta for every committed meta.js; agentExport.test.ts reads published bytes through readJsonp and asserts the reviewed GSE174085 label. From main: csv.test.ts and csvDownload.ts pin the CSV seam, the hypomap tests cover the co-detection client, expressionSurvey/expressionSurveyLoad tests cover survey derivation, and sourceJson tests cover the expression-source reader. bundleReader.test.ts also feeds parseJsonp an adversarial unclosed /* */ header and requires a linear-time refusal.",
+  "explanation": "Merged main (#30-#35) into the bundle-reader branch. From this branch: bundleReader.test.ts pins the writer-to-reader round trip, strict JSONP parsing (including a linear-time refusal of an adversarial unclosed comment header) and registry unit precedence; bundleReaderParity.test.ts pins Node reader labels to loadDatasetMeta for every committed meta.js; agentExport.test.ts reads published bytes through readJsonp and asserts the reviewed GSE174085 label. From main: queryWire.test.ts pins the query-index wire names, row codecs and lowPower rule; csv tests pin the CSV seam; hypomap, expressionSurvey and sourceJson tests cover the co-detection client, survey derivation and expression-source reader.",
   "references": [
     "src/__tests__/bundleReader.test.ts",
     "src/__tests__/bundleReaderParity.test.ts",
     "src/__tests__/agentExport.test.ts",
-    "src/__tests__/csv.test.ts",
-    "src/__tests__/hypomapCodetection.test.ts",
-    "scripts/lib/bundleReader.mts"
+    "src/__tests__/queryWire.test.ts",
+    "src/__tests__/csv.test.ts"
   ]
 }

@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "2334c6f56c430a2b6c8da1635d2ea51b4dd651455472e6995b850abe9a5412a1",
+  "fingerprint": "12d2262562ceee1efad469000a13896cd61c6ddbb03b2050e048f27df9a75981",
   "outcome": "updated",
-  "explanation": "Merged main (#30-#34). CONTEXT.md keeps every Architecture bullet: main's CSV seam, Expression-source reader, Explorer session, Expression-survey derivation + load and Co-detection client bullets, plus this branch's Bundle-reader seam (scripts/lib/bundleReader.mts: readJsonp with an expected global, datasetBundlePaths from the locators, readDatasetFromDisk with reviewed labels, registry unit, isLowPower and strict contrast rules). The bundle writer exports localDatasetFile and DEFAULT_OUT_ROOT for the reader. No bundle bytes, data release or delivery paths change. parseJsonp skips leading comments with a linear scan and a sticky assignment regex instead of a repeated regex group that CodeQL flagged for exponential backtracking; every committed bundle parses as before (check_datasets --all-tracks output unchanged).",
+  "explanation": "Merged main (#30-#35). CONTEXT.md keeps every Architecture bullet: main's query-wire module, CSV seam, Expression-source reader, Explorer session, Expression-survey derivation + load and Co-detection client bullets, plus this branch's Bundle-reader seam (scripts/lib/bundleReader.mts: readJsonp with an expected global and a linear comment-header scan, datasetBundlePaths from the locators, readDatasetFromDisk with reviewed labels, registry unit, isLowPower and strict contrast rules). The bundle writer exports localDatasetFile and DEFAULT_OUT_ROOT for the reader; build_query_index.mts is now the query-wire write adapter. No bundle bytes, data release or delivery paths change.",
   "references": [
     "CONTEXT.md",
     "scripts/lib/bundleReader.mts",
     "scripts/lib/bundleWriter.mts",
-    "src/utils/csv.ts",
-    "src/search/hypomap/codetection.ts"
+    "scripts/build_query_index.mts",
+    "src/data/queryWire.ts"
   ]
 }
