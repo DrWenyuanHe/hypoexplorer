@@ -1,10 +1,12 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "86b01aafb3ed359fb6e09f8d6f3f5d091f141d0bd4623d90cd64ba329449bd47",
-  "outcome": "no-impact",
-  "explanation": "Rebased onto #22. runTrackQuery in crossDataset.ts marks a dataset group with error when every one of its track loads failed, the same flag a failed meta load already set, so the cross-dataset contract gains no field. No registry, bundle loader or index change.",
+  "fingerprint": "ae6aab8efbff29e441699c4419c8ad81868b4ac0d7cefe80a433c44517a43a6a",
+  "outcome": "updated",
+  "explanation": "expressionUnits.ts gains resolveExpressionUnit, the one spelling of the registry-first unit rule (registry, then bundle meta, then CPM (TMM-normalized)); buildPopData calls it and the Node bundle reader shares it. Behaviour is unchanged for the browser. No registry, loader, cache or index contract changes.",
   "references": [
-    "src/data/crossDataset.ts"
+    "src/data/expressionUnits.ts",
+    "src/data/buildPopData.ts",
+    "CONTEXT.md"
   ]
 }

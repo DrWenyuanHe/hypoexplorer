@@ -1,14 +1,11 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "c14ffdea2db5cb08e4b86df8bf313924703ce9f88c9596a48a0c8b39e3083e75",
+  "fingerprint": "36922bc62590b58f05a3da2542edd1e23bfb76a56d8d2abc99821b580724dbc8",
   "outcome": "no-impact",
-  "explanation": "The deleted topic guides only held curated prose; the Methods guide in seoGuides.mts now points readers to the study directory instead. Verification evidence, author-validation records and the rendering of evidence status on study pages are untouched, so the verification workflow is unchanged. From main, fetch:data restores the same SHA-256-verified archives through an authenticated path; evidence records, QC policy and author-validation inputs are unchanged. The release verifier dropping its topics-page assertion does not touch evidence or QC checks.",
+  "explanation": "audit_author_validation.mts now reads the default-track bundle with the strict bundle reader instead of evaluating it in a vm context; a full regeneration on this checkout produced a byte-identical mechanical audit apart from generatedAt. Verification evidence, ledgers and the review procedure are unchanged.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "scripts/lib/seoGuides.mts",
-    "scripts/fetch_data.mts",
-    "data-release.json",
-    "scripts/verify_release.mts"
+    "scripts/audit_author_validation.mts",
+    "docs/agent-context/workflows.md"
   ]
 }

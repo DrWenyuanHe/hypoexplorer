@@ -13,6 +13,7 @@ import {
   COLUMN_DOCS, CONTRAST_COLUMNS, DATASET_COLUMNS, DE_COLUMNS, FGSEA_COLUMNS, SAMPLE_COLUMNS, TRACK_COLUMNS,
   TRACK_CONTRAST_COLUMNS,
 } from '../../scripts/lib/agentExport.mjs';
+import { datasetBundlePaths, readJsonp } from '../../scripts/lib/bundleReader.mjs';
 import { getActiveContrast } from '../data/contrasts';
 import { DATASET_CATEGORIES } from '../data/datasetCategories';
 import { DATASET_PERTURBATIONS } from '../data/datasetFacets';
@@ -20,8 +21,12 @@ import { getDataset } from '../data/datasets';
 import { strictDeTableFor } from '../data/rawTrack';
 import type { RawTrack } from '../types';
 
-// Single and multi-contrast bundles, overlapping factorial arms and a time course.
-const SUBSET = ['emtab15488', 'gse135007', 'mouse_pomc_maternal_hfd_gse135639', 'mouse_scn_hfd_gse157077'];
+// Single and multi-contrast bundles, overlapping factorial arms, a time course
+// and a reviewed display label (GSE174085).
+const SUBSET = [
+  'emtab15488', 'gse135007', 'mouse_pomc_maternal_hfd_gse135639', 'mouse_pvn_crh_ela_gse174085',
+  'mouse_scn_hfd_gse157077',
+];
 const root = process.cwd();
 const version = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')).version as string;
 const stem = `hypoexplorer-data-v${version}-subset`;
@@ -90,9 +95,10 @@ function header(files: Map<string, Buffer>, name: string): string[] {
   return parseCsv(`${files.get(name)!.toString('utf8').split('\n')[0]}\n`)[0];
 }
 
-function readBundle<T>(file: string): T {
-  const src = readFileSync(file, 'utf8');
-  return JSON.parse(src.slice(src.indexOf('{', src.indexOf('var '))).replace(/;\s*$/, '')) as T;
+// The published bytes, parsed strictly but with no display rule applied: an
+// oracle independent of the reader's browser layer the export uses.
+function readPublished<T>(bundle: { file: string; global: string }): T {
+  return readJsonp<T>(bundle.file, bundle.global);
 }
 
 let files: Map<string, Buffer>;
@@ -159,9 +165,10 @@ describe('agent export archive', () => {
       expect(contrasts.filter((c) => c.dataset_id === id).map((c) => c.contrast_id))
         .toEqual(dataset.contrasts.map((c) => c.id));
       const de = table(files, `datasets/${id}/de.csv`);
-      const meta = readBundle<{ populations: string[] }>(resolve(root, 'public/datasets', id, 'meta.js'));
+      const bundles = datasetBundlePaths(dataset);
+      const meta = readPublished<{ populations: string[] }>(bundles.meta);
       for (const trackId of meta.populations) {
-        const raw = readBundle<RawTrack>(resolve(root, 'public/datasets', id, `track_${trackId}.js`));
+        const raw = readPublished<RawTrack>(bundles.track(trackId));
         for (const contrast of dataset.contrasts) {
           const expected = strictDeTableFor(raw, contrast.id, getActiveContrast(dataset)!.id);
           const rows = de.filter((r) => r.track_id === trackId && r.contrast_id === contrast.id);
@@ -179,6 +186,13 @@ describe('agent export archive', () => {
         expect(matrix.length - 2).toBe(Object.keys(raw.cpm).length);
       }
     }
+  });
+
+  it('publishes the track labels the explorer shows, not the raw bundle wording', () => {
+    const track = table(files, 'tracks.csv').find((r) => r.dataset_id === 'mouse_pvn_crh_ela_gse174085')!;
+    expect(track.label).toBe('PVN CRH neurons (litter pseudobulk)');
+    const meta = JSON.parse(files.get('datasets/mouse_pvn_crh_ela_gse174085/meta.json')!.toString('utf8'));
+    expect(meta.tracks[0].label).toBe('PVN CRH neurons (litter pseudobulk)');
   });
 
   it('lists overlapping factorial arms and ships time courses', () => {

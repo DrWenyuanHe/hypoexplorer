@@ -1,15 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "2a43065968a3b6adba124d1a729ed36f2c1754d1b61cfb98fd12996f8a4319f8",
+  "fingerprint": "c3fe076d575f489a1883d791c9aec1dbc8a3e1f12de6c4782ab0bed8470ce3ab",
   "outcome": "updated",
-  "explanation": "The /topics/ research guides are removed, so seoTopics.test.ts is deleted, seoPages.test.ts builds its supporting documents from the Methods and How to cite guides only, and the brand and hub footer tests no longer expect a /topics/ link. The renderSeoRoute assertion that /topics/missing-topic/ returns null now covers every topic path. From main: tracker tests follow the new filter layout (removing the default n≥3 chip, opening More filters, checking the active count and Clear all), the verification-claim test opens More filters before reading the Detailed author review select, and a firstN unit test pins list-comma handling.",
+  "explanation": "Adds bundleReader.test.ts (writer-to-reader round trip through the shared locators, strict JSONP parsing, wrong-global and missing-file failures, registry unit precedence) and bundleReaderParity.test.ts (jsdom: the Node reader shows the same track labels as loadDatasetMeta for every committed meta.js, including the reviewed GSE174085 litter-pseudobulk label). agentExport.test.ts reads published bytes through readJsonp and adds GSE174085 to its subset to pin the exported label.",
   "references": [
-    "src/__tests__/seoPages.test.ts",
-    "src/__tests__/brand.test.tsx",
-    "src/__tests__/hubUnits.test.tsx",
-    "docs/agent-context/generated/codebase.md",
-    "src/__tests__/datasetTracker.test.tsx",
-    "src/__tests__/trackerVerificationClaims.test.tsx"
+    "src/__tests__/bundleReader.test.ts",
+    "src/__tests__/bundleReaderParity.test.ts",
+    "src/__tests__/agentExport.test.ts"
   ]
 }

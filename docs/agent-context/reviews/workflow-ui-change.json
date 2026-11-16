@@ -1,11 +1,10 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "cdf3154d7ccda3b68f0d90125b1e11fa66e47286903599c61fdf674c26a07e53",
+  "fingerprint": "2b1b8ab8dcd36056660826a37fe460d90274ed8f59884f47cca08abd53530f2e",
   "outcome": "no-impact",
-  "explanation": "The tracker change uses no routing, explorer navigation, track loading, export or gene-picker path, so the UI-change runbook steps and their canonical entry points stay as written. Typecheck, focused Vitest tests and a browser check at desktop and phone widths covered it, as the runbook asks.",
+  "explanation": "Only the shared docs/agent-context/workflows.md changed, in its dataset-change section (bundle reader and unit rule). Routing, explorer navigation, views, exports and their runbook steps are untouched; buildPopData keeps the same unit result through the extracted helper.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "src/dataset-tracker/DatasetTrackerView.tsx"
+    "docs/agent-context/workflows.md"
   ]
 }

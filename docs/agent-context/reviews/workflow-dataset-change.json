@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "e514c627d5619f2c123c5412676b01f5d0b63771240becad1df21f175e05c760",
-  "outcome": "no-impact",
-  "explanation": "seoPages.mts no longer imports the deleted seoTopics module, so a study page has no topic panel and a dataset change no longer has curated topic memberships to keep in step. Study pages, the directory and the sitemap still derive from the registry, so the dataset-change procedure is unchanged. From main, only the transport of pnpm run fetch:data changes (authenticated GitHub releases API); the archives and hashes pinned in data-release.json are unchanged. The release verifier stops expecting a topics page; it has no bearing on dataset registration.",
+  "fingerprint": "2c741b2bd28c3680e256aa008a67f4a1296adac058249e0789dc4a93958e2f7d",
+  "outcome": "updated",
+  "explanation": "The dataset-change route now names scripts/lib/bundleReader.mts for script reads beside the writer for script writes, and says the agent export takes the registry unit through resolveExpressionUnit. check_datasets.mts reads through the reader with byte-identical output on the full corpus; refresh_fgsea_bundles and audit_author_validation parse via the same strict reader.",
   "references": [
     "docs/agent-context/workflows.md",
-    "scripts/lib/seoPages.mts",
-    "scripts/fetch_data.mts",
-    "docs/DATASET_CONTRACT.md",
-    "scripts/verify_release.mts"
+    "scripts/check_datasets.mts",
+    "scripts/refresh_fgsea_bundles.mts",
+    "scripts/audit_author_validation.mts"
   ]
 }
