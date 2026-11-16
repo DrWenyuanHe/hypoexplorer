@@ -53,6 +53,9 @@ function selectGene(gene: string) {
 // distinguishable by string: IGFBP2 is -1.4 fasted-vs-fed and +0.3 refed-vs-fed.
 // Scoped to the summary table — the gene also appears as a selection chip.
 function summaryCells(container: HTMLElement): string[] {
+  // The Compare tab starts its summary folded; open it as a reader would.
+  const toggle = screen.getByRole('button', { name: /Compare summary/ });
+  if (toggle.getAttribute('aria-expanded') === 'false') fireEvent.click(toggle);
   const row = container.querySelector('tbody tr')!;
   return [...row.querySelectorAll('td')].map((td) => td.textContent ?? '');
 }

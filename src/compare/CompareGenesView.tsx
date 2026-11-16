@@ -58,6 +58,8 @@ interface CompareGenesViewProps {
    * list you scroll rather than 240 cells you scroll sideways past.
    */
   summaryLayout?: 'wide' | 'long';
+  /** Whether the summary table starts open (default) or as a bar to expand. */
+  summaryStartsOpen?: boolean;
 }
 
 /** The attribute each gene's block of charts carries, for whole-grid export. */
@@ -100,13 +102,15 @@ const CHART_CAP = 50;
 
 export function CompareGenesView({
   columns, popDataMap, selectedGenes, onRemoveGene, showTally = false, summaryActions, caveat, emptyState,
-  chartDownloads = false, layout = 'fill', summaryLayout = 'wide',
+  chartDownloads = false, layout = 'fill', summaryLayout = 'wide', summaryStartsOpen = true,
 }: CompareGenesViewProps) {
   const long = summaryLayout === 'long';
   const [showAllCharts, setShowAllCharts] = useState(false);
   // The summary table folds away so the charts can have the room; the
-  // numbers it holds are also in the Excel/CSV download.
-  const [tableOpen, setTableOpen] = useState(true);
+  // numbers it holds are also in the Excel/CSV download. A view may start it
+  // folded, as the Compare tab does: the charts are what it opens for.
+  const [tableOpen, setTableOpen] = useState(summaryStartsOpen);
+  const nRows = selectedGenes.length * columns.length;
   const flow = layout === 'flow';
   // A fresh selection gets the cap back: "show all" was an answer about the
   // list that asked, not a standing preference.
@@ -219,20 +223,26 @@ export function CompareGenesView({
         } : {
           // Capped by the viewport too: 200px of a 500px-tall panel was 40% of it.
           flexShrink: 0, borderTop: '1px solid var(--border)', padding: '4px 8px', background: 'var(--bg-panel)',
-          // A long table is many short rows, so it gets a little more height.
-          maxHeight: tableOpen ? (long ? 'min(260px, 36vh)' : 'min(200px, 30vh)') : undefined, overflowY: 'auto',
+          // A long table is many short rows; opened on request, it may take
+          // half the panel, scrolling under its own sticky header.
+          maxHeight: tableOpen ? (long ? 'min(420px, 50vh)' : 'min(200px, 30vh)') : undefined, overflowY: 'auto',
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: tableOpen ? 4 : 0 }}>
             <button type="button" onClick={() => setTableOpen((v) => !v)} aria-expanded={tableOpen}
               title={tableOpen ? 'Hide the summary table to give the charts more room' : 'Show the summary table'}
               style={{
-                display: 'inline-flex', alignItems: 'center', gap: 5, padding: '2px 0',
+                display: 'inline-flex', alignItems: 'center', gap: 5, padding: '3px 0',
                 background: 'none', border: 'none', cursor: 'pointer',
-                fontSize: 11, fontWeight: 600, color: 'var(--text-muted)', fontFamily: FONT_SANS,
+                fontSize: 11.5, fontWeight: 600, color: 'var(--text-primary)', fontFamily: FONT_SANS,
               }}>
               <span aria-hidden="true" style={{ display: 'inline-block', width: 8, transform: tableOpen ? 'rotate(90deg)' : 'none' }}>▸</span>
               Compare summary
-              {!tableOpen && <span style={{ fontWeight: 400 }}>({selectedGenes.length} gene{selectedGenes.length === 1 ? '' : 's'}, hidden)</span>}
+              <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>
+                {long
+                  ? ` · ${nRows} row${nRows === 1 ? '' : 's'} (${selectedGenes.length} gene${selectedGenes.length === 1 ? '' : 's'} × ${columns.length})`
+                  : ` · ${selectedGenes.length} gene${selectedGenes.length === 1 ? '' : 's'}`}
+                {tableOpen ? '' : ' — show'}
+              </span>
             </button>
             {summaryActions}
           </div>

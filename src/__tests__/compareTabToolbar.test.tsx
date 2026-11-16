@@ -112,17 +112,21 @@ describe('CompareTab — download menu', () => {
     selectGene('IGFBP2');
     expect(screen.queryByRole('button', { name: 'Export Excel' })).toBeNull();
     expect(screen.getByRole('button', { name: /IGFBP2 charts \(PNG\)/ })).toBeTruthy();
-    // The summary table folds away and comes back.
+    // The summary table starts folded, says how much it holds, and opens on request.
     const toggle = screen.getByRole('button', { name: /Compare summary/ });
-    expect(toggle.getAttribute('aria-expanded')).toBe('true');
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    expect(toggle.textContent).toMatch(/2 rows \(1 gene × 2\)/);
+    expect(screen.queryByRole('table')).toBeNull();
     fireEvent.click(toggle);
-    expect(screen.getByRole('button', { name: /Compare summary/ }).getAttribute('aria-expanded')).toBe('false');
+    expect(screen.getByRole('button', { name: /Compare summary/ }).getAttribute('aria-expanded')).toBe('true');
+    expect(screen.getByRole('table')).toBeTruthy();
   });
 
   it('lists the summary down the page: one row per gene × population', async () => {
     renderCompare(['whole', 'other_population']);
     await waitFor(() => expect(screen.queryByText(/Loading \d+ of/)).toBeNull());
     selectGene('IGFBP2');
+    fireEvent.click(screen.getByRole('button', { name: /Compare summary/ }));
     const table = screen.getByRole('table');
     const headers = within(table).getAllByRole('columnheader').map((th) => th.textContent);
     expect(headers).toEqual(['Gene', 'Population', 'logFC', 'P', 'FDR', 'Stars']);

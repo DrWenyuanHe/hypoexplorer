@@ -363,6 +363,8 @@ export function CompareTab({ meta, dataset, contrast, defaultPops, initialView, 
           // One row per gene × population, read down: with many populations
           // the wide table was a row you scrolled sideways past.
           summaryLayout="long"
+          // Folded until asked for: the charts are what Compare opens on.
+          summaryStartsOpen={false}
           emptyState={{
             title: 'Search for a gene above to compare expression across populations.',
             hint: 'Add one or more genes to see side-by-side bar charts and a summary table for every selected population.',

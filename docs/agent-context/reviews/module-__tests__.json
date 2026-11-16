@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "c7ca893a2515d3310e2c667e665fe6ee180344296413c8a3b7b6c1a9acd29ac5",
+  "fingerprint": "2e58d2adace7a423bda43ea0c6221463e5b436c5aec29d5674a1ae7e49e0e2eb",
   "outcome": "updated",
-  "explanation": "New compareLinks tests pin the Compare link codec (pops, genes and the /pathways sub-tab round-trip, an id comma stays inside it, analysis-only links stay byte-identical, malformed or unknown fields are rejected) and, in the mounted app, that a Compare link restores its populations and genes, drops ids the dataset lacks and rewrites the URL on change; compareTabToolbar checks the summary table reads one row per gene × population.",
+  "explanation": "compareLinks pins the Compare link codec and its in-app restore; compareTabToolbar now checks the Compare summary starts folded with its row count, opens on request and reads one row per gene × population; compareTabContrast opens the folded summary before reading its cells.",
   "references": [
     "src/__tests__/compareLinks.test.tsx",
-    "src/__tests__/compareTabToolbar.test.tsx"
+    "src/__tests__/compareTabToolbar.test.tsx",
+    "src/__tests__/compareTabContrast.test.tsx"
   ]
 }
