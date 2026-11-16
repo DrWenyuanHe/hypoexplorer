@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-common",
-  "fingerprint": "ff86aafcc517b7065c112da15a273b017dc3485541c36594fe81c1cc0dac3c7c",
+  "fingerprint": "2be7a36876e879b8bc20f4849ca53b8247eb1131bde636c5a4d83c20258d7427",
   "outcome": "no-impact",
-  "explanation": "Doc and comment drift only (cleanup B3); no code path, export, route or data changes. prose.tsx names MethodologyView, the page that imports its H2, P and table styles, instead of the deleted MethodologyTab.",
+  "explanation": "QualityBadge and DatasetQualityBadges gain an icon option that shows only the status symbol, keeping the full label as the accessible name and the same checklist popover; authorEvidenceText exposes the evidence line AuthorEvidenceLabel already rendered. Existing callers render exactly as before, so the shared badge contract in the context map is unchanged.",
   "references": [
-    "src/common/prose.tsx",
-    "src/methodology/MethodologyView.tsx"
+    "src/common/QualityBadges.tsx",
+    "src/common/AuthorValidation.tsx"
   ]
 }

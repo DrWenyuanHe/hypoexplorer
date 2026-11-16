@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "556defd2f737fadef8d786ac842cac293aabd19f424e8183d4b9c232768135cd",
-  "outcome": "updated",
-  "explanation": "The UI-change runbook now covers the gated HypoMap views: which build flag mounts which card, where the pinned export and the comparison service come from, and that hosted delivery stays off until the data host's path rules and CORS allow /hypomap/. Routes, explorer navigation and existing exports are unchanged.",
+  "fingerprint": "cdf3154d7ccda3b68f0d90125b1e11fa66e47286903599c61fdf674c26a07e53",
+  "outcome": "no-impact",
+  "explanation": "The tracker change uses no routing, explorer navigation, track loading, export or gene-picker path, so the UI-change runbook steps and their canonical entry points stay as written. Typecheck, focused Vitest tests and a browser check at desktop and phone widths covered it, as the runbook asks.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/search/portalCards.tsx",
-    "README.md"
+    "src/dataset-tracker/DatasetTrackerView.tsx"
   ]
 }

@@ -21,8 +21,10 @@ export function QualityChecklist({ assessment }: { assessment: QualityAssessment
 }
 
 /** Portal avoids clipping in scrolling tables, cards and comparison columns. */
-export function QualityBadge({ label, assessment, compact = false, description }: {
-  label: string; assessment: QualityAssessment; compact?: boolean; description?: string;
+/** `icon` keeps the same popover but shows only the status symbol, for dense
+ *  one-line rows; the full label stays in the accessible name and the popover. */
+export function QualityBadge({ label, assessment, compact = false, icon = false, description }: {
+  label: string; assessment: QualityAssessment; compact?: boolean; icon?: boolean; description?: string;
 }) {
   const id = useId();
   const trigger = useRef<HTMLButtonElement>(null);
@@ -75,7 +77,8 @@ export function QualityBadge({ label, assessment, compact = false, description }
     };
   }, [open, close]);
   return <>
-    <button ref={trigger} type="button" className={`quality-badge${compact ? ' quality-badge-compact' : ''}`}
+    <button ref={trigger} type="button" className={`quality-badge${icon ? ' quality-badge-icon' : compact ? ' quality-badge-compact' : ''}`}
+      aria-label={icon ? `${label} ${meta.suffix}` : undefined}
       aria-expanded={open} aria-controls={open ? id : undefined} aria-describedby={open ? id : undefined}
       data-quality-badge={label.toLowerCase().replace(/ /g, '-')} data-quality-status={assessment.status}
       style={{ '--quality-color': meta.color } as React.CSSProperties}
@@ -84,7 +87,7 @@ export function QualityBadge({ label, assessment, compact = false, description }
       onBlur={(event) => { suppressFocus.current = false; if (!panel.current?.contains(event.relatedTarget as Node)) { cancelClose(); closeTimer.current = setTimeout(close, 180); } }}
       onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') event.stopPropagation(); }}
       onClick={(event) => { event.preventDefault(); event.stopPropagation(); cancelClose(); if (pinned) close(); else { setPinned(true); show(); } }}>
-      <span aria-hidden="true">{meta.symbol}</span>{label} {meta.suffix}
+      <span aria-hidden="true">{meta.symbol}</span>{icon ? null : <>{label} {meta.suffix}</>}
     </button>
     {open && createPortal(<section ref={panel} id={id} aria-label={`${label} checks`}
       className="quality-popover" style={{ ...position, fontFamily: FONT_SANS }}
@@ -100,11 +103,11 @@ export function QualityBadge({ label, assessment, compact = false, description }
   </>;
 }
 
-export function DatasetQualityBadges({ record, compact, contrastId }: {
-  record: AuthorValidationRecord; compact?: boolean; contrastId?: string;
+export function DatasetQualityBadges({ record, compact, icon, contrastId }: {
+  record: AuthorValidationRecord; compact?: boolean; icon?: boolean; contrastId?: string;
 }) {
   const quality = datasetQuality(record, contrastId);
-  return <span className="dataset-quality-badges">
-    {QUALITY_BADGES.map(({ key, label, description }) => <QualityBadge key={key} label={label} description={description} assessment={quality[key]} compact={compact} />)}
+  return <span className={`dataset-quality-badges${icon ? ' dataset-quality-badges-icon' : ''}`}>
+    {QUALITY_BADGES.map(({ key, label, description }) => <QualityBadge key={key} label={label} description={description} assessment={quality[key]} compact={compact} icon={icon} />)}
   </span>;
 }

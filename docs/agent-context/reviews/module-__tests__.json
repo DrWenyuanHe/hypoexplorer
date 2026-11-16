@@ -1,13 +1,15 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "23651499644baa1a0d137b4d88f06f97ae0a2066e24544991f59b64895d7a841",
+  "fingerprint": "2a43065968a3b6adba124d1a729ed36f2c1754d1b61cfb98fd12996f8a4319f8",
   "outcome": "updated",
-  "explanation": "The /topics/ research guides are removed, so seoTopics.test.ts is deleted, seoPages.test.ts builds its supporting documents from the Methods and How to cite guides only, and the brand and hub footer tests no longer expect a /topics/ link. The renderSeoRoute assertion that /topics/missing-topic/ returns null now covers every topic path.",
+  "explanation": "The /topics/ research guides are removed, so seoTopics.test.ts is deleted, seoPages.test.ts builds its supporting documents from the Methods and How to cite guides only, and the brand and hub footer tests no longer expect a /topics/ link. The renderSeoRoute assertion that /topics/missing-topic/ returns null now covers every topic path. From main: tracker tests follow the new filter layout (removing the default n≥3 chip, opening More filters, checking the active count and Clear all), the verification-claim test opens More filters before reading the Detailed author review select, and a firstN unit test pins list-comma handling.",
   "references": [
     "src/__tests__/seoPages.test.ts",
     "src/__tests__/brand.test.tsx",
     "src/__tests__/hubUnits.test.tsx",
-    "docs/agent-context/generated/codebase.md"
+    "docs/agent-context/generated/codebase.md",
+    "src/__tests__/datasetTracker.test.tsx",
+    "src/__tests__/trackerVerificationClaims.test.tsx"
   ]
 }
