@@ -7,6 +7,29 @@ export interface ChangelogEntry {
 export const CHANGELOG: ChangelogEntry[] = [
   {
     date: '2026-11-16',
+    title: 'Results at p < 0.05, labelled against FDR',
+    items: [
+      'Search, the gene page and the pathway report now also list results that reach p < 0.05 but miss FDR < 0.05, after the ones that pass FDR. Each row is labelled "FDR < 0.05" or "p < 0.05 only", and only rows that pass FDR are coloured by direction. Counts, up and down tallies and the "Pathways changing in these conditions" card still use FDR < 0.05 alone.',
+      'A List switch on search results and both reports chooses between FDR (q < 0.05) and p < 0.05. It starts on p < 0.05, applies everywhere at once and is remembered in your browser. FDR lists only the results that pass FDR, as before.',
+      'A gene that passes FDR somewhere adds how many more tracks reach p < 0.05 only. A gene that passes nowhere reads "Not significant after FDR", with how many tracks reach p < 0.05 uncorrected and its closest track\'s p and q.',
+      'Pathway search results gain a Call column, and the pathway report\'s DIR column becomes CALL, with the same labels. Direction stays in the sign of the NES.',
+      'Hovering a q, FDR or padj label explains what q is, and each gene page row names its q value. The Statistics page explains the p < 0.05 listing and why some of those results are expected by chance.',
+    ],
+  },
+  {
+    date: '2026-11-16',
+    title: 'Gene, pathway and explorer pages on phones',
+    items: [
+      'On phones, the gene page and the Verification page no longer load wider than the screen and pan sideways.',
+      'On screens narrower than 640 px, each gene page row stacks: comparison, population, the change beside its bar, then the actions beside q. Before, the change, q and the Info, Open and Compare buttons sat off-screen. Pathway report rows stack the same way, with P and FDR labelled.',
+      'On phones, the home page links form one line that scrolls sideways beside the compare-set button, and the explorer\'s six header buttons form an even grid of 44 px targets.',
+      'Each "/" in the explorer breadcrumb now stays with the item after it, so a line never ends on a stray slash. Below 1500 px wide the breadcrumb takes its own row, so the header buttons no longer wrap on laptop screens.',
+      'The library starts on cards on screens 600 px wide or narrower, where the table showed only a cut-off study column.',
+      'Verification tables no longer split words on phones, and Pathway Explorer\'s page arrows are named Previous page and Next page and are easier to tap.',
+    ],
+  },
+  {
+    date: '2026-11-16',
     title: 'Macaque atlas on the home page and a tidier Compare',
     items: [
       'The home page has a third card, Explore the macaque atlas, which opens the macaque snRNA-seq study. Its second button, Compare cell populations, opens that study in Compare.',

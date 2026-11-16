@@ -39,6 +39,21 @@
 .report-methods > summary { cursor: pointer; }
 @media (max-width: 640px) {
   .report-main { padding: 20px 12px 40px; }
+  /* Pathway forest rows stack on a phone: the track, then the NES axis across
+     the full width, then P, FDR and the call, each labelled in its cell. The
+     axis header keeps only the scale and NES, aligned over the row's bar. */
+  .report-dataset-results { overflow-x: visible; }
+  .report-forest-table { min-width: 0; }
+  /* biome-ignore lint/complexity/noImportantStyles: overrides the row's inline desktop grid */
+  .report-forest-row { grid-template-columns: minmax(0, 1fr) auto auto auto !important; gap: 4px 14px !important; padding: 8px !important; }
+  .report-forest-row > :first-child { grid-column: 1 / -1; }
+  .report-forest-row > .report-effect-trigger { grid-column: 1 / -1; }
+  .report-forest-row > :nth-child(3) { grid-column: 2; }
+  .report-forest-row > :nth-child(3)::before { content: "P "; color: var(--text-muted); }
+  .report-forest-row > :nth-child(4)::before { content: "FDR "; color: var(--text-muted); }
+  /* biome-ignore lint/complexity/noImportantStyles: overrides the header's inline desktop grid */
+  .report-forest-axis { grid-template-columns: minmax(0, 1fr) 60px !important; padding-inline: 8px !important; }
+  .report-forest-axis > :first-child, .report-forest-axis > :nth-child(n+4) { display: none; }
   .report-category-results { padding: 0 12px 10px; }
   .report-dataset-toggle { min-width: 100%; }
   .report-dataset-actions { padding-left: 18px; gap: 12px; }
@@ -74,7 +89,10 @@
 .report-de-col-comparison { width: 23%; }
 .report-de-col-bar { width: 120px; }
 .report-de-col-effect { width: 200px; }
-.report-de-col-q { width: 64px; }
+.report-de-col-q { width: 96px; }
+.report-de-qlabel { color: var(--text-muted); }
+.report-de-mode { display: flex; justify-content: flex-end; margin-bottom: 6px; }
+.report-de-tier { display: block; width: fit-content; margin: 3px 0 0 auto; font-family: var(--font-sans); font-size: 10px; line-height: 1.5; }
 .report-de-col-actions { width: 176px; }
 .report-de-table td { padding: 9px 14px 9px 0; vertical-align: middle; color: var(--text-mono); border-top: 1px solid var(--border); }
 .report-de-table td:first-child { padding-left: 14px; }
@@ -102,3 +120,39 @@
 .report-de-actions > * + * { margin-left: 10px; }
 .report-de-actions a { font-size: 12px; font-weight: 600; color: var(--accent); text-decoration: none; }
 .report-de-actions a:hover { text-decoration: underline; text-underline-offset: 3px; }
+/* Phones: each track reads as one stacked row (comparison, population, then the
+   change beside its bar, then the actions beside q) instead of a 900px table
+   scrolled sideways, which left the change, q and actions off screen. The
+   cells, their order and the hidden column headers stay as they are. */
+@media (max-width: 640px) {
+  .report-de-legend { padding: 8px 12px; }
+  .report-de-legend-dirs { margin-left: 0; }
+  .report-de-area.portal-table-wrap { overflow-x: visible; }
+  .report-de-table { display: block; min-width: 0; }
+  .report-de-table caption { display: block; }
+  .report-de-table colgroup { display: none; }
+  /* A block box, so the visually hidden header row's clip applies again. */
+  .report-de-table thead:not([hidden]) { display: block; }
+  .report-de-caption { flex-wrap: wrap; gap: 4px 10px; padding-inline: 12px; }
+  .report-de-area-lead { flex-basis: 100%; padding-left: 22px; }
+  .report-de-table tbody:not([hidden]) { display: block; }
+  .report-de-table tbody > tr {
+    display: grid; grid-template-columns: minmax(0, 1fr) 96px;
+    grid-template-areas: "comparison comparison" "study study" "effect bar" "actions q";
+    align-items: center; gap: 6px 12px; padding: 12px; border-top: 1px solid var(--border);
+  }
+  .report-de-table tbody > tr:first-child { border-top: 0; }
+  .report-de-table td, .report-de-table td:first-child { display: block; min-width: 0; padding: 0; border-top: 0; }
+  .report-de-table td:nth-child(1) { grid-area: comparison; }
+  .report-de-table td:nth-child(2) { grid-area: study; }
+  .report-de-table td:nth-child(3) { grid-area: bar; }
+  .report-de-table td:nth-child(4) { grid-area: effect; }
+  .report-de-table td:nth-child(5) { grid-area: q; }
+  .report-de-table td:nth-child(6) { grid-area: actions; }
+  .report-de-source { white-space: normal; }
+  .report-de-table .report-effect-trigger { margin: -4px; padding: 4px; }
+  /* No "q " prefix here: the q cell names its value itself (QTerm) at every width. */
+  .report-de-table td.report-de-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0 18px; text-align: left; white-space: normal; }
+  .report-de-actions > * + * { margin-left: 0; }
+  .report-de-actions a { display: inline-flex; align-items: center; min-height: 44px; }
+}

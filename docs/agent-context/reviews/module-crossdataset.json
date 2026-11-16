@@ -1,11 +1,17 @@
 {
   "version": 1,
   "area": "module-crossdataset",
-  "fingerprint": "a5f22818a9d2ddd5b45fcfd17f192e9ce7a0402441eb7cf62c4823058e2ddee1",
-  "outcome": "no-impact",
-  "explanation": "Rebased onto #22. GeneReport names the selected studies whose data failed to load instead of counting them as not measuring the gene, and shows only that note when nothing loaded. The report contract, route and table structure are unchanged; it reads the existing group error flag.",
+  "fingerprint": "d98afd17d49015d749adb4d8c7f1e9ae6468c802a5c4232b70cbd79f58ae1427",
+  "outcome": "updated",
+  "explanation": "From main: forestReport.css restacks the gene page differential-expression rows and the pathway page forest rows under 640px so the change, q/FDR and study actions stay on a phone screen, and PathwayReport tags its axis header for that layout. From this branch: both reports follow the shared listing mode (ListingModeToggle above the gene table and beside the pathway headline). Gene report: in the p < 0.05 listing the table leads with FDR survivors by q then nominal tracks by p; in FDR mode with the FDR survivors by q, as before. Each row carries a data-tier and is labelled under its q (FDR < 0.05 or p < 0.05 only); the q in each cell is a hover-only QTerm, so the phone layout's CSS q prefix is dropped rather than doubled, and the legend's q is the keyboard-reachable one. Nominal rows show their p beside log2FC, uncoloured. Pathway report: each dataset block leads with its FDR survivors and, in the p < 0.05 listing, its nominal tracks; the DIR column becomes CALL with the shared TierLabel, in the same cell position the phone restack places; the FDR header and the legend explain q; block and category open state derive from the mode until the reader toggles them. SigPill, now unused, is removed and FOREST_GRID's last column widens. Significant counts, directions and colours follow the FDR call in both modes; contracts and routes are unchanged.",
   "references": [
     "src/crossdataset/GeneReport.tsx",
-    "src/data/crossDataset.ts"
+    "src/crossdataset/PathwayReport.tsx",
+    "src/crossdataset/forestReport.tsx",
+    "src/crossdataset/forestReport.css",
+    "src/search/portalCards.tsx",
+    "src/statistics/ListingModeToggle.tsx",
+    "src/statistics/listingModeStore.ts",
+    "docs/agent-context/workflows.md"
   ]
 }

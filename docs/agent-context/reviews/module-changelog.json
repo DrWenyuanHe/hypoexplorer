@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "module-changelog",
-  "fingerprint": "ac57ee551586d954dfaca52bc417b0e22b2a4eba3546545842f60644b2790bcd",
+  "fingerprint": "f1bc9490935eed0f665b5149e6d461f8fe52471febdaa0bc270aac62f4104ae1",
   "outcome": "updated",
-  "explanation": "The in-app changelog gains two 2026-11-04 public-release entries (unified search, rebuilt gene page, library record view, human reference atlases, typography) and entries for 2026-11-06, 2026-11-13 and two for 2026-11-16 covering the visible changes from PRs #3, #22, #28, #29, #31, #33, #34, #39, #40 and #42. CHANGELOG.md records the audit and what was left out (gated HypoMap views, unregenerated author-validation records, the unsettled nSig rule). ChangelogTab rendering is unchanged.",
+  "explanation": "The in-app changelog gains two 2026-11-04 public-release entries (unified search, rebuilt gene page, library record view, human reference atlases, typography) and entries for 2026-11-06, 2026-11-13 and four for 2026-11-16 covering the visible changes from PRs #3, #22, #28, #29, #31, #33, #34, #39, #40, #42, #43 (p < 0.05 results labelled against FDR, the List switch) and #44 (phone layouts). CHANGELOG.md records the audit and what was left out (gated HypoMap views, unregenerated author-validation records, the nSig rule pending #46 and a bundle rebuild). ChangelogTab rendering is unchanged.",
   "references": [
     "src/changelog/changelog.ts",
     "src/changelog/ChangelogTab.tsx",

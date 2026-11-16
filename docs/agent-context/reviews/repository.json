@@ -1,10 +1,20 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "35b22ac50bf63b8f0b76bdc6c053abb52f8215a615d68de2730c4dbb800bf4aa",
-  "outcome": "no-impact",
-  "explanation": "Only CHANGELOG.md changed among repository sources: an Unreleased note records that the website changelog now covers the public release and PRs #1-#42. No commands, configuration, delivery or guidance changed, so the repository context and runbooks stay accurate.",
+  "fingerprint": "2cd8c4fc43faa77e2645e4e314d5e0374ca650b244f4b2333c02c4736bdbd6ee",
+  "outcome": "updated",
+  "explanation": "From main: vite.config.ts gates VitePWA on VITE_SERVICE_WORKER (selfDestroying when unset, full Workbox config kept for opt-in); deploy:cf and deploy:cf:dry run build instead of deploy:dist, so precompress is now Apache-only; verify_deploy treats the app sidecar yardstick as optional on the edge model, and the delivery, development, guidance and release docs and catalog describe this. From the mobile pass: index.html keeps the hub bar from shrinking under the beta notice at 320px and puts the phone hub nav on one sideways-scrolling line beside the compare pill; the UI-change runbook records the explorer breadcrumb's phone layout and its 1500px breakpoint. From this branch: the catalog's statistics area names the shared FDR / p < 0.05 listing toggle and references listingModeStore.ts, the generated AGENTS.md map line follows it, and the UI-change runbook names the listing mode, TierLabel and QTerm as the shared pieces for significance tables. Repository structure and commands are unchanged. From the changelog branch: Only CHANGELOG.md changed among repository sources: an Unreleased note records that the website changelog now covers the public release and PRs #1-#42. No commands, configuration, delivery or guidance changed, so the repository context and runbooks stay accurate.",
   "references": [
+    "vite.config.ts",
+    "package.json",
+    "scripts/verify_deploy.mts",
+    "scripts/precompress_dist.mts",
+    "docs/agent-context/delivery.md",
+    "docs/DEVELOPMENT.md",
+    "docs/agent-context/catalog.json",
+    "index.html",
+    "docs/agent-context/workflows.md",
+    "src/statistics/listingModeStore.ts",
     "CHANGELOG.md",
     "docs/PROJECT_GUIDANCE.md"
   ]
