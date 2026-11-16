@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "df9ad479b996ad6fadd333f2c3bf157ef90a3e1bdbe55af47b8c79232c069536",
+  "fingerprint": "f1f7b24a11c0ae95fa5c8673f231e1d611bfb15ffb5511c538476d6452f2d9f8",
   "outcome": "updated",
-  "explanation": "App.tsx no longer decides which analysis is non-default from hand-typed literals. explorerAnalysis is session.snapshot({ contrastId, defaultContrastId: getActiveContrast(dataset), chartScale }), so the router still receives the same ExplorerAnalysisState (same field names and order, version 1), and existing deep links restore as before. App drops its DB_DEFAULT_FILTER and ExplorerAnalysisState imports.",
+  "explanation": "App.tsx explorer shell replaces the always-visible study bar and verification row with one compact study line and a Study details & verification disclosure (aria-expanded) holding region, preparation and DatasetVerificationContext; Compare mode swaps the large hero for a slim row with compact DOI and Dataset info controls; navigation, routing and data loading are unchanged.",
   "references": [
     "src/App.tsx",
-    "src/explorer/explorerSession.ts"
+    "docs/agent-context/workflows.md"
   ]
 }

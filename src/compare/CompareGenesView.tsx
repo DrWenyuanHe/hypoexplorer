@@ -8,19 +8,25 @@
 // dataset lacks). Such a column renders its reason; it must never render "No
 // detected expression", which is a claim about data nobody has read.
 
-import { Fragment, useEffect, useState } from 'react';
-import type { ReactNode } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import { pToStar, fmtP, fmtFDR } from '../utils/format';
 import { BarSEMChart } from '../gene-explorer/BarSEMChart';
 import { PopWarningBadge } from '../common/PopWarningBadge';
 import { Spinner } from '../common/Spinner';
 import { EmptyState } from '../common/EmptyState';
 import { ChartScaleToggle } from '../common/ChartScaleToggle';
-import { COLOR_WARNING_TEXT, DOWN_TEXT_COLOR, FONT_MONO, UP_TEXT_COLOR } from '../styles/constants';
+import { ExportButton } from '../common/ExportButton';
+import { useChartScale } from '../common/chartScaleStore';
+import { useExportAction } from '../utils/exportAction';
+import { columnsSubject, exportName, exportProvenance, trackSubject } from '../utils/exportProvenance';
+import { COLOR_WARNING_TEXT, DOWN_TEXT_COLOR, FONT_MONO, FONT_SANS, UP_TEXT_COLOR } from '../styles/constants';
 import type { PopData } from '../types';
 import type { CompareColumn } from './compareColumns';
 import { resolveGeneCI } from './resolveGene';
 import { tallyGene } from './compareSummary';
+import { EXPORT_IGNORE_ATTR, saveChartSvg, saveElementPng } from './compareFigureExport';
+import { DownloadIcon, DownloadMenu } from './DownloadMenu';
 
 interface CompareGenesViewProps {
   columns: readonly CompareColumn[];
@@ -35,7 +41,25 @@ interface CompareGenesViewProps {
   /** A muted note above the grid (the cross-study unit caveat). */
   caveat?: ReactNode;
   emptyState: { title: string; hint: string };
+  /** Offer figure downloads: a menu on each chart tile (PNG / SVG) and a PNG
+   *  of each gene's row. Off by default so a view opts in. */
+  chartDownloads?: boolean;
+  /**
+   * 'fill' (default): the chart grid scrolls inside the space the parent gives
+   * it and the summary table is a short footer under it. 'flow': both take
+   * their natural height and the PARENT scrolls, for phones and short
+   * windows, where a fixed footer and fixed toolbars left the charts a sliver.
+   */
+  layout?: 'fill' | 'flow';
 }
+
+/** The attribute each gene's block of charts carries, for whole-grid export. */
+export const GENE_BLOCK_ATTR = 'data-compare-gene';
+
+const VISUALLY_HIDDEN: CSSProperties = {
+  position: 'absolute', width: 1, height: 1, padding: 0, margin: -1,
+  overflow: 'hidden', clip: 'rect(0 0 0 0)', whiteSpace: 'nowrap', border: 0,
+};
 
 const UNAVAILABLE_LABEL: Record<NonNullable<CompareColumn['unavailable']>['status'], string> = {
   loading: 'Loading…',
@@ -67,8 +91,13 @@ const CHART_CAP = 50;
 
 export function CompareGenesView({
   columns, popDataMap, selectedGenes, onRemoveGene, showTally = false, summaryActions, caveat, emptyState,
+  chartDownloads = false, layout = 'fill',
 }: CompareGenesViewProps) {
   const [showAllCharts, setShowAllCharts] = useState(false);
+  // The summary table folds away so the charts can have the room; the
+  // numbers it holds are also in the Excel/CSV download.
+  const [tableOpen, setTableOpen] = useState(true);
+  const flow = layout === 'flow';
   // A fresh selection gets the cap back: "show all" was an answer about the
   // list that asked, not a standing preference.
   const nGenes = selectedGenes.length;
@@ -78,7 +107,7 @@ export function CompareGenesView({
   return (
     <>
       {/* Bar chart comparison grid */}
-      <div style={{ flex: 1, overflowY: 'auto', padding: 8 }}>
+      <div style={flow ? { flexShrink: 0, padding: 8 } : { flex: 1, minHeight: 0, overflowY: 'auto', padding: 8 }}>
         {caveat && (
           <div style={{ fontSize: 11, color: 'var(--text-muted)', margin: '2px 4px 10px', maxWidth: '78ch', lineHeight: 1.5 }}>
             {caveat}
@@ -96,11 +125,15 @@ export function CompareGenesView({
           <EmptyState style={{ height: '100%' }} title={emptyState.title} hint={emptyState.hint} />
         ) : (
           chartGenes.map((gene) => (
-            <div key={gene} style={{ marginBottom: 12 }}>
+            // The block is what a gene's PNG captures: its name and every tile,
+            // minus the buttons marked EXPORT_IGNORE_ATTR.
+            <div key={gene} {...{ [GENE_BLOCK_ATTR]: gene }} style={{ marginBottom: 12 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
                 <span style={{ fontWeight: 600, fontSize: 13, fontFamily: FONT_MONO }}>{gene}</span>
                 <button type="button" onClick={() => onRemoveGene(gene)} aria-label={`Remove ${gene} row`}
+                  {...{ [EXPORT_IGNORE_ATTR]: '' }}
                   style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 12, color: 'var(--text-muted)' }}>× Remove</button>
+                {chartDownloads && <GeneRowPngButton gene={gene} columns={columns} popDataMap={popDataMap} />}
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 6 }}>
                 {columns.map((col) => {
@@ -109,9 +142,10 @@ export function CompareGenesView({
                   const qc = col.qc;
                   if (pd && de) {
                     return (
-                      <div key={col.key} style={{ borderTop: `2px solid ${col.color}`, position: 'relative' }}>
+                      <ChartTile key={col.key} col={col} pd={pd} gene={de.gene} pValue={de.PValue} downloads={chartDownloads}>
                         {qc && qc.is3v3 === false && (
-                          <div style={{ position: 'absolute', top: 2, right: 2, zIndex: 1 }}>
+                          // Shifted left of the download button when there is one.
+                          <div style={{ position: 'absolute', top: 2, right: chartDownloads ? 30 : 2, zIndex: 1 }}>
                             <PopWarningBadge is3v3={false} nNormal={qc.nNormal} nObese={qc.nObese} samplesKept={qc.samplesKept} compact />
                           </div>
                         )}
@@ -119,7 +153,7 @@ export function CompareGenesView({
                             column captions its bars Pomc while the row is
                             headed POMC. */}
                         <BarSEMChart gene={de.gene} popData={pd} contrast={pd.contrast} popLabel={col.chartLabel ?? col.label} />
-                      </div>
+                      </ChartTile>
                     );
                   }
                   const status = col.unavailable?.status;
@@ -170,12 +204,28 @@ export function CompareGenesView({
 
       {/* Summary table */}
       {selectedGenes.length > 0 && (
-        <div style={{ flexShrink: 0, borderTop: '1px solid var(--border)', padding: '4px 8px', background: 'var(--bg-panel)', maxHeight: 200, overflowY: 'auto' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-            <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-muted)' }}>Compare summary</span>
+        <div style={flow ? {
+          flexShrink: 0, borderTop: '1px solid var(--border)', padding: '4px 8px 8px', background: 'var(--bg-panel)',
+        } : {
+          // Capped by the viewport too: 200px of a 500px-tall panel was 40% of it.
+          flexShrink: 0, borderTop: '1px solid var(--border)', padding: '4px 8px', background: 'var(--bg-panel)',
+          maxHeight: tableOpen ? 'min(200px, 30vh)' : undefined, overflowY: 'auto',
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: tableOpen ? 4 : 0 }}>
+            <button type="button" onClick={() => setTableOpen((v) => !v)} aria-expanded={tableOpen}
+              title={tableOpen ? 'Hide the summary table to give the charts more room' : 'Show the summary table'}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: 5, padding: '2px 0',
+                background: 'none', border: 'none', cursor: 'pointer',
+                fontSize: 11, fontWeight: 600, color: 'var(--text-muted)', fontFamily: FONT_SANS,
+              }}>
+              <span aria-hidden="true" style={{ display: 'inline-block', width: 8, transform: tableOpen ? 'rotate(90deg)' : 'none' }}>▸</span>
+              Compare summary
+              {!tableOpen && <span style={{ fontWeight: 400 }}>({selectedGenes.length} gene{selectedGenes.length === 1 ? '' : 's'}, hidden)</span>}
+            </button>
             {summaryActions}
           </div>
-          <div style={{ overflowX: 'auto' }}>
+          {tableOpen && <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', minWidth: 'max-content', borderCollapse: 'separate', borderSpacing: 0, fontSize: 11, fontFamily: FONT_MONO }}>
               <thead>
                 <tr>
@@ -256,9 +306,99 @@ export function CompareGenesView({
                 })}
               </tbody>
             </table>
-          </div>
+          </div>}
         </div>
       )}
     </>
+  );
+}
+
+// ── Figure downloads ────────────────────────────────────────────────────────
+
+const ICON_BTN: CSSProperties = {
+  display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+  width: 24, height: 24, padding: 0, cursor: 'pointer',
+  background: 'var(--bg-panel)', color: 'var(--text-muted)',
+  border: '1px solid var(--border)', borderRadius: 4,
+};
+
+/**
+ * One chart tile, with (when enabled) its own download menu in the corner:
+ * this population's chart for this gene as PNG, or as SVG for a figure.
+ */
+function ChartTile({ col, pd, gene, pValue, downloads, children }: {
+  col: CompareColumn; pd: PopData; gene: string; pValue: number | null | undefined;
+  downloads: boolean; children: ReactNode;
+}) {
+  const tileRef = useRef<HTMLDivElement>(null);
+  const { busy, run } = useExportAction();
+  const chartScale = useChartScale();
+  const label = col.chartLabel ?? col.label;
+  const name = (ext: string) => exportName(trackSubject(pd), [gene, 'bar_chart'], ext);
+
+  const savePng = () => {
+    const el = tileRef.current;
+    if (el) run(() => saveElementPng(el, name('png')));
+  };
+  const saveSvg = () => {
+    const el = tileRef.current;
+    if (!el) return;
+    run(() => {
+      const saved = saveChartSvg(el, name('svg'), {
+        title: gene,
+        subtitle: `${label} · mean ± SEM · P = ${fmtP(pValue)}`,
+      }, exportProvenance('compare', trackSubject(pd), { figure: 'bar_chart', gene, chartScale }));
+      // The chart chunk loads lazily; a tile clicked before it lands has no
+      // <svg> yet, and a silent no-op would read as a broken button.
+      if (!saved) window.alert('This chart is still drawing. Try again in a moment.');
+    });
+  };
+
+  return (
+    <div ref={tileRef} data-compare-tile={col.key} style={{ borderTop: `2px solid ${col.color}`, position: 'relative' }}>
+      {downloads && (
+        <div style={{ position: 'absolute', top: 4, right: 4, zIndex: 2 }}>
+          <DownloadMenu menuLabel={`Download ${gene} chart for ${label}`} busy={busy} busyLabel="" align="right"
+            title={`Download this chart (${gene}, ${label})`} triggerStyle={ICON_BTN}
+            sections={[{
+              heading: `${gene} · ${col.key}`,
+              items: [
+                { key: 'png', label: 'PNG image', description: 'This chart as shown, at 2× resolution.', onSelect: savePng },
+                { key: 'svg', label: 'SVG (vector)', description: 'Editable vector for figures; fonts and colours embedded.', onSelect: saveSvg },
+              ],
+            }]}>
+            <DownloadIcon size={13} />
+            <span style={VISUALLY_HIDDEN}>Download {gene} chart for {label}</span>
+          </DownloadMenu>
+        </div>
+      )}
+      {children}
+    </div>
+  );
+}
+
+/** One gene's row of charts (every column) as a single PNG. */
+function GeneRowPngButton({ gene, columns, popDataMap }: {
+  gene: string; columns: readonly CompareColumn[]; popDataMap: Record<string, PopData | null>;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const { busy, run } = useExportAction();
+  const save = () => {
+    const block = ref.current?.closest<HTMLElement>(`[${GENE_BLOCK_ATTR}]`);
+    if (!block) return;
+    run(() => saveElementPng(block, exportName(columnsSubject(columns, popDataMap), [gene, 'bar_charts'], 'png')));
+  };
+  return (
+    <span ref={ref} {...{ [EXPORT_IGNORE_ATTR]: '' }} style={{ marginLeft: 'auto' }}>
+      <ExportButton onClick={save} busy={busy} busyLabel="Saving…" spinnerSize={10}
+        title={`Save every ${gene} chart in this row as one PNG image`}
+        style={{
+          display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 11, padding: '2px 8px',
+          border: '1px solid var(--border)', borderRadius: 4, background: 'var(--bg-panel)',
+          color: 'var(--text-muted)', cursor: 'pointer', fontFamily: FONT_SANS,
+        }}>
+        <DownloadIcon size={11} />{gene} charts (PNG)
+      </ExportButton>
+    </span>
   );
 }

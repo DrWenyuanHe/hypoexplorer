@@ -1,11 +1,10 @@
 {
   "version": 1,
   "area": "module-styles",
-  "fingerprint": "4b09fd0f52c875f6de9ede99b0617512b9c9a207aed646414150cb2578b66842",
-  "outcome": "no-impact",
-  "explanation": "responsive.css replaces the single go-button touch rule with the search pill rules at 600px: a taller pill, a 50px bar and 44px go and clear buttons. Breakpoints, tokens and every other layout rule are unchanged, so the styles module map still describes the file.",
+  "fingerprint": "2bebdd5b0e65cdd9e451fed903dfc9af960dc02a8c35b52ede7c2fa7e65e1049",
+  "outcome": "updated",
+  "explanation": "responsive.css only retunes explorer hero and study-line padding at the 1100px and 900px breakpoints, keeps the slim Compare row at 5px, and pads the opened study details panel on mobile; no shared tokens or breakpoints change.",
   "references": [
-    "src/styles/responsive.css",
-    "index.html"
+    "src/styles/responsive.css"
   ]
 }

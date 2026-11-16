@@ -18,11 +18,14 @@ export function DatasetVerificationLink({ datasetId }: { datasetId: string }) {
   );
 }
 
-/** A keyboard-accessible disclosure, visible before plots even while a bundle loads. */
+/** The dataset's verification record for the explorer: a status row and a
+ * keyboard-accessible "Evidence & limitations" disclosure. The explorer mounts it
+ * inside the study line's "Study details & verification" panel, so it needs no
+ * bundle and is reachable before plots load. */
 export function DatasetVerificationContext({ datasetId, contrastId }: { datasetId: string; contrastId?: string }) {
   const record = getAuthorValidation(datasetId);
   if (!record) return (
-    <div style={{ padding: '7px 24px', fontSize: 12, flexShrink: 0 }}>
+    <div style={{ padding: '7px 24px', fontSize: 12, flexShrink: 0, borderTop: '1px solid var(--border)' }}>
       Verification not assessed. <a href="#/verification">How verification works</a>
     </div>
   );
@@ -30,7 +33,7 @@ export function DatasetVerificationContext({ datasetId, contrastId }: { datasetI
   return (
     <div data-explorer-verification={datasetId} style={{
       flexShrink: 0, fontFamily: FONT_SANS, fontSize: 11.5,
-      borderBottom: '1px solid var(--border)', background: 'var(--bg-panel)',
+      borderTop: '1px solid var(--border)', background: 'var(--bg-panel)',
     }}>
       <div style={{ padding: '7px 24px', color: 'var(--text-primary)', lineHeight: 1.7 }}>
         <span style={{ marginRight: 9, fontWeight: 600 }}>Dataset verification</span>

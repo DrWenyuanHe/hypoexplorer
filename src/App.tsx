@@ -1,7 +1,6 @@
-import { ResponsiveDetails } from './common/ResponsiveDetails';
 import { useState, useMemo, useCallback, useEffect, lazy, Suspense } from 'react';
 import { trackColor } from './data/datasetMeta';
-import { COLOR_WARNING_BG, COLOR_WARNING_TEXT, FONT_MONO, FONT_SANS, PAGE_ACCENT_GRADIENT } from './styles/constants';
+import { COLOR_WARNING_BG, COLOR_WARNING_TEXT, FONT_MONO, FONT_SANS } from './styles/constants';
 import { popDataFor } from './data/trackData';
 import { useExplorerStore } from './data/explorerStore';
 import { useOriginDiagnosis } from './data/useOriginDiagnosis';
@@ -105,6 +104,9 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
   const [showChangelog, setShowChangelog] = useState(false);
   // The dataset-metadata panel (the hero's ⓘ button) — dataset-level provenance.
   const [showDatasetInfo, setShowDatasetInfo] = useState(false);
+  // The study line's disclosure: region, preparation and the dataset's
+  // verification record stay one click away instead of stacking above the data.
+  const [showStudyDetails, setShowStudyDetails] = useState(false);
 
   // Everything the user has SELECTED or CONFIGURED inside the dataset: the gene
   // list, the volcano's metric and thresholds, the pathway selection/filters,
@@ -694,7 +696,7 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
             </button>
           </div>
         </div>
-        <BetaNotice />
+        <BetaNotice compact />
       </header>
 
       {/* Load error (pinned above body-row so it appears even on initial load failure) */}
@@ -728,32 +730,29 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
         </div>
       )}
 
-      {/* Study bar — the dataset's identity and provenance, on screen at every
-          tab and in Compare mode.
-          Until now these facts existed only inside the DatasetInfoPanel modal,
-          which meant the answer to "how many animals is this, and where did it
-          come from?" was never visible while you were reading a volcano plot.
+      {/* Study line — the dataset's identity, on screen at every tab and in
+          Compare mode, in ONE line: name, organism, modality and the design's
+          arms. Region, preparation and the dataset's verification record sit
+          behind the "Study details & verification" disclosure, so they stay one
+          click away without stacking above the data on every view.
           Full width rather than inside the main column, because it describes the
           dataset and the sidebar beside it describes tracks within that dataset. */}
-      <ResponsiveDetails label={contrast?.exploratory ? "Study details · exploratory comparison" : "Study details & verification"}>
+      <div className="explorer-study" style={{ flexShrink: 0, background: 'var(--bg-panel)', borderBottom: '1px solid var(--border)' }}>
       <div className="explorer-study-bar" style={{
-        flexShrink: 0, background: 'var(--bg-panel)', borderBottom: '1px solid var(--border)',
-        padding: '7px 24px', display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap',
+        padding: '5px 24px', display: 'flex', alignItems: 'center', gap: '4px 10px', flexWrap: 'wrap',
         fontSize: 11.5, color: 'var(--text-muted)',
       }}>
         <span style={{ fontSize: 12.5, fontWeight: 600, color: 'var(--text-primary)' }}>{dataset.name}</span>
         <span aria-hidden="true" style={{ width: 1, height: 14, background: 'var(--border)' }} />
         <span style={{ fontStyle: 'italic' }}>{dataset.organism}</span>
         <span>{dataset.modality}</span>
-        <span>{dataset.region}</span>
-        <span>{dataset.preparation}</span>
         {/* Outside Compare this shows the DESIGN only: the hero below already
             carries N for the selected track, and a second dataset-level N beside
             it would read as a contradiction on any dataset whose tracks disagree
             — the macaque atlas is 3v3 on 55 populations and drops to an arm of 2
             on five.
-            Compare mode suppresses the hero's pills entirely, so there the count
-            has nowhere else to live and this shows it. */}
+            Compare mode has no hero pills, so there the count has nowhere else
+            to live and this shows it. */}
         {baselineGroup && caseGroup && (
           <>
             <span aria-hidden="true" style={{ width: 1, height: 14, background: 'var(--border)' }} />
@@ -769,7 +768,8 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
                 ran — a re-analysis whose meaning does not follow from its arm
                 names. That warning belongs beside the volcano the user is
                 reading, not only inside the Dataset info modal, so it rides
-                here. Gated on the flag, NOT on description presence: a
+                here, outside the disclosure: a scientific caveat is never
+                folded away. Gated on the flag, NOT on description presence: a
                 description can also annotate a faithful re-fit of the paper's
                 own axis (e.g. the GSE135639 maturation contrasts), which must
                 not be branded exploratory. */}
@@ -802,7 +802,22 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
             )}
           </>
         )}
-        <span style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 10 }}>
+        <span className="explorer-study-actions" style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 12 }}>
+          <button type="button" className="explorer-study-toggle"
+            aria-expanded={showStudyDetails} aria-controls="explorer-study-details"
+            onClick={() => setShowStudyDetails((open) => !open)}
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 4,
+              fontSize: 11.5, fontWeight: 600, color: 'var(--text-mono)', background: 'none',
+              border: 'none', padding: 0, cursor: 'pointer', fontFamily: 'inherit',
+            }}>
+            Study details &amp; verification
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
+              style={{ flexShrink: 0, transform: showStudyDetails ? 'rotate(180deg)' : undefined }}>
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
           {listDatasets().length > 1 && (
             <button type="button" onClick={() => openLibrary({ datasetId: dataset.id })}
               style={{
@@ -815,8 +830,30 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
         </span>
       </div>
 
-      <DatasetVerificationContext key={dataset.id} datasetId={dataset.id} contrastId={contrast?.id} />
-      </ResponsiveDetails>
+      {/* Mounted only while open, so the collapsed line costs no layout. The
+          verification record is the same component the explorer always showed. */}
+      {showStudyDetails && (
+        <div id="explorer-study-details" className="explorer-study-details" style={{ borderTop: '1px solid var(--border)' }}>
+          <dl className="explorer-study-facts" style={{
+            margin: 0, padding: '7px 24px', display: 'flex', flexWrap: 'wrap', gap: '4px 18px',
+            fontSize: 11.5, color: 'var(--text-primary)',
+          }}>
+            {([
+              ['Organism', dataset.organism],
+              ['Modality', dataset.modality],
+              ['Region', dataset.region],
+              ['Preparation', dataset.preparation],
+            ] as const).filter(([, value]) => Boolean(value)).map(([term, value]) => (
+              <div key={term} style={{ display: 'flex', gap: 5 }}>
+                <dt style={{ color: 'var(--text-muted)' }}>{term}</dt>
+                <dd style={{ margin: 0, fontStyle: term === 'Organism' ? 'italic' : undefined }}>{value}</dd>
+              </div>
+            ))}
+          </dl>
+          <DatasetVerificationContext key={dataset.id} datasetId={dataset.id} contrastId={contrast?.id} />
+        </div>
+      )}
+      </div>
 
       {/* Body row — sidebar + main */}
       <div className="explorer-body" style={{ flex: 1, display: 'flex', minHeight: 0, position: 'relative' }}>
@@ -835,40 +872,48 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
 
         {/* Main column */}
         <div className="explorer-content" style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, minHeight: 0 }}>
-          {/* Accent strip */}
-          <div style={{
-            height: 4, flexShrink: 0,
-            background: isCompare ? PAGE_ACCENT_GRADIENT : activeTrackColor,
-          }} />
+          {/* Accent strip: the active track's colour. Compare has no single
+              track, so it has no strip. */}
+          {!isCompare && (
+            <div aria-hidden="true" style={{ height: 3, flexShrink: 0, background: activeTrackColor }} />
+          )}
 
-          {/* Compact hero */}
-          <div className="explorer-hero" style={{
+          {/* Hero. Single-track mode carries the track, its arms, the contrast
+              selector and the detected-gene count; Compare mode is one slim
+              line, because the populations it compares are chosen right below. */}
+          <div className={isCompare ? 'explorer-hero explorer-hero--compare' : 'explorer-hero'} style={{
             flexShrink: 0, background: 'var(--bg-panel)', borderBottom: '1px solid var(--border)',
-            padding: '14px 24px', display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap',
+            padding: isCompare ? '5px 20px' : '8px 20px', display: 'flex', alignItems: 'center',
+            gap: isCompare ? 12 : '8px 18px', flexWrap: 'wrap',
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              {!isCompare && (
-                <span style={{
-                  width: 14, height: 14, borderRadius: '50%',
+            {isCompare ? (
+              <span style={{
+                fontSize: 11, fontWeight: 700, letterSpacing: '0.08em',
+                textTransform: 'uppercase', color: 'var(--text-mono)',
+              }}>
+                Compare populations
+              </span>
+            ) : (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
+                <span aria-hidden="true" style={{
+                  width: 11, height: 11, borderRadius: '50%',
                   background: activeTrackColor,
                   boxShadow: `0 0 0 3px ${activeTrackColor}20`,
                   flexShrink: 0,
                 }} />
-              )}
-              <div>
-                <div style={{
-                  fontFamily: FONT_MONO, fontSize: 28, fontWeight: 700,
-                  lineHeight: 1, color: 'var(--text-primary)', letterSpacing: '-0.02em',
-                }}>
-                  {isCompare ? 'Compare' : activeTrackId}
-                </div>
-                <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 3 }}>
-                  {isCompare
-                    ? 'Side-by-side across selected populations'
-                    : `${getCellSubname(activeTrackId, datasetMeta?.labels)}${datasetMeta?.types?.[activeTrackId] ? ` · ${datasetMeta?.types?.[activeTrackId]}` : ''}`}
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0 10px', flexWrap: 'wrap', minWidth: 0 }}>
+                  <div style={{
+                    fontFamily: FONT_MONO, fontSize: 20, fontWeight: 700,
+                    lineHeight: 1.15, color: 'var(--text-primary)', letterSpacing: '-0.02em',
+                  }}>
+                    {activeTrackId}
+                  </div>
+                  <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>
+                    {`${getCellSubname(activeTrackId, datasetMeta?.labels)}${datasetMeta?.types?.[activeTrackId] ? ` · ${datasetMeta?.types?.[activeTrackId]}` : ''}`}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
             {!isCompare && baselineGroup && caseGroup && (
               <>
@@ -936,33 +981,30 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
               </>
             )}
 
-            {/* Dataset identity + provenance (always shown — dataset-level, so it
-                renders in Compare mode too). Primary external link inline; the ⓘ
-                button opens the full DatasetInfoPanel. */}
-            <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-              {/* Organism and modality used to be repeated here. They now live in
-                  the study bar above, which is on screen at every tab — the point
-                  of that bar is that this information stops being something you
-                  open a modal for. */}
+            {/* Dataset provenance, in both modes as compact controls: the
+                primary external link inline, and the ⓘ button for the full
+                DatasetInfoPanel. Organism and modality live in the study line
+                above, which is on screen at every tab. */}
+            <div className="explorer-hero-links" style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
               {primaryLink && (
                 <a href={primaryLink.href} target="_blank" rel="noopener noreferrer" title={primaryLink.title}
                   style={{
-                    display: 'inline-flex', alignItems: 'center', gap: 5, padding: '4px 10px', borderRadius: 999,
-                    fontSize: 11.5, fontWeight: 600, fontFamily: FONT_MONO, textDecoration: 'none',
-                    color: 'var(--color-selected)', background: 'color-mix(in srgb, var(--color-selected) 10%, transparent)',
-                    border: '1px solid color-mix(in srgb, var(--color-selected) 28%, transparent)',
+                    display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 8px', borderRadius: 999,
+                    fontSize: 11, fontWeight: 600, fontFamily: FONT_MONO, textDecoration: 'none',
+                    color: 'var(--color-selected)', background: 'color-mix(in srgb, var(--color-selected) 8%, transparent)',
+                    border: '1px solid color-mix(in srgb, var(--color-selected) 24%, transparent)',
                   }}>
                   {primaryLink.label}
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" /></svg>
+                  <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" /></svg>
                 </a>
               )}
               <button type="button" onClick={() => setShowDatasetInfo(true)}
                 style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 6, padding: '5px 11px', borderRadius: 7,
-                  fontSize: 12, fontWeight: 600, fontFamily: 'inherit', cursor: 'pointer',
-                  border: '1px solid var(--border-dark)', background: 'var(--bg-panel)', color: 'var(--text-primary)',
+                  display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 8px', borderRadius: 6,
+                  fontSize: 11, fontWeight: 600, fontFamily: 'inherit', cursor: 'pointer',
+                  border: '1px solid var(--border-dark)', background: 'var(--bg-panel)', color: 'var(--text-mono)',
                 }}>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 11v5" /><circle cx="12" cy="7.5" r="0.6" fill="currentColor" /></svg>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 11v5" /><circle cx="12" cy="7.5" r="0.6" fill="currentColor" /></svg>
                 Dataset info
               </button>
             </div>

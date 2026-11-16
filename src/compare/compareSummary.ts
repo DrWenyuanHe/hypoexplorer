@@ -11,8 +11,9 @@ import { mean } from '../utils/math';
 import { pToStar } from '../utils/format';
 import { getGroupedValues, groupLabels, meanColumnLabel } from '../utils/sampleValues';
 import { effectDirection, isFdrSignificant } from '../statistics/policy';
-import { columnsSubject, exportName, exportProvenance, metadataSheet } from '../utils/exportProvenance';
+import { columnsSubject, exportName, exportProvenance, metadataSheet, type ExportProvenance } from '../utils/exportProvenance';
 import type { WorkbookRow, WorkbookSheet } from '../utils/workbook';
+import type { CsvCell } from '../utils/csv';
 import type { PopData } from '../types';
 import type { CompareColumn } from './compareColumns';
 import { resolveGeneCI } from './resolveGene';
@@ -111,5 +112,32 @@ export function compareGenesWorkbook(
         geneSelection: 'Explicit genes in the exported row order.',
       })),
     ],
+  };
+}
+
+/**
+ * The same summary as a CSV: identical rows to the workbook's Compare sheet,
+ * written by the CSV seam with the shared provenance columns in place of the
+ * Metadata sheet. Columns are the union of the rows' keys in first-seen order,
+ * so a population that lacks a gene still gets its (empty) columns.
+ */
+export function compareGenesCsv(
+  columns: readonly CompareColumn[],
+  popDataMap: Record<string, PopData | null>,
+  genes: readonly string[],
+): { filename: string; columns: string[]; rows: CsvCell[][]; provenance: ExportProvenance } {
+  const subject = columnsSubject(columns, popDataMap);
+  const rows = compareSummaryRows(columns, popDataMap, genes);
+  const header: string[] = [];
+  const seen = new Set<string>();
+  for (const row of rows) for (const key of Object.keys(row)) if (!seen.has(key)) { seen.add(key); header.push(key); }
+  return {
+    filename: exportName(subject, ['compare'], 'csv'),
+    columns: header,
+    rows: rows.map((row) => header.map((key) => row[key])),
+    provenance: exportProvenance('compare', subject, {
+      geneCount: genes.length,
+      geneSelection: 'Explicit genes in the exported row order.',
+    }),
   };
 }

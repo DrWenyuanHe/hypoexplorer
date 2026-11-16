@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "cd54af4dbe446c9c7eab2c7b61429f18e4169cae4996b67469cb21456bd46d01",
+  "fingerprint": "23ed542d6e0efe57c49456bc3f2684f75a9bb96b55e220726b32a7a73778bd09",
   "outcome": "updated",
-  "explanation": "bundleWriter.test.ts gains a study-level block: one call writes several tracks, the merged meta/QC/pathway index, groupN from the registry default track, derived arm counts and is3v3 with stated-value agreement, and nSig counted as finite PValue < 0.01 regardless of a builder's stated count. New intakeStudies.test.ts runs a two-study fixture intake through buildIntakeStudies (publish, --check stale/missing detection, no partial publish, --only, value-compared registry, path and table guards). qcTables.test.ts pins the column heading to NSIG_P_THRESHOLD.",
+  "explanation": "New compareTabToolbar tests cover the Compare loading count, the folded failure alert, the Download menu (disabled with a reason until every population has loaded and a gene is chosen), per-row chart PNG buttons and SVG export output; cellSelector tests cover chip collapse, +N more, Show less and Reset; hubUnits covers the macaque atlas card; datasetInfo covers the study details disclosure; appExplorerPosition now asserts the Compare selection through its chips.",
   "references": [
-    "src/__tests__/bundleWriter.test.ts",
-    "src/__tests__/intakeStudies.test.ts",
-    "src/__tests__/qcTables.test.ts",
-    "scripts/lib/intakeStudies.mts"
+    "src/__tests__/compareTabToolbar.test.tsx",
+    "src/__tests__/cellSelector.test.tsx",
+    "src/__tests__/hubUnits.test.tsx",
+    "src/__tests__/datasetInfo.test.tsx",
+    "src/__tests__/appExplorerPosition.test.tsx"
   ]
 }

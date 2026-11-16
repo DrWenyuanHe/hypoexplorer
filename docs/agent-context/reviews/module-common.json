@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-common",
-  "fingerprint": "2be7a36876e879b8bc20f4849ca53b8247eb1131bde636c5a4d83c20258d7427",
-  "outcome": "no-impact",
-  "explanation": "QualityBadge and DatasetQualityBadges gain an icon option that shows only the status symbol, keeping the full label as the accessible name and the same checklist popover; authorEvidenceText exposes the evidence line AuthorEvidenceLabel already rendered. Existing callers render exactly as before, so the shared badge contract in the context map is unchanged.",
+  "fingerprint": "3d5945db71f35569bcb24086fdd869c6ee97e8d0e3e3a077c4e696794204e1be",
+  "outcome": "updated",
+  "explanation": "CellSelectorPopup keeps its chips to one measured line with a +N more / Show less toggle and a Reset to the default pair; the modal picker is unchanged. BetaNotice gains an opt-in compact, session-dismissible form used only by the explorer shell. DatasetVerificationContext now renders inside the study details panel, so its border sits on top.",
   "references": [
-    "src/common/QualityBadges.tsx",
-    "src/common/AuthorValidation.tsx"
+    "src/common/CellSelectorPopup.tsx",
+    "src/common/BetaNotice.tsx",
+    "src/common/DatasetVerificationContext.tsx"
   ]
 }

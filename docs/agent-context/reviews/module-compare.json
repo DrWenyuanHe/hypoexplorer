@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "module-compare",
-  "fingerprint": "266898e169efe592bcc233ea61fd6e9eba725a725c11ec35c8fc1c8f2f3203e1",
+  "fingerprint": "de828e0c182e628c13ffc933080d1e422212fa990a569372b8867171a3d5520d",
   "outcome": "updated",
-  "explanation": "CompareTab loads its populations as track columns (failed populations show Retry; no getTrack or loadPopulation props), renders the shared GenePicker over a union vocabulary of loaded populations, and names its exports and Metadata sheets through export provenance (compareGenesWorkbook in compareSummary, ComparePathwayView). CompareTab only borrows the macaque default pair when given no defaultPops at all, and its vocabulary uses the stored-symbol nomenclature authority.",
+  "explanation": "CompareTab summarises loading as a count, folds more than three failures into one alert with Retry all, scrolls as one column on compact or short viewports, and moves exports into a Download menu (DownloadMenu) offering compareGenesWorkbook Excel, compareGenesCsv through writeCsv with provenance, and chart PNGs. CompareGenesView adds opt-in chartDownloads (per-tile PNG/SVG via compareFigureExport, per-gene PNG), a flow layout and a collapsible summary table; the compare-set view passes neither and is unchanged.",
   "references": [
     "src/compare/CompareTab.tsx",
-    "src/compare/compareSummary.ts",
-    "src/data/trackColumns.ts"
+    "src/compare/CompareGenesView.tsx",
+    "src/compare/compareFigureExport.ts",
+    "src/compare/DownloadMenu.tsx",
+    "src/compare/compareSummary.ts"
   ]
 }

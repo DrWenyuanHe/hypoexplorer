@@ -41,3 +41,33 @@
   .beta-notice { padding-inline: 16px; }
   .site-header { --site-header-padding: 16px; --site-crumb-offset: 0; }
 }
+
+/* Explorer shell: one slim, dismissible line above the data. */
+.beta-notice.beta-notice--compact {
+  justify-content: flex-start;
+  gap: 2px 12px;
+  padding: 3px 24px;
+  font-size: 11.5px;
+}
+.beta-notice--compact .beta-notice-dismiss {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.beta-notice--compact .beta-notice-dismiss:hover { background: rgba(121, 84, 21, 0.12); }
+.beta-notice--compact .beta-notice-dismiss:focus-visible {
+  outline: 2px solid var(--color-selected);
+  outline-offset: 1px;
+}
+@media (max-width: 600px) {
+  .beta-notice.beta-notice--compact { padding: 3px 12px; }
+}

@@ -1,12 +1,10 @@
 {
   "version": 1,
   "area": "module-gene-explorer",
-  "fingerprint": "6cc1cfddd01a80111ce8c439766f0a0c20cb5c8957b7985cf306858834ed1621",
-  "outcome": "no-impact",
-  "explanation": "geneExport.ts and ContrastMatrix.tsx hand their headers and rows to writeCsv with the provenance snapshot instead of joining escaped cells and provenance columns by hand. Column names, order, filenames and the JSON-once rule are unchanged; only the shared byte policy applies.",
+  "fingerprint": "3e55677e90f97e64276311442c60b86d0f935b8d78a135f547569a12ef779146",
+  "outcome": "updated",
+  "explanation": "BarSEMChartImpl renders its per-sample dot overlay and significance brackets inside a recharts ZIndexLayer at the scatter z-index, so dots that fall within a bar are drawn above the bar and its error bar instead of behind them. Values, scales and layout are unchanged.",
   "references": [
-    "src/gene-explorer/geneExport.ts",
-    "src/gene-explorer/ContrastMatrix.tsx",
-    "src/utils/csv.ts"
+    "src/gene-explorer/BarSEMChartImpl.tsx"
   ]
 }

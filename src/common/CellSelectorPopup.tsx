@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useLayoutEffect, useRef } from 'react';
 import type { ChangeEvent, CSSProperties } from 'react';
 import { Modal } from './Modal';
 import { trackColor } from '../data/datasetMeta';
@@ -15,6 +15,9 @@ interface CellSelectorPopupProps {
   onChange: (pops: string[]) => void;
   minSelection?: number;
   defaultSelection?: string[];
+  /** The most chips the collapsed row renders before "+N more" (fewer when
+   *  they do not fit on one line). */
+  collapsedChipCount?: number;
 }
 
 export function CellSelectorPopup({
@@ -23,6 +26,7 @@ export function CellSelectorPopup({
   onChange,
   minSelection = 2,
   defaultSelection,
+  collapsedChipCount = 8,
 }: CellSelectorPopupProps) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
@@ -67,8 +71,49 @@ export function CellSelectorPopup({
 
   const lockRemove = selectedPops.length <= minSelection;
 
+  // ── Collapsed chip row ────────────────────────────────────────────────────
+  // With every population selected (60 on the macaque atlas) one chip each
+  // wrapped to a dozen rows and pushed the charts off the screen. Collapsed,
+  // the row stays ONE line: it renders at most `collapsedChipCount` chips,
+  // measures how many of those fit the width it has, hides the rest and says
+  // "+N more"; expanding lists them all inline (scrolling past 40vh), and the
+  // full picker is still the modal. Without a layout to measure (tests, a
+  // hidden tab) the count cap alone decides.
+  const [expanded, setExpanded] = useState(false);
+  const [fitCount, setFitCount] = useState<number | null>(null);
+  const rowRef = useRef<HTMLDivElement>(null);
+  const rendered = expanded ? selectedPops : selectedPops.slice(0, collapsedChipCount);
+  const shownCount = expanded ? selectedPops.length : Math.min(rendered.length, fitCount ?? rendered.length);
+  const hiddenCount = selectedPops.length - shownCount;
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: selectedPops and collapsedChipCount change which chips are rendered, so the row must be re-measured when they change.
+  useLayoutEffect(() => {
+    if (expanded) return;
+    const row = rowRef.current;
+    if (!row) return;
+    const measure = () => {
+      const width = row.clientWidth;
+      if (!width) { setFitCount(null); return; }
+      let n = 0;
+      for (const chip of Array.from(row.children) as HTMLElement[]) {
+        // +1: sub-pixel rounding must not drop a chip that does fit.
+        if (chip.offsetLeft + chip.offsetWidth <= width + 1) n += 1; else break;
+      }
+      setFitCount(n);
+    };
+    measure();
+    if (typeof ResizeObserver === 'undefined') return;
+    const observer = new ResizeObserver(measure);
+    observer.observe(row);
+    return () => observer.disconnect();
+  }, [expanded, selectedPops, collapsedChipCount]);
+
+  // "Reset" outside the modal: after a "Select all" the way back to the
+  // default pair used to be open picker, Clear, Done.
+  const isDefault = selectedPops.length === dflt.length && dflt.every((id) => selectedPops.includes(id));
+
   return (
-    <>
+    <div style={{ display: 'flex', alignItems: expanded ? 'flex-start' : 'center', gap: 8, flexWrap: 'nowrap', minWidth: 0, width: '100%' }}>
       <button
         type="button"
         onClick={() => setOpen(true)}
@@ -81,23 +126,56 @@ export function CellSelectorPopup({
         <span style={{ color: 'var(--text-muted)', fontSize: 9 }}>▼</span>
       </button>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, alignItems: 'center' }}>
-        {selectedPops.map((id) => (
-          <span key={id} style={chipStyle}>
-            <span style={{ width: 7, height: 7, borderRadius: '50%', background: trackColor(meta, id) }} />
-            <strong style={{ fontWeight: 600 }}>{id}</strong>
-            <span style={{ color: 'var(--text-muted)' }}>{getCellSubname(id, meta?.labels)}</span>
-            <button type="button" onClick={() => removeChip(id)} aria-label={`Remove ${id}`}
-              disabled={lockRemove}
-              style={{
-                background: 'none', border: 'none', color: 'var(--text-muted)',
-                fontSize: 14, lineHeight: 1, padding: '0 3px',
-                cursor: lockRemove ? 'default' : 'pointer',
-                opacity: lockRemove ? 0.35 : 1,
-              }}>×</button>
-          </span>
-        ))}
+      <div ref={rowRef} data-testid="cell-chip-row" style={expanded ? {
+        display: 'flex', flexWrap: 'wrap', gap: 4, alignItems: 'center',
+        flex: '1 1 0', minWidth: 0, maxHeight: '40vh', overflowY: 'auto',
+      } : {
+        // position: relative makes this the chips' offsetParent for measuring.
+        position: 'relative', display: 'flex', flexWrap: 'nowrap', gap: 4, alignItems: 'center',
+        flex: '0 1 auto', minWidth: 0, overflow: 'hidden',
+      }}>
+        {rendered.map((id, i) => {
+          const hidden = i >= shownCount;
+          return (
+            <span key={id} style={{ ...chipStyle, flexShrink: 0, visibility: hidden ? 'hidden' : undefined }}
+              aria-hidden={hidden || undefined}>
+              <span style={{ width: 7, height: 7, borderRadius: '50%', background: trackColor(meta, id) }} />
+              <strong style={{ fontWeight: 600 }}>{id}</strong>
+              <span title={getCellSubname(id, meta?.labels)} style={chipSubnameStyle}>{getCellSubname(id, meta?.labels)}</span>
+              <button type="button" onClick={() => removeChip(id)} aria-label={`Remove ${id}`}
+                disabled={lockRemove}
+                tabIndex={hidden ? -1 : undefined}
+                style={{
+                  background: 'none', border: 'none', color: 'var(--text-muted)',
+                  fontSize: 14, lineHeight: 1, padding: '0 3px',
+                  cursor: lockRemove ? 'default' : 'pointer',
+                  opacity: lockRemove ? 0.35 : 1,
+                }}>×</button>
+            </span>
+          );
+        })}
       </div>
+
+      {!expanded && hiddenCount > 0 && (
+        <button type="button" onClick={() => setExpanded(true)} aria-expanded={false}
+          aria-label={`Show all ${selectedPops.length} selected populations`}
+          style={moreBtnStyle}>
+          {shownCount === 0 ? `Show ${selectedPops.length}` : `+${hiddenCount} more`}
+        </button>
+      )}
+      {expanded && (
+        <button type="button" onClick={() => setExpanded(false)} aria-expanded={true} style={moreBtnStyle}>
+          Show less
+        </button>
+      )}
+      {!isDefault && (
+        <button type="button" onClick={() => { setExpanded(false); onChange([...dflt]); }}
+          aria-label="Reset to the default selection"
+          title={`Reset to the default selection (${dflt.join(', ')})`}
+          style={resetBtnStyle}>
+          Reset
+        </button>
+      )}
 
       {open && (
         // No `title`: the picker brings its own header (heading + × + search),
@@ -205,12 +283,12 @@ export function CellSelectorPopup({
           </div>
         </Modal>
       )}
-    </>
+    </div>
   );
 }
 
 const triggerStyle: CSSProperties = {
-  display: 'inline-flex', alignItems: 'center', gap: 6,
+  display: 'inline-flex', alignItems: 'center', gap: 6, flexShrink: 0, whiteSpace: 'nowrap',
   padding: '4px 10px', background: 'var(--bg-panel)',
   border: '1px solid var(--border-dark)', borderRadius: 6,
   cursor: 'pointer', fontFamily: 'inherit', fontSize: 12,
@@ -226,6 +304,24 @@ const chipStyle: CSSProperties = {
   padding: '2px 4px 2px 7px', borderRadius: 10, background: 'var(--row-selected)',
   fontFamily: FONT_MONO, fontSize: 11,
   color: 'var(--text-mono)',
+};
+// The cell label is long; capped so one chip cannot take the whole row. The
+// full name is the chip's title.
+const chipSubnameStyle: CSSProperties = {
+  color: 'var(--text-muted)', maxWidth: 110,
+  overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+};
+const moreBtnStyle: CSSProperties = {
+  flexShrink: 0, fontSize: 11, padding: '2px 9px', whiteSpace: 'nowrap',
+  background: 'var(--bg-panel)', color: 'var(--color-selected)',
+  border: '1px solid var(--border)', borderRadius: 999,
+  cursor: 'pointer', fontFamily: 'inherit', fontWeight: 600,
+};
+const resetBtnStyle: CSSProperties = {
+  flexShrink: 0, fontSize: 11, padding: '2px 6px', whiteSpace: 'nowrap',
+  background: 'none', color: 'var(--text-muted)', border: 'none',
+  textDecoration: 'underline', textUnderlineOffset: 2,
+  cursor: 'pointer', fontFamily: 'inherit',
 };
 const btnPrimary: CSSProperties = {
   fontSize: 11, padding: '3px 9px',
