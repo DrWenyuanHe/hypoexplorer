@@ -6,7 +6,7 @@ the scientific checks (`check:*`) are separate commands, most of which need
 retained inputs that are not here. The build needs the gitignored query catalog in
 `public/query/` (`pnpm run fetch:query` or `pnpm run prepare:deploy`).
 `pnpm run deploy:dist` builds and precompresses delivery assets.
-The app CI workflow runs type checks, lint, `context:check`, tests and a
+The app CI workflow runs type checks, lint, `deadcode` (knip), `context:check`, tests and a
 built-site Chromium smoke check. It fetches the query catalog and the reference
 atlases from the live origins instead of building them, so it checks the app
 against the published data, not the data itself. The [publication release procedure](../PUBLICATION_RELEASE.md)
