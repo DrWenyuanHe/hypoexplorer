@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "89f2025f592de1765023a7cccb7343b9899c551e941aa465e0db6b85cc40876d",
+  "fingerprint": "d36794573a63489e0f5a1d386b8344d3865662377214dc6c99ca2d01e28dd778",
   "outcome": "no-impact",
-  "explanation": "The changed scripts verify HypoMap atlas checksums before upload and probe edge rules and CORS for the atlas. No evidence record, QC policy, author-validation input or dataset verification status changes, so the verification runbook and its claims stay as they are.",
+  "explanation": "fetch:data restores the same verified archives (SHA-256 checked against data-release.json) through an authenticated path when a GitHub token is present. Evidence records, QC policy, author-validation inputs and what the restore provides to check:author-validation are unchanged.",
   "references": [
-    "scripts/lib/hypomapAtlas.mts",
-    "scripts/verify_edge.mts",
+    "scripts/fetch_data.mts",
+    "data-release.json",
     "data/author-validation/README.md"
   ]
 }

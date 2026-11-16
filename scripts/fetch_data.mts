@@ -1,4 +1,4 @@
-// Restore the pinned public data release into this checkout.
+// Restore the pinned data release into this checkout.
 //
 //   pnpm run fetch:data                 # every archive in data-release.json
 //   pnpm run fetch:data --no-matrices   # skip the optional normalized-matrix archives
@@ -30,19 +30,58 @@ const pin = JSON.parse(readFileSync(path.join(ROOT, 'data-release.json'), 'utf8'
 };
 const sha256 = (bytes: Buffer) => createHash('sha256').update(bytes).digest('hex');
 
+const final = (message: string) => Object.assign(new Error(message), { final: true });
+
+// hypoexplorer-data is private until publication, and a private release's
+// download URLs answer 404 to everyone. With a GitHub token (GH_TOKEN,
+// GITHUB_TOKEN, or a `gh auth login` session) each pinned URL is fetched through
+// the releases API instead, which serves private and public releases alike; the
+// API redirects to a signed storage URL, and fetch drops the token on that
+// cross-origin hop. Without a token the pinned URLs are fetched as they are.
+function githubToken(): string | null {
+  const fromEnv = process.env.GH_TOKEN || process.env.GITHUB_TOKEN;
+  if (fromEnv) return fromEnv;
+  try {
+    return execFileSync('gh', ['auth', 'token'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim() || null;
+  } catch { return null; }
+}
+const token = githubToken();
+const releaseAsset = /^https:\/\/github\.com\/([^/]+)\/([^/]+)\/releases\/download\/([^/]+)\/([^/]+)$/;
+const releaseAssets = new Map<string, Map<string, string>>();
+async function request(url: string): Promise<Response> {
+  const match = token ? releaseAsset.exec(url) : null;
+  if (!match) return fetch(url);
+  const [, owner, repo, tag, name] = match;
+  const auth = { Authorization: `Bearer ${token}`, 'X-GitHub-Api-Version': '2022-11-28' };
+  const key = `${owner}/${repo}@${tag}`;
+  let assets = releaseAssets.get(key);
+  if (!assets) {
+    const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/releases/tags/${tag}`, { headers: { ...auth, Accept: 'application/vnd.github+json' } });
+    if (response.status >= 500) return response;
+    if (!response.ok) throw final(`${key}: release lookup failed with HTTP ${response.status}; check that your GitHub account can read ${owner}/${repo}`);
+    const release = await response.json() as { assets: { name: string; url: string }[] };
+    assets = new Map(release.assets.map((asset) => [asset.name, asset.url]));
+    releaseAssets.set(key, assets);
+  }
+  const api = assets.get(decodeURIComponent(name));
+  if (!api) throw final(`${url}: release ${key} has no asset named ${decodeURIComponent(name)}`);
+  return fetch(api, { headers: { ...auth, Accept: 'application/octet-stream' } });
+}
+
 // Retries a dropped connection or a 5xx up to four times with backoff; a 4xx or a
 // hash mismatch fails at once, because retrying cannot fix either.
 async function download(url: string, expected: string): Promise<Buffer> {
   for (let attempt = 1; ; attempt++) {
     let failure: string;
     try {
-      const response = await fetch(url);
+      const response = await request(url);
       if (response.ok) {
         const bytes = Buffer.from(await response.arrayBuffer());
-        if (sha256(bytes) !== expected) throw Object.assign(new Error(`${url}: SHA-256 does not match data-release.json`), { final: true });
+        if (sha256(bytes) !== expected) throw final(`${url}: SHA-256 does not match data-release.json`);
         return bytes;
       }
-      if (response.status < 500) throw Object.assign(new Error(`${url}: HTTP ${response.status}`), { final: true });
+      if (response.status === 404 && !token) throw final(`${url}: HTTP 404. The data repository is private until publication: sign in with \`gh auth login\` or set GH_TOKEN to an account that can read it`);
+      if (response.status < 500) throw final(`${url}: HTTP ${response.status}`);
       failure = `HTTP ${response.status}`;
     } catch (error) {
       if ((error as { final?: boolean }).final) throw error;

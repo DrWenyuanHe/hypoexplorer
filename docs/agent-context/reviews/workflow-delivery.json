@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "1c38108575f358f9d445bfea922ce88db78fdba9d12cd3a97c408b188c365e4e",
-  "outcome": "updated",
-  "explanation": "The app CI workflow's Lint and typecheck job gains a pnpm run deadcode (knip) step, and delivery.md's list of CI checks now names it. Build, deploy, R2 upload and edge rules are unchanged; the job name stays the same, so the required check on main is not renamed. The step runs pnpm run fetch:query first, since knip loads vite.config.ts and the config reads the gitignored query catalog.",
+  "fingerprint": "1bc1383646f046e0e47450238bd1b20411857b0a5ee34c8b128558f35b511d9e",
+  "outcome": "no-impact",
+  "explanation": "fetch:data now authenticates to download the private data release, but it writes the same reduced bundles and the same marker, so the uploader's refusal of restored bundles in delivery.md and scripts/lib/publicDataRelease.mts still applies unchanged. Build, deploy, R2 and edge rules are untouched.",
   "references": [
+    "scripts/fetch_data.mts",
     "docs/agent-context/delivery.md",
-    ".github/workflows/application.yml",
-    "docs/DEVELOPMENT.md"
+    "scripts/lib/publicDataRelease.mts"
   ]
 }

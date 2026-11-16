@@ -74,6 +74,8 @@ The dataset bundles (about 1.2 GB) are not in this repository. The app reads the
 from `https://data.hypoexplorer.com`. To run without it, `pnpm run data:offline`
 restores them from the [data release](https://github.com/DrWenyuanHe/hypoexplorer-data)
 and `pnpm run dev:offline` serves them locally; that copy has no KEGG results.
+The data repository is private until publication, so the restore needs a GitHub
+account with access to it (`gh auth login`, or `GH_TOKEN`).
 [The developer guide](docs/DEVELOPMENT.md) covers configuration, the checks CI
 runs and what each folder holds.
 
