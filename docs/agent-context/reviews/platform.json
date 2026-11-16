@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "a3aeae91484f2f716d7d024cdcf36fe14945339dad8f7d4d8fa4f1d24ae68d6d",
+  "fingerprint": "68dc196ae0b96fcb4748c9b7c003a3b19ce8c25ea9174822aacc454a529bb6b0",
   "outcome": "updated",
-  "explanation": "main.tsx still calls registerUpdates() and startVersionWatch() at bootstrap; only the comments change to say the worker is off unless VITE_SERVICE_WORKER=1 and that the version-stamp poll is the stale-tab detector without it. Startup order and behavior are otherwise unchanged. Rebased onto the Compare summary change (#40), which does not touch the bootstrap.",
+  "explanation": "App.tsx groups each explorer breadcrumb separator with the crumb after it (a site-crumb-trail span), so a wrapped breadcrumb never leaves a slash at the end of a line; routing, the dataset picker and the crumb text are unchanged. main.tsx bootstrap (registerUpdates, startVersionWatch) is untouched.",
   "references": [
-    "src/main.tsx",
-    "src/pwa/registerUpdates.ts"
+    "src/App.tsx",
+    "src/styles/responsive.css",
+    "src/main.tsx"
   ]
 }

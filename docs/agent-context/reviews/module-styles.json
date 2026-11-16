@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-styles",
-  "fingerprint": "3aebf69d469e997aabb275bc7c195782aeae2a0df07edf7645f73e2f2a6fb230",
+  "fingerprint": "f9785c280cd00eea645c7add9a8b518ca3725a3c2109721be41b318b25d1f0a6",
   "outcome": "updated",
-  "explanation": "responsive.css lays the explorer header controls out as an even 3 x 2 grid of 44px targets at 600px and under, enlarges the beta-notice link tap area without changing its line height, and gives pager arrows a 44px minimum width; shared tokens and breakpoints are unchanged.",
+  "explanation": "responsive.css lays the explorer header controls out as an even 3 x 2 grid of 44px targets at 600px and under, enlarges the beta-notice link tap area without changing its line height, and gives pager arrows a 44px minimum width; shared tokens and breakpoints are unchanged. At 600px and under it also puts the explorer breadcrumb trail on its own line and hides its leading slash.",
   "references": [
     "src/styles/responsive.css",
-    "docs/agent-context/workflows.md"
+    "docs/agent-context/workflows.md",
+    "src/App.tsx"
   ]
 }

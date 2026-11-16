@@ -363,6 +363,10 @@
      targets instead of three ragged wrapped rows of mixed heights. */
   .explorer-shell .site-header-controls { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px !important; }
   .explorer-shell .site-header-controls > span { display: flex !important; min-width: 0; }
+  /* The dataset picker keeps its line; the population and tab follow below it,
+     without a slash left hanging at either line's edge. */
+  .explorer-shell .site-crumb-trail { flex-basis: 100%; }
+  .explorer-shell .site-crumb-sep--lead { display: none; }
   .explorer-shell .site-header-controls > button,
   .explorer-shell .site-header-controls > a,
   .explorer-shell .site-header-controls > span > button {

@@ -228,7 +228,9 @@ except the gene page's differential-expression table and the pathway page's
 forest rows, which restack each track under 640px so the change, q/FDR and
 actions stay on screen. On phones the hub nav stays one line that scrolls
 sideways beside the compare pill, and the explorer's header controls form an
-even 3 × 2 grid. A scroller that holds absolutely positioned screen-reader
+even 3 × 2 grid. Each explorer breadcrumb separator travels with the crumb
+after it, so a wrap never strands a slash; on phones the population and tab
+start a line under the dataset picker, without a leading slash. A scroller that holds absolutely positioned screen-reader
 labels (`.portal-table-wrap`) is itself positioned, or the labels escape it and
 widen the page. When changing these layouts, check 320px and 390px phones,
 768px tablets and a 1024px laptop, including a short landscape viewport, dialog
