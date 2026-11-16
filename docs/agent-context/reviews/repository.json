@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "11a6cc1c2ea40621b8b8a7b05777df92a961fbc7a8c2d8a1a445d6da27289bba",
+  "fingerprint": "502fda33913e628f8c1763dae95a495d1ff8df912b401c68e5d2f63dfaf74da2",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31, #34) into the query-wire branch. From this branch: scripts/build_query_index.mts becomes the write adapter of src/data/queryWire.ts (no private wire types, isLowPower copy, cardGlobalName or hand-spelled HX_QUERY_* names; rows built by shared encoders; --check reads a typed QueryManifest), with byte-identical output (build 1cpqpf5dmmhsv, 1675 files hash-equal), and CONTEXT.md gains the query-wire module bullet. From main: CONTEXT.md gains one Architecture bullet, Expression-survey derivation + load, naming expressionSurvey.ts and useSurveyLoad.ts as the place the survey selects sources, builds panels and exports, applies reference eligibility and value status once, and retries each request on its own. No repository configuration, command, data release or scientific input or output changes. From main: CONTEXT.md also gains the Expression-source reader bullet (sourceJson.ts) and the explorer-session snapshot work; both bullets are kept.",
+  "explanation": "Merged main (#30, #31, #34, #32) into the query-wire branch. From this branch: scripts/build_query_index.mts becomes the write adapter of src/data/queryWire.ts (no private wire types, isLowPower copy, cardGlobalName or hand-spelled HX_QUERY_* names; rows built by shared encoders; --check reads a typed QueryManifest), with byte-identical output (build 1cpqpf5dmmhsv, 1675 files hash-equal), and CONTEXT.md gains the query-wire module bullet. From main: CONTEXT.md keeps every Architecture bullet: the Expression-source reader, explorer-session snapshot and Expression-survey derivation + load bullets from main, and this branch's Co-detection client (codetection.ts, ready/partial/unsupported/rejected unions, export-hash fail-closed, the shared wire golden). The ui-change workflow paragraph names codetection.ts and services/hypomap/codetection_wire.json, and the service README documents the manifest hash now also returned by /api/recommendations. No data, bundle or delivery behaviour changes.",
   "references": [
     "scripts/build_query_index.mts",
     "src/data/queryWire.ts",
     "CONTEXT.md",
-    "src/expression-survey/expressionSurvey.ts",
-    "src/expression-survey/useSurveyLoad.ts"
+    "docs/agent-context/workflows.md",
+    "services/hypomap/README.md"
   ]
 }

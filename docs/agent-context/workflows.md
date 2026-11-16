@@ -179,7 +179,10 @@ report's expression lanes, and `VITE_HYPOMAP_COEXPRESSION` replaces the
 co-expression placeholder. The preview reads the export pinned in
 `hypomap-release.json` (installed by `pnpm run fetch:hypomap`); co-expression needs
 the loopback service in `services/hypomap/`, reached only through the offline dev
-server's proxy. Hosted builds read the atlas from R2 under `/hypomap/<tag>/`.
+server's proxy and only via the client `src/search/hypomap/codetection.ts`, which
+fails closed when the service's export hash disagrees with the pin and keeps
+unsupported datasets visible; `services/hypomap/codetection_wire.json` pins the
+wire for both the Python and vitest tests. Hosted builds read the atlas from R2 under `/hypomap/<tag>/`.
 `scripts/lib/hypomapAtlas.mts` defines the file shape for the data host's path
 rule and the uploader (`upload:bundles --hypomap-only`). The path rule names the
 pinned tag, so a tag change regenerates the Cloudflare payloads. The manual rule,

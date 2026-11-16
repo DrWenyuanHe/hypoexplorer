@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "3925039bb851f2a58c2d947229a3049adf9da272393af9d8a34b8e54e712339b",
+  "fingerprint": "e13c46fe131b1aa6717d1a436456ee46246d04bebef01e1a500ed91487540804",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31, #34). From this branch: CONTEXT.md gains a query-wire module bullet and queryIndex.ts re-exports the wire types its callers already imported; the library popover loads card detail through loadCardDetail with the shared card global, so no view or route changes. From main: The expression survey refactor moves derivation and load lifecycle into expressionSurvey.ts and useSurveyLoad.ts without touching routing, explorer navigation, track loading, the export-action seam or gene pickers; the survey still downloads through downloadFile and exportFilename. The UI-change runbook steps and entry points stay as written; typecheck, lint, knip, focused Vitest tests and a browser check covered the change. From main, the explorer analysis snapshot moved into the explorer session and the survey loaders share sourceJson.ts; neither changes the UI-change runbook.",
+  "explanation": "Merged main (#30, #31, #34, #32). From this branch: CONTEXT.md gains a query-wire module bullet and queryIndex.ts re-exports the wire types its callers already imported; the library popover loads card detail through loadCardDetail with the shared card global, so no view or route changes. From main: The HypoMap paragraph routes co-expression work through the codetection.ts client and its shared wire golden; the card stays behind VITE_HYPOMAP_COEXPRESSION and the vite.config.ts dev proxy is unchanged. From main, the expression survey derivation and load lifecycle moved into expressionSurvey.ts and useSurveyLoad.ts, the NeuroSeq teaser shows source groups and analysis-snapshot defaults live in the explorer session; routes and views are unchanged and the runbook steps still hold.",
   "references": [
     "CONTEXT.md",
     "src/data/queryIndex.ts",
     "docs/agent-context/workflows.md",
-    "src/expression-survey/ExpressionSurveyView.tsx"
+    "src/search/hypomap/codetection.ts",
+    "src/expression-survey/useSurveyLoad.ts"
   ]
 }

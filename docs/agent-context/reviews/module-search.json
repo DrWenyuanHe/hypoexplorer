@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "63ed9f94c9adf182def115dc3c875505ec276051101109e73898e4c571e4aa9b",
+  "fingerprint": "42f3511f7e164ec97077aa2c593fc4cf61a7e08bf6f7ea5c699afcc92bd6395f",
   "outcome": "updated",
-  "explanation": "loadBaselineTeaser no longer reads the NeuroSeq index and shard itself: it projects loadNeuroseqExpression's per-population results, one row per source group with the survey's group mean, so the teaser cannot pool the AgRP fed and feeding-unreported groups or skip the survey's value checks. Ambiguity candidates use the survey's spelling and the cache key is the symbol as typed. BaselineTeaser now carries groups (SourceGroupLevel) instead of populations; BaselineSection labels a multi-group population's rows with the group.",
+  "explanation": "Merged main (#30, #31) into the co-detection client branch. From this branch: the gated co-expression card reaches the loopback HypoMap service only through src/search/hypomap/codetection.ts, which validates responses, fails closed when source_export_manifest_sha256 or the cohort disagrees with the pinned export, resolves service gene positions against the static search index, checks pooled totals and returns ready, partial, unsupported or rejected unions; unsupported datasets stay listed and become marked CSV rows, and useLoad replaces the duplicated load/retry effects. From main: loadBaselineTeaser projects the survey NeuroSeq results as source groups (BaselineTeaser carries groups), and atlas.ts says why it keeps its own transport.",
   "references": [
+    "src/search/hypomap/codetection.ts",
+    "src/search/hypomap/useLoad.ts",
+    "src/search/hypomap/Coexpression.tsx",
     "src/search/searchSummaries.ts",
-    "src/search/portalCards.tsx",
-    "docs/EXPRESSION_SURVEY.md",
-    "CONTEXT.md"
+    "src/search/hypomap/atlas.ts"
   ]
 }
