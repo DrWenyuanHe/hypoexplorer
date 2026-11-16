@@ -1,11 +1,12 @@
 // @vitest-environment jsdom
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import {
-  GENE_LIST_MAX_BYTES, describeGeneListSource, geneListFileText, parseGeneListFile,
+  GENE_LIST_MAX_BYTES, describeGeneListSource, parseGeneListFile,
   parseGeneListText, pickGeneColumn, resolveGeneList, saveGeneList,
 } from '../utils/geneListFile';
 import { loadAliasIndex, _resetNomenclature } from '../data/nomenclature';
 import { _resetBundleCache } from '../data/bundleSource';
+import { csvDownloadTable } from './csvDownload';
 
 // The gene-list seam: what "automatic detection" actually commits to.
 //
@@ -264,24 +265,6 @@ describe('resolveGeneList', () => {
 
 // ── Saving ──────────────────────────────────────────────────────────────────
 
-describe('geneListFileText', () => {
-  const rows = [
-    { Gene: 'POMC', Direction: 'up', log2FC: 1.2 },
-    { Gene: 'AGRP', Direction: 'down, sort of', log2FC: -0.5 },
-  ];
-
-  it('writes txt as one symbol per line with a trailing newline, and nothing else', () => {
-    expect(geneListFileText(rows, 'txt')).toBe('POMC\nAGRP\n');
-    expect(geneListFileText([], 'txt')).toBe('');
-  });
-
-  it('writes csv with the row’s columns in order, quoting what needs it', () => {
-    expect(geneListFileText(rows, 'csv')).toBe('Gene,Direction,log2FC\nPOMC,up,1.2\nAGRP,"down, sort of",-0.5\n');
-    expect(geneListFileText([{ Gene: 'A"B' }], 'csv')).toBe('Gene\n"A""B"\n');
-    expect(geneListFileText([], 'csv')).toBe('Gene\n');
-  });
-});
-
 describe('saveGeneList', () => {
   beforeEach(() => { downloadFile.mockClear(); writeWorkbook.mockClear(); });
 
@@ -296,6 +279,31 @@ describe('saveGeneList', () => {
     await saveGeneList(['a/b', 'x'], [{ Gene: 'POMC' }], 'csv');
     expect(downloadFile.mock.calls[1][0]).toBe('a_b_x.csv');
     expect(String(downloadFile.mock.calls[1][1]).startsWith('data:text/csv')).toBe(true);
+  });
+
+  it('writes an empty txt list as an empty file', async () => {
+    await saveGeneList(['e9'], [], 'txt');
+    expect(decodeURIComponent(String(downloadFile.mock.calls[0][1]).split(',')[1])).toBe('');
+  });
+
+  it('writes the csv with the first row’s columns in order, and a bare Gene header when empty', async () => {
+    const rows = [
+      { Gene: 'POMC', Direction: 'up', log2FC: 1.2 },
+      { Gene: 'AGRP', Direction: 'down, sort of', log2FC: -0.5 },
+    ];
+    await saveGeneList(['e9'], rows, 'csv');
+    expect(csvDownloadTable(String(downloadFile.mock.calls[0][1]))).toEqual([
+      ['Gene', 'Direction', 'log2FC'], ['POMC', 'up', '1.2'], ['AGRP', 'down, sort of', '-0.5'],
+    ]);
+    await saveGeneList(['e9'], [], 'csv');
+    expect(csvDownloadTable(String(downloadFile.mock.calls[1][1]))).toEqual([['Gene']]);
+  });
+
+  it('writes a csv the gene-list reader takes back, BOM and CRLF included', async () => {
+    await saveGeneList(['e9'], [{ Gene: 'POMC', log2FC: 1.2 }, { Gene: 'NKX2-1', log2FC: -0.4 }], 'csv');
+    const href = String(downloadFile.mock.calls[0][1]);
+    const text = decodeURIComponent(href.slice(href.indexOf(',') + 1));
+    expect(parseGeneListText(text)).toEqual({ genes: ['POMC', 'NKX2-1'], format: 'csv', column: 'Gene' });
   });
 
   it('sends the workbook format through the workbook seam as one GeneList sheet', async () => {

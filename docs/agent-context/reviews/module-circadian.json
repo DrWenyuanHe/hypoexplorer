@@ -1,15 +1,12 @@
 {
   "version": 1,
   "area": "module-circadian",
-  "fingerprint": "b5bffba31f8a126d5d2e37cf7f05749e9e467c74b38d19f7384a80c5b8735b3f",
-  "outcome": "updated",
-  "explanation": "Canonical JTK_CYCLE moves into jtkCycle.ts with its grouped exact permutation null, regular-grid, period-family and resource limits; cosinor corrects within-gene period search before gene-wise adjustment, and scans are bound to bundle/settings identity. Exports keep main's shared export-provenance seam and add the effective candidate periods, the within-gene search correction and the Hodges-Lehmann JTK note as settings, plus a per-gene CandidatePeriodsHours column.",
+  "fingerprint": "c62aa828decf8c0d78337faee92bdc265e08d84b3060b569f8779ff888d84076",
+  "outcome": "no-impact",
+  "explanation": "circadianExport.ts writes its rhythmicity and timecourse CSVs through the CSV seam instead of its own toCsv; the row builders, column order, filenames and provenance columns are unchanged, so the circadian catalog meaning and validation runbook stay as written.",
   "references": [
-    "src/circadian/jtkCycle.ts",
-    "src/circadian/rhythmicity.ts",
-    "src/circadian/scan.ts",
-    "src/circadian/CircadianTab.tsx",
     "src/circadian/circadianExport.ts",
+    "src/utils/csv.ts",
     "docs/CIRCADIAN_VALIDATION.md"
   ]
 }

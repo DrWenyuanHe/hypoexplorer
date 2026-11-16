@@ -12,6 +12,7 @@ import {
   POP_E9_FIXTURE, MACAQUE_DATASET, MACAQUE_CONTRAST, MULTICONTRAST_DATASET_FIXTURE,
   MULTICONTRAST_TRACK_FIXTURE, stubGeneSelection, stubVolcanoView,
 } from './fixtures';
+import { csvDownloadTable } from './csvDownload';
 import type { RawTrack } from '../types';
 
 // The gene-list buttons on the explorer's toolbar: a list goes in through the
@@ -222,7 +223,9 @@ describe('VolcanoPlot — saving the threshold-passing genes', () => {
 
     const [name, href] = downloadFile.mock.calls[0] as [string, string];
     expect(name).toBe('e9_threshold_genes.csv');
-    expect(decodeURIComponent(href.split(',')[1])).toBe('Gene,Direction,log2FC,PValue,FDR\nPOMC,up,1.2,0.001,0.02\n');
+    expect(csvDownloadTable(href)).toEqual([
+      ['Gene', 'Direction', 'log2FC', 'PValue', 'FDR'], ['POMC', 'up', '1.2', '0.001', '0.02'],
+    ]);
   });
 
   it('is disabled when nothing passes', async () => {

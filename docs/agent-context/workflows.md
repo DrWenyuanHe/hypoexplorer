@@ -152,7 +152,8 @@ intent applied by src/explorer/explorerPosition.ts, which owns the tab rule and
 the reset/load each move costs, so no caller sets that state directly. A view
 that loads tracks outside the main explorer uses `src/data/trackColumns.ts`
 (per-column loading, failed and Retry states); every download names itself and
-writes its Metadata through `src/utils/exportProvenance.ts`; every gene picker is
+writes its Metadata through `src/utils/exportProvenance.ts`; every CSV is written
+by `src/utils/csv.ts` (escaping, formula guard, BOM/CRLF); every gene picker is
 `GenePicker` over `src/explorer/geneVocabulary.ts`; sample
 values and export labels use sampleValues; bundle loading uses trackData.
 Header identity uses BrandLink and the shared brand asset constants. For logo,

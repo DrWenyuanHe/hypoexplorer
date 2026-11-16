@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "c28f290d7c0a7b2062fd5f02bc34fe99ec6a70b1aac47ec0d2faee60a2aac246",
+  "fingerprint": "0ca59dcccfed7c09876b93b9b36f12f62b58782fd2bcbf97670880f13c22f28f",
   "outcome": "updated",
-  "explanation": "From main (#32), the HypoMap paragraph routes co-expression work through the codetection.ts client and its shared wire golden behind VITE_HYPOMAP_COEXPRESSION; from #30, #31 and #34 the survey derivation, teaser and analysis-snapshot changes leave routes and views as they were. This branch only edits the dataset-change section of workflows.md and keeps buildPopData's unit result through resolveExpressionUnit, so the UI-change runbook steps still hold.",
+  "explanation": "From main (#32, #33): the UI-change runbook says every CSV is written by src/utils/csv.ts and routes HypoMap co-expression through the codetection.ts client; from #30, #31 and #34 the survey, teaser and analysis-snapshot moves leave routes and views as they were. This branch only edits the dataset-change section of workflows.md and keeps buildPopData's unit result through resolveExpressionUnit, so the UI-change runbook steps still hold.",
   "references": [
     "docs/agent-context/workflows.md",
+    "src/utils/csv.ts",
     "src/search/hypomap/codetection.ts",
-    "src/data/buildPopData.ts",
-    "src/expression-survey/useSurveyLoad.ts"
+    "src/data/buildPopData.ts"
   ]
 }

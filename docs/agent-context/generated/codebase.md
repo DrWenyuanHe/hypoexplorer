@@ -49,7 +49,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (233):
+Covered source files (236):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -110,6 +110,9 @@ Covered source files (233):
 - [src/__tests__/crossDatasetCompareIndex.test.ts](<../../../src/__tests__/crossDatasetCompareIndex.test.ts>)
 - [src/__tests__/crossDatasetRows.test.ts](<../../../src/__tests__/crossDatasetRows.test.ts>)
 - [src/__tests__/crossDatasetSummary.test.ts](<../../../src/__tests__/crossDatasetSummary.test.ts>)
+- [src/__tests__/csv.test.ts](<../../../src/__tests__/csv.test.ts>)
+- [src/__tests__/csvDialog.test.tsx](<../../../src/__tests__/csvDialog.test.tsx>)
+- [src/__tests__/csvDownload.ts](<../../../src/__tests__/csvDownload.ts>)
 - [src/__tests__/currentIntakePathwayEvidence.test.ts](<../../../src/__tests__/currentIntakePathwayEvidence.test.ts>)
 - [src/__tests__/dataOriginStatus.test.tsx](<../../../src/__tests__/dataOriginStatus.test.tsx>)
 - [src/__tests__/dataSources.test.tsx](<../../../src/__tests__/dataSources.test.tsx>)
@@ -802,11 +805,12 @@ Start here:
 - [src/utils/sampleValues.ts](<../../../src/utils/sampleValues.ts>)
 - [src/utils/geneListFile.ts](<../../../src/utils/geneListFile.ts>)
 
-Covered source files (22):
+Covered source files (23):
 - [src/utils/analysisState.ts](<../../../src/utils/analysisState.ts>)
 - [src/utils/appLinks.ts](<../../../src/utils/appLinks.ts>)
 - [src/utils/axes.ts](<../../../src/utils/axes.ts>)
 - [src/utils/chartScale.ts](<../../../src/utils/chartScale.ts>)
+- [src/utils/csv.ts](<../../../src/utils/csv.ts>)
 - [src/utils/datasetLinks.ts](<../../../src/utils/datasetLinks.ts>)
 - [src/utils/excelExport.ts](<../../../src/utils/excelExport.ts>)
 - [src/utils/exportAction.ts](<../../../src/utils/exportAction.ts>)

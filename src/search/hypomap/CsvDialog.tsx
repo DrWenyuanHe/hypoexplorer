@@ -1,20 +1,15 @@
 import { useEffect, useRef } from 'react';
+import { writeCsv } from '../../utils/csv';
+import { exportFilename } from '../../utils/exportAction';
 
 export type Csv = { title: string; headers: string[]; rows: (string | number | null)[][] };
 
 export function CsvDialog({ csv, onClose }: { csv: Csv; onClose: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => { dialog.current?.showModal(); }, []);
-  function download() {
-    const quote = (field: string | number | null) => `"${String(field ?? '').replace(/"/g, '""')}"`;
-    const content = [csv.headers, ...csv.rows].map(row => row.map(quote).join(',')).join('\r\n');
-    const url = URL.createObjectURL(new Blob(['\uFEFF', content, '\r\n'], { type: 'text/csv;charset=utf-8' }));
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `${csv.title.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}.csv`;
-    link.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-  }
+  // The bytes, the filename sanitizer and the hand-off belong to the CSV and
+  // export-action seams.
+  const download = () => writeCsv(exportFilename([csv.title], 'csv'), csv.headers, csv.rows);
   return (
     <dialog ref={dialog} className="hm-dialog" onClose={onClose} aria-labelledby="hm-csv-title">
       <h3 id="hm-csv-title">{csv.title}</h3>

@@ -16,11 +16,10 @@
 // Both formats share the row builders, so the CSV and the workbook can never
 // disagree about a column the way two hand-written exporters eventually would.
 
-import { downloadFile } from '../utils/exportAction';
+import { writeCsv } from '../utils/csv';
 import { writeWorkbook, type WorkbookRow } from '../utils/workbook';
 import {
-  exportCsvCell, exportName, exportProvenance, metadataSheet, provenanceColumns, provenanceColumnValues,
-  timeSeriesSubject, type ExportKind,
+  exportName, exportProvenance, metadataSheet, timeSeriesSubject, type ExportKind,
 } from '../utils/exportProvenance';
 import { CPM_TMM_UNIT } from '../data/expressionUnits';
 import type { Dataset, TimeSeriesBundle } from '../types';
@@ -113,22 +112,12 @@ export function rawValueRows(bundle: TimeSeriesBundle, genes: string[]): Workboo
   return out;
 }
 
-// The scientific columns first, in their row-builder order, then the shared
-// provenance columns: the same layout as the gene CSVs. Cells go through the
-// module's one CSV escaping rule.
-function toCsv(rows: WorkbookRow[], provenance: WorkbookRow): string {
-  if (!rows.length) return '';
-  const columns = Object.keys(rows[0]);
-  return [[...columns, ...Object.keys(provenance)].map(exportCsvCell).join(','), ...rows.map((r, index) => [
-    ...columns.map((h) => r[h]),
-    ...provenanceColumnValues(provenance, index),
-  ].map(exportCsvCell).join(','))].join('\n');
-}
-
+// The scientific columns first, in their row-builder order; the CSV seam then
+// appends the shared provenance columns, the same layout as the gene CSVs.
 function csvDownload(kind: ExportKind, parts: string[], rows: WorkbookRow[], ctx: ExportContext): void {
-  const provenance = provenanceColumns(circadianProvenance(kind, ctx));
-  downloadFile(exportName(timeSeriesSubject(ctx.dataset, ctx.bundle), parts, 'csv'),
-    `data:text/csv;charset=utf-8,${encodeURIComponent(toCsv(rows, provenance))}`);
+  const columns = rows.length ? Object.keys(rows[0]) : [];
+  writeCsv(exportName(timeSeriesSubject(ctx.dataset, ctx.bundle), parts, 'csv'), columns,
+    rows.map((r) => columns.map((h) => r[h])), { provenance: circadianProvenance(kind, ctx) });
 }
 
 export function exportResultsCSV(rows: RhythmRow[], ctx: ExportContext): void {

@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-gene-explorer",
-  "fingerprint": "d61e17c4f8eca8a180c7dae845864a897708edfa1670bc8859fd7bda08446c08",
-  "outcome": "updated",
-  "explanation": "Recharts 3 no longer passes formattedGraphicalItems to Customized, so BarSEMChart's sample-dot and significance-bracket overlay is now a chart child that places each bar from its x tick, the fixed barSize and the y scale (useXAxisTicks, useYAxisScale). Tick props accept recharts 3's number | string geometry. GeneSearchBox timer refs start as undefined for React 19. Dot and bracket positions match the bars in the dev server and chart tests.",
+  "fingerprint": "6cc1cfddd01a80111ce8c439766f0a0c20cb5c8957b7985cf306858834ed1621",
+  "outcome": "no-impact",
+  "explanation": "geneExport.ts and ContrastMatrix.tsx hand their headers and rows to writeCsv with the provenance snapshot instead of joining escaped cells and provenance columns by hand. Column names, order, filenames and the JSON-once rule are unchanged; only the shared byte policy applies.",
   "references": [
-    "src/gene-explorer/BarSEMChartImpl.tsx",
-    "src/gene-explorer/GeneSearchBox.tsx",
-    "src/__tests__/barSEMChart.test.tsx"
+    "src/gene-explorer/geneExport.ts",
+    "src/gene-explorer/ContrastMatrix.tsx",
+    "src/utils/csv.ts"
   ]
 }
