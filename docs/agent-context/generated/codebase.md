@@ -706,11 +706,11 @@ Covered source files (9):
 
 ## pwa
 
-Service-worker updates and version handling.
+Version-stamp update prompt and the opt-in service worker.
 
 Start here:
-- [src/pwa/registerUpdates.ts](<../../../src/pwa/registerUpdates.ts>)
 - [src/pwa/versionWatch.ts](<../../../src/pwa/versionWatch.ts>)
+- [src/pwa/registerUpdates.ts](<../../../src/pwa/registerUpdates.ts>)
 
 Covered source files (7):
 - [src/pwa/ConfirmDialog.tsx](<../../../src/pwa/ConfirmDialog.tsx>)

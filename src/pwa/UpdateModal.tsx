@@ -7,6 +7,8 @@ import { subscribe, getSnapshot, applyUpdate } from './updateStore';
 // invisible (renders null) until a newer deploy is detected — either by the
 // service worker parking a freshly built SW in "waiting" (registerUpdates.ts)
 // or by the version stamp poll noticing this tab is behind (versionWatch.ts).
+// On the Cloudflare deploy the worker is off (VITE_SERVICE_WORKER unset), so
+// the version stamp poll is the only trigger.
 //
 // Update policy: MANDATORY. There is no "Later", no ×, no Escape and no
 // backdrop dismissal — once a newer build exists, this tab reloads onto it,

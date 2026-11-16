@@ -5,7 +5,9 @@ vi.mock('../pwa/forceRefresh', () => ({
 }));
 
 import { forceRefresh } from '../pwa/forceRefresh';
-import { applyWaitingWorker, watchForSilentTakeover } from '../pwa/registerUpdates';
+import {
+  applyWaitingWorker, registerUpdates, SERVICE_WORKER_ENABLED, watchForSilentTakeover,
+} from '../pwa/registerUpdates';
 import { _resetUpdateStore, getSnapshot, markUpdateAvailable } from '../pwa/updateStore';
 
 // What <UpdateModal> runs when the user accepts a service-worker update.
@@ -191,5 +193,30 @@ describe('applyWaitingWorker — the SKIP_WAITING handover', () => {
         vi.unstubAllGlobals();
       }
     });
+  });
+});
+
+// The worker is OFF unless the build sets VITE_SERVICE_WORKER=1, and the
+// deployed sw.js is then vite-plugin-pwa's self-destroying stub. Registering
+// that stub would install it, have it unregister itself and navigate every tab,
+// on every visit: a reload loop. So the default build must never register.
+describe('registerUpdates — off by default', () => {
+  it('registers nothing and listens for nothing when VITE_SERVICE_WORKER is unset', async () => {
+    expect(SERVICE_WORKER_ENABLED).toBe(false);
+    const register = vi.fn();
+    const addEventListener = vi.fn();
+    const orig = Object.getOwnPropertyDescriptor(navigator, 'serviceWorker');
+    Object.defineProperty(navigator, 'serviceWorker', {
+      configurable: true,
+      value: { register, addEventListener },
+    });
+    try {
+      await registerUpdates();
+      expect(register).not.toHaveBeenCalled();
+      expect(addEventListener).not.toHaveBeenCalled();
+    } finally {
+      if (orig) Object.defineProperty(navigator, 'serviceWorker', orig);
+      else delete (navigator as { serviceWorker?: unknown }).serviceWorker;
+    }
   });
 });
