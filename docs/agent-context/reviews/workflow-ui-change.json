@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "163129f543cb7b6d14572a49f274eb5a2fca2ae870955b80a01c19c3a104fcb7",
+  "fingerprint": "718e9f6b225894bea9fe026a8b653f65d18e160ab4244135d2c35551dca5d9e6",
   "outcome": "updated",
-  "explanation": "From main: the UI-change runbook now states that Compare links carry their view (/compare[/pathways]?pops=…&genes=…, parsed in appLinks) so a refresh, Back or copied link reopens the same comparison, and that the Compare summary table reads down one row per gene × population. From this branch: the nominal p < 0.05 tier in the search summaries and the gene and pathway reports changes what those tables list and label (including the gene report's visible q and the pathway report's CALL column), not routing, navigation intents, track loading, exports or layout, so it needs no runbook change.",
+  "explanation": "From main: the UI-change runbook now states that Compare links carry their view (/compare[/pathways]?pops=…&genes=…, parsed in appLinks) so a refresh, Back or copied link reopens the same comparison, and that the Compare summary table reads down one row per gene × population. From this branch: the runbook now says a table that lists tracks by significance takes the call from statistics/policy, what it lists from listingModeStore and its ListingModeToggle, labels rows with TierLabel, explains q / FDR / padj with QTerm, and keeps counts on the FDR call in both modes, as the search summaries and the gene and pathway reports now do.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/utils/appLinks.ts",
+    "src/statistics/listingModeStore.ts",
+    "src/statistics/ListingModeToggle.tsx",
     "src/search/SearchPage.tsx",
     "src/crossdataset/GeneReport.tsx",
     "src/crossdataset/PathwayReport.tsx"

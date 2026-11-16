@@ -1,14 +1,15 @@
 {
   "version": 1,
   "area": "module-statistics",
-  "fingerprint": "02bc86e1de5a2a13c52237e03a83d8ead472070ad9c907f2e42a5ad2450dfbce",
+  "fingerprint": "e2bce7be661c3e7d6d8de0c93c8eaf225eb75a624608e6176be7108a9eeea66d",
   "outcome": "updated",
-  "explanation": "policy.ts adds NOMINAL_P_CUTOFF and significanceTier ('fdr' | 'nominal' | 'none'), a display label beneath isFdrSignificant that the search summaries and the gene and pathway reports use; the FDR call itself is unchanged. StatisticsView gains a callout under Across many datasets explaining that these views list raw p < 0.05 results, label the FDR survivors, and count only the FDR results.",
+  "explanation": "policy.ts adds NOMINAL_P_CUTOFF and significanceTier ('fdr' | 'nominal' | 'none'), a display label beneath isFdrSignificant; the FDR call itself is unchanged. listingModeStore.ts holds the global, localStorage-backed listing choice ('nominal' default, or 'fdr'), modelled on chartScaleStore, and ListingModeToggle.tsx renders its segmented control plus QTerm, an abbr carrying Q_EXPLANATION (what q is) for every q / FDR / padj column. The listing changes what the views list, never what counts as significant. StatisticsView's callout explains the nominal tier in search and both reports and names the toggle.",
   "references": [
     "src/statistics/policy.ts",
+    "src/statistics/listingModeStore.ts",
+    "src/statistics/ListingModeToggle.tsx",
+    "src/statistics/listingMode.css",
     "src/statistics/StatisticsView.tsx",
-    "src/search/searchSummaries.ts",
-    "src/crossdataset/GeneReport.tsx",
-    "src/crossdataset/PathwayReport.tsx"
+    "src/common/chartScaleStore.ts"
   ]
 }

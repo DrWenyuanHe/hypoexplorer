@@ -1,14 +1,15 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "ba8e67ad8756b2a5f1a4bc6f10a5f8c4d3c37248cfeace9f02db64de6600e8bd",
+  "fingerprint": "94aec4302c5404144ddd9a10a5285dc8c481042c8c08436b832fccad878973eb",
   "outcome": "updated",
-  "explanation": "The search summaries add a nominal tier beneath the FDR call: summarize takes a raw-p accessor and lists FDR survivors by q, then tracks with p < 0.05 that fail FDR by p (falling back to the lowest p when neither exists). The gene rows and the pathway portal show that tier, and the portal table gains a Call column. Its TierLabel (FDR < 0.05, p < 0.05 only or n.s.) now lives in portalCards so the pathway report renders the same words. Significant counts, directions and loadConditionPathways still follow the FDR call only.",
+  "explanation": "The search summaries add a nominal tier beneath the FDR call: summarize takes a raw-p accessor and returns top (FDR survivors by q, then nominal tracks by p, else the lowest p) and topFdr (FDR survivors by q, else the lowest q). The results heading carries the shared ListingModeToggle; gene rows and the pathway portal list top or topFdr by the listing mode and hide the nominal clauses in FDR mode. The portal table's Call column uses TierLabel, which lives in portalCards so the pathway report renders the same words, and its q header and the gene rows' q are QTerm abbrs explaining q. Significant counts, directions and loadConditionPathways still follow the FDR call only.",
   "references": [
     "src/search/searchSummaries.ts",
     "src/search/SearchPage.tsx",
     "src/search/portalCards.tsx",
     "src/search/search.css",
+    "src/statistics/ListingModeToggle.tsx",
     "src/statistics/policy.ts"
   ]
 }

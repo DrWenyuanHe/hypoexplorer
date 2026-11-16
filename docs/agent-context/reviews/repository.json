@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "b2f537013d299827a283e16c1e1bdb30102f6e07b6db0b4ba4b904df8dc18f39",
+  "fingerprint": "449053873faffb1dba577bc6892c47836f5ecdb01b83837d2a5128e30769e488",
   "outcome": "updated",
-  "explanation": "vite.config.ts gates VitePWA on VITE_SERVICE_WORKER (selfDestroying when unset, full Workbox config kept for opt-in); deploy:cf and deploy:cf:dry run build instead of deploy:dist, so precompress is now Apache-only; verify_deploy treats the app sidecar yardstick as optional on the edge model. Delivery, development, guidance and release docs and the catalog describe this.",
+  "explanation": "From main: vite.config.ts gates VitePWA on VITE_SERVICE_WORKER (selfDestroying when unset, full Workbox config kept for opt-in); deploy:cf and deploy:cf:dry run build instead of deploy:dist, so precompress is now Apache-only; verify_deploy treats the app sidecar yardstick as optional on the edge model. Delivery, development, guidance and release docs and the catalog describe this. From this branch: the catalog's statistics area now names the shared FDR / p < 0.05 listing toggle and references listingModeStore.ts, and the generated AGENTS.md map line follows it; the UI-change runbook names the listing mode, TierLabel and QTerm as the shared pieces for significance tables.",
   "references": [
     "vite.config.ts",
     "package.json",
@@ -11,6 +11,8 @@
     "scripts/precompress_dist.mts",
     "docs/agent-context/delivery.md",
     "docs/DEVELOPMENT.md",
-    "docs/agent-context/catalog.json"
+    "docs/agent-context/catalog.json",
+    "docs/agent-context/workflows.md",
+    "src/statistics/listingModeStore.ts"
   ]
 }

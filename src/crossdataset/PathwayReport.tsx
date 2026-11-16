@@ -29,6 +29,8 @@ import { useStudySelection, GeneStudySuggestions as StudySuggestions, type GeneS
 import { PageShell } from '../common/PageShell';
 import { DEFAULT_FDR_CUTOFF, NOMINAL_P_CUTOFF, significanceTier, type SignificanceTier } from '../statistics/policy';
 import { TierLabel } from '../search/portalCards';
+import { useListingMode } from '../statistics/listingModeStore';
+import { ListingModeToggle, QTerm } from '../statistics/ListingModeToggle';
 import { EmptyState } from '../common/EmptyState';
 import type { PathwayDatasetGroup, PathwayTrackRow } from '../types';
 
@@ -95,7 +97,8 @@ function AxisHeader({ bound }: { bound: number }) {
     <span style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid var(--border-dark)', fontFamily: FONT_MONO, fontSize: 9, fontWeight: 400 }}>
       <span>−{bound.toFixed(1)}</span><span>0</span><span>+{bound.toFixed(1)}</span>
     </span>
-    <span style={{ textAlign: 'right' }}>NES</span><span style={{ textAlign: 'right' }}>P</span><span style={{ textAlign: 'right' }}>FDR</span><span style={{ justifySelf: 'end' }}>CALL</span>
+    {/* Hover-only here, one header per dataset block; the legend's FDR is the keyboard-reachable copy. */}
+    <span style={{ textAlign: 'right' }}>NES</span><span style={{ textAlign: 'right' }}>P</span><span style={{ textAlign: 'right' }}><QTerm focusable={false}>FDR</QTerm></span><span style={{ justifySelf: 'end' }}>CALL</span>
   </div>;
 }
 
@@ -103,13 +106,19 @@ function DatasetBlock({ group, bound, pathway }: { group: PathwayDatasetGroup; b
   const byEffect = useMemo(() => group.tracks.slice().sort((a, b) => Math.abs(b.NES) - Math.abs(a.NES)), [group.tracks]);
   const ordered = useMemo(() => byEffect.slice().sort(byTierThenEffect), [byEffect]);
   const significant = byEffect.filter((track) => track.significant);
-  // What the block leads with: the FDR survivors and, labelled, the nominal tracks.
-  const atP = ordered.filter((track) => tierOf(track) !== 'none');
-  const nominal = atP.length - significant.length;
-  const shown = ordered.length <= 3 ? ordered : atP;
-  const hidden = ordered.length - shown.length;
+  const nominalMode = useListingMode() === 'nominal';
+  // The order rows list in: FDR survivors, then (p < 0.05 listing) nominal tracks.
+  const listOrder = nominalMode ? ordered : byEffect;
+  // What the block leads with: the FDR survivors and, in the p < 0.05 listing,
+  // the nominal tracks after them, labelled.
+  const lead = nominalMode ? ordered.filter((track) => tierOf(track) !== 'none') : significant;
+  const nominal = lead.length - significant.length;
+  const shown = listOrder.length <= 3 ? listOrder : lead;
+  const hidden = listOrder.length - shown.length;
   const strongest = significant[0] ?? byEffect[0];
-  const [open, setOpen] = useState(atP.length > 0 || byEffect.length <= 3);
+  // Null until the reader folds or opens it, so a mode switch re-derives the default.
+  const [openPick, setOpen] = useState<boolean | null>(null);
+  const open = openPick ?? (lead.length > 0 || byEffect.length <= 3);
   const [showAll, setShowAll] = useState(false);
   const compareSet = useCompareSet();
   const item = { datasetId: group.dataset.id, trackId: group.dataset.defaultTrack };
@@ -117,7 +126,7 @@ function DatasetBlock({ group, bound, pathway }: { group: PathwayDatasetGroup; b
 
   return <div className="report-dataset">
     <div className="report-dataset-header">
-      <button type="button" className="report-dataset-toggle" aria-expanded={open} onClick={() => setOpen((value) => !value)}>
+      <button type="button" className="report-dataset-toggle" aria-expanded={open} onClick={() => setOpen(!open)}>
         <span aria-hidden="true" style={{ color: 'var(--text-muted)', fontSize: 10, width: 10 }}>{open ? '▾' : '▸'}</span>
         <span className="report-dataset-identity">
           <span className="report-dataset-name">{group.dataset.name}</span>
@@ -138,14 +147,20 @@ function DatasetBlock({ group, bound, pathway }: { group: PathwayDatasetGroup; b
     {open && <div className="report-dataset-results">
       <div className="report-forest-table">
         <AxisHeader bound={bound} />
-        {(showAll ? ordered : shown).map((track) => <ForestRow key={track.trackId} track={track} bound={bound} group={group} pathway={pathway} />)}
+        {(showAll ? listOrder : shown).map((track) => <ForestRow key={track.trackId} track={track} bound={bound} group={group} pathway={pathway} />)}
         {shown.length === 0 && !showAll && <div style={{ padding: '6px 8px', fontSize: 12, color: 'var(--text-muted)' }}>
-          {group.error ? 'Could not load this dataset.' : byEffect.length === 0 ? 'Pathway not present in any track.' : `No track at p < ${NOMINAL_P_CUTOFF}. Show the full list below.`}
+          {group.error ? 'Could not load this dataset.'
+            : byEffect.length === 0 ? 'Pathway not present in any track.'
+              : nominalMode ? `No track at p < ${NOMINAL_P_CUTOFF}. Show the full list below.` : 'No significant tracks. Show the full list below.'}
         </div>}
         {hidden > 0 && <button type="button" className="report-show-tracks" aria-expanded={showAll} onClick={() => setShowAll((value) => !value)}>
           <span aria-hidden="true">{showAll ? '▾' : '▸'} </span>
-          {showAll ? `Show only the ${atP.length} track${atP.length === 1 ? '' : 's'} at p < ${NOMINAL_P_CUTOFF}` : `Show all ${byEffect.length} tracks`}
-          {!showAll && <span style={{ color: 'var(--text-muted)' }}> ({hidden} not at p &lt; {NOMINAL_P_CUTOFF})</span>}
+          {showAll
+            ? nominalMode
+              ? `Show only the ${lead.length} track${lead.length === 1 ? '' : 's'} at p < ${NOMINAL_P_CUTOFF}`
+              : `Show only the ${lead.length} significant track${lead.length === 1 ? '' : 's'}`
+            : `Show all ${byEffect.length} tracks`}
+          {!showAll && <span style={{ color: 'var(--text-muted)' }}> ({hidden} {nominalMode ? <>not at p &lt; {NOMINAL_P_CUTOFF}</> : 'not significant'})</span>}
         </button>}
       </div>
     </div>}
@@ -154,13 +169,17 @@ function DatasetBlock({ group, bound, pathway }: { group: PathwayDatasetGroup; b
 
 function CategorySection({ category, groups, bound, pathway, forceOpen }: { category: DatasetCategory; groups: PathwayDatasetGroup[]; bound: number; pathway: string; forceOpen: boolean }) {
   const significant = groups.filter((group) => group.tracks.some((track) => track.significant)).length;
-  // Datasets whose best track is nominal: one or more at p < 0.05, none passing FDR.
-  const nominalOnly = groups.filter((group) => !group.tracks.some((track) => track.significant)
-    && group.tracks.some((track) => tierOf(track) === 'nominal')).length;
-  const [open, setOpen] = useState(significant + nominalOnly > 0);
+  const nominalMode = useListingMode() === 'nominal';
+  // Datasets whose best track is nominal: one or more at p < 0.05, none passing
+  // FDR. Counted only in the p < 0.05 listing.
+  const nominalOnly = nominalMode ? groups.filter((group) => !group.tracks.some((track) => track.significant)
+    && group.tracks.some((track) => tierOf(track) === 'nominal')).length : 0;
+  // Null until the reader folds or opens it, so a mode switch re-derives the default.
+  const [openPick, setOpen] = useState<boolean | null>(null);
+  const open = openPick ?? significant + nominalOnly > 0;
   const isOpen = forceOpen || open;
   return <section className="card" style={{ padding: 0, marginBottom: 14, overflow: 'hidden' }}>
-    <button type="button" aria-expanded={isOpen} onClick={() => setOpen((value) => !value)}
+    <button type="button" aria-expanded={isOpen} onClick={() => setOpen(!open)}
       style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '12px 16px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left', flexWrap: 'wrap' }}>
       <span style={{ color: 'var(--text-muted)', fontSize: 12, width: 12 }}>{isOpen ? '▾' : '▸'}</span>
       <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)' }}>{category}</span>
@@ -268,6 +287,8 @@ export function PathwayReport({
   );
   const visibleGroups = useMemo(() => visibleCategorized.flatMap((c) => c.groups), [visibleCategorized]);
 
+  const nominalMode = useListingMode() === 'nominal';
+
   // Counted over the VISIBLE groups, not over every group in the result. A
   // headline that tallies datasets the scope controls just hid is a claim about
   // a survey the reader is not looking at.
@@ -360,23 +381,26 @@ export function PathwayReport({
               />
             ) : (
               <>
-                <div style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--text-primary)', marginBottom: 6, maxWidth: '72ch' }}>
-                  Enriched (FDR &lt; {DEFAULT_FDR_CUTOFF}) in <span style={{ fontWeight: 700 }}>{summary.sigTracks}</span> of {summary.nTracks} tracks
-                  {summary.sigTracks > 0 ? (
-                    <>. <span style={{ color: UP, fontWeight: 600 }}>{summary.up} up</span> · <span style={{ color: DOWN, fontWeight: 600 }}>{summary.down} down</span>.</>
-                  ) : '.'}
-                  {summary.nominalTracks > 0 && (
-                    <span className="portal-cutoff"> {summary.nominalTracks} more {summary.nominalTracks === 1 ? 'track reaches' : 'tracks reach'} p &lt; {NOMINAL_P_CUTOFF} only.</span>
-                  )}
+                <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', justifyContent: 'space-between', gap: '6px 16px', marginBottom: 6 }}>
+                  <div style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--text-primary)', maxWidth: '72ch' }}>
+                    Enriched (FDR &lt; {DEFAULT_FDR_CUTOFF}) in <span style={{ fontWeight: 700 }}>{summary.sigTracks}</span> of {summary.nTracks} tracks
+                    {summary.sigTracks > 0 ? (
+                      <>. <span style={{ color: UP, fontWeight: 600 }}>{summary.up} up</span> · <span style={{ color: DOWN, fontWeight: 600 }}>{summary.down} down</span>.</>
+                    ) : '.'}
+                    {nominalMode && summary.nominalTracks > 0 && (
+                      <span className="portal-cutoff"> {summary.nominalTracks} more {summary.nominalTracks === 1 ? 'track reaches' : 'tracks reach'} p &lt; {NOMINAL_P_CUTOFF} only.</span>
+                    )}
+                  </div>
+                  <ListingModeToggle />
                 </div>
-                {summary.nominalTracks > 0 && (
+                {nominalMode && summary.nominalTracks > 0 && (
                   <p className="portal-note" style={{ maxWidth: '72ch', margin: '0 0 8px' }}>
                     Tracks marked <i>p &lt; {NOMINAL_P_CUTOFF} only</i> do not pass FDR. They are not corrected for testing many
                     pathways and tracks, so some are expected by chance.
                   </p>
                 )}
                 <div style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: FONT_MONO, marginBottom: 14 }}>
-                  Hover or focus a score to preview enrichment · red = up in case, blue = down
+                  Hover or focus a score to preview enrichment · red = up in case, blue = down · <QTerm>FDR</QTerm> is the q-value, the adjusted p-value
                 </div>
 
                 {visibleCategorized.map(({ category, groups }) => (

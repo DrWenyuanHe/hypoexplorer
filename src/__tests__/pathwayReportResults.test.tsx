@@ -85,6 +85,25 @@ describe('pathway result study cards', () => {
     expect(i23.lastElementChild).toHaveTextContent('n.s.');
   });
 
+  it('lists only FDR survivors when switched to FDR, and explains the FDR column', async () => {
+    query.mockResolvedValue({ pathway, total: 6, loaded: 6, groups: [
+      { dataset: macaque, contrast: getActiveContrast(macaque), tracks: [
+        track('e9', true), track('i23'), track('e1', false, { pval: 0.03 }), track('e2'), track('e3'),
+      ] },
+      { dataset: mouse, contrast: getActiveContrast(mouse), tracks: [track(mouse.defaultTrack, true)] },
+    ] } satisfies CrossDatasetPathwayReport);
+    const { container } = mount();
+    await screen.findByText(macaque.name);
+    expect(screen.getByTitle('Open e1 in the pathway explorer')).toBeVisible();
+    fireEvent.click(screen.getByRole('button', { name: 'FDR (q < 0.05)' }));
+    expect(screen.queryByTitle('Open e1 in the pathway explorer')).toBeNull();
+    expect(container.textContent).not.toMatch(/p < 0\.05 only/);
+    expect(screen.getByRole('button', { name: /Show all 5 tracks \(4 not significant\)/ })).toBeTruthy();
+    const legend = [...container.querySelectorAll('abbr')].find((a) => a.getAttribute('tabindex') === '0') as HTMLElement;
+    expect(legend.textContent).toBe('FDR');
+    expect(legend.title).toMatch(/FDR-adjusted p-value/);
+  });
+
   it('adds studies to the shared cart and compares them through the header', async () => {
     const onCompare = vi.fn();
     mount(onCompare);

@@ -7,6 +7,8 @@
 
 .search-title { margin: 28px 0 0; font-family: var(--font-heading); font-size: var(--fs-22); font-weight: 600; letter-spacing: -0.01em; line-height: 1.25; color: var(--text-primary); overflow-wrap: anywhere; }
 .search-title--results { margin-top: 24px; font-size: var(--fs-16); color: var(--text-mono); }
+.search-results-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin-top: 24px; }
+.search-results-head .search-title--results { margin: 0; }
 .search-lede { margin: 8px 0 0; max-width: 66ch; font-size: var(--fs-14); line-height: 1.55; color: var(--text-muted); }
 .search-loading, .search-hint { margin: 24px 0 0; font-size: var(--fs-13); color: var(--text-muted); }
 .search-hint { margin: 16px 0 0; }

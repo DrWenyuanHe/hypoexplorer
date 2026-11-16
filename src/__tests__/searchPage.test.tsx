@@ -367,6 +367,43 @@ describe('SearchPage', () => {
     expect(bodyRows.map((r) => r.dataset.tier)).toEqual(['fdr', 'fdr', 'nominal', 'nominal']);
   });
 
+  it('lists only the FDR survivors when the listing is set to FDR, everywhere on the page', async () => {
+    const mixed = geneReport();
+    mixed.groups = mixed.groups.map((g) => ({
+      ...g, tracks: g.tracks.map((t) => (t.trackId === 'whole' ? geneRow({ ...t, pval: 0.01, fdr: 0.2 }) : t)),
+    }));
+    mocks.queryGeneViaIndex.mockResolvedValue(mixed);
+    const report = pathwayReport();
+    report.groups[0].tracks.push(pathwayRow({ trackId: 'VMH', label: 'VMH', type: '', NES: -1.5, padj: 0.2, pval: 0.004, size: 40, db: 'GO_BP' }));
+    mocks.queryPathwayViaIndex.mockResolvedValue(report);
+
+    renderPage('oxytocin');
+    const [row] = rowsOf(matchList() as HTMLElement);
+    await waitFor(() => expect(summaryOf(row)).toHaveAttribute('data-summary', 'done'));
+    expect(summaryOf(row).textContent).toMatch(/at p < 0\.05 only/);
+    // One toggle, on the results heading row.
+    fireEvent.click(screen.getByRole('button', { name: 'FDR (q < 0.05)' }));
+    expect(row.querySelector('.search-row-verdict')?.textContent).toBe('Significant in 1 of 2 datasets · 1 track up · 0 down');
+    expect(summaryOf(row).textContent).not.toMatch(/p < 0\.05/);
+  });
+
+  it('lists only FDR pathway tracks in FDR mode, and the lowest q when none passes', async () => {
+    const report = pathwayReport();
+    report.groups[0].tracks.push(pathwayRow({ trackId: 'VMH', label: 'VMH', type: '', NES: -1.5, padj: 0.2, pval: 0.004, size: 40, db: 'GO_BP' }));
+    mocks.queryPathwayViaIndex.mockResolvedValue(report);
+    renderPage('GOBP_OXYTOCIN_SECRETION');
+    const section = (pathwayPortal() as HTMLElement).querySelector('[data-section="enrichment"]') as HTMLElement;
+    await within(section).findByText(/Enriched/);
+    const labels = () => (within(section).getAllByRole('row').slice(1) as HTMLTableRowElement[]).map((r) => r.cells[1].textContent);
+    expect(labels()).toEqual(['PVN', 'SON', 'VMH']);
+    fireEvent.click(screen.getByRole('button', { name: 'FDR (q < 0.05)' }));
+    expect(labels()).toEqual(['PVN', 'SON']);
+    expect(section.textContent).not.toMatch(/reach p < 0\.05/);
+    // The q column explains itself.
+    const qHeader = within(section).getAllByRole('columnheader')[5];
+    expect(qHeader.querySelector('abbr')?.title).toMatch(/FDR-adjusted p-value/);
+  });
+
   it('says so when no pathway track reaches even p < 0.05, listing the lowest p-values', async () => {
     const report = pathwayReport();
     report.groups[0].tracks = report.groups[0].tracks.map((t) =>

@@ -19,6 +19,8 @@ import { PageShell } from '../common/PageShell';
 import { listDatasets } from '../data/datasets';
 import { contrastLabel } from '../crossdataset/forestReport';
 import { DEFAULT_FDR_CUTOFF, NOMINAL_P_CUTOFF, significanceTier } from '../statistics/policy';
+import { useListingMode } from '../statistics/listingModeStore';
+import { ListingModeToggle, QTerm } from '../statistics/ListingModeToggle';
 import { DOWN_TEXT_COLOR, UP_TEXT_COLOR } from '../styles/constants';
 import { fmtFDR, fmtP, fmtSigned } from '../utils/format';
 import { DbBadge } from './DbBadge';
@@ -181,7 +183,10 @@ function Results({ results, query, filter, onSearch, onFilterChange, onOpenGene,
 
   return (
     <>
-      <h1 className="search-title search-title--results">Results for “{query}”</h1>
+      <div className="search-results-head">
+        <h1 className="search-title search-title--results">Results for “{query}”</h1>
+        <ListingModeToggle />
+      </div>
       <div role="tablist" aria-label="Result types" className="search-tabs" onKeyDown={onTabKey}>
         {TABS.map((tab, i) => (
           <button
@@ -341,22 +346,30 @@ function GeneRow({ hit, featured, eager, onOpenGene }: {
 
 function GeneRowSummary({ summary }: { summary: GeneSummary }) {
   const {
-    studiesMeasured, studiesSignificant, studiesNominal, tracksSignificant, tracksNominal,
-    up, down, nominalUp, nominalDown, top,
+    studiesMeasured, studiesSignificant, studiesNominal, tracksSignificant,
+    up, down, nominalUp, nominalDown, top, topFdr,
   } = summary;
+  const nominalMode = useListingMode() === 'nominal';
+  // FDR-only mode lists no nominal tier, so it counts none either.
+  const tracksNominal = nominalMode ? summary.tracksNominal : 0;
   if (studiesMeasured === 0) return <span className="search-row-note">Not measured in any indexed study.</span>;
   const inAll = studiesMeasured === 1 ? 'its 1 dataset' : `any of ${studiesMeasured} datasets`;
   if (tracksSignificant === 0 && tracksNominal === 0) {
-    const lowest = top[0]?.track;
+    const lowest = (nominalMode ? top : topFdr)[0]?.track;
     return (
       <span className="search-row-verdict">
         Not significant in {inAll}
-        {lowest && <span className="portal-cutoff"> (lowest p {fmtP(lowest.pval)}, q {fmtFDR(lowest.fdr)})</span>}
+        {lowest && (
+          <span className="portal-cutoff">
+            {' '}(lowest {nominalMode && <>p {fmtP(lowest.pval)}, </>}<QTerm focusable={false} /> {fmtFDR(lowest.fdr)})
+          </span>
+        )}
       </span>
     );
   }
-  // `top` leads with the FDR survivors, then the nominal tracks by p.
-  const strongest = top[0];
+  // `top` leads with the FDR survivors, then the nominal tracks by p; `topFdr`
+  // holds the FDR survivors alone.
+  const strongest = (nominalMode ? top : topFdr)[0];
   const passes = strongest.track.significant;
   return (
     <>
@@ -384,7 +397,7 @@ function GeneRowSummary({ summary }: { summary: GeneSummary }) {
         {/* The sign carries the direction, so the colour is not its only cue. */}
         {' '}<span className="mono" style={{ color: dirColor(strongest.track.direction, passes) }}>log2FC {fmtSigned(strongest.track.logFC, 2)}</span>
         {!passes && <>{' '}<span className="mono">p {fmtP(strongest.track.pval)}</span></>}
-        {' '}<span className="mono">q {fmtFDR(strongest.track.fdr)}</span>
+        {' '}<span className="mono"><QTerm focusable={false} /> {fmtFDR(strongest.track.fdr)}</span>
       </span>
     </>
   );
@@ -471,7 +484,7 @@ function SummaryTable<Row extends { trackId: string; label: string; lowPower?: b
             <th scope="col">Comparison</th>
             <th scope="col" className="num">{effectHeader}</th>
             <th scope="col" className="num">p</th>
-            <th scope="col" className="num">{qHeader}</th>
+            <th scope="col" className="num"><QTerm>{qHeader}</QTerm></th>
             <th scope="col">Call</th>
           </tr>
         </thead>
@@ -510,7 +523,11 @@ function IndexUnavailable({ what }: { what: string }) {
   );
 }
 
-function moreNote<Row>(summary: CrossStudySummary<Row>): string | null {
+function moreNote<Row>(summary: CrossStudySummary<Row>, nominalMode: boolean): string | null {
+  if (!nominalMode) {
+    const hidden = summary.tracksSignificant - summary.topFdr.length;
+    return summary.tracksSignificant > 0 && hidden > 0 ? `${plural(hidden, 'more significant track')} in the full report.` : null;
+  }
   const listed = summary.tracksSignificant + summary.tracksNominal;
   const hidden = listed - summary.top.length;
   return listed > 0 && hidden > 0 ? `${plural(hidden, 'more track')} at p < ${NOMINAL_P_CUTOFF} in the full report.` : null;
@@ -518,8 +535,9 @@ function moreNote<Row>(summary: CrossStudySummary<Row>): string | null {
 
 function PathwaySection({ pathwayId, onOpenPathway }: { pathwayId: string; onOpenPathway: (id: string) => void }) {
   const load = useLoad(pathwayId, loadPathwaySummary);
+  const nominalMode = useListingMode() === 'nominal';
   const summary = load.state === 'done' ? load.value : null;
-  const more = summary ? moreNote(summary) : null;
+  const more = summary ? moreNote(summary, nominalMode) : null;
   return (
     <section className="portal-card portal-card--wide" data-section="enrichment" aria-labelledby="portal-enrichment-title">
       <h3 id="portal-enrichment-title" className="portal-card-title">Enrichment across studies</h3>
@@ -541,7 +559,11 @@ function PathwaySection({ pathwayId, onOpenPathway }: { pathwayId: string; onOpe
               </>
             )}
           </p>
-          {summary.tracksNominal > 0 ? (
+          {!nominalMode ? (
+            summary.tracksSignificant === 0 && (
+              <p className="portal-note">No track reaches FDR &lt; {DEFAULT_FDR_CUTOFF}. The lowest adjusted p-values are listed.</p>
+            )
+          ) : summary.tracksNominal > 0 ? (
             <p className="portal-note">
               {summary.tracksSignificant > 0 ? 'A further' : 'None passes FDR; '} <b>{summary.tracksNominal}</b>
               {' '}{summary.tracksNominal === 1 ? 'track reaches' : 'tracks reach'} p &lt; {NOMINAL_P_CUTOFF} without
@@ -552,7 +574,7 @@ function PathwaySection({ pathwayId, onOpenPathway }: { pathwayId: string; onOpe
             <p className="portal-note">No track reaches p &lt; {NOMINAL_P_CUTOFF}. The lowest p-values are listed.</p>
           )}
           <SummaryTable<PathwayTrackRow>
-            rows={summary.top}
+            rows={nominalMode ? summary.top : summary.topFdr}
             effectHeader="NES"
             effect={(t) => <Effect value={t.NES} direction={t.direction} significant={t.significant} />}
             p={(t) => t.pval}

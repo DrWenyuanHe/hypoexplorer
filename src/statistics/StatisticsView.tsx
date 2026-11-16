@@ -205,7 +205,9 @@ export function StatisticsView({ onHome }: StatisticsViewProps) {
             <Mono>FDR &lt; 0.05</Mono>. The others are marked <Mono>p &lt; 0.05 only</Mono>: they are
             not corrected for the thousands of genes or pathways each study tested, nor for the many
             tracks searched, so a share of them are expected by chance. The significant counts and
-            the pathway follow-up count only the FDR results.
+            the pathway follow-up count only the FDR results. Set <Mono>List</Mono> to{' '}
+            <Mono>FDR (q &lt; 0.05)</Mono> on any of these pages to list the FDR results alone; the
+            choice is remembered in this browser.
           </Callout>
 
           <Callout>

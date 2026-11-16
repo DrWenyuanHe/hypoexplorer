@@ -16,6 +16,8 @@ import { PageShell } from '../common/PageShell';
 import { EmptyState } from '../common/EmptyState';
 import { DEFAULT_FDR_CUTOFF, NOMINAL_P_CUTOFF, significanceTier, type SignificanceTier } from '../statistics/policy';
 import { dirColor } from '../search/portalCards';
+import { useListingMode } from '../statistics/listingModeStore';
+import { ListingModeToggle, QTerm } from '../statistics/ListingModeToggle';
 import { CompareSetToggle } from '../compareset/CompareSetToggle';
 import { toggleItem, useCompareSet } from '../compareset/compareSetStore';
 import { GeneEffectPreview } from './GeneEffectPreview';
@@ -108,7 +110,13 @@ function tierOf(track: TrackRow): SignificanceTier {
 
 const TIER_RANK: Record<SignificanceTier, number> = { fdr: 0, nominal: 1, none: 2 };
 
-/** FDR survivors by q, then the nominal tracks and the rest by raw p; ties by |log2FC|. */
+/** FDR-only listing: by q, ties by |log2FC|. */
+function byFdr(a: StudyRow, b: StudyRow): number {
+  return (a.track.fdr ?? Number.POSITIVE_INFINITY) - (b.track.fdr ?? Number.POSITIVE_INFINITY)
+    || Math.abs(b.track.logFC) - Math.abs(a.track.logFC);
+}
+
+/** p < 0.05 listing: FDR survivors by q, then the nominal tracks and the rest by raw p; ties by |log2FC|. */
 function byTier(a: StudyRow, b: StudyRow): number {
   const ta = tierOf(a.track), tb = tierOf(b.track);
   const key = (row: StudyRow, tier: SignificanceTier) => (tier === 'fdr' ? row.track.fdr : row.track.pval) ?? Number.POSITIVE_INFINITY;
@@ -131,7 +139,8 @@ function Comparison({ contrast }: { contrast: ResolvedContrast | null }) {
   return <><b className="report-de-first">{contrast.caseGroup.label}</b> vs {contrast.baseline.label}</>;
 }
 
-function areaGroups(rows: StudyRow[]): AreaGroup[] {
+/** `nominalMode`: order and count the nominal tier (listingModeStore); off, the FDR-only listing. */
+function areaGroups(rows: StudyRow[], nominalMode: boolean): AreaGroup[] {
   const byArea = new Map<DatasetCategory, StudyRow[]>();
   for (const row of rows) {
     const category = datasetCategory(row.group.dataset.id);
@@ -141,9 +150,9 @@ function areaGroups(rows: StudyRow[]): AreaGroup[] {
     const sig = areaRows.filter((r) => r.track.significant);
     return {
       category,
-      rows: areaRows.sort(byTier),
+      rows: areaRows.sort(nominalMode ? byTier : byFdr),
       significant: sig.length,
-      nominal: areaRows.filter((r) => tierOf(r.track) === 'nominal').length,
+      nominal: nominalMode ? areaRows.filter((r) => tierOf(r.track) === 'nominal').length : 0,
       up: sig.filter((r) => r.track.direction === 'up').length,
       down: sig.filter((r) => r.track.direction === 'down').length,
     };
@@ -158,9 +167,14 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
 }) {
   const all = useMemo(() => groups.flatMap((group) => group.tracks.map((track) => ({ group, track }))), [groups]);
   const significant = useMemo(() => all.filter((r) => r.track.significant), [all]);
-  // What the table leads with: the FDR survivors and, labelled, the nominal tracks.
-  const atP = useMemo(() => all.filter((r) => tierOf(r.track) !== 'none'), [all]);
-  const nominal = atP.length - significant.length;
+  const nominalMode = useListingMode() === 'nominal';
+  // What the table leads with: the FDR survivors and, in the p < 0.05 listing,
+  // the nominal tracks after them, labelled.
+  const lead = useMemo(
+    () => (nominalMode ? all.filter((r) => tierOf(r.track) !== 'none') : significant),
+    [all, significant, nominalMode],
+  );
+  const nominal = lead.length - significant.length;
   const measured = groups.filter((g) => g.tracks.length > 0);
   // A study whose data did not load says nothing about the gene, so it is
   // named rather than counted as not measuring it.
@@ -176,10 +190,10 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
   const down = significant.filter((r) => r.track.direction === 'down').length;
   const areasSignificant = new Set(significant.map((r) => datasetCategory(r.group.dataset.id))).size;
   const [showAll, setShowAll] = useState(false);
-  // With nothing at p < 0.05, the measured tracks are the table.
-  const listed = showAll || atP.length === 0 ? all : atP;
-  const areas = useMemo(() => areaGroups(listed), [listed]);
-  // Areas measured here with no track at p < 0.05, named in one line instead of drawn empty.
+  // With nothing to lead with, the measured tracks are the table.
+  const listed = showAll || lead.length === 0 ? all : lead;
+  const areas = useMemo(() => areaGroups(listed, nominalMode), [listed, nominalMode]);
+  // Areas measured here with nothing to lead with, named in one line instead of drawn empty.
   const quietAreas = useMemo(() => {
     if (listed === all) return [];
     const shown = new Set(areas.map((a) => a.category));
@@ -190,10 +204,10 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
   // One axis for every bar on the page: |log2FC| rounded up, 1 to 8.
   const bound = Math.min(8, Math.max(1, Math.ceil(Math.max(0, ...listed.map((r) => Math.abs(r.track.logFC))))));
   const compareSet = useCompareSet();
-  // Each area folds. An area with a track at p < 0.05 starts open; one without
-  // (listed by "Show all") starts closed, unless no track reaches p < 0.05 at all.
+  // Each area folds. An area with a track the table leads with starts open; one
+  // without (listed by "Show all") starts closed, unless nothing leads at all.
   const [folded, setFolded] = useState<Partial<Record<DatasetCategory, boolean>>>({});
-  const isOpen = (area: AreaGroup) => !(folded[area.category] ?? (area.significant + area.nominal === 0 && atP.length > 0));
+  const isOpen = (area: AreaGroup) => !(folded[area.category] ?? (area.significant + area.nominal === 0 && lead.length > 0));
   const toggleArea = (area: AreaGroup) => setFolded((f) => ({ ...f, [area.category]: isOpen(area) }));
   const areasId = useId();
 
@@ -210,6 +224,7 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
   return (
     <>
       {failedNote}
+      <div className="report-de-mode"><ListingModeToggle /></div>
       <p className="portal-verdict">
         Significant in <b>{studiesSignificant}</b> of <b>{measured.length}</b> datasets
         {significant.length > 0 && (
@@ -232,10 +247,15 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
           tracks searched here, so some are expected by chance.
         </p>
       ) : significant.length === 0 && (
-        <p className="portal-note">No track reaches p &lt; {NOMINAL_P_CUTOFF}. Every measured track is listed, lowest p first.</p>
+        nominalMode
+          ? <p className="portal-note">No track reaches p &lt; {NOMINAL_P_CUTOFF}. Every measured track is listed, lowest p first.</p>
+          : <p className="portal-note">No track reaches FDR &lt; {DEFAULT_FDR_CUTOFF}. Every measured track is listed, lowest q first.</p>
       )}
       <div className="report-de-legend">
-        <span>Each change is {gene} in the <b>first group</b> of the comparison, relative to the second.</span>
+        <span>
+          Each change is {gene} in the <b>first group</b> of the comparison, relative to the second.
+          {' '}<QTerm /> is the FDR-adjusted p-value.
+        </span>
         <span className="report-de-legend-dirs">
           <span style={{ color: DOWN }}>◀ lower in the first group</span>
           <span aria-hidden="true" className="report-de-legend-rule" />
@@ -335,7 +355,9 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
                       <td className="num mono">
                         {/* Named in the cell: the column headers are for screen readers only, and a bare
                             number above "p < 0.05 only" reads as the p-value. */}
-                        <span className="report-de-qlabel" title="q: FDR-adjusted p-value">q</span> {fmtFDR(track.fdr)}
+                        {/* Hover-only per row: one tab stop per row would bury the actions.
+                            The legend's q is the keyboard-reachable copy. */}
+                        <span className="report-de-qlabel"><QTerm focusable={false} /></span> {fmtFDR(track.fdr)}
                         {tier === 'fdr' && <span className="report-de-tier portal-tier portal-tier--fdr">FDR &lt; {DEFAULT_FDR_CUTOFF}</span>}
                         {tier === 'nominal' && <span className="report-de-tier portal-tier portal-tier--nominal">p &lt; {NOMINAL_P_CUTOFF} only</span>}
                       </td>
@@ -359,18 +381,22 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
         })}
       </div>
 
-      {(quietAreas.length > 0 || (atP.length > 0 && all.length > atP.length)) && (
+      {(quietAreas.length > 0 || (lead.length > 0 && all.length > lead.length)) && (
         <div className="report-de-quiet">
           {quietAreas.length > 0 && (
             <>
-              <span className="report-de-quiet-label">No track at p &lt; {NOMINAL_P_CUTOFF}</span>
+              <span className="report-de-quiet-label">{nominalMode ? <>No track at p &lt; {NOMINAL_P_CUTOFF}</> : 'No significant track'}</span>
               <span>{quietAreas.join(' · ')}</span>
             </>
           )}
           <span className="report-de-quiet-gap" />
-          {atP.length > 0 && all.length > atP.length && (
+          {lead.length > 0 && all.length > lead.length && (
             <button type="button" className="search-more" aria-expanded={showAll} onClick={() => setShowAll((s) => !s)}>
-              {showAll ? `Show only the ${atP.length} ${atP.length === 1 ? 'track' : 'tracks'} at p < ${NOMINAL_P_CUTOFF}` : `Show all ${all.length} measured tracks`}
+              {showAll
+                ? nominalMode
+                  ? `Show only the ${lead.length} ${lead.length === 1 ? 'track' : 'tracks'} at p < ${NOMINAL_P_CUTOFF}`
+                  : `Show only the ${lead.length} significant ${lead.length === 1 ? 'track' : 'tracks'}`
+                : `Show all ${all.length} measured tracks`}
             </button>
           )}
         </div>

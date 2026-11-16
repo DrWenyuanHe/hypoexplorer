@@ -1,15 +1,16 @@
 {
   "version": 1,
   "area": "module-crossdataset",
-  "fingerprint": "5e6074c475a1e7ff8d0fedf784186b3cbe946b412149bc4dabf20b7063cc10f6",
+  "fingerprint": "3f0790006bb9961de08d7d96a08060e99a95c824cd978457c94b3f33c91867d6",
   "outcome": "updated",
-  "explanation": "Gene report: the differential-expression table leads with every track at raw p < 0.05, FDR survivors by q then nominal tracks (FDR fails) by p. Each row carries a data-tier and is labelled under its q (FDR < 0.05 or p < 0.05 only); the q is named in its cell because the column headers are screen-reader only, and nominal rows show their p beside log2FC, uncoloured. Pathway report: each dataset block leads with its tracks at p < 0.05 (FDR, then nominal, each by |NES|), the DIR column becomes CALL showing the shared TierLabel, and the headline, notes, block and category summaries and Show-all toggles name the nominal tier. SigPill, now unused, is removed from forestReport and FOREST_GRID's last column widens to fit the labels. Significant counts, directions and colours still follow the FDR call; contracts and routes are unchanged.",
+  "explanation": "Both reports follow the shared listing mode (ListingModeToggle above the gene table and beside the pathway headline). Gene report: in the p < 0.05 listing the table leads with FDR survivors by q then nominal tracks by p; in FDR mode with the FDR survivors by q, as before. Each row carries a data-tier and is labelled under its q (FDR < 0.05 or p < 0.05 only); the q in each cell is a hover-only QTerm and the legend's q is the keyboard-reachable one. Nominal rows show their p beside log2FC, uncoloured. Pathway report: each dataset block leads with its FDR survivors and, in the p < 0.05 listing, its nominal tracks; the DIR column becomes CALL with the shared TierLabel; the FDR header and the legend explain q; block and category open state derive from the mode until the reader toggles them. SigPill, now unused, is removed and FOREST_GRID's last column widens. Significant counts, directions and colours follow the FDR call in both modes; contracts and routes are unchanged.",
   "references": [
     "src/crossdataset/GeneReport.tsx",
     "src/crossdataset/PathwayReport.tsx",
     "src/crossdataset/forestReport.tsx",
     "src/crossdataset/forestReport.css",
     "src/search/portalCards.tsx",
-    "src/statistics/policy.ts"
+    "src/statistics/ListingModeToggle.tsx",
+    "src/statistics/listingModeStore.ts"
   ]
 }

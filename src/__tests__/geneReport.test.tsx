@@ -448,6 +448,44 @@ describe('GeneReport — differential expression table', () => {
     expect(phraseColor('e2 population')).not.toBe(phraseColor('e9 population'));
   });
 
+  it('drops the nominal tier from the listing when switched to FDR only', async () => {
+    const base = report();
+    const [macaque, mouse] = base.groups;
+    REPORT_REF.current = {
+      ...base,
+      groups: [{
+        ...macaque,
+        tracks: macaque.tracks.map((t) => (t.trackId === 'e2' ? { ...t, pval: 0.004 } : t)),
+      }, mouse],
+    };
+    renderReport();
+    const card = await findDeCard();
+    expect(trackLabels(areaTable(card, 'Primate atlas'))).toEqual(['e9 population', 'e2 population']);
+    fireEvent.click(within(card).getByRole('button', { name: 'FDR (q < 0.05)' }));
+    expect(trackLabels(areaTable(card, 'Primate atlas'))).toEqual(['e9 population']);
+    expect(captionOf(areaTable(card, 'Primate atlas'))).toEqual({ name: 'Primate atlas', count: '1 significant', dirs: '0 up · 1 down' });
+    expect(card.querySelector('.portal-verdict')?.textContent).not.toMatch(/p < 0\.05/);
+    const more = moreButton(card) as HTMLButtonElement;
+    fireEvent.click(more);
+    expect(more).toHaveTextContent('Show only the 2 significant tracks');
+    // Listed by q in FDR mode; e2 still carries its true label when shown.
+    expect(trackLabels(areaTable(card, 'Primate atlas'))).toEqual([
+      'e9 population', 'e1 population', 'e2 population', 'i23 population', 'e3 population',
+    ]);
+    expect(rowFor(card, 'e2 population').querySelector('.report-de-tier')).toHaveTextContent('p < 0.05 only');
+  });
+
+  it('explains q in the legend for keyboard users and on every row on hover', async () => {
+    renderReport();
+    const card = await findDeCard();
+    const legendQ = card.querySelector('.report-de-legend abbr') as HTMLElement;
+    expect(legendQ).toHaveAttribute('tabindex', '0');
+    expect(legendQ.title).toMatch(/FDR-adjusted p-value/);
+    const rowQ = rowFor(card, 'e9 population').cells[4].querySelector('abbr') as HTMLElement;
+    expect(rowQ.title).toBe(legendQ.title);
+    expect(rowQ).not.toHaveAttribute('tabindex');
+  });
+
   it('opens with the nominal tracks when no track passes FDR', async () => {
     const base = nothingSignificant();
     REPORT_REF.current = {

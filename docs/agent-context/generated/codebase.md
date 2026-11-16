@@ -49,7 +49,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (242):
+Covered source files (243):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -192,6 +192,7 @@ Covered source files (242):
 - [src/__tests__/leadingEdgeHeatmap.test.tsx](<../../../src/__tests__/leadingEdgeHeatmap.test.tsx>)
 - [src/__tests__/libraryExport.test.ts](<../../../src/__tests__/libraryExport.test.ts>)
 - [src/__tests__/libraryFilters.test.ts](<../../../src/__tests__/libraryFilters.test.ts>)
+- [src/__tests__/listingModeToggle.test.tsx](<../../../src/__tests__/listingModeToggle.test.tsx>)
 - [src/__tests__/loadDatasetMeta.test.ts](<../../../src/__tests__/loadDatasetMeta.test.ts>)
 - [src/__tests__/loadTrack.test.ts](<../../../src/__tests__/loadTrack.test.ts>)
 - [src/__tests__/localDatasetStorage.test.ts](<../../../src/__tests__/localDatasetStorage.test.ts>)
@@ -769,14 +770,18 @@ Covered source files (20):
 
 ## statistics
 
-Statistical definitions and interpretation limits.
+Statistical definitions, interpretation limits and the shared FDR / p < 0.05 listing toggle.
 
 Start here:
 - [src/statistics/StatisticsView.tsx](<../../../src/statistics/StatisticsView.tsx>)
 - [src/statistics/policy.ts](<../../../src/statistics/policy.ts>)
+- [src/statistics/listingModeStore.ts](<../../../src/statistics/listingModeStore.ts>)
 
-Covered source files (2):
+Covered source files (5):
+- [src/statistics/ListingModeToggle.tsx](<../../../src/statistics/ListingModeToggle.tsx>)
 - [src/statistics/StatisticsView.tsx](<../../../src/statistics/StatisticsView.tsx>)
+- [src/statistics/listingMode.css](<../../../src/statistics/listingMode.css>)
+- [src/statistics/listingModeStore.ts](<../../../src/statistics/listingModeStore.ts>)
 - [src/statistics/policy.ts](<../../../src/statistics/policy.ts>)
 
 ## styles

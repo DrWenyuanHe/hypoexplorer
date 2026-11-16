@@ -70,6 +70,12 @@ export interface CrossStudySummary<Row> {
    * came closest.
    */
   top: SummaryRow<Row>[];
+  /**
+   * The rows the portal lists in FDR-only mode (listingModeStore), at most
+   * SUMMARY_TOP: the significant tracks by q-value, or, when there are none,
+   * the lowest q-values.
+   */
+  topFdr: SummaryRow<Row>[];
   /** Every significant track, by q-value. What the condition-pathways card follows. */
   significant: SummaryRow<Row>[];
 }
@@ -126,11 +132,12 @@ function summarize<Row extends { significant: boolean; direction: string }>(
   }
   sig.sort(byQ(q));
   nominal.sort(byQ(p));
-  const listed = sig.length + nominal.length ? [...sig, ...nominal] : all.sort(byQ(p));
+  const listed = sig.length + nominal.length ? [...sig, ...nominal] : all.slice().sort(byQ(p));
+  const listedFdr = sig.length ? sig : all.slice().sort(byQ(q));
   return {
     studiesMeasured, studiesSignificant, tracksMeasured, tracksSignificant: sig.length, up, down,
     tracksNominal: nominal.length, studiesNominal, nominalUp, nominalDown,
-    top: listed.slice(0, SUMMARY_TOP), significant: sig,
+    top: listed.slice(0, SUMMARY_TOP), topFdr: listedFdr.slice(0, SUMMARY_TOP), significant: sig,
   };
 }
 
