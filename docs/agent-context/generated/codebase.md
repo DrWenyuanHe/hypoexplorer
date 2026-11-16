@@ -49,7 +49,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (241):
+Covered source files (242):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -98,6 +98,7 @@ Covered source files (241):
 - [src/__tests__/chartScaleToggle.test.tsx](<../../../src/__tests__/chartScaleToggle.test.tsx>)
 - [src/__tests__/circadianTimeSeries.test.ts](<../../../src/__tests__/circadianTimeSeries.test.ts>)
 - [src/__tests__/compareDownloads.test.ts](<../../../src/__tests__/compareDownloads.test.ts>)
+- [src/__tests__/compareLinks.test.tsx](<../../../src/__tests__/compareLinks.test.tsx>)
 - [src/__tests__/compareSet.test.tsx](<../../../src/__tests__/compareSet.test.tsx>)
 - [src/__tests__/compareSetStore.test.ts](<../../../src/__tests__/compareSetStore.test.ts>)
 - [src/__tests__/compareSetView.test.tsx](<../../../src/__tests__/compareSetView.test.tsx>)

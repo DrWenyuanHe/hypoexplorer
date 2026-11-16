@@ -140,8 +140,9 @@ export interface GeneSelection {
  * Explorer itself, and the Compare tab) — and a fourth, inline copy of `remove`
  * sat in the Gene Explorer's own JSX beside the callback it should have used.
  */
-export function useGeneSelection(): GeneSelection {
-  const [genes, setGenes] = useState<string[]>([]);
+/** `initial` seeds a restored selection (a Compare link's genes) on the first render. */
+export function useGeneSelection(initial?: readonly string[]): GeneSelection {
+  const [genes, setGenes] = useState<string[]>(() => (initial ? [...initial] : []));
 
   const add = useCallback((gene: string) => {
     setGenes((prev) => (prev.includes(gene) ? prev : [...prev, gene]));

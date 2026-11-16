@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "c591c957f21e1cef42e1d5eb033a2a307cb1b44edc8042ac2a007234f35f9733",
+  "fingerprint": "2e58d2adace7a423bda43ea0c6221463e5b436c5aec29d5674a1ae7e49e0e2eb",
   "outcome": "updated",
-  "explanation": "New zip.test reads stored archives back through an independent parser (CRC-32 check value, UTF-8 names, folders, empty archive); compareDownloads covers the long Compare rows, the per-animal Values rows, the workbook sheet order and per-row CSV provenance; csv.test covers rowProvenance and splitting an over-long metadata JSON down its column; compareTabToolbar and exportProvenance follow the renamed Download menu items and the Values sheet.",
+  "explanation": "compareLinks pins the Compare link codec and its in-app restore; compareTabToolbar now checks the Compare summary starts folded with its row count, opens on request and reads one row per gene × population; compareTabContrast opens the folded summary before reading its cells.",
   "references": [
-    "src/__tests__/zip.test.ts",
-    "src/__tests__/compareDownloads.test.ts",
-    "src/__tests__/csv.test.ts",
+    "src/__tests__/compareLinks.test.tsx",
     "src/__tests__/compareTabToolbar.test.tsx",
-    "src/__tests__/exportProvenance.test.ts"
+    "src/__tests__/compareTabContrast.test.tsx"
   ]
 }

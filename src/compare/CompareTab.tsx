@@ -20,6 +20,7 @@ import { chartTileExport, saveChartBlocksPng, saveChartTilesZip, saveElementPng,
 import { resolveGeneCI } from './resolveGene';
 import { DownloadIcon, DownloadMenu, type DownloadMenuItem } from './DownloadMenu';
 import type { Dataset, DatasetMeta, PopData, ResolvedContrast } from '../types';
+import type { CompareViewState } from '../utils/analysisState';
 import { useGeneSelection } from '../explorer/explorerSession';
 import { geneVocabulary, useBoundGeneSelection } from '../explorer/geneVocabulary';
 
@@ -37,6 +38,22 @@ interface CompareTabProps {
    *  the shell showed another one. */
   contrast: ResolvedContrast | null;
   defaultPops?: string[];
+  /** Where to start: a Compare link's view, or the one last left. Read once,
+   *  on mount — the shell remounts this view to land somewhere else. */
+  initialView?: CompareViewState;
+  /** Told what Compare shows after every change, defaults left out, so the
+   *  shell can keep it in the URL and resume it. */
+  onViewChange?: (view: CompareViewState) => void;
+}
+
+/** What Compare shows, with each default left out (the shape a link carries). */
+function viewToRecord(pops: string[], defaults: string[], genes: readonly string[], mode: 'genes' | 'pathways'): CompareViewState {
+  const isDefault = pops.length === defaults.length && pops.every((id, i) => id === defaults[i]);
+  return {
+    ...(isDefault ? {} : { pops }),
+    ...(genes.length ? { genes: [...genes] } : {}),
+    ...(mode === 'pathways' ? { mode } : {}),
+  };
 }
 
 // Each selected population is a track column. Pathways included (the Pathways
@@ -81,20 +98,27 @@ const downloadTrigger: CSSProperties = {
   background: 'var(--bg-panel)', color: 'var(--text-primary)', cursor: 'pointer',
 };
 
-export function CompareTab({ meta, dataset, contrast, defaultPops }: CompareTabProps) {
+export function CompareTab({ meta, dataset, contrast, defaultPops, initialView, onViewChange }: CompareTabProps) {
   // Default compare selection comes from the active dataset (App passes
   // dataset.defaultCompareTracks or its first two tracks). Fall back to the
   // macaque curated pair only for direct/test renders with NO prop: an empty
   // list for another dataset must not become two tracks that dataset lacks.
   const initialPops = defaultPops ?? DEFAULT_POPS;
-  const [selectedPops, setSelectedPops] = useState(initialPops);
+  const [selectedPops, setSelectedPops] = useState(() => initialView?.pops ?? initialPops);
   // The Compare tab's gene selection is its OWN — independent of the Gene
   // Explorer's. Two instances of the same concept is what makes useGeneSelection
   // a seam rather than a hoist.
-  const geneSelection = useGeneSelection();
+  const geneSelection = useGeneSelection(initialView?.genes);
   const { busy: exporting, run: runExport } = useExportAction();
   const chartScale = useChartScale();
-  const [compareMode, setCompareMode] = useState<'genes' | 'pathways'>('genes');
+  const [compareMode, setCompareMode] = useState<'genes' | 'pathways'>(initialView?.mode ?? 'genes');
+  // Report every change to the shell, which writes it into the URL: a refresh,
+  // Back or a copied link then reopens exactly this comparison.
+  // Keyed by VALUE: the shell hands over a fresh `defaultPops` array on every
+  // render, and an object identity in the deps would report (and re-render
+  // the shell) on every one of them.
+  const viewKey = JSON.stringify(viewToRecord(selectedPops, initialPops, geneSelection.genes, compareMode));
+  useEffect(() => { onViewChange?.(JSON.parse(viewKey) as CompareViewState); }, [viewKey, onViewChange]);
   const rootRef = useRef<HTMLDivElement>(null);
 
   // On a phone, or a laptop window under 700px tall, the fixed rows (cells,
@@ -336,6 +360,11 @@ export function CompareTab({ meta, dataset, contrast, defaultPops }: CompareTabP
           onRemoveGene={removeGene}
           chartDownloads
           layout={stacked ? 'flow' : 'fill'}
+          // One row per gene × population, read down: with many populations
+          // the wide table was a row you scrolled sideways past.
+          summaryLayout="long"
+          // Folded until asked for: the charts are what Compare opens on.
+          summaryStartsOpen={false}
           emptyState={{
             title: 'Search for a gene above to compare expression across populations.',
             hint: 'Add one or more genes to see side-by-side bar charts and a summary table for every selected population.',
