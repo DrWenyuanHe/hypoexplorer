@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "3e3db0adb3815521a727d5d1b3e54ee31d561dd36582521be73b0bf5f25a71ad",
+  "fingerprint": "02c98fd3ef8d19ad9385f3ef03880c74b786e86df5149f7535e97b8e4a4b1a05",
   "outcome": "no-impact",
-  "explanation": "The deleted topic guides only held curated prose; the Methods guide in seoGuides.mts now points readers to the study directory instead. Verification evidence, author-validation records and the rendering of evidence status on study pages are untouched, so the verification workflow is unchanged.",
+  "explanation": "The deleted topic guides only held curated prose; the Methods guide in seoGuides.mts now points readers to the study directory instead. Verification evidence, author-validation records and the rendering of evidence status on study pages are untouched, so the verification workflow is unchanged. From main, fetch:data restores the same SHA-256-verified archives through an authenticated path; evidence records, QC policy and author-validation inputs are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "scripts/lib/seoGuides.mts"
+    "scripts/lib/seoGuides.mts",
+    "scripts/fetch_data.mts",
+    "data-release.json"
   ]
 }

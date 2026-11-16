@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "ffc7a4823c4b13d758b5ea636a479633cd53f1dca0628de1985403463f1afc2b",
+  "fingerprint": "bcfa7fb4abfb2a2c7dc6d1abf644fede7cde4789c21c8a0fb947ab53ed5680c4",
   "outcome": "no-impact",
-  "explanation": "seoPages.mts no longer imports the deleted seoTopics module, so a study page has no topic panel and a dataset change no longer has curated topic memberships to keep in step. Study pages, the directory and the sitemap still derive from the registry, so the dataset-change procedure is unchanged.",
+  "explanation": "seoPages.mts no longer imports the deleted seoTopics module, so a study page has no topic panel and a dataset change no longer has curated topic memberships to keep in step. Study pages, the directory and the sitemap still derive from the registry, so the dataset-change procedure is unchanged. From main, only the transport of pnpm run fetch:data changes (authenticated GitHub releases API); the archives and hashes pinned in data-release.json are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "scripts/lib/seoPages.mts"
+    "scripts/lib/seoPages.mts",
+    "scripts/fetch_data.mts",
+    "docs/DATASET_CONTRACT.md"
   ]
 }
