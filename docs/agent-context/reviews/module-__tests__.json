@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "7058519f38ca4dd65bd1f66641c15da4e65bcd00f0903f8bffec486f3c03433d",
+  "fingerprint": "aed96dc76654543d2e2071d31d8f8afde52be599c9dce0399c251f9003573841",
   "outcome": "updated",
-  "explanation": "expressionSurvey.test.ts adds table-driven pure tests for source selection, the catalog filter, panel grouping, reference eligibility, value status, ranking and bar axes, probe splitting and the matched note, matrix cell labels, empty states and the CSV/JSON export columns and rows. expressionSurveyLoad.test.tsx tests the source queue, useSurveyLoad (selection order, per-source retry, superseded surveys), useExternalValidation (progressive reports, failed-only re-requests) and useKeyedLoad. expressionSurveyView.test.tsx keeps nine DOM wiring tests and now asserts that a source retry re-requests only that source and that the catalog retries on its own; the queue, stale-query and unit tests moved to the new files. From main: sourceJson.test.ts and the loader, portal-card, teaser and gene-report tests cover the shared expression-source reader.",
+  "explanation": "Merged main (#30, #31, #34). From this branch: hypomapCodetection.test.ts runs the co-detection client against the golden services/hypomap/codetection_wire.json responses (export mismatch, contract breaks, transport failure, CSV rows), hypomapCoexpression.test.tsx covers rendered partial, unsupported, export-mismatch and Retry states, and hypomapMetrics.test.ts covers datasetMetrics/poolMetrics; the Python service test consumes the same golden. From main: expressionSurvey.test.ts, expressionSurveyLoad.test.tsx and the slimmer expressionSurveyView.test.tsx cover the survey derivation and load lifecycle, and sourceJson/teaser tests cover the shared expression-source reader.",
   "references": [
+    "src/__tests__/hypomapCodetection.test.ts",
+    "src/__tests__/hypomapCoexpression.test.tsx",
     "src/__tests__/expressionSurvey.test.ts",
-    "src/__tests__/expressionSurveyLoad.test.tsx",
-    "src/__tests__/expressionSurveyView.test.tsx",
-    "docs/agent-context/generated/codebase.md"
+    "src/__tests__/expressionSurveyLoad.test.tsx"
   ]
 }

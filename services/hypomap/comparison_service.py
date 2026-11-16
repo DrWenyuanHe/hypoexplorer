@@ -161,7 +161,8 @@ def handler_for(index):
                     params = parse_qs(url.query, strict_parsing=True)
                     if set(params) != {'gene'} or len(params['gene']) != 1:
                         raise ValueError('Select one gene')
-                    result = {'cohort': index.cohort, 'record': index.recommendations(params['gene'][0])}
+                    result = {'cohort': index.cohort, 'record': index.recommendations(params['gene'][0]),
+                              'source_export_manifest_sha256': index.info['source_export_manifest_sha256']}
                 elif url.path == '/api/compare':
                     params = parse_qs(url.query, strict_parsing=True)
                     if set(params) - {'a', 'b', 'datasets', 'region'} or any(len(v) != 1 for v in params.values()):

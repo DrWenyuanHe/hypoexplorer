@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "51b337006384641762264887ab50cc91a0316328a0979153cb9520a3459d5cc0",
+  "fingerprint": "913fb6847068f132dfa04004b1a68209947a6e1c218220356a26bf5b16501689",
   "outcome": "updated",
-  "explanation": "CONTEXT.md gains one Architecture bullet, Expression-survey derivation + load, naming expressionSurvey.ts and useSurveyLoad.ts as the place the survey selects sources, builds panels and exports, applies reference eligibility and value status once, and retries each request on its own. No repository configuration, command, data release or scientific input or output changes. From main: CONTEXT.md also gains the Expression-source reader bullet (sourceJson.ts) and the explorer-session snapshot work; both bullets are kept.",
+  "explanation": "Merged main (#30, #31, #34). CONTEXT.md keeps every Architecture bullet: the Expression-source reader, explorer-session snapshot and Expression-survey derivation + load bullets from main, and this branch's Co-detection client (codetection.ts, ready/partial/unsupported/rejected unions, export-hash fail-closed, the shared wire golden). The ui-change workflow paragraph names codetection.ts and services/hypomap/codetection_wire.json, and the service README documents the manifest hash now also returned by /api/recommendations. No data, bundle or delivery behaviour changes.",
   "references": [
     "CONTEXT.md",
-    "src/expression-survey/expressionSurvey.ts",
-    "src/expression-survey/useSurveyLoad.ts"
+    "docs/agent-context/workflows.md",
+    "services/hypomap/README.md"
   ]
 }
