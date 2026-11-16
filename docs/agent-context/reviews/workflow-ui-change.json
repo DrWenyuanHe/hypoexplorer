@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "4a9ac7f9c0912e1f2a9702c301afcf8869bcb5957e9d68e3332776316534820f",
-  "outcome": "updated",
-  "explanation": "Merged main (#30, #31): the NeuroSeq teaser shows source groups ranked by the survey group mean (EXPRESSION_SURVEY.md) and analysis-snapshot defaults moved into the explorer session. This branch only edits the dataset-change section of workflows.md and keeps buildPopData's unit result through resolveExpressionUnit, so routes, views, exports and the UI runbook steps are unchanged.",
+  "fingerprint": "13144cb6e3edd8b9a38d3dbc292291be5459f94cac7624da1a0555b4b10b58a2",
+  "outcome": "no-impact",
+  "explanation": "This branch only edits the dataset-change section of workflows.md and keeps buildPopData's unit result through resolveExpressionUnit. From main, the survey derivation moved into expressionSurvey.ts and useSurveyLoad.ts, the analysis snapshot into the explorer session and the NeuroSeq teaser onto the survey reader; routes, views, the export-action seam and the UI-change runbook steps are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/search/portalCards.tsx",
-    "src/explorer/explorerSession.ts",
-    "src/data/buildPopData.ts"
+    "src/data/buildPopData.ts",
+    "src/expression-survey/ExpressionSurveyView.tsx",
+    "src/explorer/explorerSession.ts"
   ]
 }

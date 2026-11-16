@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "76ec21be1a86ea4e5d4a291dd9a24e4c9a9ca6fa94348da87c2a915930a634cb",
+  "fingerprint": "4e73a4011f6a6e5081a92d4ec23a520a5b893d1b1fa781adea482600ae6dbac9",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31). CONTEXT.md carries the Expression-source reader and explorer-session snapshot bullets from main and this branch's Bundle-reader seam bullet (scripts/lib/bundleReader.mts: readJsonp with an expected global, datasetBundlePaths from the locators, readDatasetFromDisk with reviewed labels, registry unit, isLowPower and strict contrast rules). The bundle writer exports localDatasetFile and DEFAULT_OUT_ROOT for the reader. No bundle bytes, data or delivery paths change.",
+  "explanation": "Merged main (#30, #31, #34). CONTEXT.md keeps main's Expression-source reader, explorer-session snapshot and Expression-survey derivation + load bullets, plus this branch's Bundle-reader seam bullet (scripts/lib/bundleReader.mts: readJsonp with an expected global, datasetBundlePaths from the locators, readDatasetFromDisk with reviewed labels, registry unit, isLowPower and strict contrast rules). The bundle writer exports localDatasetFile and DEFAULT_OUT_ROOT for the reader. No bundle bytes, data release or delivery paths change.",
   "references": [
     "CONTEXT.md",
     "scripts/lib/bundleReader.mts",
     "scripts/lib/bundleWriter.mts",
-    "docs/agent-context/catalog.json",
+    "src/expression-survey/expressionSurvey.ts",
     "src/expression-survey/sourceJson.ts"
   ]
 }

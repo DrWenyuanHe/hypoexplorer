@@ -1,4 +1,4 @@
-import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ExpressionSurveyView } from '../expression-survey/ExpressionSurveyView';
 import { EXISTING_EXPRESSION_SOURCES } from '../expression-survey/existingCatalog';
@@ -97,7 +97,7 @@ describe('expression survey user flows', () => {
     expect(panel.querySelector('td[title="Published summary; no sample values"]')).toHaveTextContent('—');
   });
 
-  it('shows every probe of a microarray gene as its own row, never merged', async () => {
+  it('renders each probe of a microarray gene as its own bar and matrix value', async () => {
     const array: ExpressionSource = {
       ...source, id: 'allen-array', collection: 'external', label: 'Human hypothalamus · Allen microarray',
       species: 'Homo sapiens', unit: 'log2 normalized intensity', featureLevel: 'probe',
@@ -115,16 +115,11 @@ describe('expression survey user flows', () => {
     submit('Pomc');
     await screen.findByRole('img', { name: '9.5 log2 normalized intensity' });
     const panel = screen.getByRole('img', { name: '9.5 log2 normalized intensity' }).closest('section')!;
-    expect(panel).toHaveTextContent('Pomc → POMC (2 probes A_23_P1, CUST_2) in Homo sapiens');
     expect(panel).toHaveTextContent('H0351.2001 · probe A_23_P1');
     expect(panel).toHaveTextContent('H0351.2001 · probe CUST_2');
     expect(screen.getByRole('img', { name: '4.25 log2 normalized intensity' })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Gene matrix' }));
     expect(await screen.findByText('9.5 · 4.25')).toBeInTheDocument();
-  });
-
-  it('labels the first existing source in TMM-normalized CPM', () => {
-    expect(existing.unit).toBe(UNIT);
   });
 
   it('keeps the landing bounded and loads values only after the user submits', async () => {
@@ -165,52 +160,6 @@ describe('expression survey user flows', () => {
     await waitFor(() => expect(screen.getByRole('button', { name: 'Export ↓' })).toBeEnabled());
   });
 
-  it('caps source loads across query changes and skips obsolete queued sources', async () => {
-    const sources = Array.from({ length: 8 }, (_, index) => ({ ...source, id: `source-${index}` }));
-    vi.mocked(loadExpressionSources).mockResolvedValue(sources);
-    const finishOld: Array<() => void> = [];
-    let active = 0;
-    let peak = 0;
-    vi.mocked(loadExpressionGenes).mockImplementation((selected, genes) => {
-      active++;
-      peak = Math.max(peak, active);
-      if (genes[0] === 'Lepr') return new Promise((resolve) => {
-        finishOld.push(() => { active--; resolve([result('Lepr', selected.id)]); });
-      });
-      active--;
-      return Promise.resolve(genes.map((gene) => result(gene, selected.id)));
-    });
-    render(<ExpressionSurveyView onHome={() => {}} />);
-    submit();
-    await waitFor(() => expect(loadExpressionGenes).toHaveBeenCalledTimes(4));
-    fireEvent.change(screen.getByRole('textbox', { name: 'Gene symbol or Ensembl ID' }), { target: { value: 'Agrp' } });
-    submit();
-    expect(loadExpressionGenes).toHaveBeenCalledTimes(4);
-    await act(async () => { for (const finish of finishOld) finish(); });
-    await screen.findByRole('columnheader', { name: 'Agrp · mean' });
-    expect(peak).toBe(4);
-    const calls = vi.mocked(loadExpressionGenes).mock.calls;
-    expect(calls.filter(([, genes]) => genes[0] === 'Lepr')).toHaveLength(4);
-    expect(calls.filter(([, genes]) => genes[0] === 'Agrp')).toHaveLength(8);
-    expect(screen.queryByRole('columnheader', { name: 'Lepr · mean' })).not.toBeInTheDocument();
-  });
-
-  it('discards a slow old query when a new gene finishes first', async () => {
-    let finishOld: (value: ExpressionGeneResult[]) => void = () => {};
-    vi.mocked(loadExpressionGenes).mockImplementation((selected, genes) => genes[0] === 'Lepr'
-      ? new Promise((resolve) => { finishOld = resolve; })
-      : Promise.resolve(genes.map((gene) => result(gene, selected.id))));
-    render(<ExpressionSurveyView onHome={() => {}} />);
-    submit();
-    await waitFor(() => expect(loadExpressionGenes).toHaveBeenCalled());
-    fireEvent.change(screen.getByRole('textbox', { name: 'Gene symbol or Ensembl ID' }), { target: { value: 'Agrp' } });
-    submit();
-    await screen.findByRole('columnheader', { name: 'Agrp · mean' });
-    await act(async () => { finishOld([result('Lepr')]); });
-    expect(screen.queryByRole('columnheader', { name: 'Lepr · mean' })).not.toBeInTheDocument();
-    expect(screen.getByRole('columnheader', { name: 'Agrp · mean' })).toBeInTheDocument();
-  });
-
   it('keeps unknown genes distinct from measured zero and removes old bars', async () => {
     render(<ExpressionSurveyView onHome={() => {}} />);
     submit();
@@ -222,7 +171,7 @@ describe('expression survey user flows', () => {
     expect(screen.queryByRole('img', { name: `11 ${UNIT}` })).not.toBeInTheDocument();
   });
 
-  it('blocks an incomplete export when a selected source fails', async () => {
+  it('blocks an incomplete export when a selected source fails, and retries that source alone', async () => {
     let unavailable = true;
     vi.mocked(loadExpressionSources).mockResolvedValue([source, { ...source, id: 'failed-source' }]);
     vi.mocked(loadExpressionGenes).mockImplementation(async (selected, genes) => {
@@ -234,10 +183,16 @@ describe('expression survey user flows', () => {
     await screen.findByText(/Source unavailable/);
     expect(screen.getByRole('button', { name: 'Export ↓' })).toBeDisabled();
     expect(downloadFile).not.toHaveBeenCalled();
+    expect(loadExpressionGenes).toHaveBeenCalledTimes(2);
     unavailable = false;
     fireEvent.click(screen.getByRole('button', { name: 'Retry source data' }));
     await waitFor(() => expect(screen.getByRole('button', { name: 'Export ↓' })).toBeEnabled());
     expect(screen.queryByText('Source unavailable')).not.toBeInTheDocument();
+    // Retrying a source re-requests that source alone, not the catalog or the other sources.
+    expect(loadExpressionGenes).toHaveBeenCalledTimes(3);
+    expect(vi.mocked(loadExpressionGenes).mock.calls[2][0].id).toBe('failed-source');
+    expect(loadExpressionSources).toHaveBeenCalledTimes(1);
+    expect(loadExternalSourceErrors).toHaveBeenCalledTimes(1);
   });
 
   it('exports only eligible selected cohorts and retains stable gene and cohort IDs', async () => {
@@ -260,9 +215,13 @@ describe('expression survey user flows', () => {
     expect(text).not.toContain('fasted-library');
   });
 
-  it('can recover to existing studies when NeuroSeq metadata is unavailable', async () => {
+  it('retries the catalog on its own and can recover to existing studies when NeuroSeq metadata is unavailable', async () => {
     vi.mocked(loadExpressionSources).mockRejectedValue(new Error('NeuroSeq unavailable'));
     render(<ExpressionSurveyView onHome={() => {}} />);
+    await screen.findByText(/NeuroSeq unavailable/);
+    fireEvent.click(screen.getByRole('button', { name: 'Retry' }));
+    await waitFor(() => expect(loadExpressionSources).toHaveBeenCalledTimes(2));
+    expect(loadExternalSourceErrors).toHaveBeenCalledTimes(2);
     await screen.findByText(/NeuroSeq unavailable/);
     fireEvent.click(screen.getByRole('tab', { name: 'Population catalog' }));
     fireEvent.click(screen.getByRole('button', { name: 'Use study library' }));

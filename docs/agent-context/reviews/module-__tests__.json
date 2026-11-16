@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "982672dc8294eeb84d0aac6650d9029037a1b7bfe4b5e6e25124d9c356d7362e",
+  "fingerprint": "54f76baa710ed0bbac3aa6eb7fa866dc3235433de16824937f26827afbcd3b6c",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31) into the bundle-reader branch. From this branch: bundleReader.test.ts pins the writer-to-reader round trip, strict JSONP parsing and registry unit precedence; bundleReaderParity.test.ts pins Node reader labels to loadDatasetMeta for every committed meta.js; agentExport.test.ts reads published bytes through readJsonp and asserts the reviewed GSE174085 label. From main: sourceJson.test.ts and baselineTeaser.test.ts cover the expression-source transport and teaser, and explorerSession.test.tsx pins the analysis snapshot defaults.",
+  "explanation": "Merged main (#30, #31, #34) into the bundle-reader branch. From this branch: bundleReader.test.ts pins the writer-to-reader round trip, strict JSONP parsing and registry unit precedence; bundleReaderParity.test.ts pins Node reader labels to loadDatasetMeta for every committed meta.js; agentExport.test.ts reads published bytes through readJsonp and asserts the reviewed GSE174085 label. From main: expressionSurvey.test.ts, expressionSurveyLoad.test.tsx and expressionSurveyView.test.tsx cover survey derivation and per-source retry, sourceJson.test.ts the shared expression-source reader, and explorerSession.test.tsx the analysis snapshot defaults.",
   "references": [
     "src/__tests__/bundleReader.test.ts",
     "src/__tests__/bundleReaderParity.test.ts",
     "src/__tests__/agentExport.test.ts",
-    "src/__tests__/sourceJson.test.ts",
-    "src/__tests__/explorerSession.test.tsx"
+    "src/__tests__/expressionSurvey.test.ts",
+    "src/__tests__/sourceJson.test.ts"
   ]
 }
