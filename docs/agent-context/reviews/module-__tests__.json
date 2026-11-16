@@ -1,15 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "2a43065968a3b6adba124d1a729ed36f2c1754d1b61cfb98fd12996f8a4319f8",
+  "fingerprint": "4c815ae67e4c069126c1b2c4f43eed1099ac31d3ae07395cf1e2dafbae53ce95",
   "outcome": "updated",
-  "explanation": "The /topics/ research guides are removed, so seoTopics.test.ts is deleted, seoPages.test.ts builds its supporting documents from the Methods and How to cite guides only, and the brand and hub footer tests no longer expect a /topics/ link. The renderSeoRoute assertion that /topics/missing-topic/ returns null now covers every topic path. From main: tracker tests follow the new filter layout (removing the default n≥3 chip, opening More filters, checking the active count and Clear all), the verification-claim test opens More filters before reading the Detailed author review select, and a firstN unit test pins list-comma handling.",
+  "explanation": "expressionSurvey.test.ts adds table-driven pure tests for source selection, the catalog filter, panel grouping, reference eligibility, value status, ranking and bar axes, probe splitting and the matched note, matrix cell labels, empty states and the CSV/JSON export columns and rows. expressionSurveyLoad.test.tsx tests the source queue, useSurveyLoad (selection order, per-source retry, superseded surveys) and useKeyedLoad. expressionSurveyView.test.tsx keeps nine DOM wiring tests and now asserts that a source retry re-requests only that source and that the catalog retries on its own; the queue, stale-query and unit tests moved to the new files.",
   "references": [
-    "src/__tests__/seoPages.test.ts",
-    "src/__tests__/brand.test.tsx",
-    "src/__tests__/hubUnits.test.tsx",
-    "docs/agent-context/generated/codebase.md",
-    "src/__tests__/datasetTracker.test.tsx",
-    "src/__tests__/trackerVerificationClaims.test.tsx"
+    "src/__tests__/expressionSurvey.test.ts",
+    "src/__tests__/expressionSurveyLoad.test.tsx",
+    "src/__tests__/expressionSurveyView.test.tsx",
+    "docs/agent-context/generated/codebase.md"
   ]
 }

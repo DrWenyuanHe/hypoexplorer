@@ -14,7 +14,9 @@ disclosure below the results. Gene input starts empty, with no preset-gene butto
 Opening the view loads the source catalog only. The Survey button or Enter in the
 gene input starts expression-value requests. Up to four sources load concurrently; changing
 the query or leaving a survey cancels its queued work. Shared requests already in
-flight finish normally so later queries can reuse their cached values.
+flight finish normally so later queries can reuse their cached values. A failed source
+offers its own retry, which re-requests that source alone; the catalog and the validation
+reports retry separately.
 
 ## Scope and interpretation
 

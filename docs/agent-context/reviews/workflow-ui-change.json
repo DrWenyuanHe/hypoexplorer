@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "cdf3154d7ccda3b68f0d90125b1e11fa66e47286903599c61fdf674c26a07e53",
+  "fingerprint": "bf9cb4908f83974bf30e5dcad1eeb0ba461596ad425f07f5e827aceaa6a0a380",
   "outcome": "no-impact",
-  "explanation": "The tracker change uses no routing, explorer navigation, track loading, export or gene-picker path, so the UI-change runbook steps and their canonical entry points stay as written. Typecheck, focused Vitest tests and a browser check at desktop and phone widths covered it, as the runbook asks.",
+  "explanation": "The expression survey refactor moves derivation and load lifecycle into expressionSurvey.ts and useSurveyLoad.ts without touching routing, explorer navigation, track loading, the export-action seam or gene pickers; the survey still downloads through downloadFile and exportFilename. The UI-change runbook steps and entry points stay as written; typecheck, lint, knip, focused Vitest tests and a browser check covered the change.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/dataset-tracker/DatasetTrackerView.tsx"
+    "src/expression-survey/ExpressionSurveyView.tsx"
   ]
 }
