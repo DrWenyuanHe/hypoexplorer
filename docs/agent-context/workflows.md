@@ -9,6 +9,10 @@ analysis outputs. Inspect `src/data/datasets.ts`, registered sidecars and the
 appropriate builder; shared writes use `scripts/lib/bundleWriter.mts` and script
 reads use `scripts/lib/bundleReader.mts` (`readJsonp` for published bytes,
 `readDatasetFromDisk` for what the explorer shows).
+A builder passes every track of a study to one `writeDatasetBundles` call, which
+writes the merged study files and derives QC counts (nSig is P<0.01). Sidecar
+intakes build through `buildIntakeStudies` in `scripts/lib/intakeStudies.mts`
+(staged publish, `--check`, `--only`), as the September 5 builder does.
 Expected outputs are registry metadata, bundles and their retained evidence.
 Use `pnpm exec tsx scripts/check_datasets.mts` for structural closure (`--all-tracks`
 for full track coverage) and `pnpm run check:query-index` for index freshness.

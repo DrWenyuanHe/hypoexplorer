@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "20cb47bd60f31ae6364e99bc7f44f63f1233ac1e6e5313f6d4855b7d37cec6b0",
-  "outcome": "updated",
-  "explanation": "From main (#32, #33, #35): CSVs are written by src/utils/csv.ts, HypoMap co-expression goes through the codetection.ts client, and queryIndex.ts re-exports the query-wire types while the library popover loads card detail through the shared card global; routes and views are unchanged. This branch only edits the dataset-change section of workflows.md and keeps buildPopData's unit result through resolveExpressionUnit, so the UI-change runbook steps still hold.",
+  "fingerprint": "cf13d6c22e046691ad0962a80e2036e997472dc60c27ebb9b3554b1aa46f4fd7",
+  "outcome": "no-impact",
+  "explanation": "No view, navigation or export changed. The QC table keeps its \"Sig (P<0.01)\" heading; qcTables.test.ts now asserts that heading against the writer's NSIG_P_THRESHOLD, and three studies' published nSig values now follow that rule instead of an FDR<0.05 count. The remaining churn is in bundle-writer and intake tests that this workflow's test set includes.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "src/utils/csv.ts",
-    "src/data/queryIndex.ts",
-    "src/data/buildPopData.ts"
+    "src/qc/qcTables.ts",
+    "src/__tests__/qcTables.test.ts",
+    "scripts/lib/bundleWriter.mts"
   ]
 }

@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "12d2262562ceee1efad469000a13896cd61c6ddbb03b2050e048f27df9a75981",
+  "fingerprint": "632129b67cf4706021d7a7a763a4631caf78b441b9e555e276852b65b62780cd",
   "outcome": "updated",
-  "explanation": "Merged main (#30-#35). CONTEXT.md keeps every Architecture bullet: main's query-wire module, CSV seam, Expression-source reader, Explorer session, Expression-survey derivation + load and Co-detection client bullets, plus this branch's Bundle-reader seam (scripts/lib/bundleReader.mts: readJsonp with an expected global and a linear comment-header scan, datasetBundlePaths from the locators, readDatasetFromDisk with reviewed labels, registry unit, isLowPower and strict contrast rules). The bundle writer exports localDatasetFile and DEFAULT_OUT_ROOT for the reader; build_query_index.mts is now the query-wire write adapter. No bundle bytes, data release or delivery paths change.",
+  "explanation": "CONTEXT.md's Bundle-writer seam bullet now says the writer takes every track of a study, owns the merged meta.js/qc_global.js/pathways_index and derives arm counts, is3v3 and nSig (one rule: finite PValue < 0.01, matching the QC heading), and names buildIntakeStudies in scripts/lib/intakeStudies.mts as the staged intake pipeline the September 5 builder uses. It records why the fingerprinted HFD and OXT/AVP builders stay byte-identical. Only three studies' qc_global.js nSig values change.",
   "references": [
     "CONTEXT.md",
-    "scripts/lib/bundleReader.mts",
     "scripts/lib/bundleWriter.mts",
-    "scripts/build_query_index.mts",
-    "src/data/queryWire.ts"
+    "scripts/lib/intakeStudies.mts",
+    "scripts/build_september5_bundles.mts"
   ]
 }

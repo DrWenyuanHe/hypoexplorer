@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "08329ee1946aa17ff91a1b1062bead97877c0829f7475450981754da3850f961",
+  "fingerprint": "a48a3ffedc5a4c40bf3d2e8730dc3d7fe9c9c027c8d23856795af0a295175027",
   "outcome": "no-impact",
-  "explanation": "No evidence, QC policy or scientific value changes. From this branch: audit_author_validation.mts reads its default-track bundle with the strict bundle reader instead of vm evaluation; a full regeneration on this checkout gave a byte-identical mechanical audit apart from generatedAt. From main: the query index keeps its rounding and significance-safe rule with byte-identical output (build 1cpqpf5dmmhsv); only where wire shapes are declared moved.",
+  "explanation": "No evidence ledger, audit or fingerprinted producer changed: build_hfd_bundles_r460.mts and build_oxt_avp_bundles_r460.mts keep their bytes, and neither intake audit pins bundleWriter.mts or the September 5 builder. Audits pin track and pathway bundles, which are byte-identical; only qc_global.js nSig changes for rat_son_salt_gse65663, mouse_scn_hfd_gse157077 and mouse_pomc_maternal_hfd_gse135639, which no audit pins.",
   "references": [
-    "scripts/audit_author_validation.mts",
-    "scripts/lib/bundleReader.mts",
-    "scripts/build_query_index.mts",
-    "docs/agent-context/workflows.md"
+    "scripts/lib/oxtAvpIntakeEvidence.mts",
+    "scripts/audit_hfd_intake_r460.mts",
+    "data/intake/oxt-avp-2026-10-19/audit.generated.json",
+    "scripts/lib/bundleWriter.mts"
   ]
 }
