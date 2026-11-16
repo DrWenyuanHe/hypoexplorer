@@ -66,6 +66,11 @@ describe('CompareTab — loading and failure rows', () => {
   });
 });
 
+const DOWNLOAD_ITEMS = [
+  /Data workbook \(Excel\)/, /Summary \(CSV\)/, /Per-animal values \(CSV\)/,
+  /All charts in one image \(PNG\)/, /Individual charts \(ZIP of PNG\)/, /Individual charts \(ZIP of SVG\)/,
+];
+
 describe('CompareTab — download menu', () => {
   it('offers data and figure downloads, disabled until every population has loaded', async () => {
     hold = true;
@@ -73,13 +78,13 @@ describe('CompareTab — download menu', () => {
     await screen.findByText('Loading 2 of 2 populations…');
 
     const menu = openDownloadMenu();
-    const excel = within(menu).getByRole('menuitem', { name: /Summary data \(Excel\)/ });
-    const csv = within(menu).getByRole('menuitem', { name: /Summary data \(CSV\)/ });
-    const charts = within(menu).getByRole('menuitem', { name: /All charts \(PNG\)/ });
-    for (const item of [excel, csv, charts]) expect(item).toBeDisabled();
+    const excel = within(menu).getByRole('menuitem', { name: /Data workbook \(Excel\)/ });
+    const items = DOWNLOAD_ITEMS.map((name) => within(menu).getByRole('menuitem', { name }));
+    for (const item of items) expect(item).toBeDisabled();
     expect(within(menu).getByRole('note').textContent).toMatch(/once every selected population has loaded \(0 of 2 loaded\)/);
     // Each choice says what the file holds.
-    expect(excel.textContent).toMatch(/Metadata sheet/);
+    expect(excel.textContent).toMatch(/One row per gene × population/);
+    expect(excel.textContent).toMatch(/Values sheet/);
 
     fireEvent.keyDown(document, { key: 'Escape' });
     expect(screen.queryByRole('menu')).toBeNull();
@@ -90,13 +95,13 @@ describe('CompareTab — download menu', () => {
     // Loaded but no gene yet: still disabled, for that reason.
     let open = openDownloadMenu();
     expect(within(open).getByRole('note').textContent).toMatch(/Add a gene/);
-    expect(within(open).getByRole('menuitem', { name: /Summary data \(Excel\)/ })).toBeDisabled();
+    expect(within(open).getByRole('menuitem', { name: /Data workbook \(Excel\)/ })).toBeDisabled();
     fireEvent.keyDown(document, { key: 'Escape' });
 
     selectGene('IGFBP2');
     open = openDownloadMenu();
     expect(within(open).queryByRole('note')).toBeNull();
-    for (const name of [/Summary data \(Excel\)/, /Summary data \(CSV\)/, /All charts \(PNG\)/]) {
+    for (const name of DOWNLOAD_ITEMS) {
       expect(within(open).getByRole('menuitem', { name })).not.toBeDisabled();
     }
   });

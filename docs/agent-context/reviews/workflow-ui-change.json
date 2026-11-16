@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "f2895e15fb4b78552eb60d7a68b859c1523cae3d5de02a132560848beda46eeb",
+  "fingerprint": "caae62e67e10b25bcddde41de6d2eee027a0de407e5d7d2443aa190e752b7d84",
   "outcome": "updated",
-  "explanation": "The UI-change runbook now states that study metadata and verification sit behind the explorer study details toggle at every width, that ResponsiveDetails folds plot controls only, and that Compare offers one-line chips plus Excel, CSV, PNG and SVG downloads via compareFigureExport while downloads still name themselves through exportProvenance.",
+  "explanation": "The UI-change runbook now records that CSVs may carry per-row provenance and split long metadata JSON under the spreadsheet cell limit, that multi-file downloads are stored ZIPs from utils/zip, and that Compare offers long-format Excel/CSV data with per-animal values and per-chart PNG or SVG ZIPs.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/compare/compareFigureExport.ts",
-    "src/utils/exportProvenance.ts"
+    "src/utils/csv.ts",
+    "src/utils/zip.ts",
+    "src/compare/compareFigureExport.ts"
   ]
 }

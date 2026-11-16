@@ -3,7 +3,8 @@ import type { CSSProperties } from 'react';
 import { writeWorkbook } from '../utils/workbook';
 import { writeCsv } from '../utils/csv';
 import { useExportAction } from '../utils/exportAction';
-import { columnsSubject, exportName } from '../utils/exportProvenance';
+import { columnsSubject, exportName, exportProvenance } from '../utils/exportProvenance';
+import { useChartScale } from '../common/chartScaleStore';
 import { useTrackColumns, type TrackColumnPolicy } from '../data/trackColumns';
 import { nomenclatureAuthorityForStoredDatasetSymbols } from '../data/nomenclature';
 import { GenePicker } from '../common/GenePicker';
@@ -12,10 +13,11 @@ import { Spinner } from '../common/Spinner';
 import { useCompactLayout } from '../common/useCompactLayout';
 import { FONT_SANS } from '../styles/constants';
 import { ComparePathwayView } from './ComparePathwayView';
-import { CompareGenesView, GENE_BLOCK_ATTR } from './CompareGenesView';
+import { CompareGenesView, GENE_BLOCK_ATTR, TILE_ATTR } from './CompareGenesView';
 import { columnsForPops } from './compareColumns';
-import { compareGenesCsv, compareGenesWorkbook } from './compareSummary';
-import { saveChartBlocksPng, saveElementPng } from './compareFigureExport';
+import { compareGenesCsv, compareGenesWorkbook, compareValuesCsv } from './compareSummary';
+import { chartTileExport, saveChartBlocksPng, saveChartTilesZip, saveElementPng, type ChartTileFile } from './compareFigureExport';
+import { resolveGeneCI } from './resolveGene';
 import { DownloadIcon, DownloadMenu, type DownloadMenuItem } from './DownloadMenu';
 import type { Dataset, DatasetMeta, PopData, ResolvedContrast } from '../types';
 import { useGeneSelection } from '../explorer/explorerSession';
@@ -91,6 +93,7 @@ export function CompareTab({ meta, dataset, contrast, defaultPops }: CompareTabP
   // a seam rather than a hoist.
   const geneSelection = useGeneSelection();
   const { busy: exporting, run: runExport } = useExportAction();
+  const chartScale = useChartScale();
   const [compareMode, setCompareMode] = useState<'genes' | 'pathways'>('genes');
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -159,8 +162,36 @@ export function CompareTab({ meta, dataset, contrast, defaultPops }: CompareTabP
   });
   const exportCsv = () => runExport(() => {
     const csv = compareGenesCsv(columns, popDataMap, selectedGenes);
-    writeCsv(csv.filename, csv.columns, csv.rows, { provenance: csv.provenance });
+    writeCsv(csv.filename, csv.columns, csv.rows, { provenance: csv.provenance, rowProvenance: csv.rowProvenance });
   });
+  const exportValuesCsv = () => runExport(() => {
+    const csv = compareValuesCsv(columns, popDataMap, selectedGenes);
+    writeCsv(csv.filename, csv.columns, csv.rows, { provenance: csv.provenance, rowProvenance: csv.rowProvenance });
+  });
+  // Every drawn chart tile as its own file, a folder per gene. A tile is only
+  // drawn for a population that detected the gene, so the archive holds
+  // exactly the charts on screen.
+  const exportChartsZip = (format: 'png' | 'svg') => {
+    const tiles: ChartTileFile[] = [];
+    for (const block of geneBlocks()) {
+      const gene = block.getAttribute(GENE_BLOCK_ATTR);
+      if (!gene) continue;
+      for (const el of block.querySelectorAll<HTMLElement>(`[${TILE_ATTR}]`)) {
+        const col = columns.find((c) => c.key === el.getAttribute(TILE_ATTR));
+        const pd = col ? popDataMap[col.key] : null;
+        const de = resolveGeneCI(pd, gene);
+        if (!col || !pd || !de) continue;
+        const file = chartTileExport({ pd, gene: de.gene, label: col.chartLabel ?? col.label, pValue: de.PValue, chartScale });
+        tiles.push({ el, folder: gene, ...file });
+      }
+    }
+    const subject = columnsSubject(columns, popDataMap);
+    if (tiles.length) {
+      runExport(() => saveChartTilesZip(tiles, format,
+        exportName(subject, ['bar_charts', format], 'zip'),
+        exportProvenance('compare', subject, { figure: 'bar_charts', format, genes: selectedGenes.join(', '), chartScale })));
+    }
+  };
   // The gene blocks CompareGenesView rendered, found by their marker: the
   // figures are snapshots of what is on screen.
   const geneBlocks = () => [...(rootRef.current?.querySelectorAll<HTMLElement>(`[${GENE_BLOCK_ATTR}]`) ?? [])];
@@ -191,12 +222,16 @@ export function CompareTab({ meta, dataset, contrast, defaultPops }: CompareTabP
       heading: 'Data',
       items: [
         {
-          key: 'xlsx', label: 'Summary data (Excel)', disabled: blocked, onSelect: exportExcel,
-          description: `logFC, P, stars and group means for each gene × ${nPops} populations, plus a Metadata sheet.`,
+          key: 'xlsx', label: 'Data workbook (Excel)', disabled: blocked, onSelect: exportExcel,
+          description: `One row per gene × population (${nPops}): logFC, P, FDR, group n, mean and SEM. A Values sheet lists every animal's value for replotting.`,
         },
         {
-          key: 'csv', label: 'Summary data (CSV)', disabled: blocked, onSelect: exportCsv,
-          description: 'The same table as one CSV file, with provenance columns.',
+          key: 'csv', label: 'Summary (CSV)', disabled: blocked, onSelect: exportCsv,
+          description: 'The Excel summary sheet as one CSV, one row per gene × population.',
+        },
+        {
+          key: 'values-csv', label: 'Per-animal values (CSV)', disabled: blocked, onSelect: exportValuesCsv,
+          description: 'One row per animal: gene, population, group, sample and value, for replotting.',
         },
       ],
     },
@@ -204,8 +239,16 @@ export function CompareTab({ meta, dataset, contrast, defaultPops }: CompareTabP
       heading: 'Figures',
       items: [
         {
-          key: 'charts', label: 'All charts (PNG)', disabled: blocked, onSelect: exportAllCharts,
+          key: 'charts', label: 'All charts in one image (PNG)', disabled: blocked, onSelect: exportAllCharts,
           description: 'Every chart on screen in one image; one image per gene if the grid is too large.',
+        },
+        {
+          key: 'zip-png', label: 'Individual charts (ZIP of PNG)', disabled: blocked, onSelect: () => exportChartsZip('png'),
+          description: 'Each chart as its own PNG, in a folder per gene.',
+        },
+        {
+          key: 'zip-svg', label: 'Individual charts (ZIP of SVG)', disabled: blocked, onSelect: () => exportChartsZip('svg'),
+          description: 'Each chart as an editable vector, in a folder per gene.',
         },
         ...geneItems,
       ],

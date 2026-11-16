@@ -36,9 +36,18 @@ interface CsvOptions {
   /**
    * Appends the shared provenance columns after the caller's own columns. The
    * identifiers and unit repeat on every row. `ExportMetadataJSON`, the
-   * file-level snapshot, is written once in the first data row.
+   * file-level snapshot, is written once from the first data row: in one
+   * cell, or split down the column when it is longer than a spreadsheet cell
+   * holds (see `cellChunks`).
    */
   provenance?: ExportProvenance;
+  /**
+   * For a long table whose rows are different tracks (one row per population):
+   * each row's identifier columns describe that row's own track, instead of
+   * every row repeating all of the file's tracks joined by `|`.
+   * `ExportMetadataJSON` still comes from `provenance`, once, for the file.
+   */
+  rowProvenance?: (rowIndex: number) => ExportProvenance;
 }
 
 const BOM = '\uFEFF';
@@ -59,12 +68,51 @@ function record(cells: readonly CsvCell[]): string {
   return `${cells.map(cell).join(',')}${EOL}`;
 }
 
+// Excel holds at most 32,767 characters in a cell, and on opening a CSV it
+// spills a longer cell into the rows BELOW it, shifting the table. A file
+// covering many tracks (sixty populations) carries a metadata JSON far past
+// that, so the JSON is split down its column in chunks under the limit:
+// concatenating ExportMetadataJSON top to bottom restores it exactly.
+const CELL_CHUNK = 32_000;
+
+/** Split text into cell-sized pieces that survive the writer unchanged. */
+export function cellChunks(text: string, size = CELL_CHUNK): string[] {
+  const chunks: string[] = [];
+  let start = 0;
+  while (start < text.length) {
+    let end = Math.min(start + size, text.length);
+    // Never split a surrogate pair, and never start a piece with a character
+    // the formula guard would prefix with an apostrophe (that would corrupt
+    // the joined JSON).
+    while (end < text.length && end > start + 1
+      && (/[\s=+\-@]/.test(text[end]) || /[\uD800-\uDBFF]/.test(text[end - 1]))) end -= 1;
+    chunks.push(text.slice(start, end));
+    start = end;
+  }
+  return chunks;
+}
+
 function csvText(columns: readonly string[], rows: readonly (readonly CsvCell[])[], options: CsvOptions): string {
   const extra = options.provenance ? Object.entries(provenanceColumns(options.provenance)) : [];
-  const extraValues = (rowIndex: number) =>
-    extra.map(([key, value]) => (key === METADATA_JSON && rowIndex > 0 ? '' : value));
+  const json = extra.find(([key]) => key === METADATA_JSON)?.[1];
+  const jsonChunks = typeof json === 'string' ? cellChunks(json) : [];
+  const { rowProvenance } = options;
+  const extraValues = (rowIndex: number, own: boolean) => {
+    const cols = own && rowProvenance ? provenanceColumns(rowProvenance(rowIndex)) : null;
+    return extra.map(([key, value]) => {
+      if (key === METADATA_JSON) return jsonChunks[rowIndex] ?? '';
+      return cols ? cols[key] : value;
+    });
+  };
   let text = BOM + record([...columns, ...extra.map(([key]) => key)]);
-  rows.forEach((row, index) => { text += record([...row, ...extraValues(index)]); });
+  rows.forEach((row, index) => { text += record([...row, ...extraValues(index, true)]); });
+  // A JSON longer than the table has rows continues on rows that carry
+  // nothing else, so no piece of it is lost. (An empty table stays a header,
+  // as it always was.)
+  for (let index = rows.length; rows.length > 0 && index < jsonChunks.length; index++) {
+    text += record([...columns.map(() => ''), ...extraValues(index, false).map((v, i) =>
+      (extra[i][0] === METADATA_JSON ? v : ''))]);
+  }
   return text;
 }
 

@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "module-compare",
-  "fingerprint": "de828e0c182e628c13ffc933080d1e422212fa990a569372b8867171a3d5520d",
+  "fingerprint": "eaf37adba3478974e42b8773f68c14fe2374c377b0e616c62d0e72e7dda305ff",
   "outcome": "updated",
-  "explanation": "CompareTab summarises loading as a count, folds more than three failures into one alert with Retry all, scrolls as one column on compact or short viewports, and moves exports into a Download menu (DownloadMenu) offering compareGenesWorkbook Excel, compareGenesCsv through writeCsv with provenance, and chart PNGs. CompareGenesView adds opt-in chartDownloads (per-tile PNG/SVG via compareFigureExport, per-gene PNG), a flow layout and a collapsible summary table; the compare-set view passes neither and is unchanged.",
+  "explanation": "Compare downloads are long format: compareGenesWorkbook writes Compare (one row per gene × population with arm n, mean and SEM), Values (one row per animal, as deposited) and Metadata sheets, with matching summary and values CSVs whose rows carry their own track provenance; the wide compareSummaryRows stays for the on-screen and compare-set tables. compareFigureExport adds chartTileExport, a per-chart PNG drawn from the chart SVG with loaded fonts inlined, and saveChartTilesZip for per-chart PNG or SVG ZIPs.",
   "references": [
-    "src/compare/CompareTab.tsx",
-    "src/compare/CompareGenesView.tsx",
+    "src/compare/compareSummary.ts",
     "src/compare/compareFigureExport.ts",
-    "src/compare/DownloadMenu.tsx",
-    "src/compare/compareSummary.ts"
+    "src/compare/CompareTab.tsx",
+    "src/compare/CompareGenesView.tsx"
   ]
 }

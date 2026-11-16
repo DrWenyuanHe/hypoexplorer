@@ -117,7 +117,7 @@ describe('compare exports', () => {
       columns.map((c) => ({ ...c, color: '#000', qc: null })), popDataMap, ['POMC'],
     );
     expect(filename).toBe('macaque_snrna_e9+i23_obese_vs_normal_compare.xlsx');
-    expect(sheets.map((sheet) => sheet.name)).toEqual(['Compare', 'Metadata']);
+    expect(sheets.map((sheet) => sheet.name)).toEqual(['Compare', 'Values', 'Metadata']);
     const meta = fields(lastSheet(sheets));
     expectTrackIdentity(meta, 'compare', 'macaque_snrna', 'obese_vs_normal', 'columns.0.');
     expect(meta['columns.1.track.id']).toBe('i23');

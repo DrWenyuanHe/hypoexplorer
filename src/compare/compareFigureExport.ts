@@ -1,9 +1,11 @@
 // Figure downloads for the compare grid: one chart tile as PNG or SVG, one
 // gene's row of tiles as PNG, and every gene's row at once.
 //
-// PNGs go through html2canvas (loaded on first use by utils/lazyExport, the same
-// path as the Gene Explorer's "Export PNG"), so what is saved is what is on
-// screen: caption, unit, P and the per-animal dots. The SVG is the chart's own
+// A single chart's PNG is its SVG (below) drawn onto a canvas with the page's
+// loaded fonts inlined. The row and whole-grid PNGs go through html2canvas
+// (loaded on first use by utils/lazyExport, the same path as the Gene
+// Explorer's "Export PNG"), so what is saved is what is on screen: caption,
+// unit, P and the per-animal dots. The SVG is the chart's own
 // recharts <svg>, cloned with its computed colours and fonts written inline,
 // because a standalone .svg cannot see the page's stylesheet or resolve
 // `var(--font-sans)`. A caption is drawn above it from the caller's text, since
@@ -13,11 +15,17 @@
 // download; the SVG also carries the provenance snapshot in its <metadata>.
 // No new dependency: "all charts" stitches the per-gene snapshots into ONE PNG
 // when the result fits a canvas every browser accepts, and only falls back to
-// one file per gene when it would not.
+// one file per gene when it would not. "Individual charts" writes one file per
+// tile into a ZIP built by utils/zip (stored entries; PNGs are compressed already).
 
 import { loadHtml2Canvas, withHtml2Canvas } from '../utils/lazyExport';
 import { downloadFile } from '../utils/exportAction';
+import { exportName, exportProvenance, trackSubject } from '../utils/exportProvenance';
+import { fmtP } from '../utils/format';
+import { zipStore, type ZipEntry } from '../utils/zip';
 import { FONT_MONO, FONT_SANS, NEUTRAL_TEXT_COLOR } from '../styles/constants';
+import type { ChartScale } from '../utils/chartScale';
+import type { PopData } from '../types';
 
 /** Mark an element (a download button, a remove link) to be left out of a snapshot. */
 export const EXPORT_IGNORE_ATTR = 'data-export-ignore';
@@ -186,27 +194,38 @@ function chartSvgIn(tile: HTMLElement): SVGSVGElement | null {
 export interface SvgCaption {
   /** First line, in the mono data face (the gene). */
   title: string;
-  /** Second line (population · statistic). */
-  subtitle?: string;
+  /** Lines under the title (population, statistic): one line each, since a chart is too narrow to wrap them. */
+  subtitle?: string | readonly string[];
 }
 
-const CAPTION_HEIGHT = 40;
+const LINE_HEIGHT = 16;
+const captionLines = (caption: SvgCaption): readonly string[] =>
+  caption.subtitle === undefined ? [] : typeof caption.subtitle === 'string' ? [caption.subtitle] : caption.subtitle;
 
 /**
  * A standalone SVG document of the tile's chart with its caption above it, or
  * null when the tile has no chart drawn yet (the lazy chunk still loading).
  */
 export function chartSvgMarkup(tile: HTMLElement, caption: SvgCaption, provenance?: unknown): string | null {
+  return chartSvg(tile, caption, provenance)?.markup ?? null;
+}
+
+/** The SVG document and its size; `css` is added as a <style> (embedded fonts for rasterising). */
+function chartSvg(
+  tile: HTMLElement, caption: SvgCaption, provenance?: unknown, css = '',
+): { markup: string; width: number; height: number } | null {
   const src = chartSvgIn(tile);
   if (!src) return null;
   const rect = src.getBoundingClientRect();
   const width = Number(src.getAttribute('width')) || rect.width || 300;
   const height = Number(src.getAttribute('height')) || rect.height || 220;
+  const subtitles = captionLines(caption);
+  const captionHeight = 8 + LINE_HEIGHT * (1 + subtitles.length);
 
   const clone = src.cloneNode(true) as SVGSVGElement;
   inlineStyles(src, clone);
   clone.setAttribute('x', '0');
-  clone.setAttribute('y', String(CAPTION_HEIGHT));
+  clone.setAttribute('y', String(captionHeight));
   clone.setAttribute('width', String(width));
   clone.setAttribute('height', String(height));
   clone.removeAttribute('style');
@@ -214,12 +233,17 @@ export function chartSvgMarkup(tile: HTMLElement, caption: SvgCaption, provenanc
   const root = document.createElementNS(SVG_NS, 'svg');
   root.setAttribute('xmlns', SVG_NS);
   root.setAttribute('width', String(width));
-  root.setAttribute('height', String(height + CAPTION_HEIGHT));
-  root.setAttribute('viewBox', `0 0 ${width} ${height + CAPTION_HEIGHT}`);
+  root.setAttribute('height', String(height + captionHeight));
+  root.setAttribute('viewBox', `0 0 ${width} ${height + captionHeight}`);
   if (provenance !== undefined) {
     const meta = document.createElementNS(SVG_NS, 'metadata');
     meta.textContent = JSON.stringify(provenance);
     root.appendChild(meta);
+  }
+  if (css) {
+    const style = document.createElementNS(SVG_NS, 'style');
+    style.textContent = css;
+    root.appendChild(style);
   }
   const bg = document.createElementNS(SVG_NS, 'rect');
   bg.setAttribute('width', '100%');
@@ -238,10 +262,104 @@ export function chartSvgMarkup(tile: HTMLElement, caption: SvgCaption, provenanc
   // Fixed ink on the fixed white background: an exported figure must not
   // inherit a dark theme's light text.
   text(caption.title, 16, { 'font-family': FONT_MONO, 'font-size': '12', 'font-weight': '600', fill: '#1f1f1f' });
-  if (caption.subtitle) text(caption.subtitle, 32, { 'font-family': sansStack(), 'font-size': '11', fill: NEUTRAL_TEXT_COLOR });
+  subtitles.forEach((line, i) => {
+    text(line, 16 + LINE_HEIGHT * (i + 1), { 'font-family': sansStack(), 'font-size': '11', fill: NEUTRAL_TEXT_COLOR });
+  });
   root.appendChild(clone);
 
-  return `<?xml version="1.0" encoding="UTF-8"?>\n${new XMLSerializer().serializeToString(root)}`;
+  return {
+    markup: `<?xml version="1.0" encoding="UTF-8"?>\n${new XMLSerializer().serializeToString(root)}`,
+    width,
+    height: height + captionHeight,
+  };
+}
+
+// ── PNG from the chart's own SVG ────────────────────────────────────────────
+//
+// A per-chart PNG is the chart's SVG drawn onto a canvas: milliseconds per
+// chart, where an html2canvas snapshot re-clones the whole page each time (a
+// 60-population grid took over a minute for its charts one by one). An SVG
+// drawn as an image cannot fetch anything, so the web fonts the page has
+// actually loaded are inlined as data URLs; without them the PNG would fall
+// back to the system sans and differ from the screen and the stitched grid.
+
+const unquote = (family: string) => family.trim().replace(/^["']|["']$/g, '');
+
+function blobDataUrl(blob: Blob): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result));
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(blob);
+  });
+}
+
+let fontCss: Promise<string> | null = null;
+
+/** @font-face rules for the faces this page has loaded, their files inlined. Cached. */
+function embeddedFontCss(): Promise<string> {
+  fontCss ??= (async () => {
+    const loaded = typeof document.fonts?.forEach === 'function'
+      ? [...document.fonts].filter((f) => f.status === 'loaded') : [];
+    const families = new Set(loaded.map((f) => unquote(f.family)));
+    const ranges = new Set(loaded.map((f) => `${unquote(f.family)}|${f.unicodeRange}`));
+    const rules: Array<{ rule: CSSFontFaceRule; base: string }> = [];
+    for (const sheet of Array.from(document.styleSheets)) {
+      let cssRules: CSSRuleList;
+      try { cssRules = sheet.cssRules; } catch { continue; } // a cross-origin sheet
+      for (const rule of Array.from(cssRules)) {
+        if (!(rule instanceof CSSFontFaceRule)) continue;
+        if (!families.has(unquote(rule.style.getPropertyValue('font-family')))) continue;
+        rules.push({ rule, base: sheet.href ?? document.baseURI });
+      }
+    }
+    // Only the subsets actually in use (the Latin files); every subset of a
+    // family only when the browser serialises unicode-range differently.
+    const inUse = rules.filter(({ rule }) =>
+      ranges.has(`${unquote(rule.style.getPropertyValue('font-family'))}|${rule.style.getPropertyValue('unicode-range')}`));
+    const out: string[] = [];
+    for (const { rule, base } of inUse.length ? inUse : rules) {
+      const match = /url\(["']?([^"')]+)["']?\)/.exec(rule.style.getPropertyValue('src'));
+      if (!match) continue;
+      try {
+        const res = await fetch(new URL(match[1], base).href);
+        if (!res.ok) continue;
+        const data = await blobDataUrl(await res.blob());
+        const s = rule.style;
+        out.push(`@font-face{font-family:${s.getPropertyValue('font-family')};`
+          + `font-weight:${s.getPropertyValue('font-weight') || 'normal'};font-style:${s.getPropertyValue('font-style') || 'normal'};`
+          + `src:url(${data}) format("woff2");${s.getPropertyValue('unicode-range') ? `unicode-range:${s.getPropertyValue('unicode-range')};` : ''}}`);
+      } catch { /* a font that cannot be read falls back to the system face */ }
+    }
+    return out.join('\n');
+  })();
+  return fontCss;
+}
+
+/** One tile's chart as PNG bytes at 2×, or null when the chart has not drawn yet. */
+async function chartPngBytes(tile: HTMLElement, caption: SvgCaption): Promise<Uint8Array<ArrayBuffer> | null> {
+  const svg = chartSvg(tile, caption, undefined, await embeddedFontCss());
+  if (!svg) return null;
+  const img = new Image();
+  img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg.markup)}`;
+  await img.decode();
+  const canvas = document.createElement('canvas');
+  canvas.width = Math.round(svg.width * PREFERRED_SCALE);
+  canvas.height = Math.round(svg.height * PREFERRED_SCALE);
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  return canvasBytes(canvas);
+}
+
+/** Save one tile's chart as PNG. Returns false when there is no chart to save. */
+export async function saveChartPng(tile: HTMLElement, filename: string, caption: SvgCaption): Promise<boolean> {
+  const bytes = await chartPngBytes(tile, caption);
+  if (!bytes) return false;
+  const url = URL.createObjectURL(new Blob([bytes], { type: 'image/png' }));
+  downloadFile(filename, url);
+  setTimeout(() => URL.revokeObjectURL(url), 60_000);
+  return true;
 }
 
 /** Save one tile's chart as SVG. Returns false when there is no chart to save. */
@@ -250,4 +368,88 @@ export function saveChartSvg(tile: HTMLElement, filename: string, caption: SvgCa
   if (!markup) return false;
   downloadFile(filename, `data:image/svg+xml;charset=utf-8,${encodeURIComponent(markup)}`);
   return true;
+}
+
+// ── One chart tile, as a file ───────────────────────────────────────────────
+
+/**
+ * How one chart tile names, captions and records itself when saved — shared
+ * by the tile's own download menu and the "individual charts" ZIP, so a chart
+ * is the same file whichever way it was saved.
+ */
+export function chartTileExport({ pd, gene, label, pValue, chartScale }: {
+  pd: PopData; gene: string; label: string; pValue: number | null | undefined; chartScale: ChartScale;
+}): { filename: (ext: string) => string; caption: SvgCaption; provenance: unknown } {
+  const subject = trackSubject(pd);
+  return {
+    filename: (ext) => exportName(subject, [gene, 'bar_chart'], ext),
+    caption: { title: gene, subtitle: [label, `mean ± SEM · P = ${fmtP(pValue)}`] },
+    provenance: exportProvenance('compare', subject, { figure: 'bar_chart', gene, chartScale }),
+  };
+}
+
+export interface ChartTileFile {
+  el: HTMLElement;
+  /** The folder inside the archive (the gene's row). */
+  folder: string;
+  filename: (ext: string) => string;
+  caption: SvgCaption;
+  provenance: unknown;
+}
+
+function canvasBytes(canvas: HTMLCanvasElement): Promise<Uint8Array<ArrayBuffer>> {
+  return new Promise((resolve, reject) => {
+    canvas.toBlob((blob) => {
+      if (!blob) { reject(new Error('The chart could not be encoded as PNG.')); return; }
+      blob.arrayBuffer().then((buf) => resolve(new Uint8Array(buf)), reject);
+    }, 'image/png');
+  });
+}
+
+/**
+ * Save every chart tile as its own file — PNG snapshots or SVG vectors — in
+ * one ZIP, a folder per gene, with the export's provenance as metadata.json.
+ * Tiles whose chart has not drawn yet are skipped for SVG (there is nothing
+ * to clone); a PNG snapshot captures whatever is on screen.
+ */
+export async function saveChartTilesZip(
+  tiles: readonly ChartTileFile[],
+  format: 'png' | 'svg',
+  zipName: string,
+  provenance: unknown,
+): Promise<void> {
+  if (!tiles.length) return;
+  const entries: ZipEntry[] = [];
+  const used = new Set<string>();
+  const add = (folder: string, name: string, data: Uint8Array) => {
+    // Two populations can share a track id across datasets; never let one
+    // file silently replace another inside the archive.
+    let path = `${folder}/${name}`;
+    for (let i = 2; used.has(path); i++) path = `${folder}/${name.replace(/(\.[^.]+)$/, `_${i}$1`)}`;
+    used.add(path);
+    entries.push({ name: path, data });
+  };
+
+  if (format === 'svg') {
+    const encoder = new TextEncoder();
+    for (const tile of tiles) {
+      const markup = chartSvgMarkup(tile.el, tile.caption, tile.provenance);
+      if (markup) add(tile.folder, tile.filename('svg'), encoder.encode(markup));
+    }
+  } else {
+    for (const tile of tiles) {
+      const bytes = await chartPngBytes(tile.el, tile.caption);
+      if (bytes) add(tile.folder, tile.filename('png'), bytes);
+    }
+  }
+  if (!entries.length) {
+    window.alert('The charts are still drawing. Try again in a moment.');
+    return;
+  }
+  entries.push({ name: 'metadata.json', data: new TextEncoder().encode(`${JSON.stringify(provenance, null, 2)}\n`) });
+
+  const url = URL.createObjectURL(new Blob([zipStore(entries)], { type: 'application/zip' }));
+  downloadFile(zipName, url);
+  // The click has handed the URL to the download; free it once that has begun.
+  setTimeout(() => URL.revokeObjectURL(url), 60_000);
 }

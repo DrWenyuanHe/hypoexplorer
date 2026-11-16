@@ -19,13 +19,13 @@ import { ChartScaleToggle } from '../common/ChartScaleToggle';
 import { ExportButton } from '../common/ExportButton';
 import { useChartScale } from '../common/chartScaleStore';
 import { useExportAction } from '../utils/exportAction';
-import { columnsSubject, exportName, exportProvenance, trackSubject } from '../utils/exportProvenance';
+import { columnsSubject, exportName } from '../utils/exportProvenance';
 import { COLOR_WARNING_TEXT, DOWN_TEXT_COLOR, FONT_MONO, FONT_SANS, UP_TEXT_COLOR } from '../styles/constants';
 import type { PopData } from '../types';
 import type { CompareColumn } from './compareColumns';
 import { resolveGeneCI } from './resolveGene';
 import { tallyGene } from './compareSummary';
-import { EXPORT_IGNORE_ATTR, saveChartSvg, saveElementPng } from './compareFigureExport';
+import { EXPORT_IGNORE_ATTR, chartTileExport, saveChartPng, saveChartSvg, saveElementPng } from './compareFigureExport';
 import { DownloadIcon, DownloadMenu } from './DownloadMenu';
 
 interface CompareGenesViewProps {
@@ -55,6 +55,8 @@ interface CompareGenesViewProps {
 
 /** The attribute each gene's block of charts carries, for whole-grid export. */
 export const GENE_BLOCK_ATTR = 'data-compare-gene';
+/** The attribute each drawn chart tile carries (its column key), for per-chart export. */
+export const TILE_ATTR = 'data-compare-tile';
 
 const VISUALLY_HIDDEN: CSSProperties = {
   position: 'absolute', width: 1, height: 1, padding: 0, margin: -1,
@@ -334,20 +336,22 @@ function ChartTile({ col, pd, gene, pValue, downloads, children }: {
   const { busy, run } = useExportAction();
   const chartScale = useChartScale();
   const label = col.chartLabel ?? col.label;
-  const name = (ext: string) => exportName(trackSubject(pd), [gene, 'bar_chart'], ext);
+  const file = chartTileExport({ pd, gene, label, pValue, chartScale });
 
   const savePng = () => {
     const el = tileRef.current;
-    if (el) run(() => saveElementPng(el, name('png')));
+    if (!el) return;
+    run(async () => {
+      // Drawn from the chart's own SVG, exactly as in the "individual charts" ZIP.
+      const saved = await saveChartPng(el, file.filename('png'), file.caption);
+      if (!saved) window.alert('This chart is still drawing. Try again in a moment.');
+    });
   };
   const saveSvg = () => {
     const el = tileRef.current;
     if (!el) return;
     run(() => {
-      const saved = saveChartSvg(el, name('svg'), {
-        title: gene,
-        subtitle: `${label} · mean ± SEM · P = ${fmtP(pValue)}`,
-      }, exportProvenance('compare', trackSubject(pd), { figure: 'bar_chart', gene, chartScale }));
+      const saved = saveChartSvg(el, file.filename('svg'), file.caption, file.provenance);
       // The chart chunk loads lazily; a tile clicked before it lands has no
       // <svg> yet, and a silent no-op would read as a broken button.
       if (!saved) window.alert('This chart is still drawing. Try again in a moment.');
@@ -355,7 +359,7 @@ function ChartTile({ col, pd, gene, pValue, downloads, children }: {
   };
 
   return (
-    <div ref={tileRef} data-compare-tile={col.key} style={{ borderTop: `2px solid ${col.color}`, position: 'relative' }}>
+    <div ref={tileRef} {...{ [TILE_ATTR]: col.key }} style={{ borderTop: `2px solid ${col.color}`, position: 'relative' }}>
       {downloads && (
         <div style={{ position: 'absolute', top: 4, right: 4, zIndex: 2 }}>
           <DownloadMenu menuLabel={`Download ${gene} chart for ${label}`} busy={busy} busyLabel="" align="right"

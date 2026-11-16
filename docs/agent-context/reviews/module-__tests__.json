@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "23ed542d6e0efe57c49456bc3f2684f75a9bb96b55e220726b32a7a73778bd09",
+  "fingerprint": "c591c957f21e1cef42e1d5eb033a2a307cb1b44edc8042ac2a007234f35f9733",
   "outcome": "updated",
-  "explanation": "New compareTabToolbar tests cover the Compare loading count, the folded failure alert, the Download menu (disabled with a reason until every population has loaded and a gene is chosen), per-row chart PNG buttons and SVG export output; cellSelector tests cover chip collapse, +N more, Show less and Reset; hubUnits covers the macaque atlas card; datasetInfo covers the study details disclosure; appExplorerPosition now asserts the Compare selection through its chips.",
+  "explanation": "New zip.test reads stored archives back through an independent parser (CRC-32 check value, UTF-8 names, folders, empty archive); compareDownloads covers the long Compare rows, the per-animal Values rows, the workbook sheet order and per-row CSV provenance; csv.test covers rowProvenance and splitting an over-long metadata JSON down its column; compareTabToolbar and exportProvenance follow the renamed Download menu items and the Values sheet.",
   "references": [
+    "src/__tests__/zip.test.ts",
+    "src/__tests__/compareDownloads.test.ts",
+    "src/__tests__/csv.test.ts",
     "src/__tests__/compareTabToolbar.test.tsx",
-    "src/__tests__/cellSelector.test.tsx",
-    "src/__tests__/hubUnits.test.tsx",
-    "src/__tests__/datasetInfo.test.tsx",
-    "src/__tests__/appExplorerPosition.test.tsx"
+    "src/__tests__/exportProvenance.test.ts"
   ]
 }
