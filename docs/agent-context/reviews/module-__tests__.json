@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "59023f8a791619e02adf3b9dbcf6a02604cb1761bae36ee45cfbb8c1e0bf8a96",
+  "fingerprint": "aed96dc76654543d2e2071d31d8f8afde52be599c9dce0399c251f9003573841",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31). From this branch: hypomapCodetection.test.ts runs the client against the golden services/hypomap/codetection_wire.json responses (export mismatch, contract breaks, transport failure, CSV rows), hypomapCoexpression.test.tsx covers rendered partial, unsupported, export-mismatch and Retry states, and hypomapMetrics.test.ts covers datasetMetrics/poolMetrics; the Python service test consumes the same golden. From main: sourceJson.test.ts, baselineTeaser.test.ts and the explorer session snapshot tests.",
+  "explanation": "Merged main (#30, #31, #34). From this branch: hypomapCodetection.test.ts runs the co-detection client against the golden services/hypomap/codetection_wire.json responses (export mismatch, contract breaks, transport failure, CSV rows), hypomapCoexpression.test.tsx covers rendered partial, unsupported, export-mismatch and Retry states, and hypomapMetrics.test.ts covers datasetMetrics/poolMetrics; the Python service test consumes the same golden. From main: expressionSurvey.test.ts, expressionSurveyLoad.test.tsx and the slimmer expressionSurveyView.test.tsx cover the survey derivation and load lifecycle, and sourceJson/teaser tests cover the shared expression-source reader.",
   "references": [
     "src/__tests__/hypomapCodetection.test.ts",
     "src/__tests__/hypomapCoexpression.test.tsx",
-    "src/__tests__/sourceJson.test.ts",
-    "src/__tests__/baselineTeaser.test.ts"
+    "src/__tests__/expressionSurvey.test.ts",
+    "src/__tests__/expressionSurveyLoad.test.tsx"
   ]
 }

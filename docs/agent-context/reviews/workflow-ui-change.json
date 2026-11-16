@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "12ebca7d95ca4adc8a10a3f71de91ea0dbc3ab4a072cfbb5680dfaf0b9f4e965",
+  "fingerprint": "88bff2c73f76e3440016e0c23333afdfd96ebe377506e352c93402abf7375a98",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31). The HypoMap paragraph routes co-expression work through the codetection.ts client and its shared wire golden; the card stays behind VITE_HYPOMAP_COEXPRESSION and the vite.config.ts dev proxy is unchanged. From main, the NeuroSeq teaser shows source groups and analysis-snapshot defaults live in the explorer session; routes and views are unchanged and the runbook steps still hold.",
+  "explanation": "Merged main (#30, #31, #34). The HypoMap paragraph routes co-expression work through the codetection.ts client and its shared wire golden; the card stays behind VITE_HYPOMAP_COEXPRESSION and the vite.config.ts dev proxy is unchanged. From main, the expression survey derivation and load lifecycle moved into expressionSurvey.ts and useSurveyLoad.ts, the NeuroSeq teaser shows source groups and analysis-snapshot defaults live in the explorer session; routes and views are unchanged and the runbook steps still hold.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/search/hypomap/codetection.ts",
-    "docs/EXPRESSION_SURVEY.md"
+    "src/expression-survey/useSurveyLoad.ts"
   ]
 }
