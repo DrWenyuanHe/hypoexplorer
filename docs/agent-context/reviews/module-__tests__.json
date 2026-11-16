@@ -1,13 +1,15 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "aed96dc76654543d2e2071d31d8f8afde52be599c9dce0399c251f9003573841",
+  "fingerprint": "6470edc2674ed4d14657b960969cee6614b20a9b295020d33d0d5cb806983546",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31, #34). From this branch: hypomapCodetection.test.ts runs the co-detection client against the golden services/hypomap/codetection_wire.json responses (export mismatch, contract breaks, transport failure, CSV rows), hypomapCoexpression.test.tsx covers rendered partial, unsupported, export-mismatch and Retry states, and hypomapMetrics.test.ts covers datasetMetrics/poolMetrics; the Python service test consumes the same golden. From main: expressionSurvey.test.ts, expressionSurveyLoad.test.tsx and the slimmer expressionSurveyView.test.tsx cover the survey derivation and load lifecycle, and sourceJson/teaser tests cover the shared expression-source reader.",
+  "explanation": "Merged main (#30, #31, #32, #34) into the CSV seam branch. From this branch: csv.test.ts pins the CSV seam (escaping table, formula guard, BOM/CRLF, provenance columns), csvDownload.ts is the shared reader for a mocked downloadFile, csvDialog.test.tsx covers the HypoMap dialog download, and the library, gene-list, gene and circadian export tests read files through that helper. From main: hypomapCodetection, hypomapCoexpression and hypomapMetrics tests cover the co-detection client, expressionSurvey and expressionSurveyLoad tests the survey derivation and load lifecycle, and sourceJson tests the expression-source reader.",
   "references": [
+    "src/__tests__/csv.test.ts",
+    "src/__tests__/csvDownload.ts",
+    "src/__tests__/csvDialog.test.tsx",
     "src/__tests__/hypomapCodetection.test.ts",
-    "src/__tests__/hypomapCoexpression.test.tsx",
     "src/__tests__/expressionSurvey.test.ts",
-    "src/__tests__/expressionSurveyLoad.test.tsx"
+    "src/__tests__/sourceJson.test.ts"
   ]
 }

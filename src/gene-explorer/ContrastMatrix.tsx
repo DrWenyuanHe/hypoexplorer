@@ -17,8 +17,8 @@ import type { CSSProperties } from 'react';
 import { pToStar, fmtP, fmtSigned } from '../utils/format';
 import { btnStyle, UP_TEXT_COLOR, DOWN_TEXT_COLOR, NEUTRAL_TEXT_COLOR, FONT_MONO, FONT_SANS } from '../styles/constants';
 import { SortableTh } from '../common/SortableTh';
-import { downloadFile } from '../utils/exportAction';
-import { exportCsvCell, exportName, provenanceColumns, provenanceColumnValues, trackSubject } from '../utils/exportProvenance';
+import { writeCsv } from '../utils/csv';
+import { exportName, trackSubject } from '../utils/exportProvenance';
 import { geneExportProvenance } from './geneExport';
 import type { GeneDERecord, PopData, ResolvedContrast } from '../types';
 import { DEFAULT_FDR_CUTOFF, isFdrSignificant } from '../statistics/policy';
@@ -86,22 +86,18 @@ export function ContrastMatrix({ selectedGenes, slices, activeContrastId, onRemo
     const popData = (slices.find((slice) => slice.contrast.id === activeContrastId) ?? slices[0])?.popData;
     if (!popData) return;
     const contrasts = slices.map((slice) => slice.contrast);
-    const metadata = provenanceColumns(geneExportProvenance('contrast_matrix', popData, genes.length, [], contrasts, {
+    const provenance = geneExportProvenance('contrast_matrix', popData, genes.length, [], contrasts, {
       sort: { key: sortBy, direction: sortDir === 1 ? 'ascending' : 'descending' },
-    }));
+    });
     const headers = ['Gene', ...slices.flatMap((s) => [
       `logFC (${s.contrast.label})`, `PValue (${s.contrast.label})`, `FDR (${s.contrast.label})`,
-    ]), ...Object.keys(metadata)];
-    const lines = [headers.map(exportCsvCell).join(','), ...genes.map((g, index) =>
+    ])];
+    writeCsv(exportName(trackSubject(popData, { contrasts }), ['contrast_matrix'], 'csv'), headers, genes.map((g) =>
       [g, ...slices.flatMap((s) => {
         const de = s.popData.deByGene[g];
-        return de ? [de.logFC, de.PValue, de.FDR ?? ''] : ['', '', ''];
-      }), ...provenanceColumnValues(metadata, index)].map(exportCsvCell).join(','),
-    )].join('\n');
-    downloadFile(
-      exportName(trackSubject(popData, { contrasts }), ['contrast_matrix'], 'csv'),
-      `data:text/csv;charset=utf-8,${encodeURIComponent(lines)}`,
-    );
+        return de ? [de.logFC, de.PValue, de.FDR] : [null, null, null];
+      })],
+    ), { provenance });
   };
 
   if (!slices.length) return null;

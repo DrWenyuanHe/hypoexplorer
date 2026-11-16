@@ -34,7 +34,8 @@ import {
   type FacetKey, type LibraryFilters, type LibrarySort,
 } from './libraryFilters';
 import { LibraryToolbar, categoryColor, Icon, type IconName } from './LibraryToolbar';
-import { downloadCsv, libraryCsv } from './libraryExport';
+import { exportLibraryCsv } from './libraryExport';
+import { useExportAction } from '../utils/exportAction';
 import { StudyRecord } from './StudyRecord';
 
 /**
@@ -239,10 +240,10 @@ export function DatasetLibrary({
 
   const resetFilters = useCallback(() => setFilters(EMPTY_FILTERS), []);
 
-  const exportView = useCallback(() => {
-    const stamp = new Date().toISOString().slice(0, 10);
-    downloadCsv(`hypoexplorer-studies-${stamp}.csv`, libraryCsv(visible));
-  }, [visible]);
+  // The toolbar button renders no busy state; the export action still ignores
+  // a second click while the first download is settling.
+  const { run: runExport } = useExportAction();
+  const exportView = useCallback(() => runExport(() => exportLibraryCsv(visible)), [runExport, visible]);
 
   return (
     <PageShell

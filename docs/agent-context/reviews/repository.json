@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "913fb6847068f132dfa04004b1a68209947a6e1c218220356a26bf5b16501689",
+  "fingerprint": "c81f8df18ecdcdff57dab37a6e1fe39513d60f5a44d5ca41825a1f262bfe7019",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31, #34). CONTEXT.md keeps every Architecture bullet: the Expression-source reader, explorer-session snapshot and Expression-survey derivation + load bullets from main, and this branch's Co-detection client (codetection.ts, ready/partial/unsupported/rejected unions, export-hash fail-closed, the shared wire golden). The ui-change workflow paragraph names codetection.ts and services/hypomap/codetection_wire.json, and the service README documents the manifest hash now also returned by /api/recommendations. No data, bundle or delivery behaviour changes.",
+  "explanation": "Merged main (#30, #31, #32, #34). CONTEXT.md keeps every Architecture bullet: the CSV seam added on this branch (and the gene-list bullet naming it), plus the Expression-source reader, Explorer session, Expression-survey derivation + load and Co-detection client bullets from main. The survey keeps its own CSV cell writer in expressionSurvey.ts; adopting writeCsv there is a follow-up. No data, bundle or delivery behaviour changes.",
   "references": [
     "CONTEXT.md",
-    "docs/agent-context/workflows.md",
+    "src/utils/csv.ts",
+    "src/expression-survey/expressionSurvey.ts",
+    "src/search/hypomap/codetection.ts",
     "services/hypomap/README.md"
   ]
 }
