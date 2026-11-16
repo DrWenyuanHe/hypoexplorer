@@ -5,7 +5,7 @@ import {
 import type { TrackerSort } from './trackerLogic';
 import { NStateCell } from './TrackerCells';
 import type { TrackerRow } from '../types';
-import { AuthorValidationBadge, AuthorValidationNotInExplorerBadge, AuthorEvidenceLabel } from '../common/AuthorValidation';
+import { AuthorValidationBadge, AuthorValidationNotInExplorerBadge, authorEvidenceText } from '../common/AuthorValidation';
 
 interface TrackerTableProps {
   rows: TrackerRow[];
@@ -30,27 +30,42 @@ export function TrackerTable({
   canEdit,
   onSetStatus,
 }: TrackerTableProps) {
-  const sortBtn = (key: string, label: string) => (
-    <th onClick={() => setSort((s) => ({ key, dir: s.key === key ? -s.dir : 1 }))}>
-      {label}
-      {sort.key === key ? (sort.dir > 0 ? ' ▲' : ' ▼') : ''}
+  const sortBtn = (key: string, label: string, title?: string) => (
+    <th
+      aria-sort={sort.key === key ? (sort.dir > 0 ? 'ascending' : 'descending') : undefined}
+      title={title}
+    >
+      <button type="button" className="thsort" onClick={() => setSort((s) => ({ key, dir: s.key === key ? -s.dir : 1 }))}>
+        {label}
+        <span aria-hidden="true">{sort.key === key ? (sort.dir > 0 ? ' ▲' : ' ▼') : ''}</span>
+      </button>
     </th>
   );
 
+  // Fixed column widths keep every row on one line; long text is truncated with
+  // its full value in a tooltip and in the detail drawer.
   return (
     <div className="tablewrap">
-      <table>
+      <table className="tk-table">
+        <colgroup>
+          <col className="c-acc" />
+          <col className="c-study" />
+          <col className="c-mod" />
+          <col className="c-n" />
+          <col className="c-feas" />
+          <col className="c-fit" />
+          <col className="c-ver" />
+          <col className="c-status" />
+        </colgroup>
         <thead>
           <tr>
             {sortBtn('acc', 'Accession')}
-            {sortBtn('sp', 'Species')}
-            {sortBtn('reg', 'Region')}
+            {sortBtn('sp', 'Species · region')}
             {sortBtn('mod', 'Modality')}
-            {sortBtn('n', 'n')}
+            {sortBtn('n', 'n', 'Total samples, then the smallest group and whether it reaches n≥3')}
             {sortBtn('feas', 'Feasibility')}
-            {sortBtn('nok', 'n≥3')}
-            {sortBtn('fit', 'Fit score')}
-            {sortBtn('validation', 'Verification')}
+            {sortBtn('fit', 'Fit')}
+            {sortBtn('validation', 'Verification', 'Pipeline QC · Experimental design · Author concordance')}
             {sortBtn('status', 'Status')}
           </tr>
         </thead>
@@ -75,49 +90,53 @@ export function TrackerTable({
                   }
                 }}
               >
-                <td className="acc">
-                  {r.repoUrl ? (
-                    <a
-                      href={r.repoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      {r.acc}
-                    </a>
-                  ) : (
-                    r.acc
-                  )}
-                  {r.integrated && r.match ? (
-                    <span
-                      className="intbadge"
-                      title={`In HypoExplorer as ${r.match.id} (via ${r.match.via})`}
-                    >
-                      ● in explorer
-                    </span>
-                  ) : r.related && r.match ? (
-                    <span
-                      className="intbadge rel"
-                      title={`Same publication as ${r.match.id} (${r.match.via})`}
-                    >
-                      ↔ same paper
-                    </span>
-                  ) : null}
-                  {r.searchTag ? <div className="sub2">{r.searchTag}</div> : null}
-                </td>
-                <td>{speciesGroup(r.species)}</td>
-                <td title={r.region}>{(r.region || '').split(/[;.(]/)[0].slice(0, 40)}</td>
-                <td>
-                  <span className="pill">{modGroup(r.modality)}</span>
-                </td>
-                <td className="ctr">{firstN(r.n)}</td>
-                <td>
-                  <span className={`pill ${fm.cls}`} title={r.feas ? r.feas.pipeline : ''}>
-                    {fm.label}
+                <td className="acc" title={r.searchTag ? `${r.acc} · ${r.searchTag}` : undefined}>
+                  <span className="acc-line">
+                    {r.repoUrl ? (
+                      <a
+                        href={r.repoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        {r.acc}
+                      </a>
+                    ) : (
+                      r.acc
+                    )}
+                    {r.integrated && r.match ? (
+                      <span
+                        className="intbadge"
+                        title={`In HypoExplorer as ${r.match.id} (via ${r.match.via})`}
+                      >
+                        <span aria-hidden="true">●</span>
+                        <span className="tk-sr-only">in explorer</span>
+                      </span>
+                    ) : r.related && r.match ? (
+                      <span
+                        className="intbadge rel"
+                        title={`Same publication as ${r.match.id} (${r.match.via})`}
+                      >
+                        same paper
+                      </span>
+                    ) : null}
                   </span>
                 </td>
-                <td className="ctr">
-                  <NStateCell row={r} variant="compact" />
+                <td className="clip" title={[speciesGroup(r.species), r.region].filter(Boolean).join(' · ')}>
+                  <span className="sp">{speciesGroup(r.species)}</span>
+                  {r.region ? <span className="reg"> · {r.region}</span> : null}
+                </td>
+                <td className="clip">
+                  <span className="pill">{modGroup(r.modality)}</span>
+                </td>
+                <td className="ncell">
+                  {firstN(r.n)}
+                  <span className="nmin"><NStateCell row={r} variant="compact" /></span>
+                </td>
+                <td className="clip">
+                  {fm.cls === 'fz-drop'
+                    ? <span className="feas-plain" title={r.feas?.pipeline || ''}>{fm.label}</span>
+                    : <span className={`pill ${fm.cls}`} title={r.feas ? r.feas.pipeline : ''}>{fm.label}</span>}
                 </td>
                 <td className="ctr">
                   {r.score ? (
@@ -126,9 +145,12 @@ export function TrackerTable({
                     <span className="sub2">—</span>
                   )}
                 </td>
-                <td>
+                <td className="vercell">
                   {validation
-                    ? <><AuthorValidationBadge record={validation} compact /><AuthorEvidenceLabel record={validation} /></>
+                    ? <span className="verline">
+                        <AuthorValidationBadge record={validation} icon />
+                        <span className="evnote" title={authorEvidenceText(validation)}>{authorEvidenceText(validation)}</span>
+                      </span>
                     : <AuthorValidationNotInExplorerBadge />}
                 </td>
                 <td>

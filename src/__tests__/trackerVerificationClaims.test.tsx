@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, render, screen, within } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import * as validationData from '../data/authorValidation';
 import { VERIFICATION_CLAIMS, type AuthorVerification } from '../data/authorVerification';
 import { TrackerFilters } from '../dataset-tracker/TrackerFilters';
@@ -36,6 +36,7 @@ function evidenceRows() {
 describe('tracker verification evidence claims', () => {
   it('offers concrete claim labels without a vague partial option', () => {
     render(<TrackerFilters f={filters} setF={vi.fn()} tags={[]} view="table" setView={vi.fn()} canEdit={false} save="" />);
+    fireEvent.click(screen.getByRole('button', { name: /More filters/ }));
     const select = screen.getByRole('combobox', { name: 'Detailed author review' });
     for (const [key, claim] of Object.entries(VERIFICATION_CLAIMS)) {
       expect(within(select).getByRole('option', { name: claim.label })).toHaveAttribute('value', key);
@@ -58,7 +59,9 @@ describe('tracker verification evidence claims', () => {
     const rows = evidenceRows();
     expect(filterAndSort(rows, {}, { ...filters, validation: 'partial' }, sort).map((r) => r.acc))
       .toEqual(['direct', 'reconstructed', 'source', 'none']);
+    // A saved filter behind "More filters" opens the panel so it stays visible.
     render(<TrackerFilters f={{ ...filters, validation: 'partial' }} setF={vi.fn()} tags={[]} view="table" setView={vi.fn()} canEdit={false} save="" />);
+    expect(screen.getByRole('button', { name: /More filters/ })).toHaveAttribute('aria-expanded', 'true');
     expect(screen.getByRole('combobox', { name: 'Detailed author review' })).toHaveValue('partial');
     expect(screen.getByRole('option', { name: 'Combined evidence group, saved filter' })).toHaveValue('partial');
   });

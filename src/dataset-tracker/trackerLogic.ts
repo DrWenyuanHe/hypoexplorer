@@ -49,6 +49,25 @@ export interface TrackerFilterState {
   availability?: string;
 }
 
+// The filter state a fresh tracker opens with. n≥3 is on by default, so it shows
+// as an active, removable filter rather than as a hidden assumption.
+export const DEFAULT_TRACKER_FILTERS: TrackerFilterState = {
+  status: 'all',
+  feas: 'all',
+  nok: 'ok',
+  mod: 'all',
+  sp: 'all',
+  model: 'all',
+  tag: 'all',
+  integ: 'all',
+  validation: 'all',
+  pipelineQc: 'all',
+  experimentalDesign: 'all',
+  authorConcordance: 'all',
+  availability: 'all',
+  q: '',
+};
+
 export interface TrackerSort {
   key: string;
   dir: number;
@@ -122,7 +141,8 @@ export function nState(r: TrackerRow): { s: 'unknown' | 'excluded' | 'ok'; min: 
 }
 
 export function firstN(n?: string | number): string {
-  const m = String(n || '').match(/\d[\d,]*/);
+  // Thousands separators only: "6, 6 and 12" must read 6, not "6,".
+  const m = String(n || '').match(/\d+(?:,\d{3})*/);
   return m ? m[0] : '—';
 }
 
