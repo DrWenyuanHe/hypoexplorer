@@ -1,12 +1,15 @@
 {
   "version": 1,
   "area": "module-crossdataset",
-  "fingerprint": "2462370d800f9973a7890d1bcd4bdac9b12b4f4e5a5fbe189286465975ef4b80",
+  "fingerprint": "5e6074c475a1e7ff8d0fedf784186b3cbe946b412149bc4dabf20b7063cc10f6",
   "outcome": "updated",
-  "explanation": "The gene report's differential-expression table now leads with every track at raw p < 0.05: FDR survivors by q, then nominal tracks (FDR fails) by p, each labelled under its q (FDR < 0.05 or p < 0.05 only), the q itself named in the cell because the column headers are screen-reader only with a data-tier attribute, and nominal rows show their p beside log2FC uncoloured. Area captions, the verdict, the notes, the quiet-area line and the Show-all toggle name the nominal tier; significant counts, directions and colours still follow the FDR call, and the report contract and routes are unchanged.",
+  "explanation": "Gene report: the differential-expression table leads with every track at raw p < 0.05, FDR survivors by q then nominal tracks (FDR fails) by p. Each row carries a data-tier and is labelled under its q (FDR < 0.05 or p < 0.05 only); the q is named in its cell because the column headers are screen-reader only, and nominal rows show their p beside log2FC, uncoloured. Pathway report: each dataset block leads with its tracks at p < 0.05 (FDR, then nominal, each by |NES|), the DIR column becomes CALL showing the shared TierLabel, and the headline, notes, block and category summaries and Show-all toggles name the nominal tier. SigPill, now unused, is removed from forestReport and FOREST_GRID's last column widens to fit the labels. Significant counts, directions and colours still follow the FDR call; contracts and routes are unchanged.",
   "references": [
     "src/crossdataset/GeneReport.tsx",
+    "src/crossdataset/PathwayReport.tsx",
+    "src/crossdataset/forestReport.tsx",
     "src/crossdataset/forestReport.css",
+    "src/search/portalCards.tsx",
     "src/statistics/policy.ts"
   ]
 }

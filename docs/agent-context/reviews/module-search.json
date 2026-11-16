@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "f1e07af63c8b887cb1fb65f63324da64da6e43391cae8b90d167a626700f03ad",
+  "fingerprint": "ba8e67ad8756b2a5f1a4bc6f10a5f8c4d3c37248cfeace9f02db64de6600e8bd",
   "outcome": "updated",
-  "explanation": "The search summaries add a nominal tier beneath the FDR call: summarize takes a raw-p accessor and lists FDR survivors by q, then tracks with p < 0.05 that fail FDR by p (falling back to the lowest p when neither exists). The gene rows and the pathway portal show that tier, and the portal table gains a Call column labelling FDR < 0.05, p < 0.05 only or n.s. Significant counts, directions and loadConditionPathways still follow the FDR call only.",
+  "explanation": "The search summaries add a nominal tier beneath the FDR call: summarize takes a raw-p accessor and lists FDR survivors by q, then tracks with p < 0.05 that fail FDR by p (falling back to the lowest p when neither exists). The gene rows and the pathway portal show that tier, and the portal table gains a Call column. Its TierLabel (FDR < 0.05, p < 0.05 only or n.s.) now lives in portalCards so the pathway report renders the same words. Significant counts, directions and loadConditionPathways still follow the FDR call only.",
   "references": [
     "src/search/searchSummaries.ts",
     "src/search/SearchPage.tsx",
+    "src/search/portalCards.tsx",
     "src/search/search.css",
     "src/statistics/policy.ts"
   ]

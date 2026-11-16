@@ -18,14 +18,14 @@ import type { KeyboardEvent, ReactNode } from 'react';
 import { PageShell } from '../common/PageShell';
 import { listDatasets } from '../data/datasets';
 import { contrastLabel } from '../crossdataset/forestReport';
-import { DEFAULT_FDR_CUTOFF, NOMINAL_P_CUTOFF, significanceTier, type SignificanceTier } from '../statistics/policy';
+import { DEFAULT_FDR_CUTOFF, NOMINAL_P_CUTOFF, significanceTier } from '../statistics/policy';
 import { DOWN_TEXT_COLOR, UP_TEXT_COLOR } from '../styles/constants';
 import { fmtFDR, fmtP, fmtSigned } from '../utils/format';
 import { DbBadge } from './DbBadge';
 import { searchAll, describePathway } from './searchVocabulary';
 import { useSearchVocabulary } from './useSearchVocabulary';
 import { UnifiedSearchBox } from './UnifiedSearchBox';
-import { Effect, PlaceholderSlot, dirColor, plural, useLoad } from './portalCards';
+import { Effect, PlaceholderSlot, TierLabel, dirColor, plural, useLoad } from './portalCards';
 import {
   loadGeneSummary, loadPathwaySummary, type CrossStudySummary, type GeneSummary, type SummaryRow,
 } from './searchSummaries';
@@ -499,13 +499,6 @@ function SummaryTable<Row extends { trackId: string; label: string; lowPower?: b
       </table>
     </div>
   );
-}
-
-/** The table's Call cell: the FDR survivors are labelled; the nominal tier is named as uncorrected. */
-function TierLabel({ tier }: { tier: SignificanceTier }) {
-  if (tier === 'fdr') return <span className="portal-tier portal-tier--fdr">FDR &lt; {DEFAULT_FDR_CUTOFF}</span>;
-  if (tier === 'nominal') return <span className="portal-tier portal-tier--nominal">p &lt; {NOMINAL_P_CUTOFF} only</span>;
-  return <span className="portal-tier portal-tier--none">n.s.</span>;
 }
 
 function IndexUnavailable({ what }: { what: string }) {
