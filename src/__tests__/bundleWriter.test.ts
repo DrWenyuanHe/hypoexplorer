@@ -3,7 +3,9 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
 import {
+  countNominallySignificant,
   defaultContrastBinding,
+  NSIG_P_THRESHOLD,
   outDirFromArgv,
   planPathwayBundles,
   registryDefaultContrast,
@@ -90,7 +92,6 @@ function payload(multi = true): TrackBundlePayload {
     defaultContrastBinding: { id: 'main', baseline: 'control', case: 'case' },
     extraContrastBindings: multi ? [{ id: 'extra', baseline: 'control', case: 'cell_a' }] : [],
     color: '#4C78A8',
-    nSig: 1,
     meta: {
       code: 'whole',
       label: 'Whole tissue',
@@ -108,9 +109,6 @@ function payload(multi = true): TrackBundlePayload {
       cluster: 'whole',
       clusterLabel: 'Whole tissue',
       minCells: null,
-      nNormal: 1,
-      nObese: 1,
-      is3v3: false,
       samplesKept: ['C1', 'K1'],
     },
     de: [
@@ -463,5 +461,136 @@ describe('bundleWriter writer-reader contract', () => {
     };
     expect(() => writeTimeSeriesBundle(ds, 'whole', seriesBundle(), { outRoot: tempRoot(), dry: true }))
       .toThrow(/output path collides/);
+  });
+});
+
+// A study is written once with every track: the writer owns the merged
+// dataset files and the counts it can derive from the payloads.
+describe('bundleWriter study-level derivations', () => {
+  function secondTrack(): TrackBundlePayload {
+    const track = payload();
+    return {
+      ...track,
+      trackId: 'arc',
+      color: '#F58518',
+      meta: {
+        ...track.meta,
+        code: 'arc',
+        label: 'Arcuate',
+        nGenes: 1,
+        sampleOrder: ['C1', 'C2', 'C3', 'K1', 'K2', 'K3'],
+        groupSamples: { control: ['C1', 'C2', 'C3'], case: ['K1', 'K2', 'K3'], cell_a: ['K1'] },
+      },
+      qc: { cluster: 'arc', clusterLabel: 'Arcuate', minCells: 12, samplesKept: ['C1', 'K1'] },
+      de: [{ gene: 'C', logFC: 1, logCPM: null, PValue: 0.0001, FDR: 0.2, rank_score: 1 }],
+      deByContrast: { extra: [{ gene: 'C', logFC: 1, logCPM: null, PValue: 0.5, FDR: 0.6, rank_score: 0 }] },
+      cpm: { C: [1, 2, 3, 4, 5, 6] },
+      pathways: { GO_BP: [pathway('M_ARC', 0.01, 0.02)] },
+      pathwaysByContrast: { extra: { HALLMARK: [pathway('B_ARC_EXTRA', 0.03, 0.04)] } },
+    };
+  }
+
+  it('writes every track and one merged meta, QC and pathway index', () => {
+    const ds = dataset('multi_ds');
+    const out = tempRoot();
+    const located = { ...ds, bundleBaseUrl: '' };
+    const written = writeDatasetBundles(ds, [payload(), secondTrack()], { outRoot: out });
+    expect(new Set(written.files)).toEqual(new Set([
+      localFile(out, ds.metaFile),
+      localFile(out, ds.qcFile),
+      localFile(out, resolveTrackUrl(located, 'whole')),
+      localFile(out, resolvePathwayUrl(located, 'whole')),
+      localFile(out, resolveTrackUrl(located, 'arc')),
+      localFile(out, resolvePathwayUrl(located, 'arc')),
+      localFile(out, resolvePathwayIndexUrl(located)),
+    ]));
+
+    // Exactly the shape the September 5 / HFD builders used to merge by hand:
+    // tracks in order, groupN from the default track's design cells.
+    const meta = parseJsonp<Record<string, unknown>>(localFile(out, ds.metaFile));
+    expect(JSON.stringify(meta.payload)).toBe(JSON.stringify({
+      populations: ['whole', 'arc'],
+      labels: { whole: 'Whole tissue', arc: 'Arcuate' },
+      types: { whole: 'Tissue', arc: 'Tissue' },
+      nGenes: { whole: 2, arc: 1 },
+      colors: { whole: '#4C78A8', arc: '#F58518' },
+      qcFlags: {
+        whole: { is3v3: false, nNormal: 1, nObese: 1, minCells: 0, status: 'ok' },
+        arc: { is3v3: true, nNormal: 3, nObese: 3, minCells: 12, status: 'ok' },
+      },
+      groupN: { control: 1, case: 1, cell_a: 1 },
+      qaReportFilenames: {},
+    }));
+
+    const qc = parseJsonp<{ runStatus: unknown[]; deSummary: unknown[] }>(localFile(out, ds.qcFile));
+    expect(qc.payload.runStatus).toEqual([
+      { cluster: 'whole', clusterLabel: 'Whole tissue', status: 'ok', nNormal: 1, nObese: 1 },
+      { cluster: 'arc', clusterLabel: 'Arcuate', status: 'ok', nNormal: 3, nObese: 3 },
+    ]);
+    expect(qc.payload.deSummary).toEqual([
+      { cluster: 'whole', clusterLabel: 'Whole tissue', nGenes: 2, nSig: 1 },
+      { cluster: 'arc', clusterLabel: 'Arcuate', nGenes: 1, nSig: 1 },
+    ]);
+
+    const index = parseJsonp<string[]>(localFile(out, resolvePathwayIndexUrl(located)));
+    expect(index.payload).toEqual(['A_EXTRA_ONLY', 'B_ARC_EXTRA', 'M_ARC', 'Z_DEFAULT']);
+
+    const arc = parseJsonp<RawTrack>(localFile(out, resolveTrackUrl(located, 'arc')));
+    expect(arc.key).toBe(resolveTrackGlobalKey(ds, 'arc'));
+    // Derived counts sit after minCells, the key order every builder used.
+    expect(Object.keys(arc.payload.qc ?? {})).toEqual(
+      ['cluster', 'clusterLabel', 'minCells', 'nNormal', 'nObese', 'is3v3', 'samplesKept'],
+    );
+    expect(arc.payload.qc).toMatchObject({ nNormal: 3, nObese: 3, is3v3: true });
+  });
+
+  it('takes the default track from the registry, not from list position', () => {
+    const ds = dataset('default_second');
+    const out = tempRoot();
+    // arc (3/3/1 samples) is listed first; groupN still counts the default track.
+    writeDatasetBundles(ds, [secondTrack(), payload()], { outRoot: out });
+    const meta = parseJsonp<Record<string, unknown>>(localFile(out, ds.metaFile));
+    expect(meta.payload.populations).toEqual(['arc', 'whole']);
+    expect(meta.payload.groupN).toEqual({ control: 1, case: 1, cell_a: 1 });
+  });
+
+  it('requires the registry default track once and unique track ids', () => {
+    const ds = dataset('track_set');
+    expect(() => writeDatasetBundles(ds, [secondTrack()], { outRoot: tempRoot() })).toThrow(/defaultTrack "whole"/);
+    expect(() => writeDatasetBundles(ds, [payload(), payload()], { outRoot: tempRoot() })).toThrow(/track ids must be unique/);
+    expect(() => writeDatasetBundles(ds, [], { outRoot: tempRoot() })).toThrow(/defaultTrack/);
+  });
+
+  it(`counts nSig as finite PValue < ${NSIG_P_THRESHOLD} in the default table, whatever a builder states`, () => {
+    const rows = [
+      { PValue: 0.0099 }, { PValue: 0.01 }, { PValue: 0.2 }, { PValue: Number.NaN }, { PValue: 0 },
+    ];
+    expect(countNominallySignificant(rows)).toBe(2);
+
+    const ds = dataset('nsig_rule', false);
+    const out = tempRoot();
+    const track = payload(false);
+    track.de = [
+      { gene: 'A', logFC: 1, logCPM: 1, PValue: 0.001, FDR: 0.9, rank_score: 3 }, // nominal only
+      { gene: 'B', logFC: 1, logCPM: 1, PValue: 0.02, FDR: 0.01, rank_score: 2 }, // FDR-significant only
+      { gene: 'C', logFC: 1, logCPM: 1, PValue: 0.005, FDR: 0.04, rank_score: 1 },
+    ];
+    track.cpm = { A: [1, 2], B: [1, 2], C: [1, 2] };
+    track.nSig = 99; // the deprecated builder count is ignored
+    writeDatasetBundles(ds, [track], { outRoot: out });
+    const qc = parseJsonp<{ deSummary: Array<{ nSig: number }> }>(localFile(out, ds.qcFile));
+    expect(qc.payload.deSummary[0].nSig).toBe(2);
+  });
+
+  it('accepts stated arm counts only when they agree with groupSamples', () => {
+    const ds = dataset('stated_qc');
+    const agreeing = payload();
+    agreeing.qc = { ...agreeing.qc, nNormal: 1, nObese: 1, is3v3: false };
+    expect(() => writeDatasetBundles(ds, [agreeing], { outRoot: tempRoot() })).not.toThrow();
+    for (const stale of [{ nNormal: 3 }, { nObese: 2 }, { is3v3: true }]) {
+      const track = payload();
+      track.qc = { ...track.qc, ...stale };
+      expect(() => writeDatasetBundles(ds, [track], { outRoot: tempRoot() })).toThrow(/disagrees with meta\.groupSamples/);
+    }
   });
 });

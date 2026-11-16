@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "a54cf25129a17469fe03cb2673d5ae571d1c13c0215d337c8f1edb1f91928862",
+  "fingerprint": "d46dabe6dbe1fa28e7c5d0bb53253d9146deceee4a4ba8b6263005a812e46d0b",
   "outcome": "updated",
-  "explanation": "The dataset-change route names scripts/lib/bundleReader.mts for script reads beside the writer, and says the agent export takes the registry unit through resolveExpressionUnit; check_datasets, refresh_fgsea_bundles and audit_author_validation read through it with unchanged output. From main: build_query_index.mts takes its wire shapes and codecs from queryWire.ts with identical bytes, so build:query-index and check:query-index close a dataset change as before, and the survey runbook names sourceJson.ts and per-source retry.",
+  "explanation": "The dataset-change route now tells builders to pass every track of a study to one writeDatasetBundles call (merged study files and derived QC counts, nSig at P<0.01) and to build sidecar intakes through buildIntakeStudies with staged publish, --check and --only. The September 5 builder is a hook on that pipeline; geo, batch2 and normalized builders no longer compute nSig, arm counts or is3v3. The HFD and OXT/AVP builders are unchanged because their intake audits fingerprint them.",
   "references": [
     "docs/agent-context/workflows.md",
-    "scripts/check_datasets.mts",
-    "scripts/lib/bundleReader.mts",
-    "scripts/build_query_index.mts",
-    "docs/EXPRESSION_SURVEY.md"
+    "scripts/lib/bundleWriter.mts",
+    "scripts/lib/intakeStudies.mts",
+    "scripts/build_september5_bundles.mts",
+    "scripts/build_normalized_bundles.mts"
   ]
 }
