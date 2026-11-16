@@ -28,9 +28,7 @@ import { loadQueryManifest, loadTrackPathways, manifestSupportsTrackPathways } f
 import { effectDirection } from '../statistics/policy';
 import { mapLimit } from '../utils/mapLimit';
 import { pathwaySpecificity, type CorpusRate, type Specificity } from './pathwaySpecificity';
-import {
-  expressionJson, loadNeuroseqManifest, neuroseqSources, resolveNeuroseqGenes,
-} from '../expression-survey/neuroseqExpression';
+import { loadNeuroseqExpression, loadNeuroseqManifest, neuroseqSources } from '../expression-survey/neuroseqExpression';
 import { loadExternalExpression, loadExternalSources } from '../expression-survey/externalReference';
 import type {
   Dataset, DatasetGroup, Direction, ExpressionGeneResult, ExpressionGroupResult, ExpressionSource,
@@ -309,66 +307,65 @@ export function loadConditionPathways(symbol: string, studies?: readonly Dataset
   });
 }
 
-// ── Baseline expression teaser (NeuroSeq, same-origin JSON) ────────────────
+// ── Baseline expression teaser (NeuroSeq, through the survey's reader) ────
+//
+// A projection of the expression survey's own results: one
+// loadNeuroseqExpression read per population (the gene index and its shard are
+// fetched once and shared), then one row per source group carrying the
+// survey's group mean. Source groups stay separate, as the survey keeps them:
+// within one population they can differ several-fold (Agrp in the AgRP
+// population's fed and feeding-unreported groups), so a pooled mean would be a
+// value no group measured.
 
-export interface PopulationLevel {
+export interface SourceGroupLevel {
+  /** The source group's key in the survey; unique across NeuroSeq. */
   id: string;
+  populationId: string;
   /** Friendly population name, e.g. 'PVH oxytocin'. */
   label: string;
+  /** The survey's source-group label, named only when the population has more than one group. */
+  group: string | null;
   region: string;
-  /** Mean TPM across the population's libraries. */
+  /** The survey's group mean: mean TPM across the group's libraries. */
   meanTpm: number;
   libraries: number;
 }
 
 export type BaselineTeaser =
-  | { status: 'available'; gene: string; description: string; populations: PopulationLevel[]; populationCount: number; max: number }
+  | { status: 'available'; gene: string; groups: SourceGroupLevel[]; populationCount: number; max: number }
   | { status: 'absent' }
   | { status: 'ambiguous'; candidates: string[] };
 
-interface NeuroseqGeneEntry { id: string; symbol: string; ensemblId: string; shard: string }
-interface NeuroseqGeneValues { id: string; symbol: string; ensemblId: string; description: string; values: number[] }
+function baselineTeaser(sources: ExpressionSource[], results: ExpressionGeneResult[]): BaselineTeaser | null {
+  const [first] = results;
+  if (!first) return null;
+  if (first.status === 'not-retained') return { status: 'absent' };
+  if (first.status === 'ambiguous') return { status: 'ambiguous', candidates: first.candidates ?? [] };
+  const groups = sources.flatMap((source, i) => results[i].groups.flatMap((group): SourceGroupLevel[] => (group.mean == null ? [] : [{
+    id: group.key,
+    populationId: source.id,
+    label: source.populationLabel ?? source.label,
+    group: results[i].groups.length > 1 ? group.label : null,
+    region: source.region ?? '',
+    meanTpm: group.mean,
+    libraries: group.n,
+  }]))).sort((a, b) => b.meanTpm - a.meanTpm);
+  return { status: 'available', gene: first.gene ?? first.query, groups, populationCount: sources.length, max: groups[0]?.meanTpm ?? 0 };
+}
 
 const baselineCache = new Map<string, Promise<BaselineTeaser | null>>();
 
 /**
- * A gene's mean expression in each NeuroSeq population, highest first; null
- * when the expression files could not be read. Reads the same validated files
- * as the expression survey.
+ * A gene's mean expression in each NeuroSeq source group, highest first; null
+ * when the expression files could not be read or were inconsistent. Each value
+ * is the group mean the expression survey reports for the same query.
  */
 export function loadBaselineTeaser(symbol: string): Promise<BaselineTeaser | null> {
-  return cached(baselineCache, symbol.toUpperCase(), async () => {
-    const manifest = await loadNeuroseqManifest();
-    const index = await expressionJson<{ schemaVersion: number; genes: NeuroseqGeneEntry[] }>(manifest.geneIndexPath);
-    if (index.schemaVersion !== 1 || index.genes.length !== manifest.geneCount) return null;
-    const matches = resolveNeuroseqGenes(index.genes, symbol) as NeuroseqGeneEntry[];
-    if (matches.length === 0) return { status: 'absent' };
-    if (matches.length > 1) return { status: 'ambiguous', candidates: matches.map((m) => m.symbol) };
-    const entry = matches[0];
-    const shard = await expressionJson<{ schemaVersion: number; genes: Record<string, NeuroseqGeneValues> }>(entry.shard);
-    const row = shard.genes[entry.id];
-    if (shard.schemaVersion !== 1 || !row || row.id !== entry.id || row.values.length !== manifest.sampleCount) return null;
-
-    const names = new Map(neuroseqSources(manifest).map((s) => [s.id, s]));
-    const populations: PopulationLevel[] = manifest.populations.map((population) => {
-      const values = manifest.samples.flatMap((sample, i) => (sample.populationId === population.id ? [row.values[i]] : []));
-      const source = names.get(population.id);
-      return {
-        id: population.id,
-        label: source?.populationLabel ?? population.label,
-        region: source?.region ?? population.region,
-        meanTpm: values.length ? values.reduce((a, b) => a + b, 0) / values.length : 0,
-        libraries: values.length,
-      };
-    }).sort((a, b) => b.meanTpm - a.meanTpm);
-    return {
-      status: 'available',
-      gene: row.symbol,
-      description: row.description,
-      populations,
-      populationCount: populations.length,
-      max: populations[0]?.meanTpm ?? 0,
-    };
+  // Keyed exactly as typed: NeuroSeq prefers an exact spelling before a case-insensitive match.
+  return cached(baselineCache, symbol.trim(), async () => {
+    const sources = neuroseqSources(await loadNeuroseqManifest());
+    const results = await Promise.all(sources.map(async (source) => (await loadNeuroseqExpression(source.id, [symbol]))[0]));
+    return baselineTeaser(sources, results);
   });
 }
 

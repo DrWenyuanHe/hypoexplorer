@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "d20b4ba5a8d791913bd92f1f21e60ea2dc670f9e06c4885e573200aad0951ef9",
+  "fingerprint": "76ec21be1a86ea4e5d4a291dd9a24e4c9a9ca6fa94348da87c2a915930a634cb",
   "outcome": "updated",
-  "explanation": "CONTEXT.md gains the Bundle-reader seam bullet: scripts/lib/bundleReader.mts is the Node read twin of the bundle writer and browser loaders (readJsonp with an expected global, datasetBundlePaths from the locators, readDatasetFromDisk with reviewed labels, registry unit, isLowPower and strict contrast rules). The bundle writer exports localDatasetFile and DEFAULT_OUT_ROOT for it. The agent export now publishes the reviewed GSE174085 label; no bundle or sidecar bytes change.",
+  "explanation": "Merged main (#30, #31). CONTEXT.md carries the Expression-source reader and explorer-session snapshot bullets from main and this branch's Bundle-reader seam bullet (scripts/lib/bundleReader.mts: readJsonp with an expected global, datasetBundlePaths from the locators, readDatasetFromDisk with reviewed labels, registry unit, isLowPower and strict contrast rules). The bundle writer exports localDatasetFile and DEFAULT_OUT_ROOT for the reader. No bundle bytes, data or delivery paths change.",
   "references": [
     "CONTEXT.md",
     "scripts/lib/bundleReader.mts",
     "scripts/lib/bundleWriter.mts",
-    "docs/AGENT_EXPORT.md"
+    "docs/agent-context/catalog.json",
+    "src/expression-survey/sourceJson.ts"
   ]
 }

@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "2c741b2bd28c3680e256aa008a67f4a1296adac058249e0789dc4a93958e2f7d",
+  "fingerprint": "2407980eebd857ba2590b6498fe096a5f6fa92c254652d1cbfdee7b5967dacbe",
   "outcome": "updated",
-  "explanation": "The dataset-change route now names scripts/lib/bundleReader.mts for script reads beside the writer for script writes, and says the agent export takes the registry unit through resolveExpressionUnit. check_datasets.mts reads through the reader with byte-identical output on the full corpus; refresh_fgsea_bundles and audit_author_validation parse via the same strict reader.",
+  "explanation": "The dataset-change route names scripts/lib/bundleReader.mts for script reads beside the writer, and says the agent export takes the registry unit through resolveExpressionUnit; check_datasets, refresh_fgsea_bundles and audit_author_validation read through it with unchanged output. From main, the expression survey JSON transport moved into sourceJson.ts without changing registration, builders or check commands.",
   "references": [
     "docs/agent-context/workflows.md",
     "scripts/check_datasets.mts",
-    "scripts/refresh_fgsea_bundles.mts",
-    "scripts/audit_author_validation.mts"
+    "scripts/lib/bundleReader.mts",
+    "src/expression-survey/sourceJson.ts"
   ]
 }

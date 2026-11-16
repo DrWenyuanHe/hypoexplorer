@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "c3fe076d575f489a1883d791c9aec1dbc8a3e1f12de6c4782ab0bed8470ce3ab",
+  "fingerprint": "982672dc8294eeb84d0aac6650d9029037a1b7bfe4b5e6e25124d9c356d7362e",
   "outcome": "updated",
-  "explanation": "Adds bundleReader.test.ts (writer-to-reader round trip through the shared locators, strict JSONP parsing, wrong-global and missing-file failures, registry unit precedence) and bundleReaderParity.test.ts (jsdom: the Node reader shows the same track labels as loadDatasetMeta for every committed meta.js, including the reviewed GSE174085 litter-pseudobulk label). agentExport.test.ts reads published bytes through readJsonp and adds GSE174085 to its subset to pin the exported label.",
+  "explanation": "Merged main (#30, #31) into the bundle-reader branch. From this branch: bundleReader.test.ts pins the writer-to-reader round trip, strict JSONP parsing and registry unit precedence; bundleReaderParity.test.ts pins Node reader labels to loadDatasetMeta for every committed meta.js; agentExport.test.ts reads published bytes through readJsonp and asserts the reviewed GSE174085 label. From main: sourceJson.test.ts and baselineTeaser.test.ts cover the expression-source transport and teaser, and explorerSession.test.tsx pins the analysis snapshot defaults.",
   "references": [
     "src/__tests__/bundleReader.test.ts",
     "src/__tests__/bundleReaderParity.test.ts",
-    "src/__tests__/agentExport.test.ts"
+    "src/__tests__/agentExport.test.ts",
+    "src/__tests__/sourceJson.test.ts",
+    "src/__tests__/explorerSession.test.tsx"
   ]
 }

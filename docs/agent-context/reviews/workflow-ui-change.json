@@ -1,10 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "2b1b8ab8dcd36056660826a37fe460d90274ed8f59884f47cca08abd53530f2e",
-  "outcome": "no-impact",
-  "explanation": "Only the shared docs/agent-context/workflows.md changed, in its dataset-change section (bundle reader and unit rule). Routing, explorer navigation, views, exports and their runbook steps are untouched; buildPopData keeps the same unit result through the extracted helper.",
+  "fingerprint": "4a9ac7f9c0912e1f2a9702c301afcf8869bcb5957e9d68e3332776316534820f",
+  "outcome": "updated",
+  "explanation": "Merged main (#30, #31): the NeuroSeq teaser shows source groups ranked by the survey group mean (EXPRESSION_SURVEY.md) and analysis-snapshot defaults moved into the explorer session. This branch only edits the dataset-change section of workflows.md and keeps buildPopData's unit result through resolveExpressionUnit, so routes, views, exports and the UI runbook steps are unchanged.",
   "references": [
-    "docs/agent-context/workflows.md"
+    "docs/agent-context/workflows.md",
+    "src/search/portalCards.tsx",
+    "src/explorer/explorerSession.ts",
+    "src/data/buildPopData.ts"
   ]
 }

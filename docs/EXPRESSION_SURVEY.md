@@ -113,7 +113,12 @@ The gene page's "Where <gene> is expressed" section (`GeneExpressionCards` in
 `src/search/portalCards.tsx`) reads the same products through
 `loadReferenceAtlases` in `src/search/searchSummaries.ts`. It is one card with a
 mouse column and a human column, then one link to this survey. The mouse column
-holds the NeuroSeq populations and the reserved mouse single-cell slot. The human
+holds the NeuroSeq teaser and the reserved mouse single-cell slot. The teaser
+(`loadBaselineTeaser`) reads each population through the survey's own NeuroSeq
+reader and shows the top five of the 17 source groups by the survey's group mean.
+Source groups are not pooled: a population with two groups (NPY reporter / AgRP,
+SO AVP) gets one row per group, labeled with the group, because groups within one
+population can differ several-fold. The human
 column, "Human hypothalamus", holds four sources:
 
 - GTEx: the median TPM and interquartile range across its 257 donors.
@@ -187,7 +192,8 @@ and [retained validation](../data/expression/existing/validation.json).
 `public/expression/neuroseq/` ships same-origin, with a manifest, gene index, small
 gene shards and validation report. It does not use the separate DE bundle origin.
 Fetches are lazy, cached for the session, release-versioned and retryable after
-failure. Source files and acquisition/build checks live under
+failure; `src/expression-survey/sourceJson.ts` applies these rules, and a per-family
+file allow-list, to NeuroSeq, the OXT reference and the external atlases alike. Source files and acquisition/build checks live under
 `data/expression/neuroseq/` and the dedicated NeuroSeq builder in `scripts/`.
 
 Run `python scripts/build_neuroseq_expression.py --check` for an offline source-byte
