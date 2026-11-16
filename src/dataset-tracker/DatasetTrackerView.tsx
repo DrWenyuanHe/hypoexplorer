@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import './tracker.css';
 import { useTrackerData } from './useTrackerData';
-import { STATUS_KEYS, filterAndSort, statusOf as statusOfReviews } from './trackerLogic';
+import { DEFAULT_TRACKER_FILTERS, STATUS_KEYS, filterAndSort, statusOf as statusOfReviews } from './trackerLogic';
 import type { TrackerFilterState, TrackerSort } from './trackerLogic';
 import { TrackerSummary } from './TrackerSummary';
-import { TrackerFilters } from './TrackerFilters';
+import { TrackerActiveFilters, TrackerFilters } from './TrackerFilters';
 import { TrackerTable } from './TrackerTable';
 import { TrackerBoard } from './TrackerBoard';
 import { TrackerDetail } from './TrackerDetail';
@@ -12,24 +12,6 @@ import { AuthorValidationBadge } from '../common/AuthorValidation';
 import { requireAuthorValidation } from '../data/authorValidation';
 import { BetaNotice } from '../common/BetaNotice';
 import { BrandLink } from '../common/BrandLink';
-
-const DEFAULT_FILTERS: TrackerFilterState = {
-  status: 'all',
-  feas: 'all',
-  nok: 'ok',
-  mod: 'all',
-  sp: 'all',
-  model: 'all',
-  tag: 'all',
-  integ: 'all',
-  validation: 'all',
-  pipelineQc: 'all',
-  experimentalDesign: 'all',
-  authorConcordance: 'all',
-  availability: 'all',
-  q: '',
-};
-const FILTER_KEYS = Object.keys(DEFAULT_FILTERS) as Array<keyof TrackerFilterState>;
 
 interface DatasetTrackerViewProps {
   onHome: () => void;
@@ -42,7 +24,7 @@ interface DatasetTrackerViewProps {
 // under the dev server (canEdit).
 export function DatasetTrackerView({ onHome, onOpenInExplorer, initialSelectedAcc = null }: DatasetTrackerViewProps) {
   const { catalog, reviews, loading, error, save, canEdit, setStatus, setNote } = useTrackerData();
-  const [f, setF] = useState<TrackerFilterState>(DEFAULT_FILTERS);
+  const [f, setF] = useState<TrackerFilterState>(DEFAULT_TRACKER_FILTERS);
   const [sort, setSort] = useState<TrackerSort>({ key: 'feas', dir: 1 });
   const [view, setView] = useState<string>('table');
   const [selectedAcc, setSelectedAcc] = useState<string | null>(initialSelectedAcc);
@@ -83,10 +65,6 @@ export function DatasetTrackerView({ onHome, onOpenInExplorer, initialSelectedAc
 
   const filtered = useMemo(() => filterAndSort(rows, reviews, f, sort), [rows, reviews, f, sort]);
 
-  // Derived from DEFAULT_FILTERS, not hand-compared field by field: a new filter
-  // key is then filtered-aware the moment it gets a default, instead of silently
-  // leaving the "(filtered)" note behind.
-  const isFiltered = FILTER_KEYS.some((k) => f[k] !== DEFAULT_FILTERS[k]);
   const selectedRow = selectedAcc ? rows.find((r) => r.acc === selectedAcc) : null;
 
   return (
@@ -123,8 +101,9 @@ export function DatasetTrackerView({ onHome, onOpenInExplorer, initialSelectedAc
                 explorerRefOpen={explorerRefOpen}
                 setExplorerRefOpen={setExplorerRefOpen}
               />
-              <p className="sub2" style={{ margin: '8px 0 12px', lineHeight: 1.5 }}>
-                Tracker status records integration progress. Verification badges show the evidence for each dataset.
+              <p className="sub2 tk-intro">
+                Tracker status records integration progress. The three verification icons on each row are
+                Pipeline QC, Experimental design and Author concordance; hover or select one for its checks.
                 Source checks alone do not verify author results.
                 {' '}<a href="#/verification">Read the verification process and badge definitions</a>.
               </p>
@@ -194,9 +173,7 @@ export function DatasetTrackerView({ onHome, onOpenInExplorer, initialSelectedAc
                 </button>
               )}
 
-              <div className="shown">
-                {filtered.length} shown{isFiltered ? ' (filtered)' : ''}
-              </div>
+              <TrackerActiveFilters f={f} setF={setF} tags={tags} shown={filtered.length} total={rows.length} />
 
               {view === 'table' ? (
                 <TrackerTable

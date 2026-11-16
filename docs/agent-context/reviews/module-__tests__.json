@@ -1,13 +1,11 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "a7a08d99c4b579142a9f1bd27ac75f83a0e644f6be74389a9d16b8e279394406",
+  "fingerprint": "e5dd66ebf6dbdc3deb3e3754c6bfb3907903bbb3dab91af29155216c383905cf",
   "outcome": "no-impact",
-  "explanation": "Adds hypomapAtlas.test.ts (pinned-tag atlas verification with the release pin mocked), HypoMap path cases and a 4,096-character expression bound in edgeRules.test.ts, and a gzip-object metadata case in r2Incremental.test.ts. All run in the existing node test project with temporary directories; no setup, exclusion or environment change, so the test map needs only the regenerated file list.",
+  "explanation": "Tracker tests follow the new filter layout: the App test removes the default n≥3 chip, opens More filters, checks the active count and Clear all; the verification-claim test opens More filters before reading the Detailed author review select and asserts a saved legacy filter opens the panel. A firstN unit test pins list-comma handling. Test layout and conventions are unchanged.",
   "references": [
-    "src/__tests__/hypomapAtlas.test.ts",
-    "src/__tests__/edgeRules.test.ts",
-    "src/__tests__/r2Incremental.test.ts",
-    "docs/agent-context/generated/codebase.md"
+    "src/__tests__/datasetTracker.test.tsx",
+    "src/__tests__/trackerVerificationClaims.test.tsx"
   ]
 }

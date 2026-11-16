@@ -63,15 +63,21 @@ export function AuthorReviewBadge({
 /** Shared primary badges across library, tracker and Explorer. */
 export const AuthorValidationBadge = DatasetQualityBadges;
 
+/** Evidence level plus the reference-availability caveat, as one line of text. */
+export function authorEvidenceText(record: AuthorValidationRecord): string {
+  const { evidenceLevel, resultAvailability, comparisonOutcome } = record.verification;
+  const caveat = resultAvailability === 'not_located' ? ' · reference not found'
+    : resultAvailability === 'access_blocked' ? ' · access limited'
+      : resultAvailability === 'partial'
+        ? comparisonOutcome === 'not_comparable' ? ' · different contrast' : ' · limited reference scope'
+        : resultAvailability === 'not_assessed' ? ' · review pending'
+          : resultAvailability === 'located' ? ' · retrieval pending' : '';
+  return `${EVIDENCE_LEVELS[evidenceLevel].label}${caveat}`;
+}
+
 export function AuthorEvidenceLabel({ record }: { record: AuthorValidationRecord }) {
   return <span style={{ display: 'block', fontSize: 10, color: 'var(--text-muted)', lineHeight: 1.4, marginTop: 3 }}>
-    {EVIDENCE_LEVELS[record.verification.evidenceLevel].label}
-    {record.verification.resultAvailability === 'not_located' ? ' · reference not found'
-      : record.verification.resultAvailability === 'access_blocked' ? ' · access limited'
-        : record.verification.resultAvailability === 'partial'
-          ? record.verification.comparisonOutcome === 'not_comparable' ? ' · different contrast' : ' · limited reference scope'
-        : record.verification.resultAvailability === 'not_assessed' ? ' · review pending' : ''}
-    {record.verification.resultAvailability === 'located' ? ' · retrieval pending' : ''}
+    {authorEvidenceText(record)}
   </span>;
 }
 

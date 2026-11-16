@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import App from '../App';
 import { buildRegistry, integrationFor, trimRecord } from '../../scripts/lib/trackerIntegration.mjs';
 import { loadReviews } from '../dataset-tracker/reviewStore';
-import { modelGroup } from '../dataset-tracker/trackerLogic';
+import { firstN, modelGroup } from '../dataset-tracker/trackerLogic';
 import { TrackerTable } from '../dataset-tracker/TrackerTable';
 import { TrackerBoard } from '../dataset-tracker/TrackerBoard';
 import { TrackerDetail } from '../dataset-tracker/TrackerDetail';
@@ -48,6 +48,15 @@ describe('tracker integration matcher', () => {
     expect(
       integrationFor({ shortAcc: 'GSE111111', links: { pmid: '12345678' } }, registry),
     ).toBeNull();
+  });
+});
+
+describe('firstN (table sample count)', () => {
+  it('keeps thousands separators but not a list comma', () => {
+    expect(firstN('6, 6 per group')).toBe('6');
+    expect(firstN('1,234 cells')).toBe('1,234');
+    expect(firstN(185)).toBe('185');
+    expect(firstN('')).toBe('—');
   });
 });
 
@@ -224,11 +233,24 @@ describe('Dataset Tracker view in App', () => {
     // the n<3 candidate is hidden by the default n>=3 filter
     expect(screen.queryByText('GSE900002')).not.toBeInTheDocument();
 
-    // The default filter state is NOT "filtered" (isFiltered is derived from
-    // DEFAULT_FILTERS, including the non-'all' n≥3 default); relaxing one filter
-    // away from its default is.
-    expect(container.querySelector('.shown')?.textContent).toBe('2 shown');
-    fireEvent.change(container.querySelectorAll('select')[1], { target: { value: 'all' } });
-    expect(container.querySelector('.shown')?.textContent).toBe('3 shown (filtered)');
+    // The default n≥3 filter is an active, removable chip, and the count says
+    // how much it hides. Removing the chip shows every candidate.
+    expect(container.querySelector('.shown')?.textContent).toBe('2 of 3 shown');
+    fireEvent.click(screen.getByRole('button', { name: 'Remove filter Sample size: n≥3' }));
+    expect(container.querySelector('.shown')?.textContent).toBe('3 shown');
+    expect(screen.getByText('GSE900002')).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: 'Sample size' })).toHaveValue('all');
+
+    // Secondary filters sit behind "More filters", which shows their active count.
+    expect(screen.queryByRole('combobox', { name: 'In explorer' })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /More filters/ }));
+    fireEvent.change(screen.getByRole('combobox', { name: 'In explorer' }), { target: { value: 'related' } });
+    expect(screen.getByRole('button', { name: /More filters/ }).textContent).toContain('1');
+    expect(screen.getByRole('button', { name: 'Remove filter In explorer: Same paper' })).toBeInTheDocument();
+
+    // "Clear all" removes every filter, including the n≥3 default.
+    fireEvent.click(screen.getByRole('button', { name: 'Clear all' }));
+    expect(container.querySelector('.shown')?.textContent).toBe('3 shown');
+    expect(screen.queryByRole('button', { name: 'Clear all' })).not.toBeInTheDocument();
   });
 });
