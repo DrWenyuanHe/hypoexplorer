@@ -36,10 +36,9 @@ vi.mock('../search/searchSummaries', async (importOriginal) => {
 const BASELINE: BaselineTeaser = {
   status: 'available',
   gene: 'Pomc',
-  description: 'pro-opiomelanocortin-alpha',
-  populations: [
-    { id: 'arc_pomc', label: 'ARC POMC', region: 'ARC', meanTpm: 812.5, libraries: 4 },
-    { id: 'arc_agrp', label: 'ARC AgRP', region: 'ARC', meanTpm: 3.2, libraries: 4 },
+  groups: [
+    { id: 'arc_pomc', populationId: 'arc_pomc', label: 'ARC POMC', group: null, region: 'ARC', meanTpm: 812.5, libraries: 4 },
+    { id: 'arc_agrp', populationId: 'arc_agrp', label: 'ARC AgRP', group: null, region: 'ARC', meanTpm: 3.2, libraries: 4 },
   ],
   populationCount: 2,
   max: 812.5,

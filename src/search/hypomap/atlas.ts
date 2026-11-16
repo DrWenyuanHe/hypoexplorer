@@ -8,7 +8,7 @@ type Manifest = {
 };
 type MetricPair = [number[], number[]];
 type GeneRecord = [number, (unknown[] | null)[], (MetricPair | null)[]];
-type Gene = [id: string, symbol: string, name: string];
+export type Gene = [id: string, symbol: string, name: string];
 type Metadata = {
   cohort: string;
   contexts: string[];
@@ -81,8 +81,14 @@ export async function loadAtlasGene(symbol: string) {
   const records = await read<GeneRecord[]>(`genes-${shard}.json.gz`);
   const record = records[i % manifest.shard_size];
   if (record?.[0] !== i) throw new Error('Atlas gene identity mismatch');
-  return { state: 'ready', metadata, record, gene: index.genes[i], geneAt: (position: number) => index.genes[position] } as const;
+  // Positions the co-detection service reports index this same export; codetection.ts checks the
+  // service was built from it (manifest hash) before resolving them, and treats `undefined` as a contract break.
+  const geneAt = (position: number): Gene | undefined => index.genes[position];
+  return { state: 'ready', metadata, record, gene: index.genes[i], geneAt } as const;
 }
+
+export type AtlasResult = Awaited<ReturnType<typeof loadAtlasGene>>;
+export type ReadyAtlas = Extract<AtlasResult, { state: 'ready' }>;
 
 function metrics(eligible: number, positive: number | null, logSum: number | null) {
   return {

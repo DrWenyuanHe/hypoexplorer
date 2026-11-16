@@ -49,7 +49,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (224):
+Covered source files (237):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -82,10 +82,13 @@ Covered source files (224):
 - [src/__tests__/axes.test.ts](<../../../src/__tests__/axes.test.ts>)
 - [src/__tests__/barSEMChart.test.tsx](<../../../src/__tests__/barSEMChart.test.tsx>)
 - [src/__tests__/barSEMChartScale.test.tsx](<../../../src/__tests__/barSEMChartScale.test.tsx>)
+- [src/__tests__/baselineTeaser.test.ts](<../../../src/__tests__/baselineTeaser.test.ts>)
 - [src/__tests__/brand.test.tsx](<../../../src/__tests__/brand.test.tsx>)
 - [src/__tests__/browseArmCounts.test.ts](<../../../src/__tests__/browseArmCounts.test.ts>)
 - [src/__tests__/buildPopData.test.ts](<../../../src/__tests__/buildPopData.test.ts>)
 - [src/__tests__/bundleProgress.test.ts](<../../../src/__tests__/bundleProgress.test.ts>)
+- [src/__tests__/bundleReader.test.ts](<../../../src/__tests__/bundleReader.test.ts>)
+- [src/__tests__/bundleReaderParity.test.ts](<../../../src/__tests__/bundleReaderParity.test.ts>)
 - [src/__tests__/bundleSlim.test.ts](<../../../src/__tests__/bundleSlim.test.ts>)
 - [src/__tests__/bundleSource.test.ts](<../../../src/__tests__/bundleSource.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
@@ -107,6 +110,9 @@ Covered source files (224):
 - [src/__tests__/crossDatasetCompareIndex.test.ts](<../../../src/__tests__/crossDatasetCompareIndex.test.ts>)
 - [src/__tests__/crossDatasetRows.test.ts](<../../../src/__tests__/crossDatasetRows.test.ts>)
 - [src/__tests__/crossDatasetSummary.test.ts](<../../../src/__tests__/crossDatasetSummary.test.ts>)
+- [src/__tests__/csv.test.ts](<../../../src/__tests__/csv.test.ts>)
+- [src/__tests__/csvDialog.test.tsx](<../../../src/__tests__/csvDialog.test.tsx>)
+- [src/__tests__/csvDownload.ts](<../../../src/__tests__/csvDownload.ts>)
 - [src/__tests__/currentIntakePathwayEvidence.test.ts](<../../../src/__tests__/currentIntakePathwayEvidence.test.ts>)
 - [src/__tests__/dataOriginStatus.test.tsx](<../../../src/__tests__/dataOriginStatus.test.tsx>)
 - [src/__tests__/dataSources.test.tsx](<../../../src/__tests__/dataSources.test.tsx>)
@@ -138,6 +144,8 @@ Covered source files (224):
 - [src/__tests__/expressionIndex.test.ts](<../../../src/__tests__/expressionIndex.test.ts>)
 - [src/__tests__/expressionIndexBuild.test.ts](<../../../src/__tests__/expressionIndexBuild.test.ts>)
 - [src/__tests__/expressionRoute.test.tsx](<../../../src/__tests__/expressionRoute.test.tsx>)
+- [src/__tests__/expressionSurvey.test.ts](<../../../src/__tests__/expressionSurvey.test.ts>)
+- [src/__tests__/expressionSurveyLoad.test.tsx](<../../../src/__tests__/expressionSurveyLoad.test.tsx>)
 - [src/__tests__/expressionSurveyView.test.tsx](<../../../src/__tests__/expressionSurveyView.test.tsx>)
 - [src/__tests__/externalReference.test.ts](<../../../src/__tests__/externalReference.test.ts>)
 - [src/__tests__/fdr.test.ts](<../../../src/__tests__/fdr.test.ts>)
@@ -167,6 +175,9 @@ Covered source files (224):
 - [src/__tests__/hubSections.test.ts](<../../../src/__tests__/hubSections.test.ts>)
 - [src/__tests__/hubUnits.test.tsx](<../../../src/__tests__/hubUnits.test.tsx>)
 - [src/__tests__/hypomapAtlas.test.ts](<../../../src/__tests__/hypomapAtlas.test.ts>)
+- [src/__tests__/hypomapCodetection.test.ts](<../../../src/__tests__/hypomapCodetection.test.ts>)
+- [src/__tests__/hypomapCoexpression.test.tsx](<../../../src/__tests__/hypomapCoexpression.test.tsx>)
+- [src/__tests__/hypomapMetrics.test.ts](<../../../src/__tests__/hypomapMetrics.test.ts>)
 - [src/__tests__/indexFreshness.test.ts](<../../../src/__tests__/indexFreshness.test.ts>)
 - [src/__tests__/indexProducts.test.ts](<../../../src/__tests__/indexProducts.test.ts>)
 - [src/__tests__/internalQc.test.ts](<../../../src/__tests__/internalQc.test.ts>)
@@ -219,6 +230,7 @@ Covered source files (224):
 - [src/__tests__/queryCatalogBuild.test.ts](<../../../src/__tests__/queryCatalogBuild.test.ts>)
 - [src/__tests__/queryCatalogIdentity.test.ts](<../../../src/__tests__/queryCatalogIdentity.test.ts>)
 - [src/__tests__/queryIndex.test.ts](<../../../src/__tests__/queryIndex.test.ts>)
+- [src/__tests__/queryWire.test.ts](<../../../src/__tests__/queryWire.test.ts>)
 - [src/__tests__/r2Incremental.test.ts](<../../../src/__tests__/r2Incremental.test.ts>)
 - [src/__tests__/rawTrack.test.ts](<../../../src/__tests__/rawTrack.test.ts>)
 - [src/__tests__/referenceExpression.test.ts](<../../../src/__tests__/referenceExpression.test.ts>)
@@ -250,6 +262,7 @@ Covered source files (224):
 - [src/__tests__/smoke.test.tsx](<../../../src/__tests__/smoke.test.tsx>)
 - [src/__tests__/sortableHeaderA11y.test.tsx](<../../../src/__tests__/sortableHeaderA11y.test.tsx>)
 - [src/__tests__/sortableRows.test.tsx](<../../../src/__tests__/sortableRows.test.tsx>)
+- [src/__tests__/sourceJson.test.ts](<../../../src/__tests__/sourceJson.test.ts>)
 - [src/__tests__/spendGuard.test.ts](<../../../src/__tests__/spendGuard.test.ts>)
 - [src/__tests__/statistics.test.tsx](<../../../src/__tests__/statistics.test.tsx>)
 - [src/__tests__/statisticsPolicy.test.ts](<../../../src/__tests__/statisticsPolicy.test.ts>)
@@ -543,13 +556,14 @@ Baseline expression by population, study condition and tissue.
 Start here:
 - [src/expression-survey/ExpressionSurveyView.tsx](<../../../src/expression-survey/ExpressionSurveyView.tsx>)
 - [src/expression-survey/expressionData.ts](<../../../src/expression-survey/expressionData.ts>)
+- [src/expression-survey/sourceJson.ts](<../../../src/expression-survey/sourceJson.ts>)
 - [docs/EXPRESSION_SURVEY.md](<../../EXPRESSION_SURVEY.md>)
 - [src/expression-survey/expressionIndex.ts](<../../../src/expression-survey/expressionIndex.ts>)
 - [data/expression/existing/README.md](<../../../data/expression/existing/README.md>)
 - [src/expression-survey/referenceExpression.ts](<../../../src/expression-survey/referenceExpression.ts>)
 - [data/expression/oxt-reference/README.md](<../../../data/expression/oxt-reference/README.md>)
 
-Covered source files (13):
+Covered source files (16):
 - [src/expression-survey/ExpressionSurveyView.tsx](<../../../src/expression-survey/ExpressionSurveyView.tsx>)
 - [src/expression-survey/existingCatalog.ts](<../../../src/expression-survey/existingCatalog.ts>)
 - [src/expression-survey/existingExpression.ts](<../../../src/expression-survey/existingExpression.ts>)
@@ -558,11 +572,14 @@ Covered source files (13):
 - [src/expression-survey/expressionIndex.ts](<../../../src/expression-survey/expressionIndex.ts>)
 - [src/expression-survey/expressionIndexFormat.ts](<../../../src/expression-survey/expressionIndexFormat.ts>)
 - [src/expression-survey/expressionSurvey.css](<../../../src/expression-survey/expressionSurvey.css>)
+- [src/expression-survey/expressionSurvey.ts](<../../../src/expression-survey/expressionSurvey.ts>)
 - [src/expression-survey/expressionTypes.ts](<../../../src/expression-survey/expressionTypes.ts>)
 - [src/expression-survey/externalReference.ts](<../../../src/expression-survey/externalReference.ts>)
 - [src/expression-survey/externalReferenceFormat.ts](<../../../src/expression-survey/externalReferenceFormat.ts>)
 - [src/expression-survey/neuroseqExpression.ts](<../../../src/expression-survey/neuroseqExpression.ts>)
 - [src/expression-survey/referenceExpression.ts](<../../../src/expression-survey/referenceExpression.ts>)
+- [src/expression-survey/sourceJson.ts](<../../../src/expression-survey/sourceJson.ts>)
+- [src/expression-survey/useSurveyLoad.ts](<../../../src/expression-survey/useSurveyLoad.ts>)
 
 ## gene-explorer
 
@@ -721,7 +738,7 @@ Start here:
 - [src/search/SearchPage.tsx](<../../../src/search/SearchPage.tsx>)
 - [src/search/hypomap/atlas.ts](<../../../src/search/hypomap/atlas.ts>)
 
-Covered source files (18):
+Covered source files (20):
 - [src/search/DbBadge.tsx](<../../../src/search/DbBadge.tsx>)
 - [src/search/SearchPage.tsx](<../../../src/search/SearchPage.tsx>)
 - [src/search/UnifiedSearchBox.tsx](<../../../src/search/UnifiedSearchBox.tsx>)
@@ -730,8 +747,10 @@ Covered source files (18):
 - [src/search/hypomap/CsvDialog.tsx](<../../../src/search/hypomap/CsvDialog.tsx>)
 - [src/search/hypomap/HypoMapPreview.tsx](<../../../src/search/hypomap/HypoMapPreview.tsx>)
 - [src/search/hypomap/atlas.ts](<../../../src/search/hypomap/atlas.ts>)
+- [src/search/hypomap/codetection.ts](<../../../src/search/hypomap/codetection.ts>)
 - [src/search/hypomap/coexpression.css](<../../../src/search/hypomap/coexpression.css>)
 - [src/search/hypomap/preview.css](<../../../src/search/hypomap/preview.css>)
+- [src/search/hypomap/useLoad.ts](<../../../src/search/hypomap/useLoad.ts>)
 - [src/search/pathwaySpecificity.ts](<../../../src/search/pathwaySpecificity.ts>)
 - [src/search/portalCards.tsx](<../../../src/search/portalCards.tsx>)
 - [src/search/search.css](<../../../src/search/search.css>)
@@ -787,11 +806,12 @@ Start here:
 - [src/utils/sampleValues.ts](<../../../src/utils/sampleValues.ts>)
 - [src/utils/geneListFile.ts](<../../../src/utils/geneListFile.ts>)
 
-Covered source files (22):
+Covered source files (23):
 - [src/utils/analysisState.ts](<../../../src/utils/analysisState.ts>)
 - [src/utils/appLinks.ts](<../../../src/utils/appLinks.ts>)
 - [src/utils/axes.ts](<../../../src/utils/axes.ts>)
 - [src/utils/chartScale.ts](<../../../src/utils/chartScale.ts>)
+- [src/utils/csv.ts](<../../../src/utils/csv.ts>)
 - [src/utils/datasetLinks.ts](<../../../src/utils/datasetLinks.ts>)
 - [src/utils/excelExport.ts](<../../../src/utils/excelExport.ts>)
 - [src/utils/exportAction.ts](<../../../src/utils/exportAction.ts>)

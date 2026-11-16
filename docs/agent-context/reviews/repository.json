@@ -1,20 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "587eac80d9d1c83c9c36b0cfba3fdfe24c4060890e07a8ef7ae5d5cbd5ed8546",
+  "fingerprint": "12d2262562ceee1efad469000a13896cd61c6ddbb03b2050e048f27df9a75981",
   "outcome": "updated",
-  "explanation": "The repository-local Claude SEO skill suite is removed: .agents/skills/seo*, vendor/claude-seo, seo-skills.lock.json, scripts/seo_skills.py, scripts/seo_runtime.py, tests/seo_skills and docs/seo-tooling.md. AGENTS.md loses its SEO skills section, the catalog drops the vendor directory, and .gitattributes, .gitignore, knip, CodeQL and public-safety allowances no longer name those paths. SEO.md, PROJECT_GUIDANCE.md, DEVELOPMENT.md and CHANGELOG.md record the removal of the /topics/ guides. No scientific inputs or outputs change. From main: scripts/fetch_data.mts can restore the pinned data release while hypoexplorer-data is private, resolving each pinned release-asset URL through the GitHub releases API when GH_TOKEN, GITHUB_TOKEN or a gh login is available; SHA-256 pins and the files written are unchanged, and README.md and DEVELOPMENT.md say the restore needs repository access until publication. scripts/verify_release.mts no longer requires dist/topics/index.html among the public pages it checks.",
+  "explanation": "Merged main (#30-#35). CONTEXT.md keeps every Architecture bullet: main's query-wire module, CSV seam, Expression-source reader, Explorer session, Expression-survey derivation + load and Co-detection client bullets, plus this branch's Bundle-reader seam (scripts/lib/bundleReader.mts: readJsonp with an expected global and a linear comment-header scan, datasetBundlePaths from the locators, readDatasetFromDisk with reviewed labels, registry unit, isLowPower and strict contrast rules). The bundle writer exports localDatasetFile and DEFAULT_OUT_ROOT for the reader; build_query_index.mts is now the query-wire write adapter. No bundle bytes, data release or delivery paths change.",
   "references": [
-    "AGENTS.md",
-    "docs/agent-context/catalog.json",
-    "docs/SEO.md",
-    "docs/PROJECT_GUIDANCE.md",
-    "docs/DEVELOPMENT.md",
-    "public-safety.json",
-    "knip.json",
-    "scripts/fetch_data.mts",
-    "data-release.json",
-    "README.md",
-    "scripts/verify_release.mts"
+    "CONTEXT.md",
+    "scripts/lib/bundleReader.mts",
+    "scripts/lib/bundleWriter.mts",
+    "scripts/build_query_index.mts",
+    "src/data/queryWire.ts"
   ]
 }

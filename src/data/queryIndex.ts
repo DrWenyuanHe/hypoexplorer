@@ -28,167 +28,24 @@ import { assertPlainCatalogValue } from './queryCatalogIdentity';
 import type { Dataset } from '../types';
 import { DEFAULT_FDR_CUTOFF } from '../statistics/policy';
 import {
-  EXPR_SHARDS, GENE_SHARDS, PATHWAY_SHARDS, exprShard, geneShard, padShard, pathwayShard,
-  trackPathwaysFile, trackPathwaysGlobal,
+  type CardDetail, type ExprIndexRow, type GeneIndexRow, type PathwayIndexRow, type QueryManifest,
+  type ShardEnvelope, type TrackPathwayRow, type TrackPathwaysPayload,
+  EXPR_SHARDS, GENE_NAMES_FILE, GENE_NAMES_GLOBAL, GENE_SHARDS, MANIFEST_FILE, MANIFEST_GLOBAL,
+  PATHWAY_NAMES_FILE, PATHWAY_NAMES_GLOBAL, PATHWAY_SHARDS,
+  cardFile, cardGlobalName, exprShard, exprShardFile, exprShardGlobal, geneShard, geneShardFile, geneShardGlobal,
+  indexKey, pathwayShard, pathwayShardFile, pathwayShardGlobal, trackPathwaysFile, trackPathwaysGlobal,
 } from './queryWire';
 
-// The wire format — shard counts and the key hash — is shared with the
-// generator (scripts/build_query_index.mts) rather than re-typed here. Both
-// sides used to carry identical copies under "MUST match the other side".
-const pad = padShard;
-
-/** One (dataset, track) pair, with the per-track context a report row needs.
- *  Carrying label/type/lowPower here is what lets the query skip loading every
- *  per-dataset meta.js file as well as the track bundles. */
-export interface QueryTrackEntry {
-  ds: string;
-  trackId: string;
-  label: string;
-  type: string;
-  lowPower: boolean;
-}
-
-export interface QueryManifest {
-  v: number;
-  /** Identifies the generator run. Every shard carries the same value. */
-  buildId: string;
-  geneShards: number;
-  pathwayShards: number;
-  /**
-   * Present only on indexes built with the expression family. Its ABSENCE is
-   * the whole capability check (see manifestSupportsExpr): an older index is
-   * perfectly good for the gene and pathway queries, so it must not be refused
-   * outright - only the expression-backed view falls back.
-   */
-  exprShards?: number;
-  dbNames: string[];
-  /** Tracks per dataset id, as counted at index-build time. Compared against
-   *  any already-loaded meta.js to catch a bundle redeploy that added/removed
-   *  tracks without an index rebuild. Optional: manifests published before
-   *  this field simply skip that check. */
-  trackCounts?: Record<string, number>;
-  tracks: QueryTrackEntry[];
-  /** Per-dataset browse summaries for the dataset library (manifest v2+).
-   *  Optional: a v1 manifest simply has none, and ./datasetCatalog degrades to
-   *  registry-only cards rather than fanning out over every meta.js file. */
-  datasets?: DatasetSummary[];
-  /**
-   * The TRACK-PATHWAYS family: the manifest positions of every track that has
-   * a pathway result (and therefore a file), and the padj cutoff that selected
-   * the rows in those files. Optional: an index built before the family exists
-   * is still good for every other lookup, so only the search portal's
-   * condition-pathways card checks it (see manifestSupportsTrackPathways).
-   */
-  trackPathways?: { fdr: number; tracks: number[] };
-}
-
-/**
- * One dataset's precomputed browse facts. MUST match the DatasetSummary emitted
- * by scripts/build_query_index.mts — the two are a wire contract.
- *
- * `nBaseline`/`nCase` are the DEFAULT track's replicate counts, mapped from
- * meta.js's legacy `nNormal`/`nObese` keys (which mean baseline/case on every
- * dataset, whatever its arms are called). `nVaries` reports whether the rest of
- * the dataset's tracks agree with them.
- */
-export interface DatasetSummary {
-  ds: string;
-  trackCount: number;
-  defaultTrack: string;
-  trackLabel: string;
-  nGenes: number | null;
-  nBaseline: number | null;
-  nCase: number | null;
-  nVaries: boolean;
-  lowPowerTracks: number;
-  // ── Expression scaffolding (indexes built with the expression family) ──────
-  // An ExprIndexRow is bare numbers in an order; these say which sample each
-  // one is and which arm claims it. Optional because an older index has none,
-  // and a summary missing them can only mean "fall back", never "no samples".
-  /** The default track's sample ids, in the order its expression rows run. */
-  sampleOrder?: string[];
-  /** The default track's arm key -> sample ids. */
-  groupSamples?: Record<string, string[]>;
-  /**
-   * The contrast whose DE table, arms and expression rows this summary
-   * describes - the registry's default at index-build time. The client compares
-   * it against the contrast it is about to render with, so a dataset that
-   * gained a contrast since the last index build cannot show the default
-   * contrast's numbers under another contrast's labels.
-   */
-  contrastId?: string | null;
-  /** Baseline/case group keys. Optional only for manifests built before this field existed. */
-  armKeys?: string[];
-  /**
-   * What the default track found, at DEFAULT_FDR_CUTOFF.
-   *
-   * OPTIONAL, and the optionality is load-bearing. Zero is a real and common
-   * answer here - 38% of single-track datasets find no genes at FDR 0.05 - so a
-   * manifest built before this field existed must leave the card's result bars
-   * ABSENT. Defaulting the missing field to zeros would turn "this deploy is
-   * older than the feature" into "this study found nothing", which is a
-   * scientific claim made out of a version skew.
-   */
-  discoveries?: DiscoverySummary;
-}
-
-/** One database's significant-pathway split. */
-export interface PathwayDbCount { up: number; down: number; tested: number }
-
-/** Significant-feature counts for a dataset's default track. See DatasetSummary. */
-export interface DiscoverySummary {
-  genes: number;
-  genesUp: number;
-  genesDown: number;
-  /** Genes carrying a finite FDR at all - the denominator the card prints. */
-  genesTested: number;
-  /** Null when the dataset ships no pathway sibling: not computed, not none. */
-  paths: number | null;
-  pathsUp: number | null;
-  pathsDown: number | null;
-  pathsTested: number | null;
-  pathsByDb: Record<string, PathwayDbCount> | null;
-  /** Indexed tracks of this dataset with at least one significant gene. */
-  tracksWithGenes: number;
-}
-
-/** The hover popover's volcano cloud for one dataset's default track. */
-export interface CardDetail {
-  /** [logFC, -log10(FDR)], downsampled at build time. */
-  pts: Array<[number, number]>;
-  xlim: number;
-  ymax: number;
-  ycut: number;
-  track: string;
-}
-
-/** Shards ship as { b: buildId, d: payload } so the id travels with the data. */
-interface ShardEnvelope<T> { b: string; d: T }
-
-/** [trackIdx, logFC, pval, fdr, se] — se is null when the source bundle had none. */
-export type GeneIndexRow = [number, number | null, number | null, number | null, number | null];
-/** [trackIdx, NES, padj, pval, size, dbIdx] */
-export type PathwayIndexRow = [number, number | null, number | null, number | null, number, number];
-/**
- * [trackIdx, perSampleValues, sym?] - one gene's expression in one track.
- *
- * `trackIdx` indexes the SAME manifest track array the gene and pathway rows
- * use. `sym` is the source symbol, sent only when it differs from the row's
- * uppercase key, so a chart can print the dataset's own spelling (macaque POMC,
- * mouse Pomc) from a case-insensitive lookup. A null cell is a value the source
- * bundle did not carry; it is dropped, never read as a zero.
- */
-export type ExprIndexRow = [number, Array<number | null>, string?];
-/**
- * [PATHWAY, NES, padj, size, dbIdx, sigTracks, testedTracks] - one significant
- * pathway of one track, copied from that pathway's own index row, so it agrees
- * with the pathway portal and report by construction. PATHWAY is the uppercase
- * pathway-index key (the stored gs_name). The last two are the pathway's corpus
- * base rate: the pathway-capable tracks where it is significant at the family's
- * cutoff, and those where it was tested at all. They are the same in every file
- * that lists the pathway.
- */
-export type TrackPathwayRow = [string, number, number, number, number, number, number];
+// This module is the READ adapter of ./queryWire, which owns the whole wire
+// format — shard counts and the key hash, every file path and JSONP global, the
+// manifest and summary shapes, and the row layouts. The generator
+// (scripts/build_query_index.mts) is the write adapter of the same module, so
+// neither side carries a copy that could drift. The wire types are re-exported
+// here because callers reach the index through this client.
+export type {
+  CardDetail, DatasetSummary, DiscoverySummary, ExprIndexRow, GeneIndexRow, PathwayIndexRow, QueryManifest,
+  QueryTrackEntry, TrackPathwayRow,
+} from './queryWire';
 
 // ── Script-tag loader, mirroring loadTrack.ts's contract ────────────────────
 // Resolves the already-set global without injecting (test-seeded or previously
@@ -212,9 +69,30 @@ function baseUrl(datasets: Dataset[]): string {
   return datasets[0]?.bundleBaseUrl || '';
 }
 
+/**
+ * One key's rows from a keyed shard family (genes, pathways, expression): the
+ * key's shard is a pure function of the key, so this is one request. null =
+ * the shard could not be used; [] = it was read and the key is in no track.
+ */
+function loadKeyedRows<R>(
+  datasets: Dataset[],
+  name: string,
+  buildId: string,
+  family: { shardOf: (key: string) => number; file: (shard: number) => string; global: (shard: number) => string },
+): Promise<R[] | null> {
+  const KEY = indexKey(name);
+  const i = family.shardOf(KEY);
+  const file = `${buildId}/${family.file(i)}`;
+  return loadJsonp<ShardEnvelope<Record<string, R[]>>>(`${baseUrl(datasets)}/query/${file}`, family.global(i))
+    .then((shard) => {
+      const data = unwrap(shard, buildId, file);
+      return data ? data[KEY] ?? [] : null;
+    });
+}
+
 /** The manifest, or null when the index is unavailable. */
 export function loadQueryManifest(datasets: Dataset[]): Promise<QueryManifest | null> {
-  return loadJsonp<QueryManifest>(`${baseUrl(datasets)}/query/tracks.js`, 'HX_QUERY_TRACKS').then((m) => {
+  return loadJsonp<QueryManifest>(`${baseUrl(datasets)}/query/${MANIFEST_FILE}`, MANIFEST_GLOBAL).then((m) => {
     if (!m) return null;
     try { assertPlainCatalogValue(m); } catch { return null; }
     if (!Array.isArray(m.tracks) || m.tracks.length === 0) return null;
@@ -269,16 +147,7 @@ function unwrap<T>(shard: ShardEnvelope<T> | null, expectBuildId: string, what: 
  *  no track — the caller must keep that distinction to choose fallback vs
  *  "absence reads as absence". */
 export function loadGeneRows(datasets: Dataset[], gene: string, buildId: string): Promise<GeneIndexRow[] | null> {
-  const KEY = gene.toUpperCase();
-  const i = geneShard(KEY);
-  const name = `${buildId}/genes/g${pad(i)}.js`;
-  return loadJsonp<ShardEnvelope<Record<string, GeneIndexRow[]>>>(
-    `${baseUrl(datasets)}/query/${name}`,
-    `HX_QUERY_GENES_${pad(i)}`,
-  ).then((shard) => {
-    const data = unwrap(shard, buildId, name);
-    return data ? data[KEY] ?? [] : null;
-  });
+  return loadKeyedRows(datasets, gene, buildId, { shardOf: geneShard, file: geneShardFile, global: geneShardGlobal });
 }
 
 /**
@@ -303,16 +172,7 @@ export function manifestSupportsExpr(manifest: QueryManifest): boolean {
  *  loadGeneRows: null = the index could not be read, [] = it was read and the
  *  gene is in no default track. */
 export function loadExprRows(datasets: Dataset[], gene: string, buildId: string): Promise<ExprIndexRow[] | null> {
-  const KEY = gene.toUpperCase();
-  const i = exprShard(KEY);
-  const name = `${buildId}/expr/e${pad(i)}.js`;
-  return loadJsonp<ShardEnvelope<Record<string, ExprIndexRow[]>>>(
-    `${baseUrl(datasets)}/query/${name}`,
-    `HX_QUERY_EXPR_${pad(i)}`,
-  ).then((shard) => {
-    const data = unwrap(shard, buildId, name);
-    return data ? data[KEY] ?? [] : null;
-  });
+  return loadKeyedRows(datasets, gene, buildId, { shardOf: exprShard, file: exprShardFile, global: exprShardGlobal });
 }
 
 /**
@@ -327,8 +187,8 @@ export function loadExprRows(datasets: Dataset[], gene: string, buildId: string)
  */
 export function loadGeneNames(datasets: Dataset[], buildId: string): Promise<string[] | null> {
   return loadJsonp<ShardEnvelope<string[]>>(
-    `${baseUrl(datasets)}/query/${buildId}/gene_names.js`,
-    'HX_QUERY_GENE_NAMES',
+    `${baseUrl(datasets)}/query/${buildId}/${GENE_NAMES_FILE}`,
+    GENE_NAMES_GLOBAL,
   ).then((wrapped) => {
     const names = wrapped && typeof wrapped === 'object' && 'd' in wrapped ? wrapped.d : null;
     return Array.isArray(names) && names.length > 0 ? names : null;
@@ -337,15 +197,8 @@ export function loadGeneNames(datasets: Dataset[], buildId: string): Promise<str
 
 /** Rows for one pathway. Same null/empty distinction as loadGeneRows. */
 export function loadPathwayRows(datasets: Dataset[], pathway: string, buildId: string): Promise<PathwayIndexRow[] | null> {
-  const KEY = pathway.toUpperCase();
-  const i = pathwayShard(KEY);
-  const name = `${buildId}/pathways/p${pad(i)}.js`;
-  return loadJsonp<ShardEnvelope<Record<string, PathwayIndexRow[]>>>(
-    `${baseUrl(datasets)}/query/${name}`,
-    `HX_QUERY_PATHWAYS_${pad(i)}`,
-  ).then((shard) => {
-    const data = unwrap(shard, buildId, name);
-    return data ? data[KEY] ?? [] : null;
+  return loadKeyedRows(datasets, pathway, buildId, {
+    shardOf: pathwayShard, file: pathwayShardFile, global: pathwayShardGlobal,
   });
 }
 
@@ -375,7 +228,7 @@ export function loadTrackPathways(
   const entry = manifest.tracks[trackIdx];
   if (!entry) return Promise.resolve(null);
   const name = `${manifest.buildId}/${trackPathwaysFile(trackIdx)}`;
-  return loadJsonp<ShardEnvelope<{ ds: string; trackId: string; rows: TrackPathwayRow[] }>>(
+  return loadJsonp<ShardEnvelope<TrackPathwaysPayload>>(
     `${baseUrl(datasets)}/query/${name}`,
     trackPathwaysGlobal(trackIdx),
   ).then((shard) => {
@@ -393,8 +246,8 @@ export function loadTrackPathways(
  */
 export function loadPathwayNames(datasets: Dataset[], buildId: string): Promise<string[] | null> {
   return loadJsonp<ShardEnvelope<string[]>>(
-    `${baseUrl(datasets)}/query/${buildId}/pathway_names.js`,
-    'HX_QUERY_PATHWAY_NAMES',
+    `${baseUrl(datasets)}/query/${buildId}/${PATHWAY_NAMES_FILE}`,
+    PATHWAY_NAMES_GLOBAL,
   ).then((wrapped) => {
     // Autocomplete only — a build-id mismatch here would show slightly stale
     // suggestions, not wrong data, so this deliberately does NOT verify the id
@@ -403,14 +256,6 @@ export function loadPathwayNames(datasets: Dataset[], buildId: string): Promise<
     const names = wrapped && typeof wrapped === 'object' && 'd' in wrapped ? wrapped.d : null;
     return Array.isArray(names) && names.length > 0 ? names : null;
   });
-}
-/**
- * The JSONP global a card-detail file assigns. A wire contract with
- * cardGlobalName in scripts/build_query_index.mts; the two are pinned together
- * by a test rather than by convention.
- */
-export function cardGlobalName(ds: string): string {
-  return `HX_QUERY_CARD_${ds.toUpperCase().replace(/[^A-Z0-9]/g, '_')}`;
 }
 
 /**
@@ -429,7 +274,7 @@ export function cardGlobalName(ds: string): string {
  * are still true.
  */
 export function loadCardDetail(dataset: Dataset, buildId: string): Promise<CardDetail | null> {
-  const name = `${buildId}/cards/${dataset.id}.js`;
+  const name = `${buildId}/${cardFile(dataset.id)}`;
   return loadJsonp<ShardEnvelope<CardDetail>>(
     `${dataset.bundleBaseUrl || ''}/query/${name}`,
     cardGlobalName(dataset.id),

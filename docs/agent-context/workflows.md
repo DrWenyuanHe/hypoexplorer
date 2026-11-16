@@ -6,7 +6,9 @@ Start with the [dataset contract](../DATASET_CONTRACT.md),
 [real shapes](../REAL_DATA_SHAPES.md) and [dataset map](generated/datasets.md).
 Inputs are the study identity, source files, sample design, contrasts and
 analysis outputs. Inspect `src/data/datasets.ts`, registered sidecars and the
-appropriate builder; shared writes use `scripts/lib/bundleWriter.mts`.
+appropriate builder; shared writes use `scripts/lib/bundleWriter.mts` and script
+reads use `scripts/lib/bundleReader.mts` (`readJsonp` for published bytes,
+`readDatasetFromDisk` for what the explorer shows).
 Expected outputs are registry metadata, bundles and their retained evidence.
 Use `pnpm exec tsx scripts/check_datasets.mts` for structural closure (`--all-tracks`
 for full track coverage) and `pnpm run check:query-index` for index freshness.
@@ -25,7 +27,7 @@ repository does not carry; record the replay as pending in `TODOS.md` (see
 [verification](#verification)). Context generation does not rebuild scientific data.
 
 The registry's `expressionUnit` is authoritative for display: `buildPopData`,
-`loadTimeSeries` and the agent export prefer it to the unit stamped in a bundle, and the bundle
+`loadTimeSeries` and the agent export (through `resolveExpressionUnit`) prefer it to the unit stamped in a bundle, and the bundle
 builders take the registry unit, so a unit relabel need not rebuild hash-pinned
 bundle bytes. Changing a field of a dataset registered before the R 4.6.0 swap
 needs a reviewed reason in `scripts/regen-r460/build_registry_edits.mts`
@@ -150,7 +152,8 @@ intent applied by src/explorer/explorerPosition.ts, which owns the tab rule and
 the reset/load each move costs, so no caller sets that state directly. A view
 that loads tracks outside the main explorer uses `src/data/trackColumns.ts`
 (per-column loading, failed and Retry states); every download names itself and
-writes its Metadata through `src/utils/exportProvenance.ts`; every gene picker is
+writes its Metadata through `src/utils/exportProvenance.ts`; every CSV is written
+by `src/utils/csv.ts` (escaping, formula guard, BOM/CRLF); every gene picker is
 `GenePicker` over `src/explorer/geneVocabulary.ts`; sample
 values and export labels use sampleValues; bundle loading uses trackData.
 Header identity uses BrandLink and the shared brand asset constants. For logo,
@@ -179,7 +182,10 @@ report's expression lanes, and `VITE_HYPOMAP_COEXPRESSION` replaces the
 co-expression placeholder. The preview reads the export pinned in
 `hypomap-release.json` (installed by `pnpm run fetch:hypomap`); co-expression needs
 the loopback service in `services/hypomap/`, reached only through the offline dev
-server's proxy. Hosted builds read the atlas from R2 under `/hypomap/<tag>/`.
+server's proxy and only via the client `src/search/hypomap/codetection.ts`, which
+fails closed when the service's export hash disagrees with the pin and keeps
+unsupported datasets visible; `services/hypomap/codetection_wire.json` pins the
+wire for both the Python and vitest tests. Hosted builds read the atlas from R2 under `/hypomap/<tag>/`.
 `scripts/lib/hypomapAtlas.mts` defines the file shape for the data host's path
 rule and the uploader (`upload:bundles --hypomap-only`). The path rule names the
 pinned tag, so a tag change regenerates the Cloudflare payloads. The manual rule,

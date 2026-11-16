@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { exportGenesCSV, exportGenesExcel } from '../gene-explorer/geneExport';
 import { makePopData, MACAQUE_DATASET } from './fixtures';
-import { parseDelimitedRows } from '../local-datasets/importData';
+import { csvDownloadTable, csvDownloadText } from './csvDownload';
 import { parseRoute } from '../utils/appLinks';
 import { RELEASE_IDENTITY } from '../data/releaseIdentity';
 import type { Group, PopData, ResolvedContrast } from '../types';
@@ -21,15 +21,15 @@ vi.mock('../utils/exportAction', async (importOriginal) => ({
   downloadFile,
 }));
 
-/** The CSV rows the exporter handed to downloadFile. */
+/** The CSV records the exporter handed to downloadFile, as raw lines. */
 function capturedCSV(): string[] {
   const [, dataUrl] = downloadFile.mock.calls.at(-1) as [string, string];
-  return decodeURIComponent(dataUrl.replace(/^data:text\/csv;charset=utf-8,/, '')).split('\n');
+  return csvDownloadText(dataUrl).replace(/^\uFEFF/, '').split('\r\n');
 }
 
 function capturedTable(): string[][] {
   const [, dataUrl] = downloadFile.mock.calls.at(-1) as [string, string];
-  return parseDelimitedRows(decodeURIComponent(dataUrl.replace(/^data:text\/csv;charset=utf-8,/, '')), ',');
+  return csvDownloadTable(dataUrl);
 }
 
 const CELLS: Group[] = [

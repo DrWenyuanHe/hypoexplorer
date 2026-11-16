@@ -6,8 +6,11 @@
 //   pnpm run build:agent-export --out <dir> --unpacked --kegg full|stats|omit
 //
 // Source of truth is the published browser bundles under public/datasets/, read
-// through the same strict contrast rules the query index uses (rawTrack.ts), so
-// every number in the archive is the number the site shows. Bundles round
+// through the bundle reader (scripts/lib/bundleReader.mts) as the browser sees
+// them: reviewed display labels, the registry's expression unit, the shared
+// low-power rule and the strict contrast rules the query index uses
+// (rawTrack.ts), so every number and label in the archive is the one the site
+// shows. Bundles round
 // effect sizes and probabilities (README "Precision"); the analysis tables under
 // data/raw/results/ and geo_replication/ keep full precision.
 //
@@ -25,15 +28,15 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { listDatasets } from '../src/data/datasets';
 import { contrastArmCounts, getActiveContrast, listContrasts } from '../src/data/contrasts';
-import { groupSamplesOf, strictDeTableFor, strictSiblingPathwaysFor } from '../src/data/rawTrack';
 import { datasetQuality } from '../src/data/datasetQualityR460';
 import { CPM_TMM_UNIT } from '../src/data/expressionUnits';
 import { requireAuthorValidation } from '../src/data/authorValidation';
 import { sourceAccession, upstreamProcessingFor } from '../src/data/upstreamProcessing';
 import { DEFAULT_FDR_CUTOFF, isFdrSignificant } from '../src/statistics/policy';
 import { SITE_URL, studyPageHref } from '../src/data/siteInfo';
-import type { Dataset, DatasetMeta, PathwaySibling, RawTrack, TimeSeriesBundle } from '../src/types';
+import type { Dataset } from '../src/types';
 import sourceMetadata from '../data/seo/studySources.json';
+import { readDatasetFromDisk } from './lib/bundleReader.mjs';
 import { ZipWriter } from './lib/zipWriter.mjs';
 import {
   CONTRAST_COLUMNS, DATASET_COLUMNS, DE_COLUMNS, FGSEA_COLUMNS, SAMPLE_COLUMNS, TRACK_COLUMNS, TRACK_CONTRAST_COLUMNS,
@@ -41,7 +44,6 @@ import {
 } from './lib/agentExport.mjs';
 
 const ROOT = path.resolve('.');
-const DATASETS_DIR = path.join(ROOT, 'public/datasets');
 const NOMENCLATURE = path.join(ROOT, 'data/nomenclature/nomenclature.tsv');
 
 // ── CLI ──────────────────────────────────────────────────────────────────────
@@ -59,19 +61,6 @@ const writeUnpacked = argv.includes('--unpacked');
 const writeZip = !argv.includes('--no-zip');
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
-
-// Parse a `var NAME = {...};` bundle without evaluating it (as build_query_index does).
-function readBundle<T>(file: string): T | null {
-  if (!existsSync(file)) return null;
-  const src = readFileSync(file, 'utf8');
-  const varAt = src.indexOf('var ');
-  if (varAt < 0) return null;
-  const objAt = src.indexOf('{', varAt);
-  const arrAt = src.indexOf('[', varAt);
-  const start = objAt < 0 ? arrAt : arrAt < 0 ? objAt : Math.min(objAt, arrAt);
-  if (start < 0) return null;
-  return JSON.parse(src.slice(start).replace(/;\s*$/, '')) as T;
-}
 
 type Cell = string | number | boolean | null | undefined;
 
@@ -199,10 +188,9 @@ const collections = new Set<string>();
 
 for (const dataset of selected) {
   const id = safeSegment(dataset.id);
-  const dir = path.join(DATASETS_DIR, id);
-  const meta = readBundle<DatasetMeta>(path.join(dir, 'meta.js'));
-  if (!meta?.populations?.length) throw new Error(`${id}: meta.js missing or declares no tracks`);
-  const qcGlobal = readBundle<Record<string, unknown>>(path.join(dir, 'qc_global.js'));
+  const disk = readDatasetFromDisk(dataset);
+  const { meta } = disk;
+  const qcGlobal = disk.qc();
   const contrasts = listContrasts(dataset);
   const defaultContrast = getActiveContrast(dataset);
   if (!defaultContrast) throw new Error(`${id}: no registered contrast`);
@@ -215,11 +203,11 @@ for (const dataset of selected) {
 
   for (const trackCode of meta.populations) {
     const trackId = safeSegment(trackCode);
-    const raw = readBundle<RawTrack>(path.join(dir, `track_${trackId}.js`));
-    if (!raw) throw new Error(`${id}/${trackId}: track bundle missing or unparseable`);
+    const track = disk.track(trackId);
+    const { raw } = track;
     totals.tracks++;
     const sampleOrder = raw.meta?.sampleOrder ?? raw.meta?.sampleNames ?? [];
-    const groupSamples = groupSamplesOf(raw) ?? {};
+    const groupSamples = track.groupSamples ?? {};
     const kept = new Set(raw.qc?.samplesKept ?? raw.meta?.samplesKept ?? sampleOrder);
     // Factorial designs declare a sample in a pooled arm and a design cell, so
     // a sample can carry several arms.
@@ -235,17 +223,15 @@ for (const dataset of selected) {
       ]);
     });
 
-    // The registry's unit wins, as in the browser (src/data/buildPopData.ts).
-    const unit = dataset.expressionUnit ?? raw.meta?.expressionUnit ?? CPM_TMM_UNIT;
-    const flags = meta.qcFlags?.[trackId];
-    const lowPower = flags ? Math.min(flags.nNormal ?? 3, flags.nObese ?? 3) < 3 : false;
+    const unit = track.expressionUnit;
+    const flags = track.qcFlags;
     tracksCsv.push([
-      id, trackId, meta.labels?.[trackId] ?? trackId, meta.types?.[trackId], trackId === dataset.defaultTrack,
-      meta.nGenes?.[trackId] ?? raw.de?.length, sampleOrder.length, unit, flags?.status, flags?.minCells, lowPower,
+      id, trackId, track.label, meta.types?.[trackId], trackId === dataset.defaultTrack,
+      meta.nGenes?.[trackId] ?? raw.de?.length, sampleOrder.length, unit, flags?.status, flags?.minCells, track.lowPower,
     ]);
     trackMeta.push({
-      track_id: trackId, label: meta.labels?.[trackId] ?? trackId, type: meta.types?.[trackId],
-      expression_unit: unit, qc_flags: flags ?? null, sample_order: sampleOrder, group_samples: groupSamples,
+      track_id: trackId, label: track.label, type: meta.types?.[trackId],
+      expression_unit: unit, qc_flags: flags, sample_order: sampleOrder, group_samples: groupSamples,
       samples_kept: raw.qc?.samplesKept ?? null,
     });
 
@@ -266,9 +252,8 @@ for (const dataset of selected) {
       totals.expressionFiles++;
     }
 
-    const sibling = readBundle<PathwaySibling>(path.join(dir, `track_${trackId}.pathways.js`));
     for (const contrast of contrasts) {
-      const de = strictDeTableFor(raw, contrast.id, defaultContrast.id);
+      const de = track.deFor(contrast.id);
       let up = 0;
       let down = 0;
       let sig = 0;
@@ -280,7 +265,7 @@ for (const dataset of selected) {
           else if (r.logFC < 0) down++;
         }
       }
-      const resolved = strictSiblingPathwaysFor(sibling, contrast.id, defaultContrast.id);
+      const resolved = track.pathwaysFor(contrast.id);
       let fgseaRows = 0;
       for (const [collection, records] of Object.entries(resolved.db ?? {})) {
         if (!Array.isArray(records)) continue;
@@ -306,7 +291,7 @@ for (const dataset of selected) {
   // Sampled time courses (circadian datasets) ship as their own matrices.
   if (dataset.timeSeries) {
     for (const trackCode of meta.populations) {
-      const ts = readBundle<TimeSeriesBundle>(path.join(dir, `timeseries_${trackCode}.js`));
+      const ts = disk.timeSeries(trackCode);
       if (!ts) continue;
       const tsSamples = ts.meta.samples as unknown as Record<string, Cell>[];
       const sampleKeys = [...new Set(tsSamples.flatMap((s) => Object.keys(s)))];

@@ -14,6 +14,19 @@ export const CPM_TMM_UNIT = 'CPM (TMM-normalized)';
 /** The pre-regeneration label: counts ÷ raw column total × 1e6, no TMM factor. */
 export const LEGACY_CPM_UNIT = 'CPM';
 
+/**
+ * The unit a track's per-sample values are shown in. The registry is
+ * authoritative; a bundle's own `meta.expressionUnit` fills in when the registry
+ * states none; count datasets default to CPM (TMM-normalized). Structural
+ * parameter types keep this module dependency-free.
+ */
+export function resolveExpressionUnit(
+  dataset: { expressionUnit?: string | null },
+  rawTrack: { meta?: { expressionUnit?: string | null } | null } | null | undefined,
+): string {
+  return dataset.expressionUnit ?? rawTrack?.meta?.expressionUnit ?? CPM_TMM_UNIT;
+}
+
 // 'log2(<base> + <offset>)' — a log with a stated pseudocount, so exactly
 // invertible. `.+?` is lazy so 'log2(x + y + 1)' splits at the LAST plus (the
 // offset group only matches a number, so an early split backtracks).

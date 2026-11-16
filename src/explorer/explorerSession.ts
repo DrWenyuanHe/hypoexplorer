@@ -33,10 +33,17 @@
 // which is exactly how App came to have four different spellings of it. The
 // matrix below is the single statement of that policy, and it is plain data so
 // it can be read (and tested) without mounting anything.
+//
+// THE ANALYSIS SNAPSHOT has both of its sides here too. `snapshot` writes the
+// session into the shareable `analysis=` value and `restoreAnalysis` reads one
+// back, and both lean on the defaults declared in this file. "Is anything set?"
+// used to be a row of hand-typed literals in App, a copy that could drift from
+// the defaults the slices actually open at.
 
 import { useCallback, useMemo, useState } from 'react';
 import { DB_DEFAULT_FILTER } from '../data/constants';
 import type { ExplorerAnalysisState } from '../utils/analysisState';
+import type { ChartScale } from '../utils/chartScale';
 
 // ── Volcano metric ──────────────────────────────────────────────────────────
 
@@ -62,6 +69,13 @@ export type VolcanoMetric = 'pval' | 'fdr';
 export const METRIC_DEFAULT_SIG_THRESH: Record<VolcanoMetric, number> = {
   pval: 2,
   fdr: 0.5,
+};
+
+/** Where the volcano opens: the p-value axis at its own threshold, no fold-change cutoff. */
+const VOLCANO_DEFAULT: ExplorerAnalysisState['volcano'] = {
+  metric: 'pval',
+  logFCThresh: 0,
+  sigThresh: METRIC_DEFAULT_SIG_THRESH.pval,
 };
 
 // ── The reset matrix ────────────────────────────────────────────────────────
@@ -181,9 +195,9 @@ export interface VolcanoView {
  * points it colours agree with the significant-gene count printed above them.
  */
 export function useVolcanoView(initial?: { metric: VolcanoMetric; sigThresh: number }): VolcanoView {
-  const [metric, setMetric] = useState<VolcanoMetric>(initial?.metric ?? 'pval');
-  const [logFCThresh, setLogFCThresh] = useState(0);
-  const [sigThresh, setSigThresh] = useState(initial?.sigThresh ?? METRIC_DEFAULT_SIG_THRESH.pval);
+  const [metric, setMetric] = useState<VolcanoMetric>(initial?.metric ?? VOLCANO_DEFAULT.metric);
+  const [logFCThresh, setLogFCThresh] = useState(VOLCANO_DEFAULT.logFCThresh);
+  const [sigThresh, setSigThresh] = useState(initial?.sigThresh ?? VOLCANO_DEFAULT.sigThresh);
 
   const selectMetric = useCallback((next: VolcanoMetric) => {
     setMetric(next);
@@ -219,10 +233,12 @@ export interface PathwayView<TRow> {
 export const PATHWAY_FDR_DEFAULT = 1.0;
 /** The default pathway ordering: by effect size. */
 export const PATHWAY_SORT_DEFAULT = 'nes';
+/** The default pathway search: none. */
+const PATHWAY_SEARCH_DEFAULT = '';
 
 export function usePathwayView<TRow>(): PathwayView<TRow> {
   const [selected, setSelected] = useState<TRow | null>(null);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(PATHWAY_SEARCH_DEFAULT);
   const [dbFilter, setDbFilter] = useState<Record<string, boolean>>(() => ({ ...DB_DEFAULT_FILTER }));
   const [fdrThresh, setFdrThresh] = useState(PATHWAY_FDR_DEFAULT);
   const [sortKey, setSortKey] = useState(PATHWAY_SORT_DEFAULT);
@@ -238,7 +254,7 @@ export function usePathwayView<TRow>(): PathwayView<TRow> {
   }, []);
 
   const resetFilters = useCallback(() => {
-    setSearch('');
+    setSearch(PATHWAY_SEARCH_DEFAULT);
     setDbFilter({ ...DB_DEFAULT_FILTER });
     setFdrThresh(PATHWAY_FDR_DEFAULT);
   }, []);
@@ -256,6 +272,59 @@ export function usePathwayView<TRow>(): PathwayView<TRow> {
   );
 }
 
+// ── The analysis snapshot ───────────────────────────────────────────────────
+
+/**
+ * What a snapshot needs that the session does not hold. The contrast belongs to
+ * the explorer position and the chart scale to the global chart-scale store.
+ * The caller says which contrast is the dataset's default, because a link that
+ * names the default contrast says nothing a plain link does not.
+ */
+export interface AnalysisContext {
+  contrastId: string | null;
+  defaultContrastId: string | null;
+  chartScale: ChartScale;
+}
+
+/** The chart-scale store's opening pick ('native': every dataset as deposited). */
+const CHART_SCALE_DEFAULT: ChartScale = 'native';
+
+/**
+ * The session's part of a snapshot. Pathway SELECTION is deliberately absent:
+ * a selected row carries one contrast's statistics and must be re-found in
+ * whatever data the link loads.
+ */
+interface SessionAnalysis {
+  genes: string[];
+  volcano: ExplorerAnalysisState['volcano'];
+  pathway: ExplorerAnalysisState['pathway'];
+}
+
+function snapshotAnalysis(state: SessionAnalysis, context: AnalysisContext): ExplorerAnalysisState | undefined {
+  const { genes, volcano, pathway } = state;
+  const nonDefault = context.chartScale !== CHART_SCALE_DEFAULT
+    || context.contrastId !== context.defaultContrastId
+    || genes.length > 0
+    || volcano.metric !== VOLCANO_DEFAULT.metric
+    || volcano.logFCThresh !== VOLCANO_DEFAULT.logFCThresh
+    || volcano.sigThresh !== VOLCANO_DEFAULT.sigThresh
+    || pathway.search !== PATHWAY_SEARCH_DEFAULT
+    || pathway.fdrThresh !== PATHWAY_FDR_DEFAULT
+    || pathway.sortKey !== PATHWAY_SORT_DEFAULT
+    || Object.entries(DB_DEFAULT_FILTER).some(([db, enabled]) => pathway.dbFilter[db] !== enabled);
+  if (!nonDefault) return undefined;
+  // Field ORDER is part of the public link: `analysis=` is this object
+  // serialized, so reordering it would change every copied URL.
+  return {
+    version: 1,
+    contrastId: context.contrastId,
+    genes,
+    chartScale: context.chartScale,
+    volcano: { metric: volcano.metric, logFCThresh: volcano.logFCThresh, sigThresh: volcano.sigThresh },
+    pathway: { search: pathway.search, dbFilter: pathway.dbFilter, fdrThresh: pathway.fdrThresh, sortKey: pathway.sortKey },
+  };
+}
+
 // ── The session ─────────────────────────────────────────────────────────────
 
 export interface ExplorerSession<TPathwayRow> {
@@ -267,6 +336,12 @@ export interface ExplorerSession<TPathwayRow> {
   setCellSearch: (value: string) => void;
   /** Apply the reset matrix for one navigation. The only reset entry point. */
   resetFor: (scope: NavigationScope) => void;
+  /**
+   * The session as a shareable analysis, or undefined when everything (the
+   * session, the contrast and the chart scale) is at its default, so a plain
+   * link stays plain. `restoreAnalysis` is its inverse for the session's fields.
+   */
+  snapshot: (context: AnalysisContext) => ExplorerAnalysisState | undefined;
   restoreAnalysis: (analysis: ExplorerAnalysisState) => void;
 }
 
@@ -295,15 +370,26 @@ export function useExplorerSession<TPathwayRow>(): ExplorerSession<TPathwayRow> 
     setSortKey(analysis.pathway.sortKey);
   }, [replaceGenes, selectMetric, setLogFCThresh, setSigThresh, deselectPathway, setPathwaySearch, setDatabaseEnabled, setFdrThresh, setSortKey]);
 
+  // Bound to the snapshot's fields one by one rather than to the slice objects,
+  // so selecting a pathway row (not part of a snapshot) does not mint a new one.
+  const { metric, logFCThresh, sigThresh } = volcano;
+  const { search, dbFilter, fdrThresh, sortKey } = pathway;
+  const selectedGenes = genes.genes;
+  const snapshot = useCallback((context: AnalysisContext) => snapshotAnalysis({
+    genes: selectedGenes,
+    volcano: { metric, logFCThresh, sigThresh },
+    pathway: { search, dbFilter, fdrThresh, sortKey },
+  }, context), [selectedGenes, metric, logFCThresh, sigThresh, search, dbFilter, fdrThresh, sortKey]);
+
   const resetFor = useCallback((scope: NavigationScope) => {
     if (resetClears(scope, 'genes')) clearGenes();
     if (resetClears(scope, 'pathwaySelection')) deselectPathway();
-    if (resetClears(scope, 'pathwaySearch')) setPathwaySearch('');
+    if (resetClears(scope, 'pathwaySearch')) setPathwaySearch(PATHWAY_SEARCH_DEFAULT);
     if (resetClears(scope, 'cellSearch')) setCellSearch('');
   }, [clearGenes, deselectPathway, setPathwaySearch]);
 
   return useMemo(
-    () => ({ genes, volcano, pathway, cellSearch, setCellSearch, resetFor, restoreAnalysis }),
-    [genes, volcano, pathway, cellSearch, resetFor, restoreAnalysis],
+    () => ({ genes, volcano, pathway, cellSearch, setCellSearch, resetFor, snapshot, restoreAnalysis }),
+    [genes, volcano, pathway, cellSearch, resetFor, snapshot, restoreAnalysis],
   );
 }

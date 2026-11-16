@@ -1,11 +1,14 @@
 {
   "version": 1,
   "area": "module-expression-survey",
-  "fingerprint": "25149e4dbb2343773d4bab93b8d58c8404cd6fc2e4ea70d70f2c27574fffd853",
-  "outcome": "no-impact",
-  "explanation": "Rebased onto #22. loadExternalExpression retries the lookup on the unversioned Ensembl key when a versioned query names no feature, so HPA, which stores unversioned IDs, now matches. Atlas formats, manifests and the survey contract are unchanged.",
+  "fingerprint": "8da20f797310a146b1b0df07adf2c6c1e1284cb95e9ab655f37fe39e96075693",
+  "outcome": "updated",
+  "explanation": "The survey view no longer derives its own data. expressionSurvey.ts is the pure derivation module: selectSources (collection, region, SFO boundary, AgRP and tissue-preparation filters), catalogEntries, surveyPanel (ranked rows, bar axis, per-probe matrix cells, the Matched X -> Y note, empty states) and surveyExport (samples/cohort-means CSV and values + metadata JSON, survey CSV escaping unchanged). Reference eligibility is applied once through inReferenceScope and value status has one ValueStatus code-to-label mapping. useSurveyLoad.ts owns the four-request source queue, per-source errors and a per-source retry; useKeyedLoad and useExternalValidation give the catalog, validation reports and sample metadata their own cancelled-flag lifecycles and retries, replacing the single shared reload token. Loader imports and signatures are unchanged; export bytes are unchanged. From main: the NeuroSeq, OXT reference and atlas loaders now read their release-local JSON through sourceJson.ts behind the same signatures; it forgets failed requests, so the per-source and catalog retries still re-fetch.",
   "references": [
-    "src/expression-survey/externalReference.ts",
-    "docs/EXPRESSION_SURVEY.md"
+    "src/expression-survey/expressionSurvey.ts",
+    "src/expression-survey/useSurveyLoad.ts",
+    "src/expression-survey/ExpressionSurveyView.tsx",
+    "docs/EXPRESSION_SURVEY.md",
+    "CONTEXT.md"
   ]
 }

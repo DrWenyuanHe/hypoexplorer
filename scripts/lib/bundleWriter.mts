@@ -101,7 +101,8 @@ export interface WrittenBundle {
   files: string[];
 }
 
-const DEFAULT_OUT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..', 'public');
+/** This repository's public/ — the default root for writing and reading bundles. */
+export const DEFAULT_OUT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..', 'public');
 
 function sameOrdered(a: readonly string[], b: readonly string[]): boolean {
   return a.length === b.length && a.every((value, index) => value === b[index]);
@@ -204,7 +205,8 @@ function assertTrackContract(dataset: Dataset, track: TrackBundlePayload): void 
   }
 }
 
-function localDatasetFile(outRoot: string, url: string): string {
+/** Map a same-origin locator path (`/datasets/...`) onto a file under `outRoot`, refusing anything unsafe. */
+export function localDatasetFile(outRoot: string, url: string): string {
   if (!url.startsWith('/datasets/') || url.includes('\\') || url.includes('?') || url.includes('#')) {
     throw new Error(`bundle locator returned non-local dataset path: ${url}`);
   }

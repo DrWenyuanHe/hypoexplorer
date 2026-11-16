@@ -16,6 +16,7 @@ import {
   loadQueryManifest, loadGeneRows, loadPathwayRows, loadPathwayNames, loadGeneNames,
   type GeneIndexRow, type PathwayIndexRow, type QueryManifest, type QueryTrackEntry,
 } from './queryIndex';
+import { decodeGeneRow, decodePathwayRow } from './queryWire';
 import { geneRow, pathwayRow } from './crossDatasetRows';
 import { manifestFreshness, REBUILD_HINT } from './indexFreshness';
 import { strictDeTableFor, strictSiblingPathwaysFor } from './rawTrack';
@@ -255,7 +256,8 @@ export async function queryGeneViaIndex(
   const res = await runIndexQuery<GeneIndexRow, TrackRow>(
     datasets,
     (manifest) => loadGeneRows(datasets, gene, manifest.buildId),
-    ([, logFC, pval, fdr, se], entry) => {
+    (row, entry) => {
+      const { logFC, pval, fdr, se } = decodeGeneRow(row);
       // A row without an effect size or a p-value is not a usable result; drop
       // it rather than fabricate a value. (Measured: 0 of 1,319,978 index rows
       // are missing either, so this is a guard, not a filter. `se` is the one
@@ -291,7 +293,8 @@ export async function queryPathwayViaIndex(
   const res = await runIndexQuery<PathwayIndexRow, PathwayTrackRow>(
     datasets,
     (manifest) => loadPathwayRows(datasets, pathway, manifest.buildId),
-    ([, NES, padj, pval, size, dbIdx], entry, manifest) => {
+    (row, entry, manifest) => {
+      const { NES, padj, pval, size, dbIdx } = decodePathwayRow(row);
       // pval is required too: `pval ?? 0` would render a missing p-value as
       // maximally significant. The full-download path never emits such a row,
       // so dropping it keeps the fast and slow paths answering alike.
