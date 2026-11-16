@@ -37,7 +37,6 @@ const handlers = () => ({
   onSearch: vi.fn(),
   onOpenExpression: vi.fn(),
   onOpenTracker: vi.fn(),
-  onOpenLocalDatasets: vi.fn(),
   onOpenLibrary: vi.fn(),
   onOpenStatistics: vi.fn(),
   onOpenMethodology: vi.fn(),
@@ -76,7 +75,7 @@ describe('hub search box', () => {
   it('has one box for genes and pathways: no mode switch and no filter button', () => {
     const { form } = renderHub();
     expect(within(form).getAllByRole('button').map((b) => b.getAttribute('aria-label'))).toEqual(['Search']);
-    expect(within(form).getByTitle('Press / to search')).toBeTruthy();
+    expect(within(form).queryByTitle('Press / to search')).toBeNull();
   });
 
   it('fetches no vocabulary until the box is focused', () => {
@@ -165,8 +164,7 @@ describe('hub routes', () => {
   it('keeps a footer route to every supporting tool and reference page', () => {
     const { h } = renderHub();
     const nav = screen.getByRole('navigation', { name: 'Reference' });
-    fireEvent.click(within(nav).getByRole('button', { name: 'Local datasets' }));
-    expect(h.onOpenLocalDatasets).toHaveBeenCalledTimes(1);
+    expect(within(nav).queryByRole('button', { name: /local datasets/i })).toBeNull();
     fireEvent.click(within(nav).getByRole('button', { name: 'Dataset tracker' }));
     expect(h.onOpenTracker).toHaveBeenCalledTimes(1);
     for (const href of ['/studies/', '/methods/', '/how-to-cite/', '/about/']) {

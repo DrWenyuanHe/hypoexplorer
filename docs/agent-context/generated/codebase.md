@@ -28,7 +28,6 @@ Source directories are ownership/navigation areas, not separately installed plug
 | verification | verification |
 | nomenclature | nomenclature |
 | expression | expression-survey |
-| local-datasets | local-datasets |
 | search | search |
 
 ## Explorer tabs
@@ -49,7 +48,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (243):
+Covered source files (238):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -195,10 +194,6 @@ Covered source files (243):
 - [src/__tests__/listingModeToggle.test.tsx](<../../../src/__tests__/listingModeToggle.test.tsx>)
 - [src/__tests__/loadDatasetMeta.test.ts](<../../../src/__tests__/loadDatasetMeta.test.ts>)
 - [src/__tests__/loadTrack.test.ts](<../../../src/__tests__/loadTrack.test.ts>)
-- [src/__tests__/localDatasetStorage.test.ts](<../../../src/__tests__/localDatasetStorage.test.ts>)
-- [src/__tests__/localImport.test.ts](<../../../src/__tests__/localImport.test.ts>)
-- [src/__tests__/localImportPanel.test.tsx](<../../../src/__tests__/localImportPanel.test.tsx>)
-- [src/__tests__/localRoutes.test.tsx](<../../../src/__tests__/localRoutes.test.tsx>)
 - [src/__tests__/macaqueQc.test.ts](<../../../src/__tests__/macaqueQc.test.ts>)
 - [src/__tests__/matrixShape.test.ts](<../../../src/__tests__/matrixShape.test.ts>)
 - [src/__tests__/methodology.test.tsx](<../../../src/__tests__/methodology.test.tsx>)
@@ -220,7 +215,6 @@ Covered source files (243):
 - [src/__tests__/pipelineQc.test.ts](<../../../src/__tests__/pipelineQc.test.ts>)
 - [src/__tests__/popGroups.test.ts](<../../../src/__tests__/popGroups.test.ts>)
 - [src/__tests__/portalCards.test.tsx](<../../../src/__tests__/portalCards.test.tsx>)
-- [src/__tests__/publicReferencePicker.test.tsx](<../../../src/__tests__/publicReferencePicker.test.tsx>)
 - [src/__tests__/publicationArchive.test.ts](<../../../src/__tests__/publicationArchive.test.ts>)
 - [src/__tests__/pwaUpdate.test.tsx](<../../../src/__tests__/pwaUpdate.test.tsx>)
 - [src/__tests__/qcColumns.test.tsx](<../../../src/__tests__/qcColumns.test.tsx>)
@@ -641,29 +635,6 @@ Covered source files (8):
 - [src/library/StudyVolcano.tsx](<../../../src/library/StudyVolcano.tsx>)
 - [src/library/libraryExport.ts](<../../../src/library/libraryExport.ts>)
 - [src/library/libraryFilters.ts](<../../../src/library/libraryFilters.ts>)
-
-## local-datasets
-
-On-device result import, storage and exploration.
-
-Start here:
-- [src/local-datasets/LocalDatasetsView.tsx](<../../../src/local-datasets/LocalDatasetsView.tsx>)
-- [src/local-datasets/ImportPanel.tsx](<../../../src/local-datasets/ImportPanel.tsx>)
-- [docs/LOCAL_DATASETS.md](<../../LOCAL_DATASETS.md>)
-
-Covered source files (12):
-- [src/local-datasets/ImportPanel.tsx](<../../../src/local-datasets/ImportPanel.tsx>)
-- [src/local-datasets/LocalDatasetsView.tsx](<../../../src/local-datasets/LocalDatasetsView.tsx>)
-- [src/local-datasets/LocalExplorer.css](<../../../src/local-datasets/LocalExplorer.css>)
-- [src/local-datasets/LocalExplorer.test.tsx](<../../../src/local-datasets/LocalExplorer.test.tsx>)
-- [src/local-datasets/LocalExplorer.tsx](<../../../src/local-datasets/LocalExplorer.tsx>)
-- [src/local-datasets/PublicReferencePicker.tsx](<../../../src/local-datasets/PublicReferencePicker.tsx>)
-- [src/local-datasets/comparison.test.ts](<../../../src/local-datasets/comparison.test.ts>)
-- [src/local-datasets/comparison.ts](<../../../src/local-datasets/comparison.ts>)
-- [src/local-datasets/importData.ts](<../../../src/local-datasets/importData.ts>)
-- [src/local-datasets/localDatasets.css](<../../../src/local-datasets/localDatasets.css>)
-- [src/local-datasets/storage.ts](<../../../src/local-datasets/storage.ts>)
-- [src/local-datasets/types.ts](<../../../src/local-datasets/types.ts>)
 
 ## methodology
 

@@ -54,7 +54,6 @@ interface HubSection {
 }
 
 interface HubHandlers {
-  onOpenLocalDatasets?: () => void;
   onOpenExpression?: () => void;
   /** Open the shared gene and pathway search dialog. */
   onOpenSearch: () => void;
@@ -62,9 +61,9 @@ interface HubHandlers {
   onOpenLibrary: (categories?: readonly DatasetCategory[]) => void;
 }
 
-/** Three main tools and two supporting tools, with their navigation callbacks. */
+/** Three main tools and one supporting tool, with their navigation callbacks. */
 export function hubSections(
-  { onOpenSearch, onOpenTracker, onOpenLibrary, onOpenLocalDatasets, onOpenExpression }: HubHandlers,
+  { onOpenSearch, onOpenTracker, onOpenLibrary, onOpenExpression }: HubHandlers,
   { nDatasets }: { nDatasets: number },
 ): HubSection[] {
   return [
@@ -80,7 +79,6 @@ export function hubSections(
       id: 'more', title: 'More tools',
       browse: [],
       items: [
-        { name: 'Explore Local Datasets', desc: 'Import your DE and FGSEA tables, confirm columns, and explore genes and pathways. Your files stay in this browser.', icon: 'library', status: 'live', go: () => { if (onOpenLocalDatasets) onOpenLocalDatasets(); else window.location.hash = '#/local-datasets'; } },
         { name: 'Dataset tracker', desc: 'Review screened hypothalamus studies, including those outside the library. Check data availability, replicate counts and sources.', icon: 'tracker', status: 'live', go: () => onOpenTracker() },
       ],
     },
@@ -89,7 +87,6 @@ export function hubSections(
 
 interface LandingHubProps {
   onHome?: () => void;
-  onOpenLocalDatasets?: () => void;
   onOpenExpression?: () => void;
   datasets?: Dataset[];
   onEnterTool: (tool: string) => void;
@@ -125,17 +122,16 @@ export function LandingHub({
   onOpenMethodology,
   onOpenVerification,
   onOpenNomenclature,
-  onOpenLocalDatasets,
   onOpenExpression,
   onChangelog,
   onCompareSet,
 }: LandingHubProps) {
   const [primary, secondary] = useMemo(
     () => hubSections(
-      { onOpenSearch: () => onOpenSearch(), onOpenTracker, onOpenLibrary, onOpenLocalDatasets, onOpenExpression },
+      { onOpenSearch: () => onOpenSearch(), onOpenTracker, onOpenLibrary, onOpenExpression },
       { nDatasets: datasets.length },
     ),
-    [onOpenSearch, onOpenTracker, onOpenLibrary, onOpenLocalDatasets, onOpenExpression, datasets.length],
+    [onOpenSearch, onOpenTracker, onOpenLibrary, onOpenExpression, datasets.length],
   );
   const tool = (name: string) => [...primary.items, ...secondary.items].find((item) => item.name === name);
 
@@ -183,7 +179,6 @@ export function LandingHub({
           <h1 className="hub-mark">
             <img src={BRAND.logo} width={320} height={72} alt="HypoExplorer" />
           </h1>
-          <p className="hub-tagline">Where a gene is expressed in the hypothalamus, and how it changes across {nStudies} public studies</p>
           <HubSearch onSearch={onSearch} />
           <div className="hub-cards">
             {CARDS.map(({ item, title, detail }) => item && (
@@ -238,9 +233,7 @@ export function LandingHub({
               <button type="button" onClick={() => onOpenLibrary()}>Dataset library</button>
               <a className="site-reference-link" href="/studies/">Study pages</a>
               {secondary.items.map((item) => (
-                <button key={item.name} type="button" onClick={item.go}>
-                  {item.name === 'Explore Local Datasets' ? 'Local datasets' : item.name}
-                </button>
+                <button key={item.name} type="button" onClick={item.go}>{item.name}</button>
               ))}
             </div>
           </div>

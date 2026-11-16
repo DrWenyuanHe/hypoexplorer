@@ -1,10 +1,13 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "e84e837a57a3aa7bb9ab7f4f4742ad3b38cb5426f9797d49ad15cba4db7fe59f",
+  "fingerprint": "bd513a504d8fb4c533bbc41f8576f65b49a72084663f1fb6066550cb03a466da",
   "outcome": "updated",
-  "explanation": "From main: vite.config.ts gates VitePWA on VITE_SERVICE_WORKER (selfDestroying when unset, full Workbox config kept for opt-in); deploy:cf and deploy:cf:dry run build instead of deploy:dist, so precompress is now Apache-only; verify_deploy treats the app sidecar yardstick as optional on the edge model, and the delivery, development, guidance and release docs and catalog describe this. From the mobile pass: index.html keeps the hub bar from shrinking under the beta notice at 320px and puts the phone hub nav on one sideways-scrolling line beside the compare pill; the UI-change runbook records the explorer breadcrumb's phone layout and its 1500px breakpoint. From the listing-toggle work: the catalog's statistics area names the shared FDR / p < 0.05 listing toggle and references listingModeStore.ts, the generated AGENTS.md map line follows it, and the UI-change runbook names the listing mode, TierLabel and QTerm as the shared pieces for significance tables. From the nSig branch: CONTEXT.md's Bundle-writer seam bullet now states the nSig rule as finite FDR < 0.05, matching the QC heading and the app's significance call, instead of nominal P < 0.01; the geo, batch2 and normalized builders log the FDR count. From the changelog branch: CHANGELOG.md's Unreleased note records that the website changelog now covers the public release and PRs #1-#46, including the FDR nSig counts now published. Repository structure and commands are unchanged.",
+  "explanation": "Local datasets is removed repository-wide: AGENTS.md counts the remaining source areas and views and drops the local-import route, docs/README.md loses its LOCAL_DATASETS.md link, and CHANGELOG.md records the removal, the orphaned IndexedDB store and the hub tagline and \"/\" badge removal. index.html loses the tagline and key-badge styles. Earlier changelog entries stay as history.",
   "references": [
+    "AGENTS.md",
+    "CHANGELOG.md",
+    "docs/README.md",
     "vite.config.ts",
     "package.json",
     "scripts/verify_deploy.mts",
@@ -19,7 +22,6 @@
     "scripts/lib/bundleWriter.mts",
     "scripts/build_geo_datasets.mts",
     "scripts/build_normalized_bundles.mts",
-    "CHANGELOG.md",
     "docs/PROJECT_GUIDANCE.md"
   ]
 }
