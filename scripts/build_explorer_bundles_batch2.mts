@@ -24,7 +24,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { defaultContrastBinding, outDirFromArgv, requireDataset, writeDatasetBundles } from './lib/bundleWriter.mjs';
+import { countNominallySignificant, defaultContrastBinding, outDirFromArgv, requireDataset, writeDatasetBundles } from './lib/bundleWriter.mjs';
 import { seFromStat } from '../src/utils/seRecovery';
 import { assertRectangular } from './lib/matrixShape.mjs';
 import { rankScore, numCell } from './lib/deTable.mjs';
@@ -634,8 +634,7 @@ function build(m: ManifestEntry) {
     .map((d, i) => ({ ...d, rankPos: i + 1 }));
   const cpm: Record<string, number[]> = {};
   for (const d of deFinal) cpm[d.gene] = expr.get(d.gene)!.map((v) => +v.toFixed(4));
-  const nSig = deFinal.filter((d) => d.PValue < 0.01).length;
-  const is3v3 = control.length === caseS.length && control.length === 3;
+  const nSig = countNominallySignificant(deFinal);
 
   const trackObj = {
     meta: {
@@ -646,7 +645,7 @@ function build(m: ManifestEntry) {
     },
     qc: {
       cluster: m.trackId, clusterLabel: m.trackLabel, minCells: 0,
-      nNormal: control.length, nObese: caseS.length, is3v3, samplesKept: order,
+      samplesKept: order,
     },
     de: deFinal, cpm,
   };
@@ -658,7 +657,6 @@ function build(m: ManifestEntry) {
     armKeys: m.armKeys,
     defaultContrastBinding: defaultContrastBinding(dataset, m.armKeys),
     color: m.color,
-    nSig,
     meta: trackObj.meta,
     qc: trackObj.qc,
     de: deFinal,

@@ -1,7 +1,8 @@
-// The WRITE side of the bundle naming convention. Builders compose payloads;
-// this module owns filenames, global keys, wire slimming, pathway sibling shape,
-// and the pathway-name union. All names come from the same Dataset value and
-// bundle locators that readers use.
+// The WRITE side of the bundle naming convention. Builders compose payloads for
+// every track of a study; this module owns filenames, global keys, wire slimming,
+// pathway sibling shape, the merged study-level meta/QC/pathway-index files, and
+// the QC counts derived from what it receives (nSig, arm counts, is3v3). All
+// names come from the same Dataset value and bundle locators that readers use.
 //
 // Deliberate limitation: like the builders it replaces, this writer does not
 // delete stale files. An in-place rebuild after a default-track/pathway change
@@ -72,6 +73,26 @@ export function defaultContrastBinding(
   return { id: registryDefaultContrast(dataset).id, baseline: armKeys[0], case: armKeys[1] };
 }
 
+/**
+ * The one rule behind every bundle's `deSummary[].nSig`, the QC table's
+ * "Sig (P<0.01)" column: rows of the default-contrast table with a finite
+ * nominal P below this threshold. The writer counts it; builders never do.
+ */
+export const NSIG_P_THRESHOLD = 0.01;
+
+/** `deSummary[].nSig` for one default-contrast table. */
+export function countNominallySignificant(de: readonly Pick<GeneDERecord, 'PValue'>[]): number {
+  return de.filter((row) => Number.isFinite(row.PValue) && row.PValue < NSIG_P_THRESHOLD).length;
+}
+
+/**
+ * Track QC as a builder states it. Arm counts and `is3v3` are derived by the
+ * writer from `meta.groupSamples` over `armKeys`; a builder may still state
+ * them (the audited intake builders do), and a stated value must agree.
+ */
+export type TrackBundleQc = Omit<TrackQC, 'nNormal' | 'nObese' | 'is3v3'>
+  & Partial<Pick<TrackQC, 'nNormal' | 'nObese' | 'is3v3'>>;
+
 export interface TrackBundlePayload {
   trackId: string;
   /** Ordered pooled-arm keys supplied by the builder manifest. */
@@ -81,9 +102,14 @@ export interface TrackBundlePayload {
   /** Builder meanings for tables serialized in `deByContrast`, before object keys can hide duplicates. */
   extraContrastBindings?: readonly ContrastBinding[];
   color: string;
-  nSig: number;
+  /**
+   * @deprecated Ignored: the writer counts nSig itself (countNominallySignificant).
+   * Accepted only so the audited intake builders, whose bytes are fingerprinted,
+   * keep compiling unchanged.
+   */
+  nSig?: number;
   meta: TrackMeta;
-  qc: TrackQC;
+  qc: TrackBundleQc;
   de: PreSlimGeneDERecord[];
   deByContrast?: Record<string, PreSlimGeneDERecord[]>;
   cpm: CpmMatrix;
@@ -116,13 +142,21 @@ function sameContrast(a: ContrastBinding, b: ContrastBinding): boolean {
   return a.id === b.id && a.baseline === b.baseline && a.case === b.case;
 }
 
-function assertTrackContract(dataset: Dataset, track: TrackBundlePayload): void {
-  if (track.trackId !== dataset.defaultTrack) {
+/** Every track of the study, once each, including the registry's default track. */
+function assertStudyTracks(dataset: Dataset, tracks: readonly TrackBundlePayload[]): void {
+  const ids = tracks.map((track) => track.trackId);
+  if (new Set(ids).size !== ids.length) {
+    throw new Error(`${dataset.id}: track ids must be unique (${ids.join(', ')})`);
+  }
+  if (!ids.includes(dataset.defaultTrack)) {
     throw new Error(
-      `${dataset.id}: manifest trackId "${track.trackId}" does not match registry defaultTrack `
+      `${dataset.id}: manifest tracks (${ids.join(', ') || 'none'}) do not include registry defaultTrack `
       + `"${dataset.defaultTrack}"`,
     );
   }
+}
+
+function assertTrackContract(dataset: Dataset, track: TrackBundlePayload): void {
   if (track.meta.code !== track.trackId) {
     throw new Error(`${dataset.id}/${track.trackId}: meta.code must equal trackId`);
   }
@@ -203,6 +237,28 @@ function assertTrackContract(dataset: Dataset, track: TrackBundlePayload): void 
   if (Object.keys(track.pathwaysByContrast ?? {}).length > 0 && !track.pathways) {
     throw new Error(`${dataset.id}: pathwaysByContrast requires a default pathways block`);
   }
+}
+
+/**
+ * The QC written for a track: arm counts and is3v3 derived from the pooled
+ * arms, placed after `minCells` (the key order every builder has used), with
+ * any other builder keys kept in their order. A stated value must agree.
+ */
+function derivedTrackQc(dataset: Dataset, track: TrackBundlePayload): TrackQC {
+  const groupSamples = track.meta.groupSamples ?? {};
+  const nNormal = groupSamples[track.armKeys[0]].length;
+  const nObese = groupSamples[track.armKeys[1]].length;
+  const derived = { nNormal, nObese, is3v3: nNormal === 3 && nObese === 3 };
+  for (const [key, value] of Object.entries(derived) as Array<[keyof typeof derived, number | boolean]>) {
+    const stated = track.qc[key];
+    if (stated !== undefined && stated !== value) {
+      throw new Error(
+        `${dataset.id}/${track.trackId}: qc.${key} (${stated}) disagrees with meta.groupSamples (${value})`,
+      );
+    }
+  }
+  const { cluster, clusterLabel, minCells, nNormal: _n, nObese: _o, is3v3: _i, ...rest } = track.qc;
+  return { cluster, clusterLabel, minCells, ...derived, ...rest };
 }
 
 /** Map a same-origin locator path (`/datasets/...`) onto a file under `outRoot`, refusing anything unsafe. */
@@ -323,6 +379,14 @@ export function planPathwayBundles(
   ];
 }
 
+/**
+ * Write one study: every track, the merged dataset-level `meta.js` and
+ * `qc_global.js`, and one `pathways_index.js` over every track's pathway
+ * blocks. `tracks` is the study's complete track list in display order and
+ * must include the registry's `defaultTrack`. The writer derives each track's
+ * `nSig` (countNominallySignificant), arm counts and `is3v3`; `groupN` comes
+ * from the default track when it declares factorial design cells.
+ */
 export function writeDatasetBundles(
   dataset: Dataset,
   tracks: TrackBundlePayload[],
@@ -332,6 +396,7 @@ export function writeDatasetBundles(
   const locatedDataset = sameOriginDataset(dataset);
   const files: string[] = [];
 
+  assertStudyTracks(dataset, tracks);
   for (const track of tracks) assertTrackContract(dataset, track);
 
   const metaIdentity: BundleIdentity = {
@@ -346,6 +411,7 @@ export function writeDatasetBundles(
   };
   const trackPlans = tracks.map((track) => ({
     track,
+    qc: derivedTrackQc(dataset, track),
     trackIdentity: {
       label: `${dataset.id}/${track.trackId} track`,
       file: localDatasetFile(outRoot, resolveTrackUrl(locatedDataset, track.trackId)),
@@ -356,37 +422,29 @@ export function writeDatasetBundles(
       file: localDatasetFile(outRoot, resolvePathwayUrl(locatedDataset, track.trackId)),
       key: resolvePathwayGlobalKey(dataset, track.trackId),
     } : null,
-    pathwayIndexIdentity: track.pathways ? {
-      label: `${dataset.id} pathway index`,
-      file: localDatasetFile(outRoot, resolvePathwayIndexUrl(locatedDataset)),
-      key: resolvePathwayIndexGlobalKey(dataset),
-    } : null,
   }));
+  const pathwayIndexIdentity: BundleIdentity | null = tracks.some((track) => track.pathways) ? {
+    label: `${dataset.id} pathway index`,
+    file: localDatasetFile(outRoot, resolvePathwayIndexUrl(locatedDataset)),
+    key: resolvePathwayIndexGlobalKey(dataset),
+  } : null;
   assertBundleIdentities([
     metaIdentity,
     qcIdentity,
     ...trackPlans.flatMap((plan) => [
       plan.trackIdentity,
       ...(plan.pathwayIdentity ? [plan.pathwayIdentity] : []),
-      ...(plan.pathwayIndexIdentity ? [plan.pathwayIndexIdentity] : []),
     ]),
+    ...(pathwayIndexIdentity ? [pathwayIndexIdentity] : []),
   ]);
 
-  // The one track carrying factorial design cells (>2 groupSamples groups),
-  // whose per-cell sample counts become the manifest's groupN. Today's bulk
-  // studies are single-track, so "the first such track" and "the track" are
-  // the same thing; if a multi-track dataset ever declares design cells on
-  // more than one track, deriving groupN from just the first would silently
-  // describe the wrong track — so refuse and make the author decide.
-  const factorialTracks = tracks.filter(
-    (track) => Object.keys(track.meta.groupSamples ?? {}).length > 2,
-  );
-  if (factorialTracks.length > 1) {
-    throw new Error(
-      `${dataset.id}: ${factorialTracks.length} tracks declare factorial design cells — groupN assumes exactly one; teach writeDatasetBundles which track owns the manifest groupN`,
-    );
-  }
-  const factorialTrack = factorialTracks[0];
+  // Before the merged writer, multi-track studies were written one track at a
+  // time and the builder merged the dataset files, letting the default (first)
+  // track's design cells supply the pre-load group count. Loaded tracks always
+  // carry their own sample ids, so the default track keeps that role here.
+  const defaultTrack = tracks.find((track) => track.trackId === dataset.defaultTrack)!;
+  const defaultGroupSamples = defaultTrack.meta.groupSamples ?? {};
+  const factorial = Object.keys(defaultGroupSamples).length > 2;
 
   const metaPayload = {
     populations: tracks.map((track) => track.trackId),
@@ -394,36 +452,35 @@ export function writeDatasetBundles(
     types: Object.fromEntries(tracks.map((track) => [track.trackId, track.meta.type])),
     nGenes: Object.fromEntries(tracks.map((track) => [track.trackId, track.meta.nGenes])),
     colors: Object.fromEntries(tracks.map((track) => [track.trackId, track.color])),
-    qcFlags: Object.fromEntries(tracks.map((track) => [track.trackId, {
-      is3v3: track.qc.is3v3,
-      nNormal: track.qc.nNormal,
-      nObese: track.qc.nObese,
-      minCells: track.qc.minCells ?? 0,
+    qcFlags: Object.fromEntries(trackPlans.map(({ track, qc }) => [track.trackId, {
+      is3v3: qc.is3v3,
+      nNormal: qc.nNormal,
+      nObese: qc.nObese,
+      minCells: qc.minCells ?? 0,
       status: 'ok',
     }])),
-    ...(factorialTrack
+    ...(factorial
       ? {
         groupN: Object.fromEntries(
-          Object.entries(factorialTrack.meta.groupSamples ?? {})
-            .map(([key, samples]) => [key, samples.length]),
+          Object.entries(defaultGroupSamples).map(([key, samples]) => [key, samples.length]),
         ),
       }
       : {}),
     qaReportFilenames: {},
   };
   const qcPayload = {
-    runStatus: tracks.map((track) => ({
-      cluster: track.qc.cluster,
-      clusterLabel: track.qc.clusterLabel,
+    runStatus: trackPlans.map(({ qc }) => ({
+      cluster: qc.cluster,
+      clusterLabel: qc.clusterLabel,
       status: 'ok',
-      nNormal: track.qc.nNormal,
-      nObese: track.qc.nObese,
+      nNormal: qc.nNormal,
+      nObese: qc.nObese,
     })),
-    deSummary: tracks.map((track) => ({
-      cluster: track.qc.cluster,
-      clusterLabel: track.qc.clusterLabel,
+    deSummary: trackPlans.map(({ track, qc }) => ({
+      cluster: qc.cluster,
+      clusterLabel: qc.clusterLabel,
       nGenes: track.meta.nGenes,
-      nSig: track.nSig,
+      nSig: countNominallySignificant(track.de),
     })),
     fgseaSummary: [],
     composition: {
@@ -439,10 +496,11 @@ export function writeDatasetBundles(
   writeJsonp(qcFile, qcIdentity.key, qcPayload);
   files.push(qcFile);
 
-  for (const { track, trackIdentity, pathwayIdentity, pathwayIndexIdentity } of trackPlans) {
+  const pathwayBlocks: PathwayDatabase[] = [];
+  for (const { track, qc, trackIdentity, pathwayIdentity } of trackPlans) {
     const trackObject = {
       meta: track.meta,
-      qc: track.qc,
+      qc,
       de: track.de,
       ...(track.deByContrast && Object.keys(track.deByContrast).length
         ? { deByContrast: track.deByContrast }
@@ -466,15 +524,13 @@ export function writeDatasetBundles(
       const siblingFile = pathwayIdentity!.file;
       writeJsonp(siblingFile, pathwayIdentity!.key, sibling);
       files.push(siblingFile);
-
-      const indexFile = pathwayIndexIdentity!.file;
-      writeJsonp(
-        indexFile,
-        pathwayIndexIdentity!.key,
-        pathwayNames([track.pathways, ...Object.values(track.pathwaysByContrast ?? {})]),
-      );
-      files.push(indexFile);
+      pathwayBlocks.push(track.pathways, ...Object.values(track.pathwaysByContrast ?? {}));
     }
+  }
+
+  if (pathwayIndexIdentity) {
+    writeJsonp(pathwayIndexIdentity.file, pathwayIndexIdentity.key, pathwayNames(pathwayBlocks));
+    files.push(pathwayIndexIdentity.file);
   }
 
   return { dir: dirname(metaFile), files };

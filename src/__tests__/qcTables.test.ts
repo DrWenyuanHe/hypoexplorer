@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { NSIG_P_THRESHOLD } from '../../scripts/lib/bundleWriter.mjs';
 import {
   compositionTables, deTable, fgseaTable, qcKpis, qcVocabulary, reportTable, runTable, sizeTable,
   visibleQcSections,
@@ -160,6 +161,8 @@ describe('deTable', () => {
     };
     const all = deTable(qc, makeMeta(), legacyVocabulary, { query: '', showAll: true });
     expect(columnLabels(all)).toEqual(['Population', 'Label', 'Genes tested', 'Sig (P<0.01)']);
+    // The heading states the one rule the bundle writer counts deSummary.nSig with.
+    expect(columnLabels(all)).toContain(`Sig (P<${NSIG_P_THRESHOLD})`);
     expect(deTable(qc, makeMeta(), legacyVocabulary, { query: 'ALP', showAll: false }).rows[0].cluster).toBe('alpha');
     expect(deTable(qc, makeMeta(), legacyVocabulary, { query: 'second', showAll: false }).rows[0].cluster).toBe('BETA');
   });
