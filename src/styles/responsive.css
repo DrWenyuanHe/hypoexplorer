@@ -254,8 +254,24 @@
 }
 .study-record-details .study-record-section:first-of-type { margin-top: 14px; }
 
-@media (max-width: 1100px) {
+/* The explorer header needs about 1450px for logo, breadcrumb and controls on
+   one line. Narrower, the breadcrumb takes a row of its own below them, instead
+   of the controls wrapping under a half-empty first row. */
+@media (max-width: 1499px) {
   .explorer-shell .site-header-breadcrumbs { flex-basis: 100%; order: 3; margin-left: 0 !important; }
+}
+/* Wider, the breadcrumb takes the free space and never wraps the controls: a
+   long population label truncates first (its full text stays in the title). */
+@media (min-width: 1500px) {
+  .explorer-shell .site-header-breadcrumbs { flex: 1 1 0; min-width: 0; flex-wrap: nowrap; }
+  /* The spacer would otherwise split the free space with the breadcrumb. */
+  .explorer-shell .site-header-breadcrumbs + div { flex: 0 0 0 !important; }
+  .explorer-shell .site-crumb-trail { flex-wrap: nowrap !important; min-width: 0; }
+  .explorer-shell .site-crumb:first-child { flex: 0 1 auto; }
+  .explorer-shell .site-crumb:first-child > :last-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .explorer-shell .site-header-controls { flex-shrink: 0; margin-left: 16px; }
+}
+@media (max-width: 1100px) {
   .explorer-hero { gap: 8px 12px !important; padding: 8px 16px !important; }
   .explorer-hero--compare { padding-block: 5px !important; }
 }
@@ -331,7 +347,6 @@
 @media (max-width: 600px) {
   .site-header { position: static !important; --site-header-padding: 12px; }
   .site-header-controls { gap: 4px !important; width: 100%; }
-  .explorer-shell .site-header-controls > button { padding-inline: 8px !important; font-size: 11px !important; }
   .site-header-breadcrumbs { flex-basis: 100%; }
   .page-shell .site-header-breadcrumbs { order: 3; }
   .site-header-breadcrumbs > button { max-width: 100% !important; }
@@ -357,6 +372,23 @@
   .report-dataset-actions { gap: 8px; padding-left: 0; }
   .report-dataset-actions > a { display: inline-flex; align-items: center; }
   .report-dataset-name, .report-preview-heading strong { overflow-wrap: anywhere; }
+  .pager-step { min-width: 44px; }
+  /* A taller tap area for the notice's link without making the line taller. */
+  .beta-notice a { display: inline-block; padding-block: 12px; margin-block: -12px; }
+  /* The explorer's six header controls sit in an even 3 × 2 grid of 44px
+     targets instead of three ragged wrapped rows of mixed heights. */
+  .explorer-shell .site-header-controls { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px !important; }
+  .explorer-shell .site-header-controls > span { display: flex !important; min-width: 0; }
+  /* The dataset picker keeps its line; the population and tab follow below it,
+     without a slash left hanging at either line's edge. */
+  .explorer-shell .site-crumb-trail { flex-basis: 100%; }
+  .explorer-shell .site-crumb-sep--lead { display: none; }
+  .explorer-shell .site-header-controls > button,
+  .explorer-shell .site-header-controls > a,
+  .explorer-shell .site-header-controls > span > button {
+    display: inline-flex !important; align-items: center; justify-content: center; width: 100%; min-width: 0; min-height: 44px;
+    padding-inline: 6px !important; font-size: 11.5px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
 }
 
 @media (max-width: 480px) {

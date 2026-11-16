@@ -23,7 +23,9 @@
 //   - The Pathway Explorer's FDR slider defaults to 1.0 (show everything) and
 //     is likewise user-controlled.
 //
-// Only the fixed, non-negotiable "is this row a discovery?" call belongs here.
+// Only the fixed, non-negotiable "is this row a discovery?" call belongs here,
+// plus the nominal raw-p tier the search summaries display beneath it, which is
+// a label and never a discovery call.
 
 import type { Direction } from '../types';
 
@@ -46,6 +48,30 @@ export function isFdrSignificant(
   cutoff: number = DEFAULT_FDR_CUTOFF,
 ): boolean {
   return q != null && Number.isFinite(q) && q < cutoff;
+}
+
+/**
+ * The nominal cutoff on RAW p, for display only. The search summaries list
+ * every track under it and label the ones that also pass the FDR call, so a
+ * reader looking up one gene sees where it came close without the label
+ * claiming a discovery. Counts, colours and every downstream step (the
+ * condition-pathways card, the reports) still follow `isFdrSignificant`.
+ */
+export const NOMINAL_P_CUTOFF = 0.05;
+
+/**
+ * 'fdr': passes the FDR call. 'nominal': raw p below NOMINAL_P_CUTOFF but not
+ * the FDR call (uncorrected for multiple testing). 'none': neither. The tiers
+ * are disjoint; a null or non-finite p is never nominal.
+ */
+export type SignificanceTier = 'fdr' | 'nominal' | 'none';
+
+export function significanceTier(
+  q: number | null | undefined,
+  p: number | null | undefined,
+): SignificanceTier {
+  if (isFdrSignificant(q)) return 'fdr';
+  return p != null && Number.isFinite(p) && p < NOMINAL_P_CUTOFF ? 'nominal' : 'none';
 }
 
 /** Sign of an effect size. Exactly 0 (and NaN) is 'flat', never 'down'. */

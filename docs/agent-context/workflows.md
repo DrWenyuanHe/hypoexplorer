@@ -160,7 +160,11 @@ writes its Metadata through `src/utils/exportProvenance.ts`; every CSV is writte
 by `src/utils/csv.ts` (escaping, formula guard, BOM/CRLF, per-row provenance for
 long tables, and a metadata JSON split down its column under Excel's cell limit);
 multi-file downloads are stored ZIPs from `src/utils/zip.ts`; every gene picker is
-`GenePicker` over `src/explorer/geneVocabulary.ts`; sample
+`GenePicker` over `src/explorer/geneVocabulary.ts`; a table that lists tracks by
+significance takes the call from `src/statistics/policy.ts` (`isFdrSignificant`,
+`significanceTier`), what it lists from `listingModeStore` with its
+`ListingModeToggle`, labels rows with `TierLabel` and explains q / FDR / padj
+columns with `QTerm`, and keeps counts on the FDR call in both modes; sample
 values and export labels use sampleValues; bundle loading uses trackData.
 Header identity uses BrandLink and the shared brand asset constants. For logo,
 favicon or typography changes, read the [brand guide](../../brand/README.md);
@@ -204,7 +208,8 @@ compare-set studies in a desktop rail or a mobile dialog, using the shared Modal
 for focus trapping, Escape and focus restoration. The dataset library has no
 rail: `LibraryToolbar` puts a view menu, sort, active-filter chips and an
 add-filter menu (with the same disjunctive facet counts) above a table-first
-record grid, and its chips scroll sideways on phones. A study opens as a record
+record grid, and its chips scroll sideways on phones, where (600px and under)
+the library starts on cards instead. A study opens as a record
 page (`StudyRecord`, `#/library/<id>`) in place of the hidden list: header
 actions, a fact strip, Overview/Verification tabs and a details panel that
 stacks below them under 900px; Escape and the breadcrumb return to the list. Selection and filters
@@ -222,11 +227,25 @@ per gene × population and one per animal; matching CSVs) and charts (one stitch
 PNG, or a ZIP of per-chart PNG or SVG drawn from each chart's own SVG through
 `src/compare/compareFigureExport.ts`) from one Download menu. The selected population, comparison
 and Plot/Table switch remain visible. Mobile pages use document scrolling and a
-minimum chart height; wide result tables scroll within their own containers.
-When changing these layouts, check 320px and 390px phones, 768px tablets and a
-1024px laptop, including a short landscape viewport, dialog dismissal, filtering,
-cell selection and rotation across the breakpoint. Volcano taps hit-test the tap
-coordinates directly, without requiring a previous hover.
+minimum chart height; wide result tables scroll within their own containers,
+except the gene page's differential-expression table and the pathway page's
+forest rows, which restack each track under 640px so the change, q/FDR and
+actions stay on screen. On phones the hub nav stays one line that scrolls
+sideways beside the compare pill, and the explorer's header controls form an
+even 3 × 2 grid. Each explorer breadcrumb separator travels with the crumb
+after it, so a wrap never strands a slash; on phones the population and tab
+start a line under the dataset picker, without a leading slash. Below 1500px
+the explorer breadcrumb takes its own header row, so the controls never wrap
+under a half-empty first row; wider, it shares the row and truncates the
+population label (full text in its title) before the controls would move. A scroller that holds absolutely positioned screen-reader
+labels (`.portal-table-wrap`) is itself positioned, or the labels escape it and
+widen the page. When changing these layouts, check 320px and 390px phones,
+768px tablets and a 1024px laptop, including a short landscape viewport, dialog
+dismissal, filtering, cell selection and rotation across the breakpoint. On a
+phone, also confirm `window.innerWidth` equals the device width after load: a
+mobile browser widens the layout viewport (zooming the page out) to fit any
+overflow, even with `overflow-x: hidden` on the body. Volcano taps hit-test the
+tap coordinates directly, without requiring a previous hover.
 
 The compare-set view uses a left sidebar to select studies, with no study cards above the results.
 Selecting a study changes the volcano; every study remains in the comparison.

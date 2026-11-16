@@ -13,6 +13,11 @@ const RECORDS = AUTHOR_VALIDATION_REPORT.records;
 const TABLE = { width: '100%', borderCollapse: 'collapse' as const, margin: '12px 0 20px' };
 const CELL = { ...numericCellStyle, fontFamily: FONT_SANS, fontSize: 13, lineHeight: 1.55, overflowWrap: 'anywhere' as const };
 const NUMBER = { ...CELL, fontFamily: FONT_MONO, textAlign: 'right' as const };
+// Row labels wrap between words only; 'anywhere' let the column shrink below a
+// word's width and split "Passed" into "Pass" + "ed" on a phone.
+const ROW_HEAD = { ...CELL, textAlign: 'left' as const, overflowWrap: 'break-word' as const };
+// The four-column count table's headers wrap between words so it fits a phone.
+const COUNT_HEAD = { ...thStyle, whiteSpace: 'normal' as const, verticalAlign: 'bottom' as const };
 function H2({ children }: { children: ReactNode }) {
   return <h2 style={{ fontSize: 16, fontWeight: 600, margin: '28px 0 10px' }}>{children}</h2>;
 }
@@ -33,9 +38,9 @@ export function VerificationView({ onHome }: { onHome: () => void }) {
       <p style={{ fontSize: 12 }}><a href="#/library">Browse dataset evidence</a>{' · '}<a href="#/tracker">Open the dataset tracker</a></p>
       <H2>Pipeline QC, experimental design and author concordance</H2>
       <table style={TABLE} aria-label="Current quality-control coverage">
-        <thead><tr><th scope="col" style={thStyle}>Status</th><th scope="col" style={thStyle}>Pipeline QC</th><th scope="col" style={thStyle}>Experimental design</th><th scope="col" style={thStyle}>Author concordance</th></tr></thead>
+        <thead><tr><th scope="col" style={COUNT_HEAD}>Status</th><th scope="col" style={COUNT_HEAD}>Pipeline QC</th><th scope="col" style={COUNT_HEAD}>Experimental design</th><th scope="col" style={COUNT_HEAD}>Author concordance</th></tr></thead>
         <tbody>{Object.entries(QUALITY_STATUS).map(([key, status]) => <tr key={key}>
-          <th scope="row" style={{ ...CELL, textAlign: 'left' }}>{status.label}</th>
+          <th scope="row" style={ROW_HEAD}>{status.label}</th>
           <td style={NUMBER}>{assessed.filter((q) => q.pipelineQc.status === key).length}</td>
           <td style={NUMBER}>{assessed.filter((q) => q.experimentalDesign.status === key).length}</td>
           <td style={NUMBER}>{assessed.filter((q) => q.authorConcordance.status === key).length}</td>
@@ -71,7 +76,7 @@ export function VerificationView({ onHome }: { onHome: () => void }) {
           ['Correlation route', `Both Pearson and Spearman correlations of paired gene effects are at least ${POLICY.minimumCorrelation}. Passing this route or the direction route is sufficient.`],
           ['Direction route', `At least ${POLICY.minimumDirectionAgreement * 100}% of the same genes change in the same direction. At least ${POLICY.minimumDirectionalGenes} genes and ${POLICY.minimumDirectionalCoverage * 100}% of pairs must have nonzero effects in both analyses.`],
           ['Effect magnitude (context)', `Median absolute log2-fold-change difference is compared with ${POLICY.maximumMedianLogFCDelta}; the local-to-author RMS effect ratio is compared with two-thirds to ${POLICY.maximumEffectScale}. These values provide context and do not determine whether concordance passes.`],
-        ].map(([label, description]) => <tr key={label}><th scope="row" style={{ ...CELL, textAlign: 'left' }}>{label}</th><td style={CELL}>{description}</td></tr>)}</tbody>
+        ].map(([label, description]) => <tr key={label}><th scope="row" style={ROW_HEAD}>{label}</th><td style={CELL}>{description}</td></tr>)}</tbody>
       </table>
       <P>These are versioned project acceptance defaults, not universal scientific cutoffs. Compatible samples, contrasts, identifiers,
         effect definitions and sufficient coverage are required whichever numerical route passes. The checklist names the passing route and retains other metric outcomes.
@@ -84,7 +89,7 @@ export function VerificationView({ onHome }: { onHome: () => void }) {
       <table style={TABLE} aria-label="Author reference availability">
         <thead><tr><th scope="col" style={thStyle}>Author reference</th><th scope="col" style={thStyle}>Datasets</th></tr></thead>
         <tbody>{Object.entries(RESULT_AVAILABILITY).map(([key, value]) => <tr key={key}>
-          <th scope="row" style={{ ...CELL, textAlign: 'left' }}>{value.label}</th><td style={NUMBER}>{RECORDS.filter((r) => r.verification.resultAvailability === key).length}</td>
+          <th scope="row" style={ROW_HEAD}>{value.label}</th><td style={NUMBER}>{RECORDS.filter((r) => r.verification.resultAvailability === key).length}</td>
         </tr>)}</tbody>
       </table>
       <H2>Detailed author-reproduction review</H2>
@@ -93,18 +98,19 @@ export function VerificationView({ onHome }: { onHome: () => void }) {
         A method or FDR difference can remain in that review while biological-effect concordance passes.</P>
       <details><summary style={{ cursor: 'pointer' }}>Detailed review classifications and coverage</summary>
         <table style={TABLE} aria-label="Detailed author-review coverage"><tbody>{Object.entries(VERIFICATION_CLAIMS).map(([key, claim]) => <tr key={key}>
-          <th scope="row" style={{ ...CELL, textAlign: 'left' }}>{claim.label}</th><td style={CELL}>{claim.description}</td>
+          <th scope="row" style={ROW_HEAD}>{claim.label}</th><td style={CELL}>{claim.description}</td>
           <td style={NUMBER}>{RECORDS.filter((r) => getVerificationClaim(r.verification) === key).length}</td>
         </tr>)}</tbody></table>
       </details>
       <H2>Unresolved author-review findings</H2>
-      <ul style={{ paddingLeft: 20, fontSize: 13, lineHeight: 1.6 }}>{unresolved.map((record) => <li key={record.datasetId} style={{ marginBottom: 16 }}>
+      {/* Review notes quote checksums and file names, which must wrap on a phone. */}
+      <ul style={{ paddingLeft: 20, fontSize: 13, lineHeight: 1.6, overflowWrap: 'anywhere' }}>{unresolved.map((record) => <li key={record.datasetId} style={{ marginBottom: 16 }}>
         <a href={libraryHref(record.datasetId)} style={{ marginRight: 8 }}>{record.accession}</a><AuthorValidationBadge record={record} compact />
         <div>{record.verification.reason}</div><div style={{ color: 'var(--text-muted)' }}>Next: {record.verification.nextStep}</div>
       </li>)}</ul>
       <details><summary style={{ cursor: 'pointer' }}>Reviews still underway ({pending.length})</summary>
         <P>These detailed reviews are unfinished. The three badges separately show which checks have evidence.</P>
-        <ul>{pending.map((record) => <li key={record.datasetId}><a href={libraryHref(record.datasetId)}>{record.accession}</a><div>{record.verification.nextStep}</div></li>)}</ul>
+        <ul style={{ overflowWrap: 'anywhere' }}>{pending.map((record) => <li key={record.datasetId}><a href={libraryHref(record.datasetId)}>{record.accession}</a><div>{record.verification.nextStep}</div></li>)}</ul>
       </details>
     </article>
   </PageShell>;

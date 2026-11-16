@@ -1,14 +1,16 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "70257b19bc9d3006be883b31cf29a94729775c8abe2e5c64009976b6e7b8ad7a",
+  "fingerprint": "a60357db0ec3dd8bce1680e54e91801e8067a009a603bbffc59e3b2c2f7d7cf8",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31, #32, #34). From this branch: the HypoMap CsvDialog keeps its props and preview but downloads through writeCsv and exportFilename instead of its own quoting, slug regex and Blob anchor, so the co-detection comparisonCsv rows from main are written under the shared CSV policy. From main: codetection.ts validates the loopback service and fails closed on export mismatch, useLoad replaces the duplicated load/retry effects, and loadBaselineTeaser projects the survey NeuroSeq results as source groups.",
+  "explanation": "From main: portal-table-wrap is now position: relative so absolutely positioned screen-reader labels inside wide portal tables stay in their scroller instead of widening the gene page past a phone width and zooming it out. From this branch: the search summaries add a nominal tier beneath the FDR call: summarize takes a raw-p accessor and returns top (FDR survivors by q, then nominal tracks by p, else the lowest p) and topFdr (FDR survivors by q, else the lowest q). The results heading carries the shared ListingModeToggle; gene rows and the pathway portal list top or topFdr by the listing mode and hide the nominal clauses in FDR mode. The portal table's Call column uses TierLabel, which lives in portalCards so the pathway report renders the same words, and its q header and the gene rows' q are QTerm abbrs explaining q. Significant counts, directions and loadConditionPathways still follow the FDR call only.",
   "references": [
-    "src/search/hypomap/CsvDialog.tsx",
-    "src/utils/csv.ts",
-    "src/search/hypomap/codetection.ts",
-    "src/search/hypomap/useLoad.ts",
-    "src/search/searchSummaries.ts"
+    "src/search/searchSummaries.ts",
+    "src/search/SearchPage.tsx",
+    "src/search/portalCards.tsx",
+    "src/search/search.css",
+    "src/statistics/ListingModeToggle.tsx",
+    "src/statistics/policy.ts",
+    "docs/agent-context/workflows.md"
   ]
 }

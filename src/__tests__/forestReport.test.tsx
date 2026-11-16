@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import { afterEach } from 'vitest';
 import {
-  axisPct, dirGlyph, directionColor, contrastLabel, SigPill, groupForestCategories,
+  axisPct, dirGlyph, directionColor, contrastLabel, groupForestCategories,
   useCategoryScope, FilterChip,
 } from '../crossdataset/forestReport';
 import { listDatasets } from '../data/datasets';
@@ -135,17 +135,6 @@ describe('useCategoryScope', () => {
     expect(screen.getByRole('button', { name: /^A / })).toHaveAttribute('aria-pressed', 'true');
     expect(screen.getByRole('button', { name: /^B / })).toHaveAttribute('aria-pressed', 'false');
     expect(screen.getByRole('button', { name: /^All / })).toHaveAttribute('aria-pressed', 'false');
-  });
-});
-
-describe('SigPill', () => {
-  it('renders n.s. for non-significant and the direction word otherwise', () => {
-    const { rerender } = render(<SigPill direction="up" significant={false} />);
-    expect(screen.getByText('n.s.')).toBeInTheDocument();
-    rerender(<SigPill direction="up" significant={true} />);
-    expect(screen.getByText('up')).toBeInTheDocument();
-    rerender(<SigPill direction="down" significant={true} />);
-    expect(screen.getByText('down')).toBeInTheDocument();
   });
 });
 

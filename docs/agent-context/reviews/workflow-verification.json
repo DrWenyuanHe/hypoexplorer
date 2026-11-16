@@ -1,10 +1,14 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "d88a04276990d710ce8fc5af6a244a537b2ae9027c7792d85905ac5e9f82551f",
+  "fingerprint": "739f8315c5d9235e878752f9c5b70d6f2de27f1aba8417573bca8522c22332e7",
   "outcome": "no-impact",
-  "explanation": "No evidence ledger, audit or fingerprinted producer changed: build_hfd_bundles_r460.mts and build_oxt_avp_bundles_r460.mts keep their bytes, and neither intake audit pins bundleWriter.mts. Audits pin track and pathway bundles, which stay byte-identical; only qc_global.js deSummary nSig changes (to FDR < 0.05 counts), and no audit pins qc_global.js.",
+  "explanation": "From main: verify_deploy.mts changes only the app-origin compression check (sidecar yardstick optional on the Cloudflare edge model, explicit failure if an Apache host serves sidecars without a local one) and its redeploy hints, and VerificationView only changes word wrapping in its tables and review-note lists for phones. Scientific evidence, QC review, statuses and verification records are unaffected. From the nSig branch: No evidence ledger, audit or fingerprinted producer changed: build_hfd_bundles_r460.mts and build_oxt_avp_bundles_r460.mts keep their bytes, and neither intake audit pins bundleWriter.mts. Audits pin track and pathway bundles, which stay byte-identical; only qc_global.js deSummary nSig changes (to FDR < 0.05 counts), and no audit pins qc_global.js.",
   "references": [
+    "scripts/verify_deploy.mts",
+    "src/verification/VerificationView.tsx",
+    "docs/agent-context/workflows.md",
+    "data/author-validation/README.md",
     "scripts/lib/oxtAvpIntakeEvidence.mts",
     "scripts/audit_hfd_intake_r460.mts",
     "data/intake/oxt-avp-2026-10-19/audit.generated.json",
