@@ -1,0 +1,140 @@
+{
+  "datasetId": "mouse_pomc_maternal_hfd_gse135639",
+  "manualReview": {
+    "status": "validated_with_notes",
+    "comparisonLevel": "direct",
+    "sourceComparison": "manual_structure_match",
+    "auditState": "complete",
+    "summary": "Author maturation TF effects agree with the registered chow P21-vs-P0 contrast (selected 227-TF scope); HFD age agreement retained as supporting evidence; diet contrasts exploratory",
+    "note": "The official normalized CPM matrix is accessible, supports the registered P0/P21 and diet axes, and was rehashed locally (SHA-256 bce4b726...). Authors ran edgeR on raw counts that were not deposited and emphasized P0-to-P21 maturation within chow and HFD. The only supplementary file, mmc1.pdf, contains Supplementary Table 1: 227 transcription factors DE during maturation in either diet, with signed fold changes and FDR for CD0vsCD21 and HFD0vsHFD21. Coordinate-based extraction recovers all 227 rows. The ledgered scoped comparison is p21_vs_p0_chow only: within this selected TF scope it pairs 223 of 227 genes (Pearson r=0.998204, Spearman 0.998717, 222/223 signs agree); Glmp, Kmt2a, Ybx3 and Zfp638 are unmatched. The p21_vs_p0_hfd agreement (223/227 paired, Pearson 0.998265, Spearman 0.998443, 221/222 nonzero signs agree) is retained as supporting evidence only and is not registered, because the legacy one-comparison-per-dataset pipeline cannot hold a second scored contrast. The P21 HFD-versus-chow and P0 HFD-versus-chow results remain valid labeled exploratory contrasts on the deposited matrix with no author comparator. Evidence and reproducible extraction are in continued-sources/GSE135639/turbo-2026-11-15-partial2/.",
+    "reviewFlags": [
+      "Exact author p-values cannot be reconstructed because raw counts were not deposited; author FDR cells are reported as context only.",
+      "Selected-gene evidence: Supplementary Table 1 lists 227 maturation TFs only; it is not the full tested universe.",
+      "Only p21_vs_p0_chow is a registered scoped comparison; the p21_vs_p0_hfd agreement is retained supporting evidence, and hfd_vs_chow_p0, hfd_vs_chow_p21 and p21_vs_p0_hfd have no registered scoped comparison.",
+      "The two maternal-diet contrasts have no author comparator and remain exploratory.",
+      "The deposited GEO CPM matrix has no committed source-file checksum manifest; author-result sources are hashed in continued-sources/GSE135639/turbo-2026-11-15-partial2/SOURCES.tsv."
+    ],
+    "evidenceLinks": [
+      {
+        "label": "GEO record",
+        "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE135639",
+        "kind": "database"
+      },
+      {
+        "label": "Open full text",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7152705/",
+        "kind": "paper"
+      },
+      {
+        "label": "Europe PMC supplementary bundle (contains mmc1.pdf with Supplementary Table 1)",
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7152705/supplementaryFiles",
+        "kind": "author_result"
+      }
+    ],
+    "reviewedAt": "2026-11-15"
+  },
+  "verificationReview": {
+    "resultAvailability": "partial",
+    "comparisonOutcome": "method_differences",
+    "reason": "2026-11-15 scoped comparison against mmc1.pdf Supplementary Table 1 (227 maturation TFs). Ledgered scoped comparison, p21_vs_p0_chow: 223 finite matched effects of 227 (coverage 98.24%); Pearson 0.998204, Spearman 0.998717, nonzero direction agreement 99.552% (222/223), median absolute log2FC difference 0.04184, paired RMS effect ratio 0.951443. Retained supporting evidence, not registered: p21_vs_p0_hfd 223 of 227 (98.24%); Pearson 0.998265, Spearman 0.998443, nonzero direction agreement 99.550% (221/222), median absolute log2FC difference 0.04026, paired RMS effect ratio 0.945113. Selected TF reference; author raw counts are not deposited, so inference is not reproduced. The two diet contrasts remain without an author comparator. Evidence and reproducible extraction are in continued-sources/GSE135639/turbo-2026-11-15-partial2/.",
+    "nextStep": "Keep the p21_vs_p0_chow comparison scoped to the 227-TF selected reference; p21_vs_p0_hfd needs a scoped multi-contrast route before its retained agreement can be registered, and the diet contrasts need same-comparison author statistics, which are not published.",
+    "fullyVerifiedContrasts": []
+  },
+  "comparabilityReview": {
+    "registeredContrastIds": [
+      "p21_vs_p0_chow"
+    ],
+    "target": "registered_output",
+    "resultScope": "selected_results",
+    "basis": "Registered Explorer P21-minus-P0 limma-trend result within chow, fitted on the deposited CPM matrix. The pipeline scores only p21_vs_p0_chow; the p21_vs_p0_hfd agreement is retained evidence that is not registered, because the legacy one-comparison-per-dataset pipeline cannot hold a second scored contrast.",
+    "reference": "Haddad-Tovolli et al. 2020 mmc1.pdf Supplementary Table 1: 227 TFs DE during P0-to-P21 POMC maturation, with FC and FDR for CD0vsCD21 and HFD0vsHFD21. Only the CD0vsCD21 column is scored, against p21_vs_p0_chow. hfd_vs_chow_p0, hfd_vs_chow_p21 and p21_vs_p0_hfd remain without a registered scoped comparison.",
+    "assessment": "limited",
+    "dimensions": {
+      "cohort": {
+        "status": "compatible",
+        "note": "Paper reports n=3-5 biologically independent samples; the 17 GEO libraries are chow P0 5, chow P21 3, HFD P0 5, HFD P21 4 and all are registered. No author exclusion list exists."
+      },
+      "contrast": {
+        "status": "compatible",
+        "note": "P21 minus P0 within chow. The caption does not state the sign of the CD0vsCD21 FC; positive author FC is inferred to be higher at P21 from the caption ('up/downregulated during maturation') and the Myc/Mycn/Dbp maturation direction, fixed before comparison."
+      },
+      "features": {
+        "status": "compatible",
+        "note": "223 of 227 listed TF symbols join exactly for p21_vs_p0_chow; Glmp, Kmt2a, Ybx3 and Zfp638 are unmatched and former symbols are not substituted."
+      },
+      "effects": {
+        "status": "compatible",
+        "note": "Signed author FC converted to log2. Scored p21_vs_p0_chow: Pearson 0.998204, Spearman 0.998717, one sign differs (222/223). Retained, not registered: p21_vs_p0_hfd 223/227, Pearson 0.998265, Spearman 0.998443, 221/222 nonzero signs agree."
+      },
+      "inference": {
+        "status": "not_tested",
+        "note": "Author edgeR used undeposited raw counts; registered limma-trend uses CPM. Author FDR cells reported as <0.0001 (56 of 223 paired chow genes) are non-numeric and are treated as missing adjusted P by the adapter; FDR context is limited to the remaining genes. FDR<0.05 among chow pairs is 164 author vs 165 registered, context only."
+      },
+      "coverage": {
+        "status": "limited",
+        "note": "Selected 227-TF reference scored for p21_vs_p0_chow only; non-TF genes and unlisted TFs are outside scope, and hfd_vs_chow_p0, hfd_vs_chow_p21 and p21_vs_p0_hfd have no registered scoped comparison."
+      }
+    },
+    "criteria": "author-concordance-v2 on the declared selected TF scope for p21_vs_p0_chow only: at least 30 pairs, 90% coverage, Pearson and Spearman at least 0.90 or 90% direction agreement. The pipeline scores only p21_vs_p0_chow; no full-result acceptance is established.",
+    "conclusion": "Selected maturation TF effects agree closely for the scored p21_vs_p0_chow contrast; the p21_vs_p0_hfd agreement is retained supporting evidence, not registered. hfd_vs_chow_p0, hfd_vs_chow_p21 and p21_vs_p0_hfd remain without a registered scoped comparison, and full-universe inference remains untested."
+  },
+  "additionalComparisonSpec": {
+    "datasetId": "mouse_pomc_maternal_hfd_gse135639",
+    "accession": "GSE135639",
+    "contrast": "p21_vs_p0_chow",
+    "localPath": "geo_replication/datasets/GSE135639_mmus_pomc_maternal_hfd/processed/GSE135639_ageChow_DE.tsv",
+    "localKey": "id",
+    "authorPath": "data/author-validation/continued-sources/GSE135639/turbo-2026-11-15-partial2/author-table-s1-extracted.tsv",
+    "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7152705/supplementaryFiles",
+    "sha256": "4f439921e1f46037f2c083fd22d210e989a312672a93bf3670f9b3a7159306fc",
+    "format": "tsv",
+    "authorKey": "gene",
+    "authorEffect": "log2FC_P21_vs_P0_chow",
+    "authorAdjustedP": "FDR_CD0vsCD21",
+    "orientationSign": 1,
+    "localMethod": "limma-trend",
+    "authorMethod": "edgeR on undeposited raw counts; signed linear FC in Supplementary Table 1 converted to log2",
+    "orientation": "P21 minus P0 within chow; positive author FC is higher at P21 (caption and Myc/Mycn/Dbp maturation biology), no reversal.",
+    "note": "Selected 227-TF reference: mmc1.pdf Supplementary Table 1, TFs differentially expressed during P0-to-P21 POMC maturation in either diet; the chow column is used for every listed TF. Rows rebuilt from PDF word coordinates; 227/227 rows recovered. 223 of 227 join exactly; Glmp, Kmt2a, Ybx3 and Zfp638 are unmatched and former symbols are not substituted. Author FDR cells reported as <0.0001 (56 of 223 paired chow genes) are non-numeric and are treated as missing adjusted P by the adapter; FDR context is limited to the remaining genes. Numerical values are recalculated from the unchanged current registered DE table.",
+    "interpretation": "effect_match_inference_differs",
+    "originalReferences": [
+      {
+        "path": "data/author-validation/continued-sources/GSE135639/turbo-2026-11-15-partial2/download/mmc1.pdf",
+        "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7152705/supplementaryFiles",
+        "sha256": "37a420a748306b07c81ddecd3d3597cf3606fe6aabb7cba5770c2214e4ed5ea4",
+        "bytes": 4778133
+      },
+      {
+        "path": "data/author-validation/continued-sources/GSE135639/turbo-2026-11-15-partial2/download/PMC7152705_fullTextXML.xml",
+        "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7152705/fullTextXML",
+        "sha256": "5bd4adc6df88b4a2d942909fd7718bff9c96721985567dbb5ea7cdfb83eecf28",
+        "bytes": 114023
+      },
+      {
+        "path": "data/author-validation/continued-sources/GSE135639/turbo-2026-11-15-partial2/compare_gse135639.py",
+        "sourceUrl": "Reproducible coordinate-based PDF table extraction and scoped comparison script",
+        "sha256": "cd185b41836a89e2db470b7c03bd864c425a33caa9ef63d41a6d3613be5a6a2b",
+        "bytes": 8097
+      }
+    ],
+    "normalizationScript": "data/author-validation/continued-sources/GSE135639/turbo-2026-11-15-partial2/compare_gse135639.py",
+    "resultScope": "Selected 227-TF Supplementary Table 1 reference for p21_vs_p0_chow only; p21_vs_p0_hfd agreement is retained evidence in the continued-sources folder, not a registered comparison; the diet contrasts have no author comparator.",
+    "localSnapshot": {
+      "path": "geo_replication/datasets/GSE135639_mmus_pomc_maternal_hfd/processed/GSE135639_ageChow_DE.tsv",
+      "sourceUrl": "Registered Explorer DE source; no public author-result claim",
+      "sha256": "70b78dd911db87e2e29e1898c9b7b5e4bd71bc00a00d4e26a6f68b58bfd44552",
+      "bytes": 1572232
+    }
+  },
+  "appliedCorrections": [
+    "additionalComparisonSpec: kept the single p21_vs_p0_chow record and dropped the p21_vs_p0_hfd record; HFD extraction, paired-p21_vs_p0_hfd.tsv and metrics stay as retained evidence in the continued-sources folder.",
+    "comparabilityReview.registeredContrastIds changed to [\"p21_vs_p0_chow\"]; basis, reference, coverage note, criteria and conclusion now say the pipeline scores only p21_vs_p0_chow, the HFD agreement (223/227, Pearson 0.998265, Spearman 0.998443, 221/222) is retained unregistered evidence, and hfd_vs_chow_p0, hfd_vs_chow_p21 and p21_vs_p0_hfd lack a registered scoped comparison.",
+    "verificationReview.reason, manualReview.summary and manualReview.note present chow as the ledgered scoped comparison and HFD as retained supporting evidence; summary uses the verifier's suggested wording.",
+    "Spec note and comparabilityReview inference note: '<0.0001 are upper bounds' replaced with the verifier's wording (56 of 223 paired chow genes non-numeric, treated as missing adjusted P; FDR context limited to remaining genes). authorAdjustedP kept (verifier's primary option).",
+    "comparabilityReview.dimensions.contrast.status changed from 'matched' to 'compatible', keeping the orientation-inference note.",
+    "manualReview.reviewFlags legacy checksum flag reworded to the verifier's text.",
+    "manualReview.evidenceLinks[2].label changed to 'Europe PMC supplementary bundle (contains mmc1.pdf with Supplementary Table 1)'.",
+    "Evidence README: '<0.0001 cells are upper bounds' corrected, and the Result/Next step sections now describe one registered spec (chow) with HFD as retained evidence."
+  ],
+  "notes": "Verdict upheld_with_corrections: status validated_with_notes / comparisonLevel direct / comparisonOutcome method_differences / assessment limited kept as proposed; fullyVerifiedContrasts stays empty. No existing additional-comparison-specs.json or direct-comparisons.generated.json entry exists for this dataset, so the single spec is a new append. Added one reviewFlag stating that only p21_vs_p0_chow is registered. The current manual-review record had no evidenceLinks/reviewedAt; these use existing records' field names. compare_gse135639.py (hash-pinned in the spec) still has a docstring calling '<0.0001' an adjusted-P upper bound; it was not edited so its pin stays valid. metrics.json was not edited. The proposal had no concordance-review or experimental-design entries (both null)."
+}

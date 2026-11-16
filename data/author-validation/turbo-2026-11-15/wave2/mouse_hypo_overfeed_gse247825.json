@@ -1,0 +1,17 @@
+{
+  "datasetId": "mouse_hypo_overfeed_gse247825",
+  "accession": "GSE247825",
+  "outcome": "documented_no_change",
+  "summary": "Existing non-equivalence reason still holds against primary sources. GEO deposits only the raw count matrix; the paper (PMC10853283) reports day-14 overfeeding and day-17 (d14+3 recovery, overfeeding already stopped) DESeq2 results separately, excludes one day-14 control, and describes no pooled-day analysis. The registered pooled common effect (12 versus 12, ~day+group) therefore has no contrast- or cohort-compatible author reference, so no author-concordance-v2 comparison is valid and no metrics were computed. Separate day-14 and day-17 tracks remain the route to concordance.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE247825/turbo-2026-11-16-wave2",
+  "proposed": {
+    "manualReview": null,
+    "verificationReview": null,
+    "comparabilityReview": null,
+    "additionalComparisonSpec": null
+  },
+  "metrics": {
+    "basis": "Not computed: the registered pooled overfeed-versus-control contrast is not compatible with either author day-specific table (contrast and cohort differ).",
+    "v2Eligible": false
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "datasetId": "mouse_hypo_hfhs_gse235479",
+  "manualReview": {
+    "status": "processed_source_match",
+    "comparisonLevel": "processed_source",
+    "sourceComparison": "manual_structure_match",
+    "auditState": "complete",
+    "summary": "Deposited HFHS expression source verified",
+    "note": "The official processed expression table is accessible, matches the registered control-diet to HFHS samples structurally, and was rehashed locally (clean SHA-256 b67ac03c...; source 9994d45b...). GEO links no publication and deposits no author DE/statistics table. A 2026-11-15 design re-review found the GSE235479 and superseries GSE235498 SOFT byte-identical to the retained 2026-09-05 copies; no sample field records an animal, pool or cage, so the experimental-design status stays not_assessed (unit unresolved). Unconfirmed lead: bioRxiv 10.1101/2025.02.12.637923 (Baker, Harder ... Churchill, posted 2025-02-16) has an abstract consistent with the GEO summary, and the GEO Series_contributor names (Baker, Harder, Churchill) match its first, second and last authors. GEO does not cite the preprint, Europe PMC mines no accession number from it, and its full text and methods have not been read, so it is not treated as a linked publication or author-result source. Evidence: data/author-validation/continued-sources/GSE235479/turbo-2026-11-15-design/README.md, SOURCES.tsv and sources/.",
+    "reviewFlags": [
+      "No linked paper is available for an author-result comparison; candidate preprint bioRxiv 10.1101/2025.02.12.637923 is an unconfirmed, unread lead that GEO does not cite.",
+      "This legacy source has no committed source-file checksum manifest."
+    ],
+    "reviewedAt": "2026-11-15"
+  },
+  "verificationReview": null,
+  "comparabilityReview": null,
+  "additionalComparisonSpec": null,
+  "appliedCorrections": [
+    "Outcome treated as documented_no_change, not advanced: no status, unit-type or comparison-level change; only manual-review note/reviewFlags and reviewedAt are updated.",
+    "bioRxiv 10.1101/2025.02.12.637923 recorded only as an unconfirmed lead in the note, flag and README next step, not as advanced or linked evidence.",
+    "Research Square DOI 10.21203/rs.3.rs-6149178/v1 removed (no retained source supports it) from the note and the evidence README.",
+    "Added that the GEO Series_contributor names (Baker, Harder, Churchill) match the preprint first, second and last authors, keeping the limitation that GEO does not cite the preprint and its text has not been read.",
+    "Removed the unsupported claim of an attempted bioRxiv full-text retrieval (no SOURCES.tsv row or HTTP status exists); README now states the full text was not retained or read and that the API-listed JATS XML URL was not retrieved.",
+    "README states the 2026-11-15 sources are re-acquisitions that do not replace the pinned 2026-09-05 source paths or the reviewed ORSAM-to-GSM mapping.",
+    "experimentalDesign proposal dropped per integration decision (status unchanged); its mappingMethod/reviewed_mapping source, superseries_context kind, configId/mappingSha256/config and non-schema-field corrections are therefore moot and not applied to reviewed-specifications.json."
+  ],
+  "notes": "Only manual-review.json changes (note, reviewFlags, reviewedAt added; status processed_source_match, comparisonLevel, sourceComparison, auditState and summary kept). verification-review stays not_located/not_tested; the integrator may optionally mention the preprint lead in its nextStep, but that was not proposed. No comparability record exists and none is proposed. No additional comparison spec: there is no author result to compare. Separate turbo-2026-11-15-notloc1 folder for GSE235479 (Europe PMC accession search 0 hits; GEO suppl has counts/VST/annotation only) was not edited here. The README in data/author-validation/continued-sources/GSE235479/turbo-2026-11-15-design was rewritten with the verifier corrections; SOURCES.tsv was left unchanged because no full-text request was recorded."
+}

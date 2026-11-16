@@ -1,0 +1,143 @@
+{
+ "datasetId": "rat_arc_hfd_gse232510",
+ "manualReview": {
+  "status": "review_required",
+  "comparisonLevel": "direct",
+  "sourceComparison": "checksum_match",
+  "auditState": "complete",
+  "summary": "Author Table S1 retrieved; selected CS/HFS effects agree in direction, but 2 of 6 registered libraries are not author libraries",
+  "note": "The paper (Methods/Figure 2) reports 3 chow-sedentary, 3 chow-running, 4 HFD-sedentary and 4 HFD-running RNA libraries; official GEO SOFT/RAW.tar contain 3 CS, 3 HFS and 4 HFR (no CR) plus 8 miRNA-manipulation samples, and the registered 3-versus-3 cohort uses GSM7349354-GSM7349359. The 3.1 MB author supplement ZIP blocked on PMC in 2026-09 was retrieved on 2026-11-16 through Europe PMC (ijms-25-07188-s001.zip SHA-256 5c63f7e868043522a755ba284debaa4d697b7dc32ccb55ae350de8aef93d197a). Its Supplementary Table S1 (SHA-256 9f4a36246bd83ee1db8eef7e99b0f9c822b2d1b05dabccb5da3f08f67b9d4ffc) lists 431 DESeq2 CS-vs-HFS rows (430 with padj<0.1) with per-library values for all 14 author libraries. Author log2FoldChange equals log2(mean CS/mean HFS) of those values (Pearson 1.0000, 100% sign agreement; no other group pair exceeds 0.92), so it is negated to HFS minus CS; the registered effects then correlate positively with it. The 265 negative/166 positive split matches the paper's 265 down/165 up count (one row has padj 0.1001), but the paper describes changes relative to the CS group, which leaves its direction wording ambiguous; orientation rests on the per-library values and the registered sign, not on the paper text. Library identity against the deposited HTSeq counts: GSM7349354=CS1, GSM7349356=CS12, GSM7349357=HFS2, GSM7349359=HFS9 and all four HFR libraries match exactly, but GSM7349355 (CS_Rep4) and GSM7349358 (HFS_Rep2) match none of the 14 author columns, and author CS16, HFS and HFS17 are not deposited. This is an unexplained sample-identity discrepancy, not a documented method difference. On the author-selected genes GSM7349355 resembles the author HFS libraries more than any CS library; this is an observation, not a label correction. The identity check used GSE232510_RAW.tar re-downloaded on 2026-11-16 with SHA-256 equal to the pin in geo_replication/datasets/GSE232510_rnor_arc_hfd/metadata/GSE232510_source_files.tsv (5acf8b2d...); the archive and its per-library members are not retained, so the result rests on this pass's run (scripts/library_identity.py, outputs/library-identity.json) and cannot be recomputed from retained files. 2026-11-16 scoped comparison against the unchanged current R 4.6.0 registered edgeR-QL output (GSE232510_DE.tsv SHA-256 2de6397f..., HFS minus CS): 406/431 author rows pair by exact Ensembl feature through the registered feature map (coverage 0.9420; 21 features without a registered symbol, the summed symbol Tmt1a and absent Ptbp2, Prkcb and Atf3 stay unpaired; none resolved by name); nonzero direction agreement 402/406 (0.9901; Vsnl1, Ndufs1, Clasp2 and Myl9 reversed, all local |logFC|<0.1 and FDR>0.98); Pearson 0.8976, Spearman 0.9026, OLS slope 0.446 (local on author); median absolute LFC 0.806 author versus 0.408 local. An author-symbol join gives 391 pairs, Pearson 0.8952, Spearman 0.8996, 387/391 directions. Registered FDR<0.1 calls: 0 (minimum 0.288) versus 405 of 406 paired author genes. Under author-concordance-v2 the direction route is numerically met, but the correlation route is not (Pearson 0.8976 < 0.90; Spearman 0.9026), and neither is accepted because cohort compatibility is not supported. Four of the six registered libraries are the same libraries as author columns, so the effect agreement partly reflects shared data and is not independent replication. Selected-gene evidence only; the author nonsignificant tail is not available. Evidence is in continued-sources/GSE232510/turbo-2026-11-16-wave2/.",
+  "reviewFlags": [
+   "Two registered libraries (GSM7349355 CS_Rep4, GSM7349358 HFS_Rep2) match no author Table S1 library, and three author libraries (CS16, HFS, HFS17) are not deposited; this sample-identity discrepancy is unexplained.",
+   "Author DESeq2 fit over 14 libraries (CS, CR, HFR, HFS) versus registered edgeR-QL 3 versus 3; 405 versus 0 FDR<0.1 calls among paired genes.",
+   "Selected 431-gene FDR<0.1 reference only; the author tested universe and nonsignificant tail are not available.",
+   "Effect agreement is not independent replication: 4 of the 6 registered libraries (GSM7349354, GSM7349356, GSM7349357, GSM7349359) are author libraries CS1, CS12, HFS2 and HFS9, so part of the agreement reflects shared data.",
+   "Library identity was computed from GSE232510_RAW.tar matching the pinned SHA-256 (5acf8b2d...) in the dataset source-files manifest; the archive and per-library HTSeq hashes are not retained in the evidence folder, so the identity result cannot be recomputed from retained files alone."
+  ],
+  "reviewedAt": "2026-11-16",
+  "evidenceLinks": [
+   {
+    "label": "Open manuscript and methods",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11241292/",
+    "kind": "paper"
+   },
+   {
+    "label": "Author supplement Table S1 (CS vs HFS DESeq2 DEGs), via Europe PMC",
+    "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11241292/supplementaryFiles",
+    "kind": "author_result"
+   }
+  ]
+ },
+ "verificationReview": {
+  "resultAvailability": "partial",
+  "comparisonOutcome": "unresolved",
+  "reason": "2026-11-16: author Supplementary Table S1 (431 CS-vs-HFS DESeq2 DEGs, padj<=0.1001) retrieved via Europe PMC and compared with the current R 4.6.0 registered output. 406 paired by exact Ensembl feature (coverage 0.9420); nonzero direction agreement 402/406 (0.9901); Pearson 0.8976 (below the 0.90 correlation-route minimum), Spearman 0.9026, OLS slope 0.446. The cohort-identity discrepancy is unresolved: GSM7349355 and GSM7349358 match no author library, author CS16/HFS/HFS17 are not deposited, and the author fit used 3 CS + 4 HFS within 14 libraries. Four registered libraries are shared with the author fit, so the effect agreement is not independent replication. Author 405 versus registered 0 FDR<0.1 calls among paired genes. Evidence is in continued-sources/GSE232510/turbo-2026-11-16-wave2/.",
+  "nextStep": "Obtain author documentation of the deposited GSM7349355/GSM7349358 libraries versus author CS16/HFS/HFS17 (and the undeposited CR and fourth HFS libraries) or the full author count matrix; any same-cohort author-compatible reconstruction must remain separate from the registered 3-versus-3 analysis.",
+  "fullyVerifiedContrasts": []
+ },
+ "comparabilityReview": {
+  "registeredContrastIds": [
+   "hfd_vs_chow"
+  ],
+  "target": "registered_output",
+  "resultScope": "selected_results",
+  "basis": "Registered edgeR-QL HFD-sedentary minus chow-sedentary female ARC, 3 versus 3 deposited libraries GSM7349354-GSM7349359.",
+  "reference": "Author Supplementary Table S1 (ijms-25-07188-s001.zip via Europe PMC): 431 DESeq2 CS-vs-HFS rows at FDR<0.1 (one at 0.1001), log2FoldChange CS over HFS, negated.",
+  "assessment": "limited",
+  "dimensions": {
+   "cohort": {
+    "status": "limited",
+    "note": "Deposited HTSeq counts match author columns exactly for GSM7349354 (CS1), GSM7349356 (CS12), GSM7349357 (HFS2) and GSM7349359 (HFS9); GSM7349355 and GSM7349358 match none of the 14 author libraries (unexplained), and author CS16, HFS and HFS17 are not deposited. Author fit: 3 CS + 4 HFS within 14 libraries. Identity was computed from the pinned GSE232510_RAW.tar, which is not retained in the evidence folder."
+   },
+   "contrast": {
+    "status": "compatible",
+    "note": "Both HFD-sedentary versus chow-sedentary female ARC. Author orientation CS over HFS is established from the table's own per-library values (Pearson 1.0000 with log2 mean CS/HFS) and the positive correlation with the registered sign, not from the paper's wording; negated to HFS minus CS."
+   },
+   "features": {
+    "status": "compatible",
+    "note": "406/431 author Ensembl IDs join registered rows through the registered feature map; 21 features without a registered symbol, one summed symbol and three absent rows stay unpaired, none resolved by name."
+   },
+   "effects": {
+    "status": "limited",
+    "note": "Author unshrunk DESeq2 Wald LFC from a 14-library fit versus registered edgeR-QL logFC from 3 versus 3; both log2 ratios. 402/406 nonzero directions agree, Pearson 0.8976, Spearman 0.9026, OLS slope 0.446 (registered effects about half the author magnitude). Four of six registered libraries are author libraries, so the agreement is not independent replication."
+   },
+   "inference": {
+    "status": "different",
+    "note": "Author 405 of 406 paired genes at FDR<0.1; registered output has 0 genes at FDR<0.1 (minimum 0.288). Cohorts and models differ."
+   },
+   "coverage": {
+    "status": "limited",
+    "note": "Selected FDR<0.1 DEG list only (0.9420 of it paired); the author tested universe and nonsignificant tail are not available."
+   }
+  },
+  "criteria": "author-concordance-v2 on 406 nonzero pairs covering 0.9420 of the selected reference: direction route numerically met (402/406 agree); correlation route not met (Pearson 0.8976 < 0.90; Spearman 0.9026). Not accepted, because cohort compatibility is not supported (2 of 6 registered libraries are not author libraries); a significant-only list also cannot establish full-universe agreement.",
+  "conclusion": "Selected author CS/HFS effects agree in direction (402/406), but the correlation route is not met, part of the agreement reflects 4 shared libraries, and the cohort-identity discrepancy, inference and coverage remain unresolved or qualified."
+ },
+ "additionalComparisonSpec": {
+  "datasetId": "rat_arc_hfd_gse232510",
+  "accession": "GSE232510",
+  "contrast": "hfd_vs_chow",
+  "localPath": "geo_replication/datasets/GSE232510_rnor_arc_hfd/processed/GSE232510_DE.tsv",
+  "localKey": "symbol",
+  "authorPath": "data/author-validation/continued-sources/GSE232510/turbo-2026-11-16-wave2/outputs/author-effects.tsv",
+  "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11241292/supplementaryFiles",
+  "sha256": "369a15b1ed3256773cba39c2321b8ce37c059e2fae0aa67ebfef32ee6e31dca6",
+  "format": "tsv",
+  "authorKey": "output_id",
+  "authorEffect": "logFC",
+  "authorAdjustedP": "padj",
+  "orientationSign": 1,
+  "localMethod": "edgeR quasi-likelihood, 3 versus 3 deposited libraries",
+  "authorMethod": "DESeq2 Wald (unshrunk LFC) fitted across 14 CS/CR/HFR/HFS libraries; CS versus HFS; FDR<0.1",
+  "orientation": "Author log2FoldChange (CS over HFS, established from the table's per-library values) is negated in the extraction to HFS minus CS; the logFC column is already oriented.",
+  "note": "Selected author reference: Supplementary Table S1, 431 CS-vs-HFS DESeq2 rows (430 with padj<0.1). Author Ensembl IDs join through the registered feature map; unpaired rows keep their Ensembl ID as key and stay unpaired. Only 4 of 6 registered libraries are author libraries (GSM7349355 and GSM7349358 match no author column, unexplained), and those 4 shared libraries mean the agreement is not independent replication. The 2026-11-16 review figures (402/406 directions; Pearson 0.8976, below the 0.90 correlation-route minimum) were computed on the current R 4.6.0 registered output (SHA-256 2de6397f...), not on an R 4.4.1 output. Numerical values are recalculated from the unchanged current registered DE table.",
+  "interpretation": "effects_compared",
+  "originalReferences": [
+   {
+    "path": "data/author-validation/continued-sources/GSE232510/turbo-2026-11-16-wave2/sources/Supplementry_Table_S1.xlsx",
+    "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/instance/11241292/bin/ijms-25-07188-s001.zip",
+    "sha256": "9f4a36246bd83ee1db8eef7e99b0f9c822b2d1b05dabccb5da3f08f67b9d4ffc",
+    "bytes": 122230
+   },
+   {
+    "path": "data/author-validation/continued-sources/GSE232510/turbo-2026-11-16-wave2/sources/ijms-25-07188-s001.zip",
+    "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/instance/11241292/bin/ijms-25-07188-s001.zip",
+    "sha256": "5c63f7e868043522a755ba284debaa4d697b7dc32ccb55ae350de8aef93d197a",
+    "bytes": 3272142
+   },
+   {
+    "path": "data/author-validation/continued-sources/GSE232510/turbo-2026-11-16-wave2/sources/PMC11241292.xml",
+    "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11241292/fullTextXML",
+    "sha256": "546badaca4460a4dbc93dbd6ec80e6a79f842b63a4fdc28826cea8b8b3d68c67",
+    "bytes": 162374
+   },
+   {
+    "path": "data/author-validation/continued-sources/GSE232510/turbo-2026-11-16-wave2/sources/registered_GSE232510_feature_map.tsv.gz",
+    "sourceUrl": "Registered GSE232510 feature map (R 4.6.0 regeneration output) used for the exact Ensembl join",
+    "sha256": "171b0e1ac9c2c11cb49f7896b7fb7e3dc7ecf8a84cae97c788be0f02db9680f7",
+    "bytes": 187527
+   },
+   {
+    "path": "data/author-validation/continued-sources/GSE232510/turbo-2026-11-16-wave2/scripts/compare_table_s1.py",
+    "sourceUrl": "Reproducible original-table extraction and scoped comparison script",
+    "sha256": "3a9bc99d4e2dcb0df85304f7a58a0bbdc823eb002897e5d11b174ac4c28e53f5",
+    "bytes": 12849
+   }
+  ],
+  "localSnapshot": {
+   "path": "geo_replication/datasets/GSE232510_rnor_arc_hfd/processed/GSE232510_DE.tsv",
+   "sha256": "2de6397ff76a47a0f3237df23f528fb7fc2c30c5e03eb7e421f26381dd24c8a1",
+   "bytes": 1040744
+  }
+ },
+ "appliedCorrections": [
+  "Correction 1: manualReview.comparisonLevel set to 'direct' (was 'processed_source'); sourceComparison 'checksum_match' kept.",
+  "Correction 2: verificationReview.comparisonOutcome set to 'unresolved' (was 'method_differences'); reason, manualReview note/summary/flags, comparability conclusion and README call the GSM7349355/GSM7349358 cohort-identity discrepancy unresolved, not a method-differences finding.",
+  "Correction 3: comparabilityReview.criteria/conclusion, manualReview.note, verificationReview.reason and README replace 'at the 0.90 line'/'at threshold' with: correlation route not met (Pearson 0.8976 < 0.90; Spearman 0.9026), direction route numerically met, not accepted because cohort compatibility is not supported.",
+  "Correction 4: new reviewFlag, effects-dimension note, spec note, verificationReview.reason and README state that 4 of 6 registered libraries are shared with the author fit, so the agreement is not independent replication.",
+  "Correction 5: RAW.tar members were not retained (outside this step's allowed edits); manualReview note, a new reviewFlag, the cohort-dimension note and README state that library identity used GSE232510_RAW.tar matching the pinned SHA-256 5acf8b2d... in geo_replication/datasets/GSE232510_rnor_arc_hfd/metadata/GSE232510_source_files.tsv and cannot be recomputed from retained files.",
+  "Correction 6: builder not edited; the spec note, manualReview note and README state the figures were computed on the R 4.6.0 output (2de6397f...), so the builder's automatic 'reviewed on the R 4.4.1 output' suffix is contradicted within the same note.",
+  "Problem 7 (paper orientation wording): manualReview note, contrast-dimension note and README now say the 265/166 count matches the paper but orientation rests on the per-library values and registered sign, since the paper's direction wording is ambiguous."
+ ],
+ "notes": "Verdict upheld_with_corrections; no upgrade: status review_required, resultAvailability partial, comparisonOutcome unresolved (what the builder emits for review_required), assessment limited, inference 'different', fullyVerifiedContrasts empty. comparisonLevel 'direct' follows the verifier and the builder's level for spec-backed comparisons; it does not raise status. No spec existed for this dataset, so one is emitted. The builder will still append its R 4.4.1 suffix to the spec note because GSE232510_DE.tsv is in the R 4.6.0 supersession manifest; removing it needs a builder change outside this step. SOURCES.tsv and outputs were not edited."
+}

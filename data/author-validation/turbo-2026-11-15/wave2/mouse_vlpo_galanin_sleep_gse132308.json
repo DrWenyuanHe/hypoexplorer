@@ -1,0 +1,150 @@
+{
+  "datasetId": "mouse_vlpo_galanin_sleep_gse132308",
+  "accession": "GSE132308",
+  "outcome": "advanced",
+  "summary": "The earlier not-comparable reason holds only for inference. BMC Genomics Additional file 2 (sheet DEG) lists all 13,856 author-tested genes with a per-timepoint SD-vs-SS effect, SDvsSS_6hr.FC, which is the same contrast and orientation as the registered ZT6 track. The 52 GEO samples match the paper's 52 mice, and the 12 ZT6 libraries are the registered cohort. Joining exact Ensembl IDs through the registered feature map gives 13,184 pairs (95.15% of author rows, 99.27% of registered rows): Pearson 0.944669, Spearman 0.958157, direction agreement 95.00%, median absolute log2FC difference 0.014146. This passes author-concordance-v2 on both routes. The author FDR is a 4-timepoint moderated-F test, not a ZT6 test, so inference stays not assessed.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE132308/turbo-2026-11-16-wave2/",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Full author ZT6 effects agree with the registered sleep-deprivation output",
+      "note": "The official raw-count matrix and SOFT match the SHA-256 values documented in the dataset README. The paper's headline 263 DEGs come from a limma moderated F-test pooling the four SD-versus-SS timepoints, which is not the registered ZT6 estimand. However, BMC Genomics Additional file 2 (12864_2020_7050_MOESM2_ESM.xlsx, SHA-256 2600a3b7..., sheet DEG) lists all 13,856 author-tested genes with separate per-timepoint SD-vs-SS effects. Its SDvsSS_6hr.FC column is the registered contrast in the same orientation. GEO lists 52 samples, matching the paper's 52 mice, with exactly 6 SS6hr and 6 SD6hr libraries at ZT6; these are the 12 registered libraries. The author fit uses all 52 samples with shared TMM normalization and limma variance moderation, while the registered edgeR-QL fit uses only the 12 ZT6 libraries. Author Ensembl IDs were joined exactly through the registered feature map (SHA-256 afa3efb8..., as recorded in provenance); 374 IDs without a current symbol and 15 IDs whose symbol is summed over several features were excluded, with no symbol renaming. Against the current registered DE table (SHA-256 5fb5171c...), 13,184 pairs (95.15% of 13,856 author rows; 99.27% of 13,281 registered rows) give Pearson 0.944669, Spearman 0.958157, direction agreement 95.00% (12,525/13,184), median absolute log2FC difference 0.014146 and paired RMS effect ratio 0.901098. All 258 paired author F-test DEGs agree in direction (Pearson 0.986937). Another 283 author genes have no registered row because the expression filters differ. The author FC column is read as a limma log2 coefficient. No author ZT6 P/FDR is reported, so inference is not assessed. Evidence and reproducible extraction are in continued-sources/GSE132308/turbo-2026-11-16-wave2/.",
+      "reviewFlags": [
+        "Author ZT6 effects come from a whole-cohort limma fit over all 52 samples; the registered edgeR-QL fit uses only the 12 ZT6 libraries.",
+        "The only author FDR is a 4-timepoint moderated-F test; ZT6-specific author inference is not reported and is not assessed.",
+        "The author effect column is labelled FC; it is treated as a limma log2 coefficient (signed values, median absolute difference 0.014 from registered log2FC)."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "GEO record",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE132308",
+          "kind": "database"
+        },
+        {
+          "label": "Open full text",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7491139/",
+          "kind": "paper"
+        },
+        {
+          "label": "Author Additional file 2 (all tested genes, per-timepoint effects)",
+          "url": "https://static-content.springer.com/esm/art%3A10.1186%2Fs12864-020-07050-7/MediaObjects/12864_2020_7050_MOESM2_ESM.xlsx",
+          "kind": "author_result"
+        }
+      ],
+      "reviewedAt": "2026-11-16"
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "2026-11-16 full-table comparison against Additional file 2 sheet DEG column SDvsSS_6hr.FC (all 13,856 author-tested genes; same ZT6 SD-minus-SS contrast). 13,184 finite matched effects (95.15% of author rows, 99.27% of registered rows); Pearson 0.944669, Spearman 0.958157, nonzero direction agreement 95.000% (12,525/13,184), median absolute log2FC difference 0.014146, paired RMS effect ratio 0.901098. The 12 registered ZT6 libraries are the author's ZT6 groups (GEO 52 samples = paper 52 mice). Exact Ensembl joins via the registered feature map. Author effects come from a 52-sample limma fit; the only author FDR is a 4-timepoint moderated-F test, so ZT6 inference is not assessed. Evidence and reproducible extraction are in continued-sources/GSE132308/turbo-2026-11-16-wave2/.",
+      "nextStep": "Keep inference unassessed unless ZT6-specific author P/FDR becomes available. The 283 author genes outside the registered filter remain coverage gaps, not mismatches. A whole-cohort limma reconstruction could be added as a separate sensitivity analysis.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "sleep_deprivation_vs_spontaneous_sleep_zt6"
+      ],
+      "target": "registered_output",
+      "resultScope": "effects_only",
+      "basis": "Registered edgeR-QL ZT6 sleep-deprivation output against the author per-timepoint ZT6 SD-vs-SS effect for every author-tested gene; author inference is not ZT6-specific and is not compared.",
+      "reference": "BMC Genomics 2020 (PMC7491139) Additional file 2, 12864_2020_7050_MOESM2_ESM.xlsx sheet DEG, column SDvsSS_6hr.FC (13,856 genes), retrieved and hashed on 2026-11-16.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "GEO lists 52 samples, matching the paper's 52 mice; ZT6 has exactly 6 SS6hr and 6 SD6hr libraries, the 12 registered libraries. The author effect is estimated in a fit over all 52 samples (shared normalization and variance), so the estimator differs although the ZT6 animals are the same."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Sleep deprivation minus spontaneous sleep at 6 h after lights-on in both; orientation agrees (Hspa8 +0.444 author, +0.455 registered)."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Exact author Ensembl IDs joined through the registered feature map; 374 IDs without a current symbol and 15 IDs in symbols summed over several features are excluded unresolved. 283 author genes lie outside the registered expression filter."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "13,184 pairs: Pearson 0.944669, Spearman 0.958157, direction agreement 95.00%, median absolute log2FC difference 0.014146, RMS ratio 0.901098. The author column is labelled FC and read as a limma log2 coefficient."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "Authors report only a 4-timepoint moderated-F FDR; no ZT6 P/FDR exists. Missing author ZT6 inference is unassessed, not a mismatch."
+        },
+        "coverage": {
+          "status": "compatible",
+          "note": "The author table is the full 13,856-gene tested universe; 95.15% of author rows and 99.27% of registered rows are paired."
+        }
+      },
+      "criteria": "author-concordance-v2 on exact Ensembl joins with finite effects: at least 30 pairs, at least 90% coverage, Pearson and Spearman at least 0.90 or direction agreement at least 90%. No threshold, exclusion or mapping tuning; inference is not compared.",
+      "conclusion": "Full-table author ZT6 effects agree with the registered output by correlation and direction. ZT6 inference and the whole-cohort versus ZT6-only estimator difference remain unassessed."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "mouse_vlpo_galanin_sleep_gse132308",
+      "accession": "GSE132308",
+      "contrast": "sleep_deprivation_vs_spontaneous_sleep_zt6",
+      "localPath": "geo_replication/datasets/GSE132308_mmus_vlpo_galanin_sleep/processed/GSE132308_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE132308/turbo-2026-11-16-wave2/author-effects.tsv",
+      "sourceUrl": "https://static-content.springer.com/esm/art%3A10.1186%2Fs12864-020-07050-7/MediaObjects/12864_2020_7050_MOESM2_ESM.xlsx",
+      "sha256": "11b45195e717ec034baf8ead3936e5a101680ee5f52bd848cc776b0c9e069474",
+      "format": "tsv",
+      "authorKey": "output_id",
+      "authorEffect": "logFC",
+      "orientationSign": 1,
+      "localMethod": "edgeR quasi-likelihood on the 12 ZT6 libraries",
+      "authorMethod": "limma on TMM-normalized counts over all 52 samples; per-timepoint SD-vs-SS coefficient at 6 h",
+      "orientation": "Both sleep deprivation minus spontaneous sleep at ZT6; author column SDvsSS_6hr.FC.",
+      "note": "Full author table: Additional file 2 sheet DEG lists all 13,856 author-tested genes; author Ensembl IDs are joined exactly through the registered feature map, excluding 374 IDs without a current symbol and 15 in symbols summed over several features. The 12 registered ZT6 libraries are the author's ZT6 groups, but author effects come from a 52-sample whole-cohort fit. The only author FDR is a 4-timepoint moderated-F test, so it is omitted and inference is not assessed. The author FC column is read as a limma log2 coefficient.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE132308/turbo-2026-11-16-wave2/downloads/12864_2020_7050_MOESM2_ESM.xlsx",
+          "sourceUrl": "https://static-content.springer.com/esm/art%3A10.1186%2Fs12864-020-07050-7/MediaObjects/12864_2020_7050_MOESM2_ESM.xlsx",
+          "sha256": "2600a3b72b937bdc581a88c1b715931d247703dbd2083cd5e48866f342c1c5eb",
+          "bytes": 3043718
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE132308/turbo-2026-11-16-wave2/compare_zt6.cjs",
+          "sourceUrl": "Reproducible original-table extraction and scoped comparison script",
+          "sha256": "22ac79c16a6d4b57a59ac6812eed853114ac8b86a269dc1cbdff43785bf917e2",
+          "bytes": 7628
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE132308/turbo-2026-11-16-wave2/compare_zt6.cjs",
+      "resultScope": "Full author tested-gene table (13,856 genes); ZT6 per-timepoint effects only, no ZT6 inference.",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE132308_mmus_vlpo_galanin_sleep/processed/GSE132308_DE.tsv",
+        "sourceUrl": "Registered Explorer DE source; no public author-result claim",
+        "sha256": "5fb5171c032d03a0fab173f9c0a19bec2169167220ec391074f172a716406350",
+        "bytes": 1316207
+      }
+    }
+  },
+  "metrics": {
+    "scope": "full author table, SDvsSS_6hr.FC vs registered logFC",
+    "authorRows": 13856,
+    "registeredRows": 13281,
+    "pairedGenes": 13184,
+    "coverageAuthor": 0.951501,
+    "coverageRegistered": 0.992696,
+    "pearson": 0.944669,
+    "spearman": 0.958157,
+    "nonzeroPairs": 13184,
+    "directionAgreement": 12525,
+    "directionAgreementFraction": 0.950015,
+    "medianAbsLog2FCDifference": 0.014146,
+    "pairedRmsEffectRatio": 0.901098,
+    "authorFTestDegScope": {
+      "authorRows": 263,
+      "pairs": 258,
+      "pearson": 0.986937,
+      "spearman": 0.998034,
+      "directionAgreementFraction": 1
+    },
+    "passesAuthorConcordanceV2": true,
+    "inference": "not_assessed"
+  }
+}

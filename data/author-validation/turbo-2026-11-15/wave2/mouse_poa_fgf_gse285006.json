@@ -1,0 +1,46 @@
+{
+  "datasetId": "mouse_poa_fgf_gse285006",
+  "accession": "GSE285006",
+  "outcome": "documented_no_change",
+  "summary": "Existing not-comparable reason holds. The only gene-level author result (PMC12037384 Supplementary Table 1, retrieved via the Europe PMC OA bundle) is 72 DESeq2 padj<0.1 genes for OS- versus SS-housed dnFGFR males. GEO deposits only raw counts, and no author dnFGFR-versus-control genotype result exists. The registered pooled genotype contrast has no same-contrast comparator, and the selected housing table has no registered track and cannot meet 90% relevant coverage.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE285006/turbo-2026-11-16-wave2",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "POA source verified; pooled genotype effect relabeled exploratory",
+      "note": "The deposited coverage/count source is accessible, maps to the registered pooled dnFGFR-versus-control genotype effect, and was rehashed locally (SHA-256 d7b36bef...). The author instead analyzes opposite-sex versus same-sex housing separately within genotype. A naïve author-axis dnFGFR OS-minus-SS reproduction strongly matches the top author effect sizes (Pearson 0.9941; RMSE 0.0321) but calls 5 rather than 72 genes at FDR<0.1, leaving an author preprocessing/inference difference unresolved. 2026-11-16 turbo wave2: rechecked against primary sources. Europe PMC OA supplement Table1.xlsx (SHA-256 95c87dd9...) lists only the 72 DESeq2 padj<0.1 genes for OS- versus SS-housed dnFGFR males (22 up, 50 down); Table2.xlsx is sample metadata; the GEO series record lists only the raw Rsubread count matrix. No author genotype (dnFGFR versus control) gene-level result exists, so the pooled registered contrast has no same-contrast author comparator, and the threshold-selected housing table cannot meet 90% relevant coverage for any registered track. Evidence: continued-sources/GSE285006/turbo-2026-11-16-wave2/.",
+      "reviewFlags": [
+        "The registered pooled genotype effect is not an author-result match; dnFGFR OS-minus-SS and control OS-minus-SS tracks plus the author's workflow are needed for author-compatible inference.",
+        "This legacy source has no committed source-file checksum manifest."
+      ],
+      "reviewedAt": "2026-11-16",
+      "evidenceLinks": [
+        {
+          "label": "Full manuscript and per-genotype DESeq2 methods",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12037384/",
+          "kind": "paper"
+        },
+        {
+          "label": "Supplementary Table 1: dnFGFR OS- versus SS-housing DEGs (padj<0.1)",
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12037384/supplementaryFiles",
+          "kind": "author_result"
+        }
+      ]
+    },
+    "verificationReview": null,
+    "comparabilityReview": null,
+    "additionalComparisonSpec": null
+  },
+  "metrics": {
+    "authorGeneLevelTables": 1,
+    "authorTableContrast": "dnFGFR OS-housed vs SS-housed (DESeq2, padj<0.1 selected)",
+    "authorTableGenes": 72,
+    "authorTableUp": 22,
+    "authorTableDown": 50,
+    "registeredContrast": "dnfgfr_vs_control (pooled across housing)",
+    "pairedGenes": 0
+  }
+}

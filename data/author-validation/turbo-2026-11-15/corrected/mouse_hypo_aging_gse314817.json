@@ -1,0 +1,132 @@
+{
+  "datasetId": "mouse_hypo_aging_gse314817",
+  "manualReview": {
+    "status": "validated_with_notes",
+    "comparisonLevel": "reconstructed",
+    "sourceComparison": "manual_structure_match",
+    "auditState": "complete",
+    "summary": "Derived both-sex aging effects agree with the registered sex-adjusted endpoint",
+    "note": "GEO provides a raw-count matrix and a reanalyzed archive of per-sample count files. Table S1 mouse_sample_info reconciles all 36 author-used 6- and 27-month hypothalamus samples to the 36 registered libraries by library ID, age and sex, with no exclusions on either side. Table S1 mouse_sample_info animal_ID: 36 distinct animal IDs, one hypothalamus library each (8F/8M at 6 mo, 10F/10M at 27 mo). The authors fit each sex separately (edgeR filterByExpr/TMM, limma log2CPM, all ages as groups); Table S2 lists age-related genes (>=1.5-fold at any age, BH P<0.05, BIC trajectory filter) per sex. The reference effect is derived, not author-reported: the arithmetic mean of the male and female 27-versus-6 log2FC, defined only for genes listed in both sexes. Because each age group has the same sex composition, the registered additive-sex coefficient targets this equal-weight mean; the equality is exact for linear models and approximate for the NB GLM. Of the 246 hypothalamus genes listed in both sexes, 241 pair with the registered output (97.97%): Pearson r=0.995957, Spearman 0.991571, 241/241 signs agree, median absolute log2FC difference 0.0315. Five listed genes are absent from the registered tested table. 241 of 817 hypothalamus genes listed in either sex (29.5%) are in scope; prior 753-gene reconstructed comparison r=0.93550 is retained for context. The scope keeps only genes significant in both sexes of the same author data, which favours high correlation. Sex-specific listed genes, the nonsignificant tail and pooled inference remain outside this scope. Evidence and reproducible extraction are in continued-sources/GSE314817/turbo-2026-11-15-partial2/.",
+    "reviewFlags": [
+      "Reference effect is the arithmetic mean of separately fitted per-sex author effects (derived, not author-reported).",
+      "Selected-gene evidence: Table S2 lists only age-related genes, and the scope requires listing in both sexes (241 of 817 listed hypothalamus genes in scope); it is not the full tested universe.",
+      "No combined author P/FDR exists for the pooled sex-adjusted endpoint; per-sex adjusted P values are context only."
+    ],
+    "evidenceLinks": [
+      {
+        "label": "GEO record",
+        "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE314817",
+        "kind": "database"
+      },
+      {
+        "label": "Open full text",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13082319/",
+        "kind": "paper"
+      },
+      {
+        "label": "Author aging tables S1-S5",
+        "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13082319.1/sciadv.ady8401_tables_s1_to_s5.zip",
+        "kind": "author_result"
+      }
+    ],
+    "reviewedAt": "2026-11-15"
+  },
+  "verificationReview": {
+    "resultAvailability": "partial",
+    "comparisonOutcome": "method_differences",
+    "reason": "2026-11-15 derived-effect comparison: Table S2 hypothalamus genes listed in both male and female mouse sheets (246); reference = equal-weight mean of per-sex limma 27-vs-6-month log2FC, an effect the authors did not report. 241 finite pairs (97.97% of the 246-gene scope); Pearson 0.995957, Spearman 0.991571, nonzero direction agreement 100.000% (241/241), median absolute log2FC difference 0.031536, paired RMS effect ratio 1.019241. 241 of 817 hypothalamus genes listed in either sex (29.5%) are in scope; prior 753-gene reconstructed comparison r=0.93550 is retained for context. Table S1 reconciles all 36 author-used 6/27-month hypothalamus samples to the 36 registered libraries by ID, age and sex, with 36 distinct animal IDs. Selected age-related genes only; no combined author P/FDR for the pooled estimand. Evidence and reproducible extraction are in continued-sources/GSE314817/turbo-2026-11-15-partial2/.",
+    "nextStep": "Keep the selected both-sex scope explicit; full-universe concordance would need author per-sex results for all tested genes, which are not deposited.",
+    "fullyVerifiedContrasts": []
+  },
+  "comparabilityReview": {
+    "registeredContrastIds": [
+      "aged_vs_young"
+    ],
+    "target": "derived_author_effect",
+    "resultScope": "effects_only",
+    "basis": "Derived equal-weight mean of the author male and female 27-versus-6-month effects is compared with the registered 27-versus-6-month hypothalamus effect, which has sex as an additive term; author inference is not reconstructed.",
+    "reference": "Table S2 hypothalamus rows listed in both the male and female mouse sheets (246 genes); reference effect is the arithmetic mean of the per-sex log2FC.27vs6 values, which the authors did not report.",
+    "assessment": "limited",
+    "dimensions": {
+      "cohort": {
+        "status": "matched",
+        "note": "Table S1 mouse_sample_info: all 36 author-used 6/27-month hypothalamus samples join the 36 registered libraries by ID, age and sex; animal_ID gives 36 distinct animals, one hypothalamus library each (8F/8M at 6 months, 10F/10M at 27 months)."
+      },
+      "contrast": {
+        "status": "compatible",
+        "note": "Each age group has the same sex composition, so the additive-sex age coefficient weights both within-sex 27-minus-6-month effects equally (8*10/18 each); the equal-weight mean of the author per-sex effects is the same contrast in the same units. The equality is exact for linear models and approximate for the NB GLM. Per-sex fitting, filtering and shared dispersion are estimator differences."
+      },
+      "features": {
+        "status": "compatible",
+        "note": "241 of 246 both-sex listed symbols join exactly; five (AA467197, Apol9a, Fev, Phox2a, Spag6l) are absent from the registered tested table. Authors summed counts of same-named genes."
+      },
+      "effects": {
+        "status": "compatible",
+        "note": "Derived-mean Pearson 0.995957, Spearman 0.991571; all 241 paired signs agree; median absolute log2FC difference 0.0315."
+      },
+      "inference": {
+        "status": "not_tested",
+        "note": "Authors report per-sex limma BH P only; no combined P/FDR exists for the pooled endpoint."
+      },
+      "coverage": {
+        "status": "limited",
+        "note": "Selected age-related genes listed in both sexes; sex-specific genes and the nonsignificant tail are outside scope. 241 of 817 hypothalamus genes listed in either sex (29.5%) are in scope; prior 753-gene reconstructed comparison r=0.93550 is retained for context."
+      }
+    },
+    "criteria": "Derived effect comparison only, on the declared both-sex selected scope; no combined author P/FDR. No full-result acceptance is established.",
+    "conclusion": "The derived both-sex aging effect agrees closely with the registered endpoint; full-universe and inferential equivalence remain untested."
+  },
+  "additionalComparisonSpec": {
+    "datasetId": "mouse_hypo_aging_gse314817",
+    "accession": "GSE314817",
+    "contrast": "aged_vs_young",
+    "localPath": "geo_replication/datasets/GSE314817_mmus_hypothalamus_aging/processed/GSE314817_6v27mo_DE.tsv",
+    "localKey": "id",
+    "authorPath": "data/author-validation/continued-sources/GSE314817/turbo-2026-11-15-partial2/author-effects-primary-scope.tsv",
+    "sourceUrl": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13082319.1/sciadv.ady8401_tables_s1_to_s5.zip",
+    "sha256": "ca2d406f625526282150484473d74e9e3da7919870cb02486b55edc9b4abf9d5",
+    "format": "tsv",
+    "authorKey": "gene",
+    "authorEffect": "mean_log2FC_27vs6",
+    "orientationSign": 1,
+    "localMethod": "edgeR-QL",
+    "authorMethod": "Per-sex limma log2CPM after edgeR filterByExpr/TMM; equal-weight mean of male and female 27-vs-6-month log2FC",
+    "orientation": "27 months minus 6 months hypothalamus; unchanged author orientation.",
+    "note": "Derived 246-gene reference: Table S2 hypothalamus age-related genes listed in both male and female mouse sheets. The reference effect is the arithmetic mean of the per-sex log2FC.27vs6 values, an effect the authors did not report; it matches the additive-sex estimand in this design, where each age group has the same sex composition (exact for linear models, approximate for the NB GLM). 241 of 817 hypothalamus genes listed in either sex (29.5%) are in scope. No combined author adjusted P exists, and the per-sex adj.pval.27vs6 columns are retained in the extraction as context only. Numerical values are recalculated from the unchanged current registered DE table.",
+    "interpretation": "effect_match_inference_differs",
+    "originalReferences": [
+      {
+        "path": "data/author-validation/continued-sources/GSE314817/turbo-2026-11-15-partial2/download/sciadv.ady8401_tables_s1_to_s5.zip",
+        "sourceUrl": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13082319.1/sciadv.ady8401_tables_s1_to_s5.zip",
+        "sha256": "b7cbb7e5a446641e2a1376ca139a9782ad6695b3c1ba633e7a36a9b017d5a54e",
+        "bytes": 28825838
+      },
+      {
+        "path": "data/author-validation/continued-sources/GSE314817/turbo-2026-11-15-partial2/compare_gse314817.py",
+        "sourceUrl": "Reproducible original-table extraction and scoped comparison script",
+        "sha256": "9114a4a5e9c47e04e12a1c9b04ae7b1eda9c9ddd39540187229491b6c7a5433f",
+        "bytes": 7979
+      }
+    ],
+    "normalizationScript": "data/author-validation/continued-sources/GSE314817/turbo-2026-11-15-partial2/compare_gse314817.py",
+    "resultScope": "Derived 246-gene reference: Table S2 hypothalamus age-related genes listed in both sexes (241 of 817 listed genes pair); equal-weight mean of per-sex 27-vs-6 effects.",
+    "localSnapshot": {
+      "path": "geo_replication/datasets/GSE314817_mmus_hypothalamus_aging/processed/GSE314817_6v27mo_DE.tsv",
+      "sourceUrl": "Registered Explorer DE source; no public author-result claim",
+      "sha256": "a67879aeaf0993dc5689907270e90dde9194685342884503ca4474eb5621f4b6",
+      "bytes": 1588942
+    }
+  },
+  "appliedCorrections": [
+    "Dropped the proposed concordanceReview (contrast dimension unsupported, null fingerprint, mismatched method strings, sealed ledger); the contrast change is recorded in comparabilityReview only.",
+    "comparabilityReview keeps target derived_author_effect, resultScope effects_only and assessment limited (as mouse_hypo_fasting_gse294478); not changed to registered_output/selected_results.",
+    "comparabilityReview cohort set to matched citing Table S1 animal_ID (36 distinct animals); contrast set to compatible with the equal-weight justification and the exact-for-linear / approximate-for-NB-GLM note.",
+    "manualReview comparisonLevel kept reconstructed (not direct); added reviewFlag 'Reference effect is the arithmetic mean of separately fitted per-sex author effects (derived, not author-reported).'",
+    "Added to comparabilityReview coverage note and verificationReview reason: '241 of 817 hypothalamus genes listed in either sex (29.5%) are in scope; prior 753-gene reconstructed comparison r=0.93550 is retained for context.'",
+    "Experimental-design finding placed in the manualReview note, citing Table S1 mouse_sample_info animal_ID instead of cohort-audit.tsv; no reviewed-specifications change.",
+    "additionalComparisonSpec: deleted the authorAdjustedP key instead of null; kept authorPath sha256 ca2d406f625526282150484473d74e9e3da7919870cb02486b55edc9b4abf9d5 and all other pinned hashes; note/resultScope reworded as a derived reference with union coverage.",
+    "Numerical and sensitivity metrics left unchanged, as verified.",
+    "Evidence README updated: animal_ID citation, removed the unverifiable fixed-before-metrics claim, added union coverage 241/817, derived/reconstructed classification, removed concordance-review and fingerprint text."
+  ],
+  "notes": "No existing verification-review record for this dataset, so verificationReview is a new record (no reviewedAt field, matching that ledger). No existing additional-comparison spec or built-in direct comparison exists for this dataset, so one spec is proposed; like other existing specs it carries normalizationScript, resultScope and localSnapshot.sourceUrl, which the AdditionalSpec type does not list. With target derived_author_effect, assessAuthorConcordance will report 'Reconstructed effects only'; that is intended. Concordance-review and experimental-design proposals from partial2.json were dropped. Evidence-folder data files were not touched (pinned hashes unchanged); only README.md was edited."
+}

@@ -1,0 +1,114 @@
+{
+  "datasetId": "rat_hypo_exercise_gse242354",
+  "manualReview": {
+    "status": "review_required",
+    "comparisonLevel": "direct",
+    "sourceComparison": "checksum_match",
+    "auditState": "complete",
+    "summary": "Official MoTrPAC hypothalamus result compared; cohort, model and effect differences remain unresolved",
+    "note": "The fractional RSEM expected-count matrix and SOFT match their pinned hashes and fractional values are retained without rounding. The linked PMC11228891 manuscript analyzes eight other tissues and has no hypothalamus result, but the consortium MotrpacRatTraining6moData TRNSCRPT_HYPOTH_DA table (SHA-256 c92379487df7edf00fd23cb433c4d1fcfcfda06fac295e50d0e6245dc2f4ab62; 16,955 tested genes per sex and time point) was retrieved and compared. Male 8w-versus-sedentary rows were mapped through the same pinned Rnor_6.0 Ensembl 96 GTF; 155 rows in 71 ambiguous symbols are excluded unresolved. Against the current registered output (R 4.6.0 regeneration, SHA-256 a7036f08ed771f64eff68b0902d2a838a0b315834c9d403ded79f1eaea4f84f4), 16,798 paired genes give Pearson 0.3046, Spearman 0.5667 and 70.89% direction agreement over 16,796 nonzero pairs; author-concordance-v2 fails on both routes. Author FDR<0.05 calls: 11 (10 paired, all same sign locally); registered FDR<0.05 calls: 0. The DA table records covariates pct_globin, rin, pct_umi_dup, median_5_3_bias and lists 90217015402 in its removed_samples column without a stated reason. The low registered-on-author slope (0.041) is driven largely by extreme author logFCs at low expression (52 rows with |logFC|>5, up to 43.8). Evidence: continued-sources/GSE242354/turbo-2026-11-15-notloc2/README.md, SOURCES.tsv and analysis/metrics.json. Production data and analysis remain unchanged.",
+    "reviewFlags": [
+      "MoTrPAC removed_samples lists 90217015402 (registered Hypoth_Control_M_8w_1); registered 5/5 versus author 4/5 controls is an observed unresolved cohort difference.",
+      "Registered effects fail author-concordance-v2 (Pearson 0.3046, Spearman 0.5667, direction 70.89%); the author covariate model and the excluded sample are untested explanations."
+    ],
+    "evidenceLinks": [
+      {
+        "label": "Official MoTrPAC hypothalamus transcriptome timewise DA table",
+        "url": "https://raw.githubusercontent.com/MoTrPAC/MotrpacRatTraining6moData/main/data/TRNSCRPT_HYPOTH_DA.rda",
+        "kind": "author_result"
+      }
+    ],
+    "reviewedAt": "2026-11-15"
+  },
+  "verificationReview": {
+    "resultAvailability": "available",
+    "comparisonOutcome": "unresolved",
+    "reason": "The official MoTrPAC timewise result table (MotrpacRatTraining6moData TRNSCRPT_HYPOTH_DA, male 8w versus sex-matched sedentary control) was retrieved and hashed. Against the registered output, 16798 paired genes give Pearson 0.3046, Spearman 0.5667 and 70.89% directional agreement. Control sample 90217015402, which the registered cohort retains, is listed in the DA table removed_samples column, and the MoTrPAC timewise limma model includes covariates pct_globin, rin, pct_umi_dup and median_5_3_bias (per DA table). The observed difference is not reconciled.",
+    "nextStep": "Decide whether the registered cohort should follow the exclusion listed in the MoTrPAC DA table removed_samples column, whose reason is not stated in the retained source; any covariate-adjusted reconstruction must remain a separate sensitivity analysis."
+  },
+  "comparabilityReview": {
+    "registeredContrastIds": [
+      "exercise8w_vs_sedentary"
+    ],
+    "target": "registered_output",
+    "resultScope": "full_results",
+    "basis": "Registered limma result on log2(CPM + 1) for eight-week endurance training minus sedentary control in male whole hypothalamus, compared with the official MoTrPAC timewise differential-analysis table.",
+    "reference": "MotrpacRatTraining6moData data/TRNSCRPT_HYPOTH_DA.rda (SHA-256 c92379487df7edf00fd23cb433c4d1fcfcfda06fac295e50d0e6245dc2f4ab62), male 8w rows, 16,955 tested genes, retrieved 2026-11-15.",
+    "assessment": "not_established",
+    "dimensions": {
+      "cohort": {
+        "status": "different",
+        "note": "MoTrPAC lists removed samples 90252015402, 90406015402 and 90217015402; 90217015402 is the registered Hypoth_Control_M_8w_1. The registered fit keeps all five controls, so control membership differs by one animal."
+      },
+      "contrast": {
+        "status": "compatible",
+        "note": "Both estimate male eight-week trained minus sex-matched sedentary control. The author result is the MoTrPAC timewise limma model with covariates pct_globin, rin, pct_umi_dup, median_5_3_bias (per DA table), with control sample 90217015402 listed in the DA table removed_samples column; the registered model contains only the two eight-week groups without covariates."
+      },
+      "features": {
+        "status": "compatible",
+        "note": "Ensembl IDs mapped with the same pinned Rnor_6.0 Ensembl 96 GTF. 16798 of 16,955 author rows pair by exact symbol; 155 rows sharing 71 symbols are excluded as ambiguous and 2 unambiguous rows have no registered symbol."
+      },
+      "effects": {
+        "status": "different",
+        "note": "Pearson 0.3046, Spearman 0.5667, direction agreement 70.89% of 16796 nonzero pairs. The low registered-on-author slope (0.041) is driven largely by extreme author logFCs at low expression (52 rows with |logFC|>5, up to 43.8); excluding them raises Pearson only to 0.48 and direction agreement stays below 90%."
+      },
+      "inference": {
+        "status": "different",
+        "note": "MoTrPAC male 8w has 11 FDR<0.05 genes (10 paired, all same sign locally); the registered result has 0 FDR<0.05 genes. Covariates, weights and the excluded sample differ."
+      },
+      "coverage": {
+        "status": "compatible",
+        "note": "Paired genes cover 99.07% of all author male-8w rows; 79.2% of the 21215 registered rows pair."
+      }
+    },
+    "criteria": "author-concordance-v2: at least 30 paired genes and 90% coverage, plus Pearson and Spearman at least 0.90 or at least 90% directional agreement. Neither numerical route is met.",
+    "conclusion": "A full author result exists and was compared. The registered output meets neither concordance route; the listed sample exclusion and the covariate model are plausible causes but have not been tested, so the difference remains unresolved and comparability is not established."
+  },
+  "additionalComparisonSpec": {
+    "datasetId": "rat_hypo_exercise_gse242354",
+    "accession": "GSE242354",
+    "contrast": "exercise8w_vs_sedentary",
+    "localPath": "geo_replication/datasets/GSE242354_rnor_hypothalamus_exercise/processed/GSE242354_DE.tsv",
+    "localKey": "id",
+    "authorPath": "data/author-validation/continued-sources/GSE242354/turbo-2026-11-15-notloc2/analysis/author_male_8w_unambiguous.tsv",
+    "sourceUrl": "https://raw.githubusercontent.com/MoTrPAC/MotrpacRatTraining6moData/main/data/TRNSCRPT_HYPOTH_DA.rda",
+    "sha256": "3ea571ed9108586671559cc54bf0ab1de14aeffc4f6c06e03b1062526992b53a",
+    "format": "tsv",
+    "authorKey": "symbol",
+    "authorEffect": "logFC",
+    "authorAdjustedP": "adj_p_value",
+    "orientationSign": 1,
+    "orientation": "MoTrPAC logFC is trained 8w minus sex-matched sedentary control; registered is case minus control; no reversal.",
+    "localMethod": "limma",
+    "authorMethod": "MoTrPAC timewise limma model with covariates pct_globin, rin, pct_umi_dup, median_5_3_bias (per DA table); sample 90217015402 listed in the DA table removed_samples column",
+    "note": "Male 8w rows only; 155 rows in 71 ambiguous symbols excluded unresolved. 16798 pairs, Pearson 0.304585, Spearman 0.566689, direction 70.892%. Author FDR<0.05 11 (10 paired), registered 0. The low slope (0.041) is driven largely by 52 extreme author logFCs (|logFC|>5) at low expression. These figures were computed directly on the current R 4.6.0 registered output (SHA-256 a7036f08ed771f64eff68b0902d2a838a0b315834c9d403ded79f1eaea4f84f4); no R 4.4.1 figures are quoted.",
+    "interpretation": "effect_disagreement_review",
+    "originalReferences": [
+      {
+        "path": "data/author-validation/continued-sources/GSE242354/turbo-2026-11-15-notloc2/source/TRNSCRPT_HYPOTH_DA.rda",
+        "bytes": 8407428,
+        "sha256": "c92379487df7edf00fd23cb433c4d1fcfcfda06fac295e50d0e6245dc2f4ab62",
+        "sourceUrl": "https://raw.githubusercontent.com/MoTrPAC/MotrpacRatTraining6moData/main/data/TRNSCRPT_HYPOTH_DA.rda"
+      }
+    ],
+    "normalizationScript": "data/author-validation/continued-sources/GSE242354/turbo-2026-11-15-notloc2/analysis/compare_motrpac_hypoth.R",
+    "resultScope": "full_results",
+    "localSnapshot": {
+      "path": "geo_replication/datasets/GSE242354_rnor_hypothalamus_exercise/processed/GSE242354_DE.tsv",
+      "bytes": 2108470,
+      "sha256": "a7036f08ed771f64eff68b0902d2a838a0b315834c9d403ded79f1eaea4f84f4"
+    }
+  },
+  "appliedCorrections": [
+    "comparabilityReview.assessment changed from 'limited' to 'not_established' (precedent pig_hypo_genotype_gse201408: cohort 'different', target registered_output); dimension statuses kept as proposed.",
+    "manualReview replaced null with a full override: status review_required, comparisonLevel direct, sourceComparison checksum_match, auditState complete, new summary, note stating PMC11228891 has no hypothalamus result but the consortium TRNSCRPT_HYPOTH_DA table was retrieved and compared, and the two verifier-worded reviewFlags; reviewedAt 2026-11-15 and an author_result evidence link added. This prevents directStatus() from defaulting to 'validated_with_notes'.",
+    "additionalComparisonSpec.interpretation changed from 'effects_differ_definitions_differ' to 'effect_disagreement_review'.",
+    "additionalComparisonSpec gained normalizationScript (compare_motrpac_hypoth.R) and resultScope 'full_results'; sourceUrl switched from the GitHub HTML blob page to the raw URL used in originalReferences.",
+    "'removed ... as an outlier' replaced with 'listed in the DA table removed_samples column' in verificationReview.reason/nextStep, comparabilityReview contrast note and conclusion, additionalComparisonSpec.authorMethod and the evidence README.",
+    "'limma-voom' and 'joint fit across male time points' softened to 'MoTrPAC timewise limma model with covariates pct_globin, rin, pct_umi_dup, median_5_3_bias (per DA table)' in verificationReview.reason, comparabilityReview contrast note, additionalComparisonSpec.authorMethod and the README.",
+    "0.041 slope reframed as driven by extreme author logFCs at low expression (52 rows with |logFC|>5, up to 43.8), not registered compression, in comparabilityReview effects note, manualReview note, spec note and the README.",
+    "Spec note now states the figures were computed on the current R 4.6.0 output (a7036f08...) to counter the loader's automatic R 4.4.1 provenance sentence.",
+    "Evidence README (turbo-2026-11-15-notloc2/README.md) Result, Limitations and Next step wording corrected and a 'Review corrections (2026-11-15)' section added noting the unconfirmed remote hash/commit."
+  ],
+  "notes": "Proposal concordanceReview (null) and experimentalDesign text were dropped per integration rules; the design finding (90217015402 in removed_samples vs registered 5/5 controls) is carried only in the manualReview note/reviewFlags. No existing additional-comparison-specs.json entry or direct-comparisons.generated.json entry exists for this dataset, so one spec is proposed. LOADER CAVEAT: because GSE242354_DE.tsv is a recorded R 4.6.0 regeneration (supersession.json newSha256 a7036f08...), scripts/compare_author_results.mts will still append 'Figures quoted above were reviewed on the R 4.4.1 output; the metrics are recomputed on its R 4.6.0 regeneration.' to the generated note, which is false for this spec; the spec note now states the true provenance, but the integrator may want a loader tweak or accept the contradiction. No feature map exists for this output, so no re-keying occurs and author symbols join directly on id. normalizationScript and resultScope are not declared on the AdditionalSpec TypeScript type but are carried by existing specs; resultScope uses the 'full_results' vocabulary as the verifier asked (existing specs mix prose and enum values). The README edit does not affect any recorded hash (README is not listed in SOURCES.tsv or the derived-file table). Remote provenance (current GitHub raw hash, commit 0cf44b09) was not independently re-confirmed by the verifier."
+}

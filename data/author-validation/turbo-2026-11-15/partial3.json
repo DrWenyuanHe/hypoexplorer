@@ -1,0 +1,172 @@
+{
+  "agent": "partial3",
+  "datasets": [
+    {
+      "datasetId": "zebrafish_hypo_fluoxetine_gse141144",
+      "accession": "GSE141144",
+      "outcome": "advanced",
+      "summary": "Re-retrieved author Table_1.xlsx (Supp 5/7 unstressed Hyp colour directions). Exact join after Unicode-whitespace trim and trailing-asterisk removal pairs 89/96 selected genes; all 89 agree in direction (coverage 92.7%). Strict raw-string join reproduces the earlier 86/96 (89.6%); whitespace trim alone gives 87/96 (90.6%). Seven unmatched genes are explained (3 colon-containing si: names unpublished by the registered identifier rule, 1 ambiguous tbc1d9, 3 absent from Ensembl 92) and none is a disagreement. Direction route of author-concordance-v2 is numerically met only as a scoped, direction-only, selected-gene comparison; no correlations are possible; coverage pass depends on whitespace normalisation and contrast compatibility rests on condition-specific supplement columns.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE141144/turbo-2026-11-15-partial3",
+      "proposed": {
+        "manualReview": {
+          "summary": "Fluoxetine workbook re-extracted; all 89 matched selected gene directions agree",
+          "note": "Re-retrieved Table_1.xlsx (sha256 96a14a98cc0d80910af9409c140e57cd147826c873c262dfd6319fb31fd61fcf) from the official Europe PMC supplementary archive on 2026-11-15. Supp 5 and Supp 7 unstressed hypothalamus column D encode directions by colour (legend: red up, green down); grey/blank cells are not calls. 96 unique Danio rerio symbols carry a call with no colour conflicts. With exact case-sensitive joins after Unicode-whitespace trimming and removal of a trailing asterisk, 89 join registered nonzero effects and all 89 agree in direction (coverage 92.7%). The raw-string join reproduces the earlier 86/96 (89.6%); trimming a non-breaking space alone gives 87/96 (90.6%). Of the seven unmatched genes, three si: names contain colons excluded by the registered Ensembl 92 identifier rule (fitted but unpublished), tbc1d9 names two Ensembl 92 genes and is left unresolved, and cckb, mfsd14bb and slc9a3r1b are absent from Ensembl 92 gene names; no alias mapping was applied. No numerical fold changes, correlations or FDR values exist or are invented from colours. The author DESeq2 model includes FLX and stress factors; separate unstressed/stressed supplement columns indicate condition-specific calls, but the exact coefficient is not stated. Evidence: continued-sources/GSE141144/turbo-2026-11-15-partial3/metrics.json.",
+          "reviewFlags": [
+            "Selected direction-only evidence: 89 of 96 selected genes pair; no full gene-effect/FDR table is present in this workbook.",
+            "Reference coverage reaches 90% only after trimming a non-breaking space from one author symbol; the raw-string join is 86/96.",
+            "Author joint FLX/stress DESeq2 coefficient is not stated; condition-specific supplement columns support but do not document the unstressed simple effect."
+          ],
+          "auditState": "complete",
+          "reviewedAt": "2026-11-15"
+        },
+        "verificationReview": {
+          "resultAvailability": "partial",
+          "comparisonOutcome": "method_differences",
+          "reason": "The re-extracted workbook gives 89 of 96 selected unstressed-hypothalamus directions paired with registered nonzero effects, all agreeing. The reference is direction-only and author-selected, coverage depends on whitespace normalisation of one symbol, and the author FLX/stress coefficient is not documented.",
+          "nextStep": "Reviewer decision on the symbol normalisation and contrast compatibility; if accepted, add a direction-only comparison route to the shared generator. Recover the full unstressed-hypothalamus author DE table for correlation and full-universe evidence."
+        },
+        "comparabilityReview": {
+          "registeredContrastIds": [
+            "fluoxetine_lineage_vs_vehicle_unstressed_adult"
+          ],
+          "target": "registered_output",
+          "resultScope": "selected_results",
+          "basis": "Registered edgeR-QL FLX-minus-control effect signs versus author colour-coded selected-gene directions.",
+          "reference": "Table_1.xlsx Supp 5 and Supp 7, unstressed hypothalamus column, 96 unique selected Danio rerio symbols.",
+          "assessment": "limited",
+          "dimensions": {
+            "cohort": {
+              "status": "compatible",
+              "note": "Local samples are exactly the author Ctl_Bsal_Hyp_1-6 and FLX_Bsal_Hyp_1-6 deposit columns (independent pools of five hypothalami); the author DESeq2 fit additionally includes the twelve stressed pools."
+            },
+            "contrast": {
+              "status": "compatible",
+              "note": "FLX minus control within unstressed adult hypothalamus. Separate unstressed and stressed supplement columns with different calls indicate condition-specific effects; the exact DESeq2 coefficient is not stated in the paper."
+            },
+            "features": {
+              "status": "limited",
+              "note": "89 of 96 symbols join exactly after whitespace and trailing-asterisk normalisation (86 raw). Three colon-containing si: names are unpublished by the registered Ensembl 92 rule, tbc1d9 is ambiguous across two Ensembl genes, and three symbols are absent from Ensembl 92; none is resolved by alias."
+            },
+            "effects": {
+              "status": "compatible",
+              "note": "Direction only: red/green denote higher/lower in FLX versus control, matching the sign of local FLX-minus-control logFC; 89/89 agree. No author magnitudes exist."
+            },
+            "inference": {
+              "status": "not_tested",
+              "note": "Author selection used adjusted P <= 0.05 and FC >= 1.2 but supplies no P/FDR values; 83 of 89 local FDR < 0.05 calls are descriptive only."
+            },
+            "coverage": {
+              "status": "limited",
+              "note": "Author-selected lifelong/depressive-disorder lists are not the tested universe; seven selected genes remain unassessed, not negatives."
+            }
+          },
+          "criteria": "Direction-only comparison of all 96 selected genes in the denominator; exact symbol joins after whitespace and trailing-asterisk normalisation, with raw-string and whitespace-only sensitivities reported. No magnitudes or correlations are derived from colours. No full-result acceptance is established.",
+          "conclusion": "Selected directions agree completely; scope is author-selected, coverage clears 90% only after symbol normalisation, and the author coefficient is undocumented."
+        },
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": {
+        "referenceScope": "Author-selected unstressed hypothalamus genes with a colour-coded direction in Table_1.xlsx Supp 5 and Supp 7 (lifelong-dysregulated and depressive-disorder-associated lists); not the full tested universe.",
+        "authorReferenceGenes": 96,
+        "authorDirectionConflicts": 0,
+        "pairedGenes": 89,
+        "nonzeroPairs": 89,
+        "unmatchedReferenceGenes": 7,
+        "referenceCoverage": 0.927083,
+        "nonzeroPairCoverageOfAllPairs": 1.0,
+        "sameGeneDirectionalAgreement": 1.0,
+        "agreeingPairs": 89,
+        "disagreeingPairs": 0,
+        "pearson": null,
+        "spearman": null,
+        "correlationNote": "Not computable: the author reference contains directions only (cell colours), no numerical effects.",
+        "localPadjBelow0.05AmongNonzeroPairs": 83,
+        "policy": "author-concordance-v2",
+        "directionRouteThresholds": {
+          "minNonzeroPairs": 30,
+          "minAgreement": 0.9,
+          "minNonzeroShareOfPairs": 0.9,
+          "minReferenceCoverage": 0.9
+        },
+        "directionRouteNumericallyMet": true,
+        "joinSensitivity": {
+          "rawStringExact": {
+            "referenceGenes": 96,
+            "pairedNonzero": 86,
+            "agree": 86,
+            "coverage": 0.895833
+          },
+          "unicodeWhitespaceTrimmed": {
+            "referenceGenes": 96,
+            "pairedNonzero": 87,
+            "agree": 87,
+            "coverage": 0.90625
+          },
+          "whitespaceTrimmedAndTrailingAsteriskRemoved_primary": {
+            "referenceGenes": 96,
+            "pairedNonzero": 89,
+            "agree": 89,
+            "coverage": 0.927083
+          }
+        },
+        "unmatchedClassification": {
+          "cckb": "absent_from_Ensembl92_gene_names (author annotation differs; no authoritative mapping applied)",
+          "mfsd14bb": "absent_from_Ensembl92_gene_names (author annotation differs; no authoritative mapping applied)",
+          "si:ch1073-296d18.1": "Ensembl92 ENSDARG00000087145; name contains characters excluded by registered identifier rule, so the fitted feature is unpublished",
+          "si:ch211-197k17.3": "Ensembl92 ENSDARG00000096214; name contains characters excluded by registered identifier rule, so the fitted feature is unpublished",
+          "si:ch73-352p4.8": "Ensembl92 ENSDARG00000040610; name contains characters excluded by registered identifier rule, so the fitted feature is unpublished",
+          "slc9a3r1b": "absent_from_Ensembl92_gene_names (author annotation differs; no authoritative mapping applied)",
+          "tbc1d9": "Ensembl92 name shared by ENSDARG00000043627,ENSDARG00000059900; registered map excludes non-unique names; ambiguous, not resolved"
+        }
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_prenatal_benzene_gse229440",
+      "accession": "GSE229440",
+      "outcome": "documented_no_change",
+      "summary": "No valid author-concordance-v2 comparison. The only supplement is a PDF of figures; the 66 male DEGs exist only as a Fig. 1B image; the paper text names 16 directional male genes (below the 30-gene minimum) with no author effects or P/FDR; and the author analysis uses individual offspring (DESeq2/apeglm), whereas the registered analysis uses litter pseudobulks. As descriptive context only, all 16 text-named genes agree in direction with registered litter-level logFC (none has local FDR < 0.05).",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE229440/turbo-2026-11-15-partial3",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": {
+          "resultAvailability": "partial",
+          "comparisonOutcome": "method_differences",
+          "reason": "Only 16 machine-readable author gene directions exist (paper text); the 66-gene male DEG figure is image-only, no author effects or P/FDR are available, and the author individual-offspring unit differs from the registered litter pseudobulk.",
+          "nextStep": "Obtain an author all-gene male DESeq2 table from the authors or an archive; keep any individual-offspring reconstruction separate from the registered litter analysis."
+        },
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": {
+        "descriptiveOnly": true,
+        "textNamedAuthorGenes": 16,
+        "paired": 16,
+        "sameDirection": 16,
+        "localPadjBelow0.05": 0,
+        "pearson": null,
+        "spearman": null,
+        "note": "Below the 30-gene minimum and a different biological unit; not a concordance metric."
+      }
+    },
+    {
+      "datasetId": "rat_hypo_fructose_gse56238",
+      "accession": "GSE56238",
+      "outcome": "blocked",
+      "summary": "Author DOCX supplements (NIHMS721375-supplement-1/2.docx) were not retrieved: Europe PMC reports the article is not open access, and PMC served an HTML 'Preparing to download' challenge, which was not bypassed. The GEO FPKM deposit (hash matches pinned) has no CuffDiff statistics, and the main text reports only the 966/17,366 headline. No comparison was computed; missing evidence is not a mismatch.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE56238/turbo-2026-11-15-partial3",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    }
+  ]
+}

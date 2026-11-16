@@ -1,0 +1,88 @@
+{
+  "datasetId": "zebrafish_hypo_fluoxetine_gse141144",
+  "manualReview": {
+    "summary": "Fluoxetine workbook re-extracted; all 89 matched selected gene directions agree",
+    "paperAccess": "pmc_full_text",
+    "pmcId": "PMC9097470",
+    "pmcUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9097470/",
+    "note": "Re-retrieved Table_1.xlsx (sha256 96a14a98cc0d80910af9409c140e57cd147826c873c262dfd6319fb31fd61fcf) from the official Europe PMC supplementary archive on 2026-11-15. Supp 5 and Supp 7 unstressed hypothalamus column D encode directions by colour (legend: red up, green down); grey/blank cells are not calls. 96 unique Danio rerio symbols carry a call with no colour conflicts. With exact case-sensitive joins after Unicode-whitespace trimming and removal of a trailing asterisk, 89 join registered nonzero effects and all 89 agree in direction (coverage 92.7%). The raw-string join reproduces the earlier 86/96 (89.6%); trimming a non-breaking space alone gives 87/96 (90.6%). Of the seven unmatched genes, three si: names contain colons and are not published under the registered identifier rule (fit inclusion after expression filtering not verified), tbc1d9 names two Ensembl 92 genes and is left unresolved, and cckb, mfsd14bb and slc9a3r1b are absent from Ensembl 92 gene names; no alias mapping was applied. No numerical fold changes, correlations or FDR values exist or are invented from colours. The author DESeq2 model includes FLX and stress factors; separate unstressed/stressed supplement columns indicate condition-specific calls, but the exact coefficient is not stated. Evidence: continued-sources/GSE141144/turbo-2026-11-15-partial3/metrics.json.",
+    "reviewFlags": [
+      "Selected direction-only evidence: 89 of 96 selected genes pair; no full gene-effect/FDR table is present in this workbook.",
+      "Reference coverage reaches 90% only after trimming a non-breaking space from one author symbol (87/96); the primary 89/96 also removes a trailing asterisk the workbook never defines from two symbols. The raw-string join is 86/96, so the coverage pass depends on reviewer acceptance of this normalisation.",
+      "Author joint FLX/stress DESeq2 coefficient is not stated; condition-specific supplement columns support but do not document the unstressed simple effect."
+    ],
+    "auditState": "complete",
+    "reviewedAt": "2026-11-15",
+    "evidenceLinks": [
+      {
+        "label": "Reviewed manuscript",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9097470/",
+        "kind": "paper"
+      },
+      {
+        "label": "Located author supplementary tables",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/instance/9097470/bin/Table_1.xlsx",
+        "kind": "author_result"
+      },
+      {
+        "label": "Retrieved official author supplement archive",
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9097470/supplementaryFiles",
+        "kind": "author_result"
+      }
+    ]
+  },
+  "verificationReview": {
+    "resultAvailability": "partial",
+    "comparisonOutcome": "method_differences",
+    "reason": "The re-extracted workbook gives 89 of 96 selected unstressed-hypothalamus directions paired with registered nonzero effects, all agreeing. The reference is direction-only and author-selected, coverage depends on whitespace normalisation of one symbol, and the author FLX/stress coefficient is not documented.",
+    "nextStep": "Reviewer decision on the symbol normalisation and contrast compatibility; if accepted, add a direction-only comparison route to the shared generator. Recover the full unstressed-hypothalamus author DE table for correlation and full-universe evidence."
+  },
+  "comparabilityReview": {
+    "registeredContrastIds": [
+      "fluoxetine_lineage_vs_vehicle_unstressed_adult"
+    ],
+    "target": "registered_output",
+    "resultScope": "selected_results",
+    "basis": "Registered edgeR-QL FLX-minus-control effect signs versus author colour-coded selected-gene directions.",
+    "reference": "Table_1.xlsx Supp 5 and Supp 7, unstressed hypothalamus column, 96 unique selected Danio rerio symbols.",
+    "assessment": "limited",
+    "dimensions": {
+      "cohort": {
+        "status": "compatible",
+        "note": "Local samples are exactly the author Ctl_Bsal_Hyp_1-6 and FLX_Bsal_Hyp_1-6 deposit columns (independent pools of five hypothalami); the author DESeq2 fit additionally includes the twelve stressed pools."
+      },
+      "contrast": {
+        "status": "compatible",
+        "note": "FLX minus control within unstressed adult hypothalamus. Separate unstressed and stressed supplement columns with different calls (for example abcc1, srrt and nr3c2) indicate condition-specific effects rather than one shared main effect. The exact DESeq2 coefficient is not stated: the paper says only that the DESeq function compared \"stressed and unstressed groups considering the FLX exposure\"."
+      },
+      "features": {
+        "status": "limited",
+        "note": "89 of 96 symbols join exactly after whitespace and trailing-asterisk normalisation (86 raw). Three colon-containing si: names are not published under the registered identifier rule (fit inclusion after expression filtering not verified), tbc1d9 is ambiguous across two Ensembl genes, and three symbols are absent from Ensembl 92; none is resolved by alias."
+      },
+      "effects": {
+        "status": "compatible",
+        "note": "Direction only: red/green denote higher/lower in FLX versus control, matching the sign of local FLX-minus-control logFC; 89/89 agree. No author magnitudes exist."
+      },
+      "inference": {
+        "status": "not_tested",
+        "note": "Author selection used adjusted P <= 0.05 and FC >= 1.2 but supplies no P/FDR values; 83 of 89 local FDR < 0.05 calls are descriptive only."
+      },
+      "coverage": {
+        "status": "limited",
+        "note": "Author-selected lifelong/depressive-disorder lists are not the tested universe; seven selected genes remain unassessed, not negatives."
+      }
+    },
+    "criteria": "Direction-only comparison of all 96 selected genes in the denominator; exact symbol joins after whitespace and trailing-asterisk normalisation, with raw-string and whitespace-only sensitivities reported. No magnitudes or correlations are derived from colours. No full-result acceptance is established.",
+    "conclusion": "Selected directions agree completely; scope is author-selected, coverage clears 90% only after symbol normalisation, and the author coefficient is undocumented."
+  },
+  "additionalComparisonSpec": null,
+  "appliedCorrections": [
+    "Replaced 'fitted but unpublished' wording in manualReview.note and comparabilityReview.dimensions.features.note with 'not published under the registered identifier rule (fit inclusion after expression filtering not verified)'.",
+    "Replaced 'so the fitted feature is unpublished' in metrics.json unmatchedClassification (and the matching direction-pairs.tsv rows and compare_selected_directions.py string) in the turbo-2026-11-15-partial3 evidence folder with the same corrected wording; README.md bullet reworded likewise and now states deposit presence was checked only against the non-retained sample-counts file.",
+    "manualReview built as a field-level merge onto the existing manual-review.json record: paperAccess, pmcId, pmcUrl and the three existing evidenceLinks are retained.",
+    "comparabilityReview.dimensions.contrast.note now quotes the paper's DESeq wording ('stressed and unstressed groups considering the FLX exposure') and cites abcc1/srrt/nr3c2 as condition-specific calls; status kept 'compatible' (verifier: defensible), assessment 'limited' and comparisonOutcome 'method_differences' kept.",
+    "Second manualReview reviewFlag expanded to state that the 89/96 primary join also depends on removing an undefined trailing asterisk and that the coverage pass needs reviewer acceptance of the normalisation (verifier problem 1).",
+    "concordanceReview and experimentalDesign dropped per integration decisions; no additionalComparisonSpec proposed."
+  ],
+  "notes": "Verdict upheld_with_corrections. Status levels are unchanged from the proposal: verification stays resultAvailability 'partial' / comparisonOutcome 'method_differences'; comparability assessment 'limited' (new record, no existing comparability entry). directionRouteNumericallyMet=true in metrics.json is not an acceptance; with no directComparison or additional spec the concordance badge stays not_assessed. No additional-comparison-spec or built-in direct comparison exists for this dataset, but none was proposed (direction-only colour reference), so additionalComparisonSpec is null. The verifier optionally allowed downgrading contrast to 'limited'; it was kept 'compatible' with the paper quote instead. Evidence-folder files metrics.json, direction-pairs.tsv, compare_selected_directions.py and README.md were edited for wording only; no numbers changed and none of these files is hash-pinned in SOURCES.tsv."
+}

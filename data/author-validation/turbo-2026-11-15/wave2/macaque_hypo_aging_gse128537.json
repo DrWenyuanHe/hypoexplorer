@@ -1,0 +1,75 @@
+{
+  "datasetId": "macaque_hypo_aging_gse128537",
+  "accession": "GSE128537",
+  "outcome": "documented_no_change",
+  "summary": "Re-tested against PMC6981234 methods and supplements. The previous \"different multi-age estimand\" reason is inaccurate: the paper models age as two levels (young <=5 y vs mid-aged >5 y) plus sex, and Supplementary Data 1 maps the same eight hypothalamus libraries (2_36 to 11_36) used in the registered contrast, so cohort and contrast are compatible. However, the only author age table (Supplementary Data 2) is a significant-only list with 3 hypothalamus rows (CHRNA1, EBF3, SLC18A2). All 3 agree in direction with the registered output (|delta log2FC| <= 0.028), but 3 pairs is far below the 30-gene v2 minimum (coverage 3/12,439). GEO deposits no DE tables. Author concordance stays not assessed. Corrected narrative records are proposed; no comparison spec.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE128537/turbo-2026-11-16-wave2",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Deposited macaque bulk counts verified",
+      "note": "The official gene-count matrix and SOFT match their pinned hashes. This bulk dataset is in scope and retains sex balance. The registered young (3.2-5 y) versus middle-aged (9.8-10 y) contrast uses the same eight hypothalamus libraries and the same two-level age stage as the manuscript (Supplementary Data 1; Methods). However, the author age table (Supplementary Data 2) is a significant-only list with only three hypothalamus genes (CHRNA1, EBF3, SLC18A2), from a negative-binomial mixed-effect model with permutation FDR. Those three agree in direction and closely in log2 fold change with the registered output, but they are too few for an author-concordance comparison.",
+      "reviewFlags": []
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_tested",
+      "reason": "The manuscript age analysis uses the same eight hypothalamus libraries and the same young (<=5 y) versus mid-aged (>5 y) split as the registered contrast. Its only gene-level age table, however, is a significant-only list with three hypothalamus rows, and GEO deposits no differential-expression tables. All three rows agree in direction with the registered output, but three genes cannot support a concordance assessment. This is missing coverage, not a mismatch.",
+      "nextStep": "Request the full per-region hypothalamus age-stage results (log2 fold change for all tested genes) from the authors, or retain this as a three-gene selected-result check. Do not treat the three agreeing genes as author concordance."
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "middle_aged_vs_young"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered Explorer edgeR-QL middle-aged versus young effect (~ sex + group) for the eight hypothalamus libraries.",
+      "reference": "Supplementary Data 2 of PMID 31980617 (PMC6981234): significant age-related genes by region; three hypothalamus (HTHA) rows with log2FoldChange.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Supplementary Data 1 maps hypothalamus libraries 2_36, 3_36, 4_36, 6_36, 7_36, 8_36, 10_36 and 11_36 to the eight individuals; these are exactly the registered samples, one library per animal."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "The manuscript age factor is two-level, young (not older than 5 years) versus mid-aged (older than 5 years), with sex as a second factor; the registered arms (3.2-5 y vs 9.8-10 y, sex-adjusted) are the same split. Positive author log2FoldChange corresponds to the Mid-hyper label, i.e. mid-aged minus young."
+        },
+        "features": {
+          "status": "limited",
+          "note": "All three author HTHA rows (Ensembl ID plus symbol) join registered symbols exactly; no remapping was used. The author tested universe (23,651 genes detected across all regions) is not the registered hypothalamus-only filtered universe."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Author log2FoldChange values match registered logFC within 0.03 for all three genes, but the estimator behind the per-region log2FoldChange in the mixed-effect model is not documented, and the separate Coefficient (Age_Stage) column has opposite sign and different scale with undocumented coding."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The author uses a negative-binomial mixed-effect model with permutation null, locfdr and FDR < 0.1 plus |log2FC| > 1; the registered output uses edgeR-QL with BH adjustment. Author FDR values are not provided; inference remains unassessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Three significant-only hypothalamus rows cover 3 of 12,439 registered genes, far below the 30-gene, 90% coverage requirement of author-concordance-v2."
+        }
+      },
+      "criteria": "Author-concordance-v2 requires at least 30 paired genes and 90% relevant coverage; three selected rows cannot meet it. Direction and magnitude of the three rows are recorded as context only; no threshold or selection was tuned.",
+      "conclusion": "Cohort and contrast are compatible with the manuscript age-stage analysis, and the three published hypothalamus genes agree with the registered output, but the published reference is too small to assess author concordance."
+    },
+    "additionalComparisonSpec": null
+  },
+  "metrics": {
+    "basis": "Descriptive only: three significant-only HTHA rows from Supplementary Data 2 joined by exact symbol to the registered output; not a v2 comparison.",
+    "pairedGenes": 3,
+    "sameDirection": 3,
+    "directionAgreement": 1,
+    "maxAbsLog2FCDifference": 0.0277,
+    "registeredOutputGenes": 12439,
+    "coverage": 0.000241,
+    "pearson": null,
+    "spearman": null,
+    "v2Eligible": false
+  }
+}
