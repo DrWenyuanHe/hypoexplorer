@@ -1,7 +1,8 @@
 # Cache policy for the app shell on Cloudflare Workers static assets.
 #
 # This is the port of public/.htaccess's Cache-Control block, which only Apache
-# (Hostinger) reads. Keep the two in step for as long as both hosts are live.
+# (Hostinger) reads. No live host uses .htaccess any more; it is kept only as an
+# Apache rollback, so this file is the source of truth for cache policy.
 #
 # WHAT IS NOT HERE, AND WHY
 # -------------------------
@@ -33,6 +34,9 @@
 
 # Service worker and manifest: a stale worker outlives deploys and keeps serving
 # a precached shell, which is precisely the wedged state that needs an escape.
+# The service worker is off by default now (VITE_SERVICE_WORKER, vite.config.ts)
+# and sw.js is a self-destroying stub. no-cache matters MORE for that: browsers
+# that installed the old worker must fetch the stub promptly so it can unregister.
 /sw.js
   Cache-Control: no-cache, must-revalidate
 

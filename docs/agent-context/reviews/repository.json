@@ -1,12 +1,16 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "f11eca0bf74f038876eba367d7c0768257aeb3c757f087da5fd5af7ebdc072c9",
+  "fingerprint": "b2f537013d299827a283e16c1e1bdb30102f6e07b6db0b4ba4b904df8dc18f39",
   "outcome": "updated",
-  "explanation": "Repository-level context changes only through CONTEXT.md's App router entry and the UI-change runbook describing the Compare link format and vertical summary, plus regenerated codebase-map coverage for the new test; no directories, scripts, dependencies or delivery steps change.",
+  "explanation": "vite.config.ts gates VitePWA on VITE_SERVICE_WORKER (selfDestroying when unset, full Workbox config kept for opt-in); deploy:cf and deploy:cf:dry run build instead of deploy:dist, so precompress is now Apache-only; verify_deploy treats the app sidecar yardstick as optional on the edge model. Delivery, development, guidance and release docs and the catalog describe this.",
   "references": [
-    "CONTEXT.md",
-    "docs/agent-context/workflows.md",
-    "docs/agent-context/generated/codebase.md"
+    "vite.config.ts",
+    "package.json",
+    "scripts/verify_deploy.mts",
+    "scripts/precompress_dist.mts",
+    "docs/agent-context/delivery.md",
+    "docs/DEVELOPMENT.md",
+    "docs/agent-context/catalog.json"
   ]
 }

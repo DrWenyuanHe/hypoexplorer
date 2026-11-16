@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "f904a42f0195759d116617d3017826fd05b0ac30b74f192463b3177e5375dd82",
+  "fingerprint": "a3aeae91484f2f716d7d024cdcf36fe14945339dad8f7d4d8fa4f1d24ae68d6d",
   "outcome": "updated",
-  "explanation": "App keeps the Compare view per dataset, remounts CompareTab when a link lands on one, resumes it when Compare is re-entered and passes it to the router in ExplorerAt; appRouter writes it into the Compare URL and, on landing, drops population ids the dataset lacks (fewer than two keep the default pair). Query-only changes still replace the history entry; the sub-tab, a path change, pushes.",
+  "explanation": "main.tsx still calls registerUpdates() and startVersionWatch() at bootstrap; only the comments change to say the worker is off unless VITE_SERVICE_WORKER=1 and that the version-stamp poll is the stale-tab detector without it. Startup order and behavior are otherwise unchanged. Rebased onto the Compare summary change (#40), which does not touch the bootstrap.",
   "references": [
-    "src/App.tsx",
-    "src/appRouter.ts",
-    "CONTEXT.md"
+    "src/main.tsx",
+    "src/pwa/registerUpdates.ts"
   ]
 }
