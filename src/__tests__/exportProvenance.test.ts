@@ -9,7 +9,7 @@ import { exportGenesExcel } from '../gene-explorer/geneExport';
 import { DATASETS } from '../data/datasets';
 import { listContrasts } from '../data/contrasts';
 import { RELEASE_IDENTITY } from '../data/releaseIdentity';
-import { parseDelimitedRows } from '../local-datasets/importData';
+import { csvDownloadTable } from './csvDownload';
 import { makePopData, MACAQUE_DATASET } from './fixtures';
 import type { WorkbookRow, WorkbookSheet } from '../utils/workbook';
 import type { PathwayRecordWithDb, PopData, TimeSeriesBundle } from '../types';
@@ -204,7 +204,7 @@ describe('circadian exports', () => {
     const [[resultsName, resultsUrl], [rawName, rawUrl]] = downloadFile.mock.calls as Array<[string, string]>;
     expect(resultsName).toBe(`${SCN.id}_scn_rhythmicity_cosinor.csv`);
     expect(rawName).toBe(`${SCN.id}_scn_timecourse_values.csv`);
-    const table = (url: string) => parseDelimitedRows(decodeURIComponent(url.replace(/^data:text\/csv;charset=utf-8,/, '')), ',');
+    const table = csvDownloadTable;
     const [header, first] = table(resultsUrl);
     expect(header.slice(0, 2)).toEqual(['Gene', 'Method']);
     expect(first[header.indexOf('DatasetID')]).toBe(SCN.id);

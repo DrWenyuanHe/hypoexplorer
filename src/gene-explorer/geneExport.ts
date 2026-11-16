@@ -15,8 +15,8 @@ import { pToStar } from '../utils/format';
 import { columnsForGroups, groupLabels, meanColumnLabel, valueAt } from '../utils/sampleValues';
 import { rawValueRows } from '../utils/excelExport';
 import { writeWorkbook } from '../utils/workbook';
-import { downloadFile } from '../utils/exportAction';
-import { exportCsvCell, exportName, exportProvenance, metadataSheet, provenanceColumns, provenanceColumnValues, trackSubject } from '../utils/exportProvenance';
+import { writeCsv } from '../utils/csv';
+import { exportName, exportProvenance, metadataSheet, trackSubject } from '../utils/exportProvenance';
 import type { ExportKind, ExportSettings } from '../utils/exportProvenance';
 import type { GeneDERecord, Group, PopData, ResolvedContrast } from '../types';
 
@@ -155,21 +155,16 @@ export function exportGenesCSV(genes: string[], popData: PopData, scope?: GeneEx
   const rows = buildRows(genes, popData, groups, blocks);
   const sampleCols = sampleColumns(popData, groups);
   const contrasts = exportContrasts(popData, scope);
-  const metadata = geneExportProvenance('genes_summary', popData, genes.length, groups, contrasts, scope?.settings);
-  const provenance = provenanceColumns(metadata);
   const headers = ['Gene',
     ...blocks.flatMap(statHeaders),
     ...groups.map((g) => meanColumnLabel(popData, g.label)),
-    ...sampleCols.map((c) => c.header), ...Object.keys(provenance)];
-  const csvRows = [headers.map(exportCsvCell).join(','), ...rows.map((r, index) =>
+    ...sampleCols.map((c) => c.header)];
+  writeCsv(exportName(trackSubject(popData, { contrasts }), ['genes_summary'], 'csv'), headers, rows.map((r) =>
     [r.gene,
       ...r.stats.flatMap((s) => [s.logFC, s.PValue, s.FDR, s.star]),
       ...r.means,
-      ...sampleCols.map((c) => valueAt(popData, r.gene, c.idx)),
-      ...provenanceColumnValues(provenance, index)].map(exportCsvCell).join(','),
-  )].join('\n');
-  downloadFile(exportName(trackSubject(popData, { contrasts }), ['genes_summary'], 'csv'),
-    `data:text/csv;charset=utf-8,${encodeURIComponent(csvRows)}`);
+      ...sampleCols.map((c) => valueAt(popData, r.gene, c.idx))],
+  ), { provenance: geneExportProvenance('genes_summary', popData, genes.length, groups, contrasts, scope?.settings) });
 }
 
 // A Summary sheet (one row per gene + per-sample columns) plus a tidy RawValues

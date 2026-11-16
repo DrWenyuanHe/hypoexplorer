@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "a7ae9371ab2e5e3f564e67a801b5694ac2e587ab2194f17eda1167d9d63e1806",
-  "outcome": "updated",
-  "explanation": "PR 21 adds src/search/hypomap: a checksum-verified loader for the pinned HypoMap export (atlas.ts), Spatial and By dataset views, a co-expression explorer that calls the loopback comparison service, and a CSV preview. portalCards mounts them only behind VITE_HYPOMAP_EXPRESSION and VITE_HYPOMAP_COEXPRESSION, both off by default. The catalog summary and start-here references now name the HypoMap views and atlas.ts.",
+  "fingerprint": "528f592bfbae87e9924976bc4e681f09af72ca38c1be873d67051114c2899080",
+  "outcome": "no-impact",
+  "explanation": "The HypoMap CsvDialog keeps its props and preview but downloads through writeCsv and exportFilename instead of its own quoting, slug regex and Blob anchor. Search, synonym and atlas behaviour are unchanged.",
   "references": [
-    "src/search/hypomap/atlas.ts",
-    "src/search/portalCards.tsx",
-    "docs/agent-context/catalog.json"
+    "src/search/hypomap/CsvDialog.tsx",
+    "src/utils/csv.ts",
+    "src/utils/exportAction.ts"
   ]
 }

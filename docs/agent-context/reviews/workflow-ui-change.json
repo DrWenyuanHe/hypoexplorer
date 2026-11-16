@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "cdf3154d7ccda3b68f0d90125b1e11fa66e47286903599c61fdf674c26a07e53",
-  "outcome": "no-impact",
-  "explanation": "The tracker change uses no routing, explorer navigation, track loading, export or gene-picker path, so the UI-change runbook steps and their canonical entry points stay as written. Typecheck, focused Vitest tests and a browser check at desktop and phone widths covered it, as the runbook asks.",
+  "fingerprint": "0c4e21c05ea8825bfbbd107876bc70b76d440fed6872647e2b5487e47ed8811c",
+  "outcome": "updated",
+  "explanation": "The UI-change runbook now says every CSV is written by src/utils/csv.ts (escaping, formula guard, BOM/CRLF), beside the existing export-provenance rule, so new export buttons adopt the seam instead of escaping cells by hand.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/dataset-tracker/DatasetTrackerView.tsx"
+    "src/utils/csv.ts",
+    "CONTEXT.md"
   ]
 }
