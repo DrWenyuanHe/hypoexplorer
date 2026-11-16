@@ -40,7 +40,10 @@ query index in a few requests, not by downloading every study.
 
 The [hypoexplorer-data](https://github.com/DrWenyuanHe/hypoexplorer-data)
 releases carry the same dataset bundles and QC reports, so you can
-run the app entirely from your own checkout:
+run the app entirely from your own checkout. The repository is private until
+publication: `pnpm run fetch:data` downloads through the GitHub API with your
+`gh auth login` session or a `GH_TOKEN`, and an account without access gets a
+404.
 
 ```bash
 pnpm install

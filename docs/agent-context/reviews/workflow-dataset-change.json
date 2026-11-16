@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "58eb01ce6eef9825bb4666540930d8253225c25f00f7db5bc9c4bcc410952a53",
+  "fingerprint": "9a9f9533edd7d9222bb8b1d43bf4b87399c0c4100bd55e14a2ba9f220f1fa9cd",
   "outcome": "no-impact",
-  "explanation": "The uploader can now publish the pinned HypoMap atlas, but only from public/hypomap/<tag>/ and never through --only. Dataset registration, bundle builders, the query and expression indexes, the reduced-release refusal and the index checks for full uploads are unchanged; --hypomap-only skips them because it uploads no dataset, query or QC object.",
+  "explanation": "Only the transport of pnpm run fetch:data changes (authenticated GitHub releases API for a private repository). The registry, bundle builders, bundle contract and the archives and hashes pinned in data-release.json are unchanged, so the dataset-change workflow needs no edit.",
   "references": [
-    "scripts/upload_bundles_r2.mts",
-    "scripts/lib/hypomapAtlas.mts",
-    "docs/agent-context/workflows.md"
+    "scripts/fetch_data.mts",
+    "data-release.json",
+    "docs/DATASET_CONTRACT.md"
   ]
 }
