@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "68bfbfc480b43a5dd4e213e974799999c6740c4205973b8fd102d7e84499aa41",
-  "outcome": "no-impact",
-  "explanation": "The search page's nominal p < 0.05 tier and Call column change what the search summaries display, not routing, explorer navigation intents, track loading, exports, CSV or ZIP writing, gene pickers or responsive layout, so the UI-change runbook's steps and checks are unchanged.",
+  "fingerprint": "a3922fd23a811962d6e29881d02e34e39491cd098b878be8441f843f6e62a0ad",
+  "outcome": "updated",
+  "explanation": "From main: the UI-change runbook now states that Compare links carry their view (/compare[/pathways]?pops=…&genes=…, parsed in appLinks) so a refresh, Back or copied link reopens the same comparison, and that the Compare summary table reads down one row per gene × population. From this branch: the search page's nominal p < 0.05 tier and Call column change what the search summaries display, not routing, navigation intents, track loading, exports or layout, so they need no runbook change.",
   "references": [
     "docs/agent-context/workflows.md",
+    "src/utils/appLinks.ts",
     "src/search/SearchPage.tsx"
   ]
 }

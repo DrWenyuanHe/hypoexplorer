@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-explorer",
-  "fingerprint": "64dcb24c0eeb0848adb3e80f34e627ea6ef3ebaa7499721158e0e7ea86ce8352",
+  "fingerprint": "2813acdac451c3bd069e087cfc14e67ac0b008c29167cc8248a4ea0a272294e0",
   "outcome": "updated",
-  "explanation": "explorerSession.ts now owns both sides of the analysis snapshot: snapshot(context) writes the gene selection, volcano and pathway settings into the version-1 ExplorerAnalysisState, or returns undefined at defaults, beside the existing restoreAnalysis. It compares against the session's own defaults (VOLCANO_DEFAULT, PATHWAY_SEARCH_DEFAULT, PATHWAY_FDR_DEFAULT, PATHWAY_SORT_DEFAULT, DB_DEFAULT_FILTER), and the volcano and pathway slices open at those same constants. The caller supplies the contrast, the dataset default contrast and the chart scale through AnalysisContext.",
+  "explanation": "The open navigation intent carries an optional compareView that the position ignores and the shell uses to restart Compare; useGeneSelection accepts an initial list so a restored Compare shows its genes on the first render. Navigation rules and reset scopes are unchanged.",
   "references": [
-    "src/explorer/explorerSession.ts",
-    "CONTEXT.md"
+    "src/explorer/explorerPosition.ts",
+    "src/explorer/explorerSession.ts"
   ]
 }
