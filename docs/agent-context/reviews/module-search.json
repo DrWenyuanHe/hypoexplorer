@@ -1,12 +1,15 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "a7ae9371ab2e5e3f564e67a801b5694ac2e587ab2194f17eda1167d9d63e1806",
+  "fingerprint": "9322747270bd46fa8d6041779c085cf05a0b048b878d1dd29a6d851e99eeac84",
   "outcome": "updated",
-  "explanation": "PR 21 adds src/search/hypomap: a checksum-verified loader for the pinned HypoMap export (atlas.ts), Spatial and By dataset views, a co-expression explorer that calls the loopback comparison service, and a CSV preview. portalCards mounts them only behind VITE_HYPOMAP_EXPRESSION and VITE_HYPOMAP_COEXPRESSION, both off by default. The catalog summary and start-here references now name the HypoMap views and atlas.ts.",
+  "explanation": "The gated co-expression card now reaches the loopback HypoMap service only through src/search/hypomap/codetection.ts (loadRanking, loadComparison, comparisonCsv). The client validates every response, fails closed when source_export_manifest_sha256 or the cohort disagrees with the pinned export, resolves service gene positions against the static search index, checks pooled totals against the measured datasets and returns ready, partial, unsupported or rejected unions; unsupported datasets stay listed and become marked CSV rows. useLoad replaces the duplicated load/retry effects in Coexpression.tsx and HypoMapPreview.tsx. CsvDialog.tsx and portalCards.tsx are unchanged.",
   "references": [
+    "src/search/hypomap/codetection.ts",
+    "src/search/hypomap/useLoad.ts",
+    "src/search/hypomap/Coexpression.tsx",
+    "src/search/hypomap/HypoMapPreview.tsx",
     "src/search/hypomap/atlas.ts",
-    "src/search/portalCards.tsx",
-    "docs/agent-context/catalog.json"
+    "CONTEXT.md"
   ]
 }

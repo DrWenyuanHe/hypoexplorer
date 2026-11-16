@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "cdf3154d7ccda3b68f0d90125b1e11fa66e47286903599c61fdf674c26a07e53",
-  "outcome": "no-impact",
-  "explanation": "The tracker change uses no routing, explorer navigation, track loading, export or gene-picker path, so the UI-change runbook steps and their canonical entry points stay as written. Typecheck, focused Vitest tests and a browser check at desktop and phone widths covered it, as the runbook asks.",
+  "fingerprint": "982ebb3840bfdc7d5e3778d535f389103790b43674bfcf1b4adc2715d7579471",
+  "outcome": "updated",
+  "explanation": "The UI-change runbook HypoMap paragraph now routes co-expression work through the codetection.ts client and its shared wire golden; the card stays behind VITE_HYPOMAP_COEXPRESSION and the dev proxy in vite.config.ts is unchanged. Typecheck, lint and focused Vitest tests cover the change, including rendered unsupported and partial states.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/dataset-tracker/DatasetTrackerView.tsx"
+    "src/search/hypomap/codetection.ts",
+    "vite.config.ts"
   ]
 }

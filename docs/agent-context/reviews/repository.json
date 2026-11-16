@@ -1,20 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "587eac80d9d1c83c9c36b0cfba3fdfe24c4060890e07a8ef7ae5d5cbd5ed8546",
+  "fingerprint": "6b822180b0cb01ccc78821dc64c7cd60f3d7e13bc412db860e8f7cfe44b0458d",
   "outcome": "updated",
-  "explanation": "The repository-local Claude SEO skill suite is removed: .agents/skills/seo*, vendor/claude-seo, seo-skills.lock.json, scripts/seo_skills.py, scripts/seo_runtime.py, tests/seo_skills and docs/seo-tooling.md. AGENTS.md loses its SEO skills section, the catalog drops the vendor directory, and .gitattributes, .gitignore, knip, CodeQL and public-safety allowances no longer name those paths. SEO.md, PROJECT_GUIDANCE.md, DEVELOPMENT.md and CHANGELOG.md record the removal of the /topics/ guides. No scientific inputs or outputs change. From main: scripts/fetch_data.mts can restore the pinned data release while hypoexplorer-data is private, resolving each pinned release-asset URL through the GitHub releases API when GH_TOKEN, GITHUB_TOKEN or a gh login is available; SHA-256 pins and the files written are unchanged, and README.md and DEVELOPMENT.md say the restore needs repository access until publication. scripts/verify_release.mts no longer requires dist/topics/index.html among the public pages it checks.",
+  "explanation": "CONTEXT.md gains one Architecture bullet for the co-detection client seam, and the ui-change workflow paragraph on HypoMap now names src/search/hypomap/codetection.ts as the only path to the loopback service and services/hypomap/codetection_wire.json as the shared wire golden. services/hypomap/README.md documents the manifest hash now also returned by /api/recommendations and how to run the Python test. No data, bundle or deployment behaviour changes.",
   "references": [
-    "AGENTS.md",
-    "docs/agent-context/catalog.json",
-    "docs/SEO.md",
-    "docs/PROJECT_GUIDANCE.md",
-    "docs/DEVELOPMENT.md",
-    "public-safety.json",
-    "knip.json",
-    "scripts/fetch_data.mts",
-    "data-release.json",
-    "README.md",
-    "scripts/verify_release.mts"
+    "CONTEXT.md",
+    "docs/agent-context/workflows.md",
+    "services/hypomap/README.md"
   ]
 }
