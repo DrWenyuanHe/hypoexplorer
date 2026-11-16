@@ -1,12 +1,16 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "718e9f6b225894bea9fe026a8b653f65d18e160ab4244135d2c35551dca5d9e6",
+  "fingerprint": "090fd42599aec3c0be5b8dbc90dc38b6001b4f43c06160f0ecdafd8ad31bc521",
   "outcome": "updated",
-  "explanation": "From main: the UI-change runbook now states that Compare links carry their view (/compare[/pathways]?pops=…&genes=…, parsed in appLinks) so a refresh, Back or copied link reopens the same comparison, and that the Compare summary table reads down one row per gene × population. From this branch: the runbook now says a table that lists tracks by significance takes the call from statistics/policy, what it lists from listingModeStore and its ListingModeToggle, labels rows with TierLabel, explains q / FDR / padj with QTerm, and keeps counts on the FDR call in both modes, as the search summaries and the gene and pathway reports now do.",
+  "explanation": "From main: the UI-change runbook states that Compare links carry their view (/compare[/pathways]?pops=…&genes=…, parsed in appLinks) so a refresh, Back or copied link reopens the same comparison, and that the Compare summary table reads down one row per gene × population. It also records the phone restacking of the gene and pathway result rows, the one-line hub nav and 3 x 2 explorer header, the library starting on cards at phone width, the positioned portal-table-wrap rule, a check that window.innerWidth equals the device width after load, the explorer breadcrumb pairing each separator with the crumb after it, and the breadcrumb taking its own header row below 1500px. From this branch: the runbook says a table that lists tracks by significance takes the call from statistics/policy, what it lists from listingModeStore and its ListingModeToggle, labels rows with TierLabel, explains q / FDR / padj with QTerm, and keeps counts on the FDR call in both modes, as the search summaries and the gene and pathway reports now do.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/utils/appLinks.ts",
+    "src/crossdataset/forestReport.css",
+    "src/search/search.css",
+    "src/styles/responsive.css",
+    "src/App.tsx",
     "src/statistics/listingModeStore.ts",
     "src/statistics/ListingModeToggle.tsx",
     "src/search/SearchPage.tsx",

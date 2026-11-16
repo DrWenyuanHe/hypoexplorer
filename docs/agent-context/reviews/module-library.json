@@ -1,13 +1,11 @@
 {
   "version": 1,
   "area": "module-library",
-  "fingerprint": "43816a40bdb7a00ff19773d1222285124a039193e3745b443ecace595d024e41",
-  "outcome": "no-impact",
-  "explanation": "libraryExport.ts becomes exportLibraryCsv, which keeps the column contract and filename and writes through the CSV seam instead of a hand-rolled Blob anchor; DatasetLibrary runs it through useExportAction. Library discovery, filtering and study records are unchanged, so the catalog meaning stays.",
+  "fingerprint": "f0772e21a805cb0c8a44d66947fa8212ce382c130108f530801ac4a110150252",
+  "outcome": "updated",
+  "explanation": "DatasetLibrary starts on the cards layout at phone width (600px and under), where the table showed only a truncated study column; desktop and tablet keep the table-first default and the layout toggle is unchanged.",
   "references": [
-    "src/library/libraryExport.ts",
     "src/library/DatasetLibrary.tsx",
-    "src/utils/csv.ts",
-    "src/utils/exportAction.ts"
+    "docs/agent-context/workflows.md"
   ]
 }

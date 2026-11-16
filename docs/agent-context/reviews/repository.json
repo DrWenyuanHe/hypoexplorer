@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "449053873faffb1dba577bc6892c47836f5ecdb01b83837d2a5128e30769e488",
+  "fingerprint": "fe1272e101875338d0daeca56478706f8531194f59383ab97f7b60ceef158fa5",
   "outcome": "updated",
-  "explanation": "From main: vite.config.ts gates VitePWA on VITE_SERVICE_WORKER (selfDestroying when unset, full Workbox config kept for opt-in); deploy:cf and deploy:cf:dry run build instead of deploy:dist, so precompress is now Apache-only; verify_deploy treats the app sidecar yardstick as optional on the edge model. Delivery, development, guidance and release docs and the catalog describe this. From this branch: the catalog's statistics area now names the shared FDR / p < 0.05 listing toggle and references listingModeStore.ts, and the generated AGENTS.md map line follows it; the UI-change runbook names the listing mode, TierLabel and QTerm as the shared pieces for significance tables.",
+  "explanation": "From main: vite.config.ts gates VitePWA on VITE_SERVICE_WORKER (selfDestroying when unset, full Workbox config kept for opt-in); deploy:cf and deploy:cf:dry run build instead of deploy:dist, so precompress is now Apache-only; verify_deploy treats the app sidecar yardstick as optional on the edge model, and the delivery, development, guidance and release docs and catalog describe this. From the mobile pass: index.html keeps the hub bar from shrinking under the beta notice at 320px and puts the phone hub nav on one sideways-scrolling line beside the compare pill; the UI-change runbook records the explorer breadcrumb's phone layout and its 1500px breakpoint. From this branch: the catalog's statistics area names the shared FDR / p < 0.05 listing toggle and references listingModeStore.ts, the generated AGENTS.md map line follows it, and the UI-change runbook names the listing mode, TierLabel and QTerm as the shared pieces for significance tables. Repository structure and commands are unchanged.",
   "references": [
     "vite.config.ts",
     "package.json",
@@ -12,6 +12,7 @@
     "docs/agent-context/delivery.md",
     "docs/DEVELOPMENT.md",
     "docs/agent-context/catalog.json",
+    "index.html",
     "docs/agent-context/workflows.md",
     "src/statistics/listingModeStore.ts"
   ]

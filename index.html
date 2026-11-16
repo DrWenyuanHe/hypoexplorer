@@ -345,7 +345,7 @@
     /* Search-first hub: the logo, one search box and two quiet cards in open
        space, because most visitors arrive with a gene already in mind. A small
        text nav and the footer keep a route to every other tool. */
-    .hub-bar { position: relative; display: flex; align-items: center; justify-content: center; min-height: 52px; padding: 8px 180px 0; }
+    .hub-bar { position: relative; flex-shrink: 0; display: flex; align-items: center; justify-content: center; min-height: 52px; padding: 8px 180px 0; }
     .hub-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 20px; }
     .hub-nav button { padding: 6px 2px; font-family: inherit; font-size: var(--fs-14); color: var(--text-muted); background: none; border: none; cursor: pointer; transition: color var(--t-fast) var(--ease); }
     .hub-nav button:hover { color: var(--text-primary); }
@@ -437,10 +437,18 @@
     @media (max-width: 768px) {
       .qsearch-row { flex-direction: column; }
       .qsearch-go { height: 46px; justify-content: center; }
-      /* The nav wraps from the left and leaves the corner to the compare pill. */
-      .hub-bar { justify-content: flex-start; padding: 8px 128px 0 10px; }
-      .hub-nav { justify-content: flex-start; gap: 0 14px; }
-      .hub-bar-end { top: 8px; right: 12px; }
+      /* One nav line beside the compare pill; on a phone too narrow for every
+         section it scrolls sideways, its trailing edge fading out. */
+      .hub-bar { justify-content: flex-start; align-items: center; gap: 8px; padding: 6px 12px 0 2px; }
+      .hub-nav {
+        flex: 1; min-width: 0; flex-wrap: nowrap; justify-content: flex-start; gap: 0 16px;
+        padding-inline: 10px; overflow-x: auto; scrollbar-width: none;
+        -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 20px), transparent);
+        mask-image: linear-gradient(90deg, #000 calc(100% - 20px), transparent);
+      }
+      .hub-nav::-webkit-scrollbar { display: none; }
+      .hub-nav button { flex-shrink: 0; white-space: nowrap; }
+      .hub-bar-end { position: static; flex-shrink: 0; }
       .hub-main { padding: 48px 16px 32px; }
       .hub-search-kbd { display: none; }
       .hub-cards { grid-template-columns: 1fr; gap: 10px; margin-top: 20px; }

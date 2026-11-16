@@ -45,7 +45,10 @@
 .portal-verdict b { font-family: var(--font-mono); font-weight: 600; }
 .portal-cutoff { color: var(--text-muted); font-size: var(--fs-12); }
 
-.portal-table-wrap { overflow-x: auto; margin: 0 -4px; }
+/* Positioned so the absolutely placed screen-reader labels inside a wide table
+   stay within this scroller; otherwise they stretch the page past a phone's
+   width and the browser zooms the whole page out to fit them. */
+.portal-table-wrap { position: relative; overflow-x: auto; margin: 0 -4px; }
 .portal-table { width: 100%; min-width: 620px; border-collapse: collapse; font-size: var(--fs-13); }
 .portal-table th { padding: 6px 8px; text-align: left; font-size: var(--fs-11); font-weight: 600; color: var(--text-muted); border-bottom: 1px solid var(--border-dark); white-space: nowrap; }
 .portal-table td { padding: 7px 8px; vertical-align: top; color: var(--text-mono); border-bottom: 1px solid var(--border); }
