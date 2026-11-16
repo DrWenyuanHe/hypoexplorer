@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "70257b19bc9d3006be883b31cf29a94729775c8abe2e5c64009976b6e7b8ad7a",
+  "fingerprint": "f1e07af63c8b887cb1fb65f63324da64da6e43391cae8b90d167a626700f03ad",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31, #32, #34). From this branch: the HypoMap CsvDialog keeps its props and preview but downloads through writeCsv and exportFilename instead of its own quoting, slug regex and Blob anchor, so the co-detection comparisonCsv rows from main are written under the shared CSV policy. From main: codetection.ts validates the loopback service and fails closed on export mismatch, useLoad replaces the duplicated load/retry effects, and loadBaselineTeaser projects the survey NeuroSeq results as source groups.",
+  "explanation": "The search summaries add a nominal tier beneath the FDR call: summarize takes a raw-p accessor and lists FDR survivors by q, then tracks with p < 0.05 that fail FDR by p (falling back to the lowest p when neither exists). The gene rows and the pathway portal show that tier, and the portal table gains a Call column labelling FDR < 0.05, p < 0.05 only or n.s. Significant counts, directions and loadConditionPathways still follow the FDR call only.",
   "references": [
-    "src/search/hypomap/CsvDialog.tsx",
-    "src/utils/csv.ts",
-    "src/search/hypomap/codetection.ts",
-    "src/search/hypomap/useLoad.ts",
-    "src/search/searchSummaries.ts"
+    "src/search/searchSummaries.ts",
+    "src/search/SearchPage.tsx",
+    "src/search/search.css",
+    "src/statistics/policy.ts"
   ]
 }

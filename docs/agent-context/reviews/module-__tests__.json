@@ -1,14 +1,11 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "c591c957f21e1cef42e1d5eb033a2a307cb1b44edc8042ac2a007234f35f9733",
-  "outcome": "updated",
-  "explanation": "New zip.test reads stored archives back through an independent parser (CRC-32 check value, UTF-8 names, folders, empty archive); compareDownloads covers the long Compare rows, the per-animal Values rows, the workbook sheet order and per-row CSV provenance; csv.test covers rowProvenance and splitting an over-long metadata JSON down its column; compareTabToolbar and exportProvenance follow the renamed Download menu items and the Values sheet.",
+  "fingerprint": "b2d404427abc86f84da6308f365279f6eee324a575fc3a552a9f53729a427031",
+  "outcome": "no-impact",
+  "explanation": "Test additions only: statisticsPolicy.test.ts pins the significanceTier boundaries, and searchPage.test.tsx covers nominal-only and mixed gene rows, nominal pathway rows ordered after FDR rows with their Call labels, and the no-p<0.05 fallback. No fixtures, helpers or test infrastructure that the context maps describe changed.",
   "references": [
-    "src/__tests__/zip.test.ts",
-    "src/__tests__/compareDownloads.test.ts",
-    "src/__tests__/csv.test.ts",
-    "src/__tests__/compareTabToolbar.test.tsx",
-    "src/__tests__/exportProvenance.test.ts"
+    "src/__tests__/statisticsPolicy.test.ts",
+    "src/__tests__/searchPage.test.tsx"
   ]
 }

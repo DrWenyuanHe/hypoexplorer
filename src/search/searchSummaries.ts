@@ -25,7 +25,7 @@ import { listDatasets } from '../data/datasets';
 import { manifestFreshness } from '../data/indexFreshness';
 import { peekDatasetMeta } from '../data/loadDatasetMeta';
 import { loadQueryManifest, loadTrackPathways, manifestSupportsTrackPathways } from '../data/queryIndex';
-import { effectDirection } from '../statistics/policy';
+import { effectDirection, significanceTier } from '../statistics/policy';
 import { mapLimit } from '../utils/mapLimit';
 import { pathwaySpecificity, type CorpusRate, type Specificity } from './pathwaySpecificity';
 import { loadNeuroseqExpression, loadNeuroseqManifest, neuroseqSources } from '../expression-survey/neuroseqExpression';
@@ -53,9 +53,21 @@ export interface CrossStudySummary<Row> {
   up: number;
   down: number;
   /**
-   * The strongest results, by q-value: the significant tracks when there are
-   * any, otherwise the lowest q-values (all non-significant) so the portal can
-   * still show where the term came closest.
+   * Tracks with raw p < NOMINAL_P_CUTOFF that do NOT pass the FDR call: the
+   * nominal tier, disjoint from tracksSignificant. Uncorrected for multiple
+   * testing; shown and labelled, never counted as significant.
+   */
+  tracksNominal: number;
+  /** Studies whose best track is nominal: one or more nominal tracks and no significant one. */
+  studiesNominal: number;
+  /** Nominal tracks by direction. */
+  nominalUp: number;
+  nominalDown: number;
+  /**
+   * The rows the portal lists, at most SUMMARY_TOP: the significant tracks by
+   * q-value, then the nominal tracks by p-value. When there are neither, the
+   * lowest p-values (all 'none') so the portal can still show where the term
+   * came closest.
    */
   top: SummaryRow<Row>[];
   /** Every significant track, by q-value. What the condition-pathways card follows. */
@@ -79,30 +91,47 @@ function byQ<Row>(q: (row: Row) => number | null) {
 function summarize<Row extends { significant: boolean; direction: string }>(
   groups: ReadonlyArray<{ dataset: Dataset; contrast: ResolvedContrast | null; tracks: Row[] }>,
   q: (row: Row) => number | null,
+  p: (row: Row) => number | null,
 ): CrossStudySummary<Row> {
-  let studiesMeasured = 0, studiesSignificant = 0, tracksMeasured = 0, tracksSignificant = 0, up = 0, down = 0;
+  let studiesMeasured = 0, studiesSignificant = 0, studiesNominal = 0, tracksMeasured = 0;
+  let up = 0, down = 0, nominalUp = 0, nominalDown = 0;
   const sig: SummaryRow<Row>[] = [];
+  const nominal: SummaryRow<Row>[] = [];
   const all: SummaryRow<Row>[] = [];
   for (const g of groups) {
     if (g.tracks.length === 0) continue;
     studiesMeasured++;
-    let any = false;
+    let anySig = false, anyNominal = false;
     for (const track of g.tracks) {
       tracksMeasured++;
       const row = { dataset: g.dataset, contrast: g.contrast, track };
       all.push(row);
-      if (!track.significant) continue;
-      any = true;
-      tracksSignificant++;
-      sig.push(row);
-      if (track.direction === 'up') up++;
-      else if (track.direction === 'down') down++;
+      // `track.significant` is the row builder's FDR call; the tier agrees with
+      // it by construction, and adds the nominal raw-p tier beneath it.
+      const tier = track.significant ? 'fdr' : significanceTier(null, p(track));
+      if (tier === 'fdr') {
+        anySig = true;
+        sig.push(row);
+        if (track.direction === 'up') up++;
+        else if (track.direction === 'down') down++;
+      } else if (tier === 'nominal') {
+        anyNominal = true;
+        nominal.push(row);
+        if (track.direction === 'up') nominalUp++;
+        else if (track.direction === 'down') nominalDown++;
+      }
     }
-    if (any) studiesSignificant++;
+    if (anySig) studiesSignificant++;
+    else if (anyNominal) studiesNominal++;
   }
   sig.sort(byQ(q));
-  const top = (sig.length ? sig : all.sort(byQ(q))).slice(0, SUMMARY_TOP);
-  return { studiesMeasured, studiesSignificant, tracksMeasured, tracksSignificant, up, down, top, significant: sig };
+  nominal.sort(byQ(p));
+  const listed = sig.length + nominal.length ? [...sig, ...nominal] : all.sort(byQ(p));
+  return {
+    studiesMeasured, studiesSignificant, tracksMeasured, tracksSignificant: sig.length, up, down,
+    tracksNominal: nominal.length, studiesNominal, nominalUp, nominalDown,
+    top: listed.slice(0, SUMMARY_TOP), significant: sig,
+  };
 }
 
 const geneCache = new Map<string, Promise<GeneSummary | null>>();
@@ -129,7 +158,7 @@ export function loadGeneSummary(symbol: string): Promise<GeneSummary | null> {
   return cached(geneCache, SYMBOL, async () => {
     const report = await queryGeneViaIndex(SYMBOL, listDatasets());
     if (!report) return null;
-    return { symbol: SYMBOL, ...summarize<TrackRow>(report.groups as DatasetGroup[], (t) => t.fdr) };
+    return { symbol: SYMBOL, ...summarize<TrackRow>(report.groups as DatasetGroup[], (t) => t.fdr, (t) => t.pval) };
   });
 }
 
@@ -142,7 +171,7 @@ export function loadPathwaySummary(pathwayId: string): Promise<PathwaySummary | 
   return cached(pathwayCache, ID, async () => {
     const report = await queryPathwayViaIndex(ID, listDatasets().filter((d) => d.supportsPathways));
     if (!report) return null;
-    return { pathwayId: ID, ...summarize<PathwayTrackRow>(report.groups as PathwayDatasetGroup[], (t) => t.padj) };
+    return { pathwayId: ID, ...summarize<PathwayTrackRow>(report.groups as PathwayDatasetGroup[], (t) => t.padj, (t) => t.pval) };
   });
 }
 

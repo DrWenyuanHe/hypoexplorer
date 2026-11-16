@@ -1,9 +1,11 @@
 import { describe, it, expect } from 'vitest';
 import {
   DEFAULT_FDR_CUTOFF,
+  NOMINAL_P_CUTOFF,
   NORMAL_975,
   effectDirection,
   isFdrSignificant,
+  significanceTier,
 } from '../statistics/policy';
 import { geneRow, pathwayRow } from '../data/crossDatasetRows';
 
@@ -33,6 +35,25 @@ describe('isFdrSignificant', () => {
 
   it('admits a q of exactly 0 (an underflowed q is the strongest hit, not a falsy one)', () => {
     expect(isFdrSignificant(0)).toBe(true);
+  });
+});
+
+describe('significanceTier', () => {
+  it('puts the FDR call first, whatever p says', () => {
+    expect(significanceTier(0.01, 0.001)).toBe('fdr');
+    expect(significanceTier(0, null)).toBe('fdr');
+  });
+
+  it('calls raw p strictly below the nominal cutoff nominal when FDR fails', () => {
+    expect(significanceTier(0.4, 0.03)).toBe('nominal');
+    expect(significanceTier(null, 0.03)).toBe('nominal');
+    expect(significanceTier(0.4, NOMINAL_P_CUTOFF)).toBe('none');
+    expect(significanceTier(0.4, 0.2)).toBe('none');
+  });
+
+  it('never calls an unknown p nominal', () => {
+    expect(significanceTier(null, null)).toBe('none');
+    expect(significanceTier(0.4, Number.NaN)).toBe('none');
   });
 });
 

@@ -53,6 +53,13 @@
 .portal-study { display: block; color: var(--text-primary); }
 .portal-acc { display: block; margin-top: 2px; font-family: var(--font-mono); font-size: var(--fs-11); color: var(--text-muted); }
 .portal-contrast { color: var(--text-muted); }
+/* The Call column and the gene row's nominal clause: FDR survivors carry an
+   outlined label; the nominal tier is muted text, never a coloured claim. */
+.portal-tier { font-size: var(--fs-11); white-space: nowrap; }
+.portal-tier--fdr { padding: 0 6px; font-weight: 600; color: var(--accent); border: 1px solid currentColor; border-radius: 999px; }
+.portal-tier--nominal, .portal-tier--none { color: var(--text-muted); }
+.portal-table tr[data-tier="nominal"] td, .portal-table tr[data-tier="none"] td { color: var(--text-muted); }
+.search-row-nominal { color: var(--text-muted); }
 .portal-lowpower { margin-left: 6px; padding: 1px 6px; font-size: var(--fs-10); font-weight: 600; color: #B45309; background: #FEF3C7; border-radius: 999px; white-space: nowrap; }
 
 .portal-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
