@@ -109,7 +109,9 @@ credentials, and runs:
    Complete local atlases are kept. If the local `public/query/` pointers differ
    from the data origin's, it stops: the deployed app would pin an index R2 does
    not serve. Upload the index first, or pass `--refresh-query` to take the origin's.
-2. `deploy:dist`: `build`, then `precompress`.
+2. `build`. The brotli/gzip sidecars from `precompress` are only for an Apache
+   host (`pnpm run deploy:dist` = `build` + `precompress`); Cloudflare compresses
+   at the edge and the upload skips them.
 3. `verify:release`, which fails if `dist/` lacks an atlas file or the tracker
    catalog, because deploying without them removes them from the live site.
 4. `wrangler deploy`, then `verify:deploy` against https://hypoexplorer.com.

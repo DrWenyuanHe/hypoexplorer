@@ -47,7 +47,7 @@ includes the allow-listed code and config named by `releaseSourceFiles`; it is
 not a claim that the entire historical evidence repository is in the web bundle.
 The same identity is compiled into exports and linked from the version dialog.
 `version.json` carries its release ID so same-version source/data updates are
-detected. Both files revalidate through the app host and service worker.
+detected. Both files revalidate through the app host (and the service worker, when enabled).
 Mutable data-bundle URLs use a 32-character release fingerprint as their cache
 key, so an update under the same app version cannot reuse the previous release's
 browser or service-worker bundle entry. Immutable index URLs retain their

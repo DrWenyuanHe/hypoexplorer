@@ -1,5 +1,12 @@
 // Manual cache-reset escape hatch.
 //
+// With the service worker off (the Cloudflare default, see vite.config.ts) the
+// unregister step finds nothing once the self-destroying sw.js has cleaned up a
+// browser, and PRESERVED_CACHES below has nothing to preserve, because the
+// worker's data cache never held a cross-origin bundle. Both stay for a build
+// with VITE_SERVICE_WORKER=1; the function as a whole still ends in the reload
+// the version-stamp prompt and the version badge rely on.
+//
 // When a service worker from a *previous* build is still controlling the page,
 // it serves the old cached app shell. Because we register with type "prompt"
 // (see vite.config.ts / registerUpdates.ts), the new SW parks in "waiting" and
