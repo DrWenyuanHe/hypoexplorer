@@ -391,14 +391,6 @@ unavailable, with a retry action; no QC bundle is requested. Large studies initi
 show significant populations, with the full list available on request. About enrichment
 scores keeps the ranking explanation in a disclosure beneath the results.
 
-## local-import
-
-Read [local datasets](../LOCAL_DATASETS.md). Inputs are user-owned DE/pathway
-tables and explicit column mappings. Inspect the importer, local storage and
-matching tests under `src/local-datasets` and `src/__tests__`.
-Verify preview/mapping errors, persisted data, comparison identity and exports.
-Local results stay on the user's device and are not added to the public registry.
-
 ## delivery
 
 Read the [delivery runbook](delivery.md). Inputs are the intended source revision,

@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "module-hub",
-  "fingerprint": "b7ac016aabb17b1e2be50fb2746353b34178aed859b77f55689efcac4e756cd0",
+  "fingerprint": "54005f7af3b0e493bcaa93ea6e54081eca68810d42772edd6e9ea5368060a5f6",
   "outcome": "updated",
-  "explanation": "LandingHub adds a third hero card for the macaque snRNA-seq atlas (HUB_ATLAS_ID) beside the library and expression survey cards: the card opens #/dataset/macaque_snrna and a sibling button opens its population Compare view through datasetHref and COMPARE_TRACK. The card is omitted when the registry lacks the atlas; hub CSS lays the cards out in three columns above 768px.",
+  "explanation": "The More tools section and the footer Explore row drop the Explore Local Datasets entry and the onOpenLocalDatasets handler; Dataset tracker is the only supporting tool. The hero drops the tagline under the logo; index.html removes the hub-tagline and hub-search-kbd styles and widens the logo margin. The macaque atlas card from main is unchanged.",
   "references": [
     "src/hub/LandingHub.tsx",
     "index.html",

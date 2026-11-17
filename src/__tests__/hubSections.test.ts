@@ -22,7 +22,7 @@ describe('hubSections', () => {
     const { sections } = build();
     expect(sections.map((s) => s.id)).toEqual(['start', 'more']);
     expect(sections[0].items).toHaveLength(3);
-    expect(sections[1].items).toHaveLength(2);
+    expect(sections[1].items).toHaveLength(1);
   });
 
   it('opens the independent expression survey from the tool index', () => {
@@ -55,10 +55,8 @@ describe('hubSections', () => {
     expect(tools).toEqual(['expression-survey', 'search']);
   });
 
-  it('keeps only local datasets and tracking in More tools', () => {
+  it('keeps only dataset tracking in More tools', () => {
     const { sections } = build();
-    expect(sections[1].items.map((item) => item.name)).toEqual([
-      'Explore Local Datasets', 'Dataset tracker',
-    ]);
+    expect(sections[1].items.map((item) => item.name)).toEqual(['Dataset tracker']);
   });
 });

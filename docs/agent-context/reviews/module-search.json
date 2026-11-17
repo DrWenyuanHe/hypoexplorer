@@ -1,10 +1,12 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "a60357db0ec3dd8bce1680e54e91801e8067a009a603bbffc59e3b2c2f7d7cf8",
-  "outcome": "updated",
-  "explanation": "From main: portal-table-wrap is now position: relative so absolutely positioned screen-reader labels inside wide portal tables stay in their scroller instead of widening the gene page past a phone width and zooming it out. From this branch: the search summaries add a nominal tier beneath the FDR call: summarize takes a raw-p accessor and returns top (FDR survivors by q, then nominal tracks by p, else the lowest p) and topFdr (FDR survivors by q, else the lowest q). The results heading carries the shared ListingModeToggle; gene rows and the pathway portal list top or topFdr by the listing mode and hide the nominal clauses in FDR mode. The portal table's Call column uses TierLabel, which lives in portalCards so the pathway report renders the same words, and its q header and the gene rows' q are QTerm abbrs explaining q. Significant counts, directions and loadConditionPathways still follow the FDR call only.",
+  "fingerprint": "700af6deb982639db6a35f45c30c7e920b60e4f7c8ae98f747d12642666838ab",
+  "outcome": "no-impact",
+  "explanation": "UnifiedSearchBox no longer renders the hub variant's \"/\" key badge (hub-search-kbd); the clear button shows only while the box has text. The \"/\" focus shortcut, suggestions, submit behaviour and the module's catalog meaning are unchanged, so no runbook or map text needs revising.",
   "references": [
+    "src/search/UnifiedSearchBox.tsx",
+    "src/__tests__/hubUnits.test.tsx",
     "src/search/searchSummaries.ts",
     "src/search/SearchPage.tsx",
     "src/search/portalCards.tsx",

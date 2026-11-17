@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-utils",
-  "fingerprint": "ad6a92b26cf4be71ee5e27956e554140c783b86d11b89141421acd7892221fed",
+  "fingerprint": "dd677eca2fbce22f23946567055353989a0c9e40b37cb1e63298d76d99497f5f",
   "outcome": "updated",
-  "explanation": "appLinks gives Compare routes a view: the /pathways sub-tab as the path segment and pops/genes as query lists (each id percent-encoded before the commas), parsed strictly beside analysis and rejected when malformed, unknown or duplicated; analysisState defines CompareViewState and its list check.",
+  "explanation": "appLinks no longer routes #/local-datasets, and exportProvenance drops LocalExportSource, localExportName, PUBLIC_COPY_SOURCE_PREFIX and localExportProvenance; provenanceRows and metadataSheet now take only registry ExportProvenance. Registry export kinds and CSV provenance columns are unchanged.",
   "references": [
     "src/utils/appLinks.ts",
+    "src/utils/exportProvenance.ts",
     "src/utils/analysisState.ts"
   ]
 }

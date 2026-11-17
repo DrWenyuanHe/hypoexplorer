@@ -60,7 +60,6 @@ import { compareSetKey, removeItem, toggleItem, useCompareSet, type CompareSetIt
 import type { PathwayRecordWithDb, PopData } from './types';
 
 const DEFAULT_DATASET = getDefaultDataset();
-const LocalDatasetsView = lazy(() => import('./local-datasets/LocalDatasetsView'));
 const ExpressionSurveyView = lazy(() => import('./expression-survey/ExpressionSurveyView').then((module) => ({ default: module.ExpressionSurveyView })));
 
 interface AppProps {
@@ -247,7 +246,7 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
     searchGene: searchGeneFromHub,
     searchPathway: searchPathwayFromHub,
     openGeneExplorer, openPathwayExplorer, switchSearchExplorer, compareDatasets,
-    openTracker, openInExplorer, openStatistics, openMethodology, openVerification, openNomenclature, openLocalDatasets, openExpression,
+    openTracker, openInExplorer, openStatistics, openMethodology, openVerification, openNomenclature, openExpression,
     openLibrary, setLibraryDataset, setLibraryCategories, libraryDatasetId, libraryCategories,
     compareSetItems, openCompareSet, setCompareSetItems,
     geneAnalysis, pathwayAnalysis, setGeneAnalysis, setPathwayAnalysis, setReportScope, setReportGene,
@@ -374,10 +373,6 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
   const primaryLink = datasetLinks.find((l) => l.kind === 'repository') ?? datasetLinks[0] ?? null;
 
   // ── Full-page views outside the explorer shell ──
-  if (view === 'local-datasets') {
-    return <ErrorBoundary><Suspense fallback={<div style={{ padding: 32 }}>Opening local workspace...</div>}><LocalDatasetsView onHome={goHome} /></Suspense></ErrorBoundary>;
-  }
-
   if (view === 'expression') {
     return <ErrorBoundary><Suspense fallback={<div role="status" style={{ padding: 32 }}>Opening expression survey…</div>}><ExpressionSurveyView onHome={goHome} /></Suspense></ErrorBoundary>;
   }
@@ -602,7 +597,6 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
             onOpenMethodology={openMethodology}
             onOpenVerification={openVerification}
             onOpenNomenclature={openNomenclature}
-            onOpenLocalDatasets={openLocalDatasets}
             onOpenExpression={openExpression}
             onChangelog={() => { setShowChangelog(true); enterExplorer(); }}
             onCompareSet={openCompareSet}

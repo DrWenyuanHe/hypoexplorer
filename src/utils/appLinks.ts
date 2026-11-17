@@ -277,7 +277,6 @@ export type AppRoute =
   | { view: 'verification' }
   | { view: 'nomenclature' }
   | { view: 'expression' }
-  | { view: 'local-datasets' }
   // The unified gene + pathway results page. '' is its empty state, not null:
   // unlike the report landings, an empty query has exactly one address
   // (`#/search`), which `searchHref` always emits for it, so there is no
@@ -426,8 +425,6 @@ export function routeHref(route: AppRoute): string {
       return '#/verification';
     case 'nomenclature':
       return '#/nomenclature';
-    case 'local-datasets':
-      return '#/local-datasets';
     case 'expression':
       return '#/expression';
     case 'search':
@@ -517,7 +514,6 @@ export function parseRoute(hash: string | undefined | null): AppRoute | null {
   if (/^#?\/verification\/?$/.test(h)) return { view: 'verification' };
 
   if (/^#?\/nomenclature\/?$/.test(h)) return { view: 'nomenclature' };
-  if (/^#?\/local-datasets\/?$/.test(h)) return { view: 'local-datasets' };
   if (/^#?\/expression\/?$/.test(h)) return { view: 'expression' };
 
   const search = parseSearchHash(h);

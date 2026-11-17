@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "e1f5dd47b940c08c68316ca88fbeb8e45d2d5740b685d8936b5f6dbbfb804c68",
+  "fingerprint": "ea953201687ff2cb40135a661ac9575c7bc5edddeb6a6d1fac5e896cf4ca93b8",
   "outcome": "updated",
-  "explanation": "App.tsx groups each explorer breadcrumb separator with the crumb after it (a site-crumb-trail span), so a wrapped breadcrumb never leaves a slash at the end of a line; routing, the dataset picker and the crumb text are unchanged. main.tsx bootstrap (registerUpdates, startVersionWatch) is untouched. The population crumb also carries its full text as a title, for when the wide-screen header truncates it.",
+  "explanation": "The local-datasets view is gone: AppView drops 'local-datasets', App.tsx no longer lazy-loads LocalDatasetsView or passes onOpenLocalDatasets, and the router drops openLocalDatasets with its boot, popstate and href cases. A stale #/local-datasets hash no longer parses, so boot falls back to the hub.",
   "references": [
     "src/App.tsx",
+    "src/appRouter.ts",
+    "src/utils/appLinks.ts",
     "src/styles/responsive.css",
     "src/main.tsx"
   ]

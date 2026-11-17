@@ -80,7 +80,6 @@ export type AppView =
   | 'verification'
   | 'nomenclature'
   | 'expression'
-  | 'local-datasets'
   | 'search';
 
 /**
@@ -208,7 +207,6 @@ export interface AppRouter {
   openVerification: () => void;
   /** Open the gene nomenclature reference (dataset-agnostic reference page). */
   openNomenclature: () => void;
-  openLocalDatasets: () => void;
   openExpression: () => void;
   /**
    * Open the dataset library, optionally with one study's record showing.
@@ -349,7 +347,6 @@ function bootState(initialView: string): BootState {
     case 'methodology':
     case 'verification':
     case 'nomenclature':
-    case 'local-datasets':
     case 'expression':
       return { ...base, view: route.view };
     case 'tracker':
@@ -515,7 +512,6 @@ export function useAppRouter(
   const openMethodology = useCallback(() => setView('methodology'), []);
   const openVerification = useCallback(() => setView('verification'), []);
   const openNomenclature = useCallback(() => setView('nomenclature'), []);
-  const openLocalDatasets = useCallback(() => setView('local-datasets'), []);
   const openExpression = useCallback(() => setView('expression'), []);
 
   const openLibrary = useCallback(({ datasetId = null, categories = null }: LibraryEntry = {}) => {
@@ -586,9 +582,6 @@ export function useAppRouter(
         return;
       case 'nomenclature':
         setView('nomenclature');
-        return;
-      case 'local-datasets':
-        setView('local-datasets');
         return;
       case 'expression':
         setView('expression');
@@ -758,8 +751,6 @@ export function useAppRouter(
         return routeHref({ view: 'verification' });
       case 'nomenclature':
         return routeHref({ view: 'nomenclature' });
-      case 'local-datasets':
-        return routeHref({ view: 'local-datasets' });
       case 'expression':
         return routeHref({ view: 'expression' });
       case 'tracker':
@@ -845,7 +836,7 @@ export function useAppRouter(
     geneAnalysis, pathwayAnalysis, setGeneAnalysis, setPathwayAnalysis, setReportScope, setReportGene,
     goHome, enterTool, enterExplorer, searchGene, searchPathway, search, setSearchFilter,
     openGeneExplorer, openPathwayExplorer, switchSearchExplorer, compareDatasets,
-    openTracker, openInExplorer, openStatistics, openMethodology, openVerification, openNomenclature, openLocalDatasets, openExpression, openLibrary,
+    openTracker, openInExplorer, openStatistics, openMethodology, openVerification, openNomenclature, openExpression, openLibrary,
     setLibraryDataset: setLibraryDatasetId, setLibraryCategories,
     openCompareSet, setCompareSetItems,
   };
