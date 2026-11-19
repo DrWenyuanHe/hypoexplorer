@@ -8,7 +8,7 @@ type Manifest = {
 };
 type MetricPair = [number[], number[]];
 type GeneRecord = [number, (unknown[] | null)[], (MetricPair | null)[]];
-type Gene = [id: string, symbol: string, name: string];
+export type Gene = [id: string, symbol: string, name: string];
 type Metadata = {
   cohort: string;
   contexts: string[];
@@ -53,6 +53,12 @@ function read<T>(file: string): Promise<T> {
   return pending as Promise<T>;
 }
 
+/** Own-property lookup, so a symbol such as "constructor" never reads the prototype. */
+function own<T>(record: Record<string, T>, key: string): T | undefined {
+  // biome-ignore lint/suspicious/noPrototypeBuiltins: Object.hasOwn requires ES2022; the app targets ES2020.
+  return Object.prototype.hasOwnProperty.call(record, key) ? record[key] : undefined;
+}
+
 export async function loadAtlasGene(symbol: string) {
   const [manifest, metadata, index] = await Promise.all([
     read<Manifest>('manifest.json'),
@@ -63,10 +69,9 @@ export async function loadAtlasGene(symbol: string) {
     throw new Error('Expected the published 18-dataset HypoMap export');
   }
   const key = symbol.trim().toLowerCase();
-  const exact = Object.prototype.hasOwnProperty.call(index.current_symbols, key) ? index.current_symbols[key] : undefined;
-  const matches = exact ?? (Object.prototype.hasOwnProperty.call(index.aliases, key) ? index.aliases[key] : []);
-  const outside = !exact && Object.prototype.hasOwnProperty.call(index.outside_export_candidates, key)
-    ? index.outside_export_candidates[key] : [];
+  const exact = own(index.current_symbols, key);
+  const matches = exact ?? own(index.aliases, key) ?? [];
+  const outside = (!exact && own(index.outside_export_candidates, key)) || [];
   if (matches.length + outside.length > 1) {
     return { state: 'ambiguous', candidates: [...matches.map(i => index.genes[i][1]), ...outside.map(g => g.canonical_symbol)] } as const;
   }
@@ -76,8 +81,14 @@ export async function loadAtlasGene(symbol: string) {
   const records = await read<GeneRecord[]>(`genes-${shard}.json.gz`);
   const record = records[i % manifest.shard_size];
   if (record?.[0] !== i) throw new Error('Atlas gene identity mismatch');
-  return { state: 'ready', metadata, record, gene: index.genes[i], geneAt: (position: number) => index.genes[position] } as const;
+  // Positions the co-detection service reports index this same export; codetection.ts checks the
+  // service was built from it (manifest hash) before resolving them, and treats `undefined` as a contract break.
+  const geneAt = (position: number): Gene | undefined => index.genes[position];
+  return { state: 'ready', metadata, record, gene: index.genes[i], geneAt } as const;
 }
+
+export type AtlasResult = Awaited<ReturnType<typeof loadAtlasGene>>;
+export type ReadyAtlas = Extract<AtlasResult, { state: 'ready' }>;
 
 function metrics(eligible: number, positive: number | null, logSum: number | null) {
   return {

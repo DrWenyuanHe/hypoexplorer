@@ -1,11 +1,14 @@
 // "Export view as CSV" for the dataset library: the rows on screen, in the order
 // on screen, with the same three-state counts the table draws.
 //
-// Pure apart from `downloadCsv`, so the column contract can be tested without a
-// DOM. An unmeasured count is an EMPTY cell, never 0: zero is a finding, and a
-// spreadsheet reader cannot see the em dash's tooltip explaining the difference.
+// The column contract lives here; the bytes and the download belong to the CSV
+// seam (utils/csv.ts). An unmeasured count is an EMPTY cell, never 0: zero is a
+// finding, and a spreadsheet reader cannot see the em dash's tooltip explaining
+// the difference.
 
 import type { DatasetCard } from '../data/datasetCatalog';
+import { writeCsv } from '../utils/csv';
+import { exportFilename } from '../utils/exportAction';
 
 const COLUMNS: ReadonlyArray<[header: string, value: (c: DatasetCard) => string | number | null | undefined]> = [
   ['dataset_id', (c) => c.dataset.id],
@@ -30,27 +33,11 @@ const COLUMNS: ReadonlyArray<[header: string, value: (c: DatasetCard) => string 
   ['citation', (c) => c.dataset.citation],
 ];
 
-function cell(v: string | number | null | undefined): string {
-  if (v == null) return '';
-  const s = String(v);
-  return /[",\r\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
-}
-
-export function libraryCsv(cards: readonly DatasetCard[]): string {
-  const lines = [COLUMNS.map(([h]) => h).join(',')];
-  for (const card of cards) lines.push(COLUMNS.map(([, get]) => cell(get(card))).join(','));
-  return `${lines.join('\r\n')}\r\n`;
-}
-
-export function downloadCsv(filename: string, csv: string): void {
-  // BOM so Excel reads the en dashes and Greek letters in study names as UTF-8.
-  const blob = new Blob([String.fromCharCode(0xfeff), csv], { type: 'text/csv;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 0);
+/** Download the library rows as `hypoexplorer-studies-<YYYY-MM-DD>.csv`, stamped with `now`'s UTC date. */
+export function exportLibraryCsv(cards: readonly DatasetCard[], now: Date = new Date()): void {
+  writeCsv(
+    exportFilename([`hypoexplorer-studies-${now.toISOString().slice(0, 10)}`], 'csv'),
+    COLUMNS.map(([header]) => header),
+    cards.map((card) => COLUMNS.map(([, get]) => get(card))),
+  );
 }

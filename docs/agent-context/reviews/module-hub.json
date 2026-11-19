@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-hub",
-  "fingerprint": "5f34b1946eb530830f412e1bf1e1ac45d08043b0403c51bc2f52ae0e81b51d06",
+  "fingerprint": "54005f7af3b0e493bcaa93ea6e54081eca68810d42772edd6e9ea5368060a5f6",
   "outcome": "updated",
-  "explanation": "Copy only: the hub tagline now reads 'Where a gene is expressed in the hypothalamus, and how it changes across N public studies', with N still the registered study count; the crawlable skeleton heading in index.html matches without the count. Layout, search box, cards and navigation are unchanged.",
+  "explanation": "The More tools section and the footer Explore row drop the Explore Local Datasets entry and the onOpenLocalDatasets handler; Dataset tracker is the only supporting tool. The hero drops the tagline under the logo; index.html removes the hub-tagline and hub-search-kbd styles and widens the logo margin. The macaque atlas card from main is unchanged.",
   "references": [
     "src/hub/LandingHub.tsx",
-    "index.html"
+    "index.html",
+    "src/utils/appLinks.ts"
   ]
 }

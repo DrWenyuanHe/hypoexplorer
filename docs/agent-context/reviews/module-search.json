@@ -1,12 +1,20 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "948769206d28794c6564f2ab11bab5ddb322f26984fe1ebcfa0fb7b487ed64b3",
+  "fingerprint": "489e4031b821b822143f0ab02854b2563b04dae7724da6fb4da4ad8856787545",
   "outcome": "no-impact",
-  "explanation": "The HypoMap expression UI now presents Spatial and By dataset as keyboard-operable tabs, keeps the region reset beside its heading, and places CSV preview in the view toolbar. Fraction formatting and the off-plane disclosure improve presentation without changing atlas lookup, metric calculations, export rows or app routes.",
+  "explanation": "UnifiedSearchBox no longer renders the hub variant's \"/\" key badge (hub-search-kbd); the clear button shows only while the box has text. The \"/\" focus shortcut, suggestions, submit behaviour and the module's catalog meaning are unchanged, so no runbook or map text needs revising. Synced the page-style HypoMap tabs, fraction explanations, off-plane disclosure and contextual actions with upstream main. The upstream useLoad lifecycle, atlas validation, shared CSV writer and responsive behavior are retained; the UI changes do not alter routes, metrics or exported rows.",
   "references": [
+    "src/search/UnifiedSearchBox.tsx",
+    "src/__tests__/hubUnits.test.tsx",
+    "src/search/searchSummaries.ts",
+    "src/search/SearchPage.tsx",
+    "src/search/portalCards.tsx",
+    "src/search/search.css",
+    "src/statistics/ListingModeToggle.tsx",
+    "src/statistics/policy.ts",
+    "docs/agent-context/workflows.md",
     "src/search/hypomap/HypoMapPreview.tsx",
-    "src/search/hypomap/preview.css",
-    "docs/agent-context/workflows.md"
+    "src/search/hypomap/preview.css"
   ]
 }

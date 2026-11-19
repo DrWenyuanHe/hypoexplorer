@@ -5,6 +5,8 @@ import { BRAND } from '../common/brand';
 import { DataOriginStatus } from './DataOriginStatus';
 import { HubSearch } from './HubSearch';
 import { ICONS } from '../common/toolIcons';
+import { datasetHref } from '../utils/appLinks';
+import { COMPARE_TRACK } from '../explorer/explorerPosition';
 import { CompareSetButton } from '../compareset/CompareSetButton';
 import type { SearchMode } from '../crossdataset/ExplorerSearchDialog';
 import type { CompareSetItem } from '../compareset/compareSetStore';
@@ -12,12 +14,19 @@ import type { DatasetCategory } from '../data/datasets';
 import type { Dataset } from '../types';
 
 // The landing hub is search-first: the logo, one search box for genes and
-// pathways, and two quiet cards for the library and the expression survey.
-// Every other tool keeps a route in the top nav or the footer. The hub owns
-// navigation only; App wires the destinations.
+// pathways, and three quiet cards: the library, the expression survey and the
+// macaque single-nucleus atlas. Every other tool keeps a route in the top nav
+// or the footer. The hub owns navigation only; App wires the destinations.
 
 /** The one hub entrance to gene and pathway search. */
 const SEARCH_TOOL = 'Gene & Pathway Explorer';
+
+/**
+ * The study the hub links to directly: the primate single-nucleus atlas, whose
+ * cell-population comparison is its signature view. Only the id is written
+ * down; the card's copy is read off the registry entry.
+ */
+export const HUB_ATLAS_ID = 'macaque_snrna';
 
 type HubStatus = 'live' | 'beta';
 
@@ -45,7 +54,6 @@ interface HubSection {
 }
 
 interface HubHandlers {
-  onOpenLocalDatasets?: () => void;
   onOpenExpression?: () => void;
   /** Open the shared gene and pathway search dialog. */
   onOpenSearch: () => void;
@@ -53,9 +61,9 @@ interface HubHandlers {
   onOpenLibrary: (categories?: readonly DatasetCategory[]) => void;
 }
 
-/** Three main tools and two supporting tools, with their navigation callbacks. */
+/** Three main tools and one supporting tool, with their navigation callbacks. */
 export function hubSections(
-  { onOpenSearch, onOpenTracker, onOpenLibrary, onOpenLocalDatasets, onOpenExpression }: HubHandlers,
+  { onOpenSearch, onOpenTracker, onOpenLibrary, onOpenExpression }: HubHandlers,
   { nDatasets }: { nDatasets: number },
 ): HubSection[] {
   return [
@@ -71,7 +79,6 @@ export function hubSections(
       id: 'more', title: 'More tools',
       browse: [],
       items: [
-        { name: 'Explore Local Datasets', desc: 'Import your DE and FGSEA tables, confirm columns, and explore genes and pathways. Your files stay in this browser.', icon: 'library', status: 'live', go: () => { if (onOpenLocalDatasets) onOpenLocalDatasets(); else window.location.hash = '#/local-datasets'; } },
         { name: 'Dataset tracker', desc: 'Review screened hypothalamus studies, including those outside the library. Check data availability, replicate counts and sources.', icon: 'tracker', status: 'live', go: () => onOpenTracker() },
       ],
     },
@@ -80,7 +87,6 @@ export function hubSections(
 
 interface LandingHubProps {
   onHome?: () => void;
-  onOpenLocalDatasets?: () => void;
   onOpenExpression?: () => void;
   datasets?: Dataset[];
   onEnterTool: (tool: string) => void;
@@ -116,17 +122,16 @@ export function LandingHub({
   onOpenMethodology,
   onOpenVerification,
   onOpenNomenclature,
-  onOpenLocalDatasets,
   onOpenExpression,
   onChangelog,
   onCompareSet,
 }: LandingHubProps) {
   const [primary, secondary] = useMemo(
     () => hubSections(
-      { onOpenSearch: () => onOpenSearch(), onOpenTracker, onOpenLibrary, onOpenLocalDatasets, onOpenExpression },
+      { onOpenSearch: () => onOpenSearch(), onOpenTracker, onOpenLibrary, onOpenExpression },
       { nDatasets: datasets.length },
     ),
-    [onOpenSearch, onOpenTracker, onOpenLibrary, onOpenLocalDatasets, onOpenExpression, datasets.length],
+    [onOpenSearch, onOpenTracker, onOpenLibrary, onOpenExpression, datasets.length],
   );
   const tool = (name: string) => [...primary.items, ...secondary.items].find((item) => item.name === name);
 
@@ -140,6 +145,16 @@ export function LandingHub({
     { item: tool('Dataset library'), title: 'Browse the dataset library', detail: corpus },
     { item: tool('Expression survey'), title: 'Survey baseline expression', detail: 'By population, study condition and tissue' },
   ];
+
+  // The atlas card: the whole card opens the study, and a second control below
+  // the copy opens its population-vs-population Compare view. Two sibling
+  // buttons rather than one nested in the other, so each has its own name and
+  // focus stop. Absent from the registry → no card, rather than a dead link.
+  const atlas = datasets.find((d) => d.id === HUB_ATLAS_ID);
+  const atlasDetail = atlas
+    ? [atlas.modality, atlas.groups.map((g) => g.label).join(' vs ')].filter(Boolean).join(' · ')
+    : '';
+  const atlasNoun = atlas?.trackNoun ?? 'population';
 
   return (
     <div className="hub">
@@ -164,7 +179,6 @@ export function LandingHub({
           <h1 className="hub-mark">
             <img src={BRAND.logo} width={320} height={72} alt="HypoExplorer" />
           </h1>
-          <p className="hub-tagline">Where a gene is expressed in the hypothalamus, and how it changes across {nStudies} public studies</p>
           <HubSearch onSearch={onSearch} />
           <div className="hub-cards">
             {CARDS.map(({ item, title, detail }) => item && (
@@ -176,6 +190,29 @@ export function LandingHub({
                 <span>{detail}</span>
               </button>
             ))}
+            {atlas && (
+              <div className="hub-card hub-card--split">
+                <button
+                  type="button"
+                  className="hub-card-main"
+                  title={`${atlas.name} · ${atlas.citation}`}
+                  onClick={() => { window.location.hash = datasetHref(atlas.id); }}
+                >
+                  <strong>
+                    <span className="hub-card-icon">{ICONS.cells}</span>
+                    Explore the macaque atlas
+                  </strong>
+                  <span>{atlasDetail}</span>
+                </button>
+                <button
+                  type="button"
+                  className="hub-card-sub"
+                  onClick={() => { window.location.hash = datasetHref(atlas.id, COMPARE_TRACK); }}
+                >
+                  Compare cell {atlasNoun}s <span aria-hidden="true">→</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </main>
@@ -195,11 +232,8 @@ export function LandingHub({
             <div className="hub-util-links">
               <button type="button" onClick={() => onOpenLibrary()}>Dataset library</button>
               <a className="site-reference-link" href="/studies/">Study pages</a>
-              <a className="site-reference-link" href="/topics/">Research topics</a>
               {secondary.items.map((item) => (
-                <button key={item.name} type="button" onClick={item.go}>
-                  {item.name === 'Explore Local Datasets' ? 'Local datasets' : item.name}
-                </button>
+                <button key={item.name} type="button" onClick={item.go}>{item.name}</button>
               ))}
             </div>
           </div>

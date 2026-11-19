@@ -1,12 +1,27 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "0caec9aa90af81c8da4668717f9ad0f7b149ac13bb9f64f3c29e1510190100a5",
+  "fingerprint": "66c837324e04bb5c05f189aa80d5ee4aecbbe175dc89537b453109b3a304fb92",
   "outcome": "no-impact",
-  "explanation": "This presentation change stays inside the HypoMap preview component and stylesheet. The existing UI workflow still applies: view selection preserves the selected region, metric and CSV data are unchanged, and browser verification covers keyboard tabs, reset and the relocated CSV preview.",
+  "explanation": "Navigation loses the local-datasets application view and its home-page entry; the ui-change runbook steps are unchanged and still cover the remaining 14 views, routes and exports. The local-import workflow and its LOCAL_DATASETS.md runbook were removed from the catalog. Synced the page-style HypoMap tabs, fraction explanations, off-plane disclosure and contextual actions with upstream main. The upstream useLoad lifecycle, atlas validation, shared CSV writer and responsive behavior are retained; the UI changes do not alter routes, metrics or exported rows.",
   "references": [
+    "src/App.tsx",
+    "src/appRouter.ts",
+    "docs/agent-context/catalog.json",
+    "docs/agent-context/workflows.md",
+    "src/utils/appLinks.ts",
+    "src/crossdataset/forestReport.css",
+    "src/search/search.css",
+    "src/styles/responsive.css",
+    "src/statistics/listingModeStore.ts",
+    "src/statistics/ListingModeToggle.tsx",
+    "src/search/SearchPage.tsx",
+    "src/crossdataset/GeneReport.tsx",
+    "src/crossdataset/PathwayReport.tsx",
+    "src/qc/qcTables.ts",
+    "src/__tests__/qcTables.test.ts",
+    "scripts/lib/bundleWriter.mts",
     "src/search/hypomap/HypoMapPreview.tsx",
-    "src/search/hypomap/preview.css",
-    "docs/agent-context/workflows.md"
+    "src/search/hypomap/preview.css"
   ]
 }

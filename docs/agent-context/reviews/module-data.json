@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "be7bf730128305e40270d426fdcf7e06c9516ca0fecac1666d5ff234568aa9e8",
-  "outcome": "no-impact",
-  "explanation": "Doc and comment drift only (cleanup B3); no code path, export, route or data changes. crossDataset.ts calls its consumer the gene report (#/gene/<symbol>) instead of the retired \"Explore all\" hub entry. The tracker catalog generator banner and both generated headers (reverseIndex.generated.js, public/tracker/catalog.js) now name build_tracker_catalog.mts instead of a nonexistent .mjs; their quality-evidence pins were already historical.",
+  "fingerprint": "293f334130b7ec25edc3c4534227f0137afde47ba50ab2138d1f34eaf165750e",
+  "outcome": "updated",
+  "explanation": "From this branch: expressionUnits.ts gains resolveExpressionUnit, the one spelling of the registry-first unit rule, which buildPopData and the Node bundle reader share; browser behaviour is unchanged. From main (#35): src/data/queryWire.ts owns the query-index wire format (names, envelopes, row codecs, trackEntry with qcFlags lowPower) and queryIndex.ts is its read adapter; crossDataset readers decode rows through it with unchanged bytes.",
   "references": [
-    "src/data/crossDataset.ts",
-    "scripts/build_tracker_catalog.mts",
-    "src/data/tracker/reverseIndex.generated.js"
+    "src/data/expressionUnits.ts",
+    "src/data/buildPopData.ts",
+    "src/data/queryWire.ts",
+    "src/data/queryIndex.ts",
+    "CONTEXT.md"
   ]
 }

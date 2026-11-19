@@ -74,6 +74,8 @@ The dataset bundles (about 1.2 GB) are not in this repository. The app reads the
 from `https://data.hypoexplorer.com`. To run without it, `pnpm run data:offline`
 restores them from the [data release](https://github.com/DrWenyuanHe/hypoexplorer-data)
 and `pnpm run dev:offline` serves them locally; that copy has no KEGG results.
+The data repository is private until publication, so the restore needs a GitHub
+account with access to it (`gh auth login`, or `GH_TOKEN`).
 [The developer guide](docs/DEVELOPMENT.md) covers configuration, the checks CI
 runs and what each folder holds.
 
@@ -98,7 +100,7 @@ so the exact build can be identified.
 ## Contributors
 
 - **Wenyuan He**: creator and maintainer
-- **Helene Li**: contributor
+- **Helene Li**: creator and contributor
 
 Questions, corrections and beta feedback: open an
 [issue](https://github.com/DrWenyuanHe/hypoexplorer/issues) or write to
@@ -114,9 +116,18 @@ data deposits and derived analysis outputs keep their own terms; see
 
 `pnpm run fetch:hypomap` installs and verifies the pinned browser export.
 During release review, pass the candidate archive as a positional argument.
-Offline development serves it from `public/hypomap`. Hosted deployments copy
-that same versioned directory to the configured bundle origin with CORS
-enabled for the app origin.
+Offline development serves it from `public/hypomap`. Both HypoMap flags
+(`VITE_HYPOMAP_EXPRESSION`, `VITE_HYPOMAP_COEXPRESSION`) stay off for hosted
+builds for now. Hosted builds would read the atlas from the R2 data host. The
+repository has the changes for that: the data host's path rule
+([`cloudflare/http_request_firewall_custom/hypoexplorer_data_paths.json`](cloudflare/http_request_firewall_custom/hypoexplorer_data_paths.json))
+admits only the pinned tag's atlas files, and `pnpm run upload:bundles --hypomap-only`
+publishes the verified atlas. Before a hosted build can turn the expression view on,
+the release must be published, the rules applied, the bucket given a CORS policy
+for the app origins and the atlas uploaded. Those are manual steps in
+[the delivery runbook](docs/agent-context/delivery.md#hypomap-atlas). Co-expression
+also needs the loopback comparison service, which only the offline dev server
+reaches, so it stays local.
 
 The Spatial tab uses the same heatmap for every gene with HypoMap spatial data.
 Its legend shows mean expression among detected cells in `ln(1 + counts per 10k)`.

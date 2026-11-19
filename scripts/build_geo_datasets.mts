@@ -30,7 +30,7 @@ import { rankScore, numCell } from './lib/deTable.mjs';
 import {
   CPM_TMM_UNIT, readSymbolDe, readSymbolMatrix, readSymbolSe, readTsv,
 } from './lib/regenTables.mjs';
-import { defaultContrastBinding, outDirFromArgv, requireDataset, writeDatasetBundles } from './lib/bundleWriter.mjs';
+import { countFdrSignificant, defaultContrastBinding, outDirFromArgv, requireDataset, writeDatasetBundles } from './lib/bundleWriter.mjs';
 import { seFromStat } from '../src/utils/seRecovery';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -120,8 +120,6 @@ function finalizeTrack(deRows, cpmBySymbol, { trackId, label, type, armKeys, cho
   };
   const qc = {
     cluster: trackId, clusterLabel: label, minCells: 0,
-    nNormal: chowSamples.length, nObese: hfdSamples.length,
-    is3v3: chowSamples.length === hfdSamples.length && chowSamples.length === 3,
     samplesKept: sampleOrder,
   };
   return { meta, qc, de, cpm };
@@ -149,14 +147,14 @@ function buildGSE220533() {
     chowSamples, hfdSamples, expressionUnit: 'log2-normalized',
   });
   const pathways = readPathways(base, 'GSE220533');
-  const nSig = trackObj.de.filter(d => d.PValue < 0.01).length;
+  const nSig = countFdrSignificant(trackObj.de);
   // sanity: IGFBP6 logFC should be ~+1.10 (README)
   const ig = trackObj.de.find(d => d.gene === 'Igfbp6');
-  log(`  genes: ${trackObj.de.length} | nSig(P<0.01): ${nSig} | Igfbp6 logFC=${ig?.logFC} (README ~+1.10)`);
+  log(`  genes: ${trackObj.de.length} | nSig(FDR<0.05): ${nSig} | Igfbp6 logFC=${ig?.logFC} (README ~+1.10)`);
   writeDatasetBundles(dataset, [{
     trackId, armKeys,
     defaultContrastBinding: defaultContrastBinding(dataset, armKeys),
-    color: '#4C78A8', nSig,
+    color: '#4C78A8',
     meta: trackObj.meta, qc: trackObj.qc, de: trackObj.de, cpm: trackObj.cpm, pathways,
   }], { outRoot: OUT_ROOT });
   log(`  wrote public/datasets/${dataset.id}/{meta.js, track_${trackId}.js${pathways ? `, track_${trackId}.pathways.js, pathways_index.js` : ''}, qc_global.js}`);
@@ -185,15 +183,15 @@ function buildGSE225038() {
     chowSamples, hfdSamples, expressionUnit: CPM_TMM_UNIT,
   });
   const pathways = readPathways(base, 'GSE225038');
-  const nSig = trackObj.de.filter(d => d.PValue < 0.01).length;
+  const nSig = countFdrSignificant(trackObj.de);
   // sanity: Pomc mean CPM ~784, Agrp ~20 (README)
   const mean = a => a.reduce((x, y) => x + (y || 0), 0) / a.length;
   const pomc = (cpmBySymbol as Record<string, number[]>).Pomc, agrp = (cpmBySymbol as Record<string, number[]>).Agrp;
-  log(`  genes: ${trackObj.de.length} | nSig(P<0.01): ${nSig} | Pomc mean CPM=${pomc ? mean(pomc).toFixed(0) : 'NA'} (README ~784) | Agrp=${agrp ? mean(agrp).toFixed(0) : 'NA'} (README ~20)`);
+  log(`  genes: ${trackObj.de.length} | nSig(FDR<0.05): ${nSig} | Pomc mean CPM=${pomc ? mean(pomc).toFixed(0) : 'NA'} (README ~784) | Agrp=${agrp ? mean(agrp).toFixed(0) : 'NA'} (README ~20)`);
   writeDatasetBundles(dataset, [{
     trackId, armKeys,
     defaultContrastBinding: defaultContrastBinding(dataset, armKeys),
-    color: '#59A14F', nSig,
+    color: '#59A14F',
     meta: trackObj.meta, qc: trackObj.qc, de: trackObj.de, cpm: trackObj.cpm, pathways,
   }], { outRoot: OUT_ROOT });
   log(`  wrote public/datasets/${dataset.id}/{meta.js, track_${trackId}.js${pathways ? `, track_${trackId}.pathways.js, pathways_index.js` : ''}, qc_global.js}`);

@@ -30,11 +30,12 @@
 //
 // Pure and React-free: the xlsx package is reached only through the lazy
 // loader (it is 400 KB nobody should pay for until they hand us a workbook),
-// and the download half goes through the export-action and workbook seams.
+// and the download half goes through the export-action, CSV and workbook seams.
 
 import { loadXLSX } from './lazyExport';
 import { writeWorkbook, type WorkbookRow } from './workbook';
 import { downloadFile, exportFilename } from './exportAction';
+import { writeCsv } from './csv';
 import { resolveByOtherName, type AliasIndex, type NomenclatureAuthority } from '../data/nomenclature';
 
 // ── Reading ─────────────────────────────────────────────────────────────────
@@ -403,24 +404,11 @@ export const GENE_LIST_SAVE_FORMATS: ReadonlyArray<{ format: GeneListSaveFormat;
   { format: 'xlsx', label: 'Excel (.xlsx)', hint: 'the same table as a workbook' },
 ];
 
-function csvCell(v: WorkbookRow[string]): string {
-  if (v == null) return '';
-  const s = String(v);
-  return /[",\r\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
-}
-
-/** The bytes a saved list carries, for the two text formats. */
-export function geneListFileText(rows: readonly GeneListRow[], format: 'txt' | 'csv'): string {
-  if (format === 'txt') return rows.map((r) => r.Gene).join('\n').concat(rows.length ? '\n' : '');
-  const columns = rows.length ? Object.keys(rows[0]) : ['Gene'];
-  const lines = [columns.join(','), ...rows.map((r) => columns.map((c) => csvCell(r[c])).join(','))];
-  return `${lines.join('\n')}\n`;
-}
-
 /**
  * Hand a list to the browser as a file. Never rejects: the workbook path
  * inherits writeWorkbook's contained-failure policy, and the text paths cannot
- * fail past building a string.
+ * fail past building a string. The CSV goes through the CSV seam (utils/csv.ts);
+ * the text file is one symbol per line.
  */
 export function saveGeneList(
   nameParts: Array<string | undefined>,
@@ -430,10 +418,12 @@ export function saveGeneList(
   if (format === 'xlsx') {
     return writeWorkbook(exportFilename(nameParts, 'xlsx'), [{ name: 'GeneList', rows }]);
   }
-  const mime = format === 'csv' ? 'text/csv' : 'text/plain';
-  downloadFile(
-    exportFilename(nameParts, format),
-    `data:${mime};charset=utf-8,${encodeURIComponent(geneListFileText(rows, format))}`,
-  );
+  if (format === 'csv') {
+    const columns = rows.length ? Object.keys(rows[0]) : ['Gene'];
+    writeCsv(exportFilename(nameParts, 'csv'), columns, rows.map((r) => columns.map((c) => r[c])));
+    return Promise.resolve();
+  }
+  const text = rows.map((r) => `${r.Gene}\n`).join('');
+  downloadFile(exportFilename(nameParts, 'txt'), `data:text/plain;charset=utf-8,${encodeURIComponent(text)}`);
   return Promise.resolve();
 }

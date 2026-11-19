@@ -3,9 +3,11 @@
 // negotiation, immutable data URLs, revalidated HTML, and the build actually
 // being the one in this checkout.
 //
-// Why this exists: hypoexplorer.com is Cloudflare-proxied in front of the
-// Hostinger origin, so every response now passes through two layers that both
-// compress and both cache. The site still "works" when a layer of that stack
+// Why this exists (written in the Hostinger era; the app host has since moved to
+// a Cloudflare assets Worker and the data to R2, and the checks below detect
+// which serving model they face): hypoexplorer.com was Cloudflare-proxied in
+// front of the Hostinger origin, so every response passed through two layers
+// that both compress and both cache. The site still "works" when a layer of that stack
 // silently drops out — it loads, the data is correct, nothing errors — it just
 // moves several hundred KB more per track than it should. That is the exact
 // regression this catches: the deploy live at the time this was written shipped
@@ -28,6 +30,7 @@ import { fileURLToPath } from 'node:url';
 import { listDatasets } from '../src/data/datasets';
 import { manifestFreshness, REBUILD_HINT } from '../src/data/indexFreshness';
 import { readReleaseBuild } from './lib/releaseBuild.mjs';
+import { ATLAS_DIRS, TRACKER_CATALOG } from './lib/deployInputs.mjs';
 import { verifyServedReleaseData } from './lib/deployedDataVerification.mjs';
 import { releaseBundleVersion } from '../src/data/releaseIdentity';
 
@@ -378,18 +381,28 @@ if (brotli.status === 200 && gzip.status === 200) {
 // compresses the shell. Probe a large same-origin asset for that: the
 // nomenclature table, which ships with dist/ (deliberately same-origin, see
 // vite.config.ts) and at ~17 MB raw is far past the size where compression
-// quality is distinguishable. Calibrate against the actual sidecar in the local
-// dist/ rather than recompressing, so the number is the real artifact.
+// quality is distinguishable. On an Apache host, calibrate against the actual
+// sidecar in the local dist/ rather than recompressing, so the number is the
+// real artifact.
+//
+// The sidecar is OPTIONAL now. `deploy:cf` no longer runs precompress (the
+// Worker upload drops .br/.gz anyway), so on Cloudflare it is normally absent
+// and the edge check below simply omits the "cost vs brotli-11" note. Only the
+// Apache (sidecar) model needs it, and says so if it is missing.
 const APP_PROBE = '/nomenclature/table.js';
 const appProbeSource = path.resolve(__dirname, '..', 'dist', 'nomenclature', 'table.js');
 let appLocalLen: number | null = null;
 let appLocalBr: number | null = null;
 try {
   appLocalLen = readFileSync(appProbeSource).length;
+} catch {
+  // No local dist/ — skip rather than fail; the build-identity check below
+  // already reports a missing local dist/.
+}
+try {
   appLocalBr = readFileSync(`${appProbeSource}.br`).length;
 } catch {
-  // No local dist/ (or precompress not run) — skip rather than fail; the
-  // build-identity check below already reports a missing local dist/.
+  // precompress not run: expected for a Cloudflare deploy.
 }
 
 // WHICH MODEL IS THIS HOST USING? Ask it, rather than assuming.
@@ -407,7 +420,7 @@ try {
 // Requesting the sidecar URL directly separates them: it is a real file under
 // Apache and a 404 on Cloudflare. Detecting rather than hardcoding also means
 // this keeps working if the app moves back, or somewhere else again.
-if (appLocalLen !== null && appLocalBr !== null) {
+if (appLocalLen !== null) {
   const appBr = await probe(APP_PROBE, 'br, gzip');
   const appIdentity = await probe(APP_PROBE, 'identity');
   const sidecarProbe = await probe(`${APP_PROBE}.br`, 'identity');
@@ -435,7 +448,11 @@ if (appLocalLen !== null && appLocalBr !== null) {
     check(false, CHECK,
       `${APP_PROBE} on ${ORIGIN} is not this build's file (wire ${kb(appIdentity.bytes)} vs local ` +
         `${kb(appLocalLen)}) — dist/ has not been uploaded, so compression cannot be measured.`);
-  } else if (servesSidecars) {
+  } else if (servesSidecars && appLocalBr === null) {
+    check(false, CHECK,
+      `${ORIGIN} serves ${APP_PROBE}.br (an Apache sidecar host), but dist/ has no local sidecar to `
+        + 'compare against. Run `pnpm run precompress` (the Apache deploy step) and verify again.');
+  } else if (servesSidecars && appLocalBr !== null) {
     const ceiling = appLocalBr * 1.1;
     const overBy = ((appBr.bytes / appLocalBr - 1) * 100).toFixed(0);
     check(
@@ -453,14 +470,16 @@ if (appLocalLen !== null && appLocalBr !== null) {
     // normal variation but nowhere near passing an uncompressed response.
     const saved = 1 - appBr.bytes / appIdentity.bytes;
     const encoded = /br|gzip/.test(appBr.headers['content-encoding'] ?? '');
-    const overSidecar = ((appBr.bytes / appLocalBr - 1) * 100).toFixed(0);
+    const versusSidecar = appLocalBr === null
+      ? ''
+      : ` Costs ${kb(appBr.bytes - appLocalBr)} more than the brotli-11 sidecar (${kb(appLocalBr)}, ` +
+        `+${((appBr.bytes / appLocalBr - 1) * 100).toFixed(0)}%) — expected: the edge trades ratio for not storing them.`;
     check(
       encoded && saved >= 0.6,
       CHECK,
       encoded && saved >= 0.6
         ? `${APP_PROBE} ${appBr.headers['content-encoding']} ${kb(appBr.bytes)}, ${(saved * 100).toFixed(0)}% off ` +
-          `identity (${kb(appIdentity.bytes)}). Costs ${kb(appBr.bytes - appLocalBr)} more than the brotli-11 ` +
-          `sidecar (${kb(appLocalBr)}, +${overSidecar}%) — expected: the edge trades ratio for not storing them.`
+          `identity (${kb(appIdentity.bytes)}).${versusSidecar}`
         : `${APP_PROBE} came back ${appBr.headers['content-encoding'] || 'UNCOMPRESSED'} at ${kb(appBr.bytes)} ` +
           `against ${kb(appIdentity.bytes)} identity (${(saved * 100).toFixed(0)}% saved). The edge is not ` +
           'compressing the shell; check the zone\'s compression settings.',
@@ -564,7 +583,7 @@ check(
       ? `/version.json -> v${deployed}`
       : `/version.json -> ${STAMP.status === 200 ? `"${deployed ?? '(unparseable)'}"` : `HTTP ${STAMP.status}`}` +
         `, expected v${pkg.version} — clients cannot detect they are out of date. ` +
-        'Re-upload dist/ (version.json sits next to index.html) after `npm run deploy:dist`.',
+        'Redeploy with `pnpm run deploy:cf` (version.json sits next to index.html).',
   );
 
   check(
@@ -611,7 +630,7 @@ check(
       ? `/version.json bundleBase: ${describe(STAMP.bundleBase)}`
       : `/version.json carries no bundleBase — this build predates the stamp, so the data probes above ` +
         `were aimed at the LOCAL env's origin (${describe(LOCAL_BUNDLE_BASE)}) rather than the one visitors use. ` +
-        'Rebuild with `npm run deploy:dist` and re-upload dist/.',
+        'Rebuild and redeploy with `pnpm run deploy:cf`.',
   );
   // ── The production pairing, asserted independently of any local file ──
   //
@@ -666,7 +685,7 @@ check(
               'R2 cutover) and every cross-dataset query falls back to downloading every track bundle. The usual ' +
               'cause is building on a checkout without the gitignored .env.local (VITE_BUNDLE_BASE_URL). '
             : 'the live build points its data URLs somewhere this checkout does not. ') +
-          'Rebuild with `npm run deploy:dist` and re-upload dist/.',
+          'Rebuild and redeploy with `pnpm run deploy:cf`.',
     );
   }
 }
@@ -764,6 +783,15 @@ for (const result of await verifyServedReleaseData(path.resolve(__dirname, '..')
   dataOrigin: DATA_ORIGIN, bundleVersion: BUNDLE_VERSION,
   querySha256: EXPECTED_RELEASE.dataBuildSha256, expressionBuildId: EXPECTED_RELEASE.expressionBuildId,
 }, fetchBytes)) check(result.ok, result.name, result.detail);
+
+// ── Site assets that are not in the repository ───────────────────────────────
+// The reference atlases and the tracker catalog are gitignored and reach dist/
+// only when prepare:deploy put them in public/. A deploy without them still
+// loads, and the Expression survey just reports three collections unavailable.
+for (const relative of [...ATLAS_DIRS.map((dir) => `expression/${dir}/manifest.json`), TRACKER_CATALOG]) {
+  const { status } = await fetchBytes(`${ORIGIN}/${relative}`);
+  check(status === 200, `/${relative} served`, `HTTP ${status}`);
+}
 
 // ── Deployed build identity ──────────────────────────────────────────────────
 // dist/ is gitignored and uploaded by hand, so "did the upload actually happen"

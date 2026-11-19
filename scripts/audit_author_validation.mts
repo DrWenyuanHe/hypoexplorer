@@ -22,10 +22,10 @@ import {
   writeFileSync,
 } from 'node:fs';
 import { basename, dirname, relative, resolve } from 'node:path';
-import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { DATASETS } from '../src/data/datasets';
 import type { Dataset, GeneDERecord, RawTrack } from '../src/types';
+import { datasetBundlePaths, readJsonp } from './lib/bundleReader.mjs';
 import { roundProb } from './lib/bundleSlim.mjs';
 import {
   bindContrastDeTables,
@@ -269,22 +269,6 @@ function sourceManifestAudit(datasetDir: string): {
   };
 }
 
-function parseJsGlobal<T>(path: string, key: string): T {
-  const context: Record<string, unknown> = {};
-  vm.runInNewContext(readFileSync(path, 'utf8'), context, { filename: path });
-  if (!(key in context)) throw new Error(`${relative(ROOT, path)} did not set ${key}`);
-  return context[key] as T;
-}
-
-function globalKey(dataset: Dataset, trackId: string): string {
-  return dataset.globalKeyTemplate.replace('{TRACKID}', trackId.toUpperCase());
-}
-
-function bundlePath(dataset: Dataset, trackId: string): string {
-  const relativePath = dataset.bundleFileTemplate.replace('{trackId}', trackId).replace(/^\//, '');
-  return resolve(ROOT, 'public', relativePath.replace(/^datasets\//, 'datasets/'));
-}
-
 function numberCell(value: string): number {
   const trimmed = value.trim();
   return trimmed === '' || trimmed === 'NA' || trimmed === 'NaN' ? Number.NaN : Number(trimmed);
@@ -415,8 +399,8 @@ function auditDataset(dataset: Dataset): DatasetAudit {
   const config = configRows.find((row) => row.id === configId) ?? null;
   const source = sourceManifestAudit(datasetDir);
   const trackId = dataset.defaultTrack;
-  const path = bundlePath(dataset, trackId);
-  const raw = parseJsGlobal<RawTrack>(path, globalKey(dataset, trackId));
+  const bundle = datasetBundlePaths(dataset, { publicRoot: resolve(ROOT, 'public') }).track(trackId);
+  const raw = readJsonp<RawTrack>(bundle.file, bundle.global);
   let candidates = candidateDeTables(datasetDir);
   const defaultContrast = dataset.contrasts.find((contrast) => contrast.isDefault)
     ?? dataset.contrasts[0];

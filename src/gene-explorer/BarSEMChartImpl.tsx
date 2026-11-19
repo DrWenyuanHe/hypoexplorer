@@ -9,7 +9,8 @@
 import { useMemo, useState, type JSX } from 'react';
 import {
   ComposedChart, Bar, XAxis, YAxis, ErrorBar,
-  ResponsiveContainer, Cell, useXAxisTicks, useYAxisScale, type XAxisTickContentProps,
+  ResponsiveContainer, Cell, useXAxisTicks, useYAxisScale, ZIndexLayer, DefaultZIndexes,
+  type XAxisTickContentProps,
 } from 'recharts';
 import { mean, std } from '../utils/math';
 import { pToStar, fmtP } from '../utils/format';
@@ -180,7 +181,15 @@ function DotOverlay({ means, barSize, groupDots, brackets }: DotOverlayProps) {
     );
   }
 
-  return <g>{elems}</g>;
+  // Recharts 3 paints its own series into z-index layers (bars at 300, error
+  // bars at 400), and a plain child renders in the default layer BENEATH them,
+  // so a dot inside a bar's height was hidden behind the bar. Lifting the
+  // overlay into the scatter layer draws every dot (and bracket) on top.
+  return (
+    <ZIndexLayer zIndex={DefaultZIndexes.scatter}>
+      <g className="bar-dot-overlay">{elems}</g>
+    </ZIndexLayer>
+  );
 }
 
 // ─── X-axis labels ────────────────────────────────────────────────────────────

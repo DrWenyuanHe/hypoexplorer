@@ -1,5 +1,11 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { render, screen, fireEvent, act } from '@testing-library/react';
+
+vi.mock('../pwa/forceRefresh', () => ({
+  forceRefresh: vi.fn().mockResolvedValue(undefined),
+}));
+
+import { forceRefresh } from '../pwa/forceRefresh';
 import {
   subscribe,
   getSnapshot,
@@ -114,6 +120,59 @@ describe('UpdateModal', () => {
 
     runOutCountdown();
     expect(reloadFn).toHaveBeenCalledTimes(1);
+  });
+
+  // The update is mandatory, so this dialog has no dismissal of any kind. That
+  // makes a reload that never arrives a trap: the app is unreachable behind a
+  // spinner with no control to press. Recovery paths exist a layer down
+  // (registerUpdates.ts's watchdog, forceRefresh's own timeout); this is the
+  // backstop for a reload prevented outright.
+  it('hands the user a control back when the reload never arrives', () => {
+    vi.mocked(forceRefresh).mockClear();
+    render(<UpdateModal />);
+    act(() => markUpdateAvailable(vi.fn()));
+
+    fireEvent.click(screen.getByRole('button', { name: /^Reload now$/ }));
+    expect((screen.getByRole('button', { name: /Reloading/ }) as HTMLButtonElement).disabled).toBe(true);
+
+    act(() => { vi.advanceTimersByTime(21_000); });
+
+    const recover = screen.getByRole('button', { name: /^Force refresh$/ }) as HTMLButtonElement;
+    expect(recover.disabled).toBe(false);
+    expect(screen.getByText(/has not gone through/i)).toBeTruthy();
+
+    fireEvent.click(recover);
+    expect(forceRefresh).toHaveBeenCalledTimes(1);
+  });
+
+  // A retry leaves `pending` true, so a watchdog keyed only on `pending` would
+  // not re-arm and the second failure would be final.
+  it('offers the recovery again when the retry also fails', () => {
+    vi.mocked(forceRefresh).mockClear();
+    render(<UpdateModal />);
+    act(() => markUpdateAvailable(vi.fn()));
+    fireEvent.click(screen.getByRole('button', { name: /^Reload now$/ }));
+
+    act(() => { vi.advanceTimersByTime(21_000); });
+    fireEvent.click(screen.getByRole('button', { name: /^Force refresh$/ }));
+    expect(screen.queryByRole('button', { name: /^Force refresh$/ })).toBeNull(); // back to pending
+
+    act(() => { vi.advanceTimersByTime(21_000); });
+    expect(screen.getByRole('button', { name: /^Force refresh$/ })).toBeTruthy();
+
+    fireEvent.click(screen.getByRole('button', { name: /^Force refresh$/ }));
+    expect(forceRefresh).toHaveBeenCalledTimes(2);
+  });
+
+  // The layer below owns automatic recovery: an 8s handover watchdog plus a 4s
+  // cleanup budget. This backstop must not fire on top of that.
+  it('does not offer the recovery while automatic recovery is still working', () => {
+    render(<UpdateModal />);
+    act(() => markUpdateAvailable(vi.fn()));
+    fireEvent.click(screen.getByRole('button', { name: /^Reload now$/ }));
+
+    act(() => { vi.advanceTimersByTime(14_000); });
+    expect(screen.queryByRole('button', { name: /^Force refresh$/ })).toBeNull();
   });
 
   it('restarts for a newer update signalled while the tab is still open', () => {

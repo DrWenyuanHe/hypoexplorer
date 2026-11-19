@@ -28,7 +28,7 @@ describe('brand navigation', () => {
     expect(onHome).not.toHaveBeenCalled();
   });
 
-  it.each(['/studies/', '/topics/', '/methods/', '/how-to-cite/', '/about/'])('uses the same logo, home target and icons on %s', (path) => {
+  it.each(['/studies/', '/methods/', '/how-to-cite/', '/about/'])('uses the same logo, home target and icons on %s', (path) => {
     const result = renderSeoRoute(path);
     expect(result).not.toBeNull();
     const page = new DOMParser().parseFromString(result!.body, 'text/html');

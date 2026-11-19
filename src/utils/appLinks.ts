@@ -37,7 +37,10 @@
 
 import type { MouseEvent } from 'react';
 import { DATASET_CATEGORIES, type DatasetCategory } from '../data/datasetCategories';
-import { parseExplorerAnalysis, parseStudyAnalysis, type ExplorerAnalysisState, type StudyAnalysisState } from './analysisState';
+import {
+  parseCompareList, parseExplorerAnalysis, parseStudyAnalysis,
+  type CompareViewState, type ExplorerAnalysisState, type StudyAnalysisState,
+} from './analysisState';
 import type { SearchFilter } from '../search/searchTypes';
 
 export interface DatasetRoute {
@@ -247,7 +250,10 @@ export function parseSearchHash(hash: string | undefined | null): { query: strin
 export type AppRoute =
   | { view: 'hub' }
   | { view: 'library'; datasetId: string | null; categories: DatasetCategory[] | null }
-  | { view: 'explorer'; datasetId: string; trackId?: string; tab?: string; analysis?: ExplorerAnalysisState }
+  // `compare` rides only on a Compare route (trackId 'compare'): which tracks,
+  // genes and sub-tab it shows. Its sub-tab is the path's tab segment
+  // (`/compare/pathways`); its lists are query fields beside `analysis`.
+  | { view: 'explorer'; datasetId: string; trackId?: string; tab?: string; analysis?: ExplorerAnalysisState; compare?: CompareViewState }
   // A null gene/pathway is the explorer's LANDING state — the search interface
   // with nothing searched yet, which is where the hub's "Gene Explorer" and
   // "Pathway Explorer" cards now lead. `null` rather than '' on purpose: '' is a
@@ -271,7 +277,6 @@ export type AppRoute =
   | { view: 'verification' }
   | { view: 'nomenclature' }
   | { view: 'expression' }
-  | { view: 'local-datasets' }
   // The unified gene + pathway results page. '' is its empty state, not null:
   // unlike the report landings, an empty query has exactly one address
   // (`#/search`), which `searchHref` always emits for it, so there is no
@@ -317,8 +322,74 @@ function parseScope(segment: string | undefined): DatasetCategory[] | null {
   return known.length ? known : null;
 }
 
+// ── Compare view state ──────────────────────────────────────────────────────
+
+/** The explorer's Compare track id, as it appears in a dataset path. Spelled
+ *  here rather than imported from explorerPosition, which imports this module. */
+const COMPARE_SEGMENT = 'compare';
+
+// Each id is percent-encoded BEFORE the commas go in, so a comma inside an id
+// (%2C) can never split it on the way back — the compare-set link's trick.
+function compareList(ids: readonly string[]): string {
+  return ids.map(encodeURIComponent).join(',');
+}
+
+// Limits match the explorer analysis's gene list; a track list is far smaller.
+const COMPARE_POPS_LIMIT = 1000;
+const COMPARE_GENES_LIMIT = 100000;
+
+/**
+ * A Compare route's query: `pops`, `genes` and the usual `analysis`, each at
+ * most once and nothing else. Fails closed like every saved state: a malformed
+ * field rejects the link rather than becoming a different comparison.
+ */
+function parseCompareQuery(
+  route: Extract<AppRoute, { view: 'explorer' }>, query: string, params: URLSearchParams,
+): AppRoute | null {
+  const keys = [...params.keys()];
+  const allowed = ['pops', 'genes', 'analysis'];
+  if (!keys.length || keys.some((key) => !allowed.includes(key)) || new Set(keys).size !== keys.length) return null;
+  // Lists are read from the raw query so an id's own %2C stays inside it.
+  const raw = (key: string) => query.split('&').find((part) => part.startsWith(`${key}=`))?.slice(key.length + 1);
+  const list = (key: string, limit: number): string[] | null | undefined => {
+    const value = raw(key);
+    // Present but not spelled plainly (an encoded key): reject, never drop it.
+    if (value === undefined) return params.has(key) ? null : undefined;
+    return parseCompareList(value.split(',').map(safeDecode), limit);
+  };
+  const pops = list('pops', COMPARE_POPS_LIMIT);
+  const genes = list('genes', COMPARE_GENES_LIMIT);
+  if (pops === null || genes === null) return null;
+  let analysis: ExplorerAnalysisState | undefined;
+  if (params.has('analysis')) {
+    try {
+      const parsed = parseExplorerAnalysis(JSON.parse(params.get('analysis') as string));
+      if (!parsed) return null;
+      analysis = parsed;
+    } catch { return null; }
+  }
+  const compare: CompareViewState = { ...route.compare, ...(pops ? { pops } : {}), ...(genes ? { genes } : {}) };
+  return {
+    ...route,
+    ...(Object.keys(compare).length ? { compare } : {}),
+    ...(analysis ? { analysis } : {}),
+  };
+}
+
 /** The hash for a route. The inverse of `parseRoute`. */
 export function routeHref(route: AppRoute): string {
+  if (route.view === 'explorer' && (route.compare || route.analysis)) {
+    const { analysis, compare, ...position } = route;
+    const path = routeHref(compare?.mode === 'pathways' ? { ...position, tab: 'pathways' } : position);
+    // Field order is part of the link: pops, genes, then analysis — so a link
+    // with only an analysis is byte-identical to what it always was.
+    const query = [
+      ...(compare?.pops?.length ? [`pops=${compareList(compare.pops)}`] : []),
+      ...(compare?.genes?.length ? [`genes=${compareList(compare.genes)}`] : []),
+      ...(analysis ? [`analysis=${encodeURIComponent(JSON.stringify(analysis))}`] : []),
+    ];
+    return query.length ? `${path}?${query.join('&')}` : path;
+  }
   if ('analysis' in route && route.analysis) {
     const { analysis, ...position } = route;
     return `${routeHref(position)}?analysis=${encodeURIComponent(JSON.stringify(analysis))}`;
@@ -354,8 +425,6 @@ export function routeHref(route: AppRoute): string {
       return '#/verification';
     case 'nomenclature':
       return '#/nomenclature';
-    case 'local-datasets':
-      return '#/local-datasets';
     case 'expression':
       return '#/expression';
     case 'search':
@@ -380,7 +449,9 @@ export function parseRoute(hash: string | undefined | null): AppRoute | null {
   if (queryAt >= 0) {
     if (h.length > 2000000) return null;
     const route = parseRoute(h.slice(0, queryAt));
-    const params = new URLSearchParams(h.slice(queryAt + 1));
+    const query = h.slice(queryAt + 1);
+    const params = new URLSearchParams(query);
+    if (route?.view === 'explorer' && route.trackId === COMPARE_SEGMENT) return parseCompareQuery(route, query, params);
     // Not params.size: Safari/iOS before 17 lacks it, which would reject every link.
     if (!route || [...params.keys()].length !== 1 || !params.has('analysis')) return null;
     try {
@@ -405,6 +476,12 @@ export function parseRoute(hash: string | undefined | null): AppRoute | null {
   // Methodology was an explorer tab until it became its own page; links shared
   // while it was one still open it.
   if (dataset?.tab === 'methodology') return { view: 'methodology' };
+  if (dataset?.trackId === COMPARE_SEGMENT && (dataset.tab === 'pathways' || dataset.tab === 'genes')) {
+    // Compare's sub-tab: `/compare/pathways`. `/compare/genes` is the default,
+    // accepted so a hand-typed link works, and written back without it.
+    const { tab, ...position } = dataset;
+    return { view: 'explorer', ...position, ...(tab === 'pathways' ? { compare: { mode: 'pathways' } } : {}) };
+  }
   if (dataset) return { view: 'explorer', ...dataset };
 
   // Ordered before the general gene form, which would otherwise read the `in`
@@ -437,7 +514,6 @@ export function parseRoute(hash: string | undefined | null): AppRoute | null {
   if (/^#?\/verification\/?$/.test(h)) return { view: 'verification' };
 
   if (/^#?\/nomenclature\/?$/.test(h)) return { view: 'nomenclature' };
-  if (/^#?\/local-datasets\/?$/.test(h)) return { view: 'local-datasets' };
   if (/^#?\/expression\/?$/.test(h)) return { view: 'expression' };
 
   const search = parseSearchHash(h);

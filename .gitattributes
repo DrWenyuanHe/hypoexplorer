@@ -21,6 +21,9 @@
 *.jsx   text eol=lf
 *.json  text eol=lf
 data/expression/neuroseq/source/catalog.json -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# The upstream MIT notice is pinned by SHA-256 (public-safety.json), and
+# check:public-safety reads the working tree, so a CRLF checkout would fail it.
+data/expression/oxt-reference/LICENSE text eol=lf
 *.css   text eol=lf
 *.html  text eol=lf
 *.md    text eol=lf
@@ -145,11 +148,6 @@ geo_replication/datasets/GSE65663_rnor_son_salt/** -text !eol whitespace=blank-a
 data/intake/oxt-avp-2026-10-19/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 # R's session record retains the package columns' original padding.
 
-# The Claude SEO toolkit lock (seo-skills.lock.json) pins raw bytes by SHA-256;
-# preserve them across Windows checkouts. See docs/seo-tooling.md.
-vendor/claude-seo/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
-.agents/skills/seo/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
-.agents/skills/seo-*/** -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 
 # pnpm hashes patch files into pnpm-lock.yaml; keep their bytes identical on every checkout.
 patches/*.patch text eol=lf

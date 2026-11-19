@@ -1,0 +1,87 @@
+{
+  "datasetId": "rat_hypo_aging_gse314970",
+  "accession": "GSE314970",
+  "outcome": "documented_no_change",
+  "summary": "Re-tested against PMC13082319, the Europe PMC supplementary bundle and Zenodo 18190271. The previous 'different contrast' reason is inaccurate: Table S2 (sheet 'male rat') carries log2FC.27vs6 and adj.pval.27vs6 for every author DEG row, and author code fits later-age-minus-6-months contrasts in hypothalamus, so contrast, orientation and effect unit are compatible. The reference is a significance-selected list (817 hypothalamus DEG rows at any age vs 6 months), the author seven-age voom/limma model excludes 27-month sample 1553267 (isotree outlier) that the registered 12-vs-12 edgeR-QL track includes, and Zenodo does not deposit full DE tables. Exact-label join pairs 611 of 817 rows (74.79%; 84.04% of 727 named labels): Pearson 0.932379, Spearman 0.926682, direction 602/610 (98.689%), median |delta log2FC| 0.070013. Coverage fails the 90% v2 requirement (116 named author genes are mapped but absent from the published DE, consistent with expression filtering; 86 unnamed Ensembl IDs are quarantined by design; 4 are absent from Rn7), so no comparison spec is proposed. Corrected narrative records are proposed; author concordance stays not assessed.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE314970/turbo-2026-11-16-wave2",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Deposited ArrayStudio count estimates verified",
+      "note": "The fractional ArrayStudio count estimates, SOFT, and official processed archive structure were verified; values remain fractional and are never rounded. Manuscript Table S2 (sheet 'male rat') lists 817 hypothalamus genes that are DEGs versus 6 months at any later age, each with log2FC.27vs6 and adj.pval.27vs6 from the author seven-age voom/limma model, so it is a selected-gene reference for the registered 27-versus-6-month contrast, not a full tested-gene table. The authors excluded 27-month sample 1553267 as an isotree outlier; the registered 12-versus-12 track includes it. A scoped exact-label comparison pairs 611 of 817 rows (74.79%) with Pearson 0.932379, Spearman 0.926682 and 98.689% direction agreement, but reference coverage is below the author-concordance-v2 requirement. Evidence: continued-sources/GSE314970/turbo-2026-11-16-wave2/.",
+      "reviewFlags": []
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "2026-11-16 scoped comparison against Table S2 hypothalamus rows (817 author DEGs at any age versus 6 months; log2FC.27vs6 from a seven-age voom/limma model that excludes 27-month sample 1553267). Exact-label join with the registered 27-versus-6-month edgeR-QL output pairs 611 of 817 rows (coverage 74.79%; 84.04% of 727 named labels): Pearson 0.932379, Spearman 0.926682, nonzero direction agreement 98.689% (602/610), median absolute log2FC difference 0.070013, paired RMS effect ratio 1.021245. Coverage is below the 90% author-concordance-v2 requirement: 116 named author genes are mapped but absent from the published DE, consistent with Explorer's two-group expression filter; 86 unnamed Ensembl IDs are quarantined from the public projection; 4 are absent from the Rn7 feature map. Full author DE tables were not deposited. Evidence is in continued-sources/GSE314970/turbo-2026-11-16-wave2/.",
+      "nextStep": "Keep the Table S2 agreement as retained scoped evidence, not author concordance. Registering it requires full author 27-versus-6-month hypothalamus statistics (the undeposited rat_all_DEGs.obj) or an explicitly labeled author-method reconstruction over the same 6- and 27-month samples; do not narrow the reference to Explorer-tested genes to reach coverage.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "aged_27m_vs_young_6m"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered Explorer edgeR-QL 27-month minus 6-month hypothalamus result over 12 versus 12 male Sprague-Dawley rats, fitted on unrounded ArrayStudio count estimates.",
+      "reference": "Table S2 of PMID 41984968 (PMC13082319, Europe PMC supplementary bundle), sheet 'male rat', 817 hypothalamus rows: author DEGs (|FC| >= 1.5 and BH adj P < 0.05 versus 6 months at one or more later ages) with log2FC.27vs6 and adj.pval.27vs6. Full per-gene author DE tables were not deposited (Zenodo 18190271 dat.zip holds design and annotation files only).",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Same 12 six-month and 12 twenty-seven-month hypothalamus libraries, except that the authors excluded 27-month rna_id 1553267 (isotree outlier, low RNA QC, low mapping rate; Table S1 27 months 12/11), which the registered track includes as Age27m_11. The author voom/limma variance model also pools the 9- to 24-month hypothalamus samples."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Author contrasts are later age minus 6 months (utilities.R define_contrasts, comp_sub-cnt_sub); log2FC.27vs6 therefore matches the registered 27-month minus 6-month orientation without sign change, fixed before comparison."
+        },
+        "features": {
+          "status": "limited",
+          "note": "Exact label join only; 611 of 817 author rows pair. Of the 206 unpaired rows, 116 are named symbols mapped in the Rn7 feature map but absent from the published DE, 86 are unnamed Ensembl IDs quarantined from the public projection, and 4 Ensembl IDs are absent from the Rn7 feature map. No synonyms or substitutions were used."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both are log2 fold changes for 27 versus 6 months; author values are voom/limma coefficients rounded to two decimals, registered values are edgeR-QL. Pearson 0.932379, Spearman 0.926682, nonzero direction agreement 602/610, median absolute difference 0.070013, paired RMS effect ratio 1.021245."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "Author adj.pval.27vs6 values are rounded to three decimals and come from a seven-age model with a different filter and one fewer sample. Context only: among 611 pairs, 377 author and 302 registered genes have adjusted P < 0.05, 295 in both, and no author-significant pair has the opposite registered direction."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "611 of 817 selected author rows (74.79%), or 611 of 727 named labels (84.04%), have registered effects, below the 90% author-concordance-v2 requirement. The reference is a significance-selected list, not the full tested universe; unpaired rows are missing evidence, not mismatches."
+        }
+      },
+      "criteria": "Author-concordance-v2 requires at least 30 paired genes and 90% relevant reference coverage plus a passing correlation or direction route; the correlation and direction routes would pass, but coverage does not, and the reference was not narrowed to Explorer-tested genes. No threshold, exclusion or mapping was tuned.",
+      "conclusion": "Selected author 27-versus-6-month hypothalamus effects agree closely with the registered output in direction and rank, but reference coverage and the one-sample cohort difference keep author concordance unestablished."
+    },
+    "additionalComparisonSpec": null
+  },
+  "metrics": {
+    "basis": "Scoped, not registered: Table S2 male-rat hypothalamus rows (log2FC.27vs6) joined by exact label to geo_replication/datasets/GSE314970_rnor_hypothalamus_aging/processed/GSE314970_DE.tsv; computed by compare_gse314970.R.",
+    "authorReferenceRows": 817,
+    "authorNamedRows": 727,
+    "registeredOutputGenes": 15373,
+    "pairedGenes": 611,
+    "coverage": 0.747858,
+    "coverageNamedLabels": 0.84044,
+    "pearson": 0.932379,
+    "spearman": 0.926682,
+    "nonzeroPairs": 610,
+    "sameDirection": 602,
+    "directionAgreement": 0.986885,
+    "medianAbsLog2FCDifference": 0.070013,
+    "rmsEffectRatioLocalOverAuthor": 1.021245,
+    "authorAdjP27vs6Below005AmongPairs": 377,
+    "registeredFdrBelow005AmongPairs": 302,
+    "bothBelow005": 295,
+    "authorSignificantOppositeDirection": 0,
+    "authorExtractSha256": "a6d8143ca2330e14ff7c139e4fbe23fb2949cb73d9d2fa0771faf330f5ce312a",
+    "registeredOutputSha256": "4bb915b2235f0132f21b69b8139f78cc7edc7cf9517b8fbcf6e8c4f257128da9",
+    "v2Eligible": false
+  }
+}

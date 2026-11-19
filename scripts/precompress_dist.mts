@@ -10,24 +10,23 @@
 // Content-Encoding: br on the R2 objects themselves, and a production build has
 // already deleted dist/{datasets,query,qc} by then (dropOffOriginData).
 //
-// So why does this still run on every deploy?
+// NOT PART OF THE CLOUDFLARE DEPLOY ANY MORE (2026-11). `deploy:cf` runs
+// `build`, not `deploy:dist`, so this no longer runs on every deploy. It is kept
+// for an Apache/LiteSpeed host: public/.htaccess plus these sidecars is what a
+// move back off Cloudflare would need, and `pnpm run deploy:dist` (build +
+// precompress) is that path. www.hypoexplorer.com is a Worker custom domain too
+// (wrangler.jsonc routes), so no live host reads the sidecars.
 //
-//   1. It is verify_deploy.mts's YARDSTICK. The app-origin compression check
-//      reads dist/nomenclature/table.js.br to say how far the edge's on-the-fly
-//      brotli falls short of quality 11 (measured: 3,975 KB vs 2,702 KB, +47%).
-//      Skip this step and that check silently downgrades to "cannot measure".
-//   2. It is the ROLLBACK ARTIFACT. public/.htaccess plus these sidecars is what
-//      an Apache origin needs, and www.hypoexplorer.com is still served that way
-//      until its redirect lands.
-//
-// Both are real but neither is a visitor-facing byte, so a skipped run is no
-// longer an outage — unlike the era the warning below describes.
+// verify_deploy.mts uses dist/nomenclature/table.js.br as its brotli-11
+// yardstick only when the host it probes serves sidecars; against the
+// Cloudflare edge it checks the compression saving and skips the comparison
+// when no sidecar exists. Run this by hand if you want that number anyway.
 //
 // Incremental: a sidecar is skipped when it is newer than its source, so the
 // first run is slow (brotli-11) and subsequent runs touch only what changed.
 //
-// Run AFTER `npm run build`. `npm run deploy:cf` chains the whole thing:
-//   npm run deploy:cf   # = deploy:dist (build + precompress) && wrangler deploy && verify:deploy
+// Run AFTER `pnpm run build`, or use `pnpm run deploy:dist` (build + precompress)
+// when producing a dist/ for an Apache upload.
 //
 // HISTORICAL, AND STILL TRUE OF ANY APACHE ORIGIN: skipping this is silent, and
 // it has happened once. A dist/ uploaded to Apache without sidecars serves fine —

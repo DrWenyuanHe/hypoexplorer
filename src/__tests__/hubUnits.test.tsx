@@ -1,8 +1,9 @@
 import { beforeEach, describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent, within } from '@testing-library/react';
 
-import { LandingHub } from '../hub/LandingHub';
-import { listDatasets } from '../data/datasets';
+import { HUB_ATLAS_ID, LandingHub } from '../hub/LandingHub';
+import { getDataset, listDatasets } from '../data/datasets';
+import { datasetHref } from '../utils/appLinks';
 
 // The box itself is covered by unifiedSearchBox.test.tsx; here the hub's own
 // wiring: one box, no mode switch, submitting to onSearch, and no vocabulary
@@ -36,7 +37,6 @@ const handlers = () => ({
   onSearch: vi.fn(),
   onOpenExpression: vi.fn(),
   onOpenTracker: vi.fn(),
-  onOpenLocalDatasets: vi.fn(),
   onOpenLibrary: vi.fn(),
   onOpenStatistics: vi.fn(),
   onOpenMethodology: vi.fn(),
@@ -75,7 +75,7 @@ describe('hub search box', () => {
   it('has one box for genes and pathways: no mode switch and no filter button', () => {
     const { form } = renderHub();
     expect(within(form).getAllByRole('button').map((b) => b.getAttribute('aria-label'))).toEqual(['Search']);
-    expect(within(form).getByTitle('Press / to search')).toBeTruthy();
+    expect(within(form).queryByTitle('Press / to search')).toBeNull();
   });
 
   it('fetches no vocabulary until the box is focused', () => {
@@ -109,6 +109,34 @@ describe('hub routes', () => {
     expect(h.onOpenExpression).toHaveBeenCalledTimes(1);
   });
 
+  it('opens the macaque atlas and its population Compare view from the atlas card', () => {
+    window.location.hash = '';
+    renderHub();
+    const atlas = getDataset(HUB_ATLAS_ID);
+    expect(atlas).not.toBeNull();
+    const open = screen.getByRole('button', { name: /^Explore the macaque atlas/ });
+    // The detail line is read off the registry entry, not written down.
+    expect(open.textContent).toContain(atlas?.modality);
+    expect(open.textContent).toContain(atlas?.groups.map((g) => g.label).join(' vs '));
+    fireEvent.click(open);
+    expect(window.location.hash).toBe(datasetHref('macaque_snrna'));
+    expect(window.location.hash).toBe('#/dataset/macaque_snrna');
+
+    const compare = screen.getByRole('button', { name: 'Compare cell populations' });
+    // Two sibling controls: neither button sits inside the other.
+    expect(open.contains(compare)).toBe(false);
+    expect(compare.contains(open)).toBe(false);
+    fireEvent.click(compare);
+    expect(window.location.hash).toBe('#/dataset/macaque_snrna/compare');
+    window.location.hash = '';
+  });
+
+  it('leaves the atlas card out when the registry has no such study', () => {
+    render(<LandingHub datasets={listDatasets().filter((d) => d.id !== HUB_ATLAS_ID)} {...handlers()} />);
+    expect(screen.queryByRole('button', { name: /^Explore the macaque atlas/ })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Compare cell populations' })).toBeNull();
+  });
+
   it('opens each side of the search dialog from the section nav', () => {
     const { h } = renderHub();
     const nav = screen.getByRole('navigation', { name: 'Sections' });
@@ -136,11 +164,10 @@ describe('hub routes', () => {
   it('keeps a footer route to every supporting tool and reference page', () => {
     const { h } = renderHub();
     const nav = screen.getByRole('navigation', { name: 'Reference' });
-    fireEvent.click(within(nav).getByRole('button', { name: 'Local datasets' }));
-    expect(h.onOpenLocalDatasets).toHaveBeenCalledTimes(1);
+    expect(within(nav).queryByRole('button', { name: /local datasets/i })).toBeNull();
     fireEvent.click(within(nav).getByRole('button', { name: 'Dataset tracker' }));
     expect(h.onOpenTracker).toHaveBeenCalledTimes(1);
-    for (const href of ['/studies/', '/topics/', '/methods/', '/how-to-cite/', '/about/']) {
+    for (const href of ['/studies/', '/methods/', '/how-to-cite/', '/about/']) {
       expect(nav.querySelector(`a[href="${href}"]`)).not.toBeNull();
     }
     fireEvent.click(screen.getByRole('button', { name: 'Changelog' }));

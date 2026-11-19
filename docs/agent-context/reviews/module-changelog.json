@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-changelog",
-  "fingerprint": "91e61502ea672bbf3d10a4b6116f2711a37fcc6414ac676593e8069afe10dd14",
+  "fingerprint": "593f2faa799778442869c9ba4549b093d597992c1edb97aec06499ad32a601b2",
   "outcome": "updated",
-  "explanation": "The in-app changelog entry is re-dated 2026-10-26 and widened to cover Compare loading failures with Retry, provenance and identifying filenames on every download kind, and the shared gene picker with the retired-symbol note, alongside the explorer navigation fixes.",
+  "explanation": "The in-app changelog gains two 2026-11-04 public-release entries (unified search, rebuilt gene page, library record view, human reference atlases, typography) and entries for 2026-11-06, 2026-11-13 and five for 2026-11-16 covering the visible changes from PRs #3, #22, #28, #29, #31, #33, #34, #39, #40, #42, #43 (p < 0.05 results labelled against FDR, the List switch), #44 (phone layouts) and #46 (Quality control nSig counted at FDR < 0.05, with the uploaded bundles). CHANGELOG.md records the audit, the nSig upload and what was left out (gated HypoMap views, unregenerated author-validation records). ChangelogTab rendering is unchanged.",
   "references": [
     "src/changelog/changelog.ts",
+    "src/changelog/ChangelogTab.tsx",
     "CHANGELOG.md"
   ]
 }

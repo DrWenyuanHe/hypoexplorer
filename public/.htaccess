@@ -16,11 +16,12 @@
 #                          rewrites below have no equivalent; the .br/.gz files
 #                          are excluded from the Worker upload too.
 #
-# KEPT, NOT DELETED, for two reasons: www.hypoexplorer.com is still a CNAME to
-# Hostinger's CDN and still served by Apache until that redirect lands, and this
-# file plus the sidecars is what a rollback off Cloudflare would need. Edit it
-# only in step with public/_headers, or the rollback silently disagrees with
-# production.
+# KEPT, NOT DELETED, as the rollback path: this file plus the sidecars from
+# `pnpm run deploy:dist` (build + precompress) is what an Apache origin needs if
+# the site ever moves off Cloudflare. www.hypoexplorer.com is a Worker custom
+# domain as well now (wrangler.jsonc), so no live host reads this. Before using
+# it again, compare it with public/_headers, which is the policy production
+# actually runs; they are no longer edited in lockstep.
 #
 # WHAT THE RULES BELOW DO (when Apache is serving):
 # Hashed bundles under /assets/ get immutable long-cache. Unhashed data files

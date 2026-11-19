@@ -37,7 +37,9 @@ describe('App — explorer position', () => {
     try {
       render(<App />);
       await screen.findByRole('button', { name: /Back to single cell/i });
-      await waitFor(() => expect(document.body.textContent).toMatch(/arcuate, vmh/));
+      // The selection shows as chips; the loading line only counts them.
+      expect(await screen.findByRole('button', { name: 'Remove arcuate' })).toBeTruthy();
+      expect(screen.getByRole('button', { name: 'Remove vmh' })).toBeTruthy();
       expect(document.body.textContent).not.toMatch(/\be9\b|\bi23\b/);
     } finally {
       delete (window as any).HX_GSE262407_META;

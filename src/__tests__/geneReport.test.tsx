@@ -36,10 +36,9 @@ vi.mock('../search/searchSummaries', async (importOriginal) => {
 const BASELINE: BaselineTeaser = {
   status: 'available',
   gene: 'Pomc',
-  description: 'pro-opiomelanocortin-alpha',
-  populations: [
-    { id: 'arc_pomc', label: 'ARC POMC', region: 'ARC', meanTpm: 812.5, libraries: 4 },
-    { id: 'arc_agrp', label: 'ARC AgRP', region: 'ARC', meanTpm: 3.2, libraries: 4 },
+  groups: [
+    { id: 'arc_pomc', populationId: 'arc_pomc', label: 'ARC POMC', group: null, region: 'ARC', meanTpm: 812.5, libraries: 4 },
+    { id: 'arc_agrp', populationId: 'arc_agrp', label: 'ARC AgRP', group: null, region: 'ARC', meanTpm: 3.2, libraries: 4 },
   ],
   populationCount: 2,
   max: 812.5,
@@ -104,7 +103,8 @@ function nothingSignificant(): CrossDatasetGeneReport {
     ...base,
     groups: base.groups.map((group) => ({
       ...group,
-      tracks: group.tracks.map((t) => ({ ...t, fdr: Math.max(t.fdr ?? 1, 0.2), significant: false })),
+      // Raw p too, so no track lands in the nominal tier: nothing at p < 0.05.
+      tracks: group.tracks.map((t) => ({ ...t, fdr: Math.max(t.fdr ?? 1, 0.2), pval: Math.max(t.pval, 0.08), significant: false })),
     })),
   };
 }
@@ -116,7 +116,7 @@ function quietPrimate(): CrossDatasetGeneReport {
   return {
     ...base,
     groups: [
-      { ...macaque, tracks: macaque.tracks.map((t) => ({ ...t, fdr: Math.max(t.fdr ?? 1, 0.2), significant: false })) },
+      { ...macaque, tracks: macaque.tracks.map((t) => ({ ...t, fdr: Math.max(t.fdr ?? 1, 0.2), pval: Math.max(t.pval, 0.08), significant: false })) },
       mouse,
     ],
   };
@@ -263,7 +263,7 @@ describe('GeneReport — differential expression table', () => {
     for (const table of deTables(card)) {
       expect(table.querySelector('thead')).toHaveClass('portal-sr');
       expect([...table.querySelectorAll('thead th')].map((th) => th.textContent)).toEqual(
-        ['Comparison', 'Population and source', 'Effect bar', 'Change', 'q (FDR)', 'Study actions'],
+        ['Comparison', 'Population and source', 'Effect bar', 'Change', 'q (FDR) and call', 'Study actions'],
       );
     }
   });
@@ -289,7 +289,12 @@ describe('GeneReport — differential expression table', () => {
     expect(mouse.cells[3].querySelector('.report-de-phrase')).toHaveTextContent(expectedPhrase(0.8, MOUSE_CONTRAST.caseGroup.label));
     expect(mouse.cells[3].querySelector('.report-de-phrase')).toHaveTextContent(/^1\.7× higher in /);
     expect(mouse.cells[3].querySelector('.report-de-fc')?.textContent).toBe('log2FC +0.80');
-    expect(mouse.cells[4]).toHaveTextContent('0.02');
+    // The q is named in the cell, so it is never read as the p-value.
+    expect(mouse.cells[4]).toHaveTextContent(/^q 0\.020/);
+    expect(mouse.cells[4].querySelector('.report-de-qlabel')).toHaveTextContent('q');
+    // The FDR survivor is labelled under its q.
+    expect(mouse.cells[4].querySelector('.report-de-tier')).toHaveTextContent('FDR < 0.05');
+    expect(mouse).toHaveAttribute('data-tier', 'fdr');
 
     const e9 = rowFor(card, 'e9 population');
     expect(e9.cells[0].querySelector('b.report-de-first')).toHaveTextContent(MACAQUE_CONTRAST.caseGroup.label);
@@ -352,12 +357,14 @@ describe('GeneReport — differential expression table', () => {
     // The tally still counts the significant tracks only.
     expect(captionOf(areaTable(card, 'Primate atlas'))).toEqual({ name: 'Primate atlas', count: '1 significant', dirs: '0 up · 1 down' });
     expect(more).toHaveAttribute('aria-expanded', 'true');
-    expect(more).toHaveTextContent('Show only the 2 significant tracks');
+    expect(more).toHaveTextContent('Show only the 2 tracks at p < 0.05');
 
     // Non-significant rows are unmarked and say so beside their log2FC.
     const e1 = rowFor(card, 'e1 population');
     expect(e1).not.toHaveAttribute('data-significant');
+    expect(e1).toHaveAttribute('data-tier', 'none');
     expect(e1.querySelector('.report-de-fc')?.textContent).toBe('log2FC +0.30 · n.s.');
+    expect(e1.querySelector('.report-de-tier')).toBeNull();
     expect(rowFor(card, 'e2 population').querySelector('.report-de-phrase'))
       .toHaveTextContent(expectedPhrase(-0.9, MACAQUE_CONTRAST.caseGroup.label));
     expect(rowFor(card, 'e9 population').querySelector('.report-de-fc')?.textContent).toBe('log2FC -1.20');
@@ -377,7 +384,7 @@ describe('GeneReport — differential expression table', () => {
     expect(verdict).toHaveTextContent('· 1 track up · 0 down (FDR < 0.05)');
     expect(deTables(card).map((t) => t.dataset.area)).toEqual(['Diet-induced obesity']);
     const quiet = card.querySelector('.report-de-quiet') as HTMLElement;
-    expect(quiet.querySelector('.report-de-quiet-label')).toHaveTextContent('No significant track');
+    expect(quiet.querySelector('.report-de-quiet-label')).toHaveTextContent('No track at p < 0.05');
     // The label, then the quiet areas joined with " · " (one here).
     expect(quiet.querySelector('.report-de-quiet-label')?.nextElementSibling?.textContent).toBe('Primate atlas');
     const more = moreButton(card) as HTMLButtonElement;
@@ -393,12 +400,106 @@ describe('GeneReport — differential expression table', () => {
     ]);
     expect(bodyRows(areaTable(card, 'Primate atlas')).some((tr) => tr.hasAttribute('data-significant'))).toBe(false);
     expect(card.querySelector('.report-de-quiet-label')).toBeNull();
-    expect(more).toHaveTextContent('Show only the 1 significant track');
+    expect(more).toHaveTextContent('Show only the 1 track at p < 0.05');
     expect(more).toHaveAttribute('aria-expanded', 'true');
 
     fireEvent.click(more);
     expect(deTables(card).map((t) => t.dataset.area)).toEqual(['Diet-induced obesity']);
     expect(card.querySelector('.report-de-quiet-label')?.nextElementSibling?.textContent).toBe('Primate atlas');
+  });
+
+  it('lists nominal tracks after the FDR ones, labelled and never counted as significant', async () => {
+    const base = report();
+    const [macaque, mouse] = base.groups;
+    REPORT_REF.current = {
+      ...base,
+      groups: [{
+        ...macaque,
+        // e2 and e1 reach raw p < 0.05 without passing FDR; e2 has the lower p.
+        tracks: macaque.tracks.map((t) => (t.trackId === 'e2' ? { ...t, pval: 0.004 } : t.trackId === 'e1' ? { ...t, pval: 0.03 } : t)),
+      }, mouse],
+    };
+    renderReport();
+    const card = await findDeCard();
+    const verdict = card.querySelector('.portal-verdict');
+    expect(verdict).toHaveTextContent('Significant in 2 of 2 datasets');
+    expect(verdict).toHaveTextContent('(FDR < 0.05) · 2 more tracks at p < 0.05 only');
+    expect(card.textContent).toMatch(/Tracks at p < 0\.05 that do not pass FDR are listed after the FDR results/);
+    // Listed by default: the FDR survivor by q, then the nominal tracks by p.
+    expect(trackLabels(areaTable(card, 'Primate atlas'))).toEqual(['e9 population', 'e2 population', 'e1 population']);
+    expect(captionOf(areaTable(card, 'Primate atlas'))).toEqual({
+      name: 'Primate atlas', count: '1 significant · 2 at p < 0.05 only', dirs: '0 up · 1 down',
+    });
+    const e2 = rowFor(card, 'e2 population');
+    expect(e2).not.toHaveAttribute('data-significant');
+    expect(e2).toHaveAttribute('data-tier', 'nominal');
+    expect(e2.querySelector('.report-de-fc')?.textContent).toBe('log2FC -0.90 · p 0.004');
+    expect(e2.querySelector('.report-de-tier')).toHaveTextContent('p < 0.05 only');
+    // Its q and p are each named: q 0.600 in the q cell, p 0.004 beside log2FC.
+    expect(e2.cells[4].textContent).toBe('q 0.600p < 0.05 only');
+    expect(rowFor(card, 'e9 population').querySelector('.report-de-tier')).toHaveTextContent('FDR < 0.05');
+    const more = moreButton(card) as HTMLButtonElement;
+    expect(more).toHaveTextContent('Show all 6 measured tracks');
+    fireEvent.click(more);
+    expect(more).toHaveTextContent('Show only the 4 tracks at p < 0.05');
+    // Uncoloured like a non-significant row: direction colour is for the FDR call only.
+    const phraseColor = (label: string) => (rowFor(card, label).querySelector('.report-de-phrase') as HTMLElement).style.color;
+    expect(phraseColor('e2 population')).toBe(phraseColor('i23 population'));
+    expect(phraseColor('e2 population')).not.toBe(phraseColor('e9 population'));
+  });
+
+  it('drops the nominal tier from the listing when switched to FDR only', async () => {
+    const base = report();
+    const [macaque, mouse] = base.groups;
+    REPORT_REF.current = {
+      ...base,
+      groups: [{
+        ...macaque,
+        tracks: macaque.tracks.map((t) => (t.trackId === 'e2' ? { ...t, pval: 0.004 } : t)),
+      }, mouse],
+    };
+    renderReport();
+    const card = await findDeCard();
+    expect(trackLabels(areaTable(card, 'Primate atlas'))).toEqual(['e9 population', 'e2 population']);
+    fireEvent.click(within(card).getByRole('button', { name: 'FDR (q < 0.05)' }));
+    expect(trackLabels(areaTable(card, 'Primate atlas'))).toEqual(['e9 population']);
+    expect(captionOf(areaTable(card, 'Primate atlas'))).toEqual({ name: 'Primate atlas', count: '1 significant', dirs: '0 up · 1 down' });
+    expect(card.querySelector('.portal-verdict')?.textContent).not.toMatch(/p < 0\.05/);
+    const more = moreButton(card) as HTMLButtonElement;
+    fireEvent.click(more);
+    expect(more).toHaveTextContent('Show only the 2 significant tracks');
+    // Listed by q in FDR mode; e2 still carries its true label when shown.
+    expect(trackLabels(areaTable(card, 'Primate atlas'))).toEqual([
+      'e9 population', 'e1 population', 'e2 population', 'i23 population', 'e3 population',
+    ]);
+    expect(rowFor(card, 'e2 population').querySelector('.report-de-tier')).toHaveTextContent('p < 0.05 only');
+  });
+
+  it('explains q in the legend for keyboard users and on every row on hover', async () => {
+    renderReport();
+    const card = await findDeCard();
+    const legendQ = card.querySelector('.report-de-legend abbr') as HTMLElement;
+    expect(legendQ).toHaveAttribute('tabindex', '0');
+    expect(legendQ.title).toMatch(/FDR-adjusted p-value/);
+    const rowQ = rowFor(card, 'e9 population').cells[4].querySelector('abbr') as HTMLElement;
+    expect(rowQ.title).toBe(legendQ.title);
+    expect(rowQ).not.toHaveAttribute('tabindex');
+  });
+
+  it('opens with the nominal tracks when no track passes FDR', async () => {
+    const base = nothingSignificant();
+    REPORT_REF.current = {
+      ...base,
+      groups: base.groups.map((g) => ({ ...g, tracks: g.tracks.map((t) => (t.trackId === 'e9' ? { ...t, pval: 0.01 } : t)) })),
+    };
+    renderReport();
+    const card = await findDeCard();
+    expect(card.querySelector('.portal-verdict')).toHaveTextContent('Significant in 0 of 2 datasets (FDR < 0.05) · 1 more track at p < 0.05 only');
+    expect(card.textContent).toMatch(/No track reaches FDR < 0\.05\. Tracks at p < 0\.05 that do not pass FDR/);
+    expect(trackLabels(card)).toEqual(['e9 population']);
+    expect(captionOf(areaTable(card, 'Primate atlas'))).toEqual({ name: 'Primate atlas', count: 'none significant · 1 at p < 0.05 only', dirs: null });
+    const quiet = card.querySelector('.report-de-quiet') as HTMLElement;
+    expect(quiet.querySelector('.report-de-quiet-label')?.nextElementSibling?.textContent).toBe('Diet-induced obesity');
   });
 
   it('marks low-power tracks with a pill', async () => {
@@ -418,8 +519,8 @@ describe('GeneReport — differential expression table', () => {
     const card = await findDeCard();
     expect(card.querySelector('.portal-verdict')).toHaveTextContent('Significant in 0 of 2 datasets (FDR < 0.05)');
     expect(card.querySelector('.portal-verdict')?.textContent).not.toMatch(/up|down/);
-    expect(within(card).getByText('No track reaches FDR < 0.05. Every measured track is listed, lowest q first.')).toBeTruthy();
-    // Still grouped by area, the area with more measured tracks first, lowest q first within it.
+    expect(within(card).getByText('No track reaches p < 0.05. Every measured track is listed, lowest p first.')).toBeTruthy();
+    // Still grouped by area, the area with more measured tracks first, lowest p first within it.
     expect(deTables(card).map((t) => t.dataset.area)).toEqual(['Primate atlas', 'Diet-induced obesity']);
     expect(trackLabels(areaTable(card, 'Primate atlas'))).toEqual([
       'e9 population', 'e1 population', 'e2 population', 'i23 population', 'e3 population',
@@ -438,6 +539,26 @@ describe('GeneReport — differential expression table', () => {
     const card = await findDeCard();
     expect(within(card).getByText('POMC is not measured in any selected study.')).toBeTruthy();
     expect(card.querySelector('table')).toBeNull();
+  });
+
+  it('names a study that failed to load instead of calling the gene unmeasured there', async () => {
+    const [loaded, broken] = report().groups;
+    REPORT_REF.current = { ...report(), groups: [loaded, { ...broken, tracks: [], error: true }] };
+    renderReport();
+    const card = await findDeCard();
+    expect(within(card).getByText(
+      `1 selected study could not be loaded (${broken.dataset.name}), so POMC may be measured there.`,
+    )).toBeTruthy();
+    expect(card.querySelector('table')).not.toBeNull();
+  });
+
+  it('does not call the gene unmeasured when no selected study loaded', async () => {
+    const broken = report().groups[1];
+    REPORT_REF.current = { ...report(), groups: [{ ...broken, tracks: [], error: true }] };
+    renderReport();
+    const card = await findDeCard();
+    expect(within(card).queryByText(/not measured/)).toBeNull();
+    expect(within(card).getByText(/^1 selected study could not be loaded/)).toBeTruthy();
   });
 
   it('narrows the table to the active categories', async () => {

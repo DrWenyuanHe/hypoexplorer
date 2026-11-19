@@ -1,0 +1,30 @@
+{
+  "datasetId": "mouse_hypo_fasting_gse294478",
+  "manualReview": {
+    "status": "validated_with_notes",
+    "comparisonLevel": "reconstructed",
+    "sourceComparison": "manual_structure_match",
+    "auditState": "complete",
+    "summary": "Seventy-two-hour fasting effect reconstructs from author tables",
+    "note": "The authors deposited Fed-versus-24h and 24h-versus-72h edgeR tables rather than a direct Fed-versus-72h table. Algebraically combining their log2 fold changes yields the registered 72h-minus-fed effect: 15,326 genes join, Pearson=0.99995, median absolute delta=0.0286, and all 3,564 strong effects agree in sign. P values and FDR cannot be reconstructed from separately fitted adjacent contrasts. GSE294478 shares the exact title and contributors of Ferris et al., Science 2025 (PMID 40743333, PMC12434793); the paper's data statement cites BioProject PRJNA1238491 but does not list GSE294478 among its GEO accessions. The authors' sequential RNA-seq comparisons do not include fed vs 72-h fasted directly, so the registered fasted72h_vs_fed contrast is a re-analysis, not an author contrast. The paper's main text gives only 'n=3-4' for the bulk RNA-seq heatmap (Fig. 1C) and does not say whether each library is one mouse; GEO gives no sex or animal field for the bulk libraries. The adult female CLAMS physiology cohort (n = 10) and snRNA-seq cohort (n = 3 per state) are separate experiments and are not transferred. The reviewed crosswalk from registered CTRL_CV/3CR_CV columns to RNAseq_Ctrl/RNAseq_3CR libraries is an alias interpretation, not a published animal-ID table. The Science supplement (not open access; not retrieved) and the bioRxiv preprint 10.1101/2024.06.26.600891 remain to be checked for per-library animal and sex statements.",
+    "reviewFlags": [
+      "This validates effect size and orientation only; author significance for the exact contrast is unavailable.",
+      "This legacy source has no committed source-file checksum manifest.",
+      "Paper identity is inferred from the matching title and contributors; the paper's GEO accession list omits GSE294478, and no retrieved primary source states one animal per bulk RNA-seq library or the sex of those mice."
+    ]
+  },
+  "verificationReview": null,
+  "comparabilityReview": null,
+  "additionalComparisonSpec": null,
+  "appliedCorrections": [
+    "Dropped the unsupported claim that GSE294478 is a bulk RNA-seq subseries under BioProject PRJNA1238491; replaced with the verifier's wording: shares exact title and contributors of Ferris et al., Science 2025 (PMID 40743333, PMC12434793); the paper's data statement cites PRJNA1238491 but does not list GSE294478 among its GEO accessions.",
+    "Added to the note that the authors' sequential RNA-seq comparisons do not include fed vs 72-h fasted directly, so fasted72h_vs_fed is a re-analysis, not an author contrast.",
+    "Kept the alias-crosswalk caveat ('alias interpretation, not a published animal-ID table') and the statement that the separate physiology cohort is not transferred.",
+    "Extended the next step to the bioRxiv preprint 10.1101/2024.06.26.600891 as well as the Science supplement.",
+    "Kept retainedSampleSupport, nextStep and reviewedAt out of every ledger record (evidence README only); no 'retrieved' keys anywhere.",
+    "Did not apply the proposed experimentalDesign replacement (integration decision: no reviewed-specifications.json changes); the design finding is carried only in the manual-review note and one new reviewFlag. The verifier's suggested reviewed-specifications source append (PMC12434793_efetch.xml, kind pmc_efetch) is therefore not applied here.",
+    "Status, comparisonLevel, sourceComparison, auditState and summary unchanged from the existing manual-review record; no upgrade.",
+    "Evidence folder README.md corrected (paper-link wording, re-analysis statement, alias caveat, extended next step, source-kind notes); SOURCES.tsv unchanged."
+  ],
+  "notes": "Outcome is a note-level update only; the verifier judged the 'advanced' outcome modest and upheld no assessment change. The existing manual-review record has no reviewedAt, so none was added (adding one would change validatedAt in build_author_validation.mts). partial1.json separately proposes a verificationReview for this dataset; this file leaves verificationReview null and does not conflict with it. Not applied because of the integration decisions: the verifier's reviewed-specifications.json corrections (keep the existing record; append one pmc_efetch source; regenerate replication-evidence.json fingerprints with the writer script). If the design ledger is touched later, cite data/author-validation/continued-sources/GSE294478/turbo-2026-11-15-design/sources/PMC12434793_efetch.xml (sha256 e74b5981adea1a0730053cad03b81d3fc4e5529dc347be452c24f70c7cf0cf56, 141418 B, kind pmc_efetch). The duplicate SOFT and the Europe PMC supplementaryFiles error XML are acquisition records only. Additional comparison spec omitted: a built-in comparison already exists in direct-comparisons.generated.json."
+}

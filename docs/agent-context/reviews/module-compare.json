@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-compare",
-  "fingerprint": "266898e169efe592bcc233ea61fd6e9eba725a725c11ec35c8fc1c8f2f3203e1",
+  "fingerprint": "b8f894952fcedc23df977c735308e880140fbe0bdceeeeb78ecaa7bed8daa5bc",
   "outcome": "updated",
-  "explanation": "CompareTab loads its populations as track columns (failed populations show Retry; no getTrack or loadPopulation props), renders the shared GenePicker over a union vocabulary of loaded populations, and names its exports and Metadata sheets through export provenance (compareGenesWorkbook in compareSummary, ComparePathwayView). CompareTab only borrows the macaque default pair when given no defaultPops at all, and its vocabulary uses the stored-symbol nomenclature authority.",
+  "explanation": "CompareTab takes an initialView and reports its view (defaults left out, keyed by value) through onViewChange for the URL. CompareGenesView gains summaryLayout=\"long\" (one row per gene × population, sticky header) and summaryStartsOpen; the Compare tab starts its long summary folded as a bar showing the row count, opening to at most half the panel. The compare-set view keeps the wide table, open, with its tally.",
   "references": [
     "src/compare/CompareTab.tsx",
-    "src/compare/compareSummary.ts",
-    "src/data/trackColumns.ts"
+    "src/compare/CompareGenesView.tsx"
   ]
 }

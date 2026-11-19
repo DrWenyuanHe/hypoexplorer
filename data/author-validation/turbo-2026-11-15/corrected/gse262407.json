@@ -1,0 +1,97 @@
+{
+  "datasetId": "gse262407",
+  "manualReview": {
+    "status": "review_required",
+    "comparisonLevel": "direct",
+    "auditState": "complete",
+    "reviewedAt": "2026-11-15",
+    "summary": "Twelve selected-gene contexts reproduce numerically; astrocyte cohort match inferred from Methods, nine glial/Ghrh contexts differ by low-count mice",
+    "note": "2026-11-15 continuation: publisher Supplementary Data 1/4, GEO cell metadata and accepted manuscript re-retrieved with SHA-256 equal to the 2026-09-11 record. The registered DE tables were regenerated after 2026-09-11; recomputation against current tables reproduces the twelve selected measurements (Pearson .9751-.9935, Spearman .9642-.9871, 100% paired direction, selected-author coverage 99.22%-100%). The accepted-manuscript Methods require at least two cells per sample. Under the published Methods rule (>=2 cells per sample) the three astrocyte contexts would select identical mice and deposited nuclei to the registered 20-nucleus rule; the author DE script is unavailable, Arc15 sits exactly at 25 astrocyte nuclei (the pinned PCA helper uses a strict >25 cut), and 75 nuclei are unidentified, so author membership is inferred, not demonstrated. The sub.class grouping cited for the author comes from pinned figure/PCA code, not the DE script; major.class equals sub.class in the deposited metadata for all 5,588 astrocyte, 1,253 OPC and 1,317 oligodendrocyte ARC nuclei. OPC, oligodendrocyte and Ghrh contexts gain 1-3 low-count mice under that rule (for example OPC Arc23 with 5 and Arc30 with 3 nuclei), so their cohorts differ from the registered result. The 75 nuclei separating the paper total 75,787 from the deposited 75,862 are unidentified. All author rows are nominal P<.05 selections, not the tested universe. Sixteen of 28 registered contexts have no matching author coefficient. Evidence: continued-sources/GSE262407/turbo-2026-11-15-partial4/.",
+    "reviewFlags": [
+      "Selected nominal-P author rows are not the full tested universe.",
+      "Author DE-generating code is unavailable; astrocyte cohort identity is inferred from the Methods eligibility rule.",
+      "OPC, oligodendrocyte and Ghrh author cohorts include low-count mice excluded from registered tracks.",
+      "Sixteen registered contexts have no matching author coefficient.",
+      "No full-verification sign-off."
+    ],
+    "evidenceLinks": [
+      {
+        "label": "New primary paper",
+        "url": "https://doi.org/10.1038/s41467-026-77116-9",
+        "kind": "paper"
+      },
+      {
+        "label": "Pinned author code",
+        "url": "https://github.com/perslab/Brown-2025/tree/773a267395c0c0b21e47312c1de3a14d77b4e02d",
+        "kind": "author_result"
+      },
+      {
+        "label": "Supplementary Data 1 (glia)",
+        "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-026-77116-9/MediaObjects/41467_2026_77116_MOESM4_ESM.xlsx",
+        "kind": "author_result"
+      }
+    ]
+  },
+  "verificationReview": {
+    "resultAvailability": "partial",
+    "comparisonOutcome": "unresolved",
+    "reason": "2026-11-15 continuation: publisher Supplementary Data 1/4, GEO cell metadata and accepted manuscript re-retrieved with SHA-256 equal to the 2026-09-11 record. The registered DE tables were regenerated after 2026-09-11; recomputation against current tables reproduces the twelve selected measurements (Pearson .9751-.9935, Spearman .9642-.9871, 100% paired direction, selected-author coverage 99.22%-100%). The accepted-manuscript Methods require at least two cells per sample. Under the published Methods rule (>=2 cells per sample) the three astrocyte contexts would select identical mice and deposited nuclei to the registered 20-nucleus rule; the author DE script is unavailable, Arc15 sits exactly at 25 astrocyte nuclei (the pinned PCA helper uses a strict >25 cut), and 75 nuclei are unidentified, so author membership is inferred, not demonstrated. The sub.class grouping cited for the author comes from pinned figure/PCA code, not the DE script; major.class equals sub.class in the deposited metadata for all 5,588 astrocyte, 1,253 OPC and 1,317 oligodendrocyte ARC nuclei. OPC, oligodendrocyte and Ghrh contexts gain 1-3 low-count mice under that rule (for example OPC Arc23 with 5 and Arc30 with 3 nuclei), so their cohorts differ from the registered result. The 75 nuclei separating the paper total 75,787 from the deposited 75,862 are unidentified. All author rows are nominal P<.05 selections, not the tested universe. Sixteen of 28 registered contexts have no matching author coefficient. Evidence: continued-sources/GSE262407/turbo-2026-11-15-partial4/.",
+    "nextStep": "Locate the author DE-generating script or refit the per-mouse astrocyte pseudobulk to demonstrate author cohort membership (Arc15 in particular). Hold the three astrocyte selected-scope comparison proposals in the evidence folder until a per-track selected-scope record exists in the shared builders or a ledger owner admits at most one context; keep the nine cohort-different glial/Ghrh contexts and sixteen unmatched contexts explicit; never substitute other populations or contrasts.",
+    "fullyVerifiedContrasts": []
+  },
+  "comparabilityReview": {
+    "target": "registered_output",
+    "resultScope": "selected_results",
+    "registeredContrastIds": [
+      "glucose_vs_saline_chow",
+      "glucose_vs_saline_hfd",
+      "hfd_vs_chow_glucose",
+      "hfd_vs_chow_saline"
+    ],
+    "basis": "Current registered Explorer per-track tables, recomputed 2026-11-15; compared only where a named author cell type and publisher-defined contrast exist.",
+    "reference": "Publisher Supplementary Data 1 (ARC/VMH glia) and 4 (neurons): complete named cell-type rows, all nominal PValue<0.05.",
+    "assessment": "limited",
+    "dimensions": {
+      "cohort": {
+        "status": "limited",
+        "note": "Astrocyte contexts: under the published Methods rule (>=2 cells per sample) the author cohort would select identical mice and deposited nuclei; the author DE script is unavailable, Arc15 sits exactly at 25 astrocyte nuclei (the pinned PCA helper uses a strict >25 cut), and 75 nuclei are unidentified, so author membership is inferred, not demonstrated. OPC, oligodendrocyte and Ghrh contexts: the Methods rule admits 1-3 low-count mice excluded by the registered 20/10-nucleus rules. The sub.class grouping comes from pinned figure code, not the DE script; major.class equals sub.class in the deposited metadata for all astrocyte, OPC and oligodendrocyte ARC nuclei."
+      },
+      "contrast": {
+        "status": "matched",
+        "note": "Publisher descriptions define glucose minus saline within diet and HFD minus control under saline, matching registered case minus baseline. hfd_vs_chow_glucose has no author table."
+      },
+      "features": {
+        "status": "compatible",
+        "note": "Exact symbol join; 0 duplicated author symbols; 6 unmatched selected rows across three non-astrocyte contexts. Methods exclude genes expressed in <=10% of cells; the ^Gm|Rik$ exclusion in pinned Figure_2 voom_wrapper (Fig. 2c PCA) is not applied in the deposited DE tables, which contain Gm/Rik symbols."
+      },
+      "effects": {
+        "status": "compatible",
+        "note": "Both edgeR log2 fold change case minus baseline; Pearson .9751-.9935, Spearman .9642-.9871, 100% direction across the twelve selected contexts."
+      },
+      "inference": {
+        "status": "different",
+        "note": "Registered edgeR-QL two-arm fit versus author robust-dispersion glmLRT; FDR calls differ widely and are contextual."
+      },
+      "coverage": {
+        "status": "limited",
+        "note": "12 of 28 registered contexts have a selected author reference; selected rows omit the tested nonsignificant tail."
+      }
+    },
+    "criteria": "author-concordance-v2 per context within selected scope: >=30 paired genes, >=90% selected-row coverage, Pearson and Spearman >=0.90 or >=90% direction; cohort, contrast, identifier and effect compatibility required. Absent rows are not author negatives.",
+    "conclusion": "Three astrocyte contexts meet every numeric scoped criterion; cohort compatibility is supported by Methods text but not by executed author code. Nine contexts agree numerically but have a documented cohort difference; sixteen contexts unassessed. No dataset-level pass."
+  },
+  "additionalComparisonSpec": null,
+  "appliedCorrections": [
+    "additionalComparisonSpec: none of the three astrocyte specs is emitted (a second gse262407 entry throws 'Duplicate additional comparison'; no track field; scoped route sealed to gse148252). The three are held, with corrected cohort notes, in data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/proposed-additional-specs.json only.",
+    "concordanceReview: all three proposed cohort entries dropped (null fingerprint, duplicate gse262407/cohort keys, 4 registeredContrastIds, mismatched priorReview, would assert dataset-level cohort compatibility).",
+    "comparabilityReview.dimensions.features.note: replaced the 'author code excludes ^Gm|Rik$' claim with the verifier wording (Methods <=10% filter; Figure_2 voom_wrapper Gm/Rik exclusion not applied in the deposited DE tables).",
+    "comparabilityReview.dimensions.cohort.note, comparabilityReview.conclusion, manualReview.note and verificationReview.reason: 'select identical mice and deposited nuclei' reworded as inferred under the published Methods rule (author DE script unavailable, Arc15 exactly 25 nuclei against the strict >25 PCA helper, 75 unidentified nuclei).",
+    "comparabilityReview.conclusion: 'meet every scoped criterion including cohort compatibility' changed to 'meet every numeric scoped criterion; cohort compatibility is supported by Methods text but not by executed author code'.",
+    "manualReview.reviewFlags: added 'Author DE-generating code is unavailable; astrocyte cohort identity is inferred from the Methods eligibility rule.'",
+    "sub.class grouping: every citation now says it comes from figure/PCA code, not the DE script, and that major.class equals sub.class in the deposited metadata for all astrocyte, OPC and oligodendrocyte ARC nuclei.",
+    "manualReview.summary: 'cohort-reconciled' replaced by 'astrocyte cohort match inferred from Methods' so the summary does not overstate the cohort finding.",
+    "verificationReview.nextStep: no longer asks to admit the three astrocyte specs; asks for the author DE script or a refit and keeps the specs held.",
+    "Evidence README (turbo-2026-11-15-partial4/README.md): astrocyte eligibility bullet, astrocyte interpretation bullet, inference bullet (Gm/Rik) and Next step corrected; results-table header marks mouse-set identity as inferred under the Methods rule."
+  ],
+  "notes": "Statuses unchanged from the current ledger: manualReview stays review_required/direct/complete; verificationReview stays partial/unresolved with no fullyVerifiedContrasts. comparabilityReview moves from not_tested to target registered_output, resultScope selected_results, assessment limited, as the verifier upheld. gse262407 has no directComparison and no additional spec, so the comparability record documents the twelve selected measurements without a builder-generated comparison; mouse_hypo_maternal_care_gse305688 already has that shape. registeredContrastIds keeps all four registered contrasts as in the current record (hfd_vs_chow_glucose has no author table, stated in contrast.note). manualReview.evidenceLinks gains 'Supplementary Data 1 (glia)'. New evidence file data/author-validation/continued-sources/GSE262407/turbo-2026-11-15-partial4/proposed-additional-specs.json holds the three specs and is not referenced by any ledger. No edgeR refit was done; the per-mouse astrocyte count matrices are not present locally."
+}

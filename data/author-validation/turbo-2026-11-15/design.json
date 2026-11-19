@@ -1,0 +1,1012 @@
+{
+  "agent": "design",
+  "datasets": [
+    {
+      "datasetId": "mouse_arc_hfd_gse284408",
+      "accession": "GSE284408",
+      "outcome": "documented_no_change",
+      "summary": "Re-read GEO family SOFT (byte-identical to the 2026-09-05 retained copy, sha256 6b2816ad...) and the PMC11951025 full text. GEO gives six libraries C1-Arc..H3-Arc (Library name smaple1..smaple6), tissue and sex only; no animal, pool or cage field. The RNA-seq methods section ('LCM of ARC and RNA-seq analysis') describes LCM of ARC regions from brain sections and pooled sequencing but never states how many mice contribute to each library or that each library is one mouse. Figure 3 (RNA-seq) carries no n. Other figure n values (n = 3 to 15) belong to physiology, western blot and cell assays and ...",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE284408/turbo-2026-11-15-design",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": {
+          "datasetId": "mouse_arc_hfd_gse284408",
+          "accession": "GSE284408",
+          "contrasts": [
+            "hfd_vs_ncd"
+          ],
+          "proposedStatus": "not_assessed",
+          "unitType": "animal",
+          "mappingMethod": "reviewed_mapping",
+          "retainedSampleSupport": "3 NCD vs 3 HFD male laser-captured ARC libraries",
+          "sheet": {
+            "path": "geo_replication/datasets/GSE284408_mmus_arc_hfd/metadata/GSE284408_samplesheet.tsv",
+            "sha256": "52f605070eaadd0df2f4896cb4e012d42a0832ad872acf5d9d4e7b6a7e80aa6c",
+            "bytes": 137
+          },
+          "sources": [
+            {
+              "path": "data/author-validation/continued-sources/GSE284408/turbo-2026-11-15-design/sources/GSE284408_family.soft.gz",
+              "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE284nnn/GSE284408/soft/GSE284408_family.soft.gz",
+              "sha256": "6b2816ad9e9c30fecbebb63b9a7c40519a63ad471105d9581fed5156dc439f71",
+              "bytes": 2803,
+              "kind": "geo_soft",
+              "retrieved": "2026-11-15"
+            },
+            {
+              "path": "data/author-validation/continued-sources/GSE284408/turbo-2026-11-15-design/sources/PMC11951025.xml",
+              "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11951025/fullTextXML",
+              "sha256": "0dd1b800b9830ab3b08440f3912ad70b9b3291d5f4b6d35b779525dc2425611a",
+              "bytes": 196339,
+              "kind": "article",
+              "retrieved": "2026-11-15",
+              "quote": "no more than five mice were kept per cage"
+            }
+          ],
+          "note": "Re-read GEO family SOFT (byte-identical to the 2026-09-05 retained copy, sha256 6b2816ad...) and the PMC11951025 full text. GEO gives six libraries C1-Arc..H3-Arc (Library name smaple1..smaple6), tissue and sex only; no animal, pool or cage field. The RNA-seq methods section ('LCM of ARC and RNA-seq analysis') describes LCM of ARC regions from brain sections and pooled sequencing but never states how many mice contribute to each library or that each library is one mouse. Figure 3 (RNA-seq) carries no n. Other figure n values (n = 3 to 15) belong to physiology, western blot and cell assays and are not transferred. Limitation: Supplemental Document S1 (Figures S1-S6, Tables S4-S7) was not retrieved; it is the only remaining article source that might give the RNA-seq n.",
+          "nextStep": "Retrieve iScience supplemental Document S1 (doi 10.1016/j.isci.2025.112110) or ask the corresponding author whether each LCM library came from one mouse; without that the unit stays unresolved.",
+          "reviewedAt": "2026-11-15"
+        }
+      },
+      "metrics": {
+        "retainedSamples": "3 NCD vs 3 HFD male laser-captured ARC libraries",
+        "proposedStatus": "not_assessed",
+        "unitType": "animal",
+        "sourcesRetrieved": 2
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_hfhs_gse235479",
+      "accession": "GSE235479",
+      "outcome": "advanced",
+      "summary": "GEO GSE235479 and superseries GSE235498 SOFT are byte-identical to the retained 2026-09-05 copies. Each selected library carries a distinct ORSAM identifier with strain, sex, diet and tissue; there is no animal/pool/cage field. New: a candidate primary manuscript was located that GEO does not link: bioRxiv 10.1101/2025.02.12.637923 (Baker, Harder, Skelly ... Churchill, 'Modeling metabolic disease susceptibility and resilience in genetically diverse mice', posted 2025-02-16; Research Square version 10.21203/rs.3.rs-6149178/v1). Its abstract matches the GEO summary (NZO/B6J/CAST, control vs high...",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE235479/turbo-2026-11-15-design",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": {
+          "datasetId": "mouse_hypo_hfhs_gse235479",
+          "accession": "GSE235479",
+          "contrasts": [
+            "hfhs_vs_control"
+          ],
+          "proposedStatus": "not_assessed",
+          "unitType": "unresolved",
+          "mappingMethod": "reviewed_mapping",
+          "retainedSampleSupport": "6 control vs 6 HFHS NZO/HlLtJ hypothalami (3 male + 3 female per arm)",
+          "sheet": {
+            "path": "geo_replication/datasets/GSE235479_mmus_hypothalamus_nzo_hfhs/metadata/GSE235479_samplesheet.tsv",
+            "sha256": "8a6faa225064912b0751d76203af7e9e5713f53581c540919ef0ef0abf445892",
+            "bytes": 252
+          },
+          "sources": [
+            {
+              "path": "data/author-validation/continued-sources/GSE235479/turbo-2026-11-15-design/sources/GSE235479_family.soft.gz",
+              "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE235nnn/GSE235479/soft/GSE235479_family.soft.gz",
+              "sha256": "270b664586de78cd9ac6c4e1af7cb173b1cae311b04f9a84ba49363694c43a20",
+              "bytes": 5751,
+              "kind": "geo_soft",
+              "retrieved": "2026-11-15"
+            },
+            {
+              "path": "data/author-validation/continued-sources/GSE235479/turbo-2026-11-15-design/sources/GSE235498_family.soft.gz",
+              "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE235nnn/GSE235498/soft/GSE235498_family.soft.gz",
+              "sha256": "f31f4532cd1d4ded49adf9558b6ecdd2a7eeb840f50f05614a7f68c01f3698c3",
+              "bytes": 30478,
+              "kind": "geo_soft",
+              "retrieved": "2026-11-15"
+            },
+            {
+              "path": "data/author-validation/continued-sources/GSE235479/turbo-2026-11-15-design/sources/biorxiv_2025.02.12.637923_details.json",
+              "sourceUrl": "https://api.biorxiv.org/details/biorxiv/10.1101/2025.02.12.637923",
+              "sha256": "907eb18a37c72e90153a3dbfae26265b55fa61e069777cda4ea5f6911b4408e0",
+              "bytes": 2219,
+              "kind": "publication_metadata",
+              "retrieved": "2026-11-15"
+            },
+            {
+              "path": "data/author-validation/continued-sources/GSE235479/turbo-2026-11-15-design/sources/europepmc_PPR979432_core.json",
+              "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI:10.1101/2025.02.12.637923&format=json&resultType=core",
+              "sha256": "e9003e7c29c42521eb4339808294aff582a2a56b88a1fbdf9d1f3be6442bda10",
+              "bytes": 4480,
+              "kind": "publication_metadata",
+              "retrieved": "2026-11-15"
+            }
+          ],
+          "note": "GEO GSE235479 and superseries GSE235498 SOFT are byte-identical to the retained 2026-09-05 copies. Each selected library carries a distinct ORSAM identifier with strain, sex, diet and tissue; there is no animal/pool/cage field. New: a candidate primary manuscript was located that GEO does not link: bioRxiv 10.1101/2025.02.12.637923 (Baker, Harder, Skelly ... Churchill, 'Modeling metabolic disease susceptibility and resilience in genetically diverse mice', posted 2025-02-16; Research Square version 10.21203/rs.3.rs-6149178/v1). Its abstract matches the GEO summary (NZO/B6J/CAST, control vs high-fat high-sucrose, multi-tissue expression, NZO islet inflammation). The bioRxiv full text could not be retrieved (HTML page without article body), so its methods have not been read. Limitation: The preprint link to GSE235479 is inferred from matching study description, not from a GEO citation. ORSAM identifiers are distinct sample IDs; they are not evidence of distinct animals.",
+          "nextStep": "Read the methods of bioRxiv 10.1101/2025.02.12.637923 (or its journal version) for whether each hypothalamus library is one mouse and how mice were caged by diet; confirm it reports GSE235479/GSE235498.",
+          "reviewedAt": "2026-11-15"
+        }
+      },
+      "metrics": {
+        "retainedSamples": "6 control vs 6 HFHS NZO/HlLtJ hypothalami (3 male + 3 female per arm)",
+        "proposedStatus": "not_assessed",
+        "unitType": "unresolved",
+        "sourcesRetrieved": 4
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_fasting_gse294478",
+      "accession": "GSE294478",
+      "outcome": "advanced",
+      "summary": "New: the primary paper was located: Science 2025, doi 10.1126/science.adp4025, PMID 40743333, PMC12434793 (author manuscript), 'Genomic convergence in hibernating mammals elucidates the genetics of metabolic regulation in the hypothalamus'; GEO GSE294478 (no pubmed link in the SOFT) is its bulk RNA-seq subseries under BioProject PRJNA1238491. The main text gives only 'n=3-4' for the bulk RNA-seq heatmap (Fig. 1C) and does not say whether each library is one mouse. The physiology cohort ('adult female mice', CLAMS, n = 10) and the snRNA-seq cohort ('adult female mice', n = 3 per state) are sepa...",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE294478/turbo-2026-11-15-design",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": {
+          "datasetId": "mouse_hypo_fasting_gse294478",
+          "accession": "GSE294478",
+          "contrasts": [
+            "fasted72h_vs_fed"
+          ],
+          "proposedStatus": "not_assessed",
+          "unitType": "animal",
+          "mappingMethod": "reviewed_mapping",
+          "retainedSampleSupport": "3 fed (RNAseq_Ctrl1-3) vs 3 72-h fasted (RNAseq_3CR1-3) hypothalami",
+          "sheet": {
+            "path": "geo_replication/datasets/GSE294478_mmus_hypothalamus_fasting/metadata/GSE294478_samplesheet.tsv",
+            "sha256": "5188db38a5cdeb5c0bef855286c740e89fc4c2696e34f469de2887417011954f",
+            "bytes": 172
+          },
+          "sources": [
+            {
+              "path": "data/author-validation/continued-sources/GSE294478/turbo-2026-11-15-design/sources/GSE294478_family.soft.gz",
+              "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE294nnn/GSE294478/soft/GSE294478_family.soft.gz",
+              "sha256": "7f6901b77b1d287a1d6aad17ad539c82af4e8e399c82924ecace298498037e57",
+              "bytes": 4080,
+              "kind": "geo_soft",
+              "retrieved": "2026-11-15"
+            },
+            {
+              "path": "data/author-validation/continued-sources/GSE294478/turbo-2026-11-15-design/sources/europepmc_search_hibernating_title.json",
+              "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE:%22Genomic%20convergence%20in%20hibernating%20mammals%22&format=json",
+              "sha256": "83d8459bc86f531d9fb80ff9bad79ed71d13503fc1bbd4c78dcf45dfd15905ca",
+              "bytes": 1954,
+              "kind": "publication_metadata",
+              "retrieved": "2026-11-15"
+            },
+            {
+              "path": "data/author-validation/continued-sources/GSE294478/turbo-2026-11-15-design/sources/PMC12434793_efetch.xml",
+              "sourceUrl": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=12434793&rettype=full&retmode=xml",
+              "sha256": "e74b5981adea1a0730053cad03b81d3fc4e5529dc347be452c24f70c7cf0cf56",
+              "bytes": 141418,
+              "kind": "article",
+              "retrieved": "2026-11-15",
+              "quote": "differentially expressed genes across FFR states (FDR <5%, n=3-4)"
+            },
+            {
+              "path": "data/author-validation/continued-sources/GSE294478/turbo-2026-11-15-design/sources/PMC12434793_supplementaryFiles.error.xml",
+              "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12434793/supplementaryFiles",
+              "sha256": "3d90c2c56c0e49eb76330dee740b7d555f6f87b2d36d5ec0bd7a8ffbd668bdc8",
+              "bytes": 297,
+              "kind": "publication_metadata",
+              "retrieved": "2026-11-15"
+            }
+          ],
+          "note": "New: the primary paper was located: Science 2025, doi 10.1126/science.adp4025, PMID 40743333, PMC12434793 (author manuscript), 'Genomic convergence in hibernating mammals elucidates the genetics of metabolic regulation in the hypothalamus'; GEO GSE294478 (no pubmed link in the SOFT) is its bulk RNA-seq subseries under BioProject PRJNA1238491. The main text gives only 'n=3-4' for the bulk RNA-seq heatmap (Fig. 1C) and does not say whether each library is one mouse. The physiology cohort ('adult female mice', CLAMS, n = 10) and the snRNA-seq cohort ('adult female mice', n = 3 per state) are separate experiments and are not transferred. GEO gives no sex or animal field for the bulk libraries. Methods are in the supplementary materials (NIHMS2105650-supplement-Supplementary_material.docx); PMC returned an HTML challenge page and Europe PMC reports the article is not open access, so the supplement was not obtained. Limitation: The Fed/72h columns are the Feb2023 HungryHypothalamus count file; the n=3-4 statement does not identify units. Sex of the bulk RNA-seq mice is not stated in GEO.",
+          "nextStep": "Obtain the Science supplementary materials (science.adp4025 SM, materials and methods for bulk hypothalamus RNA-seq) and check the per-library animal statement and sex.",
+          "reviewedAt": "2026-11-15"
+        }
+      },
+      "metrics": {
+        "retainedSamples": "3 fed (RNAseq_Ctrl1-3) vs 3 72-h fasted (RNAseq_3CR1-3) hypothalami",
+        "proposedStatus": "not_assessed",
+        "unitType": "animal",
+        "sourcesRetrieved": 4
+      }
+    },
+    {
+      "datasetId": "mouse_scn_hfd_gse157077",
+      "accession": "GSE157077",
+      "outcome": "documented_no_change",
+      "summary": "GEO SOFT is byte-identical to the retained copy. The PNAS full text XML is publisher-restricted (efetch returns front matter only); the PMC HTML was re-retrieved (230,747 bytes, same size as the retained copy but a different SHA-256, consistent with page-chrome changes) and re-read. The SCN transcriptome legend gives n = 3 per time point per group, but no statement that each RNA-seq library is one mouse or a disjoint pool; RNA-seq methods are in SI Appendix, which is not in the retrieved HTML. Metabolomics n = 5 and Dixon outlier rules are a separate assay and are not transferred.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE157077/turbo-2026-11-15-design",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": {
+          "datasetId": "mouse_scn_hfd_gse157077",
+          "accession": "GSE157077",
+          "contrasts": [
+            "hfd_vs_chow"
+          ],
+          "proposedStatus": "not_assessed",
+          "unitType": "unresolved",
+          "mappingMethod": "reviewed_mapping",
+          "retainedSampleSupport": "18 chow vs 18 HFD SCN libraries (3 per ZT x 6 ZT per diet)",
+          "sheet": {
+            "path": "geo_replication/datasets/GSE157077_mmus_scn_hfd/metadata/GSE157077_samplesheet.tsv",
+            "sha256": "77c2d39dc95d46e00890d83c0535e1b0a96474a128a23fb6587e7a4b596d3233",
+            "bytes": 881
+          },
+          "sources": [
+            {
+              "path": "data/author-validation/continued-sources/GSE157077/turbo-2026-11-15-design/sources/GSE157077_family.soft.gz",
+              "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE157nnn/GSE157077/soft/GSE157077_family.soft.gz",
+              "sha256": "28cb115fe0cbf773f8881013350acd444612a9f2296438766c08557b7f0043f5",
+              "bytes": 3213,
+              "kind": "geo_soft",
+              "retrieved": "2026-11-15"
+            },
+            {
+              "path": "data/author-validation/continued-sources/GSE157077/turbo-2026-11-15-design/sources/PMC7703625_efetch.xml",
+              "sourceUrl": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=7703625&rettype=full&retmode=xml",
+              "sha256": "2c452d6d80e2b341266c0f1fd773e61fdf273782fafd20cc9f955ce2780c7daa",
+              "bytes": 13361,
+              "kind": "article",
+              "retrieved": "2026-11-15"
+            },
+            {
+              "path": "data/author-validation/continued-sources/GSE157077/turbo-2026-11-15-design/sources/PMC7703625.html",
+              "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7703625/",
+              "sha256": "2b281f92c9920180795f7da3500dd84b4c355c58a65f466c2f38d076b6ee0e8b",
+              "bytes": 230747,
+              "kind": "article",
+              "retrieved": "2026-11-15",
+              "quote": "the transcripts circadian in the SCN in the NC-only, both diets, and HFD-only groups ( n = 3 per time point per group;"
+            }
+          ],
+          "note": "GEO SOFT is byte-identical to the retained copy. The PNAS full text XML is publisher-restricted (efetch returns front matter only); the PMC HTML was re-retrieved (230,747 bytes, same size as the retained copy but a different SHA-256, consistent with page-chrome changes) and re-read. The SCN transcriptome legend gives n = 3 per time point per group, but no statement that each RNA-seq library is one mouse or a disjoint pool; RNA-seq methods are in SI Appendix, which is not in the retrieved HTML. Metabolomics n = 5 and Dixon outlier rules are a separate assay and are not transferred. Limitation: n = 3 per time point is a sample count, not a unit declaration. The registered limma design pools across time points with ZT as a covariate.",
+          "nextStep": "Retrieve PNAS SI Appendix (doi 10.1073/pnas.2016397117) materials and methods for SCN RNA-seq tissue collection (one mouse per library vs pooled punches).",
+          "reviewedAt": "2026-11-15"
+        }
+      },
+      "metrics": {
+        "retainedSamples": "18 chow vs 18 HFD SCN libraries (3 per ZT x 6 ZT per diet)",
+        "proposedStatus": "not_assessed",
+        "unitType": "unresolved",
+        "sourcesRetrieved": 3
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_diabetes_gse329555",
+      "accession": "GSE329555",
+      "outcome": "documented_no_change",
+      "summary": "FTP family SOFT (3,556 bytes) re-read. GEO overall design states 12 hypothalamic samples with Control n=3 and Diabetes n=4 and describes male C57BL/6 mice injected with STZ at postnatal day 2 then HFD; samples carry only library names C1-C3 and DM1-DM4. It never states that each sample is one mouse, nor litter allocation of the neonatal STZ injections. No publication cites GSE329555 in Europe PMC (searched 2026-11-15).",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE329555/turbo-2026-11-15-design",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": {
+          "datasetId": "mouse_hypo_diabetes_gse329555",
+          "accession": "GSE329555",
+          "contrasts": [
+            "diabetic_vs_control"
+          ],
+          "proposedStatus": "not_assessed",
+          "unitType": "unresolved",
+          "mappingMethod": "reviewed_mapping",
+          "retainedSampleSupport": "3 control (C1-C3) vs 4 nSTZ+HFD (DM1-DM4) hypothalami",
+          "sheet": {
+            "path": "geo_replication/datasets/GSE329555_mmus_hypo_diabetes/metadata/GSE329555_samplesheet.tsv",
+            "sha256": "b43ac3f5932ca723dbc2a4a9152eaad333905a4fcd143fb6d9a71a4a212e49da",
+            "bytes": 90
+          },
+          "sources": [
+            {
+              "path": "data/author-validation/continued-sources/GSE329555/turbo-2026-11-15-design/sources/GSE329555_family.soft.gz",
+              "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE329nnn/GSE329555/soft/GSE329555_family.soft.gz",
+              "sha256": "19bb13f9c5e2deebc1000f357ad3d15966b5b05cb349256a63b601b041b89ffc",
+              "bytes": 3556,
+              "kind": "geo_soft",
+              "retrieved": "2026-11-15",
+              "quote": "1) Control (Standard diet, n=3); 2) Diabetes (nSTZ + HFD, n=4)"
+            }
+          ],
+          "note": "FTP family SOFT (3,556 bytes) re-read. GEO overall design states 12 hypothalamic samples with Control n=3 and Diabetes n=4 and describes male C57BL/6 mice injected with STZ at postnatal day 2 then HFD; samples carry only library names C1-C3 and DM1-DM4. It never states that each sample is one mouse, nor litter allocation of the neonatal STZ injections. No publication cites GSE329555 in Europe PMC (searched 2026-11-15). Limitation: Neonatal treatment raises a litter-clustering question that GEO cannot answer. Group n in GEO is a sample count.",
+          "nextStep": "A primary publication or author statement giving one-mouse-per-library and litter assignment for neonatal STZ/control pups.",
+          "reviewedAt": "2026-11-15"
+        }
+      },
+      "metrics": {
+        "retainedSamples": "3 control (C1-C3) vs 4 nSTZ+HFD (DM1-DM4) hypothalami",
+        "proposedStatus": "not_assessed",
+        "unitType": "unresolved",
+        "sourcesRetrieved": 1
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_cox10_gse224780",
+      "accession": "GSE224780",
+      "outcome": "documented_no_change",
+      "summary": "GEO SOFT re-downloaded (4,063 bytes; differs by 5 bytes from the 4,058-byte retained copy, likely a GEO metadata edit; sample titles unchanged). PMC10331581 re-read: hypothalamus is collected 'from all animals' and libraries were sequenced on NextSeq500, but no statement binds the eight hypothalamic libraries to individual mice; 'at least three independent measurements' is a generic statistics sentence.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE224780/turbo-2026-11-15-design",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": {
+          "datasetId": "mouse_hypo_cox10_gse224780",
+          "accession": "GSE224780",
+          "contrasts": [
+            "cox10ko_vs_control"
+          ],
+          "proposedStatus": "not_assessed",
+          "unitType": "unresolved",
+          "mappingMethod": "reviewed_mapping",
+          "retainedSampleSupport": "4 control vs 4 COX10 KO male 200-day hypothalami",
+          "sheet": {
+            "path": "geo_replication/datasets/GSE224780_mmus_hypothalamus_cox10ko/metadata/GSE224780_samplesheet.tsv",
+            "sha256": "a4ffb4e8df69a925b2638e60904c6ddab4cc4d59cfe91234a359e13d88b2be7e",
+            "bytes": 162
+          },
+          "sources": [
+            {
+              "path": "data/author-validation/continued-sources/GSE224780/turbo-2026-11-15-design/sources/GSE224780_family.soft.gz",
+              "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE224nnn/GSE224780/soft/GSE224780_family.soft.gz",
+              "sha256": "adc8ea0636cb33bccd63f3a07705a206a3ef7fc7eb520a1b882f9b86ea657e34",
+              "bytes": 4063,
+              "kind": "geo_soft",
+              "retrieved": "2026-11-15"
+            },
+            {
+              "path": "data/author-validation/continued-sources/GSE224780/turbo-2026-11-15-design/sources/PMC10331581.xml",
+              "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10331581/fullTextXML",
+              "sha256": "a73053edb09093454c49835a9d2af69810a8fbe9d54723cbbf8eef3fb87619fc",
+              "bytes": 278174,
+              "kind": "article",
+              "retrieved": "2026-11-15",
+              "quote": "Calf (gastrocnemius and soleus) muscle, liver, hypothalamus, and plasma were collected from all animals"
+            }
+          ],
+          "note": "GEO SOFT re-downloaded (4,063 bytes; differs by 5 bytes from the 4,058-byte retained copy, likely a GEO metadata edit; sample titles unchanged). PMC10331581 re-read: hypothalamus is collected 'from all animals' and libraries were sequenced on NextSeq500, but no statement binds the eight hypothalamic libraries to individual mice; 'at least three independent measurements' is a generic statistics sentence. Limitation: The GEO SOFT byte change was not diffed against the retained copy (retained copy absent from this checkout).",
+          "nextStep": "EMBO Mol Med expanded view / appendix methods or author confirmation that each hypothalamic library is one mouse.",
+          "reviewedAt": "2026-11-15"
+        }
+      },
+      "metrics": {
+        "retainedSamples": "4 control vs 4 COX10 KO male 200-day hypothalami",
+        "proposedStatus": "not_assessed",
+        "unitType": "unresolved",
+        "sourcesRetrieved": 2
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_pel_gse229838",
+      "accession": "GSE229838",
+      "outcome": "advanced",
+      "summary": "New retained-sample finding: the Figure 2 legend of PMC11127955 states the author RNA-seq DEG heatmap used n = 3 for PEL and n = 2 for Sham, and the preceding text says 'There is a outlier sample in Sham group, so it was not analyzed Fig. S2I'. The registered Explorer contrast retains all three GEO sham libraries. The author-excluded sham library is not identified in the main text (Fig. S2I is in the supplement), so it cannot be matched to a GSM. Separately, the replication unit remains unresolved: the paper says RNA was extracted 'from the mouse hypothalamus, including the SON and PVN', and a...",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE229838/turbo-2026-11-15-design",
+      "proposed": {
+        "manualReview": {
+          "datasetId": "mouse_hypo_pel_gse229838",
+          "entry": {
+            "status": "processed_source_match",
+            "comparisonLevel": "processed_source",
+            "sourceComparison": "manual_structure_match",
+            "auditState": "complete",
+            "summary": "Stalk-lesion processed matrix and day-10 contrast verified",
+            "note": "GEO provides GSE229838_Processed_data_file.txt.gz, and sample annotations map to day-10 stalk-lesion minus sham in the registered orientation. The PMC paper is open, but its accessible supplement does not provide a complete same-contrast author DE table.",
+            "reviewFlags": [
+              "Legacy source has no committed checksum manifest; verification is structural rather than byte-pinned.",
+              "Author Fig. 2 RNA-seq analysis used n = 3 PEL and n = 2 Sham after excluding one unidentified Sham outlier (PMC11127955; Fig. S2I); the registered contrast retains all three Sham libraries."
+            ]
+          },
+          "change": "Adds one reviewFlag; all other fields copied unchanged from the current manual-review.json record."
+        },
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": {
+          "datasetId": "mouse_hypo_pel_gse229838",
+          "accession": "GSE229838",
+          "contrasts": [
+            "pel_vs_sham"
+          ],
+          "proposedStatus": "review",
+          "unitType": "unresolved",
+          "mappingMethod": "reviewed_mapping",
+          "retainedSampleSupport": "3 sham vs 3 PEL day-10 hypothalami retained in the Explorer",
+          "sheet": {
+            "path": "geo_replication/datasets/GSE229838_mmus_hypothalamus_pel/metadata/GSE229838_samplesheet.tsv",
+            "sha256": "3f53386e94e9fa8e84460c857a0fe8935523d84361919d3787db2db7e83313fa",
+            "bytes": 110
+          },
+          "sources": [
+            {
+              "path": "data/author-validation/continued-sources/GSE229838/turbo-2026-11-15-design/sources/GSE229838_family.soft.gz",
+              "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE229nnn/GSE229838/soft/GSE229838_family.soft.gz",
+              "sha256": "db0b6e50fcddd31bd1ba87beff8673d32b09fd9707dc9420b03c3caf39be8dbb",
+              "bytes": 2948,
+              "kind": "geo_soft",
+              "retrieved": "2026-11-15"
+            },
+            {
+              "path": "data/author-validation/continued-sources/GSE229838/turbo-2026-11-15-design/sources/PMC11127955.xml",
+              "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11127955/fullTextXML",
+              "sha256": "c602dc3e7f90614574c5e9c046ad0959b06129198c8cf860437d400337301f18",
+              "bytes": 143276,
+              "kind": "article",
+              "retrieved": "2026-11-15",
+              "quote": "( n = 3 for PEL, n = 2 for Sham, adjusted p -value [p-adj] <0.05)"
+            }
+          ],
+          "note": "New retained-sample finding: the Figure 2 legend of PMC11127955 states the author RNA-seq DEG heatmap used n = 3 for PEL and n = 2 for Sham, and the preceding text says 'There is a outlier sample in Sham group, so it was not analyzed Fig. S2I'. The registered Explorer contrast retains all three GEO sham libraries. The author-excluded sham library is not identified in the main text (Fig. S2I is in the supplement), so it cannot be matched to a GSM. Separately, the replication unit remains unresolved: the paper says RNA was extracted 'from the mouse hypothalamus, including the SON and PVN', and also once refers to 'RNA-seq analysis of hypothalamic cell nuclei', without a one-mouse-per-library statement. Limitation: Which sham library the authors excluded is not established; the Explorer must not drop a library without that identification. The 'cell nuclei' wording is ambiguous (anatomical nuclei vs isolated nuclei).",
+          "nextStep": "Retrieve the supplementary Figure S2I (article supplement for PMC11127955) to identify the excluded sham sample; then decide whether the registered 3 vs 3 contrast needs a documented sensitivity without it. Also obtain a one-mouse-per-library statement.",
+          "reviewedAt": "2026-11-15"
+        }
+      },
+      "metrics": {
+        "retainedSamples": "3 sham vs 3 PEL day-10 hypothalami retained in the Explorer",
+        "proposedStatus": "review",
+        "unitType": "unresolved",
+        "sourcesRetrieved": 2
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_glylow_gse234483",
+      "accession": "GSE234483",
+      "outcome": "documented_no_change",
+      "summary": "GEO SOFT and PMC12626231 are byte-identical to the retained copies. The 'Hypothalamic RNA sequencing' methods describe three cohorts and terminal brain dissection, then 'Libraries were pooled and sequenced' (library multiplexing, not tissue pooling). No sentence binds each library to one mouse; mice were communally caged with diet given per cage, so cage could be the treatment unit, and the acute-cohort cage allocation is not reported.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE234483/turbo-2026-11-15-design",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": {
+          "datasetId": "mouse_hypo_glylow_gse234483",
+          "accession": "GSE234483",
+          "contrasts": [
+            "glylow_vs_control"
+          ],
+          "proposedStatus": "not_assessed",
+          "unitType": "unresolved",
+          "mappingMethod": "reviewed_mapping",
+          "retainedSampleSupport": "5 control vs 4 Gly-Low 4-month 1-week hypothalami",
+          "sheet": {
+            "path": "geo_replication/datasets/GSE234483_mmus_hypo_glylow/metadata/GSE234483_samplesheet.tsv",
+            "sha256": "fa2041c922d64d083f85314299b32b069e1c2b1d1618091fd5e5c3bef8ca2c8d",
+            "bytes": 181
+          },
+          "sources": [
+            {
+              "path": "data/author-validation/continued-sources/GSE234483/turbo-2026-11-15-design/sources/GSE234483_family.soft.gz",
+              "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE234nnn/GSE234483/soft/GSE234483_family.soft.gz",
+              "sha256": "9294c0efb47073deef322290a42f1f55015aeb069e729e406d0a7cfdfb7aadc3",
+              "bytes": 3799,
+              "kind": "geo_soft",
+              "retrieved": "2026-11-15"
+            },
+            {
+              "path": "data/author-validation/continued-sources/GSE234483/turbo-2026-11-15-design/sources/PMC12626231.xml",
+              "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12626231/fullTextXML",
+              "sha256": "84d71fb4730e8c77f309db64f4e6bcfb282bad820f767f480322d77ebebb2981",
+              "bytes": 204235,
+              "kind": "article",
+              "retrieved": "2026-11-15",
+              "quote": "Chow weight of communally caged mice was recorded once weekly"
+            }
+          ],
+          "note": "GEO SOFT and PMC12626231 are byte-identical to the retained copies. The 'Hypothalamic RNA sequencing' methods describe three cohorts and terminal brain dissection, then 'Libraries were pooled and sequenced' (library multiplexing, not tissue pooling). No sentence binds each library to one mouse; mice were communally caged with diet given per cage, so cage could be the treatment unit, and the acute-cohort cage allocation is not reported. Limitation: Cage-level diet delivery means animal independence would still leave a cage-clustering question.",
+          "nextStep": "Author statement of one mouse per library and cage allocation for the 4-month 1-week cohort.",
+          "reviewedAt": "2026-11-15"
+        }
+      },
+      "metrics": {
+        "retainedSamples": "5 control vs 4 Gly-Low 4-month 1-week hypothalami",
+        "proposedStatus": "not_assessed",
+        "unitType": "unresolved",
+        "sourcesRetrieved": 2
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_celastrol_gse252779",
+      "accession": "GSE252779",
+      "outcome": "documented_no_change",
+      "summary": "GEO SOFT is byte-identical to the retained copy. It links PMID 38569472 (Cell Metab 2024, doi 10.1016/j.cmet.2024.02.007), which has no PMC full text. GEO describes random allocation of mice to four arms and per-mouse food rations, which implies mouse-level treatment, but does not state that each of Veh 1-4 / CS 1-4 is one mouse.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE252779/turbo-2026-11-15-design",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": {
+          "datasetId": "mouse_hypo_celastrol_gse252779",
+          "accession": "GSE252779",
+          "contrasts": [
+            "celastrol_vs_vehicle"
+          ],
+          "proposedStatus": "not_assessed",
+          "unitType": "unresolved",
+          "mappingMethod": "reviewed_mapping",
+          "retainedSampleSupport": "4 vehicle vs 4 celastrol DIO hypothalami (pair-fed arms excluded)",
+          "sheet": {
+            "path": "geo_replication/datasets/GSE252779_mmus_hypo_celastrol/metadata/GSE252779_samplesheet.tsv",
+            "sha256": "273e692f52909c3a3d8701a179315142619af7ad7beb5a5bd86642c9b08bc00a",
+            "bytes": 298
+          },
+          "sources": [
+            {
+              "path": "data/author-validation/continued-sources/GSE252779/turbo-2026-11-15-design/sources/GSE252779_family.soft.gz",
+              "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE252nnn/GSE252779/soft/GSE252779_family.soft.gz",
+              "sha256": "6a3ae53327dfe22e3dfcbf4a89eaffb1dbb03bb04668c98944b487a184c34fee",
+              "bytes": 3670,
+              "kind": "geo_soft",
+              "retrieved": "2026-11-15",
+              "quote": "DIO mice were acclimated with DMSO with daily i.p. injections for 1 week and then randomly divided into 4 groups"
+            }
+          ],
+          "note": "GEO SOFT is byte-identical to the retained copy. It links PMID 38569472 (Cell Metab 2024, doi 10.1016/j.cmet.2024.02.007), which has no PMC full text. GEO describes random allocation of mice to four arms and per-mouse food rations, which implies mouse-level treatment, but does not state that each of Veh 1-4 / CS 1-4 is one mouse. Limitation: Mouse-level randomization does not establish one mouse per library.",
+          "nextStep": "Read Cell Metab STAR Methods for doi 10.1016/j.cmet.2024.02.007 (hypothalamic RNA-seq n and unit).",
+          "reviewedAt": "2026-11-15"
+        }
+      },
+      "metrics": {
+        "retainedSamples": "4 vehicle vs 4 celastrol DIO hypothalami (pair-fed arms excluded)",
+        "proposedStatus": "not_assessed",
+        "unitType": "unresolved",
+        "sourcesRetrieved": 1
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_fedfast_gse254155",
+      "accession": "GSE254155",
+      "outcome": "documented_no_change",
+      "summary": "GEO SOFT and PMC13035106 efetch XML are byte-identical to the retained copies (Europe PMC fullTextXML returned HTTP 500). The RNA-seq methods give extraction, library and DESeq2 details only; no per-library animal statement or n for the RNA cohort.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE254155/turbo-2026-11-15-design",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": {
+          "datasetId": "mouse_hypo_fedfast_gse254155",
+          "accession": "GSE254155",
+          "contrasts": [
+            "fast16h_vs_fed"
+          ],
+          "proposedStatus": "not_assessed",
+          "unitType": "animal",
+          "mappingMethod": "reviewed_mapping",
+          "retainedSampleSupport": "10 ad libitum vs 10 16-h fasted wild-type hypothalami",
+          "sheet": {
+            "path": "geo_replication/datasets/GSE254155_mmus_hypothalamus_fedfast/metadata/GSE254155_samplesheet.tsv",
+            "sha256": "cc46d8461e17ef66645e99373553797e897f8272e546c964bd7c1e97c8d431dd",
+            "bytes": 606
+          },
+          "sources": [
+            {
+              "path": "data/author-validation/continued-sources/GSE254155/turbo-2026-11-15-design/sources/GSE254155_family.soft.gz",
+              "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE254nnn/GSE254155/soft/GSE254155_family.soft.gz",
+              "sha256": "d2647c09d9855a1ebbf4b1fd064c2a498dcb2888bb5fc99aa3a5019a1eeae3c9",
+              "bytes": 4026,
+              "kind": "geo_soft",
+              "retrieved": "2026-11-15"
+            },
+            {
+              "path": "data/author-validation/continued-sources/GSE254155/turbo-2026-11-15-design/sources/PMC13035106_efetch.xml",
+              "sourceUrl": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=13035106&rettype=full&retmode=xml",
+              "sha256": "9965fa193a3da940aa092410c5d78a200059f5f0d51307dc139800c6af2c29a7",
+              "bytes": 98196,
+              "kind": "article",
+              "retrieved": "2026-11-15",
+              "quote": "RNA-sequencing was performed from hypothalamic RNA extracts by Novogene."
+            }
+          ],
+          "note": "GEO SOFT and PMC13035106 efetch XML are byte-identical to the retained copies (Europe PMC fullTextXML returned HTTP 500). The RNA-seq methods give extraction, library and DESeq2 details only; no per-library animal statement or n for the RNA cohort. Limitation: Single housing in behavioural assays is not transferred.",
+          "nextStep": "Science/journal supplementary methods or author confirmation of ten individual mice per arm.",
+          "reviewedAt": "2026-11-15"
+        }
+      },
+      "metrics": {
+        "retainedSamples": "10 ad libitum vs 10 16-h fasted wild-type hypothalami",
+        "proposedStatus": "not_assessed",
+        "unitType": "animal",
+        "sourcesRetrieved": 2
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_akkermansia_gse212491",
+      "accession": "GSE212491",
+      "outcome": "documented_no_change",
+      "summary": "GEO SOFT is byte-identical to the retained copy; no primary publication was found (Europe PMC accession and title searches, 2026-11-15). Library titles are hypoABF5-1/-2/-3 (control) and hypoAkkF10-2/-3/-4 (Akkermansia); the water arms are ABW3-1, ABW4-2, ABW4-3 and AkkW7-1/-2/-4. A plausible reading is <cage><number>-<mouse>, which would put each fructose arm in a single cage (F5, F10). This is only a label pattern and is recorded as a concern to check, not as evidence of either independence or confounding.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE212491/turbo-2026-11-15-design",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": {
+          "datasetId": "mouse_hypo_akkermansia_gse212491",
+          "accession": "GSE212491",
+          "contrasts": [
+            "akkermansia_vs_control"
+          ],
+          "proposedStatus": "not_assessed",
+          "unitType": "unresolved",
+          "mappingMethod": "reviewed_mapping",
+          "retainedSampleSupport": "3 fructose-control vs 3 fructose-Akkermansia Drop-seq hypothalamus libraries",
+          "sheet": {
+            "path": "geo_replication/datasets/GSE212491_mmus_hypothalamus_scrna_akkermansia/metadata/GSE212491_samplesheet.tsv",
+            "sha256": "1ee70a2cc3eb77039f9c0fd8bba8767932cefaf769dfaddd36d3a2f3ba0f42b7",
+            "bytes": 394
+          },
+          "sources": [
+            {
+              "path": "data/author-validation/continued-sources/GSE212491/turbo-2026-11-15-design/sources/GSE212491_family.soft.gz",
+              "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE212nnn/GSE212491/soft/GSE212491_family.soft.gz",
+              "sha256": "933dc79b2680fab0c6470b00493dde477b113b52f4eb7dcf036dcb15bf75cae3",
+              "bytes": 3245,
+              "kind": "geo_soft",
+              "retrieved": "2026-11-15"
+            }
+          ],
+          "note": "GEO SOFT is byte-identical to the retained copy; no primary publication was found (Europe PMC accession and title searches, 2026-11-15). Library titles are hypoABF5-1/-2/-3 (control) and hypoAkkF10-2/-3/-4 (Akkermansia); the water arms are ABW3-1, ABW4-2, ABW4-3 and AkkW7-1/-2/-4. A plausible reading is <cage><number>-<mouse>, which would put each fructose arm in a single cage (F5, F10). This is only a label pattern and is recorded as a concern to check, not as evidence of either independence or confounding. Limitation: If the label pattern is cage-mouse, colonisation treatment and cage are fully confounded in the registered contrast (one cage per arm). Not established.",
+          "nextStep": "Primary publication or author table mapping each Drop-seq library to mouse and cage; until then the unit stays unresolved.",
+          "reviewedAt": "2026-11-15"
+        }
+      },
+      "metrics": {
+        "retainedSamples": "3 fructose-control vs 3 fructose-Akkermansia Drop-seq hypothalamus libraries",
+        "proposedStatus": "not_assessed",
+        "unitType": "unresolved",
+        "sourcesRetrieved": 1
+      }
+    },
+    {
+      "datasetId": "mouse_mhypoa_palmitate_gse280030",
+      "accession": "GSE280030",
+      "outcome": "documented_no_change",
+      "summary": "GEO SOFT and PMC11800294 are byte-identical to the retained copies. Methods describe one plating in 24-well plates and 24-h exposures; 'three biological replicates' appears only in the qPCR section. No independent culture initiation, passage or experiment-day assignment is given for the RNA-seq wells.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE280030/turbo-2026-11-15-design",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": {
+          "datasetId": "mouse_mhypoa_palmitate_gse280030",
+          "accession": "GSE280030",
+          "contrasts": [
+            "palmitate_vs_vehicle"
+          ],
+          "proposedStatus": "not_assessed",
+          "unitType": "culture",
+          "mappingMethod": "reviewed_mapping",
+          "retainedSampleSupport": "3 vehicle vs 4 palmitate mHypoA-2/12 cultures",
+          "sheet": {
+            "path": "geo_replication/datasets/GSE280030_mmus_mhypoa_palmitate/metadata/GSE280030_samplesheet.tsv",
+            "bytes": 281,
+            "sha256": "2fc0d5eb610546167208bf89a2385674032b37ffad30bfff141a738ffc1d0f6f"
+          },
+          "sources": [
+            {
+              "path": "data/author-validation/continued-sources/GSE280030/turbo-2026-11-15-design/sources/GSE280030_family.soft.gz",
+              "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE280nnn/GSE280030/soft/GSE280030_family.soft.gz",
+              "sha256": "5ed41fea3583af5d1a2124d757e3b7c361e5bd494697ba0a80ede487d9a8a0b0",
+              "bytes": 3828,
+              "kind": "geo_soft",
+              "retrieved": "2026-11-15"
+            },
+            {
+              "path": "data/author-validation/continued-sources/GSE280030/turbo-2026-11-15-design/sources/PMC11800294.xml",
+              "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11800294/fullTextXML",
+              "sha256": "6db5f1b968ff05e547d38f006511510e659fc7399c60051b91915db3d5d37230",
+              "bytes": 123549,
+              "kind": "article",
+              "retrieved": "2026-11-15",
+              "quote": "the cells were plated in 24-well culture plates at a density of 1.5"
+            }
+          ],
+          "note": "GEO SOFT and PMC11800294 are byte-identical to the retained copies. Methods describe one plating in 24-well plates and 24-h exposures; 'three biological replicates' appears only in the qPCR section. No independent culture initiation, passage or experiment-day assignment is given for the RNA-seq wells. Limitation: Wells from one plating are not independent biological cultures.",
+          "nextStep": "Author statement of independent culture preparations/passages per RNA-seq sample.",
+          "reviewedAt": "2026-11-15"
+        }
+      },
+      "metrics": {
+        "retainedSamples": "3 vehicle vs 4 palmitate mHypoA-2/12 cultures",
+        "proposedStatus": "not_assessed",
+        "unitType": "culture",
+        "sourcesRetrieved": 2
+      }
+    },
+    {
+      "datasetId": "mouse_gt17_mkrn3_gse160467",
+      "accession": "GSE160467",
+      "outcome": "documented_no_change",
+      "summary": "GEO SOFT and PMC8053111 are byte-identical to the retained copies. The only RNA-seq replicate statement is 'three samples each group' (Fig. 4A legend); no statement of independent transfections or experiment days.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE160467/turbo-2026-11-15-design",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": {
+          "datasetId": "mouse_gt17_mkrn3_gse160467",
+          "accession": "GSE160467",
+          "contrasts": [
+            "mkrn3_overexpression_vs_wild_type"
+          ],
+          "proposedStatus": "not_assessed",
+          "unitType": "culture",
+          "mappingMethod": "reviewed_mapping",
+          "retainedSampleSupport": "3 vector vs 3 MKRN3 GT1-7 transfections",
+          "sheet": {
+            "path": "geo_replication/datasets/GSE160467_mmus_gt17_mkrn3/metadata/GSE160467_samplesheet.tsv",
+            "sha256": "61fedae4a6835596a82365b2ea8e51c9ea7bdf8a282048334c3a0fd8c9fad649",
+            "bytes": 243
+          },
+          "sources": [
+            {
+              "path": "data/author-validation/continued-sources/GSE160467/turbo-2026-11-15-design/sources/GSE160467_family.soft.gz",
+              "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE160nnn/GSE160467/soft/GSE160467_family.soft.gz",
+              "sha256": "d32315240fabc3fc04c4c6c83b8d0c7f6ece2ed1066921220db02fd39b45db89",
+              "bytes": 2685,
+              "kind": "geo_soft",
+              "retrieved": "2026-11-15"
+            },
+            {
+              "path": "data/author-validation/continued-sources/GSE160467/turbo-2026-11-15-design/sources/PMC8053111.xml",
+              "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8053111/fullTextXML",
+              "sha256": "9fecbf7be58b9bade3deb7c116533fd0cfd9583e851463bbe3ef3c6393592bb1",
+              "bytes": 163835,
+              "kind": "article",
+              "retrieved": "2026-11-15",
+              "quote": "RNA-seq were performed 48 h later, three samples each group."
+            }
+          ],
+          "note": "GEO SOFT and PMC8053111 are byte-identical to the retained copies. The only RNA-seq replicate statement is 'three samples each group' (Fig. 4A legend); no statement of independent transfections or experiment days. Limitation: Three samples may be wells from one transfection.",
+          "nextStep": "Author confirmation that the three samples per group were independent transfections/experiments.",
+          "reviewedAt": "2026-11-15"
+        }
+      },
+      "metrics": {
+        "retainedSamples": "3 vector vs 3 MKRN3 GT1-7 transfections",
+        "proposedStatus": "not_assessed",
+        "unitType": "culture",
+        "sourcesRetrieved": 2
+      }
+    },
+    {
+      "datasetId": "mouse_mhypoa_cbd_gse270378",
+      "accession": "GSE270378",
+      "outcome": "documented_no_change",
+      "summary": "GEO SOFT and PMC12605594 are byte-identical to the retained copies. Methods give n = 3 per concentration and time and note viability assays used 'separate cell cultures treated at the same time as ones for RNA-Seq', which suggests concurrent wells from one experiment rather than independent repeats; independence is not stated.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE270378/turbo-2026-11-15-design",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": {
+          "datasetId": "mouse_mhypoa_cbd_gse270378",
+          "accession": "GSE270378",
+          "contrasts": [
+            "cbd_3um_24h_vs_vehicle_24h"
+          ],
+          "proposedStatus": "not_assessed",
+          "unitType": "culture",
+          "mappingMethod": "reviewed_mapping",
+          "retainedSampleSupport": "3 vehicle vs 3 CBD 3 uM 24-h mHypoA-2/12 cultures",
+          "sheet": {
+            "path": "geo_replication/datasets/GSE270378_mmus_mhypoa_cbd/metadata/GSE270378_samplesheet.tsv",
+            "sha256": "77161c14ad136e36f374df477637dcd2ead8c4b6ef974e0401b97d0d074e45ca",
+            "bytes": 222
+          },
+          "sources": [
+            {
+              "path": "data/author-validation/continued-sources/GSE270378/turbo-2026-11-15-design/sources/GSE270378_family.soft.gz",
+              "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE270nnn/GSE270378/soft/GSE270378_family.soft.gz",
+              "sha256": "5d66ebc1e25a67dd3b508f80684eb902bf170140cf4f237585681fbe214efa3a",
+              "bytes": 3878,
+              "kind": "geo_soft",
+              "retrieved": "2026-11-15"
+            },
+            {
+              "path": "data/author-validation/continued-sources/GSE270378/turbo-2026-11-15-design/sources/PMC12605594.xml",
+              "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12605594/fullTextXML",
+              "sha256": "2574925370e58976d88ff93b5d9a0fbcfbd4c8576255490b2923f1f8fd1a467a",
+              "bytes": 220217,
+              "kind": "article",
+              "retrieved": "2026-11-15",
+              "quote": "or for 24 h (n = 3 for each concentration)"
+            }
+          ],
+          "note": "GEO SOFT and PMC12605594 are byte-identical to the retained copies. Methods give n = 3 per concentration and time and note viability assays used 'separate cell cultures treated at the same time as ones for RNA-Seq', which suggests concurrent wells from one experiment rather than independent repeats; independence is not stated. Limitation: Concurrent treatment of all wells points to one experimental batch; not a pass basis.",
+          "nextStep": "Author statement on whether the n = 3 RNA-seq samples were independent cultures/passages.",
+          "reviewedAt": "2026-11-15"
+        }
+      },
+      "metrics": {
+        "retainedSamples": "3 vehicle vs 3 CBD 3 uM 24-h mHypoA-2/12 cultures",
+        "proposedStatus": "not_assessed",
+        "unitType": "culture",
+        "sourcesRetrieved": 2
+      }
+    },
+    {
+      "datasetId": "mouse_hypothalamic_cells_mogroside_gse275887",
+      "accession": "GSE275887",
+      "outcome": "documented_no_change",
+      "summary": "GEO SOFT and the MDPI PDF are byte-identical to the retained copies. Methods: cells plated in 24-well plates, n = 3 per concentration, pellets from trypsinized wells; no independent culture or experiment repeats stated.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE275887/turbo-2026-11-15-design",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": {
+          "datasetId": "mouse_hypothalamic_cells_mogroside_gse275887",
+          "accession": "GSE275887",
+          "contrasts": [
+            "mogroside_v_160um_vs_vehicle"
+          ],
+          "proposedStatus": "not_assessed",
+          "unitType": "culture",
+          "mappingMethod": "reviewed_mapping",
+          "retainedSampleSupport": "3 vehicle (NGC) vs 3 mogroside V 160 uM (NG3) mHypoA-2/12 cultures",
+          "sheet": {
+            "path": "geo_replication/datasets/GSE275887_mmus_hypothalamic_cells_mogroside/metadata/GSE275887_samplesheet.tsv",
+            "sha256": "13926b0a2160d7da32632e8731aa58f1554489e0121edff73ee1b40ed5674811",
+            "bytes": 315
+          },
+          "sources": [
+            {
+              "path": "data/author-validation/continued-sources/GSE275887/turbo-2026-11-15-design/sources/GSE275887_family.soft.gz",
+              "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE275nnn/GSE275887/soft/GSE275887_family.soft.gz",
+              "sha256": "cdc133d0093521257ceba086c21cf92d8f69c5161bcd4cab40e8c32659bbb46e",
+              "bytes": 3441,
+              "kind": "geo_soft",
+              "retrieved": "2026-11-15"
+            },
+            {
+              "path": "data/author-validation/continued-sources/GSE275887/turbo-2026-11-15-design/sources/applsci-15-12391.pdf",
+              "sourceUrl": "https://mdpi-res.com/d_attachment/applsci/applsci-15-12391/article_deploy/applsci-15-12391.pdf",
+              "sha256": "883ccd1549537b81c6ab48b2431738dc75836bcd6c8b28199081db724cfab576",
+              "bytes": 3339794,
+              "kind": "article",
+              "retrieved": "2026-11-15",
+              "quote": "for 24 h either in NG or HG DMEM (n = 3 for each concentration)"
+            }
+          ],
+          "note": "GEO SOFT and the MDPI PDF are byte-identical to the retained copies. Methods: cells plated in 24-well plates, n = 3 per concentration, pellets from trypsinized wells; no independent culture or experiment repeats stated. Limitation: Same single-plating structure as GSE280030 (same laboratory).",
+          "nextStep": "Author statement on independent culture preparations.",
+          "reviewedAt": "2026-11-15"
+        }
+      },
+      "metrics": {
+        "retainedSamples": "3 vehicle (NGC) vs 3 mogroside V 160 uM (NG3) mHypoA-2/12 cultures",
+        "proposedStatus": "not_assessed",
+        "unitType": "culture",
+        "sourcesRetrieved": 2
+      }
+    },
+    {
+      "datasetId": "mouse_gt17_alisolb_gse253875",
+      "accession": "GSE253875",
+      "outcome": "documented_no_change",
+      "summary": "GEO SOFT is byte-identical to the retained copy; no publication cites GSE253875 (Europe PMC, 2026-11-15). GEO gives 'three replicates each' and one treatment protocol; nothing distinguishes independent experiments from wells.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE253875/turbo-2026-11-15-design",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": {
+          "datasetId": "mouse_gt17_alisolb_gse253875",
+          "accession": "GSE253875",
+          "contrasts": [
+            "alisol_b_vs_control"
+          ],
+          "proposedStatus": "not_assessed",
+          "unitType": "culture",
+          "mappingMethod": "reviewed_mapping",
+          "retainedSampleSupport": "3 control vs 3 Alisol B GT1-7 cultures",
+          "sheet": {
+            "path": "geo_replication/datasets/GSE253875_mmus_gt17_alisolb/metadata/GSE253875_samplesheet.tsv",
+            "bytes": 530,
+            "sha256": "286d49855b8cf1ec2918dbb5bf13738cbc6ff99e3752df624c23069b3eaed1fc"
+          },
+          "sources": [
+            {
+              "path": "data/author-validation/continued-sources/GSE253875/turbo-2026-11-15-design/sources/GSE253875_family.soft.gz",
+              "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE253nnn/GSE253875/soft/GSE253875_family.soft.gz",
+              "sha256": "6780440bfe24b50a49428ed5c0e265970c6cb6409352c1377c28e9a948acaf2c",
+              "bytes": 2525,
+              "kind": "geo_soft",
+              "retrieved": "2026-11-15",
+              "quote": "the Alisol B intervention group and the control group cells with three replicates each."
+            }
+          ],
+          "note": "GEO SOFT is byte-identical to the retained copy; no publication cites GSE253875 (Europe PMC, 2026-11-15). GEO gives 'three replicates each' and one treatment protocol; nothing distinguishes independent experiments from wells. Limitation: No publication.",
+          "nextStep": "Primary publication or author statement on culture independence.",
+          "reviewedAt": "2026-11-15"
+        }
+      },
+      "metrics": {
+        "retainedSamples": "3 control vs 3 Alisol B GT1-7 cultures",
+        "proposedStatus": "not_assessed",
+        "unitType": "culture",
+        "sourcesRetrieved": 1
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_cp_ins2_gse218188",
+      "accession": "GSE218188",
+      "outcome": "documented_no_change",
+      "summary": "GEO SOFT is byte-identical to the retained copy; the article was re-read from PMC efetch XML (Europe PMC fullTextXML returned HTTP 500; 161,553 bytes, not the retained HTML). GEO titles carry well codes F1-F3, F5, F6 and G1-G5 (rep4 = F5, rep5 = F6; control rep6 = G5), showing non-contiguous numbering but no animal ID. The paper describes bulk hypothalamus RNA-seq 'from mice' without a per-library animal statement or RNA-seq n.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE218188/turbo-2026-11-15-design",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": {
+          "datasetId": "mouse_hypo_cp_ins2_gse218188",
+          "accession": "GSE218188",
+          "contrasts": [
+            "ins2_overexpression_vs_control"
+          ],
+          "proposedStatus": "not_assessed",
+          "unitType": "unresolved",
+          "mappingMethod": "reviewed_mapping",
+          "retainedSampleSupport": "5 control vs 5 CP-Ins2 hypothalami",
+          "sheet": {
+            "path": "geo_replication/datasets/GSE218188_mmus_hypothalamus_cp_ins2/metadata/GSE218188_samplesheet.tsv",
+            "bytes": 1281,
+            "sha256": "5f9e224a3745ffcd7e64906d9c3600f7b168cf42d19689a20fb74315c32598c3"
+          },
+          "sources": [
+            {
+              "path": "data/author-validation/continued-sources/GSE218188/turbo-2026-11-15-design/sources/GSE218188_family.soft.gz",
+              "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE218nnn/GSE218188/soft/GSE218188_family.soft.gz",
+              "sha256": "9b1dde02a12abf7c788aae28c5f3dfafe0cbde7a16ed998d238661f16293405c",
+              "bytes": 4335,
+              "kind": "geo_soft",
+              "retrieved": "2026-11-15"
+            },
+            {
+              "path": "data/author-validation/continued-sources/GSE218188/turbo-2026-11-15-design/sources/PMC10529429_efetch.xml",
+              "sourceUrl": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=10529429&rettype=full&retmode=xml",
+              "sha256": "6fb1aa345e2e51a0753b4c85d66b65fda43a7518149d558f8e8e290e52496107",
+              "bytes": 161553,
+              "kind": "article",
+              "retrieved": "2026-11-15",
+              "quote": "We performed bulk RNA sequencing of hypothalamus from mice 2 months after i.c.v. AAV5-CMV-Ins2 injection."
+            }
+          ],
+          "note": "GEO SOFT is byte-identical to the retained copy; the article was re-read from PMC efetch XML (Europe PMC fullTextXML returned HTTP 500; 161,553 bytes, not the retained HTML). GEO titles carry well codes F1-F3, F5, F6 and G1-G5 (rep4 = F5, rep5 = F6; control rep6 = G5), showing non-contiguous numbering but no animal ID. The paper describes bulk hypothalamus RNA-seq 'from mice' without a per-library animal statement or RNA-seq n. Limitation: Skipped well codes (F4) are unexplained; they are not evidence of exclusion or independence.",
+          "nextStep": "Author table mapping F/G library codes to injected mice.",
+          "reviewedAt": "2026-11-15"
+        }
+      },
+      "metrics": {
+        "retainedSamples": "5 control vs 5 CP-Ins2 hypothalami",
+        "proposedStatus": "not_assessed",
+        "unitType": "unresolved",
+        "sourcesRetrieved": 2
+      }
+    }
+  ]
+}

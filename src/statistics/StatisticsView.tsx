@@ -199,6 +199,17 @@ export function StatisticsView({ onHome }: StatisticsViewProps) {
             Inspect the direction, magnitude and study design behind each result, including disagreements.
           </Callout>
 
+          <Callout tone="warn">
+            <strong>Search and the gene and pathway reports also list nominal results.</strong> They
+            list every track with raw <Mono>p &lt; 0.05</Mono> and label the ones that also pass{' '}
+            <Mono>FDR &lt; 0.05</Mono>. The others are marked <Mono>p &lt; 0.05 only</Mono>: they are
+            not corrected for the thousands of genes or pathways each study tested, nor for the many
+            tracks searched, so a share of them are expected by chance. The significant counts and
+            the pathway follow-up count only the FDR results. Set <Mono>List</Mono> to{' '}
+            <Mono>FDR (q &lt; 0.05)</Mono> on any of these pages to list the FDR results alone; the
+            choice is remembered in this browser.
+          </Callout>
+
           <Callout>
             <strong>The macaque atlas is one study.</strong> Its ~60 cell populations come from the same
             6 animals, 3 Normal and 3 Obese. Separate tracks show cell-type-specific effects.

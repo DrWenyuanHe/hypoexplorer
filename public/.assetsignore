@@ -2,7 +2,8 @@
 # Read by `wrangler deploy` from the assets directory (dist/), which is where
 # Vite copies this file from public/.
 
-# Precompressed sidecars. These exist for Apache/LiteSpeed on Hostinger, which
+# Precompressed sidecars. `deploy:cf` no longer generates them; they exist only if
+# `pnpm run precompress` / `deploy:dist` ran for an Apache upload. Apache/LiteSpeed
 # size-caps on-the-fly compression (see public/.htaccess). Cloudflare compresses
 # at the edge, so uploading these would ship a second, unreachable copy of every
 # asset and burn file-count budget for nothing.

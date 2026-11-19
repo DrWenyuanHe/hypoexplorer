@@ -91,12 +91,14 @@ export function PathwayToolbar({
             pager) rather than leaning on the seam's totalPages === 1. */}
         {pageSize !== 'all' && totalPages > 1 && (
           <>
-            <button type="button" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={safePage === 1}
+            <button type="button" className="pager-step" aria-label="Previous page"
+              onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={safePage === 1}
               style={{ ...btnStyle, padding: '1px 6px' }}>‹</button>
             <span style={{ fontSize: 11, color: 'var(--text-muted)', fontVariantNumeric: 'tabular-nums' }}>
               {safePage} / {totalPages}
             </span>
-            <button type="button" onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={safePage === totalPages}
+            <button type="button" className="pager-step" aria-label="Next page"
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={safePage === totalPages}
               style={{ ...btnStyle, padding: '1px 6px' }}>›</button>
           </>
         )}

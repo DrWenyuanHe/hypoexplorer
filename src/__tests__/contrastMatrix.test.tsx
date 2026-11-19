@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ContrastMatrix } from '../gene-explorer/ContrastMatrix';
 import { makePopData } from './fixtures';
-import { parseDelimitedRows } from '../local-datasets/importData';
+import { csvDownloadTable } from './csvDownload';
 import type { GeneDERecord, ResolvedContrast } from '../types';
 
 // The across-comparisons matrix must read each gene from EACH slice's own DE
@@ -166,9 +166,7 @@ describe('ContrastMatrix — CSV export', () => {
 
     expect(anchors).toHaveLength(1);
     expect(anchors[0].download).toContain('contrast_matrix');
-    const prefix = 'data:text/csv;charset=utf-8,';
-    const csv = decodeURIComponent(anchors[0].getAttribute('href')!.slice(prefix.length));
-    const [header, ...rows] = parseDelimitedRows(csv, ',');
+    const [header, ...rows] = csvDownloadTable(anchors[0].getAttribute('href')!);
 
     // One triple of columns per comparison, labelled by that comparison.
     expect(header.slice(0, 7)).toEqual([
@@ -214,10 +212,8 @@ describe('ContrastMatrix — CSV export', () => {
       vi.restoreAllMocks();
     }
 
-    const prefix = 'data:text/csv;charset=utf-8,';
-    const csv = decodeURIComponent(anchors[0].getAttribute('href')!.slice(prefix.length));
     // Three empty fields for the missing comparison — never a 0, which would
     // read as "measured, no effect".
-    expect(parseDelimitedRows(csv, ',')[1].slice(0, 7)).toEqual(['Sirt2', '-0.1', '0.6', '0.95', '', '', '']);
+    expect(csvDownloadTable(anchors[0].getAttribute('href')!)[1].slice(0, 7)).toEqual(['Sirt2', '-0.1', '0.6', '0.95', '', '', '']);
   });
 });

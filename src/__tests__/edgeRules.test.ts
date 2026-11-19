@@ -6,6 +6,7 @@ import {
   pathAllowed, pathExpression, payloadPath, planPhase, RATELIMIT_PHASE, REF_BURST, REF_METHODS, REF_PATHS,
   REF_SHUTOFF, validateRule, type EdgeRule, type RemoteRuleset,
 } from '../../scripts/lib/edgeRules.mjs';
+import { HYPOMAP_FIXED_FILES, HYPOMAP_PATH_PREFIX, HYPOMAP_TAG, hypomapFileAllowed } from '../../scripts/lib/hypomapAtlas.mjs';
 
 const rules = buildEdgeRules();
 const live = (rule: EdgeRule, extra: Record<string, unknown> = {}) => ({
@@ -53,6 +54,10 @@ describe('checked-in payloads', () => {
   it('uses no regex operator anywhere (unavailable on Free)', () => {
     for (const phase of EDGE_PHASES) for (const rule of rules[phase]) expect(rule.expression).not.toMatch(/\bmatches\b|\s~\s/);
   });
+
+  it('stays within the 4,096-character expression limit', () => {
+    for (const phase of EDGE_PHASES) for (const rule of rules[phase]) expect(rule.expression.length).toBeLessThanOrEqual(4096);
+  });
 });
 
 describe('expressions', () => {
@@ -60,6 +65,32 @@ describe('expressions', () => {
     expect(methodExpression()).toBe('(http.host eq "data.hypoexplorer.com" and not http.request.method in {"GET" "HEAD"})');
     expect(pathExpression()).toMatch(/^\(http\.host eq "data\.hypoexplorer\.com" and \(/);
     expect(burstExpression()).toContain('starts_with(http.request.uri.path, "/qc/")');
+    expect(burstExpression()).toContain(`starts_with(http.request.uri.path, "${HYPOMAP_PATH_PREFIX}")`);
+  });
+
+  it('let through only the pinned HypoMap atlas files', () => {
+    for (const file of [...HYPOMAP_FIXED_FILES, 'genes-0000.json.gz', 'genes-0123.json.gz', 'genes-9999.json.gz']) {
+      expect(hypomapFileAllowed(file), file).toBe(true);
+      expect(pathAllowed(`${HYPOMAP_PATH_PREFIX}${file}`), file).toBe(true);
+    }
+    for (const bad of [
+      '/hypomap/', HYPOMAP_PATH_PREFIX, `${HYPOMAP_PATH_PREFIX}manifest.js`, `${HYPOMAP_PATH_PREFIX}metadata.json`,
+      `${HYPOMAP_PATH_PREFIX}genes-000.json.gz`, `${HYPOMAP_PATH_PREFIX}genes-00000.json.gz`, `${HYPOMAP_PATH_PREFIX}genes-0000.json`,
+      `${HYPOMAP_PATH_PREFIX}other-0000.json.gz`, `${HYPOMAP_PATH_PREFIX}x/manifest.json`, `${HYPOMAP_PATH_PREFIX}genes-0//.json.gz`,
+      '/hypomap/hypomap-atlas-2000-01-01/manifest.json', `/hypomap/${HYPOMAP_TAG}.old/manifest.json`, '/hypomap/manifest.json',
+      `/datasets/${HYPOMAP_TAG}/genes-0000.json.gz`, `${HYPOMAP_PATH_PREFIX}genes-..00.json.gz`,
+    ]) expect(pathAllowed(bad), bad).toBe(false);
+    // The edge rule cannot test for digits (no regex on Free); R2 answers such a key
+    // with a 404, and the uploader's stricter check never stages one.
+    expect(pathAllowed(`${HYPOMAP_PATH_PREFIX}genes-abcd.json.gz`)).toBe(true);
+    expect(hypomapFileAllowed('genes-abcd.json.gz')).toBe(false);
+  });
+
+  it('render the atlas branch with exact fixed paths and the shard path length', () => {
+    const expression = pathExpression();
+    for (const file of HYPOMAP_FIXED_FILES) expect(expression).toContain(`"${HYPOMAP_PATH_PREFIX}${file}"`);
+    expect(expression).toContain(`starts_with(http.request.uri.path, "${HYPOMAP_PATH_PREFIX}genes-")`);
+    expect(expression).toContain(`len(http.request.uri.path) eq ${`${HYPOMAP_PATH_PREFIX}genes-0000.json.gz`.length}`);
   });
 
   it('let every legitimate request shape through', () => {
@@ -78,7 +109,8 @@ describe('expressions', () => {
     for (const bad of [
       '/', '/robots.txt', '/favicon.ico', '/_gate/status', '/datasets/', '/datasets/x/meta.json',
       '/other/x.js', '/datasets/../x.js', '/datasets//x.js', `/datasets/${'a'.repeat(250)}.js`,
-    ]) expect(pathAllowed(bad), bad).toBe(false);
+      '/hypomap/x.js', '/datasets/x/manifest.json', '/query/x.json.gz',
+    ])expect(pathAllowed(bad), bad).toBe(false);
   });
 });
 

@@ -9,15 +9,23 @@
 // and everything else works.
 //
 //   pnpm run fetch:expression
+//   pnpm run fetch:expression gtex          # only the named atlases
 //   HYPOEXPLORER_APP_ORIGIN=https://... pnpm run fetch:expression
+//
+// `pnpm run deploy:cf` runs this (through prepare:deploy) for any atlas that is
+// missing or incomplete, because a deploy without them removes them from the site.
 
 import { mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { ATLAS_DIRS, atlasFiles } from './lib/deployInputs.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const app = (process.env.HYPOEXPLORER_APP_ORIGIN || 'https://hypoexplorer.com').replace(/\/+$/, '');
-const PROVIDERS = ['gtex', 'hpa', 'allen-human'];
+const requested = process.argv.slice(2).filter((arg) => arg !== '--');
+const unknown = requested.filter((dir) => !ATLAS_DIRS.includes(dir));
+if (unknown.length) throw new Error(`Unknown atlas ${unknown.join(', ')}; choose from ${ATLAS_DIRS.join(', ')}`);
+const PROVIDERS = requested.length ? requested : [...ATLAS_DIRS];
 const CONCURRENCY = 16;
 const ATTEMPTS = 3;
 
@@ -54,12 +62,7 @@ function save(relative: string, bytes: Buffer): void {
 for (const provider of PROVIDERS) {
   const manifestBytes = await fetchBytes(`${provider}/manifest.json`);
   const manifest = JSON.parse(manifestBytes.toString('utf8'));
-  const shard = (prefix: string, i: number) => `${prefix}${String(i).padStart(4, '0')}.json`;
-  const files = [
-    manifest.validationPath ? `${provider}/${manifest.validationPath}` : `${provider}/validation.json`,
-    ...Array.from({ length: manifest.lookupShardCount }, (_, i) => `${provider}/lookup/${shard('l', i)}`),
-    ...Array.from({ length: manifest.valueShardCount }, (_, i) => `${provider}/values/${shard('v', i)}`),
-  ];
+  const files = atlasFiles(manifest).map((file) => `${provider}/${file}`);
   let next = 0;
   let bytes = manifestBytes.length;
   await Promise.all(Array.from({ length: CONCURRENCY }, async () => {

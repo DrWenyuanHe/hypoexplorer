@@ -1,0 +1,388 @@
+{
+  "agent": "notloc3",
+  "datasets": [
+    {
+      "datasetId": "rat_vmh_hfd_gse330152",
+      "accession": "GSE330152",
+      "outcome": "advanced",
+      "summary": "GEO now links PMID 42239780 (Research Square preprint, PMC13228855). Its official supplement XLSX Supp Table 7 'Full Dataset' block gives 101 DESeq2 diet DE genes (sex covariate, RUVg W1-W3 + seqbatch, ashr-shrunken LFC, FDR<0.1), HFD minus LFD. Scoped comparison against the unchanged registered limma-on-VST output: 97/101 paired by exact symbol (0.9604), 96/97 directions agree (0.9897; Rgs9 reversed), Pearson 0.323, Spearman 0.322; local padj<0.1 for 1/97 author genes and 1 gene across the full 20,211-gene universe. Selected-gene reference only; inference differs.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE330152/turbo-2026-11-15-notloc3",
+      "proposed": {
+        "manualReview": {
+          "status": "processed_source_match",
+          "comparisonLevel": "processed_source",
+          "sourceComparison": "checksum_match",
+          "auditState": "complete",
+          "summary": "Selected author diet DE genes compared against current registered output",
+          "note": "The official VST matrix and SOFT match the SHA-256 values documented in the dataset README. GEO now links PMID 42239780 (Le et al. 2026, Research Square rs-9695368 v1, PMC13228855). The official preprint supplement XLSX (SHA-256 8a987444ab1c7523afa8731d1a7d02df1b3eb318318496f6302d6030c617f48b) Supp Table 7 'Full Dataset' block lists 101 VMH genes DE by diet with sex as covariate (DESeq2 ~ W1+W2+W3+seqbatch+Sex+Diet+Sex_Diet, RUVg factors, Wald test, ashr-shrunken LFC, BH FDR<0.1); orientation high-fat minus low-fat. 2026-11-15 scoped comparison against the unchanged registered limma-on-VST output (sex covariate, HIGH.FAT minus LOW.FAT): 97/101 author genes pair by exact symbol (LOC100910088, Ccn3, LOC102555037 and Ifitm2 unjoined; none resolved arbitrarily); nonzero direction agreement 96/97 (Rgs9 reversed); Pearson 0.323, Spearman 0.322 within the range-restricted significant-only list; median absolute LFC 0.0624 author versus 0.0627 local. Local padj<0.1 for 1 of 97 author FDR genes and 1 gene in the full 20,211-gene published universe; 53/97 have local raw P<0.05. Female- and male-stratified blocks are not the registered contrast. Selected-gene evidence only; it does not establish full-universe or inferential agreement. Evidence is in continued-sources/GSE330152/turbo-2026-11-15-notloc3/.",
+          "reviewFlags": [
+            "Selected 101-gene FDR<0.1 reference only; the author nonsignificant tail is not available.",
+            "Author DESeq2 with RUVg W1-W3, seqbatch and ashr shrinkage versus registered limma on VST with sex only; 101 versus 1 FDR<0.1 calls."
+          ]
+        },
+        "verificationReview": {
+          "resultAvailability": "partial",
+          "comparisonOutcome": "method_differences",
+          "reason": "2026-11-15: GEO now links PMID 42239780 (PMC13228855). Preprint Supp Table 7 Full Dataset block: 101 selected FDR<0.1 diet genes; 97 paired by exact symbol (coverage 0.9604); nonzero direction agreement 96/97 (0.9897); Pearson 0.323, Spearman 0.322. Author DESeq2 with RUVg factors, seqbatch and ashr shrinkage reports 101 FDR<0.1 genes versus 1 in the registered limma-on-VST output. Selected effects agree in direction; inference and tested coverage remain qualified. Evidence is in continued-sources/GSE330152/turbo-2026-11-15-notloc3/.",
+          "nextStep": "Obtain the complete author DESeq2 diet result (all tested genes) or analysis code with the RUVg control-gene set; reproduce the author model separately if inferential verification is needed. Keep the four unjoined author genes and the 101-versus-1 FDR call difference explicit.",
+          "fullyVerifiedContrasts": []
+        },
+        "comparabilityReview": {
+          "registeredContrastIds": [
+            "hfd_vs_lfd_sex_adjusted"
+          ],
+          "target": "registered_output",
+          "resultScope": "selected_results",
+          "basis": "Registered limma on the deposited VST matrix, sex covariate, high-fat minus low-fat VMH.",
+          "reference": "Research Square rs-9695368 v1 supplement Supp Table 7, Full Dataset block: 101 DESeq2 FDR<0.1 diet genes with ashr-shrunken LFC.",
+          "assessment": "limited",
+          "dimensions": {
+            "cohort": {
+              "status": "limited",
+              "note": "Same GEO VMH cohort with both sexes and both diets; author DE sample count (about 400 sequenced) versus 391 deposited VST columns is not reconciled."
+            },
+            "contrast": {
+              "status": "matched",
+              "note": "Diet main effect with sex covariate; both oriented high-fat minus low-fat."
+            },
+            "features": {
+              "status": "compatible",
+              "note": "97/101 author symbols join exactly; 4 unjoined, none resolved arbitrarily."
+            },
+            "effects": {
+              "status": "limited",
+              "note": "96/97 nonzero directions agree; Pearson 0.323 within the significant-only, ashr-shrunken list."
+            },
+            "inference": {
+              "status": "different",
+              "note": "Author DESeq2 with RUVg W1-W3 and seqbatch reports 101 FDR<0.1 genes; registered limma on VST reports 1."
+            },
+            "coverage": {
+              "status": "limited",
+              "note": "Selected FDR<0.1 genes only; the author nonsignificant tail is not available."
+            }
+          },
+          "criteria": "Direction route evaluated on 97 nonzero pairs covering 0.9604 of the selected reference; correlation reported, not gating. A significant-only list cannot establish full-universe agreement. No full-result acceptance is established.",
+          "conclusion": "Selected author effects agree in direction; inference and tested coverage remain qualified."
+        },
+        "concordanceReview": null,
+        "additionalComparisonSpec": {
+          "datasetId": "rat_vmh_hfd_gse330152",
+          "accession": "GSE330152",
+          "contrast": "hfd_vs_lfd_sex_adjusted",
+          "localPath": "geo_replication/datasets/GSE330152_rnor_vmh_rnaseq/processed/GSE330152_DE.tsv",
+          "localKey": "symbol",
+          "authorPath": "data/author-validation/continued-sources/GSE330152/turbo-2026-11-15-notloc3/author-effects.tsv",
+          "sourceUrl": "https://assets-eu.researchsquare.com/files/rs-9695368/v1/3dd5c4c0742af7e0823e55d1.xlsx",
+          "sha256": "e7a01904c64ad14a1febabe57cdf896c2fc5dd01fd4c9a0a710975d1b0913aac",
+          "format": "tsv",
+          "authorKey": "output_id",
+          "authorEffect": "logFC",
+          "authorAdjustedP": "padj",
+          "orientationSign": 1,
+          "localMethod": "limma on deposited VST, sex covariate",
+          "authorMethod": "DESeq2 v1.24-era with RUVg W1-W3, seqbatch, Sex_Diet; Wald; ashr-shrunken LFC",
+          "orientation": "Both high-fat minus low-fat; author ECM up-regulation on HFD has positive LFC.",
+          "note": "Selected author reference: Supp Table 7 Full Dataset block, 101 FDR<0.1 genes. Selected effects agree in direction; inference and tested coverage remain qualified. Numerical values are recalculated from the unchanged current registered DE table.",
+          "interpretation": "effect_match_inference_differs",
+          "originalReferences": [
+            {
+              "path": "data/author-validation/continued-sources/GSE330152/turbo-2026-11-15-notloc3/ResearchSquare_rs-9695368_v1_supplementary_tables.xlsx",
+              "sourceUrl": "https://assets-eu.researchsquare.com/files/rs-9695368/v1/3dd5c4c0742af7e0823e55d1.xlsx",
+              "sha256": "8a987444ab1c7523afa8731d1a7d02df1b3eb318318496f6302d6030c617f48b",
+              "bytes": 1506176
+            },
+            {
+              "path": "data/author-validation/continued-sources/GSE330152/turbo-2026-11-15-notloc3/compare_supp_table7.cjs",
+              "sourceUrl": "Reproducible original-table extraction and scoped comparison script",
+              "sha256": "309cceb147e167a213ba7e2557253fbcb3ab7681d2ad5e673fc73a1faed2ef77",
+              "bytes": 5833
+            }
+          ],
+          "normalizationScript": "data/author-validation/continued-sources/GSE330152/turbo-2026-11-15-notloc3/compare_supp_table7.cjs",
+          "resultScope": "Selected author reference: Supp Table 7 Full Dataset block (101 FDR<0.1 genes).",
+          "localSnapshot": {
+            "path": "geo_replication/datasets/GSE330152_rnor_vmh_rnaseq/processed/GSE330152_DE.tsv",
+            "sourceUrl": "Registered Explorer DE source; no public author-result claim",
+            "sha256": "d408ab9ae58777ca7f4226f36f5897cb4d6089f778ea2f671142644db5274f2c",
+            "bytes": 1989884
+          }
+        },
+        "experimentalDesign": "Author DE model (PMC13228855 methods): DESeq2 ~ W1+W2+W3+seqbatch+Sex+Diet+Sex_Diet with RUVg factors estimated from genes not associated with sex/diet (LRT adj P>0.1); registered model omits RUV factors and sequencing batch."
+      },
+      "metrics": {
+        "scope": "selected_genes",
+        "referenceRows": 101,
+        "pairedGenes": 97,
+        "coverageOfReference": 0.9604,
+        "pearson": 0.323,
+        "spearman": 0.322,
+        "nonzeroPairs": 97,
+        "sameDirection": 96,
+        "directionalAgreement": 0.9897,
+        "authorFdrBelow0_1": 101,
+        "localPadjBelow0_1AmongAuthorFdrGenes": 1,
+        "localPadjBelow0_1Total": 1,
+        "localUniverse": 20211
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_cp_ins2_gse218188",
+      "accession": "GSE218188",
+      "outcome": "documented_no_change",
+      "summary": "Not located. The methods define DEGs as P<0.05 and log2FC>0.2 (DESeq2 median-of-ratios) and say the DESeq2 statistics fed heatmaps and volcano plots, but no machine-readable gene-statistics table is listed. The normalized-count files are expression inputs. Their headers were inspected in the earlier review; they were not re-parsed here. Sources searched: GEO SOFT and suppl list (two DESeq2 normalized-count tabular files, CP and HT); PMC10529429 full-text XML supplement inventory (single NIHMS supplement PDF) and methods; data-availability text (GEO only). The Europe PMC fullTextXML endpoint returned an HTTP 500 JSON error, so the NCBI efetch XML was used instead.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE218188/turbo-2026-11-15-notloc3",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "human_htnsc_differentiation_gse214877",
+      "accession": "GSE214877",
+      "outcome": "documented_no_change",
+      "summary": "A matching primary preprint was newly identified: bioRxiv 10.1101/2024.05.23.595504 (v2 title: \"Human hypothalamic neural stem cells transplantation ameliorates age-associated dysfunction through SNS/eNAMPT axis activation in aged mice\"). Its data availability statement names GSE214877. The bulk RNA-seq was used to cluster htNSCs with GTEx adult brain regions, and DESeq2 is named for DEG calling. No hPSC-versus-htNSC gene table was found in the main text or the supplemental PDF; the supplement has only reagent and primer tables. The \"Supporting Data Values XLS\" named in the text is not in the bioRxiv supplement listing. Not located. Sources searched: GEO SOFT, PubMed (no indexed article), web search, bioRxiv API, the v2 JATS full text and the v2 supplemental PDF text.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE214877/turbo-2026-11-15-notloc3",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": {
+          "resultAvailability": "not_located",
+          "comparisonOutcome": "not_tested",
+          "reason": "2026-11-15: a matching primary preprint was identified (bioRxiv 10.1101/2024.05.23.595504, v1 2024-05-24, v2 2025-03-05; no journal version per the bioRxiv API). Its data availability names GSE214877, and its bulk RNA-seq is used for GTEx regional clustering, with DESeq2 named for DEG calling. No hPSC-versus-htNSC gene-level table was located in the v2 full text or the 30-page supplemental PDF. This is an evidence gap, not an observed mismatch. Evidence is in continued-sources/GSE214877/turbo-2026-11-15-notloc3/.",
+          "nextStep": "Check a journal version of bioRxiv 2024.05.23.595504 for the Supporting Data Values XLS or a DE supplement; otherwise request the DESeq2 hPSC-versus-htNSC result from the authors.",
+          "fullyVerifiedContrasts": []
+        },
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "rat_rph_noise_stress_gse229159",
+      "accession": "GSE229159",
+      "outcome": "documented_no_change",
+      "summary": "Not located. The only supplementary object is Data_Sheet_1.pdf. No Zenodo, Figshare or code-repository link to a result table. Sources searched: GEO SOFT and suppl list; Europe PMC full-text XML supplement inventory and data-availability statement (GEO GSE229159 only; the only GitHub link is a citation of EnhancedVolcano).",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE229159/turbo-2026-11-15-notloc3",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "mouse_hypo_estrous_cycle_gse131172",
+      "accession": "GSE131172",
+      "outcome": "documented_no_change",
+      "summary": "Not located. Supplement captions describe CIE functional transcription factors (S1), curated transcriptomic alteration signatures (S2) and supplementary text and figures. None is captioned as a hypothalamus estrus-versus-diestrus gene-statistics table. Sources searched: GEO SOFT and suppl list; Europe PMC full-text XML supplement captions; data availability (GEO only).",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE131172/turbo-2026-11-15-notloc3",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "human_hypo_neuron_mkrn3_gse208722",
+      "accession": "GSE208722",
+      "outcome": "documented_no_change",
+      "summary": "Not located. The supplement inventory is unchanged (three objects, all previously inspected: proteomics, CompPASS interactors, methods PDF). No RNA-seq DE table and no data-repository link. Sources searched: GEO SOFT; Europe PMC full-text XML supplement inventory, re-confirmed as the same three objects the 2026-09-05 review retrieved and inspected.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE208722/turbo-2026-11-15-notloc3",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "pig_hypo_low_growth_gse324226",
+      "accession": "GSE324226",
+      "outcome": "documented_no_change",
+      "summary": "Not located. No matching manuscript or preprint was identified. The deposited workbooks remain expression matrices (previously audited). Sources searched: GEO SOFT (still no linked PubMed ID; public 2026-03-12); PubMed title/keyword search; PubMed author search Ferreres-Serafini L[Author] (3 hits: 43027273, 38807503, 36766416; 43027273 is a VH-binding-protein diarrhoea trial, not this study); web search for the GEO title phrase \"low intake syndrome\".",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE324226/turbo-2026-11-15-notloc3",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "gse317867",
+      "accession": "GSE317867",
+      "outcome": "blocked",
+      "summary": "Access blocked: GEO now reports that GSE317867 is private, scheduled for release on 2027-07-01, and asks reviewers for a secure token. No author result table could be searched in the deposit. The earlier retained metadata and processed-file listings remain the only local source record. No publication was searched beyond what the earlier review recorded. Sources searched: GEO accession query (text and HTML).",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE317867/turbo-2026-11-15-notloc3",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": {
+          "resultAvailability": "access_blocked",
+          "comparisonOutcome": "not_tested",
+          "reason": "2026-11-15: the GEO accession page reports GSE317867 as currently private, scheduled for release on 2027-07-01; the public deposit and any author-result files cannot be inspected. The earlier bounded review found no comparable author coefficient table or linked paper. This is an access limitation, not an observed mismatch. Evidence is in continued-sources/GSE317867/turbo-2026-11-15-notloc3/.",
+          "nextStep": "Re-query GEO after the scheduled 2027-07-01 release or when a linked publication appears; separately confirm the provenance of the retained processed inputs now that the accession is private.",
+          "fullyVerifiedContrasts": []
+        },
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "emtab15488",
+      "accession": "E-MTAB-15488",
+      "outcome": "documented_no_change",
+      "summary": "Not located. BioStudies still has no publication title, DOI or PubMed ID, and PubMed returned no matching article. Sources searched: BioStudies API study JSON (publication attributes); PubMed keyword search (Opa1, intestinal epithelium, colitis, brain regions, DSS, hypothalamus: 0 hits).",
+      "evidenceFolder": "data/author-validation/continued-sources/E-MTAB-15488/turbo-2026-11-15-notloc3",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "emtab15489",
+      "accession": "E-MTAB-15489",
+      "outcome": "documented_no_change",
+      "summary": "Not located. No linked publication. Sources searched: BioStudies API study JSON (publication attributes); PubMed keyword search shared with E-MTAB-15488 (0 hits).",
+      "evidenceFolder": "data/author-validation/continued-sources/E-MTAB-15489/turbo-2026-11-15-notloc3",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "gse337822",
+      "accession": "GSE337822",
+      "outcome": "documented_no_change",
+      "summary": "Not located. No matching 2026 publication or preprint was found. Sources searched: GEO SOFT (no pubmed ID); PubMed: keyword query (preoptic, isoflurane, sleep, snRNA-seq, Kelz: 0 hits) and Kelz MB[Author] with anesthesia and preoptic (6 hits, all 2013-2021 and predating the deposit); web search for the GEO title.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE337822/turbo-2026-11-15-notloc3",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "gse314184",
+      "accession": "GSE314184",
+      "outcome": "documented_no_change",
+      "summary": "Not located for the registered contrasts. The repository HEAD is the same commit the 2026-09-11 review inspected. The paper reports pseudobulk DESeq2 for infanticidal versus allopaternal males within neuron subsets and MPOA clusters (Extended Data Figs 6-7 volcano plots only). That is a different contrast and cell scope from the registered whole-MPOA comparisons, and no machine-readable table exists. No change from the earlier review. Sources searched: GEO SOFT; Europe PMC full text and supplementary inventory; Supplementary Information PDF text; author GitHub repository tree (HEAD unchanged at 521ac9ae); data availability (GEO; behavioral data on Figshare 10.6084/m9.figshare.28635458).",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE314184/turbo-2026-11-15-notloc3",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "gse113576",
+      "accession": "GSE113576",
+      "outcome": "documented_no_change",
+      "summary": "Not located. No change: the deposit holds only count-matrix inputs, and no whole-preoptic all-cell male-versus-female table is known. Sources searched: GEO SOFT and suppl list (10x matrix files only). The primary article (Science) supplement recovery was not re-attempted this session; the earlier review retained the XML and object inventory.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE113576/turbo-2026-11-15-notloc3",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "gse308884",
+      "accession": "GSE308884",
+      "outcome": "documented_no_change",
+      "summary": "Not located. The matching preprint (already recovered earlier) still has one version and no journal publication. No new machine-readable gene-effect table was found. Sources searched: GEO SOFT (no pubmed ID); PubMed keyword search for TN-783/NLRP3 hypothalamic inflammation DIO (5 hits; 42922818 is an RGS10/NLRP3 preprint and 41242536 a VTX3232 paper, both unrelated to TN-783); web search; bioRxiv API version and publication status.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE308884/turbo-2026-11-15-notloc3",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "rat_son_salt_gse65663",
+      "accession": "GSE65663",
+      "outcome": "documented_no_change",
+      "summary": "Not located. Neither route this session exposed a supplement inventory, so no new author table was found. The full-text supplement listing could not be re-inspected, which is a partial access limitation. Sources searched: GEO SOFT and suppl list (RAW.tar CEL files only); Europe PMC fullTextXML (HTTP 500 JSON error, not data); NCBI PMC efetch (front-matter-only record, no supplement list).",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE65663/turbo-2026-11-15-notloc3",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "mouse_hypo_puberty_emtab12340",
+      "accession": "E-MTAB-12340",
+      "outcome": "advanced",
+      "summary": "Author hypothalamus DE results were located but are not comparable to the registered contrast. 2026-11-15: the dedicated hypothalamus paper was identified as Sokolowski et al. 2024, Biol Sex Differ 15:83 (PMID 39449090, PMC11515584). Its data availability names E-MTAB-12340, a Zenodo Shiny app (10.5281/zenodo.10899706) and Figshare code/data (10.6084/m9.figshare.25517503). Author DE (DESeq2, FDR<0.05 and |FC|>=1.5) compares sexes at each age and, within sex, consecutive ages 12-22, 22-27, 27-32 and 32-37. The author Shiny repository wilsonlabgroup/hypothalamus_gene_shiny (commit 9b05a52) holds hypo_utr_2021_de_result_list_2022-10-19.rds with 17 comparisons, including female d22_F, d27_F, d32_F, d37_F, d32_22F and d37_27F. None is a female PD37-versus-PD22 comparison. Its logCPM, F and PValue columns are constant 1 (placeholders), so only logFC and FDR are informative. The registered f... Sources searched: PubMed author/topic search (found PMID 39449090); Europe PMC full text of PMC11515584 (methods, data availability, 8 supplementary objects); MOESM7 and MOESM8 XLSX contents; Figshare article 25517503 file listing (one 2,030,349,667-byte tar.gz, md5 d81ed70e1be4e9006eb0c7fbb03a86c5; not downloaded because of size); GitHub org wilsonlabgroup repository list; hypothalamus_gene_shiny tree and DE RDS contents.",
+      "evidenceFolder": "data/author-validation/continued-sources/E-MTAB-12340/turbo-2026-11-15-notloc3",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": {
+          "resultAvailability": "available",
+          "comparisonOutcome": "not_comparable",
+          "reason": "2026-11-15: the dedicated hypothalamus paper was identified as Sokolowski et al. 2024, Biol Sex Differ 15:83 (PMID 39449090, PMC11515584). Its data availability names E-MTAB-12340, a Zenodo Shiny app (10.5281/zenodo.10899706) and Figshare code/data (10.6084/m9.figshare.25517503). Author DE (DESeq2, FDR<0.05 and |FC|>=1.5) compares sexes at each age and, within sex, consecutive ages 12-22, 22-27, 27-32 and 32-37. The author Shiny repository wilsonlabgroup/hypothalamus_gene_shiny (commit 9b05a52) holds hypo_utr_2021_de_result_list_2022-10-19.rds with 17 comparisons, including female d22_F, d27_F, d32_F, d37_F, d32_22F and d37_27F. None is a female PD37-versus-PD22 comparison. Its logCPM, F and PValue columns are constant 1 (placeholders), so only logFC and FDR are informative. The registered female P37-versus-P22 track therefore has no same-contrast author table; combining consecutive contrasts would be a derived reconstruction and was not done. Evidence is in continued-sources/E-MTAB-12340/turbo-2026-11-15-notloc3/.",
+          "nextStep": "Inspect the Figshare 10.6084/m9.figshare.25517503 archive (2.0 GB) or the Zenodo app snapshot for a female PD37-versus-PD22 result or full DESeq2 outputs; otherwise record a scoped comparison against the nearest author contrasts, labelled as non-registered.",
+          "fullyVerifiedContrasts": []
+        },
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    }
+  ]
+}

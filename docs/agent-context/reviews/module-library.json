@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-library",
-  "fingerprint": "739caa1d22cb0ef43acba90cb8b757a37dcae9059abaf4d4fa19996e0af6fdd6",
-  "outcome": "no-impact",
-  "explanation": "React 19 types: LibraryPopover's anchorRef accepts RefObject<HTMLElement | null>, which useRef(null) now returns, and the ResultBars close timer ref starts as undefined explicitly. Library rendering and popover placement are unchanged.",
+  "fingerprint": "f0772e21a805cb0c8a44d66947fa8212ce382c130108f530801ac4a110150252",
+  "outcome": "updated",
+  "explanation": "DatasetLibrary starts on the cards layout at phone width (600px and under), where the table showed only a truncated study column; desktop and tablet keep the table-first default and the layout toggle is unchanged.",
   "references": [
-    "src/library/LibraryPopover.tsx",
-    "src/library/ResultBars.tsx",
-    "src/library/LibraryToolbar.tsx"
+    "src/library/DatasetLibrary.tsx",
+    "docs/agent-context/workflows.md"
   ]
 }

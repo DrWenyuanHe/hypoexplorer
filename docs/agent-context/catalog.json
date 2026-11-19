@@ -8,9 +8,9 @@
     "data": "Analysis inputs, retained evidence and reviewed assessments",
     "geo_replication": "Tracked study inputs and analysis outputs",
     "workers": "Scheduled R2 spend guard for the data origin",
+    "services": "Loopback HypoMap co-detection service behind the gated co-expression card",
     "cloudflare": "Edge cache, WAF and rate-limit rule payloads for the data host",
-    "docs": "Data contracts, runbooks and maintained context",
-    "vendor": "Pinned Claude SEO toolkit snapshot behind the project-local SEO skills"
+    "docs": "Data contracts, runbooks and maintained context"
   },
   "modules": {
     "__tests__": {
@@ -110,6 +110,7 @@
       "references": [
         "src/expression-survey/ExpressionSurveyView.tsx",
         "src/expression-survey/expressionData.ts",
+        "src/expression-survey/sourceJson.ts",
         "docs/EXPRESSION_SURVEY.md",
         "src/expression-survey/expressionIndex.ts",
         "data/expression/existing/README.md",
@@ -140,14 +141,6 @@
         "src/library/libraryFilters.ts"
       ]
     },
-    "local-datasets": {
-      "summary": "On-device result import, storage and exploration",
-      "references": [
-        "src/local-datasets/LocalDatasetsView.tsx",
-        "src/local-datasets/ImportPanel.tsx",
-        "docs/LOCAL_DATASETS.md"
-      ]
-    },
     "methodology": {
       "summary": "Methodology reference page for the collection",
       "references": [
@@ -169,10 +162,10 @@
       ]
     },
     "pwa": {
-      "summary": "Service-worker updates and version handling",
+      "summary": "Version-stamp update prompt and the opt-in service worker",
       "references": [
-        "src/pwa/registerUpdates.ts",
-        "src/pwa/versionWatch.ts"
+        "src/pwa/versionWatch.ts",
+        "src/pwa/registerUpdates.ts"
       ]
     },
     "qc": {
@@ -183,19 +176,21 @@
       ]
     },
     "search": {
-      "summary": "Unified gene and pathway search, synonym dictionary and results portal",
+      "summary": "Unified gene and pathway search, synonym dictionary, results portal and gated HypoMap atlas views",
       "references": [
         "src/search/searchTypes.ts",
         "src/search/searchVocabulary.ts",
         "src/search/searchSummaries.ts",
-        "src/search/SearchPage.tsx"
+        "src/search/SearchPage.tsx",
+        "src/search/hypomap/atlas.ts"
       ]
     },
     "statistics": {
-      "summary": "Statistical definitions and interpretation limits",
+      "summary": "Statistical definitions, interpretation limits and the shared FDR / p < 0.05 listing toggle",
       "references": [
         "src/statistics/StatisticsView.tsx",
-        "src/statistics/policy.ts"
+        "src/statistics/policy.ts",
+        "src/statistics/listingModeStore.ts"
       ]
     },
     "styles": {
@@ -301,8 +296,7 @@
     "statistics": "statistics",
     "methodology": "methodology",
     "verification": "verification",
-    "nomenclature": "nomenclature",
-    "local-datasets": "local-datasets"
+    "nomenclature": "nomenclature"
   },
   "tabs": {
     "gene": "gene-explorer",
@@ -370,16 +364,6 @@
         "docs/REFACTOR_CHECKLIST.md"
       ]
     },
-    "local-import": {
-      "summary": "Change local result imports",
-      "runbook": "docs/LOCAL_DATASETS.md",
-      "modules": [
-        "local-datasets"
-      ],
-      "sources": [
-        "docs/LOCAL_DATASETS.md"
-      ]
-    },
     "delivery": {
       "summary": "Build and verify site delivery",
       "runbook": "docs/agent-context/delivery.md",
@@ -410,7 +394,16 @@
         "scripts/verify_edge.mts",
         "scripts/lib/edgeRules.mts",
         "scripts/lib/edgePurge.mts",
-        "scripts/lib/cloudflareApi.mts"
+        "scripts/lib/cloudflareApi.mts",
+        "scripts/prepare_deploy.mts",
+        "scripts/lib/deployInputs.mts",
+        "scripts/verify_release.mts",
+        "scripts/fetch_query_catalog.mts",
+        "scripts/fetch_expression_references.mts",
+        "scripts/fetch_data.mts",
+        "scripts/lib/publicDataRelease.mts",
+        "docs/DEVELOPMENT.md",
+        ".github/workflows/application.yml"
       ]
     }
   }

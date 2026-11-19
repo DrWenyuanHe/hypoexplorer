@@ -50,6 +50,9 @@ export function objectMetadata(key: string): R2HttpMetadata {
     '.js': 'application/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8',
     '.csv': 'text/csv; charset=utf-8', '.txt': 'text/plain; charset=utf-8',
     '.map': 'application/json; charset=utf-8', '.pdf': 'application/pdf',
+    // HypoMap .json.gz: gzip bytes with no Content-Encoding, so neither the edge
+    // nor the browser decodes them before the app checks their SHA-256.
+    '.gz': 'application/gzip',
   };
   return {
     contentType: types[extension] ?? 'application/octet-stream',

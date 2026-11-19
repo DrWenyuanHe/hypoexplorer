@@ -16,7 +16,8 @@ pnpm dev
 ```
 
 - `fetch:query` downloads the query and tracker catalogs the app is built against.
-  The dev server, the build and the tests all need them.
+  The dev server and the build need them: `vite` and `vite build` stop without
+  `public/query/tracks.js`.
 - `fetch:expression` downloads the GTEx, HPA and Allen reference atlases (about
   230 MB) for the Expression survey. Without them, those three collections show as
   unavailable. The unit tests need them.
@@ -39,7 +40,10 @@ query index in a few requests, not by downloading every study.
 
 The [hypoexplorer-data](https://github.com/DrWenyuanHe/hypoexplorer-data)
 releases carry the same dataset bundles and QC reports, so you can
-run the app entirely from your own checkout:
+run the app entirely from your own checkout. The repository is private until
+publication: `pnpm run fetch:data` downloads through the GitHub API with your
+`gh auth login` session or a `GH_TOKEN`, and an account without access gets a
+404.
 
 ```bash
 pnpm install
@@ -61,6 +65,12 @@ pnpm run dev:offline    # http://localhost:5173, reading public/ only
 - **Macaque per-animal values are not included.** The macaque bundles keep their
   DE and FGSEA results but not the per-animal normalized CPM, so that study's
   sample-level plots and exports are empty.
+- **Never publish these bundles.** `fetch:data` writes
+  `public/datasets/.public-data-release.json` beside them, and
+  `pnpm run upload:bundles` refuses to upload while it finds that marker,
+  `KEGG_NOT_INCLUDED.md`, an emptied macaque CPM or a corpus whose KEGG collections
+  are all empty: uploading them would replace the full production bundles on R2.
+  `--allow-reduced-bundles` overrides the check.
 - The Dataset Tracker page is not available offline; its catalog is not in the
   release.
 - The GTEx, HPA and Allen reference atlases are third-party data and are not in
@@ -69,17 +79,46 @@ pnpm run dev:offline    # http://localhost:5173, reading public/ only
 
 ## Commands that work from a fresh clone
 
+These run after `pnpm install`. Those marked * also need `pnpm run fetch:query`
+first, and `pnpm test` needs `pnpm run fetch:expression` as well.
+
 | Command | What it does |
 |---|---|
-| `pnpm dev` | Dev server on http://localhost:5173 |
-| `pnpm run build` | Production build in `dist/`, plus the static study and guide pages |
-| `pnpm run verify:release` | Checks the built release metadata, bootstrap script, guide pages and citation version |
-| `pnpm test` | Vitest unit and component tests |
+| `pnpm dev` * | Dev server on http://localhost:5173 |
+| `pnpm run build` * | Production build in `dist/`, plus the static study and guide pages. It runs `vite build` only; the scientific checks are separate commands |
+| `pnpm run verify:release` | Checks the built release metadata, bootstrap script, guide pages, citation version, reference atlases and tracker catalog (run `prepare:deploy` and `build` first) |
+| `pnpm test` * | Vitest unit and component tests |
 | `pnpm run test:smoke` | Playwright smoke tests on the built site (run `build` first; install Chromium with `pnpm exec playwright install chromium`) |
 | `pnpm run lint` | Biome lint |
 | `pnpm run typecheck` | TypeScript for the app, the scripts and the spend-guard Worker |
 | `pnpm run test:context` | Tests for the agent-context tooling |
-| `pnpm run deadcode` | knip |
+| `pnpm run context:check` | Checks the agent-context maps, links and reviews against the sources ([maintenance](agent-context/README.md)) |
+| `pnpm run check:public-safety` | Checks every tracked file for credentials, personal information and missing third-party notices |
+| `pnpm run deadcode` | knip: unused files, dependencies and exports in `src/` (run `fetch:query` first on a fresh checkout) |
+| `pnpm run prepare:deploy` | Fetches whatever the production build ships but the repository does not carry (below) |
+
+## Deploying
+
+Deploys are manual. `pnpm run deploy:cf` needs `.env.cfdeploy` with the Cloudflare
+credentials, and runs:
+
+1. `prepare:deploy` (`scripts/prepare_deploy.mts`). It fetches the inputs a
+   production build ships but this repository does not carry: the query catalog
+   from the data origin, the tracker catalog from hypoexplorer.com, and any GTEx,
+   HPA or Allen atlas under `public/expression/` that is missing or incomplete.
+   Complete local atlases are kept. If the local `public/query/` pointers differ
+   from the data origin's, it stops: the deployed app would pin an index R2 does
+   not serve. Upload the index first, or pass `--refresh-query` to take the origin's.
+2. `build`. The brotli/gzip sidecars from `precompress` are only for an Apache
+   host (`pnpm run deploy:dist` = `build` + `precompress`); Cloudflare compresses
+   at the edge and the upload skips them.
+3. `verify:release`, which fails if `dist/` lacks an atlas file or the tracker
+   catalog, because deploying without them removes them from the live site.
+4. `wrangler deploy`, then `verify:deploy` against https://hypoexplorer.com.
+
+`pnpm run deploy:cf:dry` runs steps 1 to 3 and `wrangler deploy --dry-run`.
+Uploading dataset bundles to R2 (`pnpm run upload:bundles`) is a separate step;
+see the [delivery runbook](agent-context/delivery.md).
 
 Commands that rebuild bundles, replay evidence or compare against the authors'
 results (most `build:*` and `check:*` data commands) need raw inputs that are not
@@ -92,10 +131,11 @@ Every pull request to `main` must pass these checks:
 
 | Check | Workflow | Runs |
 |---|---|---|
-| Lint and typecheck | `application.yml` | `lint`, `typecheck`, `test:context` |
+| Lint and typecheck | `application.yml` | `lint`, `typecheck`, `deadcode`, `test:context`, `context:check` |
 | Unit tests | `application.yml` | `pnpm test` with the fetched catalogs and atlases |
-| Build and browser smoke | `application.yml` | `build`, `verify:release`, `test:smoke` against R2 |
-| CodeQL (actions, javascript-typescript, python) | `security.yml` | Code scanning; `vendor/` is ignored |
+| Build and browser smoke | `application.yml` | `prepare:deploy`, `build`, `verify:release`, `test:smoke` against R2 |
+| Public safety | `public-safety.yml` | `check:public-safety` over every tracked file |
+| CodeQL (actions, javascript-typescript, python) | `security.yml` | Code scanning |
 | Dependency review | `security.yml` | Fails on a new dependency with a high or critical advisory |
 
 ## Where things are
@@ -109,20 +149,17 @@ Every pull request to `main` must pass these checks:
 | `src/expression-survey/`, `src/circadian/` | Baseline expression and rhythm views |
 | `src/verification/`, `src/qc/` | Evidence badges, verification records and QC tables |
 | `src/nomenclature/`, `src/search/` | Symbol authority reference and unified search |
-| `src/local-datasets/` | Importing your own results into the browser |
 | `src/data/` | The dataset registry, bundle loading and the query index client |
 | `scripts/` | Bundle builders, static page generation, deploy and verification tools |
 | `workers/`, `cloudflare/` | The R2 spend guard and the edge cache and WAF rules |
 | `geo_replication/` | GEO reanalysis configuration and pipeline scripts |
 | `brand/` | Logo masters, exports and the Manrope font (OFL) |
-| `vendor/` | A pinned SEO toolkit snapshot used by the project-local skills |
 
 ## Further reading
 
 - [CONTEXT.md](../CONTEXT.md): domain vocabulary (dataset, track, group, contrast). Read it before changing the data layer.
 - [DATASET_CONTRACT.md](DATASET_CONTRACT.md): the data shapes a dataset bundle must provide.
 - [REAL_DATA_SHAPES.md](REAL_DATA_SHAPES.md): quirks of the upstream tables the builders handle.
-- [LOCAL_DATASETS.md](LOCAL_DATASETS.md): importing and exporting results stored in the browser.
 - [EXPRESSION_SURVEY.md](EXPRESSION_SURVEY.md): survey sources, scales and eligibility.
 - [AGENT_EXPORT.md](AGENT_EXPORT.md): the full analysis-table export.
 - [SEO.md](SEO.md): static study pages and source attribution.

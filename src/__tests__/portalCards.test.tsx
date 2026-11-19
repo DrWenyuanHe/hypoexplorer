@@ -4,7 +4,7 @@ import { render, screen, fireEvent, waitFor, within } from '@testing-library/rea
 
 import { BaselineSection, ConditionPathwaysSection, GeneExpressionCards, ReferenceAtlasSection } from '../search/portalCards';
 import { resetSearchSummaries } from '../search/searchSummaries';
-import { resetExternalRequests } from '../expression-survey/externalReference';
+import { resetSourceRequests } from '../expression-survey/sourceJson';
 import { getDataset } from '../data/datasets';
 import { getActiveContrast } from '../data/contrasts';
 import { geneRow } from '../data/crossDatasetRows';
@@ -111,6 +111,11 @@ vi.mock('../search/searchSummaries', async (original) => ({
   ...await original<typeof import('../search/searchSummaries')>(),
   loadBaselineTeaser: mocks.loadBaselineTeaser,
 }));
+// The HypoMap export is not checked in; these tests cover where its preview sits, not its data.
+vi.mock('../search/hypomap/atlas', async (original) => ({
+  ...await original<typeof import('../search/hypomap/atlas')>(),
+  loadAtlasGene: async () => ({ state: 'missing' }) as const,
+}));
 
 beforeEach(() => {
   resetSearchSummaries();
@@ -119,10 +124,10 @@ beforeEach(() => {
   mocks.loadQueryManifest.mockResolvedValue(indexManifest());
   mocks.loadTrackPathways.mockImplementation((_d: Dataset[], _m: QueryManifest, i: number) => Promise.resolve(TRACK_PATHWAYS[i] ?? null));
   mocks.loadBaselineTeaser.mockResolvedValue({
-    status: 'available', gene: 'Oxt', description: 'oxytocin', populationCount: 15, max: 9000,
-    populations: [
-      { id: 'HY.PVH_glu_Oxytocin-GFP', label: 'PVH oxytocin', region: 'PVH', meanTpm: 9000, libraries: 4 },
-      { id: 'HY.SO_glu_AVP.QZ20', label: 'SO AVP', region: 'SO', meanTpm: 1200, libraries: 3 },
+    status: 'available', gene: 'Oxt', populationCount: 15, max: 9000,
+    groups: [
+      { id: 'Oxytocin-GFP_PVH', populationId: 'HY.PVH_glu_Oxytocin-GFP', label: 'PVH oxytocin', group: null, region: 'PVH', meanTpm: 9000, libraries: 4 },
+      { id: 'AVP.QZ20.Ai_sup', populationId: 'HY.SO_glu_AVP.QZ20', label: 'SO AVP', group: 'AVP.QZ20.Ai_sup', region: 'SO', meanTpm: 1200, libraries: 2 },
     ],
   });
 });
@@ -226,7 +231,7 @@ describe('ConditionPathwaysSection', () => {
         [OBESE, '+0.70', 'no-analysis'],
         [HFD, '+0.40', 'read'],
       ]);
-    expect(heads[0].title).toMatch(new RegExp(`^${MACAQUE.name.replace(/[()]/g, '\\$&')} · SON cells: Obese vs Normal\\. OXT log2FC -0\\.90, q .+\\. 2 pathways\\.$`));
+    expect(heads[0].title).toMatch(new RegExp(`^${MACAQUE.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} · SON cells: Obese vs Normal\\. OXT log2FC -0\\.90, q .+\\. 2 pathways\\.$`));
     expect(heads[2].title).toMatch(/· ARC cells: Obese vs Normal\. OXT log2FC \+0\.70, q .+\. no pathway analysis\.$/);
     expect(heads[3].title).toContain(`${MOUSE.name} · whole cells`);
     // The first up column is marked so the groups stand apart.
@@ -424,14 +429,17 @@ describe('ConditionPathwaysSection', () => {
 // ── Baseline expression ─────────────────────────────────────────────────────
 
 describe('BaselineSection', () => {
-  it('shows the highest populations', async () => {
+  it('shows the highest source groups, naming the group of a multi-group population', async () => {
     render(<BaselineSection symbol="OXT" />);
     const card = document.querySelector('[data-section="baseline-expression"]') as HTMLElement;
     expect(within(card).getByRole('status').textContent).toMatch(/Loading population expression/);
     expect(await within(card).findByText('PVH oxytocin')).toBeTruthy();
     expect(within(card).getByText('9000')).toBeTruthy();
     expect(within(card).getByText('SO AVP')).toBeTruthy();
-    expect(within(card).getByText(/top 5 of 15 populations/)).toBeTruthy();
+    expect(within(card).getByText('AVP.QZ20.Ai_sup')).toBeTruthy();
+    expect(within(card).getByTitle('SO AVP, source group AVP.QZ20.Ai_sup')).toBeTruthy();
+    expect(within(card).getByTitle('PVH oxytocin').textContent).toBe('PVH oxytocin');
+    expect(within(card).getByText(/top 2 of 2 source groups in 15 populations/)).toBeTruthy();
     expect(mocks.loadBaselineTeaser).toHaveBeenCalledWith('OXT');
   });
 });
@@ -449,7 +457,7 @@ function productFetch(fail?: (url: string) => boolean) {
 }
 
 describe('ReferenceAtlasSection', () => {
-  beforeEach(() => resetExternalRequests());
+  beforeEach(() => resetSourceRequests());
   afterEach(() => { vi.unstubAllGlobals(); });
 
   it('shows GTEx, HPA subregions and every Allen probe for the human gene of a mouse symbol', async () => {
@@ -510,7 +518,7 @@ describe('ReferenceAtlasSection', () => {
 });
 
 describe('GeneExpressionCards', () => {
-  beforeEach(() => resetExternalRequests());
+  beforeEach(() => resetSourceRequests());
   afterEach(() => { vi.unstubAllGlobals(); });
 
   it('sets the mouse sources beside the human atlases in one section, with one survey link', async () => {
@@ -534,5 +542,23 @@ describe('GeneExpressionCards', () => {
     render(<GeneExpressionCards symbol="OXT" />);
     expect(await screen.findByText('PVH oxytocin')).toBeTruthy();
     expect(screen.queryByRole('button', { name: 'Open expression survey' })).toBeNull();
+  });
+
+  it('adds the HypoMap preview in place of the single-cell placeholder, keeping every other source', async () => {
+    vi.stubEnv('VITE_HYPOMAP_EXPRESSION', '1');
+    try {
+      productFetch();
+      render(<GeneExpressionCards symbol="OXT" onOpenExpression={vi.fn()} />);
+      const section = screen.getByRole('region', { name: 'Where OXT is expressed' });
+      const mouse = within(section).getByRole('region', { name: 'Mouse hypothalamus' });
+      expect(await within(mouse).findByText('PVH oxytocin')).toBeTruthy();
+      expect(mouse.querySelector('[data-slot="single-cell-mouse"]')).toBeNull();
+      expect(section.querySelector('[data-section="reference-atlases"]')).toBeTruthy();
+      const preview = within(section).getByRole('region', { name: 'Mouse single-cell expression in HypoMap' });
+      expect(preview.contains(mouse)).toBe(false);
+      expect(await within(preview).findByText('No HypoMap feature matched OXT.')).toBeTruthy();
+    } finally {
+      vi.unstubAllEnvs();
+    }
   });
 });

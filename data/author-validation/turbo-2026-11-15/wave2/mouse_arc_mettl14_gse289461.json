@@ -1,0 +1,41 @@
+{
+  "datasetId": "mouse_arc_mettl14_gse289461",
+  "accession": "GSE289461",
+  "outcome": "documented_no_change",
+  "summary": "The recorded reason still holds when checked against primary sources (2026-11-16). The paper's data-availability statement still cites GSE267200, which GEO deleted on 2025-02-04 with no replacement pointer. GSE289461 still deposits only eight per-mouse DGE matrices, with no retained barcodes or cell labels, so the 19,020-cell author cohort cannot be reconstructed. The author DE is cell-level Seurat FindMarkers within individual clusters (Table S1 covers non-neuronal clusters), which is a different estimand from the registered whole-ARC mouse-pseudobulk KO-minus-control logFC. No author-concordance-v2 comparison is valid. One stale fact was corrected: GEO now links GSE289461 to PubMed 40112816, but there is still no accession or sample crosswalk.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE289461/turbo-2026-11-16-wave2",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Mettl14 knockout deposit and paper use materially different cell cohorts",
+      "note": "The staged replacement-accession RAW archive and SOFT record match their committed hashes, and the local pipeline aggregates sections/runs within four mice per genotype for knockout minus control. The paper still cites GSE267200, which GEO staff deleted on 2025-02-04 without a replacement pointer; current GSE289461 (last updated 2026-10-06) has eight samples and now links PubMed 40112816, but neither record gives an old-to-new accession or sample mapping, and the paper's data-availability statement still cites only GSE267200. The paper reports 19,020 cells (9,111 WT and 9,909 KO), while replacement GSE289461 contains 208,711 DGE columns. Applying the published >500-gene and <5%-mitochondrial QC rules yields 36,342 cells, proving that additional cell calling/filtering is missing. The accessible supplementary workbook contains cluster DE/GO summaries rather than retained barcodes, cell labels, or an all-cell result comparable to the registered pseudobulk.",
+      "reviewFlags": [
+        "No deterministic repair is possible without filtered barcodes, cell types, and a deleted-GSE267200 to replacement-GSE289461 mapping."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Deleted paper-cited GEO accession GSE267200",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE267200",
+          "kind": "database"
+        },
+        {
+          "label": "Author cluster-DE supplementary workbook",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/instance/12694730/bin/NIHMS2061765-supplement-2.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Replacement GEO accession GSE289461 (links PubMed 40112816)",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE289461",
+          "kind": "database"
+        }
+      ]
+    },
+    "verificationReview": null,
+    "comparabilityReview": null,
+    "additionalComparisonSpec": null
+  },
+  "metrics": null
+}

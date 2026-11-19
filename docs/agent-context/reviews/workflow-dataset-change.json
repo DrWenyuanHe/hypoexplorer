@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "25177a3bde9512156c6983b2be36199ca689837b336af2b6335ddf8c3aa60c95",
-  "outcome": "no-impact",
-  "explanation": "Standalone tracker removal (cleanup B5, owner-approved): the independent dataset-tracker/ Vite app is deleted. The integrated tracker under src/dataset-tracker/ (#/tracker) is unchanged and nothing imported the standalone app. No registry entry, sidecar, bundle builder, tracker catalog builder or dataset contract changes; build_tracker_catalog.mts and the integrated tracker still read the same catalog.",
+  "fingerprint": "bca6703e76064c9f9834400a9001801f02814e339e3832c1fce47629ecd5b38d",
+  "outcome": "updated",
+  "explanation": "The dataset-change route now says the writer derives nSig at FDR < 0.05 rather than P < 0.01. Builders still pass every track of a study to one writeDatasetBundles call; after this change, rebuilt bundles carry FDR counts in qc_global.js and must be uploaded before the matching app build goes live.",
   "references": [
-    "scripts/build_tracker_catalog.mts",
-    "src/dataset-tracker/DatasetTrackerView.tsx",
-    "docs/DATASET_CONTRACT.md"
+    "docs/agent-context/workflows.md",
+    "scripts/lib/bundleWriter.mts",
+    "scripts/build_normalized_bundles.mts"
   ]
 }

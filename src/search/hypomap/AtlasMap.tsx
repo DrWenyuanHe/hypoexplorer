@@ -31,7 +31,7 @@ export function AtlasMap({ summaries, region, onSelect }: {
   const undetected = '#fffdf7';
   return (
     <>
-      <svg className="hm-map" viewBox="105 80 550 465" role="group" aria-label="Coronal hypothalamus schematic">
+      <svg className="hm-map" viewBox="105 80 550 465" aria-label="Coronal hypothalamus schematic">
         <path d="M380,96 C305,92 230,98 180,124 C130,150 112,208 120,262 C127,326 156,382 205,416 C224,430 244,433 258,428 C250,440 256,452 270,452 C286,452 296,438 312,444 C334,453 352,464 380,466 C408,464 426,453 448,444 C464,438 474,452 490,452 C504,452 510,440 502,428 C516,433 536,430 555,416 C604,382 633,326 640,262 C648,208 630,150 580,124 C530,98 455,92 380,96 Z" fill="#eeebe5" stroke="#ccc5ba" />
         <path d="M380 116l9 16-9 16-9-16z M380 148v304" fill="#c7c1b8" stroke="#c7c1b8" strokeWidth="2" />
         {([...ellipses, ['ARC', 380, 466, 0, 0, 0]] as const).map(([key, x, y, rx, ry, rotation]) => {
@@ -43,6 +43,7 @@ export function AtlasMap({ summaries, region, onSelect }: {
             : row?.detection === 0 ? 'No detected cells' : 'Data unavailable';
           const detail = row?.detection != null ? `${expression} · ${row.detection.toFixed(2)}% detected` : expression;
           return (
+            // biome-ignore lint/a11y/useSemanticElements: an SVG region cannot be an HTML <button>; role, tabIndex and Enter/Space handling supply the same behavior.
             <g key={key} role="button" tabIndex={0} aria-label={`${key} · ${name}`} aria-pressed={region === name} aria-description={detail}
               onClick={() => onSelect(name)} onKeyDown={event => {
                 if (event.key === 'Enter' || event.key === ' ') {
@@ -63,7 +64,7 @@ export function AtlasMap({ summaries, region, onSelect }: {
         })}
         <text x="380" y="530">ME (unavailable)</text>
       </svg>
-      <div className="hm-map-legend" role="group" aria-label="Spatial heatmap legend">
+      <div className="hm-map-legend">
         <strong>Mean expression among detected cells</strong>
         <small>ln(1 + counts per 10k)</small>
         {max > 0 ? (

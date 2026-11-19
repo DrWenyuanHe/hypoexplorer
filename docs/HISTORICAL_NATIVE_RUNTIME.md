@@ -1,6 +1,9 @@
 # Historical R executable and library relocation
 
 Three sealed checks refer to machine-specific or retired R installations.
+The scripts this runbook runs (`scripts/run_historical_check.py`,
+`scripts/historical_native_runtime.py` and their tests) and the evidence they
+replay are in the maintainer's repository; this repository does not carry them.
 `scripts/run_historical_check.py` enters the narrow adapter in
 `scripts/historical_native_runtime.py` before its other input projections. The
 sealed producers and R scripts remain unchanged. This is a runtime relocation,

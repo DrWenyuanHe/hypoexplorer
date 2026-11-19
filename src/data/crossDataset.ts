@@ -16,6 +16,7 @@ import {
   loadQueryManifest, loadGeneRows, loadPathwayRows, loadPathwayNames, loadGeneNames,
   type GeneIndexRow, type PathwayIndexRow, type QueryManifest, type QueryTrackEntry,
 } from './queryIndex';
+import { decodeGeneRow, decodePathwayRow } from './queryWire';
 import { geneRow, pathwayRow } from './crossDatasetRows';
 import { manifestFreshness, REBUILD_HINT } from './indexFreshness';
 import { strictDeTableFor, strictSiblingPathwaysFor } from './rawTrack';
@@ -132,11 +133,13 @@ async function runTrackQuery<Row>(
   const tick = () => { loaded++; onProgress?.(loaded, total); };
 
   // ONE queue across every dataset (see the FANOUT comment).
+  const failed = new Set<number>();
   const rows = await mapLimit(jobs, FANOUT, async (job): Promise<{ groupIndex: number; row: Row } | null> => {
     try {
       const row = await step(job, { contrast: plan[job.groupIndex].contrast, tick });
       return row === null ? null : { groupIndex: job.groupIndex, row };
     } catch {
+      failed.add(job.groupIndex);
       tick();
       return null;
     }
@@ -146,6 +149,9 @@ async function runTrackQuery<Row>(
   // so each group's tracks come out in the same order the serial loop produced.
   const groups = plan.map((g) => ({ ...g, tracks: [] as Row[] }));
   for (const r of rows) if (r) groups[r.groupIndex].tracks.push(r.row);
+  // A dataset left with no rows because its track loads failed is flagged like
+  // one whose meta failed, so it never reads as "not measured".
+  for (const index of failed) if (groups[index].tracks.length === 0) groups[index].error = true;
 
   return { total, loaded, groups };
 }
@@ -250,7 +256,8 @@ export async function queryGeneViaIndex(
   const res = await runIndexQuery<GeneIndexRow, TrackRow>(
     datasets,
     (manifest) => loadGeneRows(datasets, gene, manifest.buildId),
-    ([, logFC, pval, fdr, se], entry) => {
+    (row, entry) => {
+      const { logFC, pval, fdr, se } = decodeGeneRow(row);
       // A row without an effect size or a p-value is not a usable result; drop
       // it rather than fabricate a value. (Measured: 0 of 1,319,978 index rows
       // are missing either, so this is a guard, not a filter. `se` is the one
@@ -286,7 +293,8 @@ export async function queryPathwayViaIndex(
   const res = await runIndexQuery<PathwayIndexRow, PathwayTrackRow>(
     datasets,
     (manifest) => loadPathwayRows(datasets, pathway, manifest.buildId),
-    ([, NES, padj, pval, size, dbIdx], entry, manifest) => {
+    (row, entry, manifest) => {
+      const { NES, padj, pval, size, dbIdx } = decodePathwayRow(row);
       // pval is required too: `pval ?? 0` would render a missing p-value as
       // maximally significant. The full-download path never emits such a row,
       // so dropping it keeps the fast and slow paths answering alike.

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import {
-  columnsSubject, exportName, exportProvenance, localExportName, localExportProvenance, provenanceRows,
+  columnsSubject, exportName, exportProvenance, provenanceRows,
 } from '../utils/exportProvenance';
 import { leadingEdgeWorkbook, pathwayDetailWorkbook, pathwayTableWorkbook } from '../pathway-explorer/pathwayExport';
 import { compareGenesWorkbook } from '../compare/compareSummary';
@@ -9,9 +9,9 @@ import { exportGenesExcel } from '../gene-explorer/geneExport';
 import { DATASETS } from '../data/datasets';
 import { listContrasts } from '../data/contrasts';
 import { RELEASE_IDENTITY } from '../data/releaseIdentity';
-import { parseDelimitedRows } from '../local-datasets/importData';
+import { csvDownloadTable } from './csvDownload';
 import { makePopData, MACAQUE_DATASET } from './fixtures';
-import type { WorkbookRow, WorkbookSheet } from '../utils/workbook';
+import type { WorkbookSheet } from '../utils/workbook';
 import type { PathwayRecordWithDb, PopData, TimeSeriesBundle } from '../types';
 import type { RhythmRow } from '../circadian/scan';
 
@@ -117,7 +117,7 @@ describe('compare exports', () => {
       columns.map((c) => ({ ...c, color: '#000', qc: null })), popDataMap, ['POMC'],
     );
     expect(filename).toBe('macaque_snrna_e9+i23_obese_vs_normal_compare.xlsx');
-    expect(sheets.map((sheet) => sheet.name)).toEqual(['Compare', 'Metadata']);
+    expect(sheets.map((sheet) => sheet.name)).toEqual(['Compare', 'Values', 'Metadata']);
     const meta = fields(lastSheet(sheets));
     expectTrackIdentity(meta, 'compare', 'macaque_snrna', 'obese_vs_normal', 'columns.0.');
     expect(meta['columns.1.track.id']).toBe('i23');
@@ -204,7 +204,7 @@ describe('circadian exports', () => {
     const [[resultsName, resultsUrl], [rawName, rawUrl]] = downloadFile.mock.calls as Array<[string, string]>;
     expect(resultsName).toBe(`${SCN.id}_scn_rhythmicity_cosinor.csv`);
     expect(rawName).toBe(`${SCN.id}_scn_timecourse_values.csv`);
-    const table = (url: string) => parseDelimitedRows(decodeURIComponent(url.replace(/^data:text\/csv;charset=utf-8,/, '')), ',');
+    const table = csvDownloadTable;
     const [header, first] = table(resultsUrl);
     expect(header.slice(0, 2)).toEqual(['Gene', 'Method']);
     expect(first[header.indexOf('DatasetID')]).toBe(SCN.id);
@@ -225,67 +225,5 @@ describe('gene exports', () => {
     const [filename, sheets] = writeWorkbook.mock.calls[0] as unknown as [string, WorkbookSheet[]];
     expect(filename).toBe('macaque_snrna_e9_obese_vs_normal_genes_export.xlsx');
     expectTrackIdentity(fields(lastSheet(sheets)), 'genes_export', 'macaque_snrna', 'obese_vs_normal');
-  });
-});
-
-describe('local dataset exports', () => {
-  const local = {
-    id: 'local-1', name: 'My study: HFD/chow?', organism: 'Mus musculus',
-    createdAt: '2026-10-01T00:00:00Z', updatedAt: '2026-10-02T00:00:00Z',
-    genes: [{}, {}], pathways: [{}],
-    sources: [{ fileName: 'de.xlsx', sheetName: 'Sheet1', kind: 'genes', rowCount: 2, importedAt: '2026-10-01T00:00:00Z' }],
-  };
-
-  // A copy saved by the public reference picker: its source is named `Public: …`.
-  const publicCopy = {
-    ...local,
-    id: 'public:macaque_snrna:e9:obese_vs_normal',
-    name: 'Public · macaque · e9',
-    sources: [{ fileName: 'Public: macaque_snrna / e9 / obese_vs_normal', sheetName: 'Differential expression', kind: 'de', rowCount: 2, importedAt: '2026-10-01T00:00:00Z' }],
-  };
-
-  it('is named through exportFilename, marked local, and never given a registry id', () => {
-    expect(localExportName(local, ['results'], 'xlsx')).toBe('local_My study_ HFD_chow__results.xlsx');
-  });
-
-  it('never claims registry or release evidence', () => {
-    const rows: WorkbookRow[] = provenanceRows(localExportProvenance(local));
-    const meta = Object.fromEntries(rows.map((row) => [row.Field, row.Value]));
-    const names = rows.map((row) => String(row.Field));
-    expect(meta.exportKind).toBe('local_dataset');
-    expect(meta['dataset.name']).toBe(local.name);
-    expect(meta['dataset.sources.0.fileName']).toBe('de.xlsx');
-    expect(meta.release).toMatch(/^Not applicable/);
-    expect(meta.evidence).toMatch(/^None recorded/);
-    // No release identity, evidence record, registry id, accession, link,
-    // bundle, methods page or HypoExplorer licence grant.
-    expect(names.filter((name) => /^(release|evidence|reuse)\./.test(name))).toEqual([]);
-    for (const absent of ['dataset.id', 'dataset.accession', 'dataset.citation', 'sourceUrl', 'trackBundleUrl', 'methodsUrl']) {
-      expect(names).not.toContain(absent);
-    }
-    for (const releaseField of ['releaseId', 'dataBuildId', 'sourceSha256', 'geneSetVersions']) {
-      expect(names.some((name) => name.includes(releaseField))).toBe(false);
-    }
-  });
-
-  it('describes a local copy of public results as the public study\'s values, neither borrowing nor denying its release', () => {
-    const meta = Object.fromEntries(provenanceRows(localExportProvenance(publicCopy)).map((row) => [row.Field, row.Value]));
-    expect(meta.origin).toMatch(/copy of HypoExplorer public results for macaque_snrna \(track e9, comparison obese_vs_normal\)/);
-    expect(meta.origin).not.toMatch(/did not compute/);
-    expect(meta['dataset.copiedFrom.datasetId']).toBe('macaque_snrna');
-    expect(meta.release).toMatch(/^Not retained with the local copy/);
-    expect(meta.evidence).toMatch(/study record for macaque_snrna/);
-    expect(meta.reuse).toMatch(/public study it was copied from/);
-  });
-
-  it('says a public copy with the user\'s own files added is mixed, never handing those rows to the public study', () => {
-    // "Add to dataset" keeps the copy's public: id while appending user files.
-    const mixed = { ...publicCopy, sources: [...publicCopy.sources, local.sources[0]] };
-    const meta = Object.fromEntries(provenanceRows(localExportProvenance(mixed)).map((row) => [row.Field, row.Value]));
-    expect(meta.origin).toMatch(/^Combines a copy of HypoExplorer public results for macaque_snrna/);
-    expect(meta.origin).toMatch(/user imported \(de\.xlsx\)/);
-    expect(meta.origin).toMatch(/did not compute, review or release the imported values/);
-    expect(meta.release).toMatch(/not applicable to the user-imported values/);
-    expect(meta.reuse).toMatch(/importing user holds the rights and obligations for the imported values/);
   });
 });

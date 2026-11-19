@@ -34,8 +34,12 @@ import {
   type FacetKey, type LibraryFilters, type LibrarySort,
 } from './libraryFilters';
 import { LibraryToolbar, categoryColor, Icon, type IconName } from './LibraryToolbar';
-import { downloadCsv, libraryCsv } from './libraryExport';
+import { exportLibraryCsv } from './libraryExport';
+import { useExportAction } from '../utils/exportAction';
 import { StudyRecord } from './StudyRecord';
+
+/** Phone width, the `src/styles/responsive.css` touch-layout breakpoint. */
+const PHONE_QUERY = '(max-width: 600px)';
 
 /**
  * A category list flattened to one string, for comparing lists by value.
@@ -110,7 +114,11 @@ export function DatasetLibrary({
   const [sort, setSort] = useState<LibrarySort>('category');
   // Table first, as in a record view: 161 rows scan faster down a column than
   // across a grid of cards. Cards stay one click away for the result bars.
-  const [view, setView] = useState<'cards' | 'table'>('table');
+  // A phone starts on cards: its viewport shows only the table's truncated
+  // study column, while a card keeps the full name, design and findings.
+  const [view, setView] = useState<'cards' | 'table'>(
+    () => (window.matchMedia?.(PHONE_QUERY).matches ? 'cards' : 'table'),
+  );
   const [selectedId, setSelectedId] = useState<string | null>(initialSelectedId);
   // Whether the reader has asked to see a record's volcano in this visit. Off
   // until they do, so opening a record downloads nothing; once on, records they
@@ -239,10 +247,10 @@ export function DatasetLibrary({
 
   const resetFilters = useCallback(() => setFilters(EMPTY_FILTERS), []);
 
-  const exportView = useCallback(() => {
-    const stamp = new Date().toISOString().slice(0, 10);
-    downloadCsv(`hypoexplorer-studies-${stamp}.csv`, libraryCsv(visible));
-  }, [visible]);
+  // The toolbar button renders no busy state; the export action still ignores
+  // a second click while the first download is settling.
+  const { run: runExport } = useExportAction();
+  const exportView = useCallback(() => runExport(() => exportLibraryCsv(visible)), [runExport, visible]);
 
   return (
     <PageShell

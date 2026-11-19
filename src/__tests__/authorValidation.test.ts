@@ -130,7 +130,11 @@ describe('author-validation sidecar', () => {
     expect(record.note).toContain('Npy fold change 5.87533 versus 5.88');
     expect(record.note).toContain('FDR 0.002734 versus 0.0024');
     expect(record.paperAccess).toBe('publisher_full_text');
-    expect(record.evidenceLinks.some((link) => link.kind === 'paper' && link.url.includes('nature.com')))
+    const isNatureHost = (url: string) => {
+      const { hostname } = new URL(url);
+      return hostname === 'nature.com' || hostname.endsWith('.nature.com');
+    };
+    expect(record.evidenceLinks.some((link) => link.kind === 'paper' && isNatureHost(link.url)))
       .toBe(true);
   });
 

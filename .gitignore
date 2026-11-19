@@ -23,8 +23,7 @@ dist/
 # Deliberately not tracked. Shards are published under an immutable
 # public/query/<buildId>/ prefix, so every rebuild writes a whole new directory:
 # committing it would add ~61 MB of fresh blobs to history on each data change,
-# on top of the 385 MB public/datasets/ already carries. That compounds badly
-# against the git-history purge already on the TODO list.
+# on top of the 385 MB public/datasets/ already carries.
 #
 # It must still be UPLOADED with the bundles — `pnpm run upload:bundles` covers
 # both trees and refuses to publish datasets without it, because a missing index
@@ -150,9 +149,5 @@ geo_replication/datasets/GSE205313_mmus_hypo_astrocyte_hfhs/raw/Mus_musculus.GRC
 # (the explorer shows TMM-normalized CPM). Copies are kept in the frozen staging archive.
 geo_replication/**/*_CPM_raw.tsv.gz
 data/raw/results/*/de/rawcpm.csv
-
-# Private SEO skill install receipts, backups and the optional managed runtime
-# (scripts/seo_skills.py, scripts/seo_runtime.py). Machine-local by design.
-.skill-installations/
 
 /public/hypomap/

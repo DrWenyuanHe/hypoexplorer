@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { readReleaseBuild } from './lib/releaseBuild.mjs';
+import { allAtlasProblems, TRACKER_CATALOG } from './lib/deployInputs.mjs';
 
 const root = process.cwd();
 const dist = resolve(root, process.argv[2] ?? 'dist');
@@ -19,9 +20,16 @@ const index = read('index.html');
 const scripts = [...index.matchAll(/<script\b[^>]*\bsrc="(\/assets\/[^"?]+)(?:[^"]*)"/g)];
 assert(scripts.length > 0, 'No production app bootstrap script');
 for (const match of scripts) assert(existsSync(resolve(dist, `.${match[1]}`)), `Missing ${match[1]}`);
-for (const guide of ['methods', 'how-to-cite', 'about', 'studies', 'topics']) {
+for (const guide of ['methods', 'how-to-cite', 'about', 'studies']) {
   assert(read(`${guide}/index.html`).includes('<h1'), `${guide} public page is absent or empty`);
 }
 assert(read('CITATION.cff').includes(`version: ${expected.appVersion}`), 'Citation version differs from app');
 assert(read('REUSE.md').includes('Reuse'), 'Reuse statement is missing');
+// Gitignored site assets that only reach dist/ when public/ had them. A deploy
+// without them removes the reference atlases and the Dataset Tracker from the site.
+const missingAssets = [
+  ...allAtlasProblems(dist, 'dist'),
+  ...(existsSync(resolve(dist, TRACKER_CATALOG)) ? [] : [`dist/${TRACKER_CATALOG} is missing`]),
+];
+assert(missingAssets.length === 0, `Release is missing shipped assets; run pnpm run prepare:deploy and rebuild:\n  ${missingAssets.join('\n  ')}`);
 console.log(`Verified release ${expected.releaseId} (v${expected.appVersion}, source ${expected.sourceDirty ? 'working tree' : 'committed'}).`);

@@ -23,12 +23,16 @@ sample-value and workbook helpers.
 
 1. Run `pnpm install --frozen-lockfile --ignore-scripts`, `pnpm run typecheck:app`,
    `pnpm test --maxWorkers=2`, and `pnpm run lint`.
-2. Build the ignored indexes on a fresh clone: `pnpm run build:query-index` and
-   `pnpm run build:expression-index`. Retained historical checks require the Git
+2. Build the ignored indexes: `pnpm run build:query-index` and
+   `pnpm run build:expression-index`. They read the full dataset bundles under
+   `public/datasets/`, which this repository does not carry; the public data
+   release (`pnpm run fetch:data`) has KEGG and the macaque per-animal CPM removed
+   and is not a publication source. Retained historical checks require the Git
    history and the documented analysis environments. See the
    [delivery contract](agent-context/delivery.md).
-3. Run `pnpm run build`. This includes the scientific prebuild gates; the app CI
-   build and browser tests do not replace these checks.
+3. Run `pnpm run build`. It runs `vite build` only: run the scientific checks
+   (`check:*`) that apply separately. The app CI build and browser tests do not
+   replace them.
 4. Run `pnpm run verify:release` and `pnpm run test:smoke`. The verification compares
    the built source/data fingerprint with the current checkout and checks public
    citation documents. Editing source after building intentionally fails it.
@@ -43,7 +47,7 @@ includes the allow-listed code and config named by `releaseSourceFiles`; it is
 not a claim that the entire historical evidence repository is in the web bundle.
 The same identity is compiled into exports and linked from the version dialog.
 `version.json` carries its release ID so same-version source/data updates are
-detected. Both files revalidate through the app host and service worker.
+detected. Both files revalidate through the app host (and the service worker, when enabled).
 Mutable data-bundle URLs use a 32-character release fingerprint as their cache
 key, so an update under the same app version cannot reuse the previous release's
 browser or service-worker bundle entry. Immutable index URLs retain their

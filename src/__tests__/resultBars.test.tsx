@@ -1,7 +1,7 @@
 import { describe, it, expect, afterEach } from 'vitest';
 import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
 import { ResultBars, ResultScaleLegend, ResultSummaryRows, barFraction, discoveryScaleMax } from '../library/ResultBars';
-import { cardGlobalName, type DiscoverySummary } from '../data/queryIndex';
+import type { DiscoverySummary } from '../data/queryIndex';
 import { getDataset } from '../data/datasets';
 import { _resetBundleCache, _setBundleTransport } from '../data/bundleSource';
 
@@ -192,15 +192,5 @@ describe('ResultSummaryRows', () => {
   it('renders nothing when the index carries no counts', () => {
     const { container } = render(<ResultSummaryRows discoveries={null} />);
     expect(container.textContent).toBe('');
-  });
-});
-
-describe('the card-detail wire contract', () => {
-  it('derives the same JSONP global the builder writes', () => {
-    // scripts/build_query_index.mts has its own copy of this function. The two
-    // are a wire contract: if they drift, every popover silently loses its plot
-    // and nothing else fails.
-    expect(cardGlobalName('mouse_arc_hfd_gse225038')).toBe('HX_QUERY_CARD_MOUSE_ARC_HFD_GSE225038');
-    expect(cardGlobalName('emtab-15488')).toBe('HX_QUERY_CARD_EMTAB_15488');
   });
 });

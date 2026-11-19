@@ -9,12 +9,11 @@ import {
 import { listDatasets } from '../data/datasets';
 import { AUTHOR_EMAIL, AUTHOR_NAME, BETA_NOTICE, SITE_URL } from '../data/siteInfo';
 import type { DatasetMeta } from '../types';
-import { getTopicDocuments } from '../../scripts/lib/seoTopics.mjs';
 import { getGuideDocuments } from '../../scripts/lib/seoGuides.mjs';
 
 const parse = (html: string) => new DOMParser().parseFromString(html, 'text/html');
 const datasets = listDatasets();
-const supportDocuments = [...getTopicDocuments(datasets), ...getGuideDocuments()];
+const supportDocuments = getGuideDocuments();
 
 describe('crawlable study build', () => {
   let output: string;

@@ -6,7 +6,13 @@ Start with the [dataset contract](../DATASET_CONTRACT.md),
 [real shapes](../REAL_DATA_SHAPES.md) and [dataset map](generated/datasets.md).
 Inputs are the study identity, source files, sample design, contrasts and
 analysis outputs. Inspect `src/data/datasets.ts`, registered sidecars and the
-appropriate builder; shared writes use `scripts/lib/bundleWriter.mts`.
+appropriate builder; shared writes use `scripts/lib/bundleWriter.mts` and script
+reads use `scripts/lib/bundleReader.mts` (`readJsonp` for published bytes,
+`readDatasetFromDisk` for what the explorer shows).
+A builder passes every track of a study to one `writeDatasetBundles` call, which
+writes the merged study files and derives QC counts (nSig is FDR<0.05). Sidecar
+intakes build through `buildIntakeStudies` in `scripts/lib/intakeStudies.mts`
+(staged publish, `--check`, `--only`), as the September 5 builder does.
 Expected outputs are registry metadata, bundles and their retained evidence.
 Use `pnpm exec tsx scripts/check_datasets.mts` for structural closure (`--all-tracks`
 for full track coverage) and `pnpm run check:query-index` for index freshness.
@@ -19,12 +25,13 @@ the corpus changes. For the rat intake, the
 [dedicated runbook](../../data/intake/oxt-avp-2026-10-19/README.md) documents
 `pnpm run build:nomenclature --refresh-authority=RGD`, which refreshes rat
 classifications while preserving other retained authorities. A new dataset also changes the shared quality and author
-ledgers that dated verification reports pin, so run
-`pnpm run check:verification-advancement`, which prebuild omits (see
+ledgers that dated verification reports pin. Those pins are replayed in the
+maintainer's checkout (its `check:verification-advancement`), which this
+repository does not carry; record the replay as pending in `TODOS.md` (see
 [verification](#verification)). Context generation does not rebuild scientific data.
 
-The registry's `expressionUnit` is authoritative for display: `buildPopData` and
-`loadTimeSeries` prefer it to the unit stamped in a bundle, and the bundle
+The registry's `expressionUnit` is authoritative for display: `buildPopData`,
+`loadTimeSeries` and the agent export (through `resolveExpressionUnit`) prefer it to the unit stamped in a bundle, and the bundle
 builders take the registry unit, so a unit relabel need not rebuild hash-pinned
 bundle bytes. Changing a field of a dataset registered before the R 4.6.0 swap
 needs a reviewed reason in `scripts/regen-r460/build_registry_edits.mts`
@@ -63,8 +70,11 @@ LFS), [`data/expression/hpa/`](../../data/expression/hpa/README.md) and
 (hypothalamic extracts of the six donor zips, expression under Git LFS). Their
 products under `public/expression/{gtex,hpa,allen-human}/` are gitignored build
 artifacts. Allen is probe-level: one result per probe, never collapsed.
-Run `pnpm run build:expression-external` after a source or builder change, or in
-a fresh checkout before a dev server. `--check` byte-compares the products. A
+Run `pnpm run build:expression-external` after a source or builder change; it
+needs the retained source downloads, which this repository does not carry. A
+fresh checkout takes the deployed products with `pnpm run fetch:expression`, and
+`pnpm run prepare:deploy` fetches any atlas a deploy would otherwise drop.
+`--check` byte-compares the products. A
 release update goes through `--fetch --record`, never a hand edit of the manifest.
 
 ## verification
@@ -75,17 +85,19 @@ Inputs are source availability, reproducible inputs and the intended comparison.
 Keep pipeline QC, experimental design and author concordance separate.
 Inspect `src/data/datasetQualityR460.ts`, `pipelineQc.ts`,
 `authorConcordanceR460.ts` and the relevant audit/builder scripts; the pinned
-`datasetQuality.ts` and `authorConcordance.ts` serve sealed producers only. Use `check:author-validation`,
-`check:quality` and the applicable dated intake/replay checks from package.json.
+`datasetQuality.ts` and `authorConcordance.ts` serve sealed producers only. Use `check:author-validation` and the applicable dated intake/replay checks from
+package.json; they need retained inputs that `pnpm run fetch:data` restores only
+in part. The maintainer's checkout also runs `check:quality`, which is not here.
 Run `pnpm run check:bundle-eol` before an audit records any SHA-256 pin: pin
 writers hash the working file, and a stale copy whose line endings differ from
 the committed blob yields a pin that no clean checkout reproduces.
-Sealed producers run through `scripts/run_historical_check.py`, or for the
-September 11 reports and scientific snapshot `scripts/run_sealed_report_check.py`.
+Sealed producers run through `scripts/run_historical_check.py` (in the
+maintainer's repository, not here), or for the September 11 reports and
+scientific snapshot `scripts/run_sealed_report_check.py`.
 When a sealed pin cannot be reproduced after a dataset addition or in another
 checkout or shell, add a verified projection to the runner, as
-[described here](../../data/internal-qc/hfd-intake-2026-09-12/HISTORICAL_COMPATIBILITY.md);
-never edit the pin or the producer. Outputs replaced by the R 4.6.0
+`data/internal-qc/hfd-intake-2026-09-12/HISTORICAL_COMPATIBILITY.md` describes
+(restored by `pnpm run fetch:data`, not tracked); never edit the pin or the producer. Outputs replaced by the R 4.6.0
 regeneration are served to sealed producers from git history through the
 [supersession manifest](../../data/quality/regeneration-r460-2026-09-25/README.md);
 a pinned producer that needs new behavior gets a successor file. A live cumulative report is regenerated
@@ -100,17 +112,18 @@ bounded GSE135007 serialization and GSE157077 time-series-unit chains before
 `isRecordedCurrentOutput` accepts their current bytes. Each chain retains its
 predecessor and explicit verification. The current bulk entry point is
 `scripts/regenerate_bulk_de_current.R`; its GSE135007 specialization requires a
-staging root and fits the exact reread canonical matrix. Read the
-[serialization runbook](../../data/quality/gse135007-serialization-2026-10-23/README.md)
-before adopting a new product.
+staging root and fits the exact reread canonical matrix. Read the maintainer's serialization runbook
+(`data/quality/gse135007-serialization-2026-10-23/README.md`, which neither this
+repository nor the public data release carries) before adopting a new product.
 The current September intake audit is
 `scripts/audit_september5_intake_current.mts`, checked by `pnpm run check:intake`;
 its earlier audit remains a historical record.
 
 `scripts/historical_native_runtime.py` relocates only its three allow-listed
 native replay invocations after verifying code, executable and package identity;
-follow the [native runtime runbook](../HISTORICAL_NATIVE_RUNTIME.md).
-Run `python scripts/test_historical_native_runtime.py` for the relocation tests.
+follow the [native runtime runbook](../HISTORICAL_NATIVE_RUNTIME.md). It and its
+tests (`scripts/test_historical_native_runtime.py`) are in the maintainer's
+repository, not here.
 Missing source files or retrieval receipts still fail closed; the source-
 relationship audit records unavailable paths explicitly instead of treating an
 early unavailable reader as a verified successor chain.
@@ -143,8 +156,15 @@ intent applied by src/explorer/explorerPosition.ts, which owns the tab rule and
 the reset/load each move costs, so no caller sets that state directly. A view
 that loads tracks outside the main explorer uses `src/data/trackColumns.ts`
 (per-column loading, failed and Retry states); every download names itself and
-writes its Metadata through `src/utils/exportProvenance.ts`; every gene picker is
-`GenePicker` over `src/explorer/geneVocabulary.ts`; sample
+writes its Metadata through `src/utils/exportProvenance.ts`; every CSV is written
+by `src/utils/csv.ts` (escaping, formula guard, BOM/CRLF, per-row provenance for
+long tables, and a metadata JSON split down its column under Excel's cell limit);
+multi-file downloads are stored ZIPs from `src/utils/zip.ts`; every gene picker is
+`GenePicker` over `src/explorer/geneVocabulary.ts`; a table that lists tracks by
+significance takes the call from `src/statistics/policy.ts` (`isFdrSignificant`,
+`significanceTier`), what it lists from `listingModeStore` with its
+`ListingModeToggle`, labels rows with `TierLabel` and explains q / FDR / padj
+columns with `QTerm`, and keeps counts on the FDR call in both modes; sample
 values and export labels use sampleValues; bundle loading uses trackData.
 Header identity uses BrandLink and the shared brand asset constants. For logo,
 favicon or typography changes, read the [brand guide](../../brand/README.md);
@@ -166,24 +186,66 @@ handling and within-gene versus gene-wise corrections explicit in the UI and
 exports. A matched numerical reference does not establish biological calibration
 or measured human usability.
 
+HypoMap views in `src/search/hypomap/` sit behind two build flags that stay off in
+hosted builds: `VITE_HYPOMAP_EXPRESSION` adds the atlas preview under the gene
+report's expression lanes, and `VITE_HYPOMAP_COEXPRESSION` replaces the
+co-expression placeholder. The preview reads the export pinned in
+`hypomap-release.json` (installed by `pnpm run fetch:hypomap`); co-expression needs
+the loopback service in `services/hypomap/`, reached only through the offline dev
+server's proxy and only via the client `src/search/hypomap/codetection.ts`, which
+fails closed when the service's export hash disagrees with the pin and keeps
+unsupported datasets visible; `services/hypomap/codetection_wire.json` pins the
+wire for both the Python and vitest tests. Hosted builds read the atlas from R2 under `/hypomap/<tag>/`.
+`scripts/lib/hypomapAtlas.mts` defines the file shape for the data host's path
+rule and the uploader (`upload:bundles --hypomap-only`). The path rule names the
+pinned tag, so a tag change regenerates the Cloudflare payloads. The manual rule,
+CORS and upload steps are in [delivery](delivery.md#hypomap-atlas); until they are
+done, the flags stay off in hosted builds.
+
 Responsive layouts share the 900px breakpoint in `useCompactLayout` and
 `src/styles/responsive.css`. `ResponsiveSidebar` keeps cell navigation and
 compare-set studies in a desktop rail or a mobile dialog, using the shared Modal
 for focus trapping, Escape and focus restoration. The dataset library has no
 rail: `LibraryToolbar` puts a view menu, sort, active-filter chips and an
 add-filter menu (with the same disjunctive facet counts) above a table-first
-record grid, and its chips scroll sideways on phones. A study opens as a record
+record grid, and its chips scroll sideways on phones, where (600px and under)
+the library starts on cards instead. A study opens as a record
 page (`StudyRecord`, `#/library/<id>`) in place of the hidden list: header
 actions, a fact strip, Overview/Verification tabs and a details panel that
 stacks below them under 900px; Escape and the breadcrumb return to the list. Selection and filters
-remain owned by their existing views. `ResponsiveDetails` folds study
-metadata and plot controls on small screens. The selected population, comparison
+remain owned by their existing views. The explorer shows the study as one
+compact line (name, organism, modality, arm pills and any exploratory-contrast
+warning) at every width; region, preparation and the dataset verification record
+sit behind its "Study details & verification" toggle. `ResponsiveDetails` folds
+plot controls on small screens. Compare's link carries its view
+(`/compare[/pathways]?pops=…&genes=…`, parsed in `src/utils/appLinks.ts`), so a
+refresh, Back or a copied link reopens the same comparison; its summary table
+reads down, one row per gene × population. Compare keeps its population chips to one line
+("+N more" expands them), scrolls as one column under 900px or 700px tall, and
+offers long-format data (Excel with Compare, Values and Metadata sheets: one row
+per gene × population and one per animal; matching CSVs) and charts (one stitched
+PNG, or a ZIP of per-chart PNG or SVG drawn from each chart's own SVG through
+`src/compare/compareFigureExport.ts`) from one Download menu. The selected population, comparison
 and Plot/Table switch remain visible. Mobile pages use document scrolling and a
-minimum chart height; wide result tables scroll within their own containers.
-When changing these layouts, check 320px and 390px phones, 768px tablets and a
-1024px laptop, including a short landscape viewport, dialog dismissal, filtering,
-cell selection and rotation across the breakpoint. Volcano taps hit-test the tap
-coordinates directly, without requiring a previous hover.
+minimum chart height; wide result tables scroll within their own containers,
+except the gene page's differential-expression table and the pathway page's
+forest rows, which restack each track under 640px so the change, q/FDR and
+actions stay on screen. On phones the hub nav stays one line that scrolls
+sideways beside the compare pill, and the explorer's header controls form an
+even 3 × 2 grid. Each explorer breadcrumb separator travels with the crumb
+after it, so a wrap never strands a slash; on phones the population and tab
+start a line under the dataset picker, without a leading slash. Below 1500px
+the explorer breadcrumb takes its own header row, so the controls never wrap
+under a half-empty first row; wider, it shares the row and truncates the
+population label (full text in its title) before the controls would move. A scroller that holds absolutely positioned screen-reader
+labels (`.portal-table-wrap`) is itself positioned, or the labels escape it and
+widen the page. When changing these layouts, check 320px and 390px phones,
+768px tablets and a 1024px laptop, including a short landscape viewport, dialog
+dismissal, filtering, cell selection and rotation across the breakpoint. On a
+phone, also confirm `window.innerWidth` equals the device width after load: a
+mobile browser widens the layout viewport (zooming the page out) to fit any
+overflow, even with `overflow-x: hidden` on the body. Volcano taps hit-test the
+tap coordinates directly, without requiring a previous hover.
 
 The compare-set view uses a left sidebar to select studies, with no study cards above the results.
 Selecting a study changes the volcano; every study remains in the comparison.
@@ -329,19 +391,14 @@ unavailable, with a retry action; no QC bundle is requested. Large studies initi
 show significant populations, with the full list available on request. About enrichment
 scores keeps the ranking explanation in a disclosure beneath the results.
 
-## local-import
-
-Read [local datasets](../LOCAL_DATASETS.md). Inputs are user-owned DE/pathway
-tables and explicit column mappings. Inspect the importer, local storage and
-matching tests under `src/local-datasets` and `src/__tests__`.
-Verify preview/mapping errors, persisted data, comparison identity and exports.
-Local results stay on the user's device and are not added to the public registry.
-
 ## delivery
 
 Read the [delivery runbook](delivery.md). Inputs are the intended source revision,
 build configuration, matching scientific bundles and deployment authorization.
-Inspect package scripts, Vite configuration, worker configuration and verify
-scripts. Expected outputs are a validated build and, when explicitly requested,
+Inspect package scripts, Vite configuration, worker configuration, the deploy
+preparation and verify scripts. The gitignored deploy inputs (query catalog,
+tracker catalog, reference atlases) come from `pnpm run prepare:deploy`, and
+`upload:bundles` refuses bundles restored from the public data release.
+Expected outputs are a validated build and, when explicitly requested,
 a verified deployment. Retrieve current deployment and edge rule state during the
 task; generated context contains no live operational state.

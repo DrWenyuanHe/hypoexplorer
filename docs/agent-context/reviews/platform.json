@@ -1,11 +1,14 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "43663b56024cb045d794c7d24b87941e59e448dd880fa85b02e8aa3012365454",
-  "outcome": "no-impact",
-  "explanation": "Doc and comment drift only (cleanup B3); no code path, export, route or data changes. App.tsx relabels a comment that called the local-datasets branch the hub's \"Explore all\" destination; the gene report now has its own comment naming #/gene/<symbol>.",
+  "fingerprint": "ea953201687ff2cb40135a661ac9575c7bc5edddeb6a6d1fac5e896cf4ca93b8",
+  "outcome": "updated",
+  "explanation": "The local-datasets view is gone: AppView drops 'local-datasets', App.tsx no longer lazy-loads LocalDatasetsView or passes onOpenLocalDatasets, and the router drops openLocalDatasets with its boot, popstate and href cases. A stale #/local-datasets hash no longer parses, so boot falls back to the hub.",
   "references": [
     "src/App.tsx",
-    "src/utils/appLinks.ts"
+    "src/appRouter.ts",
+    "src/utils/appLinks.ts",
+    "src/styles/responsive.css",
+    "src/main.tsx"
   ]
 }

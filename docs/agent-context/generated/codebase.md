@@ -28,7 +28,6 @@ Source directories are ownership/navigation areas, not separately installed plug
 | verification | verification |
 | nomenclature | nomenclature |
 | expression | expression-survey |
-| local-datasets | local-datasets |
 | search | search |
 
 ## Explorer tabs
@@ -49,7 +48,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (222):
+Covered source files (238):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -82,10 +81,13 @@ Covered source files (222):
 - [src/__tests__/axes.test.ts](<../../../src/__tests__/axes.test.ts>)
 - [src/__tests__/barSEMChart.test.tsx](<../../../src/__tests__/barSEMChart.test.tsx>)
 - [src/__tests__/barSEMChartScale.test.tsx](<../../../src/__tests__/barSEMChartScale.test.tsx>)
+- [src/__tests__/baselineTeaser.test.ts](<../../../src/__tests__/baselineTeaser.test.ts>)
 - [src/__tests__/brand.test.tsx](<../../../src/__tests__/brand.test.tsx>)
 - [src/__tests__/browseArmCounts.test.ts](<../../../src/__tests__/browseArmCounts.test.ts>)
 - [src/__tests__/buildPopData.test.ts](<../../../src/__tests__/buildPopData.test.ts>)
 - [src/__tests__/bundleProgress.test.ts](<../../../src/__tests__/bundleProgress.test.ts>)
+- [src/__tests__/bundleReader.test.ts](<../../../src/__tests__/bundleReader.test.ts>)
+- [src/__tests__/bundleReaderParity.test.ts](<../../../src/__tests__/bundleReaderParity.test.ts>)
 - [src/__tests__/bundleSlim.test.ts](<../../../src/__tests__/bundleSlim.test.ts>)
 - [src/__tests__/bundleSource.test.ts](<../../../src/__tests__/bundleSource.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
@@ -94,11 +96,14 @@ Covered source files (222):
 - [src/__tests__/chartScale.test.ts](<../../../src/__tests__/chartScale.test.ts>)
 - [src/__tests__/chartScaleToggle.test.tsx](<../../../src/__tests__/chartScaleToggle.test.tsx>)
 - [src/__tests__/circadianTimeSeries.test.ts](<../../../src/__tests__/circadianTimeSeries.test.ts>)
+- [src/__tests__/compareDownloads.test.ts](<../../../src/__tests__/compareDownloads.test.ts>)
+- [src/__tests__/compareLinks.test.tsx](<../../../src/__tests__/compareLinks.test.tsx>)
 - [src/__tests__/compareSet.test.tsx](<../../../src/__tests__/compareSet.test.tsx>)
 - [src/__tests__/compareSetStore.test.ts](<../../../src/__tests__/compareSetStore.test.ts>)
 - [src/__tests__/compareSetView.test.tsx](<../../../src/__tests__/compareSetView.test.tsx>)
 - [src/__tests__/compareTabContrast.test.tsx](<../../../src/__tests__/compareTabContrast.test.tsx>)
 - [src/__tests__/compareTabLoading.test.tsx](<../../../src/__tests__/compareTabLoading.test.tsx>)
+- [src/__tests__/compareTabToolbar.test.tsx](<../../../src/__tests__/compareTabToolbar.test.tsx>)
 - [src/__tests__/concordanceReviewEvidence.test.ts](<../../../src/__tests__/concordanceReviewEvidence.test.ts>)
 - [src/__tests__/confirmDialog.test.tsx](<../../../src/__tests__/confirmDialog.test.tsx>)
 - [src/__tests__/contrastMatrix.test.tsx](<../../../src/__tests__/contrastMatrix.test.tsx>)
@@ -107,6 +112,9 @@ Covered source files (222):
 - [src/__tests__/crossDatasetCompareIndex.test.ts](<../../../src/__tests__/crossDatasetCompareIndex.test.ts>)
 - [src/__tests__/crossDatasetRows.test.ts](<../../../src/__tests__/crossDatasetRows.test.ts>)
 - [src/__tests__/crossDatasetSummary.test.ts](<../../../src/__tests__/crossDatasetSummary.test.ts>)
+- [src/__tests__/csv.test.ts](<../../../src/__tests__/csv.test.ts>)
+- [src/__tests__/csvDialog.test.tsx](<../../../src/__tests__/csvDialog.test.tsx>)
+- [src/__tests__/csvDownload.ts](<../../../src/__tests__/csvDownload.ts>)
 - [src/__tests__/currentIntakePathwayEvidence.test.ts](<../../../src/__tests__/currentIntakePathwayEvidence.test.ts>)
 - [src/__tests__/dataOriginStatus.test.tsx](<../../../src/__tests__/dataOriginStatus.test.tsx>)
 - [src/__tests__/dataSources.test.tsx](<../../../src/__tests__/dataSources.test.tsx>)
@@ -123,6 +131,7 @@ Covered source files (222):
 - [src/__tests__/dbPill.test.tsx](<../../../src/__tests__/dbPill.test.tsx>)
 - [src/__tests__/deTable.test.ts](<../../../src/__tests__/deTable.test.ts>)
 - [src/__tests__/dedicatedReplicationEvidence.test.ts](<../../../src/__tests__/dedicatedReplicationEvidence.test.ts>)
+- [src/__tests__/deployGuards.test.ts](<../../../src/__tests__/deployGuards.test.ts>)
 - [src/__tests__/deployedDataVerification.test.ts](<../../../src/__tests__/deployedDataVerification.test.ts>)
 - [src/__tests__/edgePurge.test.ts](<../../../src/__tests__/edgePurge.test.ts>)
 - [src/__tests__/edgeRules.test.ts](<../../../src/__tests__/edgeRules.test.ts>)
@@ -137,6 +146,8 @@ Covered source files (222):
 - [src/__tests__/expressionIndex.test.ts](<../../../src/__tests__/expressionIndex.test.ts>)
 - [src/__tests__/expressionIndexBuild.test.ts](<../../../src/__tests__/expressionIndexBuild.test.ts>)
 - [src/__tests__/expressionRoute.test.tsx](<../../../src/__tests__/expressionRoute.test.tsx>)
+- [src/__tests__/expressionSurvey.test.ts](<../../../src/__tests__/expressionSurvey.test.ts>)
+- [src/__tests__/expressionSurveyLoad.test.tsx](<../../../src/__tests__/expressionSurveyLoad.test.tsx>)
 - [src/__tests__/expressionSurveyView.test.tsx](<../../../src/__tests__/expressionSurveyView.test.tsx>)
 - [src/__tests__/externalReference.test.ts](<../../../src/__tests__/externalReference.test.ts>)
 - [src/__tests__/fdr.test.ts](<../../../src/__tests__/fdr.test.ts>)
@@ -165,8 +176,13 @@ Covered source files (222):
 - [src/__tests__/geneVocabulary.test.tsx](<../../../src/__tests__/geneVocabulary.test.tsx>)
 - [src/__tests__/hubSections.test.ts](<../../../src/__tests__/hubSections.test.ts>)
 - [src/__tests__/hubUnits.test.tsx](<../../../src/__tests__/hubUnits.test.tsx>)
+- [src/__tests__/hypomapAtlas.test.ts](<../../../src/__tests__/hypomapAtlas.test.ts>)
+- [src/__tests__/hypomapCodetection.test.ts](<../../../src/__tests__/hypomapCodetection.test.ts>)
+- [src/__tests__/hypomapCoexpression.test.tsx](<../../../src/__tests__/hypomapCoexpression.test.tsx>)
+- [src/__tests__/hypomapMetrics.test.ts](<../../../src/__tests__/hypomapMetrics.test.ts>)
 - [src/__tests__/indexFreshness.test.ts](<../../../src/__tests__/indexFreshness.test.ts>)
 - [src/__tests__/indexProducts.test.ts](<../../../src/__tests__/indexProducts.test.ts>)
+- [src/__tests__/intakeStudies.test.ts](<../../../src/__tests__/intakeStudies.test.ts>)
 - [src/__tests__/internalQc.test.ts](<../../../src/__tests__/internalQc.test.ts>)
 - [src/__tests__/internalQcTracks.test.ts](<../../../src/__tests__/internalQcTracks.test.ts>)
 - [src/__tests__/jtkCanonical.test.ts](<../../../src/__tests__/jtkCanonical.test.ts>)
@@ -175,12 +191,9 @@ Covered source files (222):
 - [src/__tests__/leadingEdgeHeatmap.test.tsx](<../../../src/__tests__/leadingEdgeHeatmap.test.tsx>)
 - [src/__tests__/libraryExport.test.ts](<../../../src/__tests__/libraryExport.test.ts>)
 - [src/__tests__/libraryFilters.test.ts](<../../../src/__tests__/libraryFilters.test.ts>)
+- [src/__tests__/listingModeToggle.test.tsx](<../../../src/__tests__/listingModeToggle.test.tsx>)
 - [src/__tests__/loadDatasetMeta.test.ts](<../../../src/__tests__/loadDatasetMeta.test.ts>)
 - [src/__tests__/loadTrack.test.ts](<../../../src/__tests__/loadTrack.test.ts>)
-- [src/__tests__/localDatasetStorage.test.ts](<../../../src/__tests__/localDatasetStorage.test.ts>)
-- [src/__tests__/localImport.test.ts](<../../../src/__tests__/localImport.test.ts>)
-- [src/__tests__/localImportPanel.test.tsx](<../../../src/__tests__/localImportPanel.test.tsx>)
-- [src/__tests__/localRoutes.test.tsx](<../../../src/__tests__/localRoutes.test.tsx>)
 - [src/__tests__/macaqueQc.test.ts](<../../../src/__tests__/macaqueQc.test.ts>)
 - [src/__tests__/matrixShape.test.ts](<../../../src/__tests__/matrixShape.test.ts>)
 - [src/__tests__/methodology.test.tsx](<../../../src/__tests__/methodology.test.tsx>)
@@ -202,7 +215,6 @@ Covered source files (222):
 - [src/__tests__/pipelineQc.test.ts](<../../../src/__tests__/pipelineQc.test.ts>)
 - [src/__tests__/popGroups.test.ts](<../../../src/__tests__/popGroups.test.ts>)
 - [src/__tests__/portalCards.test.tsx](<../../../src/__tests__/portalCards.test.tsx>)
-- [src/__tests__/publicReferencePicker.test.tsx](<../../../src/__tests__/publicReferencePicker.test.tsx>)
 - [src/__tests__/publicationArchive.test.ts](<../../../src/__tests__/publicationArchive.test.ts>)
 - [src/__tests__/pwaUpdate.test.tsx](<../../../src/__tests__/pwaUpdate.test.tsx>)
 - [src/__tests__/qcColumns.test.tsx](<../../../src/__tests__/qcColumns.test.tsx>)
@@ -217,6 +229,7 @@ Covered source files (222):
 - [src/__tests__/queryCatalogBuild.test.ts](<../../../src/__tests__/queryCatalogBuild.test.ts>)
 - [src/__tests__/queryCatalogIdentity.test.ts](<../../../src/__tests__/queryCatalogIdentity.test.ts>)
 - [src/__tests__/queryIndex.test.ts](<../../../src/__tests__/queryIndex.test.ts>)
+- [src/__tests__/queryWire.test.ts](<../../../src/__tests__/queryWire.test.ts>)
 - [src/__tests__/r2Incremental.test.ts](<../../../src/__tests__/r2Incremental.test.ts>)
 - [src/__tests__/rawTrack.test.ts](<../../../src/__tests__/rawTrack.test.ts>)
 - [src/__tests__/referenceExpression.test.ts](<../../../src/__tests__/referenceExpression.test.ts>)
@@ -243,12 +256,12 @@ Covered source files (222):
 - [src/__tests__/seoGuides.test.ts](<../../../src/__tests__/seoGuides.test.ts>)
 - [src/__tests__/seoPages.test.ts](<../../../src/__tests__/seoPages.test.ts>)
 - [src/__tests__/seoStudyContent.test.ts](<../../../src/__tests__/seoStudyContent.test.ts>)
-- [src/__tests__/seoTopics.test.ts](<../../../src/__tests__/seoTopics.test.ts>)
 - [src/__tests__/september5Intake.test.ts](<../../../src/__tests__/september5Intake.test.ts>)
 - [src/__tests__/setup.ts](<../../../src/__tests__/setup.ts>)
 - [src/__tests__/smoke.test.tsx](<../../../src/__tests__/smoke.test.tsx>)
 - [src/__tests__/sortableHeaderA11y.test.tsx](<../../../src/__tests__/sortableHeaderA11y.test.tsx>)
 - [src/__tests__/sortableRows.test.tsx](<../../../src/__tests__/sortableRows.test.tsx>)
+- [src/__tests__/sourceJson.test.ts](<../../../src/__tests__/sourceJson.test.ts>)
 - [src/__tests__/spendGuard.test.ts](<../../../src/__tests__/spendGuard.test.ts>)
 - [src/__tests__/statistics.test.tsx](<../../../src/__tests__/statistics.test.tsx>)
 - [src/__tests__/statisticsPolicy.test.ts](<../../../src/__tests__/statisticsPolicy.test.ts>)
@@ -258,6 +271,7 @@ Covered source files (222):
 - [src/__tests__/studySelection.test.tsx](<../../../src/__tests__/studySelection.test.tsx>)
 - [src/__tests__/studyTopGenes.test.tsx](<../../../src/__tests__/studyTopGenes.test.tsx>)
 - [src/__tests__/supersededProjection.ts](<../../../src/__tests__/supersededProjection.ts>)
+- [src/__tests__/swHandover.test.ts](<../../../src/__tests__/swHandover.test.ts>)
 - [src/__tests__/trackColumns.test.tsx](<../../../src/__tests__/trackColumns.test.tsx>)
 - [src/__tests__/trackData.test.ts](<../../../src/__tests__/trackData.test.ts>)
 - [src/__tests__/trackPathwaysIndex.test.ts](<../../../src/__tests__/trackPathwaysIndex.test.ts>)
@@ -272,6 +286,7 @@ Covered source files (222):
 - [src/__tests__/versionWatch.test.ts](<../../../src/__tests__/versionWatch.test.ts>)
 - [src/__tests__/volcanoPlot.test.tsx](<../../../src/__tests__/volcanoPlot.test.tsx>)
 - [src/__tests__/workbook.test.ts](<../../../src/__tests__/workbook.test.ts>)
+- [src/__tests__/zip.test.ts](<../../../src/__tests__/zip.test.ts>)
 
 ## acknowledgements
 
@@ -374,11 +389,13 @@ Start here:
 - [src/compare/CompareTab.tsx](<../../../src/compare/CompareTab.tsx>)
 - [src/compare/CompareGenesView.tsx](<../../../src/compare/CompareGenesView.tsx>)
 
-Covered source files (6):
+Covered source files (8):
 - [src/compare/CompareGenesView.tsx](<../../../src/compare/CompareGenesView.tsx>)
 - [src/compare/ComparePathwayView.tsx](<../../../src/compare/ComparePathwayView.tsx>)
 - [src/compare/CompareTab.tsx](<../../../src/compare/CompareTab.tsx>)
+- [src/compare/DownloadMenu.tsx](<../../../src/compare/DownloadMenu.tsx>)
 - [src/compare/compareColumns.ts](<../../../src/compare/compareColumns.ts>)
+- [src/compare/compareFigureExport.ts](<../../../src/compare/compareFigureExport.ts>)
 - [src/compare/compareSummary.ts](<../../../src/compare/compareSummary.ts>)
 - [src/compare/resolveGene.ts](<../../../src/compare/resolveGene.ts>)
 
@@ -541,13 +558,14 @@ Baseline expression by population, study condition and tissue.
 Start here:
 - [src/expression-survey/ExpressionSurveyView.tsx](<../../../src/expression-survey/ExpressionSurveyView.tsx>)
 - [src/expression-survey/expressionData.ts](<../../../src/expression-survey/expressionData.ts>)
+- [src/expression-survey/sourceJson.ts](<../../../src/expression-survey/sourceJson.ts>)
 - [docs/EXPRESSION_SURVEY.md](<../../EXPRESSION_SURVEY.md>)
 - [src/expression-survey/expressionIndex.ts](<../../../src/expression-survey/expressionIndex.ts>)
 - [data/expression/existing/README.md](<../../../data/expression/existing/README.md>)
 - [src/expression-survey/referenceExpression.ts](<../../../src/expression-survey/referenceExpression.ts>)
 - [data/expression/oxt-reference/README.md](<../../../data/expression/oxt-reference/README.md>)
 
-Covered source files (13):
+Covered source files (16):
 - [src/expression-survey/ExpressionSurveyView.tsx](<../../../src/expression-survey/ExpressionSurveyView.tsx>)
 - [src/expression-survey/existingCatalog.ts](<../../../src/expression-survey/existingCatalog.ts>)
 - [src/expression-survey/existingExpression.ts](<../../../src/expression-survey/existingExpression.ts>)
@@ -556,11 +574,14 @@ Covered source files (13):
 - [src/expression-survey/expressionIndex.ts](<../../../src/expression-survey/expressionIndex.ts>)
 - [src/expression-survey/expressionIndexFormat.ts](<../../../src/expression-survey/expressionIndexFormat.ts>)
 - [src/expression-survey/expressionSurvey.css](<../../../src/expression-survey/expressionSurvey.css>)
+- [src/expression-survey/expressionSurvey.ts](<../../../src/expression-survey/expressionSurvey.ts>)
 - [src/expression-survey/expressionTypes.ts](<../../../src/expression-survey/expressionTypes.ts>)
 - [src/expression-survey/externalReference.ts](<../../../src/expression-survey/externalReference.ts>)
 - [src/expression-survey/externalReferenceFormat.ts](<../../../src/expression-survey/externalReferenceFormat.ts>)
 - [src/expression-survey/neuroseqExpression.ts](<../../../src/expression-survey/neuroseqExpression.ts>)
 - [src/expression-survey/referenceExpression.ts](<../../../src/expression-survey/referenceExpression.ts>)
+- [src/expression-survey/sourceJson.ts](<../../../src/expression-survey/sourceJson.ts>)
+- [src/expression-survey/useSurveyLoad.ts](<../../../src/expression-survey/useSurveyLoad.ts>)
 
 ## gene-explorer
 
@@ -615,29 +636,6 @@ Covered source files (8):
 - [src/library/libraryExport.ts](<../../../src/library/libraryExport.ts>)
 - [src/library/libraryFilters.ts](<../../../src/library/libraryFilters.ts>)
 
-## local-datasets
-
-On-device result import, storage and exploration.
-
-Start here:
-- [src/local-datasets/LocalDatasetsView.tsx](<../../../src/local-datasets/LocalDatasetsView.tsx>)
-- [src/local-datasets/ImportPanel.tsx](<../../../src/local-datasets/ImportPanel.tsx>)
-- [docs/LOCAL_DATASETS.md](<../../LOCAL_DATASETS.md>)
-
-Covered source files (12):
-- [src/local-datasets/ImportPanel.tsx](<../../../src/local-datasets/ImportPanel.tsx>)
-- [src/local-datasets/LocalDatasetsView.tsx](<../../../src/local-datasets/LocalDatasetsView.tsx>)
-- [src/local-datasets/LocalExplorer.css](<../../../src/local-datasets/LocalExplorer.css>)
-- [src/local-datasets/LocalExplorer.test.tsx](<../../../src/local-datasets/LocalExplorer.test.tsx>)
-- [src/local-datasets/LocalExplorer.tsx](<../../../src/local-datasets/LocalExplorer.tsx>)
-- [src/local-datasets/PublicReferencePicker.tsx](<../../../src/local-datasets/PublicReferencePicker.tsx>)
-- [src/local-datasets/comparison.test.ts](<../../../src/local-datasets/comparison.test.ts>)
-- [src/local-datasets/comparison.ts](<../../../src/local-datasets/comparison.ts>)
-- [src/local-datasets/importData.ts](<../../../src/local-datasets/importData.ts>)
-- [src/local-datasets/localDatasets.css](<../../../src/local-datasets/localDatasets.css>)
-- [src/local-datasets/storage.ts](<../../../src/local-datasets/storage.ts>)
-- [src/local-datasets/types.ts](<../../../src/local-datasets/types.ts>)
-
 ## methodology
 
 Methodology reference page for the collection.
@@ -680,11 +678,11 @@ Covered source files (9):
 
 ## pwa
 
-Service-worker updates and version handling.
+Version-stamp update prompt and the opt-in service worker.
 
 Start here:
-- [src/pwa/registerUpdates.ts](<../../../src/pwa/registerUpdates.ts>)
 - [src/pwa/versionWatch.ts](<../../../src/pwa/versionWatch.ts>)
+- [src/pwa/registerUpdates.ts](<../../../src/pwa/registerUpdates.ts>)
 
 Covered source files (7):
 - [src/pwa/ConfirmDialog.tsx](<../../../src/pwa/ConfirmDialog.tsx>)
@@ -710,18 +708,28 @@ Covered source files (3):
 
 ## search
 
-Unified gene and pathway search, synonym dictionary and results portal.
+Unified gene and pathway search, synonym dictionary, results portal and gated HypoMap atlas views.
 
 Start here:
 - [src/search/searchTypes.ts](<../../../src/search/searchTypes.ts>)
 - [src/search/searchVocabulary.ts](<../../../src/search/searchVocabulary.ts>)
 - [src/search/searchSummaries.ts](<../../../src/search/searchSummaries.ts>)
 - [src/search/SearchPage.tsx](<../../../src/search/SearchPage.tsx>)
+- [src/search/hypomap/atlas.ts](<../../../src/search/hypomap/atlas.ts>)
 
-Covered source files (11):
+Covered source files (20):
 - [src/search/DbBadge.tsx](<../../../src/search/DbBadge.tsx>)
 - [src/search/SearchPage.tsx](<../../../src/search/SearchPage.tsx>)
 - [src/search/UnifiedSearchBox.tsx](<../../../src/search/UnifiedSearchBox.tsx>)
+- [src/search/hypomap/AtlasMap.tsx](<../../../src/search/hypomap/AtlasMap.tsx>)
+- [src/search/hypomap/Coexpression.tsx](<../../../src/search/hypomap/Coexpression.tsx>)
+- [src/search/hypomap/CsvDialog.tsx](<../../../src/search/hypomap/CsvDialog.tsx>)
+- [src/search/hypomap/HypoMapPreview.tsx](<../../../src/search/hypomap/HypoMapPreview.tsx>)
+- [src/search/hypomap/atlas.ts](<../../../src/search/hypomap/atlas.ts>)
+- [src/search/hypomap/codetection.ts](<../../../src/search/hypomap/codetection.ts>)
+- [src/search/hypomap/coexpression.css](<../../../src/search/hypomap/coexpression.css>)
+- [src/search/hypomap/preview.css](<../../../src/search/hypomap/preview.css>)
+- [src/search/hypomap/useLoad.ts](<../../../src/search/hypomap/useLoad.ts>)
 - [src/search/pathwaySpecificity.ts](<../../../src/search/pathwaySpecificity.ts>)
 - [src/search/portalCards.tsx](<../../../src/search/portalCards.tsx>)
 - [src/search/search.css](<../../../src/search/search.css>)
@@ -733,14 +741,18 @@ Covered source files (11):
 
 ## statistics
 
-Statistical definitions and interpretation limits.
+Statistical definitions, interpretation limits and the shared FDR / p < 0.05 listing toggle.
 
 Start here:
 - [src/statistics/StatisticsView.tsx](<../../../src/statistics/StatisticsView.tsx>)
 - [src/statistics/policy.ts](<../../../src/statistics/policy.ts>)
+- [src/statistics/listingModeStore.ts](<../../../src/statistics/listingModeStore.ts>)
 
-Covered source files (2):
+Covered source files (5):
+- [src/statistics/ListingModeToggle.tsx](<../../../src/statistics/ListingModeToggle.tsx>)
 - [src/statistics/StatisticsView.tsx](<../../../src/statistics/StatisticsView.tsx>)
+- [src/statistics/listingMode.css](<../../../src/statistics/listingMode.css>)
+- [src/statistics/listingModeStore.ts](<../../../src/statistics/listingModeStore.ts>)
 - [src/statistics/policy.ts](<../../../src/statistics/policy.ts>)
 
 ## styles
@@ -777,11 +789,12 @@ Start here:
 - [src/utils/sampleValues.ts](<../../../src/utils/sampleValues.ts>)
 - [src/utils/geneListFile.ts](<../../../src/utils/geneListFile.ts>)
 
-Covered source files (22):
+Covered source files (24):
 - [src/utils/analysisState.ts](<../../../src/utils/analysisState.ts>)
 - [src/utils/appLinks.ts](<../../../src/utils/appLinks.ts>)
 - [src/utils/axes.ts](<../../../src/utils/axes.ts>)
 - [src/utils/chartScale.ts](<../../../src/utils/chartScale.ts>)
+- [src/utils/csv.ts](<../../../src/utils/csv.ts>)
 - [src/utils/datasetLinks.ts](<../../../src/utils/datasetLinks.ts>)
 - [src/utils/excelExport.ts](<../../../src/utils/excelExport.ts>)
 - [src/utils/exportAction.ts](<../../../src/utils/exportAction.ts>)
@@ -800,6 +813,7 @@ Covered source files (22):
 - [src/utils/sampleValues.ts](<../../../src/utils/sampleValues.ts>)
 - [src/utils/seRecovery.ts](<../../../src/utils/seRecovery.ts>)
 - [src/utils/workbook.ts](<../../../src/utils/workbook.ts>)
+- [src/utils/zip.ts](<../../../src/utils/zip.ts>)
 
 ## verification
 

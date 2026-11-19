@@ -1,0 +1,129 @@
+{
+  "agent": "quick",
+  "datasets": [
+    {
+      "datasetId": "mouse_hypo_maternal_care_gse305688",
+      "accession": "GSE305688",
+      "outcome": "documented_no_change",
+      "summary": "No full author effect table exists in GEO, Supplementary Data 1 (no Fig. 6A sheet), Supplementary Table 7 (descriptions only) or the author TCC script, which exports discovery names only. The Fig. 6A volcano gives label directions for 19 of the 20 listed genes. 18 of 18 joinable genes agree in sign with registered artificial-minus-maternal logFC. Hbb-bs is left unjoined (ambiguous) and Matn2 is unlabelled. This scoped selected-gene sign evidence is below the 30-pair v2 minimum and has no numerical effects, so author concordance remains not assessable.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE305688/turbo-2026-11-15-quick",
+      "proposed": {
+        "manualReview": {
+          "status": "validated_with_notes",
+          "comparisonLevel": "direct",
+          "sourceComparison": "manual_structure_match",
+          "auditState": "complete",
+          "reviewedAt": "2026-11-15",
+          "summary": "Maternal-rearing DEG list reproduces; figure directions agree for 18 genes",
+          "note": "Supplementary Table 7 lists 20 maternal-rearing versus artificial-rearing DE genes without statistics. After resolving three current-symbol/Ensembl aliases, all 20 are present and FDR<0.05 locally. The local set contains 37 genes (author-list recall 100%, set Jaccard 0.541). Fig. 6A labels 19 of these genes as down- or up-regulated. Its headers and the authors' lower-Cacna1b-in-AR statement set the orientation. 18 of 18 genes with an exact or Ensembl-mapped registered symbol have the same artificial-minus-maternal sign. Hbb-bs is not joined because its registered counterpart is ambiguous, and Matn2 is unlabelled. No author effect sizes, P or FDR values were published. Supplementary Data 1 has no Fig. 6A sheet, and the author TCC script exports discovery names only.",
+          "reviewFlags": [
+            "Validation is limited to membership in a thresholded 20-gene list and figure-label directions for 18 joined genes; author effects/statistics are unavailable.",
+            "Figure directions were transcribed from the published raster image; magnitudes were not digitised.",
+            "This legacy source has no committed source-file checksum manifest."
+          ],
+          "evidenceLinks": [
+            {
+              "label": "Supplementary Information (Table 7)",
+              "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs42003-026-10012-6/MediaObjects/42003_2026_10012_MOESM1_ESM.pdf",
+              "kind": "author_result"
+            },
+            {
+              "label": "Author TCC pipeline",
+              "url": "https://github.com/Makoto-Kashima/mouse20250709/blob/main/seurat_TCC_pipeline.R",
+              "kind": "code"
+            }
+          ]
+        },
+        "verificationReview": {
+          "resultAvailability": "partial",
+          "comparisonOutcome": "method_differences",
+          "reason": "Only a 20-gene author discovery list and Fig. 6A label directions are published. GEO, Supplementary Data 1 and the author TCC script provide no gene-level effect, P or FDR table. All 20 listed genes are registered FDR<0.05 discoveries, and 18 of 18 joinable figure directions agree. Selected-gene membership and signs cannot establish full-result or effect-size agreement.",
+          "nextStep": "Request the full TCC getResult() table (gene_id, m.value, p.value, q.value) from the authors and, if obtained, compare it with the unchanged registered DE under author-concordance-v2. Keep any rerun of the published TCC script labelled as a separate author-method reconstruction.",
+          "fullyVerifiedContrasts": []
+        },
+        "comparabilityReview": {
+          "registeredContrastIds": [
+            "artificial_vs_maternal"
+          ],
+          "target": "registered_output",
+          "resultScope": "selected_results",
+          "basis": "Registered Explorer artificial-minus-maternal rearing result. Fig. 6A labels supply author directions for selected genes only.",
+          "reference": "Supplementary Table 7, 20 author-listed DE genes without numerical statistics, and Fig. 6A volcano label directions for 19 of them.",
+          "assessment": "limited",
+          "dimensions": {
+            "cohort": {
+              "status": "limited",
+              "note": "Rearing groups correspond (author n=4 MR, 2 male/2 female; n=3 AR, 2 male/1 female). Complete sample/model equivalence is not documented by this list."
+            },
+            "contrast": {
+              "status": "compatible",
+              "note": "The same two rearing groups are compared. Fig. 6A headers and the authors' lower-Cacna1b-in-AR statement orient 'down' as artificial-rearing lower, matching the registered artificial-minus-maternal sign. TCC's internal group order was not re-run."
+            },
+            "features": {
+              "status": "compatible",
+              "note": "All 20 identifiers join after three documented alias resolutions. In the figure-direction check, Hbb-bs is left unjoined because its registered counterpart (Hbb-b1 or Hbb-bt) is ambiguous."
+            },
+            "effects": {
+              "status": "limited",
+              "note": "18 of 18 joinable figure-labelled genes have the registered logFC sign. Author effect magnitudes are not published, and signs read from a figure are not effect estimates."
+            },
+            "inference": {
+              "status": "limited",
+              "note": "All 20 listed genes have local FDR<0.05; author P/FDR values are absent."
+            },
+            "coverage": {
+              "status": "limited",
+              "note": "Twenty selected names, 18 with usable directions, are not the full tested universe or all local discoveries."
+            }
+          },
+          "criteria": "Selected-list recall is 20/20 at local FDR<0.05 and figure-direction agreement is 18/18. Absence from the list is not author nonsignificance. Fewer than 30 pairs and no numerical author effects mean author-concordance-v2 is not assessable.",
+          "conclusion": "Gene-list and selected-direction support only, not effect or full-inference verification."
+        },
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": "Fig. 6A legend (PMC13332149) gives the RNA-seq sexes: MR n=4 (2 male, 2 female), AR n=3 (2 male, 1 female). GEO metadata orders samples 1-4 MR and 5-7 AR. No pup-to-litter crosswalk is published, so the existing independent-replication review is unchanged."
+      },
+      "metrics": {
+        "evidenceKind": "figure_label_direction_transcription",
+        "authorListedGenes": 20,
+        "figureLabelledGenes": 19,
+        "joinedGenes": 19,
+        "directionComparableGenes": 18,
+        "directionAgreements": 18,
+        "registeredFdrBelow005AmongCompared": 18,
+        "unjoined": [
+          "Hbb-bs"
+        ]
+      }
+    },
+    {
+      "datasetId": "gse224274",
+      "accession": "GSE224274",
+      "outcome": "blocked",
+      "summary": "I re-fetched the author Fig.1c workbook. Its SHA-256 matches the 2026-09-11 pin: 14,952 readable genes with log2 FC and -log10 P, plus four date-typed cells. It still shares 0 exact or case-folded genes with the 5,143 registered DE genes. GEO is unchanged since Jan 31 2024, and its only supplement is CPM-Gys.txt.gz. The paper's data statement names only GSE224274 and source data and offers the rest on request. No public primary source supplies a complete matrix. SRA re-alignment is outside the processed-data workflow. No paired-gene comparison is computable under author-concordance-v2.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE224274/turbo-2026-11-15-quick",
+      "proposed": {
+        "manualReview": null,
+        "verificationReview": {
+          "resultAvailability": "available",
+          "comparisonOutcome": "unresolved",
+          "reason": "The full author Fig.1c table (Gene, log2 FC, -log10 pVal) is available and byte-identical to the 2026-09-11 pin. Its 14,952 readable genes share no gene with the 5,764-gene GEO CPM deposit or the 5,143 registered DE genes. A 2026-11-15 recheck finds GEO unchanged since Jan 31 2024, with CPM-Gys.txt.gz still the only supplementary file. The paper's data statement names only GSE224274 and source data. Four date-typed author gene cells remain unresolved. No zero filling, inferred aliases, date repair or force join is performed. Missing intersections are not correlations of zero.",
+          "nextStep": "Request the complete 12-library NEO/SENS count or CPM matrix from the lead contact, or a GEO correction, and confirm what CPM-Gys contains. Re-register from a complete pinned matrix before any author-effect comparison. Do not re-align SRA reads within this processed-data workflow.",
+          "fullyVerifiedContrasts": []
+        },
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": {
+        "authorReadableGenes": 14952,
+        "authorDateTypedCells": 4,
+        "registeredGenes": 5143,
+        "exactOverlap": 0,
+        "caseFoldedOverlap": 0,
+        "authorWorkbookMatchesPin": true
+      }
+    }
+  ]
+}

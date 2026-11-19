@@ -1,15 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AtlasMap, regions } from './AtlasMap';
-import { type DatasetMetrics, datasetMetrics, loadAtlasGene, type Metrics, poolMetrics } from './atlas';
+import { type DatasetMetrics, datasetMetrics, loadAtlasGene, type Metrics, poolMetrics, type ReadyAtlas } from './atlas';
 import { type Csv, CsvDialog } from './CsvDialog';
+import { useLoad } from './useLoad';
 import './preview.css';
 
 const whole = 'Whole hypothalamus';
 const unit = 'ln(1 + counts per 10k)';
 const colors = ['#376592', '#a6632c', '#338071', '#96577f', '#577a32', '#785ca5', '#a94953', '#24758b', '#7d663a', '#58768c', '#5c6fc6', '#aa5835', '#3c8262', '#8e5272', '#777442', '#315f83', '#6578a2', '#a35c53'];
 const count = new Intl.NumberFormat('en-US');
-type AtlasResult = Awaited<ReturnType<typeof loadAtlasGene>>;
-type Ready = Extract<AtlasResult, { state: 'ready' }>;
 
 function value(n: number | null, suffix = '') {
   return n === null ? '—' : n.toFixed(2) + suffix;
@@ -63,7 +62,7 @@ function Chart({ rows, field, checked, onExport }: {
     <section className="hm-card">
       <h5>{title}</h5>
       <small>{field === 'mean' ? unit : 'Percent of eligible cells'}</small>
-      <svg className="hm-chart" viewBox="0 0 235 215" role="group" aria-label={title}>
+      <svg className="hm-chart" viewBox="0 0 235 215" aria-label={title}>
         {[0, .25, .5, .75, 1].map(tick => (
           <g key={tick}>
             <line x1="42" x2="222" y1={y(tick * max)} y2={y(tick * max)} stroke="#dbe2e8" />
@@ -88,7 +87,7 @@ function Chart({ rows, field, checked, onExport }: {
 }
 
 
-function AtlasViews({ data }: { data: Ready }) {
+function AtlasViews({ data }: { data: ReadyAtlas }) {
   const [view, setView] = useState<'spatial' | 'datasets'>('spatial');
   const [region, setRegion] = useState(whole);
   const [checked, setChecked] = useState<string[]>([]);
@@ -192,29 +191,18 @@ function AtlasViews({ data }: { data: Ready }) {
 }
 
 export function HypoMapPreview({ symbol }: { symbol: string }) {
-  const [result, setResult] = useState<AtlasResult | 'error' | null>(null);
-  const [attempt, setAttempt] = useState(0);
-  useEffect(() => {
-    let active = true;
-    loadAtlasGene(symbol).then(
-      data => { if (active) setResult(data); },
-      () => { if (active) setResult('error'); },
-    );
-    return () => { active = false; };
-  }, [symbol, attempt]);
+  const load = useLoad(symbol, () => loadAtlasGene(symbol));
+  const result = load.state === 'loaded' ? load.value : null;
 
   return (
     <section className="hm-preview" id="hypomap-preview" aria-labelledby="hypomap-preview-title">
       <h3 id="hypomap-preview-title">Mouse single-cell expression in HypoMap</h3>
       <p className="portal-note">Among cells included in HypoMap · 384,925 cells from 18 contributing datasets.</p>
-      {result === null && <p role="status">Loading HypoMap expression…</p>}
-      {result === 'error' && <p role="status">HypoMap preview data could not be loaded. <button type="button" className="portal-secondary" onClick={() => {
-        setResult(null);
-        setAttempt(n => n + 1);
-      }}>Retry</button></p>}
-      {result && result !== 'error' && result.state === 'missing' && <p>No HypoMap feature matched {symbol}.</p>}
-      {result && result !== 'error' && result.state === 'ambiguous' && <p>Multiple atlas features match {symbol}. Search a canonical symbol: {result.candidates.join(', ')}.</p>}
-      {result && result !== 'error' && result.state === 'ready' && <AtlasViews data={result} />}
+      {load.state === 'loading' && <p role="status">Loading HypoMap expression…</p>}
+      {load.state === 'failed' && <p role="status">HypoMap preview data could not be loaded. <button type="button" className="portal-secondary" onClick={load.retry}>Retry</button></p>}
+      {result?.state === 'missing' && <p>No HypoMap feature matched {symbol}.</p>}
+      {result?.state === 'ambiguous' && <p>Multiple atlas features match {symbol}. Search a canonical symbol: {result.candidates.join(', ')}.</p>}
+      {result?.state === 'ready' && <AtlasViews data={result} />}
     </section>
   );
 }

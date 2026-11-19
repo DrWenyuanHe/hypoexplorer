@@ -1,5 +1,15 @@
 // Fallback detector for "this tab is running an old build".
 //
+// ON CLOUDFLARE THIS IS THE PRIMARY (AND ONLY) DETECTOR. The service worker is
+// off unless the build sets VITE_SERVICE_WORKER=1 (see vite.config.ts), so the
+// paragraphs below describe the setup this falls back from when it is on. Still
+// needed without a worker: an open tab keeps the old JavaScript in memory, a
+// deploy removes the old hashed /assets/ chunks it may lazy-load, and its data
+// URLs carry the old ?v= key. Cloudflare cannot tell an open tab any of that.
+//
+// The forceRefresh() remedy also unregisters any worker a returning visitor
+// still has from before the switch, which is harmless when there is none.
+//
 // The service-worker path (registerUpdates.ts) is the primary one, but it
 // cannot cover two real cases:
 //   - a service worker never registers at all — blocked by enterprise policy or

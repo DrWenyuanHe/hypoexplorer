@@ -1,0 +1,43 @@
+# Dependabot updates. Groups keep each run to a few pull requests instead of
+# one per package, and keep lockfile changes from conflicting with each other.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      # Every security fix in one pull request, whatever the package.
+      security:
+        applies-to: security-updates
+        patterns: ['*']
+      development:
+        applies-to: version-updates
+        dependency-type: development
+        update-types: [minor, patch]
+      production:
+        applies-to: version-updates
+        dependency-type: production
+        update-types: [minor, patch]
+    ignore:
+      # jsdom stays on 26 until the accessible-name spacing work lands
+      # (docs/PROJECT_GUIDANCE.md).
+      - dependency-name: jsdom
+        update-types: [version-update:semver-major]
+      # Node types follow the Node major that CI runs (22), not the latest.
+      - dependency-name: '@types/node'
+        update-types: [version-update:semver-major]
+      # TypeScript is pinned to a 7.x prerelease (the native compiler).
+      # Dependabot offers nightly dev builds from there, so upgrade by hand.
+      - dependency-name: typescript
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    groups:
+      actions:
+        patterns: ['*']

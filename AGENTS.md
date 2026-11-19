@@ -3,19 +3,6 @@
 Read [project guidance](docs/PROJECT_GUIDANCE.md) for this repository's project structure, data provenance,
 and validation commands.
 
-## SEO skills
-
-The SEO suite is installed only in this repository, under `.agents/skills/`.
-Use it when the current task requires SEO work or the user explicitly invokes an
-SEO skill. Ordinary code changes, page reviews, and content edits do not trigger
-the suite by themselves. Read only the relevant `SKILL.md` and supporting files.
-
-For broad SEO work, start with `.agents/skills/seo/SKILL.md`. For a focused task,
-load the matching `seo-*` skill directly. Shared upstream files are in
-`vendor/claude-seo/`; run tools through `python scripts/seo_runtime.py` from this
-repository's root and keep any requested dependency setup local to this repository.
-Installation, updates and recovery are in [SEO tooling](docs/seo-tooling.md).
-
 ## Context maintenance
 
 Read the task's detailed map and canonical runbook before changing code. After a
@@ -26,7 +13,7 @@ follow [the maintenance procedure](docs/agent-context/README.md).
 <!-- agent-context:start -->
 ## Startup context map
 
-HypoExplorer: 162 registered datasets in 11 categories; 27 source areas, 15 application views and 5 explorer tabs. Counts describe checked-in declarations.
+HypoExplorer: 162 registered datasets in 11 categories; 26 source areas, 14 application views and 5 explorer tabs. Counts describe checked-in declarations.
 
 Directories:
 - `brand/`: Approved logo masters, reusable exports and licensed companion typography.
@@ -36,9 +23,9 @@ Directories:
 - `data/`: Analysis inputs, retained evidence and reviewed assessments.
 - `geo_replication/`: Tracked study inputs and analysis outputs.
 - `workers/`: Scheduled R2 spend guard for the data origin.
+- `services/`: Loopback HypoMap co-detection service behind the gated co-expression card.
 - `cloudflare/`: Edge cache, WAF and rate-limit rule payloads for the data host.
 - `docs/`: Data contracts, runbooks and maintained context.
-- `vendor/`: Pinned Claude SEO toolkit snapshot behind the project-local SEO skills.
 
 Source areas:
 - `__tests__`: App, data-contract and regression tests.
@@ -56,14 +43,13 @@ Source areas:
 - `gene-explorer`: Gene search, volcano plots and expression displays.
 - `hub`: Search-first landing page and study entry points.
 - `library`: Dataset discovery, filtering, study records and result summaries.
-- `local-datasets`: On-device result import, storage and exploration.
 - `methodology`: Methodology reference page for the collection.
 - `nomenclature`: Symbol and authority reference interface.
 - `pathway-explorer`: Enrichment tables, leading edges and pathway plots.
-- `pwa`: Service-worker updates and version handling.
+- `pwa`: Version-stamp update prompt and the opt-in service worker.
 - `qc`: Track-level QC tables and enrichment diagnostics.
-- `search`: Unified gene and pathway search, synonym dictionary and results portal.
-- `statistics`: Statistical definitions and interpretation limits.
+- `search`: Unified gene and pathway search, synonym dictionary, results portal and gated HypoMap atlas views.
+- `statistics`: Statistical definitions, interpretation limits and the shared FDR / p < 0.05 listing toggle.
 - `styles`: Shared display constants.
 - `types`: Shared registry, track, report and time-series contracts.
 - `utils`: Routing, sample values, symbol handling and exports.
@@ -77,7 +63,6 @@ Task routing:
 - [Add or change a public dataset](docs/agent-context/workflows.md#dataset-change).
 - [Review QC and author evidence](docs/agent-context/workflows.md#verification).
 - [Change navigation, views or exports](docs/agent-context/workflows.md#ui-change).
-- [Change local result imports](docs/agent-context/workflows.md#local-import).
 - [Build and verify site delivery](docs/agent-context/workflows.md#delivery).
 
 [Code map](docs/agent-context/generated/codebase.md) · [Dataset map](docs/agent-context/generated/datasets.md) · [Shared contracts](docs/agent-context/generated/contracts.md) · [Maintenance](docs/agent-context/README.md).

@@ -12,7 +12,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { dirGlyph } from '../crossdataset/forestReport';
-import { DEFAULT_FDR_CUTOFF } from '../statistics/policy';
+import { DEFAULT_FDR_CUTOFF, NOMINAL_P_CUTOFF, type SignificanceTier } from '../statistics/policy';
 import { DOWN_TEXT_COLOR, NEUTRAL_TEXT_COLOR, UP_TEXT_COLOR } from '../styles/constants';
 import { fmtFDR, fmtP, fmtSigned } from '../utils/format';
 import { DbBadge } from './DbBadge';
@@ -56,6 +56,17 @@ export function Effect({ value, direction, significant }: { value: number; direc
       <span aria-hidden="true">{dirGlyph(direction)} </span>{fmtSigned(value, 2)}
     </span>
   );
+}
+
+/**
+ * A row's call: the FDR survivors are labelled; the nominal tier is named as
+ * uncorrected. Shared by the search portal and the pathway report, so the same
+ * result carries the same words wherever it appears.
+ */
+export function TierLabel({ tier }: { tier: SignificanceTier }) {
+  if (tier === 'fdr') return <span className="portal-tier portal-tier--fdr">FDR &lt; {DEFAULT_FDR_CUTOFF}</span>;
+  if (tier === 'nominal') return <span className="portal-tier portal-tier--nominal">p &lt; {NOMINAL_P_CUTOFF} only</span>;
+  return <span className="portal-tier portal-tier--none">n.s.</span>;
 }
 
 export function plural(n: number, one: string, many = `${one}s`): string {
@@ -338,18 +349,23 @@ export function BaselineSection({ symbol }: { symbol: string }) {
       ) : (
         <>
           <ul className="portal-bars" aria-label={`Highest mean expression of ${teaser.gene}, TPM`}>
-            {teaser.populations.slice(0, BASELINE_TOP).map((p) => (
-              <li key={p.id}>
-                <span className="portal-bar-label">{p.label}</span>
-                <span className="portal-bar-track" aria-hidden="true">
-                  <span className="portal-bar" style={{ width: `${teaser.max > 0 ? Math.max(1, (p.meanTpm / teaser.max) * 100) : 0}%` }} />
+            {teaser.groups.slice(0, BASELINE_TOP).map((g) => (
+              <li key={g.id}>
+                <span className="portal-bar-label" title={g.group ? `${g.label}, source group ${g.group}` : g.label}>
+                  {g.label}
+                  {/* A population with several source groups gets a row per group, named as the survey names it. */}
+                  {g.group && <span className="portal-card-sub" style={{ display: 'block', overflow: 'hidden', textOverflow: 'ellipsis' }}>{g.group}</span>}
                 </span>
-                <span className="portal-bar-value">{fmtTpm(p.meanTpm)}</span>
+                <span className="portal-bar-track" aria-hidden="true">
+                  <span className="portal-bar" style={{ width: `${teaser.max > 0 ? Math.max(1, (g.meanTpm / teaser.max) * 100) : 0}%` }} />
+                </span>
+                <span className="portal-bar-value">{fmtTpm(g.meanTpm)}</span>
               </li>
             ))}
           </ul>
           <p className="portal-note">
-            Mean TPM across sorted-neuron libraries; top {BASELINE_TOP} of {teaser.populationCount} populations.
+            Mean TPM across each source group's sorted-neuron libraries; top {Math.min(BASELINE_TOP, teaser.groups.length)} of{' '}
+            {teaser.groups.length} source groups in {teaser.populationCount} populations. Source groups are not pooled, as in the survey.
           </p>
         </>
       )}
@@ -543,17 +559,21 @@ export function GeneExpressionCards({ symbol, onOpenExpression }: { symbol: stri
   return (
     <section className="portal-card gene-expr" data-cards="expression" aria-labelledby="gene-expr-title">
       <h2 id="gene-expr-title" className="portal-card-title">Where {symbol} is expressed</h2>
-      {showHypoMap ? <HypoMapPreview key={symbol} symbol={symbol} /> : <div className="gene-expr-lanes">
+      <div className="gene-expr-lanes">
         <section className="gene-expr-lane" data-species="mouse" aria-labelledby="gene-expr-mouse-title">
           <h3 id="gene-expr-mouse-title" className="gene-expr-lane-title">Mouse hypothalamus</h3>
           <BaselineSection symbol={symbol} />
-          <section className="portal-source portal-source--soon" data-slot="single-cell-mouse" aria-label="Single-cell atlases (coming soon)">
-            <h4 className="portal-source-title">Single-cell atlases <span className="portal-soon">Coming soon</span></h4>
-            <p className="portal-note">{symbol} expression by cell type across mouse hypothalamic single-cell atlases.</p>
-          </section>
+          {!showHypoMap && (
+            <section className="portal-source portal-source--soon" data-slot="single-cell-mouse" aria-label="Single-cell atlases (coming soon)">
+              <h4 className="portal-source-title">Single-cell atlases <span className="portal-soon">Coming soon</span></h4>
+              <p className="portal-note">{symbol} expression by cell type across mouse hypothalamic single-cell atlases.</p>
+            </section>
+          )}
         </section>
         <ReferenceAtlasSection symbol={symbol} />
-      </div>}
+      </div>
+      {/* The mouse single-cell slot, given the card's full width: its map and summary need more than the mouse lane. */}
+      {showHypoMap && <HypoMapPreview key={symbol} symbol={symbol} />}
       <div className="gene-expr-foot">
         <p className="portal-note">
           Each source keeps its own published unit, and its bars are scaled to its own highest value. Every sample,

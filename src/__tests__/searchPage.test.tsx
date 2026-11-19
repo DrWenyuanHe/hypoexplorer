@@ -25,6 +25,7 @@ const OXTR = gene('OXTR', 'oxytocin receptor', 'name-prefix', 'oxytocin receptor
 const SECRETION = pathway('GOBP_OXYTOCIN_SECRETION', 'Oxytocin secretion');
 const SIGNALING = pathway('KEGG_OXYTOCIN_SIGNALING_PATHWAY', 'Oxytocin signaling pathway');
 const TWELVE = Array.from({ length: 12 }, (_, i) => gene(`G${i}`, `gene ${i}`, 'name-word'));
+const HUNDRED = Array.from({ length: 100 }, (_, i) => gene(`H${i}`, `gene ${i}`, 'name-word'));
 
 const FIXTURES: Record<string, SearchResults> = {
   oxytocin: { query: 'oxytocin', genes: [OXT, OXTR], pathways: [SECRETION, SIGNALING], best: { kind: 'gene', hit: OXT } },
@@ -33,6 +34,8 @@ const FIXTURES: Record<string, SearchResults> = {
   G0: { query: 'G0', genes: TWELVE, pathways: [], best: { kind: 'gene', hit: TWELVE[0] } },
   // No decisive match.
   many: { query: 'many', genes: TWELVE, pathways: [SECRETION], best: null },
+  // A direct match at the head of a list cut off at the 100-gene limit.
+  H0: { query: 'H0', genes: HUNDRED, pathways: [], best: { kind: 'gene', hit: HUNDRED[0] } },
 };
 
 function geneReport(): CrossDatasetGeneReport {
@@ -214,6 +217,12 @@ describe('SearchPage', () => {
     expect(screen.queryByRole('region', { name: /^Pathways/ })).toBeNull();
   });
 
+  it('marks the other genes as capped when the result list hit its limit', () => {
+    renderPage('H0', 'gene');
+    expect(matchList()).toBeTruthy();
+    expect(screen.getByRole('region', { name: 'Also matching 100+' })).toBeTruthy();
+  });
+
   it('lists the genes without a lead row when no gene is a direct match, capped under All', () => {
     const { onFilterChange } = renderPage('many');
     expect(matchList()).toBeNull();
@@ -238,25 +247,61 @@ describe('SearchPage', () => {
       ],
       pathways: [], best: null,
     });
+    // No track below p 0.05, so neither tier: the row says where it came closest, by p.
     const flat = geneReport();
-    flat.groups = flat.groups.map((g) => ({ ...g, tracks: g.tracks.map((t) => ({ ...t, significant: false })) }));
+    flat.groups = flat.groups.map((g) => ({
+      ...g,
+      tracks: g.tracks.map((t) => geneRow({ ...t, pval: t.trackId === 'whole' ? 0.08 : 0.3, fdr: 0.9 })),
+    }));
     mocks.queryGeneViaIndex.mockImplementation((symbol: string) => Promise.resolve(
       symbol === 'OXTR' ? {
         gene: 'OXTR', total: 1, loaded: 1,
-        groups: [{ dataset: MOUSE, contrast: getActiveContrast(MOUSE), tracks: [geneRow({ trackId: 'whole', label: 'Whole', type: '', logFC: 0.2, pval: 0.03, fdr: 0.4, se: 0.2, lowPower: false })] }],
+        groups: [{ dataset: MOUSE, contrast: getActiveContrast(MOUSE), tracks: [geneRow({ trackId: 'whole', label: 'Whole', type: '', logFC: 0.2, pval: 0.3, fdr: 0.4, se: 0.2, lowPower: false })] }],
       } : symbol === 'OXTY' ? flat : null,
     ));
     renderPage('ox');
     const rows = rowsOf(screen.getByRole('region', { name: 'Genes 4' }));
     expect(await within(rows[0]).findByText(/Not significant in its 1 dataset/)).toBeTruthy();
-    expect(rows[0].textContent).toContain('(lowest q 0.400)');
+    expect(rows[0].textContent).toContain('(lowest p 0.300, q 0.400)');
     expect(rows[1].textContent).toContain('Not measured in any indexed study.');
     expect(summaryOf(rows[1])).toHaveAttribute('data-summary', 'none');
     expect(await within(rows[2]).findByText(/Not significant in any of 2 datasets/)).toBeTruthy();
-    expect(rows[2].textContent).toContain('(lowest q 2.0e-4)');
+    expect(rows[2].textContent).toContain('(lowest p 0.080, q 0.900)');
     expect(await within(rows[3]).findByText('Cross-study summary unavailable.')).toBeTruthy();
     expect(mocks.queryGeneViaIndex.mock.calls.map((c) => c[0]).sort()).toEqual(['OXTR', 'OXTY', 'OXTZ']);
     expect(mocks.queryGeneAcrossDatasets).not.toHaveBeenCalled();
+  });
+
+  it('shows a gene that reaches p < 0.05 but not FDR as nominal, never as significant', async () => {
+    const nominal = geneReport();
+    nominal.groups = nominal.groups.map((g) => ({
+      ...g,
+      tracks: g.tracks.map((t) => geneRow({ ...t, fdr: 0.3, pval: t.trackId === 'whole' ? 0.004 : t.trackId === 'PVN' ? 0.02 : 0.4 })),
+    }));
+    mocks.queryGeneViaIndex.mockResolvedValue(nominal);
+    renderPage('oxytocin');
+    const [row] = rowsOf(matchList() as HTMLElement);
+    await waitFor(() => expect(summaryOf(row)).toHaveAttribute('data-summary', 'done'));
+    expect(summaryOf(row).textContent).toMatch(
+      /Not significant after FDR in any of 2 datasets · p < 0\.05 in 2 tracks of 2 datasets \(1 up · 1 down, uncorrected\)/,
+    );
+    expect(summaryOf(row).textContent).not.toMatch(/Significant in/);
+    // Closest by p, uncoloured: whole hypothalamus at p 0.004 leads PVN at 0.02.
+    const closest = row.querySelector('.search-row-strongest') as HTMLElement;
+    expect(closest.textContent).toMatch(/^Closest.*Whole hypothalamus log2FC -0\.30 p 0\.004 q 0\.300$/);
+  });
+
+  it('counts the nominal tracks beside the FDR result without adding them to it', async () => {
+    const mixed = geneReport();
+    mixed.groups = mixed.groups.map((g) => ({
+      ...g, tracks: g.tracks.map((t) => (t.trackId === 'whole' ? geneRow({ ...t, pval: 0.01, fdr: 0.2 }) : t)),
+    }));
+    mocks.queryGeneViaIndex.mockResolvedValue(mixed);
+    renderPage('oxytocin');
+    const [row] = rowsOf(matchList() as HTMLElement);
+    await waitFor(() => expect(summaryOf(row)).toHaveAttribute('data-summary', 'done'));
+    expect(summaryOf(row).textContent).toMatch(/Significant in 1 of 2 datasets · 1 track up · 0 down · 1 more track at p < 0\.05 only/);
+    expect(row.querySelector('.search-row-strongest')?.textContent).toMatch(/^Strongest.*PVN neurons log2FC \+1\.80 q 2\.0e-4$/);
   });
 
   it('runs a search for a pathway row', () => {
@@ -286,7 +331,10 @@ describe('SearchPage', () => {
     expect(await within(section).findByText(/Enriched/)).toBeTruthy();
     expect(section.querySelector('.portal-verdict')?.textContent)
       .toMatch(/Enriched \(FDR < 0\.05\) in 2 of 3 tracks across 1 study · 1 up · 1 down/);
-    expect(within(section).getAllByRole('row').slice(1).map((r) => (r as HTMLTableRowElement).cells[1].textContent)).toEqual(['PVN', 'SON']);
+    const bodyRows = within(section).getAllByRole('row').slice(1) as HTMLTableRowElement[];
+    expect(bodyRows.map((r) => r.cells[1].textContent)).toEqual(['PVN', 'SON']);
+    expect(bodyRows.map((r) => r.cells[6].textContent)).toEqual(['FDR < 0.05', 'FDR < 0.05']);
+    expect(section.textContent).not.toMatch(/p < 0\.05 only|reach p < 0\.05/);
     expect(mocks.queryPathwayViaIndex).toHaveBeenCalledWith('GOBP_OXYTOCIN_SECRETION', expect.any(Array));
     expect(mocks.queryPathwayAcrossDatasets).not.toHaveBeenCalled();
     fireEvent.click(within(section).getByRole('button', { name: 'Open full pathway report →' }));
@@ -297,6 +345,76 @@ describe('SearchPage', () => {
     const [current] = rowsOf(screen.getByRole('region', { name: 'Pathways 1' }));
     expect(current).toHaveAttribute('aria-current', 'true');
     expect(current.textContent).toContain('Shown above');
+  });
+
+  it('lists nominal pathway tracks after the FDR ones and labels only the FDR survivors', async () => {
+    const report = pathwayReport();
+    const nominal = (trackId: string, NES: number, pval: number) =>
+      pathwayRow({ trackId, label: trackId, type: '', NES, padj: 0.2, pval, size: 40, db: 'GO_BP' });
+    report.groups[0].tracks.push(nominal('DMH', 1.4, 0.03), nominal('VMH', -1.5, 0.004));
+    mocks.queryPathwayViaIndex.mockResolvedValue(report);
+    renderPage('GOBP_OXYTOCIN_SECRETION');
+    const section = (pathwayPortal() as HTMLElement).querySelector('[data-section="enrichment"]') as HTMLElement;
+    await within(section).findByText(/Enriched/);
+    // The headline count is still the FDR call.
+    expect(section.querySelector('.portal-verdict')?.textContent)
+      .toMatch(/Enriched \(FDR < 0\.05\) in 2 of 5 tracks across 1 study · 1 up · 1 down/);
+    expect(section.textContent).toMatch(/A further 2 tracks reach p < 0\.05 without passing FDR \(1 up · 1 down\)/);
+    const bodyRows = within(section).getAllByRole('row').slice(1) as HTMLTableRowElement[];
+    // FDR survivors by q, then the nominal tracks by p; ARC (p 0.07) is in neither tier.
+    expect(bodyRows.map((r) => r.cells[1].textContent)).toEqual(['PVN', 'SON', 'VMH', 'DMH']);
+    expect(bodyRows.map((r) => r.cells[6].textContent)).toEqual(['FDR < 0.05', 'FDR < 0.05', 'p < 0.05 only', 'p < 0.05 only']);
+    expect(bodyRows.map((r) => r.dataset.tier)).toEqual(['fdr', 'fdr', 'nominal', 'nominal']);
+  });
+
+  it('lists only the FDR survivors when the listing is set to FDR, everywhere on the page', async () => {
+    const mixed = geneReport();
+    mixed.groups = mixed.groups.map((g) => ({
+      ...g, tracks: g.tracks.map((t) => (t.trackId === 'whole' ? geneRow({ ...t, pval: 0.01, fdr: 0.2 }) : t)),
+    }));
+    mocks.queryGeneViaIndex.mockResolvedValue(mixed);
+    const report = pathwayReport();
+    report.groups[0].tracks.push(pathwayRow({ trackId: 'VMH', label: 'VMH', type: '', NES: -1.5, padj: 0.2, pval: 0.004, size: 40, db: 'GO_BP' }));
+    mocks.queryPathwayViaIndex.mockResolvedValue(report);
+
+    renderPage('oxytocin');
+    const [row] = rowsOf(matchList() as HTMLElement);
+    await waitFor(() => expect(summaryOf(row)).toHaveAttribute('data-summary', 'done'));
+    expect(summaryOf(row).textContent).toMatch(/at p < 0\.05 only/);
+    // One toggle, on the results heading row.
+    fireEvent.click(screen.getByRole('button', { name: 'FDR (q < 0.05)' }));
+    expect(row.querySelector('.search-row-verdict')?.textContent).toBe('Significant in 1 of 2 datasets · 1 track up · 0 down');
+    expect(summaryOf(row).textContent).not.toMatch(/p < 0\.05/);
+  });
+
+  it('lists only FDR pathway tracks in FDR mode, and the lowest q when none passes', async () => {
+    const report = pathwayReport();
+    report.groups[0].tracks.push(pathwayRow({ trackId: 'VMH', label: 'VMH', type: '', NES: -1.5, padj: 0.2, pval: 0.004, size: 40, db: 'GO_BP' }));
+    mocks.queryPathwayViaIndex.mockResolvedValue(report);
+    renderPage('GOBP_OXYTOCIN_SECRETION');
+    const section = (pathwayPortal() as HTMLElement).querySelector('[data-section="enrichment"]') as HTMLElement;
+    await within(section).findByText(/Enriched/);
+    const labels = () => (within(section).getAllByRole('row').slice(1) as HTMLTableRowElement[]).map((r) => r.cells[1].textContent);
+    expect(labels()).toEqual(['PVN', 'SON', 'VMH']);
+    fireEvent.click(screen.getByRole('button', { name: 'FDR (q < 0.05)' }));
+    expect(labels()).toEqual(['PVN', 'SON']);
+    expect(section.textContent).not.toMatch(/reach p < 0\.05/);
+    // The q column explains itself.
+    const qHeader = within(section).getAllByRole('columnheader')[5];
+    expect(qHeader.querySelector('abbr')?.title).toMatch(/FDR-adjusted p-value/);
+  });
+
+  it('says so when no pathway track reaches even p < 0.05, listing the lowest p-values', async () => {
+    const report = pathwayReport();
+    report.groups[0].tracks = report.groups[0].tracks.map((t) =>
+      pathwayRow({ ...t, padj: 0.8, pval: t.trackId === 'SON' ? 0.06 : 0.5 }));
+    mocks.queryPathwayViaIndex.mockResolvedValue(report);
+    renderPage('GOBP_OXYTOCIN_SECRETION');
+    const section = (pathwayPortal() as HTMLElement).querySelector('[data-section="enrichment"]') as HTMLElement;
+    expect(await within(section).findByText(/No track reaches p < 0\.05\. The lowest p-values are listed\./)).toBeTruthy();
+    const bodyRows = within(section).getAllByRole('row').slice(1) as HTMLTableRowElement[];
+    expect(bodyRows[0].cells[1].textContent).toBe('SON');
+    expect(bodyRows.every((r) => r.cells[6].textContent === 'n.s.')).toBe(true);
   });
 
   it('degrades the pathway portal to a sentence when the index is unavailable, never to the full download', async () => {

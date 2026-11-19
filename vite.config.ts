@@ -1,6 +1,6 @@
 import { defineConfig, type ViteUserConfig } from 'vitest/config';
 import type { TestSpecification } from 'vitest/node';
-import type { Plugin } from 'vite';
+import { loadEnv, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import { readFileSync, writeFileSync, existsSync, mkdirSync, rmSync, readdirSync, statSync } from 'node:fs';
@@ -202,7 +202,7 @@ function dropOffOriginData(): Plugin {
     },
     closeBundle() {
       if (!bundleBase) return;
-      for (const dir of ['datasets', 'query', 'qc']) {
+      for (const dir of ['datasets', 'query', 'qc', 'hypomap']) {
         const target = resolve(__dirname, outDir, dir);
         if (!existsSync(target)) continue;
         rmSync(target, { recursive: true, force: true });
@@ -369,7 +369,7 @@ function publicStudyPages(): Plugin {
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         const pathname = new URL(req.url ?? '/', 'http://localhost').pathname;
-        if (!/^\/(?:studies|about|topics|methods|how-to-cite)(?:\/|$)/.test(pathname)
+        if (!/^\/(?:studies|about|methods|how-to-cite)(?:\/|$)/.test(pathname)
           && pathname !== '/robots.txt' && pathname !== '/sitemap.xml') return next();
         if (req.method !== 'GET' && req.method !== 'HEAD') return next();
         const document = renderSeoRoute(pathname);
@@ -428,6 +428,9 @@ async function nodeFirstSequencer() {
 
 export default defineConfig(async ({ mode }): Promise<ViteUserConfig> => {
   const release = mode === 'test' ? null : readReleaseBuild(__dirname);
+  // Service worker: OFF by default since the Cloudflare cutover. See the note
+  // above VitePWA() below; VITE_SERVICE_WORKER=1 restores the full worker.
+  const serviceWorker = loadEnv(mode, __dirname, 'VITE_').VITE_SERVICE_WORKER === '1';
   return ({
   // Keep dependency prebundles local when worktrees share installed packages.
   cacheDir: '.tmp/vite',
@@ -451,7 +454,35 @@ export default defineConfig(async ({ mode }): Promise<ViteUserConfig> => {
     emitVersionManifest(release),
     publicStudyPages(),
     trackerReviewsApi(),
+    // SERVICE WORKER — NOT NEEDED ON CLOUDFLARE, KEPT FOR A FUTURE HOST.
+    //
+    // By default (VITE_SERVICE_WORKER unset) this ships a SELF-DESTROYING
+    // worker: browsers that installed the old one fetch the new sw.js (it is
+    // served no-cache, see public/_headers), and it unregisters itself, deletes
+    // every Cache Storage entry and reloads the tabs it controlled. New visitors
+    // never register anything, because registerUpdates() is gated on the same
+    // flag. The web manifest is still emitted either way.
+    //
+    // Why it is off: on the current hosting the worker no longer earns its
+    // complexity.
+    //   - Dataset bundles come from data.hypoexplorer.com via classic <script>
+    //     tags without CORS, so they arrive opaque and the 200-only
+    //     'hypoexplorer-data-bundles' cache below never stores one. The R2 edge
+    //     plus the browser HTTP cache (immutable, keyed by ?v=) already cover it.
+    //   - The app shell is an assets-only Worker with atomic deploys and the
+    //     revalidation headers in public/_headers, so there is no half-uploaded
+    //     shell for a worker to paper over.
+    //   - What it still bought was an offline shell, which has nothing to show
+    //     without the (uncached) data.
+    // Open tabs on an old build are caught by src/pwa/versionWatch.ts, which runs
+    // with or without a worker.
+    //
+    // Everything below the selfDestroying line is the previous full setup, left
+    // intact. Set VITE_SERVICE_WORKER=1 to turn it back on, e.g. after moving to
+    // a host where the data is same-origin (where the CacheFirst rules do store
+    // bundles) or where offline use matters.
     VitePWA({
+      selfDestroying: !serviceWorker,
       // "prompt": a freshly deployed SW installs and parks in "waiting" instead
       // of activating immediately, and the APP decides when to call
       // updateSW(true) (SKIP_WAITING + reload).
@@ -513,7 +544,7 @@ export default defineConfig(async ({ mode }): Promise<ViteUserConfig> => {
           'pop_*.js', 'qc_global.js', 'qc/**', 'datasets/**', 'query/**', 'tracker/**',
           // Public documents load independently; do not download the entire
           // study directory every time somebody installs the app shell.
-          'studies/**', 'about/**', 'topics/**', 'methods/**', 'how-to-cite/**',
+          'studies/**', 'about/**', 'methods/**', 'how-to-cite/**',
           // The nomenclature table (2.4 MB + 5.8 MB) is reference data that most
           // sessions never touch: the alias file loads on the first gene search
           // and the full table only when its page is opened. Precaching would
@@ -526,6 +557,23 @@ export default defineConfig(async ({ mode }): Promise<ViteUserConfig> => {
         // Complete QC evidence is about 4.04 MiB after minification. Keep it
         // available offline alongside the shell, with room for additional notes.
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+        // Take control of pages that no worker is currently controlling, as
+        // soon as this worker activates.
+        //
+        // NOT the same switch as skipWaiting, which stays off: activation is
+        // still gated on the app sending SKIP_WAITING, so "prompt" semantics are
+        // untouched — a new worker cannot jump in front of a running session.
+        // This only decides who controls a page that has NO controller once the
+        // handover the user asked for has already happened.
+        //
+        // It is load-bearing for the reload. An uncontrolled page (hard reload,
+        // a first visit the installing worker never claimed, the tab
+        // forceRefresh() leaves behind) gets no controllerchange event without
+        // it, and controllerchange is the signal registerUpdates.ts reloads on.
+        // Without this, those tabs could accept an update and then sit there —
+        // the "spinning forever" report. registerUpdates.ts still carries a
+        // timeout for the cases this cannot reach.
+        clientsClaim: true,
         cleanupOutdatedCaches: true,
         // The app uses hash routes, so only the root document needs a fallback.
         // Static study/About pages and unknown paths must retain their own HTML
@@ -663,8 +711,9 @@ export default defineConfig(async ({ mode }): Promise<ViteUserConfig> => {
           },
         ],
       },
-      // The production SW is generated by `vite build`. Dev defaults to disabled
-      // (registerUpdates() also no-ops in dev), so dev keeps fast HMR with no SW.
+      // The production SW is generated by `vite build` (the self-destroying one
+      // unless VITE_SERVICE_WORKER=1). Dev defaults to disabled (registerUpdates()
+      // also no-ops in dev), so dev keeps fast HMR with no SW.
     }),
   ],
   define: {

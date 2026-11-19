@@ -39,7 +39,7 @@ import type { NavigationScope } from './explorerSession';
 import {
   DEFAULT_EXPLORER_TAB, explorerTabAvailable, explorerTabScope, isExplorerTab, type ExplorerTab,
 } from './explorerTabs';
-import type { ExplorerAnalysisState } from '../utils/analysisState';
+import type { CompareViewState, ExplorerAnalysisState } from '../utils/analysisState';
 import type { Dataset } from '../types';
 
 /**
@@ -72,9 +72,13 @@ export type NavigationIntent =
    * current one when the dataset is already open, else the dataset's default;
    * a missing tab is the Gene Explorer. `compare` opens Compare instead of a
    * track; `analysis` carries a saved analysis whose contrast the position
-   * adopts (the shell restores the rest).
+   * adopts (the shell restores the rest). `compareView` is what a Compare link
+   * shows; the position ignores it and the shell restarts Compare with it.
    */
-  | { type: 'open'; datasetId: string; trackId?: string; tab?: string; compare?: boolean; analysis?: ExplorerAnalysisState }
+  | {
+    type: 'open'; datasetId: string; trackId?: string; tab?: string; compare?: boolean;
+    analysis?: ExplorerAnalysisState; compareView?: CompareViewState;
+  }
   /** Select a track in the active dataset (the sidebar, a QC table row). */
   | { type: 'track'; trackId: string }
   | { type: 'compare' }

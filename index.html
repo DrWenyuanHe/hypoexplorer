@@ -345,16 +345,15 @@
     /* Search-first hub: the logo, one search box and two quiet cards in open
        space, because most visitors arrive with a gene already in mind. A small
        text nav and the footer keep a route to every other tool. */
-    .hub-bar { position: relative; display: flex; align-items: center; justify-content: center; min-height: 52px; padding: 8px 180px 0; }
+    .hub-bar { position: relative; flex-shrink: 0; display: flex; align-items: center; justify-content: center; min-height: 52px; padding: 8px 180px 0; }
     .hub-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 20px; }
     .hub-nav button { padding: 6px 2px; font-family: inherit; font-size: var(--fs-14); color: var(--text-muted); background: none; border: none; cursor: pointer; transition: color var(--t-fast) var(--ease); }
     .hub-nav button:hover { color: var(--text-primary); }
     .hub-bar-end { position: absolute; top: 12px; right: var(--sp-5); }
     .hub-main { flex: 1 0 auto; display: flex; justify-content: center; padding: clamp(40px, 15vh, 160px) var(--sp-5) var(--sp-6); }
     .hub-hero { width: 100%; max-width: 600px; }
-    .hub-mark { display: flex; justify-content: center; margin: 0 0 10px; }
+    .hub-mark { display: flex; justify-content: center; margin: 0 0 32px; }
     .hub-mark img { display: block; width: min(320px, 80%); height: auto; }
-    .hub-tagline { margin: 0 0 28px; text-align: center; font-size: var(--fs-14); color: var(--text-muted); }
 
     /* The search box: a pill holding a magnifier, the field, a clear button and
        the go button. Suggestions open inside the same surface, which floats over
@@ -370,9 +369,6 @@
     .hub-search-bar input::placeholder { color: #938f88; }
     .hub-search-clear { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; margin-right: -6px; padding: 0; border: 0; border-radius: 50%; background: none; color: var(--text-muted); cursor: pointer; transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease); }
     .hub-search-clear:hover { background: var(--row-hover); color: var(--text-primary); }
-    /* The "/" shortcut, shown while the field is empty and unfocused. */
-    .hub-search-kbd { flex: none; padding: 0 6px; font-family: var(--font-mono); font-size: var(--fs-11); line-height: 18px; color: var(--text-muted); border: 1px solid var(--border-dark); border-radius: 4px; background: var(--bg-app); }
-    .hub-search-box:focus-within .hub-search-kbd { visibility: hidden; }
     /* The list continues the pill: a hairline under the field, then rows whose
        text lines up with the typed text. */
     .hub-search-suggest { max-height: min(440px, 60vh); overflow-y: auto; padding: 0 0 8px; border-radius: 0 0 23px 23px; }
@@ -399,13 +395,23 @@
     .hub-search-go { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0; border: 0; border-radius: 50%; background: #2F5D8A; color: #ffffff; cursor: pointer; transition: background var(--t-fast) var(--ease); }
     .hub-search-go:hover { background: #264d73; }
 
-    .hub-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 28px; }
+    .hub-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 28px; }
     .hub-card { display: grid; gap: 5px; align-content: start; padding: 14px 16px 13px; text-align: left; background: var(--bg-panel); border: 1px solid var(--border); border-radius: 12px; font-family: inherit; color: var(--text-primary); cursor: pointer; transition: border-color var(--t-fast) var(--ease); }
     .hub-card:hover { border-color: var(--border-dark); }
     .hub-card strong { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; line-height: 1.3; }
     .hub-card-icon { display: inline-flex; color: var(--text-mono); }
     .hub-card-icon svg { width: 16px; height: 16px; }
-    .hub-card > span { font-size: var(--fs-13); line-height: 1.4; color: var(--text-muted); }
+    .hub-card > span, .hub-card-main > span { font-size: var(--fs-13); line-height: 1.4; color: var(--text-muted); }
+    /* A card with two actions: the main button stretches over the whole card
+       (its ::after), and the secondary link sits above that layer. */
+    .hub-card--split { position: relative; grid-template-rows: auto 1fr; }
+    .hub-card-main { display: grid; gap: 5px; align-content: start; padding: 0; text-align: left; background: none; border: 0; font: inherit; color: inherit; cursor: pointer; }
+    .hub-card-main::after { content: ''; position: absolute; inset: -1px; border-radius: 12px; }
+    .hub-card-sub { position: relative; z-index: 1; align-self: end; justify-self: start; margin-top: 4px; padding: 0; font: inherit; font-size: var(--fs-13); font-weight: 600; color: var(--text-mono); background: none; border: 0; cursor: pointer; }
+    .hub-card-sub:hover { color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px; }
+    .hub-card-main:focus-visible { outline: none; }
+    .hub-card-main:focus-visible::after { outline: 2px solid var(--color-selected); outline-offset: 2px; }
+    .hub-card-sub:focus-visible { outline: 2px solid var(--color-selected); outline-offset: 2px; border-radius: var(--r-sm); }
 
     .hub-nav button:focus-visible, .hub-search-go:focus-visible, .hub-search-clear:focus-visible, .hub-card:focus-visible, .hub-foot-link:focus-visible {
       outline: 2px solid var(--color-selected); outline-offset: 2px;
@@ -427,13 +433,22 @@
     @media (max-width: 768px) {
       .qsearch-row { flex-direction: column; }
       .qsearch-go { height: 46px; justify-content: center; }
-      /* The nav wraps from the left and leaves the corner to the compare pill. */
-      .hub-bar { justify-content: flex-start; padding: 8px 128px 0 10px; }
-      .hub-nav { justify-content: flex-start; gap: 0 14px; }
-      .hub-bar-end { top: 8px; right: 12px; }
+      /* One nav line beside the compare pill; on a phone too narrow for every
+         section it scrolls sideways, its trailing edge fading out. */
+      .hub-bar { justify-content: flex-start; align-items: center; gap: 8px; padding: 6px 12px 0 2px; }
+      .hub-nav {
+        flex: 1; min-width: 0; flex-wrap: nowrap; justify-content: flex-start; gap: 0 16px;
+        padding-inline: 10px; overflow-x: auto; scrollbar-width: none;
+        -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 20px), transparent);
+        mask-image: linear-gradient(90deg, #000 calc(100% - 20px), transparent);
+      }
+      .hub-nav::-webkit-scrollbar { display: none; }
+      .hub-nav button { flex-shrink: 0; white-space: nowrap; }
+      .hub-bar-end { position: static; flex-shrink: 0; }
       .hub-main { padding: 48px 16px 32px; }
-      .hub-search-kbd { display: none; }
       .hub-cards { grid-template-columns: 1fr; gap: 10px; margin-top: 20px; }
+      /* The secondary link gets the 44px touch height the footer links do. */
+      .hub-card-sub { display: inline-flex; align-items: center; min-height: 44px; margin: 0 0 -10px; }
       .hub-foot { padding: 20px 16px; }
       .hub-util-row { grid-template-columns: minmax(0, 1fr); gap: 4px; }
       /* Links get the same 44px touch height the buttons beside them do, so a
@@ -449,14 +464,14 @@
     <header>
       <strong>HypoExplorer</strong>
       <span>HypoExplorer is currently in beta testing.</span>
-      <nav aria-label="Main navigation"><a href="/studies/">Browse studies</a><a href="/topics/">Research topics</a><a href="/methods/">Methods</a><a href="/about/">About</a></nav>
+      <nav aria-label="Main navigation"><a href="/studies/">Browse studies</a><a href="/methods/">Methods</a><a href="/about/">About</a></nav>
     </header>
     <main>
       <h1>Where a gene is expressed in the hypothalamus, and how it changes across public studies</h1>
       <p>Use HypoExplorer to examine hypothalamic differential expression and pathway enrichment in your browser. Explore genes and pathways within a dataset, or compare findings across studies. Each study retains its own experimental design and statistics.</p>
       <h2>Find a dataset or its source paper</h2>
       <p>The <a href="/studies/">study directory</a> lists GEO accession numbers, source citations, organisms and experimental comparisons for the data available in HypoExplorer. Every study page links to its original source and its interactive explorer.</p>
-      <p>Explore curated <a href="/topics/">research topics</a>, review the <a href="/methods/">methods and limitations</a>, and learn <a href="/how-to-cite/">how to cite the original studies and HypoExplorer</a>.</p>
+      <p>Review the <a href="/methods/">methods and limitations</a> and learn <a href="/how-to-cite/">how to cite the original studies and HypoExplorer</a>.</p>
       <p>Topics include obesity, aging, feeding and fasting, circadian biology, and reproduction. Results come from reanalysis of public data. Each record credits the source study and its authors.</p>
       <p>HypoExplorer is currently in beta testing. Check the study's methods and limitations when interpreting its results.</p>
       <p><a href="/about/">About HypoExplorer and its author, Wenyuan He</a></p>

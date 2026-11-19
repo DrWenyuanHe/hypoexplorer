@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-styles",
-  "fingerprint": "4b09fd0f52c875f6de9ede99b0617512b9c9a207aed646414150cb2578b66842",
-  "outcome": "no-impact",
-  "explanation": "responsive.css replaces the single go-button touch rule with the search pill rules at 600px: a taller pill, a 50px bar and 44px go and clear buttons. Breakpoints, tokens and every other layout rule are unchanged, so the styles module map still describes the file.",
+  "fingerprint": "650374cb170aff911e6c6b580e3c7f3f7a0c0005e56bda0843ceaa4ca256d123",
+  "outcome": "updated",
+  "explanation": "responsive.css lays the explorer header controls out as an even 3 x 2 grid of 44px targets at 600px and under, enlarges the beta-notice link tap area without changing its line height, and gives pager arrows a 44px minimum width; shared tokens and breakpoints are unchanged. At 600px and under it also puts the explorer breadcrumb trail on its own line and hides its leading slash. The explorer breadcrumb takes its own header row below 1500px (was 1100px), so between 1101 and 1499px the controls no longer wrap under a half-empty first row; wider, the breadcrumb shares the row, the spacer yields its space, and the population label truncates (full text in its title) before the controls could move.",
   "references": [
     "src/styles/responsive.css",
-    "index.html"
+    "docs/agent-context/workflows.md",
+    "src/App.tsx"
   ]
 }

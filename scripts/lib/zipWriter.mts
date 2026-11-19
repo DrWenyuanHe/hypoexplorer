@@ -9,7 +9,7 @@
 // ZIP64 is deliberately not implemented: the writer refuses an archive that
 // would need it rather than writing one some unzip tools misread.
 
-import { closeSync, openSync, writeSync } from 'node:fs';
+import { closeSync, constants, copyFileSync, existsSync, linkSync, openSync, rmSync, writeSync } from 'node:fs';
 import { crc32, deflateRawSync } from 'node:zlib';
 
 const LIMIT_32 = 0xffffffff;
@@ -30,12 +30,19 @@ interface CentralRecord {
 
 export class ZipWriter {
   private readonly fd: number;
+  private readonly partial: string;
   private offset = 0;
   private readonly entries: CentralRecord[] = [];
   private readonly names = new Set<string>();
 
-  constructor(file: string) {
-    this.fd = openSync(file, 'wx');
+  // Bytes go to a per-process `<file>.<pid>.partial` and are published under
+  // the real name only by close(), so a run that throws never leaves a
+  // truncated archive there (which would also block the next run). The link
+  // is exclusive: of two concurrent exports to one name, the second fails.
+  constructor(private readonly file: string) {
+    if (existsSync(file)) throw new Error(`Refusing to overwrite ${file}`);
+    this.partial = `${file}.${process.pid}.partial`;
+    this.fd = openSync(this.partial, 'wx');
   }
 
   private write(buf: Buffer): void {
@@ -112,5 +119,17 @@ export class ZipWriter {
     end.writeUInt32LE(start, 16);
     this.write(end);
     closeSync(this.fd);
+    try {
+      try {
+        linkSync(this.partial, this.file);
+      } catch (err) {
+        // A volume without hard links (exFAT, some shares) gets an exclusive
+        // copy instead: slower, but it still never replaces an existing file.
+        if ((err as NodeJS.ErrnoException).code === 'EEXIST') throw err;
+        copyFileSync(this.partial, this.file, constants.COPYFILE_EXCL);
+      }
+    } finally {
+      rmSync(this.partial, { force: true });
+    }
   }
 }

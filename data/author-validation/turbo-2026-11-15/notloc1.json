@@ -1,0 +1,520 @@
+{
+  "agent": "notloc1",
+  "datasets": [
+    {
+      "datasetId": "mouse_leprb_stat3_gse123983",
+      "accession": "GSE123983",
+      "outcome": "advanced",
+      "summary": "Located an author selected-gene table (PMC6437596 Supplemental Table 2, 196 genes, DESeq2 'STAT3KO vs. Control' log2 effects plus unlabelled P). The PMC direct link was an HTML challenge (access_blocked), so the workbook was retrieved from the Europe PMC OA bundle. Against the registered edgeR-QL output: 188/196 exact-symbol pairs, Pearson 0.9993, Spearman 0.9998, direction 99.5% (100% among the 128 author P<0.05 pairs). This is scoped selected-gene evidence, not the full tested universe.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE123983/turbo-2026-11-15-notloc1",
+      "proposed": {
+        "manualReview": {
+          "note_append": "2026-11-15 turbo notloc1: Europe PMC OA supplement mmc1.xlsx (SHA-256 93ca2691...) Table2 provides 196 author-selected regulated genes with DESeq2 STAT3KO-vs-control log2 effects and an unlabelled P (raw vs adjusted not stated). 188 pair by exact symbol with the registered edgeR-QL output: Pearson 0.99931, Spearman 0.99978, nonzero direction agreement 99.47%, 100% among 128 author P<0.05 pairs, median absolute log2FC difference 0.0125 (max 0.691). Eight author symbols (Fam159a, Gm4951, Svs2, Trim55, Ddx58, Fam159b, Gm8773, Olfr56) were left unmatched rather than renamed. The table is selected (genes regulated in STAT3KO or ob/ob comparisons) and does not establish full-universe agreement. Evidence: continued-sources/GSE123983/turbo-2026-11-15-notloc1/.",
+          "reviewFlags_add": [
+            "Author reference is a 196-gene selected table (Supplemental Table 2); the P column is not labelled raw or adjusted."
+          ]
+        },
+        "verificationReview": {
+          "resultAvailability": "partial",
+          "comparisonOutcome": "not_tested",
+          "reason": "An author selected-gene table (Supplemental Table 2, 196 genes, STAT3KO versus control DESeq2 effects with unlabelled P) was retrieved from the Europe PMC open-access bundle. Its effects closely track the registered output on 188 exact-symbol pairs, but it is not a complete same-contrast author table.",
+          "nextStep": "Review the scoped Table 2 comparison and decide whether to add it as a selected-results comparison spec. Obtain the complete author DESeq2 table and the P-value definition before any full-coverage claim; do not rename unmatched symbols to raise coverage.",
+          "fullyVerifiedContrasts": []
+        },
+        "comparabilityReview": {
+          "registeredContrastIds": [
+            "stat3ko_vs_control"
+          ],
+          "target": "registered_output",
+          "resultScope": "selected_results",
+          "basis": "Registered edgeR-QL bead-fraction result against the author's selected Supplemental Table 2 STAT3KO-vs-control effects.",
+          "reference": "PMC6437596 Supplemental Table 2 (196 genes) from mmc1.xlsx, retrieved via the Europe PMC OA bundle and hashed on 2026-11-15.",
+          "assessment": "limited",
+          "dimensions": {
+            "cohort": {
+              "status": "compatible",
+              "note": "GEO series matrix maps three Stat3KO bead and three Ctrl bead libraries to the registered case/control. Author Table 2 also involves separate ob/ob comparisons not in this series; author sample membership for the KO-vs-control test is inferred from GEO, not stated per sample."
+            },
+            "contrast": {
+              "status": "matched",
+              "note": "STAT3KO minus control within LepRb TRAP bead fractions; same orientation (Agrp +1.85 author, +1.84 registered)."
+            },
+            "features": {
+              "status": "limited",
+              "note": "188 of 196 author symbols pair exactly; eight older or unmatched symbols left unmatched without renaming. Author universe restricted to protein-coding genes."
+            },
+            "effects": {
+              "status": "compatible",
+              "note": "Pearson 0.99931, Spearman 0.99978, median absolute log2FC difference 0.0125, max 0.691 on 188 pairs. Author DESeq2 shrinkage status not stated."
+            },
+            "inference": {
+              "status": "not_established",
+              "note": "Author P column is not labelled raw or adjusted; 128 paired genes have author P<0.05 (all direction-concordant) and 76 paired genes have registered FDR<0.05. Calls were not reconciled."
+            },
+            "coverage": {
+              "status": "limited",
+              "note": "Selected 196-gene table chosen on differential regulation across STAT3KO and ob/ob comparisons; the narrative's 243 regulated genes differ from the 196 rows. Full tested universe unavailable."
+            }
+          },
+          "criteria": "Exact-symbol pairing only; finite effects; no threshold or mapping tuning. Selected-gene references remain scoped and cannot confer full verification.",
+          "conclusion": "Selected author effects agree closely with the registered output in direction and magnitude. Inference and full-universe coverage remain unestablished."
+        },
+        "concordanceReview": null,
+        "additionalComparisonSpec": {
+          "datasetId": "mouse_leprb_stat3_gse123983",
+          "accession": "GSE123983",
+          "contrast": "stat3ko_vs_control",
+          "localPath": "geo_replication/datasets/GSE123983_mmus_leprb_stat3_trap/processed/GSE123983_DE.tsv",
+          "localKey": "symbol",
+          "authorPath": "data/author-validation/continued-sources/GSE123983/turbo-2026-11-15-notloc1/author-effects.tsv",
+          "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6437596/supplementaryFiles",
+          "sha256": "c9e3f5709a652bfec99a907c5761d08c9975663e8af1c721f6939e80f01a1088",
+          "format": "tsv",
+          "authorKey": "output_id",
+          "authorEffect": "logFC",
+          "orientationSign": 1,
+          "localMethod": "edgeR-QL",
+          "authorMethod": "DESeq2; Supplemental Table 2 STAT3KO vs. Control",
+          "orientation": "STAT3KO minus control bead fraction; unchanged author orientation.",
+          "note": "Selected 196-gene author reference (Supplemental Table 2). The P column is unlabelled (raw vs adjusted unknown) and is not mapped as adjusted P. Missing author adjusted P remains unavailable. Numerical values are recalculated from the unchanged current registered DE table.",
+          "interpretation": "effects_compared",
+          "resultScope": "Selected author reference: Supplemental Table 2.",
+          "originalReferences": [
+            {
+              "path": "data/author-validation/continued-sources/GSE123983/turbo-2026-11-15-notloc1/original/mmc1.xlsx",
+              "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6437596/supplementaryFiles",
+              "sha256": "93ca26916ccafb8518cac4720d76fe29e995b37bdc0230958313e572c0db2577",
+              "bytes": 372142
+            }
+          ],
+          "normalizationScript": "data/author-validation/continued-sources/GSE123983/turbo-2026-11-15-notloc1/xlsx2tsv.py",
+          "localSnapshot": {
+            "path": "geo_replication/datasets/GSE123983_mmus_leprb_stat3_trap/processed/GSE123983_DE.tsv",
+            "sourceUrl": "Registered Explorer DE source; no public author-result claim",
+            "sha256": "a0efe85e76a6d17d782c6e5b0bc2f229619ac7a8c9a8ed70dca08342212ef4a6"
+          }
+        },
+        "experimentalDesign": null
+      },
+      "metrics": {
+        "authorRows": 196,
+        "paired": 188,
+        "pairCoverage": 0.9592,
+        "pearson": 0.99931,
+        "spearman": 0.99978,
+        "directionAgreement": 0.99468,
+        "authorP05Pairs": 128,
+        "authorP05DirectionAgreement": 1.0,
+        "medianAbsLog2fcDiff": 0.01249,
+        "maxAbsLog2fcDiff": 0.69145,
+        "scope": "selected_results"
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_hfd_emtab6929",
+      "accession": "E-MTAB-6929",
+      "outcome": "advanced",
+      "summary": "Located a six-gene author selected table in the main text (PMC6199263 Table 1: edgeR FDR<0.05 HFD-vs-LFD genes with logFC/P/FDR, printed in LFD-minus-HFD orientation). Five genes pair with the registered output (one truncated LOC ID left unresolved). All five agree in direction, max |delta log2FC| 0.0073, but none has registered FDR<0.05 (0.199-0.328) against author FDR 8.5e-5 to 0.040. Scoped evidence well below the 30-pair minimum.",
+      "evidenceFolder": "data/author-validation/continued-sources/E-MTAB-6929/turbo-2026-11-15-notloc1",
+      "proposed": {
+        "manualReview": {
+          "note_append": "2026-11-15 turbo notloc1: the manuscript main-text Table 1 (PMC6199263) lists six edgeR FDR<0.05 HFD-vs-LFD genes with log fold change printed in LFD-minus-HFD orientation. Five pair with the registered output (Serpina3n, Stat3, Gm6210, Socs3, and Gm15459 via case-insensitive match). LOC10524359 is a truncated identifier and was not resolved. All five effects agree after sign flip (max absolute difference 0.0073), but registered FDR is 0.199-0.328 for all five against author FDR <=0.040. The author edgeR 3.16.5 test is unspecified. Gm6210/Gm15459 are elevated in only three HFD libraries. Evidence: continued-sources/E-MTAB-6929/turbo-2026-11-15-notloc1/.",
+          "reviewFlags_add": [
+            "Author reference is a six-gene FDR-selected main-text table; registered edgeR-QL makes no FDR call for any paired gene."
+          ]
+        },
+        "verificationReview": {
+          "resultAvailability": "partial",
+          "comparisonOutcome": "method_differences",
+          "reason": "The manuscript's main-text Table 1 gives six edgeR FDR-significant HFD-versus-LFD genes with effects and statistics. Five pair with nearly identical effects, but the registered edgeR-QL analysis calls none of them at FDR<0.05. No complete author table was located in BioStudies or the open-access supplement.",
+          "nextStep": "Obtain the author's edgeR test and filtering settings or the complete table. Keep the six-gene scoped comparison separate from full-universe claims, do not resolve the truncated LOC10524359 identifier, and do not tune the registered model to reproduce author calls.",
+          "fullyVerifiedContrasts": []
+        },
+        "comparabilityReview": {
+          "registeredContrastIds": [
+            "hfd_vs_lfd"
+          ],
+          "target": "registered_output",
+          "resultScope": "selected_results",
+          "basis": "Registered edgeR-QL result against the six-gene manuscript Table 1.",
+          "reference": "PMC6199263 main-text Table 1 parsed from the Europe PMC JATS XML retrieved and hashed on 2026-11-15.",
+          "assessment": "limited",
+          "dimensions": {
+            "cohort": {
+              "status": "compatible",
+              "note": "Deposit has 16 libraries (8 LFD, 8 HFD) and the registered contrast uses all 16. Paper Table 1 derives from the 20-week RNA-seq study; per-sample membership in the author test is not stated."
+            },
+            "contrast": {
+              "status": "matched",
+              "note": "HFD versus LFD hypothalamus. The printed log fold changes are LFD minus HFD (negative for increased genes); orientation sign -1."
+            },
+            "features": {
+              "status": "limited",
+              "note": "Five of six author IDs pair; GM15459 pairs case-insensitively; LOC10524359 is truncated and unresolved."
+            },
+            "effects": {
+              "status": "compatible",
+              "note": "All five paired effects agree after sign flip, max absolute difference 0.0073."
+            },
+            "inference": {
+              "status": "different",
+              "note": "Author FDR 8.5e-5 to 0.040; registered edgeR-QL FDR 0.199-0.328 for the paired genes. Author edgeR test unspecified."
+            },
+            "coverage": {
+              "status": "limited",
+              "note": "Six FDR-selected genes only; no complete author table located."
+            }
+          },
+          "criteria": "Exact or case-insensitive symbol pairing; no resolution of truncated identifiers; no threshold tuning. A six-gene reference is scoped and cannot pass the 30-pair concordance minimum.",
+          "conclusion": "Selected author effects are reproduced in magnitude and direction; author FDR calls are not reproduced by the registered model. Coverage is far from complete."
+        },
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": {
+        "authorRows": 6,
+        "paired": 5,
+        "directionAgreement": 1.0,
+        "maxAbsLog2fcDiff": 0.00728,
+        "localPadjLt005AmongPaired": 0,
+        "authorFdrLt005": 6,
+        "scope": "selected_results"
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_hfd_gse236077",
+      "accession": "GSE236077",
+      "outcome": "documented_no_change",
+      "summary": "Still not located. Inspected the GEO count/metadata files, the PMC10771486 OA bundle (figures only) and text Table 1 (DEG counts only), plus the 83 MB Zenodo code archive 10.5281/zenodo.10116113 (hashed). The DEG notebook computes per-gene DESeq2 results in memory but deposits only deg_summary.csv (HY HFD.vs.chow: 2 genes at padj<0.05, names not given). Notebooks retained so a separate author-method reconstruction is possible.",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE236077/turbo-2026-11-15-notloc1",
+      "proposed": {
+        "manualReview": {
+          "note_append": "2026-11-15 turbo notloc1: Zenodo 10.5281/zenodo.10116113 (dmb-zenodo_0.9.2.zip, SHA-256 8b132329...) contains code, counts, metadata and WGCNA tables but no per-gene DE table. 06_degs deposits only deg_summary.csv (run 0010 HY HFD.vs.chow: 2 DESeq2 padj<0.05 genes from a ~diet model over chow/fast/HFD with PCA outlier removal). The registered edgeR-QL output has 0 FDR<0.05 genes; this is context, not a mismatch. Evidence: continued-sources/GSE236077/turbo-2026-11-15-notloc1/."
+        },
+        "verificationReview": {
+          "resultAvailability": "not_located",
+          "comparisonOutcome": "not_tested",
+          "reason": "GEO, the open-access Data Descriptor and its Zenodo code archive were inspected. The archive reproduces the author DESeq2 workflow but deposits only DEG counts, not a gene-level same-contrast table. This is an evidence gap, not an observed result mismatch.",
+          "nextStep": "Request the author per-gene HY HFD-versus-chow DESeq2 table, or run the retained Zenodo notebooks as a separately labelled author-method reconstruction. Do not treat a reconstruction as verifying the registered edgeR-QL output.",
+          "fullyVerifiedContrasts": []
+        },
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": {
+          "note": "Author DESeq2 design is ~diet fitted jointly over run-0010 HY chow, fast and HFD samples after STAR-QC failures and PCA z>2 outliers are removed (01_preprocess.ipynb). The registered contrast fits 6 chow versus 6 HFD libraries only.",
+          "source": "data/author-validation/continued-sources/GSE236077/turbo-2026-11-15-notloc1/original/01_preprocess.ipynb"
+        }
+      },
+      "metrics": {
+        "authorHyHfdVsChowPadjLt005Count": 2,
+        "registeredFdrLt005Count": 0,
+        "note": "Counts only; gene identities not deposited."
+      }
+    },
+    {
+      "datasetId": "mouse_scn_mcd_gse252364",
+      "accession": "GSE252364",
+      "outcome": "advanced",
+      "summary": "New source: Europe PMC full-text search links GSE252364 to bioRxiv preprint 10.1101/2024.01.04.574014 (not linked by GEO). Its Supplemental Data 4 holds complete SCN per-timepoint DESeq2 MCD-vs-CTL tables (56,884 rows/sheet). On the CT00 sheet vs the registered CT0 edgeR-QL output: 15,440 pairs (98.2% of registered rows), Pearson 0.663, Spearman 0.921, direction 93.05%. Author q<0.05: 39 paired genes; all 3 registered FDR calls are shared. The author model is unconfirmed because the preprint text was access_blocked (Cloudflare 1015).",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE252364/turbo-2026-11-15-notloc1",
+      "proposed": {
+        "manualReview": {
+          "note_append": "2026-11-15 turbo notloc1: Europe PMC full-text search links GSE252364 to bioRxiv preprint 10.1101/2024.01.04.574014 (Saer et al. 2024; not linked by GEO). Supplemental Data 4 (SHA-256 recorded in SOURCES.tsv) gives SCN per-timepoint DESeq2 MCD-vs-CTL tables. On CT00 versus the registered CT0 3-v-3 edgeR-QL output: 15,440 symbol pairs (98.2% of registered rows; 297 duplicated author symbols excluded), Pearson 0.663, Spearman 0.921, nonzero direction 93.05%, median absolute log2FC difference 0.018. Extreme unshrunk author values (e.g. Sftpc -22) depress Pearson. Author q<0.05 has 39 paired genes (94.9% direction-concordant); registered FDR<0.05 has 3 genes, all shared. Gstm3 (author -2.33, registered +10.47) and Rab43 magnitude conflicts remain for review. The preprint methods were not readable (bioRxiv Cloudflare 1015), so the author model and CT00 membership are unconfirmed. Evidence: continued-sources/GSE252364/turbo-2026-11-15-notloc1/.",
+          "paperAccess_note": "bioRxiv preprint located; text access_blocked on 2026-11-15; supplements retrieved.",
+          "reviewFlags_add": [
+            "Author per-timepoint DESeq2 model (possibly joint across timepoints) is unconfirmed; Gstm3 sign conflict and Rab43 magnitude conflict need source-level review."
+          ]
+        },
+        "verificationReview": {
+          "resultAvailability": "available",
+          "comparisonOutcome": "unresolved",
+          "reason": "A complete author SCN CT00 MCD-versus-CTL DESeq2 table was retrieved from the bioRxiv preprint's Supplemental Data 4. Directions agree for 93% of 15,440 paired genes, but Pearson is 0.66 because of extreme author log2FC values. The author model and sample membership are unconfirmed because the preprint text was access-blocked.",
+          "nextStep": "Read the preprint methods to confirm the DESeq2 design (per-timepoint or joint), shrinkage and CT00 membership. Review the Gstm3 and Rab43 discrepancies against source counts. Then add a full-results comparison spec and a semantic concordance review. Do not filter extreme-effect genes to improve correlation.",
+          "fullyVerifiedContrasts": []
+        },
+        "comparabilityReview": {
+          "registeredContrastIds": [
+            "mcd_vs_control"
+          ],
+          "target": "registered_output",
+          "resultScope": "full_results",
+          "basis": "Registered CT0 edgeR-QL result against the author SCN CT00 DESeq2 sheet.",
+          "reference": "bioRxiv 10.1101/2024.01.04.574014 Supplemental Data 4, sheet CT00 (56,884 rows), retrieved and hashed on 2026-11-15.",
+          "assessment": "limited",
+          "dimensions": {
+            "cohort": {
+              "status": "not_established",
+              "note": "Supplement sample labels match the GEO SCN labels (including duplicated CT8.CTL.M1), but the preprint methods could not be read to confirm CT00 test membership or a joint fit."
+            },
+            "contrast": {
+              "status": "matched",
+              "note": "MCD minus CTL at CT0 in SCN; Fosl2 +1.73 author versus +1.69 registered."
+            },
+            "features": {
+              "status": "compatible",
+              "note": "15,440 of 15,720 registered symbols pair; 297 duplicated author symbols excluded; author ENSMUSG.version|Symbol IDs."
+            },
+            "effects": {
+              "status": "limited",
+              "note": "Spearman 0.921 and direction 93.05%, but Pearson 0.663 from extreme author log2FC (max delta 21.9). Gstm3 has opposite sign (author -2.33, registered +10.47)."
+            },
+            "inference": {
+              "status": "different",
+              "note": "Author q<0.05: 39 paired genes; registered FDR<0.05: 3, all shared. Author Wald P values are much smaller (e.g. Rab43 q 2e-75 versus registered FDR 0.93), consistent with a different model or dispersion."
+            },
+            "coverage": {
+              "status": "compatible",
+              "note": "Complete author table for the registered CT0 contrast; pairs cover 98.2% of registered rows."
+            }
+          },
+          "criteria": "Exact symbol pairing with duplicate author symbols excluded; finite effects; author-concordance-v2 routes evaluated without filtering extreme genes.",
+          "conclusion": "Direction-route numerical agreement is observed on a complete author table, but the author model and cohort membership are unconfirmed and two large single-gene conflicts remain. No pass is claimed."
+        },
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": {
+        "authorRows": 56884,
+        "paired": 15440,
+        "registeredCoverage": 0.98219,
+        "pearson": 0.66308,
+        "spearman": 0.9215,
+        "directionAgreement": 0.93051,
+        "medianAbsLog2fcDiff": 0.01847,
+        "maxAbsLog2fcDiff": 21.855,
+        "authorQ005Paired": 39,
+        "registeredFdr005Paired": 3,
+        "sharedCalls": 3,
+        "scope": "full_results_ct00"
+      }
+    },
+    {
+      "datasetId": "mouse_arc_hfd_gse225038",
+      "accession": "GSE225038",
+      "outcome": "documented_no_change",
+      "summary": "Not located. The deposit holds counts and RPKM only. The paper body and supplements could not be machine-read this round (publisher-restricted XML), so no new author table was found. Sources searched: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE225nnn/GSE225038/suppl/GSE225038_GeneCount.xlsx; https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10866620/supplementaryFiles; https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=10866620; https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=%22GSE225038%22",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE225038/turbo-2026-11-15-notloc1",
+      "proposed": {
+        "manualReview": {
+          "note_append": "2026-11-15 turbo notloc1 source re-search: Not located. The deposit holds counts and RPKM only. The paper body and supplements could not be machine-read this round (publisher-restricted XML), so no new author table was found. Searched sources and limits are recorded in continued-sources/GSE225038/turbo-2026-11-15-notloc1/ (SOURCES.tsv, README.md). Paper supplements were not re-read in this round. The earlier review recorded PMC full-text access, and its conclusion is unchanged, not re-verified."
+        },
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "mouse_hypo_hfhs_gse235479",
+      "accession": "GSE235479",
+      "outcome": "documented_no_change",
+      "summary": "Not located. No linked or citing publication was found, and the deposit holds counts, VST values and annotation only. Sources searched: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE235nnn/GSE235479/suppl/; https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=%22GSE235479%22",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE235479/turbo-2026-11-15-notloc1",
+      "proposed": {
+        "manualReview": {
+          "note_append": "2026-11-15 turbo notloc1 source re-search: Not located. No linked or citing publication was found, and the deposit holds counts, VST values and annotation only. Searched sources and limits are recorded in continued-sources/GSE235479/turbo-2026-11-15-notloc1/ (SOURCES.tsv, README.md). Europe PMC full-text search covers the open-access and indexed literature only. A paper that cites the series without the accession string, or a non-indexed paper, could be missed."
+        },
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "mouse_hypo_obob_gse167264",
+      "accession": "GSE167264",
+      "outcome": "documented_no_change",
+      "summary": "Not located. No originating publication was identified. Six citing papers look like secondary reuse and were not opened in this time box. Sources searched: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE167nnn/GSE167264/suppl/; https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=%22GSE167264%22",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE167264/turbo-2026-11-15-notloc1",
+      "proposed": {
+        "manualReview": {
+          "note_append": "2026-11-15 turbo notloc1 source re-search: Not located. No originating publication was identified. Six citing papers look like secondary reuse and were not opened in this time box. Searched sources and limits are recorded in continued-sources/GSE167264/turbo-2026-11-15-notloc1/ (SOURCES.tsv, README.md). The six citing papers were triaged by title only. One might reanalyse the hypothalamus subset, but a reanalysis would not be an author result in any case."
+        },
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "mouse_hypo_hfd_tc_gse305719",
+      "accession": "GSE305719",
+      "outcome": "documented_no_change",
+      "summary": "Not located. No linked or citing publication was found, and the deposit is counts only. Sources searched: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE305nnn/GSE305719/suppl/GSE305719_data_count.csv.gz; https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=%22GSE305719%22",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE305719/turbo-2026-11-15-notloc1",
+      "proposed": {
+        "manualReview": {
+          "note_append": "2026-11-15 turbo notloc1 source re-search: Not located. No linked or citing publication was found, and the deposit is counts only. Searched sources and limits are recorded in continued-sources/GSE305719/turbo-2026-11-15-notloc1/ (SOURCES.tsv, README.md). The series is recent. A paper may be unpublished or not yet indexed."
+        },
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "mouse_hypo_obesity_gse329539",
+      "accession": "GSE329539",
+      "outcome": "documented_no_change",
+      "summary": "Not located. The paper reports only DEG counts and figures, and its only supplement is sequencing QC. Sources searched: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE329nnn/GSE329539/suppl/GSE329539_HP_OB.csv.gz; https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13025380/supplementaryFiles; https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13025380/fullTextXML",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE329539/turbo-2026-11-15-notloc1",
+      "proposed": {
+        "manualReview": {
+          "note_append": "2026-11-15 turbo notloc1 source re-search: Not located. The paper reports only DEG counts and figures, and its only supplement is sequencing QC. Searched sources and limits are recorded in continued-sources/GSE329539/turbo-2026-11-15-notloc1/ (SOURCES.tsv, README.md). Figures may show selected genes, but no figure values were digitised. Doing so would give only weak, figure-derived evidence."
+        },
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "mouse_arc_clock_gse248462",
+      "accession": "GSE248462",
+      "outcome": "documented_no_change",
+      "summary": "Not located. The author analysis is a dryR rhythmicity model-selection classification, not a control-versus-HepDKO gene-level DE estimate, so even a retrieved author list would probably not be a comparable effect for the registered pooled contrast. Sources searched: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE248nnn/GSE248462/suppl/GSE248462_rawCount.txt.gz; https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=11629121; https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11629121/supplementaryFiles",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE248462/turbo-2026-11-15-notloc1",
+      "proposed": {
+        "manualReview": {
+          "note_append": "2026-11-15 turbo notloc1 source re-search: Not located. The author analysis is a dryR rhythmicity model-selection classification, not a control-versus-HepDKO gene-level DE estimate, so even a retrieved author list would probably not be a comparable effect for the registered pooled contrast. Searched sources and limits are recorded in continued-sources/GSE248462/turbo-2026-11-15-notloc1/ (SOURCES.tsv, README.md). The supplement PDFs (Figures S1-S13 and supplement-1) were not opened. Libraries are pools of 3-4 animals, so one library is not one independent animal."
+        },
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": {
+          "note": "Manuscript methods: each Arc RNA-seq library pools micropunches from 3-4 animals per group per time point; libraries are not independent single animals. Author analysis is dryR rhythmicity classification.",
+          "source": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=11629121"
+        }
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "mouse_arc_pyy_glp1_gse160802",
+      "accession": "GSE160802",
+      "outcome": "documented_no_change",
+      "summary": "Not located. The supplements contain pathway-level figures only. Sources searched: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE160nnn/GSE160802/suppl/GSE160802_Gene_counts.txt.gz; https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8717237/supplementaryFiles; https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8717237/fullTextXML; https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=%22GSE160802%22",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE160802/turbo-2026-11-15-notloc1",
+      "proposed": {
+        "manualReview": {
+          "note_append": "2026-11-15 turbo notloc1 source re-search: Not located. The supplements contain pathway-level figures only. Searched sources and limits are recorded in continued-sources/GSE160802/turbo-2026-11-15-notloc1/ (SOURCES.tsv, README.md). D2H2 signatures were not retrieved. They would not count as author results."
+        },
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "mouse_hypo_insulin_gse132352",
+      "accession": "GSE132352",
+      "outcome": "documented_no_change",
+      "summary": "Not located in sources machine-readable this round. The deposit is counts only. Sources searched: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE132nnn/GSE132352/suppl/GSE132352_count_table.csv.gz; https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8385615/supplementaryFiles; https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=8385615; https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=%22GSE132352%22",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE132352/turbo-2026-11-15-notloc1",
+      "proposed": {
+        "manualReview": {
+          "note_append": "2026-11-15 turbo notloc1 source re-search: Not located in sources machine-readable this round. The deposit is counts only. Searched sources and limits are recorded in continued-sources/GSE132352/turbo-2026-11-15-notloc1/ (SOURCES.tsv, README.md). The journal (Diabetes) supplement was not re-read here. It may contain selected-gene tables that the earlier review judged not to be complete tables. That earlier conclusion is unchanged, not re-verified."
+        },
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "mouse_arc_kcnb1_gse246918",
+      "accession": "GSE246918",
+      "outcome": "blocked",
+      "summary": "Blocked. A candidate source, the Dryad Figure 2 archive (7.3 MB), may hold the Figure 2A/B volcano data, but Dryad API downloads now require a bearer token. Its contents are unknown. Sources searched: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE246nnn/GSE246918/suppl/GSE246918_merged_gene_counts.txt.gz; https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11556505/supplementaryFiles; https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11556505/fullTextXML; https://datadryad.org/api/v2/versions/326006/files; https://datadryad.org/api/v2/files/3590913/download",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE246918/turbo-2026-11-15-notloc1",
+      "proposed": {
+        "manualReview": {
+          "note_append": "2026-11-15 turbo notloc1 source re-search: Blocked. A candidate source, the Dryad Figure 2 archive (7.3 MB), may hold the Figure 2A/B volcano data, but Dryad API downloads now require a bearer token. Its contents are unknown. Searched sources and limits are recorded in continued-sources/GSE246918/turbo-2026-11-15-notloc1/ (SOURCES.tsv, README.md). The Dryad README says the transcriptome data are in GEO, so the Figure 2 zip may hold only plots. It is a candidate, not a confirmed author table."
+        },
+        "verificationReview": {
+          "resultAvailability": "access_blocked",
+          "comparisonOutcome": "not_tested",
+          "reason": "The paper's data-availability statement points to Dryad doi:10.5061/dryad.7m0cfxq1g, whose 7.3 MB Figure 2 archive may hold the transcriptome result data. Dryad file downloads require a bearer token, so its contents could not be inspected. GEO and the open-access supplement hold counts and figures only. This is an access barrier, not an observed mismatch.",
+          "nextStep": "Retrieve Figure_2_FINAL_New_102824.zip through an authenticated Dryad route, verify the Dryad SHA-256 5473e62d..., and inspect it for a DESeq2 NULL-versus-WT table before any comparison.",
+          "fullyVerifiedContrasts": []
+        },
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "mouse_hypo_risperidone_gse158751",
+      "accession": "GSE158751",
+      "outcome": "documented_no_change",
+      "summary": "Not located. The paper and its OA supplement provide figures only. Sources searched: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE158nnn/GSE158751/suppl/GSE158751_RISP_counts.csv.gz; https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8126977/supplementaryFiles; https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8126977/fullTextXML",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE158751/turbo-2026-11-15-notloc1",
+      "proposed": {
+        "manualReview": {
+          "note_append": "2026-11-15 turbo notloc1 source re-search: Not located. The paper and its OA supplement provide figures only. Searched sources and limits are recorded in continued-sources/GSE158751/turbo-2026-11-15-notloc1/ (SOURCES.tsv, README.md). The JEM website supplement was not checked separately from the Europe PMC bundle."
+        },
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "mouse_gnrh_androgen_gse162563",
+      "accession": "GSE162563",
+      "outcome": "documented_no_change",
+      "summary": "Not located in sources machine-readable this round. Sources searched: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE162nnn/GSE162563/suppl/; https://ftp.ncbi.nlm.nih.gov/geo/series/GSE155nnn/GSE155314/suppl/GSE155314_raw_counts.txt.gz; https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7583650/supplementaryFiles; https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=7583650; https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=%22GSE155314%22",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE162563/turbo-2026-11-15-notloc1",
+      "proposed": {
+        "manualReview": {
+          "note_append": "2026-11-15 turbo notloc1 source re-search: Not located in sources machine-readable this round. Searched sources and limits are recorded in continued-sources/GSE162563/turbo-2026-11-15-notloc1/ (SOURCES.tsv, README.md). The Endocrinology online supplement was not re-read here. The earlier conclusion (no complete table) is unchanged, not re-verified."
+        },
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    },
+    {
+      "datasetId": "mouse_hypo_diabetes_gse329555",
+      "accession": "GSE329555",
+      "outcome": "documented_no_change",
+      "summary": "Not located. No linked or citing publication was found. The sister obesity paper (PMC13025380) does not cover the diabetic series. Sources searched: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE329nnn/GSE329555/suppl/GSE329555_HP_DM.csv.gz; https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=%22GSE329555%22; PubMed MCP search (2023 onward)",
+      "evidenceFolder": "data/author-validation/continued-sources/GSE329555/turbo-2026-11-15-notloc1",
+      "proposed": {
+        "manualReview": {
+          "note_append": "2026-11-15 turbo notloc1 source re-search: Not located. No linked or citing publication was found. The sister obesity paper (PMC13025380) does not cover the diabetic series. Searched sources and limits are recorded in continued-sources/GSE329555/turbo-2026-11-15-notloc1/ (SOURCES.tsv, README.md). A diabetes companion paper may be unpublished."
+        },
+        "verificationReview": null,
+        "comparabilityReview": null,
+        "concordanceReview": null,
+        "additionalComparisonSpec": null,
+        "experimentalDesign": null
+      },
+      "metrics": null
+    }
+  ]
+}

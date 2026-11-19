@@ -25,12 +25,10 @@ import { listDatasets } from '../data/datasets';
 import { manifestFreshness } from '../data/indexFreshness';
 import { peekDatasetMeta } from '../data/loadDatasetMeta';
 import { loadQueryManifest, loadTrackPathways, manifestSupportsTrackPathways } from '../data/queryIndex';
-import { effectDirection } from '../statistics/policy';
+import { effectDirection, significanceTier } from '../statistics/policy';
 import { mapLimit } from '../utils/mapLimit';
 import { pathwaySpecificity, type CorpusRate, type Specificity } from './pathwaySpecificity';
-import {
-  expressionJson, loadNeuroseqManifest, neuroseqSources, resolveNeuroseqGenes,
-} from '../expression-survey/neuroseqExpression';
+import { loadNeuroseqExpression, loadNeuroseqManifest, neuroseqSources } from '../expression-survey/neuroseqExpression';
 import { loadExternalExpression, loadExternalSources } from '../expression-survey/externalReference';
 import type {
   Dataset, DatasetGroup, Direction, ExpressionGeneResult, ExpressionGroupResult, ExpressionSource,
@@ -55,11 +53,29 @@ export interface CrossStudySummary<Row> {
   up: number;
   down: number;
   /**
-   * The strongest results, by q-value: the significant tracks when there are
-   * any, otherwise the lowest q-values (all non-significant) so the portal can
-   * still show where the term came closest.
+   * Tracks with raw p < NOMINAL_P_CUTOFF that do NOT pass the FDR call: the
+   * nominal tier, disjoint from tracksSignificant. Uncorrected for multiple
+   * testing; shown and labelled, never counted as significant.
+   */
+  tracksNominal: number;
+  /** Studies whose best track is nominal: one or more nominal tracks and no significant one. */
+  studiesNominal: number;
+  /** Nominal tracks by direction. */
+  nominalUp: number;
+  nominalDown: number;
+  /**
+   * The rows the portal lists, at most SUMMARY_TOP: the significant tracks by
+   * q-value, then the nominal tracks by p-value. When there are neither, the
+   * lowest p-values (all 'none') so the portal can still show where the term
+   * came closest.
    */
   top: SummaryRow<Row>[];
+  /**
+   * The rows the portal lists in FDR-only mode (listingModeStore), at most
+   * SUMMARY_TOP: the significant tracks by q-value, or, when there are none,
+   * the lowest q-values.
+   */
+  topFdr: SummaryRow<Row>[];
   /** Every significant track, by q-value. What the condition-pathways card follows. */
   significant: SummaryRow<Row>[];
 }
@@ -81,30 +97,48 @@ function byQ<Row>(q: (row: Row) => number | null) {
 function summarize<Row extends { significant: boolean; direction: string }>(
   groups: ReadonlyArray<{ dataset: Dataset; contrast: ResolvedContrast | null; tracks: Row[] }>,
   q: (row: Row) => number | null,
+  p: (row: Row) => number | null,
 ): CrossStudySummary<Row> {
-  let studiesMeasured = 0, studiesSignificant = 0, tracksMeasured = 0, tracksSignificant = 0, up = 0, down = 0;
+  let studiesMeasured = 0, studiesSignificant = 0, studiesNominal = 0, tracksMeasured = 0;
+  let up = 0, down = 0, nominalUp = 0, nominalDown = 0;
   const sig: SummaryRow<Row>[] = [];
+  const nominal: SummaryRow<Row>[] = [];
   const all: SummaryRow<Row>[] = [];
   for (const g of groups) {
     if (g.tracks.length === 0) continue;
     studiesMeasured++;
-    let any = false;
+    let anySig = false, anyNominal = false;
     for (const track of g.tracks) {
       tracksMeasured++;
       const row = { dataset: g.dataset, contrast: g.contrast, track };
       all.push(row);
-      if (!track.significant) continue;
-      any = true;
-      tracksSignificant++;
-      sig.push(row);
-      if (track.direction === 'up') up++;
-      else if (track.direction === 'down') down++;
+      // `track.significant` is the row builder's FDR call; the tier agrees with
+      // it by construction, and adds the nominal raw-p tier beneath it.
+      const tier = track.significant ? 'fdr' : significanceTier(null, p(track));
+      if (tier === 'fdr') {
+        anySig = true;
+        sig.push(row);
+        if (track.direction === 'up') up++;
+        else if (track.direction === 'down') down++;
+      } else if (tier === 'nominal') {
+        anyNominal = true;
+        nominal.push(row);
+        if (track.direction === 'up') nominalUp++;
+        else if (track.direction === 'down') nominalDown++;
+      }
     }
-    if (any) studiesSignificant++;
+    if (anySig) studiesSignificant++;
+    else if (anyNominal) studiesNominal++;
   }
   sig.sort(byQ(q));
-  const top = (sig.length ? sig : all.sort(byQ(q))).slice(0, SUMMARY_TOP);
-  return { studiesMeasured, studiesSignificant, tracksMeasured, tracksSignificant, up, down, top, significant: sig };
+  nominal.sort(byQ(p));
+  const listed = sig.length + nominal.length ? [...sig, ...nominal] : all.slice().sort(byQ(p));
+  const listedFdr = sig.length ? sig : all.slice().sort(byQ(q));
+  return {
+    studiesMeasured, studiesSignificant, tracksMeasured, tracksSignificant: sig.length, up, down,
+    tracksNominal: nominal.length, studiesNominal, nominalUp, nominalDown,
+    top: listed.slice(0, SUMMARY_TOP), topFdr: listedFdr.slice(0, SUMMARY_TOP), significant: sig,
+  };
 }
 
 const geneCache = new Map<string, Promise<GeneSummary | null>>();
@@ -131,7 +165,7 @@ export function loadGeneSummary(symbol: string): Promise<GeneSummary | null> {
   return cached(geneCache, SYMBOL, async () => {
     const report = await queryGeneViaIndex(SYMBOL, listDatasets());
     if (!report) return null;
-    return { symbol: SYMBOL, ...summarize<TrackRow>(report.groups as DatasetGroup[], (t) => t.fdr) };
+    return { symbol: SYMBOL, ...summarize<TrackRow>(report.groups as DatasetGroup[], (t) => t.fdr, (t) => t.pval) };
   });
 }
 
@@ -144,7 +178,7 @@ export function loadPathwaySummary(pathwayId: string): Promise<PathwaySummary | 
   return cached(pathwayCache, ID, async () => {
     const report = await queryPathwayViaIndex(ID, listDatasets().filter((d) => d.supportsPathways));
     if (!report) return null;
-    return { pathwayId: ID, ...summarize<PathwayTrackRow>(report.groups as PathwayDatasetGroup[], (t) => t.padj) };
+    return { pathwayId: ID, ...summarize<PathwayTrackRow>(report.groups as PathwayDatasetGroup[], (t) => t.padj, (t) => t.pval) };
   });
 }
 
@@ -309,66 +343,65 @@ export function loadConditionPathways(symbol: string, studies?: readonly Dataset
   });
 }
 
-// ── Baseline expression teaser (NeuroSeq, same-origin JSON) ────────────────
+// ── Baseline expression teaser (NeuroSeq, through the survey's reader) ────
+//
+// A projection of the expression survey's own results: one
+// loadNeuroseqExpression read per population (the gene index and its shard are
+// fetched once and shared), then one row per source group carrying the
+// survey's group mean. Source groups stay separate, as the survey keeps them:
+// within one population they can differ several-fold (Agrp in the AgRP
+// population's fed and feeding-unreported groups), so a pooled mean would be a
+// value no group measured.
 
-export interface PopulationLevel {
+export interface SourceGroupLevel {
+  /** The source group's key in the survey; unique across NeuroSeq. */
   id: string;
+  populationId: string;
   /** Friendly population name, e.g. 'PVH oxytocin'. */
   label: string;
+  /** The survey's source-group label, named only when the population has more than one group. */
+  group: string | null;
   region: string;
-  /** Mean TPM across the population's libraries. */
+  /** The survey's group mean: mean TPM across the group's libraries. */
   meanTpm: number;
   libraries: number;
 }
 
 export type BaselineTeaser =
-  | { status: 'available'; gene: string; description: string; populations: PopulationLevel[]; populationCount: number; max: number }
+  | { status: 'available'; gene: string; groups: SourceGroupLevel[]; populationCount: number; max: number }
   | { status: 'absent' }
   | { status: 'ambiguous'; candidates: string[] };
 
-interface NeuroseqGeneEntry { id: string; symbol: string; ensemblId: string; shard: string }
-interface NeuroseqGeneValues { id: string; symbol: string; ensemblId: string; description: string; values: number[] }
+function baselineTeaser(sources: ExpressionSource[], results: ExpressionGeneResult[]): BaselineTeaser | null {
+  const [first] = results;
+  if (!first) return null;
+  if (first.status === 'not-retained') return { status: 'absent' };
+  if (first.status === 'ambiguous') return { status: 'ambiguous', candidates: first.candidates ?? [] };
+  const groups = sources.flatMap((source, i) => results[i].groups.flatMap((group): SourceGroupLevel[] => (group.mean == null ? [] : [{
+    id: group.key,
+    populationId: source.id,
+    label: source.populationLabel ?? source.label,
+    group: results[i].groups.length > 1 ? group.label : null,
+    region: source.region ?? '',
+    meanTpm: group.mean,
+    libraries: group.n,
+  }]))).sort((a, b) => b.meanTpm - a.meanTpm);
+  return { status: 'available', gene: first.gene ?? first.query, groups, populationCount: sources.length, max: groups[0]?.meanTpm ?? 0 };
+}
 
 const baselineCache = new Map<string, Promise<BaselineTeaser | null>>();
 
 /**
- * A gene's mean expression in each NeuroSeq population, highest first; null
- * when the expression files could not be read. Reads the same validated files
- * as the expression survey.
+ * A gene's mean expression in each NeuroSeq source group, highest first; null
+ * when the expression files could not be read or were inconsistent. Each value
+ * is the group mean the expression survey reports for the same query.
  */
 export function loadBaselineTeaser(symbol: string): Promise<BaselineTeaser | null> {
-  return cached(baselineCache, symbol.toUpperCase(), async () => {
-    const manifest = await loadNeuroseqManifest();
-    const index = await expressionJson<{ schemaVersion: number; genes: NeuroseqGeneEntry[] }>(manifest.geneIndexPath);
-    if (index.schemaVersion !== 1 || index.genes.length !== manifest.geneCount) return null;
-    const matches = resolveNeuroseqGenes(index.genes, symbol) as NeuroseqGeneEntry[];
-    if (matches.length === 0) return { status: 'absent' };
-    if (matches.length > 1) return { status: 'ambiguous', candidates: matches.map((m) => m.symbol) };
-    const entry = matches[0];
-    const shard = await expressionJson<{ schemaVersion: number; genes: Record<string, NeuroseqGeneValues> }>(entry.shard);
-    const row = shard.genes[entry.id];
-    if (shard.schemaVersion !== 1 || !row || row.id !== entry.id || row.values.length !== manifest.sampleCount) return null;
-
-    const names = new Map(neuroseqSources(manifest).map((s) => [s.id, s]));
-    const populations: PopulationLevel[] = manifest.populations.map((population) => {
-      const values = manifest.samples.flatMap((sample, i) => (sample.populationId === population.id ? [row.values[i]] : []));
-      const source = names.get(population.id);
-      return {
-        id: population.id,
-        label: source?.populationLabel ?? population.label,
-        region: source?.region ?? population.region,
-        meanTpm: values.length ? values.reduce((a, b) => a + b, 0) / values.length : 0,
-        libraries: values.length,
-      };
-    }).sort((a, b) => b.meanTpm - a.meanTpm);
-    return {
-      status: 'available',
-      gene: row.symbol,
-      description: row.description,
-      populations,
-      populationCount: populations.length,
-      max: populations[0]?.meanTpm ?? 0,
-    };
+  // Keyed exactly as typed: NeuroSeq prefers an exact spelling before a case-insensitive match.
+  return cached(baselineCache, symbol.trim(), async () => {
+    const sources = neuroseqSources(await loadNeuroseqManifest());
+    const results = await Promise.all(sources.map(async (source) => (await loadNeuroseqExpression(source.id, [symbol]))[0]));
+    return baselineTeaser(sources, results);
   });
 }
 

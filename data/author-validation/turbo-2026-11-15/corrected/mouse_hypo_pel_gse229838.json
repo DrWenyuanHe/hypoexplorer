@@ -1,0 +1,25 @@
+{
+  "datasetId": "mouse_hypo_pel_gse229838",
+  "manualReview": {
+    "status": "processed_source_match",
+    "comparisonLevel": "processed_source",
+    "sourceComparison": "manual_structure_match",
+    "auditState": "complete",
+    "summary": "Stalk-lesion processed matrix and day-10 contrast verified",
+    "note": "GEO provides GSE229838_Processed_data_file.txt.gz, and sample annotations map to day-10 stalk-lesion minus sham in the registered orientation. The PMC paper is open, but its accessible supplement does not provide a complete same-contrast author DE table.",
+    "reviewFlags": [
+      "Legacy source has no committed checksum manifest; verification is structural rather than byte-pinned.",
+      "Author Fig. 2A legend (PMC11127955) states the RNA-seq DEG heatmap used n = 3 PEL and n = 2 Sham; the text separately notes an unidentified Sham outlier \"not analyzed\" (Fig. S2I, supplement not retained). The registered contrast retains all three Sham libraries; which library the authors omitted is not established."
+    ]
+  },
+  "verificationReview": null,
+  "comparabilityReview": null,
+  "additionalComparisonSpec": null,
+  "appliedCorrections": [
+    "manualReview.reviewFlags[1] reworded verbatim to the verifier's text: keeps the Fig. 2A n = 3 PEL / n = 2 Sham legend and the Sham-outlier note (Fig. S2I) as separate statements, and does not claim the n = 2 came from that exclusion.",
+    "All other manual-review fields copied unchanged from the current manual-review.json record (verified field by field).",
+    "experimentalDesign proposal dropped per integration decision (no reviewed-specifications.json changes). Its corrections are therefore not emitted as a ledger change: the samplesheet pin would be sha256 4debe9849b1f91fc76a9fdf0dab57d893e870075fd1cc11f8a00aa2ddc709050 / 103 bytes, not 3f53386e... / 110; independent_replication stays not_assessed; any later spec edit must be merged into the existing record (configId GSE229838, config, mappingSha256, reviewed_mapping and previous_method sources), not swapped in.",
+    "Evidence README (continued-sources/GSE229838/turbo-2026-11-15-design/README.md): samplesheet hash corrected to 4debe984...c709050 (103 bytes); status text changed from 'review' to 'not_assessed'; outlier and n = 2 statements split, with the inference labelled as not source-stated; GEO Sham 'time: Day 0' vs PEL 'Day 10' annotation and the GSM7178954 HIP-SHAM-3/Hypothalamus inconsistency added; noted the sources are byte-identical to the round4-d copies."
+  ],
+  "notes": "Only the manual-review record changes, by one added reviewFlag. The outcome is a note-level documentation of a cohort difference against the author analysis; no status changes. verificationReview stays unchanged (not_located / not_tested). No comparability record exists and none is proposed. No additional comparison spec: no author DE table was located (notloc2 confirms the GEO processed file has no DE statistics). The verifier's optional Day 0 / Day 10 GEO time annotation is recorded in the evidence README only, not in the ledger, because the verifier asked for every other manual-review field to stay unchanged. Manual-review records carry no review-date field, so no date was set. notloc2.json also has an entry for this dataset (documented_no_change, all-null proposals); nothing from it needs integrating."
+}

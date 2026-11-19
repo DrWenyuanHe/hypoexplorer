@@ -80,8 +80,8 @@
 // Gm…), so the unlucky query pays 40x the typical one. FNV-1a mod N is uniform:
 // every bucket lands near the mean, which is what bounds worst-case latency.
 // GENE_SHARDS/PATHWAY_SHARDS are part of the wire format — changing either
-// invalidates every URL, so the client mirrors them as constants and both sides
-// must move together.
+// invalidates every URL. They live in src/data/queryWire.ts, which the client
+// imports too, so both sides move together by construction.
 //
 // STATISTICAL CONTRACT — DO NOT "OPTIMISE" THIS AWAY
 // --------------------------------------------------
@@ -121,16 +121,28 @@ import path from 'node:path';
 import { getDataset, listDatasets } from '../src/data/datasets';
 import { deTableFor, groupSamplesOf, strictSiblingPathwaysFor } from '../src/data/rawTrack';
 import { defaultArmCounts, getActiveContrast } from '../src/data/contrasts';
-import type { GeneDERecord, PathwaySibling, RawTrack } from '../src/types';
+import type { DatasetMeta, GeneDERecord, PathwaySibling, RawTrack } from '../src/types';
 import {
-  EXPR_SHARDS, GENE_SHARDS, PATHWAY_SHARDS, geneShard, pathwayShard, trackPathwaysFile, trackPathwaysGlobal,
+  type BuiltDatasetSummary, type BuiltQueryManifest, type CardDetail, type DiscoverySummary, type ExprIndexRow,
+  type GeneIndexRow, type PathwayDbCount, type PathwayIndexRow, type QueryManifest, type QueryTrackEntry,
+  type TrackPathwayRow, type TrackPathwaysPayload,
+  EXPR_SHARDS, GENE_NAMES_FILE, GENE_NAMES_GLOBAL, GENE_SHARDS, MANIFEST_FILE, MANIFEST_GLOBAL,
+  PATHWAY_NAMES_FILE, PATHWAY_NAMES_GLOBAL, PATHWAY_SHARDS,
+  cardFile, cardGlobalName, decodePathwayRow, decodeTrackPathwayRow, encodeExprRow, encodeGeneRow,
+  encodePathwayRow, encodeTrackPathwayRow, exprShard, exprShardFile, exprShardGlobal, geneShard, geneShardFile,
+  geneShardGlobal, indexKey, pathwayShard, pathwayShardFile, pathwayShardGlobal, shardEnvelope, trackEntry,
+  trackPathwaysFile, trackPathwaysGlobal,
 } from '../src/data/queryWire';
+import { isLowPower } from '../src/utils/qcFlags';
 import { DEFAULT_FDR_CUTOFF } from '../src/statistics/policy';
 import { writeIndexProduct } from './lib/indexProducts.mjs';
 
-// The wire-format constants and the key hash are imported from
-// src/data/queryWire.ts, which the CLIENT imports too — so the two sides can no
-// longer drift apart by editing one copy.
+// This script is the WRITE adapter of src/data/queryWire.ts, which owns the
+// whole wire format: shard counts and the key hash, every file path and JSONP
+// global, the manifest/summary shapes and the row layouts. The client
+// (src/data/queryIndex.ts) is the read adapter of the same module, so the two
+// sides cannot drift apart by editing one copy. What stays here is the build
+// POLICY: what is indexed, how values are rounded, and the --check closure.
 
 // Significant digits kept for EFFECT SIZES ONLY (logFC, NES, se). Full float64
 // tails are high-entropy noise well below the precision of the underlying
@@ -219,14 +231,6 @@ function sig(x: unknown, d: number): number | null {
   return typeof x === 'number' && Number.isFinite(x) ? Number(x.toPrecision(d)) : null;
 }
 
-// Mirrors src/utils/qcFlags.ts — a track is low power when either arm has < 3
-// replicates. Missing counts default to 3 (adequate). Precomputed here so the
-// query path never needs the 41 meta.js files.
-function isLowPower(flags: { nNormal?: number; nObese?: number } | undefined): boolean {
-  if (!flags) return false;
-  return Math.min(flags.nNormal ?? 3, flags.nObese ?? 3) < 3;
-}
-
 // Parse a `var NAME = {...};` JSONP bundle back into an object. The generated
 // files are machine-written with a fixed shape (header comments, then a single
 // top-level assignment), so slicing from the first bracket after `var ` is
@@ -288,142 +292,12 @@ function isRawTrack(value: unknown): value is RawTrack {
   return true;
 }
 
-/**
- * One expression row: the per-sample values a gene has in ONE track.
- *
- *   [trackIdx, values, sym?]
- *
- * `trackIdx` is a position in the manifest's `tracks` array — the SAME
- * namespace the gene and pathway rows use, deliberately, so there is only ever
- * one way for a row to name a track and no second positional space to get out
- * of step. (Only default tracks are emitted today; the schema does not need to
- * change if that ever widens.)
- *
- * `sym` is the SOURCE symbol, present only when it differs from the row's
- * uppercase key — which is 97.3% of rows, because the shard key is uppercased
- * to make lookups case-insensitive across species while the charts still show
- * each dataset's own spelling (macaque POMC, mouse Pomc). Omitting it where it
- * is redundant costs nothing and keeps the macaque rows short.
- */
-type ExprRow = [number, Array<number | null>, string?];
+// The wire shapes — manifest entry, browse summary, discoveries, card detail and
+// every row layout — are declared once in src/data/queryWire.ts. The only
+// source shapes kept here are what this script READS from the bundles.
 interface PathRec { pathway: string; pval: number; padj: number; NES: number; size: number }
-interface DatasetMeta {
-  populations?: string[];
-  labels?: Record<string, string>;
-  types?: Record<string, string>;
-  nGenes?: Record<string, number>;
-  qcFlags?: Record<string, { nNormal?: number; nObese?: number }>;
-  /** Per-ARM replicate counts, keyed by group key. The only place the bundle
-   *  carries a factorial dataset's design-cell sizes — `qcFlags` holds just the
-   *  pooled control/case pair. Read by defaultArmCounts. */
-  groupN?: Record<string, number>;
-}
-
-/**
- * One browse-catalog entry: everything the dataset library shows on a card,
- * for one dataset, without opening that dataset's bundles.
- *
- * This is a MATERIALIZED READ MODEL, not a new authority. Each field still has
- * exactly one source — the registry owns identity and arms, meta.js owns
- * replicate counts and gene counts — and this is the join, computed once at
- * build time so the library costs the manifest it already fetches rather than
- * 42 meta.js requests.
- *
- * Replicate counts are deliberately reported two ways, and they answer different
- * questions. `nBaseline`/`nCase` are the DEFAULT CONTRAST's two arms on the
- * default track — the pair whose LABELS the card prints beside them, which on a
- * factorial dataset is not the pooled control/case pair. `nVaries` asks whether
- * the dataset's TRACKS agree in size, which only the pooled pair measures per
- * track, so the two are computed from different sources on purpose: the macaque atlas is 3v3 on 55 of
- * its 60 populations and drops to an arm of 2 on the other five, so a card that
- * printed a flat "3 v 3" would be making a claim the corpus does not support.
- */
-/** Significant-feature counts for one track at DEFAULT_FDR_CUTOFF. */
-interface DiscoverySummary {
-  genes: number;
-  genesUp: number;
-  genesDown: number;
-  /** Genes carrying a finite FDR at all - the denominator a card prints. */
-  genesTested: number;
-  paths: number | null;
-  pathsUp: number | null;
-  pathsDown: number | null;
-  pathsTested: number | null;
-  /** Per-database split, keyed by the bundle's own db name (GO_BP, HALLMARK...). */
-  pathsByDb: Record<string, { up: number; down: number; tested: number }> | null;
-  /**
-   * Indexed tracks of this dataset with at least one significant gene.
-   *
-   * 0 or 1 for a single-track study, and the only honest headline for the
-   * macaque atlas: its default population (POMC) finds nothing, while 20 of its
-   * 60 populations find something. A card showing the default track's 0 without
-   * this number is understating the dataset.
-   */
-  tracksWithGenes: number;
-}
-
-interface DatasetSummary {
-  ds: string;
-  /** Indexed tracks (not `meta.populations.length` — a track whose bundle
-   *  failed to parse is not in the index and must not be counted as browsable). */
-  trackCount: number;
-  defaultTrack: string;
-  /** The default track's display label — the tissue actually analysed. */
-  trackLabel: string;
-  nGenes: number | null;
-  nBaseline: number | null;
-  nCase: number | null;
-  /** True when any indexed track's POOLED counts differ from the default track's. */
-  nVaries: boolean;
-  /** Tracks with an arm below n=3, by the same isLowPower rule the QC tab uses. */
-  lowPowerTracks: number;
-  /**
-   * What the default track actually FOUND, at the app's own FDR cutoff.
-   *
-   * The card used to lead with N, which in this corpus is close to useless and
-   * sometimes misleading: the two largest studies on the shelf (23v22 and 18v18)
-   * return one and two significant genes, while a 3v4 translatome returns 491.
-   * These are the numbers a reader is deciding on.
-   *
-   * Counted from the RAW FDR/padj in the bundle, never from `prob()`'s rounded
-   * copy, so a value sitting a hair under the cutoff cannot be rounded across it.
-   *
-   * `paths*` are null, not 0, when the dataset ships no pathway sibling. Zero is
-   * a real and common answer here (38% of single-track datasets find no genes),
-   * so "not computed" must never be representable as "found none".
-   */
-  discoveries: DiscoverySummary;
-  // ── Expression scaffolding: what turns an expression row into a chart ──────
-  // An ExprRow is just numbers in an order; these three fields are the only
-  // thing that says WHICH sample each number belongs to and which arm claims
-  // it. They travel in the manifest rather than the shards because they are
-  // per-dataset, not per-gene — repeating them on 719,793 rows would be most of
-  // the payload.
-  /** The default track's sample ids, in the order its expression rows are written. */
-  sampleOrder: string[];
-  /** The default track's arm -> sample ids, via the app's own back-compat reader. */
-  groupSamples: Record<string, string[]>;
-  /**
-   * The contrast id whose DE table and arms this summary (and every expression
-   * row for this dataset) describes — always the registry's DEFAULT, since that
-   * is the only contrast the index carries. The client compares it against the
-   * contrast it is about to render with, so a dataset that gains a contrast
-   * cannot end up showing the default contrast's numbers under another
-   * contrast's arm labels.
-   */
-  contrastId: string | null;
-  /** Baseline/case group keys for the emitted contrast, in display order. */
-  armKeys: string[];
-}
-
-/** One manifest entry — the per-track context the query needs to build a row. */
-interface TrackEntry {
-  ds: string;
-  trackId: string;
-  label: string;
-  type: string;
-  lowPower: boolean;
-}
+/** meta.js as parsed off disk: every field may be missing on a malformed bundle. */
+type BundleMeta = Partial<DatasetMeta>;
 
 const banner = (what: string) =>
   `// AUTO-GENERATED by scripts/build_query_index.mts — do not edit\n// ${what}\n`;
@@ -463,33 +337,23 @@ async function writeJsonp(file: string, globalName: string, what: string, payloa
   // Shards are wrapped so the id travels with the data; the manifest carries it
   // as a normal field.
   const body = `${banner(what)}var ${globalName} = ${JSON.stringify(payload)};\n`;
-  await writeIndexProduct(file, body, { immutable: path.resolve(file) !== path.join(OUT_DIR, 'tracks.js') });
+  await writeIndexProduct(file, body, { immutable: path.resolve(file) !== path.join(OUT_DIR, MANIFEST_FILE) });
   return Buffer.byteLength(body);
 }
 
-/**
- * The JSONP global a card-detail file assigns.
- *
- * Duplicated by cardGlobalName in src/data/queryIndex.ts - the two are a wire
- * contract and the dataset-id test in datasetLibrary.test.tsx pins them
- * together. Dataset ids are [a-z0-9_] today; the replace is what keeps a future
- * id with a hyphen from emitting a syntax error instead of a file.
- */
-function cardGlobalName(ds: string): string {
-  return `HX_QUERY_CARD_${ds.toUpperCase().replace(/[^A-Z0-9]/g, '_')}`;
-}
-
 /** Shard payloads are wrapped as { b: buildId, d: data } so the id is verifiable. */
-function shardEnvelope(data: unknown): { b: string; d: unknown } {
-  return { b: BUILD_ID, d: data };
-}
+const envelope = <T,>(data: T) => shardEnvelope(BUILD_ID, data);
+
+/** Write one file under the build prefix, at its wire path. */
+const writeBuildFile = (file: string, globalName: string, what: string, payload: unknown) =>
+  writeJsonp(path.join(OUT_DIR, BUILD_ID, file), globalName, what, envelope(payload));
 
 // ── Pass 1: walk public/datasets and pivot ──────────────────────────────────
 
-const tracks: TrackEntry[] = [];
+const tracks: QueryTrackEntry[] = [];
 // gene -> rows, pathway -> rows. Row 0 is the track index into `tracks`.
-const geneIndex = new Map<string, Array<[number, number | null, number | null, number | null, number | null]>>();
-const pathIndex = new Map<string, Array<[number, number | null, number | null, number | null, number, number]>>();
+const geneIndex = new Map<string, GeneIndexRow[]>();
+const pathIndex = new Map<string, PathwayIndexRow[]>();
 // Pathway DB names are interned: 'GO_BP' etc. repeat on every one of ~500k rows,
 // so storing an index into this array instead of the string is most of the
 // difference between a 20 MB and a 13 MB pathway index.
@@ -504,7 +368,7 @@ const pathwayTracks = new Set<number>();
 interface TrackDiscovery {
   genes: number; genesUp: number; genesDown: number; genesTested: number;
   paths: number; pathsUp: number; pathsDown: number; pathsTested: number;
-  pathsByDb: Record<string, { up: number; down: number; tested: number }>;
+  pathsByDb: Record<string, PathwayDbCount>;
   sawPathways: boolean;
 }
 const discoveryByTrack = new Map<string, TrackDiscovery>();
@@ -527,17 +391,7 @@ function discoveryFor(ds: string, trackId: string): TrackDiscovery {
 // only. It is NOT in the manifest and must never be: a track bundle is 2.6 MB
 // at the median and the manifest is fetched on every visit, so the cloud ships
 // as its own ~10 KB file, loaded when a reader actually opens a popover.
-interface VolcanoCloud {
-  /** [logFC, -log10(FDR)], downsampled, 2dp. */
-  pts: Array<[number, number]>;
-  /** Symmetric x limit, clipped at the 0.2/99.8 percentile so one runaway
-   *  logFC cannot squash the cloud into the middle column. */
-  xlim: number;
-  ymax: number;
-  ycut: number;
-  track: string;
-}
-const cloudByDs = new Map<string, VolcanoCloud>();
+const cloudByDs = new Map<string, CardDetail>();
 const Y_CUT = -Math.log10(SIG_FDR);
 
 /** Keep every discovery (to a cap) and thin the null cloud around it. */
@@ -557,7 +411,7 @@ function thinCloud(pts: Array<[number, number]>): Array<[number, number]> {
 
 // gene -> the per-sample expression rows of the DATASETS' DEFAULT TRACKS only.
 // Filled by pass 1.5, once the summaries have resolved which track that is.
-const exprIndex = new Map<string, ExprRow[]>();
+const exprIndex = new Map<string, ExprIndexRow[]>();
 const dbIndex = (name: string): number => {
   const i = dbNames.indexOf(name);
   if (i >= 0) return i;
@@ -613,11 +467,11 @@ const datasetIds = (await readdir(DATASETS_DIR, { withFileTypes: true }))
 // Each dataset's meta, kept so the browse summaries can be built after pass 1 —
 // they must count INDEXED tracks, which is only known once every bundle has been
 // read and the unparseable ones dropped.
-const metas = new Map<string, DatasetMeta>();
+const metas = new Map<string, BundleMeta>();
 
 for (const ds of datasetIds) {
   const dir = path.join(DATASETS_DIR, ds);
-  const meta = await readBundle<DatasetMeta>(path.join(dir, 'meta.js'));
+  const meta = await readBundle<BundleMeta>(path.join(dir, 'meta.js'));
   if (meta) metas.set(ds, meta);
   if (!meta?.populations?.length) {
     console.warn(`  ! ${ds}: no meta.js / no populations`);
@@ -637,13 +491,7 @@ for (const ds of datasetIds) {
     srcBytes += (await readFile(trackFile)).byteLength;
 
     const ti = tracks.length;
-    tracks.push({
-      ds,
-      trackId,
-      label: meta.labels?.[trackId] || trackId,
-      type: meta.types?.[trackId] || '',
-      lowPower: isLowPower(meta.qcFlags?.[trackId]),
-    });
+    tracks.push(trackEntry(ds, trackId, meta));
 
     const registered0 = getDataset(ds);
     const activeContrast0 = getActiveContrast(registered0);
@@ -685,13 +533,14 @@ for (const ds of datasetIds) {
           cloud.push([r.logFC, r.FDR <= 0 ? 16 : -Math.log10(r.FDR)]);
         }
       }
-      const key = r.gene.toUpperCase();
+      const key = indexKey(r.gene);
       const se = sig(r.se, SIG_EFFECT);
       if (se === null) skippedNoSe++;
       let arr = geneIndex.get(key);
       if (!arr) { arr = []; geneIndex.set(key, arr); }
-      const row: [number, number | null, number | null, number | null, number | null] =
-        [ti, sig(r.logFC, SIG_EFFECT), prob(r.PValue), prob(r.FDR), se];
+      const row = encodeGeneRow({
+        trackIdx: ti, logFC: sig(r.logFC, SIG_EFFECT), pval: prob(r.PValue), fdr: prob(r.FDR), se,
+      });
       arr.push(row);
       digestRow(key, row);
     }
@@ -759,14 +608,16 @@ for (const ds of datasetIds) {
             if (rec.NES > 0) { disc.pathsUp++; byDb.up++; } else if (rec.NES < 0) { disc.pathsDown++; byDb.down++; }
           }
         }
-        const key = rec.pathway.toUpperCase();
+        const key = indexKey(rec.pathway);
         let arr = pathIndex.get(key);
         if (!arr) { arr = []; pathIndex.set(key, arr); }
         // leadingEdge is deliberately NOT carried: it is 45% of the pathway
         // payload and is only ever read by the single-track drilldown views,
         // which load the full sibling bundle anyway.
-        const row: [number, number | null, number | null, number | null, number, number] =
-          [ti, sig(rec.NES, SIG_EFFECT), prob(rec.padj), prob(rec.pval), rec.size ?? 0, di];
+        const row = encodePathwayRow({
+          trackIdx: ti, NES: sig(rec.NES, SIG_EFFECT), padj: prob(rec.padj), pval: prob(rec.pval),
+          size: rec.size ?? 0, dbIdx: di,
+        });
         arr.push(row);
         digestRow(key, row);
       }
@@ -830,7 +681,7 @@ for (const t of tracks) {
   if (arr) arr.push(t.trackId); else indexedTracksByDs.set(t.ds, [t.trackId]);
 }
 
-const datasetSummaries: DatasetSummary[] = [];
+const datasetSummaries: BuiltDatasetSummary[] = [];
 for (const [ds, trackIds] of [...indexedTracksByDs].sort((a, b) => a[0].localeCompare(b[0]))) {
   const meta = metas.get(ds);
   const registered = getDataset(ds);
@@ -996,12 +847,12 @@ for (const summary of datasetSummaries) {
     + Object.entries(groupSamples).map(([k, v]) => `${k}=${v.join(',')}`).sort().join(';'));
 
   for (const r of deTableFor(raw, summary.contrastId ?? undefined)) {
-    if (r.gene) pickerGeneNames.add(r.gene.toUpperCase());
+    if (r.gene) pickerGeneNames.add(indexKey(r.gene));
   }
 
   for (const [sym, values] of Object.entries(raw.cpm ?? {})) {
     if (!Array.isArray(values)) continue;
-    const key = sym.toUpperCase();
+    const key = indexKey(sym);
     // Values are ROUNDED but never threshold-checked the way probabilities are
     // (see prob()): they are only ever plotted — bar height, SEM whisker, dot
     // overlay — and never compared against a significance cliff. 4 significant
@@ -1012,7 +863,7 @@ for (const summary of datasetSummaries) {
       return r;
     });
     exprValues += rounded.length;
-    const row: ExprRow = sym === key ? [ti, rounded] : [ti, rounded, sym];
+    const row = encodeExprRow({ trackIdx: ti, values: rounded, sym });
     let arr = exprIndex.get(key);
     if (!arr) { arr = []; exprIndex.set(key, arr); }
     arr.push(row);
@@ -1057,31 +908,39 @@ console.log(`expression index: ${exprIndex.size} genes across ${datasetSummaries
 // manifest: ~5,000 significant pathway names would add ~250 KB to tracks.js,
 // which every page loads, while the rows add two small integers to files the
 // card already fetches. A pathway's counts are identical in every file.
-type TrackPathRow = [string, number, number, number, number, number, number];
 const corpusRate = new Map<string, [number, number]>();
 for (const [key, rows] of pathIndex) {
   let sig = 0;
   let tested = 0;
-  for (const [, NES, padj, pval] of rows) {
+  for (const row of rows) {
+    const { NES, padj, pval } = decodePathwayRow(row);
     if (NES === null || padj === null || pval === null) continue;
     tested++;
     if (padj < SIG_FDR) sig++;
   }
   corpusRate.set(key, [sig, tested]);
 }
-const trackPathRows = new Map<number, TrackPathRow[]>();
+const trackPathRows = new Map<number, TrackPathwayRow[]>();
 for (const ti of [...pathwayTracks].sort((a, b) => a - b)) trackPathRows.set(ti, []);
 for (const [key, rows] of pathIndex) {
-  const [sig, tested] = corpusRate.get(key)!;
-  for (const [ti, NES, padj, pval, size, di] of rows) {
+  const [sigTracks, testedTracks] = corpusRate.get(key)!;
+  for (const row of rows) {
+    const { trackIdx, NES, padj, pval, size, dbIdx } = decodePathwayRow(row);
     if (NES === null || padj === null || pval === null || !(padj < SIG_FDR)) continue;
-    trackPathRows.get(ti)?.push([key, NES, padj, size, di, sig, tested]);
+    trackPathRows.get(trackIdx)?.push(encodeTrackPathwayRow({ pathway: key, NES, padj, size, dbIdx, sigTracks, testedTracks }));
   }
 }
+// Most significant first, then the larger effect, then the name — a total
+// order, so the file bytes are stable across rebuilds.
 for (const rows of trackPathRows.values()) {
-  rows.sort((a, b) => a[2] - b[2] || Math.abs(b[1]) - Math.abs(a[1]) || (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0));
+  rows.sort((ra, rb) => {
+    const a = decodeTrackPathwayRow(ra);
+    const b = decodeTrackPathwayRow(rb);
+    return a.padj - b.padj || Math.abs(b.NES) - Math.abs(a.NES)
+      || (a.pathway < b.pathway ? -1 : a.pathway > b.pathway ? 1 : 0);
+  });
 }
-const trackPathwaysPayload = (ti: number) => ({
+const trackPathwaysPayload = (ti: number): TrackPathwaysPayload => ({
   ds: tracks[ti].ds, trackId: tracks[ti].trackId, rows: trackPathRows.get(ti) ?? [],
 });
 const trackPathTotal = [...trackPathRows.values()].reduce((n, rows) => n + rows.length, 0);
@@ -1094,8 +953,6 @@ function bucketize<V>(index: Map<string, V>, shardOf: (k: string) => number, n: 
   for (const [k, v] of index) shards[shardOf(k)][k] = v;
   return shards;
 }
-
-const pad = (n: number) => String(n).padStart(3, '0');
 
 if (checkOnly) {
   // Verify a previously-emitted index still agrees with the source bundles.
@@ -1112,9 +969,9 @@ if (checkOnly) {
     );
     bad++;
   }
-  const manifest = await readBundle<{ tracks: TrackEntry[] }>(path.join(OUT_DIR, 'tracks.js'));
+  const manifest = await readBundle<QueryManifest>(path.join(OUT_DIR, MANIFEST_FILE));
   if (!manifest) {
-    console.error(`FAIL: no tracks.js at ${OUT_DIR}`);
+    console.error(`FAIL: no ${MANIFEST_FILE} at ${OUT_DIR}`);
     process.exit(1);
   }
   if (manifest.tracks.length !== tracks.length) {
@@ -1129,7 +986,7 @@ if (checkOnly) {
       bad++;
     }
   }
-  const buildId = (manifest as unknown as { buildId?: string }).buildId;
+  const buildId = manifest.buildId;
   if (!buildId) { console.error('FAIL: manifest has no buildId'); bad++; }
 
   // Every shard file must exist, carry the manifest's build id, and hold
@@ -1150,16 +1007,14 @@ if (checkOnly) {
   // preflight now spends on it.
   let shardsChecked = 0;
   const compareShards = async <V,>(
-    index: Map<string, V>, sub: string, prefix: string, shardOf: (k: string) => number,
+    index: Map<string, V>, fileOf: (shard: number) => string, shardOf: (k: string) => number,
     n: number, label: string,
   ) => {
     const want = bucketize(index, shardOf, n);
     let checked = 0;
     for (let i = 0; i < n; i++) {
-      const name = `${sub}/${prefix}${pad(i)}.js`;
-      const env = await readBundle<{ b?: string; d?: Record<string, unknown> }>(
-        path.join(OUT_DIR, buildId, sub, `${prefix}${pad(i)}.js`),
-      );
+      const name = fileOf(i);
+      const env = await readBundle<{ b?: string; d?: Record<string, unknown> }>(path.join(OUT_DIR, buildId, name));
       if (!env) { console.error(`FAIL: missing or unparseable shard ${name}`); bad++; continue; }
       if (env.b !== buildId) { console.error(`FAIL: ${name} has build ${env.b}, manifest has ${buildId}`); bad++; continue; }
       const got = env.d;
@@ -1187,36 +1042,36 @@ if (checkOnly) {
     }
     return checked;
   };
-  const nGenes = await compareShards(geneIndex, 'genes', 'g', geneShard, GENE_SHARDS, 'gene');
-  const nPaths = await compareShards(pathIndex, 'pathways', 'p', pathwayShard, PATHWAY_SHARDS, 'pathway');
+  const nGenes = await compareShards(geneIndex, geneShardFile, geneShard, GENE_SHARDS, 'gene');
+  const nPaths = await compareShards(pathIndex, pathwayShardFile, pathwayShard, PATHWAY_SHARDS, 'pathway');
   // Expression rows get the same full comparison, for the same reason: a value
   // that drifted from its bundle is a wrong bar with no error anywhere.
-  const nExpr = await compareShards(exprIndex, 'expr', 'e', geneShard, EXPR_SHARDS, 'expression');
+  const nExpr = await compareShards(exprIndex, exprShardFile, exprShard, EXPR_SHARDS, 'expression');
 
   // The autocomplete union and the interned DB-name table.
-  const namesEnv = await readBundle<{ d?: string[] }>(path.join(OUT_DIR, buildId, 'pathway_names.js'));
+  const namesEnv = await readBundle<{ d?: string[] }>(path.join(OUT_DIR, buildId, PATHWAY_NAMES_FILE));
   const names = namesEnv?.d;
   const wantNames = [...pathIndex.keys()].sort();
   if (!names || names.length !== wantNames.length || names.some((n, i) => n !== wantNames[i])) {
-    console.error(`FAIL: pathway_names.js has ${names?.length ?? 0} names, expected ${wantNames.length}`);
+    console.error(`FAIL: ${PATHWAY_NAMES_FILE} has ${names?.length ?? 0} names, expected ${wantNames.length}`);
     bad++;
   }
   // The gene-name union backing the Compare view's picker.
-  const geneNamesEnv = await readBundle<{ d?: string[] }>(path.join(OUT_DIR, buildId, 'gene_names.js'));
+  const geneNamesEnv = await readBundle<{ d?: string[] }>(path.join(OUT_DIR, buildId, GENE_NAMES_FILE));
   const gotGeneNames = geneNamesEnv?.d;
   if (!gotGeneNames || gotGeneNames.length !== geneNames.length || gotGeneNames.some((n, i) => n !== geneNames[i])) {
-    console.error(`FAIL: gene_names.js has ${gotGeneNames?.length ?? 0} names, expected ${geneNames.length}`);
+    console.error(`FAIL: ${GENE_NAMES_FILE} has ${gotGeneNames?.length ?? 0} names, expected ${geneNames.length}`);
     bad++;
   }
   // exprShards is what tells a client the expression family is present at all.
   // A manifest that omits it (or misreports it) silently sends the Compare view
   // back to downloading 148 MB of bundles.
-  const manifestExprShards = (manifest as unknown as { exprShards?: number }).exprShards;
+  const manifestExprShards = manifest.exprShards;
   if (manifestExprShards !== EXPR_SHARDS) {
     console.error(`FAIL: manifest exprShards = ${manifestExprShards}, expected ${EXPR_SHARDS}`);
     bad++;
   }
-  const manifestDbs = (manifest as unknown as { dbNames?: string[] }).dbNames ?? [];
+  const manifestDbs = manifest.dbNames ?? [];
   if (manifestDbs.length !== dbNames.length || manifestDbs.some((d, i) => d !== dbNames[i])) {
     console.error(`FAIL: manifest dbNames ${JSON.stringify(manifestDbs)} != source ${JSON.stringify(dbNames)}`);
     bad++;
@@ -1224,7 +1079,7 @@ if (checkOnly) {
   // trackCounts is the client's redeploy-freshness signal (manifestCovers
   // compares it against each loaded meta.js) — a manifest that misreports it
   // silently disarms that guard.
-  const manifestCounts = (manifest as unknown as { trackCounts?: Record<string, number> }).trackCounts;
+  const manifestCounts = manifest.trackCounts;
   if (!manifestCounts) {
     console.error('FAIL: manifest has no trackCounts');
     bad++;
@@ -1246,7 +1101,7 @@ if (checkOnly) {
   // it shows a card with the wrong N, or silently omits a dataset the user can
   // reach every other way. Check the ID SET both directions, and that each
   // summary's default track is one the manifest actually carries.
-  const manifestSummaries = (manifest as unknown as { datasets?: DatasetSummary[] }).datasets;
+  const manifestSummaries = manifest.datasets;
   if (!manifestSummaries) {
     console.error('FAIL: manifest carries no `datasets` browse catalog (rebuild with the current generator)');
     bad++;
@@ -1292,7 +1147,7 @@ if (checkOnly) {
   // base rate that drifted from the pathway rows (a wrong specificity rank,
   // also silent) fails here.
   let nTrackPathFiles = 0;
-  const manifestTrackPaths = (manifest as unknown as { trackPathways?: { fdr?: number; tracks?: number[] } }).trackPathways;
+  const manifestTrackPaths = manifest.trackPathways;
   const wantTrackPathIdx = [...trackPathRows.keys()];
   if (!manifestTrackPaths) {
     console.error('FAIL: manifest carries no `trackPathways` family (rebuild with the current generator)');
@@ -1383,7 +1238,7 @@ assertSafeOutDir(OUT_DIR);
 // and other query families so already-open clients can still fetch their data.
 
 let outBytes = 0;
-const manifestPayload =
+const manifestPayload: BuiltQueryManifest =
   // `datasets` is additive: a client built against v1 ignores it, and
   // datasetCatalog.ts treats its absence as "fall back to registry-only cards"
   // rather than an error — so this manifest is safe to ship before the
@@ -1408,22 +1263,22 @@ const manifestPayload =
 // table and not cpm). UPPERCASE, so a gene appears once rather than once per
 // species spelling (49,145 names instead of 60,776) -- the charts recover each
 // dataset's own casing from its expression row's `sym`.
-outBytes += await writeJsonp(
-  path.join(OUT_DIR, BUILD_ID, 'gene_names.js'),
-  'HX_QUERY_GENE_NAMES',
+outBytes += await writeBuildFile(
+  GENE_NAMES_FILE,
+  GENE_NAMES_GLOBAL,
   'sorted union of every DE-table gene symbol (uppercased) across the indexed default tracks (autocomplete)',
-  shardEnvelope(geneNames),
+  geneNames,
 );
 
 // The pathway-name union, for the pathway search autocomplete. Replaces
 // loadPathwayIndex()'s fan-out over all 41 per-dataset pathways_index.js files
 // (5.52 MB, 41 requests) — which between them contain only these 5,122 distinct
 // gs_names, because MSigDB names are species-stable and repeat across datasets.
-outBytes += await writeJsonp(
-  path.join(OUT_DIR, BUILD_ID, 'pathway_names.js'),
-  'HX_QUERY_PATHWAY_NAMES',
+outBytes += await writeBuildFile(
+  PATHWAY_NAMES_FILE,
+  PATHWAY_NAMES_GLOBAL,
   'sorted union of every gs_name across all pathway-capable datasets (autocomplete)',
-  shardEnvelope([...pathIndex.keys()].sort()),
+  [...pathIndex.keys()].sort(),
 );
 
 // Per-dataset card detail: the volcano cloud behind the library card's hover
@@ -1434,11 +1289,11 @@ outBytes += await writeJsonp(
 let cardBytes = 0;
 let maxCard = 0;
 for (const [ds, cloud] of [...cloudByDs].sort((a, b) => a[0].localeCompare(b[0]))) {
-  const b = await writeJsonp(
-    path.join(OUT_DIR, BUILD_ID, 'cards', `${ds}.js`),
+  const b = await writeBuildFile(
+    cardFile(ds),
     cardGlobalName(ds),
     `card detail for ${ds} - downsampled volcano cloud for track ${cloud.track}`,
-    shardEnvelope(cloud),
+    cloud,
   );
   cardBytes += b;
   if (b > maxCard) maxCard = b;
@@ -1451,11 +1306,11 @@ const geneShardsData = bucketize(geneIndex, geneShard, GENE_SHARDS);
 let geneBytes = 0;
 let maxGeneShard = 0;
 for (let i = 0; i < GENE_SHARDS; i++) {
-  const b = await writeJsonp(
-    path.join(OUT_DIR, BUILD_ID, 'genes', `g${pad(i)}.js`),
-    `HX_QUERY_GENES_${pad(i)}`,
+  const b = await writeBuildFile(
+    geneShardFile(i),
+    geneShardGlobal(i),
     `gene index shard ${i}/${GENE_SHARDS} — GENE -> [[trackIdx, logFC, pval, fdr, se], …]`,
-    shardEnvelope(geneShardsData[i]),
+    geneShardsData[i],
   );
   geneBytes += b;
   if (b > maxGeneShard) maxGeneShard = b;
@@ -1466,26 +1321,26 @@ const pathShardsData = bucketize(pathIndex, pathwayShard, PATHWAY_SHARDS);
 let pathBytes = 0;
 let maxPathShard = 0;
 for (let i = 0; i < PATHWAY_SHARDS; i++) {
-  const b = await writeJsonp(
-    path.join(OUT_DIR, BUILD_ID, 'pathways', `p${pad(i)}.js`),
-    `HX_QUERY_PATHWAYS_${pad(i)}`,
+  const b = await writeBuildFile(
+    pathwayShardFile(i),
+    pathwayShardGlobal(i),
     `pathway index shard ${i}/${PATHWAY_SHARDS} — PATHWAY -> [[trackIdx, NES, padj, pval, size, dbIdx], …]`,
-    shardEnvelope(pathShardsData[i]),
+    pathShardsData[i],
   );
   pathBytes += b;
   if (b > maxPathShard) maxPathShard = b;
 }
 outBytes += pathBytes;
 
-const exprShardsData = bucketize(exprIndex, geneShard, EXPR_SHARDS);
+const exprShardsData = bucketize(exprIndex, exprShard, EXPR_SHARDS);
 let exprBytes = 0;
 let maxExprShard = 0;
 for (let i = 0; i < EXPR_SHARDS; i++) {
-  const b = await writeJsonp(
-    path.join(OUT_DIR, BUILD_ID, 'expr', `e${pad(i)}.js`),
-    `HX_QUERY_EXPR_${pad(i)}`,
+  const b = await writeBuildFile(
+    exprShardFile(i),
+    exprShardGlobal(i),
     `expression index shard ${i}/${EXPR_SHARDS} — GENE -> [[trackIdx, [perSampleValues], sym?], …]`,
-    shardEnvelope(exprShardsData[i]),
+    exprShardsData[i],
   );
   exprBytes += b;
   if (b > maxExprShard) maxExprShard = b;
@@ -1495,11 +1350,11 @@ outBytes += exprBytes;
 let trackPathBytes = 0;
 let maxTrackPath = 0;
 for (const ti of trackPathRows.keys()) {
-  const b = await writeJsonp(
-    path.join(OUT_DIR, BUILD_ID, trackPathwaysFile(ti)),
+  const b = await writeBuildFile(
+    trackPathwaysFile(ti),
     trackPathwaysGlobal(ti),
     `significant pathways (padj < ${SIG_FDR}) of track ${tracks[ti].ds}/${tracks[ti].trackId} — [[PATHWAY, NES, padj, size, dbIdx, sigTracks, testedTracks], …]`,
-    shardEnvelope(trackPathwaysPayload(ti)),
+    trackPathwaysPayload(ti),
   );
   trackPathBytes += b;
   if (b > maxTrackPath) maxTrackPath = b;
@@ -1509,8 +1364,8 @@ outBytes += trackPathBytes;
 // Publish the mutable pointer only after every immutable object succeeds. A
 // failed or conflicting write above leaves the previously usable pointer intact.
 outBytes += await writeJsonp(
-  path.join(OUT_DIR, 'tracks.js'),
-  'HX_QUERY_TRACKS',
+  path.join(OUT_DIR, MANIFEST_FILE),
+  MANIFEST_GLOBAL,
   'cross-dataset query manifest: one entry per (dataset, track)',
   manifestPayload,
 );

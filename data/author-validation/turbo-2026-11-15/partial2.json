@@ -1,0 +1,630 @@
+{
+ "agent": "partial2",
+ "datasets": [
+  {
+   "datasetId": "mouse_hypo_aging_gse314817",
+   "accession": "GSE314817",
+   "outcome": "advanced",
+   "summary": "Scoped selected-gene comparison is valid under author-concordance-v2: both-sex Table S2 hypothalamus genes, equal-weight mean of author male/female 27-vs-6 log2FC versus the registered additive-sex age effect; 241/246 paired (97.97%), Pearson 0.996, Spearman 0.992, 100% direction. Exact 36/36 endpoint cohort match from Table S1. Selected genes only; inference not assessed.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE314817/turbo-2026-11-15-partial2",
+   "proposed": {
+    "manualReview": {
+     "status": "validated_with_notes",
+     "comparisonLevel": "direct",
+     "sourceComparison": "manual_structure_match",
+     "auditState": "complete",
+     "summary": "Selected both-sex aging effects agree with the registered sex-adjusted endpoint",
+     "note": "GEO provides a raw-count matrix and a reanalyzed archive of per-sample count files. Table S1 mouse_sample_info reconciles all 36 author-used 6- and 27-month hypothalamus samples (8F/8M young, 10F/10M old) to the 36 registered libraries by library ID, age and sex, with no exclusions on either side. The authors fit each sex separately (edgeR filterByExpr/TMM, limma log2CPM, all ages as groups); Table S2 lists age-related genes (>=1.5-fold at any age, BH P<0.05, BIC trajectory filter) per sex. Because each age group has the same sex composition, the registered additive-sex coefficient targets the equal-weight mean of the within-sex age effects. Within the declared scope of 246 hypothalamus genes listed in both sexes, 241 pair with the registered output (97.97%): Pearson r=0.995957, Spearman 0.991571, 241/241 signs agree, median absolute log2FC difference 0.0315. Five listed genes are absent from the registered tested table. Sex-specific listed genes, the nonsignificant tail and pooled inference remain outside this scope. Evidence and reproducible extraction are in continued-sources/GSE314817/turbo-2026-11-15-partial2/.",
+     "reviewFlags": [
+      "Selected-gene evidence: Table S2 lists only age-related genes, and the primary scope requires listing in both sexes; it is not the full tested universe.",
+      "No combined author P/FDR exists for the pooled sex-adjusted endpoint; per-sex adjusted P values are context only."
+     ],
+     "evidenceLinks": [
+      {
+       "label": "GEO record",
+       "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE314817",
+       "kind": "database"
+      },
+      {
+       "label": "Open full text",
+       "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13082319/",
+       "kind": "paper"
+      },
+      {
+       "label": "Author aging tables S1-S5",
+       "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13082319.1/sciadv.ady8401_tables_s1_to_s5.zip",
+       "kind": "author_result"
+      }
+     ],
+     "reviewedAt": "2026-11-15"
+    },
+    "verificationReview": {
+     "resultAvailability": "partial",
+     "comparisonOutcome": "method_differences",
+     "reason": "2026-11-15 scoped comparison: Table S2 hypothalamus genes listed in both male and female mouse sheets (246); reference = equal-weight mean of per-sex limma 27-vs-6-month log2FC. 241 finite pairs (coverage 97.97%); Pearson 0.995957, Spearman 0.991571, nonzero direction agreement 100.000% (241/241), median absolute log2FC difference 0.031536, paired RMS effect ratio 1.019241. Table S1 reconciles all 36 author-used 6/27-month hypothalamus samples to the 36 registered libraries by ID, age and sex. Selected age-related genes only; no combined author P/FDR for the pooled estimand. Evidence and reproducible extraction are in continued-sources/GSE314817/turbo-2026-11-15-partial2/.",
+     "nextStep": "Keep the selected both-sex scope explicit; full-universe concordance would need author per-sex results for all tested genes, which are not deposited.",
+     "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+     "registeredContrastIds": [
+      "aged_vs_young"
+     ],
+     "target": "registered_output",
+     "resultScope": "selected_results",
+     "basis": "Registered Explorer 27-versus-6-month hypothalamus result with sex as an additive term.",
+     "reference": "Table S2 hypothalamus rows listed in both the male and female mouse sheets (246 genes); reference effect is the equal-weight mean of the per-sex log2FC.27vs6 values.",
+     "assessment": "limited",
+     "dimensions": {
+      "cohort": {
+       "status": "matched",
+       "note": "Table S1 mouse_sample_info: all 36 author-used 6/27-month hypothalamus samples join the 36 registered libraries by ID, age and sex; 8F/8M young and 10F/10M old on both sides."
+      },
+      "contrast": {
+       "status": "compatible",
+       "note": "Each age group has the same sex composition, so the additive-sex age coefficient targets the equal-weight mean of the within-sex 27-minus-6-month effects. Per-sex fitting and shared dispersion are estimator differences."
+      },
+      "features": {
+       "status": "compatible",
+       "note": "241 of 246 both-sex listed symbols join exactly; five are absent from the registered tested table. Authors summed counts of same-named genes."
+      },
+      "effects": {
+       "status": "compatible",
+       "note": "Pearson 0.995957, Spearman 0.991571; all 241 paired signs agree; median absolute log2FC difference 0.0315."
+      },
+      "inference": {
+       "status": "not_tested",
+       "note": "Authors report per-sex limma BH P only; no combined P/FDR exists for the pooled endpoint."
+      },
+      "coverage": {
+       "status": "limited",
+       "note": "Selected age-related genes listed in both sexes; sex-specific genes and the nonsignificant tail are outside scope."
+      }
+     },
+     "criteria": "author-concordance-v2 on the declared both-sex selected scope: at least 30 pairs, 90% coverage, Pearson and Spearman at least 0.90 or 90% direction agreement. No full-result acceptance is established.",
+     "conclusion": "Selected both-sex aging effects agree closely with the registered endpoint; full-universe and inferential equivalence remain untested."
+    },
+    "concordanceReview": {
+     "datasetId": "mouse_hypo_aging_gse314817",
+     "contrastId": "aged_vs_young",
+     "reviewedAt": "2026-11-15",
+     "dimension": "contrast",
+     "status": "compatible",
+     "evidenceFingerprint": null,
+     "localMethod": "edgeR-QL, ~ sex + age, 36 libraries",
+     "authorMethod": "Per-sex edgeR filterByExpr/TMM and limma log2CPM with all ages as groups; 27 vs 6 months",
+     "orientation": "Both positive for 27 months minus 6 months.",
+     "priorReview": {
+      "status": "different",
+      "note": "Averaging sex-specific listed effects is not the registered additive-sex model estimand."
+     },
+     "note": "Table S1 shows that the registered and author endpoint cohorts are the same 36 animals, with 8 female and 8 male at 6 months and 10 female and 10 male at 27 months. With the same sex composition in each age group, the additive-sex age coefficient is a weighted average of the female and male within-sex age effects with equal weights. The equal-weight mean of the author per-sex 27-versus-6 log2FC therefore estimates the same biological contrast in the same units. It is exact for linear models and approximate for the NB GLM. The comparison is restricted to genes listed in both sexes, where this mean is defined. Separate per-sex filtering and variance modelling are estimator and inference differences. This review does not equate P values or FDR calls.",
+     "sources": [
+      {
+       "path": "data/author-validation/continued-sources/GSE314817/turbo-2026-11-15-partial2/download/sciadv.ady8401_tables_s1_to_s5.zip",
+       "sha256": "b7cbb7e5a446641e2a1376ca139a9782ad6695b3c1ba633e7a36a9b017d5a54e"
+      },
+      {
+       "path": "data/author-validation/continued-sources/GSE314817/turbo-2026-11-15-partial2/download/PMC13082319.html",
+       "sha256": "a648086d194356c505e18ee12fc3aa84032fde2a656f66e357da85cbb693bb08"
+      },
+      {
+       "path": "geo_replication/datasets/GSE314817_mmus_hypothalamus_aging/metadata/GSE314817_6v27mo_samplesheet.tsv",
+       "sha256": "cc9a00c96743658b2267f51fe799ec8586322ecab6ae3d303ad3828d560a3166"
+      },
+      {
+       "path": "data/author-validation/continued-sources/GSE314817/turbo-2026-11-15-partial2/cohort-audit.tsv",
+       "sha256": "f2b27fc93fc2c184bb79170d7f2a948a6a4a1b499fc87118a1a84bec86e72bab"
+      },
+      {
+       "path": "geo_replication/datasets/GSE314817_mmus_hypothalamus_aging/processed/GSE314817_6v27mo_DE.tsv",
+       "sha256": "a67879aeaf0993dc5689907270e90dde9194685342884503ca4474eb5621f4b6"
+      }
+     ]
+    },
+    "additionalComparisonSpec": {
+     "datasetId": "mouse_hypo_aging_gse314817",
+     "accession": "GSE314817",
+     "contrast": "aged_vs_young",
+     "localPath": "geo_replication/datasets/GSE314817_mmus_hypothalamus_aging/processed/GSE314817_6v27mo_DE.tsv",
+     "localKey": "id",
+     "authorPath": "data/author-validation/continued-sources/GSE314817/turbo-2026-11-15-partial2/author-effects-primary-scope.tsv",
+     "sourceUrl": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13082319.1/sciadv.ady8401_tables_s1_to_s5.zip",
+     "sha256": "ca2d406f625526282150484473d74e9e3da7919870cb02486b55edc9b4abf9d5",
+     "format": "tsv",
+     "authorKey": "gene",
+     "authorEffect": "mean_log2FC_27vs6",
+     "authorAdjustedP": null,
+     "orientationSign": 1,
+     "localMethod": "edgeR-QL",
+     "authorMethod": "Per-sex limma log2CPM after edgeR filterByExpr/TMM; equal-weight mean of male and female 27-vs-6-month log2FC",
+     "orientation": "27 months minus 6 months hypothalamus; unchanged author orientation.",
+     "note": "Selected 246-gene reference: Table S2 hypothalamus age-related genes listed in both male and female mouse sheets. The reference effect is the equal-weight mean of the per-sex log2FC.27vs6 values, matching the additive-sex estimand in this design, where each age group has the same sex composition. No combined author adjusted P exists, and the per-sex adj.pval.27vs6 columns are retained in the extraction as context only. Numerical values are recalculated from the unchanged current registered DE table.",
+     "interpretation": "effect_match_inference_differs",
+     "originalReferences": [
+      {
+       "path": "data/author-validation/continued-sources/GSE314817/turbo-2026-11-15-partial2/download/sciadv.ady8401_tables_s1_to_s5.zip",
+       "sourceUrl": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13082319.1/sciadv.ady8401_tables_s1_to_s5.zip",
+       "sha256": "b7cbb7e5a446641e2a1376ca139a9782ad6695b3c1ba633e7a36a9b017d5a54e",
+       "bytes": 28825838
+      },
+      {
+       "path": "data/author-validation/continued-sources/GSE314817/turbo-2026-11-15-partial2/compare_gse314817.py",
+       "sourceUrl": "Reproducible original-table extraction and scoped comparison script",
+       "sha256": "9114a4a5e9c47e04e12a1c9b04ae7b1eda9c9ddd39540187229491b6c7a5433f",
+       "bytes": 7979
+      }
+     ],
+     "normalizationScript": "data/author-validation/continued-sources/GSE314817/turbo-2026-11-15-partial2/compare_gse314817.py",
+     "resultScope": "Selected 246-gene reference: Table S2 hypothalamus age-related genes listed in both sexes; equal-weight mean of per-sex 27-vs-6 effects.",
+     "localSnapshot": {
+      "path": "geo_replication/datasets/GSE314817_mmus_hypothalamus_aging/processed/GSE314817_6v27mo_DE.tsv",
+      "sourceUrl": "Registered Explorer DE source; no public author-result claim",
+      "sha256": "a67879aeaf0993dc5689907270e90dde9194685342884503ca4474eb5621f4b6",
+      "bytes": 1588942
+     }
+    },
+    "experimentalDesign": "Table S1 confirms 8F/8M at 6 months and 10F/10M at 27 months for hypothalamus after author QC; all 36 are independent animals matching the registered libraries (cohort-audit.tsv)."
+   },
+   "metrics": {
+    "scope": "Selected genes: Table S2 hypothalamus age-related genes listed in both male and female mouse sheets; reference = equal-weight mean of per-sex limma 27-vs-6-month log2FC.",
+    "policy": "author-concordance-v2",
+    "primary": {
+     "pairedGenes": 241,
+     "pearson": 0.995957,
+     "spearman": 0.991571,
+     "nonzeroPairs": 241,
+     "nonzeroPairShare": 1.0,
+     "directionAgreement": 1.0,
+     "directionAgreeCount": 241,
+     "medianAbsLog2FCDifference": 0.031536,
+     "rmsEffectRatioRegisteredOverAuthor": 1.019241,
+     "registeredFDRlt0.05": 240,
+     "scopeGenes": 246,
+     "unmatched": 5,
+     "ambiguous": 0,
+     "nonfiniteReference": 0,
+     "coverage": 0.979675
+    },
+    "policyNumericRoutesPrimary": {
+     "minPairs": 30,
+     "minCoverage": 0.9,
+     "correlationRoute": true,
+     "directionRoute": true
+    },
+    "sensitivityMaleListedMaleEffect": {
+     "pairedGenes": 331,
+     "pearson": 0.926401,
+     "spearman": 0.843815,
+     "nonzeroPairs": 331,
+     "nonzeroPairShare": 1.0,
+     "directionAgreement": 1.0,
+     "directionAgreeCount": 331,
+     "medianAbsLog2FCDifference": 0.214966,
+     "rmsEffectRatioRegisteredOverAuthor": 1.11347,
+     "registeredFDRlt0.05": 300,
+     "scopeGenes": 352,
+     "unmatched": 21,
+     "ambiguous": 0,
+     "nonfiniteReference": 0,
+     "coverage": 0.940341
+    },
+    "sensitivityFemaleListedFemaleEffect": {
+     "pairedGenes": 663,
+     "pearson": 0.954573,
+     "spearman": 0.908018,
+     "nonzeroPairs": 662,
+     "nonzeroPairShare": 0.998492,
+     "directionAgreement": 0.995468,
+     "directionAgreeCount": 659,
+     "medianAbsLog2FCDifference": 0.190985,
+     "rmsEffectRatioRegisteredOverAuthor": 0.818556,
+     "registeredFDRlt0.05": 588,
+     "scopeGenes": 711,
+     "unmatched": 48,
+     "ambiguous": 0,
+     "nonfiniteReference": 0,
+     "coverage": 0.932489
+    },
+    "registeredTrace": {
+     "registeredRows": 15761,
+     "trackRows": 15761,
+     "sharedRows": 15761,
+     "logFCMismatchesOver1e-3": 0
+    },
+    "unmatchedGenes": [
+     "AA467197",
+     "Apol9a",
+     "Fev",
+     "Phox2a",
+     "Spag6l"
+    ],
+    "evidenceFingerprintNote": "Concordance-review evidenceFingerprint must be computed by build_author_validation.mts after the spec is merged; left null."
+   }
+  },
+  {
+   "datasetId": "mouse_pomc_maternal_hfd_gse135639",
+   "accession": "GSE135639",
+   "outcome": "advanced",
+   "summary": "Supplementary Table 1 (227 maturation TFs, FC and FDR for both diets) in mmc1.pdf gives a valid scoped reference for the two registered P21-vs-P0 contrasts. Chow: 223/227 paired, Pearson 0.998, Spearman 0.999, 99.6% direction; HFD: 223/227, Pearson 0.998, Spearman 0.998, 99.6% direction. Selected TFs only; both diet contrasts remain without an author comparator.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE135639/turbo-2026-11-15-partial2",
+   "proposed": {
+    "manualReview": {
+     "status": "validated_with_notes",
+     "comparisonLevel": "direct",
+     "sourceComparison": "manual_structure_match",
+     "auditState": "complete",
+     "summary": "Author maturation TF effects agree with both registered P21-vs-P0 contrasts; diet contrasts remain exploratory",
+     "note": "The official normalized CPM matrix is accessible, supports the registered P0/P21 and diet axes, and was rehashed locally (SHA-256 bce4b726...). Authors ran edgeR on raw counts that were not deposited and emphasized P0-to-P21 maturation within chow and HFD. The only supplementary file, mmc1.pdf, contains Supplementary Table 1: 227 transcription factors DE during maturation in either diet, with signed fold changes and FDR for CD0vsCD21 and HFD0vsHFD21. Coordinate-based extraction recovers all 227 rows. Within this selected TF scope, p21_vs_p0_chow pairs 223 genes (Pearson r=0.998204, Spearman 0.998717, 222/223 signs agree) and p21_vs_p0_hfd pairs 223 (Pearson 0.998265, Spearman 0.998443, 221/222 nonzero signs agree); Glmp, Kmt2a, Ybx3 and Zfp638 are unmatched. The P21 HFD-versus-chow and P0 HFD-versus-chow results remain valid labeled exploratory contrasts on the deposited matrix with no author comparator. Evidence and reproducible extraction are in continued-sources/GSE135639/turbo-2026-11-15-partial2/.",
+     "reviewFlags": [
+      "Exact author p-values cannot be reconstructed because raw counts were not deposited; author FDR cells are reported as context only.",
+      "Selected-gene evidence: Supplementary Table 1 lists 227 maturation TFs only; it is not the full tested universe.",
+      "The two maternal-diet contrasts have no author comparator and remain exploratory.",
+      "This legacy source has no committed source-file checksum manifest."
+     ],
+     "evidenceLinks": [
+      {
+       "label": "GEO record",
+       "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE135639",
+       "kind": "database"
+      },
+      {
+       "label": "Open full text",
+       "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7152705/",
+       "kind": "paper"
+      },
+      {
+       "label": "Author supplementary PDF with Supplementary Table 1",
+       "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7152705/supplementaryFiles",
+       "kind": "author_result"
+      }
+     ],
+     "reviewedAt": "2026-11-15"
+    },
+    "verificationReview": {
+     "resultAvailability": "partial",
+     "comparisonOutcome": "method_differences",
+     "reason": "2026-11-15 scoped comparison against mmc1.pdf Supplementary Table 1 (227 maturation TFs). p21_vs_p0_chow: 223 finite matched effects of 227 (coverage 98.24%); Pearson 0.998204, Spearman 0.998717, nonzero direction agreement 99.552% (222/223), median absolute log2FC difference 0.04184, paired RMS effect ratio 0.951443. p21_vs_p0_hfd: 223 of 227 (98.24%); Pearson 0.998265, Spearman 0.998443, nonzero direction agreement 99.550% (221/222), median absolute log2FC difference 0.04026, paired RMS effect ratio 0.945113. Selected TF reference; author raw counts are not deposited, so inference is not reproduced. The two diet contrasts remain without an author comparator. Evidence and reproducible extraction are in continued-sources/GSE135639/turbo-2026-11-15-partial2/.",
+     "nextStep": "Keep both age comparisons scoped to the 227-TF selected reference; the diet contrasts need same-comparison author statistics, which are not published.",
+     "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+     "registeredContrastIds": [
+      "p21_vs_p0_chow",
+      "p21_vs_p0_hfd"
+     ],
+     "target": "registered_output",
+     "resultScope": "selected_results",
+     "basis": "Registered Explorer P21-minus-P0 limma-trend results within chow and within HFD, fitted on the deposited CPM matrix.",
+     "reference": "Haddad-Tovolli et al. 2020 mmc1.pdf Supplementary Table 1: 227 TFs DE during P0-to-P21 POMC maturation, with FC and FDR for CD0vsCD21 and HFD0vsHFD21. The diet contrasts hfd_vs_chow_p0 and hfd_vs_chow_p21 are not covered.",
+     "assessment": "limited",
+     "dimensions": {
+      "cohort": {
+       "status": "compatible",
+       "note": "Paper reports n=3-5 biologically independent samples; the 17 GEO libraries are chow P0 5, chow P21 3, HFD P0 5, HFD P21 4 and all are registered. No author exclusion list exists."
+      },
+      "contrast": {
+       "status": "matched",
+       "note": "P21 minus P0 within each diet; positive author FC is higher at P21, fixed from the caption and maturation biology before comparison."
+      },
+      "features": {
+       "status": "compatible",
+       "note": "223 of 227 listed TF symbols join exactly in each contrast; Glmp, Kmt2a, Ybx3 and Zfp638 are unmatched and former symbols are not substituted."
+      },
+      "effects": {
+       "status": "compatible",
+       "note": "Signed author FC converted to log2. Chow Pearson 0.998204, Spearman 0.998717; HFD Pearson 0.998265, Spearman 0.998443; one sign differs in each contrast."
+      },
+      "inference": {
+       "status": "not_tested",
+       "note": "Author edgeR used undeposited raw counts; registered limma-trend uses CPM. FDR<0.05 among pairs is 164/165 (chow) and 197/197 (HFD) as context only."
+      },
+      "coverage": {
+       "status": "limited",
+       "note": "Selected 227-TF reference; non-TF genes, unlisted TFs and both diet contrasts are outside scope."
+      }
+     },
+     "criteria": "author-concordance-v2 per age contrast on the declared selected TF scope: at least 30 pairs, 90% coverage, Pearson and Spearman at least 0.90 or 90% direction agreement. No full-result acceptance is established.",
+     "conclusion": "Selected maturation TF effects agree closely for both age contrasts; diet contrasts and full-universe inference remain untested."
+    },
+    "concordanceReview": null,
+    "additionalComparisonSpec": [
+     {
+      "datasetId": "mouse_pomc_maternal_hfd_gse135639",
+      "accession": "GSE135639",
+      "contrast": "p21_vs_p0_chow",
+      "localPath": "geo_replication/datasets/GSE135639_mmus_pomc_maternal_hfd/processed/GSE135639_ageChow_DE.tsv",
+      "localKey": "id",
+      "authorPath": "data/author-validation/continued-sources/GSE135639/turbo-2026-11-15-partial2/author-table-s1-extracted.tsv",
+      "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7152705/supplementaryFiles",
+      "sha256": "4f439921e1f46037f2c083fd22d210e989a312672a93bf3670f9b3a7159306fc",
+      "format": "tsv",
+      "authorKey": "gene",
+      "authorEffect": "log2FC_P21_vs_P0_chow",
+      "authorAdjustedP": "FDR_CD0vsCD21",
+      "orientationSign": 1,
+      "localMethod": "limma-trend",
+      "authorMethod": "edgeR on undeposited raw counts; signed linear FC in Supplementary Table 1 converted to log2",
+      "orientation": "P21 minus P0 within chow; positive author FC is higher at P21 (caption and Myc/Mycn/Dbp maturation biology), no reversal.",
+      "note": "Selected 227-TF reference: mmc1.pdf Supplementary Table 1, TFs differentially expressed during P0-to-P21 POMC maturation in either diet; the chow column is used for every listed TF. Rows rebuilt from PDF word coordinates; 227/227 rows recovered. 223 of 227 join exactly; Glmp, Kmt2a, Ybx3 and Zfp638 are unmatched and former symbols are not substituted. Author FDR cells reported as <0.0001 are upper bounds. Numerical values are recalculated from the unchanged current registered DE table.",
+      "interpretation": "effect_match_inference_differs",
+      "originalReferences": [
+       {
+        "path": "data/author-validation/continued-sources/GSE135639/turbo-2026-11-15-partial2/download/mmc1.pdf",
+        "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7152705/supplementaryFiles",
+        "sha256": "37a420a748306b07c81ddecd3d3597cf3606fe6aabb7cba5770c2214e4ed5ea4",
+        "bytes": 4778133
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE135639/turbo-2026-11-15-partial2/download/PMC7152705_fullTextXML.xml",
+        "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7152705/fullTextXML",
+        "sha256": "5bd4adc6df88b4a2d942909fd7718bff9c96721985567dbb5ea7cdfb83eecf28",
+        "bytes": 114023
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE135639/turbo-2026-11-15-partial2/compare_gse135639.py",
+        "sourceUrl": "Reproducible coordinate-based PDF table extraction and scoped comparison script",
+        "sha256": "cd185b41836a89e2db470b7c03bd864c425a33caa9ef63d41a6d3613be5a6a2b",
+        "bytes": 8097
+       }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE135639/turbo-2026-11-15-partial2/compare_gse135639.py",
+      "resultScope": "Selected 227-TF Supplementary Table 1 reference for p21_vs_p0_chow only; the diet contrasts have no author comparator.",
+      "localSnapshot": {
+       "path": "geo_replication/datasets/GSE135639_mmus_pomc_maternal_hfd/processed/GSE135639_ageChow_DE.tsv",
+       "sourceUrl": "Registered Explorer DE source; no public author-result claim",
+       "sha256": "70b78dd911db87e2e29e1898c9b7b5e4bd71bc00a00d4e26a6f68b58bfd44552",
+       "bytes": 1572232
+      }
+     },
+     {
+      "datasetId": "mouse_pomc_maternal_hfd_gse135639",
+      "accession": "GSE135639",
+      "contrast": "p21_vs_p0_hfd",
+      "localPath": "geo_replication/datasets/GSE135639_mmus_pomc_maternal_hfd/processed/GSE135639_ageHFD_DE.tsv",
+      "localKey": "id",
+      "authorPath": "data/author-validation/continued-sources/GSE135639/turbo-2026-11-15-partial2/author-table-s1-extracted.tsv",
+      "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7152705/supplementaryFiles",
+      "sha256": "4f439921e1f46037f2c083fd22d210e989a312672a93bf3670f9b3a7159306fc",
+      "format": "tsv",
+      "authorKey": "gene",
+      "authorEffect": "log2FC_P21_vs_P0_hfd",
+      "authorAdjustedP": "FDR_HFD0vsHFD21",
+      "orientationSign": 1,
+      "localMethod": "limma-trend",
+      "authorMethod": "edgeR on undeposited raw counts; signed linear FC in Supplementary Table 1 converted to log2",
+      "orientation": "P21 minus P0 within HFD; positive author FC is higher at P21 (caption and Myc/Mycn/Dbp maturation biology), no reversal.",
+      "note": "Selected 227-TF reference: mmc1.pdf Supplementary Table 1, TFs differentially expressed during P0-to-P21 POMC maturation in either diet; the HFD column is used for every listed TF. Rows rebuilt from PDF word coordinates; 227/227 rows recovered. 223 of 227 join exactly; Glmp, Kmt2a, Ybx3 and Zfp638 are unmatched and former symbols are not substituted. Author FDR cells reported as <0.0001 are upper bounds. Numerical values are recalculated from the unchanged current registered DE table.",
+      "interpretation": "effect_match_inference_differs",
+      "originalReferences": [
+       {
+        "path": "data/author-validation/continued-sources/GSE135639/turbo-2026-11-15-partial2/download/mmc1.pdf",
+        "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7152705/supplementaryFiles",
+        "sha256": "37a420a748306b07c81ddecd3d3597cf3606fe6aabb7cba5770c2214e4ed5ea4",
+        "bytes": 4778133
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE135639/turbo-2026-11-15-partial2/download/PMC7152705_fullTextXML.xml",
+        "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7152705/fullTextXML",
+        "sha256": "5bd4adc6df88b4a2d942909fd7718bff9c96721985567dbb5ea7cdfb83eecf28",
+        "bytes": 114023
+       },
+       {
+        "path": "data/author-validation/continued-sources/GSE135639/turbo-2026-11-15-partial2/compare_gse135639.py",
+        "sourceUrl": "Reproducible coordinate-based PDF table extraction and scoped comparison script",
+        "sha256": "cd185b41836a89e2db470b7c03bd864c425a33caa9ef63d41a6d3613be5a6a2b",
+        "bytes": 8097
+       }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE135639/turbo-2026-11-15-partial2/compare_gse135639.py",
+      "resultScope": "Selected 227-TF Supplementary Table 1 reference for p21_vs_p0_hfd only; the diet contrasts have no author comparator.",
+      "localSnapshot": {
+       "path": "geo_replication/datasets/GSE135639_mmus_pomc_maternal_hfd/processed/GSE135639_ageHFD_DE.tsv",
+       "sourceUrl": "Registered Explorer DE source; no public author-result claim",
+       "sha256": "427ca7aa68e2e36fd9dee8f27a3ff4ae241a7f9fdd093abebcbb65aa0fec98df",
+       "bytes": 1582530
+      }
+     }
+    ],
+    "experimentalDesign": null
+   },
+   "metrics": {
+    "policy": "author-concordance-v2",
+    "scope": "Selected 227-TF Supplementary Table 1 reference, per diet column",
+    "extractedRows": 227,
+    "contrasts": {
+     "p21_vs_p0_chow": {
+      "pairedGenes": 223,
+      "pearson": 0.998204,
+      "spearman": 0.998717,
+      "nonzeroPairs": 223,
+      "nonzeroPairShare": 1.0,
+      "directionAgreement": 0.995516,
+      "directionAgreeCount": 222,
+      "medianAbsLog2FCDifference": 0.04184,
+      "rmsEffectRatioRegisteredOverAuthor": 0.951443,
+      "scopeGenes": 227,
+      "unmatched": 4,
+      "unmatchedGenes": [
+       "Glmp",
+       "Kmt2a",
+       "Ybx3",
+       "Zfp638"
+      ],
+      "coverage": 0.982379,
+      "rowsWithoutParsedFC": 0,
+      "registeredFDRlt0.05": 165,
+      "authorFDRlt0.05": 164,
+      "authorFDRmissing": 0,
+      "v2CorrelationRoute": true,
+      "v2DirectionRoute": true,
+      "registeredTrace": {
+       "registeredRows": 15230,
+       "trackRows": 15230,
+       "logFCMismatchesOver1e-3": 0
+      }
+     },
+     "p21_vs_p0_hfd": {
+      "pairedGenes": 223,
+      "pearson": 0.998265,
+      "spearman": 0.998443,
+      "nonzeroPairs": 222,
+      "nonzeroPairShare": 0.995516,
+      "directionAgreement": 0.995495,
+      "directionAgreeCount": 221,
+      "medianAbsLog2FCDifference": 0.04026,
+      "rmsEffectRatioRegisteredOverAuthor": 0.945113,
+      "scopeGenes": 227,
+      "unmatched": 4,
+      "unmatchedGenes": [
+       "Glmp",
+       "Kmt2a",
+       "Ybx3",
+       "Zfp638"
+      ],
+      "coverage": 0.982379,
+      "rowsWithoutParsedFC": 0,
+      "registeredFDRlt0.05": 197,
+      "authorFDRlt0.05": 197,
+      "authorFDRmissing": 0,
+      "v2CorrelationRoute": true,
+      "v2DirectionRoute": true,
+      "registeredTrace": {
+       "registeredRows": 15230,
+       "trackRows": 15230,
+       "logFCMismatchesOver1e-3": 0
+      }
+     }
+    },
+    "note": "additionalComparisonSpec is a list of two scoped records (one per age contrast). Author FDR column contains '<0.0001' strings; an adapter must treat them as upper bounds or ignore adjusted P."
+   }
+  },
+  {
+   "datasetId": "mouse_hypo_oxaliplatin_gse285906",
+   "accession": "GSE285906",
+   "outcome": "documented_no_change",
+   "summary": "No valid author-concordance-v2 scoped comparison: The only quantitative hypothalamic author result is Npy (fold change 5.88, FDR 0.0024); the Nature supplement inventory has no complete or selected hypothalamus DE table. One gene is far below the author-concordance-v2 minimum of 30 paired genes, so no scoped comparison is valid. The existing author-method DESeq2 refit is a separate reconstruction and does not verify the registered edgeR-QL output.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE285906/turbo-2026-11-15-partial2",
+   "proposed": {
+    "manualReview": null,
+    "verificationReview": null,
+    "comparabilityReview": null,
+    "concordanceReview": null,
+    "additionalComparisonSpec": null,
+    "experimentalDesign": null
+   },
+   "metrics": null
+  },
+  {
+   "datasetId": "mouse_hypo_aging_glp1r_gse280382",
+   "accession": "GSE280382",
+   "outcome": "documented_no_change",
+   "summary": "No valid author-concordance-v2 scoped comparison: The recorded Cell Metabolism supplement contains figure/category summaries only, with no gene-level same-contrast DE table (selected or full). No paired gene effects exist, so no scoped comparison can reach 30 pairs.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE280382/turbo-2026-11-15-partial2",
+   "proposed": {
+    "manualReview": null,
+    "verificationReview": null,
+    "comparabilityReview": null,
+    "concordanceReview": null,
+    "additionalComparisonSpec": null,
+    "experimentalDesign": null
+   },
+   "metrics": null
+  },
+  {
+   "datasetId": "mouse_hypo_ube3a_gse217420",
+   "accession": "GSE217420",
+   "outcome": "documented_no_change",
+   "summary": "No valid author-concordance-v2 scoped comparison: The retained publisher Tables S1-S3 hold prefrontal-cortex interaction, sex and genotype results; S4-S6 are enrichment tables. None provides hypothalamus genotype effects, so the tissue (cohort) and contrast are incompatible with the registered hypothalamus comparison. The paper's hypothalamus result is a significant-gene count and Ube3a direction only.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE217420/turbo-2026-11-15-partial2",
+   "proposed": {
+    "manualReview": null,
+    "verificationReview": null,
+    "comparabilityReview": null,
+    "concordanceReview": null,
+    "additionalComparisonSpec": null,
+    "experimentalDesign": null
+   },
+   "metrics": null
+  },
+  {
+   "datasetId": "mouse_scn_hfd_gse157077",
+   "accession": "GSE157077",
+   "outcome": "documented_no_change",
+   "summary": "No valid author-concordance-v2 scoped comparison: Author Tables S5/S6 report JTK_CYCLE rhythmicity, phase and amplitude run separately per diet. They contain no diet-effect coefficient, so the effect definition is incompatible with the registered common diet main effect. Any comparison of JTK statistics with the diet logFC would be invalid.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE157077/turbo-2026-11-15-partial2",
+   "proposed": {
+    "manualReview": null,
+    "verificationReview": null,
+    "comparabilityReview": null,
+    "concordanceReview": null,
+    "additionalComparisonSpec": null,
+    "experimentalDesign": null
+   },
+   "metrics": null
+  },
+  {
+   "datasetId": "mouse_hypo_circadian_aging_gse201207",
+   "accession": "GSE201207",
+   "outcome": "documented_no_change",
+   "summary": "No valid author-concordance-v2 scoped comparison: The paper codes age ordinally across 6/18/27 months and fits four overlapping time-domain slopes. Those coefficients are not algebraically equivalent to the registered 27-minus-6 endpoint, so the contrast and effect definitions are incompatible and no scoped comparison is valid.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE201207/turbo-2026-11-15-partial2",
+   "proposed": {
+    "manualReview": null,
+    "verificationReview": null,
+    "comparabilityReview": null,
+    "concordanceReview": null,
+    "additionalComparisonSpec": null,
+    "experimentalDesign": null
+   },
+   "metrics": null
+  },
+  {
+   "datasetId": "mouse_vmh_sf1_sex_gse143818",
+   "accession": "GSE143818",
+   "outcome": "documented_no_change",
+   "summary": "No valid author-concordance-v2 scoped comparison: The exact 467-cell author cohort is reconstructed, but the paper publishes no global sex-DE table. Source Data Figure 2 supplies cluster/cell IDs used for cohort selection, not per-gene sex effects. No paired author sex effects exist.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE143818/turbo-2026-11-15-partial2",
+   "proposed": {
+    "manualReview": null,
+    "verificationReview": null,
+    "comparabilityReview": null,
+    "concordanceReview": null,
+    "additionalComparisonSpec": null,
+    "experimentalDesign": null
+   },
+   "metrics": null
+  },
+  {
+   "datasetId": "mouse_lha_hfd_gse130597",
+   "accession": "GSE130597",
+   "outcome": "documented_no_change",
+   "summary": "No valid author-concordance-v2 scoped comparison: Author Data S1/S2 are cluster-specific DE tables (asinh fold changes, detection fractions) computed on 20,194 QC-retained cells. The registered output is an all-captured-cell (28,410 barcodes) animal pseudobulk. The analysis unit, cell membership and effect definition (asinh cluster FC vs log2 pseudobulk FC) are incompatible, and no barcode/cluster map exists to rebuild matching tracks.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE130597/turbo-2026-11-15-partial2",
+   "proposed": {
+    "manualReview": null,
+    "verificationReview": null,
+    "comparabilityReview": null,
+    "concordanceReview": null,
+    "additionalComparisonSpec": null,
+    "experimentalDesign": null
+   },
+   "metrics": null
+  },
+  {
+   "datasetId": "mouse_pvn_crh_ela_gse174085",
+   "accession": "GSE174085",
+   "outcome": "documented_no_change",
+   "summary": "No valid author-concordance-v2 scoped comparison: The author analysis uses 254 Crh+/Snap25+ neurons selected by clustering, with no published retained IDs or cluster map. The registered output aggregates all 602 deposited cells, so cohort membership is incompatible with any author Crh-neuron result. Three of 514 initially QC-qualifying cells also remain unidentified.",
+   "evidenceFolder": "data/author-validation/continued-sources/GSE174085/turbo-2026-11-15-partial2",
+   "proposed": {
+    "manualReview": null,
+    "verificationReview": null,
+    "comparabilityReview": null,
+    "concordanceReview": null,
+    "additionalComparisonSpec": null,
+    "experimentalDesign": null
+   },
+   "metrics": null
+  }
+ ]
+}

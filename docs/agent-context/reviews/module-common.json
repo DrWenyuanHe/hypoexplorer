@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-common",
-  "fingerprint": "ff86aafcc517b7065c112da15a273b017dc3485541c36594fe81c1cc0dac3c7c",
-  "outcome": "no-impact",
-  "explanation": "Doc and comment drift only (cleanup B3); no code path, export, route or data changes. prose.tsx names MethodologyView, the page that imports its H2, P and table styles, instead of the deleted MethodologyTab.",
+  "fingerprint": "3d5945db71f35569bcb24086fdd869c6ee97e8d0e3e3a077c4e696794204e1be",
+  "outcome": "updated",
+  "explanation": "CellSelectorPopup keeps its chips to one measured line with a +N more / Show less toggle and a Reset to the default pair; the modal picker is unchanged. BetaNotice gains an opt-in compact, session-dismissible form used only by the explorer shell. DatasetVerificationContext now renders inside the study details panel, so its border sits on top.",
   "references": [
-    "src/common/prose.tsx",
-    "src/methodology/MethodologyView.tsx"
+    "src/common/CellSelectorPopup.tsx",
+    "src/common/BetaNotice.tsx",
+    "src/common/DatasetVerificationContext.tsx"
   ]
 }

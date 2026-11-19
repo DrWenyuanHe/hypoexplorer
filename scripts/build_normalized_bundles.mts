@@ -22,7 +22,7 @@ import { existsSync, readFileSync, statSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gunzipSync } from 'node:zlib';
-import { defaultContrastBinding, outDirFromArgv, requireDataset, writeDatasetBundles } from './lib/bundleWriter.mjs';
+import { countFdrSignificant, defaultContrastBinding, outDirFromArgv, requireDataset, writeDatasetBundles } from './lib/bundleWriter.mjs';
 import { assertUniqueKeys, readSymbolDe, readSymbolMatrix, readTsv } from './lib/regenTables.mjs';
 import { seFromStat } from '../src/utils/seRecovery';
 
@@ -326,8 +326,6 @@ function build(e: Entry) {
     },
     qc: {
       cluster: e.trackId, clusterLabel: e.trackLabel, minCells: 0,
-      nNormal: control.length, nObese: caseS.length,
-      is3v3: control.length === caseS.length && control.length === 3,
       samplesKept: order,
     },
     de: deFinal,
@@ -340,7 +338,7 @@ function build(e: Entry) {
     const p = readPathways(resolve(base, 'processed'), c.prefix);
     if (p) pathwaysByContrast[c.id] = p;
   }
-  const nSig = deFinal.filter((d) => Number.isFinite(d.FDR) && d.FDR < 0.05).length;
+  const nSig = countFdrSignificant(deFinal);
 
   log(`\n[${e.datasetId}]`);
   const controlLabel = dataset.groups.find((group) => group.key === e.armKeys[0])?.label ?? e.armKeys[0];
@@ -372,7 +370,6 @@ function build(e: Entry) {
       id, baseline, case: caseKey,
     })),
     color: e.color,
-    nSig,
     meta: trackObj.meta,
     qc: trackObj.qc,
     de: deFinal,

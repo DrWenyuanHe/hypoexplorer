@@ -289,6 +289,17 @@ describe('cross-dataset query — fallback when the index is absent', () => {
     expect(report.groups).toHaveLength(1);
   });
 
+  it('flags a dataset whose track bundles all fail, rather than reporting the gene absent', async () => {
+    stubQueryFiles({
+      // The meta loads; the only track bundle 404s.
+      'meta.js': { global: 'HX_MOUSE_BULK_HFD_META', value: { populations: ['whole'], labels: { whole: 'Whole' }, types: {}, qcFlags: {} } },
+    });
+
+    const report = await queryGeneAcrossDatasets('POMC', { datasets: [DS] });
+
+    expect(report.groups[0]).toMatchObject({ tracks: [], error: true });
+  });
+
   it('falls back when the manifest does not cover a queried dataset (stale index after a new dataset lands)', async () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
     const DS_NEW = { ...DS, id: 'brand_new_dataset' } as typeof DS;

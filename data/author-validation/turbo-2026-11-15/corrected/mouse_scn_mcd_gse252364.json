@@ -1,0 +1,76 @@
+{
+  "datasetId": "mouse_scn_mcd_gse252364",
+  "manualReview": {
+    "status": "review_required",
+    "comparisonLevel": "direct",
+    "sourceComparison": "manual_structure_match",
+    "auditState": "complete",
+    "summary": "Author SCN CT00 table compared; cohort and model unresolved",
+    "note": "The official GEO counts/DEXSeq artifacts are accessible, support control versus MCD across circadian samples, and the local count source was rehashed (SHA-256 28790256...). GEO links no publication and supplies no same-contrast author statistics table. 2026-11-15 turbo notloc1: Europe PMC full-text search links GSE252364 to bioRxiv preprint 10.1101/2024.01.04.574014 (Saer et al. 2024, Fustin lab, v1, unpublished; not linked by GEO). The preprint text was access-blocked (bioRxiv Cloudflare 1015; Europe PMC PDF link expired) on 2026-11-15, but supplements were retrieved. Supplemental Data 4 (SHA-256 f0255396..., recorded in SOURCES.tsv) gives SCN per-timepoint DESeq2 MCD-vs-CTL tables. On CT00 versus the registered CT0 3-v-3 edgeR-QL output: 15,440 exact-symbol pairs (98.2% of registered rows; 297 duplicated author symbols excluded), Pearson 0.663, Spearman 0.921, nonzero direction 93.05%, median absolute log2FC difference 0.018. Extreme unshrunk near-zero-count author values (e.g. Sftpc -22) depress Pearson. Author q<0.05 has 39 paired genes (94.9% direction-concordant); registered FDR<0.05 has 3 genes (Fosl2, Dusp4, Pcdha7), all shared. Gstm3 is a sign conflict: the registered CT0 input has 0 counts in all three CTL libraries and about 3.6-3.8 in MCD on the same Ensembl ID (ENSMUSG00000004038), so a CT0 estimate from identical libraries and counts could not be negative, yet the author CT00 log2FC is -2.33 (SE 2.17; registered +10.47). This is incompatible with identical CT0 libraries and counts and is evidence against assuming the same CT00 sample membership, labels or count source. Rab43 is a magnitude/inference conflict (author -5.79, q 2e-75 at baseMean 537; registered -1.37, FDR 0.93). The author model and CT00 membership are unconfirmed; the supplement sample-label match rests on Supplemental Data 2, which was inspected and hashed but not retained. Pairing is by symbol, not Ensembl ID. Evidence: continued-sources/GSE252364/turbo-2026-11-15-notloc1/.",
+    "reviewFlags": [
+      "GEO links no publication; bioRxiv preprint 10.1101/2024.01.04.574014 was matched by Europe PMC accession search; its text was access-blocked (Cloudflare 1015) on 2026-11-15.",
+      "Author per-timepoint DESeq2 model (possibly joint across timepoints) and CT00 sample membership are unconfirmed; the Gstm3 sign conflict (registered CT0 CTL counts all zero) is incompatible with identical CT0 libraries and counts, and the Rab43 magnitude/inference conflict needs source-level review.",
+      "This legacy source has no committed source-file checksum manifest."
+    ],
+    "reviewedAt": "2026-11-15"
+  },
+  "verificationReview": {
+    "resultAvailability": "available",
+    "comparisonOutcome": "unresolved",
+    "reason": "A complete author SCN CT00 MCD-versus-CTL DESeq2 table was retrieved from the bioRxiv preprint's Supplemental Data 4. Directions agree for 93% of 15,440 paired genes, but Pearson is 0.66 because of extreme author log2FC values. Gstm3 has an opposite sign (author -2.33, registered +10.47) although all three registered CT0 CTL libraries have zero counts, which is incompatible with identical CT0 libraries and counts; Rab43 is a magnitude/inference conflict (author q 2e-75, registered FDR 0.93). The author model and sample membership are unconfirmed because the preprint text was access-blocked.",
+    "nextStep": "Read the preprint methods to confirm the DESeq2 design (per-timepoint or joint), shrinkage and CT00 membership. Review the Gstm3 sign conflict and Rab43 discrepancy against source counts and sample labels. Then decide whether to add a full-results comparison spec. Do not filter extreme-effect genes to improve correlation.",
+    "fullyVerifiedContrasts": []
+  },
+  "comparabilityReview": {
+    "registeredContrastIds": [
+      "mcd_vs_control"
+    ],
+    "target": "registered_output",
+    "resultScope": "full_results",
+    "basis": "Registered CT0 edgeR-QL result against the author SCN CT00 DESeq2 sheet.",
+    "reference": "bioRxiv 10.1101/2024.01.04.574014 Supplemental Data 4, sheet CT00 (56,884 rows), retrieved and hashed on 2026-11-15. Evidence in continued-sources/GSE252364/turbo-2026-11-15-notloc1/README.md.",
+    "assessment": "limited",
+    "dimensions": {
+      "cohort": {
+        "status": "not_tested",
+        "note": "Supplement sample labels appear to match the GEO SCN labels (including duplicated CT8.CTL.M1), but that check rests on Supplemental Data 2, which was inspected and hashed but not retained. The preprint methods could not be read to confirm CT00 test membership or a joint fit. Gstm3 is 0 in all three registered CT0 CTL libraries and about 3.7 in MCD (same ENSMUSG00000004038), yet the author CT00 log2FC is -2.33, which is inconsistent with an identical CT0 sample set and counts."
+      },
+      "contrast": {
+        "status": "compatible",
+        "note": "MCD minus CTL at CT0 in SCN; Fosl2 +1.73 author versus +1.69 registered. The author model and CT00 membership are unread and single-gene sign conflicts remain."
+      },
+      "features": {
+        "status": "compatible",
+        "note": "15,440 of 15,720 registered symbols pair by exact symbol; 297 duplicated author symbols excluded; author ENSMUSG.version|Symbol IDs. The 280 unpaired registered symbols are 39 ambiguous author symbols, 16 non-finite author values and 225 absent symbols; an Ensembl-level join was not attempted."
+      },
+      "effects": {
+        "status": "limited",
+        "note": "Spearman 0.921 and direction 93.05%, but Pearson 0.663 from extreme author log2FC (max delta 21.9). Gstm3 has opposite sign (author -2.33, registered +10.47)."
+      },
+      "inference": {
+        "status": "different",
+        "note": "Author q<0.05: 39 paired genes; registered FDR<0.05: 3, all shared. Author Wald P values are much smaller (e.g. Rab43 q 2e-75 versus registered FDR 0.93), consistent with a different model, dispersion or sample set."
+      },
+      "coverage": {
+        "status": "compatible",
+        "note": "Complete author table for the registered CT0 contrast; pairs cover 98.2% of registered rows."
+      }
+    },
+    "criteria": "Exact symbol pairing with duplicate author symbols excluded; finite effects; author-concordance-v2 routes evaluated without filtering extreme genes.",
+    "conclusion": "Direction-route numerical agreement is observed on a complete author table, but the author model and cohort membership are unconfirmed, and the Gstm3 sign conflict argues against assuming an identical CT0 sample set and counts. No pass is claimed."
+  },
+  "additionalComparisonSpec": null,
+  "appliedCorrections": [
+    "comparabilityReview.dimensions.cohort.status changed from invalid 'not_established' to 'not_tested' (displayed 'Not established'); Gstm3 zero-CTL/negative-author-LFC inconsistency sentence added to the cohort note.",
+    "Cohort note states that the sample-label match rests on Supplemental Data 2, inspected and hashed but not retained.",
+    "comparabilityReview.dimensions.contrast.status downgraded from 'matched' to 'compatible'; Fosl2 orientation note kept, with the unread model/CT00 membership and remaining sign conflicts stated.",
+    "manualReview: dropped non-schema 'paperAccess_note'; paperAccess left unset (no enum value fits an access-blocked preprint); access-blocked statement kept in the note.",
+    "manualReview: status set to 'review_required', comparisonLevel 'direct', sourceComparison kept 'manual_structure_match', summary 'Author SCN CT00 table compared; cohort and model unresolved'.",
+    "manualReview.reviewFlags: stale 'No linked paper is available for an author-result comparison.' replaced with the GEO/Europe PMC/Cloudflare 1015 flag; model/Gstm3/Rab43 flag and legacy checksum-manifest flag kept.",
+    "manualReview.note and verificationReview.reason: Gstm3 described as a sign conflict incompatible with identical CT0 libraries and counts (CTL all zero in the registered input); Rab43 described as a magnitude/inference conflict.",
+    "Features note records the 280 unpaired-symbol breakdown and that symbol rather than Ensembl pairing was used (verifier minor point).",
+    "manualReview.reviewedAt set to 2026-11-15; proposal note_append appended to the existing note.",
+    "Evidence README: added a verifier-corrections section on the Gstm3 interpretation, unretained Supplemental Data 2 and symbol-level pairing."
+  ],
+  "notes": "verificationReview advances resultAvailability not_located -> available with comparisonOutcome unresolved (upheld by verifier); fullyVerifiedContrasts empty. comparabilityReview is a new record (none existed). additionalComparisonSpec left null: the proposal proposed none and the verifier upheld that; a spec is deferred until the author model and CT00 membership are confirmed. No existing additional spec or built-in direct comparison exists for this dataset. Concordance-review and experimental-design proposals dropped per integration rules. Verifier recomputed all metrics and SHA-256 checks exactly. No evidenceLinks were added because none were proposed; the integrator may optionally add the preprint DOI (kind 'paper') and the Supplemental Data 4 URL from SOURCES.tsv (kind 'author_result')."
+}
