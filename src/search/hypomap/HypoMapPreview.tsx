@@ -23,12 +23,24 @@ function Summary({ row }: { row: Metrics }) {
       </div>
       <div>
         <strong>{value(row.detection, '%')}</strong> detected
-        <details><summary>Detection formula</summary>Cells with at least one stored count ÷ eligible cells × 100.</details>
+        <details className="hm-formula"><summary>Detection formula</summary>
+          <div className="hm-equation" role="math" aria-label="Detected cells divided by eligible cells, times 100 percent">
+            <span className="hm-fraction"><span>Cells with ≥1 stored count</span><span>Eligible cells</span></span>
+            <span>× 100%</span>
+          </div>
+        </details>
       </div>
       <div>
         <strong>{value(row.mean)}</strong> mean when detected
         <small>{unit}</small>
-        <details><summary>Expression formula</summary>Mean of ln(1 + 10,000 × gene count ÷ total stored counts per cell), over detected cells.</details>
+        <details className="hm-formula"><summary>Expression formula</summary>
+          <div className="hm-equation" role="math" aria-label="Natural logarithm of one plus 10,000 times gene count divided by total stored counts per cell">
+            <span>ln</span><span className="hm-math-paren">(</span><span>1 + 10,000 ×</span>
+            <span className="hm-fraction"><span>Gene count</span><span>Cell total</span></span>
+            <span className="hm-math-paren">)</span>
+          </div>
+          <p className="hm-formula-note">Cell total = total stored counts per cell.<br />Averaged over detected cells only.</p>
+        </details>
       </div>
     </div>
   );
@@ -97,16 +109,39 @@ function AtlasViews({ data }: { data: Ready }) {
 
   return (
     <>
-      <div className="hm-controls" aria-label="HypoMap view">
-        <button className="portal-secondary" type="button" aria-pressed={view === 'spatial'} onClick={() => setView('spatial')}>Spatial</button>
-        <button className="portal-secondary" type="button" aria-pressed={view === 'datasets'} onClick={() => setView('datasets')}>By dataset</button>
+      <div className="hm-view-header">
+        <div className="hm-tabs" role="tablist" aria-label="HypoMap view">
+          {(['spatial', 'datasets'] as const).map(tab => (
+            <button key={tab} id={`hm-tab-${tab}`} type="button" role="tab"
+              aria-selected={view === tab} aria-controls="hm-view-panel" tabIndex={view === tab ? 0 : -1}
+              onClick={() => setView(tab)} onKeyDown={event => {
+                if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+                event.preventDefault();
+                const next = event.key === 'Home' ? 'spatial' : event.key === 'End' ? 'datasets' : tab === 'spatial' ? 'datasets' : 'spatial';
+                setView(next);
+                document.getElementById(`hm-tab-${next}`)?.focus();
+              }}>
+              <span>{tab === 'spatial' ? 'Spatial' : 'By dataset'}</span>
+              <small>{tab === 'spatial' ? 'Explore regions' : 'Compare studies'}</small>
+            </button>
+          ))}
+        </div>
+        {view === 'spatial' && <button className="hm-view-export" type="button" onClick={() => setCsv({
+          title: `${gene[1]} · Spatial expression`,
+          headers: ['Region', 'Eligible cells', 'Detected cells', '% detected', unit],
+          rows: metadata.contexts.map(name => {
+            const row = summaries[name];
+            return [name, row.eligible, row.positive, row.detection, row.mean];
+          }),
+        })}>Preview spatial CSV <span aria-hidden="true">↗</span></button>}
       </div>
+      <div id="hm-view-panel" role="tabpanel" aria-labelledby={`hm-tab-${view}`}>
       {view === 'spatial' ? (
         <div className="hm-grid">
           <section className="hm-card">
             <h5>Coronal hypothalamus schematic</h5>
             <AtlasMap summaries={summaries} region={region} onSelect={name => setRegion(region === name ? whole : name)} />
-            {!!offPlane.length && <details><summary>Regions off this plane</summary>
+            {!!offPlane.length && <details className="hm-other-regions"><summary><span>Regions off this plane</span><span className="hm-region-count">{offPlane.length}</span></summary>
               <div className="hm-controls">{offPlane.map(name => (
                 <button key={name} type="button" className="portal-secondary" aria-pressed={region === name} onClick={() => setRegion(region === name ? whole : name)}>
                   {name} · {value(summaries[name].detection, '%')}
@@ -115,19 +150,11 @@ function AtlasViews({ data }: { data: Ready }) {
             </details>}
           </section>
           <section className="hm-card">
-            <h5>{region}</h5>
+            <header className="hm-summary-header">
+              <h5>{region}</h5>
+              {region !== whole && <button className="hm-scope-reset" type="button" onClick={() => setRegion(whole)} aria-label="Reset to whole hypothalamus">← Whole hypothalamus</button>}
+            </header>
             <Summary row={summaries[region]} />
-            <div className="hm-controls">
-              {region !== whole && <button className="portal-secondary" type="button" onClick={() => setRegion(whole)}>Reset to whole hypothalamus</button>}
-              <button className="portal-secondary" type="button" onClick={() => setCsv({
-                title: `${gene[1]} · Spatial expression`,
-                headers: ['Region', 'Eligible cells', 'Detected cells', '% detected', unit],
-                rows: metadata.contexts.map(name => {
-                  const row = summaries[name];
-                  return [name, row.eligible, row.positive, row.detection, row.mean];
-                }),
-              })}>Preview spatial CSV</button>
-            </div>
           </section>
         </div>
       ) : (
@@ -157,6 +184,7 @@ function AtlasViews({ data }: { data: Ready }) {
           })}</div>
         </>
       )}
+      </div>
       <p className="portal-note">Zero detection means no counts were stored for this scope. Per-study feature coverage is unavailable in the atlas export.</p>
       {csv && <CsvDialog csv={csv} onClose={() => setCsv(null)} />}
     </>

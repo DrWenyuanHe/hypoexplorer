@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "b8956b029ee1eaee690a5fef02489799b4cf9eb745bd1443ab1c34d01dc5d2b2",
+  "fingerprint": "948769206d28794c6564f2ab11bab5ddb322f26984fe1ebcfa0fb7b487ed64b3",
   "outcome": "no-impact",
-  "explanation": "Dead CSS removal (cleanup B2): rules and custom properties with no remaining selector, class name or var() reference anywhere in src, scripts or public are deleted. search.css drops .portal-symbol and .portal-name, including the 600px override; the portal head now renders only .portal-kind, .portal-title and .portal-id, which are unchanged.",
+  "explanation": "The HypoMap expression UI now presents Spatial and By dataset as keyboard-operable tabs, keeps the region reset beside its heading, and places CSV preview in the view toolbar. Fraction formatting and the off-plane disclosure improve presentation without changing atlas lookup, metric calculations, export rows or app routes.",
   "references": [
-    "src/search/search.css",
-    "src/search/SearchPage.tsx"
+    "src/search/hypomap/HypoMapPreview.tsx",
+    "src/search/hypomap/preview.css",
+    "docs/agent-context/workflows.md"
   ]
 }
