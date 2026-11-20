@@ -1,12 +1,10 @@
 {
   "version": 1,
   "area": "module-compareset",
-  "fingerprint": "ed4dca6728b81dca2cfc94ed8d1e77b86df77a3a5263bce009b95bd456b042f7",
-  "outcome": "updated",
-  "explanation": "useCompareSetColumns is a thin adapter over the track-column module with its CompareSetColumnState shape unchanged; CompareSetView uses the shared GenePicker over a case-folded cross-study vocabulary with per-study nomenclature notes, and its export carries provenance. Compare-set columns take their nomenclature authority from nomenclatureAuthorityForStoredDatasetSymbols, so gse314184 reads MGI rather than an unscoped lookup.",
+  "fingerprint": "c0bd7ef05866d5d0d7f5a1e15f7450631935ef309d8d447146644ca3af451e18",
+  "outcome": "no-impact",
+  "explanation": "CompareSetView.tsx only renames the page its header comment cites, from the Statistics page to Methods & statistics; the view is unchanged.",
   "references": [
-    "src/compareset/useCompareSetColumns.ts",
-    "src/compareset/CompareSetView.tsx",
-    "src/explorer/geneVocabulary.ts"
+    "src/compareset/CompareSetView.tsx"
   ]
 }

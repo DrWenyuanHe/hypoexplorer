@@ -11,7 +11,7 @@
 // page is the answer to "is what I am looking at current?", written down where
 // it can be checked, cited and downloaded rather than trusted.
 //
-// It is a page-level `view` like StatisticsView (whose shape it follows) rather
+// It is a page-level `view` like MethodologyView (whose shape it follows) rather
 // than a track-scoped tab, because nothing here depends on a loaded track.
 //
 // THE TABLE IS SOURCE, NOT A RENDER

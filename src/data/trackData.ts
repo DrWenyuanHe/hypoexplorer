@@ -8,7 +8,7 @@
 //     -> invalidatePopData(raw) -> getPopData(raw, ds, contrast)
 //
 // It was implemented once (App.tsx) and skipped in part by both other callers:
-// CrossDatasetCompare never ran the pathway hop, and CompareTab called
+// the former cross-dataset compare never ran the pathway hop, and CompareTab called
 // getPopData with neither dataset nor contrast — so it silently rendered the
 // DEFAULT contrast via buildPopData's old macaque fallback. Both are now
 // unrepresentable: the pathway policy is a required argument, and popDataFor

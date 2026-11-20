@@ -1,5 +1,5 @@
 // Shared primitives for the cross-dataset report pages (GeneReport's log2FC
-// forest, PathwayReport's NES forest, and CrossDatasetCompare's bar grid): the
+// forest and PathwayReport's NES forest): the
 // direction encoding, the contrast label, the category
 // grouping, the category-scope state machine + its filter chip, the
 // report-query lifecycle, and the shared six-column grid.

@@ -1,14 +1,16 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "c8d7e83b6e0d2082927cb01764e2734ec30a4b6d110f9b03308b19a55c868357",
+  "fingerprint": "75c725c761ad2f2a542e00432045a53d907f1ea4e3d35a87ef6286b59a2a3182",
   "outcome": "updated",
-  "explanation": "CONTEXT.md defines significance tier, listing mode and cross-study listing. The UI change workflow and the refactor checklist name listCrossStudy as the one place a cross-study view gets what leads, its order and its counts, and TierLabel in src/statistics as its label. The catalog adds both files to the statistics area and drops GroupSummary.",
+  "explanation": "From main: The catalog drops the statistics and compare-datasets views and the datasources tab, and re-describes the acknowledgements, methodology and statistics modules. CONTEXT.md, PROJECT_GUIDANCE, REAL_DATA_SHAPES and REFACTOR_CHECKLIST stop naming the removed pages. /how-to-cite/ gains the software and acknowledgements section. From the cross-study listing: CONTEXT.md defines significance tier, listing mode and cross-study listing. The UI change workflow and the refactor checklist name listCrossStudy as the one place a cross-study view gets what leads, its order and its counts, and TierLabel in src/statistics as its label. The catalog adds both files to the statistics area and drops GroupSummary.",
   "references": [
     "CONTEXT.md",
     "docs/agent-context/workflows.md",
     "docs/REFACTOR_CHECKLIST.md",
     "docs/agent-context/catalog.json",
-    "src/changelog/changelog.ts"
+    "src/changelog/changelog.ts",
+    "docs/PROJECT_GUIDANCE.md",
+    "scripts/lib/seoGuides.mts"
   ]
 }

@@ -93,7 +93,6 @@ interface LandingHubProps {
   onSearch: (query: string) => void;
   onOpenTracker: () => void;
   onOpenLibrary: (categories?: readonly DatasetCategory[]) => void;
-  onOpenStatistics: () => void;
   onOpenMethodology: () => void;
   onOpenVerification?: () => void;
   onOpenNomenclature: () => void;
@@ -108,7 +107,6 @@ export function LandingHub({
   onSearch,
   onOpenTracker,
   onOpenLibrary,
-  onOpenStatistics,
   onOpenMethodology,
   onOpenVerification,
   onOpenNomenclature,
@@ -229,17 +227,15 @@ export function LandingHub({
             <span className="hub-util-label">Analysis</span>
             <div className="hub-util-links">
               <button type="button" onClick={() => onEnterTool('qc')}>Quality control</button>
-              <button type="button" onClick={onOpenStatistics}>Statistics</button>
               <button type="button" onClick={onOpenVerification ?? (() => { window.location.hash = '#/verification'; })}>Data verification</button>
               <button type="button" onClick={onOpenNomenclature}>Gene nomenclature</button>
-              <button type="button" onClick={onOpenMethodology}>Methodology</button>
+              <button type="button" onClick={onOpenMethodology}>Methods &amp; statistics</button>
             </div>
           </div>
           <div className="hub-util-row">
             <span className="hub-util-label">Reference</span>
             <div className="hub-util-links">
               <a className="site-reference-link" href="/methods/">Methods guide</a>
-              <button type="button" onClick={() => onEnterTool('datasources')}>Sources &amp; acknowledgements</button>
               <a className="site-reference-link" href="/how-to-cite/">How to cite</a>
               <a className="site-reference-link" href="/about/">About</a>
             </div>

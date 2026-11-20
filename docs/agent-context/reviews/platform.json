@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "1a373dc38b5714183bdeb4384c3b618012e8df29424992880b28ae1a7b97c999",
+  "fingerprint": "652bdcb1c842e98a294b0aea97756da3ade0b865bb113d165901033b0efa2ee7",
   "outcome": "updated",
-  "explanation": "App no longer renders the search dialog over the hub or passes onOpenSearch, and its report helpers take a non-null term; a term-less report state renders the hub. The router drops openGeneExplorer, openPathwayExplorer and switchSearchExplorer, normalizes a hashless report initialView to the hub, writes report URLs only with a term, and replaces a retired landing's history entry on navigation. index.html drops the search-hero qsearch styles.",
+  "explanation": "App no longer renders StatisticsView, CrossDatasetCompare or the Data Sources tab, and its explorer header link reads Methods. The router drops the statistics and compare-datasets views with openStatistics, compareDatasets and setReportGene; its header comment lists the current full-page views.",
   "references": [
     "src/App.tsx",
     "src/appRouter.ts",
-    "index.html",
-    "src/utils/appLinks.ts"
+    "src/__tests__/appRouterUrl.test.tsx"
   ]
 }

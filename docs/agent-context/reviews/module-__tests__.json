@@ -1,14 +1,18 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "d47000deca8412d2b607f319f3d3957199f11deb8197ab0ed5149ff3f81a64c4",
+  "fingerprint": "f4224d0ca65aaa09f7fa8fca1afa537335d4674a0c1013768b31e14b502adf7d",
   "outcome": "updated",
-  "explanation": "crossStudyListing.test.ts pins the listing in tables: lead and rest per mode and order, counts, dataset rules, flat rows, missing and non-finite keys, stable ties on subsets and no mutation. Report, preview, index and condition-card fixtures now build rows through geneRow / pathwayRow so no fixture contradicts its tier. searchPage adds a lowest-p versus lowest-q case, pathwayReportResults an FDR-mode survivors-first case, and crossDatasetSummary.test.ts goes with summarizeGroup.",
+  "explanation": "From main: statistics, dataSources, crossDatasetCompare and crossDatasetCompareIndex tests are removed or replaced: methodology.test covers the merged sections and footer entry, references.test the How to cite citations and retired tab links, and the route, router, scope and selection suites drop the removed views and bars mode. From the cross-study listing: crossStudyListing.test.ts pins the listing in tables: lead and rest per mode and order, counts, dataset rules, flat rows, missing and non-finite keys, stable ties on subsets and no mutation. Report, preview, index and condition-card fixtures now build rows through geneRow / pathwayRow so no fixture contradicts its tier. searchPage adds a lowest-p versus lowest-q case, pathwayReportResults an FDR-mode survivors-first case, and crossDatasetSummary.test.ts goes with summarizeGroup.",
   "references": [
     "src/__tests__/crossStudyListing.test.ts",
     "src/__tests__/searchPage.test.tsx",
     "src/__tests__/pathwayReportResults.test.tsx",
     "src/__tests__/geneReport.test.tsx",
-    "src/__tests__/crossDatasetRows.test.ts"
+    "src/__tests__/crossDatasetRows.test.ts",
+    "src/__tests__/methodology.test.tsx",
+    "src/__tests__/references.test.tsx",
+    "src/__tests__/app.geneScope.test.tsx",
+    "src/__tests__/appRouterUrl.test.tsx"
   ]
 }

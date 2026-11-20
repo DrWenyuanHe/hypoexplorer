@@ -1,9 +1,9 @@
 // The app router: where the user is, every way to get somewhere else, and the
 // URL that names it.
 //
-// HypoExplorer has one tabbed explorer shell plus six full-page views (the
-// landing hub, the cross-dataset gene and pathway reports, the cross-dataset
-// expression compare, the dataset tracker, and the statistics explainer). Which
+// HypoExplorer has one tabbed explorer shell plus full-page views (the landing
+// hub, search, the cross-dataset gene and pathway reports, the library, the
+// compare set, the dataset tracker and the reference pages). Which
 // one is on screen — and the parameters that view was opened with — used to be
 // five useState hooks, ten useCallbacks and a hashchange effect scattered
 // through App, where the only way to test that a stale deep link degrades safely
@@ -72,10 +72,8 @@ export type AppView =
   | 'explorer'
   | 'report'
   | 'pathway-report'
-  | 'compare-datasets'
   | 'compare-set'
   | 'tracker'
-  | 'statistics'
   | 'methodology'
   | 'verification'
   | 'nomenclature'
@@ -133,7 +131,6 @@ export interface AppRouter {
   setGeneAnalysis: Dispatch<SetStateAction<StudyAnalysisState>>;
   setPathwayAnalysis: Dispatch<SetStateAction<StudyAnalysisState>>;
   setReportScope: (scope: DatasetCategory[] | null) => void;
-  setReportGene: (gene: string) => void;
   /** A dossier accession the tracker should open focused on, if any. */
   trackerSelectedAcc: string | null;
   /** A study whose record the library should open showing, if any. */
@@ -182,16 +179,12 @@ export interface AppRouter {
    * path (a report's scope, the library's record): Back undoes it.
    */
   setSearchFilter: (filter: SearchFilter) => void;
-  /** Open the cross-dataset expression compare, carrying the report's scope. */
-  compareDatasets: (gene: string, scope: DatasetCategory[] | null, datasetIds?: string[]) => void;
 
   /** Open the dataset tracker, optionally focused on one dossier. */
   openTracker: (acc?: string | null) => void;
   /** Open a dataset in the explorer, optionally at a specific track. */
   openInExplorer: (datasetId: string, trackId?: string) => void;
-  /** Open the statistics explainer (dataset-agnostic reference page). */
-  openStatistics: () => void;
-  /** Open the methodology reference page (dataset-agnostic). */
+  /** Open the Methods & statistics reference page (dataset-agnostic). */
   openMethodology: () => void;
   /** Open the evidence levels and data-verification workflow. */
   openVerification: () => void;
@@ -334,7 +327,6 @@ function bootState(initialView: string): BootState {
     : base;
   switch (route.view) {
     case 'hub':
-    case 'statistics':
     case 'methodology':
     case 'verification':
     case 'nomenclature':
@@ -356,8 +348,6 @@ function bootState(initialView: string): BootState {
       };
     case 'report':
       return { ...base, view: 'report', gene: route.gene, scope: route.analysis?.categories ?? route.scope, geneAnalysis: resolveStudyAnalysis(route.analysis) };
-    case 'compare-datasets':
-      return { ...base, view: 'compare-datasets', gene: route.gene, scope: route.analysis?.categories ?? route.scope, geneAnalysis: resolveStudyAnalysis(route.analysis) };
     case 'pathway-report':
       return { ...base, view: 'pathway-report', pathway: route.pathway, pathwayAnalysis: resolveStudyAnalysis(route.analysis) };
     case 'compare-set': {
@@ -453,15 +443,6 @@ export function useAppRouter(
     setSearchFilterState(filter);
   }, []);
 
-  // Cross-dataset expression compare (side-by-side bars), reached from the forest
-  // report. Carries the gene + the report's current category scope.
-  const compareDatasets = useCallback((gene: string, scope: DatasetCategory[] | null, datasetIds?: string[]) => {
-    setReportGene(gene);
-    setReportScope(scope);
-    if (datasetIds) setGeneAnalysis((state) => ({ ...state, datasetIds, categories: scope }));
-    setView('compare-datasets');
-  }, []);
-
 
   const openTracker = useCallback((acc: string | null = null) => {
     setTrackerSelectedAcc(acc);
@@ -475,7 +456,6 @@ export function useAppRouter(
     setView('explorer');
   }, []);
 
-  const openStatistics = useCallback(() => setView('statistics'), []);
   const openMethodology = useCallback(() => setView('methodology'), []);
   const openVerification = useCallback(() => setView('verification'), []);
   const openNomenclature = useCallback(() => setView('nomenclature'), []);
@@ -538,9 +518,6 @@ export function useAppRouter(
       case 'hub':
         setView('hub');
         return;
-      case 'statistics':
-        setView('statistics');
-        return;
       case 'methodology':
         setView('methodology');
         return;
@@ -570,12 +547,6 @@ export function useAppRouter(
         setReportScope(route.analysis ? route.analysis.categories : route.scope);
         setGeneAnalysis(resolveStudyAnalysis(route.analysis));
         setView('report');
-        return;
-      case 'compare-datasets':
-        setReportGene(route.gene);
-        setReportScope(route.analysis ? route.analysis.categories : route.scope);
-        setGeneAnalysis(resolveStudyAnalysis(route.analysis));
-        setView('compare-datasets');
         return;
       case 'pathway-report':
         setReportPathway(route.pathway);
@@ -714,8 +685,6 @@ export function useAppRouter(
     switch (view) {
       case 'hub':
         return '';
-      case 'statistics':
-        return routeHref({ view: 'statistics' });
       case 'methodology':
         return routeHref({ view: 'methodology' });
       case 'verification':
@@ -734,9 +703,6 @@ export function useAppRouter(
       // `string`. A term-less report is never entered, so it never writes.
       case 'report':
         return reportGene ? routeHref({ view: 'report', gene: reportGene, scope: reportScope,
-          ...(hasStudyAnalysis({ ...geneAnalysis, categories: null }) || chartScale !== 'native' ? { analysis: { ...geneAnalysis, categories: reportScope, chartScale } } : {}) }) : null;
-      case 'compare-datasets':
-        return reportGene ? routeHref({ view: 'compare-datasets', gene: reportGene, scope: reportScope,
           ...(hasStudyAnalysis({ ...geneAnalysis, categories: null }) || chartScale !== 'native' ? { analysis: { ...geneAnalysis, categories: reportScope, chartScale } } : {}) }) : null;
       case 'pathway-report':
         return reportPathway ? routeHref({ view: 'pathway-report', pathway: reportPathway,
@@ -800,10 +766,9 @@ export function useAppRouter(
   return {
     view, routeError, reportGene, reportScope, reportPathway, trackerSelectedAcc, libraryDatasetId, libraryCategories,
     compareSetItems, searchQuery, searchFilter,
-    geneAnalysis, pathwayAnalysis, setGeneAnalysis, setPathwayAnalysis, setReportScope, setReportGene,
+    geneAnalysis, pathwayAnalysis, setGeneAnalysis, setPathwayAnalysis, setReportScope,
     goHome, enterTool, enterExplorer, searchGene, searchPathway, search, setSearchFilter,
-    compareDatasets,
-    openTracker, openInExplorer, openStatistics, openMethodology, openVerification, openNomenclature, openExpression, openLibrary,
+    openTracker, openInExplorer, openMethodology, openVerification, openNomenclature, openExpression, openLibrary,
     setLibraryDataset: setLibraryDatasetId, setLibraryCategories,
     openCompareSet, setCompareSetItems,
   };

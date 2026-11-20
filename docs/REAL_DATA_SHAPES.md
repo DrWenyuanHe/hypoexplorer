@@ -93,7 +93,7 @@ FGSEA seeding is identical across datasets.
 - Cross-species pathway mapping: the macaque data already maps to
   *Macaca mulatta* as the closest msigdbr ortholog proxy. Mouse bulk maps to
   *Mus musculus* directly. Record the mapping organism in the manifest
-  `organism` field; it is user-facing in the Data Sources tab.
+  `organism` field; it is user-facing in the library and study records.
 
 ### Duplicate symbols
 

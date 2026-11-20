@@ -1,12 +1,10 @@
 {
   "version": 1,
   "area": "module-nomenclature",
-  "fingerprint": "f7a41fc104c4b9e9bf92128fbcebcf4b728bba5dec981237fa29031c7f39dc88",
-  "outcome": "updated",
-  "explanation": "The nomenclature page links its source table, data/nomenclature/nomenclature.tsv, on the public DrWenyuanHe/hypoexplorer repository instead of the private MONKEYBRAIN repository, which visitors cannot open. This is the only difference from the private source; the Ambiguous status, alias handling and authority rules described in the previous review are unchanged.",
+  "fingerprint": "5fbce3ab7619dc7760e9b56852a61483949e6caa0d42a675baf6f3911fe22b4a",
+  "outcome": "no-impact",
+  "explanation": "NomenclatureView.tsx only changes the comment naming the page it is shaped like, from StatisticsView to MethodologyView; the view is unchanged.",
   "references": [
-    "src/nomenclature/NomenclatureView.tsx",
-    "data/nomenclature/nomenclature.tsv",
-    "src/data/nomenclature.ts"
+    "src/nomenclature/NomenclatureView.tsx"
   ]
 }

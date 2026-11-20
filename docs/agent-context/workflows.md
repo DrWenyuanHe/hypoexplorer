@@ -333,19 +333,17 @@ a saved `?analysis=`, to the empty results page (`#/search`), and the router
 replaces such a history entry rather than stacking it.
 
 Study selection is coordinated by `useStudySelection` in
-`src/crossdataset/geneStudyScope.tsx`. GeneReport, PathwayReport and
-CrossDatasetCompare use it for catalog readiness, eligibility, selected studies
+`src/crossdataset/geneStudyScope.tsx`. GeneReport and PathwayReport use it
+for catalog readiness, eligibility, selected studies
 and query identity. The router retains persistent gene/pathway selection state;
 `useReportQuery` retains request loading and cancellation. The selection module
 also coordinates resets through the existing state owners: gene/pathway reset
-categories, evidence/sample filters and individual selection; bars reset only
-their category display restriction.
+categories, evidence/sample filters and individual selection.
 
 A sample-count filter waits for the catalog request to settle, including
 registry-only fallback, then excludes unknown counts. Without that filter,
 queries may start from registry cards. Gene/pathway categories narrow the
-requested studies; bars categories narrow the already resolved cohort locally
-without changing query identity. Pathway selection always excludes studies
+requested studies. Pathway selection always excludes studies
 without pathway support. Preserve incoming term spelling in gene/pathway
 queries and uppercase it for bars. Lifecycle tests live in
 `src/__tests__/studySelection.test.tsx`; the App scope tests retain copied-link,

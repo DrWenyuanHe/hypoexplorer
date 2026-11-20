@@ -1,12 +1,16 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "486a5dadd59a4e4701e629e0e31d8a910e2fd229caafebc20524c82411c6499a",
+  "fingerprint": "e432164b6363266063e60dd49ecd2f04f0b8f87d752c5db0b1ca7229d5bf4a1c",
   "outcome": "no-impact",
-  "explanation": "No dataset registration, bundle builder, sidecar or query index format changed. The row builders add a tier derived from the q and p they already read, so a dataset change still produces the same bundles and index shards; only how the views order and label those rows moved into src/statistics.",
+  "explanation": "From main: Dataset intake is unchanged. build_query_index.mts and build_tracker_catalog.mts only reword comments (the expr family has no app reader now; the reverse index feeds the library record), trackColumns/trackData comments drop CrossDatasetCompare, and How to cite gains a citations section. queryIndex.ts also drops the unused manifestSupportsExpr check; the index wire and build are unchanged. From the cross-study listing: No dataset registration, bundle builder, sidecar or query index format changed. The row builders add a tier derived from the q and p they already read, so a dataset change still produces the same bundles and index shards; only how the views order and label those rows moved into src/statistics.",
   "references": [
     "docs/agent-context/workflows.md",
     "docs/DATASET_CONTRACT.md",
-    "src/data/crossDatasetRows.ts"
+    "src/data/crossDatasetRows.ts",
+    "scripts/build_query_index.mts",
+    "scripts/build_tracker_catalog.mts",
+    "docs/REAL_DATA_SHAPES.md",
+    "src/data/queryIndex.ts"
   ]
 }

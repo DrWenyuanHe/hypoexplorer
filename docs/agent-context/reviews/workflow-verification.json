@@ -1,12 +1,16 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "c2606d0c4251540a47cfe0719a3dc4c0e188932d3c46d1216e46b88415fa2ee8",
+  "fingerprint": "e5506b694ddb8fcb8dc03db810406f056e4ede73ba93eaf73ef46cf45f162085",
   "outcome": "no-impact",
-  "explanation": "No evidence ledger, audit, QC table or verification record changed, and no bundle bytes move. The FDR call is the same isFdrSignificant cutoff behind significanceTier, so every significance count in search and both reports is unchanged; only the within-tier order of listed rows changed, as the changelog records.",
+  "explanation": "From main: Verification evidence and checks are unchanged. The touched build scripts, track loaders and static guide only change comments or add the How to cite citations section; the Verification page and badges are untouched. queryIndex.ts also drops the unused manifestSupportsExpr check; the index wire and build are unchanged. From the cross-study listing: No evidence ledger, audit, QC table or verification record changed, and no bundle bytes move. The FDR call is the same isFdrSignificant cutoff behind significanceTier, so every significance count in search and both reports is unchanged; only the within-tier order of listed rows changed, as the changelog records.",
   "references": [
     "docs/agent-context/workflows.md",
     "data/author-validation/README.md",
-    "src/statistics/policy.ts"
+    "src/statistics/policy.ts",
+    "scripts/lib/seoGuides.mts",
+    "scripts/build_query_index.mts",
+    "src/data/trackData.ts",
+    "src/data/queryIndex.ts"
   ]
 }

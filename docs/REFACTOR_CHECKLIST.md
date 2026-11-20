@@ -79,8 +79,7 @@ leave them byte-for-byte unchanged:
       `src/data/bundleSource.ts` (no inline `window.X` reads).
 - [ ] Font stacks → `FONT_MONO` / `FONT_SANS` / `FONT_HEADING` in `src/styles/constants.ts`
       (Hanken Grotesk stacks are shared CSS variables in `public/fonts/typography.css`; keep data readouts monospace).
-- [ ] Reference-page prose (Methodology/DataSources) → `src/common/prose.tsx`;
-      StatisticsView's larger scale is deliberate and stays local.
+- [ ] Reference-page prose (Methods & statistics) → `src/common/prose.tsx`.
 - [ ] Link-chip text → `link.label` from `datasetExternalLinks`
       (`src/utils/datasetLinks.ts`) — never re-derive from `kind`.
 - [ ] DE-direction colors → `UP_COLOR` / `DOWN_COLOR` in `src/styles/constants.ts`

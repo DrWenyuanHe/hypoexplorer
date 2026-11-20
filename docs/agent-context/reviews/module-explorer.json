@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "module-explorer",
-  "fingerprint": "2813acdac451c3bd069e087cfc14e67ac0b008c29167cc8248a4ea0a272294e0",
+  "fingerprint": "1760d352a7a720d117d693510f085c0e0ab8d244023091e37a0047857d81a4c4",
   "outcome": "updated",
-  "explanation": "The open navigation intent carries an optional compareView that the position ignores and the shell uses to restart Compare; useGeneSelection accepts an initial list so a restored Compare shows its genes on the first render. Navigation rules and reset scopes are unchanged.",
+  "explanation": "EXPLORER_TABS drops datasources, so Quality Control is the only dataset-scoped tab; explorerTabScope and the explorerPosition comment follow. Old datasources tab links are mapped to the study library record in appLinks.",
   "references": [
+    "src/explorer/explorerTabs.ts",
     "src/explorer/explorerPosition.ts",
-    "src/explorer/explorerSession.ts"
+    "src/utils/appLinks.ts",
+    "src/__tests__/explorerPosition.test.ts"
   ]
 }
