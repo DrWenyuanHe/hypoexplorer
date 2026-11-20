@@ -12,10 +12,8 @@ import { lazyView } from './common/lazyView';
 export const SearchPage = lazyView(() => import('./search/SearchPage').then((m) => m.SearchPage));
 export const GeneReport = lazyView(() => import('./crossdataset/GeneReport').then((m) => m.GeneReport));
 export const PathwayReport = lazyView(() => import('./crossdataset/PathwayReport').then((m) => m.PathwayReport));
-export const CrossDatasetCompare = lazyView(() => import('./crossdataset/CrossDatasetCompare').then((m) => m.CrossDatasetCompare));
 export const DatasetLibrary = lazyView(() => import('./library/DatasetLibrary').then((m) => m.DatasetLibrary));
 export const DatasetTrackerView = lazyView(() => import('./dataset-tracker/DatasetTrackerView').then((m) => m.DatasetTrackerView));
-export const StatisticsView = lazyView(() => import('./statistics/StatisticsView').then((m) => m.StatisticsView));
 export const MethodologyView = lazyView(() => import('./methodology/MethodologyView').then((m) => m.MethodologyView));
 export const VerificationView = lazyView(() => import('./verification/VerificationView').then((m) => m.VerificationView));
 export const NomenclatureView = lazyView(() => import('./nomenclature/NomenclatureView').then((m) => m.NomenclatureView));
@@ -27,7 +25,6 @@ export const PathwayExplorerTab = lazyView(() => import('./pathway-explorer/Path
 export const CompareTab = lazyView(() => import('./compare/CompareTab').then((m) => m.CompareTab));
 export const CircadianTab = lazyView(() => import('./circadian/CircadianTab').then((m) => m.CircadianTab));
 export const QCTab = lazyView(() => import('./qc/QCTab').then((m) => m.QCTab));
-export const DataSourcesTab = lazyView(() => import('./acknowledgements/DataSourcesTab').then((m) => m.DataSourcesTab));
 export const ChangelogTab = lazyView(() => import('./changelog/ChangelogTab').then((m) => m.ChangelogTab));
 // A modal and a disclosure body: nothing to hold their place while they load.
 export const DatasetInfoPanel = lazyView(() => import('./common/DatasetInfoPanel').then((m) => m.DatasetInfoPanel), null);
@@ -36,9 +33,9 @@ export const DatasetVerificationContext = lazyView(
 );
 
 const ALL_VIEWS = [
-  SearchPage, GeneReport, PathwayReport, CrossDatasetCompare, DatasetLibrary, DatasetTrackerView, StatisticsView,
-  MethodologyView, VerificationView, NomenclatureView, CompareSetView, GeneExplorerTab, PathwayExplorerTab,
-  CompareTab, CircadianTab, QCTab, DataSourcesTab, ChangelogTab, DatasetInfoPanel, DatasetVerificationContext,
+  SearchPage, GeneReport, PathwayReport, DatasetLibrary, DatasetTrackerView, MethodologyView, VerificationView,
+  NomenclatureView, CompareSetView, GeneExplorerTab, PathwayExplorerTab, CompareTab, CircadianTab, QCTab,
+  ChangelogTab, DatasetInfoPanel, DatasetVerificationContext,
 ];
 
 /** Load every view chunk, so a test can render App and query it synchronously. */

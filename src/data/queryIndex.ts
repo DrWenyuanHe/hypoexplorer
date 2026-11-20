@@ -30,7 +30,7 @@ import { DEFAULT_FDR_CUTOFF } from '../statistics/policy';
 import {
   type CardDetail, type ExprIndexRow, type GeneIndexRow, type PathwayIndexRow, type QueryManifest,
   type ShardEnvelope, type TrackPathwayRow, type TrackPathwaysPayload,
-  EXPR_SHARDS, GENE_NAMES_FILE, GENE_NAMES_GLOBAL, GENE_SHARDS, MANIFEST_FILE, MANIFEST_GLOBAL,
+  GENE_NAMES_FILE, GENE_NAMES_GLOBAL, GENE_SHARDS, MANIFEST_FILE, MANIFEST_GLOBAL,
   PATHWAY_NAMES_FILE, PATHWAY_NAMES_GLOBAL, PATHWAY_SHARDS,
   cardFile, cardGlobalName, exprShard, exprShardFile, exprShardGlobal, geneShard, geneShardFile, geneShardGlobal,
   indexKey, pathwayShard, pathwayShardFile, pathwayShardGlobal, trackPathwaysFile, trackPathwaysGlobal,
@@ -150,27 +150,14 @@ export function loadGeneRows(datasets: Dataset[], gene: string, buildId: string)
   return loadKeyedRows(datasets, gene, buildId, { shardOf: geneShard, file: geneShardFile, global: geneShardGlobal });
 }
 
-/**
- * Whether an index carries the EXPRESSION family.
- *
- * Deliberately NOT folded into loadQueryManifest's validation, which every
- * query goes through. An index built before this family existed is entirely
- * correct for the gene and pathway lookups, so refusing it there would drag two
- * working fast paths down with the one that is missing. Only the caller that
- * needs expression asks.
- *
- * Shard-count equality, not mere presence: the shard for a key is a pure
- * function of the count, so a manifest built with a different one would send
- * every lookup to a URL that cannot hold the key - and a missing shard is
- * indistinguishable from "this gene is in no dataset".
- */
-export function manifestSupportsExpr(manifest: QueryManifest): boolean {
-  return manifest.exprShards === EXPR_SHARDS;
-}
-
 /** Per-sample expression rows for one gene. Same null/empty distinction as
  *  loadGeneRows: null = the index could not be read, [] = it was read and the
- *  gene is in no default track. */
+ *  gene is in no default track. No view reads this family since the
+ *  side-by-side compare view was retired; the wire tests keep it pinned while
+ *  the build still publishes it. A future reader must first check that
+ *  `manifest.exprShards === EXPR_SHARDS`: the shard for a key is a pure function
+ *  of the count, so a manifest built with a different one would send every
+ *  lookup to a URL that cannot hold the key. */
 export function loadExprRows(datasets: Dataset[], gene: string, buildId: string): Promise<ExprIndexRow[] | null> {
   return loadKeyedRows(datasets, gene, buildId, { shardOf: exprShard, file: exprShardFile, global: exprShardGlobal });
 }

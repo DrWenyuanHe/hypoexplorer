@@ -1,7 +1,7 @@
 {
   "version": 1,
   "area": "module-common",
-  "fingerprint": "13f1cd634b7d797b1fa98438737874d31ca9752807f3b4c06e604c531922027e",
+  "fingerprint": "fd599e672d85b0360e1f7de3badf8e38fa5f15b908578ba3f93d5789a50acae4",
   "outcome": "updated",
   "explanation": "Adds lazyView.tsx, the loader behind every lazily rendered view: each view gets its own chunk and Suspense fallback, renders synchronously when preloaded before its first render, keeps one element type so it never remounts, and retries a failed chunk download only after a one-second window. preloadWhenIdle warms likely next views after paint.",
   "references": [

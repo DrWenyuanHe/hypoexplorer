@@ -1,7 +1,7 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "30569cba38dd02d1a1ebee25f113ca149abada90de9a56ca5b88b964a59548c2",
+  "fingerprint": "8ccf5e85cf1bdc5d40f8b653b6ed82d796dcd0f1e8dc35f1220d353da7ab7eb1",
   "outcome": "updated",
   "explanation": "vite.config.ts replaces the manualChunks shim with codeSplitting groups: React and react-dom are captured into vendor ahead of recharts (the shim had put React inside charts), and the $initial app modules form one shell chunk. public/_headers gives fonts and brand assets a day of freshness with stale-while-revalidate. The delivery runbook and the dated record describe both.",
   "references": [

@@ -30,7 +30,7 @@ describe('versioned analysis links', () => {
     }
   });
 
-  it.each(['report', 'pathway-report', 'compare-datasets'] as const)('preserves explicit empty study sets in %s', (view) => {
+  it.each(['report', 'pathway-report'] as const)('preserves explicit empty study sets in %s', (view) => {
     const route = view === 'pathway-report'
       ? { view, pathway: 'A/B & C', analysis: { ...DEFAULT_STUDY_ANALYSIS, datasetIds: [] } }
       : { view, gene: 'POMC', scope: null, analysis: { ...DEFAULT_STUDY_ANALYSIS, datasetIds: [] } };

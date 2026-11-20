@@ -20,10 +20,8 @@ Source directories are ownership/navigation areas, not separately installed plug
 | explorer | explorer |
 | report | crossdataset |
 | pathway-report | crossdataset |
-| compare-datasets | crossdataset |
 | compare-set | compareset |
 | tracker | dataset-tracker |
-| statistics | statistics |
 | methodology | methodology |
 | verification | verification |
 | nomenclature | nomenclature |
@@ -38,7 +36,6 @@ Source directories are ownership/navigation areas, not separately installed plug
 | pathway | Pathway Explorer | pathway-explorer |
 | circadian | Circadian | circadian |
 | qc | Quality Control | qc |
-| datasources | Data Sources | acknowledgements |
 
 ## __tests__
 
@@ -48,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (240):
+Covered source files (237):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -108,8 +105,6 @@ Covered source files (240):
 - [src/__tests__/confirmDialog.test.tsx](<../../../src/__tests__/confirmDialog.test.tsx>)
 - [src/__tests__/contrastMatrix.test.tsx](<../../../src/__tests__/contrastMatrix.test.tsx>)
 - [src/__tests__/countConservationEvidence.test.ts](<../../../src/__tests__/countConservationEvidence.test.ts>)
-- [src/__tests__/crossDatasetCompare.test.tsx](<../../../src/__tests__/crossDatasetCompare.test.tsx>)
-- [src/__tests__/crossDatasetCompareIndex.test.ts](<../../../src/__tests__/crossDatasetCompareIndex.test.ts>)
 - [src/__tests__/crossDatasetRows.test.ts](<../../../src/__tests__/crossDatasetRows.test.ts>)
 - [src/__tests__/crossDatasetSummary.test.ts](<../../../src/__tests__/crossDatasetSummary.test.ts>)
 - [src/__tests__/csv.test.ts](<../../../src/__tests__/csv.test.ts>)
@@ -117,7 +112,6 @@ Covered source files (240):
 - [src/__tests__/csvDownload.ts](<../../../src/__tests__/csvDownload.ts>)
 - [src/__tests__/currentIntakePathwayEvidence.test.ts](<../../../src/__tests__/currentIntakePathwayEvidence.test.ts>)
 - [src/__tests__/dataOriginStatus.test.tsx](<../../../src/__tests__/dataOriginStatus.test.tsx>)
-- [src/__tests__/dataSources.test.tsx](<../../../src/__tests__/dataSources.test.tsx>)
 - [src/__tests__/datasetInfo.test.tsx](<../../../src/__tests__/datasetInfo.test.tsx>)
 - [src/__tests__/datasetLibrary.test.tsx](<../../../src/__tests__/datasetLibrary.test.tsx>)
 - [src/__tests__/datasetLinks.test.ts](<../../../src/__tests__/datasetLinks.test.ts>)
@@ -234,6 +228,7 @@ Covered source files (240):
 - [src/__tests__/r2Incremental.test.ts](<../../../src/__tests__/r2Incremental.test.ts>)
 - [src/__tests__/rawTrack.test.ts](<../../../src/__tests__/rawTrack.test.ts>)
 - [src/__tests__/referenceExpression.test.ts](<../../../src/__tests__/referenceExpression.test.ts>)
+- [src/__tests__/references.test.tsx](<../../../src/__tests__/references.test.tsx>)
 - [src/__tests__/releaseIdentity.test.ts](<../../../src/__tests__/releaseIdentity.test.ts>)
 - [src/__tests__/replicationEvidence.test.ts](<../../../src/__tests__/replicationEvidence.test.ts>)
 - [src/__tests__/responsiveSidebar.test.tsx](<../../../src/__tests__/responsiveSidebar.test.tsx>)
@@ -265,7 +260,6 @@ Covered source files (240):
 - [src/__tests__/sortableRows.test.tsx](<../../../src/__tests__/sortableRows.test.tsx>)
 - [src/__tests__/sourceJson.test.ts](<../../../src/__tests__/sourceJson.test.ts>)
 - [src/__tests__/spendGuard.test.ts](<../../../src/__tests__/spendGuard.test.ts>)
-- [src/__tests__/statistics.test.tsx](<../../../src/__tests__/statistics.test.tsx>)
 - [src/__tests__/statisticsPolicy.test.ts](<../../../src/__tests__/statisticsPolicy.test.ts>)
 - [src/__tests__/studyFactTable.test.tsx](<../../../src/__tests__/studyFactTable.test.tsx>)
 - [src/__tests__/studyMetadataAdapters.test.ts](<../../../src/__tests__/studyMetadataAdapters.test.ts>)
@@ -292,13 +286,13 @@ Covered source files (240):
 
 ## acknowledgements
 
-Study sources and attribution.
+Software and reference citations and acknowledgements shown on How to cite.
 
 Start here:
-- [src/acknowledgements/DataSourcesTab.tsx](<../../../src/acknowledgements/DataSourcesTab.tsx>)
+- [src/acknowledgements/references.ts](<../../../src/acknowledgements/references.ts>)
 
 Covered source files (1):
-- [src/acknowledgements/DataSourcesTab.tsx](<../../../src/acknowledgements/DataSourcesTab.tsx>)
+- [src/acknowledgements/references.ts](<../../../src/acknowledgements/references.ts>)
 
 ## changelog
 
@@ -431,8 +425,7 @@ Start here:
 - [src/crossdataset/forestReport.tsx](<../../../src/crossdataset/forestReport.tsx>)
 - [src/crossdataset/geneStudyScope.tsx](<../../../src/crossdataset/geneStudyScope.tsx>)
 
-Covered source files (10):
-- [src/crossdataset/CrossDatasetCompare.tsx](<../../../src/crossdataset/CrossDatasetCompare.tsx>)
+Covered source files (9):
 - [src/crossdataset/EffectPreview.tsx](<../../../src/crossdataset/EffectPreview.tsx>)
 - [src/crossdataset/GeneEffectPreview.tsx](<../../../src/crossdataset/GeneEffectPreview.tsx>)
 - [src/crossdataset/GeneReport.tsx](<../../../src/crossdataset/GeneReport.tsx>)
@@ -457,7 +450,7 @@ Start here:
 - [src/data/queryIndex.ts](<../../../src/data/queryIndex.ts>)
 - [data/intake/oxt-avp-2026-10-19/README.md](<../../../data/intake/oxt-avp-2026-10-19/README.md>)
 
-Covered source files (57):
+Covered source files (56):
 - [src/data/authorComparability.ts](<../../../src/data/authorComparability.ts>)
 - [src/data/authorConcordance.ts](<../../../src/data/authorConcordance.ts>)
 - [src/data/authorConcordanceR460.ts](<../../../src/data/authorConcordanceR460.ts>)
@@ -471,7 +464,6 @@ Covered source files (57):
 - [src/data/constants.ts](<../../../src/data/constants.ts>)
 - [src/data/contrasts.ts](<../../../src/data/contrasts.ts>)
 - [src/data/crossDataset.ts](<../../../src/data/crossDataset.ts>)
-- [src/data/crossDatasetCompare.ts](<../../../src/data/crossDatasetCompare.ts>)
 - [src/data/crossDatasetRows.ts](<../../../src/data/crossDatasetRows.ts>)
 - [src/data/datasetCatalog.ts](<../../../src/data/datasetCatalog.ts>)
 - [src/data/datasetCategories.ts](<../../../src/data/datasetCategories.ts>)
@@ -640,7 +632,7 @@ Covered source files (8):
 
 ## methodology
 
-Methodology reference page for the collection.
+Methods & statistics reference page for the collection.
 
 Start here:
 - [src/methodology/MethodologyView.tsx](<../../../src/methodology/MethodologyView.tsx>)
@@ -743,16 +735,14 @@ Covered source files (20):
 
 ## statistics
 
-Statistical definitions, interpretation limits and the shared FDR / p < 0.05 listing toggle.
+Significance policy and the shared FDR / p < 0.05 listing toggle.
 
 Start here:
-- [src/statistics/StatisticsView.tsx](<../../../src/statistics/StatisticsView.tsx>)
 - [src/statistics/policy.ts](<../../../src/statistics/policy.ts>)
 - [src/statistics/listingModeStore.ts](<../../../src/statistics/listingModeStore.ts>)
 
-Covered source files (5):
+Covered source files (4):
 - [src/statistics/ListingModeToggle.tsx](<../../../src/statistics/ListingModeToggle.tsx>)
-- [src/statistics/StatisticsView.tsx](<../../../src/statistics/StatisticsView.tsx>)
 - [src/statistics/listingMode.css](<../../../src/statistics/listingMode.css>)
 - [src/statistics/listingModeStore.ts](<../../../src/statistics/listingModeStore.ts>)
 - [src/statistics/policy.ts](<../../../src/statistics/policy.ts>)

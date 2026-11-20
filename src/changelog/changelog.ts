@@ -17,6 +17,15 @@ export const CHANGELOG: ChangelogEntry[] = [
   },
   {
     date: '2026-11-20',
+    title: 'Fewer reference pages',
+    items: [
+      'The Statistics page is now part of Methodology, renamed Methods & statistics. It explains p-values, FDR, significance stars, why results are not pooled across studies, and the glossary, alongside the analysis pipeline. Old Statistics links open it.',
+      'The Data Sources tab is gone from the explorer. Its list of every study duplicated the dataset library. The software, gene-set and reference-atlas citations and the acknowledgements are now on How to cite. Old Data Sources links open that study\'s library record.',
+      'The side-by-side bar view of one gene across studies (Compare as bars) is gone. The gene page lists the same per-study results and previews each study\'s bars, and the compare set lines up studies in columns. Old links to it open the gene page with the same study selection.',
+    ],
+  },
+  {
+    date: '2026-11-20',
     title: 'One search on the home page',
     items: [
       'The Genes and Pathways buttons in the home page menu are gone, along with the search dialog they opened. The search box on the home page searches genes and pathways together, and its results open each gene page or pathway report.',

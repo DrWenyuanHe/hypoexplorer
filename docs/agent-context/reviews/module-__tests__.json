@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "3cc8a57c6f954cb759ba711b57470301b2b1707fab7c357eb05d0388aa0bceaa",
+  "fingerprint": "f4beb3b3d2aae5771231a12dd6416e7259a9e3b37268900ebafcf73b2dba72a6",
   "outcome": "updated",
-  "explanation": "The fifteen App-rendering tests await preloadAppViews() in a beforeAll, because App now renders its views as lazy chunks and these tests query them synchronously. lazyView.test.tsx covers the fallback, synchronous render after preload, no remount when the chunk lands, and a failed download that is reported once and retried only on the boundary reset. originHealth.test.ts expects the HEAD probe.",
+  "explanation": "The thirteen App-rendering tests await preloadAppViews() in a beforeAll, because App now renders its views as lazy chunks and these tests query them synchronously; the merge with main keeps its deletion of the Statistics and Data Sources tests and its removal of the Compare-as-bars mock. lazyView.test.tsx covers the fallback, synchronous render after preload, no remount when the chunk lands, and a failed download that is reported once and retried only on the boundary reset. originHealth.test.ts expects the HEAD probe.",
   "references": [
     "src/__tests__/lazyView.test.tsx",
     "src/__tests__/smoke.test.tsx",

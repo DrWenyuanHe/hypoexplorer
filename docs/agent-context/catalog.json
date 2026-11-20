@@ -21,9 +21,9 @@
       ]
     },
     "acknowledgements": {
-      "summary": "Study sources and attribution",
+      "summary": "Software and reference citations and acknowledgements shown on How to cite",
       "references": [
-        "src/acknowledgements/DataSourcesTab.tsx"
+        "src/acknowledgements/references.ts"
       ]
     },
     "changelog": {
@@ -142,7 +142,7 @@
       ]
     },
     "methodology": {
-      "summary": "Methodology reference page for the collection",
+      "summary": "Methods & statistics reference page for the collection",
       "references": [
         "src/methodology/MethodologyView.tsx"
       ]
@@ -186,9 +186,8 @@
       ]
     },
     "statistics": {
-      "summary": "Statistical definitions, interpretation limits and the shared FDR / p < 0.05 listing toggle",
+      "summary": "Significance policy and the shared FDR / p < 0.05 listing toggle",
       "references": [
-        "src/statistics/StatisticsView.tsx",
         "src/statistics/policy.ts",
         "src/statistics/listingModeStore.ts"
       ]
@@ -290,10 +289,8 @@
     "expression": "expression-survey",
     "report": "crossdataset",
     "pathway-report": "crossdataset",
-    "compare-datasets": "crossdataset",
     "compare-set": "compareset",
     "tracker": "dataset-tracker",
-    "statistics": "statistics",
     "methodology": "methodology",
     "verification": "verification",
     "nomenclature": "nomenclature"
@@ -302,8 +299,7 @@
     "gene": "gene-explorer",
     "pathway": "pathway-explorer",
     "circadian": "circadian",
-    "qc": "qc",
-    "datasources": "acknowledgements"
+    "qc": "qc"
   },
   "relationships": [
     "Registry declarations identify studies; bundle loaders and transforms provide the selected track and contrast to views.",

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "f0348e05c3ff79f0c63a4482de5bdf8ca06772d1dd38f4f3c4e57716001a8691",
+  "fingerprint": "1ea510a135494a547d70f2c69be714d3d9471552e5a2ca98fe140ab93ceb0b3e",
   "outcome": "updated",
   "explanation": "The ui-change route now states that App renders every non-hub view through lazyView entries in src/appViews.tsx, that new views join that list, that App-rendering tests await preloadAppViews(), and that hub or results-page modules must not import the evidence ledgers statically (hence exportProvenanceFormat.ts).",
   "references": [

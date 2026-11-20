@@ -774,8 +774,10 @@ console.log(`browse catalog: ${datasetSummaries.length} dataset summaries`
 // ── Pass 1.5: the EXPRESSION index ──────────────────────────────────────────
 //
 // WHY THIS FAMILY EXISTS
-// The cross-dataset Compare view (src/crossdataset/CrossDatasetCompare.tsx)
-// plots ONE gene's baseline-vs-case bars for every dataset. The gene index
+// It was built for the cross-dataset Compare view (#/compare/<gene>), which
+// plotted ONE gene's baseline-vs-case bars for every dataset. That view has been
+// retired and nothing in the app reads this family now; dropping the pass and
+// its published shards is a separate data-pipeline change. The gene index
 // cannot serve it: a bar needs the per-sample values behind the mean and the
 // SEM, and a gene row carries only [logFC, pval, fdr, se]. So that view still
 // downloaded every dataset's default track in full — 43 requests, 148.4 MB —

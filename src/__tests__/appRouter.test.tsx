@@ -69,9 +69,6 @@ describe('appRouter — view selection', () => {
     expect(result.current.view).toBe('report');
     expect(result.current.reportScope).toEqual(['Diet-induced obesity']);
 
-    act(() => { result.current.compareDatasets('LEPR', ['Diet-induced obesity']); });
-    expect(result.current.view).toBe('compare-datasets');
-    expect(result.current.reportGene).toBe('LEPR');
   });
 
   it('opens the unified search on a trimmed query, on "all" unless told otherwise', () => {

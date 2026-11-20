@@ -45,8 +45,7 @@
 //
 // Two rules callers rely on:
 //   * A column that could not be READ is reported as such, never rendered as
-//     "not detected" — the invariant CrossDatasetCompare states for its own
-//     failed datasets.
+//     "not detected".
 //   * Retained columns never reload. The load effect is keyed on the joined
 //     column keys and starts only keys it has not seen, so removing one column
 //     leaves the others exactly as they were, and a parent re-render that

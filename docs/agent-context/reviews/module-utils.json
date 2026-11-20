@@ -1,7 +1,7 @@
 {
   "version": 1,
   "area": "module-utils",
-  "fingerprint": "3640c3e365cff85c83ff5d5160ef836dd777bd08def24813a310fd09c18498a4",
+  "fingerprint": "d325690fcd4e5db82c0f1b67809ac18f6da3da36a48d5fb1f31a1d0e5ce8f251",
   "outcome": "updated",
   "explanation": "The pure provenance formatters (provenanceColumns, provenanceRows, metadataSheet) move to exportProvenanceFormat.ts, which does not import the internal QC ledger. csv.ts imports from it, so views that only write CSV (the search results page) no longer load the 3.9 MB ledger; exportProvenance re-exports the sheet formatters for its existing callers.",
   "references": [

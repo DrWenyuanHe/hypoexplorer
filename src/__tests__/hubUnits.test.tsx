@@ -37,7 +37,6 @@ const handlers = () => ({
   onOpenExpression: vi.fn(),
   onOpenTracker: vi.fn(),
   onOpenLibrary: vi.fn(),
-  onOpenStatistics: vi.fn(),
   onOpenMethodology: vi.fn(),
   onOpenNomenclature: vi.fn(),
   onChangelog: vi.fn(),

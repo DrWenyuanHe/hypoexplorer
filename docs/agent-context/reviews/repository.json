@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "f5a6a09ff114e7930cab2563ac69c6706974bd2144fd002f7417586c4b7501a7",
+  "fingerprint": "f2379c1d33b9084e8d34d9e7ebc5a754a59ad5b81168eac2db6842df9d9a216d",
   "outcome": "updated",
-  "explanation": "App.tsx imports every non-hub view from src/appViews.tsx instead of statically, and warms the results page while the hub is idle and the reports while results are shown. docs/APP_LOADING_2026-11-20.md records the hub critical path before and after (6,855 KB to 546 KB decoded JavaScript) and which views still load the evidence ledgers.",
+  "explanation": "App.tsx imports every non-hub view from src/appViews.tsx instead of statically, and warms the results page while the hub is idle and the reports while results are shown. Merged with main, appViews no longer lists the Statistics page, Compare as bars or the Data Sources tab that main removed. docs/APP_LOADING_2026-11-20.md records the hub critical path before and after (6,855 KB to 546 KB decoded JavaScript) and which views still load the evidence ledgers.",
   "references": [
     "src/App.tsx",
     "src/appViews.tsx",

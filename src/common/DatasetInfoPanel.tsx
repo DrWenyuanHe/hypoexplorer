@@ -28,12 +28,13 @@ interface DatasetInfoPanelProps {
   /** The contrast currently active in the explorer; its baseline/case decide which group gets which replicate count. */
   activeContrast?: ResolvedContrast | null;
   onClose: () => void;
-  onOpenDataSources?: () => void;
+  /** Open the Methods & statistics page. */
+  onOpenMethods?: () => void;
   onOpenTracker?: (acc?: string) => void;
 }
 
 export function DatasetInfoPanel({
-  dataset, meta, contrasts = [], activeContrast, onClose, onOpenDataSources, onOpenTracker,
+  dataset, meta, contrasts = [], activeContrast, onClose, onOpenMethods, onOpenTracker,
 }: DatasetInfoPanelProps) {
   const trackerAcc = (TRACKER_REVERSE_INDEX as Record<string, string>)[dataset.id];
   // The no-activeContrast fallback defers to getActiveContrast rather than
@@ -61,12 +62,12 @@ export function DatasetInfoPanel({
         />
 
         {/* Cross-links into the deeper provenance surfaces */}
-        {(onOpenDataSources || (onOpenTracker && trackerAcc)) && (
+        {(onOpenMethods || (onOpenTracker && trackerAcc)) && (
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, marginTop: 16, paddingTop: 12, borderTop: '1px solid var(--border)' }}>
-            {onOpenDataSources && (
-              <button type="button" onClick={onOpenDataSources}
+            {onOpenMethods && (
+              <button type="button" onClick={onOpenMethods}
                 style={{ fontSize: 12, fontWeight: 600, color: 'var(--color-selected)', background: 'none', border: 'none', padding: 0, cursor: 'pointer', fontFamily: 'inherit' }}>
-                Data Sources &amp; methods →
+                Methods &amp; statistics →
               </button>
             )}
             {onOpenTracker && trackerAcc && (

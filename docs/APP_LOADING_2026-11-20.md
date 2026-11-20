@@ -30,7 +30,7 @@ five minutes, only to learn that the origin answered.
 ## Changes
 
 - `src/appViews.tsx` defines every view except the hub as a `lazyView`
-  (`src/common/lazyView.tsx`): 11 pages, 7 explorer tabs and panels, the
+  (`src/common/lazyView.tsx`): 9 pages, 6 explorer tabs and panels, the
   dataset info modal and the study-details verification body. Each is its own
   chunk with its own Suspense fallback. A failed chunk download is retried by
   the ErrorBoundary's reset after one second, never in a loop. App warms the
@@ -58,12 +58,14 @@ Production build of this change, same data and app version:
 | App stylesheet (gzip) | 13.2 KB | 4.4 KB |
 
 Static closure of each view's chunk (decoded, including `vendor` and `shell`).
-Before the change, every view was inside the 6,855 KB hub graph:
+Before the change, every view was inside the 6,855 KB hub graph. The sizes were
+measured before #50 merged the Statistics page into Methodology and removed
+Compare as bars and the Data Sources tab; those views are no longer in the list:
 
 | View | After | Evidence ledgers |
 | --- | ---: | --- |
 | Search results | 589 KB | none |
-| Statistics, methodology, nomenclature | ~550 KB | none |
+| Methodology, nomenclature | ~550 KB | none |
 | Gene explorer, pathway explorer, compare, circadian | ~4,400 KB | internal QC |
 | Gene report, pathway report, library, QC, verification | ~5,750 KB | both |
 
