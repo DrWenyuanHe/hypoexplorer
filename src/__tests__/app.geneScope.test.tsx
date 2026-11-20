@@ -5,10 +5,9 @@ import { listDatasets } from '../data/datasets';
 import { registryCards } from '../data/datasetCatalog';
 import type { Dataset } from '../types';
 import { DEFAULT_STUDY_ANALYSIS } from '../utils/analysisState';
-import { routeHref } from '../utils/appLinks';
+import { parseRoute, routeHref } from '../utils/appLinks';
 
-const { queryGene, loadCatalog, compareIndex } = vi.hoisted(() => ({ queryGene: vi.fn(), loadCatalog: vi.fn(), compareIndex: vi.fn() }));
-vi.mock('../data/crossDatasetCompare', () => ({ loadCompareEntriesViaIndex: compareIndex }));
+const { queryGene, loadCatalog } = vi.hoisted(() => ({ queryGene: vi.fn(), loadCatalog: vi.fn() }));
 vi.mock('../data/crossDataset', async (original) => ({
   ...await original<typeof import('../data/crossDataset')>(),
   queryGeneAcrossDatasets: queryGene,
@@ -49,7 +48,6 @@ const openFilters = () => {
 beforeEach(() => {
   window.history.replaceState(null, '', `/#/gene/${START}`);
   queryGene.mockReset().mockImplementation(async (gene: string) => ({ gene, total: 0, loaded: 0, groups: [] }));
-  compareIndex.mockReset().mockResolvedValue([]);
   loadCatalog.mockReset().mockResolvedValue({ state: 'complete', cards: registryCards().map((card) => ({
     ...card, nBaseline: card.dataset.id === chosen.id ? 8 : 3, nCase: 8,
   })) });
@@ -62,7 +60,6 @@ describe('App gene search scope', () => {
     render(<App />); openFilters();
     expect(screen.getByRole('alert')).toHaveTextContent('unsupported version');
     expect(queryGene).not.toHaveBeenCalled();
-    expect(compareIndex).not.toHaveBeenCalled();
   });
 
   it('keeps an obsolete saved study set empty instead of querying all studies', async () => {
@@ -71,10 +68,9 @@ describe('App gene search scope', () => {
     render(<App />); openFilters();
     expect(await screen.findByText('No datasets selected.')).toBeInTheDocument();
     expect(queryGene).not.toHaveBeenCalled();
-    expect(screen.getByRole('button', { name: /Compare as bars/ })).toBeDisabled();
   });
 
-  it('keeps the 75-study larger-groups cohort when changing to bars and after opening its copied URL', async () => {
+  it('keeps the 75-study larger-groups cohort in its copied URL and in a retired compare link', async () => {
     const cohort = listDatasets().filter((dataset) => dataset.id !== 'macaque_snrna').slice(0, 75).map((dataset) => dataset.id);
     loadCatalog.mockResolvedValue({ state: 'complete', cards: registryCards().map((card) => ({
       ...card, nBaseline: cohort.includes(card.dataset.id) ? 5 : 3, nCase: 5,
@@ -85,20 +81,22 @@ describe('App gene search scope', () => {
     await waitFor(() => expect(scopeStatus()).toHaveTextContent(/^75 of /));
     search();
     await waitFor(() => expect(lastRequestedIds()).toEqual(cohort));
-    fireEvent.click(screen.getByRole('button', { name: /Compare as bars/ }));
-    await waitFor(() => expect(compareIndex).toHaveBeenCalled());
-    expect((compareIndex.mock.lastCall![1] as Dataset[]).map((dataset) => dataset.id)).toEqual(cohort);
-    expect(scopeStatus()).toHaveTextContent('75 datasets selected');
     const copied = window.location.hash;
+    expect(copied).toMatch(/^#\/gene\/POMC\?analysis=/);
     first.unmount();
-    compareIndex.mockClear();
-    window.history.replaceState(null, '', `/${copied}`);
-    render(<App />); openFilters();
-    await waitFor(() => expect(compareIndex).toHaveBeenCalled());
-    expect((compareIndex.mock.lastCall![1] as Dataset[]).map((dataset) => dataset.id)).toEqual(cohort);
-    expect(scopeStatus()).toHaveTextContent('75 datasets selected');
-    fireEvent.click(screen.getByRole('button', { name: /View gene page/ }));
-    await waitFor(() => expect(lastRequestedIds()).toEqual(cohort));
+    // The copied link reopens the same cohort; so does the retired side-by-side
+    // compare link for that gene, which now opens the gene page.
+    for (const link of [copied, copied.replace('#/gene/', '#/compare/')]) {
+      queryGene.mockClear();
+      window.history.replaceState(null, '', `/${link}`);
+      const view = render(<App />); openFilters();
+      await waitFor(() => expect(queryGene).toHaveBeenCalled());
+      expect(lastRequestedIds()).toEqual(cohort);
+      expect(scopeStatus()).toHaveTextContent(/^75 of /);
+      // Rewritten to the gene page's own address (key order aside).
+      await waitFor(() => expect(parseRoute(window.location.hash)).toEqual(parseRoute(copied)));
+      view.unmount();
+    }
   });
 
   it('restores category, individual selection and quality/sample filters in a fresh session', async () => {
@@ -124,9 +122,6 @@ describe('App gene search scope', () => {
     for (const name of [/^Aging /, /^Larger groups /, 'Experimental design Passed']) {
       expect(screen.getByRole('button', { name })).toHaveAttribute('aria-pressed', 'true');
     }
-    fireEvent.click(screen.getByRole('button', { name: /Compare as bars/ }));
-    await waitFor(() => expect(compareIndex).toHaveBeenCalled());
-    expect((compareIndex.mock.lastCall![1] as Dataset[]).map((dataset) => dataset.id)).toEqual([chosen.id]);
   });
 
   it('searches all datasets by default', async () => {

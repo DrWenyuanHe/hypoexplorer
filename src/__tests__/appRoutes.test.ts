@@ -28,8 +28,6 @@ const ROUTES: AppRoute[] = [
   // marker. No real symbol is named 'in', but the codec is total or it is not.
   { view: 'report', gene: 'in', scope: ['Circadian'] },
   { view: 'report', gene: 'in', scope: null },
-  { view: 'compare-datasets', gene: 'LEPR', scope: null },
-  { view: 'compare-datasets', gene: 'LEPR', scope: ['Primate atlas'] },
   // The compare set: whole studies (no track), two populations of one study,
   // a single column, and ids carrying the two separator characters — the codec
   // is pure, so a track it is handed stays in the URL even when it is the
@@ -42,7 +40,7 @@ const ROUTES: AppRoute[] = [
   { view: 'pathway-report', pathway: 'Signaling by GPCR / second messengers' },
   { view: 'tracker', acc: null },
   { view: 'tracker', acc: 'GSE220533' },
-  { view: 'statistics' },
+  { view: 'methodology' },
   { view: 'nomenclature' },
   // The unified search: its empty state, both filters, and queries carrying
   // every character a naive path segment would split or truncate on.
@@ -145,7 +143,9 @@ describe('appRoutes — reading untrusted hashes', () => {
       view: 'compare-set',
       items: [{ datasetId: 'macaque_snrna' }, { datasetId: 'mouse_hypo_hfd_gse220533' }],
     });
-    expect(parseRoute('#/compare/POMC')?.view).toBe('compare-datasets');
+    // The retired one-gene compare opens that gene's page.
+    expect(parseRoute('#/compare/POMC')).toEqual({ view: 'report', gene: 'POMC', scope: null });
+    expect(parseRoute('#/compare/LEPR/Primate%20atlas')).toEqual({ view: 'report', gene: 'LEPR', scope: ['Primate atlas'] });
     // Encoded separators inside an id survive the split.
     expect(parseRoute('#/compare-set/a%2Cb:c%3Ad')).toEqual({
       view: 'compare-set', items: [{ datasetId: 'a,b', trackId: 'c:d' }],
@@ -163,13 +163,13 @@ describe('appRoutes — reading untrusted hashes', () => {
 
   it('does not let one view claim another view\'s hash', () => {
     expect(parseRoute('#/gene/POMC')?.view).toBe('report');
-    expect(parseRoute('#/compare/POMC')?.view).toBe('compare-datasets');
+    expect(parseRoute('#/compare/POMC')?.view).toBe('report');
     expect(parseRoute('#/compare-set/macaque_snrna')?.view).toBe('compare-set');
     expect(parseRoute('#/pathway/POMC')?.view).toBe('pathway-report');
     expect(parseRoute('#/library/macaque_snrna')?.view).toBe('library');
     expect(parseRoute('#/dataset/macaque_snrna')?.view).toBe('explorer');
     expect(parseRoute('#/tracker/GSE1')?.view).toBe('tracker');
-    expect(parseRoute('#/statistics')?.view).toBe('statistics');
+    expect(parseRoute('#/statistics')?.view).toBe('methodology');
     expect(parseRoute('#/nomenclature')?.view).toBe('nomenclature');
     expect(parseRoute('#/search')?.view).toBe('search');
     expect(parseRoute('#/search/gene')?.view).toBe('search');

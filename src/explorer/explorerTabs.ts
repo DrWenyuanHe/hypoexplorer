@@ -16,7 +16,6 @@ export const EXPLORER_TABS = [
   ['pathway', 'Pathway Explorer'],
   ['circadian', 'Circadian'],
   ['qc', 'Quality Control'],
-  ['datasources', 'Data Sources'],
 ] as const;
 
 /** The tab shown when nothing else is asked for — and the one every dataset has. */
@@ -31,7 +30,7 @@ export function isExplorerTab(value: string): value is ExplorerTab {
 /**
  * What a tab's content follows: the selected TRACK, or the whole DATASET.
  *
- * Quality Control and Data Sources describe every track of the study at once,
+ * Quality Control describes every track of the study at once,
  * so picking a track while one of them is showing is a request to look at that
  * track — staying put would make the click appear to do nothing. The track-
  * scoped tabs redraw for the new track and can stay. The explorer position
@@ -40,7 +39,7 @@ export function isExplorerTab(value: string): value is ExplorerTab {
 export type ExplorerTabScope = 'track' | 'dataset';
 
 export function explorerTabScope(tab: ExplorerTab): ExplorerTabScope {
-  return tab === 'qc' || tab === 'datasources' ? 'dataset' : 'track';
+  return tab === 'qc' ? 'dataset' : 'track';
 }
 
 /**

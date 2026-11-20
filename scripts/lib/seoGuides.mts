@@ -4,6 +4,7 @@ import { listDatasets } from '../../src/data/datasets';
 import { QUALITY_STATUS } from '../../src/data/datasetQualityR460';
 import { AUTHOR_BIO, AUTHOR_EMAIL, AUTHOR_NAME, CONTRIBUTOR_NAMES, DATA_EXPORT_DOI, SITE_NAME, SITE_URL, studyPageHref } from '../../src/data/siteInfo';
 import sourceMetadata from '../../data/seo/studySources.json';
+import { ACKNOWLEDGEMENTS, SOFTWARE_REFERENCES } from '../../src/acknowledgements/references';
 
 export interface GuideDocument {
   title: string;
@@ -25,6 +26,12 @@ const sources = sourceMetadata as Record<string, SourcePublication>;
 const escapeHtml = (value: unknown): string => String(value ?? '').replace(/[&<>"']/g, (character) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
 })[character]!);
+
+// The software, gene-set collections and reference atlases behind the results.
+function softwareReferences(): string {
+  const items = SOFTWARE_REFERENCES.map((entry) => `<li><strong>${escapeHtml(entry.resource)}.</strong> ${escapeHtml(entry.ref)} <a href="https://doi.org/${escapeHtml(entry.doi)}">doi:${escapeHtml(entry.doi)}</a></li>`);
+  return `<ul>${items.join('')}</ul>`;
+}
 
 function publicationExample(datasetId: string): string {
   const dataset = listDatasets().find((entry) => entry.id === datasetId);
@@ -116,7 +123,7 @@ export function getGuideDocuments(): GuideDocument[] {
 <p><strong>Raw p-values and adjusted values answer different questions.</strong> FDR or pathway <code>padj</code> accounts for multiple tests within the documented analysis scope. Plot significance stars use raw p-values, so stars can appear when FDR is not below the selected threshold. Filtering or missing reference evidence must not be read as a significant result.</p>
 <p>Pathway results use ranked gene-set enrichment with <a href="https://bioconductor.org/packages/release/bioc/html/fgsea.html">fgsea</a> where supported. This tests whether a gene set accumulates toward either end of a ranked list. It is different from over-representation analysis of a thresholded gene list. The normalized enrichment score, NES, gives direction and relative enrichment strength. Positive NES points toward the case-up end of the ranking. It does not by itself prove pathway activation or causation.</p>
 <p>The available gene-set collections, species mapping, ranking statistic and tested gene universe affect the result. For the macaque pipeline, gene sets are retained only when their overlap with the population's ranked genes contains 15 to 500 genes. A missing pathway can reflect size filtering, gene mapping or lack of assay support; it is not evidence that the pathway is biologically absent. Review pathway provenance and source methods before equating a local result with an author-reported pathway.</p>
-<p>The <a href="/#/statistics">statistics guide in the app</a> explains the current displays. Cross-dataset views arrange each study's results; they do not compute a pooled effect or combined p-value. A tally of significant datasets is descriptive and does not establish a new statistical test.</p></section>
+<p>The <a href="/#/methodology">Methods &amp; statistics page in the app</a> explains the current displays. Cross-dataset views arrange each study's results; they do not compute a pooled effect or combined p-value. A tally of significant datasets is descriptive and does not establish a new statistical test.</p></section>
 <section class="panel" id="verification"><h2>Quality control and author-result verification</h2>
 <p>Quality-control displays show sample coverage and the analysis inputs or outputs available for a dataset. Source checks can establish that a deposited matrix was retrieved and traced into a local analysis. They do not independently validate raw-read alignment, every laboratory measurement or every conclusion in the original paper.</p>
 <p><strong>Pipeline QC, experimental design and author concordance are separate badges.</strong> Hover, focus or tap a badge in the app to see each check.</p>
@@ -154,6 +161,7 @@ ${dataExportParagraph()}
 <li>For pathways, the gene-set collection, pathway identifier, direction, NES and adjusted p-value, plus the methods and source data used.</li>
 <li>The stable study overview URL, access date, and the exported data or figure used.</li></ul>
 <p>Use the <a href="/methods/">Methods and data interpretation guide</a> to distinguish a published author result, a local reanalysis and a new exploratory comparison. A figure made with the interface does not establish that the original authors tested the same hypothesis.</p></section>
+<section class="panel" id="software-and-acknowledgements"><h2>Software, gene sets and reference atlases</h2><p>Cite the tools and collections behind a result alongside the source study when they matter to your claim. Differential expression uses edgeR or limma, enrichment uses fgsea with MSigDB collections, and the expression survey reads the reference atlases below.</p>${softwareReferences()}<h3>Acknowledgements</h3>${ACKNOWLEDGEMENTS.map((text) => `<p>${escapeHtml(text)}</p>`).join('')}</section>
 <section class="panel"><h2>Reuse and corrections</h2><p>HypoExplorer's original code is licensed under <a href="/LICENSE">MIT</a>. Its original contributions to derived analysis outputs are licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. See the <a href="/REUSE.md">scope and attribution statement</a>. Original publications, deposited data, gene-set collections, annotations, fonts and dependencies retain their own terms; the HypoExplorer licenses do not replace them.</p>
 <p>${escapeHtml(SITE_NAME)} is in beta testing. Save the results and settings you used because the interface, analyses and coverage may change. For citation corrections, contact <a href="mailto:${escapeHtml(AUTHOR_EMAIL)}">${escapeHtml(AUTHOR_EMAIL)}</a> and include the affected study accession and publication link.</p></section></div>`,
   };

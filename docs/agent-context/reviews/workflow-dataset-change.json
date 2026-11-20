@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "bca6703e76064c9f9834400a9001801f02814e339e3832c1fce47629ecd5b38d",
-  "outcome": "updated",
-  "explanation": "The dataset-change route now says the writer derives nSig at FDR < 0.05 rather than P < 0.01. Builders still pass every track of a study to one writeDatasetBundles call; after this change, rebuilt bundles carry FDR counts in qc_global.js and must be uploaded before the matching app build goes live.",
+  "fingerprint": "4ffbca383ac6df38dcd2f5cfb3a2d637e4d1779248cc9c3b5020bfe44f53bdbd",
+  "outcome": "no-impact",
+  "explanation": "Dataset intake is unchanged. build_query_index.mts and build_tracker_catalog.mts only reword comments (the expr family has no app reader now; the reverse index feeds the library record), trackColumns/trackData comments drop CrossDatasetCompare, and How to cite gains a citations section.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "scripts/lib/bundleWriter.mts",
-    "scripts/build_normalized_bundles.mts"
+    "scripts/build_query_index.mts",
+    "scripts/build_tracker_catalog.mts",
+    "docs/REAL_DATA_SHAPES.md"
   ]
 }

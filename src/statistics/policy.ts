@@ -34,7 +34,7 @@ import type { Direction } from '../types';
  * adjusted p (gene FDR, or pathway padj) is strictly below this.
  *
  * Shared by both cross-dataset fetch paths, the per-track report rows, the
- * compare views and the prose in StatisticsView, so the number the app applies
+ * compare views and the prose in MethodologyView, so the number the app applies
  * and the number it documents cannot drift apart.
  */
 export const DEFAULT_FDR_CUTOFF = 0.05;

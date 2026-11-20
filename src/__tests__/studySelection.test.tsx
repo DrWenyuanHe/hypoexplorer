@@ -44,15 +44,15 @@ beforeEach(() => {
 afterEach(() => { vi.restoreAllMocks(); });
 
 describe('study selection interface', () => {
-  it.each(['gene', 'pathway', 'bars'] as const)('starts %s from registry cards without waiting when counts are not needed', (kind) => {
+  it.each(['gene', 'pathway'] as const)('starts %s from registry cards without waiting when counts are not needed', (kind) => {
     const { result } = renderHook(() => useStudySelection(options({ kind })));
     const expected = cards.filter((card) => kind !== 'pathway' || card.dataset.supportsPathways).map((card) => card.dataset);
     expect(result.current.selectedDatasets).toEqual(expected);
     expect(result.current.awaitingCounts).toBe(false);
-    expect(JSON.parse(result.current.queryKey)).toEqual([kind === 'bars' ? 'POMC' : 'Pomc', idsOf(expected)]);
+    expect(JSON.parse(result.current.queryKey)).toEqual(['Pomc', idsOf(expected)]);
   });
 
-  it.each(['gene', 'pathway', 'bars'] as const)('gates %s on delayed counts, then requires the minimum in both arms', async (kind) => {
+  it.each(['gene', 'pathway'] as const)('gates %s on delayed counts, then requires the minimum in both arms', async (kind) => {
     const catalog = deferred<DatasetCatalog>();
     loadCatalog.mockReturnValue(catalog.promise);
     const measured = cards.map((card, index) => ({ ...card,
@@ -156,27 +156,6 @@ describe('study selection interface', () => {
     act(() => result.current.reset());
     expect(result.current.filters).toEqual(DEFAULT_GENE_STUDY_FILTERS);
     expect(result.current.awaitingCounts).toBe(false);
-  });
-
-  it('keeps bars categories out of query identity and resets only those categories', () => {
-    const onDatasetScopeChange = vi.fn();
-    const onStudyFiltersChange = vi.fn();
-    const filters: GeneStudyFilters = { minSamples: 0, requiredChecks: ['pipelineQc'] };
-    const { result } = renderHook(() => {
-      const categories = useCategoryScope<DatasetCategory>([chosen.category]);
-      const selection = useStudySelection(options({ kind: 'bars', categories,
-        datasetScope: [chosen.id], studyFilters: filters, onDatasetScopeChange, onStudyFiltersChange }));
-      return { selection, categories };
-    });
-    const queryKey = result.current.selection.queryKey;
-    act(() => result.current.categories.setActiveCats(new Set(['Aging'])));
-    expect(result.current.selection.queryKey).toBe(queryKey);
-    act(() => result.current.selection.reset());
-    expect(result.current.categories.activeCats).toBeNull();
-    expect(result.current.selection.queryKey).toBe(queryKey);
-    expect(result.current.selection.filters).toEqual(filters);
-    expect(onStudyFiltersChange).not.toHaveBeenCalled();
-    expect(onDatasetScopeChange).not.toHaveBeenCalled();
   });
 
   it('does not let an old catalog load replace a newly mounted selection', async () => {

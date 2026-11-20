@@ -1,7 +1,7 @@
 # Project guidance
 
 ## Data provenance
-The explorer's macaque data is an **obese-vs-normal re-analysis of Lei et al., *Cell Metab.* 2024;36(2):438–453.e6** ([doi:10.1016/j.cmet.2024.01.003](https://doi.org/10.1016/j.cmet.2024.01.003), PMID 38325338). Samples `HCA_Macaque001_S001–S006` (S001–003 Normal, S004–006 Obese); 60 populations. The source is credited in the **Data Sources & Acknowledgements** tab.
+The explorer's macaque data is an **obese-vs-normal re-analysis of Lei et al., *Cell Metab.* 2024;36(2):438–453.e6** ([doi:10.1016/j.cmet.2024.01.003](https://doi.org/10.1016/j.cmet.2024.01.003), PMID 38325338). Samples `HCA_Macaque001_S001–S006` (S001–003 Normal, S004–006 Obese); 60 populations. The source is credited on its library record and study page; software and reference citations are on How to cite (`src/acknowledgements/references.ts`).
 
 ## Project structure
 The repository separates these concerns:

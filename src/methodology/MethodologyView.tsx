@@ -1,19 +1,50 @@
-// Static methodology reference page (#/methodology). It is a page-level `view`
-// like StatisticsView, not an explorer tab: it describes the whole collection,
-// so it does not sit inside one dataset's explorer. Prose is written directly
-// as JSX (the app has no markdown renderer).
+// Methods & statistics (#/methodology): the in-app reference for how every
+// number in HypoExplorer was produced and how to read it. It is a page-level
+// `view`, not an explorer tab: it describes the whole collection, so it does not
+// sit inside one dataset's explorer. Prose is written directly as JSX (the app
+// has no markdown renderer). The former Statistics page (#/statistics) is merged
+// in here; its links open this page.
 //
-// Order: collection-wide rules first (source data, DE, enrichment, units,
-// verification), then the macaque snRNA-seq pipeline and its size-cap example.
-// Studies differ, so per-study facts stay in Dataset info, not here.
+// Order: collection-wide rules first (source data, DE, enrichment, units), then
+// how to read the statistics within one study and across studies, verification,
+// the macaque snRNA-seq pipeline and its size-cap example, and a glossary.
+// Studies differ, so per-study facts stay in the study record, not here. The
+// public Methods guide (/methods/) is the indexed overview; this page keeps the
+// parameter detail it leaves out.
+//
+// Every gene and pathway statistic is computed upstream in R and read out of the
+// dataset's own bundle; the cross-dataset views arrange those numbers without
+// pooling them. The pooled random-effects meta-analysis the Statistics page used
+// to document was removed: studies across many species, platforms and
+// perturbations do not estimate a common effect.
 
 import type { ReactNode } from 'react';
 
-import { FONT_HEADING, FONT_SANS } from '../styles/constants';
+import { FONT_HEADING, FONT_MONO, FONT_SANS, DIRECTION_UP_COLOR as UP, DIRECTION_DOWN_COLOR as DOWN } from '../styles/constants';
 import { PageShell } from '../common/PageShell';
 import { H2, Mono, P, tdStyle, thStyle } from '../common/prose';
 import { DEFAULT_FDR_CUTOFF } from '../statistics/policy';
 import { METRIC_DEFAULT_SIG_THRESH } from '../explorer/explorerSession';
+
+// The significance-star scheme, sourced from utils/format.ts pToStar thresholds.
+const STAR_ROWS: Array<{ star: string; cond: string }> = [
+  { star: '****', cond: 'p < 0.0001' },
+  { star: '***', cond: 'p < 0.001' },
+  { star: '**', cond: 'p < 0.01' },
+  { star: '*', cond: 'p < 0.05' },
+  { star: 'ns', cond: 'p ≥ 0.05' },
+];
+
+// Glossary: the exact fields/terms shown across the explorer.
+const GLOSSARY: Array<{ term: string; field: string; meaning: ReactNode }> = [
+  { term: 'log2FC', field: 'logFC', meaning: 'The log2 fold-change of the case group over the baseline. +1 = doubled, −1 = halved.' },
+  { term: 'Raw p-value', field: 'PValue / pval', meaning: 'The test p-value for a gene or pathway within one dataset, before adjustment for testing many features.' },
+  { term: 'FDR', field: 'FDR / padj', meaning: 'The Benjamini–Hochberg adjusted p-value across all genes or all gene sets tested within one dataset. The threshold describes the expected false-discovery rate.' },
+  { term: 'Significance stars', field: '★', meaning: 'Shorthand for the raw p-value, using the thresholds above. Stars and FDR can disagree.' },
+  { term: 'NES', field: 'NES', meaning: "Normalized enrichment score. It describes the direction and strength of a gene set's coordinated shift. Its sign follows the log2FC convention." },
+  { term: 'CPM (TMM-normalized)', field: 'cpm', meaning: "Counts per million after TMM normalization, using the normalization factors of that dataset's own edgeR fit. Shown for count data; datasets analysed from a deposited normalized matrix keep that matrix's unit." },
+  { term: '95% CI', field: 'se', meaning: "The approximate interval through a forest-plot dot, log2FC ± 1.96 × SE. It uses the standard error from that dataset's model and describes uncertainty for that dataset only." },
+];
 
 // Worked-example rows: how a cluster's ranked-gene universe size decides
 // whether GOBP_CELL_CELL_ADHESION clears the fgsea maxSize = 500 cap.
@@ -34,9 +65,12 @@ const SECTIONS = [
   { id: 'methods-de', title: 'Differential expression' },
   { id: 'methods-enrichment', title: 'Pathway enrichment' },
   { id: 'methods-units', title: 'Expression units' },
+  { id: 'methods-within', title: 'Reading the statistics within one study' },
+  { id: 'methods-across', title: 'Reading results across studies' },
   { id: 'methods-verification', title: 'Data verification and evidence' },
   { id: 'methods-macaque', title: 'Macaque single-nucleus pipeline' },
   { id: 'methods-missing', title: 'Why some macaque pathways are missing' },
+  { id: 'methods-glossary', title: 'Glossary' },
 ] as const;
 
 type SectionId = typeof SECTIONS[number]['id'];
@@ -67,6 +101,19 @@ function H3({ children }: { children: ReactNode }) {
     }}>
       {children}
     </h3>
+  );
+}
+
+function Callout({ children, tone = 'note' }: { children: ReactNode; tone?: 'note' | 'warn' }) {
+  const accent = tone === 'warn' ? UP : 'var(--accent)';
+  return (
+    <div style={{
+      borderLeft: `3px solid ${accent}`, background: 'var(--bg-panel)', borderRadius: '0 6px 6px 0',
+      padding: '10px 14px', margin: '0 0 14px', maxWidth: '70ch',
+      fontSize: 12.5, lineHeight: 1.6, color: 'var(--text-primary)', fontFamily: FONT_SANS,
+    }}>
+      {children}
+    </div>
   );
 }
 
@@ -123,7 +170,7 @@ export function MethodologyView({ onHome }: { onHome: () => void }) {
   return (
     <PageShell
       onHome={onHome}
-      breadcrumbs={[{ label: 'Methodology', current: true }]}
+      breadcrumbs={[{ label: 'Methods & statistics', current: true }]}
       mainStyle={{ overflowY: 'auto' }}
     >
       <div style={{ maxWidth: 720, width: '100%', margin: '0 auto', padding: '28px 24px 72px', boxSizing: 'border-box' }}>
@@ -131,16 +178,17 @@ export function MethodologyView({ onHome }: { onHome: () => void }) {
           fontSize: 20, fontWeight: 600, color: 'var(--text-primary)', fontFamily: FONT_HEADING,
           letterSpacing: '-0.01em', margin: '0 0 12px',
         }}>
-          Methodology
+          Methods &amp; statistics
         </h1>
 
         <P>
-          This page describes the rules that apply to every study in the collection, then the macaque
-          single-nucleus pipeline in detail. Facts that differ by study, such as groups, replicates,
-          expression unit and upstream processing, are listed in that study&apos;s Dataset info. The{' '}
+          This page describes the rules that apply to every study in the collection, how to read the
+          statistics within one study and across studies, and the macaque single-nucleus pipeline in
+          detail. Each study has its own analysis: HypoExplorer does not pool results across datasets.
+          Facts that differ by study, such as groups, replicates, expression unit and upstream
+          processing, are listed in that study&apos;s library record. The{' '}
           <a href="/methods/" style={linkStyle}>public Methods guide</a> covers source selection,
-          comparison direction and replicate units; <a href="#/statistics" style={linkStyle}>Statistics</a>{' '}
-          defines P values, FDR and significance stars; <a href="/how-to-cite/" style={linkStyle}>How to cite</a>{' '}
+          comparison direction and replicate units; <a href="/how-to-cite/" style={linkStyle}>How to cite</a>{' '}
           explains how to credit the original datasets and HypoExplorer separately.
         </P>
 
@@ -169,20 +217,9 @@ export function MethodologyView({ onHome }: { onHome: () => void }) {
             Count data are tested with edgeR&apos;s quasi-likelihood (QL) framework on TMM-normalized
             libraries. Studies available only as a deposited normalized matrix are tested with limma on
             that matrix. Consult the selected study&apos;s record rather than assuming the macaque
-            workflow applies to every dataset.
+            workflow applies to every dataset. How the explorer calls a result significant is under{' '}
+            <em>Reading the statistics within one study</em> below.
           </P>
-          <H3>Significance in the explorer</H3>
-          <Ul>
-            <Li>
-              Cross-dataset reports, gene reports and comparisons call a gene or pathway significant when
-              its Benjamini–Hochberg FDR (or fgsea adjusted P) is below {DEFAULT_FDR_CUTOFF}, with no
-              fold-change cutoff.
-            </Li>
-            <Li>
-              The volcano plot starts by highlighting raw P &lt; {volcanoP}; the threshold and metric can be
-              changed in its controls. Significance stars on plots use raw P values, not FDR.
-            </Li>
-          </Ul>
           <H3>Feature handling before testing</H3>
           <Ul>
             <Li>
@@ -233,7 +270,7 @@ export function MethodologyView({ onHome }: { onHome: () => void }) {
           <P>
             Displayed values and differential-expression statistics have different roles, and the
             collection does not share one scale. Read the unit label for the selected dataset, shown in
-            Dataset info and on chart axes and exports, before interpreting a value.
+            the study record and on chart axes and exports, before interpreting a value.
           </P>
           <table style={{ width: '100%', borderCollapse: 'collapse', margin: '4px 0 12px' }}>
             <thead>
@@ -282,7 +319,126 @@ export function MethodologyView({ onHome }: { onHome: () => void }) {
           </P>
         </Section>
 
-        {/* 5. Verification */}
+        {/* 5. Within one study (formerly the Statistics page) */}
+        <Section id="methods-within">
+          <P>
+            Each dataset was analysed independently. HypoExplorer shows both the raw p-value and the
+            adjusted p-value from that analysis.
+          </P>
+          <H3>Raw p-value</H3>
+          <P>
+            The raw p-value, <Mono>PValue</Mono> for genes or <Mono>pval</Mono> for pathways, is the test
+            result before adjustment for multiple testing. For a single pre-registered hypothesis,
+            such as a change in <Mono>IGFBP2</Mono> expression in one dataset, read the raw p-value.
+          </P>
+          <H3>FDR (Benjamini–Hochberg)</H3>
+          <P>
+            The adjusted p-value, <Mono>FDR</Mono> for genes or <Mono>padj</Mono> for pathways, accounts
+            for testing many features within one dataset, roughly 12,000–19,000 genes. Use it when
+            searching a dataset for significant results. The threshold describes the expected
+            false-discovery rate among results called significant. The family includes features
+            without a gene symbol or with an ambiguous one: they stay in the model but are not shown.
+          </P>
+          <P>
+            The display rounds q-values to 2 significant figures; exports keep the full stored precision.
+            For small pathway <Mono>padj</Mono> values, fgsea&apos;s <Mono>log2err</Mono> indicates
+            uncertainty by a factor of roughly 1.6–2.
+          </P>
+          <Callout>
+            <strong>A-priori vs discovery.</strong> Use the raw p-value for a single hypothesis named
+            in advance. Use FDR when scanning the dataset for hits.
+          </Callout>
+          <H3>Significance in the explorer</H3>
+          <Ul>
+            <Li>
+              Cross-dataset reports, gene reports and comparisons call a gene or pathway significant when
+              its Benjamini–Hochberg FDR (or fgsea adjusted P) is below {DEFAULT_FDR_CUTOFF}, with no
+              fold-change cutoff.
+            </Li>
+            <Li>
+              The volcano plot starts by highlighting raw P &lt; {volcanoP}; the threshold and metric can be
+              changed in its controls.
+            </Li>
+          </Ul>
+          <H3>Significance stars</H3>
+          <P>
+            The star marks on bar charts and tables are a shorthand for the <em>raw</em> p-value:
+          </P>
+          <table style={{ borderCollapse: 'collapse', margin: '0 0 14px' }}>
+            <thead><tr><th style={thStyle}>Mark</th><th style={thStyle}>Condition</th></tr></thead>
+            <tbody>
+              {STAR_ROWS.map((r) => (
+                <tr key={r.star}>
+                  <td style={{ ...tdStyle, fontWeight: 700 }}>{r.star}</td>
+                  <td style={tdStyle}>{r.cond}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <Callout tone="warn">
+            <strong>Stars use the raw p-value.</strong> A gene can show <Mono>***</Mono> yet fail
+            FDR &lt; 0.05 after correction across the dataset. This is common with small sample sizes.
+            Check FDR before treating an exploratory result as significant.
+          </Callout>
+          <H3>Direction and effect size</H3>
+          <P>
+            Effect size is the <Mono>log2FC</Mono>. Throughout the explorer, <span style={{ color: UP, fontWeight: 600 }}>red is up in the case / HFD condition</span> and{' '}
+            <span style={{ color: DOWN, fontWeight: 600 }}>blue is down toward the baseline</span>. Colour is
+            always paired with the sign and a text label, never used alone.
+          </P>
+        </Section>
+
+        {/* 6. Across studies (formerly the Statistics page) */}
+        <Section id="methods-across">
+          <P>
+            Search and the gene and pathway reports show results for a gene or pathway across datasets.
+            Each result retains its study&apos;s effect size, p-value and adjusted p-value. These views
+            align the results for comparison without calculating a pooled effect, pooled p-value or
+            cross-dataset q-value.
+          </P>
+          <H3>Why there is no pooled number</H3>
+          <P>
+            Pooling assumes the studies estimate the same thing. These do not. The collection spans multiple
+            species; bulk RNA-seq alongside single-nucleus and spatial data; whole hypothalamus alongside
+            dissected nuclei and sorted cell populations; and perturbations as different as a 16-hour fast,
+            a high-fat diet, a knockout and a drug. Two studies filed under the same heading can still
+            differ in dose, duration, age, sex and baseline. A pooled estimate would obscure those
+            differences. Categories group related studies for browsing; they do not establish that
+            the studies estimate the same effect.
+          </P>
+          <Callout tone="warn">
+            <strong>A significant-dataset count is a tally.</strong> The report&apos;s
+            &quot;significant in N of M datasets&quot; line counts per-dataset results. Each FDR applies
+            within its own dataset, so some results across a hundred-plus datasets will pass{' '}
+            <Mono>FDR &lt; 0.05</Mono> by chance. The tally does not test significance across datasets.
+            Inspect the direction, magnitude and study design behind each result, including disagreements.
+          </Callout>
+          <Callout tone="warn">
+            <strong>Search and the gene and pathway reports also list nominal results.</strong> They
+            list every track with raw <Mono>p &lt; 0.05</Mono> and label the ones that also pass{' '}
+            <Mono>FDR &lt; 0.05</Mono>. The others are marked <Mono>p &lt; 0.05 only</Mono>: they are
+            not corrected for the thousands of genes or pathways each study tested, nor for the many
+            tracks searched, so a share of them are expected by chance. The significant counts and
+            the pathway follow-up count only the FDR results. Set <Mono>List</Mono> to{' '}
+            <Mono>FDR (q &lt; 0.05)</Mono> on any of these pages to list the FDR results alone; the
+            choice is remembered in this browser.
+          </Callout>
+          <Callout>
+            <strong>The macaque atlas is one study.</strong> Its ~60 cell populations come from the same
+            6 animals, 3 Normal and 3 Obese. Separate tracks show cell-type-specific effects.
+            They are not 60 independent replications.
+          </Callout>
+          <H3>The compare set</H3>
+          <P>
+            The compare set shows selected studies or populations in columns. Each column names its
+            contrast and replicate counts, uses its study&apos;s expression unit, and shows that
+            study&apos;s p-values and FDR. The <Mono>Sig (tally)</Mono> column counts results passing{' '}
+            <Mono>FDR &lt; 0.05</Mono> by direction. It does not combine them into a statistical test.
+            Populations from the same study share animals, as noted on the page.
+          </P>
+        </Section>
+
+        {/* 7. Verification */}
         <Section id="methods-verification">
           <P>
             Separate pipeline QC, experimental design and author concordance badges show processing checks,
@@ -378,6 +534,35 @@ export function MethodologyView({ onHome }: { onHome: () => void }) {
           <div style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: FONT_SANS, lineHeight: 1.5 }}>
             e33 drops the term with fewer detected genes than i15, which keeps it at 496. Across clusters
             that keep the term, several sizes sit just below the cutoff, at 477, 482, 496 and 497.
+          </div>
+        </Section>
+
+        {/* 10. Glossary (formerly the Statistics page) */}
+        <Section id="methods-glossary">
+          <div style={{ overflowX: 'auto', margin: '4px 0 8px' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+              <thead>
+                <tr>
+                  <th style={thStyle}>Term</th>
+                  <th style={thStyle}>Field</th>
+                  <th style={thStyle}>What it means</th>
+                </tr>
+              </thead>
+              <tbody>
+                {GLOSSARY.map((g) => (
+                  <tr key={g.term}>
+                    <td style={{ ...tdStyle, fontFamily: FONT_SANS, fontWeight: 600, whiteSpace: 'nowrap' }}>{g.term}</td>
+                    <td style={{ ...tdStyle, fontFamily: FONT_MONO }}>{g.field}</td>
+                    <td style={{ ...tdStyle, fontFamily: FONT_SANS }}>{g.meaning}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: FONT_SANS, lineHeight: 1.5 }}>
+            Every gene and pathway statistic here is computed upstream in R (edgeR / limma for genes, fgsea for
+            pathways, Benjamini–Hochberg within each dataset) and read out of that dataset&apos;s own bundle.
+            The cross-dataset views display and arrange those numbers; they do not compute new ones.
           </div>
         </Section>
       </div>

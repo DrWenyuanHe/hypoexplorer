@@ -20,7 +20,6 @@ import { QCTab } from './qc/QCTab';
 import { PopWarningBadge } from './common/PopWarningBadge';
 import { ChangelogTab } from './changelog/ChangelogTab';
 import { MethodologyView } from './methodology/MethodologyView';
-import { DataSourcesTab } from './acknowledgements/DataSourcesTab';
 import { UpdateModal } from './pwa/UpdateModal';
 import { VersionBadge } from './pwa/VersionBadge';
 import { LoadingOverlay } from './common/LoadingOverlay';
@@ -46,9 +45,7 @@ import { SearchPage } from './search/SearchPage';
 import { useCategoryScope } from './crossdataset/forestReport';
 import { useChartScale, setChartScale } from './common/chartScaleStore';
 import { ShareAnalysisButton } from './common/ShareAnalysisButton';
-import { CrossDatasetCompare } from './crossdataset/CrossDatasetCompare';
 import { DatasetTrackerView } from './dataset-tracker/DatasetTrackerView';
-import { StatisticsView } from './statistics/StatisticsView';
 import { VerificationView } from './verification/VerificationView';
 import { DatasetVerificationContext } from './common/DatasetVerificationContext';
 import { NomenclatureView } from './nomenclature/NomenclatureView';
@@ -244,11 +241,10 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
     goHome, enterTool, enterExplorer,
     searchGene: searchGeneFromHub,
     searchPathway: searchPathwayFromHub,
-    compareDatasets,
-    openTracker, openInExplorer, openStatistics, openMethodology, openVerification, openNomenclature, openExpression,
+    openTracker, openInExplorer, openMethodology, openVerification, openNomenclature, openExpression,
     openLibrary, setLibraryDataset, setLibraryCategories, libraryDatasetId, libraryCategories,
     compareSetItems, openCompareSet, setCompareSetItems,
-    geneAnalysis, pathwayAnalysis, setGeneAnalysis, setPathwayAnalysis, setReportScope, setReportGene,
+    geneAnalysis, pathwayAnalysis, setGeneAnalysis, setPathwayAnalysis, setReportScope,
     searchQuery, searchFilter, search, setSearchFilter,
   } = useAppRouter(initialView, explorerNav, explorerAt);
 
@@ -383,7 +379,6 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
         onStudyFiltersChange={setGeneStudyFilters}
         onHome={goHome}
         onSearchGene={searchGeneFromHub}
-        onCompareDatasets={compareDatasets}
         onOpenDataset={openInExplorer}
         onShowPathway={(pathwayId) => search(pathwayId, 'all')}
         onOpenPathway={(pathwayId) => searchPathwayFromHub(pathwayId)}
@@ -445,20 +440,6 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
     );
   }
 
-  // ── Cross-dataset expression Compare (side-by-side bars) ────────────
-  if (view === 'compare-datasets') {
-    return (
-      <>
-        <UpdateModal />
-        <ErrorBoundary key="compare-datasets">
-          <CrossDatasetCompare gene={reportGene ?? ''} scope={reportScope} datasetScope={geneDatasetScope}
-            studyFilters={geneStudyFilters} onScopeChange={setReportScope} onGeneChange={setReportGene}
-            onHome={goHome} onShowReport={(gene) => searchGeneFromHub(gene, reportScope)} />
-        </ErrorBoundary>
-      </>
-    );
-  }
-
   // ── Dataset Tracker (cross-dataset coverage view; read-only on the public
   //    site, review-editable under the dev server) ──────────────────────
   if (view === 'tracker') {
@@ -472,17 +453,6 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
     );
   }
 
-  // ── Statistics explainer (dataset-agnostic reference page) ──────────
-  if (view === 'statistics') {
-    return (
-      <>
-        <UpdateModal />
-        <ErrorBoundary key="statistics">
-          <StatisticsView onHome={goHome} />
-        </ErrorBoundary>
-      </>
-    );
-  }
 
   if (view === 'methodology') {
     return (
@@ -583,7 +553,6 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
           onSearch={searchFromHub}
           onOpenTracker={openTracker}
           onOpenLibrary={(categories) => openLibrary({ categories })}
-          onOpenStatistics={openStatistics}
           onOpenMethodology={openMethodology}
           onOpenVerification={openVerification}
           onOpenNomenclature={openNomenclature}
@@ -685,7 +654,7 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
                 border: '1px solid var(--border-dark)', borderRadius: 6,
                 color: 'var(--text-mono)', textDecoration: 'none', fontFamily: FONT_SANS,
               }}>
-              Methodology
+              Methods
             </a>
             <button type="button" onClick={() => setShowChangelog((c) => !c)}
               style={{
@@ -1078,10 +1047,6 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
                       initialGene={geneSelection.genes[0]}
                     />
                   </ErrorBoundary>
-                ) : activeTab === 'datasources' ? (
-                  <ErrorBoundary key="datasources">
-                    <DataSourcesTab onOpenTracker={openTracker} />
-                  </ErrorBoundary>
                 ) : (
                   <ErrorBoundary key={`pathway-${activeTrackId}`}>
                     <PathwayExplorerTab
@@ -1124,11 +1089,7 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
           contrasts={datasetContrasts}
           activeContrast={contrast}
           onClose={() => setShowDatasetInfo(false)}
-          onOpenDataSources={() => {
-            setShowDatasetInfo(false);
-            // A named tab leaves Compare by itself (the explorer position's rule).
-            selectTab('datasources');
-          }}
+          onOpenMethods={() => { setShowDatasetInfo(false); openMethodology(); }}
           onOpenTracker={(acc) => { setShowDatasetInfo(false); openTracker(acc ?? null); }}
         />
       )}

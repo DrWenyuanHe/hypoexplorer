@@ -429,8 +429,6 @@ interface GeneReportProps {
   onHome: () => void;
   /** Search a gene, carrying the scope it was searched under. */
   onSearchGene: (gene: string, scope?: DatasetCategory[] | null) => void;
-  /** Open the side-by-side expression Compare for this gene + the current category scope. */
-  onCompareDatasets?: (gene: string, scope: DatasetCategory[] | null, datasetIds: string[]) => void;
   /** Open a dataset (optionally at one track) in the explorer — the report's in-app links. */
   onOpenDataset?: OpenDataset;
   /** Show a pathway's search summary; with onOpenPathway, enables the pathways-in-these-conditions card. */
@@ -453,7 +451,7 @@ async function querySelectedGene(key: string, options: { onProgress: (loaded: nu
 export function GeneReport({
   gene, scope, onScopeChange, datasetScope = null, onDatasetScopeChange,
   studyFilters, onStudyFiltersChange,
-  onHome, onSearchGene, onCompareDatasets, onOpenDataset, onShowPathway, onOpenPathway, onOpenExpression, headerRight,
+  onHome, onSearchGene, onOpenDataset, onShowPathway, onOpenPathway, onOpenExpression, headerRight,
 }: GeneReportProps) {
   const [query, setQuery] = useState(gene);
   const categories = useCategoryScope(scope, onScopeChange);
@@ -536,14 +534,6 @@ export function GeneReport({
               aria-label="Search another gene" placeholder="Search another gene…"
               style={{ width: '100%', height: 38, padding: '0 12px 0 34px', fontSize: 13, fontFamily: 'inherit', border: '1px solid var(--border-dark)', borderRadius: 'var(--r-lg)', background: 'var(--bg-panel)', outline: 'none', color: 'var(--text-primary)' }} />
           </div>
-          {onCompareDatasets && (
-            <button type="button" disabled={awaitingCounts || selectedDatasets.length === 0}
-              onClick={() => onCompareDatasets(gene, currentScope(), selectedDatasets.map((dataset) => dataset.id))}
-              title="Compare this gene's expression side by side across datasets"
-              style={{ fontSize: 12, padding: '8px 13px', border: '1px solid var(--border-dark)', borderRadius: 'var(--r-lg)', background: 'var(--bg-panel)', color: 'var(--text-mono)', cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap' }}>
-              Compare as bars →
-            </button>
-          )}
         </div>
 
         {/* Where the gene is expressed, before how it changes. */}

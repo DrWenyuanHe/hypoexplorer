@@ -34,7 +34,6 @@ describe('explorer position: selecting a track', () => {
     ['gene', 'gene'],
     ['pathway', 'pathway'],
     ['qc', 'gene'],
-    ['datasources', 'gene'],
   ] as const)('from the %s tab lands on %s, resets the track and loads it', (from, to) => {
     const t = go(at(MACAQUE, 'e9', from), { type: 'track', trackId: 'i23' });
     expect(t.position.focus).toEqual({ kind: 'track', trackId: 'i23', tab: to });
@@ -50,7 +49,7 @@ describe('explorer position: selecting a track', () => {
   });
 
   it('re-selecting the current track on a dataset-scoped tab shows the Gene Explorer without a reset', () => {
-    for (const tab of ['qc', 'datasources'] as const) {
+    for (const tab of ['qc'] as const) {
       const t = go(at(MACAQUE, 'e9', tab), { type: 'track', trackId: 'e9' });
       expect(t.position.focus).toEqual({ kind: 'track', trackId: 'e9', tab: 'gene' });
       expect(t.reset).toBeNull();

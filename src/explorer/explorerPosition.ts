@@ -21,7 +21,7 @@
 //
 // The rules, stated once:
 //   * Selecting a track keeps a TRACK-scoped tab the new track offers; a
-//     DATASET-scoped tab (QC, Data Sources) goes to the Gene Explorer, because
+//     DATASET-scoped tab (QC) goes to the Gene Explorer, because
 //     the click is a request to see that track (explorerTabs' explorerTabScope).
 //   * Opening a dataset from outside the explorer (tracker, report row, library,
 //     deep link) lands on the Gene Explorer unless a tab is named.

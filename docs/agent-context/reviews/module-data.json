@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "293f334130b7ec25edc3c4534227f0137afde47ba50ab2138d1f34eaf165750e",
+  "fingerprint": "402f1a1cbb9a4e4925cefba68036db7a39bdf01feeef3915cbc0ccac05da5699",
   "outcome": "updated",
-  "explanation": "From this branch: expressionUnits.ts gains resolveExpressionUnit, the one spelling of the registry-first unit rule, which buildPopData and the Node bundle reader share; browser behaviour is unchanged. From main (#35): src/data/queryWire.ts owns the query-index wire format (names, envelopes, row codecs, trackEntry with qcFlags lowPower) and queryIndex.ts is its read adapter; crossDataset readers decode rows through it with unchanged bytes.",
+  "explanation": "crossDatasetCompare.ts, the expression-index loader used only by the retired compare view, is deleted. queryIndex.ts keeps loadExprRows because the build still publishes the expr family. trackColumns.ts and trackData.ts only reword comments that named CrossDatasetCompare.",
   "references": [
-    "src/data/expressionUnits.ts",
-    "src/data/buildPopData.ts",
-    "src/data/queryWire.ts",
     "src/data/queryIndex.ts",
-    "CONTEXT.md"
+    "src/data/trackColumns.ts",
+    "src/data/trackData.ts",
+    "scripts/build_query_index.mts"
   ]
 }
