@@ -27,7 +27,8 @@ import {
 } from './searchLanding';
 import { useStudySelection, GeneStudySuggestions as StudySuggestions, type GeneStudyFilters } from './geneStudyScope';
 import { PageShell } from '../common/PageShell';
-import { DEFAULT_FDR_CUTOFF, NOMINAL_P_CUTOFF, significanceTier, type SignificanceTier } from '../statistics/policy';
+import { DEFAULT_FDR_CUTOFF, NOMINAL_P_CUTOFF } from '../statistics/policy';
+import { PATHWAY_KEYS, listCrossStudy } from '../statistics/crossStudyListing';
 import { TierLabel } from '../search/portalCards';
 import { useListingMode } from '../statistics/listingModeStore';
 import { ListingModeToggle, QTerm } from '../statistics/ListingModeToggle';
@@ -38,21 +39,6 @@ function fmtNes(nes: number): string {
   return fmtSigned(nes, 2);
 }
 
-/**
- * The row's tier. `track.significant` is the row builder's FDR call, so the
- * tier agrees with it by construction and adds the nominal raw-p tier beneath.
- */
-function tierOf(track: PathwayTrackRow): SignificanceTier {
-  return track.significant ? 'fdr' : significanceTier(null, track.pval);
-}
-
-const TIER_RANK: Record<SignificanceTier, number> = { fdr: 0, nominal: 1, none: 2 };
-
-/** FDR survivors, then nominal tracks, then the rest; each by |NES|, the forest's own order. */
-function byTierThenEffect(a: PathwayTrackRow, b: PathwayTrackRow): number {
-  return TIER_RANK[tierOf(a)] - TIER_RANK[tierOf(b)] || Math.abs(b.NES) - Math.abs(a.NES);
-}
-
 // One NES forest row on a shared zero-centered axis. Point-only by design (no
 // CI whisker): fgsea reports no SE for NES, so the dot
 // stands alone rather than implying an interval we don't have.
@@ -60,7 +46,7 @@ function ForestRow({ track, bound, group, pathway }: { track: PathwayTrackRow; b
   const pct = axisPct(track.NES, bound);
   const color = directionColor(track.direction, track.significant);
   return (
-    <div className="report-forest-row" data-tier={tierOf(track)} style={{ display: 'grid', gridTemplateColumns: FOREST_GRID, alignItems: 'center', gap: 12, padding: '5px 8px', borderBottom: '1px solid var(--border)', fontSize: 12 }}>
+    <div className="report-forest-row" data-tier={track.tier} style={{ display: 'grid', gridTemplateColumns: FOREST_GRID, alignItems: 'center', gap: 12, padding: '5px 8px', borderBottom: '1px solid var(--border)', fontSize: 12 }}>
       <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, minWidth: 0 }}>
         <a href={datasetHref(group.dataset.id, track.trackId, 'pathway')} title={`Open ${track.trackId} in the pathway explorer`}
           style={{ fontFamily: FONT_MONO, color: 'var(--accent)', minWidth: 34, textDecoration: 'underline dotted', textUnderlineOffset: 2 }}>{track.trackId}</a>
@@ -79,7 +65,7 @@ function ForestRow({ track, bound, group, pathway }: { track: PathwayTrackRow; b
       <span style={{ fontFamily: FONT_MONO, textAlign: 'right', color: 'var(--text-mono)' }}>{fmtFDR(track.padj)}</span>
       {/* The call, in the words the search portal and the gene report use. The
           direction is the NES sign beside it and the dot's side of zero. */}
-      <span style={{ justifySelf: 'end' }}><TierLabel tier={tierOf(track)} /></span>
+      <span style={{ justifySelf: 'end' }}><TierLabel tier={track.tier} /></span>
     </div>
   );
 }
@@ -103,22 +89,27 @@ function AxisHeader({ bound }: { bound: number }) {
 }
 
 function DatasetBlock({ group, bound, pathway }: { group: PathwayDatasetGroup; bound: number; pathway: string }) {
-  const byEffect = useMemo(() => group.tracks.slice().sort((a, b) => Math.abs(b.NES) - Math.abs(a.NES)), [group.tracks]);
-  const ordered = useMemo(() => byEffect.slice().sort(byTierThenEffect), [byEffect]);
-  const significant = byEffect.filter((track) => track.significant);
-  const nominalMode = useListingMode() === 'nominal';
-  // The order rows list in: FDR survivors, then (p < 0.05 listing) nominal tracks.
-  const listOrder = nominalMode ? ordered : byEffect;
-  // What the block leads with: the FDR survivors and, in the p < 0.05 listing,
-  // the nominal tracks after them, labelled.
-  const lead = nominalMode ? ordered.filter((track) => tierOf(track) !== 'none') : significant;
-  const nominal = lead.length - significant.length;
+  const mode = useListingMode();
+  const nominalMode = mode === 'nominal';
+  // The forest's order, by |NES| within each tier band. What the block leads
+  // with: the FDR survivors and, in the p < 0.05 listing, the nominal tracks
+  // after them, labelled.
+  const listing = useMemo(() => listCrossStudy([group], mode, PATHWAY_KEYS, 'effect'), [group, mode]);
+  const lead = useMemo(() => listing.lead.map((row) => row.track), [listing]);
+  const listOrder = useMemo(() => [...lead, ...listing.rest.map((row) => row.track)], [lead, listing]);
+  const { measured, fdr: significant } = listing.tracks;
+  const nominal = listing.nominal?.tracks ?? 0;
+  // A short block shows every track; a longer one leads and folds the rest.
   const shown = listOrder.length <= 3 ? listOrder : lead;
   const hidden = listOrder.length - shown.length;
-  const strongest = significant[0] ?? byEffect[0];
+  // The folded header names a discovery, so it stays on the FDR call in both
+  // modes: the largest |NES| among the survivors (they list first), or among
+  // every track when none survives.
+  const strongest = (listOrder[0]?.tier === 'fdr' ? listOrder[0] : undefined)
+    ?? group.tracks.reduce<PathwayTrackRow | undefined>((best, t) => (!best || Math.abs(t.NES) > Math.abs(best.NES) ? t : best), undefined);
   // Null until the reader folds or opens it, so a mode switch re-derives the default.
   const [openPick, setOpen] = useState<boolean | null>(null);
-  const open = openPick ?? (lead.length > 0 || byEffect.length <= 3);
+  const open = openPick ?? (lead.length > 0 || measured <= 3);
   const [showAll, setShowAll] = useState(false);
   const compareSet = useCompareSet();
   const item = { datasetId: group.dataset.id, trackId: group.dataset.defaultTrack };
@@ -132,7 +123,7 @@ function DatasetBlock({ group, bound, pathway }: { group: PathwayDatasetGroup; b
           <span className="report-dataset-name">{group.dataset.name}</span>
           <span className="report-dataset-comparison">{contrastLabel(group.contrast)}</span>
           <span className="report-dataset-summary">
-            {byEffect.length} track{byEffect.length === 1 ? '' : 's'} · {significant.length} significant
+            {measured} track{measured === 1 ? '' : 's'} · {significant} significant
             {nominal > 0 && <> · {nominal} at p &lt; {NOMINAL_P_CUTOFF} only</>}
             {!open && strongest && <span style={{ color: directionColor(strongest.direction, strongest.significant) }}> · strongest {fmtNes(strongest.NES)}</span>}
           </span>
@@ -150,7 +141,7 @@ function DatasetBlock({ group, bound, pathway }: { group: PathwayDatasetGroup; b
         {(showAll ? listOrder : shown).map((track) => <ForestRow key={track.trackId} track={track} bound={bound} group={group} pathway={pathway} />)}
         {shown.length === 0 && !showAll && <div style={{ padding: '6px 8px', fontSize: 12, color: 'var(--text-muted)' }}>
           {group.error ? 'Could not load this dataset.'
-            : byEffect.length === 0 ? 'Pathway not present in any track.'
+            : measured === 0 ? 'Pathway not present in any track.'
               : nominalMode ? `No track at p < ${NOMINAL_P_CUTOFF}. Show the full list below.` : 'No significant tracks. Show the full list below.'}
         </div>}
         {hidden > 0 && <button type="button" className="report-show-tracks" aria-expanded={showAll} onClick={() => setShowAll((value) => !value)}>
@@ -159,7 +150,7 @@ function DatasetBlock({ group, bound, pathway }: { group: PathwayDatasetGroup; b
             ? nominalMode
               ? `Show only the ${lead.length} track${lead.length === 1 ? '' : 's'} at p < ${NOMINAL_P_CUTOFF}`
               : `Show only the ${lead.length} significant track${lead.length === 1 ? '' : 's'}`
-            : `Show all ${byEffect.length} tracks`}
+            : `Show all ${measured} tracks`}
           {!showAll && <span style={{ color: 'var(--text-muted)' }}> ({hidden} {nominalMode ? <>not at p &lt; {NOMINAL_P_CUTOFF}</> : 'not significant'})</span>}
         </button>}
       </div>
@@ -168,12 +159,13 @@ function DatasetBlock({ group, bound, pathway }: { group: PathwayDatasetGroup; b
 }
 
 function CategorySection({ category, groups, bound, pathway, forceOpen }: { category: DatasetCategory; groups: PathwayDatasetGroup[]; bound: number; pathway: string; forceOpen: boolean }) {
-  const significant = groups.filter((group) => group.tracks.some((track) => track.significant)).length;
-  const nominalMode = useListingMode() === 'nominal';
-  // Datasets whose best track is nominal: one or more at p < 0.05, none passing
-  // FDR. Counted only in the p < 0.05 listing.
-  const nominalOnly = nominalMode ? groups.filter((group) => !group.tracks.some((track) => track.significant)
-    && group.tracks.some((track) => tierOf(track) === 'nominal')).length : 0;
+  const mode = useListingMode();
+  // Datasets with a significant track, and (p < 0.05 listing only) datasets
+  // whose best track is nominal. The header's denominator stays every selected
+  // dataset in the category, measured or not.
+  const { datasets, nominal } = useMemo(() => listCrossStudy(groups, mode, PATHWAY_KEYS, 'effect'), [groups, mode]);
+  const significant = datasets.fdr;
+  const nominalOnly = nominal?.datasets ?? 0;
   // Null until the reader folds or opens it, so a mode switch re-derives the default.
   const [openPick, setOpen] = useState<boolean | null>(null);
   const open = openPick ?? significant + nominalOnly > 0;
@@ -284,21 +276,15 @@ export function PathwayReport({
   );
   const visibleGroups = useMemo(() => visibleCategorized.flatMap((c) => c.groups), [visibleCategorized]);
 
-  const nominalMode = useListingMode() === 'nominal';
-
   // Counted over the VISIBLE groups, not over every group in the result. A
   // headline that tallies datasets the scope controls just hid is a claim about
   // a survey the reader is not looking at.
+  const listingMode = useListingMode();
   const summary = useMemo(() => {
     if (!result) return null;
-    let sigTracks = 0, up = 0, down = 0, nTracks = 0, nominalTracks = 0;
-    for (const g of visibleGroups) for (const t of g.tracks) {
-      nTracks++;
-      if (t.significant) { sigTracks++; if (t.direction === 'up') up++; else if (t.direction === 'down') down++; }
-      else if (tierOf(t) === 'nominal') nominalTracks++;
-    }
-    return { sigTracks, up, down, nTracks, nominalTracks };
-  }, [result, visibleGroups]);
+    const { tracks, nominal } = listCrossStudy(visibleGroups, listingMode, PATHWAY_KEYS, 'effect');
+    return { sigTracks: tracks.fdr, up: tracks.up, down: tracks.down, nTracks: tracks.measured, nominalTracks: nominal?.tracks ?? 0 };
+  }, [result, visibleGroups, listingMode]);
 
   const scopeControls = (
     <>
@@ -365,13 +351,13 @@ export function PathwayReport({
                     {summary.sigTracks > 0 ? (
                       <>. <span style={{ color: UP, fontWeight: 600 }}>{summary.up} up</span> · <span style={{ color: DOWN, fontWeight: 600 }}>{summary.down} down</span>.</>
                     ) : '.'}
-                    {nominalMode && summary.nominalTracks > 0 && (
+                    {summary.nominalTracks > 0 && (
                       <span className="portal-cutoff"> {summary.nominalTracks} more {summary.nominalTracks === 1 ? 'track reaches' : 'tracks reach'} p &lt; {NOMINAL_P_CUTOFF} only.</span>
                     )}
                   </div>
                   <ListingModeToggle />
                 </div>
-                {nominalMode && summary.nominalTracks > 0 && (
+                {summary.nominalTracks > 0 && (
                   <p className="portal-note" style={{ maxWidth: '72ch', margin: '0 0 8px' }}>
                     Tracks marked <i>p &lt; {NOMINAL_P_CUTOFF} only</i> do not pass FDR. They are not corrected for testing many
                     pathways and tracks, so some are expected by chance.

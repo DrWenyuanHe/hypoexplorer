@@ -105,6 +105,22 @@ describe('pathway result study cards', () => {
     expect(legend.title).toMatch(/FDR-adjusted p-value/);
   });
 
+  it('lists the FDR survivors first in FDR mode, even under "Show all" beside a larger non-significant score', async () => {
+    query.mockResolvedValue({ pathway, total: 6, loaded: 6, groups: [
+      { dataset: macaque, contrast: getActiveContrast(macaque), tracks: [
+        track('i23', false, { NES: 3.1 }), track('e9', true), track('e1'), track('e2'), track('e3'),
+      ] },
+      { dataset: mouse, contrast: getActiveContrast(mouse), tracks: [track(mouse.defaultTrack, true)] },
+    ] } satisfies CrossDatasetPathwayReport);
+    const { container } = mount();
+    await screen.findByText(macaque.name);
+    fireEvent.click(screen.getByRole('button', { name: 'FDR (q < 0.05)' }));
+    fireEvent.click(screen.getByRole('button', { name: /Show all 5 tracks/ }));
+    const macaqueRows = [...container.querySelectorAll<HTMLElement>('.report-forest-row')]
+      .filter((r) => r.closest('.report-dataset')?.textContent?.includes(macaque.name));
+    expect(macaqueRows.map((r) => r.querySelector('a')?.textContent)).toEqual(['e9', 'i23', 'e1', 'e2', 'e3']);
+  });
+
   it('adds studies to the shared cart and compares them through the header', async () => {
     const onCompare = vi.fn();
     mount(onCompare);
