@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-hub",
-  "fingerprint": "54005f7af3b0e493bcaa93ea6e54081eca68810d42772edd6e9ea5368060a5f6",
+  "fingerprint": "b7945dca127154f8dc2a9025c8ec11d99ea4dcbd09a6ae9379a28fc165ae14ff",
   "outcome": "updated",
-  "explanation": "The More tools section and the footer Explore row drop the Explore Local Datasets entry and the onOpenLocalDatasets handler; Dataset tracker is the only supporting tool. The hero drops the tagline under the logo; index.html removes the hub-tagline and hub-search-kbd styles and widens the logo margin. The macaque atlas card from main is unchanged.",
+  "explanation": "The hub nav drops its Genes and Pathways buttons and the onOpenSearch prop that opened the search dialog; hubSections drops the unrendered Gene & Pathway Explorer item, leaving two primary tools. HubSearch is now the hub's only gene and pathway search and its header comment says so.",
   "references": [
     "src/hub/LandingHub.tsx",
-    "index.html",
-    "src/utils/appLinks.ts"
+    "src/hub/HubSearch.tsx",
+    "docs/agent-context/workflows.md"
   ]
 }

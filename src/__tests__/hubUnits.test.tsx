@@ -33,7 +33,6 @@ beforeEach(() => {
 
 const handlers = () => ({
   onEnterTool: vi.fn(),
-  onOpenSearch: vi.fn(),
   onSearch: vi.fn(),
   onOpenExpression: vi.fn(),
   onOpenTracker: vi.fn(),
@@ -61,7 +60,6 @@ describe('hub search box', () => {
     fireEvent.change(searchBox(form), { target: { value: '  oxytocin ' } });
     fireEvent.click(within(form).getByRole('button', { name: 'Search' }));
     expect(h.onSearch).toHaveBeenCalledWith('oxytocin');
-    expect(h.onOpenSearch).not.toHaveBeenCalled();
   });
 
   it('does nothing with an empty term', () => {
@@ -69,7 +67,6 @@ describe('hub search box', () => {
     fireEvent.change(searchBox(form), { target: { value: '   ' } });
     fireEvent.submit(form);
     expect(h.onSearch).not.toHaveBeenCalled();
-    expect(h.onOpenSearch).not.toHaveBeenCalled();
   });
 
   it('has one box for genes and pathways: no mode switch and no filter button', () => {
@@ -137,13 +134,10 @@ describe('hub routes', () => {
     expect(screen.queryByRole('button', { name: 'Compare cell populations' })).toBeNull();
   });
 
-  it('opens each side of the search dialog from the section nav', () => {
+  it('keeps the section nav to library, survey and methods; search is the hub box', () => {
     const { h } = renderHub();
     const nav = screen.getByRole('navigation', { name: 'Sections' });
-    fireEvent.click(within(nav).getByRole('button', { name: 'Genes' }));
-    expect(h.onOpenSearch).toHaveBeenLastCalledWith('gene');
-    fireEvent.click(within(nav).getByRole('button', { name: 'Pathways' }));
-    expect(h.onOpenSearch).toHaveBeenLastCalledWith('pathway');
+    expect(within(nav).getAllByRole('button').map((b) => b.textContent)).toEqual(['Library', 'Survey', 'Methods']);
     fireEvent.click(within(nav).getByRole('button', { name: 'Methods' }));
     expect(h.onOpenMethodology).toHaveBeenCalledTimes(1);
     expect(h.onEnterTool).not.toHaveBeenCalled();

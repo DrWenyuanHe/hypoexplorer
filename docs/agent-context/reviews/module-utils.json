@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-utils",
-  "fingerprint": "dd677eca2fbce22f23946567055353989a0c9e40b37cb1e63298d76d99497f5f",
+  "fingerprint": "fe21dbebf5918169c6a14f3536f7259f7a36a9c0e6e48fcfe3ead66329c6dc46",
   "outcome": "updated",
-  "explanation": "appLinks no longer routes #/local-datasets, and exportProvenance drops LocalExportSource, localExportName, PUBLIC_COPY_SOURCE_PREFIX and localExportProvenance; provenanceRows and metadataSheet now take only registry ExportProvenance. Registry export kinds and CSV provenance columns are unchanged.",
+  "explanation": "AppRoute report and pathway-report terms become string. isRetiredSearchLanding recognizes the retired #/gene, #/gene/in/<cats> and #/pathway landings, with or without a saved analysis, and parseRoute maps them to the empty search page; routeHref drops the term-less branches. #/gene/in still parses as a gene named \"in\".",
   "references": [
     "src/utils/appLinks.ts",
-    "src/utils/exportProvenance.ts",
-    "src/utils/analysisState.ts"
+    "src/__tests__/appRoutes.test.ts"
   ]
 }

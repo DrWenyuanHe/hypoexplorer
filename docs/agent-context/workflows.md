@@ -320,15 +320,14 @@ the table. This tail is a display ranking aid, not a calibrated biological
 significance test across independent samples. The base rate is on the rows,
 not in `tracks.js`, to keep the
 manifest small; `--check` compares the rows, counts included, exactly. Full
-reports stay one click away. The nav's Genes and Pathways open
-`ExplorerSearchDialog` over the hub on that side, where study filters live.
-Genes and Pathways tabs inside the dialog switch between the two
-searches and update the route; empty `#/gene` and `#/pathway` links open the
-dialog on that side. Each side mounts when first shown and stays mounted, hidden,
-until the dialog closes, so typed terms and category picks survive a switch. The
-shared Modal focuses the search input and handles focus trapping, Close, Escape,
-backdrop dismissal and focus restoration. Only a submitted, nonempty search opens
-the full results view, carrying the selected study filters.
+reports stay one click away. The hub's search box is its only gene and pathway
+search; the hub nav has no separate Genes or Pathways entrance. A report always
+names its term (`#/gene/<symbol>`, `#/pathway/<id>`) and carries its study
+filters in a collapsed Study filters section. The term-less `#/gene`,
+`#/gene/in/<cats>` and `#/pathway` landings are retired:
+`isRetiredSearchLanding` in `src/utils/appLinks.ts` sends them, with or without
+a saved `?analysis=`, to the empty results page (`#/search`), and the router
+replaces such a history entry rather than stacking it.
 
 Study selection is coordinated by `useStudySelection` in
 `src/crossdataset/geneStudyScope.tsx`. GeneReport, PathwayReport and

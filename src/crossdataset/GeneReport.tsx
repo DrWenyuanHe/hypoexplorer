@@ -1,6 +1,6 @@
 import { useState, useEffect, useId, useMemo, useCallback } from 'react';
 import type { Dispatch, MouseEvent, ReactNode, SetStateAction } from 'react';
-import { queryGeneAcrossDatasets, loadGeneIndex } from '../data/crossDataset';
+import { queryGeneAcrossDatasets } from '../data/crossDataset';
 import { datasetCategory, DATASET_CATEGORIES, listDatasets } from '../data/datasets';
 import type { DatasetCategory } from '../data/datasets';
 import { datasetHref, libraryHref, isPlainLeftClick } from '../utils/appLinks';
@@ -9,7 +9,7 @@ import { FONT_MONO, UP_TEXT_COLOR as UP, DOWN_TEXT_COLOR as DOWN } from '../styl
 import { useReportQuery, useCategoryScope, ReportLoading } from './forestReport';
 import { categoryColor } from '../library/LibraryToolbar';
 import {
-  SearchHero, DatasetScopePanel, ScopeSummary, useSearchIndex, NOOP_SCOPE,
+  DatasetScopePanel, ScopeSummary, NOOP_SCOPE,
 } from './searchLanding';
 import { useStudySelection, GeneStudySuggestions, type GeneStudyFilters } from './geneStudyScope';
 import { PageShell } from '../common/PageShell';
@@ -37,9 +37,7 @@ import type {
 // Dataset details live in the library record; tracks can be saved to the
 // shared compare set. Expression previews load their track only when requested.
 //
-// With no gene, this draws the search and scope controls; App shows them in the
-// shared gene and pathway search dialog over the hub.
-// Submitting a gene opens this page under the chosen scope.
+// Searching another gene from the box in its header keeps the chosen scope.
 //
 // Not to be confused with the explorer's per-dataset "Gene Explorer" tab, which
 // draws one study's volcano. This one spans the corpus; that one goes deep on a
@@ -411,20 +409,17 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
 }
 
 interface GeneReportProps {
-  /**
-   * The gene to report on. `null` is the LANDING state — the search interface
-   * with nothing searched yet, which is what the hub's Gene Explorer card opens.
-   */
-  gene: string | null;
+  /** The gene to report on. */
+  gene: string;
   /** Optional category filter the report opens with (a preset, or a `#/gene/<g>/<cat>` link). null = all. */
   scope?: DatasetCategory[] | null;
   onScopeChange?: (scope: DatasetCategory[] | null) => void;
   /**
    * Which datasets are in scope; null = all.
    *
-   * Owned by App rather than by this component because submitting a gene from
-   * the landing state remounts the report (the ErrorBoundary is keyed by gene),
-   * and a selection made just before searching has to survive that. App also
+   * Owned by App rather than by this component because searching another gene
+   * remounts the report (the ErrorBoundary is keyed by gene), and the selection
+   * has to survive that. App also
    * serializes these restrictions into the versioned analysis URL.
    */
   datasetScope?: string[] | null;
@@ -460,20 +455,19 @@ export function GeneReport({
   studyFilters, onStudyFiltersChange,
   onHome, onSearchGene, onCompareDatasets, onOpenDataset, onShowPathway, onOpenPathway, onOpenExpression, headerRight,
 }: GeneReportProps) {
-  const [query, setQuery] = useState(gene || '');
+  const [query, setQuery] = useState(gene);
   const categories = useCategoryScope(scope, onScopeChange);
   const { activeCats, toggleCat } = categories;
-  const geneIndex = useSearchIndex(loadGeneIndex);
   const { cards, eligibleCards, availableDatasets, selectedDatasets, awaitingCounts,
     queryKey, filters, changeFilters, reset } = useStudySelection({
-    kind: 'gene', term: gene || '', categories, datasetScope,
+    kind: 'gene', term: gene, categories, datasetScope,
     studyFilters, onStudyFiltersChange, onDatasetScopeChange,
   });
   const { result, loading, progress, bytes, error } = useReportQuery(
     queryKey, querySelectedGene, 'Could not load cross-dataset data.',
   );
 
-  useEffect(() => { setQuery(gene || ''); }, [gene]);
+  useEffect(() => { setQuery(gene); }, [gene]);
 
   // A follow-up search keeps the scope the user is currently reading under.
   // Dropping it here (as an unscoped search would) silently widens the report
@@ -517,24 +511,6 @@ export function GeneReport({
       </ScopeSummary>
     </>
   );
-
-  // ── Landing state: the search interface, nothing searched yet ─────────────
-  if (!gene) {
-    return (
-      <div className="report-main report-search-dialog">
-        <SearchHero
-          headline="Gene Explorer"
-          placeholder="Search a gene, e.g. POMC, AGRP, LEPR"
-          ariaLabel="Search a gene across all datasets"
-          action="Search"
-          index={geneIndex}
-          onSubmit={(g) => onSearchGene(g, currentScope())}
-        >
-          {scopeControls}
-        </SearchHero>
-      </div>
-    );
-  }
 
   return (
     <PageShell

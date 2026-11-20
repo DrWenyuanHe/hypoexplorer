@@ -1,12 +1,10 @@
 {
   "version": 1,
   "area": "module-changelog",
-  "fingerprint": "593f2faa799778442869c9ba4549b093d597992c1edb97aec06499ad32a601b2",
+  "fingerprint": "5c3cbd05515214fad14ca987b66fb796ccd80f40cd713e2b4ab1da661bb97f37",
   "outcome": "updated",
-  "explanation": "The in-app changelog gains two 2026-11-04 public-release entries (unified search, rebuilt gene page, library record view, human reference atlases, typography) and entries for 2026-11-06, 2026-11-13 and five for 2026-11-16 covering the visible changes from PRs #3, #22, #28, #29, #31, #33, #34, #39, #40, #42, #43 (p < 0.05 results labelled against FDR, the List switch), #44 (phone layouts) and #46 (Quality control nSig counted at FDR < 0.05, with the uploaded bundles). CHANGELOG.md records the audit, the nSig upload and what was left out (gated HypoMap views, unregenerated author-validation records). ChangelogTab rendering is unchanged.",
+  "explanation": "A 2026-11-20 entry, One search on the home page, records the removal of the hub's Genes and Pathways buttons and their search dialog, that study filters stay on each report, and that old term-less #/gene and #/pathway links open the search page without their saved study selection.",
   "references": [
-    "src/changelog/changelog.ts",
-    "src/changelog/ChangelogTab.tsx",
-    "CHANGELOG.md"
+    "src/changelog/changelog.ts"
   ]
 }

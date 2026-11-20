@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "ea953201687ff2cb40135a661ac9575c7bc5edddeb6a6d1fac5e896cf4ca93b8",
+  "fingerprint": "1a373dc38b5714183bdeb4384c3b618012e8df29424992880b28ae1a7b97c999",
   "outcome": "updated",
-  "explanation": "The local-datasets view is gone: AppView drops 'local-datasets', App.tsx no longer lazy-loads LocalDatasetsView or passes onOpenLocalDatasets, and the router drops openLocalDatasets with its boot, popstate and href cases. A stale #/local-datasets hash no longer parses, so boot falls back to the hub.",
+  "explanation": "App no longer renders the search dialog over the hub or passes onOpenSearch, and its report helpers take a non-null term; a term-less report state renders the hub. The router drops openGeneExplorer, openPathwayExplorer and switchSearchExplorer, normalizes a hashless report initialView to the hub, writes report URLs only with a term, and replaces a retired landing's history entry on navigation. index.html drops the search-hero qsearch styles.",
   "references": [
     "src/App.tsx",
     "src/appRouter.ts",
-    "src/utils/appLinks.ts",
-    "src/styles/responsive.css",
-    "src/main.tsx"
+    "index.html",
+    "src/utils/appLinks.ts"
   ]
 }

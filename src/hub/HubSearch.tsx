@@ -1,8 +1,8 @@
 // The homepage's search box: one field for genes and pathways together.
 //
 // A thin wrapper over the shared UnifiedSearchBox. Submitting a term opens the
-// unified results page, which breaks results down into genes and pathways; the
-// full search dialog, with its study filters, stays in the hub's top nav.
+// unified results page, which breaks results down into genes and pathways. It
+// is the hub's only gene and pathway search; study filters live on each report.
 //
 // The autocomplete vocabulary is fetched the first time the field is focused,
 // never on mount, so the homepage requests no data files until a visitor

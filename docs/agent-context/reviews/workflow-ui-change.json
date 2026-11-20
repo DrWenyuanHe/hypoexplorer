@@ -1,25 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "fef255cb3271786deeef23c6168e9aafd62938b0c1f2027a78fd735f6c0d5c9a",
+  "fingerprint": "47d6ea8c4a7d112f9f7172e2567ec492afb438a4ffaba00cf182e4cd10150d75",
   "outcome": "updated",
-  "explanation": "Navigation loses the local-datasets application view and its home-page entry; the ui-change runbook steps are unchanged and still cover the remaining 14 views, routes and exports. The local-import workflow and its LOCAL_DATASETS.md runbook were removed from the catalog.",
+  "explanation": "The runbook paragraph on the hub nav's search dialog is replaced: the hub search box is the only gene and pathway search, reports carry their study filters under Study filters, and isRetiredSearchLanding sends retired #/gene, #/gene/in/<cats> and #/pathway links to #/search, replacing the history entry.",
   "references": [
-    "src/App.tsx",
-    "src/appRouter.ts",
-    "docs/agent-context/catalog.json",
     "docs/agent-context/workflows.md",
     "src/utils/appLinks.ts",
-    "src/crossdataset/forestReport.css",
-    "src/search/search.css",
-    "src/styles/responsive.css",
-    "src/statistics/listingModeStore.ts",
-    "src/statistics/ListingModeToggle.tsx",
-    "src/search/SearchPage.tsx",
-    "src/crossdataset/GeneReport.tsx",
-    "src/crossdataset/PathwayReport.tsx",
-    "src/qc/qcTables.ts",
-    "src/__tests__/qcTables.test.ts",
-    "scripts/lib/bundleWriter.mts"
+    "src/appRouter.ts"
   ]
 }

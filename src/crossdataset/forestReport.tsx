@@ -153,9 +153,9 @@ export function useReportQuery<TResult>(
   errorMessage: string,
 ): ReportQueryState<TResult> {
   const [result, setResult] = useState<TResult | null>(null);
-  // An empty key is IDLE, not loading. The reports' landing states (the Gene and
-  // Pathway Explorers entered with nothing searched yet) mount with one, and
-  // starting at `true` would show them a spinner for a query that never runs.
+  // An empty key is IDLE, not loading. A report still waiting on its study
+  // selection (sample counts not yet loaded) mounts with one, and starting at
+  // `true` would show a spinner for a query that has not been issued.
   const [loading, setLoading] = useState(Boolean(key));
   const [progress, setProgress] = useState({ loaded: 0, total: 0 });
   const [error, setError] = useState<string | null>(null);

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { type AppRoute, parseRoute, routeHref } from '../utils/appLinks';
+import { type AppRoute, isRetiredSearchLanding, parseRoute, routeHref } from '../utils/appLinks';
 
 // The router writes the URL with `routeHref` and reads it back with
 // `parseRoute`, so the two must be exact inverses. If they disagree for any
@@ -24,15 +24,8 @@ const ROUTES: AppRoute[] = [
   { view: 'report', gene: 'POMC', scope: null },
   { view: 'report', gene: 'POMC', scope: ['Diet-induced obesity'] },
   { view: 'report', gene: 'POMC', scope: ['Leptin, insulin & energy signaling', 'Circadian'] },
-  // The explorers' LANDING states — the search interface, nothing searched yet.
-  { view: 'report', gene: null, scope: null },
-  // A scoped landing cannot use the positional scope segment (`#/gene/Circadian`
-  // reads back as a gene called "Circadian"), so it borrows the library's `in`
-  // marker. This is the case that proves the two forms stay distinct.
-  { view: 'report', gene: null, scope: ['Circadian'] },
-  { view: 'report', gene: null, scope: ['Leptin, insulin & energy signaling', 'Circadian'] },
-  // ...and the gene that collides with that marker head-on. No real symbol is
-  // named 'in', but the codec is total or it is not.
+  // The gene that collides head-on with the retired scoped landing's `in`
+  // marker. No real symbol is named 'in', but the codec is total or it is not.
   { view: 'report', gene: 'in', scope: ['Circadian'] },
   { view: 'report', gene: 'in', scope: null },
   { view: 'compare-datasets', gene: 'LEPR', scope: null },
@@ -45,7 +38,6 @@ const ROUTES: AppRoute[] = [
   { view: 'compare-set', items: [{ datasetId: 'macaque_snrna', trackId: 'i23' }, { datasetId: 'macaque_snrna', trackId: 'e9' }] },
   { view: 'compare-set', items: [{ datasetId: 'macaque_snrna', trackId: 'e9' }] },
   { view: 'compare-set', items: [{ datasetId: 'a,b', trackId: 'c:d' }, { datasetId: 'e:f' }] },
-  { view: 'pathway-report', pathway: null },
   { view: 'pathway-report', pathway: 'HALLMARK_ADIPOGENESIS' },
   { view: 'pathway-report', pathway: 'Signaling by GPCR / second messengers' },
   { view: 'tracker', acc: null },
@@ -117,14 +109,32 @@ describe('appRoutes — reading untrusted hashes', () => {
   it('returns null for a hash it does not recognize, rather than the hub', () => {
     // Silently yanking someone home because a link had a typo — or because the
     // page used an in-page anchor — is worse than ignoring it.
-    // '#/gene' and '#/pathway' are deliberately ABSENT from this list: both
-    // now name the explorer's landing state. '#/dataset' stays, because a
+    // '#/gene' and '#/pathway' are deliberately ABSENT from this list: links
+    // to the retired search landings open search. '#/dataset' stays, because a
     // dataset route without a dataset names nothing.
     // '#/compare-set' with no columns names nothing either: a side-by-side of
     // zero studies is not a view.
     for (const h of ['#section-2', '#/nope/POMC', '#/dataset', '#/compare-set', '#/compare-set/,']) {
       expect(parseRoute(h)).toBeNull();
     }
+  });
+
+  it('opens search for links to the retired gene and pathway search landings', () => {
+    // These opened the hub's old gene and pathway search dialog. A saved study
+    // selection on one has no search-page equivalent, so it is dropped rather
+    // than reported as an invalid analysis.
+    const analysis = encodeURIComponent(JSON.stringify({ v: 1, datasetIds: ['macaque_snrna'] }));
+    for (const h of ['#/gene', '#/gene/', '/gene', '#/pathway', '#/pathway/', '#/gene/in/Circadian',
+      '#/gene/in/Circadian,Feeding%20%26%20fasting', `#/gene?analysis=${analysis}`, `#/pathway?analysis=${analysis}`,
+      `#/gene/in/Circadian?analysis=${analysis}`, '#/gene?analysis=not-json']) {
+      expect(isRetiredSearchLanding(h)).toBe(true);
+      expect(parseRoute(h)).toEqual({ view: 'search', query: '', filter: 'all' });
+    }
+    // A term still opens its report, including the gene literally named "in".
+    for (const h of ['#/gene/POMC', '#/gene/in', '#/gene/in/', '#/pathway/HALLMARK_ADIPOGENESIS', '#/search']) {
+      expect(isRetiredSearchLanding(h)).toBe(false);
+    }
+    expect(parseRoute('#/gene/in')).toEqual({ view: 'report', gene: 'in', scope: null });
   });
 
   it('keeps a compare-set link apart from the one-gene compare', () => {
@@ -156,9 +166,6 @@ describe('appRoutes — reading untrusted hashes', () => {
     expect(parseRoute('#/compare/POMC')?.view).toBe('compare-datasets');
     expect(parseRoute('#/compare-set/macaque_snrna')?.view).toBe('compare-set');
     expect(parseRoute('#/pathway/POMC')?.view).toBe('pathway-report');
-    // The term-less landings resolve to the same views, with a null term.
-    expect(parseRoute('#/gene')).toEqual({ view: 'report', gene: null, scope: null });
-    expect(parseRoute('#/pathway')).toEqual({ view: 'pathway-report', pathway: null });
     expect(parseRoute('#/library/macaque_snrna')?.view).toBe('library');
     expect(parseRoute('#/dataset/macaque_snrna')?.view).toBe('explorer');
     expect(parseRoute('#/tracker/GSE1')?.view).toBe('tracker');

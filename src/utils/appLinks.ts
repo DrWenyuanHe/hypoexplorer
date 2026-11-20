@@ -254,18 +254,10 @@ export type AppRoute =
   // genes and sub-tab it shows. Its sub-tab is the path's tab segment
   // (`/compare/pathways`); its lists are query fields beside `analysis`.
   | { view: 'explorer'; datasetId: string; trackId?: string; tab?: string; analysis?: ExplorerAnalysisState; compare?: CompareViewState }
-  // A null gene/pathway is the explorer's LANDING state — the search interface
-  // with nothing searched yet, which is where the hub's "Gene Explorer" and
-  // "Pathway Explorer" cards now lead. `null` rather than '' on purpose: '' is a
-  // string, so every site that forgot to handle the term-less case would compile
-  // silently and emit `#/gene/` (encodeURIComponent('') === ''). `| null` turns
-  // each of them into a tsc error instead.
-  //
-  // `compare-datasets` is deliberately NOT widened: a side-by-side comparison of
-  // nothing is not a view, and keeping it `string` is what lets the router's
-  // compare arm stay type-correct behind its existing guard.
-  | { view: 'report'; gene: string | null; scope: DatasetCategory[] | null; analysis?: StudyAnalysisState }
-  | { view: 'pathway-report'; pathway: string | null; analysis?: StudyAnalysisState }
+  // A report always names its term. The term-less landings that opened the old
+  // gene and pathway search dialog are retired; see `isRetiredSearchLanding`.
+  | { view: 'report'; gene: string; scope: DatasetCategory[] | null; analysis?: StudyAnalysisState }
+  | { view: 'pathway-report'; pathway: string; analysis?: StudyAnalysisState }
   | { view: 'compare-datasets'; gene: string; scope: DatasetCategory[] | null; analysis?: StudyAnalysisState }
   // The compare set names its columns, never nothing: an empty list is not a
   // route, so `parseCompareSetHash` returns null for it and the router lands
@@ -295,8 +287,8 @@ function scopeSegment(scope: DatasetCategory[] | null | undefined): string {
 /**
  * A gene as a URL segment, kept clear of the `in` marker.
  *
- * `#/gene/in/<cats>` is the term-less scoped landing, so a gene symbol of
- * exactly "in" would round-trip into a landing page instead of itself. No real
+ * `#/gene/in/<cats>` is a retired scoped landing that opens search, so a gene
+ * symbol of exactly "in" would round-trip into the search page. No real
  * symbol is named that — but the search box will hand over whatever was typed,
  * and the round-trip invariant at the top of this file is stated for every route
  * the router can hold, not merely for the plausible ones. Percent-escaping the
@@ -402,11 +394,6 @@ export function routeHref(route: AppRoute): string {
     case 'explorer':
       return datasetHref(route.datasetId, route.trackId, route.tab);
     case 'report':
-      // The scope segment is POSITIONAL, so it cannot simply follow `#/gene`
-      // with the gene left out: `#/gene/Circadian` reads back as a gene named
-      // "Circadian". A scoped landing therefore borrows the library's `in`
-      // disambiguator, which no gene symbol can collide with.
-      if (!route.gene) return route.scope?.length ? `#/gene/in/${route.scope.map(encodeURIComponent).join(',')}` : '#/gene';
       return `#/gene/${geneSegment(route.gene)}${scopeSegment(route.scope)}`;
     case 'compare-datasets':
       return `#/compare/${encodeURIComponent(route.gene)}${scopeSegment(route.scope)}`;
@@ -414,7 +401,7 @@ export function routeHref(route: AppRoute): string {
       return compareSetHref(route.items);
     case 'pathway-report':
       // Study scope lives in the versioned analysis payload when present.
-      return route.pathway ? `#/pathway/${encodeURIComponent(route.pathway)}` : '#/pathway';
+      return `#/pathway/${encodeURIComponent(route.pathway)}`;
     case 'tracker':
       return route.acc ? `#/tracker/${encodeURIComponent(route.acc)}` : '#/tracker';
     case 'statistics':
@@ -433,6 +420,18 @@ export function routeHref(route: AppRoute): string {
 }
 
 /**
+ * True for the retired term-less report landings: `#/gene`, `#/gene/in/<cats>`
+ * and `#/pathway`, with or without a saved `?analysis=`. They opened the old
+ * gene and pathway search dialog; links shared while it existed now open the
+ * unified search page. A saved study selection on one has no search-page
+ * equivalent and is dropped. `#/gene/in` alone is still a gene named "in".
+ */
+export function isRetiredSearchLanding(hash: string | undefined | null): boolean {
+  const path = (hash ?? '').trim().split('?')[0];
+  return /^#?\/(?:gene(?:\/in\/[^/?#]+)?|pathway)\/?$/.test(path);
+}
+
+/**
  * Parse a location hash into a route, or null when the hash names no route the
  * app knows.
  *
@@ -445,6 +444,7 @@ export function routeHref(route: AppRoute): string {
  */
 export function parseRoute(hash: string | undefined | null): AppRoute | null {
   const h = (hash ?? '').trim();
+  if (isRetiredSearchLanding(h)) return { view: 'search', query: '', filter: 'all' };
   const queryAt = h.indexOf('?');
   if (queryAt >= 0) {
     if (h.length > 2000000) return null;
@@ -484,14 +484,11 @@ export function parseRoute(hash: string | undefined | null): AppRoute | null {
   }
   if (dataset) return { view: 'explorer', ...dataset };
 
-  // Ordered before the general gene form, which would otherwise read the `in`
-  // marker as a gene literally named "in". Only `#/gene/in/<cats>` is claimed:
-  // a bare `#/gene/in` still parses as that (admittedly unlikely) gene.
-  const scopedLanding = /^#?\/gene\/in\/([^/?#]+)\/?$/.exec(h);
-  if (scopedLanding) return { view: 'report', gene: null, scope: parseScope(scopedLanding[1]) };
-
-  const gene = /^#?\/gene(?:\/([^/?#]+)(?:\/([^/?#]+))?)?\/?$/.exec(h);
-  if (gene) return { view: 'report', gene: gene[1] ? safeDecode(gene[1]) : null, scope: parseScope(gene[2]) };
+  // Term-less forms (`#/gene`, `#/gene/in/<cats>`) were claimed above as
+  // retired landings, which is also what keeps the `in` marker from reading as
+  // a gene named "in" here.
+  const gene = /^#?\/gene\/([^/?#]+)(?:\/([^/?#]+))?\/?$/.exec(h);
+  if (gene) return { view: 'report', gene: safeDecode(gene[1]), scope: parseScope(gene[2]) };
 
   // Tried before the one-gene compare below. That pattern cannot actually claim
   // this one — it requires a '/' straight after "compare", and here the next
@@ -503,8 +500,8 @@ export function parseRoute(hash: string | undefined | null): AppRoute | null {
   const compare = /^#?\/compare\/([^/?#]+)(?:\/([^/?#]+))?\/?$/.exec(h);
   if (compare) return { view: 'compare-datasets', gene: safeDecode(compare[1]), scope: parseScope(compare[2]) };
 
-  const pathway = /^#?\/pathway(?:\/([^/?#]+))?\/?$/.exec(h);
-  if (pathway) return { view: 'pathway-report', pathway: pathway[1] ? safeDecode(pathway[1]) : null };
+  const pathway = /^#?\/pathway\/([^/?#]+)\/?$/.exec(h);
+  if (pathway) return { view: 'pathway-report', pathway: safeDecode(pathway[1]) };
 
   const tracker = /^#?\/tracker(?:\/([^/?#]+))?\/?$/.exec(h);
   if (tracker) return { view: 'tracker', acc: tracker[1] ? safeDecode(tracker[1]) || null : null };
