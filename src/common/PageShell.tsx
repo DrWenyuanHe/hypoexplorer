@@ -1,7 +1,6 @@
 // The chrome every full-page (non-explorer) view shares: the 4px accent strip,
 // the sticky header with the HypoExplorer logo, beta notice, and Home breadcrumb
-// trail. CrossDatasetCompare, GeneReport, PathwayReport and StatisticsView are
-// its adapters; the explorer shell (App) keeps its own structurally different
+// trail. GeneReport, PathwayReport and the reference pages are its adapters; the explorer shell (App) keeps its own structurally different
 // topbar, and the hub/tracker keep their CSS-driven chrome.
 //
 // Navigation is callback-driven (onHome), matching App's state-driven routing —
@@ -24,7 +23,7 @@ interface PageShellProps {
   breadcrumbs: readonly PageShellBreadcrumb[];
   children: ReactNode;
   /** Merged into the <main> style (flex:1 is fixed). Reports pass their
-   *  max-width/padding; StatisticsView passes overflowY:'auto'. */
+   *  max-width/padding; reference pages pass overflowY:'auto'. */
   mainStyle?: CSSProperties;
   mainClassName?: string;
   /**

@@ -3,7 +3,7 @@
 // EBI ArrayExpress "E-MTAB-…" id), an optional `doi`, an optional `pmid`, and a
 // free-text `citation` that often also names the PMID in prose. These resolve
 // those into clickable URLs so every dataset's source is reachable from inside
-// the explorer, not just the Data Sources tab.
+// the explorer.
 
 import type { Dataset } from '../types';
 

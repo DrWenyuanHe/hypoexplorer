@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "f5c9c4481b4348239e3bf729f122d09d0176e22c35ef664a0acaf0392f97e336",
+  "fingerprint": "931a9a1f0c5666cf7ef3877867d5ec4508cd5132cde22dc534589b69511ba3e1",
   "outcome": "updated",
-  "explanation": "app.searchDialogs becomes app.search: dialog tests give way to hub-search and retired-link tests, including history replacement. geneExplorerLanding becomes searchLanding and tests DatasetScopePanel directly. hubSections, hubUnits, pathwayReport, appRoutes and both App scope suites start from named reports and their Study filters. From main, hypomapPreview.test.tsx covers the HypoMap view tablist and tabKeyTarget.",
+  "explanation": "statistics, dataSources, crossDatasetCompare and crossDatasetCompareIndex tests are removed or replaced: methodology.test covers the merged sections and footer entry, references.test the How to cite citations and retired tab links, and the route, router, scope and selection suites drop the removed views and bars mode.",
   "references": [
-    "src/__tests__/app.search.test.tsx",
-    "src/__tests__/searchLanding.test.tsx",
+    "src/__tests__/methodology.test.tsx",
+    "src/__tests__/references.test.tsx",
     "src/__tests__/app.geneScope.test.tsx",
-    "src/__tests__/app.pathwayScope.test.tsx",
-    "src/__tests__/hypomapPreview.test.tsx"
+    "src/__tests__/appRouterUrl.test.tsx"
   ]
 }

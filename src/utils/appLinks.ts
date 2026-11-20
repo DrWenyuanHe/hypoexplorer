@@ -258,13 +258,11 @@ export type AppRoute =
   // gene and pathway search dialog are retired; see `isRetiredSearchLanding`.
   | { view: 'report'; gene: string; scope: DatasetCategory[] | null; analysis?: StudyAnalysisState }
   | { view: 'pathway-report'; pathway: string; analysis?: StudyAnalysisState }
-  | { view: 'compare-datasets'; gene: string; scope: DatasetCategory[] | null; analysis?: StudyAnalysisState }
   // The compare set names its columns, never nothing: an empty list is not a
   // route, so `parseCompareSetHash` returns null for it and the router lands
   // on the library when a link's ids have all gone stale.
   | { view: 'compare-set'; items: CompareSetRouteItem[] }
   | { view: 'tracker'; acc: string | null }
-  | { view: 'statistics' }
   | { view: 'methodology' }
   | { view: 'verification' }
   | { view: 'nomenclature' }
@@ -395,8 +393,6 @@ export function routeHref(route: AppRoute): string {
       return datasetHref(route.datasetId, route.trackId, route.tab);
     case 'report':
       return `#/gene/${geneSegment(route.gene)}${scopeSegment(route.scope)}`;
-    case 'compare-datasets':
-      return `#/compare/${encodeURIComponent(route.gene)}${scopeSegment(route.scope)}`;
     case 'compare-set':
       return compareSetHref(route.items);
     case 'pathway-report':
@@ -404,8 +400,6 @@ export function routeHref(route: AppRoute): string {
       return `#/pathway/${encodeURIComponent(route.pathway)}`;
     case 'tracker':
       return route.acc ? `#/tracker/${encodeURIComponent(route.acc)}` : '#/tracker';
-    case 'statistics':
-      return '#/statistics';
     case 'methodology':
       return '#/methodology';
     case 'verification':
@@ -460,7 +454,7 @@ export function parseRoute(hash: string | undefined | null): AppRoute | null {
         const analysis = parseExplorerAnalysis(value);
         return analysis ? { ...route, analysis } : null;
       }
-      if (route.view === 'report' || route.view === 'pathway-report' || route.view === 'compare-datasets') {
+      if (route.view === 'report' || route.view === 'pathway-report') {
         const analysis = parseStudyAnalysis(value);
         return analysis ? { ...route, analysis } : null;
       }
@@ -476,6 +470,9 @@ export function parseRoute(hash: string | undefined | null): AppRoute | null {
   // Methodology was an explorer tab until it became its own page; links shared
   // while it was one still open it.
   if (dataset?.tab === 'methodology') return { view: 'methodology' };
+  // Data Sources was a tab until it was retired: it listed every study, which
+  // the library does. Links shared while it existed open this study's record.
+  if (dataset?.tab === 'datasources') return { view: 'library', datasetId: dataset.datasetId, categories: null };
   if (dataset?.trackId === COMPARE_SEGMENT && (dataset.tab === 'pathways' || dataset.tab === 'genes')) {
     // Compare's sub-tab: `/compare/pathways`. `/compare/genes` is the default,
     // accepted so a hand-typed link works, and written back without it.
@@ -497,8 +494,11 @@ export function parseRoute(hash: string | undefined | null): AppRoute | null {
   const compareSet = parseCompareSetHash(h);
   if (compareSet) return { view: 'compare-set', items: compareSet };
 
+  // `#/compare/<gene>` was the side-by-side bar view of one gene across studies.
+  // It was retired: the gene page lists the same per-study results and previews
+  // each study's bars. Links shared while it existed open that gene's page.
   const compare = /^#?\/compare\/([^/?#]+)(?:\/([^/?#]+))?\/?$/.exec(h);
-  if (compare) return { view: 'compare-datasets', gene: safeDecode(compare[1]), scope: parseScope(compare[2]) };
+  if (compare) return { view: 'report', gene: safeDecode(compare[1]), scope: parseScope(compare[2]) };
 
   const pathway = /^#?\/pathway\/([^/?#]+)\/?$/.exec(h);
   if (pathway) return { view: 'pathway-report', pathway: safeDecode(pathway[1]) };
@@ -506,7 +506,9 @@ export function parseRoute(hash: string | undefined | null): AppRoute | null {
   const tracker = /^#?\/tracker(?:\/([^/?#]+))?\/?$/.exec(h);
   if (tracker) return { view: 'tracker', acc: tracker[1] ? safeDecode(tracker[1]) || null : null };
 
-  if (/^#?\/statistics\/?$/.test(h)) return { view: 'statistics' };
+  // Statistics was its own page until it merged into Methods & statistics;
+  // links shared while it was one still open the merged page.
+  if (/^#?\/statistics\/?$/.test(h)) return { view: 'methodology' };
   if (/^#?\/methodology\/?$/.test(h)) return { view: 'methodology' };
   if (/^#?\/verification\/?$/.test(h)) return { view: 'verification' };
 

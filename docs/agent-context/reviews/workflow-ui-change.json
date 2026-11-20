@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "d8108af933faf94891a4293f3993ff1043edd5d773a21db411492e9d1e6e6441",
+  "fingerprint": "aef6e323415023f560bca3d461d76beee4919901613a68bbe0b085c0a70aef33",
   "outcome": "updated",
-  "explanation": "The runbook paragraph on the hub nav's search dialog is replaced: the hub search box is the only gene and pathway search, reports carry their study filters under Study filters, and isRetiredSearchLanding sends retired #/gene, #/gene/in/<cats> and #/pathway links to #/search, replacing the history entry. From main, the HypoMap view tablist, search result filters and expression survey sections share tabKeyTarget; the search dialog that also used it is deleted.",
+  "explanation": "The runbook drops the bars mode from the useStudySelection description, since the side-by-side compare view is retired. Navigation now has one Methods & statistics page and no Data Sources tab; the existing runbook steps cover these without new text.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/utils/appLinks.ts",
-    "src/appRouter.ts",
-    "src/utils/tabKeys.ts",
-    "src/search/hypomap/HypoMapPreview.tsx"
+    "src/crossdataset/geneStudyScope.tsx",
+    "src/methodology/MethodologyView.tsx"
   ]
 }

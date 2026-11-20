@@ -26,7 +26,7 @@ function filterGeneStudies(cards: readonly DatasetCard[], filters: GeneStudyFilt
 }
 
 type StudySelectionOptions = {
-  kind: 'gene' | 'pathway' | 'bars';
+  kind: 'gene' | 'pathway';
   term: string;
   categories: Pick<CategoryScope<DatasetCategory>, 'activeCats' | 'setActiveCats'>;
   datasetScope?: readonly string[] | null;
@@ -38,7 +38,7 @@ type StudySelectionOptions = {
 /**
  * Study selection owns catalog readiness and the corpus named by a query.
  * Route state stays with the caller; report loading/cancellation stays with
- * useReportQuery. Bars load the resolved cohort and filter categories locally.
+ * useReportQuery.
  */
 export function useStudySelection({
   kind, term, categories: { activeCats, setActiveCats }, datasetScope = null,
@@ -65,23 +65,20 @@ export function useStudySelection({
     : catalogCards, [catalogCards, kind]);
   const eligibleCards = useMemo(() => filterGeneStudies(cards, filters), [cards, filters]);
   const availableDatasets = useMemo(() => eligibleCards
-    .filter((card) => kind === 'bars' || !activeCats || activeCats.has(card.dataset.category))
-    .map((card) => card.dataset), [eligibleCards, activeCats, kind]);
+    .filter((card) => !activeCats || activeCats.has(card.dataset.category))
+    .map((card) => card.dataset), [eligibleCards, activeCats]);
   // null means all available studies; [] is an intentional empty selection.
   const selectedDatasets = useMemo(() => availableDatasets
     .filter((dataset) => datasetScope === null || datasetScope.includes(dataset.id)), [availableDatasets, datasetScope]);
   const awaitingCounts = filters.minSamples > 0 && catalogLoading;
-  const queryTerm = kind === 'bars' ? term.toUpperCase() : term;
-  const queryKey = queryTerm && !awaitingCounts
-    ? JSON.stringify([queryTerm, selectedDatasets.map((dataset) => dataset.id)]) : '';
+  const queryKey = term && !awaitingCounts
+    ? JSON.stringify([term, selectedDatasets.map((dataset) => dataset.id)]) : '';
 
   const reset = useCallback(() => {
     setActiveCats(null);
-    if (kind !== 'bars') {
-      changeFilters(DEFAULT_GENE_STUDY_FILTERS);
-      onDatasetScopeChange?.(null);
-    }
-  }, [setActiveCats, kind, changeFilters, onDatasetScopeChange]);
+    changeFilters(DEFAULT_GENE_STUDY_FILTERS);
+    onDatasetScopeChange?.(null);
+  }, [setActiveCats, changeFilters, onDatasetScopeChange]);
 
   return { cards, eligibleCards, availableDatasets, selectedDatasets, awaitingCounts,
     queryKey, filters, changeFilters, reset };

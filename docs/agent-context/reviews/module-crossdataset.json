@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "module-crossdataset",
-  "fingerprint": "761ff95209f03b8ab378b095256b991624f1e4573aaf85221622fd162562a991",
+  "fingerprint": "290cd4f9b082de9122a3dff52d2fdaa1ea315d0b9efb34e0bb35b66263fc8684",
   "outcome": "updated",
-  "explanation": "ExplorerSearchDialog and its xsearch-tabs styles are deleted. GeneReport and PathwayReport always receive a term: their term-less landing branches go, as do SearchHero and rankSuggestions in searchLanding.tsx and the gene report's unused gene-index load. The study filters stay on each report; useSearchIndex still feeds the pathway report's follow-up search.",
+  "explanation": "CrossDatasetCompare (#/compare/<gene>) is deleted and GeneReport loses its Compare as bars button and onCompareDatasets prop. useStudySelection drops the bars kind it served. forestReport.tsx now names only the gene and pathway forests as its users.",
   "references": [
     "src/crossdataset/GeneReport.tsx",
-    "src/crossdataset/PathwayReport.tsx",
-    "src/crossdataset/searchLanding.tsx",
-    "src/crossdataset/forestReport.css",
-    "src/crossdataset/forestReport.tsx"
+    "src/crossdataset/geneStudyScope.tsx",
+    "src/crossdataset/forestReport.tsx",
+    "src/__tests__/studySelection.test.tsx"
   ]
 }

@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-common",
-  "fingerprint": "3d5945db71f35569bcb24086fdd869c6ee97e8d0e3e3a077c4e696794204e1be",
+  "fingerprint": "3272420251565579705b9d9bc4dd18f2dc1508409ac40400e9f1b7412fd6dfc4",
   "outcome": "updated",
-  "explanation": "CellSelectorPopup keeps its chips to one measured line with a +N more / Show less toggle and a Reset to the default pair; the modal picker is unchanged. BetaNotice gains an opt-in compact, session-dismissible form used only by the explorer shell. DatasetVerificationContext now renders inside the study details panel, so its border sits on top.",
+  "explanation": "DatasetInfoPanel replaces its Data Sources & methods link with Methods & statistics (onOpenMethods). prose.tsx and PageShell.tsx only reword comments that named StatisticsView, DataSourcesTab and CrossDatasetCompare.",
   "references": [
-    "src/common/CellSelectorPopup.tsx",
-    "src/common/BetaNotice.tsx",
-    "src/common/DatasetVerificationContext.tsx"
+    "src/common/DatasetInfoPanel.tsx",
+    "src/common/prose.tsx",
+    "src/common/PageShell.tsx"
   ]
 }

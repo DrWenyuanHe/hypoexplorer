@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-hub",
-  "fingerprint": "b7945dca127154f8dc2a9025c8ec11d99ea4dcbd09a6ae9379a28fc165ae14ff",
+  "fingerprint": "20e2995c6bea6eeef9fee98e4ece6ed90a6bbff7d39cf9074d323421fd4c29ff",
   "outcome": "updated",
-  "explanation": "The hub nav drops its Genes and Pathways buttons and the onOpenSearch prop that opened the search dialog; hubSections drops the unrendered Gene & Pathway Explorer item, leaving two primary tools. HubSearch is now the hub's only gene and pathway search and its header comment says so.",
+  "explanation": "The hub footer drops its Statistics and Sources & acknowledgements buttons and onOpenStatistics prop; Methodology is relabelled Methods & statistics. The top nav Methods button still opens that page.",
   "references": [
     "src/hub/LandingHub.tsx",
-    "src/hub/HubSearch.tsx",
-    "docs/agent-context/workflows.md"
+    "src/__tests__/methodology.test.tsx",
+    "src/__tests__/hubUnits.test.tsx"
   ]
 }

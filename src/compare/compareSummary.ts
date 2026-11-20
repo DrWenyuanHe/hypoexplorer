@@ -27,7 +27,7 @@ import { resolveGeneCI } from './resolveGene';
  *
  * Each column's FDR was computed inside its own study and knows nothing of the
  * others, so `sig` says how many studies called the gene on their own terms
- * and `up`/`down` how those calls split — the Statistics page's "significant
+ * and `up`/`down` how those calls split — the Methods & statistics page's "significant
  * in N of M" rule. Nothing here is pooled, and the header that renders this
  * says so.
  */
