@@ -6,6 +6,15 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-11-20',
+    title: 'One search on the home page',
+    items: [
+      'The Genes and Pathways buttons in the home page menu are gone, along with the search dialog they opened. The search box on the home page searches genes and pathways together, and its results open each gene page or pathway report.',
+      'Study filters stay on each gene page and pathway report, under Study filters.',
+      'Older #/gene and #/pathway links with no gene or pathway named open the search page. A study selection saved in such a link is not applied.',
+    ],
+  },
+  {
     date: '2026-11-16',
     title: 'Quality control counts at FDR < 0.05',
     items: [

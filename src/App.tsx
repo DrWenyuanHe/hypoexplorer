@@ -42,7 +42,6 @@ import { datasetExternalLinks } from './utils/datasetLinks';
 import { GeneReport } from './crossdataset/GeneReport';
 import type { GeneStudyFilters } from './crossdataset/geneStudyScope';
 import { PathwayReport } from './crossdataset/PathwayReport';
-import { ExplorerSearchDialog, type SearchMode } from './crossdataset/ExplorerSearchDialog';
 import { SearchPage } from './search/SearchPage';
 import { useCategoryScope } from './crossdataset/forestReport';
 import { useChartScale, setChartScale } from './common/chartScaleStore';
@@ -245,7 +244,7 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
     goHome, enterTool, enterExplorer,
     searchGene: searchGeneFromHub,
     searchPathway: searchPathwayFromHub,
-    openGeneExplorer, openPathwayExplorer, switchSearchExplorer, compareDatasets,
+    compareDatasets,
     openTracker, openInExplorer, openStatistics, openMethodology, openVerification, openNomenclature, openExpression,
     openLibrary, setLibraryDataset, setLibraryCategories, libraryDatasetId, libraryCategories,
     compareSetItems, openCompareSet, setCompareSetItems,
@@ -273,13 +272,7 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
   }, [compareSetItems, setCompareSetItems]);
   const openLibraryPlain = useCallback(() => openLibrary(), [openLibrary]);
 
-  // The hub nav's Genes / Pathways entrances open the search dialog on that
-  // side; with no side named it opens on genes. The hub's own search box no
-  // longer goes through here: it submits to the unified results page.
-  const openSearch = useCallback((mode: SearchMode = 'gene') => {
-    if (mode === 'pathway') openPathwayExplorer();
-    else openGeneExplorer();
-  }, [openGeneExplorer, openPathwayExplorer]);
+  // The hub's search box submits to the unified results page.
   const searchFromHub = useCallback((query: string) => search(query), [search]);
 
   // Which studies the cross-dataset explorers are scoped to; null = all.
@@ -378,7 +371,7 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
   }
 
   // Cross-dataset gene report (#/gene/<symbol>), opened from search results.
-  const geneReport = (gene: string | null) => (
+  const geneReport = (gene: string) => (
     <ErrorBoundary key={`report-${gene}-${(reportScope ?? []).join(',')}`}>
       <GeneReport
         gene={gene}
@@ -399,7 +392,7 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
       />
     </ErrorBoundary>
   );
-  const pathwayReport = (pathway: string | null) => (
+  const pathwayReport = (pathway: string) => (
     <ErrorBoundary key={`pathway-${pathway}`}>
       <PathwayReport
         pathway={pathway}
@@ -423,12 +416,11 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
     </main>
   );
 
-  // Only a submitted search replaces the hub with the full results view. An
-  // empty term opens the shared gene and pathway search dialog over the hub.
+  // A report always names its term. The router never opens one without it; a
+  // term-less report state is shown as the hub rather than the explorer shell.
   if (view === 'report' && reportGene) return <><UpdateModal />{geneReport(reportGene)}</>;
   if (view === 'pathway-report' && reportPathway) return <><UpdateModal />{pathwayReport(reportPathway)}</>;
-  const searchMode: SearchMode | null = view === 'report' ? 'gene' : view === 'pathway-report' ? 'pathway' : null;
-  const showSearchDialog = searchMode !== null;
+  const termlessReport = view === 'report' || view === 'pathway-report';
 
   // ── Unified search results (the hub box's destination) ──────────────
   // Keyed by the query alone: a new search starts the page fresh, while
@@ -580,37 +572,25 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
   }
 
   // ── Landing hub (default view) ──────────────────────────────────────
-  if (view === 'hub' || showSearchDialog) {
+  if (view === 'hub' || termlessReport) {
     return (
       <>
         <UpdateModal />
-        <div aria-hidden={showSearchDialog || undefined}>
-          <LandingHub
-            onHome={goHome}
-            datasets={listDatasets()}
-            onEnterTool={enterTool}
-            onOpenSearch={openSearch}
-            onSearch={searchFromHub}
-            onOpenTracker={openTracker}
-            onOpenLibrary={(categories) => openLibrary({ categories })}
-            onOpenStatistics={openStatistics}
-            onOpenMethodology={openMethodology}
-            onOpenVerification={openVerification}
-            onOpenNomenclature={openNomenclature}
-            onOpenExpression={openExpression}
-            onChangelog={() => { setShowChangelog(true); enterExplorer(); }}
-            onCompareSet={openCompareSet}
-          />
-        </div>
-        {searchMode && (
-          <ExplorerSearchDialog
-            mode={searchMode}
-            onModeChange={switchSearchExplorer}
-            onClose={goHome}
-            gene={() => geneReport(null)}
-            pathway={() => pathwayReport(null)}
-          />
-        )}
+        <LandingHub
+          onHome={goHome}
+          datasets={listDatasets()}
+          onEnterTool={enterTool}
+          onSearch={searchFromHub}
+          onOpenTracker={openTracker}
+          onOpenLibrary={(categories) => openLibrary({ categories })}
+          onOpenStatistics={openStatistics}
+          onOpenMethodology={openMethodology}
+          onOpenVerification={openVerification}
+          onOpenNomenclature={openNomenclature}
+          onOpenExpression={openExpression}
+          onChangelog={() => { setShowChangelog(true); enterExplorer(); }}
+          onCompareSet={openCompareSet}
+        />
       </>
     );
   }

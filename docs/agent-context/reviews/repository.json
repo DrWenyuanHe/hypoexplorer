@@ -1,27 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "bd513a504d8fb4c533bbc41f8576f65b49a72084663f1fb6066550cb03a466da",
+  "fingerprint": "f18ab91c9abda477492f0280d2c8478612ce670a15db141e652367ba44a0ccc8",
   "outcome": "updated",
-  "explanation": "Local datasets is removed repository-wide: AGENTS.md counts the remaining source areas and views and drops the local-import route, docs/README.md loses its LOCAL_DATASETS.md link, and CHANGELOG.md records the removal, the orphaned IndexedDB store and the hub tagline and \"/\" badge removal. index.html loses the tagline and key-badge styles. Earlier changelog entries stay as history.",
+  "explanation": "The UI change workflow and changelog describe the hub's single search: no separate Genes or Pathways entrance or search dialog, reports that always name their term, and retired term-less #/gene and #/pathway links that open the search page. index.html keeps only the qsearch styles the reports' study filters use.",
   "references": [
-    "AGENTS.md",
-    "CHANGELOG.md",
-    "docs/README.md",
-    "vite.config.ts",
-    "package.json",
-    "scripts/verify_deploy.mts",
-    "scripts/precompress_dist.mts",
-    "docs/agent-context/delivery.md",
-    "docs/DEVELOPMENT.md",
-    "docs/agent-context/catalog.json",
-    "index.html",
     "docs/agent-context/workflows.md",
-    "src/statistics/listingModeStore.ts",
-    "CONTEXT.md",
-    "scripts/lib/bundleWriter.mts",
-    "scripts/build_geo_datasets.mts",
-    "scripts/build_normalized_bundles.mts",
-    "docs/PROJECT_GUIDANCE.md"
+    "src/changelog/changelog.ts",
+    "index.html"
   ]
 }

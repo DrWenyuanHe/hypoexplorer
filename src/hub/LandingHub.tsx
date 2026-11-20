@@ -8,7 +8,6 @@ import { ICONS } from '../common/toolIcons';
 import { datasetHref } from '../utils/appLinks';
 import { COMPARE_TRACK } from '../explorer/explorerPosition';
 import { CompareSetButton } from '../compareset/CompareSetButton';
-import type { SearchMode } from '../crossdataset/ExplorerSearchDialog';
 import type { CompareSetItem } from '../compareset/compareSetStore';
 import type { DatasetCategory } from '../data/datasets';
 import type { Dataset } from '../types';
@@ -17,9 +16,6 @@ import type { Dataset } from '../types';
 // pathways, and three quiet cards: the library, the expression survey and the
 // macaque single-nucleus atlas. Every other tool keeps a route in the top nav
 // or the footer. The hub owns navigation only; App wires the destinations.
-
-/** The one hub entrance to gene and pathway search. */
-const SEARCH_TOOL = 'Gene & Pathway Explorer';
 
 /**
  * The study the hub links to directly: the primate single-nucleus atlas, whose
@@ -55,15 +51,16 @@ interface HubSection {
 
 interface HubHandlers {
   onOpenExpression?: () => void;
-  /** Open the shared gene and pathway search dialog. */
-  onOpenSearch: () => void;
   onOpenTracker: () => void;
   onOpenLibrary: (categories?: readonly DatasetCategory[]) => void;
 }
 
-/** Three main tools and one supporting tool, with their navigation callbacks. */
+/**
+ * Two main tools and one supporting tool, with their navigation callbacks.
+ * Gene and pathway search is not listed: it is the hub's own search box.
+ */
 export function hubSections(
-  { onOpenSearch, onOpenTracker, onOpenLibrary, onOpenExpression }: HubHandlers,
+  { onOpenTracker, onOpenLibrary, onOpenExpression }: HubHandlers,
   { nDatasets }: { nDatasets: number },
 ): HubSection[] {
   return [
@@ -72,7 +69,6 @@ export function hubSections(
       items: [
         { name: 'Expression survey', desc: 'Survey gene expression in defined hypothalamic populations, isolated neurons and bulk tissue.', icon: 'expression', status: 'live', go: () => { if (onOpenExpression) onOpenExpression(); else window.location.hash = '#/expression'; } },
         { name: 'Dataset library', desc: `Browse ${nDatasets} studies by brain region, experimental condition or assay. Each record includes the study design and replicate counts.`, icon: 'library', status: 'live', go: () => onOpenLibrary() },
-        { name: SEARCH_TOOL, desc: `Look up a gene or a pathway across ${nDatasets} studies. Compare fold changes, FGSEA scores and leading-edge genes.`, icon: 'gene', status: 'live', go: () => onOpenSearch() },
       ],
     },
     {
@@ -90,11 +86,6 @@ interface LandingHubProps {
   onOpenExpression?: () => void;
   datasets?: Dataset[];
   onEnterTool: (tool: string) => void;
-  /**
-   * Open the shared gene and pathway search dialog, on the given side or on
-   * the side used last.
-   */
-  onOpenSearch: (mode?: SearchMode) => void;
   /**
    * Submit the hub's search box to the unified results page: typed text as
    * typed, or the gene symbol / pathway id of a picked suggestion.
@@ -114,7 +105,6 @@ interface LandingHubProps {
 export function LandingHub({
   datasets = [],
   onEnterTool,
-  onOpenSearch,
   onSearch,
   onOpenTracker,
   onOpenLibrary,
@@ -128,10 +118,10 @@ export function LandingHub({
 }: LandingHubProps) {
   const [primary, secondary] = useMemo(
     () => hubSections(
-      { onOpenSearch: () => onOpenSearch(), onOpenTracker, onOpenLibrary, onOpenExpression },
+      { onOpenTracker, onOpenLibrary, onOpenExpression },
       { nDatasets: datasets.length },
     ),
-    [onOpenSearch, onOpenTracker, onOpenLibrary, onOpenExpression, datasets.length],
+    [onOpenTracker, onOpenLibrary, onOpenExpression, datasets.length],
   );
   const tool = (name: string) => [...primary.items, ...secondary.items].find((item) => item.name === name);
 
@@ -164,8 +154,6 @@ export function LandingHub({
       <header className="hub-bar">
         <nav className="hub-nav" aria-label="Sections">
           <button type="button" onClick={() => onOpenLibrary()}>Library</button>
-          <button type="button" aria-haspopup="dialog" onClick={() => onOpenSearch('gene')}>Genes</button>
-          <button type="button" aria-haspopup="dialog" onClick={() => onOpenSearch('pathway')}>Pathways</button>
           <button type="button" onClick={tool('Expression survey')?.go}>Survey</button>
           <button type="button" onClick={onOpenMethodology}>Methods</button>
         </nav>

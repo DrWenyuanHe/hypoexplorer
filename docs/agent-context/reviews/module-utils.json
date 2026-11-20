@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-utils",
-  "fingerprint": "fa2ad6b144764c6ee4523f25f87f88200a797eb94dfb62f4814f3e383b82d24d",
-  "outcome": "no-impact",
-  "explanation": "Adds tabKeys.ts with tabKeyTarget(key, index, count): the roving-tabindex index for ArrowRight/ArrowLeft (wrapping) and Home/End, or null for any other key. It is a pure helper shared by the four tablists; no existing util changes and the module meaning is unchanged.",
+  "fingerprint": "a20e3f323b124f16d0feac09ee7dc9f06e3213f6d36598e7f61c1ff772076cf5",
+  "outcome": "updated",
+  "explanation": "AppRoute report and pathway-report terms become string. isRetiredSearchLanding recognizes the retired #/gene, #/gene/in/<cats> and #/pathway landings, with or without a saved analysis, and parseRoute maps them to the empty search page; routeHref drops the term-less branches. #/gene/in still parses as a gene named \"in\". From main, tabKeys.ts adds the pure tabKeyTarget helper for roving-tabindex tablists.",
   "references": [
+    "src/utils/appLinks.ts",
     "src/utils/tabKeys.ts",
-    "src/__tests__/hypomapPreview.test.tsx"
+    "src/__tests__/appRoutes.test.ts"
   ]
 }

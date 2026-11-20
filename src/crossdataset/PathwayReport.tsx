@@ -23,7 +23,7 @@ import {
   useCategoryScope, ReportLoading, type CategoryScope,
 } from './forestReport';
 import {
-  SearchHero, DatasetScopePanel, ScopeSummary, useSearchIndex, NOOP_SCOPE,
+  DatasetScopePanel, ScopeSummary, useSearchIndex, NOOP_SCOPE,
 } from './searchLanding';
 import { useStudySelection, GeneStudySuggestions as StudySuggestions, type GeneStudyFilters } from './geneStudyScope';
 import { PageShell } from '../common/PageShell';
@@ -223,11 +223,8 @@ function PathwaySearch({ index, onPick }: { index: string[]; onPick: (p: string)
 }
 
 interface PathwayReportProps {
-  /**
-   * The pathway to report on. `null` is the LANDING state — the search
-   * interface, which is what the hub's Pathway Explorer card opens.
-   */
-  pathway: string | null;
+  /** The pathway to report on. */
+  pathway: string;
   /** Held above the report's error boundary so searches and retries retain it. */
   categoryScope?: CategoryScope<DatasetCategory>;
   /**
@@ -259,7 +256,7 @@ export function PathwayReport({
   const { activeCats, toggleCat } = categories;
   const { cards, eligibleCards, availableDatasets, selectedDatasets, awaitingCounts,
     queryKey, filters, changeFilters, reset } = useStudySelection({
-    kind: 'pathway', term: pathway || '', categories, datasetScope,
+    kind: 'pathway', term: pathway, categories, datasetScope,
     studyFilters, onStudyFiltersChange, onDatasetScopeChange,
   });
   const { result, loading, progress, bytes, error } = useReportQuery(
@@ -318,25 +315,6 @@ export function PathwayReport({
       </ScopeSummary>
     </>
   );
-
-  // ── Landing state: the search interface, nothing searched yet ─────────────
-  if (!pathway) {
-    return (
-      <div className="report-main report-search-dialog">
-        <SearchHero
-          headline="Pathway Explorer"
-          placeholder="Search a pathway, e.g. ADIPOGENESIS"
-          ariaLabel="Search a pathway across all datasets"
-          action="Search"
-          index={index}
-          substring
-          onSubmit={(p) => onSearchPathway(p.toUpperCase())}
-        >
-          {scopeControls}
-        </SearchHero>
-      </div>
-    );
-  }
 
   return (
     <PageShell

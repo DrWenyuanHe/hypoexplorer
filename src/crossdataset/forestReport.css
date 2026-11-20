@@ -1,12 +1,4 @@
 .report-main { max-width: 1160px; margin: 0 auto; padding: 24px 28px 64px; }
-.report-search-dialog { box-sizing: border-box; width: 100%; padding-bottom: 28px; }
-.report-search-dialog .qsearch-hero { max-width: 840px; margin: 0 auto; }
-/* Gene/Pathway switch in the shared search dialog; stays in reach while the scope controls scroll. */
-.xsearch-tabs { position: sticky; top: 0; z-index: 1; display: flex; justify-content: center; gap: 28px; padding: 0 28px; background: var(--bg-app); border-bottom: 1px solid var(--border); }
-.xsearch-tabs [role="tab"] { min-height: 44px; padding: 10px 2px 12px; background: transparent; border: 0; border-bottom: 2px solid transparent; border-radius: 0; color: var(--text-muted); font: inherit; font-size: 14px; cursor: pointer; white-space: nowrap; }
-.xsearch-tabs [role="tab"]:hover { color: var(--text-primary); }
-.xsearch-tabs [role="tab"][aria-selected="true"] { border-bottom-color: var(--color-selected); color: var(--text-primary); font-weight: 600; }
-.xsearch-tabs [role="tab"]:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 .report-filters { margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 14px; }
 .report-filters > summary { cursor: pointer; font-weight: 600; color: var(--text-primary); }
 .report-filters > div { padding-top: 18px; }

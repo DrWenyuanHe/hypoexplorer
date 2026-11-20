@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "module-crossdataset",
-  "fingerprint": "70527717c3b4bd4428f3fca51da735859db45b078025bcaf2b40ee1fdbd523d8",
-  "outcome": "no-impact",
-  "explanation": "ExplorerSearchDialog computes its gene/pathway tab target with the shared utils/tabKeys tabKeyTarget instead of its own if/else chain. Arrow wrap, Home/End, focus and panel behaviour are unchanged, as are the reports and routes.",
+  "fingerprint": "761ff95209f03b8ab378b095256b991624f1e4573aaf85221622fd162562a991",
+  "outcome": "updated",
+  "explanation": "ExplorerSearchDialog and its xsearch-tabs styles are deleted. GeneReport and PathwayReport always receive a term: their term-less landing branches go, as do SearchHero and rankSuggestions in searchLanding.tsx and the gene report's unused gene-index load. The study filters stay on each report; useSearchIndex still feeds the pathway report's follow-up search.",
   "references": [
-    "src/crossdataset/ExplorerSearchDialog.tsx",
-    "src/utils/tabKeys.ts",
-    "src/__tests__/app.searchDialogs.test.tsx"
+    "src/crossdataset/GeneReport.tsx",
+    "src/crossdataset/PathwayReport.tsx",
+    "src/crossdataset/searchLanding.tsx",
+    "src/crossdataset/forestReport.css",
+    "src/crossdataset/forestReport.tsx"
   ]
 }

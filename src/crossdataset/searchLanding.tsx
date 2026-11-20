@@ -1,17 +1,13 @@
-// The search interface the cross-dataset explorers open on.
-//
-// The Gene Explorer and the Pathway Explorer are each two states of one view:
-// a LANDING (no term searched yet — what these components draw) and a RESULT
-// (the gene page). This module owns the landing half plus the scope controls
-// that both halves share.
+// The study-scope controls the cross-dataset gene and pathway reports share:
+// the expandable per-dataset picker, its summary line and the lazily loaded
+// search vocabulary.
 //
 // Gene study-category and quality cards live in geneStudyScope.tsx.
-// This module keeps the shared search box and expandable study picker.
 //
 // COLOR NOTE (DESIGN.md, the One Voice Rule): the scope controls follow
 // FilterChip's blue `var(--accent)`, not the orange `var(--color-selected)` that
 // the checkbox rail in the library uses. Orange marks the single active thing in
-// a view, and the submit button is already wearing it here.
+// a view.
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
@@ -25,136 +21,6 @@ import type { Dataset } from '../types';
  * for a caller that does not own a scope — the report's own tests, mainly.
  */
 export const NOOP_SCOPE: Dispatch<SetStateAction<string[] | null>> = () => {};
-
-/** How many autocomplete suggestions to offer. */
-const MAX_SUGGESTIONS = 12;
-
-/**
- * Rank suggestions so the prefix matches come first.
- *
- * Gene symbols are short, so someone typing "POM" means POMC and not
- * "ADIPOQ-POM-like"; a plain substring filter buries the obvious answer. Pathway
- * names are long enough that the same rule would be useless there, which is why
- * the pathway box passes `substring`.
- */
-export function rankSuggestions(index: readonly string[], query: string, substring = false): string[] {
-  const q = query.trim().toUpperCase();
-  if (q.length < 2) return [];
-  if (substring) {
-    const out: string[] = [];
-    for (const name of index) {
-      if (name.toUpperCase().includes(q)) out.push(name);
-      if (out.length >= MAX_SUGGESTIONS) break;
-    }
-    return out;
-  }
-  const prefix: string[] = [];
-  const rest: string[] = [];
-  for (const name of index) {
-    const upper = name.toUpperCase();
-    if (upper.startsWith(q)) prefix.push(name);
-    else if (upper.includes(q)) rest.push(name);
-    if (prefix.length >= MAX_SUGGESTIONS) break;
-  }
-  return [...prefix, ...rest].slice(0, MAX_SUGGESTIONS);
-}
-
-interface SearchHeroProps {
-  /** Eyebrow line above the headline. */
-  eyebrow?: ReactNode;
-  headline: string;
-  sub?: ReactNode;
-  placeholder: string;
-  ariaLabel: string;
-  /** Submit button copy. */
-  action: string;
-  /** The vocabulary to autocomplete against; [] disables suggestions. */
-  index: readonly string[];
-  /** Match anywhere in the name rather than preferring prefixes. */
-  substring?: boolean;
-  /** One-click example terms. */
-  examples?: readonly string[];
-  onSubmit: (term: string) => void;
-  /** Scope controls, rendered under the box. */
-  children?: ReactNode;
-}
-
-/**
- * The landing hero: headline, the search box with autocomplete, example chips,
- * and whatever scope controls the caller puts beneath.
- *
- * Suggestions are a convenience, never a gate — the index is built from each
- * dataset's default track, so a symbol detected only in one macaque cell
- * population is queryable but unsuggested. Enter always submits what was typed.
- */
-export function SearchHero({
-  eyebrow, headline, sub, placeholder, ariaLabel, action,
-  index, substring, examples = [], onSubmit, children,
-}: SearchHeroProps) {
-  const [query, setQuery] = useState('');
-  const [open, setOpen] = useState(false);
-  const suggestions = useMemo(() => rankSuggestions(index, query, substring), [index, query, substring]);
-
-  const submit = (term?: string) => {
-    const q = (term ?? query).trim();
-    if (!q) return;
-    setOpen(false);
-    onSubmit(q);
-  };
-
-  return (
-    <section className="qsearch-hero">
-      {eyebrow && <span className="qsearch-eyebrow">{eyebrow}</span>}
-      <h1>{headline}</h1>
-      {sub && <p className="qsearch-sub">{sub}</p>}
-
-      <div className="qsearch">
-        <div className="qsearch-row">
-          <div className="qsearch-field">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-              <circle cx="11" cy="11" r="7" /><path d="m21 21-4.3-4.3" />
-            </svg>
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => { setQuery(e.target.value); setOpen(true); }}
-              onFocus={() => setOpen(true)}
-              // A blur that fires before the suggestion's mousedown would close
-              // the list out from under the click.
-              onBlur={() => setTimeout(() => setOpen(false), 150)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') submit();
-                else if (e.key === 'Escape') setOpen(false);
-              }}
-              aria-label={ariaLabel}
-              placeholder={placeholder}
-            />
-            {open && suggestions.length > 0 && (
-              <div className="qsearch-suggest">
-                {suggestions.map((s) => (
-                  <button type="button" key={s} className="hover-row" onMouseDown={() => submit(s)}>{s}</button>
-                ))}
-              </div>
-            )}
-          </div>
-          <button type="button" className="qsearch-go" onClick={() => submit()}>
-            {action}
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M5 12h14" /><path d="m13 6 6 6-6 6" />
-            </svg>
-          </button>
-        </div>
-        {examples.length > 0 && <div className="qsearch-examples">
-          <span className="lbl">Try</span>
-          {examples.map((g) => (
-            <button key={g} type="button" className="qsearch-chip" onClick={() => submit(g)}>{g}</button>
-          ))}
-        </div>}
-        {children}
-      </div>
-    </section>
-  );
-}
 
 /**
  * The per-dataset scope picker.

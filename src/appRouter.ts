@@ -49,7 +49,7 @@ import { getDataset, type DatasetCategory } from './data/datasets';
 import { DEFAULT_EXPLORER_TAB } from './explorer/explorerTabs';
 import { COMPARE_TRACK, type NavigationIntent } from './explorer/explorerPosition';
 import { loadDatasetMeta } from './data/loadDatasetMeta';
-import { type AppRoute, type CompareSetRouteItem, parseRoute, routeHref } from './utils/appLinks';
+import { type AppRoute, type CompareSetRouteItem, isRetiredSearchLanding, parseRoute, routeHref } from './utils/appLinks';
 import { COMPARE_SET_MAX, compareSetKey, type CompareSetItem } from './compareset/compareSetStore';
 import {
   DEFAULT_STUDY_ANALYSIS, hasStudyAnalysis,
@@ -182,16 +182,6 @@ export interface AppRouter {
    * path (a report's scope, the library's record): Back undoes it.
    */
   setSearchFilter: (filter: SearchFilter) => void;
-  /** Open the Gene Explorer's landing state — the search interface, no gene yet. */
-  openGeneExplorer: () => void;
-  /** Open the Pathway Explorer's landing state — the search interface, no pathway yet. */
-  openPathwayExplorer: () => void;
-  /**
-   * Switch the open search dialog between gene and pathway search. Unlike the
-   * two openers, the gene category scope is kept, so a scoped landing link
-   * survives a visit to the pathway side.
-   */
-  switchSearchExplorer: (mode: 'gene' | 'pathway') => void;
   /** Open the cross-dataset expression compare, carrying the report's scope. */
   compareDatasets: (gene: string, scope: DatasetCategory[] | null, datasetIds?: string[]) => void;
 
@@ -320,7 +310,8 @@ function resolveCompareSetItems(items: readonly CompareSetRouteItem[]): CompareS
 function bootState(initialView: string): BootState {
   const base: BootState = {
     routeError: null,
-    view: initialView as AppView,
+    // A report cannot open without its term, and only a URL supplies one.
+    view: (initialView === 'report' || initialView === 'pathway-report' ? 'hub' : initialView) as AppView,
     gene: null,
     scope: null,
     pathway: null,
@@ -460,30 +451,6 @@ export function useAppRouter(
   // An update from INSIDE the results page, so the query is left alone.
   const setSearchFilter = useCallback((filter: SearchFilter) => {
     setSearchFilterState(filter);
-  }, []);
-
-  // The two landing states, reached from the hub's primary cards. A null term is
-  // what makes the report render its search interface instead of a result, so
-  // these are the same views entered one step earlier — not separate ones.
-  const openGeneExplorer = useCallback(() => {
-    setReportGene(null);
-    setReportScope(null);
-    setView('report');
-  }, []);
-
-  const openPathwayExplorer = useCallback(() => {
-    setReportPathway(null);
-    setView('pathway-report');
-  }, []);
-
-  const switchSearchExplorer = useCallback((mode: 'gene' | 'pathway') => {
-    if (mode === 'gene') {
-      setReportGene(null);
-      setView('report');
-    } else {
-      setReportPathway(null);
-      setView('pathway-report');
-    }
   }, []);
 
   // Cross-dataset expression compare (side-by-side bars), reached from the forest
@@ -720,6 +687,10 @@ export function useAppRouter(
         setRoutePending(false);
         return;
       }
+      // A retired search landing (`#/gene`, `#/pathway`) is swapped for the
+      // search page's own address in place: no history entry is left naming it,
+      // and the address bar is corrected even when search is already showing.
+      if (isRetiredSearchLanding(window.location.hash)) window.history.replaceState(null, '', routeHref(route));
       applyRoute(route);
     };
     window.addEventListener('hashchange', onNavigate);
@@ -759,21 +730,17 @@ export function useAppRouter(
         return routeHref({ view: 'search', query: searchQuery, filter: searchFilter });
       case 'library':
         return routeHref({ view: 'library', datasetId: libraryDatasetId, categories: libraryCategories });
-      // Unconditional: a term-less report is the explorer's LANDING state, which
-      // has its own address. Returning null here would mean "do not write", and
-      // the address bar would keep naming whichever view came before it.
+      // A report always names its term; the guards narrow the shared state to
+      // `string`. A term-less report is never entered, so it never writes.
       case 'report':
-        return routeHref({ view: 'report', gene: reportGene, scope: reportScope,
-          ...(hasStudyAnalysis({ ...geneAnalysis, categories: null }) || chartScale !== 'native' ? { analysis: { ...geneAnalysis, categories: reportScope, chartScale } } : {}) });
-      // Still guarded, and for a different reason: comparing nothing is not a
-      // view, so `compare-datasets` keeps a non-null gene and this guard is what
-      // narrows `reportGene` to `string` for it.
+        return reportGene ? routeHref({ view: 'report', gene: reportGene, scope: reportScope,
+          ...(hasStudyAnalysis({ ...geneAnalysis, categories: null }) || chartScale !== 'native' ? { analysis: { ...geneAnalysis, categories: reportScope, chartScale } } : {}) }) : null;
       case 'compare-datasets':
         return reportGene ? routeHref({ view: 'compare-datasets', gene: reportGene, scope: reportScope,
           ...(hasStudyAnalysis({ ...geneAnalysis, categories: null }) || chartScale !== 'native' ? { analysis: { ...geneAnalysis, categories: reportScope, chartScale } } : {}) }) : null;
       case 'pathway-report':
-        return routeHref({ view: 'pathway-report', pathway: reportPathway,
-          ...(hasStudyAnalysis(pathwayAnalysis) || chartScale !== 'native' ? { analysis: { ...pathwayAnalysis, chartScale } } : {}) });
+        return reportPathway ? routeHref({ view: 'pathway-report', pathway: reportPathway,
+          ...(hasStudyAnalysis(pathwayAnalysis) || chartScale !== 'native' ? { analysis: { ...pathwayAnalysis, chartScale } } : {}) }) : null;
       case 'compare-set':
         // Shortest URL that round-trips, as the explorer arm does: a dataset's
         // default track is implied by the dataset, so it stays out of the link.
@@ -835,7 +802,7 @@ export function useAppRouter(
     compareSetItems, searchQuery, searchFilter,
     geneAnalysis, pathwayAnalysis, setGeneAnalysis, setPathwayAnalysis, setReportScope, setReportGene,
     goHome, enterTool, enterExplorer, searchGene, searchPathway, search, setSearchFilter,
-    openGeneExplorer, openPathwayExplorer, switchSearchExplorer, compareDatasets,
+    compareDatasets,
     openTracker, openInExplorer, openStatistics, openMethodology, openVerification, openNomenclature, openExpression, openLibrary,
     setLibraryDataset: setLibraryDatasetId, setLibraryCategories,
     openCompareSet, setCompareSetItems,

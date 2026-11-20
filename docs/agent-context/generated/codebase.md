@@ -56,7 +56,7 @@ Covered source files (239):
 - [src/__tests__/app.dataset.test.tsx](<../../../src/__tests__/app.dataset.test.tsx>)
 - [src/__tests__/app.geneScope.test.tsx](<../../../src/__tests__/app.geneScope.test.tsx>)
 - [src/__tests__/app.pathwayScope.test.tsx](<../../../src/__tests__/app.pathwayScope.test.tsx>)
-- [src/__tests__/app.searchDialogs.test.tsx](<../../../src/__tests__/app.searchDialogs.test.tsx>)
+- [src/__tests__/app.search.test.tsx](<../../../src/__tests__/app.search.test.tsx>)
 - [src/__tests__/appDeepLinks.test.tsx](<../../../src/__tests__/appDeepLinks.test.tsx>)
 - [src/__tests__/appExplorerPosition.test.tsx](<../../../src/__tests__/appExplorerPosition.test.tsx>)
 - [src/__tests__/appLinks.test.ts](<../../../src/__tests__/appLinks.test.ts>)
@@ -163,7 +163,6 @@ Covered source files (239):
 - [src/__tests__/forestReport.test.tsx](<../../../src/__tests__/forestReport.test.tsx>)
 - [src/__tests__/format.test.ts](<../../../src/__tests__/format.test.ts>)
 - [src/__tests__/geneEffectPreview.test.tsx](<../../../src/__tests__/geneEffectPreview.test.tsx>)
-- [src/__tests__/geneExplorerLanding.test.tsx](<../../../src/__tests__/geneExplorerLanding.test.tsx>)
 - [src/__tests__/geneExport.test.ts](<../../../src/__tests__/geneExport.test.ts>)
 - [src/__tests__/geneLinks.test.ts](<../../../src/__tests__/geneLinks.test.ts>)
 - [src/__tests__/geneListFile.test.ts](<../../../src/__tests__/geneListFile.test.ts>)
@@ -252,6 +251,7 @@ Covered source files (239):
 - [src/__tests__/sampleValues.test.ts](<../../../src/__tests__/sampleValues.test.ts>)
 - [src/__tests__/seRecovery.test.ts](<../../../src/__tests__/seRecovery.test.ts>)
 - [src/__tests__/sealedEvidenceProjection.test.ts](<../../../src/__tests__/sealedEvidenceProjection.test.ts>)
+- [src/__tests__/searchLanding.test.tsx](<../../../src/__tests__/searchLanding.test.tsx>)
 - [src/__tests__/searchPage.test.tsx](<../../../src/__tests__/searchPage.test.tsx>)
 - [src/__tests__/searchVocabulary.test.ts](<../../../src/__tests__/searchVocabulary.test.ts>)
 - [src/__tests__/seoGuides.test.ts](<../../../src/__tests__/seoGuides.test.ts>)
@@ -429,10 +429,9 @@ Start here:
 - [src/crossdataset/forestReport.tsx](<../../../src/crossdataset/forestReport.tsx>)
 - [src/crossdataset/geneStudyScope.tsx](<../../../src/crossdataset/geneStudyScope.tsx>)
 
-Covered source files (11):
+Covered source files (10):
 - [src/crossdataset/CrossDatasetCompare.tsx](<../../../src/crossdataset/CrossDatasetCompare.tsx>)
 - [src/crossdataset/EffectPreview.tsx](<../../../src/crossdataset/EffectPreview.tsx>)
-- [src/crossdataset/ExplorerSearchDialog.tsx](<../../../src/crossdataset/ExplorerSearchDialog.tsx>)
 - [src/crossdataset/GeneEffectPreview.tsx](<../../../src/crossdataset/GeneEffectPreview.tsx>)
 - [src/crossdataset/GeneReport.tsx](<../../../src/crossdataset/GeneReport.tsx>)
 - [src/crossdataset/PathwayEffectPreview.tsx](<../../../src/crossdataset/PathwayEffectPreview.tsx>)

@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "153629c868d9464f59c2697bb9bdc1902de65d02f7258c7d4ed36cf8a7bec77a",
-  "outcome": "no-impact",
-  "explanation": "Adds hypomapPreview.test.tsx: a mocked ready-state HypoMap fixture checks the view tablist (click selects and focuses the tab, tabpanel labelling, spatial CSV action only on Spatial), Arrow/Home/End navigation and the region reset, plus tabKeyTarget wrap and Home/End. No existing suite changes.",
+  "fingerprint": "f5c9c4481b4348239e3bf729f122d09d0176e22c35ef664a0acaf0392f97e336",
+  "outcome": "updated",
+  "explanation": "app.searchDialogs becomes app.search: dialog tests give way to hub-search and retired-link tests, including history replacement. geneExplorerLanding becomes searchLanding and tests DatasetScopePanel directly. hubSections, hubUnits, pathwayReport, appRoutes and both App scope suites start from named reports and their Study filters. From main, hypomapPreview.test.tsx covers the HypoMap view tablist and tabKeyTarget.",
   "references": [
-    "src/__tests__/hypomapPreview.test.tsx",
-    "src/search/hypomap/HypoMapPreview.tsx",
-    "src/utils/tabKeys.ts"
+    "src/__tests__/app.search.test.tsx",
+    "src/__tests__/searchLanding.test.tsx",
+    "src/__tests__/app.geneScope.test.tsx",
+    "src/__tests__/app.pathwayScope.test.tsx",
+    "src/__tests__/hypomapPreview.test.tsx"
   ]
 }

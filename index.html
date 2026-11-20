@@ -287,30 +287,9 @@
     .hub-origin.warn { color: #B7791F; }
     .hub-origin.idle { color: var(--text-muted); }
 
-    /* ── The cross-dataset search interface ─────────────────────────────────
-       Lives inside the Gene and Pathway Explorers (src/crossdataset/), not on
+    /* ── Report study filters ───────────────────────────────────────────────
+       The gene and pathway reports' scope controls (src/crossdataset/), not
        the hub — hence the neutral `qsearch-` prefix rather than `hub-`. */
-    .qsearch-hero { padding: clamp(20px, 4vw, 40px) 0 var(--sp-4); }
-    .qsearch-eyebrow { display: inline-flex; align-items: center; gap: var(--sp-2); font-family: var(--font-mono); font-size: var(--fs-12); color: var(--text-muted); margin-bottom: var(--sp-4); }
-    .qsearch-eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; }
-    .qsearch-hero h1 { font-size: clamp(24px, 3.2vw, 34px); line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; max-width: 20ch; }
-    .qsearch-sub { margin-top: var(--sp-3); font-size: clamp(13px, 1.3vw, 15px); line-height: 1.55; color: var(--text-muted); max-width: 66ch; }
-    .qsearch { margin-top: var(--sp-5); max-width: 840px; }
-    .qsearch-row { display: flex; gap: var(--sp-2); align-items: stretch; }
-    .qsearch-field { position: relative; flex: 1; }
-    .qsearch-field > svg { position: absolute; left: 16px; top: 26px; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
-    .qsearch-field input { width: 100%; height: 52px; padding: 0 16px 0 46px; font-size: var(--fs-16); font-family: inherit; color: var(--text-primary); background: var(--bg-panel); border: 1px solid var(--border-dark); border-radius: 10px; outline: none; box-shadow: var(--shadow-sm); transition: border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease); }
-    .qsearch-field input::placeholder { color: #938f88; }
-    .qsearch-field input:focus-visible { border-color: var(--color-selected); box-shadow: 0 0 0 4px rgba(242, 142, 43, 0.16); }
-    .qsearch-suggest { position: absolute; top: 100%; left: 0; z-index: 100; width: 100%; max-height: 300px; overflow-y: auto; margin-top: 2px; background: var(--bg-panel); border: 1px solid var(--border-dark); border-radius: var(--r-lg); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); }
-    .qsearch-suggest button { display: block; width: 100%; text-align: left; padding: 6px 12px; border: none; background: none; cursor: pointer; font-family: var(--font-mono); font-size: var(--fs-12); color: var(--text-primary); }
-    .qsearch-go { flex-shrink: 0; display: inline-flex; align-items: center; gap: var(--sp-2); padding: 0 20px; height: 52px; border: none; border-radius: 10px; background: var(--color-selected); color: #fff; font-family: inherit; font-size: var(--fs-14); font-weight: 600; cursor: pointer; box-shadow: 0 2px 6px rgba(242, 142, 43, 0.3); transition: background var(--t-fast) var(--ease); }
-    .qsearch-go:hover { background: #e07a1e; }
-    .qsearch-go:focus-visible { outline: 2px solid var(--color-selected); outline-offset: 2px; }
-    .qsearch-examples { margin-top: var(--sp-3); display: flex; align-items: center; gap: var(--sp-2); flex-wrap: wrap; }
-    .qsearch-examples .lbl { font-size: var(--fs-11); color: var(--text-muted); }
-    .qsearch-chip { font-family: var(--font-mono); font-size: var(--fs-12); color: var(--accent); background: var(--row-selected); border: 1px solid transparent; border-radius: var(--r-md); padding: 4px 10px; cursor: pointer; }
-    .qsearch-chip:hover { background: var(--row-selected); border-color: var(--accent); }
     /* Study categories and evidence filters share selectable cards. */
     .qsearch-presets { margin: var(--sp-4) 0 0; padding: 0; min-width: 0; border: 0; }
     .qsearch-presets .lbl { display: block; font-size: var(--fs-10); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
@@ -431,8 +410,6 @@
     .hub-util button:hover { color: var(--text-primary); }
     .hub-util button:focus-visible { outline: 2px solid var(--color-selected); outline-offset: 3px; border-radius: var(--r-sm); }
     @media (max-width: 768px) {
-      .qsearch-row { flex-direction: column; }
-      .qsearch-go { height: 46px; justify-content: center; }
       /* One nav line beside the compare pill; on a phone too narrow for every
          section it scrolls sideways, its trailing edge fading out. */
       .hub-bar { justify-content: flex-start; align-items: center; gap: 8px; padding: 6px 12px 0 2px; }
