@@ -1,6 +1,6 @@
 import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import { useState } from 'react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi, beforeAll } from 'vitest';
 import {
   CircadianResultsTable, VISIBLE_ROW_CAP, fmtSig3, rhythmSortValue,
 } from '../circadian/CircadianResultsTable';
@@ -9,6 +9,11 @@ import { type RhythmResult, SCAN_PERIODS, runRhythmicity } from '../circadian/rh
 import type { RhythmRow } from '../circadian/scan';
 import { defineDataset } from '../data/datasets';
 import type { TimeSeriesBundle } from '../types';
+import { loadExportEvidence } from '../utils/lazyExport';
+
+// Export snapshots record the internal QC ledger, which the app loads on the
+// first export (utils/lazyExport.ts); load it before any export runs.
+beforeAll(() => loadExportEvidence());
 
 vi.mock('../circadian/circadianExport', () => ({
   exportResultsCSV: vi.fn(), exportRawCSV: vi.fn(), exportWorkbook: vi.fn().mockResolvedValue(undefined),

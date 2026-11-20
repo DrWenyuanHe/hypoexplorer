@@ -30,6 +30,7 @@ import { useBundleBytes } from '../data/useBundleProgress';
 import { contrastArmCounts } from '../data/contrasts';
 import { contrastLabel } from '../crossdataset/forestReport';
 import { useExportAction } from '../utils/exportAction';
+import { withExportEvidence } from '../utils/lazyExport';
 import { columnsSubject, exportName, exportProvenance, metadataSheet } from '../utils/exportProvenance';
 import { writeWorkbook, type WorkbookRow } from '../utils/workbook';
 import { fmtBytes } from '../utils/format';
@@ -127,7 +128,8 @@ export function CompareSetView({ items, onItemsChange, onHome, onOpenDataset, on
 
   const readyColumns = useMemo(() => columns.filter((c) => !c.unavailable), [columns]);
 
-  const exportExcel = () => runExport(() => {
+  // The Metadata sheet records the QC ledger, which loads on the first export.
+  const exportExcel = () => runExport(() => withExportEvidence(() => {
     const summary = compareSummaryRows(readyColumns, popDataMap, selectedGenes).map((row, i) => {
       const { Gene, ...rest } = row;
       const tally = tallyGene(readyColumns, popDataMap, selectedGenes[i]);
@@ -160,7 +162,7 @@ export function CompareSetView({ items, onItemsChange, onHome, onOpenDataset, on
         columnsWithData: readyColumns.length,
       })),
     ]);
-  });
+  }));
 
   const unitCaveat = (
     <>

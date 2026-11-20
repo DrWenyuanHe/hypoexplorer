@@ -185,7 +185,12 @@ results page). A test that renders App awaits `preloadAppViews()` in a
 `beforeAll`, so its synchronous queries still find the view. A module the hub
 or the results page imports must not reach the evidence ledgers
 (`internalQc.ts`, `authorValidation.ts`) statically; `csv.ts` takes its
-provenance columns from `exportProvenanceFormat.ts` for that reason.
+provenance columns from `exportProvenanceFormat.ts` for that reason. Export
+provenance reads the internal QC ledger through `exportEvidence()` in
+`src/utils/lazyExport.ts`, which loads it on the first export and throws if it
+is not loaded. Run every new export entry point inside `withExportEvidence()`
+(it runs synchronously once the ledger is loaded), and load it with
+`loadExportEvidence()` in a test that calls an export builder directly.
 Expected outputs are the requested behavior and relevant regression coverage.
 Run the app and script TypeScript checks documented in
 [project guidance](../PROJECT_GUIDANCE.md) and focused Vitest tests. Use a browser

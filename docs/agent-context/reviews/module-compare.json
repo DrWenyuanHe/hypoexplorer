@@ -1,10 +1,13 @@
 {
   "version": 1,
   "area": "module-compare",
-  "fingerprint": "a1c65668b24ceea2cb8d6317cb9e407adc4732506fce164a89b4abe7df475fea",
-  "outcome": "no-impact",
-  "explanation": "compareSummaryRows now writes a blank group mean when a study has no values for the gene, instead of mean([]) = 0; the export's columns, sheets and callers are unchanged, so no map or runbook changes.",
+  "fingerprint": "0c7d6d59fefb45a05354b5507716ffe06560794ad76d1941fc40cbfb5eb1c755",
+  "outcome": "updated",
+  "explanation": "CompareTab, ComparePathwayView and the chart tiles in CompareGenesView run their workbook, CSV, ZIP and SVG exports inside withExportEvidence. chartTileExport returns its provenance as a getter, because tiles describe themselves on every render and the snapshot now needs the ledger that loads on the first export.",
   "references": [
-    "src/compare/compareSummary.ts"
+    "src/compare/CompareTab.tsx",
+    "src/compare/compareFigureExport.ts",
+    "src/compare/CompareGenesView.tsx",
+    "src/compare/ComparePathwayView.tsx"
   ]
 }

@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "dd4e4561abb151db041b6f9dda3e873aaac526caf7fc0947659f56963028efea",
+  "fingerprint": "24959901da45f271fc64ed62eb5e361bbc8e33a109204fe17fc9d1f35e89abdf",
   "outcome": "updated",
-  "explanation": "The ui-change route keeps main's lazyView rules (non-hub views in src/appViews.tsx, tests await preloadAppViews(), no static evidence-ledger imports on hub or results pages) and this branch's circadian paragraph: component owners, per-arm scans, the shared peak helper, verified Lomb-Scargle floor statements, full-gene raw exports and the workbook worker.",
+  "explanation": "The ui-change route now says export provenance reads the internal QC ledger through exportEvidence() in lazyExport.ts, that new export entry points run inside withExportEvidence(), and that tests calling an export builder directly load the ledger with loadExportEvidence() first.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/appViews.tsx",
-    "src/circadian/CircadianTab.tsx"
+    "src/utils/lazyExport.ts"
   ]
 }

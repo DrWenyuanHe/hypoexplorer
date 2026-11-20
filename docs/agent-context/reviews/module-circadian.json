@@ -1,16 +1,12 @@
 {
   "version": 1,
   "area": "module-circadian",
-  "fingerprint": "307c5f507ad8cac289ac65edd5530a7cec7bd465c73be3d2ff219ca8c3b4ee9f",
+  "fingerprint": "8fe93497599fd4e52d15318aaf08ed7f2f9c93f31ba3de24d407173d7835c7e7",
   "outcome": "updated",
-  "explanation": "The Circadian tab is split into CircadianTab (state, per-arm scan queue, selection), CircadianControls, CircadianNotes, CircadianResultsTable and ArmStatsStrip; every arm is scanned with its own gene-wise correction, peak displays share peak.ts, Lomb-Scargle floor claims require a verified projection for every scored sampling pattern, raw exports cover every listed gene, and the workbook is built in circadianWorkbook.worker.ts. CIRCADIAN_VALIDATION.md and the ui-change runbook describe the new behaviour; rhythmicity.ts and jtkCycle.ts are unchanged.",
+  "explanation": "CircadianResultsTable runs its three exports (rhythmicity CSV, raw time-course CSV, workbook) inside withExportEvidence, so their provenance can read the internal QC ledger that now loads on the first export. The export functions in circadianExport.ts are unchanged and still synchronous where they were.",
   "references": [
-    "src/circadian/CircadianTab.tsx",
-    "src/circadian/scan.ts",
-    "src/circadian/peak.ts",
-    "src/circadian/circadianWorkbook.ts",
-    "src/circadian/circadianWorkbook.worker.ts",
-    "docs/CIRCADIAN_VALIDATION.md",
-    "docs/agent-context/workflows.md"
+    "src/circadian/CircadianResultsTable.tsx",
+    "src/circadian/circadianExport.ts",
+    "src/utils/lazyExport.ts"
   ]
 }

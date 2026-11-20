@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import type { CSSProperties } from 'react';
-import { withHtml2Canvas } from '../utils/lazyExport';
+import { withExportEvidence, withHtml2Canvas } from '../utils/lazyExport';
 import { pToStar, fmtP, fmtSigned } from '../utils/format';
 import { rawValueRows, groupMeanColumns } from '../utils/excelExport';
 import { writeWorkbook } from '../utils/workbook';
@@ -250,10 +250,11 @@ export function GeneExplorerTab({
     const subject = trackSubject(popData);
 
     if (modalPathway) {
-      runModalExport(() => writeWorkbook(
+      // The Metadata sheet records the QC ledger, which loads on the first export.
+      runModalExport(() => withExportEvidence(() => writeWorkbook(
         exportName(subject, [`${modalGene}_${modalPathway.pathway}`], 'xlsx'),
         [...pathwayDetailSheets(modalPathway, popData, contrastSlices, { queryGene: modalGene }), metadata('gene_pathway_detail')],
-      ));
+      )));
     } else {
       const pathwayRows = modalPathways.map((p) => ({
         Database: p.db,
@@ -275,12 +276,12 @@ export function GeneExplorerTab({
         ...groupMeanColumns(popData, modalGene),
         PathwayCount: modalPathways.length,
       }];
-      runModalExport(() => writeWorkbook(exportName(subject, [`${modalGene}_leading_pathways`], 'xlsx'), [
+      runModalExport(() => withExportEvidence(() => writeWorkbook(exportName(subject, [`${modalGene}_leading_pathways`], 'xlsx'), [
         { name: 'Pathways', rows: pathwayRows },
         { name: 'GeneContext', rows: geneCtx },
         { name: 'GeneCPM', rows: rawValueRows(popData, [modalGene]) },
         metadata('gene_leading_pathways'),
-      ]));
+      ])));
     }
   }, [modalGene, modalPathway, modalPathways, popData, contrastSlices, runModalExport, exportSettings]);
 
@@ -379,8 +380,8 @@ export function GeneExplorerTab({
                 </fieldset>
               )}
               <ChartScaleToggle style={{ marginRight: 4 }} />
-              <button type="button" onClick={() => exportGenesCSV(selectedGenes, popData, exportScope)} disabled={exportingPNG} style={btnStyle}>Export CSV</button>
-              <button type="button" onClick={() => exportGenesExcel(selectedGenes, popData, exportScope)} disabled={exportingPNG} style={btnStyle}>Export Excel</button>
+              <button type="button" onClick={() => withExportEvidence(() => exportGenesCSV(selectedGenes, popData, exportScope))} disabled={exportingPNG} style={btnStyle}>Export CSV</button>
+              <button type="button" onClick={() => withExportEvidence(() => exportGenesExcel(selectedGenes, popData, exportScope))} disabled={exportingPNG} style={btnStyle}>Export Excel</button>
               <ExportButton onClick={exportChartsPNG} busy={exportingPNG} busyLabel="Exporting…" spinnerSize={11}
                 style={btnStyle}>
                 Export PNG

@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (245):
+Covered source files (246):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -143,6 +143,7 @@ Covered source files (245):
 - [src/__tests__/explorerSession.test.tsx](<../../../src/__tests__/explorerSession.test.tsx>)
 - [src/__tests__/explorerStore.test.tsx](<../../../src/__tests__/explorerStore.test.tsx>)
 - [src/__tests__/exportAction.test.tsx](<../../../src/__tests__/exportAction.test.tsx>)
+- [src/__tests__/exportEvidence.test.ts](<../../../src/__tests__/exportEvidence.test.ts>)
 - [src/__tests__/exportProvenance.test.ts](<../../../src/__tests__/exportProvenance.test.ts>)
 - [src/__tests__/expressionIndex.test.ts](<../../../src/__tests__/expressionIndex.test.ts>)
 - [src/__tests__/expressionIndexBuild.test.ts](<../../../src/__tests__/expressionIndexBuild.test.ts>)

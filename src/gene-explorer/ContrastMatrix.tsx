@@ -18,6 +18,7 @@ import { pToStar, fmtP, fmtSigned } from '../utils/format';
 import { btnStyle, UP_TEXT_COLOR, DOWN_TEXT_COLOR, NEUTRAL_TEXT_COLOR, FONT_MONO, FONT_SANS } from '../styles/constants';
 import { SortableTh } from '../common/SortableTh';
 import { writeCsv } from '../utils/csv';
+import { withExportEvidence } from '../utils/lazyExport';
 import { exportName, trackSubject } from '../utils/exportProvenance';
 import { geneExportProvenance } from './geneExport';
 import type { GeneDERecord, PopData, ResolvedContrast } from '../types';
@@ -85,19 +86,22 @@ export function ContrastMatrix({ selectedGenes, slices, activeContrastId, onRemo
   const exportCSV = () => {
     const popData = (slices.find((slice) => slice.contrast.id === activeContrastId) ?? slices[0])?.popData;
     if (!popData) return;
-    const contrasts = slices.map((slice) => slice.contrast);
-    const provenance = geneExportProvenance('contrast_matrix', popData, genes.length, [], contrasts, {
-      sort: { key: sortBy, direction: sortDir === 1 ? 'ascending' : 'descending' },
+    // The provenance records the QC ledger, which loads on the first export.
+    void withExportEvidence(() => {
+      const contrasts = slices.map((slice) => slice.contrast);
+      const provenance = geneExportProvenance('contrast_matrix', popData, genes.length, [], contrasts, {
+        sort: { key: sortBy, direction: sortDir === 1 ? 'ascending' : 'descending' },
+      });
+      const headers = ['Gene', ...slices.flatMap((s) => [
+        `logFC (${s.contrast.label})`, `PValue (${s.contrast.label})`, `FDR (${s.contrast.label})`,
+      ])];
+      writeCsv(exportName(trackSubject(popData, { contrasts }), ['contrast_matrix'], 'csv'), headers, genes.map((g) =>
+        [g, ...slices.flatMap((s) => {
+          const de = s.popData.deByGene[g];
+          return de ? [de.logFC, de.PValue, de.FDR] : [null, null, null];
+        })],
+      ), { provenance });
     });
-    const headers = ['Gene', ...slices.flatMap((s) => [
-      `logFC (${s.contrast.label})`, `PValue (${s.contrast.label})`, `FDR (${s.contrast.label})`,
-    ])];
-    writeCsv(exportName(trackSubject(popData, { contrasts }), ['contrast_matrix'], 'csv'), headers, genes.map((g) =>
-      [g, ...slices.flatMap((s) => {
-        const de = s.popData.deByGene[g];
-        return de ? [de.logFC, de.PValue, de.FDR] : [null, null, null];
-      })],
-    ), { provenance });
   };
 
   if (!slices.length) return null;

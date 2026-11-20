@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-pathway-explorer",
-  "fingerprint": "900906977373e3ed00d70a0ca2cfb075c0649273481e1dc6c80011f67f007784",
-  "outcome": "no-impact",
-  "explanation": "PathwayToolbar pager arrows gain Previous page / Next page accessible names and a pager-step class that responsive.css widens to a 44px touch target on phones; paging logic and table contents are unchanged.",
+  "fingerprint": "a467f9e096d7b2d2806b64f82867b8e23d10ff3da2285ecc94e2f12e620b7cd8",
+  "outcome": "updated",
+  "explanation": "The pathway table, pathway detail and leading-edge workbooks are built inside withExportEvidence in PathwayExplorerTab and LeadingEdgeGenesView, because their Metadata sheets read the internal QC ledger that now loads on the first export. pathwayExport.ts is unchanged.",
   "references": [
-    "src/pathway-explorer/PathwayToolbar.tsx",
-    "src/styles/responsive.css"
+    "src/pathway-explorer/PathwayExplorerTab.tsx",
+    "src/pathway-explorer/LeadingEdgeGenesView.tsx",
+    "src/pathway-explorer/pathwayExport.ts"
   ]
 }

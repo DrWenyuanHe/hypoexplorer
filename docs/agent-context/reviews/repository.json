@@ -1,13 +1,11 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "255d3693e9c94309aa6cd972bcf3a2b020522a9315ea1e2490847caaae81a6ef",
+  "fingerprint": "4dd5ff06a2243737f55a3c898618bd947f1053cc25d653e37049b1250f397312",
   "outcome": "updated",
-  "explanation": "From main, App renders every non-hub view through src/appViews.tsx and docs/APP_LOADING_2026-11-20.md records the hub critical path. This branch adds worker.format es in vite.config.ts beside main's codeSplitting groups so the circadian workbook worker can lazy-load the xlsx group, and extends the ui-change runbook's circadian paragraph; the generated code map is regenerated for the merged tree.",
+  "explanation": "docs/APP_LOADING_2026-11-20.md records the follow-up: export provenance loads the internal QC ledger on the first export, the explorer tabs drop from about 4,400 KB to about 600 KB of static script, and browser exports were checked to carry every check and note of their contrast.",
   "references": [
-    "src/appViews.tsx",
-    "vite.config.ts",
-    "docs/agent-context/workflows.md",
-    "docs/agent-context/generated/codebase.md"
+    "docs/APP_LOADING_2026-11-20.md",
+    "src/utils/lazyExport.ts"
   ]
 }

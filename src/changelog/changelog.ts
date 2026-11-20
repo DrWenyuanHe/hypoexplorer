@@ -7,6 +7,14 @@ export interface ChangelogEntry {
 export const CHANGELOG: ChangelogEntry[] = [
   {
     date: '2026-11-20',
+    title: 'Lighter explorer tabs',
+    items: [
+      'The gene, pathway, compare and circadian tabs no longer download the quality-check records when they open, about 3.9 MB of script. The records load the first time you export a file, which can take a moment longer; later exports start at once.',
+      'Every exported file still records its dataset\'s quality checks and notes, as before. No data, result or analysis changed.',
+    ],
+  },
+  {
+    date: '2026-11-20',
     title: 'Faster first load',
     items: [
       'The home page downloads about 160 KB of compressed script instead of about 920 KB. Each other page, explorer tab and panel now loads its own code when you first open it, and the search results page loads in the background while the home page sits idle.',

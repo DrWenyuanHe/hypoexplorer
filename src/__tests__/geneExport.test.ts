@@ -1,10 +1,15 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, beforeAll } from 'vitest';
 import { exportGenesCSV, exportGenesExcel } from '../gene-explorer/geneExport';
 import { makePopData, MACAQUE_DATASET } from './fixtures';
 import { csvDownloadTable, csvDownloadText } from './csvDownload';
 import { parseRoute } from '../utils/appLinks';
 import { RELEASE_IDENTITY } from '../data/releaseIdentity';
 import type { Group, PopData, ResolvedContrast } from '../types';
+import { loadExportEvidence } from '../utils/lazyExport';
+
+// Export snapshots record the internal QC ledger, which the app loads on the
+// first export (utils/lazyExport.ts); load it before any export runs.
+beforeAll(() => loadExportEvidence());
 
 // The gene CSV is the download that sits beside the bar charts, and its one
 // hard requirement is that it describes the SAME picture: the default two-arm

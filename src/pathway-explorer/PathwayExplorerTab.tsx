@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { fmtP, fmtFDR, fmtSigned, truncate } from '../utils/format';
 import { writeWorkbook } from '../utils/workbook';
 import { useExportAction } from '../utils/exportAction';
+import { withExportEvidence } from '../utils/lazyExport';
 import { btnStyle, thStyle, FONT_MONO, FONT_SANS } from '../styles/constants';
 import { PathwayDetailPanel } from './PathwayDetailPanel';
 import { pathwayDetailWorkbook, pathwayTableWorkbook } from './pathwayExport';
@@ -60,8 +61,11 @@ export function PathwayExplorerTab({
   // recorded by the export-provenance module.
   const exportPathwayDetail = useCallback(() => {
     if (!selectedPathway || !popData?.meta) return;
-    const { filename, sheets } = pathwayDetailWorkbook(selectedPathway, popData, contrastSlices);
-    runDetailExport(() => writeWorkbook(filename, sheets));
+    // The Metadata sheet records the QC ledger, which loads on the first export.
+    runDetailExport(() => withExportEvidence(() => {
+      const { filename, sheets } = pathwayDetailWorkbook(selectedPathway, popData, contrastSlices);
+      return writeWorkbook(filename, sheets);
+    }));
   }, [selectedPathway, popData, contrastSlices, runDetailExport]);
 
   // Rows below the FDR cutoff. A predicate rather than a threshold field, so the
@@ -101,12 +105,12 @@ export function PathwayExplorerTab({
     </SortableTh>
   );
 
-  const exportExcel = () => runExport(() => {
+  const exportExcel = () => runExport(() => withExportEvidence(() => {
     const { filename, sheets } = pathwayTableWorkbook(popData, filtered, {
       search: pathwaySearch, dbFilter: pathwayDBFilter, fdrThresh: pathwayFDRThresh, sortKey: pathwaySortKey,
     });
     return writeWorkbook(filename, sheets);
-  });
+  }));
 
   return (
     <div className="explorer-tab" style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>

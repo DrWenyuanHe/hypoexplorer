@@ -1,10 +1,11 @@
 {
   "version": 1,
   "area": "module-compareset",
-  "fingerprint": "c0bd7ef05866d5d0d7f5a1e15f7450631935ef309d8d447146644ca3af451e18",
-  "outcome": "no-impact",
-  "explanation": "CompareSetView.tsx only renames the page its header comment cites, from the Statistics page to Methods & statistics; the view is unchanged.",
+  "fingerprint": "e19dded638d7d6b1598ba5125846447e27a1c2696c09b5983c9c5178e6eb4ecf",
+  "outcome": "updated",
+  "explanation": "The compare-set Excel export runs inside withExportEvidence, so its Metadata sheet can read the internal QC ledger that now loads on the first export. The workbook content, columns and filename are unchanged.",
   "references": [
-    "src/compareset/CompareSetView.tsx"
+    "src/compareset/CompareSetView.tsx",
+    "src/utils/lazyExport.ts"
   ]
 }

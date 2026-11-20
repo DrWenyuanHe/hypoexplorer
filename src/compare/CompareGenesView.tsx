@@ -19,6 +19,7 @@ import { ChartScaleToggle } from '../common/ChartScaleToggle';
 import { ExportButton } from '../common/ExportButton';
 import { useChartScale } from '../common/chartScaleStore';
 import { useExportAction } from '../utils/exportAction';
+import { withExportEvidence } from '../utils/lazyExport';
 import { columnsSubject, exportName } from '../utils/exportProvenance';
 import { COLOR_WARNING_TEXT, DOWN_TEXT_COLOR, FONT_MONO, FONT_SANS, UP_TEXT_COLOR } from '../styles/constants';
 import type { PopData } from '../types';
@@ -445,12 +446,13 @@ function ChartTile({ col, pd, gene, pValue, downloads, children }: {
   const saveSvg = () => {
     const el = tileRef.current;
     if (!el) return;
-    run(() => {
-      const saved = saveChartSvg(el, file.filename('svg'), file.caption, file.provenance);
+    // The SVG's <metadata> records the QC ledger, which loads on the first export.
+    run(() => withExportEvidence(() => {
+      const saved = saveChartSvg(el, file.filename('svg'), file.caption, file.provenance());
       // The chart chunk loads lazily; a tile clicked before it lands has no
       // <svg> yet, and a silent no-op would read as a broken button.
       if (!saved) window.alert('This chart is still drawing. Try again in a moment.');
-    });
+    }));
   };
 
   return (

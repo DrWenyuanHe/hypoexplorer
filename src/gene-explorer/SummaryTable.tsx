@@ -4,6 +4,7 @@ import { pToStar, fmtP } from '../utils/format';
 import { displayUnit, getGroupedValues, groupLabels, unitProvenance } from '../utils/sampleValues';
 import { btnStyle, UP_TEXT_COLOR, DOWN_TEXT_COLOR, NEUTRAL_TEXT_COLOR, FONT_MONO, FONT_SANS } from '../styles/constants';
 import { useExportAction } from '../utils/exportAction';
+import { withExportEvidence } from '../utils/lazyExport';
 import { ExportButton } from '../common/ExportButton';
 import { SortableTh } from '../common/SortableTh';
 import { exportGenesCSV, exportGenesExcel } from './geneExport';
@@ -77,12 +78,13 @@ export function SummaryTable({ selectedGenes, onRemove, popData, scrollMaxHeight
   // Export the genes in the table's current sort order, via the shared exporters
   // (also used by the Bar charts pop-up).
   const exportScope = { settings: { ...exportSettings, sort: { key: sortKey, direction: sortDir === 1 ? 'ascending' : 'descending' } } };
-  const exportCSV = () => exportGenesCSV(rows.map((r) => r.gene), popData, exportScope);
+  // Both formats record the QC ledger, which loads on the first export.
+  const exportCSV = () => withExportEvidence(() => exportGenesCSV(rows.map((r) => r.gene), popData, exportScope));
 
   // The busy label follows the export: this used to start its reset timer
   // synchronously, so "Downloading…" was a fixed 1 s animation that could end
   // while the workbook was still being written.
-  const exportExcel = () => runExport(() => exportGenesExcel(rows.map((r) => r.gene), popData, exportScope));
+  const exportExcel = () => runExport(() => withExportEvidence(() => exportGenesExcel(rows.map((r) => r.gene), popData, exportScope)));
 
   // A render helper CALLED as a function, not a nested <Th/> component: a
   // component declared in the body is a new type on every render, so React

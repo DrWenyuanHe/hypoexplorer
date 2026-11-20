@@ -3,6 +3,7 @@ import type { CSSProperties } from 'react';
 import { writeWorkbook } from '../utils/workbook';
 import { writeCsv } from '../utils/csv';
 import { useExportAction } from '../utils/exportAction';
+import { withExportEvidence } from '../utils/lazyExport';
 import { columnsSubject, exportName, exportProvenance } from '../utils/exportProvenance';
 import { useChartScale } from '../common/chartScaleStore';
 import { useTrackColumns, type TrackColumnPolicy } from '../data/trackColumns';
@@ -180,18 +181,20 @@ export function CompareTab({ meta, dataset, contrast, defaultPops, initialView, 
     ? `Downloads are available once every selected population has loaded (${activePops.length} of ${selectedPops.length} loaded).`
     : !hasGenes ? 'Add a gene above to download its data and charts.' : undefined;
 
-  const exportExcel = () => runExport(() => {
+  // Data and chart exports record the QC ledger in their provenance; it loads
+  // on the first export (withExportEvidence).
+  const exportExcel = () => runExport(() => withExportEvidence(() => {
     const { filename, sheets } = compareGenesWorkbook(columns, popDataMap, selectedGenes);
     return writeWorkbook(filename, sheets);
-  });
-  const exportCsv = () => runExport(() => {
+  }));
+  const exportCsv = () => runExport(() => withExportEvidence(() => {
     const csv = compareGenesCsv(columns, popDataMap, selectedGenes);
     writeCsv(csv.filename, csv.columns, csv.rows, { provenance: csv.provenance, rowProvenance: csv.rowProvenance });
-  });
-  const exportValuesCsv = () => runExport(() => {
+  }));
+  const exportValuesCsv = () => runExport(() => withExportEvidence(() => {
     const csv = compareValuesCsv(columns, popDataMap, selectedGenes);
     writeCsv(csv.filename, csv.columns, csv.rows, { provenance: csv.provenance, rowProvenance: csv.rowProvenance });
-  });
+  }));
   // Every drawn chart tile as its own file, a folder per gene. A tile is only
   // drawn for a population that detected the gene, so the archive holds
   // exactly the charts on screen.
@@ -211,9 +214,9 @@ export function CompareTab({ meta, dataset, contrast, defaultPops, initialView, 
     }
     const subject = columnsSubject(columns, popDataMap);
     if (tiles.length) {
-      runExport(() => saveChartTilesZip(tiles, format,
+      runExport(() => withExportEvidence(() => saveChartTilesZip(tiles, format,
         exportName(subject, ['bar_charts', format], 'zip'),
-        exportProvenance('compare', subject, { figure: 'bar_charts', format, genes: selectedGenes.join(', '), chartScale })));
+        exportProvenance('compare', subject, { figure: 'bar_charts', format, genes: selectedGenes.join(', '), chartScale }))));
     }
   };
   // The gene blocks CompareGenesView rendered, found by their marker: the

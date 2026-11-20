@@ -1,10 +1,15 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeAll } from 'vitest';
 import {
   compareGenesCsv, compareGenesWorkbook, compareSummaryLongRows, compareSummaryRows, compareValueRows, compareValuesCsv,
 } from '../compare/compareSummary';
 import { makePopData, MACAQUE_DATASET } from './fixtures';
 import type { CompareColumn } from '../compare/compareColumns';
 import type { PopData } from '../types';
+import { loadExportEvidence } from '../utils/lazyExport';
+
+// Export snapshots record the internal QC ledger, which the app loads on the
+// first export (utils/lazyExport.ts); load it before any export runs.
+beforeAll(() => loadExportEvidence());
 
 // The fixture's per-sample values: S1,S2 Normal and S3,S4 Obese.
 // POMC = 10, 20 | 30, 40; AGRP = 5, (missing) | 15, 25.
