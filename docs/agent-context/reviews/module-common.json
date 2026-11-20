@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-common",
-  "fingerprint": "3d5945db71f35569bcb24086fdd869c6ee97e8d0e3e3a077c4e696794204e1be",
+  "fingerprint": "13f1cd634b7d797b1fa98438737874d31ca9752807f3b4c06e604c531922027e",
   "outcome": "updated",
-  "explanation": "CellSelectorPopup keeps its chips to one measured line with a +N more / Show less toggle and a Reset to the default pair; the modal picker is unchanged. BetaNotice gains an opt-in compact, session-dismissible form used only by the explorer shell. DatasetVerificationContext now renders inside the study details panel, so its border sits on top.",
+  "explanation": "Adds lazyView.tsx, the loader behind every lazily rendered view: each view gets its own chunk and Suspense fallback, renders synchronously when preloaded before its first render, keeps one element type so it never remounts, and retries a failed chunk download only after a one-second window. preloadWhenIdle warms likely next views after paint.",
   "references": [
-    "src/common/CellSelectorPopup.tsx",
-    "src/common/BetaNotice.tsx",
-    "src/common/DatasetVerificationContext.tsx"
+    "src/common/lazyView.tsx",
+    "src/appViews.tsx",
+    "docs/agent-context/workflows.md"
   ]
 }

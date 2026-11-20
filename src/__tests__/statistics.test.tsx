@@ -1,7 +1,12 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeAll } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import App from '../App';
+import { preloadAppViews } from '../appViews';
 import { StatisticsView } from '../statistics/StatisticsView';
+
+// App's views are separate chunks (src/appViews.tsx); load them first so every
+// render below is synchronous.
+beforeAll(() => preloadAppViews());
 
 // ─── Unit: the explainer renders both statistical layers + glossary ─────────────
 describe('StatisticsView', () => {

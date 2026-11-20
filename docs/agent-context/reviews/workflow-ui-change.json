@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "d8108af933faf94891a4293f3993ff1043edd5d773a21db411492e9d1e6e6441",
+  "fingerprint": "f0348e05c3ff79f0c63a4482de5bdf8ca06772d1dd38f4f3c4e57716001a8691",
   "outcome": "updated",
-  "explanation": "The runbook paragraph on the hub nav's search dialog is replaced: the hub search box is the only gene and pathway search, reports carry their study filters under Study filters, and isRetiredSearchLanding sends retired #/gene, #/gene/in/<cats> and #/pathway links to #/search, replacing the history entry. From main, the HypoMap view tablist, search result filters and expression survey sections share tabKeyTarget; the search dialog that also used it is deleted.",
+  "explanation": "The ui-change route now states that App renders every non-hub view through lazyView entries in src/appViews.tsx, that new views join that list, that App-rendering tests await preloadAppViews(), and that hub or results-page modules must not import the evidence ledgers statically (hence exportProvenanceFormat.ts).",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/utils/appLinks.ts",
-    "src/appRouter.ts",
-    "src/utils/tabKeys.ts",
-    "src/search/hypomap/HypoMapPreview.tsx"
+    "src/appViews.tsx",
+    "src/common/lazyView.tsx"
   ]
 }

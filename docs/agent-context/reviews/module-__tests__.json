@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "f5c9c4481b4348239e3bf729f122d09d0176e22c35ef664a0acaf0392f97e336",
+  "fingerprint": "3cc8a57c6f954cb759ba711b57470301b2b1707fab7c357eb05d0388aa0bceaa",
   "outcome": "updated",
-  "explanation": "app.searchDialogs becomes app.search: dialog tests give way to hub-search and retired-link tests, including history replacement. geneExplorerLanding becomes searchLanding and tests DatasetScopePanel directly. hubSections, hubUnits, pathwayReport, appRoutes and both App scope suites start from named reports and their Study filters. From main, hypomapPreview.test.tsx covers the HypoMap view tablist and tabKeyTarget.",
+  "explanation": "The fifteen App-rendering tests await preloadAppViews() in a beforeAll, because App now renders its views as lazy chunks and these tests query them synchronously. lazyView.test.tsx covers the fallback, synchronous render after preload, no remount when the chunk lands, and a failed download that is reported once and retried only on the boundary reset. originHealth.test.ts expects the HEAD probe.",
   "references": [
-    "src/__tests__/app.search.test.tsx",
-    "src/__tests__/searchLanding.test.tsx",
-    "src/__tests__/app.geneScope.test.tsx",
-    "src/__tests__/app.pathwayScope.test.tsx",
-    "src/__tests__/hypomapPreview.test.tsx"
+    "src/__tests__/lazyView.test.tsx",
+    "src/__tests__/smoke.test.tsx",
+    "src/__tests__/originHealth.test.ts",
+    "src/appViews.tsx"
   ]
 }

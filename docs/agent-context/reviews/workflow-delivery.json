@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "977d2aa0dd23e08c371bae181b7bb648937e7bb7560803895119135591029b9a",
+  "fingerprint": "a83064a6e20b6b4f371169f21ee8cc7fd20dc78dfea0c9121e01015dc78942bf",
   "outcome": "updated",
-  "explanation": "DEVELOPMENT.md drops the src/local-datasets row and the LOCAL_DATASETS.md reading link because the module and runbook are deleted. Build, deploy and verification commands are unchanged.",
+  "explanation": "delivery.md now explains the codeSplitting groups that bound the hub to three scripts, why groups replace manualChunks, how to check the modulepreload links in dist/index.html, the fonts and brand cache policy in public/_headers, and the HEAD origin probe, linking the November 20 loading record.",
   "references": [
-    "docs/DEVELOPMENT.md",
     "docs/agent-context/delivery.md",
-    "package.json",
-    "vite.config.ts",
-    "public/_headers"
+    "docs/APP_LOADING_2026-11-20.md",
+    "vite.config.ts"
   ]
 }

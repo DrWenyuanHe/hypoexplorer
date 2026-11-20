@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "1a373dc38b5714183bdeb4384c3b618012e8df29424992880b28ae1a7b97c999",
+  "fingerprint": "30569cba38dd02d1a1ebee25f113ca149abada90de9a56ca5b88b964a59548c2",
   "outcome": "updated",
-  "explanation": "App no longer renders the search dialog over the hub or passes onOpenSearch, and its report helpers take a non-null term; a term-less report state renders the hub. The router drops openGeneExplorer, openPathwayExplorer and switchSearchExplorer, normalizes a hashless report initialView to the hub, writes report URLs only with a term, and replaces a retired landing's history entry on navigation. index.html drops the search-hero qsearch styles.",
+  "explanation": "vite.config.ts replaces the manualChunks shim with codeSplitting groups: React and react-dom are captured into vendor ahead of recharts (the shim had put React inside charts), and the $initial app modules form one shell chunk. public/_headers gives fonts and brand assets a day of freshness with stale-while-revalidate. The delivery runbook and the dated record describe both.",
   "references": [
-    "src/App.tsx",
-    "src/appRouter.ts",
-    "index.html",
-    "src/utils/appLinks.ts"
+    "vite.config.ts",
+    "public/_headers",
+    "docs/agent-context/delivery.md",
+    "docs/APP_LOADING_2026-11-20.md"
   ]
 }

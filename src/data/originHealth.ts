@@ -97,7 +97,11 @@ async function probe(origin: string): Promise<OriginDiagnosis> {
     // no-cors: the bucket sends no CORS headers and needs none. The opaque
     // response is unreadable and that is fine — arrival is the signal.
     // no-store: never let a cached hit answer a reachability question.
-    await fetch(`${origin}${PROBE_PATH}`, { mode: 'no-cors', cache: 'no-store', credentials: 'omit' });
+    // HEAD: arrival is the whole answer, so the ~200 KB manifest body is never
+    // downloaded. The hub runs this probe on every visit and every five
+    // minutes; as a GET it competed with the app's own first-paint scripts.
+    // The data host's method rule admits GET and HEAD, and no-cors permits HEAD.
+    await fetch(`${origin}${PROBE_PATH}`, { method: 'HEAD', mode: 'no-cors', cache: 'no-store', credentials: 'omit' });
     return { status: 'origin-reachable', origin };
   } catch {
     // Re-check offline: a network can drop between the check above and here,

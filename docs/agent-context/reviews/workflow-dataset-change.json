@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "bca6703e76064c9f9834400a9001801f02814e339e3832c1fce47629ecd5b38d",
-  "outcome": "updated",
-  "explanation": "The dataset-change route now says the writer derives nSig at FDR < 0.05 rather than P < 0.01. Builders still pass every track of a study to one writeDatasetBundles call; after this change, rebuilt bundles carry FDR counts in qc_global.js and must be uploaded before the matching app build goes live.",
+  "fingerprint": "d040d8d56cb1cc1a552162d22bd25a2a9c15c22c5bd9adb26a61c23c3bef30fa",
+  "outcome": "no-impact",
+  "explanation": "workflows.md changed only in its ui-change route (lazy views and test preloading). The dataset-change route, its builders, registry rules, bundle checks and contracts are unchanged, and no dataset, bundle or registry file was touched.",
   "references": [
     "docs/agent-context/workflows.md",
-    "scripts/lib/bundleWriter.mts",
-    "scripts/build_normalized_bundles.mts"
+    "docs/DATASET_CONTRACT.md"
   ]
 }

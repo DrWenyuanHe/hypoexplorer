@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "f18ab91c9abda477492f0280d2c8478612ce670a15db141e652367ba44a0ccc8",
+  "fingerprint": "f5a6a09ff114e7930cab2563ac69c6706974bd2144fd002f7417586c4b7501a7",
   "outcome": "updated",
-  "explanation": "The UI change workflow and changelog describe the hub's single search: no separate Genes or Pathways entrance or search dialog, reports that always name their term, and retired term-less #/gene and #/pathway links that open the search page. index.html keeps only the qsearch styles the reports' study filters use.",
+  "explanation": "App.tsx imports every non-hub view from src/appViews.tsx instead of statically, and warms the results page while the hub is idle and the reports while results are shown. docs/APP_LOADING_2026-11-20.md records the hub critical path before and after (6,855 KB to 546 KB decoded JavaScript) and which views still load the evidence ledgers.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "src/changelog/changelog.ts",
-    "index.html"
+    "src/App.tsx",
+    "src/appViews.tsx",
+    "docs/APP_LOADING_2026-11-20.md"
   ]
 }

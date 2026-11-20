@@ -27,7 +27,8 @@
 //     ("-1.25", "+3e-4"), because a spreadsheet reads that as a number, not a
 //     formula.
 import { downloadFile } from './exportAction';
-import { type ExportProvenance, provenanceColumns } from './exportProvenance';
+import type { ExportProvenance } from './exportProvenance';
+import { provenanceColumns } from './exportProvenanceFormat';
 
 /** One CSV cell value. Rows are arrays in column order. */
 export type CsvCell = string | number | boolean | null | undefined;

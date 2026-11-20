@@ -1,11 +1,16 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi, beforeAll } from 'vitest';
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import App from '../App';
+import { preloadAppViews } from '../appViews';
 import { listDatasets } from '../data/datasets';
 import { registryCards } from '../data/datasetCatalog';
 import type { Dataset } from '../types';
 import { DEFAULT_STUDY_ANALYSIS } from '../utils/analysisState';
 import { routeHref } from '../utils/appLinks';
+
+// App's views are separate chunks (src/appViews.tsx); load them first so every
+// render below is synchronous.
+beforeAll(() => preloadAppViews());
 
 const { queryGene, loadCatalog, compareIndex } = vi.hoisted(() => ({ queryGene: vi.fn(), loadCatalog: vi.fn(), compareIndex: vi.fn() }));
 vi.mock('../data/crossDatasetCompare', () => ({ loadCompareEntriesViaIndex: compareIndex }));

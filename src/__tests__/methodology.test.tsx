@@ -1,9 +1,14 @@
-import { afterEach, describe, it, expect, vi } from 'vitest';
+import { afterEach, describe, it, expect, vi, beforeAll } from 'vitest';
 import { cleanup, render, screen, fireEvent, waitFor } from '@testing-library/react';
 import App from '../App';
+import { preloadAppViews } from '../appViews';
 import { MethodologyView } from '../methodology/MethodologyView';
 import { isExplorerTab } from '../explorer/explorerTabs';
 import { parseRoute, routeHref } from '../utils/appLinks';
+
+// App's views are separate chunks (src/appViews.tsx); load them first so every
+// render below is synchronous.
+beforeAll(() => preloadAppViews());
 
 afterEach(() => { cleanup(); window.history.replaceState(null, '', '#/'); });
 

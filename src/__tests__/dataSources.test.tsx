@@ -1,7 +1,12 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeAll } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import App from '../App';
+import { preloadAppViews } from '../appViews';
 import { DataSourcesTab } from '../acknowledgements/DataSourcesTab';
+
+// App's views are separate chunks (src/appViews.tsx); load them first so every
+// render below is synchronous.
+beforeAll(() => preloadAppViews());
 
 // ─── Unit: the component renders the source citation + reference table ───────────
 describe('DataSourcesTab', () => {

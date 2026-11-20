@@ -1,6 +1,11 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi, beforeAll } from 'vitest';
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import App from '../App';
+import { preloadAppViews } from '../appViews';
+
+// App's views are separate chunks (src/appViews.tsx); load them first so every
+// render below is synchronous.
+beforeAll(() => preloadAppViews());
 
 const { queryGene, queryPathway, loadPathwayIndex } = vi.hoisted(() => ({
   queryGene: vi.fn(), queryPathway: vi.fn(), loadPathwayIndex: vi.fn(),

@@ -1,9 +1,14 @@
-import { describe, it, expect, afterEach } from 'vitest';
+import { describe, it, expect, afterEach, beforeAll } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import App from '../App';
+import { preloadAppViews } from '../appViews';
 import { _resetTrackCache } from '../data/loadTrack';
 import { _resetDatasetMetaCache } from '../data/loadDatasetMeta';
 import { BULK_TRACK_FIXTURE } from './fixtures';
+
+// App's views are separate chunks (src/appViews.tsx); load them first so every
+// render below is synchronous.
+beforeAll(() => preloadAppViews());
 
 // `#/dataset/<id>[/<trackId>]` deep links — the hrefs the cross-dataset report
 // puts on every dataset and track. The hash is untrusted input (hand-typed,
