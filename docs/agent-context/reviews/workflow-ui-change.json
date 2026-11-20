@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "aef6e323415023f560bca3d461d76beee4919901613a68bbe0b085c0a70aef33",
-  "outcome": "updated",
-  "explanation": "The runbook drops the bars mode from the useStudySelection description, since the side-by-side compare view is retired. Navigation now has one Methods & statistics page and no Data Sources tab; the existing runbook steps cover these without new text.",
+  "fingerprint": "5783fe2451148450d732c9fed29bc4f45732978743db6583775a762295847715",
+  "outcome": "no-impact",
+  "explanation": "The UI runbook does not cover where the update prompt mounts; App now renders UpdateModal once above every view, so a new view needs no prompt of its own. The runbook steps and refactor checklist remain accurate without new text.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/crossdataset/geneStudyScope.tsx",
-    "src/methodology/MethodologyView.tsx"
+    "src/App.tsx"
   ]
 }

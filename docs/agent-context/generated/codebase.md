@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (236):
+Covered source files (237):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -60,6 +60,7 @@ Covered source files (236):
 - [src/__tests__/appRouter.test.tsx](<../../../src/__tests__/appRouter.test.tsx>)
 - [src/__tests__/appRouterUrl.test.tsx](<../../../src/__tests__/appRouterUrl.test.tsx>)
 - [src/__tests__/appRoutes.test.ts](<../../../src/__tests__/appRoutes.test.ts>)
+- [src/__tests__/appUpdatePrompt.test.tsx](<../../../src/__tests__/appUpdatePrompt.test.tsx>)
 - [src/__tests__/armPills.test.tsx](<../../../src/__tests__/armPills.test.tsx>)
 - [src/__tests__/authorComparability.test.tsx](<../../../src/__tests__/authorComparability.test.tsx>)
 - [src/__tests__/authorConcordance.test.ts](<../../../src/__tests__/authorConcordance.test.ts>)

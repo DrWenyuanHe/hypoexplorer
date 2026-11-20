@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "652bdcb1c842e98a294b0aea97756da3ade0b865bb113d165901033b0efa2ee7",
-  "outcome": "updated",
-  "explanation": "App no longer renders StatisticsView, CrossDatasetCompare or the Data Sources tab, and its explorer header link reads Methods. The router drops the statistics and compare-datasets views with openStatistics, compareDatasets and setReportGene; its header comment lists the current full-page views.",
+  "fingerprint": "4be00ae1459ab061dc58c83c457fe30adb143899c6838b6cec3f4d0570b5b65f",
+  "outcome": "no-impact",
+  "explanation": "App mounts UpdateModal once in a thin wrapper above the view switch (AppViews), replacing the per-branch copies, so the expression survey and the route-error page now show the update prompt. Routing, views and data flow are unchanged; no authored context describes how the prompt is mounted.",
   "references": [
     "src/App.tsx",
-    "src/appRouter.ts",
-    "src/__tests__/appRouterUrl.test.tsx"
+    "src/pwa/UpdateModal.tsx"
   ]
 }
