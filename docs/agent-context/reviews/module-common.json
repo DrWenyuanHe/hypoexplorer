@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-common",
-  "fingerprint": "3272420251565579705b9d9bc4dd18f2dc1508409ac40400e9f1b7412fd6dfc4",
+  "fingerprint": "fd599e672d85b0360e1f7de3badf8e38fa5f15b908578ba3f93d5789a50acae4",
   "outcome": "updated",
-  "explanation": "DatasetInfoPanel replaces its Data Sources & methods link with Methods & statistics (onOpenMethods). prose.tsx and PageShell.tsx only reword comments that named StatisticsView, DataSourcesTab and CrossDatasetCompare.",
+  "explanation": "Adds lazyView.tsx, the loader behind every lazily rendered view: each view gets its own chunk and Suspense fallback, renders synchronously when preloaded before its first render, keeps one element type so it never remounts, and retries a failed chunk download only after a one-second window. preloadWhenIdle warms likely next views after paint.",
   "references": [
-    "src/common/DatasetInfoPanel.tsx",
-    "src/common/prose.tsx",
-    "src/common/PageShell.tsx"
+    "src/common/lazyView.tsx",
+    "src/appViews.tsx",
+    "docs/agent-context/workflows.md"
   ]
 }

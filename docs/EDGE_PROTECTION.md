@@ -90,8 +90,9 @@ is a no-CORS request:
 
 - bundles load as `<script src>` ([bundleSource.ts](../src/data/bundleSource.ts));
 - QC PDFs load in an `<iframe>` or `<a>` ([QCTab.tsx](../src/qc/QCTab.tsx));
-- the reachability probe uses `fetch(..., { mode: 'no-cors' })`
-  ([originHealth.ts](../src/data/originHealth.ts)).
+- the reachability probe uses `fetch(..., { method: 'HEAD', mode: 'no-cors' })`
+  ([originHealth.ts](../src/data/originHealth.ts)), which the method rule
+  admits and which downloads no body.
 
 The only CORS fetch path is the optional streaming transport, enabled by
 `VITE_BUNDLE_CORS=true` at build time. Neither `.env.local` nor `.env.example`

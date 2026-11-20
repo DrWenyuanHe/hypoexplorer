@@ -1,13 +1,11 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "caa212d08c51ce24ba0a3c6ece0d59fa044715f14a6b270c8d6a3cef593c028e",
+  "fingerprint": "56a4941cf527f9be86795bdeaad07707f8ee23380019a92a5d84ecb09f73c51d",
   "outcome": "no-impact",
-  "explanation": "Dataset intake is unchanged. build_query_index.mts and build_tracker_catalog.mts only reword comments (the expr family has no app reader now; the reverse index feeds the library record), trackColumns/trackData comments drop CrossDatasetCompare, and How to cite gains a citations section. queryIndex.ts also drops the unused manifestSupportsExpr check; the index wire and build are unchanged.",
+  "explanation": "workflows.md changed only in its ui-change route (lazy views and test preloading). The dataset-change route, its builders, registry rules, bundle checks and contracts are unchanged, and no dataset, bundle or registry file was touched.",
   "references": [
-    "scripts/build_query_index.mts",
-    "scripts/build_tracker_catalog.mts",
-    "docs/REAL_DATA_SHAPES.md",
-    "src/data/queryIndex.ts"
+    "docs/agent-context/workflows.md",
+    "docs/DATASET_CONTRACT.md"
   ]
 }

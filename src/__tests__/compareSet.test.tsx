@@ -1,6 +1,7 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach, beforeAll } from 'vitest';
 import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
 import App from '../App';
+import { preloadAppViews } from '../appViews';
 import { DatasetLibrary } from '../library/DatasetLibrary';
 import { _resetBundleCache, _setBundleTransport } from '../data/bundleSource';
 import { _resetTrackCache } from '../data/loadTrack';
@@ -9,6 +10,10 @@ import {
   COMPARE_SET_STORAGE_KEY, _resetCompareSetStore, addItem, getSnapshot,
 } from '../compareset/compareSetStore';
 import { seedQueryManifest } from './fixtures';
+
+// App's views are separate chunks (src/appViews.tsx); load them first so every
+// render below is synchronous.
+beforeAll(() => preloadAppViews());
 
 // The compare set from the outside: a study joins from a card, a row or its
 // record; the header counts it; the drawer edits it and turns it into a

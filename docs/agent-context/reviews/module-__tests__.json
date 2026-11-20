@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "931a9a1f0c5666cf7ef3877867d5ec4508cd5132cde22dc534589b69511ba3e1",
+  "fingerprint": "f4beb3b3d2aae5771231a12dd6416e7259a9e3b37268900ebafcf73b2dba72a6",
   "outcome": "updated",
-  "explanation": "statistics, dataSources, crossDatasetCompare and crossDatasetCompareIndex tests are removed or replaced: methodology.test covers the merged sections and footer entry, references.test the How to cite citations and retired tab links, and the route, router, scope and selection suites drop the removed views and bars mode.",
+  "explanation": "The thirteen App-rendering tests await preloadAppViews() in a beforeAll, because App now renders its views as lazy chunks and these tests query them synchronously; the merge with main keeps its deletion of the Statistics and Data Sources tests and its removal of the Compare-as-bars mock. lazyView.test.tsx covers the fallback, synchronous render after preload, no remount when the chunk lands, and a failed download that is reported once and retried only on the boundary reset. originHealth.test.ts expects the HEAD probe.",
   "references": [
-    "src/__tests__/methodology.test.tsx",
-    "src/__tests__/references.test.tsx",
-    "src/__tests__/app.geneScope.test.tsx",
-    "src/__tests__/appRouterUrl.test.tsx"
+    "src/__tests__/lazyView.test.tsx",
+    "src/__tests__/smoke.test.tsx",
+    "src/__tests__/originHealth.test.ts",
+    "src/appViews.tsx"
   ]
 }
