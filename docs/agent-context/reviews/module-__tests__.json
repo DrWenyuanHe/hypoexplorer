@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "9e4f6bd197f53c76d24c8730e9ada0bec2692830d4283c2fbee20bbd7be610e7",
+  "fingerprint": "4915e9138813a55725b320bc61a3a9a56474953c38831008cdb4fd3a8220b22c",
   "outcome": "updated",
-  "explanation": "From main: The thirteen App-rendering tests await preloadAppViews() in a beforeAll, because App now renders its views as lazy chunks and these tests query them synchronously; the merge with main keeps its deletion of the Statistics and Data Sources tests and its removal of the Compare-as-bars mock. lazyView.test.tsx covers the fallback, synchronous render after preload, no remount when the chunk lands, and a failed download that is reported once and retried only on the boundary reset. originHealth.test.ts expects the HEAD probe. From the cross-study listing: crossStudyListing.test.ts pins the listing in tables: lead and rest per mode and order, counts, dataset rules, flat rows, missing and non-finite keys, stable ties on subsets and no mutation. Report, preview, index and condition-card fixtures now build rows through geneRow / pathwayRow so no fixture contradicts its tier. searchPage adds a lowest-p versus lowest-q case, pathwayReportResults an FDR-mode survivors-first case, and crossDatasetSummary.test.ts goes with summarizeGroup.",
+  "explanation": "From main: The thirteen App-rendering tests await preloadAppViews() in a beforeAll, because App now renders its views as lazy chunks and these tests query them synchronously; lazyView.test.tsx covers the fallback, synchronous render after preload, no remount when the chunk lands, and a failed download that is reported once and retried only on the boundary reset. originHealth.test.ts expects the HEAD probe. compareDownloads.test adds a regression case: the compare-set summary sheet leaves a study's group means blank when that study did not measure the gene. From the cross-study listing: crossStudyListing.test.ts pins the listing in tables: lead and rest per mode and order, counts, dataset rules, flat rows, missing and non-finite keys, stable ties on subsets and no mutation. Report, preview, index and condition-card fixtures now build rows through geneRow / pathwayRow so no fixture contradicts its tier. searchPage adds a lowest-p versus lowest-q case, pathwayReportResults an FDR-mode survivors-first case, and crossDatasetSummary.test.ts goes with summarizeGroup.",
   "references": [
     "src/__tests__/crossStudyListing.test.ts",
     "src/__tests__/searchPage.test.tsx",
@@ -13,6 +13,7 @@
     "src/__tests__/lazyView.test.tsx",
     "src/__tests__/smoke.test.tsx",
     "src/__tests__/originHealth.test.ts",
+    "src/__tests__/compareDownloads.test.ts",
     "src/appViews.tsx"
   ]
 }

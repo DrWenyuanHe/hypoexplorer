@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "module-compare",
-  "fingerprint": "ad99b654559aab3069d3d4bab50e2cbd81a27567d35b3291f0d57f8365acf9cf",
+  "fingerprint": "a1c65668b24ceea2cb8d6317cb9e407adc4732506fce164a89b4abe7df475fea",
   "outcome": "no-impact",
-  "explanation": "compareSummary.ts only renames the page its tally comment cites, from the Statistics page to Methods & statistics; behaviour and exports are unchanged.",
+  "explanation": "compareSummaryRows now writes a blank group mean when a study has no values for the gene, instead of mean([]) = 0; the export's columns, sheets and callers are unchanged, so no map or runbook changes.",
   "references": [
     "src/compare/compareSummary.ts"
   ]
