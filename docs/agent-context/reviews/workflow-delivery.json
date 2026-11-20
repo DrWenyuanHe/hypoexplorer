@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "9840500b68cc86732cccb39ee53fd44f66f18362a4e862c7702fce9d79c55815",
-  "outcome": "updated",
-  "explanation": "delivery.md (from main) explains the codeSplitting groups, modulepreload checks, cache policy and HEAD origin probe. This branch only adds worker.format es, which emits the circadian workbook worker as a small ES-module asset that lazy-loads the xlsx group; it is not on the hub path, and the site Worker, R2 origin, edge rules and spend guard are unchanged.",
+  "fingerprint": "27011234126c5098db6c1227e5f8c3c602f1d46b7ddd15acf801ab4b56282344",
+  "outcome": "no-impact",
+  "explanation": "Only devDependency versions move in package.json (vite 8.3.7 to 8.3.8, wrangler 4.159.0 to 4.162.0, biome and knip patch releases). vite.config.ts, the codeSplitting groups, modulepreload checks, cache policy, site Worker, R2 origin, edge rules and spend guard are unchanged; delivery.md remains accurate and the build and browser smoke job passes on these versions.",
   "references": [
     "docs/agent-context/delivery.md",
-    "vite.config.ts",
-    "docs/APP_LOADING_2026-11-20.md"
+    "package.json",
+    "vite.config.ts"
   ]
 }
