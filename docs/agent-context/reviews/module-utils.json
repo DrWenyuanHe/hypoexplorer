@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-utils",
-  "fingerprint": "fe21dbebf5918169c6a14f3536f7259f7a36a9c0e6e48fcfe3ead66329c6dc46",
+  "fingerprint": "a20e3f323b124f16d0feac09ee7dc9f06e3213f6d36598e7f61c1ff772076cf5",
   "outcome": "updated",
-  "explanation": "AppRoute report and pathway-report terms become string. isRetiredSearchLanding recognizes the retired #/gene, #/gene/in/<cats> and #/pathway landings, with or without a saved analysis, and parseRoute maps them to the empty search page; routeHref drops the term-less branches. #/gene/in still parses as a gene named \"in\".",
+  "explanation": "AppRoute report and pathway-report terms become string. isRetiredSearchLanding recognizes the retired #/gene, #/gene/in/<cats> and #/pathway landings, with or without a saved analysis, and parseRoute maps them to the empty search page; routeHref drops the term-less branches. #/gene/in still parses as a gene named \"in\". From main, tabKeys.ts adds the pure tabKeyTarget helper for roving-tabindex tablists.",
   "references": [
     "src/utils/appLinks.ts",
+    "src/utils/tabKeys.ts",
     "src/__tests__/appRoutes.test.ts"
   ]
 }

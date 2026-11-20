@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "47d6ea8c4a7d112f9f7172e2567ec492afb438a4ffaba00cf182e4cd10150d75",
+  "fingerprint": "d8108af933faf94891a4293f3993ff1043edd5d773a21db411492e9d1e6e6441",
   "outcome": "updated",
-  "explanation": "The runbook paragraph on the hub nav's search dialog is replaced: the hub search box is the only gene and pathway search, reports carry their study filters under Study filters, and isRetiredSearchLanding sends retired #/gene, #/gene/in/<cats> and #/pathway links to #/search, replacing the history entry.",
+  "explanation": "The runbook paragraph on the hub nav's search dialog is replaced: the hub search box is the only gene and pathway search, reports carry their study filters under Study filters, and isRetiredSearchLanding sends retired #/gene, #/gene/in/<cats> and #/pathway links to #/search, replacing the history entry. From main, the HypoMap view tablist, search result filters and expression survey sections share tabKeyTarget; the search dialog that also used it is deleted.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/utils/appLinks.ts",
-    "src/appRouter.ts"
+    "src/appRouter.ts",
+    "src/utils/tabKeys.ts",
+    "src/search/hypomap/HypoMapPreview.tsx"
   ]
 }

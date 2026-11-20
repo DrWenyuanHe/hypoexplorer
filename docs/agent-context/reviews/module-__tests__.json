@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "811356dc6fef97284ad7c5e05ccb10d3dc44a688869b626e417c388945ad598e",
+  "fingerprint": "f5c9c4481b4348239e3bf729f122d09d0176e22c35ef664a0acaf0392f97e336",
   "outcome": "updated",
-  "explanation": "app.searchDialogs becomes app.search: dialog tests give way to hub-search and retired-link tests, including history replacement. geneExplorerLanding becomes searchLanding and tests DatasetScopePanel directly. hubSections, hubUnits, pathwayReport, appRoutes and both App scope suites now start from named reports and their Study filters.",
+  "explanation": "app.searchDialogs becomes app.search: dialog tests give way to hub-search and retired-link tests, including history replacement. geneExplorerLanding becomes searchLanding and tests DatasetScopePanel directly. hubSections, hubUnits, pathwayReport, appRoutes and both App scope suites start from named reports and their Study filters. From main, hypomapPreview.test.tsx covers the HypoMap view tablist and tabKeyTarget.",
   "references": [
     "src/__tests__/app.search.test.tsx",
     "src/__tests__/searchLanding.test.tsx",
     "src/__tests__/app.geneScope.test.tsx",
     "src/__tests__/app.pathwayScope.test.tsx",
-    "src/__tests__/appRoutes.test.ts"
+    "src/__tests__/hypomapPreview.test.tsx"
   ]
 }
