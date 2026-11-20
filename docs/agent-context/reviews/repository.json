@@ -1,10 +1,11 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "4469d7360b14b84fb63f52e842bace53b186a354dd626e06833a6d81e9b50671",
+  "fingerprint": "255d3693e9c94309aa6cd972bcf3a2b020522a9315ea1e2490847caaae81a6ef",
   "outcome": "updated",
-  "explanation": "vite.config.ts now builds Web Workers as ES modules so the circadian workbook worker can reach xlsx through the lazy loader, and the ui-change workflow paragraph for circadian changes now names the component split, the shared peak helper, the verified Lomb-Scargle floor rule and the workbook worker. The generated code map was regenerated for the new circadian files.",
+  "explanation": "From main, App renders every non-hub view through src/appViews.tsx and docs/APP_LOADING_2026-11-20.md records the hub critical path. This branch adds worker.format es in vite.config.ts beside main's codeSplitting groups so the circadian workbook worker can lazy-load the xlsx group, and extends the ui-change runbook's circadian paragraph; the generated code map is regenerated for the merged tree.",
   "references": [
+    "src/appViews.tsx",
     "vite.config.ts",
     "docs/agent-context/workflows.md",
     "docs/agent-context/generated/codebase.md"

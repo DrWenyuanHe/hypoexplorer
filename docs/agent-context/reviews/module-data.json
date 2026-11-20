@@ -1,13 +1,11 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "02de0377d879abfccd7598f1cd2267e95350bfeef9626d724ab16b648bd06eac",
+  "fingerprint": "3b7238967bee79eca3f0ceee7776883d2d4455a871ece9de86ed552d5e8a10bf",
   "outcome": "updated",
-  "explanation": "crossDatasetCompare.ts, the expression-index loader used only by the retired compare view, is deleted, and so is queryIndex.ts manifestSupportsExpr, its capability check (knip flagged it unused). loadExprRows stays, pinned by the wire tests while the build still publishes the expr family; its comment states the check a future reader needs. trackColumns.ts and trackData.ts only reword comments.",
+  "explanation": "originHealth probes the data origin with a no-cors, no-store HEAD instead of a GET, so the hub light and error banners no longer download the 200 KB query manifest body. The diagnosis states, memo window and probe path are unchanged; EDGE_PROTECTION.md notes that the method rule admits HEAD.",
   "references": [
-    "src/data/queryIndex.ts",
-    "src/data/queryWire.ts",
-    "src/__tests__/queryWire.test.ts",
-    "scripts/build_query_index.mts"
+    "src/data/originHealth.ts",
+    "docs/EDGE_PROTECTION.md"
   ]
 }

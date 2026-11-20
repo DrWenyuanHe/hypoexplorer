@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "b6cd0f33f177858a844656150195354961e4acb4e8f2053df1e96bad8a899ccb",
-  "outcome": "no-impact",
-  "explanation": "New and updated tests cover the reworked Circadian tab (per-arm comparison, notes, controls, table, trace, strip, full-gene exports and the workbook worker protocol) and adjust exportProvenance, csv, rhythmScanIdentity and sortableHeaderA11y to the new behaviour. The tests area still holds app, data-contract and regression tests, so its catalog meaning is unchanged.",
+  "fingerprint": "74f9bafb7036c6381ab3f94632499b768b2a908532cfcf29915754f3e5d391f9",
+  "outcome": "updated",
+  "explanation": "Merging main keeps its App-rendering tests awaiting preloadAppViews() and its lazyView and originHealth coverage, and adds this branch's Circadian tab tests (per-arm comparison, notes, controls, table, trace, strip, full-gene exports and the workbook worker protocol) plus the exportProvenance, csv, rhythmScanIdentity and sortableHeaderA11y updates; the circadian tests render CircadianTab directly, so they need no view preload.",
   "references": [
+    "src/__tests__/lazyView.test.tsx",
     "src/__tests__/circadianComparison.test.tsx",
     "src/__tests__/circadianWorkbook.test.ts",
-    "src/__tests__/exportProvenance.test.ts"
+    "src/appViews.tsx"
   ]
 }

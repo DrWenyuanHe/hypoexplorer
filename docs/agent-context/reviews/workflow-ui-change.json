@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "3973b06d2fd7b6a7a4a5cb2c604dc96c9d60d1f37f26a8724e0df0adf3c20e07",
+  "fingerprint": "dd4e4561abb151db041b6f9dda3e873aaac526caf7fc0947659f56963028efea",
   "outcome": "updated",
-  "explanation": "The circadian view changed shape (controls, notes, results table and per-arm strip components; per-arm scans; keyboard row selection; full-gene raw exports; workbook worker) and the ui-change workflow paragraph for circadian changes now records those owners and rules alongside the existing numerical-runbook requirements.",
+  "explanation": "The ui-change route keeps main's lazyView rules (non-hub views in src/appViews.tsx, tests await preloadAppViews(), no static evidence-ledger imports on hub or results pages) and this branch's circadian paragraph: component owners, per-arm scans, the shared peak helper, verified Lomb-Scargle floor statements, full-gene raw exports and the workbook worker.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/circadian/CircadianTab.tsx",
-    "docs/CIRCADIAN_VALIDATION.md"
+    "src/appViews.tsx",
+    "src/circadian/CircadianTab.tsx"
   ]
 }

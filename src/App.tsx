@@ -12,14 +12,7 @@ import { nomenclatureAuthorityForStoredDatasetSymbols } from './data/nomenclatur
 import { contrastArmCounts, getActiveContrast, listContrasts } from './data/contrasts';
 import { getCellSubname } from './utils/format';
 import { ErrorBoundary } from './ErrorBoundary';
-import { GeneExplorerTab } from './gene-explorer/GeneExplorerTab';
-import { PathwayExplorerTab } from './pathway-explorer/PathwayExplorerTab';
-import { CompareTab } from './compare/CompareTab';
-import { CircadianTab } from './circadian/CircadianTab';
-import { QCTab } from './qc/QCTab';
 import { PopWarningBadge } from './common/PopWarningBadge';
-import { ChangelogTab } from './changelog/ChangelogTab';
-import { MethodologyView } from './methodology/MethodologyView';
 import { UpdateModal } from './pwa/UpdateModal';
 import { VersionBadge } from './pwa/VersionBadge';
 import { LoadingOverlay } from './common/LoadingOverlay';
@@ -34,26 +27,22 @@ import { COMPARE_TRACK, activeTabOf, activeTrackOf, initialPosition, useExplorer
 import type { CompareViewState } from './utils/analysisState';
 import { useExplorerSession } from './explorer/explorerSession';
 import { preloadBarSEMChart } from './gene-explorer/BarSEMChart';
-import { DatasetInfoPanel } from './common/DatasetInfoPanel';
 import { ArmPills, ArmVariesBadge, factsFromMeta } from './common/StudyMetadata';
-import { DatasetLibrary } from './library/DatasetLibrary';
 import { datasetExternalLinks } from './utils/datasetLinks';
-import { GeneReport } from './crossdataset/GeneReport';
 import type { GeneStudyFilters } from './crossdataset/geneStudyScope';
-import { PathwayReport } from './crossdataset/PathwayReport';
-import { SearchPage } from './search/SearchPage';
 import { useCategoryScope } from './crossdataset/forestReport';
 import { useChartScale, setChartScale } from './common/chartScaleStore';
 import { ShareAnalysisButton } from './common/ShareAnalysisButton';
-import { DatasetTrackerView } from './dataset-tracker/DatasetTrackerView';
-import { VerificationView } from './verification/VerificationView';
-import { DatasetVerificationContext } from './common/DatasetVerificationContext';
-import { NomenclatureView } from './nomenclature/NomenclatureView';
-import { CompareSetView } from './compareset/CompareSetView';
 import { CompareSetButton } from './compareset/CompareSetButton';
 import { CompareSetToggle } from './compareset/CompareSetToggle';
 import { compareSetKey, removeItem, toggleItem, useCompareSet, type CompareSetItem } from './compareset/compareSetStore';
 import type { PathwayRecordWithDb, PopData } from './types';
+import {
+  ChangelogTab, CircadianTab, CompareSetView, CompareTab, DatasetInfoPanel, DatasetLibrary, DatasetTrackerView,
+  DatasetVerificationContext, GeneExplorerTab, GeneReport, MethodologyView, NomenclatureView, PathwayExplorerTab,
+  PathwayReport, QCTab, SearchPage, VerificationView,
+} from './appViews';
+import { preloadWhenIdle } from './common/lazyView';
 
 const DEFAULT_DATASET = getDefaultDataset();
 const ExpressionSurveyView = lazy(() => import('./expression-survey/ExpressionSurveyView').then((module) => ({ default: module.ExpressionSurveyView })));
@@ -330,6 +319,16 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
     if (activeTrackId === COMPARE_TRACK) return;
     ensureTrack(activeTrackId);
   }, [view, activeTrackId, ensureTrack]);
+
+  // Warm the view a visitor most likely opens next, once the current one has
+  // painted and the main thread is idle: the hub's search box submits to the
+  // results page, and a results row opens the gene report. Every view still
+  // loads on demand if this has not run (or failed).
+  useEffect(() => {
+    if (view === 'hub') return preloadWhenIdle(SearchPage);
+    if (view === 'search') return preloadWhenIdle(GeneReport, PathwayReport);
+    return undefined;
+  }, [view]);
 
   const currentMeta = isCompare ? null : popData?.meta;
   const currentQC   = isCompare ? null : popData?.qc;

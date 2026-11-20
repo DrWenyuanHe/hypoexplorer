@@ -7,6 +7,16 @@ export interface ChangelogEntry {
 export const CHANGELOG: ChangelogEntry[] = [
   {
     date: '2026-11-20',
+    title: 'Faster first load',
+    items: [
+      'The home page downloads about 160 KB of compressed script instead of about 920 KB. Each other page, explorer tab and panel now loads its own code when you first open it, and the search results page loads in the background while the home page sits idle.',
+      'The quality and author-verification records load with the pages that show them, not on the home page or the search results.',
+      'The "Data online" light on the home page checks the data host without downloading a file.',
+      'No data, result or analysis changed.',
+    ],
+  },
+  {
+    date: '2026-11-20',
     title: 'Fewer reference pages',
     items: [
       'The Statistics page is now part of Methodology, renamed Methods & statistics. It explains p-values, FDR, significance stars, why results are not pooled across studies, and the glossary, alongside the analysis pipeline. Old Statistics links open it.',

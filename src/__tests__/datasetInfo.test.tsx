@@ -1,10 +1,15 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeAll } from 'vitest';
 import { render, screen, fireEvent, within } from '@testing-library/react';
 import App from '../App';
+import { preloadAppViews } from '../appViews';
 import { DatasetInfoPanel } from '../common/DatasetInfoPanel';
 import { getDataset } from '../data/datasets';
 import { listContrasts } from '../data/contrasts';
 import type { DatasetMeta } from '../types';
+
+// App's views are separate chunks (src/appViews.tsx); load them first so every
+// render below is synchronous.
+beforeAll(() => preloadAppViews());
 
 // The DatasetInfoPanel is the "access all metadata" affordance; these pin that it
 // surfaces the registry fields and links every external identifier, and that the

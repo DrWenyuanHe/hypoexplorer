@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (244):
+Covered source files (245):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -189,6 +189,7 @@ Covered source files (244):
 - [src/__tests__/jtkCanonical.test.ts](<../../../src/__tests__/jtkCanonical.test.ts>)
 - [src/__tests__/keyedSourceRelationship.test.ts](<../../../src/__tests__/keyedSourceRelationship.test.ts>)
 - [src/__tests__/lazyChunkBoundaries.test.ts](<../../../src/__tests__/lazyChunkBoundaries.test.ts>)
+- [src/__tests__/lazyView.test.tsx](<../../../src/__tests__/lazyView.test.tsx>)
 - [src/__tests__/leadingEdgeHeatmap.test.tsx](<../../../src/__tests__/leadingEdgeHeatmap.test.tsx>)
 - [src/__tests__/libraryExport.test.ts](<../../../src/__tests__/libraryExport.test.ts>)
 - [src/__tests__/libraryFilters.test.ts](<../../../src/__tests__/libraryFilters.test.ts>)
@@ -355,7 +356,7 @@ Start here:
 - [src/common/BrandLink.tsx](<../../../src/common/BrandLink.tsx>)
 - [brand/README.md](<../../../brand/README.md>)
 
-Covered source files (34):
+Covered source files (35):
 - [src/common/AuthorValidation.tsx](<../../../src/common/AuthorValidation.tsx>)
 - [src/common/BetaNotice.css](<../../../src/common/BetaNotice.css>)
 - [src/common/BetaNotice.tsx](<../../../src/common/BetaNotice.tsx>)
@@ -386,6 +387,7 @@ Covered source files (34):
 - [src/common/StudyMetadata.tsx](<../../../src/common/StudyMetadata.tsx>)
 - [src/common/brand.ts](<../../../src/common/brand.ts>)
 - [src/common/chartScaleStore.ts](<../../../src/common/chartScaleStore.ts>)
+- [src/common/lazyView.tsx](<../../../src/common/lazyView.tsx>)
 - [src/common/prose.tsx](<../../../src/common/prose.tsx>)
 - [src/common/toolIcons.tsx](<../../../src/common/toolIcons.tsx>)
 - [src/common/useCompactLayout.ts](<../../../src/common/useCompactLayout.ts>)
@@ -794,7 +796,7 @@ Start here:
 - [src/utils/sampleValues.ts](<../../../src/utils/sampleValues.ts>)
 - [src/utils/geneListFile.ts](<../../../src/utils/geneListFile.ts>)
 
-Covered source files (25):
+Covered source files (26):
 - [src/utils/analysisState.ts](<../../../src/utils/analysisState.ts>)
 - [src/utils/appLinks.ts](<../../../src/utils/appLinks.ts>)
 - [src/utils/axes.ts](<../../../src/utils/axes.ts>)
@@ -804,6 +806,7 @@ Covered source files (25):
 - [src/utils/excelExport.ts](<../../../src/utils/excelExport.ts>)
 - [src/utils/exportAction.ts](<../../../src/utils/exportAction.ts>)
 - [src/utils/exportProvenance.ts](<../../../src/utils/exportProvenance.ts>)
+- [src/utils/exportProvenanceFormat.ts](<../../../src/utils/exportProvenanceFormat.ts>)
 - [src/utils/fdr.ts](<../../../src/utils/fdr.ts>)
 - [src/utils/focusTrap.ts](<../../../src/utils/focusTrap.ts>)
 - [src/utils/format.ts](<../../../src/utils/format.ts>)

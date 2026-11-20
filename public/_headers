@@ -24,6 +24,19 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Self-hosted fonts and the approved brand art. Their filenames are stable but
+# not content-hashed, so they cannot be immutable; under the default policy,
+# though, every page view revalidated the five render-blocking font
+# stylesheets, brand.css and the header logo before first paint. A day of
+# freshness removes those round trips; stale-while-revalidate lets a returning
+# visitor paint from cache while the copy refreshes in the background. A
+# typography or logo change therefore reaches every visitor within a day.
+/fonts/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/brand/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
 # The shell itself. Must revalidate or a cached copy pins visitors to an old
 # build — the failure the version stamp below exists to detect.
 /

@@ -1,10 +1,11 @@
 {
   "version": 1,
   "area": "module-utils",
-  "fingerprint": "088277509290d3628766e405426dcf4bb384d88af43389a7f289ea97407056fd",
-  "outcome": "no-impact",
-  "explanation": "csv.ts gains writeCsvBlocks for block-wise CSV encoding and a Blob URL for large files while small outputs stay byte-identical data: URLs with the same escaping, formula guard, BOM/CRLF and provenance columns; lazyExport.ts only updates its comment to name the circadian workbook as a second withXLSX consumer. The utils catalog meaning (routing, sample values, symbol handling and exports) is unchanged.",
+  "fingerprint": "29eecc642636bf11dfd1b5ebdae909de6e4dd080542be3deaad19b52f9e8fd42",
+  "outcome": "updated",
+  "explanation": "From main, the pure provenance formatters live in exportProvenanceFormat.ts so CSV-only views skip the internal QC ledger, and csv.ts imports them from there. This branch adds writeCsvBlocks for block-wise encoding and a Blob URL for large CSVs while small outputs stay byte-identical, and lazyExport.ts names the circadian workbook as a second withXLSX consumer.",
   "references": [
+    "src/utils/exportProvenanceFormat.ts",
     "src/utils/csv.ts",
     "src/utils/lazyExport.ts"
   ]
