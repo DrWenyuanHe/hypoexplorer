@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "6e8d8b116611a1e2884d2f13114f305c38abe7427ec8edefb1802bd1663f8682",
+  "fingerprint": "9840500b68cc86732cccb39ee53fd44f66f18362a4e862c7702fce9d79c55815",
   "outcome": "updated",
-  "explanation": "delivery.md now explains the codeSplitting groups that bound the hub to three scripts, why groups replace manualChunks, how to check the modulepreload links in dist/index.html, the fonts and brand cache policy in public/_headers, and the HEAD origin probe, linking the November 20 loading record.",
+  "explanation": "delivery.md (from main) explains the codeSplitting groups, modulepreload checks, cache policy and HEAD origin probe. This branch only adds worker.format es, which emits the circadian workbook worker as a small ES-module asset that lazy-loads the xlsx group; it is not on the hub path, and the site Worker, R2 origin, edge rules and spend guard are unchanged.",
   "references": [
     "docs/agent-context/delivery.md",
-    "docs/APP_LOADING_2026-11-20.md",
-    "vite.config.ts"
+    "vite.config.ts",
+    "docs/APP_LOADING_2026-11-20.md"
   ]
 }

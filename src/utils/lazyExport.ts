@@ -15,8 +15,9 @@
 // Keep call sites going through THESE helpers rather than writing a bare
 // import('xlsx') inline: a single import specifier per package is what lets
 // Rollup emit one shared chunk instead of one per call site (every XLSX write
-// now flows through writeWorkbook in utils/workbook.ts, the one withXLSX
-// consumer).
+// flows through withXLSX: writeWorkbook in utils/workbook.ts for row-object
+// sheets, and circadianExport.ts directly for its dense whole-transcriptome
+// workbook).
 //
 // The matching half of this contract lives in vite.config.ts: manualChunks must
 // give these packages their own chunk names. A catch-all `node_modules ->
