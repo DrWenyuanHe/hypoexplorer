@@ -5,6 +5,7 @@ import { pToStar, fmtP, fmtFDR, fmtSigned } from '../utils/format';
 import { getValuesForGroups } from '../utils/sampleValues';
 import { writeWorkbook } from '../utils/workbook';
 import { useExportAction } from '../utils/exportAction';
+import { withExportEvidence } from '../utils/lazyExport';
 import { ExportButton } from '../common/ExportButton';
 import { ChartScaleToggle } from '../common/ChartScaleToggle';
 import { SortableTh } from '../common/SortableTh';
@@ -76,10 +77,10 @@ export function LeadingEdgeGenesView({ pathway, popData, groups, contrastSlices 
   const { sortKey, sortDir, sorted: sortedRows, toggle } =
     useSortedRows<GeneRow, SortKey>(rows, geneSortValue, { key: 'PValue', dir: 1 });
 
-  const exportXLSX = () => runExport(() => {
+  const exportXLSX = () => runExport(() => withExportEvidence(() => {
     const { filename, sheets } = leadingEdgeWorkbook(pathway, popData, allGenes, contrastSlices);
     return writeWorkbook(filename, sheets);
-  });
+  }));
 
   if (allGenes.length === 0) {
     return (

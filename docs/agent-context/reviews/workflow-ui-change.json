@@ -1,16 +1,11 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "7f0835971d65a96ded93cbaee0cf77c2672d275a3a527e8751925af77240d043",
+  "fingerprint": "75ed5a6a3d1a2ed0231828b6380e02e17459fe6f7c6888f54ac5fd8b6d9a765f",
   "outcome": "updated",
-  "explanation": "From main: The ui-change route keeps main's lazyView rules (non-hub views in src/appViews.tsx, tests await preloadAppViews(), no static evidence-ledger imports on hub or results pages) and this branch's circadian paragraph: component owners, per-arm scans, the shared peak helper, verified Lomb-Scargle floor statements, full-gene raw exports and the workbook worker. From the cross-study listing: The UI change runbook now says a table that lists tracks by significance reads each row's tier from the row builders and takes what leads, the order and the counts from listCrossStudy for the stored listing mode, deciding only how much to show and what starts folded, and labels rows with src/statistics/TierLabel.tsx. The refactor checklist adds the same single source of truth. From the update prompt fix: App renders UpdateModal once above the view switch and every lazy view's Suspense boundary, so a new view needs no prompt of its own; the runbook steps need no new text for this.",
+  "explanation": "Merged with main, the ui-change route keeps the additions from main and still says export provenance reads the internal QC ledger through exportEvidence() in lazyExport.ts, that new export entry points run inside withExportEvidence(), and that tests calling an export builder directly load the ledger with loadExportEvidence() first.",
   "references": [
     "docs/agent-context/workflows.md",
-    "docs/REFACTOR_CHECKLIST.md",
-    "src/statistics/crossStudyListing.ts",
-    "src/statistics/TierLabel.tsx",
-    "src/appViews.tsx",
-    "src/circadian/CircadianTab.tsx",
-    "src/App.tsx"
+    "src/utils/lazyExport.ts"
   ]
 }

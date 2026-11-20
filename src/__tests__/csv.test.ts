@@ -5,6 +5,11 @@ import {
 import { exportProvenance, trackSubject } from '../utils/exportProvenance';
 import { csvDownloadTable, csvDownloadText } from './csvDownload';
 import { makePopData, MACAQUE_DATASET } from './fixtures';
+import { loadExportEvidence } from '../utils/lazyExport';
+
+// Export snapshots record the internal QC ledger, which the app loads on the
+// first export (utils/lazyExport.ts). Snapshots below are built at module scope.
+await loadExportEvidence();
 
 // The CSV seam is the one place a table becomes a downloaded .csv: these tests
 // pin its byte policy (BOM, CRLF, minimal quoting), the spreadsheet formula

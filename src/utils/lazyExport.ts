@@ -1,4 +1,5 @@
-// Lazy loaders for the two heavyweight, export-only libraries.
+// Lazy loaders for the heavyweight, export-only code: two libraries and,
+// further down, the internal QC ledger that export provenance records.
 //
 // Why this file exists: `xlsx` (276 KB) and `html2canvas` (198 KB) are reached
 // ONLY from export click handlers — "Export Excel", "Save PNG". Imported
@@ -23,6 +24,8 @@
 // give these packages their own chunk names. A catch-all `node_modules ->
 // 'vendor'` rule silently defeats the split by forcing them back into the eager
 // chunk, and nothing would fail — the app would just quietly get slow again.
+
+import type { QualityAssessment } from '../data/qualityChecks';
 
 /** The `xlsx` module namespace (`XLSX.utils`, `XLSX.writeFile`, …). */
 export function loadXLSX() {
@@ -76,4 +79,72 @@ export async function withHtml2Canvas(
   } catch (err) {
     reportExportFailure(err);
   }
+}
+
+// ── The internal QC ledger, for export provenance ───────────────────────────
+//
+// Every exported file records the retained processing and replication evidence
+// of its dataset and contrast (utils/exportProvenance.ts, `evidence`). That
+// evidence lives in the internal QC ledger, a ~3.9 MB chunk. Imported
+// statically by exportProvenance.ts it was downloaded and evaluated by every
+// explorer tab, although a tab only needs it at the moment a file is saved.
+// It now loads on the first export, like xlsx.
+//
+// The accessor below fails closed: building a provenance snapshot before the
+// ledger has loaded throws instead of writing a file whose evidence is silently
+// missing. Every export therefore runs inside withExportEvidence (or awaits
+// loadExportEvidence() first). The quality views (badges, library, QC tab,
+// verification) still import the ledger statically, because they render it.
+
+type EvidenceLookup = (datasetId: string, contrastId?: string) => QualityAssessment | undefined;
+
+let evidenceLookup: EvidenceLookup | null = null;
+let evidencePending: Promise<void> | null = null;
+
+/** Load the internal QC ledger once. A failed download is retried by the next call. */
+export function loadExportEvidence(): Promise<void> {
+  if (evidenceLookup) return Promise.resolve();
+  if (!evidencePending) {
+    evidencePending = import('../data/internalQc').then(
+      (module) => { evidenceLookup = module.getInternalQc; },
+      (err: unknown) => { evidencePending = null; throw err; },
+    );
+  }
+  return evidencePending;
+}
+
+/**
+ * The internal QC assessment of one dataset contrast, for an export snapshot.
+ * Throws when the ledger has not been loaded: run the export through
+ * withExportEvidence.
+ */
+export function exportEvidence(datasetId: string, contrastId: string): QualityAssessment | undefined {
+  if (!evidenceLookup) {
+    throw new Error('Export evidence is not loaded. Run the export through withExportEvidence() so the file records its QC evidence.');
+  }
+  return evidenceLookup(datasetId, contrastId);
+}
+
+/**
+ * Run an export once the internal QC ledger is loaded. Like withXLSX, the
+ * returned promise never rejects: a failed download or a throwing body is
+ * reported to the user and logged. The body receives nothing; it builds its
+ * provenance with exportProvenance() as usual.
+ *
+ * Once the ledger is loaded the body runs synchronously, inside the click, as
+ * every export body did before the ledger became lazy (see useExportAction:
+ * the body is built from render state). Only a session's first export waits
+ * for the download.
+ */
+export function withExportEvidence(run: () => void | Promise<void>): Promise<void> {
+  const contained = (body: () => void | Promise<void>): Promise<void> => {
+    try {
+      return Promise.resolve(body()).catch(reportExportFailure);
+    } catch (err) {
+      reportExportFailure(err);
+      return Promise.resolve();
+    }
+  };
+  if (evidenceLookup) return contained(run);
+  return loadExportEvidence().then(() => contained(run), reportExportFailure);
 }

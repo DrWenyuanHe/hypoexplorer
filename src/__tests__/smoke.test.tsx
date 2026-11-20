@@ -6,6 +6,11 @@ import { preloadAppViews } from '../appViews';
 // these silently). Imported statically — everything else here stays dynamic.
 import { MACAQUE_DATASET, MACAQUE_CONTRAST } from './fixtures';
 import { stubVolcanoView } from './fixtures';
+import { loadExportEvidence } from '../utils/lazyExport';
+
+// Export snapshots record the internal QC ledger, which the app loads on the
+// first export (utils/lazyExport.ts); load it before any export runs.
+beforeAll(() => loadExportEvidence());
 
 // App's views are separate chunks (src/appViews.tsx); load them first so every
 // render below is synchronous.

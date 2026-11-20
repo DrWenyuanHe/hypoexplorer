@@ -7,6 +7,14 @@ export interface ChangelogEntry {
 export const CHANGELOG: ChangelogEntry[] = [
   {
     date: '2026-11-20',
+    title: 'Lighter explorer tabs',
+    items: [
+      'The gene, pathway, compare and circadian tabs no longer download the quality-check records when they open, about 3.9 MB of script. The records load the first time you export a file, which can take a moment longer; later exports start at once.',
+      'Every exported file still records its dataset\'s quality checks and notes, as before. No data, result or analysis changed.',
+    ],
+  },
+  {
+    date: '2026-11-20',
     title: 'One order for search and both reports',
     items: [
       'Search, the gene page and the pathway report now order and count their results by the same rules. When two results share a q-value, the one with the larger effect (log2FC, or NES for a pathway) is listed first. Before, search listed tied results in the order the index returned them.',

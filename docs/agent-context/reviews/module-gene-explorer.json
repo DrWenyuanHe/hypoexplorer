@@ -1,10 +1,13 @@
 {
   "version": 1,
   "area": "module-gene-explorer",
-  "fingerprint": "3e55677e90f97e64276311442c60b86d0f935b8d78a135f547569a12ef779146",
+  "fingerprint": "5e0ae8358eb2ecd2886430b7ee3c78550a91af4a819bec29f9c3917c5a3d7cc1",
   "outcome": "updated",
-  "explanation": "BarSEMChartImpl renders its per-sample dot overlay and significance brackets inside a recharts ZIndexLayer at the scatter z-index, so dots that fall within a bar are drawn above the bar and its error bar instead of behind them. Values, scales and layout are unchanged.",
+  "explanation": "The gene explorer CSV and Excel buttons, the bar-chart pop-up workbook, the summary table and the contrast matrix CSV run inside withExportEvidence. The tab no longer imports the internal QC ledger at all: it loads on the first export, and geneExport.ts itself is unchanged.",
   "references": [
-    "src/gene-explorer/BarSEMChartImpl.tsx"
+    "src/gene-explorer/GeneExplorerTab.tsx",
+    "src/gene-explorer/SummaryTable.tsx",
+    "src/gene-explorer/ContrastMatrix.tsx",
+    "src/gene-explorer/geneExport.ts"
   ]
 }

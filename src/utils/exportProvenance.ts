@@ -33,7 +33,7 @@
 // The snapshot never upgrades an absence into a claim: missing evidence is
 // recorded as missing ("Unrecorded" in the sheet, null in the JSON).
 import { RELEASE_IDENTITY } from '../data/releaseIdentity';
-import { getInternalQc } from '../data/internalQc';
+import { exportEvidence } from './lazyExport';
 import { resolveTimeSeriesUrl, resolveTrackUrl } from '../data/bundleLocators';
 import { DB_DEFAULT_FILTER } from '../data/constants';
 import { sourceAccession } from '../data/upstreamProcessing';
@@ -283,7 +283,9 @@ function datasetBlock(dataset: Dataset | undefined) {
 function evidenceBlock(track: TrackSubject) {
   const dataset = track.dataset;
   return dataset && track.contrasts ? track.contrasts.map((contrast) => {
-    const assessment = getInternalQc(dataset.id, contrast.id);
+    // Loaded on the first export (utils/lazyExport.ts); throws if an export
+    // skipped withExportEvidence, rather than recording no evidence.
+    const assessment = exportEvidence(dataset.id, contrast.id);
     return {
       contrastId: contrast.id,
       policyVersion: assessment?.policyVersion ?? null,

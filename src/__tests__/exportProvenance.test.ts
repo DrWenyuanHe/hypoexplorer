@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, beforeAll } from 'vitest';
 import * as XLSX from 'xlsx';
 import {
   columnsSubject, exportName, exportProvenance, provenanceRows,
@@ -15,6 +15,11 @@ import { makePopData, MACAQUE_DATASET } from './fixtures';
 import type { WorkbookSheet } from '../utils/workbook';
 import type { PathwayRecordWithDb, PopData, TimeSeriesBundle } from '../types';
 import type { RhythmRow } from '../circadian/scan';
+import { loadExportEvidence } from '../utils/lazyExport';
+
+// Export snapshots record the internal QC ledger, which the app loads on the
+// first export (utils/lazyExport.ts); load it before any export runs.
+beforeAll(() => loadExportEvidence());
 
 // Every export kind answers "what is this file evidence of" through one module:
 // the filename names the dataset, track, contrast and kind, and the Metadata

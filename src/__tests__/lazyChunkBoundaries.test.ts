@@ -77,4 +77,16 @@ describe('lazy chunk boundaries', () => {
     expect(staticImportersOf(/^xlsx$/)).toEqual([]);
     expect(staticImportersOf(/^html2canvas$/)).toEqual([]);
   });
+
+  it('the internal QC ledger is imported statically only by the quality modules', () => {
+    // The ledger chunk is ~3.9 MB. The quality views render it, so they import
+    // it through these two modules. Export provenance reaches it only through
+    // utils/lazyExport.ts's dynamic import on the first export, which keeps it
+    // out of the explorer tabs. A static import anywhere else (exportProvenance.ts
+    // once had one) puts it back on every explorer tab.
+    expect(staticImportersOf(/(^|\/)internalQc$/).sort()).toEqual([
+      'src/data/datasetQuality.ts',
+      'src/data/datasetQualityR460.ts',
+    ]);
+  });
 });

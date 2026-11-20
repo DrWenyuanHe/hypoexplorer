@@ -1,20 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "a2d04dc47818d3bf2df17dba984989bb55466a894cb847bf6f1a5b79f40408a6",
+  "fingerprint": "e52959658b4ded45f27e0248ecc7a8a640556cd912414d745a20d8e26d858922",
   "outcome": "updated",
-  "explanation": "From main: Merging main keeps its App-rendering tests awaiting preloadAppViews(), its lazyView and originHealth coverage, and its compareDownloads regression for blank compare-set group means on unmeasured genes. This branch adds the Circadian tab tests (per-arm comparison, notes, controls, table, trace, strip, full-gene exports and the workbook worker protocol) plus the exportProvenance, csv, rhythmScanIdentity and sortableHeaderA11y updates; the circadian tests render CircadianTab directly, so they need no view preload. From the cross-study listing: crossStudyListing.test.ts pins the listing in tables: lead and rest per mode and order, counts, dataset rules, flat rows, missing and non-finite keys, stable ties on subsets and no mutation. Report, preview, index and condition-card fixtures now build rows through geneRow / pathwayRow so no fixture contradicts its tier. searchPage adds a lowest-p versus lowest-q case, pathwayReportResults an FDR-mode survivors-first case, and crossDatasetSummary.test.ts goes with summarizeGroup. From the update prompt fix: appUpdatePrompt.test renders App on the expression survey, the route-error page, the hub and a methodology view it deliberately does not preload, signals an update and checks exactly one update prompt appears, before and after the lazy chunk arrives.",
+  "explanation": "Tests that call export builders directly, or click exports, load the QC ledger first with loadExportEvidence() (csv.test.ts at module scope, others in beforeAll). exportEvidence.test.ts covers the fail-closed accessor, the first export waiting and later ones running synchronously, contained body failures, and a failed ledger download retried by the next export. lazyChunkBoundaries pins the ledger to the two quality modules. Merged with main, whose cross-study listing and Circadian tests need no ledger load.",
   "references": [
-    "src/__tests__/crossStudyListing.test.ts",
-    "src/__tests__/searchPage.test.tsx",
-    "src/__tests__/pathwayReportResults.test.tsx",
-    "src/__tests__/geneReport.test.tsx",
-    "src/__tests__/crossDatasetRows.test.ts",
-    "src/__tests__/lazyView.test.tsx",
-    "src/__tests__/compareDownloads.test.ts",
-    "src/__tests__/circadianComparison.test.tsx",
-    "src/__tests__/circadianWorkbook.test.ts",
-    "src/appViews.tsx",
-    "src/__tests__/appUpdatePrompt.test.tsx"
+    "src/__tests__/exportEvidence.test.ts",
+    "src/__tests__/lazyChunkBoundaries.test.ts",
+    "src/__tests__/csv.test.ts"
   ]
 }

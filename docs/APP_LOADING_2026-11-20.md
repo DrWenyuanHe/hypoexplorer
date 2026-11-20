@@ -69,10 +69,33 @@ Compare as bars and the Data Sources tab; those views are no longer in the list:
 | Gene explorer, pathway explorer, compare, circadian | ~4,400 KB | internal QC |
 | Gene report, pathway report, library, QC, verification | ~5,750 KB | both |
 
-The explorer tabs still reach the internal QC ledger, because export
-provenance is built synchronously from it when a file is saved. Loading the
-ledger on demand would need every export handler to await it first; that is
-left for a separate change.
+The explorer tabs still reached the internal QC ledger at this point, because
+export provenance was built synchronously from it when a file was saved.
+
+### Follow-up: the ledger loads on the first export
+
+`exportProvenance.ts` now reads the ledger through `exportEvidence()` in
+`src/utils/lazyExport.ts`, which loads it with a dynamic import, like xlsx.
+Every export entry point runs inside `withExportEvidence()`: the first export of
+a session waits for the ledger; later ones run synchronously inside the click,
+as before. The accessor fails closed, so an export that skipped the wrapper
+throws (and is reported) instead of writing a file without its evidence.
+`chartTileExport`'s provenance became a getter, because compare chart tiles
+describe themselves on every render. `lazyChunkBoundaries.test.ts` pins the
+ledger's static importers to the two quality modules.
+
+| View | Before (table above) | After | Evidence ledgers |
+| --- | ---: | ---: | --- |
+| Gene explorer | ~4,450 KB | 648 KB | none until an export |
+| Pathway explorer | ~4,390 KB | 586 KB | none until an export |
+| Compare | ~4,450 KB | 650 KB | none until an export |
+| Circadian | ~4,400 KB | 636 KB | none until an export |
+
+In a `vite preview` build the pathway and compare tabs opened without the
+ledger; the first Excel and SVG exports loaded it and wrote files whose
+provenance carried every check and note of the contrast (8 processing and the
+replication check for GSE167264, 11 processing and two replication checks for
+the macaque e9 contrast); a second export ran within the click.
 
 In a local `vite preview` of the build, the hub recorded no long task, and the
 library rendered 350 ms after navigation with one 130 ms long task (evaluating

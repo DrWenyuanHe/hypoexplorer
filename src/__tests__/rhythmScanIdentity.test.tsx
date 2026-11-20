@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { act, cleanup, fireEvent, render, renderHook, screen } from '@testing-library/react';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi, beforeAll } from 'vitest';
 import { CircadianTab } from '../circadian/CircadianTab';
 import { useRhythmScan } from '../circadian/scan';
 import { DEFAULT_PERIODS, SCAN_PERIODS, type RhythmMethod } from '../circadian/rhythmicity';
@@ -9,6 +9,11 @@ import { _resetBundleCache, _setBundleTransport } from '../data/bundleSource';
 import { defineDataset } from '../data/datasets';
 import { exportResultsCSV, exportWorkbook } from '../circadian/circadianExport';
 import type { TimeSeriesBundle } from '../types';
+import { loadExportEvidence } from '../utils/lazyExport';
+
+// Export snapshots record the internal QC ledger, which the app loads on the
+// first export (utils/lazyExport.ts); load it before any export runs.
+beforeAll(() => loadExportEvidence());
 
 vi.mock('../circadian/circadianExport', () => ({
   exportResultsCSV: vi.fn(), exportRawCSV: vi.fn(), exportWorkbook: vi.fn().mockResolvedValue(undefined),

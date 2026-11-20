@@ -7,6 +7,7 @@ import { ExportButton } from '../common/ExportButton';
 import { SortableTh } from '../common/SortableTh';
 import { useSortedRows } from '../common/useSortedRows';
 import { useExportAction } from '../utils/exportAction';
+import { withExportEvidence } from '../utils/lazyExport';
 import { fmtP } from '../utils/format';
 import { FONT_MONO, btnStyle, thStyle } from '../styles/constants';
 import type { Dataset, TimeSeriesBundle } from '../types';
@@ -239,21 +240,21 @@ export function CircadianResultsTable({
         </span>
         <div style={{ flex: 1 }} />
         <ExportButton
-          onClick={() => csvExport.run(() => exportResultsCSV(sorted, exportCtx))}
+          onClick={() => csvExport.run(() => withExportEvidence(() => exportResultsCSV(sorted, exportCtx)))}
           busy={csvExport.busy} busyLabel="Downloading…" disabled={running || !sorted.length}
           style={btnStyle} title="Every scored gene, with the settings that produced the p-values"
         >
           Results CSV
         </ExportButton>
         <ExportButton
-          onClick={() => rawExport.run(() => exportRawCSV(bundle, sortedGenes, exportCtx))}
+          onClick={() => rawExport.run(() => withExportEvidence(() => exportRawCSV(bundle, sortedGenes, exportCtx)))}
           busy={rawExport.busy} busyLabel="Downloading…" disabled={running || !visible.length}
           style={btnStyle} title="Input values for every listed gene, one row per gene × library"
         >
           Raw values CSV
         </ExportButton>
         <ExportButton
-          onClick={() => xlsxExport.run(() => exportWorkbook(sorted, sortedGenes, exportCtx))}
+          onClick={() => xlsxExport.run(() => withExportEvidence(() => exportWorkbook(sorted, sortedGenes, exportCtx)))}
           busy={xlsxExport.busy} busyLabel="Building…" spinnerSize={11} disabled={running || !sorted.length}
           style={btnStyle} title="Settings, results and raw values for every listed gene in one workbook"
         >

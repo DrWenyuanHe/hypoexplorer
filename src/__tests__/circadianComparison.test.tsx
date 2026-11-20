@@ -1,5 +1,5 @@
 import { act, cleanup, fireEvent, render, renderHook, screen, within } from '@testing-library/react';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi, beforeAll } from 'vitest';
 import { CircadianTab } from '../circadian/CircadianTab';
 import { useArmScans } from '../circadian/scan';
 import { DEFAULT_PERIODS, SCAN_PERIODS, cosinor, jtkCycle, lombScargle } from '../circadian/rhythmicity';
@@ -8,6 +8,11 @@ import { fmtP } from '../utils/format';
 import { _resetBundleCache, _setBundleTransport } from '../data/bundleSource';
 import { defineDataset } from '../data/datasets';
 import type { TimeSeriesBundle } from '../types';
+import { loadExportEvidence } from '../utils/lazyExport';
+
+// Export snapshots record the internal QC ledger, which the app loads on the
+// first export (utils/lazyExport.ts); load it before any export runs.
+beforeAll(() => loadExportEvidence());
 
 // The comparison layer of the Circadian tab: the selected gene survives a
 // change of arm, test or period; every arm is scanned under the same settings

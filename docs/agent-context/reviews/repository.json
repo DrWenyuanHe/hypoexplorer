@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "a2bf29c350f6915fae72ab9b7a24ea4b9df7abbe998fc34825b2ead03a6f38ba",
-  "outcome": "no-impact",
-  "explanation": "Dependabot development-group patch/minor bumps (@biomejs/biome 2.6.7, knip 6.45.1, vite 8.3.8, wrangler 4.162.0) in package.json and pnpm-lock.yaml, plus the biome migrate output in biome.json: the schema URL moves to 2.6.7 and linter.rules.recommended becomes the equivalent preset recommended. No script names, source areas, views, contracts or commands change, so the maps and runbooks stay accurate.",
+  "fingerprint": "b06dfa3e8f7897a082a81812ea7f7c629c0f940d5d37a95836df044829dfd2fa",
+  "outcome": "updated",
+  "explanation": "Merged with main twice: the cross-study listing, update prompt and Circadian rework add no export provenance path, and the development dependency bump with its Biome 2.6.7 configuration migration changes no application code. docs/APP_LOADING_2026-11-20.md records that export provenance loads the internal QC ledger on the first export and the explorer tabs drop from about 4,400 KB to about 600 KB.",
   "references": [
-    "package.json",
+    "docs/APP_LOADING_2026-11-20.md",
+    "src/utils/lazyExport.ts",
     "biome.json",
-    "docs/agent-context/README.md"
+    "package.json"
   ]
 }

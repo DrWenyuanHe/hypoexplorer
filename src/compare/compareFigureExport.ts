@@ -379,12 +379,15 @@ export function saveChartSvg(tile: HTMLElement, filename: string, caption: SvgCa
  */
 export function chartTileExport({ pd, gene, label, pValue, chartScale }: {
   pd: PopData; gene: string; label: string; pValue: number | null | undefined; chartScale: ChartScale;
-}): { filename: (ext: string) => string; caption: SvgCaption; provenance: unknown } {
+}): { filename: (ext: string) => string; caption: SvgCaption; provenance: () => unknown } {
   const subject = trackSubject(pd);
   return {
     filename: (ext) => exportName(subject, [gene, 'bar_chart'], ext),
     caption: { title: gene, subtitle: [label, `mean ± SEM · P = ${fmtP(pValue)}`] },
-    provenance: exportProvenance('compare', subject, { figure: 'bar_chart', gene, chartScale }),
+    // A getter: tiles describe themselves on every render, but the snapshot
+    // reads the QC ledger, which loads only when a file is saved
+    // (withExportEvidence).
+    provenance: () => exportProvenance('compare', subject, { figure: 'bar_chart', gene, chartScale }),
   };
 }
 
@@ -394,7 +397,8 @@ export interface ChartTileFile {
   folder: string;
   filename: (ext: string) => string;
   caption: SvgCaption;
-  provenance: unknown;
+  /** The tile's provenance snapshot; call inside withExportEvidence. */
+  provenance: () => unknown;
 }
 
 function canvasBytes(canvas: HTMLCanvasElement): Promise<Uint8Array<ArrayBuffer>> {
@@ -433,7 +437,7 @@ export async function saveChartTilesZip(
   if (format === 'svg') {
     const encoder = new TextEncoder();
     for (const tile of tiles) {
-      const markup = chartSvgMarkup(tile.el, tile.caption, tile.provenance);
+      const markup = chartSvgMarkup(tile.el, tile.caption, tile.provenance());
       if (markup) add(tile.folder, tile.filename('svg'), encoder.encode(markup));
     }
   } else {

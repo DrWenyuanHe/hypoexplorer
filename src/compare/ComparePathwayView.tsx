@@ -4,6 +4,7 @@ import { fmtP, fmtFDR, fmtSigned } from '../utils/format';
 import { rawValueRows } from '../utils/excelExport';
 import { writeWorkbook } from '../utils/workbook';
 import { useExportAction } from '../utils/exportAction';
+import { withExportEvidence } from '../utils/lazyExport';
 import { columnsSubject, exportName, exportProvenance, metadataSheet } from '../utils/exportProvenance';
 import { BarSEMChart } from '../gene-explorer/BarSEMChart';
 import { PopWarningBadge } from '../common/PopWarningBadge';
@@ -150,7 +151,9 @@ export function ComparePathwayView({ columns, popDataMap, columnNoun }: CompareP
       .sort((a, b) => b.count - a.count || a.gene.localeCompare(b.gene));
   }, [selectedPathway, columns]);
 
-  const exportPathwayExcel = () => runExport(() => {
+  // Both workbooks' Metadata sheets record the QC ledger, which loads on the
+  // first export (withExportEvidence).
+  const exportPathwayExcel = () => runExport(() => withExportEvidence(() => {
     const rows = filtered.map((p) => {
       const row: Record<string, string | number> = { Pathway: p.pathway, DB: p.db, Size: p.size };
       for (const col of columns) {
@@ -168,9 +171,9 @@ export function ComparePathwayView({ columns, popDataMap, columnNoun }: CompareP
         rowSelection: 'Rows passing the database and search filters, ranked by the strongest |NES| in any column; paging does not limit the export.',
       })),
     ]);
-  });
+  }));
 
-  const exportLeadingEdgeXLSX = () => selectedPathway && runLEExport(() => {
+  const exportLeadingEdgeXLSX = () => selectedPathway && runLEExport(() => withExportEvidence(() => {
     const nPops = columns.filter((col) => selectedPathway.pops[col.key]).length;
     const rows = leOverlap.map(({ gene, count, pops: inPops }) => {
       const row: Record<string, string | number> = { Gene: gene, [noun.short]: `${count}/${nPops}` };
@@ -203,7 +206,7 @@ export function ComparePathwayView({ columns, popDataMap, columnNoun }: CompareP
         leadingEdgeGenes: genes.length,
       })),
     ]);
-  });
+  }));
 
   const btnStyle: CSSProperties = { fontSize: 11, padding: '2px 8px', border: '1px solid var(--border)', borderRadius: 3, background: 'var(--bg-panel)', cursor: 'pointer' };
 

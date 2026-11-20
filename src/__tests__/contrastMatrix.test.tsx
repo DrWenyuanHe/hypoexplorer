@@ -1,9 +1,14 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeAll } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ContrastMatrix } from '../gene-explorer/ContrastMatrix';
 import { makePopData } from './fixtures';
 import { csvDownloadTable } from './csvDownload';
 import type { GeneDERecord, ResolvedContrast } from '../types';
+import { loadExportEvidence } from '../utils/lazyExport';
+
+// Export snapshots record the internal QC ledger, which the app loads on the
+// first export (utils/lazyExport.ts); load it before any export runs.
+beforeAll(() => loadExportEvidence());
 
 // The across-comparisons matrix must read each gene from EACH slice's own DE
 // table — the whole point is that the same gene carries a different effect per
