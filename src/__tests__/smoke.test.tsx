@@ -1,10 +1,15 @@
-import { describe, it, expect, vi, } from 'vitest';
+import { describe, it, expect, vi, beforeAll } from 'vitest';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import App from '../App';
+import { preloadAppViews } from '../appViews';
 // buildPopData takes the dataset + contrast explicitly (it used to fall back to
 // these silently). Imported statically — everything else here stays dynamic.
 import { MACAQUE_DATASET, MACAQUE_CONTRAST } from './fixtures';
 import { stubVolcanoView } from './fixtures';
+
+// App's views are separate chunks (src/appViews.tsx); load them first so every
+// render below is synchronous.
+beforeAll(() => preloadAppViews());
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 function renderApp() {

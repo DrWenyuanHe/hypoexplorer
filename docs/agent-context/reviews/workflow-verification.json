@@ -1,13 +1,11 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "ad435bd68b1a16660360afd2d966290a72392bea7d70ae4d68ac4810fddf2fb9",
+  "fingerprint": "b5505d173fea581ddcfd2882ed5212174c62a09a76dcc31e6ed8eaf3bcc151f0",
   "outcome": "no-impact",
-  "explanation": "Verification evidence and checks are unchanged. The touched build scripts, track loaders and static guide only change comments or add the How to cite citations section; the Verification page and badges are untouched. queryIndex.ts also drops the unused manifestSupportsExpr check; the index wire and build are unchanged.",
+  "explanation": "workflows.md changed only in its ui-change route. Verification evidence, quality ledgers, author concordance and their checks are unchanged; the ledgers are now loaded lazily by the views that show them, with identical content.",
   "references": [
-    "scripts/lib/seoGuides.mts",
-    "scripts/build_query_index.mts",
-    "src/data/trackData.ts",
-    "src/data/queryIndex.ts"
+    "docs/agent-context/workflows.md",
+    "data/author-validation/README.md"
   ]
 }

@@ -1,10 +1,12 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "3cfbf39551539e14ecba02d5e9e8066095e655fd4836e434fe4cd26c25874a7f",
-  "outcome": "no-impact",
-  "explanation": "Delivery is unchanged: build_query_index.mts still builds and publishes the expression family; only its comment now says the retired compare view was its sole reader and that dropping it is a separate pipeline change.",
+  "fingerprint": "6e8d8b116611a1e2884d2f13114f305c38abe7427ec8edefb1802bd1663f8682",
+  "outcome": "updated",
+  "explanation": "delivery.md now explains the codeSplitting groups that bound the hub to three scripts, why groups replace manualChunks, how to check the modulepreload links in dist/index.html, the fonts and brand cache policy in public/_headers, and the HEAD origin probe, linking the November 20 loading record.",
   "references": [
-    "scripts/build_query_index.mts"
+    "docs/agent-context/delivery.md",
+    "docs/APP_LOADING_2026-11-20.md",
+    "vite.config.ts"
   ]
 }

@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "aef6e323415023f560bca3d461d76beee4919901613a68bbe0b085c0a70aef33",
+  "fingerprint": "1ea510a135494a547d70f2c69be714d3d9471552e5a2ca98fe140ab93ceb0b3e",
   "outcome": "updated",
-  "explanation": "The runbook drops the bars mode from the useStudySelection description, since the side-by-side compare view is retired. Navigation now has one Methods & statistics page and no Data Sources tab; the existing runbook steps cover these without new text.",
+  "explanation": "The ui-change route now states that App renders every non-hub view through lazyView entries in src/appViews.tsx, that new views join that list, that App-rendering tests await preloadAppViews(), and that hub or results-page modules must not import the evidence ledgers statically (hence exportProvenanceFormat.ts).",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/crossdataset/geneStudyScope.tsx",
-    "src/methodology/MethodologyView.tsx"
+    "src/appViews.tsx",
+    "src/common/lazyView.tsx"
   ]
 }
