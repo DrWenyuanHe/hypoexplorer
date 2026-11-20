@@ -1,6 +1,7 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeAll } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import App from '../App';
+import { preloadAppViews } from '../appViews';
 import { buildRegistry, integrationFor, trimRecord } from '../../scripts/lib/trackerIntegration.mjs';
 import { loadReviews } from '../dataset-tracker/reviewStore';
 import { firstN, modelGroup } from '../dataset-tracker/trackerLogic';
@@ -8,6 +9,10 @@ import { TrackerTable } from '../dataset-tracker/TrackerTable';
 import { TrackerBoard } from '../dataset-tracker/TrackerBoard';
 import { TrackerDetail } from '../dataset-tracker/TrackerDetail';
 import type { TrackerRow } from '../types';
+
+// App's views are separate chunks (src/appViews.tsx); load them first so every
+// render below is synchronous.
+beforeAll(() => preloadAppViews());
 
 // The matcher that decides which candidates are already in the explorer. Two
 // tiers: a shared accession/BioProject means the SAME dataset (integrated); only

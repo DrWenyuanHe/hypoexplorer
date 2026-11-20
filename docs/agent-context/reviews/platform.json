@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "4be00ae1459ab061dc58c83c457fe30adb143899c6838b6cec3f4d0570b5b65f",
+  "fingerprint": "01acfc735600290d4be7816be452668cc553358e00122eb5f063d486da6191d5",
   "outcome": "no-impact",
-  "explanation": "App mounts UpdateModal once in a thin wrapper above the view switch (AppViews), replacing the per-branch copies, so the expression survey and the route-error page now show the update prompt. Routing, views and data flow are unchanged; no authored context describes how the prompt is mounted.",
+  "explanation": "App mounts UpdateModal once in a thin wrapper above the view switch (AppViews), replacing the per-branch copies, so the expression survey and the route-error page now show the update prompt. It sits outside each lazily loaded view's Suspense boundary from appViews, so it also shows while a view chunk downloads. Routing, views and data flow are unchanged.",
   "references": [
     "src/App.tsx",
+    "src/appViews.tsx",
     "src/pwa/UpdateModal.tsx"
   ]
 }

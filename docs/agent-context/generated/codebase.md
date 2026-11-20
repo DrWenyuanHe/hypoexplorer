@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (237):
+Covered source files (246):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -62,6 +62,7 @@ Covered source files (237):
 - [src/__tests__/appRoutes.test.ts](<../../../src/__tests__/appRoutes.test.ts>)
 - [src/__tests__/appUpdatePrompt.test.tsx](<../../../src/__tests__/appUpdatePrompt.test.tsx>)
 - [src/__tests__/armPills.test.tsx](<../../../src/__tests__/armPills.test.tsx>)
+- [src/__tests__/armStatsStrip.test.tsx](<../../../src/__tests__/armStatsStrip.test.tsx>)
 - [src/__tests__/authorComparability.test.tsx](<../../../src/__tests__/authorComparability.test.tsx>)
 - [src/__tests__/authorConcordance.test.ts](<../../../src/__tests__/authorConcordance.test.ts>)
 - [src/__tests__/authorConcordanceRoutes.test.ts](<../../../src/__tests__/authorConcordanceRoutes.test.ts>)
@@ -93,7 +94,13 @@ Covered source files (237):
 - [src/__tests__/cellSelector.test.tsx](<../../../src/__tests__/cellSelector.test.tsx>)
 - [src/__tests__/chartScale.test.ts](<../../../src/__tests__/chartScale.test.ts>)
 - [src/__tests__/chartScaleToggle.test.tsx](<../../../src/__tests__/chartScaleToggle.test.tsx>)
+- [src/__tests__/circadianComparison.test.tsx](<../../../src/__tests__/circadianComparison.test.tsx>)
+- [src/__tests__/circadianControls.test.tsx](<../../../src/__tests__/circadianControls.test.tsx>)
+- [src/__tests__/circadianExportAll.test.ts](<../../../src/__tests__/circadianExportAll.test.ts>)
+- [src/__tests__/circadianNotes.test.tsx](<../../../src/__tests__/circadianNotes.test.tsx>)
+- [src/__tests__/circadianTable.test.tsx](<../../../src/__tests__/circadianTable.test.tsx>)
 - [src/__tests__/circadianTimeSeries.test.ts](<../../../src/__tests__/circadianTimeSeries.test.ts>)
+- [src/__tests__/circadianWorkbook.test.ts](<../../../src/__tests__/circadianWorkbook.test.ts>)
 - [src/__tests__/compareDownloads.test.ts](<../../../src/__tests__/compareDownloads.test.ts>)
 - [src/__tests__/compareLinks.test.tsx](<../../../src/__tests__/compareLinks.test.tsx>)
 - [src/__tests__/compareSet.test.tsx](<../../../src/__tests__/compareSet.test.tsx>)
@@ -183,6 +190,7 @@ Covered source files (237):
 - [src/__tests__/jtkCanonical.test.ts](<../../../src/__tests__/jtkCanonical.test.ts>)
 - [src/__tests__/keyedSourceRelationship.test.ts](<../../../src/__tests__/keyedSourceRelationship.test.ts>)
 - [src/__tests__/lazyChunkBoundaries.test.ts](<../../../src/__tests__/lazyChunkBoundaries.test.ts>)
+- [src/__tests__/lazyView.test.tsx](<../../../src/__tests__/lazyView.test.tsx>)
 - [src/__tests__/leadingEdgeHeatmap.test.tsx](<../../../src/__tests__/leadingEdgeHeatmap.test.tsx>)
 - [src/__tests__/libraryExport.test.ts](<../../../src/__tests__/libraryExport.test.ts>)
 - [src/__tests__/libraryFilters.test.ts](<../../../src/__tests__/libraryFilters.test.ts>)
@@ -243,6 +251,7 @@ Covered source files (237):
 - [src/__tests__/reviewedTextEvidence.test.ts](<../../../src/__tests__/reviewedTextEvidence.test.ts>)
 - [src/__tests__/reviewedTrackLabels.test.ts](<../../../src/__tests__/reviewedTrackLabels.test.ts>)
 - [src/__tests__/rhythmScanIdentity.test.tsx](<../../../src/__tests__/rhythmScanIdentity.test.tsx>)
+- [src/__tests__/rhythmTrace.test.tsx](<../../../src/__tests__/rhythmTrace.test.tsx>)
 - [src/__tests__/rhythmicity.test.ts](<../../../src/__tests__/rhythmicity.test.ts>)
 - [src/__tests__/sampleValues.test.ts](<../../../src/__tests__/sampleValues.test.ts>)
 - [src/__tests__/seRecovery.test.ts](<../../../src/__tests__/seRecovery.test.ts>)
@@ -317,14 +326,21 @@ Start here:
 - [src/circadian/jtkCycle.ts](<../../../src/circadian/jtkCycle.ts>)
 - [docs/CIRCADIAN_VALIDATION.md](<../../CIRCADIAN_VALIDATION.md>)
 
-Covered source files (10):
+Covered source files (17):
+- [src/circadian/ArmStatsStrip.tsx](<../../../src/circadian/ArmStatsStrip.tsx>)
+- [src/circadian/CircadianControls.tsx](<../../../src/circadian/CircadianControls.tsx>)
+- [src/circadian/CircadianNotes.tsx](<../../../src/circadian/CircadianNotes.tsx>)
+- [src/circadian/CircadianResultsTable.tsx](<../../../src/circadian/CircadianResultsTable.tsx>)
 - [src/circadian/CircadianTab.tsx](<../../../src/circadian/CircadianTab.tsx>)
 - [src/circadian/PhaseMap.tsx](<../../../src/circadian/PhaseMap.tsx>)
 - [src/circadian/RhythmTrace.tsx](<../../../src/circadian/RhythmTrace.tsx>)
 - [src/circadian/circadianExport.ts](<../../../src/circadian/circadianExport.ts>)
+- [src/circadian/circadianWorkbook.ts](<../../../src/circadian/circadianWorkbook.ts>)
+- [src/circadian/circadianWorkbook.worker.ts](<../../../src/circadian/circadianWorkbook.worker.ts>)
 - [src/circadian/distributions.ts](<../../../src/circadian/distributions.ts>)
 - [src/circadian/jtkCycle.ts](<../../../src/circadian/jtkCycle.ts>)
 - [src/circadian/multipleTesting.ts](<../../../src/circadian/multipleTesting.ts>)
+- [src/circadian/peak.ts](<../../../src/circadian/peak.ts>)
 - [src/circadian/rhythmicity.ts](<../../../src/circadian/rhythmicity.ts>)
 - [src/circadian/scan.ts](<../../../src/circadian/scan.ts>)
 - [src/circadian/timeSeriesSource.ts](<../../../src/circadian/timeSeriesSource.ts>)
@@ -341,7 +357,7 @@ Start here:
 - [src/common/BrandLink.tsx](<../../../src/common/BrandLink.tsx>)
 - [brand/README.md](<../../../brand/README.md>)
 
-Covered source files (34):
+Covered source files (35):
 - [src/common/AuthorValidation.tsx](<../../../src/common/AuthorValidation.tsx>)
 - [src/common/BetaNotice.css](<../../../src/common/BetaNotice.css>)
 - [src/common/BetaNotice.tsx](<../../../src/common/BetaNotice.tsx>)
@@ -372,6 +388,7 @@ Covered source files (34):
 - [src/common/StudyMetadata.tsx](<../../../src/common/StudyMetadata.tsx>)
 - [src/common/brand.ts](<../../../src/common/brand.ts>)
 - [src/common/chartScaleStore.ts](<../../../src/common/chartScaleStore.ts>)
+- [src/common/lazyView.tsx](<../../../src/common/lazyView.tsx>)
 - [src/common/prose.tsx](<../../../src/common/prose.tsx>)
 - [src/common/toolIcons.tsx](<../../../src/common/toolIcons.tsx>)
 - [src/common/useCompactLayout.ts](<../../../src/common/useCompactLayout.ts>)
@@ -780,7 +797,7 @@ Start here:
 - [src/utils/sampleValues.ts](<../../../src/utils/sampleValues.ts>)
 - [src/utils/geneListFile.ts](<../../../src/utils/geneListFile.ts>)
 
-Covered source files (25):
+Covered source files (26):
 - [src/utils/analysisState.ts](<../../../src/utils/analysisState.ts>)
 - [src/utils/appLinks.ts](<../../../src/utils/appLinks.ts>)
 - [src/utils/axes.ts](<../../../src/utils/axes.ts>)
@@ -790,6 +807,7 @@ Covered source files (25):
 - [src/utils/excelExport.ts](<../../../src/utils/excelExport.ts>)
 - [src/utils/exportAction.ts](<../../../src/utils/exportAction.ts>)
 - [src/utils/exportProvenance.ts](<../../../src/utils/exportProvenance.ts>)
+- [src/utils/exportProvenanceFormat.ts](<../../../src/utils/exportProvenanceFormat.ts>)
 - [src/utils/fdr.ts](<../../../src/utils/fdr.ts>)
 - [src/utils/focusTrap.ts](<../../../src/utils/focusTrap.ts>)
 - [src/utils/format.ts](<../../../src/utils/format.ts>)

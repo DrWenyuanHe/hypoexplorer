@@ -1,5 +1,7 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { cellChunks, writeCsv, type CsvCell } from '../utils/csv';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import {
+  cellChunks, csvBlockPieces, csvChunks, LARGE_CSV_CHARS, writeCsv, writeCsvBlocks, type CsvCell,
+} from '../utils/csv';
 import { exportProvenance, trackSubject } from '../utils/exportProvenance';
 import { csvDownloadTable, csvDownloadText } from './csvDownload';
 import { makePopData, MACAQUE_DATASET } from './fixtures';
@@ -181,5 +183,155 @@ describe('writeCsv — provenance columns', () => {
     const table = csvDownloadTable(downloadFile.mock.calls[0][1]);
     expect(table).toHaveLength(1);
     expect(table[0].at(-1)).toBe('ExportMetadataJSON');
+  });
+});
+
+const EOL_TEXT = '\r\n';
+const BOM_TEXT = String.fromCharCode(0xfeff);
+
+describe('writeCsv — large files in pieces', () => {
+  const provenance = exportProvenance(
+    'genes_summary', trackSubject(makePopData({ dataset: MACAQUE_DATASET, meta: { code: 'e9' } })),
+    { note: 'x'.repeat(70_000) },
+  );
+  const rows: CsvCell[][] = [
+    ['=cmd', 'a,b', null], ['say "hi"', -1.25, 0], ['line\nbreak', '-1.25', true], ['', undefined, 'z'],
+  ];
+
+  it('spells the same bytes in pieces as in one string, whatever the piece size', () => {
+    writeCsv('t.csv', ['A', 'B', 'C'], rows, { provenance });
+    const whole = csvDownloadText(downloadFile.mock.calls[0][1]);
+    for (const size of [1, 2, 3, 10_000]) {
+      const pieces = csvChunks(['A', 'B', 'C'], rows, { provenance }, size);
+      expect(pieces.join('')).toBe(whole);
+      if (size === 1) expect(pieces.length).toBe(rows.length);
+    }
+    // The per-row provenance path joins to the same layout.
+    const own = (i: number) => exportProvenance(
+      'compare', trackSubject(makePopData({ dataset: MACAQUE_DATASET, meta: { code: `p${i}` } })), {},
+    );
+    writeCsv('t.csv', ['A', 'B', 'C'], rows, { provenance, rowProvenance: own });
+    expect(csvChunks(['A', 'B', 'C'], rows, { provenance, rowProvenance: own }, 1).join(''))
+      .toBe(csvDownloadText(downloadFile.mock.calls[1][1]));
+    // A row with no cells of its own still gets its provenance cells, unprefixed by a comma.
+    expect(csvChunks([], [[]], { provenance }).join('').split(EOL_TEXT)[1].startsWith(MACAQUE_DATASET.id)).toBe(true);
+  });
+
+  describe('past the data: URL limit', () => {
+    let parts: BlobPart[][] = [];
+    let blobs: Blob[] = [];
+    beforeEach(() => {
+      parts = [];
+      blobs = [];
+      const RealBlob = Blob;
+      vi.stubGlobal('Blob', class extends RealBlob {
+        constructor(blobParts?: BlobPart[], options?: BlobPropertyBag) {
+          super(blobParts, options);
+          parts.push(blobParts ?? []);
+        }
+      });
+      vi.spyOn(URL, 'createObjectURL').mockImplementation((blob) => {
+        blobs.push(blob as Blob);
+        return 'blob:test/1';
+      });
+      vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => {});
+    });
+    afterEach(() => { vi.unstubAllGlobals(); vi.restoreAllMocks(); });
+
+    it('hands the browser a Blob built from pieces, never one whole-file string', async () => {
+      const n = 60_000; // ~2.9 million characters
+      const big: CsvCell[][] = Array.from({ length: n }, (_, i) => [`GENE${i}`, i / 7, i % 3 ? 'x' : '=f']);
+      writeCsv('big.csv', ['Gene', 'Value', 'Note'], big, { provenance });
+      const [name, href] = downloadFile.mock.calls[0] as [string, string];
+      expect(name).toBe('big.csv');
+      expect(href).toBe('blob:test/1');
+      expect(blobs[0].type).toBe('text/csv;charset=utf-8');
+      const pieces = parts[0] as string[];
+      expect(pieces.length).toBe(Math.ceil(n / 10_000));
+      const longest = Math.max(...pieces.map((p) => p.length));
+      const total = pieces.reduce((sum, p) => sum + p.length, 0);
+      expect(total).toBeGreaterThan(LARGE_CSV_CHARS);
+      expect(longest).toBeLessThan(total / 3);
+      // The bytes are the joined pieces, BOM and guards included.
+      const text = new TextDecoder('utf-8', { ignoreBOM: true }).decode(await blobs[0].arrayBuffer());
+      expect(text).toBe(csvChunks(['Gene', 'Value', 'Note'], big, { provenance }).join(''));
+      expect(text.startsWith(`${BOM_TEXT}Gene,Value,Note,DatasetID,`)).toBe(true);
+      const lines = text.split(EOL_TEXT);
+      expect(lines).toHaveLength(n + 2);
+      expect(lines[1].startsWith("GENE0,0,'=f,")).toBe(true);
+      expect(lines[n].startsWith(`GENE${n - 1},${(n - 1) / 7},x,`)).toBe(true);
+      expect(lines[n + 1]).toBe('');
+    });
+
+    it('keeps a small file a data: URL', () => {
+      writeCsv('t.csv', ['Gene'], [['POMC']]);
+      expect(String(downloadFile.mock.calls[0][1]).startsWith('data:text/csv;charset=utf-8,')).toBe(true);
+      expect(blobs).toHaveLength(0);
+    });
+
+    it('writeCsvBlocks moves each piece into a Blob once past the limit, and the bytes match writeCsv', async () => {
+      const n = 60_000;
+      const big: CsvCell[][] = Array.from({ length: n }, (_, i) => [`GENE${i}`, i / 7, i % 3 ? 'x' : '=f']);
+      const blocks = Array.from({ length: 6 }, (_, b) => big.slice(b * 10_000, (b + 1) * 10_000));
+      await writeCsvBlocks('big.csv', ['Gene', 'Value', 'Note'], blocks, { provenance });
+      const [name, href] = downloadFile.mock.calls[0] as [string, string];
+      expect(name).toBe('big.csv');
+      expect(href).toBe('blob:test/1');
+      expect(blobs).toHaveLength(1);
+      expect(blobs[0].type).toBe('text/csv;charset=utf-8');
+      // Pieces past the limit went into Blobs as they were made, not held as text to the end.
+      expect((parts.at(-1) as BlobPart[]).some((part) => part instanceof Blob)).toBe(true);
+      const text = new TextDecoder('utf-8', { ignoreBOM: true }).decode(await blobs[0].arrayBuffer());
+      expect(text).toBe(csvChunks(['Gene', 'Value', 'Note'], big, { provenance }).join(''));
+    });
+  });
+});
+
+describe('writeCsvBlocks — rows a block at a time', () => {
+  const provenance = exportProvenance(
+    'genes_summary', trackSubject(makePopData({ dataset: MACAQUE_DATASET, meta: { code: 'e9' } })),
+    { note: 'x'.repeat(70_000) },
+  );
+  const rows: CsvCell[][] = [
+    ['=cmd', 'a,b', null], ['say "hi"', -1.25, 0], ['line\nbreak', '-1.25', true], ['', undefined, 'z'],
+  ];
+  const own = (i: number) => exportProvenance(
+    'compare', trackSubject(makePopData({ dataset: MACAQUE_DATASET, meta: { code: `p${i}` } })), {},
+  );
+
+  it('spells exactly the bytes csvChunks spells, however the rows are blocked', () => {
+    const cases: Array<[CsvCell[][][], Parameters<typeof csvChunks>[2]]> = [
+      [[rows], { provenance }],
+      [[rows.slice(0, 1), [], rows.slice(1, 3), rows.slice(3)], { provenance }],
+      [[rows.slice(0, 2), rows.slice(2)], { provenance, rowProvenance: own }],
+      // One row: the long metadata JSON continues on rows of its own.
+      [[rows.slice(0, 1)], { provenance }],
+      [[], { provenance }],
+      [[rows], {}],
+    ];
+    for (const [blocks, options] of cases) {
+      expect([...csvBlockPieces(['A', 'B', 'C'], blocks, options)].join(''))
+        .toBe(csvChunks(['A', 'B', 'C'], blocks.flat(), options).join(''));
+    }
+  });
+
+  it('writes a small file as the same data: URL writeCsv writes', async () => {
+    writeCsv('t.csv', ['A', 'B', 'C'], rows, { provenance, rowProvenance: own });
+    await writeCsvBlocks('t.csv', ['A', 'B', 'C'], [rows.slice(0, 3), rows.slice(3)], { provenance, rowProvenance: own });
+    expect(downloadFile.mock.calls[1]).toEqual(downloadFile.mock.calls[0]);
+  });
+
+  it('pulls one block at a time and yields to the event loop between blocks', async () => {
+    const pulled: number[] = [];
+    function* blocks() {
+      for (let b = 0; b < 3; b++) { pulled.push(b); yield [[`row${b}`]]; }
+    }
+    const pending = writeCsvBlocks('t.csv', ['x'], blocks());
+    // Synchronously, only the first block has been spelled; the rest wait for later tasks.
+    expect(pulled).toEqual([0]);
+    expect(downloadFile).not.toHaveBeenCalled();
+    await pending;
+    expect(pulled).toEqual([0, 1, 2]);
+    expect(csvDownloadText(downloadFile.mock.calls[0][1])).toBe(`${BOM_TEXT}x\r\nrow0\r\nrow1\r\nrow2\r\n`);
   });
 });

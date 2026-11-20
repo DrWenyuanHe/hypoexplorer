@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "5783fe2451148450d732c9fed29bc4f45732978743db6583775a762295847715",
+  "fingerprint": "df3133a7b40db23df3b79aec7bdd5b1e5e67a612755b5794a68c9786c011fa32",
   "outcome": "no-impact",
-  "explanation": "The UI runbook does not cover where the update prompt mounts; App now renders UpdateModal once above every view, so a new view needs no prompt of its own. The runbook steps and refactor checklist remain accurate without new text.",
+  "explanation": "The UI runbook does not cover where the update prompt mounts; App now renders UpdateModal once above every view, including the on-demand views in appViews, so a new view needs no prompt of its own. The runbook steps and refactor checklist remain accurate without new text.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/App.tsx"

@@ -175,6 +175,17 @@ missing symbols, and `--font-mono` (Geist Mono, then IBM Plex Mono) for figures;
 inline styles use the constants in `src/styles/constants.ts`, where `FONT_MONO`
 stays a literal list so exported SVG figures keep their font. Preserve explicit
 monospace data labels.
+App renders every view except the landing hub through `src/appViews.tsx`:
+each page, explorer tab, the dataset info modal and the study-details
+verification body is a `lazyView` (`src/common/lazyView.tsx`) in its own chunk,
+with its own Suspense fallback. A new view joins that list rather than being
+imported into App, or the hub's first paint pays for it again. App warms the
+likely next chunk on idle (the results page from the hub, the reports from the
+results page). A test that renders App awaits `preloadAppViews()` in a
+`beforeAll`, so its synchronous queries still find the view. A module the hub
+or the results page imports must not reach the evidence ledgers
+(`internalQc.ts`, `authorValidation.ts`) statically; `csv.ts` takes its
+provenance columns from `exportProvenanceFormat.ts` for that reason.
 Expected outputs are the requested behavior and relevant regression coverage.
 Run the app and script TypeScript checks documented in
 [project guidance](../PROJECT_GUIDANCE.md) and focused Vitest tests. Use a browser
@@ -184,7 +195,16 @@ Circadian changes also follow [the numerical validation runbook](../CIRCADIAN_VA
 Keep effective JTK period families, unsupported-design reasons, missing-value
 handling and within-gene versus gene-wise corrections explicit in the UI and
 exports. A matched numerical reference does not establish biological calibration
-or measured human usability.
+or measured human usability. `CircadianTab.tsx` owns state, the per-arm scan
+queue (`scan.ts`, every arm scanned, the selected arm first) and selection;
+controls, notes, the results table and the per-arm statistics strip are their
+own components. Any display, plot, sort or announcement of a peak time uses
+`hasEstimablePeak` in `src/circadian/peak.ts`; p, q, period and amplitude keep
+their own field rules. Statements about attainable p-values (the Lomb–Scargle
+floor) appear only when the code can verify them for every scored sampling
+pattern. Raw-value exports cover every listed gene; the workbook is built and
+serialised in `circadianWorkbook.worker.ts` (ES-module worker, `worker.format`
+in vite.config.ts), with the same builder as an in-thread fallback.
 
 HypoMap views in `src/search/hypomap/` sit behind two build flags that stay off in
 hosted builds: `VITE_HYPOMAP_EXPRESSION` adds the atlas preview under the gene

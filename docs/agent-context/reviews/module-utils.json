@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-utils",
-  "fingerprint": "81ae1ca8fec4d359f31077670db5746cb92983cad6e857ce2e547392efbbfc96",
+  "fingerprint": "29eecc642636bf11dfd1b5ebdae909de6e4dd080542be3deaad19b52f9e8fd42",
   "outcome": "updated",
-  "explanation": "AppRoute drops statistics and compare-datasets. parseRoute sends #/statistics to methodology, #/compare/<gene>[/<scope>] (with any saved analysis) to that gene report, and #/dataset/<id>/<track>/datasources to the study library record. datasetLinks.ts only rewords a comment.",
+  "explanation": "From main, the pure provenance formatters live in exportProvenanceFormat.ts so CSV-only views skip the internal QC ledger, and csv.ts imports them from there. This branch adds writeCsvBlocks for block-wise encoding and a Blob URL for large CSVs while small outputs stay byte-identical, and lazyExport.ts names the circadian workbook as a second withXLSX consumer.",
   "references": [
-    "src/utils/appLinks.ts",
-    "src/utils/datasetLinks.ts",
-    "src/__tests__/appRoutes.test.ts"
+    "src/utils/exportProvenanceFormat.ts",
+    "src/utils/csv.ts",
+    "src/utils/lazyExport.ts"
   ]
 }

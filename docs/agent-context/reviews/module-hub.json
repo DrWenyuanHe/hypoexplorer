@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-hub",
-  "fingerprint": "20e2995c6bea6eeef9fee98e4ece6ed90a6bbff7d39cf9074d323421fd4c29ff",
+  "fingerprint": "22c85680d3a17dbbdc2f14b64eb2251d06593b3a08b27a18cbf0277d6abb1645",
   "outcome": "updated",
-  "explanation": "The hub footer drops its Statistics and Sources & acknowledgements buttons and onOpenStatistics prop; Methodology is relabelled Methods & statistics. The top nav Methods button still opens that page.",
+  "explanation": "DataOriginStatus documents its five-minute re-probe as a bodiless HEAD. The hub remains in the entry chunk as the default route, while every other view moved behind src/appViews.tsx, so the hub no longer downloads the explorer, reports, recharts or the evidence ledgers.",
   "references": [
-    "src/hub/LandingHub.tsx",
-    "src/__tests__/methodology.test.tsx",
-    "src/__tests__/hubUnits.test.tsx"
+    "src/hub/DataOriginStatus.tsx",
+    "src/appViews.tsx",
+    "docs/APP_LOADING_2026-11-20.md"
   ]
 }

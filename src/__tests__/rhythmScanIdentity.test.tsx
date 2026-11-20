@@ -72,7 +72,8 @@ describe('completed rhythmicity request identity', () => {
     fireEvent.change(screen.getByLabelText('Rhythm test'), { target: { value: 'cosinor' } });
     expect(screen.getByRole('button', { name: 'Results CSV' })).toBeDisabled();
     expect(screen.getByRole('button', { name: 'Excel' })).toBeDisabled();
-    expect(screen.queryByTestId('trace')).toBeNull();
+    // The trace stays up (dimmed) through a rescan; its statistics wait for the scan.
+    expect(screen.getByTestId('trace')).toHaveTextContent('First');
     fireEvent.click(screen.getByRole('button', { name: 'Results CSV' }));
     fireEvent.click(screen.getByRole('button', { name: 'Excel' }));
     expect(exportResultsCSV).not.toHaveBeenCalled();

@@ -1,10 +1,15 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeAll } from 'vitest';
 import { render, screen, fireEvent, waitFor, act, within } from '@testing-library/react';
 import App from '../App';
+import { preloadAppViews } from '../appViews';
 import { getDefaultDataset } from '../data/datasets';
 import { _resetTrackCache } from '../data/loadTrack';
 import { _resetDatasetMetaCache } from '../data/loadDatasetMeta';
 import { HX_MACAQUE_SNRNA_E9_FIXTURE, BULK_TRACK_FIXTURE, seedQueryManifest } from './fixtures';
+
+// App's views are separate chunks (src/appViews.tsx); load them first so every
+// render below is synchronous.
+beforeAll(() => preloadAppViews());
 
 // App wiring for the multi-dataset foundation. With a single dataset registered
 // the breadcrumb shows the dataset name as plain text (the <select> only appears

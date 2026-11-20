@@ -33,9 +33,8 @@ import {
 // ever be green, and a light that cannot go red is decoration.
 
 /** How often a tab left open re-probes. Well over originHealth's 30 s memo, so
- *  each tick is a real request; rare enough that an idle tab costs ~11 KB per
- *  five minutes rather than per minute. Waking the tab or regaining the network
- *  re-probes immediately, which is when the answer actually changes. */
+ *  each tick is a real request (a bodiless HEAD). Waking the tab or regaining
+ *  the network re-probes immediately, which is when the answer actually changes. */
 const RECHECK_MS = 5 * 60 * 1000;
 
 interface Presentation {
