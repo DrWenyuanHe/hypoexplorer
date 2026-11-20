@@ -7,6 +7,7 @@
 
 import type { DatasetCategory } from '../data/datasetCategories';
 import type { DatasetPerturbation, DatasetPreparation, DatasetRegion } from '../data/datasetFacets';
+import type { SignificanceTier } from '../statistics/policy';
 
 export type FeatureType = 'gene' | 'miRNA';
 
@@ -310,6 +311,9 @@ export interface TrackRow {
   /** logFC standard error (log2) for the row's own 95% CI; null if the bundle lacks it. */
   se: number | null;
   direction: Direction;
+  /** The row's significance tier (policy.ts), decided once by geneRow. */
+  tier: SignificanceTier;
+  /** `tier === 'fdr'`: the FDR call. */
   significant: boolean;
   lowPower: boolean;
 }
@@ -328,14 +332,6 @@ export interface CrossDatasetGeneReport {
   groups: DatasetGroup[];
 }
 
-export interface GroupSummary {
-  up: number;
-  down: number;
-  nSig: number;
-  nTracks: number;
-  strongest: TrackRow | null;
-}
-
 // ── Cross-dataset pathway report (src/data/crossDataset.ts) ──────────────────
 // The pathway analog of the gene report: one FGSEA pathway's enrichment across
 // every track of every pathway-capable dataset. Mirrors TrackRow but on NES/padj.
@@ -350,6 +346,9 @@ export interface PathwayTrackRow {
   size: number;
   db: DbName;
   direction: Direction;
+  /** The row's significance tier (policy.ts), decided once by pathwayRow. */
+  tier: SignificanceTier;
+  /** `tier === 'fdr'`: the FDR call. */
   significant: boolean;
 }
 

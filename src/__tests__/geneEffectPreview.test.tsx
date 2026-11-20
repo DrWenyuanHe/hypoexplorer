@@ -4,6 +4,7 @@ import { GeneEffectPreview } from '../crossdataset/GeneEffectPreview';
 import { _resetBundleCache, _setBundleTransport } from '../data/bundleSource';
 import { _resetTrackCache } from '../data/loadTrack';
 import { getActiveContrast } from '../data/contrasts';
+import { geneRow } from '../data/crossDatasetRows';
 import { getGroupedValues } from '../utils/sampleValues';
 import type { PopData, RawTrack, ResolvedContrast, TrackRow } from '../types';
 import { MULTICONTRAST_DATASET_FIXTURE as dataset, MULTICONTRAST_TRACK_FIXTURE as fixture } from './fixtures';
@@ -14,7 +15,7 @@ vi.mock('../gene-explorer/BarSEMChart', () => ({
   ),
 }));
 
-const track: TrackRow = { trackId: 'other_population', label: 'Other population', type: 'Tissue', logFC: 0.3, pval: 0.4, fdr: 0.6, se: null, direction: 'up', significant: false, lowPower: false };
+const track: TrackRow = geneRow({ trackId: 'other_population', label: 'Other population', type: 'Tissue', logFC: 0.3, pval: 0.4, fdr: 0.6, se: null, lowPower: false });
 const contrast = getActiveContrast(dataset, 'refed_vs_fed');
 let requests: string[];
 let raw: RawTrack;

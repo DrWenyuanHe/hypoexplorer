@@ -14,6 +14,12 @@
 .listing-mode-options button:focus-visible { outline: 2px solid var(--color-selected); outline-offset: -2px; }
 .listing-mode-options button[aria-pressed="true"]:focus-visible { outline-offset: -3px; }
 
+/* TierLabel: FDR survivors carry an outlined label; the nominal tier is muted
+   text, never a coloured claim. */
+.portal-tier { font-size: var(--fs-11); white-space: nowrap; }
+.portal-tier--fdr { padding: 0 6px; font-weight: 600; color: var(--accent); border: 1px solid currentColor; border-radius: 999px; }
+.portal-tier--nominal, .portal-tier--none { color: var(--text-muted); }
+
 /* A dotted underline marks a term with an explanation behind it. */
 .q-term { text-decoration: underline dotted; text-underline-offset: 2px; cursor: help; }
 .q-term:focus-visible { outline: 2px solid var(--color-selected); outline-offset: 1px; border-radius: 2px; }
