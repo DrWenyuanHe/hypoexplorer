@@ -63,10 +63,11 @@ export function Effect({ value, direction, significant }: { value: number; direc
  * uncorrected. Shared by the search portal and the pathway report, so the same
  * result carries the same words wherever it appears.
  */
-export function TierLabel({ tier }: { tier: SignificanceTier }) {
-  if (tier === 'fdr') return <span className="portal-tier portal-tier--fdr">FDR &lt; {DEFAULT_FDR_CUTOFF}</span>;
-  if (tier === 'nominal') return <span className="portal-tier portal-tier--nominal">p &lt; {NOMINAL_P_CUTOFF} only</span>;
-  return <span className="portal-tier portal-tier--none">n.s.</span>;
+export function TierLabel({ tier, className }: { tier: SignificanceTier; className?: string }) {
+  const cls = `${className ? `${className} ` : ''}portal-tier portal-tier--${tier}`;
+  if (tier === 'fdr') return <span className={cls}>FDR &lt; {DEFAULT_FDR_CUTOFF}</span>;
+  if (tier === 'nominal') return <span className={cls}>p &lt; {NOMINAL_P_CUTOFF} only</span>;
+  return <span className={cls}>n.s.</span>;
 }
 
 export function plural(n: number, one: string, many = `${one}s`): string {

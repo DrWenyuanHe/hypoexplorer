@@ -416,7 +416,7 @@ describe('GeneReport — differential expression table', () => {
       groups: [{
         ...macaque,
         // e2 and e1 reach raw p < 0.05 without passing FDR; e2 has the lower p.
-        tracks: macaque.tracks.map((t) => (t.trackId === 'e2' ? { ...t, pval: 0.004 } : t.trackId === 'e1' ? { ...t, pval: 0.03 } : t)),
+        tracks: macaque.tracks.map((t) => (t.trackId === 'e2' ? geneRow({ ...t, pval: 0.004 }) : t.trackId === 'e1' ? geneRow({ ...t, pval: 0.03 }) : t)),
       }, mouse],
     };
     renderReport();
@@ -455,7 +455,7 @@ describe('GeneReport — differential expression table', () => {
       ...base,
       groups: [{
         ...macaque,
-        tracks: macaque.tracks.map((t) => (t.trackId === 'e2' ? { ...t, pval: 0.004 } : t)),
+        tracks: macaque.tracks.map((t) => (t.trackId === 'e2' ? geneRow({ ...t, pval: 0.004 }) : t)),
       }, mouse],
     };
     renderReport();
@@ -490,7 +490,7 @@ describe('GeneReport — differential expression table', () => {
     const base = nothingSignificant();
     REPORT_REF.current = {
       ...base,
-      groups: base.groups.map((g) => ({ ...g, tracks: g.tracks.map((t) => (t.trackId === 'e9' ? { ...t, pval: 0.01 } : t)) })),
+      groups: base.groups.map((g) => ({ ...g, tracks: g.tracks.map((t) => (t.trackId === 'e9' ? geneRow({ ...t, pval: 0.01 }) : t)) })),
     };
     renderReport();
     const card = await findDeCard();
