@@ -1,11 +1,20 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "808b7af5f6b962fa84f8a6fba890525dbd165c79574eccd730363a0e67307ed1",
-  "outcome": "no-impact",
-  "explanation": "appUpdatePrompt.test renders App on the expression survey, the route-error page, a not-yet-loaded lazy view (methodology) and the hub, signals an update and checks exactly one update prompt appears. The generated code map lists the new file; the start-here tests and module meaning are unchanged.",
+  "fingerprint": "a2d04dc47818d3bf2df17dba984989bb55466a894cb847bf6f1a5b79f40408a6",
+  "outcome": "updated",
+  "explanation": "From main: Merging main keeps its App-rendering tests awaiting preloadAppViews(), its lazyView and originHealth coverage, and its compareDownloads regression for blank compare-set group means on unmeasured genes. This branch adds the Circadian tab tests (per-arm comparison, notes, controls, table, trace, strip, full-gene exports and the workbook worker protocol) plus the exportProvenance, csv, rhythmScanIdentity and sortableHeaderA11y updates; the circadian tests render CircadianTab directly, so they need no view preload. From the cross-study listing: crossStudyListing.test.ts pins the listing in tables: lead and rest per mode and order, counts, dataset rules, flat rows, missing and non-finite keys, stable ties on subsets and no mutation. Report, preview, index and condition-card fixtures now build rows through geneRow / pathwayRow so no fixture contradicts its tier. searchPage adds a lowest-p versus lowest-q case, pathwayReportResults an FDR-mode survivors-first case, and crossDatasetSummary.test.ts goes with summarizeGroup. From the update prompt fix: appUpdatePrompt.test renders App on the expression survey, the route-error page, the hub and a methodology view it deliberately does not preload, signals an update and checks exactly one update prompt appears, before and after the lazy chunk arrives.",
   "references": [
-    "src/__tests__/appUpdatePrompt.test.tsx",
-    "src/App.tsx"
+    "src/__tests__/crossStudyListing.test.ts",
+    "src/__tests__/searchPage.test.tsx",
+    "src/__tests__/pathwayReportResults.test.tsx",
+    "src/__tests__/geneReport.test.tsx",
+    "src/__tests__/crossDatasetRows.test.ts",
+    "src/__tests__/lazyView.test.tsx",
+    "src/__tests__/compareDownloads.test.ts",
+    "src/__tests__/circadianComparison.test.tsx",
+    "src/__tests__/circadianWorkbook.test.ts",
+    "src/appViews.tsx",
+    "src/__tests__/appUpdatePrompt.test.tsx"
   ]
 }

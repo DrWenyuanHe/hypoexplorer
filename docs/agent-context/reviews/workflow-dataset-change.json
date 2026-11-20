@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "56a4941cf527f9be86795bdeaad07707f8ee23380019a92a5d84ecb09f73c51d",
+  "fingerprint": "6a92d7ebb95eba7ae05b2ecb7d83a9b2d0239c509e00b65e9020300c7f6c0710",
   "outcome": "no-impact",
-  "explanation": "workflows.md changed only in its ui-change route (lazy views and test preloading). The dataset-change route, its builders, registry rules, bundle checks and contracts are unchanged, and no dataset, bundle or registry file was touched.",
+  "explanation": "From main: workflows.md changed only in its ui-change route (lazy views and test preloading). The dataset-change route, its builders, registry rules, bundle checks and contracts are unchanged, and no dataset, bundle or registry file was touched. From the cross-study listing: No dataset registration, bundle builder, sidecar or query index format changed. The row builders add a tier derived from the q and p they already read, so a dataset change still produces the same bundles and index shards; only how the views order and label those rows moved into src/statistics.",
   "references": [
     "docs/agent-context/workflows.md",
-    "docs/DATASET_CONTRACT.md"
+    "docs/DATASET_CONTRACT.md",
+    "src/data/crossDatasetRows.ts"
   ]
 }

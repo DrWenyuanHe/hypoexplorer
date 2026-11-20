@@ -1,13 +1,17 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "255d3693e9c94309aa6cd972bcf3a2b020522a9315ea1e2490847caaae81a6ef",
+  "fingerprint": "4bbede0eebdf637d1fcda7cf185a0225ffaa79889491a360210ddef7d6c3c573",
   "outcome": "updated",
-  "explanation": "From main, App renders every non-hub view through src/appViews.tsx and docs/APP_LOADING_2026-11-20.md records the hub critical path. This branch adds worker.format es in vite.config.ts beside main's codeSplitting groups so the circadian workbook worker can lazy-load the xlsx group, and extends the ui-change runbook's circadian paragraph; the generated code map is regenerated for the merged tree.",
+  "explanation": "From main: From main, App renders every non-hub view through src/appViews.tsx and docs/APP_LOADING_2026-11-20.md records the hub critical path. This branch adds worker.format es in vite.config.ts beside main's codeSplitting groups so the circadian workbook worker can lazy-load the xlsx group, and extends the ui-change runbook's circadian paragraph; the generated code map is regenerated for the merged tree. From the cross-study listing: CONTEXT.md defines significance tier, listing mode and cross-study listing. The UI change workflow and the refactor checklist name listCrossStudy as the one place a cross-study view gets what leads, its order and its counts, and TierLabel in src/statistics as its label. The catalog adds both files to the statistics area and drops GroupSummary.",
   "references": [
+    "CONTEXT.md",
+    "docs/agent-context/workflows.md",
+    "docs/REFACTOR_CHECKLIST.md",
+    "docs/agent-context/catalog.json",
+    "src/changelog/changelog.ts",
     "src/appViews.tsx",
     "vite.config.ts",
-    "docs/agent-context/workflows.md",
     "docs/agent-context/generated/codebase.md"
   ]
 }

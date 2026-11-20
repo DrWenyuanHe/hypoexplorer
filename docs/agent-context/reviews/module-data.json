@@ -1,10 +1,13 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "3b7238967bee79eca3f0ceee7776883d2d4455a871ece9de86ed552d5e8a10bf",
+  "fingerprint": "aa742e6f1882d7735c555df62e9d1b5c16899acea3a9f90f6264ed06a9da44eb",
   "outcome": "updated",
-  "explanation": "originHealth probes the data origin with a no-cors, no-store HEAD instead of a GET, so the hub light and error banners no longer download the 200 KB query manifest body. The diagnosis states, memo window and probe path are unchanged; EDGE_PROTECTION.md notes that the method rule admits HEAD.",
+  "explanation": "From main: originHealth probes the data origin with a no-cors, no-store HEAD instead of a GET, so the hub light and error banners no longer download the 200 KB query manifest body. The diagnosis states, memo window and probe path are unchanged; EDGE_PROTECTION.md notes that the method rule admits HEAD. From the cross-study listing: geneRow and pathwayRow now set each row's significance tier once with significanceTier(q, p), and significant is that tier's FDR call; direction is unchanged, so the index and fallback paths still build identical rows. The unused summarizeGroup aggregate is removed from crossDataset.ts.",
   "references": [
+    "src/data/crossDatasetRows.ts",
+    "src/data/crossDataset.ts",
+    "docs/REFACTOR_CHECKLIST.md",
     "src/data/originHealth.ts",
     "docs/EDGE_PROTECTION.md"
   ]

@@ -56,8 +56,11 @@ leave them byte-for-byte unchanged:
 - [ ] Contrast resolution → `getActiveContrast` / `listContrasts` / `requireContrast`
       in `src/data/contrasts.ts`; bundle URL/global-key locators →
       `src/data/bundleLocators.ts` (the manifest itself stays in `datasets.ts`).
-- [ ] Cross-dataset row shaping (direction / significance) → `geneRow` / `pathwayRow`
+- [ ] Cross-dataset row shaping (direction / significance tier) → `geneRow` / `pathwayRow`
       in `src/data/crossDatasetRows.ts`, shared by the index and fallback paths.
+- [ ] What a cross-study view leads with, its order and its counts → `listCrossStudy`
+      in `src/statistics/crossStudyListing.ts` (no per-view tier sort or tally); the
+      tier label → `TierLabel` in `src/statistics/TierLabel.tsx`.
 - [ ] Category-scope chips on report pages → `useCategoryScope` / `FilterChip` in
       `src/crossdataset/forestReport.tsx`.
 - [ ] Export buttons (disabled-when-busy + spinner wiring) → `ExportButton` in
