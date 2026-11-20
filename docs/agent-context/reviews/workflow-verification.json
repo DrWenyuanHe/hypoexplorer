@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "c41c01e8b99c0c35790a398de9dadd22f6fa0f1757d277120b75d1de3a8fc77b",
+  "fingerprint": "ad435bd68b1a16660360afd2d966290a72392bea7d70ae4d68ac4810fddf2fb9",
   "outcome": "no-impact",
-  "explanation": "Verification evidence and checks are unchanged. The touched build scripts, track loaders and static guide only change comments or add the How to cite citations section; the Verification page and badges are untouched.",
+  "explanation": "Verification evidence and checks are unchanged. The touched build scripts, track loaders and static guide only change comments or add the How to cite citations section; the Verification page and badges are untouched. queryIndex.ts also drops the unused manifestSupportsExpr check; the index wire and build are unchanged.",
   "references": [
     "scripts/lib/seoGuides.mts",
     "scripts/build_query_index.mts",
-    "src/data/trackData.ts"
+    "src/data/trackData.ts",
+    "src/data/queryIndex.ts"
   ]
 }

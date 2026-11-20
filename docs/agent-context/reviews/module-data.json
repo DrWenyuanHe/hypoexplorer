@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "402f1a1cbb9a4e4925cefba68036db7a39bdf01feeef3915cbc0ccac05da5699",
+  "fingerprint": "02de0377d879abfccd7598f1cd2267e95350bfeef9626d724ab16b648bd06eac",
   "outcome": "updated",
-  "explanation": "crossDatasetCompare.ts, the expression-index loader used only by the retired compare view, is deleted. queryIndex.ts keeps loadExprRows because the build still publishes the expr family. trackColumns.ts and trackData.ts only reword comments that named CrossDatasetCompare.",
+  "explanation": "crossDatasetCompare.ts, the expression-index loader used only by the retired compare view, is deleted, and so is queryIndex.ts manifestSupportsExpr, its capability check (knip flagged it unused). loadExprRows stays, pinned by the wire tests while the build still publishes the expr family; its comment states the check a future reader needs. trackColumns.ts and trackData.ts only reword comments.",
   "references": [
     "src/data/queryIndex.ts",
-    "src/data/trackColumns.ts",
-    "src/data/trackData.ts",
+    "src/data/queryWire.ts",
+    "src/__tests__/queryWire.test.ts",
     "scripts/build_query_index.mts"
   ]
 }

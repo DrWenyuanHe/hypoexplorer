@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "4ffbca383ac6df38dcd2f5cfb3a2d637e4d1779248cc9c3b5020bfe44f53bdbd",
+  "fingerprint": "caa212d08c51ce24ba0a3c6ece0d59fa044715f14a6b270c8d6a3cef593c028e",
   "outcome": "no-impact",
-  "explanation": "Dataset intake is unchanged. build_query_index.mts and build_tracker_catalog.mts only reword comments (the expr family has no app reader now; the reverse index feeds the library record), trackColumns/trackData comments drop CrossDatasetCompare, and How to cite gains a citations section.",
+  "explanation": "Dataset intake is unchanged. build_query_index.mts and build_tracker_catalog.mts only reword comments (the expr family has no app reader now; the reverse index feeds the library record), trackColumns/trackData comments drop CrossDatasetCompare, and How to cite gains a citations section. queryIndex.ts also drops the unused manifestSupportsExpr check; the index wire and build are unchanged.",
   "references": [
     "scripts/build_query_index.mts",
     "scripts/build_tracker_catalog.mts",
-    "docs/REAL_DATA_SHAPES.md"
+    "docs/REAL_DATA_SHAPES.md",
+    "src/data/queryIndex.ts"
   ]
 }
