@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "c016c0a82c8b6ae22254e73c0bc34774680b2e6b4a14e7d640e5e822140ef230",
-  "outcome": "no-impact",
-  "explanation": "HypoMapPreview replaces the Spatial / By dataset toggle buttons with a roving-tabindex tablist (role=tab, aria-selected, one tabpanel; clicks focus the tab so Safari keeps the arrow keys working). It typesets the detection and expression formulas as fractions, adds a count badge to the off-plane region disclosure, moves Preview spatial CSV into the view header (Spatial only) and Reset into the region summary header. preview.css takes the tab colours from --accent, wraps the header in reverse so the export sits above the tabs on narrow widths, and leaves the selected tab unchanged on hover. Routes, metrics, exported rows and the CSV dialog are unchanged. SearchPage keeps its result-filter tablist behaviour and now computes the target tab with utils/tabKeys. The module catalog meaning and search runbook are unchanged.",
+  "fingerprint": "eda70603e9ccd5dde1fe8d9f27b4aea2777c13b8f92af58b059fb40ee49b5e63",
+  "outcome": "updated",
+  "explanation": "searchSummaries.ts now caches the index's study groups (GeneSummary / PathwaySummary carry groups) instead of a finished CrossStudySummary with eager top/topFdr lists; index-only loading, retry after null and unavailable-versus-empty are unchanged. SearchPage lists those groups at render through listCrossStudy, reads each row's own tier for data-tier and the Call column, and the condition-pathways card follows the FDR-mode lead. TierLabel left portalCards for src/statistics.",
   "references": [
-    "src/search/hypomap/HypoMapPreview.tsx",
-    "src/search/hypomap/preview.css",
+    "src/search/searchSummaries.ts",
     "src/search/SearchPage.tsx",
-    "src/utils/tabKeys.ts",
-    "src/__tests__/hypomapPreview.test.tsx"
+    "src/search/portalCards.tsx",
+    "src/search/search.css",
+    "src/statistics/crossStudyListing.ts"
   ]
 }

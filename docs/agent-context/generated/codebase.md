@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (246):
+Covered source files (247):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -60,6 +60,7 @@ Covered source files (246):
 - [src/__tests__/appRouter.test.tsx](<../../../src/__tests__/appRouter.test.tsx>)
 - [src/__tests__/appRouterUrl.test.tsx](<../../../src/__tests__/appRouterUrl.test.tsx>)
 - [src/__tests__/appRoutes.test.ts](<../../../src/__tests__/appRoutes.test.ts>)
+- [src/__tests__/appUpdatePrompt.test.tsx](<../../../src/__tests__/appUpdatePrompt.test.tsx>)
 - [src/__tests__/armPills.test.tsx](<../../../src/__tests__/armPills.test.tsx>)
 - [src/__tests__/armStatsStrip.test.tsx](<../../../src/__tests__/armStatsStrip.test.tsx>)
 - [src/__tests__/authorComparability.test.tsx](<../../../src/__tests__/authorComparability.test.tsx>)
@@ -113,7 +114,7 @@ Covered source files (246):
 - [src/__tests__/contrastMatrix.test.tsx](<../../../src/__tests__/contrastMatrix.test.tsx>)
 - [src/__tests__/countConservationEvidence.test.ts](<../../../src/__tests__/countConservationEvidence.test.ts>)
 - [src/__tests__/crossDatasetRows.test.ts](<../../../src/__tests__/crossDatasetRows.test.ts>)
-- [src/__tests__/crossDatasetSummary.test.ts](<../../../src/__tests__/crossDatasetSummary.test.ts>)
+- [src/__tests__/crossStudyListing.test.ts](<../../../src/__tests__/crossStudyListing.test.ts>)
 - [src/__tests__/csv.test.ts](<../../../src/__tests__/csv.test.ts>)
 - [src/__tests__/csvDialog.test.tsx](<../../../src/__tests__/csvDialog.test.tsx>)
 - [src/__tests__/csvDownload.ts](<../../../src/__tests__/csvDownload.ts>)
@@ -751,14 +752,18 @@ Covered source files (20):
 
 ## statistics
 
-Significance policy and the shared FDR / p < 0.05 listing toggle.
+Significance policy, the cross-study listing and the shared FDR / p < 0.05 listing toggle.
 
 Start here:
 - [src/statistics/policy.ts](<../../../src/statistics/policy.ts>)
 - [src/statistics/listingModeStore.ts](<../../../src/statistics/listingModeStore.ts>)
+- [src/statistics/crossStudyListing.ts](<../../../src/statistics/crossStudyListing.ts>)
+- [src/statistics/TierLabel.tsx](<../../../src/statistics/TierLabel.tsx>)
 
-Covered source files (4):
+Covered source files (6):
 - [src/statistics/ListingModeToggle.tsx](<../../../src/statistics/ListingModeToggle.tsx>)
+- [src/statistics/TierLabel.tsx](<../../../src/statistics/TierLabel.tsx>)
+- [src/statistics/crossStudyListing.ts](<../../../src/statistics/crossStudyListing.ts>)
 - [src/statistics/listingMode.css](<../../../src/statistics/listingMode.css>)
 - [src/statistics/listingModeStore.ts](<../../../src/statistics/listingModeStore.ts>)
 - [src/statistics/policy.ts](<../../../src/statistics/policy.ts>)

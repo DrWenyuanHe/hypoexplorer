@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "88e5dfc15d30e549d4518609f7602300f7e874078b662d17031f9652c7fb82f0",
+  "fingerprint": "e52959658b4ded45f27e0248ecc7a8a640556cd912414d745a20d8e26d858922",
   "outcome": "updated",
-  "explanation": "Tests that call export builders directly, or click exports, load the QC ledger first with loadExportEvidence() (csv.test.ts at module scope, others in beforeAll). exportEvidence.test.ts covers the fail-closed accessor, the first export waiting and later ones running synchronously, contained body failures, and a failed ledger download retried by the next export. lazyChunkBoundaries pins the ledger to the two quality modules.",
+  "explanation": "Tests that call export builders directly, or click exports, load the QC ledger first with loadExportEvidence() (csv.test.ts at module scope, others in beforeAll). exportEvidence.test.ts covers the fail-closed accessor, the first export waiting and later ones running synchronously, contained body failures, and a failed ledger download retried by the next export. lazyChunkBoundaries pins the ledger to the two quality modules. Merged with main, whose cross-study listing and Circadian tests need no ledger load.",
   "references": [
     "src/__tests__/exportEvidence.test.ts",
     "src/__tests__/lazyChunkBoundaries.test.ts",

@@ -4,7 +4,7 @@
 // Each statistic is fetched two ways — from the precomputed query index (fast)
 // and by downloading the track bundles (fallback) — and both must produce the
 // SAME row shape, or the two paths would answer the same question differently.
-// Direction encoding, the significance cutoff and the label/type passthrough
+// Direction encoding, the significance tier and the label/type passthrough
 // therefore live here, called by both paths, rather than being spelled out four
 // times at the call sites.
 //
@@ -13,7 +13,7 @@
 // stay at the call sites, so a drop rule that differs between the paths stays
 // visible in the path that owns it.
 
-import { effectDirection, isFdrSignificant } from '../statistics/policy';
+import { effectDirection, significanceTier } from '../statistics/policy';
 import type { PathwayTrackRow, TrackRow } from '../types';
 
 // The significance cutoff and the direction rule are the app's, not this
@@ -23,31 +23,27 @@ import type { PathwayTrackRow, TrackRow } from '../types';
 // why eight other files ended up spelling `0.05` by hand.
 
 /**
- * A gene's per-track DE statistics, minus the two fields this module derives.
+ * A gene's per-track DE statistics, minus the fields this module derives.
+ * `significant` is kept beside `tier` as the FDR call alone, so every reader
+ * that only asks "is this a discovery?" stays one field away from the answer.
  *
  * `lowPower` is an INPUT, not a derivation: the index path reads the flag the
  * generator already baked into its manifest entry, while the full-download path
  * computes `isLowPower(meta.qcFlags[trackId])` itself. Unifying that would make
  * the fast path load the 41 meta.js files it exists to avoid.
  */
-export type GeneRowInput = Omit<TrackRow, 'direction' | 'significant'>;
+export type GeneRowInput = Omit<TrackRow, 'direction' | 'tier' | 'significant'>;
 
 export function geneRow(r: GeneRowInput): TrackRow {
-  return {
-    ...r,
-    direction: effectDirection(r.logFC),
-    // A null FDR is not significant — an unknown q is not a small one.
-    significant: isFdrSignificant(r.fdr),
-  };
+  // A null FDR is not significant — an unknown q is not a small one.
+  const tier = significanceTier(r.fdr, r.pval);
+  return { ...r, direction: effectDirection(r.logFC), tier, significant: tier === 'fdr' };
 }
 
-/** A pathway's per-track FGSEA statistics, minus the two derived fields. */
-export type PathwayRowInput = Omit<PathwayTrackRow, 'direction' | 'significant'>;
+/** A pathway's per-track FGSEA statistics, minus the derived fields. */
+export type PathwayRowInput = Omit<PathwayTrackRow, 'direction' | 'tier' | 'significant'>;
 
 export function pathwayRow(r: PathwayRowInput): PathwayTrackRow {
-  return {
-    ...r,
-    direction: effectDirection(r.NES),
-    significant: isFdrSignificant(r.padj),
-  };
+  const tier = significanceTier(r.padj, r.pval);
+  return { ...r, direction: effectDirection(r.NES), tier, significant: tier === 'fdr' };
 }

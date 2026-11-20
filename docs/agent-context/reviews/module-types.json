@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-types",
-  "fingerprint": "d8298067a6d62094dd3478d1b6939d7f8eeb2318018d78828dcd696333037a17",
+  "fingerprint": "4028f31c65ed00409ad9e5c7e06746ad07b9e8e54ded26440da05b165b8bc958",
   "outcome": "updated",
-  "explanation": "ExpressionSource gains featureLevel (gene or probe) and ExpressionGeneResult an optional probe, so probe-level sources return one result per probe.",
+  "explanation": "TrackRow and PathwayTrackRow gain tier: SignificanceTier, documented as set by the row builders, with significant kept as the FDR call. The orphaned GroupSummary interface is removed with its producer, and its contract description leaves the catalog.",
   "references": [
     "src/types/index.ts",
-    "docs/EXPRESSION_SURVEY.md"
+    "docs/agent-context/catalog.json",
+    "docs/agent-context/generated/contracts.md"
   ]
 }

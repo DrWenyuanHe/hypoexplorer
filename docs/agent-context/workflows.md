@@ -161,10 +161,13 @@ by `src/utils/csv.ts` (escaping, formula guard, BOM/CRLF, per-row provenance for
 long tables, and a metadata JSON split down its column under Excel's cell limit);
 multi-file downloads are stored ZIPs from `src/utils/zip.ts`; every gene picker is
 `GenePicker` over `src/explorer/geneVocabulary.ts`; a table that lists tracks by
-significance takes the call from `src/statistics/policy.ts` (`isFdrSignificant`,
-`significanceTier`), what it lists from `listingModeStore` with its
-`ListingModeToggle`, labels rows with `TierLabel` and explains q / FDR / padj
-columns with `QTerm`, and keeps counts on the FDR call in both modes; sample
+significance reads each row's `tier` (set once by `geneRow` / `pathwayRow` from
+`src/statistics/policy.ts`), takes what leads, the order and the counts from
+`listCrossStudy` in `src/statistics/crossStudyListing.ts` for the mode
+`listingModeStore` holds (with its `ListingModeToggle`), and decides only how
+much to show and what starts folded; it labels rows with
+`src/statistics/TierLabel.tsx`, explains q / FDR / padj columns with `QTerm`,
+and keeps counts on the FDR call in both modes; sample
 values and export labels use sampleValues; bundle loading uses trackData.
 Header identity uses BrandLink and the shared brand asset constants. For logo,
 favicon or typography changes, read the [brand guide](../../brand/README.md);

@@ -347,7 +347,7 @@ describe('ConditionPathwaysSection', () => {
   it('says so when none of the conditions has a pathway analysis', async () => {
     const report = fourConditions();
     report.groups = report.groups.map((g) => ({
-      ...g, tracks: g.tracks.map((t) => (t.trackId === 'ARC' ? t : { ...t, significant: false })),
+      ...g, tracks: g.tracks.map((t) => (t.trackId === 'ARC' ? t : geneRow({ ...t, fdr: 0.5 }))),
     }));
     mocks.queryGeneViaIndex.mockResolvedValue(report);
     renderSection();
@@ -375,7 +375,7 @@ describe('ConditionPathwaysSection', () => {
 
   it('says when the gene changes nowhere, without reading the index', async () => {
     const report = geneReport();
-    report.groups = report.groups.map((g) => ({ ...g, tracks: g.tracks.map((t) => ({ ...t, significant: false })) }));
+    report.groups = report.groups.map((g) => ({ ...g, tracks: g.tracks.map((t) => geneRow({ ...t, fdr: 0.5 })) }));
     mocks.queryGeneViaIndex.mockResolvedValue(report);
     renderSection();
     const note = await waitFor(() => within(section() as HTMLElement).getByText(/not significant \(FDR < 0\.05\) in any track/));

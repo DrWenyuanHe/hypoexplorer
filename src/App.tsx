@@ -51,7 +51,19 @@ interface AppProps {
   initialView?: string;
 }
 
-export default function App({ initialView = 'hub' }: AppProps = {}) {
+// The new-version prompt is mounted here, once, above the view switch, so every
+// route shows it (the full-page views and the route-error page included) and it
+// keeps its countdown across navigation instead of remounting with each view.
+export default function App(props: AppProps = {}) {
+  return (
+    <>
+      <UpdateModal />
+      <AppViews {...props} />
+    </>
+  );
+}
+
+function AppViews({ initialView = 'hub' }: AppProps) {
   // ── The explorer position ──────────────────────────────────────────
   // Dataset, track-or-Compare, contrast and tab are ONE value, moved only by
   // navigation intents (explorer/explorerPosition.ts). Every caller — the
@@ -412,8 +424,8 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
 
   // A report always names its term. The router never opens one without it; a
   // term-less report state is shown as the hub rather than the explorer shell.
-  if (view === 'report' && reportGene) return <><UpdateModal />{geneReport(reportGene)}</>;
-  if (view === 'pathway-report' && reportPathway) return <><UpdateModal />{pathwayReport(reportPathway)}</>;
+  if (view === 'report' && reportGene) return geneReport(reportGene);
+  if (view === 'pathway-report' && reportPathway) return pathwayReport(reportPathway);
   const termlessReport = view === 'report' || view === 'pathway-report';
 
   // ── Unified search results (the hub box's destination) ──────────────
@@ -421,21 +433,18 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
   // switching All / Genes / Pathways keeps it mounted.
   if (view === 'search') {
     return (
-      <>
-        <UpdateModal />
-        <ErrorBoundary key={`search-${searchQuery}`}>
-          <SearchPage
-            query={searchQuery}
-            filter={searchFilter}
-            onSearch={search}
-            onFilterChange={setSearchFilter}
-            onHome={goHome}
-            onOpenGene={(symbol) => searchGeneFromHub(symbol)}
-            onOpenPathway={(pathwayId) => searchPathwayFromHub(pathwayId)}
-            headerRight={<CompareSetButton onCompare={openCompareSet} onOpenLibrary={openLibraryPlain} />}
-          />
-        </ErrorBoundary>
-      </>
+      <ErrorBoundary key={`search-${searchQuery}`}>
+        <SearchPage
+          query={searchQuery}
+          filter={searchFilter}
+          onSearch={search}
+          onFilterChange={setSearchFilter}
+          onHome={goHome}
+          onOpenGene={(symbol) => searchGeneFromHub(symbol)}
+          onOpenPathway={(pathwayId) => searchPathwayFromHub(pathwayId)}
+          headerRight={<CompareSetButton onCompare={openCompareSet} onOpenLibrary={openLibraryPlain} />}
+        />
+      </ErrorBoundary>
     );
   }
 
@@ -443,47 +452,35 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
   //    site, review-editable under the dev server) ──────────────────────
   if (view === 'tracker') {
     return (
-      <>
-        <UpdateModal />
-        <ErrorBoundary key="tracker">
-          <DatasetTrackerView onHome={goHome} onOpenInExplorer={openInExplorer} initialSelectedAcc={trackerSelectedAcc} />
-        </ErrorBoundary>
-      </>
+      <ErrorBoundary key="tracker">
+        <DatasetTrackerView onHome={goHome} onOpenInExplorer={openInExplorer} initialSelectedAcc={trackerSelectedAcc} />
+      </ErrorBoundary>
     );
   }
 
 
   if (view === 'methodology') {
     return (
-      <>
-        <UpdateModal />
-        <ErrorBoundary key="methodology">
-          <MethodologyView onHome={goHome} />
-        </ErrorBoundary>
-      </>
+      <ErrorBoundary key="methodology">
+        <MethodologyView onHome={goHome} />
+      </ErrorBoundary>
     );
   }
 
   if (view === 'verification') {
     return (
-      <>
-        <UpdateModal />
-        <ErrorBoundary key="verification">
-          <VerificationView onHome={goHome} />
-        </ErrorBoundary>
-      </>
+      <ErrorBoundary key="verification">
+        <VerificationView onHome={goHome} />
+      </ErrorBoundary>
     );
   }
 
   // ── Gene nomenclature reference (dataset-agnostic reference page) ────
   if (view === 'nomenclature') {
     return (
-      <>
-        <UpdateModal />
-        <ErrorBoundary key="nomenclature">
-          <NomenclatureView onHome={goHome} onSearchGene={searchGeneFromHub} />
-        </ErrorBoundary>
-      </>
+      <ErrorBoundary key="nomenclature">
+        <NomenclatureView onHome={goHome} onSearchGene={searchGeneFromHub} />
+      </ErrorBoundary>
     );
   }
 
@@ -493,19 +490,16 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
   // new list and keeps every column it already has.
   if (view === 'compare-set') {
     return (
-      <>
-        <UpdateModal />
-        <ErrorBoundary key="compare-set">
-          <CompareSetView
-            items={compareSetItems}
-            onItemsChange={changeCompareSetItems}
-            onHome={goHome}
-            onOpenDataset={openInExplorer}
-            onOpenLibrary={openLibraryPlain}
-            headerRight={<CompareSetButton onCompare={openCompareSet} onOpenLibrary={openLibraryPlain} />}
-          />
-        </ErrorBoundary>
-      </>
+      <ErrorBoundary key="compare-set">
+        <CompareSetView
+          items={compareSetItems}
+          onItemsChange={changeCompareSetItems}
+          onHome={goHome}
+          onOpenDataset={openInExplorer}
+          onOpenLibrary={openLibraryPlain}
+          headerRight={<CompareSetButton onCompare={openCompareSet} onOpenLibrary={openLibraryPlain} />}
+        />
+      </ErrorBoundary>
     );
   }
 
@@ -515,59 +509,50 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
   // deep links — it does not reimplement any part of the explorer position.
   if (view === 'library') {
     return (
-      <>
-        <UpdateModal />
-        <ErrorBoundary key="library">
-          <DatasetLibrary
-            onHome={goHome}
-            // The default track is passed EXPLICITLY: the library opens a study
-            // at its front door. An open naming no track keeps the current track
-            // when the dataset is already active (the explorer position's rule),
-            // which suits a report row but not a fresh look at a study record.
-            onOpenInExplorer={(id) => openInExplorer(id, getDataset(id)?.defaultTrack)}
-            onOpenTracker={(acc) => openTracker(acc)}
-            onCompareSet={openCompareSet}
-            initialSelectedId={libraryDatasetId}
-            initialCategories={libraryCategories}
-            // Keep the URL pointing at what is actually on screen. Both are
-            // updates from INSIDE the library, so each leaves the other alone —
-            // picking a study must not drop the scope you arrived with.
-            onSelectedIdChange={setLibraryDataset}
-            onCategoriesChange={setLibraryCategories}
-          />
-        </ErrorBoundary>
-      </>
+      <ErrorBoundary key="library">
+        <DatasetLibrary
+          onHome={goHome}
+          // The default track is passed EXPLICITLY: the library opens a study
+          // at its front door. An open naming no track keeps the current track
+          // when the dataset is already active (the explorer position's rule),
+          // which suits a report row but not a fresh look at a study record.
+          onOpenInExplorer={(id) => openInExplorer(id, getDataset(id)?.defaultTrack)}
+          onOpenTracker={(acc) => openTracker(acc)}
+          onCompareSet={openCompareSet}
+          initialSelectedId={libraryDatasetId}
+          initialCategories={libraryCategories}
+          // Keep the URL pointing at what is actually on screen. Both are
+          // updates from INSIDE the library, so each leaves the other alone —
+          // picking a study must not drop the scope you arrived with.
+          onSelectedIdChange={setLibraryDataset}
+          onCategoriesChange={setLibraryCategories}
+        />
+      </ErrorBoundary>
     );
   }
 
   // ── Landing hub (default view) ──────────────────────────────────────
   if (view === 'hub' || termlessReport) {
     return (
-      <>
-        <UpdateModal />
-        <LandingHub
-          onHome={goHome}
-          datasets={listDatasets()}
-          onEnterTool={enterTool}
-          onSearch={searchFromHub}
-          onOpenTracker={openTracker}
-          onOpenLibrary={(categories) => openLibrary({ categories })}
-          onOpenMethodology={openMethodology}
-          onOpenVerification={openVerification}
-          onOpenNomenclature={openNomenclature}
-          onOpenExpression={openExpression}
-          onChangelog={() => { setShowChangelog(true); enterExplorer(); }}
-          onCompareSet={openCompareSet}
-        />
-      </>
+      <LandingHub
+        onHome={goHome}
+        datasets={listDatasets()}
+        onEnterTool={enterTool}
+        onSearch={searchFromHub}
+        onOpenTracker={openTracker}
+        onOpenLibrary={(categories) => openLibrary({ categories })}
+        onOpenMethodology={openMethodology}
+        onOpenVerification={openVerification}
+        onOpenNomenclature={openNomenclature}
+        onOpenExpression={openExpression}
+        onChangelog={() => { setShowChangelog(true); enterExplorer(); }}
+        onCompareSet={openCompareSet}
+      />
     );
   }
 
   return (
     <div className="explorer-shell" style={{ display: 'flex', flexDirection: 'column', background: 'var(--bg-app)', overflow: 'hidden' }}>
-      {/* New-version-available prompt (only renders when a waiting SW is signalled) */}
-      <UpdateModal />
-
       {/* Slim topbar — logo + breadcrumb + changelog */}
       <header className="site-header">
         <div className="site-header-row" style={{

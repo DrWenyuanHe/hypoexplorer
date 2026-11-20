@@ -186,10 +186,12 @@
       ]
     },
     "statistics": {
-      "summary": "Significance policy and the shared FDR / p < 0.05 listing toggle",
+      "summary": "Significance policy, the cross-study listing and the shared FDR / p < 0.05 listing toggle",
       "references": [
         "src/statistics/policy.ts",
-        "src/statistics/listingModeStore.ts"
+        "src/statistics/listingModeStore.ts",
+        "src/statistics/crossStudyListing.ts",
+        "src/statistics/TierLabel.tsx"
       ]
     },
     "styles": {
@@ -259,7 +261,6 @@
     "TrackRow": "One track's gene result in a cross-dataset report.",
     "DatasetGroup": "Gene-report tracks grouped by study.",
     "CrossDatasetGeneReport": "Per-study gene results and report metadata; interpretation policy stays with consumers.",
-    "GroupSummary": "Expression summary for one experimental arm.",
     "PathwayTrackRow": "One track's pathway result in a cross-dataset report.",
     "PathwayDatasetGroup": "Pathway-report tracks grouped by study.",
     "CrossDatasetPathwayReport": "Per-study enrichment results and report metadata.",

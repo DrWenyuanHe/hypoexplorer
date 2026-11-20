@@ -26,10 +26,8 @@ import type {
   CrossDatasetGeneReport,
   CrossDatasetPathwayReport,
   Dataset,
-  DatasetGroup,
   DatasetMeta,
   DbName,
-  GroupSummary,
   PathwayRecord,
   PathwaySibling,
   PathwayTrackRow,
@@ -357,16 +355,6 @@ export async function queryGeneAcrossDatasets(
   );
 
   return { gene, total, loaded, groups };
-}
-
-// Compact per-dataset summary for the verdict line + stat tiles: the strongest
-// (largest |log2FC| among significant) track, and counts of significant up/down.
-export function summarizeGroup(group: DatasetGroup): GroupSummary {
-  const sig = group.tracks.filter((t) => t.significant);
-  const up = sig.filter((t) => t.direction === 'up').length;
-  const down = sig.filter((t) => t.direction === 'down').length;
-  const strongest = sig.slice().sort((a, b) => Math.abs(b.logFC) - Math.abs(a.logFC))[0] || null;
-  return { up, down, nSig: sig.length, nTracks: group.tracks.length, strongest };
 }
 
 // ── Cross-dataset PATHWAY query (the FGSEA analog of queryGeneAcrossDatasets) ──

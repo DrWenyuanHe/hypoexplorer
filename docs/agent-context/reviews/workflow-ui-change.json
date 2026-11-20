@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "24959901da45f271fc64ed62eb5e361bbc8e33a109204fe17fc9d1f35e89abdf",
+  "fingerprint": "75ed5a6a3d1a2ed0231828b6380e02e17459fe6f7c6888f54ac5fd8b6d9a765f",
   "outcome": "updated",
-  "explanation": "The ui-change route now says export provenance reads the internal QC ledger through exportEvidence() in lazyExport.ts, that new export entry points run inside withExportEvidence(), and that tests calling an export builder directly load the ledger with loadExportEvidence() first.",
+  "explanation": "Merged with main, the ui-change route keeps the additions from main and still says export provenance reads the internal QC ledger through exportEvidence() in lazyExport.ts, that new export entry points run inside withExportEvidence(), and that tests calling an export builder directly load the ledger with loadExportEvidence() first.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/utils/lazyExport.ts"
