@@ -11,6 +11,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { KeyboardEvent, ReactNode } from 'react';
 import { Modal } from '../common/Modal';
+import { tabKeyTarget } from '../utils/tabKeys';
 
 export type SearchMode = 'gene' | 'pathway';
 
@@ -39,12 +40,7 @@ export function ExplorerSearchDialog({ mode, onModeChange, onClose, gene, pathwa
   // Arrow keys move between the two tabs and select as they go (the
   // automatic-activation tabs pattern), with Home and End for the ends.
   const onTabKey = (event: KeyboardEvent, current: SearchMode) => {
-    const i = MODES.findIndex((m) => m.id === current);
-    let next: number | null = null;
-    if (event.key === 'ArrowRight') next = (i + 1) % MODES.length;
-    else if (event.key === 'ArrowLeft') next = (i - 1 + MODES.length) % MODES.length;
-    else if (event.key === 'Home') next = 0;
-    else if (event.key === 'End') next = MODES.length - 1;
+    const next = tabKeyTarget(event.key, MODES.findIndex((m) => m.id === current), MODES.length);
     if (next === null) return;
     event.preventDefault();
     const target = MODES[next].id;

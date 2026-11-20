@@ -1,31 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "2b6a569adcb8df115435c832407a88a6de42f0ef493a310a7c9fc41f62de1007",
-  "outcome": "updated",
-  "explanation": "Local-dataset suites (import, import panel, storage, public reference picker, local routes) are deleted with the module. csvDownload owns a small RFC 4180 reader instead of borrowing the importer's parser, contrastMatrix reads its CSV through it, exportProvenance drops the local-export cases and the hub tests expect Dataset tracker as the only supporting tool.",
+  "fingerprint": "153629c868d9464f59c2697bb9bdc1902de65d02f7258c7d4ed36cf8a7bec77a",
+  "outcome": "no-impact",
+  "explanation": "Adds hypomapPreview.test.tsx: a mocked ready-state HypoMap fixture checks the view tablist (click selects and focuses the tab, tabpanel labelling, spatial CSV action only on Spatial), Arrow/Home/End navigation and the region reset, plus tabKeyTarget wrap and Home/End. No existing suite changes.",
   "references": [
-    "src/__tests__/csvDownload.ts",
-    "src/__tests__/contrastMatrix.test.tsx",
-    "src/__tests__/hubSections.test.ts",
-    "src/__tests__/hubUnits.test.tsx",
-    "src/__tests__/swHandover.test.ts",
-    "src/pwa/registerUpdates.ts",
-    "src/__tests__/compareLinks.test.tsx",
-    "src/__tests__/compareTabToolbar.test.tsx",
-    "src/__tests__/compareTabContrast.test.tsx",
-    "src/__tests__/pathwayToolbar.test.tsx",
-    "src/pathway-explorer/PathwayToolbar.tsx",
-    "src/__tests__/setup.ts",
-    "src/__tests__/listingModeToggle.test.tsx",
-    "src/__tests__/statisticsPolicy.test.ts",
-    "src/__tests__/searchPage.test.tsx",
-    "src/__tests__/geneReport.test.tsx",
-    "src/__tests__/pathwayReportResults.test.tsx",
-    "src/__tests__/forestReport.test.tsx",
-    "src/__tests__/bundleWriter.test.ts",
-    "src/__tests__/intakeStudies.test.ts",
-    "src/__tests__/qcTables.test.ts",
-    "scripts/lib/bundleWriter.mts"
+    "src/__tests__/hypomapPreview.test.tsx",
+    "src/search/hypomap/HypoMapPreview.tsx",
+    "src/utils/tabKeys.ts"
   ]
 }

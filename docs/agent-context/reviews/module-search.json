@@ -1,18 +1,14 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "700af6deb982639db6a35f45c30c7e920b60e4f7c8ae98f747d12642666838ab",
+  "fingerprint": "c016c0a82c8b6ae22254e73c0bc34774680b2e6b4a14e7d640e5e822140ef230",
   "outcome": "no-impact",
-  "explanation": "UnifiedSearchBox no longer renders the hub variant's \"/\" key badge (hub-search-kbd); the clear button shows only while the box has text. The \"/\" focus shortcut, suggestions, submit behaviour and the module's catalog meaning are unchanged, so no runbook or map text needs revising.",
+  "explanation": "HypoMapPreview replaces the Spatial / By dataset toggle buttons with a roving-tabindex tablist (role=tab, aria-selected, one tabpanel; clicks focus the tab so Safari keeps the arrow keys working). It typesets the detection and expression formulas as fractions, adds a count badge to the off-plane region disclosure, moves Preview spatial CSV into the view header (Spatial only) and Reset into the region summary header. preview.css takes the tab colours from --accent, wraps the header in reverse so the export sits above the tabs on narrow widths, and leaves the selected tab unchanged on hover. Routes, metrics, exported rows and the CSV dialog are unchanged. SearchPage keeps its result-filter tablist behaviour and now computes the target tab with utils/tabKeys. The module catalog meaning and search runbook are unchanged.",
   "references": [
-    "src/search/UnifiedSearchBox.tsx",
-    "src/__tests__/hubUnits.test.tsx",
-    "src/search/searchSummaries.ts",
+    "src/search/hypomap/HypoMapPreview.tsx",
+    "src/search/hypomap/preview.css",
     "src/search/SearchPage.tsx",
-    "src/search/portalCards.tsx",
-    "src/search/search.css",
-    "src/statistics/ListingModeToggle.tsx",
-    "src/statistics/policy.ts",
-    "docs/agent-context/workflows.md"
+    "src/utils/tabKeys.ts",
+    "src/__tests__/hypomapPreview.test.tsx"
   ]
 }

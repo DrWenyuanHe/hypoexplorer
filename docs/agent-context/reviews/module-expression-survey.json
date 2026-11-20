@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "module-expression-survey",
-  "fingerprint": "8da20f797310a146b1b0df07adf2c6c1e1284cb95e9ab655f37fe39e96075693",
-  "outcome": "updated",
-  "explanation": "The survey view no longer derives its own data. expressionSurvey.ts is the pure derivation module: selectSources (collection, region, SFO boundary, AgRP and tissue-preparation filters), catalogEntries, surveyPanel (ranked rows, bar axis, per-probe matrix cells, the Matched X -> Y note, empty states) and surveyExport (samples/cohort-means CSV and values + metadata JSON, survey CSV escaping unchanged). Reference eligibility is applied once through inReferenceScope and value status has one ValueStatus code-to-label mapping. useSurveyLoad.ts owns the four-request source queue, per-source errors and a per-source retry; useKeyedLoad and useExternalValidation give the catalog, validation reports and sample metadata their own cancelled-flag lifecycles and retries, replacing the single shared reload token. Loader imports and signatures are unchanged; export bytes are unchanged. From main: the NeuroSeq, OXT reference and atlas loaders now read their release-local JSON through sourceJson.ts behind the same signatures; it forgets failed requests, so the per-source and catalog retries still re-fetch.",
+  "fingerprint": "b864a3d224b23ffcdf6c642f1f6ede1c31ff2176823b67dba98e1083f084150f",
+  "outcome": "no-impact",
+  "explanation": "ExpressionSurveyView computes its section tab target with the shared utils/tabKeys tabKeyTarget instead of a nested ternary, keeping its modifier-key guard. Section switching, focus, loaders and export bytes are unchanged.",
   "references": [
-    "src/expression-survey/expressionSurvey.ts",
-    "src/expression-survey/useSurveyLoad.ts",
     "src/expression-survey/ExpressionSurveyView.tsx",
-    "docs/EXPRESSION_SURVEY.md",
-    "CONTEXT.md"
+    "src/utils/tabKeys.ts",
+    "src/__tests__/expressionSurveyView.test.tsx"
   ]
 }

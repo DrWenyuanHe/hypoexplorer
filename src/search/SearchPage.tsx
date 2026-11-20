@@ -23,6 +23,7 @@ import { useListingMode } from '../statistics/listingModeStore';
 import { ListingModeToggle, QTerm } from '../statistics/ListingModeToggle';
 import { DOWN_TEXT_COLOR, UP_TEXT_COLOR } from '../styles/constants';
 import { fmtFDR, fmtP, fmtSigned } from '../utils/format';
+import { tabKeyTarget } from '../utils/tabKeys';
 import { DbBadge } from './DbBadge';
 import { searchAll, describePathway } from './searchVocabulary';
 import { useSearchVocabulary } from './useSearchVocabulary';
@@ -161,13 +162,8 @@ function Results({ results, query, filter, onSearch, onFilterChange, onOpenGene,
   }
 
   const onTabKey = (event: KeyboardEvent<HTMLDivElement>) => {
-    const i = TABS.findIndex((t) => t.filter === filter);
-    let next = -1;
-    if (event.key === 'ArrowRight') next = (i + 1) % TABS.length;
-    else if (event.key === 'ArrowLeft') next = (i - 1 + TABS.length) % TABS.length;
-    else if (event.key === 'Home') next = 0;
-    else if (event.key === 'End') next = TABS.length - 1;
-    if (next < 0) return;
+    const next = tabKeyTarget(event.key, TABS.findIndex((t) => t.filter === filter), TABS.length);
+    if (next === null) return;
     event.preventDefault();
     onFilterChange(TABS[next].filter);
     tabRefs.current[next]?.focus();
