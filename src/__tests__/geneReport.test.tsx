@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
 import { getDataset } from '../data/datasets';
 import { getActiveContrast } from '../data/contrasts';
+import { geneRow, type GeneRowInput } from '../data/crossDatasetRows';
 import { _resetCompareSetStore, getSnapshot } from '../compareset/compareSetStore';
 import { CompareSetButton } from '../compareset/CompareSetButton';
 import { _resetBundleCache, _setBundleTransport } from '../data/bundleSource';
@@ -50,8 +51,9 @@ const { queryGeneAcrossDatasets } = await import('../data/crossDataset');
 const MACAQUE = getDataset('macaque_snrna') as Dataset;
 const MOUSE = getDataset('mouse_hypo_hfd_gse220533') as Dataset;
 
-function track(trackId: string, over: Partial<TrackRow> = {}): TrackRow {
-  return {
+/** A track built through geneRow, so its direction and tier are the builder's. */
+function track(trackId: string, over: Partial<GeneRowInput> = {}): TrackRow {
+  return geneRow({
     trackId,
     label: `${trackId} population`,
     type: 'Glutamatergic',
@@ -59,11 +61,9 @@ function track(trackId: string, over: Partial<TrackRow> = {}): TrackRow {
     fdr: 0.6,
     pval: 0.4,
     se: 0.25,
-    direction: 'up',
-    significant: false,
     lowPower: false,
     ...over,
-  };
+  });
 }
 
 // Two research areas: the macaque atlas ('Primate atlas', five tracks, e9
@@ -80,17 +80,17 @@ function report(): CrossDatasetGeneReport {
         dataset: MACAQUE,
         contrast: getActiveContrast(MACAQUE),
         tracks: [
-          track('e9', { logFC: -1.2, fdr: 0.03, pval: 0.0001, direction: 'down', significant: true }),
+          track('e9', { logFC: -1.2, fdr: 0.03, pval: 0.0001 }),
           track('i23'),
           track('e1', { fdr: 0.3, pval: 0.1, lowPower: true }),
-          track('e2', { logFC: -0.9, direction: 'down' }),
+          track('e2', { logFC: -0.9 }),
           track('e3', { logFC: 0.1 }),
         ],
       },
       {
         dataset: MOUSE,
         contrast: getActiveContrast(MOUSE),
-        tracks: [track('hypothalamus', { logFC: 0.8, fdr: 0.02, pval: 0.001, significant: true })],
+        tracks: [track('hypothalamus', { logFC: 0.8, fdr: 0.02, pval: 0.001 })],
       },
     ],
   };
@@ -104,7 +104,7 @@ function nothingSignificant(): CrossDatasetGeneReport {
     groups: base.groups.map((group) => ({
       ...group,
       // Raw p too, so no track lands in the nominal tier: nothing at p < 0.05.
-      tracks: group.tracks.map((t) => ({ ...t, fdr: Math.max(t.fdr ?? 1, 0.2), pval: Math.max(t.pval, 0.08), significant: false })),
+      tracks: group.tracks.map((t) => geneRow({ ...t, fdr: Math.max(t.fdr ?? 1, 0.2), pval: Math.max(t.pval, 0.08) })),
     })),
   };
 }
@@ -116,7 +116,7 @@ function quietPrimate(): CrossDatasetGeneReport {
   return {
     ...base,
     groups: [
-      { ...macaque, tracks: macaque.tracks.map((t) => ({ ...t, fdr: Math.max(t.fdr ?? 1, 0.2), pval: Math.max(t.pval, 0.08), significant: false })) },
+      { ...macaque, tracks: macaque.tracks.map((t) => geneRow({ ...t, fdr: Math.max(t.fdr ?? 1, 0.2), pval: Math.max(t.pval, 0.08) })) },
       mouse,
     ],
   };
@@ -311,8 +311,8 @@ describe('GeneReport — differential expression table', () => {
       groups: [base.groups[0], {
         ...base.groups[1],
         tracks: [
-          track('hypothalamus', { logFC: 4, fdr: 0.001, direction: 'up', significant: true }),
-          track('flat', { logFC: 0, fdr: 0.9, direction: 'up' }),
+          track('hypothalamus', { logFC: 4, fdr: 0.001 }),
+          track('flat', { logFC: 0, fdr: 0.9 }),
         ],
       }],
     };

@@ -4,6 +4,7 @@ import App from '../App';
 import { registryCards } from '../data/datasetCatalog';
 import { getDataset, listDatasets } from '../data/datasets';
 import { getActiveContrast } from '../data/contrasts';
+import { pathwayRow } from '../data/crossDatasetRows';
 import type { CrossDatasetPathwayReport, Dataset } from '../types';
 
 const { queryPathway, loadIndex, loadCatalog } = vi.hoisted(() => ({
@@ -38,11 +39,10 @@ function report(pathway: string): CrossDatasetPathwayReport {
     pathway, total: 2, loaded: 2,
     groups: [MACAQUE, MOUSE].map((dataset) => ({
       dataset, contrast: getActiveContrast(dataset),
-      tracks: [{
+      tracks: [pathwayRow({
         trackId: dataset.defaultTrack, label: dataset.defaultTrack, type: 'Tissue',
         NES: 1.5, padj: 0.01, pval: 0.001, size: 30, db: 'HALLMARK',
-        direction: 'up', significant: true,
-      }],
+      })],
     })),
   };
 }

@@ -27,11 +27,21 @@ describe('geneRow', () => {
     expect(geneRow({ ...base, fdr: null }).significant).toBe(false);
   });
 
+  it('decides the tier once, with significant as its FDR call', () => {
+    const tiers = [
+      geneRow({ ...base, fdr: 0.01, pval: 0.001 }),
+      geneRow({ ...base, fdr: 0.2, pval: 0.01 }),
+      geneRow({ ...base, fdr: 0.2, pval: 0.05 }),
+      geneRow({ ...base, fdr: null, pval: 0.01 }),
+    ].map((row) => [row.tier, row.significant]);
+    expect(tiers).toEqual([['fdr', true], ['nominal', false], ['none', false], ['nominal', false]]);
+  });
+
   it('passes the numbers through untouched, including a null se and the lowPower INPUT', () => {
     // lowPower is supplied by the caller — the index reads the generator's flag,
     // the fallback computes isLowPower — so the builder must never derive it.
     const row = geneRow({ ...base, se: null, lowPower: true });
-    expect(row).toEqual({ ...base, se: null, lowPower: true, direction: 'up', significant: true });
+    expect(row).toEqual({ ...base, se: null, lowPower: true, direction: 'up', tier: 'fdr', significant: true });
   });
 });
 
@@ -47,9 +57,10 @@ describe('pathwayRow', () => {
   it('is significant strictly below padj 0.05 — the same cutoff geneRow uses', () => {
     expect(pathwayRow({ ...base, padj: 0.049 }).significant).toBe(true);
     expect(pathwayRow({ ...base, padj: 0.05 }).significant).toBe(false);
+    expect(pathwayRow({ ...base, padj: 0.05, pval: 0.002 }).tier).toBe('nominal');
   });
 
   it('passes NES/padj/pval/size/db through untouched', () => {
-    expect(pathwayRow(base)).toEqual({ ...base, direction: 'up', significant: true });
+    expect(pathwayRow(base)).toEqual({ ...base, direction: 'up', tier: 'fdr', significant: true });
   });
 });

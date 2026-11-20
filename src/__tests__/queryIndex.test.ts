@@ -186,6 +186,7 @@ describe('cross-dataset query — index fast path', () => {
         pval: 0.0001,
         se: 0.31,
         direction: 'up',
+        tier: 'fdr',
         significant: true,
         lowPower: false,
       },
@@ -268,7 +269,7 @@ describe('cross-dataset query — index fast path', () => {
     expect(report.groups[0].tracks[0]).toMatchObject({
       trackId: 'whole', NES: 1.9, padj: 0.01, pval: 0.002, size: 200,
       db: 'HALLMARK',      // dbIdx 1 -> MANIFEST.dbNames[1]
-      direction: 'up', significant: true,
+      direction: 'up', tier: 'fdr', significant: true,
     });
   });
 });

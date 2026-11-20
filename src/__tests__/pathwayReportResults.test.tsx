@@ -6,6 +6,7 @@ import { _resetCompareSetStore, getSnapshot } from '../compareset/compareSetStor
 import { getDataset } from '../data/datasets';
 import { getActiveContrast } from '../data/contrasts';
 import { datasetHref } from '../utils/appLinks';
+import { pathwayRow, type PathwayRowInput } from '../data/crossDatasetRows';
 import type { CrossDatasetPathwayReport, PathwayTrackRow } from '../types';
 
 const { query } = vi.hoisted(() => ({ query: vi.fn() }));
@@ -16,8 +17,8 @@ const pathway = 'HALLMARK_ADIPOGENESIS';
 
 // A non-significant track defaults to raw p 0.4, outside the nominal tier; pass
 // `pval` below 0.05 to make it nominal.
-function track(trackId: string, significant = false, over: Partial<PathwayTrackRow> = {}): PathwayTrackRow {
-  return { trackId, label: `${trackId} population`, type: 'Tissue', NES: significant ? 2.5 : 1.1, pval: significant ? 0.001 : 0.4, padj: significant ? 0.02 : 0.5, size: 30, db: 'HALLMARK', direction: 'up', significant, ...over };
+function track(trackId: string, significant = false, over: Partial<PathwayRowInput> = {}): PathwayTrackRow {
+  return pathwayRow({ trackId, label: `${trackId} population`, type: 'Tissue', NES: significant ? 2.5 : 1.1, pval: significant ? 0.001 : 0.4, padj: significant ? 0.02 : 0.5, size: 30, db: 'HALLMARK', ...over });
 }
 beforeEach(() => {
   _resetCompareSetStore();
@@ -62,7 +63,7 @@ describe('pathway result study cards', () => {
   it('lists nominal tracks after the FDR ones and labels each call', async () => {
     query.mockResolvedValue({ pathway, total: 6, loaded: 6, groups: [
       { dataset: macaque, contrast: getActiveContrast(macaque), tracks: [
-        track('e9', true), track('i23'), track('e1', false, { pval: 0.03, NES: -1.6, direction: 'down' }), track('e2'), track('e3'),
+        track('e9', true), track('i23'), track('e1', false, { pval: 0.03, NES: -1.6 }), track('e2'), track('e3'),
       ] },
       { dataset: mouse, contrast: getActiveContrast(mouse), tracks: [track(mouse.defaultTrack, true)] },
     ] } satisfies CrossDatasetPathwayReport);
