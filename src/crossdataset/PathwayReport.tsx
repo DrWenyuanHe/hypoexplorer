@@ -29,7 +29,7 @@ import { useStudySelection, GeneStudySuggestions as StudySuggestions, type GeneS
 import { PageShell } from '../common/PageShell';
 import { DEFAULT_FDR_CUTOFF, NOMINAL_P_CUTOFF } from '../statistics/policy';
 import { PATHWAY_KEYS, listCrossStudy } from '../statistics/crossStudyListing';
-import { TierLabel } from '../search/portalCards';
+import { TierLabel } from '../statistics/TierLabel';
 import { useListingMode } from '../statistics/listingModeStore';
 import { ListingModeToggle, QTerm } from '../statistics/ListingModeToggle';
 import { EmptyState } from '../common/EmptyState';

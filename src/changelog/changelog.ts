@@ -7,6 +7,16 @@ export interface ChangelogEntry {
 export const CHANGELOG: ChangelogEntry[] = [
   {
     date: '2026-11-20',
+    title: 'One order for search and both reports',
+    items: [
+      'Search, the gene page and the pathway report now order and count their results by the same rules. When two results share a q-value, the one with the larger effect (log2FC, or NES for a pathway) is listed first. Before, search listed tied results in the order the index returned them.',
+      '"Pathways changing in these conditions" still follows the 12 conditions with the lowest q-value, and now breaks ties the same way, so it can follow a different condition when several share the q-value at the cutoff.',
+      'With the List switch on FDR, each dataset in the pathway report lists its FDR results first and then the rest by NES, both under "Show all" and in datasets with three tracks or fewer. Before, those rows were ordered by NES alone.',
+      'No result, count or label changed.',
+    ],
+  },
+  {
+    date: '2026-11-20',
     title: 'One search on the home page',
     items: [
       'The Genes and Pathways buttons in the home page menu are gone, along with the search dialog they opened. The search box on the home page searches genes and pathways together, and its results open each gene page or pathway report.',

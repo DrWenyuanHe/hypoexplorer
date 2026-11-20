@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "d8108af933faf94891a4293f3993ff1043edd5d773a21db411492e9d1e6e6441",
+  "fingerprint": "390480a9bcf0492439a22eca14eb494fd6c9f9069a073c581131afadde60dd2d",
   "outcome": "updated",
-  "explanation": "The runbook paragraph on the hub nav's search dialog is replaced: the hub search box is the only gene and pathway search, reports carry their study filters under Study filters, and isRetiredSearchLanding sends retired #/gene, #/gene/in/<cats> and #/pathway links to #/search, replacing the history entry. From main, the HypoMap view tablist, search result filters and expression survey sections share tabKeyTarget; the search dialog that also used it is deleted.",
+  "explanation": "The UI change runbook now says a table that lists tracks by significance reads each row's tier from the row builders and takes what leads, the order and the counts from listCrossStudy for the stored listing mode, deciding only how much to show and what starts folded, and labels rows with src/statistics/TierLabel.tsx. The refactor checklist adds the same single source of truth.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/utils/appLinks.ts",
-    "src/appRouter.ts",
-    "src/utils/tabKeys.ts",
-    "src/search/hypomap/HypoMapPreview.tsx"
+    "docs/REFACTOR_CHECKLIST.md",
+    "src/statistics/crossStudyListing.ts",
+    "src/statistics/TierLabel.tsx"
   ]
 }

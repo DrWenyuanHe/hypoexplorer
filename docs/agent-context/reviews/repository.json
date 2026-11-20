@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "f18ab91c9abda477492f0280d2c8478612ce670a15db141e652367ba44a0ccc8",
+  "fingerprint": "c8d7e83b6e0d2082927cb01764e2734ec30a4b6d110f9b03308b19a55c868357",
   "outcome": "updated",
-  "explanation": "The UI change workflow and changelog describe the hub's single search: no separate Genes or Pathways entrance or search dialog, reports that always name their term, and retired term-less #/gene and #/pathway links that open the search page. index.html keeps only the qsearch styles the reports' study filters use.",
+  "explanation": "CONTEXT.md defines significance tier, listing mode and cross-study listing. The UI change workflow and the refactor checklist name listCrossStudy as the one place a cross-study view gets what leads, its order and its counts, and TierLabel in src/statistics as its label. The catalog adds both files to the statistics area and drops GroupSummary.",
   "references": [
+    "CONTEXT.md",
     "docs/agent-context/workflows.md",
-    "src/changelog/changelog.ts",
-    "index.html"
+    "docs/REFACTOR_CHECKLIST.md",
+    "docs/agent-context/catalog.json",
+    "src/changelog/changelog.ts"
   ]
 }

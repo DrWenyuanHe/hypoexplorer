@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "bca6703e76064c9f9834400a9001801f02814e339e3832c1fce47629ecd5b38d",
-  "outcome": "updated",
-  "explanation": "The dataset-change route now says the writer derives nSig at FDR < 0.05 rather than P < 0.01. Builders still pass every track of a study to one writeDatasetBundles call; after this change, rebuilt bundles carry FDR counts in qc_global.js and must be uploaded before the matching app build goes live.",
+  "fingerprint": "486a5dadd59a4e4701e629e0e31d8a910e2fd229caafebc20524c82411c6499a",
+  "outcome": "no-impact",
+  "explanation": "No dataset registration, bundle builder, sidecar or query index format changed. The row builders add a tier derived from the q and p they already read, so a dataset change still produces the same bundles and index shards; only how the views order and label those rows moved into src/statistics.",
   "references": [
     "docs/agent-context/workflows.md",
-    "scripts/lib/bundleWriter.mts",
-    "scripts/build_normalized_bundles.mts"
+    "docs/DATASET_CONTRACT.md",
+    "src/data/crossDatasetRows.ts"
   ]
 }

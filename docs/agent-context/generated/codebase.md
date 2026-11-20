@@ -111,7 +111,7 @@ Covered source files (239):
 - [src/__tests__/crossDatasetCompare.test.tsx](<../../../src/__tests__/crossDatasetCompare.test.tsx>)
 - [src/__tests__/crossDatasetCompareIndex.test.ts](<../../../src/__tests__/crossDatasetCompareIndex.test.ts>)
 - [src/__tests__/crossDatasetRows.test.ts](<../../../src/__tests__/crossDatasetRows.test.ts>)
-- [src/__tests__/crossDatasetSummary.test.ts](<../../../src/__tests__/crossDatasetSummary.test.ts>)
+- [src/__tests__/crossStudyListing.test.ts](<../../../src/__tests__/crossStudyListing.test.ts>)
 - [src/__tests__/csv.test.ts](<../../../src/__tests__/csv.test.ts>)
 - [src/__tests__/csvDialog.test.tsx](<../../../src/__tests__/csvDialog.test.tsx>)
 - [src/__tests__/csvDownload.ts](<../../../src/__tests__/csvDownload.ts>)
@@ -741,16 +741,20 @@ Covered source files (20):
 
 ## statistics
 
-Statistical definitions, interpretation limits and the shared FDR / p < 0.05 listing toggle.
+Statistical definitions, interpretation limits, the cross-study listing and the shared FDR / p < 0.05 listing toggle.
 
 Start here:
 - [src/statistics/StatisticsView.tsx](<../../../src/statistics/StatisticsView.tsx>)
 - [src/statistics/policy.ts](<../../../src/statistics/policy.ts>)
 - [src/statistics/listingModeStore.ts](<../../../src/statistics/listingModeStore.ts>)
+- [src/statistics/crossStudyListing.ts](<../../../src/statistics/crossStudyListing.ts>)
+- [src/statistics/TierLabel.tsx](<../../../src/statistics/TierLabel.tsx>)
 
-Covered source files (5):
+Covered source files (7):
 - [src/statistics/ListingModeToggle.tsx](<../../../src/statistics/ListingModeToggle.tsx>)
 - [src/statistics/StatisticsView.tsx](<../../../src/statistics/StatisticsView.tsx>)
+- [src/statistics/TierLabel.tsx](<../../../src/statistics/TierLabel.tsx>)
+- [src/statistics/crossStudyListing.ts](<../../../src/statistics/crossStudyListing.ts>)
 - [src/statistics/listingMode.css](<../../../src/statistics/listingMode.css>)
 - [src/statistics/listingModeStore.ts](<../../../src/statistics/listingModeStore.ts>)
 - [src/statistics/policy.ts](<../../../src/statistics/policy.ts>)

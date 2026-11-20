@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "293f334130b7ec25edc3c4534227f0137afde47ba50ab2138d1f34eaf165750e",
+  "fingerprint": "60a8ef19cdb599ab09f1ab0ec2599f9319034ad9be1c6561b102779614f788b6",
   "outcome": "updated",
-  "explanation": "From this branch: expressionUnits.ts gains resolveExpressionUnit, the one spelling of the registry-first unit rule, which buildPopData and the Node bundle reader share; browser behaviour is unchanged. From main (#35): src/data/queryWire.ts owns the query-index wire format (names, envelopes, row codecs, trackEntry with qcFlags lowPower) and queryIndex.ts is its read adapter; crossDataset readers decode rows through it with unchanged bytes.",
+  "explanation": "geneRow and pathwayRow now set each row's significance tier once with significanceTier(q, p), and significant is that tier's FDR call; direction is unchanged, so the index and fallback paths still build identical rows. The unused summarizeGroup aggregate is removed from crossDataset.ts.",
   "references": [
-    "src/data/expressionUnits.ts",
-    "src/data/buildPopData.ts",
-    "src/data/queryWire.ts",
-    "src/data/queryIndex.ts",
-    "CONTEXT.md"
+    "src/data/crossDatasetRows.ts",
+    "src/data/crossDataset.ts",
+    "docs/REFACTOR_CHECKLIST.md"
   ]
 }

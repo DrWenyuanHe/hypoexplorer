@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "f5c9c4481b4348239e3bf729f122d09d0176e22c35ef664a0acaf0392f97e336",
+  "fingerprint": "d47000deca8412d2b607f319f3d3957199f11deb8197ab0ed5149ff3f81a64c4",
   "outcome": "updated",
-  "explanation": "app.searchDialogs becomes app.search: dialog tests give way to hub-search and retired-link tests, including history replacement. geneExplorerLanding becomes searchLanding and tests DatasetScopePanel directly. hubSections, hubUnits, pathwayReport, appRoutes and both App scope suites start from named reports and their Study filters. From main, hypomapPreview.test.tsx covers the HypoMap view tablist and tabKeyTarget.",
+  "explanation": "crossStudyListing.test.ts pins the listing in tables: lead and rest per mode and order, counts, dataset rules, flat rows, missing and non-finite keys, stable ties on subsets and no mutation. Report, preview, index and condition-card fixtures now build rows through geneRow / pathwayRow so no fixture contradicts its tier. searchPage adds a lowest-p versus lowest-q case, pathwayReportResults an FDR-mode survivors-first case, and crossDatasetSummary.test.ts goes with summarizeGroup.",
   "references": [
-    "src/__tests__/app.search.test.tsx",
-    "src/__tests__/searchLanding.test.tsx",
-    "src/__tests__/app.geneScope.test.tsx",
-    "src/__tests__/app.pathwayScope.test.tsx",
-    "src/__tests__/hypomapPreview.test.tsx"
+    "src/__tests__/crossStudyListing.test.ts",
+    "src/__tests__/searchPage.test.tsx",
+    "src/__tests__/pathwayReportResults.test.tsx",
+    "src/__tests__/geneReport.test.tsx",
+    "src/__tests__/crossDatasetRows.test.ts"
   ]
 }

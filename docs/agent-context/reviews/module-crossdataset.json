@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "module-crossdataset",
-  "fingerprint": "761ff95209f03b8ab378b095256b991624f1e4573aaf85221622fd162562a991",
+  "fingerprint": "f00b6bd49ba75bed62d324d592b72949cee1aa8d677c565294ef9177345c932f",
   "outcome": "updated",
-  "explanation": "ExplorerSearchDialog and its xsearch-tabs styles are deleted. GeneReport and PathwayReport always receive a term: their term-less landing branches go, as do SearchHero and rankSuggestions in searchLanding.tsx and the gene report's unused gene-index load. The study filters stay on each report; useSearchIndex still feeds the pathway report's follow-up search.",
+  "explanation": "GeneReport's study table and PathwayReport's headline, category headers and dataset blocks take what leads, the order and the counts from listCrossStudy; the per-view tierOf, TIER_RANK, byFdr, byTier and byTierThenEffect sorts are gone. Grouping by research area or category, folding, the quiet-areas line, the 3-track rule, the FDR-based \"strongest\" and the shared axes stay in the views. Both use the shared TierLabel; forestReport.css pairs .report-de-tier with .portal-tier so its size wins in any sheet order.",
   "references": [
     "src/crossdataset/GeneReport.tsx",
     "src/crossdataset/PathwayReport.tsx",
-    "src/crossdataset/searchLanding.tsx",
     "src/crossdataset/forestReport.css",
-    "src/crossdataset/forestReport.tsx"
+    "src/statistics/crossStudyListing.ts"
   ]
 }

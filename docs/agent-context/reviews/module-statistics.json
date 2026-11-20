@@ -1,15 +1,14 @@
 {
   "version": 1,
   "area": "module-statistics",
-  "fingerprint": "38fbab062649a735eb2b396c5d8d30d80dc334629449bf91f4cfa4b46f7beeb1",
+  "fingerprint": "4bbcef3fcffdc1cf5f82e617ab709e92ff911117401ccbec7534d0ed5f0d6bec",
   "outcome": "updated",
-  "explanation": "policy.ts adds NOMINAL_P_CUTOFF and significanceTier ('fdr' | 'nominal' | 'none'), a display label beneath isFdrSignificant; the FDR call itself is unchanged. listingModeStore.ts holds the global, localStorage-backed listing choice ('nominal' default, or 'fdr'), modelled on chartScaleStore, and ListingModeToggle.tsx renders its segmented control (the pick filled in the brand blue, bold and ticked, so the state never rests on colour alone) plus QTerm, an abbr carrying Q_EXPLANATION (what q is) for every q / FDR / padj column. The listing changes what the views list, never what counts as significant. StatisticsView's callout explains the nominal tier in search and both reports and names the toggle.",
+  "explanation": "crossStudyListing.ts adds listCrossStudy, the single cross-study listing: given study groups, a listing mode, the row type's keys (GENE_KEYS or PATHWAY_KEYS) and an order ('significance' or 'effect'), it returns what leads, the rest, and the track, dataset and nominal counts, under fixed tier bands with stable ties and missing keys last. TierLabel.tsx moves here from search/portalCards with an optional className, and its .portal-tier styles move into listingMode.css. policy.ts and listingModeStore.ts are unchanged.",
   "references": [
-    "src/statistics/policy.ts",
-    "src/statistics/listingModeStore.ts",
-    "src/statistics/ListingModeToggle.tsx",
+    "src/statistics/crossStudyListing.ts",
+    "src/statistics/TierLabel.tsx",
     "src/statistics/listingMode.css",
-    "src/statistics/StatisticsView.tsx",
-    "src/common/chartScaleStore.ts"
+    "src/statistics/policy.ts",
+    "CONTEXT.md"
   ]
 }
