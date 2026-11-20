@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "70257b19bc9d3006be883b31cf29a94729775c8abe2e5c64009976b6e7b8ad7a",
+  "fingerprint": "eda70603e9ccd5dde1fe8d9f27b4aea2777c13b8f92af58b059fb40ee49b5e63",
   "outcome": "updated",
-  "explanation": "Merged main (#30, #31, #32, #34). From this branch: the HypoMap CsvDialog keeps its props and preview but downloads through writeCsv and exportFilename instead of its own quoting, slug regex and Blob anchor, so the co-detection comparisonCsv rows from main are written under the shared CSV policy. From main: codetection.ts validates the loopback service and fails closed on export mismatch, useLoad replaces the duplicated load/retry effects, and loadBaselineTeaser projects the survey NeuroSeq results as source groups.",
+  "explanation": "searchSummaries.ts now caches the index's study groups (GeneSummary / PathwaySummary carry groups) instead of a finished CrossStudySummary with eager top/topFdr lists; index-only loading, retry after null and unavailable-versus-empty are unchanged. SearchPage lists those groups at render through listCrossStudy, reads each row's own tier for data-tier and the Call column, and the condition-pathways card follows the FDR-mode lead. TierLabel left portalCards for src/statistics.",
   "references": [
-    "src/search/hypomap/CsvDialog.tsx",
-    "src/utils/csv.ts",
-    "src/search/hypomap/codetection.ts",
-    "src/search/hypomap/useLoad.ts",
-    "src/search/searchSummaries.ts"
+    "src/search/searchSummaries.ts",
+    "src/search/SearchPage.tsx",
+    "src/search/portalCards.tsx",
+    "src/search/search.css",
+    "src/statistics/crossStudyListing.ts"
   ]
 }

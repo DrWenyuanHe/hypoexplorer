@@ -1,11 +1,16 @@
 {
   "version": 1,
   "area": "module-crossdataset",
-  "fingerprint": "a5f22818a9d2ddd5b45fcfd17f192e9ce7a0402441eb7cf62c4823058e2ddee1",
-  "outcome": "no-impact",
-  "explanation": "Rebased onto #22. GeneReport names the selected studies whose data failed to load instead of counting them as not measuring the gene, and shows only that note when nothing loaded. The report contract, route and table structure are unchanged; it reads the existing group error flag.",
+  "fingerprint": "b3eb37b888ec9698e28082f816700ef6535c9f183beab0d682b7830b407d722b",
+  "outcome": "updated",
+  "explanation": "From main: CrossDatasetCompare (#/compare/<gene>) is deleted and GeneReport loses its Compare as bars button and onCompareDatasets prop. useStudySelection drops the bars kind it served. forestReport.tsx now names only the gene and pathway forests as its users. From the cross-study listing: GeneReport's study table and PathwayReport's headline, category headers and dataset blocks take what leads, the order and the counts from listCrossStudy; the per-view tierOf, TIER_RANK, byFdr, byTier and byTierThenEffect sorts are gone. Grouping by research area or category, folding, the quiet-areas line, the 3-track rule, the FDR-based \"strongest\" and the shared axes stay in the views. Both use the shared TierLabel; forestReport.css pairs .report-de-tier with .portal-tier so its size wins in any sheet order.",
   "references": [
     "src/crossdataset/GeneReport.tsx",
-    "src/data/crossDataset.ts"
+    "src/crossdataset/PathwayReport.tsx",
+    "src/crossdataset/forestReport.css",
+    "src/statistics/crossStudyListing.ts",
+    "src/crossdataset/geneStudyScope.tsx",
+    "src/crossdataset/forestReport.tsx",
+    "src/__tests__/studySelection.test.tsx"
   ]
 }

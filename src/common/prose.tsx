@@ -1,23 +1,15 @@
 // Prose primitives for the app's long-form reference pages. The app has no
-// markdown renderer, so Methodology, Data Sources and Statistics write their
-// documentation directly as JSX and each declared its own inline-styled H2 / P /
-// Mono / table cells.
+// markdown renderer, so Methods & statistics (MethodologyView) writes its
+// documentation directly as JSX with these H2 / P / Mono / table cells.
 //
-// Scope is deliberately honest — this is NOT one prose system for all three:
-//   - `Mono` was byte-identical in all three, so all three import it.
-//   - `H2` / `P` / `thStyle` / `tdStyle` were identical between MethodologyView
-//     and DataSourcesTab; those two adopt them. StatisticsView runs a
-//     DELIBERATELY larger scale (H2 at 15/600 with wider margins, P capped at
-//     70ch) because it is a full-page reference rather than a tab, so it keeps
-//     its own and takes only `Mono` from here.
-//   - Variants only one page uses (`Li`, `H3`, `Callout`, the sans reference
-//     cell) stay local to that page — hoisting a single-caller style here would
-//     make this file look like a design system it is not.
+// Variants only one page uses (`Li`, `H3`, `Callout`) stay local to that page:
+// hoisting a single-caller style here would make this file look like a design
+// system it is not.
 
 import type { CSSProperties, ReactNode } from 'react';
 import { FONT_HEADING, FONT_MONO, FONT_SANS } from '../styles/constants';
 
-/** Section heading for a reference page (Methodology / Data Sources scale). */
+/** Section heading for a reference page. */
 export function H2({ children }: { children: ReactNode }) {
   return (
     <h2 style={{

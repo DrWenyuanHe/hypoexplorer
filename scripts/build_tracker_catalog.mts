@@ -63,7 +63,8 @@ const relatedCount = rows.filter((r) => r.related).length;
 
 // Reverse index: explorer datasetId -> the survey candidate accession that IS that
 // dataset (only populated for tier 'dataset' matches; empty until a candidate is
-// integrated). Used by Data Sources cards to deep-link into the matching dossier.
+// integrated). Used by the library record and the dataset info panel to deep-link
+// into the matching dossier.
 const reverse = {};
 for (const r of rows) {
   if (r.integrated && r.match) reverse[r.match.id] = r.acc;

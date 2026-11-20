@@ -8,7 +8,6 @@ import { ICONS } from '../common/toolIcons';
 import { datasetHref } from '../utils/appLinks';
 import { COMPARE_TRACK } from '../explorer/explorerPosition';
 import { CompareSetButton } from '../compareset/CompareSetButton';
-import type { SearchMode } from '../crossdataset/ExplorerSearchDialog';
 import type { CompareSetItem } from '../compareset/compareSetStore';
 import type { DatasetCategory } from '../data/datasets';
 import type { Dataset } from '../types';
@@ -17,9 +16,6 @@ import type { Dataset } from '../types';
 // pathways, and three quiet cards: the library, the expression survey and the
 // macaque single-nucleus atlas. Every other tool keeps a route in the top nav
 // or the footer. The hub owns navigation only; App wires the destinations.
-
-/** The one hub entrance to gene and pathway search. */
-const SEARCH_TOOL = 'Gene & Pathway Explorer';
 
 /**
  * The study the hub links to directly: the primate single-nucleus atlas, whose
@@ -54,17 +50,17 @@ interface HubSection {
 }
 
 interface HubHandlers {
-  onOpenLocalDatasets?: () => void;
   onOpenExpression?: () => void;
-  /** Open the shared gene and pathway search dialog. */
-  onOpenSearch: () => void;
   onOpenTracker: () => void;
   onOpenLibrary: (categories?: readonly DatasetCategory[]) => void;
 }
 
-/** Three main tools and two supporting tools, with their navigation callbacks. */
+/**
+ * Two main tools and one supporting tool, with their navigation callbacks.
+ * Gene and pathway search is not listed: it is the hub's own search box.
+ */
 export function hubSections(
-  { onOpenSearch, onOpenTracker, onOpenLibrary, onOpenLocalDatasets, onOpenExpression }: HubHandlers,
+  { onOpenTracker, onOpenLibrary, onOpenExpression }: HubHandlers,
   { nDatasets }: { nDatasets: number },
 ): HubSection[] {
   return [
@@ -73,14 +69,12 @@ export function hubSections(
       items: [
         { name: 'Expression survey', desc: 'Survey gene expression in defined hypothalamic populations, isolated neurons and bulk tissue.', icon: 'expression', status: 'live', go: () => { if (onOpenExpression) onOpenExpression(); else window.location.hash = '#/expression'; } },
         { name: 'Dataset library', desc: `Browse ${nDatasets} studies by brain region, experimental condition or assay. Each record includes the study design and replicate counts.`, icon: 'library', status: 'live', go: () => onOpenLibrary() },
-        { name: SEARCH_TOOL, desc: `Look up a gene or a pathway across ${nDatasets} studies. Compare fold changes, FGSEA scores and leading-edge genes.`, icon: 'gene', status: 'live', go: () => onOpenSearch() },
       ],
     },
     {
       id: 'more', title: 'More tools',
       browse: [],
       items: [
-        { name: 'Explore Local Datasets', desc: 'Import your DE and FGSEA tables, confirm columns, and explore genes and pathways. Your files stay in this browser.', icon: 'library', status: 'live', go: () => { if (onOpenLocalDatasets) onOpenLocalDatasets(); else window.location.hash = '#/local-datasets'; } },
         { name: 'Dataset tracker', desc: 'Review screened hypothalamus studies, including those outside the library. Check data availability, replicate counts and sources.', icon: 'tracker', status: 'live', go: () => onOpenTracker() },
       ],
     },
@@ -89,15 +83,9 @@ export function hubSections(
 
 interface LandingHubProps {
   onHome?: () => void;
-  onOpenLocalDatasets?: () => void;
   onOpenExpression?: () => void;
   datasets?: Dataset[];
   onEnterTool: (tool: string) => void;
-  /**
-   * Open the shared gene and pathway search dialog, on the given side or on
-   * the side used last.
-   */
-  onOpenSearch: (mode?: SearchMode) => void;
   /**
    * Submit the hub's search box to the unified results page: typed text as
    * typed, or the gene symbol / pathway id of a picked suggestion.
@@ -105,7 +93,6 @@ interface LandingHubProps {
   onSearch: (query: string) => void;
   onOpenTracker: () => void;
   onOpenLibrary: (categories?: readonly DatasetCategory[]) => void;
-  onOpenStatistics: () => void;
   onOpenMethodology: () => void;
   onOpenVerification?: () => void;
   onOpenNomenclature: () => void;
@@ -117,25 +104,22 @@ interface LandingHubProps {
 export function LandingHub({
   datasets = [],
   onEnterTool,
-  onOpenSearch,
   onSearch,
   onOpenTracker,
   onOpenLibrary,
-  onOpenStatistics,
   onOpenMethodology,
   onOpenVerification,
   onOpenNomenclature,
-  onOpenLocalDatasets,
   onOpenExpression,
   onChangelog,
   onCompareSet,
 }: LandingHubProps) {
   const [primary, secondary] = useMemo(
     () => hubSections(
-      { onOpenSearch: () => onOpenSearch(), onOpenTracker, onOpenLibrary, onOpenLocalDatasets, onOpenExpression },
+      { onOpenTracker, onOpenLibrary, onOpenExpression },
       { nDatasets: datasets.length },
     ),
-    [onOpenSearch, onOpenTracker, onOpenLibrary, onOpenLocalDatasets, onOpenExpression, datasets.length],
+    [onOpenTracker, onOpenLibrary, onOpenExpression, datasets.length],
   );
   const tool = (name: string) => [...primary.items, ...secondary.items].find((item) => item.name === name);
 
@@ -168,8 +152,6 @@ export function LandingHub({
       <header className="hub-bar">
         <nav className="hub-nav" aria-label="Sections">
           <button type="button" onClick={() => onOpenLibrary()}>Library</button>
-          <button type="button" aria-haspopup="dialog" onClick={() => onOpenSearch('gene')}>Genes</button>
-          <button type="button" aria-haspopup="dialog" onClick={() => onOpenSearch('pathway')}>Pathways</button>
           <button type="button" onClick={tool('Expression survey')?.go}>Survey</button>
           <button type="button" onClick={onOpenMethodology}>Methods</button>
         </nav>
@@ -183,7 +165,6 @@ export function LandingHub({
           <h1 className="hub-mark">
             <img src={BRAND.logo} width={320} height={72} alt="HypoExplorer" />
           </h1>
-          <p className="hub-tagline">Where a gene is expressed in the hypothalamus, and how it changes across {nStudies} public studies</p>
           <HubSearch onSearch={onSearch} />
           <div className="hub-cards">
             {CARDS.map(({ item, title, detail }) => item && (
@@ -238,9 +219,7 @@ export function LandingHub({
               <button type="button" onClick={() => onOpenLibrary()}>Dataset library</button>
               <a className="site-reference-link" href="/studies/">Study pages</a>
               {secondary.items.map((item) => (
-                <button key={item.name} type="button" onClick={item.go}>
-                  {item.name === 'Explore Local Datasets' ? 'Local datasets' : item.name}
-                </button>
+                <button key={item.name} type="button" onClick={item.go}>{item.name}</button>
               ))}
             </div>
           </div>
@@ -248,17 +227,15 @@ export function LandingHub({
             <span className="hub-util-label">Analysis</span>
             <div className="hub-util-links">
               <button type="button" onClick={() => onEnterTool('qc')}>Quality control</button>
-              <button type="button" onClick={onOpenStatistics}>Statistics</button>
               <button type="button" onClick={onOpenVerification ?? (() => { window.location.hash = '#/verification'; })}>Data verification</button>
               <button type="button" onClick={onOpenNomenclature}>Gene nomenclature</button>
-              <button type="button" onClick={onOpenMethodology}>Methodology</button>
+              <button type="button" onClick={onOpenMethodology}>Methods &amp; statistics</button>
             </div>
           </div>
           <div className="hub-util-row">
             <span className="hub-util-label">Reference</span>
             <div className="hub-util-links">
               <a className="site-reference-link" href="/methods/">Methods guide</a>
-              <button type="button" onClick={() => onEnterTool('datasources')}>Sources &amp; acknowledgements</button>
               <a className="site-reference-link" href="/how-to-cite/">How to cite</a>
               <a className="site-reference-link" href="/about/">About</a>
             </div>

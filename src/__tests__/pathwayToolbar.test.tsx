@@ -102,12 +102,12 @@ describe('PathwayToolbar — page size', () => {
 describe('PathwayToolbar — pager', () => {
   it('hides the pager when there is only one page', () => {
     renderToolbar({ totalPages: 1, safePage: 1 });
-    expect(screen.queryByRole('button', { name: '‹' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Previous page' })).toBeNull();
   });
 
   it("hides the pager for an unpaged ('all') table even if totalPages says otherwise", () => {
     renderToolbar({ pageSize: 'all', totalPages: 3, safePage: 1 });
-    expect(screen.queryByRole('button', { name: '›' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Next page' })).toBeNull();
   });
 
   it('shows the spaced page indicator and steps the page', () => {
@@ -115,12 +115,12 @@ describe('PathwayToolbar — pager', () => {
     renderToolbar({ pageSize: 25, totalPages: 3, safePage: 2, setPage, total: 60 });
     expect(screen.getByText('2 / 3')).toBeTruthy();
 
-    fireEvent.click(screen.getByRole('button', { name: '›' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Next page' }));
     const next = setPage.mock.calls[0][0] as (p: number) => number;
     expect(next(2)).toBe(3);
     expect(next(3)).toBe(3); // clamped at the last page
 
-    fireEvent.click(screen.getByRole('button', { name: '‹' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Previous page' }));
     const prev = setPage.mock.calls[1][0] as (p: number) => number;
     expect(prev(2)).toBe(1);
     expect(prev(1)).toBe(1); // clamped at the first page
@@ -128,8 +128,8 @@ describe('PathwayToolbar — pager', () => {
 
   it('disables the arrow that would leave the range', () => {
     renderToolbar({ pageSize: 25, totalPages: 3, safePage: 1 });
-    expect(screen.getByRole('button', { name: '‹' })).toBeDisabled();
-    expect(screen.getByRole('button', { name: '›' })).not.toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Previous page' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Next page' })).not.toBeDisabled();
   });
 
   it('renders the filtered row count', () => {

@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-utils",
-  "fingerprint": "ad6a92b26cf4be71ee5e27956e554140c783b86d11b89141421acd7892221fed",
+  "fingerprint": "29eecc642636bf11dfd1b5ebdae909de6e4dd080542be3deaad19b52f9e8fd42",
   "outcome": "updated",
-  "explanation": "appLinks gives Compare routes a view: the /pathways sub-tab as the path segment and pops/genes as query lists (each id percent-encoded before the commas), parsed strictly beside analysis and rejected when malformed, unknown or duplicated; analysisState defines CompareViewState and its list check.",
+  "explanation": "From main, the pure provenance formatters live in exportProvenanceFormat.ts so CSV-only views skip the internal QC ledger, and csv.ts imports them from there. This branch adds writeCsvBlocks for block-wise encoding and a Blob URL for large CSVs while small outputs stay byte-identical, and lazyExport.ts names the circadian workbook as a second withXLSX consumer.",
   "references": [
-    "src/utils/appLinks.ts",
-    "src/utils/analysisState.ts"
+    "src/utils/exportProvenanceFormat.ts",
+    "src/utils/csv.ts",
+    "src/utils/lazyExport.ts"
   ]
 }

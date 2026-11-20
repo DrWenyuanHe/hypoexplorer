@@ -20,15 +20,12 @@ Source directories are ownership/navigation areas, not separately installed plug
 | explorer | explorer |
 | report | crossdataset |
 | pathway-report | crossdataset |
-| compare-datasets | crossdataset |
 | compare-set | compareset |
 | tracker | dataset-tracker |
-| statistics | statistics |
 | methodology | methodology |
 | verification | verification |
 | nomenclature | nomenclature |
 | expression | expression-survey |
-| local-datasets | local-datasets |
 | search | search |
 
 ## Explorer tabs
@@ -39,7 +36,6 @@ Source directories are ownership/navigation areas, not separately installed plug
 | pathway | Pathway Explorer | pathway-explorer |
 | circadian | Circadian | circadian |
 | qc | Quality Control | qc |
-| datasources | Data Sources | acknowledgements |
 
 ## __tests__
 
@@ -49,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (242):
+Covered source files (245):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -57,7 +53,7 @@ Covered source files (242):
 - [src/__tests__/app.dataset.test.tsx](<../../../src/__tests__/app.dataset.test.tsx>)
 - [src/__tests__/app.geneScope.test.tsx](<../../../src/__tests__/app.geneScope.test.tsx>)
 - [src/__tests__/app.pathwayScope.test.tsx](<../../../src/__tests__/app.pathwayScope.test.tsx>)
-- [src/__tests__/app.searchDialogs.test.tsx](<../../../src/__tests__/app.searchDialogs.test.tsx>)
+- [src/__tests__/app.search.test.tsx](<../../../src/__tests__/app.search.test.tsx>)
 - [src/__tests__/appDeepLinks.test.tsx](<../../../src/__tests__/appDeepLinks.test.tsx>)
 - [src/__tests__/appExplorerPosition.test.tsx](<../../../src/__tests__/appExplorerPosition.test.tsx>)
 - [src/__tests__/appLinks.test.ts](<../../../src/__tests__/appLinks.test.ts>)
@@ -65,6 +61,7 @@ Covered source files (242):
 - [src/__tests__/appRouterUrl.test.tsx](<../../../src/__tests__/appRouterUrl.test.tsx>)
 - [src/__tests__/appRoutes.test.ts](<../../../src/__tests__/appRoutes.test.ts>)
 - [src/__tests__/armPills.test.tsx](<../../../src/__tests__/armPills.test.tsx>)
+- [src/__tests__/armStatsStrip.test.tsx](<../../../src/__tests__/armStatsStrip.test.tsx>)
 - [src/__tests__/authorComparability.test.tsx](<../../../src/__tests__/authorComparability.test.tsx>)
 - [src/__tests__/authorConcordance.test.ts](<../../../src/__tests__/authorConcordance.test.ts>)
 - [src/__tests__/authorConcordanceRoutes.test.ts](<../../../src/__tests__/authorConcordanceRoutes.test.ts>)
@@ -96,7 +93,13 @@ Covered source files (242):
 - [src/__tests__/cellSelector.test.tsx](<../../../src/__tests__/cellSelector.test.tsx>)
 - [src/__tests__/chartScale.test.ts](<../../../src/__tests__/chartScale.test.ts>)
 - [src/__tests__/chartScaleToggle.test.tsx](<../../../src/__tests__/chartScaleToggle.test.tsx>)
+- [src/__tests__/circadianComparison.test.tsx](<../../../src/__tests__/circadianComparison.test.tsx>)
+- [src/__tests__/circadianControls.test.tsx](<../../../src/__tests__/circadianControls.test.tsx>)
+- [src/__tests__/circadianExportAll.test.ts](<../../../src/__tests__/circadianExportAll.test.ts>)
+- [src/__tests__/circadianNotes.test.tsx](<../../../src/__tests__/circadianNotes.test.tsx>)
+- [src/__tests__/circadianTable.test.tsx](<../../../src/__tests__/circadianTable.test.tsx>)
 - [src/__tests__/circadianTimeSeries.test.ts](<../../../src/__tests__/circadianTimeSeries.test.ts>)
+- [src/__tests__/circadianWorkbook.test.ts](<../../../src/__tests__/circadianWorkbook.test.ts>)
 - [src/__tests__/compareDownloads.test.ts](<../../../src/__tests__/compareDownloads.test.ts>)
 - [src/__tests__/compareLinks.test.tsx](<../../../src/__tests__/compareLinks.test.tsx>)
 - [src/__tests__/compareSet.test.tsx](<../../../src/__tests__/compareSet.test.tsx>)
@@ -109,16 +112,13 @@ Covered source files (242):
 - [src/__tests__/confirmDialog.test.tsx](<../../../src/__tests__/confirmDialog.test.tsx>)
 - [src/__tests__/contrastMatrix.test.tsx](<../../../src/__tests__/contrastMatrix.test.tsx>)
 - [src/__tests__/countConservationEvidence.test.ts](<../../../src/__tests__/countConservationEvidence.test.ts>)
-- [src/__tests__/crossDatasetCompare.test.tsx](<../../../src/__tests__/crossDatasetCompare.test.tsx>)
-- [src/__tests__/crossDatasetCompareIndex.test.ts](<../../../src/__tests__/crossDatasetCompareIndex.test.ts>)
 - [src/__tests__/crossDatasetRows.test.ts](<../../../src/__tests__/crossDatasetRows.test.ts>)
-- [src/__tests__/crossDatasetSummary.test.ts](<../../../src/__tests__/crossDatasetSummary.test.ts>)
+- [src/__tests__/crossStudyListing.test.ts](<../../../src/__tests__/crossStudyListing.test.ts>)
 - [src/__tests__/csv.test.ts](<../../../src/__tests__/csv.test.ts>)
 - [src/__tests__/csvDialog.test.tsx](<../../../src/__tests__/csvDialog.test.tsx>)
 - [src/__tests__/csvDownload.ts](<../../../src/__tests__/csvDownload.ts>)
 - [src/__tests__/currentIntakePathwayEvidence.test.ts](<../../../src/__tests__/currentIntakePathwayEvidence.test.ts>)
 - [src/__tests__/dataOriginStatus.test.tsx](<../../../src/__tests__/dataOriginStatus.test.tsx>)
-- [src/__tests__/dataSources.test.tsx](<../../../src/__tests__/dataSources.test.tsx>)
 - [src/__tests__/datasetInfo.test.tsx](<../../../src/__tests__/datasetInfo.test.tsx>)
 - [src/__tests__/datasetLibrary.test.tsx](<../../../src/__tests__/datasetLibrary.test.tsx>)
 - [src/__tests__/datasetLinks.test.ts](<../../../src/__tests__/datasetLinks.test.ts>)
@@ -164,7 +164,6 @@ Covered source files (242):
 - [src/__tests__/forestReport.test.tsx](<../../../src/__tests__/forestReport.test.tsx>)
 - [src/__tests__/format.test.ts](<../../../src/__tests__/format.test.ts>)
 - [src/__tests__/geneEffectPreview.test.tsx](<../../../src/__tests__/geneEffectPreview.test.tsx>)
-- [src/__tests__/geneExplorerLanding.test.tsx](<../../../src/__tests__/geneExplorerLanding.test.tsx>)
 - [src/__tests__/geneExport.test.ts](<../../../src/__tests__/geneExport.test.ts>)
 - [src/__tests__/geneLinks.test.ts](<../../../src/__tests__/geneLinks.test.ts>)
 - [src/__tests__/geneListFile.test.ts](<../../../src/__tests__/geneListFile.test.ts>)
@@ -181,6 +180,7 @@ Covered source files (242):
 - [src/__tests__/hypomapCodetection.test.ts](<../../../src/__tests__/hypomapCodetection.test.ts>)
 - [src/__tests__/hypomapCoexpression.test.tsx](<../../../src/__tests__/hypomapCoexpression.test.tsx>)
 - [src/__tests__/hypomapMetrics.test.ts](<../../../src/__tests__/hypomapMetrics.test.ts>)
+- [src/__tests__/hypomapPreview.test.tsx](<../../../src/__tests__/hypomapPreview.test.tsx>)
 - [src/__tests__/indexFreshness.test.ts](<../../../src/__tests__/indexFreshness.test.ts>)
 - [src/__tests__/indexProducts.test.ts](<../../../src/__tests__/indexProducts.test.ts>)
 - [src/__tests__/intakeStudies.test.ts](<../../../src/__tests__/intakeStudies.test.ts>)
@@ -189,15 +189,13 @@ Covered source files (242):
 - [src/__tests__/jtkCanonical.test.ts](<../../../src/__tests__/jtkCanonical.test.ts>)
 - [src/__tests__/keyedSourceRelationship.test.ts](<../../../src/__tests__/keyedSourceRelationship.test.ts>)
 - [src/__tests__/lazyChunkBoundaries.test.ts](<../../../src/__tests__/lazyChunkBoundaries.test.ts>)
+- [src/__tests__/lazyView.test.tsx](<../../../src/__tests__/lazyView.test.tsx>)
 - [src/__tests__/leadingEdgeHeatmap.test.tsx](<../../../src/__tests__/leadingEdgeHeatmap.test.tsx>)
 - [src/__tests__/libraryExport.test.ts](<../../../src/__tests__/libraryExport.test.ts>)
 - [src/__tests__/libraryFilters.test.ts](<../../../src/__tests__/libraryFilters.test.ts>)
+- [src/__tests__/listingModeToggle.test.tsx](<../../../src/__tests__/listingModeToggle.test.tsx>)
 - [src/__tests__/loadDatasetMeta.test.ts](<../../../src/__tests__/loadDatasetMeta.test.ts>)
 - [src/__tests__/loadTrack.test.ts](<../../../src/__tests__/loadTrack.test.ts>)
-- [src/__tests__/localDatasetStorage.test.ts](<../../../src/__tests__/localDatasetStorage.test.ts>)
-- [src/__tests__/localImport.test.ts](<../../../src/__tests__/localImport.test.ts>)
-- [src/__tests__/localImportPanel.test.tsx](<../../../src/__tests__/localImportPanel.test.tsx>)
-- [src/__tests__/localRoutes.test.tsx](<../../../src/__tests__/localRoutes.test.tsx>)
 - [src/__tests__/macaqueQc.test.ts](<../../../src/__tests__/macaqueQc.test.ts>)
 - [src/__tests__/matrixShape.test.ts](<../../../src/__tests__/matrixShape.test.ts>)
 - [src/__tests__/methodology.test.tsx](<../../../src/__tests__/methodology.test.tsx>)
@@ -219,7 +217,6 @@ Covered source files (242):
 - [src/__tests__/pipelineQc.test.ts](<../../../src/__tests__/pipelineQc.test.ts>)
 - [src/__tests__/popGroups.test.ts](<../../../src/__tests__/popGroups.test.ts>)
 - [src/__tests__/portalCards.test.tsx](<../../../src/__tests__/portalCards.test.tsx>)
-- [src/__tests__/publicReferencePicker.test.tsx](<../../../src/__tests__/publicReferencePicker.test.tsx>)
 - [src/__tests__/publicationArchive.test.ts](<../../../src/__tests__/publicationArchive.test.ts>)
 - [src/__tests__/pwaUpdate.test.tsx](<../../../src/__tests__/pwaUpdate.test.tsx>)
 - [src/__tests__/qcColumns.test.tsx](<../../../src/__tests__/qcColumns.test.tsx>)
@@ -238,6 +235,7 @@ Covered source files (242):
 - [src/__tests__/r2Incremental.test.ts](<../../../src/__tests__/r2Incremental.test.ts>)
 - [src/__tests__/rawTrack.test.ts](<../../../src/__tests__/rawTrack.test.ts>)
 - [src/__tests__/referenceExpression.test.ts](<../../../src/__tests__/referenceExpression.test.ts>)
+- [src/__tests__/references.test.tsx](<../../../src/__tests__/references.test.tsx>)
 - [src/__tests__/releaseIdentity.test.ts](<../../../src/__tests__/releaseIdentity.test.ts>)
 - [src/__tests__/replicationEvidence.test.ts](<../../../src/__tests__/replicationEvidence.test.ts>)
 - [src/__tests__/responsiveSidebar.test.tsx](<../../../src/__tests__/responsiveSidebar.test.tsx>)
@@ -252,10 +250,12 @@ Covered source files (242):
 - [src/__tests__/reviewedTextEvidence.test.ts](<../../../src/__tests__/reviewedTextEvidence.test.ts>)
 - [src/__tests__/reviewedTrackLabels.test.ts](<../../../src/__tests__/reviewedTrackLabels.test.ts>)
 - [src/__tests__/rhythmScanIdentity.test.tsx](<../../../src/__tests__/rhythmScanIdentity.test.tsx>)
+- [src/__tests__/rhythmTrace.test.tsx](<../../../src/__tests__/rhythmTrace.test.tsx>)
 - [src/__tests__/rhythmicity.test.ts](<../../../src/__tests__/rhythmicity.test.ts>)
 - [src/__tests__/sampleValues.test.ts](<../../../src/__tests__/sampleValues.test.ts>)
 - [src/__tests__/seRecovery.test.ts](<../../../src/__tests__/seRecovery.test.ts>)
 - [src/__tests__/sealedEvidenceProjection.test.ts](<../../../src/__tests__/sealedEvidenceProjection.test.ts>)
+- [src/__tests__/searchLanding.test.tsx](<../../../src/__tests__/searchLanding.test.tsx>)
 - [src/__tests__/searchPage.test.tsx](<../../../src/__tests__/searchPage.test.tsx>)
 - [src/__tests__/searchVocabulary.test.ts](<../../../src/__tests__/searchVocabulary.test.ts>)
 - [src/__tests__/seoGuides.test.ts](<../../../src/__tests__/seoGuides.test.ts>)
@@ -268,7 +268,6 @@ Covered source files (242):
 - [src/__tests__/sortableRows.test.tsx](<../../../src/__tests__/sortableRows.test.tsx>)
 - [src/__tests__/sourceJson.test.ts](<../../../src/__tests__/sourceJson.test.ts>)
 - [src/__tests__/spendGuard.test.ts](<../../../src/__tests__/spendGuard.test.ts>)
-- [src/__tests__/statistics.test.tsx](<../../../src/__tests__/statistics.test.tsx>)
 - [src/__tests__/statisticsPolicy.test.ts](<../../../src/__tests__/statisticsPolicy.test.ts>)
 - [src/__tests__/studyFactTable.test.tsx](<../../../src/__tests__/studyFactTable.test.tsx>)
 - [src/__tests__/studyMetadataAdapters.test.ts](<../../../src/__tests__/studyMetadataAdapters.test.ts>)
@@ -295,13 +294,13 @@ Covered source files (242):
 
 ## acknowledgements
 
-Study sources and attribution.
+Software and reference citations and acknowledgements shown on How to cite.
 
 Start here:
-- [src/acknowledgements/DataSourcesTab.tsx](<../../../src/acknowledgements/DataSourcesTab.tsx>)
+- [src/acknowledgements/references.ts](<../../../src/acknowledgements/references.ts>)
 
 Covered source files (1):
-- [src/acknowledgements/DataSourcesTab.tsx](<../../../src/acknowledgements/DataSourcesTab.tsx>)
+- [src/acknowledgements/references.ts](<../../../src/acknowledgements/references.ts>)
 
 ## changelog
 
@@ -326,14 +325,21 @@ Start here:
 - [src/circadian/jtkCycle.ts](<../../../src/circadian/jtkCycle.ts>)
 - [docs/CIRCADIAN_VALIDATION.md](<../../CIRCADIAN_VALIDATION.md>)
 
-Covered source files (10):
+Covered source files (17):
+- [src/circadian/ArmStatsStrip.tsx](<../../../src/circadian/ArmStatsStrip.tsx>)
+- [src/circadian/CircadianControls.tsx](<../../../src/circadian/CircadianControls.tsx>)
+- [src/circadian/CircadianNotes.tsx](<../../../src/circadian/CircadianNotes.tsx>)
+- [src/circadian/CircadianResultsTable.tsx](<../../../src/circadian/CircadianResultsTable.tsx>)
 - [src/circadian/CircadianTab.tsx](<../../../src/circadian/CircadianTab.tsx>)
 - [src/circadian/PhaseMap.tsx](<../../../src/circadian/PhaseMap.tsx>)
 - [src/circadian/RhythmTrace.tsx](<../../../src/circadian/RhythmTrace.tsx>)
 - [src/circadian/circadianExport.ts](<../../../src/circadian/circadianExport.ts>)
+- [src/circadian/circadianWorkbook.ts](<../../../src/circadian/circadianWorkbook.ts>)
+- [src/circadian/circadianWorkbook.worker.ts](<../../../src/circadian/circadianWorkbook.worker.ts>)
 - [src/circadian/distributions.ts](<../../../src/circadian/distributions.ts>)
 - [src/circadian/jtkCycle.ts](<../../../src/circadian/jtkCycle.ts>)
 - [src/circadian/multipleTesting.ts](<../../../src/circadian/multipleTesting.ts>)
+- [src/circadian/peak.ts](<../../../src/circadian/peak.ts>)
 - [src/circadian/rhythmicity.ts](<../../../src/circadian/rhythmicity.ts>)
 - [src/circadian/scan.ts](<../../../src/circadian/scan.ts>)
 - [src/circadian/timeSeriesSource.ts](<../../../src/circadian/timeSeriesSource.ts>)
@@ -350,7 +356,7 @@ Start here:
 - [src/common/BrandLink.tsx](<../../../src/common/BrandLink.tsx>)
 - [brand/README.md](<../../../brand/README.md>)
 
-Covered source files (34):
+Covered source files (35):
 - [src/common/AuthorValidation.tsx](<../../../src/common/AuthorValidation.tsx>)
 - [src/common/BetaNotice.css](<../../../src/common/BetaNotice.css>)
 - [src/common/BetaNotice.tsx](<../../../src/common/BetaNotice.tsx>)
@@ -381,6 +387,7 @@ Covered source files (34):
 - [src/common/StudyMetadata.tsx](<../../../src/common/StudyMetadata.tsx>)
 - [src/common/brand.ts](<../../../src/common/brand.ts>)
 - [src/common/chartScaleStore.ts](<../../../src/common/chartScaleStore.ts>)
+- [src/common/lazyView.tsx](<../../../src/common/lazyView.tsx>)
 - [src/common/prose.tsx](<../../../src/common/prose.tsx>)
 - [src/common/toolIcons.tsx](<../../../src/common/toolIcons.tsx>)
 - [src/common/useCompactLayout.ts](<../../../src/common/useCompactLayout.ts>)
@@ -433,10 +440,8 @@ Start here:
 - [src/crossdataset/forestReport.tsx](<../../../src/crossdataset/forestReport.tsx>)
 - [src/crossdataset/geneStudyScope.tsx](<../../../src/crossdataset/geneStudyScope.tsx>)
 
-Covered source files (11):
-- [src/crossdataset/CrossDatasetCompare.tsx](<../../../src/crossdataset/CrossDatasetCompare.tsx>)
+Covered source files (9):
 - [src/crossdataset/EffectPreview.tsx](<../../../src/crossdataset/EffectPreview.tsx>)
-- [src/crossdataset/ExplorerSearchDialog.tsx](<../../../src/crossdataset/ExplorerSearchDialog.tsx>)
 - [src/crossdataset/GeneEffectPreview.tsx](<../../../src/crossdataset/GeneEffectPreview.tsx>)
 - [src/crossdataset/GeneReport.tsx](<../../../src/crossdataset/GeneReport.tsx>)
 - [src/crossdataset/PathwayEffectPreview.tsx](<../../../src/crossdataset/PathwayEffectPreview.tsx>)
@@ -460,7 +465,7 @@ Start here:
 - [src/data/queryIndex.ts](<../../../src/data/queryIndex.ts>)
 - [data/intake/oxt-avp-2026-10-19/README.md](<../../../data/intake/oxt-avp-2026-10-19/README.md>)
 
-Covered source files (57):
+Covered source files (56):
 - [src/data/authorComparability.ts](<../../../src/data/authorComparability.ts>)
 - [src/data/authorConcordance.ts](<../../../src/data/authorConcordance.ts>)
 - [src/data/authorConcordanceR460.ts](<../../../src/data/authorConcordanceR460.ts>)
@@ -474,7 +479,6 @@ Covered source files (57):
 - [src/data/constants.ts](<../../../src/data/constants.ts>)
 - [src/data/contrasts.ts](<../../../src/data/contrasts.ts>)
 - [src/data/crossDataset.ts](<../../../src/data/crossDataset.ts>)
-- [src/data/crossDatasetCompare.ts](<../../../src/data/crossDatasetCompare.ts>)
 - [src/data/crossDatasetRows.ts](<../../../src/data/crossDatasetRows.ts>)
 - [src/data/datasetCatalog.ts](<../../../src/data/datasetCatalog.ts>)
 - [src/data/datasetCategories.ts](<../../../src/data/datasetCategories.ts>)
@@ -641,32 +645,9 @@ Covered source files (8):
 - [src/library/libraryExport.ts](<../../../src/library/libraryExport.ts>)
 - [src/library/libraryFilters.ts](<../../../src/library/libraryFilters.ts>)
 
-## local-datasets
-
-On-device result import, storage and exploration.
-
-Start here:
-- [src/local-datasets/LocalDatasetsView.tsx](<../../../src/local-datasets/LocalDatasetsView.tsx>)
-- [src/local-datasets/ImportPanel.tsx](<../../../src/local-datasets/ImportPanel.tsx>)
-- [docs/LOCAL_DATASETS.md](<../../LOCAL_DATASETS.md>)
-
-Covered source files (12):
-- [src/local-datasets/ImportPanel.tsx](<../../../src/local-datasets/ImportPanel.tsx>)
-- [src/local-datasets/LocalDatasetsView.tsx](<../../../src/local-datasets/LocalDatasetsView.tsx>)
-- [src/local-datasets/LocalExplorer.css](<../../../src/local-datasets/LocalExplorer.css>)
-- [src/local-datasets/LocalExplorer.test.tsx](<../../../src/local-datasets/LocalExplorer.test.tsx>)
-- [src/local-datasets/LocalExplorer.tsx](<../../../src/local-datasets/LocalExplorer.tsx>)
-- [src/local-datasets/PublicReferencePicker.tsx](<../../../src/local-datasets/PublicReferencePicker.tsx>)
-- [src/local-datasets/comparison.test.ts](<../../../src/local-datasets/comparison.test.ts>)
-- [src/local-datasets/comparison.ts](<../../../src/local-datasets/comparison.ts>)
-- [src/local-datasets/importData.ts](<../../../src/local-datasets/importData.ts>)
-- [src/local-datasets/localDatasets.css](<../../../src/local-datasets/localDatasets.css>)
-- [src/local-datasets/storage.ts](<../../../src/local-datasets/storage.ts>)
-- [src/local-datasets/types.ts](<../../../src/local-datasets/types.ts>)
-
 ## methodology
 
-Methodology reference page for the collection.
+Methods & statistics reference page for the collection.
 
 Start here:
 - [src/methodology/MethodologyView.tsx](<../../../src/methodology/MethodologyView.tsx>)
@@ -769,14 +750,20 @@ Covered source files (20):
 
 ## statistics
 
-Statistical definitions and interpretation limits.
+Significance policy, the cross-study listing and the shared FDR / p < 0.05 listing toggle.
 
 Start here:
-- [src/statistics/StatisticsView.tsx](<../../../src/statistics/StatisticsView.tsx>)
 - [src/statistics/policy.ts](<../../../src/statistics/policy.ts>)
+- [src/statistics/listingModeStore.ts](<../../../src/statistics/listingModeStore.ts>)
+- [src/statistics/crossStudyListing.ts](<../../../src/statistics/crossStudyListing.ts>)
+- [src/statistics/TierLabel.tsx](<../../../src/statistics/TierLabel.tsx>)
 
-Covered source files (2):
-- [src/statistics/StatisticsView.tsx](<../../../src/statistics/StatisticsView.tsx>)
+Covered source files (6):
+- [src/statistics/ListingModeToggle.tsx](<../../../src/statistics/ListingModeToggle.tsx>)
+- [src/statistics/TierLabel.tsx](<../../../src/statistics/TierLabel.tsx>)
+- [src/statistics/crossStudyListing.ts](<../../../src/statistics/crossStudyListing.ts>)
+- [src/statistics/listingMode.css](<../../../src/statistics/listingMode.css>)
+- [src/statistics/listingModeStore.ts](<../../../src/statistics/listingModeStore.ts>)
 - [src/statistics/policy.ts](<../../../src/statistics/policy.ts>)
 
 ## styles
@@ -813,7 +800,7 @@ Start here:
 - [src/utils/sampleValues.ts](<../../../src/utils/sampleValues.ts>)
 - [src/utils/geneListFile.ts](<../../../src/utils/geneListFile.ts>)
 
-Covered source files (24):
+Covered source files (26):
 - [src/utils/analysisState.ts](<../../../src/utils/analysisState.ts>)
 - [src/utils/appLinks.ts](<../../../src/utils/appLinks.ts>)
 - [src/utils/axes.ts](<../../../src/utils/axes.ts>)
@@ -823,6 +810,7 @@ Covered source files (24):
 - [src/utils/excelExport.ts](<../../../src/utils/excelExport.ts>)
 - [src/utils/exportAction.ts](<../../../src/utils/exportAction.ts>)
 - [src/utils/exportProvenance.ts](<../../../src/utils/exportProvenance.ts>)
+- [src/utils/exportProvenanceFormat.ts](<../../../src/utils/exportProvenanceFormat.ts>)
 - [src/utils/fdr.ts](<../../../src/utils/fdr.ts>)
 - [src/utils/focusTrap.ts](<../../../src/utils/focusTrap.ts>)
 - [src/utils/format.ts](<../../../src/utils/format.ts>)
@@ -836,6 +824,7 @@ Covered source files (24):
 - [src/utils/sampleIds.ts](<../../../src/utils/sampleIds.ts>)
 - [src/utils/sampleValues.ts](<../../../src/utils/sampleValues.ts>)
 - [src/utils/seRecovery.ts](<../../../src/utils/seRecovery.ts>)
+- [src/utils/tabKeys.ts](<../../../src/utils/tabKeys.ts>)
 - [src/utils/workbook.ts](<../../../src/utils/workbook.ts>)
 - [src/utils/zip.ts](<../../../src/utils/zip.ts>)
 

@@ -154,6 +154,19 @@ external state and require task authorization. Inspect current site responses,
 version, edge rule state and uploader verification output to establish success.
 Passing context checks establishes documentation freshness, not delivery health.
 
+The app shell's first paint is bounded by `build.rolldownOptions.output.codeSplitting`
+in `vite.config.ts` and the lazy views in `src/appViews.tsx`. The hub loads three
+scripts: the entry, `vendor` (React and react-dom, captured first by priority)
+and `shell` (the `$initial` app modules). recharts, xlsx, html2canvas and the two
+evidence ledgers are separate chunks reached only from the views that use them.
+Use groups, not `manualChunks`: Rolldown's shim captures a matched module with
+its dependencies, which once put React inside the charts chunk and made every
+page download recharts. After a build, check the `modulepreload` links in
+`dist/index.html`; [the November 20 record](../APP_LOADING_2026-11-20.md) has the
+measurements. `public/_headers` gives `/fonts/*` and `/brand/*` one day of
+freshness with a week of stale-while-revalidate, since their names are stable
+but not hashed. The hub's data-origin light probes with a bodiless HEAD.
+
 The [September 15 loading audit](../DATA_LOADING_AUDIT_2026-09-15.md) records baseline
 payload measurements; [the implementation report](../DATA_LOADING_IMPLEMENTATION_2026-09-15.md)
 records the changes and their validation. Immutable

@@ -58,6 +58,11 @@ export function Effect({ value, direction, significant }: { value: number; direc
   );
 }
 
+/**
+ * A row's call: the FDR survivors are labelled; the nominal tier is named as
+ * uncorrected. Shared by the search portal and the pathway report, so the same
+ * result carries the same words wherever it appears.
+ */
 export function plural(n: number, one: string, many = `${one}s`): string {
   return `${n} ${n === 1 ? one : many}`;
 }

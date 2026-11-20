@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "293f334130b7ec25edc3c4534227f0137afde47ba50ab2138d1f34eaf165750e",
+  "fingerprint": "aa742e6f1882d7735c555df62e9d1b5c16899acea3a9f90f6264ed06a9da44eb",
   "outcome": "updated",
-  "explanation": "From this branch: expressionUnits.ts gains resolveExpressionUnit, the one spelling of the registry-first unit rule, which buildPopData and the Node bundle reader share; browser behaviour is unchanged. From main (#35): src/data/queryWire.ts owns the query-index wire format (names, envelopes, row codecs, trackEntry with qcFlags lowPower) and queryIndex.ts is its read adapter; crossDataset readers decode rows through it with unchanged bytes.",
+  "explanation": "From main: originHealth probes the data origin with a no-cors, no-store HEAD instead of a GET, so the hub light and error banners no longer download the 200 KB query manifest body. The diagnosis states, memo window and probe path are unchanged; EDGE_PROTECTION.md notes that the method rule admits HEAD. From the cross-study listing: geneRow and pathwayRow now set each row's significance tier once with significanceTier(q, p), and significant is that tier's FDR call; direction is unchanged, so the index and fallback paths still build identical rows. The unused summarizeGroup aggregate is removed from crossDataset.ts.",
   "references": [
-    "src/data/expressionUnits.ts",
-    "src/data/buildPopData.ts",
-    "src/data/queryWire.ts",
-    "src/data/queryIndex.ts",
-    "CONTEXT.md"
+    "src/data/crossDatasetRows.ts",
+    "src/data/crossDataset.ts",
+    "docs/REFACTOR_CHECKLIST.md",
+    "src/data/originHealth.ts",
+    "docs/EDGE_PROTECTION.md"
   ]
 }

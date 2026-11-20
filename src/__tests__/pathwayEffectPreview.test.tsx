@@ -4,6 +4,7 @@ import { PathwayEffectPreview } from '../crossdataset/PathwayEffectPreview';
 import { _resetBundleCache, _setBundleTransport } from '../data/bundleSource';
 import { _resetTrackCache } from '../data/loadTrack';
 import { getActiveContrast } from '../data/contrasts';
+import { pathwayRow } from '../data/crossDatasetRows';
 import type { PathwayTrackRow, RawTrack } from '../types';
 import { MULTICONTRAST_DATASET_FIXTURE as dataset, MULTICONTRAST_TRACK_FIXTURE as fixture } from './fixtures';
 
@@ -13,7 +14,7 @@ vi.mock('../data/datasets', async (original) => {
 });
 
 const pathway = 'GOBP_RESPONSE_TO_NUTRIENT_LEVELS';
-const track: PathwayTrackRow = { trackId: 'other_population', label: 'Other population', type: 'Tissue', NES: 1.5, padj: 0.1, pval: 0.04, size: 25, db: 'GO_BP', direction: 'up', significant: false };
+const track: PathwayTrackRow = pathwayRow({ trackId: 'other_population', label: 'Other population', type: 'Tissue', NES: 1.5, padj: 0.1, pval: 0.04, size: 25, db: 'GO_BP' });
 const contrast = getActiveContrast(dataset, 'refed_vs_fed');
 let requests: string[];
 let raw: RawTrack;

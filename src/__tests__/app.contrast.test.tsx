@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, afterEach } from 'vitest';
+import { describe, it, expect, vi, afterEach, beforeAll } from 'vitest';
 import { render, screen, fireEvent, waitFor, act, within } from '@testing-library/react';
 
 // Inject the multi-contrast fixture dataset into the registry so the App's
@@ -61,11 +61,16 @@ vi.mock('../../data/internal-qc/assessments.generated.json', async (importOrigin
 });
 
 import App from '../App';
+import { preloadAppViews } from '../appViews';
 import { _resetTrackCache } from '../data/loadTrack';
 import { _resetDatasetMetaCache } from '../data/loadDatasetMeta';
 import { MULTICONTRAST_TRACK_FIXTURE } from './fixtures';
 import { parseRoute } from '../utils/appLinks';
 import { setChartScale } from '../common/chartScaleStore';
+
+// App's views are separate chunks (src/appViews.tsx); load them first so every
+// render below is synchronous.
+beforeAll(() => preloadAppViews());
 
 // Seed the eager globals for the multi-contrast dataset so switchDataset resolves
 // its meta + default track synchronously (no network).

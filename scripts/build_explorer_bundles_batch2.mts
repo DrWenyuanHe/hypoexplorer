@@ -24,7 +24,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { countNominallySignificant, defaultContrastBinding, outDirFromArgv, requireDataset, writeDatasetBundles } from './lib/bundleWriter.mjs';
+import { countFdrSignificant, defaultContrastBinding, outDirFromArgv, requireDataset, writeDatasetBundles } from './lib/bundleWriter.mjs';
 import { seFromStat } from '../src/utils/seRecovery';
 import { assertRectangular } from './lib/matrixShape.mjs';
 import { rankScore, numCell } from './lib/deTable.mjs';
@@ -634,7 +634,7 @@ function build(m: ManifestEntry) {
     .map((d, i) => ({ ...d, rankPos: i + 1 }));
   const cpm: Record<string, number[]> = {};
   for (const d of deFinal) cpm[d.gene] = expr.get(d.gene)!.map((v) => +v.toFixed(4));
-  const nSig = countNominallySignificant(deFinal);
+  const nSig = countFdrSignificant(deFinal);
 
   const trackObj = {
     meta: {
@@ -664,7 +664,7 @@ function build(m: ManifestEntry) {
     pathways,
   }], { outRoot: OUT_ROOT });
   const ig = deFinal.find((d) => ['IGFBP2', 'IGFBP5'].includes(d.gene.toUpperCase()));
-  console.log(`  genes:${deFinal.length} nSig(P<.01):${nSig} | ${ig ? `${ig.gene} logFC=${ig.logFC}` : 'no IGFBP'} → public/datasets/${m.websiteId}/`);
+  console.log(`  genes:${deFinal.length} nSig(FDR<.05):${nSig} | ${ig ? `${ig.gene} logFC=${ig.logFC}` : 'no IGFBP'} → public/datasets/${m.websiteId}/`);
 }
 
 const onlyArg = process.argv.find((arg) => arg.startsWith('--only='));

@@ -119,9 +119,6 @@ describe('appRouter — navigation writes the URL', () => {
     act(() => { result.current.searchPathway('HALLMARK_ADIPOGENESIS'); });
     await waitFor(() => expect(hash()).toBe('#/pathway/HALLMARK_ADIPOGENESIS'));
 
-    act(() => { result.current.compareDatasets('LEPR', null); });
-    await waitFor(() => expect(hash()).toBe('#/compare/LEPR'));
-
     act(() => { result.current.openTracker('GSE220533'); });
     await waitFor(() => expect(hash()).toBe('#/tracker/GSE220533'));
 
@@ -136,8 +133,8 @@ describe('appRouter — navigation writes the URL', () => {
     act(() => { result.current.openLibrary(); });
     await waitFor(() => expect(hash()).toBe('#/library'));
 
-    act(() => { result.current.openStatistics(); });
-    await waitFor(() => expect(hash()).toBe('#/statistics'));
+    act(() => { result.current.openMethodology(); });
+    await waitFor(() => expect(hash()).toBe('#/methodology'));
 
     act(() => { result.current.search('insulin secretion'); });
     await waitFor(() => expect(hash()).toBe('#/search/insulin%20secretion'));
@@ -162,8 +159,8 @@ describe('appRouter — navigation writes the URL', () => {
 
   it('returns the hub to the bare site root, with no fragment left behind', async () => {
     const { result } = renderRouter();
-    act(() => { result.current.openStatistics(); });
-    await waitFor(() => expect(hash()).toBe('#/statistics'));
+    act(() => { result.current.openMethodology(); });
+    await waitFor(() => expect(hash()).toBe('#/methodology'));
 
     act(() => { result.current.goHome(); });
     // Not '#/' — landing on the hub should leave hypoexplorer.com looking like
@@ -214,8 +211,8 @@ describe('appRouter — the URL is a history stack', () => {
 
     act(() => { result.current.searchGene('POMC'); });
     await waitFor(() => expect(hash()).toBe('#/gene/POMC'));
-    act(() => { result.current.openStatistics(); });
-    await waitFor(() => expect(hash()).toBe('#/statistics'));
+    act(() => { result.current.openMethodology(); });
+    await waitFor(() => expect(hash()).toBe('#/methodology'));
 
     await act(async () => {
       window.history.back();
@@ -301,25 +298,27 @@ describe('appRouter — the URL is a history stack', () => {
 
     const depth = window.history.length;
     await act(async () => {
-      window.history.replaceState(null, '', '/#/statistics');
+      window.history.replaceState(null, '', '/#/methodology');
       window.dispatchEvent(new HashChangeEvent('hashchange'));
     });
 
-    await waitFor(() => expect(result.current.view).toBe('statistics'));
-    expect(hash()).toBe('#/statistics');
+    await waitFor(() => expect(result.current.view).toBe('methodology'));
+    expect(hash()).toBe('#/methodology');
     expect(window.history.length).toBe(depth);
   });
 });
 
 describe('appRouter — booting from the URL', () => {
   it.each([
-    ['#/statistics', 'statistics'],
+    // Statistics merged into Methods & statistics; old links open it.
+    ['#/statistics', 'methodology'],
     ['#/methodology', 'methodology'],
     ['#/dataset/macaque_snrna/e9/methodology', 'methodology'],
     ['#/tracker', 'tracker'],
     ['#/library', 'library'],
     ['#/gene/POMC', 'report'],
-    ['#/compare/POMC', 'compare-datasets'],
+    // The retired one-gene compare opens that gene's page.
+    ['#/compare/POMC', 'report'],
     ['#/compare-set/macaque_snrna,mouse_hypo_hfd_gse220533', 'compare-set'],
     ['#/pathway/HALLMARK_ADIPOGENESIS', 'pathway-report'],
   ])('opens %s on the %s view, on the first frame', (url, view) => {
@@ -383,8 +382,8 @@ describe('appRouter — booting from the URL', () => {
 
   it('follows a compare-set link pasted into the open tab', async () => {
     const { result } = renderRouter();
-    act(() => { result.current.openStatistics(); });
-    await waitFor(() => expect(hash()).toBe('#/statistics'));
+    act(() => { result.current.openMethodology(); });
+    await waitFor(() => expect(hash()).toBe('#/methodology'));
 
     await act(async () => {
       window.history.replaceState(null, '', `/#/compare-set/${MACAQUE.id},${MOUSE.id}`);
@@ -468,14 +467,14 @@ describe('appRouter — a URL is untrusted input', () => {
   });
   it('leaves the user alone on a hash it does not recognize', async () => {
     const { result } = renderRouter();
-    act(() => { result.current.openStatistics(); });
-    await waitFor(() => expect(result.current.view).toBe('statistics'));
+    act(() => { result.current.openMethodology(); });
+    await waitFor(() => expect(result.current.view).toBe('methodology'));
 
     await act(async () => {
       window.history.replaceState(null, '', '/#some-anchor');
       window.dispatchEvent(new HashChangeEvent('hashchange'));
     });
-    expect(result.current.view).toBe('statistics');
+    expect(result.current.view).toBe('methodology');
   });
 });
 

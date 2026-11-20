@@ -1,6 +1,6 @@
 // Shared primitives for the cross-dataset report pages (GeneReport's log2FC
-// forest, PathwayReport's NES forest, and CrossDatasetCompare's bar grid): the
-// direction encoding, the significance pill, the contrast label, the category
+// forest and PathwayReport's NES forest): the
+// direction encoding, the contrast label, the category
 // grouping, the category-scope state machine + its filter chip, the
 // report-query lifecycle, and the shared six-column grid.
 //
@@ -14,13 +14,13 @@ import type { Dispatch, SetStateAction } from 'react';
 import { ProgressBar } from '../common/ProgressBar';
 import { Spinner } from '../common/Spinner';
 import { useBundleBytes } from '../data/useBundleProgress';
-import { DIRECTION_UP_COLOR, DIRECTION_DOWN_COLOR, FONT_MONO, FONT_SANS } from '../styles/constants';
+import { DIRECTION_UP_COLOR, DIRECTION_DOWN_COLOR, FONT_MONO } from '../styles/constants';
 import { fmtBytes } from '../utils/format';
 import type { Direction, ResolvedContrast } from '../types';
 
 // One grid template for every row of a forest (axis header, track rows) so the
 // dots, the axis ticks and the numeric columns stay registered.
-export const FOREST_GRID = '200px 1fr 60px 72px 60px 64px';
+export const FOREST_GRID = '200px 1fr 60px 72px 60px 92px';
 
 /** Position (0–100%) of an effect on the shared, zero-centered axis, clamped. */
 export function axisPct(value: number, bound: number): number {
@@ -42,21 +42,6 @@ export function directionColor(dir: Direction, significant: boolean): string {
 // authored-label-wins rule, and recomputing here silently discarded it.
 export function contrastLabel(contrast: ResolvedContrast | null | undefined): string {
   return contrast?.label ?? '';
-}
-
-export function SigPill({ direction, significant }: { direction: Direction; significant: boolean }) {
-  const label = !significant ? 'n.s.' : direction === 'up' ? 'up' : direction === 'down' ? 'down' : 'flat';
-  const color = directionColor(direction, significant);
-  return (
-    <span style={{
-      display: 'inline-flex', alignItems: 'center', gap: 4, whiteSpace: 'nowrap',
-      fontSize: 10, fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase',
-      color, background: significant ? `color-mix(in srgb, ${color} 12%, transparent)` : 'rgba(148,163,184,0.16)',
-      borderRadius: 999, padding: '2px 8px', fontFamily: FONT_SANS,
-    }}>
-      <span aria-hidden="true">{dirGlyph(direction)}</span>{label}
-    </span>
-  );
 }
 
 // A pill that toggles whether one category is shown in a cross-dataset view.
@@ -168,9 +153,9 @@ export function useReportQuery<TResult>(
   errorMessage: string,
 ): ReportQueryState<TResult> {
   const [result, setResult] = useState<TResult | null>(null);
-  // An empty key is IDLE, not loading. The reports' landing states (the Gene and
-  // Pathway Explorers entered with nothing searched yet) mount with one, and
-  // starting at `true` would show them a spinner for a query that never runs.
+  // An empty key is IDLE, not loading. A report still waiting on its study
+  // selection (sample counts not yet loaded) mounts with one, and starting at
+  // `true` would show a spinner for a query that has not been issued.
   const [loading, setLoading] = useState(Boolean(key));
   const [progress, setProgress] = useState({ loaded: 0, total: 0 });
   const [error, setError] = useState<string | null>(null);

@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "445c898fe8eb5fc3449948b3f57be4cbadb8aa09558e4abc5bebbeba66d36ea8",
+  "fingerprint": "9840500b68cc86732cccb39ee53fd44f66f18362a4e862c7702fce9d79c55815",
   "outcome": "updated",
-  "explanation": "deploy:cf now runs prepare:deploy, build, verify:release, wrangler deploy and verify:deploy without precompress; deploy:dist remains the Apache build. The default build emits a self-destroying sw.js and registers no worker (VITE_SERVICE_WORKER=1 restores it), public/_headers keeps /sw.js no-cache so old installs pick up the stub, and delivery.md and DEVELOPMENT.md document both.",
+  "explanation": "delivery.md (from main) explains the codeSplitting groups, modulepreload checks, cache policy and HEAD origin probe. This branch only adds worker.format es, which emits the circadian workbook worker as a small ES-module asset that lazy-loads the xlsx group; it is not on the hub path, and the site Worker, R2 origin, edge rules and spend guard are unchanged.",
   "references": [
     "docs/agent-context/delivery.md",
-    "docs/DEVELOPMENT.md",
-    "package.json",
     "vite.config.ts",
-    "public/_headers"
+    "docs/APP_LOADING_2026-11-20.md"
   ]
 }

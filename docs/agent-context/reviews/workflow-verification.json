@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "27b800852fca419a8b9671e3252595aad3f5094d4b9d06b0d14150640b7dc85d",
+  "fingerprint": "c4086f38519320b7b53fabd7434949c1e7f9e183f3349ffd12f9ed1994ce5af5",
   "outcome": "no-impact",
-  "explanation": "verify_deploy.mts changes only the app-origin compression check (sidecar yardstick optional on the Cloudflare edge model, explicit failure if an Apache host serves sidecars without a local one) and its redeploy hints. Scientific evidence, QC review and verification records are unaffected.",
+  "explanation": "From main: workflows.md changed only in its ui-change route. Verification evidence, quality ledgers, author concordance and their checks are unchanged; the ledgers are now loaded lazily by the views that show them, with identical content. From the cross-study listing: No evidence ledger, audit, QC table or verification record changed, and no bundle bytes move. The FDR call is the same isFdrSignificant cutoff behind significanceTier, so every significance count in search and both reports is unchanged; only the within-tier order of listed rows changed, as the changelog records.",
   "references": [
-    "scripts/verify_deploy.mts",
-    "docs/agent-context/workflows.md"
+    "docs/agent-context/workflows.md",
+    "data/author-validation/README.md",
+    "src/statistics/policy.ts"
   ]
 }

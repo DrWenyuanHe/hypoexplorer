@@ -331,6 +331,7 @@ export interface TrackRow {
     pval: number;
     se: number | null;
     direction: Direction;
+    tier: SignificanceTier;
     significant: boolean;
     lowPower: boolean;
 }
@@ -362,20 +363,6 @@ export interface CrossDatasetGeneReport {
 }
 ```
 
-## GroupSummary
-
-Expression summary for one experimental arm.
-
-```ts
-export interface GroupSummary {
-    up: number;
-    down: number;
-    nSig: number;
-    nTracks: number;
-    strongest: TrackRow | null;
-}
-```
-
 ## PathwayTrackRow
 
 One track's pathway result in a cross-dataset report.
@@ -391,6 +378,7 @@ export interface PathwayTrackRow {
     size: number;
     db: DbName;
     direction: Direction;
+    tier: SignificanceTier;
     significant: boolean;
 }
 ```

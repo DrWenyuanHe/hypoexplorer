@@ -1,0 +1,25 @@
+/* The listing-mode toggle (ListingModeToggle) and the self-explaining q term.
+   The pick is unmistakable at a glance: filled, ticked and bold, the other option plain. */
+.listing-mode { display: inline-flex; align-items: center; gap: 6px; }
+.listing-mode-label { font-size: 11.5px; color: var(--text-muted); }
+.listing-mode-options { display: flex; margin: 0; padding: 0; min-inline-size: auto; overflow: hidden; border: 1px solid var(--border-dark); border-radius: 4px; }
+.listing-mode-legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.listing-mode-options button { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px 3px 8px; font-family: inherit; font-size: 11.5px; font-weight: 600; line-height: 1.6; color: var(--text-muted); background: var(--bg-panel); border: 0; cursor: pointer; }
+.listing-mode-options button + button { border-left: 1px solid var(--border-dark); }
+.listing-mode-options button:hover { color: var(--text-primary); background: var(--row-hover); }
+/* The pick is filled in the brand blue (white on it is about 4.6:1) and ticked. */
+.listing-mode-options button[aria-pressed="true"] { color: #fff; background: var(--accent); cursor: default; }
+.listing-mode-check { visibility: hidden; }
+.listing-mode-options button[aria-pressed="true"] .listing-mode-check { visibility: visible; }
+.listing-mode-options button:focus-visible { outline: 2px solid var(--color-selected); outline-offset: -2px; }
+.listing-mode-options button[aria-pressed="true"]:focus-visible { outline-offset: -3px; }
+
+/* TierLabel: FDR survivors carry an outlined label; the nominal tier is muted
+   text, never a coloured claim. */
+.portal-tier { font-size: var(--fs-11); white-space: nowrap; }
+.portal-tier--fdr { padding: 0 6px; font-weight: 600; color: var(--accent); border: 1px solid currentColor; border-radius: 999px; }
+.portal-tier--nominal, .portal-tier--none { color: var(--text-muted); }
+
+/* A dotted underline marks a term with an explanation behind it. */
+.q-term { text-decoration: underline dotted; text-underline-offset: 2px; cursor: help; }
+.q-term:focus-visible { outline: 2px solid var(--color-selected); outline-offset: 1px; border-radius: 2px; }

@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-hub",
-  "fingerprint": "b7ac016aabb17b1e2be50fb2746353b34178aed859b77f55689efcac4e756cd0",
+  "fingerprint": "22c85680d3a17dbbdc2f14b64eb2251d06593b3a08b27a18cbf0277d6abb1645",
   "outcome": "updated",
-  "explanation": "LandingHub adds a third hero card for the macaque snRNA-seq atlas (HUB_ATLAS_ID) beside the library and expression survey cards: the card opens #/dataset/macaque_snrna and a sibling button opens its population Compare view through datasetHref and COMPARE_TRACK. The card is omitted when the registry lacks the atlas; hub CSS lays the cards out in three columns above 768px.",
+  "explanation": "DataOriginStatus documents its five-minute re-probe as a bodiless HEAD. The hub remains in the entry chunk as the default route, while every other view moved behind src/appViews.tsx, so the hub no longer downloads the explorer, reports, recharts or the evidence ledgers.",
   "references": [
-    "src/hub/LandingHub.tsx",
-    "index.html",
-    "src/utils/appLinks.ts"
+    "src/hub/DataOriginStatus.tsx",
+    "src/appViews.tsx",
+    "docs/APP_LOADING_2026-11-20.md"
   ]
 }

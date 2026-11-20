@@ -149,7 +149,6 @@ Every pull request to `main` must pass these checks:
 | `src/expression-survey/`, `src/circadian/` | Baseline expression and rhythm views |
 | `src/verification/`, `src/qc/` | Evidence badges, verification records and QC tables |
 | `src/nomenclature/`, `src/search/` | Symbol authority reference and unified search |
-| `src/local-datasets/` | Importing your own results into the browser |
 | `src/data/` | The dataset registry, bundle loading and the query index client |
 | `scripts/` | Bundle builders, static page generation, deploy and verification tools |
 | `workers/`, `cloudflare/` | The R2 spend guard and the edge cache and WAF rules |
@@ -161,7 +160,6 @@ Every pull request to `main` must pass these checks:
 - [CONTEXT.md](../CONTEXT.md): domain vocabulary (dataset, track, group, contrast). Read it before changing the data layer.
 - [DATASET_CONTRACT.md](DATASET_CONTRACT.md): the data shapes a dataset bundle must provide.
 - [REAL_DATA_SHAPES.md](REAL_DATA_SHAPES.md): quirks of the upstream tables the builders handle.
-- [LOCAL_DATASETS.md](LOCAL_DATASETS.md): importing and exporting results stored in the browser.
 - [EXPRESSION_SURVEY.md](EXPRESSION_SURVEY.md): survey sources, scales and eligibility.
 - [AGENT_EXPORT.md](AGENT_EXPORT.md): the full analysis-table export.
 - [SEO.md](SEO.md): static study pages and source attribution.

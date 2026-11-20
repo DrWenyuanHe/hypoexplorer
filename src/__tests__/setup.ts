@@ -3,6 +3,7 @@ import {
   POP_META_FIXTURE, QC_GLOBAL_FIXTURE, HX_MACAQUE_SNRNA_E9_FIXTURE,
 } from './fixtures';
 import { installRetainedCacheGate } from './retainedAuditCache';
+import { _resetListingModeStore } from '../statistics/listingModeStore';
 
 // Logic and data tests run in the Node environment (see vite.config.ts), where
 // there is no document to query and nothing to render. Only a jsdom file pays
@@ -47,6 +48,9 @@ testingLibrary?.configure({ asyncUtilTimeout: 5000 });
 // then. This fires nothing.
 afterEach(() => {
   if (hasDom) window.history.replaceState(null, '', '/');
+  // The listing-mode pick is module state persisted to localStorage; reset it
+  // so a test that switched to FDR-only cannot change what the next one lists.
+  _resetListingModeStore();
 });
 
 // CI declares the gitignored retained audit cache absent; this skips, by name, only

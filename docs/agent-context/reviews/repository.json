@@ -1,16 +1,17 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "b2f537013d299827a283e16c1e1bdb30102f6e07b6db0b4ba4b904df8dc18f39",
+  "fingerprint": "4bbede0eebdf637d1fcda7cf185a0225ffaa79889491a360210ddef7d6c3c573",
   "outcome": "updated",
-  "explanation": "vite.config.ts gates VitePWA on VITE_SERVICE_WORKER (selfDestroying when unset, full Workbox config kept for opt-in); deploy:cf and deploy:cf:dry run build instead of deploy:dist, so precompress is now Apache-only; verify_deploy treats the app sidecar yardstick as optional on the edge model. Delivery, development, guidance and release docs and the catalog describe this.",
+  "explanation": "From main: From main, App renders every non-hub view through src/appViews.tsx and docs/APP_LOADING_2026-11-20.md records the hub critical path. This branch adds worker.format es in vite.config.ts beside main's codeSplitting groups so the circadian workbook worker can lazy-load the xlsx group, and extends the ui-change runbook's circadian paragraph; the generated code map is regenerated for the merged tree. From the cross-study listing: CONTEXT.md defines significance tier, listing mode and cross-study listing. The UI change workflow and the refactor checklist name listCrossStudy as the one place a cross-study view gets what leads, its order and its counts, and TierLabel in src/statistics as its label. The catalog adds both files to the statistics area and drops GroupSummary.",
   "references": [
+    "CONTEXT.md",
+    "docs/agent-context/workflows.md",
+    "docs/REFACTOR_CHECKLIST.md",
+    "docs/agent-context/catalog.json",
+    "src/changelog/changelog.ts",
+    "src/appViews.tsx",
     "vite.config.ts",
-    "package.json",
-    "scripts/verify_deploy.mts",
-    "scripts/precompress_dist.mts",
-    "docs/agent-context/delivery.md",
-    "docs/DEVELOPMENT.md",
-    "docs/agent-context/catalog.json"
+    "docs/agent-context/generated/codebase.md"
   ]
 }

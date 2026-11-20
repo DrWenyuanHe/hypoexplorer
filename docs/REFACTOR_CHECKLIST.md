@@ -56,8 +56,11 @@ leave them byte-for-byte unchanged:
 - [ ] Contrast resolution → `getActiveContrast` / `listContrasts` / `requireContrast`
       in `src/data/contrasts.ts`; bundle URL/global-key locators →
       `src/data/bundleLocators.ts` (the manifest itself stays in `datasets.ts`).
-- [ ] Cross-dataset row shaping (direction / significance) → `geneRow` / `pathwayRow`
+- [ ] Cross-dataset row shaping (direction / significance tier) → `geneRow` / `pathwayRow`
       in `src/data/crossDatasetRows.ts`, shared by the index and fallback paths.
+- [ ] What a cross-study view leads with, its order and its counts → `listCrossStudy`
+      in `src/statistics/crossStudyListing.ts` (no per-view tier sort or tally); the
+      tier label → `TierLabel` in `src/statistics/TierLabel.tsx`.
 - [ ] Category-scope chips on report pages → `useCategoryScope` / `FilterChip` in
       `src/crossdataset/forestReport.tsx`.
 - [ ] Export buttons (disabled-when-busy + spinner wiring) → `ExportButton` in
@@ -76,8 +79,7 @@ leave them byte-for-byte unchanged:
       `src/data/bundleSource.ts` (no inline `window.X` reads).
 - [ ] Font stacks → `FONT_MONO` / `FONT_SANS` / `FONT_HEADING` in `src/styles/constants.ts`
       (Hanken Grotesk stacks are shared CSS variables in `public/fonts/typography.css`; keep data readouts monospace).
-- [ ] Reference-page prose (Methodology/DataSources) → `src/common/prose.tsx`;
-      StatisticsView's larger scale is deliberate and stays local.
+- [ ] Reference-page prose (Methods & statistics) → `src/common/prose.tsx`.
 - [ ] Link-chip text → `link.label` from `datasetExternalLinks`
       (`src/utils/datasetLinks.ts`) — never re-derive from `kind`.
 - [ ] DE-direction colors → `UP_COLOR` / `DOWN_COLOR` in `src/styles/constants.ts`

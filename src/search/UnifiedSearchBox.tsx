@@ -223,14 +223,12 @@ export function UnifiedSearchBox({ initialQuery = '', onSearch, autoLoad, varian
             onBlur={() => setOpen(false)}
             onKeyDown={onKeyDown}
           />
-          {query ? (
+          {query && (
             <button type="button" className="hub-search-clear" aria-label="Clear search" onClick={clear}>
               <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true">
                 <path d="M4 4l8 8M12 4l-8 8" />
               </svg>
             </button>
-          ) : (
-            variant === 'hub' && <span className="hub-search-kbd" title="Press / to search" aria-hidden="true">/</span>
           )}
           <button type="submit" className="hub-search-go" aria-label="Search">
             <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

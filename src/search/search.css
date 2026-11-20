@@ -7,6 +7,8 @@
 
 .search-title { margin: 28px 0 0; font-family: var(--font-heading); font-size: var(--fs-22); font-weight: 600; letter-spacing: -0.01em; line-height: 1.25; color: var(--text-primary); overflow-wrap: anywhere; }
 .search-title--results { margin-top: 24px; font-size: var(--fs-16); color: var(--text-mono); }
+.search-results-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin-top: 24px; }
+.search-results-head .search-title--results { margin: 0; }
 .search-lede { margin: 8px 0 0; max-width: 66ch; font-size: var(--fs-14); line-height: 1.55; color: var(--text-muted); }
 .search-loading, .search-hint { margin: 24px 0 0; font-size: var(--fs-13); color: var(--text-muted); }
 .search-hint { margin: 16px 0 0; }
@@ -43,7 +45,10 @@
 .portal-verdict b { font-family: var(--font-mono); font-weight: 600; }
 .portal-cutoff { color: var(--text-muted); font-size: var(--fs-12); }
 
-.portal-table-wrap { overflow-x: auto; margin: 0 -4px; }
+/* Positioned so the absolutely placed screen-reader labels inside a wide table
+   stay within this scroller; otherwise they stretch the page past a phone's
+   width and the browser zooms the whole page out to fit them. */
+.portal-table-wrap { position: relative; overflow-x: auto; margin: 0 -4px; }
 .portal-table { width: 100%; min-width: 620px; border-collapse: collapse; font-size: var(--fs-13); }
 .portal-table th { padding: 6px 8px; text-align: left; font-size: var(--fs-11); font-weight: 600; color: var(--text-muted); border-bottom: 1px solid var(--border-dark); white-space: nowrap; }
 .portal-table td { padding: 7px 8px; vertical-align: top; color: var(--text-mono); border-bottom: 1px solid var(--border); }
@@ -53,6 +58,9 @@
 .portal-study { display: block; color: var(--text-primary); }
 .portal-acc { display: block; margin-top: 2px; font-family: var(--font-mono); font-size: var(--fs-11); color: var(--text-muted); }
 .portal-contrast { color: var(--text-muted); }
+/* The Call column's TierLabel is styled with it, in statistics/listingMode.css. */
+.portal-table tr[data-tier="nominal"] td, .portal-table tr[data-tier="none"] td { color: var(--text-muted); }
+.search-row-nominal { color: var(--text-muted); }
 .portal-lowpower { margin-left: 6px; padding: 1px 6px; font-size: var(--fs-10); font-weight: 600; color: #B45309; background: #FEF3C7; border-radius: 999px; white-space: nowrap; }
 
 .portal-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }

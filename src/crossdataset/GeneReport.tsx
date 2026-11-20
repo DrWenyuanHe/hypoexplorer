@@ -1,21 +1,25 @@
 import { useState, useEffect, useId, useMemo, useCallback } from 'react';
 import type { Dispatch, MouseEvent, ReactNode, SetStateAction } from 'react';
-import { queryGeneAcrossDatasets, loadGeneIndex } from '../data/crossDataset';
+import { queryGeneAcrossDatasets } from '../data/crossDataset';
 import { datasetCategory, DATASET_CATEGORIES, listDatasets } from '../data/datasets';
 import type { DatasetCategory } from '../data/datasets';
 import { datasetHref, libraryHref, isPlainLeftClick } from '../utils/appLinks';
-import { fmtFDR, fmtSigned } from '../utils/format';
+import { fmtFDR, fmtP, fmtSigned } from '../utils/format';
 import { FONT_MONO, UP_TEXT_COLOR as UP, DOWN_TEXT_COLOR as DOWN } from '../styles/constants';
 import { useReportQuery, useCategoryScope, ReportLoading } from './forestReport';
 import { categoryColor } from '../library/LibraryToolbar';
 import {
-  SearchHero, DatasetScopePanel, ScopeSummary, useSearchIndex, NOOP_SCOPE,
+  DatasetScopePanel, ScopeSummary, NOOP_SCOPE,
 } from './searchLanding';
 import { useStudySelection, GeneStudySuggestions, type GeneStudyFilters } from './geneStudyScope';
 import { PageShell } from '../common/PageShell';
 import { EmptyState } from '../common/EmptyState';
-import { DEFAULT_FDR_CUTOFF } from '../statistics/policy';
+import { DEFAULT_FDR_CUTOFF, NOMINAL_P_CUTOFF } from '../statistics/policy';
+import { GENE_KEYS, listCrossStudy, type Listed } from '../statistics/crossStudyListing';
 import { dirColor } from '../search/portalCards';
+import { TierLabel } from '../statistics/TierLabel';
+import { useListingMode, type ListingMode } from '../statistics/listingModeStore';
+import { ListingModeToggle, QTerm } from '../statistics/ListingModeToggle';
 import { CompareSetToggle } from '../compareset/CompareSetToggle';
 import { toggleItem, useCompareSet } from '../compareset/compareSetStore';
 import { GeneEffectPreview } from './GeneEffectPreview';
@@ -35,9 +39,7 @@ import type {
 // Dataset details live in the library record; tracks can be saved to the
 // shared compare set. Expression previews load their track only when requested.
 //
-// With no gene, this draws the search and scope controls; App shows them in the
-// shared gene and pathway search dialog over the hub.
-// Submitting a gene opens this page under the chosen scope.
+// Searching another gene from the box in its header keeps the chosen scope.
 //
 // Not to be confused with the explorer's per-dataset "Gene Explorer" tab, which
 // draws one study's volcano. This one spans the corpus; that one goes deep on a
@@ -82,21 +84,21 @@ function AppLink({
 // in. A bar on one shared axis shows size and sign; the effect cell opens the
 // track's expression preview on hover, focus or tap. Each row carries its
 // study's actions: the library record, the explorer at that track, and the
-// compare set. The significant tracks lead; the rest are one toggle away.
+// compare set. The tracks at raw p < 0.05 lead: FDR survivors first, labelled
+// FDR < 0.05, then the nominal ones, labelled p < 0.05 only and never counted
+// as significant. The rest are one toggle away.
 
-interface StudyRow { group: DatasetGroup; track: TrackRow }
+type StudyRow = Listed<DatasetGroup, TrackRow>;
 
 interface AreaGroup {
   category: DatasetCategory;
+  /** The rows the table shows for this area, in the listing's order. */
   rows: StudyRow[];
   significant: number;
+  /** Tracks at raw p < 0.05 that fail FDR: labelled, never counted as significant. */
+  nominal: number;
   up: number;
   down: number;
-}
-
-function byFdr(a: StudyRow, b: StudyRow): number {
-  return (a.track.fdr ?? Number.POSITIVE_INFINITY) - (b.track.fdr ?? Number.POSITIVE_INFINITY)
-    || Math.abs(b.track.logFC) - Math.abs(a.track.logFC);
 }
 
 /** "4.1× lower in Stat3 KO": the case group against its baseline, as log2FC is defined. */
@@ -113,22 +115,23 @@ function Comparison({ contrast }: { contrast: ResolvedContrast | null }) {
   return <><b className="report-de-first">{contrast.caseGroup.label}</b> vs {contrast.baseline.label}</>;
 }
 
-function areaGroups(rows: StudyRow[]): AreaGroup[] {
-  const byArea = new Map<DatasetCategory, StudyRow[]>();
-  for (const row of rows) {
-    const category = datasetCategory(row.group.dataset.id);
-    byArea.set(category, [...(byArea.get(category) ?? []), row]);
+/**
+ * The research areas, each its own cross-study listing over the area's
+ * studies. `showRest`: list every measured track; otherwise only the tracks
+ * that lead in the mode, and an area with none is left out.
+ */
+function areaGroups(groups: DatasetGroup[], mode: ListingMode, showRest: boolean): AreaGroup[] {
+  const byArea = new Map<DatasetCategory, DatasetGroup[]>();
+  for (const group of groups) {
+    const category = datasetCategory(group.dataset.id);
+    byArea.set(category, [...(byArea.get(category) ?? []), group]);
   }
-  return [...byArea].map(([category, areaRows]) => {
-    const sig = areaRows.filter((r) => r.track.significant);
-    return {
-      category,
-      rows: areaRows.sort(byFdr),
-      significant: sig.length,
-      up: sig.filter((r) => r.track.direction === 'up').length,
-      down: sig.filter((r) => r.track.direction === 'down').length,
-    };
-  }).sort((a, b) => b.significant - a.significant || b.rows.length - a.rows.length
+  return [...byArea].flatMap(([category, inArea]): AreaGroup[] => {
+    const { lead, rest, tracks, nominal } = listCrossStudy(inArea, mode, GENE_KEYS, 'significance');
+    const rows = showRest ? [...lead, ...rest] : lead;
+    if (rows.length === 0) return [];
+    return [{ category, rows, significant: tracks.fdr, nominal: nominal?.tracks ?? 0, up: tracks.up, down: tracks.down }];
+  }).sort((a, b) => b.significant - a.significant || b.nominal - a.nominal || b.rows.length - a.rows.length
     || DATASET_CATEGORIES.indexOf(a.category) - DATASET_CATEGORIES.indexOf(b.category));
 }
 
@@ -137,8 +140,15 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
   groups: DatasetGroup[];
   onOpenDataset?: OpenDataset;
 }) {
-  const all = useMemo(() => groups.flatMap((group) => group.tracks.map((track) => ({ group, track }))), [groups]);
-  const significant = useMemo(() => all.filter((r) => r.track.significant), [all]);
+  const mode = useListingMode();
+  const nominalMode = mode === 'nominal';
+  // What the table leads with: the FDR survivors and, in the p < 0.05 listing,
+  // the nominal tracks after them, labelled.
+  const { lead, tracks, datasets, nominal: nominalCounts } = useMemo(
+    () => listCrossStudy(groups, mode, GENE_KEYS, 'significance'),
+    [groups, mode],
+  );
+  const nominal = nominalCounts?.tracks ?? 0;
   const measured = groups.filter((g) => g.tracks.length > 0);
   // A study whose data did not load says nothing about the gene, so it is
   // named rather than counted as not measuring it.
@@ -149,29 +159,29 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
       ({failed.map((g) => g.dataset.name).join(', ')}), so {gene} may be measured there.
     </p>
   );
-  const studiesSignificant = measured.filter((g) => g.tracks.some((t) => t.significant)).length;
-  const up = significant.filter((r) => r.track.direction === 'up').length;
-  const down = significant.filter((r) => r.track.direction === 'down').length;
-  const areasSignificant = new Set(significant.map((r) => datasetCategory(r.group.dataset.id))).size;
+  const significantCount = tracks.fdr;
+  const studiesSignificant = datasets.fdr;
+  const { up, down } = tracks;
+  const areasSignificant = new Set(lead.filter((r) => r.track.tier === 'fdr').map((r) => datasetCategory(r.group.dataset.id))).size;
   const [showAll, setShowAll] = useState(false);
-  // With nothing significant, the measured tracks are the table.
-  const listed = showAll || significant.length === 0 ? all : significant;
-  const areas = useMemo(() => areaGroups(listed), [listed]);
-  // Areas measured here with no significant track, named in one line instead of drawn empty.
+  // With nothing to lead with, the measured tracks are the table.
+  const showRest = showAll || lead.length === 0;
+  const areas = useMemo(() => areaGroups(groups, mode, showRest), [groups, mode, showRest]);
+  // Areas measured here with nothing to lead with, named in one line instead of drawn empty.
   const quietAreas = useMemo(() => {
-    if (listed === all) return [];
+    if (showRest) return [];
     const shown = new Set(areas.map((a) => a.category));
     return [...new Set(measured.map((g) => datasetCategory(g.dataset.id)))]
       .filter((c) => !shown.has(c))
       .sort((a, b) => DATASET_CATEGORIES.indexOf(a) - DATASET_CATEGORIES.indexOf(b));
-  }, [listed, all, areas, measured]);
+  }, [showRest, areas, measured]);
   // One axis for every bar on the page: |log2FC| rounded up, 1 to 8.
-  const bound = Math.min(8, Math.max(1, Math.ceil(Math.max(0, ...listed.map((r) => Math.abs(r.track.logFC))))));
+  const bound = Math.min(8, Math.max(1, Math.ceil(Math.max(0, ...areas.flatMap((a) => a.rows.map((r) => Math.abs(r.track.logFC)))))));
   const compareSet = useCompareSet();
-  // Each area folds. An area with significant tracks starts open; one without
-  // (listed by "Show all") starts closed, unless nothing is significant at all.
+  // Each area folds. An area with a track the table leads with starts open; one
+  // without (listed by "Show all") starts closed, unless nothing leads at all.
   const [folded, setFolded] = useState<Partial<Record<DatasetCategory, boolean>>>({});
-  const isOpen = (area: AreaGroup) => !(folded[area.category] ?? (area.significant === 0 && significant.length > 0));
+  const isOpen = (area: AreaGroup) => !(folded[area.category] ?? (area.significant + area.nominal === 0 && lead.length > 0));
   const toggleArea = (area: AreaGroup) => setFolded((f) => ({ ...f, [area.category]: isOpen(area) }));
   const areasId = useId();
 
@@ -188,9 +198,10 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
   return (
     <>
       {failedNote}
+      <div className="report-de-mode"><ListingModeToggle /></div>
       <p className="portal-verdict">
         Significant in <b>{studiesSignificant}</b> of <b>{measured.length}</b> datasets
-        {significant.length > 0 && (
+        {significantCount > 0 && (
           <>
             , across <b>{areasSignificant}</b> research {areasSignificant === 1 ? 'area' : 'areas'}
             {' · '}<span style={{ color: UP }}><b>{up}</b> {up === 1 ? 'track' : 'tracks'} up</span>
@@ -198,12 +209,27 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
           </>
         )}
         <span className="portal-cutoff"> (FDR &lt; {DEFAULT_FDR_CUTOFF})</span>
+        {nominal > 0 && (
+          <span className="portal-cutoff"> · {nominal} more {nominal === 1 ? 'track' : 'tracks'} at p &lt; {NOMINAL_P_CUTOFF} only</span>
+        )}
       </p>
-      {significant.length === 0 && (
-        <p className="portal-note">No track reaches FDR &lt; {DEFAULT_FDR_CUTOFF}. Every measured track is listed, lowest q first.</p>
+      {nominal > 0 ? (
+        <p className="portal-note">
+          {significantCount === 0 ? `No track reaches FDR < ${DEFAULT_FDR_CUTOFF}. ` : ''}
+          Tracks at p &lt; {NOMINAL_P_CUTOFF} that do not pass FDR are listed after the FDR results and marked{' '}
+          <i>p &lt; {NOMINAL_P_CUTOFF} only</i>: they are not corrected for the genes each study tested or the
+          tracks searched here, so some are expected by chance.
+        </p>
+      ) : significantCount === 0 && (
+        nominalMode
+          ? <p className="portal-note">No track reaches p &lt; {NOMINAL_P_CUTOFF}. Every measured track is listed, lowest p first.</p>
+          : <p className="portal-note">No track reaches FDR &lt; {DEFAULT_FDR_CUTOFF}. Every measured track is listed, lowest q first.</p>
       )}
       <div className="report-de-legend">
-        <span>Each change is {gene} in the <b>first group</b> of the comparison, relative to the second.</span>
+        <span>
+          Each change is {gene} in the <b>first group</b> of the comparison, relative to the second.
+          {' '}<QTerm /> is the FDR-adjusted p-value.
+        </span>
         <span className="report-de-legend-dirs">
           <span style={{ color: DOWN }}>◀ lower in the first group</span>
           <span aria-hidden="true" className="report-de-legend-rule" />
@@ -227,7 +253,8 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
                   <span className="report-de-dot" aria-hidden="true" style={{ background: categoryColor(area.category) }} />
                   <span className="report-de-area-name">{area.category}</span>
                   <span className="report-de-area-count">
-                    {area.significant > 0 ? <><b>{area.significant}</b> significant</> : `${area.rows.length} measured, none significant`}
+                    {area.significant > 0 ? <><b>{area.significant}</b> significant</> : area.nominal > 0 ? 'none significant' : `${area.rows.length} measured, none significant`}
+                    {area.nominal > 0 && <> · <b>{area.nominal}</b> at p &lt; {NOMINAL_P_CUTOFF} only</>}
                   </span>
                   {/* Closed, the area still says what leads it. */}
                   {!open && lead && (
@@ -256,7 +283,7 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
                   <th scope="col">Population and source</th>
                   <th scope="col">Effect bar</th>
                   <th scope="col">Change</th>
-                  <th scope="col">q (FDR)</th>
+                  <th scope="col">q (FDR) and call</th>
                   <th scope="col">Study actions</th>
                 </tr>
               </thead>
@@ -267,8 +294,9 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
                   const inSet = compareSet.some((entry) => entry.datasetId === item.datasetId && entry.trackId === item.trackId);
                   const color = dirColor(track.direction, track.significant);
                   const half = (Math.min(Math.abs(track.logFC), bound) / bound) * 50;
+                  const { tier } = track;
                   return (
-                    <tr key={`${dataset.id}:${track.trackId}`} data-significant={track.significant || undefined}>
+                    <tr key={`${dataset.id}:${track.trackId}`} data-significant={track.significant || undefined} data-tier={tier}>
                       <td className="report-de-comparison"><Comparison contrast={contrast} /></td>
                       {/* The population, then where it comes from. The study's full name
                           (which mostly restates the comparison) is the cell's title and
@@ -292,10 +320,21 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
                       <td>
                         <GeneEffectPreview gene={gene} dataset={dataset} track={track} contrast={contrast}>
                           <span className="report-de-phrase" style={{ color }}>{foldPhrase(track, contrast)}</span>
-                          <span className="report-de-fc">log2FC {fmtSigned(track.logFC, 2)}{!track.significant && ' · n.s.'}</span>
+                          <span className="report-de-fc">
+                            log2FC {fmtSigned(track.logFC, 2)}
+                            {tier === 'nominal' ? ` · p ${fmtP(track.pval)}` : tier === 'none' ? ' · n.s.' : ''}
+                          </span>
                         </GeneEffectPreview>
                       </td>
-                      <td className="num mono">{fmtFDR(track.fdr)}</td>
+                      <td className="num mono">
+                        {/* Named in the cell: the column headers are for screen readers only, and a bare
+                            number above "p < 0.05 only" reads as the p-value. */}
+                        {/* Hover-only per row: one tab stop per row would bury the actions.
+                            The legend's q is the keyboard-reachable copy. */}
+                        <span className="report-de-qlabel"><QTerm focusable={false} /></span> {fmtFDR(track.fdr)}
+                        {/* The change cell already says "n.s." for the untiered rows. */}
+                        {tier !== 'none' && <TierLabel tier={tier} className="report-de-tier" />}
+                      </td>
                       <td className="report-de-actions">
                         <a href={libraryHref(dataset.id)} aria-label={`More information about ${dataset.name}`}>Info</a>
                         {onOpenDataset && (
@@ -316,18 +355,22 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
         })}
       </div>
 
-      {(quietAreas.length > 0 || (significant.length > 0 && all.length > significant.length)) && (
+      {(quietAreas.length > 0 || (lead.length > 0 && tracks.measured > lead.length)) && (
         <div className="report-de-quiet">
           {quietAreas.length > 0 && (
             <>
-              <span className="report-de-quiet-label">No significant track</span>
+              <span className="report-de-quiet-label">{nominalMode ? <>No track at p &lt; {NOMINAL_P_CUTOFF}</> : 'No significant track'}</span>
               <span>{quietAreas.join(' · ')}</span>
             </>
           )}
           <span className="report-de-quiet-gap" />
-          {significant.length > 0 && all.length > significant.length && (
+          {lead.length > 0 && tracks.measured > lead.length && (
             <button type="button" className="search-more" aria-expanded={showAll} onClick={() => setShowAll((s) => !s)}>
-              {showAll ? `Show only the ${significant.length} significant ${significant.length === 1 ? 'track' : 'tracks'}` : `Show all ${all.length} measured tracks`}
+              {showAll
+                ? nominalMode
+                  ? `Show only the ${lead.length} ${lead.length === 1 ? 'track' : 'tracks'} at p < ${NOMINAL_P_CUTOFF}`
+                  : `Show only the ${lead.length} significant ${lead.length === 1 ? 'track' : 'tracks'}`
+                : `Show all ${tracks.measured} measured tracks`}
             </button>
           )}
         </div>
@@ -342,20 +385,17 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
 }
 
 interface GeneReportProps {
-  /**
-   * The gene to report on. `null` is the LANDING state — the search interface
-   * with nothing searched yet, which is what the hub's Gene Explorer card opens.
-   */
-  gene: string | null;
+  /** The gene to report on. */
+  gene: string;
   /** Optional category filter the report opens with (a preset, or a `#/gene/<g>/<cat>` link). null = all. */
   scope?: DatasetCategory[] | null;
   onScopeChange?: (scope: DatasetCategory[] | null) => void;
   /**
    * Which datasets are in scope; null = all.
    *
-   * Owned by App rather than by this component because submitting a gene from
-   * the landing state remounts the report (the ErrorBoundary is keyed by gene),
-   * and a selection made just before searching has to survive that. App also
+   * Owned by App rather than by this component because searching another gene
+   * remounts the report (the ErrorBoundary is keyed by gene), and the selection
+   * has to survive that. App also
    * serializes these restrictions into the versioned analysis URL.
    */
   datasetScope?: string[] | null;
@@ -365,8 +405,6 @@ interface GeneReportProps {
   onHome: () => void;
   /** Search a gene, carrying the scope it was searched under. */
   onSearchGene: (gene: string, scope?: DatasetCategory[] | null) => void;
-  /** Open the side-by-side expression Compare for this gene + the current category scope. */
-  onCompareDatasets?: (gene: string, scope: DatasetCategory[] | null, datasetIds: string[]) => void;
   /** Open a dataset (optionally at one track) in the explorer — the report's in-app links. */
   onOpenDataset?: OpenDataset;
   /** Show a pathway's search summary; with onOpenPathway, enables the pathways-in-these-conditions card. */
@@ -389,22 +427,21 @@ async function querySelectedGene(key: string, options: { onProgress: (loaded: nu
 export function GeneReport({
   gene, scope, onScopeChange, datasetScope = null, onDatasetScopeChange,
   studyFilters, onStudyFiltersChange,
-  onHome, onSearchGene, onCompareDatasets, onOpenDataset, onShowPathway, onOpenPathway, onOpenExpression, headerRight,
+  onHome, onSearchGene, onOpenDataset, onShowPathway, onOpenPathway, onOpenExpression, headerRight,
 }: GeneReportProps) {
-  const [query, setQuery] = useState(gene || '');
+  const [query, setQuery] = useState(gene);
   const categories = useCategoryScope(scope, onScopeChange);
   const { activeCats, toggleCat } = categories;
-  const geneIndex = useSearchIndex(loadGeneIndex);
   const { cards, eligibleCards, availableDatasets, selectedDatasets, awaitingCounts,
     queryKey, filters, changeFilters, reset } = useStudySelection({
-    kind: 'gene', term: gene || '', categories, datasetScope,
+    kind: 'gene', term: gene, categories, datasetScope,
     studyFilters, onStudyFiltersChange, onDatasetScopeChange,
   });
   const { result, loading, progress, bytes, error } = useReportQuery(
     queryKey, querySelectedGene, 'Could not load cross-dataset data.',
   );
 
-  useEffect(() => { setQuery(gene || ''); }, [gene]);
+  useEffect(() => { setQuery(gene); }, [gene]);
 
   // A follow-up search keeps the scope the user is currently reading under.
   // Dropping it here (as an unscoped search would) silently widens the report
@@ -449,24 +486,6 @@ export function GeneReport({
     </>
   );
 
-  // ── Landing state: the search interface, nothing searched yet ─────────────
-  if (!gene) {
-    return (
-      <div className="report-main report-search-dialog">
-        <SearchHero
-          headline="Gene Explorer"
-          placeholder="Search a gene, e.g. POMC, AGRP, LEPR"
-          ariaLabel="Search a gene across all datasets"
-          action="Search"
-          index={geneIndex}
-          onSubmit={(g) => onSearchGene(g, currentScope())}
-        >
-          {scopeControls}
-        </SearchHero>
-      </div>
-    );
-  }
-
   return (
     <PageShell
       onHome={onHome}
@@ -491,14 +510,6 @@ export function GeneReport({
               aria-label="Search another gene" placeholder="Search another gene…"
               style={{ width: '100%', height: 38, padding: '0 12px 0 34px', fontSize: 13, fontFamily: 'inherit', border: '1px solid var(--border-dark)', borderRadius: 'var(--r-lg)', background: 'var(--bg-panel)', outline: 'none', color: 'var(--text-primary)' }} />
           </div>
-          {onCompareDatasets && (
-            <button type="button" disabled={awaitingCounts || selectedDatasets.length === 0}
-              onClick={() => onCompareDatasets(gene, currentScope(), selectedDatasets.map((dataset) => dataset.id))}
-              title="Compare this gene's expression side by side across datasets"
-              style={{ fontSize: 12, padding: '8px 13px', border: '1px solid var(--border-dark)', borderRadius: 'var(--r-lg)', background: 'var(--bg-panel)', color: 'var(--text-mono)', cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap' }}>
-              Compare as bars →
-            </button>
-          )}
         </div>
 
         {/* Where the gene is expressed, before how it changes. */}

@@ -765,20 +765,37 @@ export default defineConfig(async ({ mode }): Promise<ViteUserConfig> => {
         // the lazy import buys nothing. These three are export/chart-only —
         // xlsx and html2canvas are reached solely from export click handlers —
         // so they must be splittable to stay off the first-paint path.
-        manualChunks: (id) => {
-          // Keep the complete evidence ledgers in separate cached files so
-          // accumulated QC notes do not push the app shell over its size limit.
-          const path = id.replace(/\\/g, '/');
-          if (path.endsWith('/data/internal-qc/assessments.generated.json')) return 'internal-qc-evidence';
-          if (path.endsWith('/data/author-validation/validation-records.generated.json')) return 'author-validation-evidence';
-          if (!id.includes('node_modules')) return undefined;
-          if (id.includes('node_modules/xlsx')) return 'xlsx';
-          if (id.includes('node_modules/html2canvas')) return 'html2canvas';
-          if (id.includes('node_modules/recharts') || id.includes('node_modules/d3-') || id.includes('node_modules/victory-vendor')) return 'charts';
-          return 'vendor';
+        //
+        // Groups, not `manualChunks`. Rolldown's manualChunks shim captures each
+        // matched module TOGETHER WITH its dependencies, so the `charts` rule
+        // swallowed react and react-dom (recharts depends on them) and every
+        // chunk, the hub's entry included, imported React from the 95 KB charts
+        // chunk. Priorities decide who captures a shared module first: React
+        // goes to `vendor` before recharts can claim it.
+        codeSplitting: {
+          groups: [
+            // Keep the complete evidence ledgers in separate cached files so
+            // accumulated QC notes do not push any view chunk over its size limit.
+            { name: 'internal-qc-evidence', test: /[\\/]data[\\/]internal-qc[\\/]assessments\.generated\.json$/, priority: 50 },
+            { name: 'author-validation-evidence', test: /[\\/]data[\\/]author-validation[\\/]validation-records\.generated\.json$/, priority: 50 },
+            { name: 'vendor', test: /[\\/]node_modules[\\/](react|react-dom|scheduler)[\\/]/, priority: 40 },
+            { name: 'xlsx', test: /[\\/]node_modules[\\/]xlsx[\\/]/, priority: 30 },
+            { name: 'html2canvas', test: /[\\/]node_modules[\\/]html2canvas[\\/]/, priority: 30 },
+            { name: 'charts', test: /[\\/]node_modules[\\/](recharts|d3-[a-z-]+|victory-vendor)[\\/]/, priority: 20 },
+            // App modules the first paint needs (the `$initial` graph), as one
+            // file instead of two dozen sub-kilobyte shared chunks.
+            { name: 'shell', test: /[\\/]src[\\/]/, tags: ['$initial'], priority: 10 },
+          ],
         },
       },
     },
+  },
+  // Workers are built as ES modules: the circadian workbook worker
+  // (src/circadian/circadianWorkbook.worker.ts) reaches xlsx through
+  // utils/lazyExport.ts's dynamic import, and the default IIFE worker format
+  // cannot code-split. The page creates it with `{ type: 'module' }`.
+  worker: {
+    format: 'es',
   },
   test: {
     // See "Test environments and scheduling" above. Both projects extend this

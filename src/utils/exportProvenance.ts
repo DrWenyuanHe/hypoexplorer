@@ -19,6 +19,9 @@
 //  4. The provenance columns (`provenanceColumns`) that the CSV seam
 //     (utils/csv.ts) appends to every provenance-carrying CSV.
 //
+// Items 3 and 4 only format a finished snapshot and live in
+// exportProvenanceFormat.ts, which does not read the internal QC ledger.
+//
 // A view supplies only its own kind and settings (thresholds, filters, the
 // selected pathway, the compared columns) plus the subject it already holds:
 //
@@ -26,12 +29,9 @@
 //   timeSeriesSubject      one registered time course (no contrast exists)
 //   columnsSubject         side-by-side columns, each its own track: the
 //                          Compare tab's populations or the compare set's studies
-//   localExportProvenance  a user-imported result, which has NO registry entry
 //
 // The snapshot never upgrades an absence into a claim: missing evidence is
-// recorded as missing ("Unrecorded" in the sheet, null in the JSON), and a
-// local dataset says it has no release or evidence rather than borrowing the
-// public build's.
+// recorded as missing ("Unrecorded" in the sheet, null in the JSON).
 import { RELEASE_IDENTITY } from '../data/releaseIdentity';
 import { getInternalQc } from '../data/internalQc';
 import { resolveTimeSeriesUrl, resolveTrackUrl } from '../data/bundleLocators';
@@ -43,7 +43,6 @@ import { routeHref } from './appLinks';
 import { unitProvenance } from './sampleValues';
 import { exportFilename } from './exportAction';
 import type { Dataset, Group, PopData, ResolvedContrast, TimeSeriesBundle } from '../types';
-import type { WorkbookRow, WorkbookSheet } from './workbook';
 import type { ChartScale } from './chartScale';
 
 /**
@@ -296,8 +295,6 @@ function evidenceBlock(track: TrackSubject) {
   }) : [];
 }
 
-interface ContrastRecord { id: string; direction: string }
-
 function contrastsBlock(track: TrackSubject) {
   if (track.contrasts === null) return 'Not applicable: this export has no baseline/case contrast.';
   return track.contrasts.map((contrast) => ({
@@ -392,166 +389,4 @@ export function exportProvenance(kind: ExportKind, subject: ExportSubject, setti
 
 export type ExportProvenance = ReturnType<typeof exportProvenance>;
 
-/** The structural shape of a user-imported dataset; no registry type is involved. */
-export interface LocalExportSource {
-  /** The workspace id; `public:<dataset>:<track>:<contrast>` marks a copy of public results. */
-  id?: string;
-  name: string;
-  organism: string;
-  createdAt: string;
-  updatedAt: string;
-  genes: readonly unknown[];
-  pathways: readonly unknown[];
-  sources: ReadonlyArray<{ fileName: string; sheetName: string; kind: string; rowCount: number; importedAt: string }>;
-}
-
-/**
- * A local dataset is named by the user's own label and marked `local`, never
- * given a registry id it does not have.
- */
-export function localExportName(dataset: Pick<LocalExportSource, 'name'>, parts: string[], extension: string): string {
-  return exportFilename(['local', dataset.name, ...parts], extension);
-}
-
-/**
- * How the public reference picker names the source of a copied public result.
- * Provenance reads it back to tell copied rows from the user's own imports.
- */
-export const PUBLIC_COPY_SOURCE_PREFIX = 'Public: ';
-
-/**
- * The public study a local copy was taken from, read off the id the public
- * reference picker gives it (`public:<dataset>:<track>:<contrast>`); null for a
- * user import.
- */
-function publicCopyOrigin(id: string | undefined): { datasetId: string; trackId: string; contrastId: string } | null {
-  const parts = id?.split(':');
-  return parts && parts.length === 4 && parts[0] === 'public'
-    ? { datasetId: parts[1], trackId: parts[2], contrastId: parts[3] }
-    : null;
-}
-
-/**
- * Provenance for a local, user-imported dataset. It records what the browser
- * actually holds (name, organism, source files, timestamps) and states plainly
- * that there is no release, evidence, source link, bundle or reuse grant: the
- * public build's identity and the HypoExplorer licence describe data this file
- * does not contain, so borrowing them would be a false claim.
- */
-export function localExportProvenance(dataset: LocalExportSource) {
-  // A copy of PUBLIC results is not a user import: its values are the public
-  // study's, so "HypoExplorer did not compute these" would be false in the
-  // other direction. The copy keeps the values but not the release identity or
-  // evidence record of the build it came from, and says exactly that.
-  const copiedFrom = publicCopyOrigin(dataset.id);
-  if (copiedFrom) {
-    const study = `${copiedFrom.datasetId} (track ${copiedFrom.trackId}, comparison ${copiedFrom.contrastId})`;
-    // "Add to dataset" can append the user's own files to a saved public copy,
-    // and the copy keeps its `public:` id. Its sources still tell the two
-    // apart (the picker names its own with PUBLIC_COPY_SOURCE_PREFIX), so a mixed dataset says it
-    // is mixed rather than handing the user's rows to the public study.
-    const imported = dataset.sources.filter((source) => !source.fileName.startsWith(PUBLIC_COPY_SOURCE_PREFIX));
-    if (imported.length > 0) {
-      const files = [...new Set(imported.map((source) => source.fileName))].join(', ');
-      return {
-        schemaVersion: 1 as const,
-        exportKind: 'local_dataset' as const,
-        exportedAt: new Date().toISOString(),
-        exportedByAppVersion: RELEASE_IDENTITY.appVersion,
-        origin: `Combines a copy of HypoExplorer public results for ${study}, saved in this browser on ${dataset.createdAt}, with results the user imported (${files}). The copied values are the public study's; HypoExplorer did not compute, review or release the imported values. Neither part retains a HypoExplorer release identity or evidence record.`,
-        dataset: {
-          name: dataset.name, organism: dataset.organism || null, createdAt: dataset.createdAt, savedAt: dataset.updatedAt,
-          copiedFrom,
-          sources: dataset.sources.map(({ fileName, sheetName, kind, rowCount, importedAt }) => ({ fileName, sheetName, kind, rowCount, importedAt })),
-        },
-        release: `Not retained for the values copied from ${copiedFrom.datasetId}; not applicable to the user-imported values.`,
-        evidence: `Not retained for the copied values (see the HypoExplorer study record for ${copiedFrom.datasetId}); none recorded for the user-imported values.`,
-        settings: { geneRows: dataset.genes.length, pathwayRows: dataset.pathways.length },
-        reuse: `The terms of the public study apply to the values copied from ${copiedFrom.datasetId}; the importing user holds the rights and obligations for the imported values.`,
-      };
-    }
-    return {
-      schemaVersion: 1 as const,
-      exportKind: 'local_dataset' as const,
-      exportedAt: new Date().toISOString(),
-      exportedByAppVersion: RELEASE_IDENTITY.appVersion,
-      origin: `A copy of HypoExplorer public results for ${study}, saved in this browser's local workspace on ${dataset.createdAt}. The values are the public study's; this copy does not retain the release identity or evidence record of the build it was copied from.`,
-      dataset: {
-        name: dataset.name, organism: dataset.organism || null, createdAt: dataset.createdAt, savedAt: dataset.updatedAt,
-        copiedFrom,
-        sources: dataset.sources.map(({ fileName, sheetName, kind, rowCount, importedAt }) => ({ fileName, sheetName, kind, rowCount, importedAt })),
-      },
-      release: `Not retained with the local copy. The values came from the public study ${copiedFrom.datasetId} in the HypoExplorer release that was current when it was copied.`,
-      evidence: `Not retained with the local copy. See the HypoExplorer study record for ${copiedFrom.datasetId} for its processing and replication evidence.`,
-      settings: { geneRows: dataset.genes.length, pathwayRows: dataset.pathways.length },
-      reuse: `The terms of the public study it was copied from apply; see the HypoExplorer study record for ${copiedFrom.datasetId}.`,
-    };
-  }
-  return {
-    schemaVersion: 1 as const,
-    exportKind: 'local_dataset' as const,
-    exportedAt: new Date().toISOString(),
-    exportedByAppVersion: RELEASE_IDENTITY.appVersion,
-    origin: 'User-imported results stored in this browser. They have no HypoExplorer registry entry; HypoExplorer did not compute, review or release these values.',
-    dataset: {
-      name: dataset.name, organism: dataset.organism || null, createdAt: dataset.createdAt, savedAt: dataset.updatedAt,
-      sources: dataset.sources.map(({ fileName, sheetName, kind, rowCount, importedAt }) => ({ fileName, sheetName, kind, rowCount, importedAt })),
-    },
-    release: 'Not applicable: user-imported results are not part of any HypoExplorer data release.',
-    evidence: 'None recorded: HypoExplorer holds no processing or replication assessment for user-imported results.',
-    settings: { geneRows: dataset.genes.length, pathwayRows: dataset.pathways.length },
-    reuse: 'The importing user holds the rights and obligations for these results; HypoExplorer grants no licence over them.',
-  };
-}
-
-export type LocalExportProvenance = ReturnType<typeof localExportProvenance>;
-
-interface TrackRecord {
-  dataset: { id: string | null; accession: string | null };
-  track: { id: string | null };
-  contrasts: string | ContrastRecord[];
-  expression: { unit: string };
-}
-
-/**
- * The provenance columns the CSV seam (utils/csv.ts) appends after a file's
- * scientific columns, in this order. A columns subject joins one value per
- * column with ' | ', in column order.
- */
-export function provenanceColumns(metadata: ExportProvenance): WorkbookRow {
-  const tracks: TrackRecord[] = 'columns' in metadata ? metadata.columns : [metadata];
-  const value = (read: (track: TrackRecord) => string | null) =>
-    (tracks.length === 1 ? read(tracks[0]) : tracks.map(read).join(' | '));
-  const contrasts = (track: TrackRecord, spell: (contrast: ContrastRecord) => string) =>
-    (typeof track.contrasts === 'string' ? 'Not applicable' : track.contrasts.map(spell).join(' | '));
-  return {
-    DatasetID: value((track) => track.dataset.id),
-    SourceAccession: value((track) => track.dataset.accession),
-    TrackID: value((track) => track.track.id),
-    ContrastID: value((track) => contrasts(track, (contrast) => contrast.id)),
-    ContrastDirection: value((track) => contrasts(track, (contrast) => `${contrast.id}: ${contrast.direction}`)),
-    ExpressionUnit: value((track) => track.expression.unit),
-    ExportMetadataJSON: JSON.stringify(metadata),
-  };
-}
-
-export function provenanceRows(metadata: ExportProvenance | LocalExportProvenance): WorkbookRow[] {
-  // One field per row makes the sheet readable and avoids Excel's per-cell
-  // text limit when a factorial design carries many evidence records.
-  const rows: WorkbookRow[] = [];
-  const append = (Field: string, value: unknown): void => {
-    if (value !== null && typeof value === 'object') {
-      const entries = Object.entries(value);
-      if (entries.length) {
-        for (const [key, item] of entries) append(Field ? `${Field}.${key}` : key, item);
-      } else rows.push({ Field, Value: Array.isArray(value) ? '[]' : '{}' });
-    } else rows.push({ Field, Value: value == null ? 'Unrecorded' : String(value) });
-  };
-  append('', metadata);
-  return rows;
-}
-
-/** The Metadata sheet every provenance-carrying workbook ends with. */
-export function metadataSheet(metadata: ExportProvenance | LocalExportProvenance): WorkbookSheet {
-  return { name: 'Metadata', rows: provenanceRows(metadata) };
-}
+export { metadataSheet, provenanceRows } from './exportProvenanceFormat';

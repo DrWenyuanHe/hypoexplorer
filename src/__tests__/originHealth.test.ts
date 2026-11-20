@@ -68,13 +68,13 @@ describe('diagnoseDataOrigin', () => {
     await expect(diagnoseDataOrigin()).resolves.toMatchObject({ status: 'offline' });
   });
 
-  it('probes with no-cors and no-store, so no CORS policy or cache can distort it', async () => {
+  it('probes with a no-cors, no-store HEAD, so no CORS policy, cache or body download is involved', async () => {
     const fetchSpy = vi.fn().mockResolvedValue(new Response(null));
     globalThis.fetch = fetchSpy;
     await diagnoseDataOrigin();
     const [url, init] = fetchSpy.mock.calls[0];
     expect(url).toBe('https://data.example.test/query/tracks.js');
-    expect(init).toMatchObject({ mode: 'no-cors', cache: 'no-store' });
+    expect(init).toMatchObject({ method: 'HEAD', mode: 'no-cors', cache: 'no-store' });
   });
 
   it('costs ONE request for a burst of failures, then re-probes after the TTL', async () => {

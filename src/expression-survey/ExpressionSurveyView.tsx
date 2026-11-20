@@ -6,6 +6,7 @@ import { ExportButton } from '../common/ExportButton';
 import { Spinner } from '../common/Spinner';
 import { FONT_MONO, FONT_SANS } from '../styles/constants';
 import { downloadFile, useExportAction } from '../utils/exportAction';
+import { tabKeyTarget } from '../utils/tabKeys';
 import { EXISTING_EXPRESSION_SOURCES } from './existingCatalog';
 import {
   loadExpressionSources,
@@ -775,18 +776,8 @@ export function ExpressionSurveyView({ onHome }: { onHome: () => void }) {
 
   function tabKey(event: KeyboardEvent<HTMLButtonElement>, current: SurveySection) {
     if (event.ctrlKey || event.metaKey || event.altKey) return;
-    const index = SECTIONS.findIndex((tab) => tab.id === current);
-    const next =
-      event.key === 'ArrowRight'
-        ? (index + 1) % SECTIONS.length
-        : event.key === 'ArrowLeft'
-          ? (index + SECTIONS.length - 1) % SECTIONS.length
-          : event.key === 'Home'
-            ? 0
-            : event.key === 'End'
-              ? SECTIONS.length - 1
-              : -1;
-    if (next < 0) return;
+    const next = tabKeyTarget(event.key, SECTIONS.findIndex((tab) => tab.id === current), SECTIONS.length);
+    if (next === null) return;
     event.preventDefault();
     setSection(SECTIONS[next].id);
     document.getElementById(`ex-tab-${SECTIONS[next].id}`)?.focus();

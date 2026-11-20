@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "a3aeae91484f2f716d7d024cdcf36fe14945339dad8f7d4d8fa4f1d24ae68d6d",
+  "fingerprint": "8ccf5e85cf1bdc5d40f8b653b6ed82d796dcd0f1e8dc35f1220d353da7ab7eb1",
   "outcome": "updated",
-  "explanation": "main.tsx still calls registerUpdates() and startVersionWatch() at bootstrap; only the comments change to say the worker is off unless VITE_SERVICE_WORKER=1 and that the version-stamp poll is the stale-tab detector without it. Startup order and behavior are otherwise unchanged. Rebased onto the Compare summary change (#40), which does not touch the bootstrap.",
+  "explanation": "vite.config.ts replaces the manualChunks shim with codeSplitting groups: React and react-dom are captured into vendor ahead of recharts (the shim had put React inside charts), and the $initial app modules form one shell chunk. public/_headers gives fonts and brand assets a day of freshness with stale-while-revalidate. The delivery runbook and the dated record describe both.",
   "references": [
-    "src/main.tsx",
-    "src/pwa/registerUpdates.ts"
+    "vite.config.ts",
+    "public/_headers",
+    "docs/agent-context/delivery.md",
+    "docs/APP_LOADING_2026-11-20.md"
   ]
 }

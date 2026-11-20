@@ -10,7 +10,7 @@ appropriate builder; shared writes use `scripts/lib/bundleWriter.mts` and script
 reads use `scripts/lib/bundleReader.mts` (`readJsonp` for published bytes,
 `readDatasetFromDisk` for what the explorer shows).
 A builder passes every track of a study to one `writeDatasetBundles` call, which
-writes the merged study files and derives QC counts (nSig is P<0.01). Sidecar
+writes the merged study files and derives QC counts (nSig is FDR<0.05). Sidecar
 intakes build through `buildIntakeStudies` in `scripts/lib/intakeStudies.mts`
 (staged publish, `--check`, `--only`), as the September 5 builder does.
 Expected outputs are registry metadata, bundles and their retained evidence.
@@ -160,7 +160,14 @@ writes its Metadata through `src/utils/exportProvenance.ts`; every CSV is writte
 by `src/utils/csv.ts` (escaping, formula guard, BOM/CRLF, per-row provenance for
 long tables, and a metadata JSON split down its column under Excel's cell limit);
 multi-file downloads are stored ZIPs from `src/utils/zip.ts`; every gene picker is
-`GenePicker` over `src/explorer/geneVocabulary.ts`; sample
+`GenePicker` over `src/explorer/geneVocabulary.ts`; a table that lists tracks by
+significance reads each row's `tier` (set once by `geneRow` / `pathwayRow` from
+`src/statistics/policy.ts`), takes what leads, the order and the counts from
+`listCrossStudy` in `src/statistics/crossStudyListing.ts` for the mode
+`listingModeStore` holds (with its `ListingModeToggle`), and decides only how
+much to show and what starts folded; it labels rows with
+`src/statistics/TierLabel.tsx`, explains q / FDR / padj columns with `QTerm`,
+and keeps counts on the FDR call in both modes; sample
 values and export labels use sampleValues; bundle loading uses trackData.
 Header identity uses BrandLink and the shared brand asset constants. For logo,
 favicon or typography changes, read the [brand guide](../../brand/README.md);
@@ -171,6 +178,17 @@ missing symbols, and `--font-mono` (Geist Mono, then IBM Plex Mono) for figures;
 inline styles use the constants in `src/styles/constants.ts`, where `FONT_MONO`
 stays a literal list so exported SVG figures keep their font. Preserve explicit
 monospace data labels.
+App renders every view except the landing hub through `src/appViews.tsx`:
+each page, explorer tab, the dataset info modal and the study-details
+verification body is a `lazyView` (`src/common/lazyView.tsx`) in its own chunk,
+with its own Suspense fallback. A new view joins that list rather than being
+imported into App, or the hub's first paint pays for it again. App warms the
+likely next chunk on idle (the results page from the hub, the reports from the
+results page). A test that renders App awaits `preloadAppViews()` in a
+`beforeAll`, so its synchronous queries still find the view. A module the hub
+or the results page imports must not reach the evidence ledgers
+(`internalQc.ts`, `authorValidation.ts`) statically; `csv.ts` takes its
+provenance columns from `exportProvenanceFormat.ts` for that reason.
 Expected outputs are the requested behavior and relevant regression coverage.
 Run the app and script TypeScript checks documented in
 [project guidance](../PROJECT_GUIDANCE.md) and focused Vitest tests. Use a browser
@@ -180,7 +198,16 @@ Circadian changes also follow [the numerical validation runbook](../CIRCADIAN_VA
 Keep effective JTK period families, unsupported-design reasons, missing-value
 handling and within-gene versus gene-wise corrections explicit in the UI and
 exports. A matched numerical reference does not establish biological calibration
-or measured human usability.
+or measured human usability. `CircadianTab.tsx` owns state, the per-arm scan
+queue (`scan.ts`, every arm scanned, the selected arm first) and selection;
+controls, notes, the results table and the per-arm statistics strip are their
+own components. Any display, plot, sort or announcement of a peak time uses
+`hasEstimablePeak` in `src/circadian/peak.ts`; p, q, period and amplitude keep
+their own field rules. Statements about attainable p-values (the Lomb–Scargle
+floor) appear only when the code can verify them for every scored sampling
+pattern. Raw-value exports cover every listed gene; the workbook is built and
+serialised in `circadianWorkbook.worker.ts` (ES-module worker, `worker.format`
+in vite.config.ts), with the same builder as an in-thread fallback.
 
 HypoMap views in `src/search/hypomap/` sit behind two build flags that stay off in
 hosted builds: `VITE_HYPOMAP_EXPRESSION` adds the atlas preview under the gene
@@ -204,7 +231,8 @@ compare-set studies in a desktop rail or a mobile dialog, using the shared Modal
 for focus trapping, Escape and focus restoration. The dataset library has no
 rail: `LibraryToolbar` puts a view menu, sort, active-filter chips and an
 add-filter menu (with the same disjunctive facet counts) above a table-first
-record grid, and its chips scroll sideways on phones. A study opens as a record
+record grid, and its chips scroll sideways on phones, where (600px and under)
+the library starts on cards instead. A study opens as a record
 page (`StudyRecord`, `#/library/<id>`) in place of the hidden list: header
 actions, a fact strip, Overview/Verification tabs and a details panel that
 stacks below them under 900px; Escape and the breadcrumb return to the list. Selection and filters
@@ -222,11 +250,25 @@ per gene × population and one per animal; matching CSVs) and charts (one stitch
 PNG, or a ZIP of per-chart PNG or SVG drawn from each chart's own SVG through
 `src/compare/compareFigureExport.ts`) from one Download menu. The selected population, comparison
 and Plot/Table switch remain visible. Mobile pages use document scrolling and a
-minimum chart height; wide result tables scroll within their own containers.
-When changing these layouts, check 320px and 390px phones, 768px tablets and a
-1024px laptop, including a short landscape viewport, dialog dismissal, filtering,
-cell selection and rotation across the breakpoint. Volcano taps hit-test the tap
-coordinates directly, without requiring a previous hover.
+minimum chart height; wide result tables scroll within their own containers,
+except the gene page's differential-expression table and the pathway page's
+forest rows, which restack each track under 640px so the change, q/FDR and
+actions stay on screen. On phones the hub nav stays one line that scrolls
+sideways beside the compare pill, and the explorer's header controls form an
+even 3 × 2 grid. Each explorer breadcrumb separator travels with the crumb
+after it, so a wrap never strands a slash; on phones the population and tab
+start a line under the dataset picker, without a leading slash. Below 1500px
+the explorer breadcrumb takes its own header row, so the controls never wrap
+under a half-empty first row; wider, it shares the row and truncates the
+population label (full text in its title) before the controls would move. A scroller that holds absolutely positioned screen-reader
+labels (`.portal-table-wrap`) is itself positioned, or the labels escape it and
+widen the page. When changing these layouts, check 320px and 390px phones,
+768px tablets and a 1024px laptop, including a short landscape viewport, dialog
+dismissal, filtering, cell selection and rotation across the breakpoint. On a
+phone, also confirm `window.innerWidth` equals the device width after load: a
+mobile browser widens the layout viewport (zooming the page out) to fit any
+overflow, even with `overflow-x: hidden` on the body. Volcano taps hit-test the
+tap coordinates directly, without requiring a previous hover.
 
 The compare-set view uses a left sidebar to select studies, with no study cards above the results.
 Selecting a study changes the volcano; every study remains in the comparison.
@@ -301,30 +343,27 @@ the table. This tail is a display ranking aid, not a calibrated biological
 significance test across independent samples. The base rate is on the rows,
 not in `tracks.js`, to keep the
 manifest small; `--check` compares the rows, counts included, exactly. Full
-reports stay one click away. The nav's Genes and Pathways open
-`ExplorerSearchDialog` over the hub on that side, where study filters live.
-Genes and Pathways tabs inside the dialog switch between the two
-searches and update the route; empty `#/gene` and `#/pathway` links open the
-dialog on that side. Each side mounts when first shown and stays mounted, hidden,
-until the dialog closes, so typed terms and category picks survive a switch. The
-shared Modal focuses the search input and handles focus trapping, Close, Escape,
-backdrop dismissal and focus restoration. Only a submitted, nonempty search opens
-the full results view, carrying the selected study filters.
+reports stay one click away. The hub's search box is its only gene and pathway
+search; the hub nav has no separate Genes or Pathways entrance. A report always
+names its term (`#/gene/<symbol>`, `#/pathway/<id>`) and carries its study
+filters in a collapsed Study filters section. The term-less `#/gene`,
+`#/gene/in/<cats>` and `#/pathway` landings are retired:
+`isRetiredSearchLanding` in `src/utils/appLinks.ts` sends them, with or without
+a saved `?analysis=`, to the empty results page (`#/search`), and the router
+replaces such a history entry rather than stacking it.
 
 Study selection is coordinated by `useStudySelection` in
-`src/crossdataset/geneStudyScope.tsx`. GeneReport, PathwayReport and
-CrossDatasetCompare use it for catalog readiness, eligibility, selected studies
+`src/crossdataset/geneStudyScope.tsx`. GeneReport and PathwayReport use it
+for catalog readiness, eligibility, selected studies
 and query identity. The router retains persistent gene/pathway selection state;
 `useReportQuery` retains request loading and cancellation. The selection module
 also coordinates resets through the existing state owners: gene/pathway reset
-categories, evidence/sample filters and individual selection; bars reset only
-their category display restriction.
+categories, evidence/sample filters and individual selection.
 
 A sample-count filter waits for the catalog request to settle, including
 registry-only fallback, then excludes unknown counts. Without that filter,
 queries may start from registry cards. Gene/pathway categories narrow the
-requested studies; bars categories narrow the already resolved cohort locally
-without changing query identity. Pathway selection always excludes studies
+requested studies. Pathway selection always excludes studies
 without pathway support. Preserve incoming term spelling in gene/pathway
 queries and uppercase it for bars. Lifecycle tests live in
 `src/__tests__/studySelection.test.tsx`; the App scope tests retain copied-link,
@@ -371,14 +410,6 @@ and match the pathway database and name. Missing pathway data or usable ranks re
 unavailable, with a retry action; no QC bundle is requested. Large studies initially
 show significant populations, with the full list available on request. About enrichment
 scores keeps the ranking explanation in a disclosure beneath the results.
-
-## local-import
-
-Read [local datasets](../LOCAL_DATASETS.md). Inputs are user-owned DE/pathway
-tables and explicit column mappings. Inspect the importer, local storage and
-matching tests under `src/local-datasets` and `src/__tests__`.
-Verify preview/mapping errors, persisted data, comparison identity and exports.
-Local results stay on the user's device and are not added to the public registry.
 
 ## delivery
 

@@ -10,7 +10,7 @@
 // What this view must NOT do is combine its columns. Each column is its own
 // study, its own contrast and its own expression unit; the tables line them
 // up on a shared axis and the one row-level figure — the tally — is a count
-// of per-study verdicts, labelled as such. See the Statistics page.
+// of per-study verdicts, labelled as such. See the Methods & statistics page.
 
 import { useCallback, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';

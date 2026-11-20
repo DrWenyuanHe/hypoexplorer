@@ -12,15 +12,7 @@ import { nomenclatureAuthorityForStoredDatasetSymbols } from './data/nomenclatur
 import { contrastArmCounts, getActiveContrast, listContrasts } from './data/contrasts';
 import { getCellSubname } from './utils/format';
 import { ErrorBoundary } from './ErrorBoundary';
-import { GeneExplorerTab } from './gene-explorer/GeneExplorerTab';
-import { PathwayExplorerTab } from './pathway-explorer/PathwayExplorerTab';
-import { CompareTab } from './compare/CompareTab';
-import { CircadianTab } from './circadian/CircadianTab';
-import { QCTab } from './qc/QCTab';
 import { PopWarningBadge } from './common/PopWarningBadge';
-import { ChangelogTab } from './changelog/ChangelogTab';
-import { MethodologyView } from './methodology/MethodologyView';
-import { DataSourcesTab } from './acknowledgements/DataSourcesTab';
 import { UpdateModal } from './pwa/UpdateModal';
 import { VersionBadge } from './pwa/VersionBadge';
 import { LoadingOverlay } from './common/LoadingOverlay';
@@ -35,32 +27,24 @@ import { COMPARE_TRACK, activeTabOf, activeTrackOf, initialPosition, useExplorer
 import type { CompareViewState } from './utils/analysisState';
 import { useExplorerSession } from './explorer/explorerSession';
 import { preloadBarSEMChart } from './gene-explorer/BarSEMChart';
-import { DatasetInfoPanel } from './common/DatasetInfoPanel';
 import { ArmPills, ArmVariesBadge, factsFromMeta } from './common/StudyMetadata';
-import { DatasetLibrary } from './library/DatasetLibrary';
 import { datasetExternalLinks } from './utils/datasetLinks';
-import { GeneReport } from './crossdataset/GeneReport';
 import type { GeneStudyFilters } from './crossdataset/geneStudyScope';
-import { PathwayReport } from './crossdataset/PathwayReport';
-import { ExplorerSearchDialog, type SearchMode } from './crossdataset/ExplorerSearchDialog';
-import { SearchPage } from './search/SearchPage';
 import { useCategoryScope } from './crossdataset/forestReport';
 import { useChartScale, setChartScale } from './common/chartScaleStore';
 import { ShareAnalysisButton } from './common/ShareAnalysisButton';
-import { CrossDatasetCompare } from './crossdataset/CrossDatasetCompare';
-import { DatasetTrackerView } from './dataset-tracker/DatasetTrackerView';
-import { StatisticsView } from './statistics/StatisticsView';
-import { VerificationView } from './verification/VerificationView';
-import { DatasetVerificationContext } from './common/DatasetVerificationContext';
-import { NomenclatureView } from './nomenclature/NomenclatureView';
-import { CompareSetView } from './compareset/CompareSetView';
 import { CompareSetButton } from './compareset/CompareSetButton';
 import { CompareSetToggle } from './compareset/CompareSetToggle';
 import { compareSetKey, removeItem, toggleItem, useCompareSet, type CompareSetItem } from './compareset/compareSetStore';
 import type { PathwayRecordWithDb, PopData } from './types';
+import {
+  ChangelogTab, CircadianTab, CompareSetView, CompareTab, DatasetInfoPanel, DatasetLibrary, DatasetTrackerView,
+  DatasetVerificationContext, GeneExplorerTab, GeneReport, MethodologyView, NomenclatureView, PathwayExplorerTab,
+  PathwayReport, QCTab, SearchPage, VerificationView,
+} from './appViews';
+import { preloadWhenIdle } from './common/lazyView';
 
 const DEFAULT_DATASET = getDefaultDataset();
-const LocalDatasetsView = lazy(() => import('./local-datasets/LocalDatasetsView'));
 const ExpressionSurveyView = lazy(() => import('./expression-survey/ExpressionSurveyView').then((module) => ({ default: module.ExpressionSurveyView })));
 
 interface AppProps {
@@ -246,11 +230,10 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
     goHome, enterTool, enterExplorer,
     searchGene: searchGeneFromHub,
     searchPathway: searchPathwayFromHub,
-    openGeneExplorer, openPathwayExplorer, switchSearchExplorer, compareDatasets,
-    openTracker, openInExplorer, openStatistics, openMethodology, openVerification, openNomenclature, openLocalDatasets, openExpression,
+    openTracker, openInExplorer, openMethodology, openVerification, openNomenclature, openExpression,
     openLibrary, setLibraryDataset, setLibraryCategories, libraryDatasetId, libraryCategories,
     compareSetItems, openCompareSet, setCompareSetItems,
-    geneAnalysis, pathwayAnalysis, setGeneAnalysis, setPathwayAnalysis, setReportScope, setReportGene,
+    geneAnalysis, pathwayAnalysis, setGeneAnalysis, setPathwayAnalysis, setReportScope,
     searchQuery, searchFilter, search, setSearchFilter,
   } = useAppRouter(initialView, explorerNav, explorerAt);
 
@@ -274,13 +257,7 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
   }, [compareSetItems, setCompareSetItems]);
   const openLibraryPlain = useCallback(() => openLibrary(), [openLibrary]);
 
-  // The hub nav's Genes / Pathways entrances open the search dialog on that
-  // side; with no side named it opens on genes. The hub's own search box no
-  // longer goes through here: it submits to the unified results page.
-  const openSearch = useCallback((mode: SearchMode = 'gene') => {
-    if (mode === 'pathway') openPathwayExplorer();
-    else openGeneExplorer();
-  }, [openGeneExplorer, openPathwayExplorer]);
+  // The hub's search box submits to the unified results page.
   const searchFromHub = useCallback((query: string) => search(query), [search]);
 
   // Which studies the cross-dataset explorers are scoped to; null = all.
@@ -343,6 +320,16 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
     ensureTrack(activeTrackId);
   }, [view, activeTrackId, ensureTrack]);
 
+  // Warm the view a visitor most likely opens next, once the current one has
+  // painted and the main thread is idle: the hub's search box submits to the
+  // results page, and a results row opens the gene report. Every view still
+  // loads on demand if this has not run (or failed).
+  useEffect(() => {
+    if (view === 'hub') return preloadWhenIdle(SearchPage);
+    if (view === 'search') return preloadWhenIdle(GeneReport, PathwayReport);
+    return undefined;
+  }, [view]);
+
   const currentMeta = isCompare ? null : popData?.meta;
   const currentQC   = isCompare ? null : popData?.qc;
 
@@ -374,16 +361,12 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
   const primaryLink = datasetLinks.find((l) => l.kind === 'repository') ?? datasetLinks[0] ?? null;
 
   // ── Full-page views outside the explorer shell ──
-  if (view === 'local-datasets') {
-    return <ErrorBoundary><Suspense fallback={<div style={{ padding: 32 }}>Opening local workspace...</div>}><LocalDatasetsView onHome={goHome} /></Suspense></ErrorBoundary>;
-  }
-
   if (view === 'expression') {
     return <ErrorBoundary><Suspense fallback={<div role="status" style={{ padding: 32 }}>Opening expression survey…</div>}><ExpressionSurveyView onHome={goHome} /></Suspense></ErrorBoundary>;
   }
 
   // Cross-dataset gene report (#/gene/<symbol>), opened from search results.
-  const geneReport = (gene: string | null) => (
+  const geneReport = (gene: string) => (
     <ErrorBoundary key={`report-${gene}-${(reportScope ?? []).join(',')}`}>
       <GeneReport
         gene={gene}
@@ -395,7 +378,6 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
         onStudyFiltersChange={setGeneStudyFilters}
         onHome={goHome}
         onSearchGene={searchGeneFromHub}
-        onCompareDatasets={compareDatasets}
         onOpenDataset={openInExplorer}
         onShowPathway={(pathwayId) => search(pathwayId, 'all')}
         onOpenPathway={(pathwayId) => searchPathwayFromHub(pathwayId)}
@@ -404,7 +386,7 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
       />
     </ErrorBoundary>
   );
-  const pathwayReport = (pathway: string | null) => (
+  const pathwayReport = (pathway: string) => (
     <ErrorBoundary key={`pathway-${pathway}`}>
       <PathwayReport
         pathway={pathway}
@@ -428,12 +410,11 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
     </main>
   );
 
-  // Only a submitted search replaces the hub with the full results view. An
-  // empty term opens the shared gene and pathway search dialog over the hub.
+  // A report always names its term. The router never opens one without it; a
+  // term-less report state is shown as the hub rather than the explorer shell.
   if (view === 'report' && reportGene) return <><UpdateModal />{geneReport(reportGene)}</>;
   if (view === 'pathway-report' && reportPathway) return <><UpdateModal />{pathwayReport(reportPathway)}</>;
-  const searchMode: SearchMode | null = view === 'report' ? 'gene' : view === 'pathway-report' ? 'pathway' : null;
-  const showSearchDialog = searchMode !== null;
+  const termlessReport = view === 'report' || view === 'pathway-report';
 
   // ── Unified search results (the hub box's destination) ──────────────
   // Keyed by the query alone: a new search starts the page fresh, while
@@ -458,20 +439,6 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
     );
   }
 
-  // ── Cross-dataset expression Compare (side-by-side bars) ────────────
-  if (view === 'compare-datasets') {
-    return (
-      <>
-        <UpdateModal />
-        <ErrorBoundary key="compare-datasets">
-          <CrossDatasetCompare gene={reportGene ?? ''} scope={reportScope} datasetScope={geneDatasetScope}
-            studyFilters={geneStudyFilters} onScopeChange={setReportScope} onGeneChange={setReportGene}
-            onHome={goHome} onShowReport={(gene) => searchGeneFromHub(gene, reportScope)} />
-        </ErrorBoundary>
-      </>
-    );
-  }
-
   // ── Dataset Tracker (cross-dataset coverage view; read-only on the public
   //    site, review-editable under the dev server) ──────────────────────
   if (view === 'tracker') {
@@ -485,17 +452,6 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
     );
   }
 
-  // ── Statistics explainer (dataset-agnostic reference page) ──────────
-  if (view === 'statistics') {
-    return (
-      <>
-        <UpdateModal />
-        <ErrorBoundary key="statistics">
-          <StatisticsView onHome={goHome} />
-        </ErrorBoundary>
-      </>
-    );
-  }
 
   if (view === 'methodology') {
     return (
@@ -585,38 +541,24 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
   }
 
   // ── Landing hub (default view) ──────────────────────────────────────
-  if (view === 'hub' || showSearchDialog) {
+  if (view === 'hub' || termlessReport) {
     return (
       <>
         <UpdateModal />
-        <div aria-hidden={showSearchDialog || undefined}>
-          <LandingHub
-            onHome={goHome}
-            datasets={listDatasets()}
-            onEnterTool={enterTool}
-            onOpenSearch={openSearch}
-            onSearch={searchFromHub}
-            onOpenTracker={openTracker}
-            onOpenLibrary={(categories) => openLibrary({ categories })}
-            onOpenStatistics={openStatistics}
-            onOpenMethodology={openMethodology}
-            onOpenVerification={openVerification}
-            onOpenNomenclature={openNomenclature}
-            onOpenLocalDatasets={openLocalDatasets}
-            onOpenExpression={openExpression}
-            onChangelog={() => { setShowChangelog(true); enterExplorer(); }}
-            onCompareSet={openCompareSet}
-          />
-        </div>
-        {searchMode && (
-          <ExplorerSearchDialog
-            mode={searchMode}
-            onModeChange={switchSearchExplorer}
-            onClose={goHome}
-            gene={() => geneReport(null)}
-            pathway={() => pathwayReport(null)}
-          />
-        )}
+        <LandingHub
+          onHome={goHome}
+          datasets={listDatasets()}
+          onEnterTool={enterTool}
+          onSearch={searchFromHub}
+          onOpenTracker={openTracker}
+          onOpenLibrary={(categories) => openLibrary({ categories })}
+          onOpenMethodology={openMethodology}
+          onOpenVerification={openVerification}
+          onOpenNomenclature={openNomenclature}
+          onOpenExpression={openExpression}
+          onChangelog={() => { setShowChangelog(true); enterExplorer(); }}
+          onCompareSet={openCompareSet}
+        />
       </>
     );
   }
@@ -667,18 +609,27 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
             ) : (
               <span>{dataset.name}</span>
             )}
-            <span style={{ color: 'var(--border-dark)' }}>/</span>
-            <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>
-              {isCompare ? 'Compare all' : `${activeTrackId} · ${getCellSubname(activeTrackId, datasetMeta?.labels)}`}
-            </span>
-            {!isCompare && (
-              <>
-                <span style={{ color: 'var(--border-dark)' }}>/</span>
-                <span style={{ color: 'var(--text-mono)' }}>
-                  {explorerTabLabel(activeTab)}
+            {/* Each separator travels with the crumb after it, so a wrapped
+                trail never leaves a slash dangling at the end of a line. On a
+                phone the trail starts its own line under the dataset picker and
+                drops its leading slash (responsive.css). */}
+            <span className="site-crumb-trail" style={{ display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: '2px 8px', minWidth: 0 }}>
+              <span className="site-crumb" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
+                <span className="site-crumb-sep site-crumb-sep--lead" style={{ color: 'var(--border-dark)' }}>/</span>
+                {(() => {
+                  const crumb = isCompare ? 'Compare all' : `${activeTrackId} · ${getCellSubname(activeTrackId, datasetMeta?.labels)}`;
+                  return <span title={crumb} style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{crumb}</span>;
+                })()}
+              </span>
+              {!isCompare && (
+                <span className="site-crumb" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, whiteSpace: 'nowrap' }}>
+                  <span className="site-crumb-sep" style={{ color: 'var(--border-dark)' }}>/</span>
+                  <span style={{ color: 'var(--text-mono)' }}>
+                    {explorerTabLabel(activeTab)}
+                  </span>
                 </span>
-              </>
-            )}
+              )}
+            </span>
           </div>
           <div style={{ flex: 1 }} />
           <div className="site-header-controls" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -702,7 +653,7 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
                 border: '1px solid var(--border-dark)', borderRadius: 6,
                 color: 'var(--text-mono)', textDecoration: 'none', fontFamily: FONT_SANS,
               }}>
-              Methodology
+              Methods
             </a>
             <button type="button" onClick={() => setShowChangelog((c) => !c)}
               style={{
@@ -1095,10 +1046,6 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
                       initialGene={geneSelection.genes[0]}
                     />
                   </ErrorBoundary>
-                ) : activeTab === 'datasources' ? (
-                  <ErrorBoundary key="datasources">
-                    <DataSourcesTab onOpenTracker={openTracker} />
-                  </ErrorBoundary>
                 ) : (
                   <ErrorBoundary key={`pathway-${activeTrackId}`}>
                     <PathwayExplorerTab
@@ -1141,11 +1088,7 @@ export default function App({ initialView = 'hub' }: AppProps = {}) {
           contrasts={datasetContrasts}
           activeContrast={contrast}
           onClose={() => setShowDatasetInfo(false)}
-          onOpenDataSources={() => {
-            setShowDatasetInfo(false);
-            // A named tab leaves Compare by itself (the explorer position's rule).
-            selectTab('datasources');
-          }}
+          onOpenMethods={() => { setShowDatasetInfo(false); openMethodology(); }}
           onOpenTracker={(acc) => { setShowDatasetInfo(false); openTracker(acc ?? null); }}
         />
       )}

@@ -27,7 +27,7 @@ import { resolveGeneCI } from './resolveGene';
  *
  * Each column's FDR was computed inside its own study and knows nothing of the
  * others, so `sig` says how many studies called the gene on their own terms
- * and `up`/`down` how those calls split — the Statistics page's "significant
+ * and `up`/`down` how those calls split — the Methods & statistics page's "significant
  * in N of M" rule. Nothing here is pooled, and the header that renders this
  * says so.
  */
@@ -66,6 +66,11 @@ export function tallyGene(
   return tally;
 }
 
+/** An arm's mean to four places, or '' when the arm has no values. */
+function groupMean(values: readonly number[] | undefined): number | '' {
+  return values?.length ? +mean([...values]).toFixed(4) : '';
+}
+
 /**
  * The summary sheet: per gene, each column's logFC / p / stars and its two
  * group means, prefixed by the column key so a sheet with twelve studies
@@ -88,8 +93,10 @@ export function compareSummaryRows(
       row[`${col.key}_Stars`] = de?.PValue != null ? pToStar(de.PValue) : '';
       const { baselineLabel, caseLabel } = groupLabels(pd.contrast);
       const [base, caseGroup] = getGroupedValues(pd, de?.gene ?? gene, pd.contrast);
-      row[`${col.key}_${meanColumnLabel(pd, baselineLabel)}`] = +mean(base?.values ?? []).toFixed(4);
-      row[`${col.key}_${meanColumnLabel(pd, caseLabel)}`] = +mean(caseGroup?.values ?? []).toFixed(4);
+      // A study that did not measure the gene has no values for an arm; its
+      // mean is blank like the other missing cells, not mean([]) = 0.
+      row[`${col.key}_${meanColumnLabel(pd, baselineLabel)}`] = groupMean(base?.values);
+      row[`${col.key}_${meanColumnLabel(pd, caseLabel)}`] = groupMean(caseGroup?.values);
     }
     return row;
   });

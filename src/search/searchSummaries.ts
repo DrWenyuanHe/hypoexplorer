@@ -9,8 +9,10 @@
 // so; they never fall back to the per-track download (about 284 MB) that the
 // full reports may use. That cost belongs to an explicit "Open full report".
 //
-// Significance and direction come from the rows (crossDatasetRows), so the
-// portal and the reports cannot disagree about what counts as a change.
+// The summaries keep the report's groups; the portal lists them at render
+// through statistics/crossStudyListing, the listing the full reports use, and
+// each row's tier and direction come from crossDatasetRows. So the portal and
+// the reports cannot disagree about what counts as a change, or what leads.
 //
 // The condition-pathways card chains the two: the gene's significant tracks,
 // then each track's significant pathways from the index's track-pathways
@@ -26,13 +28,14 @@ import { manifestFreshness } from '../data/indexFreshness';
 import { peekDatasetMeta } from '../data/loadDatasetMeta';
 import { loadQueryManifest, loadTrackPathways, manifestSupportsTrackPathways } from '../data/queryIndex';
 import { effectDirection } from '../statistics/policy';
+import { GENE_KEYS, listCrossStudy } from '../statistics/crossStudyListing';
 import { mapLimit } from '../utils/mapLimit';
 import { pathwaySpecificity, type CorpusRate, type Specificity } from './pathwaySpecificity';
 import { loadNeuroseqExpression, loadNeuroseqManifest, neuroseqSources } from '../expression-survey/neuroseqExpression';
 import { loadExternalExpression, loadExternalSources } from '../expression-survey/externalReference';
 import type {
   Dataset, DatasetGroup, Direction, ExpressionGeneResult, ExpressionGroupResult, ExpressionSource,
-  PathwayDatasetGroup, PathwayTrackRow, ResolvedContrast, TrackRow,
+  PathwayDatasetGroup, ResolvedContrast, TrackRow,
 } from '../types';
 
 /** One track's result, with the study and comparison it belongs to. */
@@ -42,68 +45,16 @@ export interface SummaryRow<Row> {
   track: Row;
 }
 
-export interface CrossStudySummary<Row> {
-  /** Studies where the gene or pathway has at least one result. */
-  studiesMeasured: number;
-  /** Studies with at least one significant track. */
-  studiesSignificant: number;
-  tracksMeasured: number;
-  tracksSignificant: number;
-  /** Significant tracks by direction. */
-  up: number;
-  down: number;
-  /**
-   * The strongest results, by q-value: the significant tracks when there are
-   * any, otherwise the lowest q-values (all non-significant) so the portal can
-   * still show where the term came closest.
-   */
-  top: SummaryRow<Row>[];
-  /** Every significant track, by q-value. What the condition-pathways card follows. */
-  significant: SummaryRow<Row>[];
-}
-
-export type GeneSummary = CrossStudySummary<TrackRow> & { symbol: string };
-export type PathwaySummary = CrossStudySummary<PathwayTrackRow> & { pathwayId: string };
+/**
+ * One gene's results across the indexed studies: the report's groups, kept as
+ * they came so the portal can list them for whichever listing mode is set
+ * (statistics/crossStudyListing). A study with no result has no tracks.
+ */
+export interface GeneSummary { symbol: string; groups: DatasetGroup[] }
+export interface PathwaySummary { pathwayId: string; groups: PathwayDatasetGroup[] }
 
 /** Rows the portal's table shows at most. */
 export const SUMMARY_TOP = 8;
-
-function byQ<Row>(q: (row: Row) => number | null) {
-  return (a: SummaryRow<Row>, b: SummaryRow<Row>) => {
-    const qa = q(a.track) ?? Number.POSITIVE_INFINITY;
-    const qb = q(b.track) ?? Number.POSITIVE_INFINITY;
-    return qa - qb;
-  };
-}
-
-function summarize<Row extends { significant: boolean; direction: string }>(
-  groups: ReadonlyArray<{ dataset: Dataset; contrast: ResolvedContrast | null; tracks: Row[] }>,
-  q: (row: Row) => number | null,
-): CrossStudySummary<Row> {
-  let studiesMeasured = 0, studiesSignificant = 0, tracksMeasured = 0, tracksSignificant = 0, up = 0, down = 0;
-  const sig: SummaryRow<Row>[] = [];
-  const all: SummaryRow<Row>[] = [];
-  for (const g of groups) {
-    if (g.tracks.length === 0) continue;
-    studiesMeasured++;
-    let any = false;
-    for (const track of g.tracks) {
-      tracksMeasured++;
-      const row = { dataset: g.dataset, contrast: g.contrast, track };
-      all.push(row);
-      if (!track.significant) continue;
-      any = true;
-      tracksSignificant++;
-      sig.push(row);
-      if (track.direction === 'up') up++;
-      else if (track.direction === 'down') down++;
-    }
-    if (any) studiesSignificant++;
-  }
-  sig.sort(byQ(q));
-  const top = (sig.length ? sig : all.sort(byQ(q))).slice(0, SUMMARY_TOP);
-  return { studiesMeasured, studiesSignificant, tracksMeasured, tracksSignificant, up, down, top, significant: sig };
-}
 
 const geneCache = new Map<string, Promise<GeneSummary | null>>();
 const pathwayCache = new Map<string, Promise<PathwaySummary | null>>();
@@ -129,7 +80,7 @@ export function loadGeneSummary(symbol: string): Promise<GeneSummary | null> {
   return cached(geneCache, SYMBOL, async () => {
     const report = await queryGeneViaIndex(SYMBOL, listDatasets());
     if (!report) return null;
-    return { symbol: SYMBOL, ...summarize<TrackRow>(report.groups as DatasetGroup[], (t) => t.fdr) };
+    return { symbol: SYMBOL, groups: report.groups };
   });
 }
 
@@ -142,7 +93,7 @@ export function loadPathwaySummary(pathwayId: string): Promise<PathwaySummary | 
   return cached(pathwayCache, ID, async () => {
     const report = await queryPathwayViaIndex(ID, listDatasets().filter((d) => d.supportsPathways));
     if (!report) return null;
-    return { pathwayId: ID, ...summarize<PathwayTrackRow>(report.groups as PathwayDatasetGroup[], (t) => t.padj) };
+    return { pathwayId: ID, groups: report.groups };
   });
 }
 
@@ -197,7 +148,7 @@ export interface ConditionPathways {
   symbol: string;
   /** Every track where the gene is significant. */
   conditionsTotal: number;
-  /** The tracks followed: the CONDITION_LIMIT strongest by q-value. */
+  /** The tracks followed: the CONDITION_LIMIT strongest by q-value, ties by |log2FC|. */
   conditions: ConditionRef[];
   /** Followed conditions whose pathways were read. */
   read: number;
@@ -249,7 +200,10 @@ export function loadConditionPathways(symbol: string, studies?: readonly Dataset
   return cached(conditionCache, key, async () => {
     const gene = await loadGeneSummary(SYMBOL);
     if (!gene) return null;
-    const inScope = ids ? gene.significant.filter((c) => ids.has(c.dataset.id)) : gene.significant;
+    // The FDR survivors alone, in the listing's order: q, then |log2FC|.
+    const groups = ids ? gene.groups.filter((g) => ids.has(g.dataset.id)) : gene.groups;
+    const inScope: SummaryRow<TrackRow>[] = listCrossStudy(groups, 'fdr', GENE_KEYS, 'significance').lead
+      .map(({ group, track }) => ({ dataset: group.dataset, contrast: group.contrast, track }));
     const followed = inScope.slice(0, CONDITION_LIMIT);
     if (followed.length === 0) {
       return { symbol: SYMBOL, conditionsTotal: 0, conditions: [], read: 0, corpusTracks: 0, pathways: [] };

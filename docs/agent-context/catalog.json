@@ -21,9 +21,9 @@
       ]
     },
     "acknowledgements": {
-      "summary": "Study sources and attribution",
+      "summary": "Software and reference citations and acknowledgements shown on How to cite",
       "references": [
-        "src/acknowledgements/DataSourcesTab.tsx"
+        "src/acknowledgements/references.ts"
       ]
     },
     "changelog": {
@@ -141,16 +141,8 @@
         "src/library/libraryFilters.ts"
       ]
     },
-    "local-datasets": {
-      "summary": "On-device result import, storage and exploration",
-      "references": [
-        "src/local-datasets/LocalDatasetsView.tsx",
-        "src/local-datasets/ImportPanel.tsx",
-        "docs/LOCAL_DATASETS.md"
-      ]
-    },
     "methodology": {
-      "summary": "Methodology reference page for the collection",
+      "summary": "Methods & statistics reference page for the collection",
       "references": [
         "src/methodology/MethodologyView.tsx"
       ]
@@ -194,10 +186,12 @@
       ]
     },
     "statistics": {
-      "summary": "Statistical definitions and interpretation limits",
+      "summary": "Significance policy, the cross-study listing and the shared FDR / p < 0.05 listing toggle",
       "references": [
-        "src/statistics/StatisticsView.tsx",
-        "src/statistics/policy.ts"
+        "src/statistics/policy.ts",
+        "src/statistics/listingModeStore.ts",
+        "src/statistics/crossStudyListing.ts",
+        "src/statistics/TierLabel.tsx"
       ]
     },
     "styles": {
@@ -267,7 +261,6 @@
     "TrackRow": "One track's gene result in a cross-dataset report.",
     "DatasetGroup": "Gene-report tracks grouped by study.",
     "CrossDatasetGeneReport": "Per-study gene results and report metadata; interpretation policy stays with consumers.",
-    "GroupSummary": "Expression summary for one experimental arm.",
     "PathwayTrackRow": "One track's pathway result in a cross-dataset report.",
     "PathwayDatasetGroup": "Pathway-report tracks grouped by study.",
     "CrossDatasetPathwayReport": "Per-study enrichment results and report metadata.",
@@ -297,21 +290,17 @@
     "expression": "expression-survey",
     "report": "crossdataset",
     "pathway-report": "crossdataset",
-    "compare-datasets": "crossdataset",
     "compare-set": "compareset",
     "tracker": "dataset-tracker",
-    "statistics": "statistics",
     "methodology": "methodology",
     "verification": "verification",
-    "nomenclature": "nomenclature",
-    "local-datasets": "local-datasets"
+    "nomenclature": "nomenclature"
   },
   "tabs": {
     "gene": "gene-explorer",
     "pathway": "pathway-explorer",
     "circadian": "circadian",
-    "qc": "qc",
-    "datasources": "acknowledgements"
+    "qc": "qc"
   },
   "relationships": [
     "Registry declarations identify studies; bundle loaders and transforms provide the selected track and contrast to views.",
@@ -370,16 +359,6 @@
         "src/appRouter.ts",
         "CONTEXT.md",
         "docs/REFACTOR_CHECKLIST.md"
-      ]
-    },
-    "local-import": {
-      "summary": "Change local result imports",
-      "runbook": "docs/LOCAL_DATASETS.md",
-      "modules": [
-        "local-datasets"
-      ],
-      "sources": [
-        "docs/LOCAL_DATASETS.md"
       ]
     },
     "delivery": {

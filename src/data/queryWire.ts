@@ -177,10 +177,9 @@ export interface QueryManifest {
   geneShards: number;
   pathwayShards: number;
   /**
-   * Present only on indexes built with the expression family. Its ABSENCE is
-   * the whole capability check (see manifestSupportsExpr): an older index is
-   * perfectly good for the gene and pathway queries, so it must not be refused
-   * outright - only the expression-backed view falls back.
+   * Present only on indexes built with the expression family. An older index
+   * without it is perfectly good for the gene and pathway queries, so it must
+   * not be refused outright (see loadExprRows for the check a reader needs).
    */
   exprShards?: number;
   dbNames: string[];
