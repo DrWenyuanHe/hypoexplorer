@@ -1,11 +1,16 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi, beforeAll } from 'vitest';
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import App from '../App';
+import { preloadAppViews } from '../appViews';
 import { registryCards } from '../data/datasetCatalog';
 import { getDataset, listDatasets } from '../data/datasets';
 import { getActiveContrast } from '../data/contrasts';
 import { pathwayRow } from '../data/crossDatasetRows';
 import type { CrossDatasetPathwayReport, Dataset } from '../types';
+
+// App's views are separate chunks (src/appViews.tsx); load them first so every
+// render below is synchronous.
+beforeAll(() => preloadAppViews());
 
 const { queryPathway, loadIndex, loadCatalog } = vi.hoisted(() => ({
   queryPathway: vi.fn(),

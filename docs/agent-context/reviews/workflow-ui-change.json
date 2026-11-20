@@ -1,15 +1,15 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "a27ce62d29da7c096eac2d3c544482164a46cb05a187d454b35a63451fb09b25",
+  "fingerprint": "753331de126bfb8dc4641093d5d5b2ec99e991f523473c9ebb738b41cf1f4872",
   "outcome": "updated",
-  "explanation": "From main: The runbook drops the bars mode from the useStudySelection description, since the side-by-side compare view is retired. Navigation now has one Methods & statistics page and no Data Sources tab; the existing runbook steps cover these without new text. From the cross-study listing: The UI change runbook now says a table that lists tracks by significance reads each row's tier from the row builders and takes what leads, the order and the counts from listCrossStudy for the stored listing mode, deciding only how much to show and what starts folded, and labels rows with src/statistics/TierLabel.tsx. The refactor checklist adds the same single source of truth.",
+  "explanation": "From main: The ui-change route now states that App renders every non-hub view through lazyView entries in src/appViews.tsx, that new views join that list, that App-rendering tests await preloadAppViews(), and that hub or results-page modules must not import the evidence ledgers statically (hence exportProvenanceFormat.ts). From the cross-study listing: The UI change runbook now says a table that lists tracks by significance reads each row's tier from the row builders and takes what leads, the order and the counts from listCrossStudy for the stored listing mode, deciding only how much to show and what starts folded, and labels rows with src/statistics/TierLabel.tsx. The refactor checklist adds the same single source of truth.",
   "references": [
     "docs/agent-context/workflows.md",
     "docs/REFACTOR_CHECKLIST.md",
     "src/statistics/crossStudyListing.ts",
     "src/statistics/TierLabel.tsx",
-    "src/crossdataset/geneStudyScope.tsx",
-    "src/methodology/MethodologyView.tsx"
+    "src/appViews.tsx",
+    "src/common/lazyView.tsx"
   ]
 }

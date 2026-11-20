@@ -1,16 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "e5506b694ddb8fcb8dc03db810406f056e4ede73ba93eaf73ef46cf45f162085",
+  "fingerprint": "c4086f38519320b7b53fabd7434949c1e7f9e183f3349ffd12f9ed1994ce5af5",
   "outcome": "no-impact",
-  "explanation": "From main: Verification evidence and checks are unchanged. The touched build scripts, track loaders and static guide only change comments or add the How to cite citations section; the Verification page and badges are untouched. queryIndex.ts also drops the unused manifestSupportsExpr check; the index wire and build are unchanged. From the cross-study listing: No evidence ledger, audit, QC table or verification record changed, and no bundle bytes move. The FDR call is the same isFdrSignificant cutoff behind significanceTier, so every significance count in search and both reports is unchanged; only the within-tier order of listed rows changed, as the changelog records.",
+  "explanation": "From main: workflows.md changed only in its ui-change route. Verification evidence, quality ledgers, author concordance and their checks are unchanged; the ledgers are now loaded lazily by the views that show them, with identical content. From the cross-study listing: No evidence ledger, audit, QC table or verification record changed, and no bundle bytes move. The FDR call is the same isFdrSignificant cutoff behind significanceTier, so every significance count in search and both reports is unchanged; only the within-tier order of listed rows changed, as the changelog records.",
   "references": [
     "docs/agent-context/workflows.md",
     "data/author-validation/README.md",
-    "src/statistics/policy.ts",
-    "scripts/lib/seoGuides.mts",
-    "scripts/build_query_index.mts",
-    "src/data/trackData.ts",
-    "src/data/queryIndex.ts"
+    "src/statistics/policy.ts"
   ]
 }

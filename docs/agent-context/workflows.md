@@ -178,6 +178,17 @@ missing symbols, and `--font-mono` (Geist Mono, then IBM Plex Mono) for figures;
 inline styles use the constants in `src/styles/constants.ts`, where `FONT_MONO`
 stays a literal list so exported SVG figures keep their font. Preserve explicit
 monospace data labels.
+App renders every view except the landing hub through `src/appViews.tsx`:
+each page, explorer tab, the dataset info modal and the study-details
+verification body is a `lazyView` (`src/common/lazyView.tsx`) in its own chunk,
+with its own Suspense fallback. A new view joins that list rather than being
+imported into App, or the hub's first paint pays for it again. App warms the
+likely next chunk on idle (the results page from the hub, the reports from the
+results page). A test that renders App awaits `preloadAppViews()` in a
+`beforeAll`, so its synchronous queries still find the view. A module the hub
+or the results page imports must not reach the evidence ledgers
+(`internalQc.ts`, `authorValidation.ts`) statically; `csv.ts` takes its
+provenance columns from `exportProvenanceFormat.ts` for that reason.
 Expected outputs are the requested behavior and relevant regression coverage.
 Run the app and script TypeScript checks documented in
 [project guidance](../PROJECT_GUIDANCE.md) and focused Vitest tests. Use a browser

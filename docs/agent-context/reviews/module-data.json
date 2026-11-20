@@ -1,16 +1,14 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "014cfafe0eb5b713426d401aef9cdc21c02df0784b32313ab9337a5fd7b4eb3d",
+  "fingerprint": "aa742e6f1882d7735c555df62e9d1b5c16899acea3a9f90f6264ed06a9da44eb",
   "outcome": "updated",
-  "explanation": "From main: crossDatasetCompare.ts, the expression-index loader used only by the retired compare view, is deleted, and so is queryIndex.ts manifestSupportsExpr, its capability check (knip flagged it unused). loadExprRows stays, pinned by the wire tests while the build still publishes the expr family; its comment states the check a future reader needs. trackColumns.ts and trackData.ts only reword comments. From the cross-study listing: geneRow and pathwayRow now set each row's significance tier once with significanceTier(q, p), and significant is that tier's FDR call; direction is unchanged, so the index and fallback paths still build identical rows. The unused summarizeGroup aggregate is removed from crossDataset.ts.",
+  "explanation": "From main: originHealth probes the data origin with a no-cors, no-store HEAD instead of a GET, so the hub light and error banners no longer download the 200 KB query manifest body. The diagnosis states, memo window and probe path are unchanged; EDGE_PROTECTION.md notes that the method rule admits HEAD. From the cross-study listing: geneRow and pathwayRow now set each row's significance tier once with significanceTier(q, p), and significant is that tier's FDR call; direction is unchanged, so the index and fallback paths still build identical rows. The unused summarizeGroup aggregate is removed from crossDataset.ts.",
   "references": [
     "src/data/crossDatasetRows.ts",
     "src/data/crossDataset.ts",
     "docs/REFACTOR_CHECKLIST.md",
-    "src/data/queryIndex.ts",
-    "src/data/queryWire.ts",
-    "src/__tests__/queryWire.test.ts",
-    "scripts/build_query_index.mts"
+    "src/data/originHealth.ts",
+    "docs/EDGE_PROTECTION.md"
   ]
 }

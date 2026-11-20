@@ -1,7 +1,12 @@
-import { describe, it, expect, afterEach } from 'vitest';
+import { describe, it, expect, afterEach, beforeAll } from 'vitest';
 import { render, screen, fireEvent, waitFor, cleanup } from '@testing-library/react';
 import App from '../App';
+import { preloadAppViews } from '../appViews';
 import { parseRoute, routeHref } from '../utils/appLinks';
+
+// App's views are separate chunks (src/appViews.tsx); load them first so every
+// render below is synchronous.
+beforeAll(() => preloadAppViews());
 
 // A Compare link names what Compare shows — its populations, genes and
 // Genes/Pathways sub-tab — so a refresh, Back or a copied link reopens the same

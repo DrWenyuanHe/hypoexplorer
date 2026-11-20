@@ -1,16 +1,17 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "75c725c761ad2f2a542e00432045a53d907f1ea4e3d35a87ef6286b59a2a3182",
+  "fingerprint": "4c76986d0176ac79fa58ca7a77b29f99b4069a009306031d54393e5330537358",
   "outcome": "updated",
-  "explanation": "From main: The catalog drops the statistics and compare-datasets views and the datasources tab, and re-describes the acknowledgements, methodology and statistics modules. CONTEXT.md, PROJECT_GUIDANCE, REAL_DATA_SHAPES and REFACTOR_CHECKLIST stop naming the removed pages. /how-to-cite/ gains the software and acknowledgements section. From the cross-study listing: CONTEXT.md defines significance tier, listing mode and cross-study listing. The UI change workflow and the refactor checklist name listCrossStudy as the one place a cross-study view gets what leads, its order and its counts, and TierLabel in src/statistics as its label. The catalog adds both files to the statistics area and drops GroupSummary.",
+  "explanation": "From main: App.tsx imports every non-hub view from src/appViews.tsx instead of statically, and warms the results page while the hub is idle and the reports while results are shown. Merged with main, appViews no longer lists the Statistics page, Compare as bars or the Data Sources tab that main removed. docs/APP_LOADING_2026-11-20.md records the hub critical path before and after (6,855 KB to 546 KB decoded JavaScript) and which views still load the evidence ledgers. From the cross-study listing: CONTEXT.md defines significance tier, listing mode and cross-study listing. The UI change workflow and the refactor checklist name listCrossStudy as the one place a cross-study view gets what leads, its order and its counts, and TierLabel in src/statistics as its label. The catalog adds both files to the statistics area and drops GroupSummary.",
   "references": [
     "CONTEXT.md",
     "docs/agent-context/workflows.md",
     "docs/REFACTOR_CHECKLIST.md",
     "docs/agent-context/catalog.json",
     "src/changelog/changelog.ts",
-    "docs/PROJECT_GUIDANCE.md",
-    "scripts/lib/seoGuides.mts"
+    "src/App.tsx",
+    "src/appViews.tsx",
+    "docs/APP_LOADING_2026-11-20.md"
   ]
 }

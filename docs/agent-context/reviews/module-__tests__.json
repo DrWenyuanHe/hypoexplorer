@@ -1,18 +1,18 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "f4224d0ca65aaa09f7fa8fca1afa537335d4674a0c1013768b31e14b502adf7d",
+  "fingerprint": "9e4f6bd197f53c76d24c8730e9ada0bec2692830d4283c2fbee20bbd7be610e7",
   "outcome": "updated",
-  "explanation": "From main: statistics, dataSources, crossDatasetCompare and crossDatasetCompareIndex tests are removed or replaced: methodology.test covers the merged sections and footer entry, references.test the How to cite citations and retired tab links, and the route, router, scope and selection suites drop the removed views and bars mode. From the cross-study listing: crossStudyListing.test.ts pins the listing in tables: lead and rest per mode and order, counts, dataset rules, flat rows, missing and non-finite keys, stable ties on subsets and no mutation. Report, preview, index and condition-card fixtures now build rows through geneRow / pathwayRow so no fixture contradicts its tier. searchPage adds a lowest-p versus lowest-q case, pathwayReportResults an FDR-mode survivors-first case, and crossDatasetSummary.test.ts goes with summarizeGroup.",
+  "explanation": "From main: The thirteen App-rendering tests await preloadAppViews() in a beforeAll, because App now renders its views as lazy chunks and these tests query them synchronously; the merge with main keeps its deletion of the Statistics and Data Sources tests and its removal of the Compare-as-bars mock. lazyView.test.tsx covers the fallback, synchronous render after preload, no remount when the chunk lands, and a failed download that is reported once and retried only on the boundary reset. originHealth.test.ts expects the HEAD probe. From the cross-study listing: crossStudyListing.test.ts pins the listing in tables: lead and rest per mode and order, counts, dataset rules, flat rows, missing and non-finite keys, stable ties on subsets and no mutation. Report, preview, index and condition-card fixtures now build rows through geneRow / pathwayRow so no fixture contradicts its tier. searchPage adds a lowest-p versus lowest-q case, pathwayReportResults an FDR-mode survivors-first case, and crossDatasetSummary.test.ts goes with summarizeGroup.",
   "references": [
     "src/__tests__/crossStudyListing.test.ts",
     "src/__tests__/searchPage.test.tsx",
     "src/__tests__/pathwayReportResults.test.tsx",
     "src/__tests__/geneReport.test.tsx",
     "src/__tests__/crossDatasetRows.test.ts",
-    "src/__tests__/methodology.test.tsx",
-    "src/__tests__/references.test.tsx",
-    "src/__tests__/app.geneScope.test.tsx",
-    "src/__tests__/appRouterUrl.test.tsx"
+    "src/__tests__/lazyView.test.tsx",
+    "src/__tests__/smoke.test.tsx",
+    "src/__tests__/originHealth.test.ts",
+    "src/appViews.tsx"
   ]
 }
