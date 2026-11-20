@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-utils",
-  "fingerprint": "dd677eca2fbce22f23946567055353989a0c9e40b37cb1e63298d76d99497f5f",
-  "outcome": "updated",
-  "explanation": "appLinks no longer routes #/local-datasets, and exportProvenance drops LocalExportSource, localExportName, PUBLIC_COPY_SOURCE_PREFIX and localExportProvenance; provenanceRows and metadataSheet now take only registry ExportProvenance. Registry export kinds and CSV provenance columns are unchanged.",
+  "fingerprint": "fa2ad6b144764c6ee4523f25f87f88200a797eb94dfb62f4814f3e383b82d24d",
+  "outcome": "no-impact",
+  "explanation": "Adds tabKeys.ts with tabKeyTarget(key, index, count): the roving-tabindex index for ArrowRight/ArrowLeft (wrapping) and Home/End, or null for any other key. It is a pure helper shared by the four tablists; no existing util changes and the module meaning is unchanged.",
   "references": [
-    "src/utils/appLinks.ts",
-    "src/utils/exportProvenance.ts",
-    "src/utils/analysisState.ts"
+    "src/utils/tabKeys.ts",
+    "src/__tests__/hypomapPreview.test.tsx"
   ]
 }

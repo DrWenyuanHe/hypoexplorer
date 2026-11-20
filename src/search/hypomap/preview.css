@@ -45,28 +45,30 @@
 .hm-math-paren { font-family: "Helvetica Neue", Arial, sans-serif; font-size: 2.5em; font-weight: 300; line-height: 1; }
 .hm-formula-note { margin: 0 0 8px; color: var(--text-muted); }
 .hm-card .hm-other-regions { margin: 16px 0 0; border: 1px solid var(--border-dark); border-radius: 6px; font-size: 13px; }
-.hm-other-regions > summary { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 12px; box-sizing: border-box; list-style: none; font-weight: 600; background: var(--row-hover, #f4f1ed); border-radius: 6px; }
+.hm-other-regions > summary { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 12px; box-sizing: border-box; list-style: none; font-weight: 600; background: var(--row-hover); border-radius: 6px; }
 .hm-other-regions > summary::-webkit-details-marker { display: none; }
 .hm-other-regions > summary::before { content: '›'; font-size: 20px; line-height: 1; transition: transform 120ms ease; }
 .hm-other-regions[open] > summary::before { transform: rotate(90deg); }
-.hm-other-regions > summary:hover { background: var(--row-selected, #ede8e2); }
+.hm-other-regions > summary:hover { background: var(--row-selected); }
 .hm-other-regions > summary:focus-visible { outline: 2px solid var(--text-primary); outline-offset: 3px; }
 .hm-region-count { margin-left: auto; padding: 1px 7px; border: 1px solid var(--border-dark); border-radius: 10px; color: var(--text-muted); background: var(--bg-panel); font-size: 12px; font-weight: 400; }
 .hm-other-regions > .hm-controls { padding: 4px 12px; }
 
-.hm-view-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 16px; margin: 20px 0 16px; border-bottom: 1px solid var(--border-dark); }
+/* wrap-reverse: when the export action no longer fits beside the tabs it moves to a row above them,
+   so the selected tab stays joined to the header rule at any container width. */
+.hm-view-header { display: flex; align-items: center; flex-wrap: wrap-reverse; gap: 8px 16px; margin: 20px 0 16px; border-bottom: 1px solid var(--border-dark); }
 .hm-tabs { display: flex; gap: 4px; align-self: stretch; }
 .hm-tabs [role="tab"] { position: relative; display: grid; gap: 2px; min-width: 136px; padding: 11px 16px 12px; margin-bottom: -1px; border: 1px solid transparent; border-bottom: 3px solid transparent; border-radius: 7px 7px 0 0; color: var(--text-muted); background: transparent; text-align: left; cursor: pointer; font: inherit; }
 .hm-tabs [role="tab"] > span { font-size: 15px; font-weight: 600; }
 .hm-tabs [role="tab"] small { font-size: 12px; font-weight: 400; }
-.hm-tabs [role="tab"]:hover { background: var(--row-hover, #f4f1ed); color: var(--text-primary); }
-.hm-tabs [aria-selected="true"] { border-color: var(--border-dark); border-bottom-color: #4C78A8; color: var(--text-primary); background: var(--bg-panel); }
-.hm-tabs [aria-selected="true"] > span { color: #315f83; }
-.hm-tabs [role="tab"]:focus-visible, .hm-view-export:focus-visible, .hm-scope-reset:focus-visible { outline: 2px solid #4C78A8; outline-offset: 3px; }
-.hm-view-export, .hm-scope-reset { border: 0; background: transparent; color: #315f83; cursor: pointer; font: inherit; font-size: 14px; font-weight: 500; min-height: 44px; padding: 10px 12px; border-radius: 5px; text-align: left; text-underline-offset: 3px; }
-.hm-view-export:hover, .hm-scope-reset:hover { text-decoration: underline; background: var(--row-hover, #f4f1ed); }
+.hm-tabs [role="tab"]:not([aria-selected="true"]):hover { background: var(--row-hover); color: var(--text-primary); }
+.hm-tabs [aria-selected="true"] { border-color: var(--border-dark); border-bottom-color: var(--accent); color: var(--text-primary); background: var(--bg-panel); }
+.hm-tabs [aria-selected="true"] > span { color: var(--accent); }
+.hm-tabs [role="tab"]:focus-visible, .hm-view-export:focus-visible, .hm-scope-reset:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.hm-view-export, .hm-scope-reset { border: 0; background: transparent; color: var(--accent); cursor: pointer; font: inherit; font-size: 14px; font-weight: 500; min-height: 44px; padding: 10px 12px; border-radius: 5px; text-align: left; text-underline-offset: 3px; }
+.hm-view-export:hover, .hm-scope-reset:hover { text-decoration: underline; background: var(--row-hover); }
 .hm-view-export { margin-left: auto; white-space: nowrap; }
 .hm-summary-header { display: flex; align-items: start; justify-content: space-between; flex-wrap: wrap; gap: 2px 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border-dark); }
 .hm-summary-header h5 { margin: 0; flex: 1 1 180px; }
 .hm-scope-reset { padding: 8px 10px; }
-@media (max-width: 480px) { .hm-tabs { width: 100%; } .hm-tabs [role="tab"] { flex: 1; min-width: 0; } .hm-view-export { margin: 0 0 4px auto; } }
+@media (max-width: 480px) { .hm-tabs { width: 100%; } .hm-tabs [role="tab"] { flex: 1; min-width: 0; } }

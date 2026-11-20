@@ -1,27 +1,16 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "66c837324e04bb5c05f189aa80d5ee4aecbbe175dc89537b453109b3a304fb92",
+  "fingerprint": "21fca12d24214409c67355eb04183db716439d8e5edc27d8730d60ecd605d779",
   "outcome": "no-impact",
-  "explanation": "Navigation loses the local-datasets application view and its home-page entry; the ui-change runbook steps are unchanged and still cover the remaining 14 views, routes and exports. The local-import workflow and its LOCAL_DATASETS.md runbook were removed from the catalog. Synced the page-style HypoMap tabs, fraction explanations, off-plane disclosure and contextual actions with upstream main. The upstream useLoad lifecycle, atlas validation, shared CSV writer and responsive behavior are retained; the UI changes do not alter routes, metrics or exported rows.",
+  "explanation": "HypoMapPreview replaces the Spatial / By dataset toggle buttons with a roving-tabindex tablist (role=tab, aria-selected, one tabpanel; clicks focus the tab so Safari keeps the arrow keys working). It typesets the detection and expression formulas as fractions, adds a count badge to the off-plane region disclosure, moves Preview spatial CSV into the view header (Spatial only) and Reset into the region summary header. preview.css takes the tab colours from --accent, wraps the header in reverse so the export sits above the tabs on narrow widths, and leaves the selected tab unchanged on hover. Routes, metrics, exported rows and the CSV dialog are unchanged. Four tablists (HypoMap views, search result filters, the explorer search dialog and the expression survey sections) now share tabKeyTarget for ArrowLeft/ArrowRight wrap and Home/End. The ui-change runbook steps still cover this without new text.",
   "references": [
-    "src/App.tsx",
-    "src/appRouter.ts",
-    "docs/agent-context/catalog.json",
-    "docs/agent-context/workflows.md",
-    "src/utils/appLinks.ts",
-    "src/crossdataset/forestReport.css",
-    "src/search/search.css",
-    "src/styles/responsive.css",
-    "src/statistics/listingModeStore.ts",
-    "src/statistics/ListingModeToggle.tsx",
-    "src/search/SearchPage.tsx",
-    "src/crossdataset/GeneReport.tsx",
-    "src/crossdataset/PathwayReport.tsx",
-    "src/qc/qcTables.ts",
-    "src/__tests__/qcTables.test.ts",
-    "scripts/lib/bundleWriter.mts",
     "src/search/hypomap/HypoMapPreview.tsx",
-    "src/search/hypomap/preview.css"
+    "src/search/hypomap/preview.css",
+    "src/utils/tabKeys.ts",
+    "src/search/SearchPage.tsx",
+    "src/crossdataset/ExplorerSearchDialog.tsx",
+    "src/expression-survey/ExpressionSurveyView.tsx",
+    "docs/agent-context/workflows.md"
   ]
 }

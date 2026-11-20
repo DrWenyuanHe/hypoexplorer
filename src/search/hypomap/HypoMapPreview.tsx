@@ -3,12 +3,17 @@ import { AtlasMap, regions } from './AtlasMap';
 import { type DatasetMetrics, datasetMetrics, loadAtlasGene, type Metrics, poolMetrics, type ReadyAtlas } from './atlas';
 import { type Csv, CsvDialog } from './CsvDialog';
 import { useLoad } from './useLoad';
+import { tabKeyTarget } from '../../utils/tabKeys';
 import './preview.css';
 
 const whole = 'Whole hypothalamus';
 const unit = 'ln(1 + counts per 10k)';
 const colors = ['#376592', '#a6632c', '#338071', '#96577f', '#577a32', '#785ca5', '#a94953', '#24758b', '#7d663a', '#58768c', '#5c6fc6', '#aa5835', '#3c8262', '#8e5272', '#777442', '#315f83', '#6578a2', '#a35c53'];
 const count = new Intl.NumberFormat('en-US');
+const views = [
+  { id: 'spatial', label: 'Spatial', hint: 'Explore regions' },
+  { id: 'datasets', label: 'By dataset', hint: 'Compare studies' },
+] as const;
 
 function value(n: number | null, suffix = '') {
   return n === null ? '—' : n.toFixed(2) + suffix;
@@ -88,7 +93,7 @@ function Chart({ rows, field, checked, onExport }: {
 
 
 function AtlasViews({ data }: { data: ReadyAtlas }) {
-  const [view, setView] = useState<'spatial' | 'datasets'>('spatial');
+  const [view, setView] = useState<(typeof views)[number]['id']>('spatial');
   const [region, setRegion] = useState(whole);
   const [checked, setChecked] = useState<string[]>([]);
   const [csv, setCsv] = useState<Csv | null>(null);
@@ -110,18 +115,20 @@ function AtlasViews({ data }: { data: ReadyAtlas }) {
     <>
       <div className="hm-view-header">
         <div className="hm-tabs" role="tablist" aria-label="HypoMap view">
-          {(['spatial', 'datasets'] as const).map(tab => (
-            <button key={tab} id={`hm-tab-${tab}`} type="button" role="tab"
-              aria-selected={view === tab} aria-controls="hm-view-panel" tabIndex={view === tab ? 0 : -1}
-              onClick={() => setView(tab)} onKeyDown={event => {
-                if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+          {views.map((tab, i) => (
+            <button key={tab.id} id={`hm-tab-${tab.id}`} type="button" role="tab"
+              aria-selected={view === tab.id} aria-controls="hm-view-panel" tabIndex={view === tab.id ? 0 : -1}
+              // Focus the tab explicitly: Safari does not focus a clicked button, which would leave the arrow keys inert.
+              onClick={event => { event.currentTarget.focus(); setView(tab.id); }}
+              onKeyDown={event => {
+                const next = tabKeyTarget(event.key, i, views.length);
+                if (next === null) return;
                 event.preventDefault();
-                const next = event.key === 'Home' ? 'spatial' : event.key === 'End' ? 'datasets' : tab === 'spatial' ? 'datasets' : 'spatial';
-                setView(next);
-                document.getElementById(`hm-tab-${next}`)?.focus();
+                setView(views[next].id);
+                document.getElementById(`hm-tab-${views[next].id}`)?.focus();
               }}>
-              <span>{tab === 'spatial' ? 'Spatial' : 'By dataset'}</span>
-              <small>{tab === 'spatial' ? 'Explore regions' : 'Compare studies'}</small>
+              <span>{tab.label}</span>
+              <small>{tab.hint}</small>
             </button>
           ))}
         </div>
