@@ -1,13 +1,10 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "931a9a1f0c5666cf7ef3877867d5ec4508cd5132cde22dc534589b69511ba3e1",
-  "outcome": "updated",
-  "explanation": "statistics, dataSources, crossDatasetCompare and crossDatasetCompareIndex tests are removed or replaced: methodology.test covers the merged sections and footer entry, references.test the How to cite citations and retired tab links, and the route, router, scope and selection suites drop the removed views and bars mode.",
+  "fingerprint": "3f5a51f20aa188ef9f10a6b65253aea867164f3f4cfcb69604aa14bd831138dd",
+  "outcome": "no-impact",
+  "explanation": "compareDownloads.test adds a regression case: the compare-set summary sheet leaves a study's group means blank when that study did not measure the gene; no test infrastructure or fixtures change.",
   "references": [
-    "src/__tests__/methodology.test.tsx",
-    "src/__tests__/references.test.tsx",
-    "src/__tests__/app.geneScope.test.tsx",
-    "src/__tests__/appRouterUrl.test.tsx"
+    "src/__tests__/compareDownloads.test.ts"
   ]
 }

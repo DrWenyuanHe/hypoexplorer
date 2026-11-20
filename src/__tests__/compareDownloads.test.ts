@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import {
-  compareGenesCsv, compareGenesWorkbook, compareSummaryLongRows, compareValueRows, compareValuesCsv,
+  compareGenesCsv, compareGenesWorkbook, compareSummaryLongRows, compareSummaryRows, compareValueRows, compareValuesCsv,
 } from '../compare/compareSummary';
 import { makePopData, MACAQUE_DATASET } from './fixtures';
 import type { CompareColumn } from '../compare/compareColumns';
@@ -72,5 +72,24 @@ describe('compare downloads are long format', () => {
     expect(track(csv.rows.length - 1)).toBe('i23');
     // One record per population, reused across that population's rows.
     expect(csv.rowProvenance(0)).toBe(csv.rowProvenance(1));
+  });
+});
+
+describe('compare-set summary sheet', () => {
+  it('leaves the group means blank for a study that did not measure the gene', () => {
+    // i23 has no AGRP at all: no DE row and no per-sample values.
+    const withAgrp = pop('e9');
+    const withoutAgrp = makePopData({
+      dataset: MACAQUE_DATASET,
+      meta: { code: 'i23' },
+      de: withAgrp.de.filter((d) => d.gene !== 'AGRP'),
+      cpm: { POMC: [10, 20, 30, 40] },
+    });
+    const [row] = compareSummaryRows(columns, { e9: withAgrp, i23: withoutAgrp }, ['AGRP']);
+    expect(row).toMatchObject({
+      'e9_MeanNormalCPM': 5, 'e9_MeanObeseCPM': 20,
+      'i23_logFC': '', 'i23_PValue': '', 'i23_Stars': '',
+      'i23_MeanNormalCPM': '', 'i23_MeanObeseCPM': '',
+    });
   });
 });
