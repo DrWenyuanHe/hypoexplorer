@@ -1,17 +1,17 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "4c76986d0176ac79fa58ca7a77b29f99b4069a009306031d54393e5330537358",
+  "fingerprint": "4bbede0eebdf637d1fcda7cf185a0225ffaa79889491a360210ddef7d6c3c573",
   "outcome": "updated",
-  "explanation": "From main: App.tsx imports every non-hub view from src/appViews.tsx instead of statically, and warms the results page while the hub is idle and the reports while results are shown. Merged with main, appViews no longer lists the Statistics page, Compare as bars or the Data Sources tab that main removed. docs/APP_LOADING_2026-11-20.md records the hub critical path before and after (6,855 KB to 546 KB decoded JavaScript) and which views still load the evidence ledgers. From the cross-study listing: CONTEXT.md defines significance tier, listing mode and cross-study listing. The UI change workflow and the refactor checklist name listCrossStudy as the one place a cross-study view gets what leads, its order and its counts, and TierLabel in src/statistics as its label. The catalog adds both files to the statistics area and drops GroupSummary.",
+  "explanation": "From main: From main, App renders every non-hub view through src/appViews.tsx and docs/APP_LOADING_2026-11-20.md records the hub critical path. This branch adds worker.format es in vite.config.ts beside main's codeSplitting groups so the circadian workbook worker can lazy-load the xlsx group, and extends the ui-change runbook's circadian paragraph; the generated code map is regenerated for the merged tree. From the cross-study listing: CONTEXT.md defines significance tier, listing mode and cross-study listing. The UI change workflow and the refactor checklist name listCrossStudy as the one place a cross-study view gets what leads, its order and its counts, and TierLabel in src/statistics as its label. The catalog adds both files to the statistics area and drops GroupSummary.",
   "references": [
     "CONTEXT.md",
     "docs/agent-context/workflows.md",
     "docs/REFACTOR_CHECKLIST.md",
     "docs/agent-context/catalog.json",
     "src/changelog/changelog.ts",
-    "src/App.tsx",
     "src/appViews.tsx",
-    "docs/APP_LOADING_2026-11-20.md"
+    "vite.config.ts",
+    "docs/agent-context/generated/codebase.md"
   ]
 }

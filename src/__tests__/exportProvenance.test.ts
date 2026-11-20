@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import * as XLSX from 'xlsx';
 import {
   columnsSubject, exportName, exportProvenance, provenanceRows,
 } from '../utils/exportProvenance';
@@ -175,11 +176,26 @@ describe('circadian exports', () => {
   } as RhythmRow;
 
   it('adopts the shared schema in a Metadata sheet and keeps every circadian setting', async () => {
-    await exportWorkbook([row], ['Per2'], ctx);
-    const [filename, sheets] = writeWorkbook.mock.calls[0] as unknown as [string, WorkbookSheet[]];
+    // The circadian workbook writes dense sheets itself (whole-transcriptome raw
+    // values), so read back the actual file handed to the browser.
+    let blob: Blob | undefined;
+    const create = vi.spyOn(URL, 'createObjectURL').mockImplementation((b) => { blob = b as Blob; return 'blob:test/1'; });
+    const revoke = vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => {});
+    try {
+      await exportWorkbook([row], ['Per2'], ctx);
+    } finally {
+      create.mockRestore();
+      revoke.mockRestore();
+    }
+    const [filename] = downloadFile.mock.calls[0] as [string, string];
     expect(filename).toBe(`${SCN.id}_scn_circadian.xlsx`);
-    expect(sheets.map((sheet) => sheet.name)).toEqual(['Rhythmicity', 'RawValues', 'Metadata']);
-    const meta = fields(lastSheet(sheets));
+    expect(blob).toBeDefined();
+    const wb = XLSX.read(new Uint8Array(await (blob as Blob).arrayBuffer()));
+    expect(wb.SheetNames).toEqual(['Rhythmicity', 'RawValues', 'Metadata']);
+    const meta = fields({
+      name: 'Metadata',
+      rows: XLSX.utils.sheet_to_json<Record<string, unknown>>(wb.Sheets.Metadata),
+    } as WorkbookSheet);
     expect(meta.exportKind).toBe('circadian');
     expect(meta['dataset.id']).toBe(SCN.id);
     expect(meta['dataset.name']).toBe(SCN.name);
@@ -192,15 +208,18 @@ describe('circadian exports', () => {
     expect(meta['settings.armTested']).toBe('Chow');
     expect(meta['settings.samplingTimes']).toBe('ZT0, ZT12');
     expect(meta['settings.libraries']).toBe('2');
-    expect(meta['settings.genesTested']).toBe('1');
+    expect(meta['settings.genesInBundle']).toBe('1');
+    expect(meta['settings.effectiveCandidatePeriodsHours']).toBe('24');
+    expect(meta['settings.effectiveCandidatePeriodsScope']).toMatch(/^COSINOR: the requested candidate periods\./);
     expect(meta['settings.note']).toContain('Acrophase');
     expect(meta['groups.0.samples.1']).toBe('A2');
     expect(String(meta.trackBundleUrl)).toContain('timeseries_');
   });
 
-  it('appends the provenance columns to both CSVs, with the JSON once', () => {
+  it('appends the provenance columns to both CSVs, with the JSON once', async () => {
     exportResultsCSV([row], ctx);
-    exportRawCSV(bundle, ['Per2'], ctx);
+    // The raw CSV is written a block at a time and settles once handed over.
+    await exportRawCSV(bundle, ['Per2'], ctx);
     const [[resultsName, resultsUrl], [rawName, rawUrl]] = downloadFile.mock.calls as Array<[string, string]>;
     expect(resultsName).toBe(`${SCN.id}_scn_rhythmicity_cosinor.csv`);
     expect(rawName).toBe(`${SCN.id}_scn_timecourse_values.csv`);

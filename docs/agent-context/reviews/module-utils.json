@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-utils",
-  "fingerprint": "d325690fcd4e5db82c0f1b67809ac18f6da3da36a48d5fb1f31a1d0e5ce8f251",
+  "fingerprint": "29eecc642636bf11dfd1b5ebdae909de6e4dd080542be3deaad19b52f9e8fd42",
   "outcome": "updated",
-  "explanation": "The pure provenance formatters (provenanceColumns, provenanceRows, metadataSheet) move to exportProvenanceFormat.ts, which does not import the internal QC ledger. csv.ts imports from it, so views that only write CSV (the search results page) no longer load the 3.9 MB ledger; exportProvenance re-exports the sheet formatters for its existing callers.",
+  "explanation": "From main, the pure provenance formatters live in exportProvenanceFormat.ts so CSV-only views skip the internal QC ledger, and csv.ts imports them from there. This branch adds writeCsvBlocks for block-wise encoding and a Blob URL for large CSVs while small outputs stay byte-identical, and lazyExport.ts names the circadian workbook as a second withXLSX consumer.",
   "references": [
     "src/utils/exportProvenanceFormat.ts",
     "src/utils/csv.ts",
-    "src/utils/exportProvenance.ts"
+    "src/utils/lazyExport.ts"
   ]
 }

@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "4915e9138813a55725b320bc61a3a9a56474953c38831008cdb4fd3a8220b22c",
+  "fingerprint": "251fabdb04ffe433e106a1a35293c94b59e7d870c79fd79d403bc6fc0ccc2638",
   "outcome": "updated",
-  "explanation": "From main: The thirteen App-rendering tests await preloadAppViews() in a beforeAll, because App now renders its views as lazy chunks and these tests query them synchronously; lazyView.test.tsx covers the fallback, synchronous render after preload, no remount when the chunk lands, and a failed download that is reported once and retried only on the boundary reset. originHealth.test.ts expects the HEAD probe. compareDownloads.test adds a regression case: the compare-set summary sheet leaves a study's group means blank when that study did not measure the gene. From the cross-study listing: crossStudyListing.test.ts pins the listing in tables: lead and rest per mode and order, counts, dataset rules, flat rows, missing and non-finite keys, stable ties on subsets and no mutation. Report, preview, index and condition-card fixtures now build rows through geneRow / pathwayRow so no fixture contradicts its tier. searchPage adds a lowest-p versus lowest-q case, pathwayReportResults an FDR-mode survivors-first case, and crossDatasetSummary.test.ts goes with summarizeGroup.",
+  "explanation": "From main: Merging main keeps its App-rendering tests awaiting preloadAppViews(), its lazyView and originHealth coverage, and its compareDownloads regression for blank compare-set group means on unmeasured genes. This branch adds the Circadian tab tests (per-arm comparison, notes, controls, table, trace, strip, full-gene exports and the workbook worker protocol) plus the exportProvenance, csv, rhythmScanIdentity and sortableHeaderA11y updates; the circadian tests render CircadianTab directly, so they need no view preload. From the cross-study listing: crossStudyListing.test.ts pins the listing in tables: lead and rest per mode and order, counts, dataset rules, flat rows, missing and non-finite keys, stable ties on subsets and no mutation. Report, preview, index and condition-card fixtures now build rows through geneRow / pathwayRow so no fixture contradicts its tier. searchPage adds a lowest-p versus lowest-q case, pathwayReportResults an FDR-mode survivors-first case, and crossDatasetSummary.test.ts goes with summarizeGroup.",
   "references": [
     "src/__tests__/crossStudyListing.test.ts",
     "src/__tests__/searchPage.test.tsx",
@@ -11,9 +11,9 @@
     "src/__tests__/geneReport.test.tsx",
     "src/__tests__/crossDatasetRows.test.ts",
     "src/__tests__/lazyView.test.tsx",
-    "src/__tests__/smoke.test.tsx",
-    "src/__tests__/originHealth.test.ts",
     "src/__tests__/compareDownloads.test.ts",
+    "src/__tests__/circadianComparison.test.tsx",
+    "src/__tests__/circadianWorkbook.test.ts",
     "src/appViews.tsx"
   ]
 }

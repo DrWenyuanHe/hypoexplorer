@@ -291,6 +291,9 @@ const CASES: TableCase[] = [
       () => Promise.resolve<BundleOutcome>({ status: 'ok', value: CIRCADIAN_BUNDLE }),
     ),
     teardown: () => { _setBundleTransport(null); _resetBundleCache(); },
+    // The per-arm stats strip under the trace is also a table with "p" and
+    // "peak" headers; the sortable one is the results table (it alone has mesor).
+    scope: (container) => tableWith(container, 'mesor'),
     // The bundle loads and the whole-transcriptome scan runs before there is a
     // table at all — two awaited hops and a chunk yield. waitFor's 1 s default
     // is not a budget for real async work on a machine running four test files
@@ -298,7 +301,12 @@ const CASES: TableCase[] = [
     // not 3") wins over a bare test timeout, which says nothing about what stalled.
     timeoutMs: SCAN_TIMEOUT_MS,
     settle: (container) => waitFor(
-      () => { expect(container.querySelectorAll('tbody tr')).toHaveLength(3); },
+      // Count the results table's rows only: the per-arm strip under the trace
+      // is a table too, with one row per arm.
+      () => {
+        const results = container.querySelector('table[aria-label="Rhythm results"]');
+        expect(results?.querySelectorAll('tbody tr') ?? []).toHaveLength(3);
+      },
       { timeout: SCAN_TIMEOUT_MS - 5000 },
     ),
     sortedColumn: 'p',
