@@ -1,17 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "4bbede0eebdf637d1fcda7cf185a0225ffaa79889491a360210ddef7d6c3c573",
-  "outcome": "updated",
-  "explanation": "From main: From main, App renders every non-hub view through src/appViews.tsx and docs/APP_LOADING_2026-11-20.md records the hub critical path. This branch adds worker.format es in vite.config.ts beside main's codeSplitting groups so the circadian workbook worker can lazy-load the xlsx group, and extends the ui-change runbook's circadian paragraph; the generated code map is regenerated for the merged tree. From the cross-study listing: CONTEXT.md defines significance tier, listing mode and cross-study listing. The UI change workflow and the refactor checklist name listCrossStudy as the one place a cross-study view gets what leads, its order and its counts, and TierLabel in src/statistics as its label. The catalog adds both files to the statistics area and drops GroupSummary.",
+  "fingerprint": "a2bf29c350f6915fae72ab9b7a24ea4b9df7abbe998fc34825b2ead03a6f38ba",
+  "outcome": "no-impact",
+  "explanation": "Dependabot development-group patch/minor bumps (@biomejs/biome 2.6.7, knip 6.45.1, vite 8.3.8, wrangler 4.162.0) in package.json and pnpm-lock.yaml, plus the biome migrate output in biome.json: the schema URL moves to 2.6.7 and linter.rules.recommended becomes the equivalent preset recommended. No script names, source areas, views, contracts or commands change, so the maps and runbooks stay accurate.",
   "references": [
-    "CONTEXT.md",
-    "docs/agent-context/workflows.md",
-    "docs/REFACTOR_CHECKLIST.md",
-    "docs/agent-context/catalog.json",
-    "src/changelog/changelog.ts",
-    "src/appViews.tsx",
-    "vite.config.ts",
-    "docs/agent-context/generated/codebase.md"
+    "package.json",
+    "biome.json",
+    "docs/agent-context/README.md"
   ]
 }
