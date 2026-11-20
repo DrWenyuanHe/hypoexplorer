@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "aef6e323415023f560bca3d461d76beee4919901613a68bbe0b085c0a70aef33",
+  "fingerprint": "3973b06d2fd7b6a7a4a5cb2c604dc96c9d60d1f37f26a8724e0df0adf3c20e07",
   "outcome": "updated",
-  "explanation": "The runbook drops the bars mode from the useStudySelection description, since the side-by-side compare view is retired. Navigation now has one Methods & statistics page and no Data Sources tab; the existing runbook steps cover these without new text.",
+  "explanation": "The circadian view changed shape (controls, notes, results table and per-arm strip components; per-arm scans; keyboard row selection; full-gene raw exports; workbook worker) and the ui-change workflow paragraph for circadian changes now records those owners and rules alongside the existing numerical-runbook requirements.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/crossdataset/geneStudyScope.tsx",
-    "src/methodology/MethodologyView.tsx"
+    "src/circadian/CircadianTab.tsx",
+    "docs/CIRCADIAN_VALIDATION.md"
   ]
 }

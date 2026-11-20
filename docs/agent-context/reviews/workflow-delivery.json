@@ -1,10 +1,11 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "3cfbf39551539e14ecba02d5e9e8066095e655fd4836e434fe4cd26c25874a7f",
+  "fingerprint": "93b7f6073b024f1dfe28b52ee3eab668ea2776b835d7b7f7979390cf7aae4f60",
   "outcome": "no-impact",
-  "explanation": "Delivery is unchanged: build_query_index.mts still builds and publishes the expression family; only its comment now says the retired compare view was its sole reader and that dropping it is a separate pipeline change.",
+  "explanation": "The only delivery-relevant change is worker.format es in vite.config.ts, which emits the circadian workbook worker as a small ES-module asset that lazy-loads the existing xlsx chunk; the site Worker, R2 bundle origin, edge rules and spend guard are untouched, so the delivery runbook stays as written.",
   "references": [
-    "scripts/build_query_index.mts"
+    "vite.config.ts",
+    "docs/agent-context/delivery.md"
   ]
 }

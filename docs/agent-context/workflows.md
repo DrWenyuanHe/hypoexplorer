@@ -184,7 +184,16 @@ Circadian changes also follow [the numerical validation runbook](../CIRCADIAN_VA
 Keep effective JTK period families, unsupported-design reasons, missing-value
 handling and within-gene versus gene-wise corrections explicit in the UI and
 exports. A matched numerical reference does not establish biological calibration
-or measured human usability.
+or measured human usability. `CircadianTab.tsx` owns state, the per-arm scan
+queue (`scan.ts`, every arm scanned, the selected arm first) and selection;
+controls, notes, the results table and the per-arm statistics strip are their
+own components. Any display, plot, sort or announcement of a peak time uses
+`hasEstimablePeak` in `src/circadian/peak.ts`; p, q, period and amplitude keep
+their own field rules. Statements about attainable p-values (the Lomb–Scargle
+floor) appear only when the code can verify them for every scored sampling
+pattern. Raw-value exports cover every listed gene; the workbook is built and
+serialised in `circadianWorkbook.worker.ts` (ES-module worker, `worker.format`
+in vite.config.ts), with the same builder as an in-thread fallback.
 
 HypoMap views in `src/search/hypomap/` sit behind two build flags that stay off in
 hosted builds: `VITE_HYPOMAP_EXPRESSION` adds the atlas preview under the gene

@@ -51,10 +51,17 @@ plan being rebuilt for each gene. The LRU cache holds at most 16 plans and
 The other estimators remain available for unsupported JTK designs.
 
 Completed scan results are bound to the exact bundle, method, arm and requested
-period identity. A settings change immediately hides previous statistics and
-trace selection, including the render before the replacement effect starts.
-CSV, raw-value and workbook exports remain disabled until the current request
-completes; cancelled requests cannot repopulate the current result set.
+period identity. A settings change immediately hides previous statistics,
+including the render before the replacement effect starts. The selected gene is
+bound only to the dataset, track and bundle: it survives method, period and arm
+changes when the new scan scores it, and its trace stays visible (dimmed) while
+the scan runs, refitted for the new settings. Every arm is scanned, the selected
+arm first, so per-arm counts and the per-arm statistics under the trace each use
+that arm's own gene-wise correction. CSV, raw-value and workbook exports remain
+disabled until the current request completes; cancelled requests cannot
+repopulate the current result set. Raw-value exports cover every listed gene,
+not only the rows the table renders, and record any cut at Excel's row limit in
+their metadata.
 
 Lomb–Scargle is the classic fixed-mean, sample-variance-normalized periodogram.
 Its false-alarm value uses the documented Horne–Baliunas frequency-count

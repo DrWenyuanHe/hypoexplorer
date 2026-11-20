@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "cac055daa29a60530968ad33fd20dc346f48b235b1ca4a2c2958f158cf1a4363",
+  "fingerprint": "4469d7360b14b84fb63f52e842bace53b186a354dd626e06833a6d81e9b50671",
   "outcome": "updated",
-  "explanation": "The catalog drops the statistics and compare-datasets views and the datasources tab, and re-describes the acknowledgements, methodology and statistics modules. CONTEXT.md, PROJECT_GUIDANCE, REAL_DATA_SHAPES and REFACTOR_CHECKLIST stop naming the removed pages. /how-to-cite/ gains the software and acknowledgements section.",
+  "explanation": "vite.config.ts now builds Web Workers as ES modules so the circadian workbook worker can reach xlsx through the lazy loader, and the ui-change workflow paragraph for circadian changes now names the component split, the shared peak helper, the verified Lomb-Scargle floor rule and the workbook worker. The generated code map was regenerated for the new circadian files.",
   "references": [
-    "docs/agent-context/catalog.json",
-    "CONTEXT.md",
-    "docs/PROJECT_GUIDANCE.md",
-    "scripts/lib/seoGuides.mts"
+    "vite.config.ts",
+    "docs/agent-context/workflows.md",
+    "docs/agent-context/generated/codebase.md"
   ]
 }

@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-utils",
-  "fingerprint": "81ae1ca8fec4d359f31077670db5746cb92983cad6e857ce2e547392efbbfc96",
-  "outcome": "updated",
-  "explanation": "AppRoute drops statistics and compare-datasets. parseRoute sends #/statistics to methodology, #/compare/<gene>[/<scope>] (with any saved analysis) to that gene report, and #/dataset/<id>/<track>/datasources to the study library record. datasetLinks.ts only rewords a comment.",
+  "fingerprint": "088277509290d3628766e405426dcf4bb384d88af43389a7f289ea97407056fd",
+  "outcome": "no-impact",
+  "explanation": "csv.ts gains writeCsvBlocks for block-wise CSV encoding and a Blob URL for large files while small outputs stay byte-identical data: URLs with the same escaping, formula guard, BOM/CRLF and provenance columns; lazyExport.ts only updates its comment to name the circadian workbook as a second withXLSX consumer. The utils catalog meaning (routing, sample values, symbol handling and exports) is unchanged.",
   "references": [
-    "src/utils/appLinks.ts",
-    "src/utils/datasetLinks.ts",
-    "src/__tests__/appRoutes.test.ts"
+    "src/utils/csv.ts",
+    "src/utils/lazyExport.ts"
   ]
 }

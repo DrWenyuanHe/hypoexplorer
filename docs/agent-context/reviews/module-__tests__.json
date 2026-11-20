@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "931a9a1f0c5666cf7ef3877867d5ec4508cd5132cde22dc534589b69511ba3e1",
-  "outcome": "updated",
-  "explanation": "statistics, dataSources, crossDatasetCompare and crossDatasetCompareIndex tests are removed or replaced: methodology.test covers the merged sections and footer entry, references.test the How to cite citations and retired tab links, and the route, router, scope and selection suites drop the removed views and bars mode.",
+  "fingerprint": "b6cd0f33f177858a844656150195354961e4acb4e8f2053df1e96bad8a899ccb",
+  "outcome": "no-impact",
+  "explanation": "New and updated tests cover the reworked Circadian tab (per-arm comparison, notes, controls, table, trace, strip, full-gene exports and the workbook worker protocol) and adjust exportProvenance, csv, rhythmScanIdentity and sortableHeaderA11y to the new behaviour. The tests area still holds app, data-contract and regression tests, so its catalog meaning is unchanged.",
   "references": [
-    "src/__tests__/methodology.test.tsx",
-    "src/__tests__/references.test.tsx",
-    "src/__tests__/app.geneScope.test.tsx",
-    "src/__tests__/appRouterUrl.test.tsx"
+    "src/__tests__/circadianComparison.test.tsx",
+    "src/__tests__/circadianWorkbook.test.ts",
+    "src/__tests__/exportProvenance.test.ts"
   ]
 }

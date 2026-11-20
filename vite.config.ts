@@ -780,6 +780,13 @@ export default defineConfig(async ({ mode }): Promise<ViteUserConfig> => {
       },
     },
   },
+  // Workers are built as ES modules: the circadian workbook worker
+  // (src/circadian/circadianWorkbook.worker.ts) reaches xlsx through
+  // utils/lazyExport.ts's dynamic import, and the default IIFE worker format
+  // cannot code-split. The page creates it with `{ type: 'module' }`.
+  worker: {
+    format: 'es',
+  },
   test: {
     // See "Test environments and scheduling" above. Both projects extend this
     // block; only their file sets and environments differ. Keep discovery
