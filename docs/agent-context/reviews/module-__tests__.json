@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "74f9bafb7036c6381ab3f94632499b768b2a908532cfcf29915754f3e5d391f9",
+  "fingerprint": "3d3dc8428478a507cf346f045ebdc61cbf491cbed981cdff270cac23d627f5da",
   "outcome": "updated",
-  "explanation": "Merging main keeps its App-rendering tests awaiting preloadAppViews() and its lazyView and originHealth coverage, and adds this branch's Circadian tab tests (per-arm comparison, notes, controls, table, trace, strip, full-gene exports and the workbook worker protocol) plus the exportProvenance, csv, rhythmScanIdentity and sortableHeaderA11y updates; the circadian tests render CircadianTab directly, so they need no view preload.",
+  "explanation": "Merging main keeps its App-rendering tests awaiting preloadAppViews(), its lazyView and originHealth coverage, and its compareDownloads regression for blank compare-set group means on unmeasured genes. This branch adds the Circadian tab tests (per-arm comparison, notes, controls, table, trace, strip, full-gene exports and the workbook worker protocol) plus the exportProvenance, csv, rhythmScanIdentity and sortableHeaderA11y updates; the circadian tests render CircadianTab directly, so they need no view preload.",
   "references": [
     "src/__tests__/lazyView.test.tsx",
+    "src/__tests__/compareDownloads.test.ts",
     "src/__tests__/circadianComparison.test.tsx",
     "src/__tests__/circadianWorkbook.test.ts",
     "src/appViews.tsx"
