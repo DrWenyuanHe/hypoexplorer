@@ -37,6 +37,17 @@ describe('App new-version prompt', () => {
     expect(prompts()).toHaveLength(1);
   });
 
+  // Not preloaded on purpose: the prompt sits above every view's Suspense
+  // boundary, so it shows while the chunk downloads and stays single after.
+  it('appears once on a lazily loaded view, before and after its chunk arrives', async () => {
+    window.history.replaceState(null, '', '/#/methodology');
+    render(<App />);
+    signalUpdate();
+    expect(prompts()).toHaveLength(1);
+    expect(await screen.findByRole('heading', { level: 1 }, { timeout: 10_000 })).toBeInTheDocument();
+    expect(prompts()).toHaveLength(1);
+  });
+
   it('appears once on the hub', () => {
     render(<App />);
     signalUpdate();
