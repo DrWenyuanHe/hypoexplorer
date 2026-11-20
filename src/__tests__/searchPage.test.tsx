@@ -272,6 +272,22 @@ describe('SearchPage', () => {
     expect(mocks.queryGeneAcrossDatasets).not.toHaveBeenCalled();
   });
 
+  it('names the lowest p in the p < 0.05 listing and the lowest q in the FDR listing, even on different tracks', async () => {
+    const split = geneReport();
+    split.groups = split.groups.map((g) => ({
+      ...g,
+      // ARC has the lowest p, whole hypothalamus the lowest q; neither reaches a tier.
+      tracks: g.tracks.map((t) => geneRow({ ...t, ...(t.trackId === 'ARC' ? { pval: 0.06, fdr: 0.9 } : t.trackId === 'whole' ? { pval: 0.2, fdr: 0.5 } : { pval: 0.4, fdr: 0.95 }) })),
+    }));
+    mocks.queryGeneViaIndex.mockResolvedValue(split);
+    renderPage('oxytocin');
+    const [row] = rowsOf(matchList() as HTMLElement);
+    await waitFor(() => expect(summaryOf(row)).toHaveAttribute('data-summary', 'done'));
+    expect(summaryOf(row).textContent).toContain('(lowest p 0.060, q 0.900)');
+    fireEvent.click(screen.getByRole('button', { name: 'FDR (q < 0.05)' }));
+    expect(summaryOf(row).textContent).toContain('(lowest q 0.500)');
+  });
+
   it('shows a gene that reaches p < 0.05 but not FDR as nominal, never as significant', async () => {
     const nominal = geneReport();
     nominal.groups = nominal.groups.map((g) => ({
