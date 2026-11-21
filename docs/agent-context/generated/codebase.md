@@ -358,7 +358,7 @@ Start here:
 - [src/common/BrandLink.tsx](<../../../src/common/BrandLink.tsx>)
 - [brand/README.md](<../../../brand/README.md>)
 
-Covered source files (35):
+Covered source files (37):
 - [src/common/AuthorValidation.tsx](<../../../src/common/AuthorValidation.tsx>)
 - [src/common/BetaNotice.css](<../../../src/common/BetaNotice.css>)
 - [src/common/BetaNotice.tsx](<../../../src/common/BetaNotice.tsx>)
@@ -379,7 +379,6 @@ Covered source files (35):
 - [src/common/ProgressBar.tsx](<../../../src/common/ProgressBar.tsx>)
 - [src/common/QualityBadges.css](<../../../src/common/QualityBadges.css>)
 - [src/common/QualityBadges.tsx](<../../../src/common/QualityBadges.tsx>)
-- [src/common/ResponsiveDetails.tsx](<../../../src/common/ResponsiveDetails.tsx>)
 - [src/common/ResponsiveSidebar.tsx](<../../../src/common/ResponsiveSidebar.tsx>)
 - [src/common/ShareAnalysisButton.tsx](<../../../src/common/ShareAnalysisButton.tsx>)
 - [src/common/Skeleton.tsx](<../../../src/common/Skeleton.tsx>)
@@ -387,9 +386,12 @@ Covered source files (35):
 - [src/common/SortableTh.tsx](<../../../src/common/SortableTh.tsx>)
 - [src/common/Spinner.tsx](<../../../src/common/Spinner.tsx>)
 - [src/common/StudyMetadata.tsx](<../../../src/common/StudyMetadata.tsx>)
+- [src/common/ToolbarPopover.tsx](<../../../src/common/ToolbarPopover.tsx>)
 - [src/common/brand.ts](<../../../src/common/brand.ts>)
 - [src/common/chartScaleStore.ts](<../../../src/common/chartScaleStore.ts>)
+- [src/common/headerControl.css](<../../../src/common/headerControl.css>)
 - [src/common/lazyView.tsx](<../../../src/common/lazyView.tsx>)
+- [src/common/prose.css](<../../../src/common/prose.css>)
 - [src/common/prose.tsx](<../../../src/common/prose.tsx>)
 - [src/common/toolIcons.tsx](<../../../src/common/toolIcons.tsx>)
 - [src/common/useCompactLayout.ts](<../../../src/common/useCompactLayout.ts>)
@@ -603,7 +605,7 @@ Start here:
 - [src/gene-explorer/BarSEMChart.tsx](<../../../src/gene-explorer/BarSEMChart.tsx>)
 - [src/gene-explorer/BarSEMChartImpl.tsx](<../../../src/gene-explorer/BarSEMChartImpl.tsx>)
 
-Covered source files (10):
+Covered source files (11):
 - [src/gene-explorer/BarSEMChart.tsx](<../../../src/gene-explorer/BarSEMChart.tsx>)
 - [src/gene-explorer/BarSEMChartImpl.tsx](<../../../src/gene-explorer/BarSEMChartImpl.tsx>)
 - [src/gene-explorer/ContrastMatrix.tsx](<../../../src/gene-explorer/ContrastMatrix.tsx>)
@@ -614,6 +616,7 @@ Covered source files (10):
 - [src/gene-explorer/VolcanoTable.tsx](<../../../src/gene-explorer/VolcanoTable.tsx>)
 - [src/gene-explorer/geneExport.ts](<../../../src/gene-explorer/geneExport.ts>)
 - [src/gene-explorer/volcanoColors.ts](<../../../src/gene-explorer/volcanoColors.ts>)
+- [src/gene-explorer/volcanoToolbar.css](<../../../src/gene-explorer/volcanoToolbar.css>)
 
 ## hub
 
@@ -665,8 +668,9 @@ Start here:
 - [src/nomenclature/NomenclatureView.tsx](<../../../src/nomenclature/NomenclatureView.tsx>)
 - [src/data/nomenclature.ts](<../../../src/data/nomenclature.ts>)
 
-Covered source files (1):
+Covered source files (2):
 - [src/nomenclature/NomenclatureView.tsx](<../../../src/nomenclature/NomenclatureView.tsx>)
+- [src/nomenclature/nomenclature.css](<../../../src/nomenclature/nomenclature.css>)
 
 ## pathway-explorer
 

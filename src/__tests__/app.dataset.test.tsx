@@ -162,6 +162,10 @@ describe('App — a track switch resets per-track state, preserves thresholds', 
       const { container } = render(<App initialView="explorer" />);
       const sliders = () => container.querySelectorAll('input[type="range"]');
       const sigSlider = () => sliders()[1];
+      // The sliders live in the thresholds popover; its button always states
+      // the current cutoffs, so the button is where persistence is observed.
+      const thresholds = () => screen.getByRole('button', { name: /^Thresholds:/ });
+      fireEvent.click(thresholds());
 
       // Move the significance slider to a recognizable value.
       act(() => {
@@ -169,15 +173,15 @@ describe('App — a track switch resets per-track state, preserves thresholds', 
         setter.call(sigSlider(), '3');
         sigSlider().dispatchEvent(new Event('input', { bubbles: true }));
       });
-      const before = (sigSlider() as HTMLInputElement).value;
-      expect(before).toBe('3');
+      expect((sigSlider() as HTMLInputElement).value).toBe('3');
+      expect(thresholds()).toHaveAccessibleName(/P < 0\.0010/);
 
       // Switch tracks; thresholds are intentionally NOT in a track switch's reset set.
       await act(async () => {
         fireEvent.click(screen.getByRole('button', { name: /e33/i }));
       });
-      // Gene tab stays mounted (e33 resolved synchronously); slider value persists.
-      expect((sigSlider() as HTMLInputElement).value).toBe(before);
+      // Gene tab stays mounted (e33 resolved synchronously); the cutoff persists.
+      expect(thresholds()).toHaveAccessibleName(/P < 0\.0010/);
     } finally {
       if (prevE33 === undefined) delete (window as any).HX_MACAQUE_SNRNA_E33;
       else (window as any).HX_MACAQUE_SNRNA_E33 = prevE33;

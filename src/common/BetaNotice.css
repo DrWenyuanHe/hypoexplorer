@@ -22,7 +22,7 @@
   border-radius: 2px;
 }
 
-.site-header { --site-header-padding: 24px; --site-crumb-offset: 28px; flex-shrink: 0; min-width: 0; }
+.site-header { --site-header-padding: 24px; flex-shrink: 0; min-width: 0; }
 .hub-util .site-reference-link {
   font-size: var(--fs-13);
   color: var(--text-mono);
@@ -39,7 +39,7 @@
 
 @media (max-width: 600px) {
   .beta-notice { padding-inline: 16px; }
-  .site-header { --site-header-padding: 16px; --site-crumb-offset: 0; }
+  .site-header { --site-header-padding: 16px; }
 }
 
 /* Explorer shell: one slim, dismissible line above the data. */

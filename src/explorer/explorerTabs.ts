@@ -49,17 +49,6 @@ export function explorerTabScope(tab: ExplorerTab): ExplorerTabScope {
  * (only some tracks of a circadian dataset carry a time-series sibling bundle),
  * which is why the track id is a parameter and not just the dataset.
  */
-/**
- * A tab's display label — the one the tab bar shows and the breadcrumb echoes.
- *
- * The breadcrumb used to re-derive this as a ternary chain over the same ids,
- * with Quality Control as an unlabelled fallthrough, so a renamed tab changed
- * in one place and not the other.
- */
-export function explorerTabLabel(tab: string): string {
-  return EXPLORER_TABS.find(([id]) => id === tab)?.[1] ?? '';
-}
-
 export function explorerTabAvailable(dataset: Dataset, trackId: string, tab: string): boolean {
   if (!isExplorerTab(tab)) return false;
   if (tab === 'pathway') return dataset.supportsPathways;

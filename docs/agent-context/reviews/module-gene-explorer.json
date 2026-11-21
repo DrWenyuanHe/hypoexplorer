@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "module-gene-explorer",
-  "fingerprint": "5e0ae8358eb2ecd2886430b7ee3c78550a91af4a819bec29f9c3917c5a3d7cc1",
+  "fingerprint": "5b306497e3cb8d152758b49d514b7c8d5822bff3b2d26095468efaf86cea710d",
   "outcome": "updated",
-  "explanation": "The gene explorer CSV and Excel buttons, the bar-chart pop-up workbook, the summary table and the contrast matrix CSV run inside withExportEvidence. The tab no longer imports the internal QC ledger at all: it loads on the first export, and geneExport.ts itself is unchanged.",
+  "explanation": "The controls above the volcano are one row: the picker search and Gene list menu, Plot/Table, P value/FDR, a thresholds summary button that opens both cutoff inputs, and an \"N pass\" menu holding Show list, Add all and the downloads. VolcanoPlot draws its counts and key as one line in the plot top margin, labels its threshold lines, and takes toolbarLead and toolbarBelow slots. GeneExplorerTab shows Bar charts, Summary table and Across comparisons only once a gene is selected. GeneSearchBox takes showAliases as a prop in place of its own Aliases button. Thresholds, selection and exports behave as before.",
   "references": [
+    "src/gene-explorer/VolcanoPlot.tsx",
     "src/gene-explorer/GeneExplorerTab.tsx",
-    "src/gene-explorer/SummaryTable.tsx",
-    "src/gene-explorer/ContrastMatrix.tsx",
-    "src/gene-explorer/geneExport.ts"
+    "src/gene-explorer/GeneSearchBox.tsx",
+    "src/gene-explorer/volcanoToolbar.css",
+    "docs/agent-context/workflows.md"
   ]
 }

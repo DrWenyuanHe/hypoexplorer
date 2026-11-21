@@ -37,6 +37,9 @@ interface GeneSearchBoxProps {
   /** Autofocus on mount — set by the modal empty states, which exist to be typed into. */
   autoFocus?: boolean;
   placeholder?: string;
+  /** List each suggestion's alias and previous symbols beside it. The toggle
+   *  lives in the host's Gene list menu (GenePicker), not on the box. */
+  showAliases?: boolean;
 }
 
 /** Why a suggestion is in the list. Also its sort rank — lower wins. */
@@ -112,12 +115,11 @@ function outdatedTo(facts: SymbolFacts | null): string[] {
 }
 
 export function GeneSearchBox({
-  onAdd, selectedGenes, geneNames, nomenclatureAuthority, autoFocus, placeholder,
+  onAdd, selectedGenes, geneNames, nomenclatureAuthority, autoFocus, placeholder, showAliases = false,
 }: GeneSearchBoxProps) {
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [open, setOpen] = useState(false);
-  const [showAliases, setShowAliases] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   // The blur close is deferred so a click on a suggestion lands before the
   // list closes. Both timers must die with the component: a pending one that
@@ -210,10 +212,6 @@ export function GeneSearchBox({
     if (e.key === 'Escape') setOpen(false);
   };
 
-  const aliasToggleTitle = showAliases
-    ? 'Hide alias and previous symbols in the suggestions'
-    : 'Show each gene\'s alias and previous symbols from its nomenclature authority';
-
   return (
     <div style={{ display: 'flex', gap: 6, alignItems: 'center', flex: '0 1 380px', minWidth: 0 }}>
       <div style={{ position: 'relative', flex: '1 1 auto', minWidth: 0 }}>
@@ -295,21 +293,6 @@ export function GeneSearchBox({
           </div>
         )}
       </div>
-      <button
-        type="button"
-        onClick={() => setShowAliases((v) => !v)}
-        aria-pressed={showAliases}
-        title={aliasToggleTitle}
-        style={{
-          flexShrink: 0, fontSize: 11, padding: '4px 9px', cursor: 'pointer',
-          border: `1px solid ${showAliases ? 'var(--accent)' : 'var(--border-dark)'}`,
-          borderRadius: 4, fontFamily: FONT_SANS, fontWeight: 600,
-          background: showAliases ? 'var(--accent)' : 'var(--bg-panel)',
-          color: showAliases ? '#fff' : 'var(--text-muted)',
-        }}
-      >
-        Aliases
-      </button>
     </div>
   );
 }

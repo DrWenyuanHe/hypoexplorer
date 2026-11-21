@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "e52959658b4ded45f27e0248ecc7a8a640556cd912414d745a20d8e26d858922",
+  "fingerprint": "e9ba9ff27b7c0240a01503634b36fa3167adef81b03f8dd53b1217c4b190e7ae",
   "outcome": "updated",
-  "explanation": "Tests that call export builders directly, or click exports, load the QC ledger first with loadExportEvidence() (csv.test.ts at module scope, others in beforeAll). exportEvidence.test.ts covers the fail-closed accessor, the first export waiting and later ones running synchronously, contained body failures, and a failed ledger download retried by the next export. lazyChunkBoundaries pins the ledger to the two quality modules. Merged with main, whose cross-study listing and Circadian tests need no ledger load.",
+  "explanation": "Tests follow the consolidated volcano toolbar and the gene picker menus; none was removed. The threshold sliders are reached through the \"Thresholds:\" summary button (smoke 6, 7 and 15, app.contrast, app.dataset), Load list and Save list through the Gene list menu, and the passing-gene actions through the \"N pass\" menu (geneListTools, volcanoPlot, compareSetView, app.contrast). nomenclature.test.tsx asserts the view buttons are absent until a gene is selected and that the empty prompt appears when the last gene is removed with a pop-up open. genePicker and compareLinks match the selected-gene count by its full text, because the figure is its own element.",
   "references": [
-    "src/__tests__/exportEvidence.test.ts",
-    "src/__tests__/lazyChunkBoundaries.test.ts",
-    "src/__tests__/csv.test.ts"
+    "src/__tests__/smoke.test.tsx",
+    "src/__tests__/geneListTools.test.tsx",
+    "src/__tests__/nomenclature.test.tsx",
+    "src/__tests__/app.dataset.test.tsx",
+    "src/__tests__/volcanoPlot.test.tsx"
   ]
 }

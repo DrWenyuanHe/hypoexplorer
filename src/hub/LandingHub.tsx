@@ -4,7 +4,6 @@ import { BetaNotice } from '../common/BetaNotice';
 import { BRAND } from '../common/brand';
 import { DataOriginStatus } from './DataOriginStatus';
 import { HubSearch } from './HubSearch';
-import { ICONS } from '../common/toolIcons';
 import { datasetHref } from '../utils/appLinks';
 import { COMPARE_TRACK } from '../explorer/explorerPosition';
 import { CompareSetButton } from '../compareset/CompareSetButton';
@@ -13,7 +12,7 @@ import type { DatasetCategory } from '../data/datasets';
 import type { Dataset } from '../types';
 
 // The landing hub is search-first: the logo, one search box for genes and
-// pathways, and three quiet cards: the library, the expression survey and the
+// pathways, and three quiet entry rows: the library, the expression survey and the
 // macaque single-nucleus atlas. Every other tool keeps a route in the top nav
 // or the footer. The hub owns navigation only; App wires the destinations.
 
@@ -129,15 +128,18 @@ export function LandingHub({
   const nSpecies = new Set(datasets.map((d) => d.organism)).size;
   const corpus = `${nStudies} ${nStudies === 1 ? 'study' : 'studies'} · ${nSpecies} species`;
 
-  const CARDS = [
-    { item: tool('Dataset library'), title: 'Browse the dataset library', detail: corpus },
-    { item: tool('Expression survey'), title: 'Survey baseline expression', detail: 'By population, study condition and tissue' },
+  // The entry rows under the search box: one quiet list rather than a grid of
+  // icon cards, so each title stays on one line and the corpus count reads as
+  // a figure. `figures` sets a detail that is a count in the mono face.
+  const ENTRIES = [
+    { item: tool('Dataset library'), title: 'Browse the dataset library', detail: corpus, figures: true },
+    { item: tool('Expression survey'), title: 'Survey baseline expression', detail: 'By population, study condition and tissue', figures: false },
   ];
 
-  // The atlas card: the whole card opens the study, and a second control below
-  // the copy opens its population-vs-population Compare view. Two sibling
-  // buttons rather than one nested in the other, so each has its own name and
-  // focus stop. Absent from the registry → no card, rather than a dead link.
+  // The atlas row: the whole row opens the study, and a second control at its
+  // end opens the population-vs-population Compare view. Two sibling buttons
+  // rather than one nested in the other, so each has its own name and focus
+  // stop. Absent from the registry → no row, rather than a dead link.
   const atlas = datasets.find((d) => d.id === HUB_ATLAS_ID);
   const atlasDetail = atlas
     ? [atlas.modality, atlas.groups.map((g) => g.label).join(' vs ')].filter(Boolean).join(' · ')
@@ -166,40 +168,37 @@ export function LandingHub({
             <img src={BRAND.logo} width={320} height={72} alt="HypoExplorer" />
           </h1>
           <HubSearch onSearch={onSearch} />
-          <div className="hub-cards">
-            {CARDS.map(({ item, title, detail }) => item && (
-              <button key={item.name} type="button" className="hub-card" onClick={item.go}>
-                <strong>
-                  <span className="hub-card-icon">{ICONS[item.icon]}</span>
-                  {title}
-                </strong>
-                <span>{detail}</span>
-              </button>
+          <ul className="hub-entries">
+            {ENTRIES.map(({ item, title, detail, figures }) => item && (
+              <li key={item.name} className="hub-entry">
+                <button type="button" className="hub-entry-main" onClick={item.go}>
+                  <strong>{title}</strong>
+                  <span className={figures ? 'hub-entry-detail hub-entry-figures' : 'hub-entry-detail'}>{detail}</span>
+                </button>
+                <span className="hub-entry-go" aria-hidden="true">→</span>
+              </li>
             ))}
             {atlas && (
-              <div className="hub-card hub-card--split">
+              <li className="hub-entry hub-entry--split">
                 <button
                   type="button"
-                  className="hub-card-main"
+                  className="hub-entry-main"
                   title={`${atlas.name} · ${atlas.citation}`}
                   onClick={() => { window.location.hash = datasetHref(atlas.id); }}
                 >
-                  <strong>
-                    <span className="hub-card-icon">{ICONS.cells}</span>
-                    Explore the macaque atlas
-                  </strong>
-                  <span>{atlasDetail}</span>
+                  <strong>Explore the macaque atlas</strong>
+                  <span className="hub-entry-detail">{atlasDetail}</span>
                 </button>
                 <button
                   type="button"
-                  className="hub-card-sub"
+                  className="hub-entry-sub"
                   onClick={() => { window.location.hash = datasetHref(atlas.id, COMPARE_TRACK); }}
                 >
                   Compare cell {atlasNoun}s <span aria-hidden="true">→</span>
                 </button>
-              </div>
+              </li>
             )}
-          </div>
+          </ul>
         </div>
       </main>
 

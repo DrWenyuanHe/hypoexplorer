@@ -1,0 +1,112 @@
+/* Reading chrome for the long-form reference pages (Methods & statistics,
+   Data verification). One column of prose at a 72ch measure; tables may run
+   to the column's full width. Below 1200px the "On this page" contents sit as a
+   box after the introduction; from 1200px they become a sticky rail beside the
+   prose, so a long page no longer opens on a list pushing the text down. */
+
+.prose-page {
+  display: grid;
+  grid-template-columns: minmax(0, 640px);
+  grid-template-areas: 'head' 'toc' 'body';
+  justify-content: center;
+  width: 100%;
+  padding: 28px 24px 72px;
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--text-primary);
+}
+.prose-page__head { grid-area: head; min-width: 0; }
+.prose-page__body { grid-area: body; min-width: 0; }
+
+/* Every link on these pages shares the accent link treatment. */
+.prose-page a,
+.prose-page a:visited {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+.prose-page a:hover { text-decoration-thickness: 2px; }
+.prose-page a:focus-visible,
+.prose-contents button:focus-visible {
+  outline: 2px solid var(--color-selected);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.prose-section { scroll-margin-top: 16px; outline: none; }
+
+.prose-contents {
+  grid-area: toc;
+  margin: 8px 0 8px;
+  padding: 10px 14px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-panel);
+  min-width: 0;
+}
+.prose-contents__label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 6px;
+}
+.prose-contents ol { margin: 0; padding: 0; list-style: none; }
+.prose-contents li { padding: 3px 0; }
+.prose-contents button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--accent);
+}
+.prose-contents button:hover { text-decoration: underline; text-underline-offset: 2px; }
+.prose-contents li { break-inside: avoid; }
+
+/* The inline box runs its list in two columns where there is room for them. */
+@media (min-width: 601px) and (max-width: 1199px) {
+  .prose-contents ol { columns: 2; column-gap: 24px; }
+}
+
+@media (min-width: 1200px) {
+  .prose-page {
+    grid-template-columns: minmax(0, 640px) 220px;
+    grid-template-areas: 'head toc' 'body toc';
+    grid-template-rows: auto 1fr;
+    column-gap: 48px;
+  }
+  .prose-contents {
+    align-self: start;
+    position: sticky;
+    /* Clears the sticky site header (accent strip, header row, beta notice). */
+    top: 120px;
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+    margin: 6px 0 0;
+    padding: 0 0 0 16px;
+    border: 0;
+    border-left: 1px solid var(--border);
+    border-radius: 0;
+    background: none;
+  }
+  .prose-contents button { font-size: 12.5px; }
+}
+
+@media (max-width: 600px) {
+  .prose-page { padding: 24px 16px 56px; }
+  /* Buttons already take a 44px touch height here; the row needs no extra gap. */
+  .prose-contents li { padding: 0; }
+  .prose-contents button { width: 100%; }
+}
+
+/* Data verification's four-column count table: narrower cell padding lets it
+   fit a 320px screen without a sideways scroll. */
+@media (max-width: 400px) {
+  .verification-count-table { --cell-x: 6px; }
+}

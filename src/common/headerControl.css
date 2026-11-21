@@ -1,0 +1,40 @@
+/* Header utilities: the compare-set toggle and indicator, Share analysis, the
+   version badge, Methods and Changelog. One height, one edge and one type
+   treatment wherever a header carries them; figures (the compare-set count,
+   the version) are the only mono text. Phones raise the height to the 44px
+   touch target through the min-height rules in responsive.css. */
+.header-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  box-sizing: border-box;
+  height: 28px;
+  padding: 0 10px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--text-mono);
+  background: var(--bg-panel);
+  border: 1px solid var(--border-dark);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+.header-control:hover { background: var(--row-hover); color: var(--text-primary); }
+.header-control:focus-visible { outline: 2px solid var(--color-selected); outline-offset: 1px; }
+/* On: a pressed toggle, a non-empty compare set, an open changelog. The rail's
+   selected-row fill and ink text, not an accent. */
+.header-control--on,
+.header-control--on:hover { background: var(--row-selected); color: var(--text-primary); }
+.header-control--strong { font-weight: 600; }
+.header-control-figure {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.header-control svg { flex-shrink: 0; }

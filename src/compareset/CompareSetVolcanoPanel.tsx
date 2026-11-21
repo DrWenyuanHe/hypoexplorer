@@ -11,6 +11,7 @@
 
 import { useMemo, useState } from 'react';
 import { VolcanoPlot } from '../gene-explorer/VolcanoPlot';
+import '../gene-explorer/volcanoToolbar.css';
 import { Spinner } from '../common/Spinner';
 import { resolveGeneCI } from '../compare/resolveGene';
 import type { CompareColumn } from '../compare/compareColumns';
@@ -55,8 +56,9 @@ export function CompareSetVolcanoPanel({ state, column, geneSelection, volcano }
         {column.sublabel && (
           <span style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: FONT_MONO }}>{column.sublabel}</span>
         )}
-        <button type="button" onClick={() => setCollapsed((c) => !c)} aria-expanded={!collapsed}
-          style={{ marginLeft: 'auto', fontSize: 11, padding: '2px 9px', border: '1px solid var(--border)', borderRadius: 4, background: 'var(--bg-panel)', cursor: 'pointer', fontFamily: 'inherit', color: 'var(--text-muted)' }}>
+        {/* The volcano toolbar's own button vocabulary (gene-explorer/volcanoToolbar.css). */}
+        <button type="button" className="gx-btn" onClick={() => setCollapsed((c) => !c)} aria-expanded={!collapsed}
+          style={{ marginLeft: 'auto' }}>
           {collapsed ? 'Show volcano' : 'Hide volcano'}
         </button>
       </div>

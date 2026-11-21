@@ -89,7 +89,8 @@ describe('GenePicker — the retired-symbol note on a chip', () => {
     pick('agrp');
     expect(screen.getByRole('button', { name: 'Remove AARS' })).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Remove AGRP' })).toBeTruthy();
-    expect(screen.getByText('2 genes selected')).toBeTruthy();
+    // The count is a mono figure inside a sans sentence, so match the whole line.
+    expect(screen.getByText(/genes? selected/).textContent).toBe('2 genes selected');
     expect(await screen.findByText('now AARS1')).toBeTruthy();
   });
 });

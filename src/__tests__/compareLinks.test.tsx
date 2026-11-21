@@ -80,7 +80,8 @@ describe('Compare links — in the app', () => {
     expect(await screen.findByRole('button', { name: 'Remove vmh' })).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Remove dmh' })).toBeTruthy();
     expect(screen.queryByRole('button', { name: 'Remove arcuate' })).toBeNull();
-    expect(screen.getByText('1 gene selected')).toBeTruthy();
+    // The count is a mono figure inside a sans sentence, so match the whole line.
+    expect(screen.getByText(/gene selected/).textContent).toBe('1 gene selected');
     // The address bar is rewritten to the comparison actually shown.
     await waitFor(() => expect(window.location.hash).toBe('#/dataset/gse262407/compare?pops=vmh,dmh&genes=POMC'));
   });

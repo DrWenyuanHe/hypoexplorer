@@ -17,11 +17,14 @@
 .expression-survey p {
   margin: 0;
 }
+/* Page title: the same treatment as the other full-page views' titles. */
 .expression-survey h1 {
-  font-size: 28px;
+  font-family: var(--font-heading);
+  font-size: 22px;
   font-weight: 600;
-  letter-spacing: -0.025em;
-  line-height: 1.2;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--text-primary);
 }
 .expression-survey h2 {
   font-size: 20px;
@@ -96,7 +99,7 @@
   color: var(--text-muted);
 }
 .expression-survey .ex-page-heading {
-  padding: 32px 0 24px;
+  padding: 28px 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -788,9 +791,6 @@
   .expression-survey .ex-query-panel,
   .expression-survey .ex-result-panel {
     padding: 16px;
-  }
-  .expression-survey h1 {
-    font-size: 24px;
   }
   .expression-survey .ex-page-heading {
     padding: 24px 0 20px;

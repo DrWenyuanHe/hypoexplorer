@@ -115,6 +115,8 @@ describe('App — contrast selector (multi-contrast dataset)', () => {
       fireEvent.keyDown(search, { key: 'Enter' });
       await screen.findByRole('button', { name: 'Remove FOS' });
       fireEvent.click(screen.getByRole('button', { name: 'FDR' }));
+      // The cutoff inputs live in the thresholds popover, opened from its summary.
+      fireEvent.click(screen.getByRole('button', { name: /^Thresholds:/ }));
       const sliders = screen.getAllByRole('slider');
       fireEvent.change(sliders[0], { target: { value: '1.5' } });
       fireEvent.change(sliders[1], { target: { value: '3' } });
@@ -132,9 +134,13 @@ describe('App — contrast selector (multi-contrast dataset)', () => {
       render(<App />);
       await waitFor(() => expect(screen.getByLabelText('Active contrast')).toHaveValue('refed_vs_fed'));
       expect(await screen.findByRole('button', { name: 'Remove FOS' })).toBeInTheDocument();
+      // The restored cutoffs, as the toolbar summarises them (−log₁₀ 3 → 0.0010)…
+      const thresholds = screen.getByRole('button', { name: /^Thresholds:/ });
+      expect(thresholds).toHaveAccessibleName('Thresholds: FDR < 0.0010 · |log₂FC| > 1.5');
+      // …and as the inputs behind it hold them.
+      fireEvent.click(thresholds);
       expect(screen.getAllByRole('slider')[0]).toHaveValue('1.5');
       expect(screen.getAllByRole('slider')[1]).toHaveValue('3');
-      expect(screen.getByText('(−log₁₀ = 3.00)')).toBeInTheDocument();
       expect(parseRoute(window.location.hash)).toEqual(saved);
     } finally {
       restore();
@@ -299,15 +305,11 @@ describe('App — factorial (2×2) dataset surfaces', () => {
         expect(screen.queryByRole('button', { name: /exploratory contrast/i })).toBeNull();
       });
 
-      // ── "Across comparisons" is on the toolbar from the start ──────────
-      // Its gate is the DATASET declaring more than one contrast, not the
-      // selection: with nothing picked it opens on a prompt that says what it
-      // needs (see the macaque case below for the other side of that rule).
-      const acrossBefore = await screen.findByRole('button', { name: /Across comparisons/i });
-      fireEvent.click(acrossBefore);
-      const prompt = within(await screen.findByRole('dialog'));
-      expect(prompt.getByText(/Select a gene/i)).toBeTruthy();
-      fireEvent.click(prompt.getByRole('button', { name: /close/i }));
+      // ── "Across comparisons" joins the selection's line ─────────────────
+      // Like the other view buttons it appears with the first selected gene;
+      // unlike them it is also gated on the DATASET declaring more than one
+      // contrast (see the macaque case below for the other side of that rule).
+      expect(screen.queryByRole('button', { name: /Across comparisons/i })).toBeNull();
 
       const search = await screen.findAllByPlaceholderText(/Search gene/i);
       await act(async () => {
@@ -337,9 +339,10 @@ describe('App — factorial (2×2) dataset surfaces', () => {
     await act(async () => {
       fireEvent.change(search, { target: { value: 'LEP' } });
     });
-    // "+ Add all N →" commits the current search to the selection.
-    fireEvent.click(await screen.findByRole('button', { name: /Add all 1/ }));
-    // The other two views are always on the toolbar...
+    // The pass menu's "Add all N to selection" selects the threshold-passing genes.
+    fireEvent.click(await screen.findByRole('button', { name: /^[\d,]+ pass$/ }));
+    fireEvent.click(await screen.findByRole('menuitem', { name: /Add all 1/ }));
+    // The other two views join the selection's line...
     expect(await screen.findByRole('button', { name: /Summary table/i })).toBeTruthy();
     // ...but a single-contrast dataset has nothing to compare across, so this
     // one stays off entirely rather than opening a view that can only say so.

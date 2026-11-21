@@ -6,6 +6,19 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-11-21',
+    title: 'Quieter explorer, volcano and reference pages',
+    items: [
+      'The dataset explorer has no breadcrumb row. The dataset name in the study line opens the dataset library, the track header names the population and the active tab names the view. "All datasets →" is removed because the name does the same thing.',
+      'The controls above the volcano plot are one row. Load list, Save list and the alias option are under Gene list. The two cutoffs are under one button that states them. Show list, Add all and the downloads are under the "pass" button, which shows how many genes pass. The Compare tab and the compare set have the same Gene list menu.',
+      'Bar charts, Summary table and Across comparisons appear once a gene is selected.',
+      'The volcano\'s counts and legend are one line above the plot, and its threshold lines are labelled.',
+      'The home page lists its three entry points in one list. The dataset library table fits all ten columns from 1280px wide. Gene nomenclature groups its filters into labelled Authority and Status rows. Methods & statistics and "How data verification works" share one layout with an "On this page" list.',
+      'Sliders, checkboxes and radio buttons are graphite, not the browser\'s blue.',
+      'No data, result or analysis changed.',
+    ],
+  },
+  {
     date: '2026-11-20',
     title: 'Lighter explorer tabs',
     items: [

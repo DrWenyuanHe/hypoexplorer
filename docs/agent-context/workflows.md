@@ -243,9 +243,14 @@ actions, a fact strip, Overview/Verification tabs and a details panel that
 stacks below them under 900px; Escape and the breadcrumb return to the list. Selection and filters
 remain owned by their existing views. The explorer shows the study as one
 compact line (name, organism, modality, arm pills and any exploratory-contrast
-warning) at every width; region, preparation and the dataset verification record
-sit behind its "Study details & verification" toggle. `ResponsiveDetails` folds
-plot controls on small screens. Compare's link carries its view
+warning) at every width; with more than one dataset registered the name is the
+button that opens the library at that study. Region, preparation and the dataset
+verification record sit behind its "Study details & verification" toggle. The
+volcano toolbar is one row at rest (search and Gene list ▾, view, statistic,
+a thresholds summary that opens the cutoff inputs, and an "N pass ▾" menu;
+`src/common/ToolbarPopover.tsx`); its counts and key are the plot's top line,
+and the view buttons appear beside the selection count. Nothing is folded on
+phones: the row wraps to two lines. Compare's link carries its view
 (`/compare[/pathways]?pops=…&genes=…`, parsed in `src/utils/appLinks.ts`), so a
 refresh, Back or a copied link reopens the same comparison; its summary table
 reads down, one row per gene × population. Compare keeps its population chips to one line
@@ -260,12 +265,9 @@ except the gene page's differential-expression table and the pathway page's
 forest rows, which restack each track under 640px so the change, q/FDR and
 actions stay on screen. On phones the hub nav stays one line that scrolls
 sideways beside the compare pill, and the explorer's header controls form an
-even 3 × 2 grid. Each explorer breadcrumb separator travels with the crumb
-after it, so a wrap never strands a slash; on phones the population and tab
-start a line under the dataset picker, without a leading slash. Below 1500px
-the explorer breadcrumb takes its own header row, so the controls never wrap
-under a half-empty first row; wider, it shares the row and truncates the
-population label (full text in its title) before the controls would move. A scroller that holds absolutely positioned screen-reader
+even 3 × 2 grid. The explorer header has no breadcrumb: the logo and the
+header utilities (`src/common/headerControl.css`, 28px on desktop) share one
+row at desktop widths. A scroller that holds absolutely positioned screen-reader
 labels (`.portal-table-wrap`) is itself positioned, or the labels escape it and
 widen the page. When changing these layouts, check 320px and 390px phones,
 768px tablets and a 1024px laptop, including a short landscape viewport, dialog
@@ -280,8 +282,10 @@ Selecting a study changes the volcano; every study remains in the comparison.
 Contrast labels stay visible, while each study's Details disclosure contains
 sample counts, verification evidence and its explorer link.
 
-The hub is search-first: the logo, `HubSearch` and two cards (library and
-expression survey); a top nav and the footer route to every other tool. Search
+The hub is search-first: the logo, `HubSearch` and one list of entry rows
+(library, expression survey and, when the atlas study is registered, the macaque
+atlas with its own Compare button); a top nav and the footer route to every
+other tool. Search
 is unified: `HubSearch` and the results page share `UnifiedSearchBox`, one
 combobox whose suggestions list genes and pathways in two groups, and every
 submission or pick opens `SearchPage` at `#/search/<query>` (`/genes` or

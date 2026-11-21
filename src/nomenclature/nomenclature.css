@@ -1,0 +1,128 @@
+/* Gene nomenclature reference page (NomenclatureView).
+   The header is a lookup tool: title and a short lede, the authority rules
+   folded behind a disclosure, then search and two labelled facets. The table
+   below stays full width; its first and last cells take the same gutter so its
+   text lines up with the header. */
+
+.nm-page { --nm-gutter: 24px; }
+
+.nm-head {
+  flex-shrink: 0;
+  padding: 20px var(--nm-gutter) 14px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-sans);
+}
+
+.nm-intro { max-width: 70ch; }
+.nm-lede {
+  margin: 6px 0 0; font-size: 13px; line-height: 1.55; color: var(--text-primary);
+}
+.nm-lede a, .nm-rules a { color: var(--accent); text-underline-offset: 2px; }
+
+/* The authority rules: secondary, one click away, never in the tool's path. */
+.nm-rules { margin-top: 8px; }
+.nm-rules > summary {
+  display: inline-flex; align-items: center; gap: 6px; cursor: pointer; list-style: none;
+  font-size: 12px; font-weight: 600; color: var(--text-muted); border-radius: 4px;
+}
+.nm-rules > summary::-webkit-details-marker { display: none; }
+.nm-rules > summary:hover { color: var(--text-primary); }
+.nm-rules > summary:focus-visible { outline: 2px solid var(--color-selected); outline-offset: 2px; }
+.nm-rules-chevron { transition: transform 120ms cubic-bezier(0.4, 0, 0.2, 1); }
+.nm-rules[open] .nm-rules-chevron { transform: rotate(90deg); }
+.nm-rules > p {
+  margin: 6px 0 0; padding: 10px 12px; font-size: 12px; line-height: 1.6; color: var(--text-mono);
+  background: var(--bg-panel); border: 1px solid var(--border); border-radius: 6px;
+}
+.nm-rules strong { color: var(--text-primary); font-weight: 600; }
+
+/* Search and export. */
+.nm-tools {
+  display: flex; align-items: center; gap: 8px 12px; flex-wrap: wrap; margin-top: 14px;
+}
+.nm-search { position: relative; flex: 1 1 360px; max-width: 540px; min-width: 0; }
+.nm-search-icon {
+  position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+  display: flex; color: var(--text-muted); pointer-events: none;
+}
+.nm-search input {
+  width: 100%; height: 34px; padding: 0 10px 0 32px; box-sizing: border-box;
+  font-family: var(--font-mono); font-size: 13px; color: var(--text-primary);
+  background: var(--bg-panel); border: 1px solid var(--border-dark); border-radius: 6px;
+  outline: none; transition: border-color 120ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 120ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* The hint is a sentence, so it is set in the text face; what is typed is a symbol. */
+.nm-search input::placeholder { font-family: var(--font-sans); color: var(--text-muted); opacity: 1; }
+.nm-search input:focus-visible {
+  border-color: var(--color-selected); box-shadow: 0 0 0 3px rgba(242, 142, 43, 0.15);
+}
+.nm-export { display: flex; margin-left: auto; }
+.nm-export > button {
+  height: 34px; padding: 0 12px; font-family: var(--font-sans); font-size: 12px; font-weight: 600;
+  color: var(--text-primary); background: var(--bg-panel);
+  border: 1px solid var(--border-dark); border-radius: 6px; cursor: pointer; white-space: nowrap;
+}
+.nm-export > button:hover:not(:disabled) { background: var(--row-hover); }
+.nm-export > button:focus-visible { outline: 2px solid var(--color-selected); outline-offset: 1px; }
+.nm-export > button:disabled { opacity: 0.55; cursor: default; }
+
+/* Two independent facets, each on its own labelled line. */
+.nm-facets { display: grid; gap: 8px; margin-top: 12px; }
+.nm-facet { display: grid; grid-template-columns: 84px minmax(0, 1fr); align-items: center; column-gap: 8px; }
+.nm-facet-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-muted);
+}
+.nm-chips { display: flex; flex-wrap: wrap; gap: 6px; min-width: 0; }
+.nm-chip {
+  /* relative: contains the visually hidden separator, which would otherwise
+     escape the scrolling chip row and widen the page. */
+  position: relative;
+  display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; height: 28px; padding: 0 10px;
+  font-family: var(--font-sans); font-size: 12px; font-weight: 500; line-height: 1; white-space: nowrap;
+  color: var(--text-mono); background: var(--bg-panel);
+  border: 1px solid var(--border-dark); border-radius: 6px; cursor: pointer;
+}
+.nm-chip:hover { background: var(--row-hover); color: var(--text-primary); }
+.nm-chip:focus-visible { outline: 2px solid var(--color-selected); outline-offset: 1px; }
+.nm-chip-count {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500; color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.nm-chip-check { display: none; flex-shrink: 0; }
+/* Selected: a check mark, heavier ink and an orange edge, so the state reads in
+   shape and weight as well as colour. */
+.nm-chip[aria-pressed="true"] {
+  color: var(--text-primary); font-weight: 600; background: var(--chip-bg);
+  border-color: var(--color-selected); box-shadow: inset 0 0 0 1px var(--color-selected);
+}
+.nm-chip[aria-pressed="true"] .nm-chip-check { display: block; }
+.nm-chip[aria-pressed="true"] .nm-chip-count { color: var(--text-mono); }
+
+.nm-status-note {
+  margin: 10px 0 0; max-width: 78ch; font-size: 12px; line-height: 1.55; color: var(--text-muted);
+}
+
+.nm-sr {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  /* Each facet scrolls sideways on one line, edge to edge, like the library's chips. */
+  .nm-facet { grid-template-columns: minmax(0, 1fr); row-gap: 4px; }
+  .nm-chips {
+    flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none;
+    margin-inline: calc(-1 * var(--nm-gutter)); padding-inline: var(--nm-gutter);
+    scroll-padding-inline: var(--nm-gutter);
+  }
+  .nm-chips::-webkit-scrollbar { display: none; }
+}
+
+@media (max-width: 600px) {
+  .nm-page { --nm-gutter: 16px; }
+  .nm-head { padding-top: 16px; }
+  .nm-search { flex-basis: 100%; max-width: none; }
+  .nm-search input::placeholder { font-size: 13px; }
+  .nm-rules > summary { min-height: 44px; }
+}

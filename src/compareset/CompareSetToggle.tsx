@@ -17,14 +17,16 @@ import { useEffect, useState } from 'react';
 import type { CSSProperties, MouseEvent } from 'react';
 import { COLOR_WARNING_TEXT, FONT_SANS } from '../styles/constants';
 import { COMPARE_SET_MAX, type CompareSetAddResult } from './compareSetStore';
+import '../common/headerControl.css';
 
 interface CompareSetToggleProps {
   inSet: boolean;
   /** The study (and, off its default track, the track) the name refers to. */
   name: string;
   onToggle: () => CompareSetAddResult | undefined;
-  /** sm: a card corner or table cell; md: a modal footer or topbar. */
-  size?: 'sm' | 'md';
+  /** sm: a card corner or table cell; md: a record's header actions; header:
+   *  a site header, matching the other header utilities (headerControl.css). */
+  size?: 'sm' | 'md' | 'header';
 }
 
 const NOTICE_MS = 3000;
@@ -63,9 +65,12 @@ export function CompareSetToggle({ inSet, name, onToggle, size = 'sm' }: Compare
     color: inSet ? 'var(--accent)' : 'var(--text-primary)',
   };
 
+  const headerClass = inSet ? 'header-control header-control--on header-control--strong' : 'header-control';
+
   return (
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-      <button type="button" aria-pressed={inSet} aria-label={label} title={label} onClick={onClick} style={style}>
+      <button type="button" aria-pressed={inSet} aria-label={label} title={label} onClick={onClick}
+        {...(size === 'header' ? { className: headerClass } : { style })}>
         {inSet ? '✓ In set' : '＋ Compare'}
       </button>
       {notice && (
