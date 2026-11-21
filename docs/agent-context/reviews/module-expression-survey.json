@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-expression-survey",
-  "fingerprint": "b864a3d224b23ffcdf6c642f1f6ede1c31ff2176823b67dba98e1083f084150f",
+  "fingerprint": "21cfd4aa8b9705608b2d93cec91d76fcfd6d92878c6bcc777f5002a645f417a7",
   "outcome": "no-impact",
-  "explanation": "ExpressionSurveyView computes its section tab target with the shared utils/tabKeys tabKeyTarget instead of a nested ternary, keeping its modifier-key guard. Section switching, focus, loaders and export bytes are unchanged.",
+  "explanation": "Only expressionSurvey.css changed: the page heading takes the shared reference-page title values and the header top padding goes from 32px to 28px. No view logic, data access, index code or documented behaviour changed.",
   "references": [
-    "src/expression-survey/ExpressionSurveyView.tsx",
-    "src/utils/tabKeys.ts",
-    "src/__tests__/expressionSurveyView.test.tsx"
+    "src/expression-survey/expressionSurvey.css",
+    "src/common/prose.css"
   ]
 }

@@ -1,10 +1,11 @@
 {
   "version": 1,
   "area": "module-nomenclature",
-  "fingerprint": "5fbce3ab7619dc7760e9b56852a61483949e6caa0d42a675baf6f3911fe22b4a",
-  "outcome": "no-impact",
-  "explanation": "NomenclatureView.tsx only changes the comment naming the page it is shaped like, from StatisticsView to MethodologyView; the view is unchanged.",
+  "fingerprint": "03ba4edfd8cec5f406d140724600ef69c13c1dea96aa18e0e5dd3c1b71dfc859",
+  "outcome": "updated",
+  "explanation": "NomenclatureView moves its header and filter styling into nomenclature.css: a wider search field, and the Authority and Status filters as two labelled groups whose chips keep aria-pressed and scroll sideways on one line under 900px. The long authority note sits in a details element. The table, matching and data loading are unchanged.",
   "references": [
-    "src/nomenclature/NomenclatureView.tsx"
+    "src/nomenclature/NomenclatureView.tsx",
+    "src/nomenclature/nomenclature.css"
   ]
 }

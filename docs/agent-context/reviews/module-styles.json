@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "module-styles",
-  "fingerprint": "650374cb170aff911e6c6b580e3c7f3f7a0c0005e56bda0843ceaa4ca256d123",
+  "fingerprint": "f35954d1cb0fa200d52667268500cd9f44f1312104e28852bcd9a5b2d574923c",
   "outcome": "updated",
-  "explanation": "responsive.css lays the explorer header controls out as an even 3 x 2 grid of 44px targets at 600px and under, enlarges the beta-notice link tap area without changing its line height, and gives pager arrows a 44px minimum width; shared tokens and breakpoints are unchanged. At 600px and under it also puts the explorer breadcrumb trail on its own line and hides its leading slash. The explorer breadcrumb takes its own header row below 1500px (was 1100px), so between 1101 and 1499px the controls no longer wrap under a half-empty first row; wider, the breadcrumb shares the row, the spacer yields its space, and the population label truncates (full text in its title) before the controls could move.",
+  "explanation": "responsive.css: the library table rules become a fixed layout with per-column widths and a library-only phone min-width; the explorer breadcrumb rules (the 1499px and 1500px blocks and the phone crumb-trail rules) are removed with the breadcrumb, and .explorer-study-dataset and .explorer-hero-link are added; the .volcano-controls and .responsive-details rules go with ResponsiveDetails. The 900px breakpoint and the 3 x 2 phone header grid are unchanged.",
   "references": [
     "src/styles/responsive.css",
     "docs/agent-context/workflows.md",

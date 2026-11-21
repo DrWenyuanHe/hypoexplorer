@@ -1,5 +1,4 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
-import type { CSSProperties } from 'react';
 import { withExportEvidence, withHtml2Canvas } from '../utils/lazyExport';
 import { pToStar, fmtP, fmtSigned } from '../utils/format';
 import { rawValueRows, groupMeanColumns } from '../utils/excelExport';
@@ -9,6 +8,7 @@ import { LP_TH, LP_TD, btnStyle, UP_TEXT_COLOR, DOWN_TEXT_COLOR, FONT_MONO, FONT
 import { exportName, metadataSheet, trackSubject } from '../utils/exportProvenance';
 import type { ExportKind } from '../utils/exportProvenance';
 import { VolcanoPlot } from './VolcanoPlot';
+import './volcanoToolbar.css';
 import { BarSEMChart, type ChartComparison } from './BarSEMChart';
 import { SummaryTable } from './SummaryTable';
 import { ContrastMatrix, type ContrastSlice } from './ContrastMatrix';
@@ -17,7 +17,7 @@ import { Modal } from '../common/Modal';
 import { ExportButton } from '../common/ExportButton';
 import { ChartScaleToggle } from '../common/ChartScaleToggle';
 import { useChartScale } from '../common/chartScaleStore';
-import { GenePicker, SelectionSearchBox } from '../common/GenePicker';
+import { GenePickerSearch, GeneSelectionBar, SelectionSearchBox } from '../common/GenePicker';
 import { DbPill } from '../common/DbPill';
 import { PathwayDetailPanel } from '../pathway-explorer/PathwayDetailPanel';
 import { pathwayDetailSheets } from '../pathway-explorer/pathwayExport';
@@ -28,13 +28,12 @@ import type { GeneSelection, VolcanoView } from '../explorer/explorerSession';
 import { geneVocabulary, useBoundGeneSelection, type BoundGeneSelection } from '../explorer/geneVocabulary';
 
 /**
- * What a view pop-up shows when nothing is selected yet.
- *
- * This is the other half of putting the three view buttons on the toolbar
- * unconditionally: a button that opens an empty box teaches nothing, so the
- * empty box says what it needs and hands over the means to supply it. The search
- * box is the SAME component as the toolbar's, so anything the toolbar can find
- * (aliases, previous symbols, redirects) is findable from here too.
+ * What a view pop-up shows once its last gene is removed from inside it (the
+ * view buttons only appear with a selection, but the pop-up stays open when
+ * the selection empties under it). It says what it needs and hands over the
+ * means to supply it. The search box is the SAME component as the toolbar's,
+ * so anything the toolbar can find (aliases, previous symbols, redirects) is
+ * findable from here too.
  */
 function SelectGenesPrompt({
   view, selection,
@@ -106,14 +105,10 @@ export function GeneExplorerTab({
     chartScale,
   }), [volcano.metric, volcano.logFCThresh, volcano.sigThresh, chartScale]);
 
-  // Prominent, filled toolbar buttons that open the two pop-up views.
-  const viewBtn = (bg: string): CSSProperties => ({
-    display: 'inline-flex', alignItems: 'center', gap: 7,
-    padding: '8px 18px', fontSize: 14, fontWeight: 700, letterSpacing: 0.2,
-    border: 'none', borderRadius: 6, cursor: 'pointer',
-    background: bg, color: '#fff', fontFamily: FONT_SANS,
-    boxShadow: '0 1px 4px rgba(0,0,0,0.22)',
-  });
+  // The view buttons share the toolbar's control vocabulary (volcanoToolbar.css):
+  // bordered, 24px. They used to be large filled blue/orange/green buttons,
+  // which read as data colours (down, the active selection, KEGG) and
+  // outweighed the plot they sit above.
 
   // PNG snapshot is the one genuinely-async export (html2canvas can take a
   // second on a large grid), so surface a busy state while it runs. Through the
@@ -141,15 +136,12 @@ export function GeneExplorerTab({
   // Which on-demand view is popped open: 'charts' (bar charts), 'table'
   // (summary table), 'contrasts' (across-comparisons matrix; multi-contrast
   // datasets only), or null. All hidden by default so the volcano stays the
-  // focus; the toolbar buttons open them as modals.
+  // focus; the buttons beside the selection count open them as modals.
   //
-  // The three buttons are ALWAYS on the toolbar, including with nothing
-  // selected. They used to appear only once a gene was picked, which hid the
-  // app's three main views behind a step you could only discover by guessing:
-  // the toolbar read as a bare search box, and nothing said that selecting a
-  // gene would reveal anything. Opening one empty is now a legitimate way in —
-  // each modal explains what it needs and puts a search box under it, so the
-  // buttons advertise the views AND lead to them.
+  // The buttons appear with the first selected gene, on the selection's own
+  // line. With nothing selected the toolbar stays one row: the search
+  // placeholder and the plot's "Click a point to add the gene" say how to
+  // start, and these views have nothing to draw until then.
   const [viewModal, setViewModal] = useState<'charts' | 'table' | 'contrasts' | null>(null);
   // NOTE: deliberately no "close the modal when the selection empties" effect.
   // Clearing the last gene from inside a pop-up now lands on its empty state
@@ -287,60 +279,58 @@ export function GeneExplorerTab({
 
   return (
     <div className="explorer-tab" style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
-      {/* The shared picker: search, list tools, count, chips. The three view
-          buttons are this tab's own, between the count and Clear all. */}
-      <div style={{ flexShrink: 0, padding: '8px 12px', borderBottom: '1px solid var(--border)' }}>
-        <GenePicker selection={selection} filenameParts={[popData.meta?.code]}>
-          <button type="button" onClick={() => setViewModal('charts')}
-            title="Open the per-gene bar charts in a pop-up"
-            style={viewBtn('#4C78A8')}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
-              <line x1="6" y1="20" x2="6" y2="11" />
-              <line x1="12" y1="20" x2="12" y2="5" />
-              <line x1="18" y1="20" x2="18" y2="14" />
-            </svg>
-            Bar charts
-          </button>
-          <button type="button" onClick={() => setViewModal('table')}
-            title="Open the summary table in a pop-up"
-            style={viewBtn('#E07A1E')}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
-              <rect x="3" y="4.5" width="18" height="15" rx="1.5" />
-              <line x1="3" y1="9.5" x2="21" y2="9.5" />
-              <line x1="9.5" y1="9.5" x2="9.5" y2="19.5" />
-            </svg>
-            Summary table
-          </button>
-          {/* Still gated — but on the DATASET, not on the selection. A
-              single-contrast study has no second comparison to read a gene
-              across, so this button would open a view that can only ever say
-              so. That is a different question from "have you picked a gene
-              yet", which is the one the other two buttons no longer ask. */}
-          {hasContrastMatrix && (
-            <button type="button" onClick={() => setViewModal('contrasts')}
-              title="View the selected genes across all comparisons in this dataset"
-              style={viewBtn('#59A14F')}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
-                <rect x="3" y="4.5" width="18" height="15" rx="1.5" />
-                <line x1="3" y1="9.5" x2="21" y2="9.5" />
-                <line x1="9" y1="4.5" x2="9" y2="19.5" />
-                <line x1="15" y1="4.5" x2="15" y2="19.5" />
-              </svg>
-              Across comparisons
-            </button>
-          )}
-        </GenePicker>
-      </div>
-
-      {/* Main content — the volcano fills the view. The bar charts and summary
-          table open on demand via the toolbar buttons (modals below). */}
-      <div className="gene-plot-panel" style={{ flex: 1, minHeight: 0, padding: 8, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+      {/* Main content — the volcano fills the view. Its toolbar row starts
+          with the shared picker's search and Gene list menu; the selection
+          (count, the view buttons, Clear all, chips) is a strip under that
+          row once a gene is picked. The bar charts and summary table open on
+          demand as modals (below). */}
+      <div className="gene-plot-panel" style={{ flex: 1, minHeight: 0, padding: '6px 8px 8px', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
         <VolcanoPlot
           selectedGenes={selectedGenes}
           volcano={volcano}
           onAddGene={addGene}
           onAddGenes={addGenes}
           popData={popData}
+          toolbarLead={<GenePickerSearch selection={selection} filenameParts={[popData.meta?.code]} />}
+          toolbarBelow={
+            <GeneSelectionBar selection={selection}>
+              <button type="button" onClick={() => setViewModal('charts')}
+                title="Open the per-gene bar charts in a pop-up"
+                className="gx-btn">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
+                  <line x1="6" y1="20" x2="6" y2="11" />
+                  <line x1="12" y1="20" x2="12" y2="5" />
+                  <line x1="18" y1="20" x2="18" y2="14" />
+                </svg>
+                Bar charts
+              </button>
+              <button type="button" onClick={() => setViewModal('table')}
+                title="Open the summary table in a pop-up"
+                className="gx-btn">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
+                  <rect x="3" y="4.5" width="18" height="15" rx="1.5" />
+                  <line x1="3" y1="9.5" x2="21" y2="9.5" />
+                  <line x1="9.5" y1="9.5" x2="9.5" y2="19.5" />
+                </svg>
+                Summary table
+              </button>
+              {/* Gated on the DATASET as well: a single-contrast study has no
+                  second comparison to read a gene across. */}
+              {hasContrastMatrix && (
+                <button type="button" onClick={() => setViewModal('contrasts')}
+                  title="View the selected genes across all comparisons in this dataset"
+                  className="gx-btn">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
+                    <rect x="3" y="4.5" width="18" height="15" rx="1.5" />
+                    <line x1="3" y1="9.5" x2="21" y2="9.5" />
+                    <line x1="9" y1="4.5" x2="9" y2="19.5" />
+                    <line x1="15" y1="4.5" x2="15" y2="19.5" />
+                  </svg>
+                  Across comparisons
+                </button>
+              )}
+            </GeneSelectionBar>
+          }
         />
       </div>
 
@@ -356,24 +346,14 @@ export function GeneExplorerTab({
           headerRight={hasGenes ? (
             <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
               {hasConditionsMode && (
-                <fieldset aria-label="Chart mode" style={{
-                  display: 'inline-flex', border: '1px solid var(--border)', borderRadius: 3,
-                  overflow: 'hidden', padding: 0, margin: '0 4px 0 0',
-                }}>
+                <fieldset aria-label="Chart mode" className="gx-seg" style={{ marginRight: 4 }}>
                   {([
                     ['contrast', 'Active comparison', 'Two bars: the arms of the comparison the explorer is showing'],
                     ['conditions', `All ${designGroups.length} conditions`,
                       'One bar per design cell, with every declared comparison bracketed by its own p-value'],
                   ] as const).map(([mode, label, title]) => (
                     <button key={mode} type="button" onClick={() => setChartMode(mode)}
-                      aria-pressed={chartMode === mode} title={title}
-                      style={{
-                        fontSize: 12, padding: '4px 10px', border: 'none', cursor: 'pointer',
-                        fontFamily: FONT_SANS,
-                        background: chartMode === mode ? 'var(--color-selected)' : 'var(--bg-app)',
-                        color: chartMode === mode ? '#fff' : 'var(--text-muted)',
-                        fontWeight: chartMode === mode ? 600 : 400,
-                      }}>
+                      aria-pressed={chartMode === mode} title={title}>
                       {label}
                     </button>
                   ))}

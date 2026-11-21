@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { ConfirmDialog } from './ConfirmDialog';
 import { forceRefresh } from './forceRefresh';
-import { FONT_MONO } from '../styles/constants';
 import { RELEASE_IDENTITY } from '../data/releaseIdentity';
+import '../common/headerControl.css';
 
 // Build version, inlined by Vite's `define` (see vite.config.ts). Guarded so the
 // component never throws in an environment where the define wasn't applied.
@@ -35,16 +35,9 @@ export function VersionBadge() {
         onClick={() => setConfirming(true)}
         title={`Release ${RELEASE_IDENTITY.releaseId.slice(0, 12)}. Clear cached app files and data, then reload the latest version`}
         aria-label={`Version ${APP_VERSION}. Refresh to the latest version.`}
-        style={{
-          display: 'inline-flex', alignItems: 'center', gap: 5,
-          fontSize: 11, padding: '4px 9px',
-          border: '1px solid var(--border)', borderRadius: 6,
-          background: 'transparent', color: 'var(--text-muted)',
-          cursor: 'pointer', fontFamily: FONT_MONO,
-          transition: 'color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease)',
-        }}
+        className="header-control"
       >
-        <span>v{APP_VERSION}</span>
+        <span className="header-control-figure">v{APP_VERSION}</span>
         <svg width={12} height={12} viewBox="0 0 24 24" fill="none"
           aria-hidden="true" focusable="false"
           stroke="currentColor" strokeWidth="2.2"

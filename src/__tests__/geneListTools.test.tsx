@@ -15,7 +15,7 @@ import {
 import { csvDownloadTable } from './csvDownload';
 import type { RawTrack } from '../types';
 
-// The gene-list buttons on the explorer's toolbar: a list goes in through the
+// The Gene list ▾ menu on the explorer's toolbar: a list goes in through the
 // dialog (a file or a paste), is reported against the dataset BEFORE anything
 // is selected, then lands in the selection; and the selection goes out as a
 // file under the track's name.
@@ -76,22 +76,32 @@ afterEach(() => {
   _resetTrackCache();
 });
 
+/** Open the Gene list ▾ menu; returns it. */
+const openGeneListMenu = () => {
+  fireEvent.click(screen.getByRole('button', { name: 'Gene list' }));
+  return screen.getByRole('menu', { name: 'Gene list' });
+};
+
 const openDialog = () => {
-  fireEvent.click(screen.getByRole('button', { name: /Load list/ }));
+  fireEvent.click(within(openGeneListMenu()).getByRole('menuitem', { name: /Load list/ }));
   return screen.getByRole('dialog', { name: 'Load a gene list' });
 };
+
+/** The Save list as formats inside the Gene list menu. */
+const saveFormats = () => within(within(openGeneListMenu()).getByRole('group', { name: 'Save list as' }));
 
 function pasteList(dialog: HTMLElement, text: string) {
   fireEvent.change(within(dialog).getByLabelText(/paste symbols/i), { target: { value: text } });
   fireEvent.click(within(dialog).getByRole('button', { name: /Read pasted list/ }));
 }
 
-const selectedCount = () => screen.getByText(/gene(s)? selected|no genes selected/).textContent;
+const selectedCount = () => screen.queryByText(/genes? selected/)?.textContent ?? null;
 
 describe('GeneExplorerTab — loading a gene list', () => {
   it('reports what a pasted list resolves to, then adds it to the selection', async () => {
     await mount();
-    expect(selectedCount()).toBe('no genes selected');
+    // Nothing selected: no count line at all (the search placeholder says how to start).
+    expect(selectedCount()).toBeNull();
 
     const dialog = openDialog();
     pasteList(dialog, 'POMC\ntbx3\nNOPE\n');
@@ -172,7 +182,7 @@ describe('GeneExplorerTab — loading a gene list', () => {
 describe('GeneExplorerTab — saving the selection', () => {
   it('is disabled with nothing selected', async () => {
     await mount();
-    expect(screen.getByRole('button', { name: /Save list/ })).toBeDisabled();
+    for (const item of saveFormats().getAllByRole('menuitem')) expect(item).toBeDisabled();
   });
 
   it('writes the selection as a text file under the track code', async () => {
@@ -180,11 +190,9 @@ describe('GeneExplorerTab — saving the selection', () => {
     pasteList(openDialog(), 'TBX3 POMC');
     fireEvent.click(screen.getByRole('button', { name: /Add 2 genes to the selection/ }));
 
-    const save = screen.getByRole('button', { name: /Save list/ });
-    expect(save).toHaveAttribute('aria-expanded', 'false');
-    fireEvent.click(save);
-    const menu = screen.getByRole('menu', { name: 'Save list as' });
-    fireEvent.click(within(menu).getByRole('menuitem', { name: /Text \(\.txt\)/ }));
+    const trigger = screen.getByRole('button', { name: 'Gene list' });
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    fireEvent.click(saveFormats().getByRole('menuitem', { name: /Text \(\.txt\)/ }));
 
     expect(screen.queryByRole('menu')).toBeNull();
     expect(downloadFile).toHaveBeenCalledTimes(1);
@@ -197,14 +205,17 @@ describe('GeneExplorerTab — saving the selection', () => {
     await mount();
     pasteList(openDialog(), 'POMC');
     fireEvent.click(screen.getByRole('button', { name: /Add 1 gene to the selection/ }));
-    const save = screen.getByRole('button', { name: /Save list/ });
+    const trigger = screen.getByRole('button', { name: 'Gene list' });
 
-    fireEvent.click(save);
+    fireEvent.click(trigger);
     expect(screen.getByRole('menu')).toBeTruthy();
+    // Focus lands on the first item; Escape closes and hands focus back.
+    expect(document.activeElement).toHaveAccessibleName(/Load list/);
     fireEvent.keyDown(document, { key: 'Escape' });
     expect(screen.queryByRole('menu')).toBeNull();
+    expect(document.activeElement).toBe(trigger);
 
-    fireEvent.click(save);
+    fireEvent.click(trigger);
     expect(screen.getByRole('menu')).toBeTruthy();
     fireEvent.mouseDown(document.body);
     expect(screen.queryByRole('menu')).toBeNull();
@@ -216,10 +227,11 @@ describe('VolcanoPlot — saving the threshold-passing genes', () => {
   it('writes the pass list with direction and statistics as CSV', async () => {
     await mount();
     // At the default p < 0.01 cutoff only POMC (p = 0.001) passes.
-    const save = screen.getByRole('button', { name: /^Save ▾$/ });
-    expect(save).not.toBeDisabled();
-    fireEvent.click(save);
-    fireEvent.click(screen.getByRole('menuitem', { name: /CSV/ }));
+    const pass = screen.getByRole('button', { name: '1 pass' });
+    expect(pass).not.toBeDisabled();
+    fireEvent.click(pass);
+    const downloads = within(within(screen.getByRole('menu', { name: 'Threshold-passing genes' })).getByRole('group', { name: 'Download as' }));
+    fireEvent.click(downloads.getByRole('menuitem', { name: /CSV/ }));
 
     const [name, href] = downloadFile.mock.calls[0] as [string, string];
     expect(name).toBe('e9_threshold_genes.csv');
@@ -236,7 +248,7 @@ describe('VolcanoPlot — saving the threshold-passing genes', () => {
         popData={popData}
       />,
     );
-    expect(screen.getByRole('button', { name: /^Save ▾$/ })).toBeDisabled();
+    expect(screen.getByRole('button', { name: '0 pass' })).toBeDisabled();
   });
 });
 

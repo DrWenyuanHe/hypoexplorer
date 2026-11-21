@@ -79,6 +79,8 @@ describe('Gene Explorer', () => {
 
   it('6. REGRESSION: typing 0.05 in cutoff syncs slider to ~1.30', () => {
     const { container } = renderApp();
+    // The cutoff inputs live in the thresholds popover; open it from its summary.
+    fireEvent.click(screen.getByRole('button', { name: /^Thresholds:/ }));
     // Find the 72px-wide text input (the cutoff input)
     const cutoffInput = [...container.querySelectorAll('input[type="text"]')]
       .find(i => (i as HTMLInputElement).style.width === '72px');
@@ -95,6 +97,7 @@ describe('Gene Explorer', () => {
     const { container } = renderApp();
     const fdrBtn = screen.getByRole('button', { name: 'FDR' });
     fireEvent.click(fdrBtn);
+    fireEvent.click(screen.getByRole('button', { name: /^Thresholds:/ }));
     const sliders = container.querySelectorAll('input[type="range"]');
     const sigSlider = sliders[1];
     expect(sigSlider.getAttribute('max')).toBe('5');
@@ -179,7 +182,9 @@ describe('Volcano pass-count includes selected genes (codex P2 fix)', () => {
     const { container } = renderApp();
     // Move logFC threshold to 0 and significance threshold to something loose
     // so POMC (fixture: logFC=1.2, PValue=0.001) definitely passes. Raw
-    // dispatchEvent bypasses React's act() wrap, so we wrap explicitly.
+    // dispatchEvent bypasses React's act() wrap, so we wrap explicitly. The
+    // sliders live in the thresholds popover, opened from its summary.
+    fireEvent.click(screen.getByRole('button', { name: /^Thresholds:/ }));
     const ranges = container.querySelectorAll('input[type="range"]');
     const setRange = (input: any, val: any) => {
       const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')!.set!;
@@ -191,9 +196,9 @@ describe('Volcano pass-count includes selected genes (codex P2 fix)', () => {
       setRange(ranges[1], '1');   // -log10(P) > 1 → P < 0.1
     });
 
-    const countBefore = [...container.querySelectorAll('span')]
-      .map(s => s.textContent)
-      .find(t => t?.includes('total'));
+    // The pass count is the toolbar's "N pass" menu button.
+    const passCount = () => screen.getByRole('button', { name: /^[\d,]+ pass$/ }).textContent;
+    const countBefore = passCount();
 
     // Add POMC via search. GeneSearchBox debounces suggestions with an 80ms
     // setTimeout; use waitFor so React can flush the delayed setState under
@@ -211,13 +216,11 @@ describe('Volcano pass-count includes selected genes (codex P2 fix)', () => {
       expect(chips.length).toBeGreaterThan(0);
     });
 
-    const countAfter = [...container.querySelectorAll('span')]
-      .map(s => s.textContent)
-      .find(t => t?.includes('total'));
+    const countAfter = passCount();
 
-    // The "N genes" number at the start of the count span should be unchanged
-    // or higher, never lower.
-    const extract = (s: any) => parseInt((s || '').match(/^(\d+)/)?.[1] ?? '0', 10);
+    // The "N pass" number should be unchanged or higher, never lower.
+    const extract = (s: any) => parseInt((s || '').replace(/,/g, '').match(/^(\d+)/)?.[1] ?? '0', 10);
+    expect(extract(countBefore)).toBeGreaterThan(0);
     expect(extract(countAfter)).toBeGreaterThanOrEqual(extract(countBefore));
   });
 });

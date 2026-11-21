@@ -1,23 +1,32 @@
-import { ResponsiveDetails } from '../common/ResponsiveDetails';
-import { useState, useRef, useMemo, useCallback, useEffect } from 'react';
-import type { MouseEvent } from 'react';
+import { useState, useRef, useMemo, useCallback, useEffect, useId } from 'react';
+import type { MouseEvent, ReactNode } from 'react';
 import { fmtCutoff, fmtP, fmtFDR } from '../utils/format';
 import { groupLabels } from '../utils/sampleValues';
 import { niceTicks } from '../utils/axes';
 import { EmptyState } from '../common/EmptyState';
-import { SaveGeneListMenu } from '../common/GeneListTools';
+import { MenuGroup, MenuItem, ToolbarPopover } from '../common/ToolbarPopover';
+import { useExportAction } from '../utils/exportAction';
+import { GENE_LIST_SAVE_FORMATS, saveGeneList } from '../utils/geneListFile';
 import { UP_COLOR, DOWN_COLOR, UP_TEXT_COLOR, DOWN_TEXT_COLOR, FONT_MONO, FONT_SANS } from '../styles/constants';
 import type { PopData, VolcanoPoint } from '../types';
 import type { VolcanoView } from '../explorer/explorerSession';
 import type { GeneListRow } from '../utils/geneListFile';
 import { VolcanoTable } from './VolcanoTable';
 import { VOLCANO_SELECTED_BACKGROUND, VOLCANO_SELECTED_COLOR } from './volcanoColors';
+import './volcanoToolbar.css';
 
 function readDpr(): number {
   return typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1;
 }
 
-const VM = { top: 24, right: 20, bottom: 48, left: 58 };
+// `top` is the floor of the top margin; the key line (counts and legend) sits
+// in that margin and the component grows it to the line's measured height (see
+// `legendH`), so a line that wraps on a phone pushes the plot down instead of
+// covering it.
+const VM = { top: 26, right: 20, bottom: 48, left: 58 };
+// Below this plot width the key line starts at the panel edge rather than the
+// y axis, and the click hint is dropped.
+const NARROW_PLOT = 600;
 const GRID_CELL = 40; // spatial index cell size in SVG px
 const HIT_RADIUS_SQ = 28 * 28;
 
@@ -33,11 +42,15 @@ interface VolcanoPlotProps {
   onAddGene: (gene: string) => void;
   onAddGenes?: (genes: string[]) => void;
   popData: PopData;
+  /** Controls placed first on the toolbar row: the Gene Explorer's search and Gene list menu. */
+  toolbarLead?: ReactNode;
+  /** A strip under the toolbar row: the Gene Explorer's selection (count, views, chips). */
+  toolbarBelow?: ReactNode;
 }
 
 export function VolcanoPlot({
   selectedGenes, volcano,
-  onAddGene, onAddGenes, popData,
+  onAddGene, onAddGenes, popData, toolbarLead, toolbarBelow,
 }: VolcanoPlotProps) {
   const {
     metric: volcanoMetric, selectMetric,
@@ -46,7 +59,9 @@ export function VolcanoPlot({
   } = volcano;
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const legendRef = useRef<HTMLDivElement>(null);
   const [svgSize, setSvgSize] = useState({ w: 600, h: 360 });
+  const [legendH, setLegendH] = useState(0);
   const [tooltip, setTooltip] = useState<Tooltip>(null);
   const [showPassList, setShowPassList] = useState(false);
   const [view, setView] = useState<'plot' | 'table'>('plot');
@@ -56,6 +71,11 @@ export function VolcanoPlot({
   // container — still repaints the point cloud crisply.
   const [dpr, setDpr] = useState(readDpr);
   const lastMove = useRef(0);
+  const uid = useId();
+  const { busy: savingPass, run: runSavePass } = useExportAction();
+  const sigName = volcanoMetric === 'pval' ? 'P' : 'FDR';
+  // The same figures as the dashed lines' own labels.
+  const thresholdSummary = `${sigName} < ${fmtCutoff(10 ** -volcanoSigThresh)} · |log₂FC| > ${+volcanoLogFCThresh.toFixed(2)}`;
   const selectedSet = useMemo(() => new Set(selectedGenes), [selectedGenes]);
 
   useEffect(() => {
@@ -67,6 +87,18 @@ export function VolcanoPlot({
     obs.observe(containerRef.current);
     return () => obs.disconnect();
   }, []);
+
+  // The legend's own height sets the plot's top margin. The legend is absent
+  // in the table view and the empty state, so re-attach when either changes.
+  const hasPoints = popData.volcanoPts.length > 0;
+  useEffect(() => {
+    const el = legendRef.current;
+    if (!el || view !== 'plot' || !hasPoints) return;
+    const obs = new ResizeObserver(() => setLegendH(Math.ceil(el.getBoundingClientRect().height)));
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [view, hasPoints]);
+  const M = useMemo(() => ({ ...VM, top: Math.max(VM.top, legendH + 4) }), [legendH]);
 
   // Watch for devicePixelRatio changes. A media query keyed to the current ratio
   // fires when it leaves that value (monitor switch / zoom); re-subscribe on each
@@ -83,8 +115,9 @@ export function VolcanoPlot({
     };
   }, [dpr]);
 
-  const chartW = svgSize.w - VM.left - VM.right;
-  const chartH = svgSize.h - VM.top - VM.bottom;
+  const narrow = svgSize.w < NARROW_PLOT;
+  const chartW = svgSize.w - M.left - M.right;
+  const chartH = svgSize.h - M.top - M.bottom;
   // Dynamic per-pop range; floors at ±5 so common cases still show ticks at -5/+4.
   const { xMin, xMax } = useMemo(() => {
     let lo = 0, hi = 0;
@@ -105,8 +138,8 @@ export function VolcanoPlot({
   }, [popData.volcanoPts, volcanoMetric]);
   const yDomMax = (Math.max(yMaxData, volcanoSigThresh) || 1) * 1.08;
 
-  const toSvgX = useCallback((v: number) => VM.left + (v - xMin) / (xMax - xMin) * chartW, [chartW, xMin, xMax]);
-  const toSvgY = useCallback((v: number) => VM.top + (1 - v / yDomMax) * chartH, [chartH, yDomMax]);
+  const toSvgX = useCallback((v: number) => M.left + (v - xMin) / (xMax - xMin) * chartW, [M, chartW, xMin, xMax]);
+  const toSvgY = useCallback((v: number) => M.top + (1 - v / yDomMax) * chartH, [M, chartH, yDomMax]);
 
   // Compute per-point render data + counts + spatial grid.
   // One pass replaces the old two-pass (ptColor + grey/colored partition).
@@ -233,7 +266,7 @@ export function VolcanoPlot({
     const rect = e.currentTarget.getBoundingClientRect();
     const mx = e.clientX - rect.left;
     const my = e.clientY - rect.top;
-    if (mx < VM.left || mx > VM.left + chartW || my < VM.top || my > VM.top + chartH) {
+    if (mx < M.left || mx > M.left + chartW || my < M.top || my > M.top + chartH) {
       return null;
     }
     // Spatial-index hit test: inspect only the 9 grid cells around the mouse.
@@ -251,7 +284,7 @@ export function VolcanoPlot({
       }
     }
     return best ? { mx, my, ...best } : null;
-  }, [chartW, chartH, grid]);
+  }, [M, chartW, chartH, grid]);
 
   const handleMouseMove = useCallback((e: MouseEvent<SVGSVGElement>) => {
     const now = Date.now();
@@ -272,117 +305,96 @@ export function VolcanoPlot({
 
   return (
     <div className="volcano-plot" style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: 0, gap: 4 }}>
-      <div className="volcano-controls">
-      {/* The view switch stays visible; supporting controls fold on mobile. */}
-      <div style={{ flexShrink: 0, alignSelf: 'flex-start' }}>
-        <fieldset aria-label="Volcano view" style={{ display: 'flex', padding: 0, margin: 0, border: '1px solid var(--border-dark)', borderRadius: 4, overflow: 'hidden' }}>
+      {/* One row: the host's lead (the Gene Explorer's search and Gene list
+          menu), the view switch, the statistic, the thresholds summary, and
+          the passing genes' menu at the far end. The counts and the key are
+          the plot's own top line, not toolbar items. One control vocabulary
+          (volcanoToolbar.css). */}
+      <div className="volcano-controls gx-toolbar">
+        {toolbarLead}
+        <fieldset aria-label="Volcano view" className="gx-seg">
           {(['plot', 'table'] as const).map((value) => (
-            <button type="button" key={value} aria-pressed={view === value} onClick={() => { setView(value); setTooltip(null); }}
-              style={{ padding: '3px 10px', fontSize: 12, border: 'none', cursor: 'pointer', background: view === value ? 'var(--text-primary)' : 'white', color: view === value ? 'white' : 'var(--text-primary)' }}>
+            <button type="button" key={value} aria-pressed={view === value} onClick={() => { setView(value); setTooltip(null); }}>
               {value === 'plot' ? 'Plot' : 'Table'}
             </button>
           ))}
         </fieldset>
+        <fieldset className="gx-seg" aria-label="Significance statistic">
+          {/* "P value" reads "P" on a phone, so the plot's settings share one line there. */}
+          <button type="button" aria-pressed={volcanoMetric === 'pval'} onClick={() => selectMetric('pval')}>
+            P<span className="gx-phone-hide"> value</span>
+          </button>
+          <button type="button" aria-pressed={volcanoMetric === 'fdr'} onClick={() => selectMetric('fdr')}>FDR</button>
+        </fieldset>
+        {/* The cutoffs as one summary, in the figures the dashed lines carry;
+            the inputs that set them open under it. */}
+        <ToolbarPopover kind="dialog" popupLabel="Plot thresholds"
+          label={<span className="gx-num">{thresholdSummary}</span>}
+          ariaLabel={`Thresholds: ${thresholdSummary}`}
+          title="Change the significance and fold-change cutoffs">
+          {() => (
+            <div className="gx-thresholds">
+              <label className="gx-label" htmlFor={`${uid}-lfc`}>|log₂FC| &gt;</label>
+              <input type="range" className="gx-range" min={0} max={4} step={0.1} value={volcanoLogFCThresh}
+                aria-label="|log₂FC| threshold slider"
+                onChange={(e) => setVolcanoLogFCThresh(+e.target.value)} />
+              <input id={`${uid}-lfc`} type="number" className="gx-input" min={0} step={0.1} value={volcanoLogFCThresh}
+                onChange={(e) => {
+                  const v = parseFloat(e.target.value);
+                  if (!Number.isNaN(v) && v >= 0) setVolcanoLogFCThresh(v);
+                }}
+                style={{ width: 56 }} />
+              <label className="gx-label" htmlFor={`${uid}-sig`}>{sigName} &lt;</label>
+              <input type="range" className="gx-range" min={0} max={5} step={0.05}
+                aria-label={`${sigName} threshold slider (−log₁₀)`}
+                value={volcanoSigThresh} onChange={(e) => setVolcanoSigThresh(+e.target.value)} />
+              <input id={`${uid}-sig`} type="text" className="gx-input" value={fmtCutoff(10 ** -volcanoSigThresh)}
+                inputMode="decimal"
+                onChange={(e) => {
+                  const v = parseFloat(e.target.value);
+                  if (!Number.isNaN(v) && v > 0 && v <= 1) {
+                    setVolcanoSigThresh(-Math.log10(v));
+                  }
+                }}
+                style={{ width: 72 }} />
+            </div>
+          )}
+        </ToolbarPopover>
+        {/* The threshold-passing genes: list them, add them, or save them as a
+            file (direction and statistics with each symbol, so the cutoff
+            that produced them travels with them). Disabled, not hidden, when
+            nothing passes. */}
+        <ToolbarPopover kind="menu" align="right" popupLabel="Threshold-passing genes"
+          label={<><span className="gx-num">{passCount.toLocaleString()}</span> pass</>}
+          disabled={passCount === 0}
+          busy={savingPass} busyLabel="Saving…"
+          title={passCount === 0
+            ? 'No genes pass the current threshold'
+            : `The ${passCount.toLocaleString()} threshold-passing genes: show, add to the selection, or download`}>
+          {(close) => (
+            <>
+              <MenuItem onSelect={() => { close(); setView('plot'); setShowPassList((v) => view === 'table' || !v); }}>
+                {view === 'plot' && showPassList ? 'Hide list' : 'Show list'}
+              </MenuItem>
+              {onAddGenes && (
+                <MenuItem onSelect={() => { close(); onAddGenes([...upGenes, ...downGenes]); }}
+                  title={`Add all ${passCount.toLocaleString()} threshold-passing genes to the selection`}>
+                  Add all {passCount.toLocaleString()} to selection
+                </MenuItem>
+              )}
+              <MenuGroup heading="Download as">
+                {GENE_LIST_SAVE_FORMATS.map((f) => (
+                  <MenuItem key={f.format} hint={f.hint}
+                    onSelect={() => { close(); runSavePass(() => saveGeneList([popData.meta?.code, 'threshold_genes'], passRows, f.format)); }}>
+                    {f.label}
+                  </MenuItem>
+                ))}
+              </MenuGroup>
+            </>
+          )}
+        </ToolbarPopover>
       </div>
-      <ResponsiveDetails label="Plot thresholds & gene list">
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '4px 4px 0', flexWrap: 'wrap', flexShrink: 0 }}>
-        <div style={{ display: 'flex', border: '1px solid var(--border-dark)', borderRadius: 4, overflow: 'hidden' }}>
-          {([['pval', 'P value'], ['fdr', 'FDR']] as const).map(([val, label]) => (
-            <button type="button" key={val}
-              onClick={() => selectMetric(val)}
-              style={{
-                padding: '3px 10px', fontSize: 12, border: 'none', cursor: 'pointer',
-                background: volcanoMetric === val ? 'var(--text-primary)' : 'white',
-                color: volcanoMetric === val ? 'white' : 'var(--text-primary)',
-              }}>{label}</button>
-          ))}
-        </div>
-        <label style={{ fontSize: 11, color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 4 }}>
-          |logFC| &gt;
-          <input type="range" min={0} max={4} step={0.1} value={volcanoLogFCThresh}
-            onChange={(e) => setVolcanoLogFCThresh(+e.target.value)} style={{ width: 70 }} />
-          <input type="number" min={0} step={0.1} value={volcanoLogFCThresh}
-            onChange={(e) => {
-              const v = parseFloat(e.target.value);
-              if (!Number.isNaN(v) && v >= 0) setVolcanoLogFCThresh(v);
-            }}
-            style={{ width: 48, fontFamily: FONT_MONO, fontSize: 11, padding: '1px 3px' }} />
-        </label>
-        <label style={{ fontSize: 11, color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 4 }}>
-          {volcanoMetric === 'pval' ? 'P' : 'FDR'} &lt;
-          <input type="range" min={0} max={5} step={0.05}
-            value={volcanoSigThresh} onChange={(e) => setVolcanoSigThresh(+e.target.value)} style={{ width: 70 }} />
-          <input type="text" value={fmtCutoff(10 ** -volcanoSigThresh)}
-            onChange={(e) => {
-              const v = parseFloat(e.target.value);
-              if (!Number.isNaN(v) && v > 0 && v <= 1) {
-                setVolcanoSigThresh(-Math.log10(v));
-              }
-            }}
-            style={{ width: 72, fontFamily: FONT_MONO, fontSize: 11, padding: '1px 3px' }} />
-          <span style={{ fontFamily: FONT_MONO, color: 'var(--text-muted)', fontSize: 10 }}>
-            (−log₁₀ = {volcanoSigThresh.toFixed(2)})
-          </span>
-        </label>
-        <span style={{ fontSize: 10, color: 'var(--text-muted)', marginLeft: 'auto', fontFamily: FONT_MONO, display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
-          <span>
-            <strong style={{ color: 'var(--text-primary)' }}>{passCount.toLocaleString()}</strong> genes
-            {' '}(<span style={{ color: UP_TEXT_COLOR }}>{upCount.toLocaleString()} ↑</span>
-            {' · '}<span style={{ color: DOWN_TEXT_COLOR }}>{downCount.toLocaleString()} ↓</span>)
-            {' · '}{totalCount.toLocaleString()} total
-          </span>
-          {/* The threshold-passing list as a file: the symbols with their
-              direction and statistics, so the cutoff that produced them
-              travels with them. Disabled, not hidden, when nothing passes. */}
-          <SaveGeneListMenu
-            rows={passRows}
-            filenameParts={[popData.meta?.code, 'threshold_genes']}
-            label="Save"
-            title={passCount === 0
-              ? 'No genes pass the current threshold'
-              : `Download the ${passCount.toLocaleString()} threshold-passing genes with their direction, log2FC, p and FDR`}
-            style={{ fontSize: 10, padding: '2px 6px', fontWeight: 400, color: 'var(--text-primary)' }}
-          />
-          <button
-            type="button"
-            onClick={() => { setView('plot'); setShowPassList((v) => view === 'table' || !v); }}
-            disabled={passCount === 0}
-            title={passCount === 0 ? 'No genes pass the current threshold' : 'Show/hide gene list'}
-            style={{
-              fontSize: 10, padding: '2px 6px', border: '1px solid var(--border)',
-              borderRadius: 3, background: showPassList ? '#4C78A8' : 'var(--bg-panel)',
-              color: showPassList ? '#fff' : 'var(--text-primary)',
-              cursor: passCount === 0 ? 'not-allowed' : 'pointer',
-              opacity: passCount === 0 ? 0.5 : 1,
-              fontFamily: FONT_SANS,
-            }}
-          >{view === 'plot' && showPassList ? 'Hide list' : 'Show list'}</button>
-          <button
-            type="button"
-            onClick={() => { if (onAddGenes && passCount > 0) onAddGenes([...upGenes, ...downGenes]); }}
-            disabled={passCount === 0 || !onAddGenes}
-            title={passCount === 0 ? 'No genes pass the current threshold' : `Add all ${passCount.toLocaleString()} threshold-passing genes to the Gene Explorer`}
-            style={{
-              fontSize: 10, padding: '2px 8px', border: `1px solid ${VOLCANO_SELECTED_COLOR}`,
-              borderRadius: 3, background: passCount === 0 ? 'var(--bg-panel)' : VOLCANO_SELECTED_BACKGROUND,
-              color: VOLCANO_SELECTED_COLOR, fontWeight: 600,
-              cursor: passCount === 0 ? 'not-allowed' : 'pointer',
-              opacity: passCount === 0 ? 0.5 : 1,
-              fontFamily: FONT_SANS,
-            }}
-          >+ Add all {passCount > 0 ? passCount.toLocaleString() : ''} →</button>
-        </span>
-      </div>
-
-      </ResponsiveDetails>
-      </div>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, padding: '2px 4px', fontSize: 10, flexShrink: 0 }}>
-        <span style={{ color: UP_TEXT_COLOR }}>● Up in {caseLabel}</span>
-        <span style={{ color: DOWN_TEXT_COLOR }}>● Down in {caseLabel}</span>
-        <span style={{ color: 'var(--text-muted)' }}>● Below thresholds</span>
-        <span style={{ color: VOLCANO_SELECTED_COLOR, fontWeight: 600 }}>◆ Selected ({selectedPts.length.toLocaleString()})</span>
-      </div>
-
+      {toolbarBelow}
       {/* Collapsible pass-threshold gene list */}
       {view === 'plot' && showPassList && passCount > 0 && (
         <div style={{
@@ -446,6 +458,31 @@ export function VolcanoPlot({
           />
         ) : (
         <>
+        {/* The legend sits in the plot's top margin, which is sized to it, so
+            it never covers a point. It stays truthful to the plot: selected
+            points ARE drawn as VOLCANO_SELECTED_COLOR diamonds, so its key
+            keeps that colour. Not part of any export: nothing snapshots this
+            panel (the PNG export is the bar-chart grid). */}
+        <div ref={legendRef} className="gx-legend"
+          style={narrow ? { left: 8, right: 8 } : { left: M.left, right: M.right }}>
+          <span style={{ color: UP_TEXT_COLOR }}>
+            <span style={{ color: UP_COLOR }} aria-hidden="true">●</span>{' '}
+            <span className="gx-num">{upCount.toLocaleString()}</span> up in {caseLabel}
+          </span>
+          <span style={{ color: DOWN_TEXT_COLOR }}>
+            <span style={{ color: DOWN_COLOR }} aria-hidden="true">●</span>{' '}
+            <span className="gx-num">{downCount.toLocaleString()}</span> down
+          </span>
+          <span style={{ color: 'var(--text-muted)' }}>
+            of <span className="gx-num">{totalCount.toLocaleString()}</span> genes
+          </span>
+          {selectedPts.length > 0 && (
+            <span style={{ color: VOLCANO_SELECTED_COLOR, fontWeight: 600 }}>
+              <span aria-hidden="true">◆</span> <span className="gx-num">{selectedPts.length.toLocaleString()}</span> selected
+            </span>
+          )}
+          {!narrow && selectedGenes.length === 0 && <span className="gx-legend-hint">Click a point to add the gene</span>}
+        </div>
         <canvas
           ref={canvasRef}
           width={svgSize.w}
@@ -464,28 +501,28 @@ export function VolcanoPlot({
           style={{ position: 'absolute', top: 0, left: 0, cursor: tooltip ? 'pointer' : 'crosshair', display: 'block' }}
         >
           {/* X axis */}
-          <line x1={VM.left} y1={VM.top + chartH} x2={VM.left + chartW} y2={VM.top + chartH} stroke="var(--border-dark)" strokeWidth={1} />
+          <line x1={M.left} y1={M.top + chartH} x2={M.left + chartW} y2={M.top + chartH} stroke="var(--border-dark)" strokeWidth={1} />
           {xTicks.map((t) => (
             <g key={t}>
-              <line x1={toSvgX(t)} y1={VM.top + chartH} x2={toSvgX(t)} y2={VM.top + chartH + 4} stroke="var(--border-dark)" strokeWidth={1} />
-              <text x={toSvgX(t)} y={VM.top + chartH + 15} textAnchor="middle" fontSize={11} fill="var(--text-muted)" fontFamily={FONT_MONO}>{t}</text>
+              <line x1={toSvgX(t)} y1={M.top + chartH} x2={toSvgX(t)} y2={M.top + chartH + 4} stroke="var(--border-dark)" strokeWidth={1} />
+              <text x={toSvgX(t)} y={M.top + chartH + 15} textAnchor="middle" fontSize={11} fill="var(--text-muted)" fontFamily={FONT_MONO}>{t}</text>
             </g>
           ))}
-          <text x={VM.left + chartW / 2} y={svgSize.h - 4} textAnchor="middle" fontSize={12} fill="var(--text-primary)">
+          <text x={M.left + chartW / 2} y={svgSize.h - 4} textAnchor="middle" fontSize={12} fill="var(--text-primary)">
             log₂ fold change ({caseLabel} / {baseLabel})
           </text>
 
           {/* Y axis */}
-          <line x1={VM.left} y1={VM.top} x2={VM.left} y2={VM.top + chartH} stroke="var(--border-dark)" strokeWidth={1} />
+          <line x1={M.left} y1={M.top} x2={M.left} y2={M.top + chartH} stroke="var(--border-dark)" strokeWidth={1} />
           {yTicks.map((t) => (
             <g key={t}>
-              <line x1={VM.left - 4} y1={toSvgY(t)} x2={VM.left} y2={toSvgY(t)} stroke="var(--border-dark)" strokeWidth={1} />
-              <text x={VM.left - 6} y={toSvgY(t) + 4} textAnchor="end" fontSize={11} fill="var(--text-muted)" fontFamily={FONT_MONO}>{t}</text>
+              <line x1={M.left - 4} y1={toSvgY(t)} x2={M.left} y2={toSvgY(t)} stroke="var(--border-dark)" strokeWidth={1} />
+              <text x={M.left - 6} y={toSvgY(t) + 4} textAnchor="end" fontSize={11} fill="var(--text-muted)" fontFamily={FONT_MONO}>{t}</text>
             </g>
           ))}
           <text
-            x={14} y={VM.top + chartH / 2} textAnchor="middle" fontSize={12} fill="var(--text-primary)"
-            transform={`rotate(-90, 14, ${VM.top + chartH / 2})`}
+            x={14} y={M.top + chartH / 2} textAnchor="middle" fontSize={12} fill="var(--text-primary)"
+            transform={`rotate(-90, 14, ${M.top + chartH / 2})`}
           >
             &minus;log₁₀({volcanoMetric === 'pval' ? 'P value' : 'FDR'})
           </text>
@@ -493,24 +530,48 @@ export function VolcanoPlot({
           {/* Threshold lines */}
           {volcanoLogFCThresh > 0 && (
             <>
-              <line x1={toSvgX(volcanoLogFCThresh)} y1={VM.top} x2={toSvgX(volcanoLogFCThresh)} y2={VM.top + chartH} stroke="#bbb" strokeDasharray="4,3" strokeWidth={1} />
-              <line x1={toSvgX(-volcanoLogFCThresh)} y1={VM.top} x2={toSvgX(-volcanoLogFCThresh)} y2={VM.top + chartH} stroke="#bbb" strokeDasharray="4,3" strokeWidth={1} />
+              <line x1={toSvgX(volcanoLogFCThresh)} y1={M.top} x2={toSvgX(volcanoLogFCThresh)} y2={M.top + chartH} stroke="#bbb" strokeDasharray="4,3" strokeWidth={1} />
+              <line x1={toSvgX(-volcanoLogFCThresh)} y1={M.top} x2={toSvgX(-volcanoLogFCThresh)} y2={M.top + chartH} stroke="#bbb" strokeDasharray="4,3" strokeWidth={1} />
             </>
           )}
-          <line x1={VM.left} y1={toSvgY(volcanoSigThresh)} x2={VM.left + chartW} y2={toSvgY(volcanoSigThresh)} stroke="#bbb" strokeDasharray="4,3" strokeWidth={1} />
+          <line x1={M.left} y1={toSvgY(volcanoSigThresh)} x2={M.left + chartW} y2={toSvgY(volcanoSigThresh)} stroke="#bbb" strokeDasharray="4,3" strokeWidth={1} />
+
+          {/* Threshold labels: each dashed line says what it is, in the same
+              figures as the toolbar's inputs. A paper-coloured halo keeps them
+              legible over a point cloud. The significance label sits at the
+              line's right end, just above it (below it when the line is close
+              to the top edge); the |log2FC| label at the top of the right line. */}
+          {(() => {
+            const sigY = toSvgY(volcanoSigThresh);
+            const labelY = sigY - 4 - 10 < M.top ? sigY + 13 : sigY - 4;
+            const halo = { paintOrder: 'stroke' as const, stroke: 'var(--bg-panel)', strokeWidth: 3, strokeLinejoin: 'round' as const };
+            return (
+              <g fontSize={10} fill="var(--text-muted)" fontFamily={FONT_MONO} pointerEvents="none">
+                <text x={M.left + chartW - 2} y={labelY} textAnchor="end" style={halo}>
+                  {volcanoMetric === 'pval' ? 'P' : 'FDR'} &lt; {fmtCutoff(10 ** -volcanoSigThresh)}
+                </text>
+                {volcanoLogFCThresh > 0 && toSvgX(volcanoLogFCThresh) < M.left + chartW - 70 && (
+                  <text x={toSvgX(volcanoLogFCThresh) + 4} y={M.top + 10} textAnchor="start" style={halo}>
+                    |log₂FC| &gt; {+volcanoLogFCThresh.toFixed(2)}
+                  </text>
+                )}
+              </g>
+            );
+          })()}
 
           {/* Tooltip */}
           {tooltip && (() => {
             const tx = tooltip.mx > svgSize.w * 0.6 ? tooltip.mx - 210 : tooltip.mx + 12;
-            const ty = Math.max(VM.top, Math.min(tooltip.my - 40, svgSize.h - 90));
+            const ty = Math.max(M.top, Math.min(tooltip.my - 40, svgSize.h - 90));
             return (
               <g>
                 <rect x={tx} y={ty} width={200} height={80} fill="white" stroke="var(--border-dark)" strokeWidth={1} rx={3} />
                 <text x={tx + 10} y={ty + 18} fontSize={12} fontWeight={600} fill="var(--text-primary)" fontFamily={FONT_MONO}>{tooltip.gene}</text>
-                <text x={tx + 10} y={ty + 34} fontSize={11} fill="var(--text-muted)">logFC: {tooltip.logfc.toFixed(3)}</text>
-                <text x={tx + 10} y={ty + 48} fontSize={11} fill="var(--text-muted)">P = {fmtP(tooltip.pval)}</text>
-                <text x={tx + 10} y={ty + 62} fontSize={11} fill="var(--text-muted)">FDR = {fmtFDR(tooltip.fdr)}</text>
-                <text x={tx + 10} y={ty + 74} fontSize={10} fill={VOLCANO_SELECTED_COLOR}>{selectedSet.has(tooltip.gene) ? '◆ Selected' : 'Click to add →'}</text>
+                {/* Labels in sans, figures in mono (DESIGN.md "Numbers Are Mono"). */}
+                <text x={tx + 10} y={ty + 34} fontSize={11} fill="var(--text-muted)" fontFamily={FONT_SANS}>logFC: <tspan fontFamily={FONT_MONO} fill="var(--text-mono)">{tooltip.logfc.toFixed(3)}</tspan></text>
+                <text x={tx + 10} y={ty + 48} fontSize={11} fill="var(--text-muted)" fontFamily={FONT_SANS}>P = <tspan fontFamily={FONT_MONO} fill="var(--text-mono)">{fmtP(tooltip.pval)}</tspan></text>
+                <text x={tx + 10} y={ty + 62} fontSize={11} fill="var(--text-muted)" fontFamily={FONT_SANS}>FDR = <tspan fontFamily={FONT_MONO} fill="var(--text-mono)">{fmtFDR(tooltip.fdr)}</tspan></text>
+                <text x={tx + 10} y={ty + 74} fontSize={10} fill={VOLCANO_SELECTED_COLOR} fontFamily={FONT_SANS}>{selectedSet.has(tooltip.gene) ? '◆ Selected' : 'Click to add →'}</text>
               </g>
             );
           })()}

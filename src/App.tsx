@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback, useEffect, lazy, Suspense } from 'react';
+import type { CSSProperties } from 'react';
 import { trackColor } from './data/datasetMeta';
 import { COLOR_WARNING_BG, COLOR_WARNING_TEXT, FONT_MONO, FONT_SANS } from './styles/constants';
 import { popDataFor } from './data/trackData';
@@ -22,7 +23,7 @@ import { BetaNotice } from './common/BetaNotice';
 import { BrandLink } from './common/BrandLink';
 import { LandingHub } from './hub/LandingHub';
 import { CellNavigator } from './explorer/CellNavigator';
-import { EXPLORER_TABS, DEFAULT_EXPLORER_TAB, explorerTabAvailable, explorerTabLabel } from './explorer/explorerTabs';
+import { EXPLORER_TABS, DEFAULT_EXPLORER_TAB, explorerTabAvailable } from './explorer/explorerTabs';
 import { COMPARE_TRACK, activeTabOf, activeTrackOf, initialPosition, useExplorerPosition, type NavigationIntent } from './explorer/explorerPosition';
 import type { CompareViewState } from './utils/analysisState';
 import { useExplorerSession } from './explorer/explorerSession';
@@ -43,8 +44,18 @@ import {
   PathwayReport, QCTab, SearchPage, VerificationView,
 } from './appViews';
 import { preloadWhenIdle } from './common/lazyView';
+import './common/headerControl.css';
 
 const DEFAULT_DATASET = getDefaultDataset();
+
+// The hero's provenance controls (the paper link and Dataset info): one
+// neutral bordered treatment, so neither reads as the view's one accent.
+const HERO_LINK_STYLE: CSSProperties = {
+  display: 'inline-flex', alignItems: 'center', gap: 4, boxSizing: 'border-box', height: 22, padding: '0 8px',
+  borderRadius: 6, fontSize: 11, fontWeight: 600, fontFamily: FONT_SANS, lineHeight: 1,
+  textDecoration: 'none', whiteSpace: 'nowrap', cursor: 'pointer',
+  border: '1px solid var(--border-dark)', background: 'var(--bg-panel)', color: 'var(--text-mono)',
+};
 const ExpressionSurveyView = lazy(() => import('./expression-survey/ExpressionSurveyView').then((module) => ({ default: module.ExpressionSurveyView })));
 
 interface AppProps {
@@ -553,77 +564,22 @@ function AppViews({ initialView = 'hub' }: AppProps) {
 
   return (
     <div className="explorer-shell" style={{ display: 'flex', flexDirection: 'column', background: 'var(--bg-app)', overflow: 'hidden' }}>
-      {/* Slim topbar — logo + breadcrumb + changelog */}
+      {/* Slim topbar: logo and utilities on one row. The dataset, population
+          and tab are named once each below it (study line, hero, active tab),
+          so the topbar repeats none of them. */}
       <header className="site-header">
         <div className="site-header-row" style={{
           flexShrink: 0, background: 'var(--bg-panel)', borderBottom: '1px solid var(--border)',
-          padding: '8px var(--site-header-padding)', display: 'flex', alignItems: 'center', minHeight: 44, gap: '8px 0',
+          padding: '8px var(--site-header-padding)', display: 'flex', alignItems: 'center', minHeight: 44, gap: '8px 16px',
         }}>
           <BrandLink onHome={goHome} />
-          <div className="site-header-breadcrumbs" style={{
-            marginLeft: 'var(--site-crumb-offset)', display: 'flex', alignItems: 'center', gap: 8,
-            fontSize: 12, color: 'var(--text-muted)', fontFamily: FONT_MONO,
-          }}>
-            {/* Dataset crumb. With more than one dataset registered this is the
-                way back into the library — the surface that can actually show a
-                study's design and replicate counts before you commit to it. It
-                replaced a 42-option <select> whose own comment conceded it was a
-                placeholder: an <option> can carry a name and nothing else, which
-                is exactly the information a user does not have enough of.
-                A single-dataset build has nothing to browse, so it stays text. */}
-            {listDatasets().length > 1 ? (
-              <button
-                type="button"
-                aria-label={`Active dataset: ${dataset.name}. Browse all datasets`}
-                title="Browse all datasets"
-                onClick={() => openLibrary({ datasetId: dataset.id })}
-                style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 6,
-                  fontSize: 12, fontFamily: 'inherit', color: 'var(--text-primary)',
-                  background: 'transparent', border: '1px solid var(--border)',
-                  borderRadius: 4, padding: '2px 8px', cursor: 'pointer',
-                  maxWidth: 280, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis',
-                }}>
-                {dataset.name}
-                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                  strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
-                  style={{ flexShrink: 0 }}>
-                  <path d="m6 9 6 6 6-6" />
-                </svg>
-              </button>
-            ) : (
-              <span>{dataset.name}</span>
-            )}
-            {/* Each separator travels with the crumb after it, so a wrapped
-                trail never leaves a slash dangling at the end of a line. On a
-                phone the trail starts its own line under the dataset picker and
-                drops its leading slash (responsive.css). */}
-            <span className="site-crumb-trail" style={{ display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: '2px 8px', minWidth: 0 }}>
-              <span className="site-crumb" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
-                <span className="site-crumb-sep site-crumb-sep--lead" style={{ color: 'var(--border-dark)' }}>/</span>
-                {(() => {
-                  const crumb = isCompare ? 'Compare all' : `${activeTrackId} · ${getCellSubname(activeTrackId, datasetMeta?.labels)}`;
-                  return <span title={crumb} style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{crumb}</span>;
-                })()}
-              </span>
-              {!isCompare && (
-                <span className="site-crumb" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, whiteSpace: 'nowrap' }}>
-                  <span className="site-crumb-sep" style={{ color: 'var(--border-dark)' }}>/</span>
-                  <span style={{ color: 'var(--text-mono)' }}>
-                    {explorerTabLabel(activeTab)}
-                  </span>
-                </span>
-              )}
-            </span>
-          </div>
-          <div style={{ flex: 1 }} />
-          <div className="site-header-controls" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div className="site-header-controls" style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
             {/* Puts the ACTIVE track into the compare set — the way a single
                 population joins a set of whole studies. The Compare pseudo-track
                 is not a track, so it has no toggle. */}
             {!isCompare && (
               <CompareSetToggle
-                size="md"
+                size="header"
                 inSet={topbarInSet}
                 name={activeTrackId === dataset.defaultTrack ? dataset.name : `${dataset.name} ${activeTrackId}`}
                 onToggle={() => toggleItem(topbarItem)}
@@ -632,23 +588,11 @@ function AppViews({ initialView = 'hub' }: AppProps) {
             <CompareSetButton onCompare={openCompareSet} onOpenLibrary={openLibraryPlain} />
             <ShareAnalysisButton />
             <VersionBadge />
-            <a href="#/methodology"
-              style={{
-                fontSize: 12, padding: '5px 12px',
-                border: '1px solid var(--border-dark)', borderRadius: 6,
-                color: 'var(--text-mono)', textDecoration: 'none', fontFamily: FONT_SANS,
-              }}>
+            <a href="#/methodology" className="header-control">
               Methods
             </a>
             <button type="button" onClick={() => setShowChangelog((c) => !c)}
-              style={{
-                fontSize: 12, padding: '5px 12px',
-                border: '1px solid var(--border-dark)', borderRadius: 6,
-                background: showChangelog ? 'var(--accent)' : 'transparent',
-                color: showChangelog ? '#fff' : 'var(--text-mono)',
-                cursor: 'pointer', fontFamily: FONT_SANS,
-                transition: 'background var(--t-fast) var(--ease), color var(--t-fast) var(--ease)',
-              }}>
+              className={showChangelog ? 'header-control header-control--on header-control--strong' : 'header-control'}>
               Changelog
             </button>
           </div>
@@ -699,7 +643,28 @@ function AppViews({ initialView = 'hub' }: AppProps) {
         padding: '5px 24px', display: 'flex', alignItems: 'center', gap: '4px 10px', flexWrap: 'wrap',
         fontSize: 11.5, color: 'var(--text-muted)',
       }}>
-        <span style={{ fontSize: 12.5, fontWeight: 600, color: 'var(--text-primary)' }}>{dataset.name}</span>
+        {/* The dataset name. With more than one dataset registered it is the
+            way back into the library — the surface that can show a study's
+            design and replicate counts before you commit to it. A
+            single-dataset build has nothing to browse, so it stays text. */}
+        {listDatasets().length > 1 ? (
+          <button
+            type="button"
+            className="explorer-study-dataset"
+            aria-label={`Active dataset: ${dataset.name}. Browse all datasets`}
+            title="Browse all datasets"
+            onClick={() => openLibrary({ datasetId: dataset.id })}
+          >
+            <span className="explorer-study-dataset-name">{dataset.name}</span>
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
+              style={{ flexShrink: 0 }}>
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+        ) : (
+          <span style={{ fontSize: 12.5, fontWeight: 600, color: 'var(--text-primary)' }}>{dataset.name}</span>
+        )}
         <span aria-hidden="true" style={{ width: 1, height: 14, background: 'var(--border)' }} />
         <span style={{ fontStyle: 'italic' }}>{dataset.organism}</span>
         <span>{dataset.modality}</span>
@@ -775,15 +740,6 @@ function AppViews({ initialView = 'hub' }: AppProps) {
               <path d="m6 9 6 6 6-6" />
             </svg>
           </button>
-          {listDatasets().length > 1 && (
-            <button type="button" onClick={() => openLibrary({ datasetId: dataset.id })}
-              style={{
-                fontSize: 11.5, fontWeight: 600, color: 'var(--accent)', background: 'none',
-                border: 'none', padding: 0, cursor: 'pointer', fontFamily: 'inherit',
-              }}>
-              All datasets →
-            </button>
-          )}
         </span>
       </div>
 
@@ -832,7 +788,7 @@ function AppViews({ initialView = 'hub' }: AppProps) {
           {/* Accent strip: the active track's colour. Compare has no single
               track, so it has no strip. */}
           {!isCompare && (
-            <div aria-hidden="true" style={{ height: 3, flexShrink: 0, background: activeTrackColor }} />
+            <div aria-hidden="true" style={{ height: 4, flexShrink: 0, background: activeTrackColor }} />
           )}
 
           {/* Hero. Single-track mode carries the track, its arms, the contrast
@@ -929,11 +885,14 @@ function AppViews({ initialView = 'hub' }: AppProps) {
                     </select>
                   </div>
                 )}
-                <div style={{ fontFamily: FONT_MONO, fontSize: 12, color: 'var(--text-primary)', fontWeight: 500 }}>
-                  <strong style={{ color: 'var(--color-selected)', fontWeight: 700, fontSize: 13 }}>
+                {/* The count is a figure (ink, mono); the words around it are
+                    prose (muted, sans). Not Signal Orange: that marks the one
+                    active element, and this is a readout. */}
+                <div style={{ fontSize: 12, color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>
+                  <strong style={{ fontFamily: FONT_MONO, color: 'var(--text-primary)', fontWeight: 600, fontSize: 13 }}>
                     {(currentMeta?.nGenes || datasetMeta?.nGenes?.[activeTrackId] || 0).toLocaleString()}
                   </strong>
-                  <span style={{ color: 'var(--text-muted)', fontWeight: 400 }}> {dataset.featureLabel?.toLowerCase() || 'gene'}s detected · click a point to add</span>
+                  {' '}{dataset.featureLabel?.toLowerCase() || 'gene'}s detected
                 </div>
               </>
             )}
@@ -945,22 +904,13 @@ function AppViews({ initialView = 'hub' }: AppProps) {
             <div className="explorer-hero-links" style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
               {primaryLink && (
                 <a href={primaryLink.href} target="_blank" rel="noopener noreferrer" title={primaryLink.title}
-                  style={{
-                    display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 8px', borderRadius: 999,
-                    fontSize: 11, fontWeight: 600, fontFamily: FONT_MONO, textDecoration: 'none',
-                    color: 'var(--color-selected)', background: 'color-mix(in srgb, var(--color-selected) 8%, transparent)',
-                    border: '1px solid color-mix(in srgb, var(--color-selected) 24%, transparent)',
-                  }}>
+                  className="explorer-hero-link" style={HERO_LINK_STYLE}>
                   {primaryLink.label}
                   <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" /></svg>
                 </a>
               )}
               <button type="button" onClick={() => setShowDatasetInfo(true)}
-                style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 8px', borderRadius: 6,
-                  fontSize: 11, fontWeight: 600, fontFamily: 'inherit', cursor: 'pointer',
-                  border: '1px solid var(--border-dark)', background: 'var(--bg-panel)', color: 'var(--text-mono)',
-                }}>
+                className="explorer-hero-link" style={HERO_LINK_STYLE}>
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 11v5" /><circle cx="12" cy="7.5" r="0.6" fill="currentColor" /></svg>
                 Dataset info
               </button>

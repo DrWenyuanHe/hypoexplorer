@@ -1,10 +1,11 @@
 {
   "version": 1,
   "area": "module-verification",
-  "fingerprint": "b6cc47443bcbfd5ccefca99401cdb85b8ebb806a990fe3539c374a9da1e31164",
-  "outcome": "no-impact",
-  "explanation": "VerificationView row headers wrap between words, the status-count table headers may wrap, and the review-note lists break long checksums, so the page fits a phone; counts, wording and verification semantics are unchanged.",
+  "fingerprint": "b29f7d8254554b5bba65cfa18634ac2c15327e6ea3a9c518040c8f2b1b63b60c",
+  "outcome": "updated",
+  "explanation": "VerificationView renders through the shared ProsePage with an \"On this page\" list built from its seven section headings (ids verification-*), so its links, title and column match Methods & statistics; its tables size to their content with right-aligned mono figures. The explanatory text and the evidence it describes are unchanged.",
   "references": [
-    "src/verification/VerificationView.tsx"
+    "src/verification/VerificationView.tsx",
+    "src/common/prose.tsx"
   ]
 }

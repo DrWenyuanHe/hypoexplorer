@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "module-compareset",
-  "fingerprint": "e19dded638d7d6b1598ba5125846447e27a1c2696c09b5983c9c5178e6eb4ecf",
+  "fingerprint": "da52b5c2bef5a323cac80dae2fdab14d8176eed1adc601198b9a11c2f016476f",
   "outcome": "updated",
-  "explanation": "The compare-set Excel export runs inside withExportEvidence, so its Metadata sheet can read the internal QC ledger that now loads on the first export. The workbook content, columns and filename are unchanged.",
+  "explanation": "CompareSetToggle gains a size=\"header\" variant and CompareSetButton takes the shared header-control class, so the header utilities are one 28px height; the sm and md toggle sizes are unchanged. CompareSetVolcanoPanel imports volcanoToolbar.css and its Hide/Show volcano control uses the gx button style. The store, columns and exports are unchanged.",
   "references": [
-    "src/compareset/CompareSetView.tsx",
-    "src/utils/lazyExport.ts"
+    "src/compareset/CompareSetToggle.tsx",
+    "src/compareset/CompareSetButton.tsx",
+    "src/compareset/CompareSetVolcanoPanel.tsx",
+    "src/common/headerControl.css"
   ]
 }

@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "c4086f38519320b7b53fabd7434949c1e7f9e183f3349ffd12f9ed1994ce5af5",
+  "fingerprint": "03d9199358f1398e8b204dd3cf59ef37b7b9941a6bae43ce0d5d1e798b834ecf",
   "outcome": "no-impact",
-  "explanation": "From main: workflows.md changed only in its ui-change route. Verification evidence, quality ledgers, author concordance and their checks are unchanged; the ledgers are now loaded lazily by the views that show them, with identical content. From the cross-study listing: No evidence ledger, audit, QC table or verification record changed, and no bundle bytes move. The FDR call is the same isFdrSignificant cutoff behind significanceTier, so every significance count in search and both reports is unchanged; only the within-tier order of listed rows changed, as the changelog records.",
+  "explanation": "Among verification sources only src/verification/VerificationView.tsx changed, and only its layout: it renders through the shared ProsePage. Verification evidence, quality ledgers, author concordance and their checks are unchanged, and workflows.md changed only in its ui-change route.",
   "references": [
+    "src/verification/VerificationView.tsx",
     "docs/agent-context/workflows.md",
-    "data/author-validation/README.md",
-    "src/statistics/policy.ts"
+    "data/author-validation/README.md"
   ]
 }

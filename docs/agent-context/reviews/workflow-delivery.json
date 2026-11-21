@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "27011234126c5098db6c1227e5f8c3c602f1d46b7ddd15acf801ab4b56282344",
+  "fingerprint": "feee2b6d8bb9173e08c5da3a562d76f9426e7a964a0e14166f2825bb533471a6",
   "outcome": "no-impact",
-  "explanation": "Only devDependency versions move in package.json (vite 8.3.7 to 8.3.8, wrangler 4.159.0 to 4.162.0, biome and knip patch releases). vite.config.ts, the codeSplitting groups, modulepreload checks, cache policy, site Worker, R2 origin, edge rules and spend guard are unchanged; delivery.md remains accurate and the build and browser smoke job passes on these versions.",
+  "explanation": "Among delivery sources only src/pwa/VersionBadge.tsx changed, and only its class name: it takes the shared header-control style. Build, deploy, release verification, the update prompt and the data host steps are unchanged.",
   "references": [
-    "docs/agent-context/delivery.md",
-    "package.json",
-    "vite.config.ts"
+    "src/pwa/VersionBadge.tsx",
+    "docs/agent-context/delivery.md"
   ]
 }

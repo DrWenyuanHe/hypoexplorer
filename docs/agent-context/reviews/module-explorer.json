@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "module-explorer",
-  "fingerprint": "1760d352a7a720d117d693510f085c0e0ab8d244023091e37a0047857d81a4c4",
+  "fingerprint": "225f6d78acf4e9e326c46adb03f81ad348a90084de285d107e4aeee6d7c221a3",
   "outcome": "updated",
-  "explanation": "EXPLORER_TABS drops datasources, so Quality Control is the only dataset-scoped tab; explorerTabScope and the explorerPosition comment follow. Old datasources tab links are mapped to the study library record in appLinks.",
+  "explanation": "explorerTabs.ts drops explorerTabLabel, whose only caller was the explorer breadcrumb removed from App.tsx; EXPLORER_TABS, tab availability and tab scope are unchanged. CellNavigator gives active and inactive rows the same left padding so the id column aligns, keeping the 3px active-row border.",
   "references": [
     "src/explorer/explorerTabs.ts",
-    "src/explorer/explorerPosition.ts",
-    "src/utils/appLinks.ts",
-    "src/__tests__/explorerPosition.test.ts"
+    "src/explorer/CellNavigator.tsx",
+    "src/App.tsx"
   ]
 }

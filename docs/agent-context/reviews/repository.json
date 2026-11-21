@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "b06dfa3e8f7897a082a81812ea7f7c629c0f940d5d37a95836df044829dfd2fa",
+  "fingerprint": "6a0089eccc484261b7747ae74170c587dfcaa53c49ab23a7a9245c6e3497e0e0",
   "outcome": "updated",
-  "explanation": "Merged with main twice: the cross-study listing, update prompt and Circadian rework add no export provenance path, and the development dependency bump with its Biome 2.6.7 configuration migration changes no application code. docs/APP_LOADING_2026-11-20.md records that export provenance loads the internal QC ledger on the first export and the explorer tabs drop from about 4,400 KB to about 600 KB.",
+  "explanation": "DESIGN.md's Topbar bullet now says the explorer header has no breadcrumb and gives the shared 28px utility treatment. workflows.md ui-change describes the hub entry list, the dataset picker in the study line, the breadcrumb-free explorer header and the one-row volcano toolbar. index.html replaces the hub card rules with entry-row rules and sets accent-color for native checkboxes, radios, ranges and progress bars.",
   "references": [
-    "docs/APP_LOADING_2026-11-20.md",
-    "src/utils/lazyExport.ts",
-    "biome.json",
-    "package.json"
+    "DESIGN.md",
+    "docs/agent-context/workflows.md",
+    "index.html"
   ]
 }

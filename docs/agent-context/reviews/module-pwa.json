@@ -1,14 +1,11 @@
 {
   "version": 1,
   "area": "module-pwa",
-  "fingerprint": "4d2f94b8cf35df9b3720d23933661493b96288f011d5d2508ac5b031daea8336",
-  "outcome": "updated",
-  "explanation": "The service worker is now opt-in. registerUpdates() returns immediately unless the build sets VITE_SERVICE_WORKER=1, and the default build ships the self-destroying sw.js. versionWatch.ts is documented as the only stale-tab detector on Cloudflare; forceRefresh() and UpdateModal are unchanged in behavior and note the dormant worker. The catalog summary now reflects this.",
+  "fingerprint": "0690acbcab88d653faa6cb1481456034eea8ef3d163db8106c3b4731db13a512",
+  "outcome": "no-impact",
+  "explanation": "VersionBadge takes the shared header-control class so it matches the other header utilities in height and border. The version stamp, the update check and the opt-in service-worker registration are unchanged.",
   "references": [
-    "src/pwa/registerUpdates.ts",
-    "src/pwa/versionWatch.ts",
-    "src/pwa/forceRefresh.ts",
-    "vite.config.ts",
-    "docs/agent-context/delivery.md"
+    "src/pwa/VersionBadge.tsx",
+    "src/common/headerControl.css"
   ]
 }

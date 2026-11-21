@@ -23,11 +23,6 @@
 .mobile-sidebar-summary { flex: 1; min-width: 0; text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 400; color: var(--text-muted); }
 .mobile-sidebar-footer { padding: 10px 12px; border-top: 1px solid var(--border); }
 .mobile-sidebar-footer button { width: 100%; }
-.responsive-details { min-width: 0; flex-shrink: 0; border-bottom: 1px solid var(--border); }
-.responsive-details > summary { padding: 10px 12px; font-weight: 600; color: var(--text-mono); cursor: pointer; background: var(--bg-panel); }
-.responsive-details[open] > summary { border-bottom: 1px solid var(--border); }
-.volcano-controls { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 4px 10px; flex-shrink: 0; }
-.volcano-controls > div:last-child { flex: 1; min-width: 0; }
 .modal-header-actions { display: contents; }
 .explorer-tabs { overflow-x: auto; scrollbar-width: thin; }
 .explorer-tabs > button { flex-shrink: 0; white-space: nowrap; }
@@ -62,57 +57,86 @@
 .library-search { position: relative; width: 260px; flex-shrink: 0; }
 .library-menu-row:hover, .library-menu-row:focus-visible { background: var(--row-hover) !important; }
 
-/* Dataset library record grid (LibraryTable). */
+/* Dataset library record grid (LibraryTable).
+   Fixed layout: every column except Study has a width sized to its content, and
+   Study takes the remainder (two lines, then an ellipsis). The minimum keeps
+   Study at 200px or more; below it the results container scrolls sideways. */
+.library-results > table.library-table { min-width: 1244px; }
 .library-table {
-  width: 100%; border-collapse: separate; border-spacing: 0; font-size: 12.5px;
+  width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0; font-size: 12.5px;
   background: var(--bg-panel);
 }
+.library-col-region { width: 146px; }
+.library-col-contrast { width: 176px; }
+.library-col-n { width: 80px; }
+.library-col-genes { width: 70px; }
+.library-col-paths { width: 84px; }
+.library-col-tracks { width: 64px; }
+.library-col-accession { width: 100px; }
+.library-col-validation { width: 224px; }
+.library-col-compare { width: 100px; }
 .library-table th, .library-table td {
-  padding: 0 12px; height: 38px; text-align: left; vertical-align: middle; white-space: nowrap;
+  padding: 0 10px; height: 38px; text-align: left; vertical-align: middle; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
   border-bottom: 1px solid var(--border); border-right: 1px solid var(--border);
 }
 .library-table th:last-child, .library-table td:last-child { border-right: none; }
+/* Headers in the Title style, one family for every column, aligned with their
+   cells. Two-word labels may take two lines; they sit on the rule together. */
 .library-table thead th {
-  position: sticky; top: 0; z-index: 3; height: 36px; background: var(--bg-panel);
-  font-weight: 500; font-size: 12px; color: var(--text-muted);
+  position: sticky; top: 0; z-index: 3; height: 44px; padding-block: 6px; background: var(--bg-panel);
+  font-family: var(--font-sans, inherit); font-weight: 600; font-size: 13px; line-height: 1.2;
+  color: var(--text-primary); white-space: normal; vertical-align: bottom;
+  border-bottom-color: var(--border-dark, var(--border));
 }
-.library-th { display: inline-flex; align-items: center; gap: 6px; }
-.library-table th.num .library-th { flex-direction: row-reverse; }
+.library-table th.is-right { text-align: right; }
 .library-table .num { text-align: right; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 .library-table .mono { font-family: var(--font-mono); font-size: 11.5px; }
 .library-table .library-study-cell {
-  position: sticky; left: 0; z-index: 1; background: inherit; min-width: 280px; max-width: 420px;
+  position: sticky; left: 0; z-index: 1; background: inherit;
   box-shadow: 1px 0 0 var(--border);
 }
-.library-table thead .library-study-cell, .library-table thead th:first-child { left: 0; z-index: 4; }
-.library-table thead th:first-child { position: sticky; }
+.library-table thead th:first-child { position: sticky; left: 0; z-index: 4; box-shadow: 1px 0 0 var(--border); }
 .library-table tbody tr { background: var(--bg-panel); cursor: pointer; }
 .library-table tbody tr:hover { background: var(--row-hover); }
 .library-table tbody tr.is-selected { background: var(--row-selected); }
 .library-table .library-study-cell button {
-  display: inline-flex; align-items: center; gap: 9px; max-width: 100%; padding: 0;
+  display: flex; align-items: center; gap: 9px; width: 100%; min-width: 0; padding: 0;
   border: none; background: none; cursor: pointer; font: inherit; font-weight: 500;
-  color: var(--text-primary); text-align: left; overflow: hidden; text-overflow: ellipsis;
+  color: var(--text-primary); text-align: left;
 }
-.library-table .library-study-cell button:hover { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--border-dark); }
-/* One line per row: the three quality badges shrink to their status symbols
-   (the label stays in the accessible name and the hover checklist), and the
-   evidence label runs inline beside them instead of dropping below. */
-.library-validation { display: inline-flex; align-items: center; gap: 8px; }
-.library-validation .dataset-quality-badges { flex-wrap: nowrap; gap: 3px; }
+.library-table .library-study-cell button:hover .clip-2 { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--border-dark); }
+/* The three quality badges shrink to their status symbols (the label stays in
+   the accessible name and the hover checklist); the evidence label sits beside
+   them and wraps to two lines at most, its full text in a title. */
+.library-validation { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.library-validation .dataset-quality-badges { flex-wrap: nowrap; flex-shrink: 0; gap: 3px; }
 .library-validation .quality-badge { font-size: 0; padding: 0; width: 20px; height: 20px; justify-content: center; }
 .library-validation .quality-badge > span { font-size: 11px; margin: 0; }
-.library-validation > span:last-child {
-  display: inline !important; margin: 0 !important; font-size: 11.5px !important;
+.library-evidence {
+  min-width: 0; white-space: normal; font-size: 11px; line-height: 1.25; color: var(--text-muted);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
-.library-table .clip { display: block; max-width: 230px; overflow: hidden; text-overflow: ellipsis; }
+.library-evidence > span { display: inline !important; margin: 0 !important; font-size: 11px !important; line-height: inherit !important; }
+.library-table .clip { display: block; min-width: 0; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+/* Study names, regions and contrasts take a second line before they truncate. */
+.library-table .clip-2 {
+  min-width: 0; white-space: normal; line-height: 1.25; overflow: hidden; overflow-wrap: anywhere;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+}
+/* The footer: one quiet bar across the whole table, pinned to the bottom of the
+   scroll area. Its content is sticky on the left so sideways scrolling keeps it. */
 .library-table tfoot td {
-  position: sticky; bottom: 0; z-index: 2; height: 34px; background: var(--bg-panel);
-  color: var(--text-muted); border-top: 1px solid var(--border); border-bottom: none; border-right: none;
+  position: sticky; bottom: 0; z-index: 5; height: 32px; padding: 0; background: var(--bg-app);
+  color: var(--text-muted); font-size: 11.5px; border-top: 1px solid var(--border-dark, var(--border));
+  border-bottom: none; border-right: none; overflow: visible;
 }
-.library-table tfoot .library-study-cell { z-index: 3; font-family: inherit; background: var(--bg-panel); }
-.library-count-cell { font-family: var(--font-mono); color: var(--text-primary); }
-.library-table tfoot .library-foot-note { display: block; font-size: 11px; line-height: 1.35; white-space: normal; }
+.library-foot { position: sticky; left: 0; display: inline-flex; align-items: center; gap: 8px; padding: 0 10px; white-space: nowrap; }
+@media (max-width: 600px) {
+  .library-results > table.library-table { min-width: 1204px; }
+}
+.library-foot-sep { opacity: 0.55; }
+.library-count-cell { font-family: var(--font-mono); font-variant-numeric: tabular-nums; color: var(--text-primary); }
 .crumb-link { color: var(--accent); background: none; border: none; cursor: pointer; font: inherit; padding: 0; }
 
 /* Dataset library study record page (StudyRecord). */
@@ -254,23 +278,21 @@
 }
 .study-record-details .study-record-section:first-of-type { margin-top: 14px; }
 
-/* The explorer header needs about 1450px for logo, breadcrumb and controls on
-   one line. Narrower, the breadcrumb takes a row of its own below them, instead
-   of the controls wrapping under a half-empty first row. */
-@media (max-width: 1499px) {
-  .explorer-shell .site-header-breadcrumbs { flex-basis: 100%; order: 3; margin-left: 0 !important; }
+/* The study line's dataset name doubles as the way back into the library: a
+   quiet hairline control in the line's own type, warming on hover. */
+.explorer-study-dataset {
+  display: inline-flex; align-items: center; gap: 5px; min-width: 0; max-width: 100%;
+  padding: 0 7px; font: inherit; font-size: 12.5px; font-weight: 600; line-height: 18px;
+  color: var(--text-primary); background: transparent; cursor: pointer;
+  border: 1px solid var(--border); border-radius: var(--r-md);
+  transition: background var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
 }
-/* Wider, the breadcrumb takes the free space and never wraps the controls: a
-   long population label truncates first (its full text stays in the title). */
-@media (min-width: 1500px) {
-  .explorer-shell .site-header-breadcrumbs { flex: 1 1 0; min-width: 0; flex-wrap: nowrap; }
-  /* The spacer would otherwise split the free space with the breadcrumb. */
-  .explorer-shell .site-header-breadcrumbs + div { flex: 0 0 0 !important; }
-  .explorer-shell .site-crumb-trail { flex-wrap: nowrap !important; min-width: 0; }
-  .explorer-shell .site-crumb:first-child { flex: 0 1 auto; }
-  .explorer-shell .site-crumb:first-child > :last-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .explorer-shell .site-header-controls { flex-shrink: 0; margin-left: 16px; }
-}
+.explorer-study-dataset:hover { background: var(--row-hover); border-color: var(--border-dark); }
+.explorer-study-dataset:focus-visible { outline: 2px solid var(--color-selected); outline-offset: 1px; }
+.explorer-study-dataset > svg { color: var(--text-muted); }
+.explorer-study-dataset-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.explorer-hero-link:hover { background: var(--row-hover) !important; color: var(--text-primary) !important; }
+.explorer-hero-link:focus-visible { outline: 2px solid var(--color-selected); outline-offset: 1px; }
 @media (max-width: 1100px) {
   .explorer-hero { gap: 8px 12px !important; padding: 8px 16px !important; }
   .explorer-hero--compare { padding-block: 5px !important; }
@@ -303,8 +325,6 @@
   .explorer-tabs { padding-inline: 4px !important; }
   .gene-plot-panel { flex: none !important; overflow: visible !important; }
   .volcano-plot { height: auto !important; }
-  .volcano-controls { display: block; }
-  .volcano-controls > .responsive-details { margin-top: 6px; }
   .volcano-canvas { flex: none !important; height: clamp(280px, 52svh, 460px); }
   .compare-volcano-frame { height: auto !important; }
   .library-viewbar, .library-filterbar, .library-cards { padding-inline: 12px !important; }
@@ -317,7 +337,6 @@
   .library-hide-compact { display: none; }
   /* The chip frame grows with the 44px touch targets inside it. */
   .library-filterbar .library-chips > span, .library-filterbar .library-chips > button { height: 44px !important; }
-  .library-table .library-study-cell { min-width: 200px; max-width: 240px; }
   .library-table tfoot td { position: static; }
   /* The record reads top to bottom on a phone: header, facts, tabs, details. */
   .study-record-header, .study-record-strip { padding-inline: 12px; }
@@ -349,7 +368,6 @@
   .site-header-controls { gap: 4px !important; width: 100%; }
   .site-header-breadcrumbs { flex-basis: 100%; }
   .page-shell .site-header-breadcrumbs { order: 3; }
-  .site-header-breadcrumbs > button { max-width: 100% !important; }
   .beta-notice { padding: 6px 12px; font-size: 11px; gap: 2px 10px; }
   /* 16px text prevents mobile Safari's focus zoom on form controls. */
   input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), select, textarea { font-size: 16px !important; }
@@ -379,10 +397,8 @@
      targets instead of three ragged wrapped rows of mixed heights. */
   .explorer-shell .site-header-controls { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px !important; }
   .explorer-shell .site-header-controls > span { display: flex !important; min-width: 0; }
-  /* The dataset picker keeps its line; the population and tab follow below it,
-     without a slash left hanging at either line's edge. */
-  .explorer-shell .site-crumb-trail { flex-basis: 100%; }
-  .explorer-shell .site-crumb-sep--lead { display: none; }
+  /* The hero's paper link takes the same 44px touch height as Dataset info. */
+  .explorer-hero-link { min-height: 44px; }
   .explorer-shell .site-header-controls > button,
   .explorer-shell .site-header-controls > a,
   .explorer-shell .site-header-controls > span > button {

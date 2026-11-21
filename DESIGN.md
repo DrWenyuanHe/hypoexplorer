@@ -212,7 +212,7 @@ Quiet chrome around live data. Controls are small, bordered, and rectangular wit
 - **Search variants:** A leading magnifier glyph and an optional trailing clear control; the navigator filter and gene search share this pattern.
 
 ### Navigation
-- **Topbar:** 44px tall, panel-white, 1px bottom hairline. Wordmark left (Hypo in ink, Explorer in Signal Orange), a mono breadcrumb of dataset / population / view, utilities right.
+- **Topbar:** At least 44px tall, panel-white, 1px bottom hairline. Logo left, utilities right. Full-page views add a mono breadcrumb after the logo; the explorer has none, because the study line below names the dataset (its name opens the library), the hero names the population and the active tab names the view. The utilities share one treatment: 28px tall, 1px Edge border, `4px` radius, 12px Sans, with Mono only for figures (the compare-set count, the version).
 - **Tabs:** Underline tabs. Inactive is muted slate; active is ink text with a 2px Signal Orange bottom border and 600 weight. Hover warms the label and adds a 2% wash.
 - **Sidebar navigator:** A scrollable list of population rows, each a colored dot, a mono id, and a truncated marker label. The active row carries Row Selected fill and a 3px Signal Orange left border.
 

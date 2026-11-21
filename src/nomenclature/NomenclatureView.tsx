@@ -30,8 +30,8 @@
 // alternative and would buy a scrollbar nobody wants to drag through 120,000
 // rows.
 
-import { useCallback, useDeferredValue, useEffect, useMemo, useState } from 'react';
-import type { CSSProperties } from 'react';
+import { useCallback, useDeferredValue, useEffect, useId, useMemo, useState } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import { PageShell } from '../common/PageShell';
 import { Spinner } from '../common/Spinner';
 import { ExportButton } from '../common/ExportButton';
@@ -45,6 +45,7 @@ import {
   type NomenclatureAuthority, type NomenclatureRow, type NomenclatureStatus, type NomenclatureTable,
 } from '../data/nomenclature';
 import { geneAuthorityUrl } from '../utils/geneLinks';
+import './nomenclature.css';
 
 /** Where the committed source table lives, so a reader can check it directly. */
 const SOURCE_TSV_URL =
@@ -111,6 +112,42 @@ const TD: CSSProperties = {
   borderBottom: '1px solid var(--border)', fontFamily: FONT_SANS, verticalAlign: 'top',
 };
 const TD_MONO: CSSProperties = { ...TD, fontFamily: FONT_MONO, whiteSpace: 'nowrap' };
+
+/** The page gutter (nomenclature.css), so the table's outer cells line up with the header. */
+const GUTTER = 'var(--nm-gutter)';
+
+/**
+ * One facet value. `aria-pressed` carries the state to assistive tech; the
+ * stylesheet keys the selected look (check mark, weight, orange edge) off it.
+ */
+function FacetChip({ on, onToggle, title, children }: {
+  on: boolean;
+  onToggle: () => void;
+  title?: string;
+  children: ReactNode;
+}) {
+  return (
+    <button type="button" className="nm-chip" aria-pressed={on} title={title} onClick={onToggle}>
+      <svg className="nm-chip-check" width="11" height="11" viewBox="0 0 24 24" fill="none"
+        stroke="var(--color-selected)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="m5 13 4 4L19 7" />
+      </svg>
+      {children}
+    </button>
+  );
+}
+
+/** A labelled facet: a quiet label, then its chips on one line. */
+function Facet({ label, children }: { label: string; children: ReactNode }) {
+  const id = useId();
+  return (
+    // biome-ignore lint/a11y/useSemanticElements: a fieldset's rendered legend cannot sit in a grid column beside its chips; role + aria-labelledby name the group the same way
+    <div className="nm-facet" role="group" aria-labelledby={id}>
+      <span id={id} className="nm-facet-label">{label}</span>
+      <div className="nm-chips">{children}</div>
+    </div>
+  );
+}
 
 /**
  * Every other name a row answers to, as one list.
@@ -299,89 +336,109 @@ export function NomenclatureView({ onHome, onSearchGene }: NomenclatureViewProps
     ));
   }, [sorted, runExport]);
 
-  const chip = (active: boolean): CSSProperties => ({
-    padding: '3px 10px', fontSize: 11.5, borderRadius: 12, cursor: 'pointer',
-    fontFamily: FONT_SANS, fontWeight: 600,
-    border: `1px solid ${active ? 'var(--accent)' : 'var(--border-dark)'}`,
-    background: active ? 'var(--accent)' : 'var(--bg-panel)',
-    color: active ? '#fff' : 'var(--text-muted)',
-  });
-
   return (
     <PageShell
       onHome={onHome}
       breadcrumbs={[{ label: 'Gene nomenclature', current: true }]}
       fill
+      mainClassName="nm-page"
       mainStyle={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}
     >
-      <div style={{ padding: '18px 24px 12px', borderBottom: '1px solid var(--border)', flexShrink: 0 }}>
-        <h1 style={{ fontSize: 18, fontWeight: 600, fontFamily: FONT_HEADING, color: 'var(--text-primary)', margin: '0 0 6px' }}>
-          Gene nomenclature
-        </h1>
-        <p style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--text-primary)', fontFamily: FONT_SANS, maxWidth: '78ch', margin: '0 0 10px' }}>
-          Check whether a gene symbol is current and find its aliases and previous names.
-          HypoExplorer retains the symbols from each source analysis and compares them with
-          the relevant nomenclature authority.
-        </p>
-        <p style={{ fontSize: 12, lineHeight: 1.6, color: 'var(--text-muted)', fontFamily: FONT_SANS, maxWidth: '78ch', margin: '0 0 12px' }}>
-          Mouse symbols are checked against <strong>MGI</strong>, rat symbols against{' '}
-          <strong>RGD</strong>, and human symbols against <strong>HGNC</strong>. Native chicken,
-          zebrafish, pig and cattle symbols are checked against separate species-specific{' '}
-          <strong>NCBI Gene</strong> records, so a shared spelling is never treated as the same
-          authority record across species. The macaque tables carry author-projected human
-          ortholog symbols and therefore use HGNC. The accepted hamster and dormouse tables
-          likewise carry explicit author-provided mouse feature projections and therefore use
-          MGI; neither is being presented as a native mouse experiment.{' '}
-          <a href={SOURCE_TSV_URL} target="_blank" rel="noreferrer" style={{ color: 'var(--accent)' }}>
-            Download the source table as TSV
-          </a>. This page and the Excel export use the same table.
-        </p>
+      <div className="nm-head">
+        <div className="nm-intro">
+          <h1 style={{
+            fontSize: 22, fontWeight: 600, letterSpacing: '-0.01em', lineHeight: 1.25,
+            fontFamily: FONT_HEADING, color: 'var(--text-primary)', margin: 0,
+          }}>
+            Gene nomenclature
+          </h1>
+          <p className="nm-lede">
+            Check whether a gene symbol is current and find its aliases and previous names.
+            HypoExplorer retains the symbols from each source analysis and compares them with
+            the relevant nomenclature authority.{' '}
+            <a href={SOURCE_TSV_URL} target="_blank" rel="noreferrer">
+              Download the source table as TSV
+            </a>. This page and the Excel export use the same table.
+          </p>
+          {/* The per-species rules matter for citing a row, not for looking one
+              up, so they sit one click away instead of in front of the search. */}
+          <details className="nm-rules">
+            <summary>
+              <svg className="nm-rules-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="m9 6 6 6-6 6" />
+              </svg>
+              Which authority checks each species
+            </summary>
+            <p>
+              Mouse symbols are checked against <strong>MGI</strong>, rat symbols against{' '}
+              <strong>RGD</strong>, and human symbols against <strong>HGNC</strong>. Native chicken,
+              zebrafish, pig and cattle symbols are checked against separate species-specific{' '}
+              <strong>NCBI Gene</strong> records, so a shared spelling is never treated as the same
+              authority record across species. The macaque tables carry author-projected human
+              ortholog symbols and therefore use HGNC. The accepted hamster and dormouse tables
+              likewise carry explicit author-provided mouse feature projections and therefore use
+              MGI; neither is being presented as a native mouse experiment.
+            </p>
+          </details>
+        </div>
 
-        {/* Filters */}
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            aria-label="Search nomenclature"
-            placeholder="Search symbol, alias, previous symbol or gene name…"
-            style={{
-              flex: '0 1 340px', padding: '6px 10px', fontSize: 13, fontFamily: FONT_MONO,
-              border: '1px solid var(--border-dark)', borderRadius: 4, color: 'var(--text-primary)',
-            }}
-          />
-          {NOMENCLATURE_AUTHORITIES.map((a) => (
-            <button key={a} type="button" style={chip(authorityFilter === a)}
-              onClick={() => setAuthorityFilter((f) => (f === a ? null : a))}>
-              {a}
-            </button>
-          ))}
-          <span style={{ width: 1, height: 18, background: 'var(--border)' }} />
-          {NOMENCLATURE_STATUS.map((s) => (
-            <button key={s} type="button" style={chip(statusFilter === s)}
-              title={STATUS_COPY[s].blurb}
-              onClick={() => setStatusFilter((f) => (f === s ? null : s))}>
-              {STATUS_COPY[s].label}
-              {table && <span style={{ opacity: 0.75 }}> · {table.tally[s].toLocaleString()}</span>}
-            </button>
-          ))}
-          <span style={{ flex: 1 }} />
-          <ExportButton
-            onClick={exportExcel} busy={exporting} busyLabel="Exporting…" spinnerSize={11}
-            disabled={!sorted.length}
-            title={`Download all ${sorted.length.toLocaleString()} matching rows as .xlsx`}
-            style={{
-              fontSize: 12, padding: '5px 12px', border: '1px solid var(--border-dark)',
-              borderRadius: 4, background: 'var(--bg-panel)', cursor: 'pointer',
-              fontFamily: FONT_SANS, fontWeight: 600, color: 'var(--text-primary)',
-            }}
-          >
-            ↓ Download Excel
-          </ExportButton>
+        <div className="nm-tools">
+          <div className="nm-search">
+            <span className="nm-search-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM21 21l-4-4" />
+              </svg>
+            </span>
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              aria-label="Search nomenclature"
+              placeholder="Search symbol, alias, previous symbol or gene name…"
+            />
+          </div>
+          <span className="nm-export">
+            <ExportButton
+              onClick={exportExcel} busy={exporting} busyLabel="Exporting…" spinnerSize={11}
+              disabled={!sorted.length}
+              title={`Download all ${sorted.length.toLocaleString()} matching rows as .xlsx`}
+            >
+              ↓ Download Excel
+            </ExportButton>
+          </span>
+        </div>
+
+        <div className="nm-facets">
+          <Facet label="Authority">
+            {NOMENCLATURE_AUTHORITIES.map((a) => (
+              <FacetChip key={a} on={authorityFilter === a}
+                onToggle={() => setAuthorityFilter((f) => (f === a ? null : a))}>
+                {a}
+              </FacetChip>
+            ))}
+          </Facet>
+          <Facet label="Status">
+            {NOMENCLATURE_STATUS.map((s) => (
+              <FacetChip key={s} on={statusFilter === s} title={STATUS_COPY[s].blurb}
+                onToggle={() => setStatusFilter((f) => (f === s ? null : s))}>
+                {STATUS_COPY[s].label}
+                {/* The separator is for the accessible name ("Outdated · 6,806");
+                    on screen the gap and the mono figure do that job. */}
+                {table && (
+                  <>
+                    <span className="nm-sr"> · </span>
+                    <span className="nm-chip-count">{table.tally[s].toLocaleString()}</span>
+                  </>
+                )}
+              </FacetChip>
+            ))}
+          </Facet>
         </div>
 
         {statusFilter && (
-          <p style={{ fontSize: 12, lineHeight: 1.55, color: 'var(--text-muted)', fontFamily: FONT_SANS, margin: '10px 0 0', maxWidth: '78ch' }}>
+          <p className="nm-status-note">
             <strong style={{ color: STATUS_COPY[statusFilter].text }}>{STATUS_COPY[statusFilter].label}:</strong>{' '}
             {STATUS_COPY[statusFilter].blurb}
           </p>
@@ -401,7 +458,7 @@ export function NomenclatureView({ onHome, onSearchGene }: NomenclatureViewProps
           </div>
         ) : (
           <>
-            <div style={{ padding: '8px 24px', fontSize: 12, color: 'var(--text-muted)', fontFamily: FONT_SANS }}>
+            <div style={{ padding: `8px ${GUTTER}`, fontSize: 12, color: 'var(--text-muted)', fontFamily: FONT_SANS }}>
               {sorted.length.toLocaleString()} of {table.rows.length.toLocaleString()} symbols
               {sorted.length > PAGE_ROWS && (
                 <> · showing the first {PAGE_ROWS}. Narrow the search or download all matching rows as Excel.</>
@@ -418,19 +475,19 @@ export function NomenclatureView({ onHome, onSearchGene }: NomenclatureViewProps
                     ['geneName', 'Gene name'],
                     ['locusType', 'Locus type'],
                     ['datasetCount', 'Datasets'],
-                  ] as Array<[SortKey, string]>).map(([key, label]) => (
+                  ] as Array<[SortKey, string]>).map(([key, label], i) => (
                     <SortableTh key={key} active={sortKey === key} dir={sortDir}
-                      onSort={() => toggle(key)} style={TH} scope="col">
+                      onSort={() => toggle(key)} style={i === 0 ? { ...TH, padding: `7px 10px 7px ${GUTTER}` } : TH} scope="col">
                       {label}
                     </SortableTh>
                   ))}
-                  <th scope="col" style={TH}>Also known as</th>
+                  <th scope="col" style={{ ...TH, paddingRight: GUTTER }}>Also known as</th>
                 </tr>
               </thead>
               <tbody>
                 {shown.map((r) => (
                   <tr key={`${r.authority}\x00${r.symbol}`} className="hover-row">
-                    <td style={{ ...TD_MONO, fontWeight: 600 }}>
+                    <td style={{ ...TD_MONO, fontWeight: 600, paddingLeft: GUTTER }}>
                       {onSearchGene ? (
                         <button type="button" onClick={() => onSearchGene(r.symbol)}
                           title={`View ${r.symbol} results across datasets`}
@@ -445,9 +502,10 @@ export function NomenclatureView({ onHome, onSearchGene }: NomenclatureViewProps
                     <td style={TD}><StatusPill status={r.status} /></td>
                     <td style={TD_MONO}>{r.currentSymbol || '—'}</td>
                     <td style={{ ...TD, minWidth: 220 }}>{r.geneName || '—'}</td>
-                    <td style={{ ...TD, color: 'var(--text-muted)', fontSize: 11.5 }}>{r.locusType || '—'}</td>
+                    {/* One line: "protein coding gene" wrapping doubled every row's height. */}
+                    <td style={{ ...TD, color: 'var(--text-muted)', fontSize: 11.5, whiteSpace: 'nowrap' }}>{r.locusType || '—'}</td>
                     <td style={{ ...TD_MONO, textAlign: 'right' }}>{r.datasetCount}</td>
-                    <td style={{ ...TD, color: 'var(--text-muted)', fontSize: 11.5, minWidth: 200 }}>
+                    <td style={{ ...TD, color: 'var(--text-muted)', fontSize: 11.5, minWidth: 200, paddingRight: GUTTER }}>
                       {otherNames(r).join(', ') || '—'}
                     </td>
                   </tr>
