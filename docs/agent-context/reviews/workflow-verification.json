@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "03d9199358f1398e8b204dd3cf59ef37b7b9941a6bae43ce0d5d1e798b834ecf",
-  "outcome": "no-impact",
-  "explanation": "Among verification sources only src/verification/VerificationView.tsx changed, and only its layout: it renders through the shared ProsePage. Verification evidence, quality ledgers, author concordance and their checks are unchanged, and workflows.md changed only in its ui-change route.",
+  "fingerprint": "00c6863b03e032b014f3bc98375252dabdc06f2bbbaf6310696ea6944d33a530",
+  "outcome": "updated",
+  "explanation": "The verification route and author-validation README now name pnpm exec tsx scripts/build_quality_report_r460.mts --check as the public freshness check for the quality report, keeping check:quality as maintainer-only. The quality report producer prints the same command. Policies, ledgers, assessments and sealed producers are unchanged.",
   "references": [
-    "src/verification/VerificationView.tsx",
     "docs/agent-context/workflows.md",
-    "data/author-validation/README.md"
+    "data/author-validation/README.md",
+    "scripts/build_quality_report_r460.mts"
   ]
 }
