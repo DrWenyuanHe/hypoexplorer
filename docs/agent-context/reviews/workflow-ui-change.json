@@ -1,13 +1,11 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "e9a9422b462bb6e31edc572e5226d94c8c5536f81cb2a7e89c86beb12f9ef243",
-  "outcome": "updated",
-  "explanation": "The ui-change route now says: the hub shows one list of entry rows; the explorer study line's name opens the library and the explorer header has no breadcrumb, with the utilities sharing one row at desktop widths; and the volcano controls are one row with Gene list, thresholds and pass menus in place of the folded plot controls. Routing, loading, export and statistics rules in the route are unchanged.",
+  "fingerprint": "047226db2afa916d5241919b12895aabb927796e59e3ad301e098e13dcb06e76",
+  "outcome": "no-impact",
+  "explanation": "workflows.md changed only in its dataset-change and verification routes, and REFACTOR_CHECKLIST.md only in where follow-ups are tracked. The ui-change route, its views, routing, exports and checks are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/App.tsx",
-    "src/gene-explorer/VolcanoPlot.tsx",
-    "src/common/ToolbarPopover.tsx"
+    "docs/REFACTOR_CHECKLIST.md"
   ]
 }

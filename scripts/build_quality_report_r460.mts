@@ -34,7 +34,7 @@ const md = ['# Pipeline quality, experimental design and author concordance', ''
   'A pipeline pass does not resolve experimental-design limitations. Empty evidence is not assessed. The JSON internalQc field retains the original combined assessment for historical audit compatibility; it is not the Pipeline QC badge.', '',
   `QC separation policy: ${QC_SEPARATION_POLICY.version}. The source internal-QC policy and all underlying evidence remain unchanged.`, '',
   `Author concordance policy: ${AUTHOR_CONCORDANCE_POLICY.version}. See the JSON policy for exact thresholds; these are project defaults, not universal scientific cutoffs.`, '',
-  'The JSON includes every checklist and per-comparison assessment. The TSV includes dataset and comparison decisions. Regenerate with `npm run build:quality`; verify freshness with `npm run check:quality`.', ''].join('\n');
+  'The JSON includes every checklist and per-comparison assessment. The TSV includes dataset and comparison decisions. Regenerate with `pnpm run build:quality`; verify freshness with `pnpm exec tsx scripts/build_quality_report_r460.mts --check`.', ''].join('\n');
 const outputs = {
   'assessments.generated.json': `${JSON.stringify({ schemaVersion: 2, qcSeparationPolicy: QC_SEPARATION_POLICY, legacyInternalQc: 'Combined processing and experimental-design assessment retained for historical audits.', authorConcordancePolicy: AUTHOR_CONCORDANCE_POLICY, records }, null, 2)}\n`,
   'assessments.generated.tsv': tsv,
@@ -44,7 +44,7 @@ if (!process.argv.includes('--check')) mkdirSync(out, { recursive: true });
 for (const [name, body] of Object.entries(outputs)) {
   const file = resolve(out, name);
   if (process.argv.includes('--check')) {
-    if (!existsSync(file) || readFileSync(file, 'utf8') !== body) throw new Error(`${name} is missing or stale; run npm run build:quality`);
+    if (!existsSync(file) || readFileSync(file, 'utf8') !== body) throw new Error(`${name} is missing or stale; run pnpm run build:quality`);
   } else writeFileSync(file, body);
 }
 process.stdout.write(`Quality assessments ${process.argv.includes('--check') ? 'current' : 'written'}: ${records.length} datasets\n`);
