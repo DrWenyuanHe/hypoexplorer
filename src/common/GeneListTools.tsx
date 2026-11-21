@@ -1,20 +1,17 @@
-// The gene-list buttons: bring a list in from a file, send the selection out
-// as one.
+// Gene lists in and out: bring a list in from a file, send one out as a file.
 //
-// Two controls, kept beside the gene search box in every view that holds a
-// selection — the shared GenePicker renders them for the Gene Explorer, the
-// Compare tab and the compare set:
-//   Load list…   opens a dialog that takes a file (drop or choose) or a pasted
+// The shared GenePicker's "Gene list ▾" menu (Gene Explorer, Compare tab,
+// compare set) opens these:
+//   Load list…   LoadGeneListDialog: takes a file (drop or choose) or a pasted
 //                block, reads it through the gene-list seam, resolves it against
 //                THIS dataset, and reports what it found before anything is
 //                selected — a list of 50 mouse symbols dropped on the macaque
 //                atlas should say which 3 it could not place, not quietly
 //                select 47.
-//   Save list    a small menu over the three formats a list travels in.
+//   Save list    the formats in GENE_LIST_SAVE_FORMATS, as menu items.
 //
-// The save menu is exported on its own as well, because a list worth saving
-// is not always the selection: the volcano's threshold-passing genes are one,
-// and that view has no selection of its own to hand over.
+// SaveGeneListMenu is the same save as a standalone button and menu, for a
+// list that is not a selection: the study record's passing genes.
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ChangeEvent, CSSProperties, DragEvent } from 'react';
@@ -31,7 +28,7 @@ import {
 } from '../utils/geneListFile';
 import { FONT_MONO, FONT_SANS } from '../styles/constants';
 
-/** The toolbar button these controls share with the search box's Aliases toggle. */
+/** SaveGeneListMenu's own trigger look, for hosts outside the `.gx-*` toolbars. */
 const TOOL_BTN: CSSProperties = {
   flexShrink: 0, display: 'inline-flex', alignItems: 'center', gap: 5,
   fontSize: 11, padding: '4px 9px', cursor: 'pointer',
@@ -46,11 +43,6 @@ const ACCEPT = [
   'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 ].join(',');
 
-const UploadIcon = () => (
-  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M12 16V4" /><path d="m6 10 6-6 6 6" /><path d="M4 20h16" />
-  </svg>
-);
 const DownloadIcon = () => (
   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="M12 4v12" /><path d="m6 10 6 6 6-6" /><path d="M4 20h16" />
@@ -142,7 +134,9 @@ export function SaveGeneListMenu({
 
 // ── Load ────────────────────────────────────────────────────────────────────
 
-interface LoadGeneListButtonProps {
+interface LoadGeneListDialogProps {
+  /** Close the dialog, whether or not anything was added. */
+  onClose: () => void;
   selectedGenes: readonly string[];
   /** Merge the resolved genes into the selection. */
   onAddGenes: (genes: string[]) => void;
@@ -153,7 +147,6 @@ interface LoadGeneListButtonProps {
   nomenclatureAuthority?: NomenclatureAuthority | null;
   /** Names the view for the dialog's copy: "this dataset", "the selected populations". */
   scopeLabel?: string;
-  style?: CSSProperties;
 }
 
 interface Loaded {
@@ -174,11 +167,10 @@ function NameList({ names, color }: { names: readonly string[]; color?: string }
   );
 }
 
-export function LoadGeneListButton({
-  selectedGenes, onAddGenes, onReplaceGenes, geneNames, nomenclatureAuthority,
-  scopeLabel = 'this dataset', style,
-}: LoadGeneListButtonProps) {
-  const [open, setOpen] = useState(false);
+export function LoadGeneListDialog({
+  onClose, selectedGenes, onAddGenes, onReplaceGenes, geneNames, nomenclatureAuthority,
+  scopeLabel = 'this dataset',
+}: LoadGeneListDialogProps) {
   const [loaded, setLoaded] = useState<Loaded | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [reading, setReading] = useState(false);
@@ -187,14 +179,8 @@ export function LoadGeneListButton({
   const fileRef = useRef<HTMLInputElement>(null);
   const aliasIndex = useAliasIndex();
 
-  const close = useCallback(() => {
-    setOpen(false);
-    setLoaded(null);
-    setError(null);
-    setReading(false);
-    setDragging(false);
-    setPasted('');
-  }, []);
+  // Every field is local to the dialog, so unmounting it is the reset.
+  const close = onClose;
 
   // Resolution is derived, not stored: the alias index can land AFTER the file
   // was read, and re-deriving is what turns a "not found" into a redirect
@@ -255,160 +241,152 @@ export function LoadGeneListButton({
   const plural = (k: number, word: string) => `${k.toLocaleString()} ${word}${k === 1 ? '' : 's'}`;
 
   return (
-    <>
-      <button type="button" onClick={() => setOpen(true)} style={{ ...TOOL_BTN, ...style }}
-        title="Load a gene list from a text, CSV, TSV, Excel, GMT or JSON file, or paste one">
-        <UploadIcon />Load list…
-      </button>
-      {open && (
-        <Modal title="Load a gene list" width="min(640px, 94vw)" height="auto" onClose={close}>
-          <div style={{ padding: '14px 18px 18px', display: 'flex', flexDirection: 'column', gap: 14, fontFamily: FONT_SANS }}>
-            {/* biome-ignore lint/a11y/noStaticElementInteractions: the drop zone is a target for a drag, not a control; the button inside it is the keyboard path */}
-            <div
-              onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
-              onDragLeave={() => setDragging(false)}
-              onDrop={onDrop}
+    <Modal title="Load a gene list" width="min(640px, 94vw)" height="auto" onClose={close}>
+      <div style={{ padding: '14px 18px 18px', display: 'flex', flexDirection: 'column', gap: 14, fontFamily: FONT_SANS }}>
+        {/* biome-ignore lint/a11y/noStaticElementInteractions: the drop zone is a target for a drag, not a control; the button inside it is the keyboard path */}
+        <div
+          onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+          onDragLeave={() => setDragging(false)}
+          onDrop={onDrop}
+          style={{
+            border: `2px dashed ${dragging ? 'var(--color-selected)' : 'var(--border-dark)'}`,
+            borderRadius: 6, padding: '18px 16px', textAlign: 'center',
+            background: dragging ? 'var(--chip-bg)' : 'var(--bg-app)',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
+          }}
+        >
+          <div style={{ fontSize: 13, color: 'var(--text-primary)' }}>
+            Drop a file here, or
+            {' '}
+            <button type="button" onClick={() => fileRef.current?.click()}
               style={{
-                border: `2px dashed ${dragging ? 'var(--color-selected)' : 'var(--border-dark)'}`,
-                borderRadius: 6, padding: '18px 16px', textAlign: 'center',
-                background: dragging ? 'var(--chip-bg)' : 'var(--bg-app)',
-                display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
-              }}
-            >
-              <div style={{ fontSize: 13, color: 'var(--text-primary)' }}>
-                Drop a file here, or
-                {' '}
-                <button type="button" onClick={() => fileRef.current?.click()}
-                  style={{
-                    fontSize: 12, padding: '4px 12px', border: '1px solid var(--border-dark)', borderRadius: 4,
-                    background: 'var(--bg-panel)', color: 'var(--text-primary)', cursor: 'pointer',
-                    fontFamily: FONT_SANS, fontWeight: 600,
-                  }}>
-                  Choose a file
-                </button>
-                <input ref={fileRef} type="file" accept={ACCEPT} onChange={onFileChange}
-                  aria-label="Gene list file" style={{ display: 'none' }} />
-              </div>
-              <div style={{ fontSize: 11.5, lineHeight: 1.55, color: 'var(--text-muted)', maxWidth: '52ch' }}>
-                Import text, CSV, TSV, Excel, GMT or JSON. The app detects the gene column from
-                a header such as Gene, Symbol or gene_name, or from the cell values when no header
-                is available. It matches names to the symbols stored in {scopeLabel}, using the
-                same alias and previous-symbol records as gene search.
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <label htmlFor="gene-list-paste" style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-muted)', letterSpacing: 0.3 }}>
-                Or paste symbols
-              </label>
-              <textarea id="gene-list-paste" value={pasted} onChange={(e) => setPasted(e.target.value)}
-                placeholder={'POMC\nAGRP\nNPY\nOne symbol per line. Spaces and commas also work.'}
-                rows={3} spellCheck={false}
-                style={{
-                  width: '100%', boxSizing: 'border-box', resize: 'vertical', padding: '6px 10px',
-                  fontFamily: FONT_MONO, fontSize: 12, border: '1px solid var(--border-dark)', borderRadius: 4,
-                  color: 'var(--text-primary)', background: 'var(--bg-panel)',
-                }} />
-              <div>
-                <button type="button" onClick={readPasted} disabled={!pasted.trim()}
-                  style={{
-                    fontSize: 12, padding: '4px 12px', border: '1px solid var(--border-dark)', borderRadius: 4,
-                    background: 'var(--bg-panel)', color: 'var(--text-primary)', cursor: pasted.trim() ? 'pointer' : 'not-allowed',
-                    fontFamily: FONT_SANS, fontWeight: 600, opacity: pasted.trim() ? 1 : 0.55,
-                  }}>
-                  Read pasted list
-                </button>
-              </div>
-            </div>
-
-            {reading && <Spinner size={12} label="Reading the file…" />}
-            {error && (
-              <div role="alert" style={{ fontSize: 12, color: 'var(--accent-up)', lineHeight: 1.5 }}>{error}</div>
-            )}
-
-            {loaded && resolution && (
-              <div style={{
-                border: '1px solid var(--border)', borderRadius: 6, padding: '10px 12px',
-                display: 'flex', flexDirection: 'column', gap: 8, background: 'var(--bg-panel)',
+                fontSize: 12, padding: '4px 12px', border: '1px solid var(--border-dark)', borderRadius: 4,
+                background: 'var(--bg-panel)', color: 'var(--text-primary)', cursor: 'pointer',
+                fontFamily: FONT_SANS, fontWeight: 600,
               }}>
-                <div style={{ fontSize: 12.5, color: 'var(--text-primary)' }}>
-                  <strong>{plural(loaded.parsed.genes.length, 'name')}</strong> read from{' '}
-                  <span style={{ fontFamily: FONT_MONO }}>{loaded.source}</span>
-                  <span style={{ color: 'var(--text-muted)' }}> · {describeGeneListSource(loaded.parsed)}</span>
-                </div>
+              Choose a file
+            </button>
+            <input ref={fileRef} type="file" accept={ACCEPT} onChange={onFileChange}
+              aria-label="Gene list file" style={{ display: 'none' }} />
+          </div>
+          <div style={{ fontSize: 11.5, lineHeight: 1.55, color: 'var(--text-muted)', maxWidth: '52ch' }}>
+            Import text, CSV, TSV, Excel, GMT or JSON. The app detects the gene column from
+            a header such as Gene, Symbol or gene_name, or from the cell values when no header
+            is available. It matches names to the symbols stored in {scopeLabel}, using the
+            same alias and previous-symbol records as gene search.
+          </div>
+        </div>
 
-                {loaded.parsed.genes.length === 0 ? (
-                  <div style={{ fontSize: 12, color: 'var(--text-muted)', lineHeight: 1.5 }}>
-                    No gene symbols were detected. Use one symbol per line, or a table column
-                    headed Gene or Symbol.
-                  </div>
-                ) : (
-                  <>
-                    <div style={{ fontSize: 12.5 }}>
-                      <strong style={{ color: 'var(--text-primary)' }}>{plural(n, 'gene')}</strong>
-                      <span style={{ color: 'var(--text-muted)' }}> found in {scopeLabel}</span>
-                      {alreadySelected > 0 && (
-                        <span style={{ color: 'var(--text-muted)' }}> · {alreadySelected.toLocaleString()} already selected</span>
-                      )}
-                      {resolution.duplicates > 0 && (
-                        <span style={{ color: 'var(--text-muted)' }}> · {plural(resolution.duplicates, 'duplicate')} in the list</span>
-                      )}
-                    </div>
-                    {resolution.redirected.length > 0 && (
-                      <div>
-                        <div style={{ fontSize: 11.5, color: 'var(--text-muted)', marginBottom: 2 }}>
-                          {plural(resolution.redirected.length, 'name')} matched under another name
-                          <span title="This name matches an alias, a previous symbol or a current symbol for a retired name. The dataset stores the symbol shown on the right."> ⓘ</span>
-                        </div>
-                        <NameList names={resolution.redirected.map((r) => `${r.from} → ${r.to}`)} />
-                      </div>
-                    )}
-                    {resolution.ambiguous.length > 0 && (
-                      <div>
-                        <div style={{ fontSize: 11.5, color: 'var(--accent-up)', marginBottom: 2 }}>
-                          {plural(resolution.ambiguous.length, 'name')} left out: each is an alias of several genes here
-                        </div>
-                        <NameList names={resolution.ambiguous.map((a) => `${a.from} (${a.to.join(' / ')})`)} />
-                      </div>
-                    )}
-                    {resolution.missing.length > 0 && (
-                      <div>
-                        <div style={{ fontSize: 11.5, color: 'var(--accent-up)', marginBottom: 2 }}>
-                          {plural(resolution.missing.length, 'name')} not in {scopeLabel}
-                        </div>
-                        <NameList names={resolution.missing} color="var(--text-muted)" />
-                      </div>
-                    )}
-                    <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap', marginTop: 4 }}>
-                      <button type="button" onClick={() => apply('add')} disabled={n === 0}
-                        style={{
-                          fontSize: 12.5, padding: '6px 14px', border: 'none', borderRadius: 5,
-                          background: n === 0 ? 'var(--border-dark)' : 'var(--color-selected)', color: '#fff',
-                          cursor: n === 0 ? 'not-allowed' : 'pointer', fontFamily: FONT_SANS, fontWeight: 700,
-                        }}>
-                        {selectedGenes.length > 0 && newCount !== n
-                          ? `Add ${plural(Math.max(newCount, 0), 'new gene')} to the selection`
-                          : `Add ${plural(n, 'gene')} to the selection`}
-                      </button>
-                      {onReplaceGenes && selectedGenes.length > 0 && n > 0 && (
-                        <button type="button" onClick={() => apply('replace')}
-                          title={`Clear the ${selectedGenes.length} selected gene${selectedGenes.length === 1 ? '' : 's'} first`}
-                          style={{
-                            fontSize: 12, padding: '5px 12px', border: '1px solid var(--border-dark)', borderRadius: 5,
-                            background: 'var(--bg-panel)', color: 'var(--text-primary)', cursor: 'pointer',
-                            fontFamily: FONT_SANS, fontWeight: 600,
-                          }}>
-                          Replace the selection
-                        </button>
-                      )}
-                    </div>
-                  </>
-                )}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <label htmlFor="gene-list-paste" style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-muted)', letterSpacing: 0.3 }}>
+            Or paste symbols
+          </label>
+          <textarea id="gene-list-paste" value={pasted} onChange={(e) => setPasted(e.target.value)}
+            placeholder={'POMC\nAGRP\nNPY\nOne symbol per line. Spaces and commas also work.'}
+            rows={3} spellCheck={false}
+            style={{
+              width: '100%', boxSizing: 'border-box', resize: 'vertical', padding: '6px 10px',
+              fontFamily: FONT_MONO, fontSize: 12, border: '1px solid var(--border-dark)', borderRadius: 4,
+              color: 'var(--text-primary)', background: 'var(--bg-panel)',
+            }} />
+          <div>
+            <button type="button" onClick={readPasted} disabled={!pasted.trim()}
+              style={{
+                fontSize: 12, padding: '4px 12px', border: '1px solid var(--border-dark)', borderRadius: 4,
+                background: 'var(--bg-panel)', color: 'var(--text-primary)', cursor: pasted.trim() ? 'pointer' : 'not-allowed',
+                fontFamily: FONT_SANS, fontWeight: 600, opacity: pasted.trim() ? 1 : 0.55,
+              }}>
+              Read pasted list
+            </button>
+          </div>
+        </div>
+
+        {reading && <Spinner size={12} label="Reading the file…" />}
+        {error && (
+          <div role="alert" style={{ fontSize: 12, color: 'var(--accent-up)', lineHeight: 1.5 }}>{error}</div>
+        )}
+
+        {loaded && resolution && (
+          <div style={{
+            border: '1px solid var(--border)', borderRadius: 6, padding: '10px 12px',
+            display: 'flex', flexDirection: 'column', gap: 8, background: 'var(--bg-panel)',
+          }}>
+            <div style={{ fontSize: 12.5, color: 'var(--text-primary)' }}>
+              <strong>{plural(loaded.parsed.genes.length, 'name')}</strong> read from{' '}
+              <span style={{ fontFamily: FONT_MONO }}>{loaded.source}</span>
+              <span style={{ color: 'var(--text-muted)' }}> · {describeGeneListSource(loaded.parsed)}</span>
+            </div>
+
+            {loaded.parsed.genes.length === 0 ? (
+              <div style={{ fontSize: 12, color: 'var(--text-muted)', lineHeight: 1.5 }}>
+                No gene symbols were detected. Use one symbol per line, or a table column
+                headed Gene or Symbol.
               </div>
+            ) : (
+              <>
+                <div style={{ fontSize: 12.5 }}>
+                  <strong style={{ color: 'var(--text-primary)' }}>{plural(n, 'gene')}</strong>
+                  <span style={{ color: 'var(--text-muted)' }}> found in {scopeLabel}</span>
+                  {alreadySelected > 0 && (
+                    <span style={{ color: 'var(--text-muted)' }}> · {alreadySelected.toLocaleString()} already selected</span>
+                  )}
+                  {resolution.duplicates > 0 && (
+                    <span style={{ color: 'var(--text-muted)' }}> · {plural(resolution.duplicates, 'duplicate')} in the list</span>
+                  )}
+                </div>
+                {resolution.redirected.length > 0 && (
+                  <div>
+                    <div style={{ fontSize: 11.5, color: 'var(--text-muted)', marginBottom: 2 }}>
+                      {plural(resolution.redirected.length, 'name')} matched under another name
+                      <span title="This name matches an alias, a previous symbol or a current symbol for a retired name. The dataset stores the symbol shown on the right."> ⓘ</span>
+                    </div>
+                    <NameList names={resolution.redirected.map((r) => `${r.from} → ${r.to}`)} />
+                  </div>
+                )}
+                {resolution.ambiguous.length > 0 && (
+                  <div>
+                    <div style={{ fontSize: 11.5, color: 'var(--accent-up)', marginBottom: 2 }}>
+                      {plural(resolution.ambiguous.length, 'name')} left out: each is an alias of several genes here
+                    </div>
+                    <NameList names={resolution.ambiguous.map((a) => `${a.from} (${a.to.join(' / ')})`)} />
+                  </div>
+                )}
+                {resolution.missing.length > 0 && (
+                  <div>
+                    <div style={{ fontSize: 11.5, color: 'var(--accent-up)', marginBottom: 2 }}>
+                      {plural(resolution.missing.length, 'name')} not in {scopeLabel}
+                    </div>
+                    <NameList names={resolution.missing} color="var(--text-muted)" />
+                  </div>
+                )}
+                <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap', marginTop: 4 }}>
+                  <button type="button" onClick={() => apply('add')} disabled={n === 0}
+                    style={{
+                      fontSize: 12.5, padding: '6px 14px', border: 'none', borderRadius: 5,
+                      background: n === 0 ? 'var(--border-dark)' : 'var(--color-selected)', color: '#fff',
+                      cursor: n === 0 ? 'not-allowed' : 'pointer', fontFamily: FONT_SANS, fontWeight: 700,
+                    }}>
+                    {selectedGenes.length > 0 && newCount !== n
+                      ? `Add ${plural(Math.max(newCount, 0), 'new gene')} to the selection`
+                      : `Add ${plural(n, 'gene')} to the selection`}
+                  </button>
+                  {onReplaceGenes && selectedGenes.length > 0 && n > 0 && (
+                    <button type="button" onClick={() => apply('replace')}
+                      title={`Clear the ${selectedGenes.length} selected gene${selectedGenes.length === 1 ? '' : 's'} first`}
+                      style={{
+                        fontSize: 12, padding: '5px 12px', border: '1px solid var(--border-dark)', borderRadius: 5,
+                        background: 'var(--bg-panel)', color: 'var(--text-primary)', cursor: 'pointer',
+                        fontFamily: FONT_SANS, fontWeight: 600,
+                      }}>
+                      Replace the selection
+                    </button>
+                  )}
+                </div>
+              </>
             )}
           </div>
-        </Modal>
-      )}
-    </>
+        )}
+      </div>
+    </Modal>
   );
 }

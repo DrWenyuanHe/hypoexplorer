@@ -263,14 +263,14 @@ describe('CompareSetView — the study selector and the volcano', () => {
 
     // The first column's volcano is up, above the (still present) gene search.
     const macaque = volcano(/^Volcano · Macaque hypothalamus/);
-    expect(within(macaque).getByTitle(/Add all 1 threshold-passing/)).toBeTruthy();
+    expect(within(macaque).getByRole('button', { name: '1 pass' })).toBeTruthy();
     expect(screen.getByPlaceholderText(/Search gene/i)).toBeTruthy();
 
     // Picking the mouse study swaps the volcano in place; the tables never leave.
     fireEvent.click(railRow(MOUSE.name));
     expect(screen.queryByRole('region', { name: /^Volcano · Macaque/ })).toBeNull();
     const mouse = volcano(new RegExp(`^Volcano · ${esc(MOUSE.name)}`));
-    expect(within(mouse).getByTitle(/Add all 1 threshold-passing/)).toBeTruthy();
+    expect(within(mouse).getByRole('button', { name: '1 pass' })).toBeTruthy();
     expect(railRow(MOUSE.name)).toHaveAttribute('aria-pressed', 'true');
     expect(screen.getByPlaceholderText(/Search gene/i)).toBeTruthy();
   });
@@ -282,7 +282,9 @@ describe('CompareSetView — the study selector and the volcano', () => {
 
     fireEvent.click(railRow(MOUSE.name));
     // Only Lep clears the default cutoff (p < 0.01) in the mouse fixture.
-    fireEvent.click(within(volcano(new RegExp(`^Volcano · ${esc(MOUSE.name)}`))).getByTitle(/Add all 1 threshold-passing/));
+    const mouse = within(volcano(new RegExp(`^Volcano · ${esc(MOUSE.name)}`)));
+    fireEvent.click(mouse.getByRole('button', { name: '1 pass' }));
+    fireEvent.click(mouse.getByRole('menuitem', { name: /Add all 1 to selection/ }));
 
     const row = summaryRow('LEP');
     expect(row).toHaveTextContent('1.500');

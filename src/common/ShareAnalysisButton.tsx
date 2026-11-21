@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Modal } from './Modal';
 import { btnStyle, FONT_MONO } from '../styles/constants';
+import './headerControl.css';
 
 /** The address bar is always current; this makes its analysis contract explicit. */
 export function ShareAnalysisButton() {
   const [link, setLink] = useState<string | null>(null);
   const [status, setStatus] = useState('');
   return <>
-    <button type="button" onClick={() => { setLink(window.location.href); setStatus(''); }}
-      style={{ fontSize: 12, padding: '5px 10px', border: '1px solid var(--border-dark)', borderRadius: 6, background: 'var(--bg-panel)', color: 'var(--text-primary)', cursor: 'pointer', whiteSpace: 'nowrap' }}>
+    <button type="button" className="header-control" onClick={() => { setLink(window.location.href); setStatus(''); }}>
       Share analysis
     </button>
     {link && <Modal title="Share analysis" onClose={() => setLink(null)} width="600px" height="auto">

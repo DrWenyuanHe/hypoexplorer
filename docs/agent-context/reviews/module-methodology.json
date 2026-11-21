@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-methodology",
-  "fingerprint": "2566db26cc2e5d8910f93f4d09696c4f1853bced8fc79c71d54190218ae7d770",
+  "fingerprint": "73995ebbb785696c15e950dfb4dcbb07f2a97903bc9a597d3f8f011d7e2c8115",
   "outcome": "updated",
-  "explanation": "MethodologyView becomes Methods & statistics: it absorbs the former Statistics page as three sections (reading the statistics within one study, reading results across studies, glossary), states the FDR cutoff once, and drops its link to #/statistics. Its intro and unit note point to the study record rather than Dataset info.",
+  "explanation": "MethodologyView renders through the shared ProsePage and ProseSection from src/common/prose.tsx, replacing its local contents list and link style; the \"On this page\" list becomes a side rail on wide screens. Section text, ids and the tests that read them are unchanged.",
   "references": [
     "src/methodology/MethodologyView.tsx",
-    "src/__tests__/methodology.test.tsx"
+    "src/common/prose.tsx",
+    "src/common/prose.css"
   ]
 }

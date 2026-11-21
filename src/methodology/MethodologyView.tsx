@@ -22,7 +22,7 @@ import type { ReactNode } from 'react';
 
 import { FONT_HEADING, FONT_MONO, FONT_SANS, DIRECTION_UP_COLOR as UP, DIRECTION_DOWN_COLOR as DOWN } from '../styles/constants';
 import { PageShell } from '../common/PageShell';
-import { H2, Mono, P, tdStyle, thStyle } from '../common/prose';
+import { Mono, P, PROSE_MEASURE, ProsePage, ProseSection, tdStyle, thStyle } from '../common/prose';
 import { DEFAULT_FDR_CUTOFF } from '../statistics/policy';
 import { METRIC_DEFAULT_SIG_THRESH } from '../explorer/explorerSession';
 
@@ -75,14 +75,16 @@ const SECTIONS = [
 
 type SectionId = typeof SECTIONS[number]['id'];
 
-const linkStyle = { color: 'var(--accent)' };
+// Figures in the worked example align on their right edge.
+const NUM_TH = { ...thStyle, textAlign: 'right' as const };
+const NUM_TD = { ...tdStyle, textAlign: 'right' as const };
 
 // Only this page uses a styled <li> and <h3>, so they stay here rather than in ../common/prose.
 function Li({ children }: { children: ReactNode }) {
   return (
     <li style={{
       fontSize: 13, lineHeight: 1.6, color: 'var(--text-primary)',
-      fontFamily: FONT_SANS, marginBottom: 6,
+      fontFamily: FONT_SANS, marginBottom: 6, overflowWrap: 'break-word',
     }}>
       {children}
     </li>
@@ -90,7 +92,7 @@ function Li({ children }: { children: ReactNode }) {
 }
 
 function Ul({ children }: { children: ReactNode }) {
-  return <ul style={{ margin: '0 0 12px', padding: '0 0 0 18px', listStyle: 'disc' }}>{children}</ul>;
+  return <ul style={{ margin: '0 0 12px', padding: '0 0 0 18px', listStyle: 'disc', maxWidth: PROSE_MEASURE }}>{children}</ul>;
 }
 
 function H3({ children }: { children: ReactNode }) {
@@ -109,7 +111,7 @@ function Callout({ children, tone = 'note' }: { children: ReactNode; tone?: 'not
   return (
     <div style={{
       borderLeft: `3px solid ${accent}`, background: 'var(--bg-panel)', borderRadius: '0 6px 6px 0',
-      padding: '10px 14px', margin: '0 0 14px', maxWidth: '70ch',
+      padding: '10px 14px', margin: '0 0 14px', maxWidth: PROSE_MEASURE,
       fontSize: 12.5, lineHeight: 1.6, color: 'var(--text-primary)', fontFamily: FONT_SANS,
     }}>
       {children}
@@ -117,83 +119,30 @@ function Callout({ children, tone = 'note' }: { children: ReactNode; tone?: 'not
   );
 }
 
-// Section anchors. The app routes on the URL hash, so in-page links scroll
-// with scrollIntoView instead of writing #id into the location.
 function Section({ id, children }: { id: SectionId; children: ReactNode }) {
-  const title = SECTIONS.find((s) => s.id === id)!.title;
-  return (
-    <section id={id} aria-labelledby={`${id}-h`} tabIndex={-1} style={{ scrollMarginTop: 16, outline: 'none' }}>
-      <div id={`${id}-h`}><H2>{title}</H2></div>
-      {children}
-    </section>
-  );
-}
-
-function Contents() {
-  return (
-    <nav aria-label="On this page" style={{
-      margin: '16px 0 4px', padding: '10px 14px',
-      border: '1px solid var(--border)', borderRadius: 6, background: 'var(--bg-panel)',
-    }}>
-      <div style={{
-        fontSize: 11, fontWeight: 600, color: 'var(--text-muted)', fontFamily: FONT_SANS,
-        textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 6,
-      }}>
-        On this page
-      </div>
-      <ol style={{ margin: 0, padding: '0 0 0 18px' }}>
-        {SECTIONS.map((s) => (
-          <li key={s.id} style={{ fontSize: 13, lineHeight: 1.7, fontFamily: FONT_SANS, color: 'var(--text-muted)' }}>
-            <button
-              type="button"
-              onClick={() => {
-                const target = document.getElementById(s.id);
-                target?.scrollIntoView({ block: 'start' });
-                target?.focus({ preventScroll: true });
-              }}
-              style={{
-                background: 'none', border: 0, padding: 0, cursor: 'pointer', textAlign: 'left',
-                font: 'inherit', color: 'var(--accent)',
-              }}
-            >
-              {s.title}
-            </button>
-          </li>
-        ))}
-      </ol>
-    </nav>
-  );
+  return <ProseSection section={SECTIONS.find((s) => s.id === id)!}>{children}</ProseSection>;
 }
 
 export function MethodologyView({ onHome }: { onHome: () => void }) {
   const volcanoP = 10 ** -METRIC_DEFAULT_SIG_THRESH.pval;
   return (
-    <PageShell
-      onHome={onHome}
-      breadcrumbs={[{ label: 'Methods & statistics', current: true }]}
-      mainStyle={{ overflowY: 'auto' }}
-    >
-      <div style={{ maxWidth: 720, width: '100%', margin: '0 auto', padding: '28px 24px 72px', boxSizing: 'border-box' }}>
-        <h1 style={{
-          fontSize: 20, fontWeight: 600, color: 'var(--text-primary)', fontFamily: FONT_HEADING,
-          letterSpacing: '-0.01em', margin: '0 0 12px',
-        }}>
-          Methods &amp; statistics
-        </h1>
-
-        <P>
-          This page describes the rules that apply to every study in the collection, how to read the
-          statistics within one study and across studies, and the macaque single-nucleus pipeline in
-          detail. Each study has its own analysis: HypoExplorer does not pool results across datasets.
-          Facts that differ by study, such as groups, replicates, expression unit and upstream
-          processing, are listed in that study&apos;s library record. The{' '}
-          <a href="/methods/" style={linkStyle}>public Methods guide</a> covers source selection,
-          comparison direction and replicate units; <a href="/how-to-cite/" style={linkStyle}>How to cite</a>{' '}
-          explains how to credit the original datasets and HypoExplorer separately.
-        </P>
-
-        <Contents />
-
+    <PageShell onHome={onHome} breadcrumbs={[{ label: 'Methods & statistics', current: true }]}>
+      <ProsePage
+        title="Methods & statistics"
+        sections={SECTIONS}
+        intro={(
+          <P>
+            This page describes the rules that apply to every study in the collection, how to read the
+            statistics within one study and across studies, and the macaque single-nucleus pipeline in
+            detail. Each study has its own analysis: HypoExplorer does not pool results across datasets.
+            Facts that differ by study, such as groups, replicates, expression unit and upstream
+            processing, are listed in that study&apos;s library record. The{' '}
+            <a href="/methods/">public Methods guide</a> covers source selection,
+            comparison direction and replicate units; <a href="/how-to-cite/">How to cite</a>{' '}
+            explains how to credit the original datasets and HypoExplorer separately.
+          </P>
+        )}
+      >
         {/* 1. Source data */}
         <Section id="methods-source">
           <P>
@@ -448,7 +397,7 @@ export function MethodologyView({ onHome }: { onHome: () => void }) {
             excluded from this author-comparison review at the project owner&apos;s request.
           </P>
           <P>
-            <a href="#/verification" style={linkStyle}>
+            <a href="#/verification">
               Read the verification process and badge criteria →
             </a>
           </P>
@@ -503,35 +452,35 @@ export function MethodologyView({ onHome }: { onHome: () => void }) {
             COP, whose small universe leaves it below the 15-gene minimum.
           </P>
           <div style={{ overflowX: 'auto', margin: '4px 0 8px' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <table style={{ borderCollapse: 'collapse' }}>
               <thead>
                 <tr>
                   <th style={thStyle}>Cluster</th>
-                  <th style={thStyle}>Universe (genes)</th>
-                  <th style={thStyle}>Term size</th>
+                  <th style={NUM_TH}>Universe (genes)</th>
+                  <th style={NUM_TH}>Term size</th>
                   <th style={thStyle}>Outcome</th>
-                  <th style={thStyle}>Child term size</th>
+                  <th style={NUM_TH}>Child term size</th>
                 </tr>
               </thead>
               <tbody>
                 {EXAMPLE_ROWS.map((r) => (
                   <tr key={r.cluster}>
                     <td style={tdStyle}>{r.cluster}</td>
-                    <td style={tdStyle}>{r.universe}</td>
-                    <td style={tdStyle}>{r.size}</td>
+                    <td style={NUM_TD}>{r.universe}</td>
+                    <td style={NUM_TD}>{r.size}</td>
                     <td style={{
                       ...tdStyle, fontFamily: FONT_SANS, fontWeight: 600,
                       color: r.dropped ? 'var(--color-obese)' : 'var(--color-normal)',
                     }}>
                       {r.outcome}
                     </td>
-                    <td style={tdStyle}>{r.child}</td>
+                    <td style={NUM_TD}>{r.child}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <div style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: FONT_SANS, lineHeight: 1.5 }}>
+          <div style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: FONT_SANS, lineHeight: 1.5, maxWidth: PROSE_MEASURE }}>
             e33 drops the term with fewer detected genes than i15, which keeps it at 496. Across clusters
             that keep the term, several sizes sit just below the cutoff, at 477, 482, 496 and 497.
           </div>
@@ -559,13 +508,13 @@ export function MethodologyView({ onHome }: { onHome: () => void }) {
               </tbody>
             </table>
           </div>
-          <div style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: FONT_SANS, lineHeight: 1.5 }}>
+          <div style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: FONT_SANS, lineHeight: 1.5, maxWidth: PROSE_MEASURE }}>
             Every gene and pathway statistic here is computed upstream in R (edgeR / limma for genes, fgsea for
             pathways, Benjamini–Hochberg within each dataset) and read out of that dataset&apos;s own bundle.
             The cross-dataset views display and arrange those numbers; they do not compute new ones.
           </div>
         </Section>
-      </div>
+      </ProsePage>
     </PageShell>
   );
 }

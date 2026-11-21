@@ -120,7 +120,8 @@ describe('VolcanoPlot — table view', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Add Pomc' }));
     expect(onAdd).toHaveBeenCalledWith('Pomc');
     expect(screen.getByRole('button', { name: 'Pomc selected' })).toBeDisabled();
-    expect(screen.getByText('◆ Selected (1)')).toBeTruthy();
+    // The key line in the plot's top margin counts the selection.
+    expect(document.querySelector('.gx-legend')?.textContent).toContain('◆ 1 selected');
     fireEvent.change(screen.getByRole('combobox'), { target: { value: 'selected' } });
     expect(tableGenes()).toEqual(['Pomc']);
     fireEvent.change(screen.getByRole('combobox'), { target: { value: 'passing' } });
@@ -197,7 +198,9 @@ describe('VolcanoPlot — selected markers', () => {
       expect(selected?.color).not.toBe(UP_COLOR);
       expect(selected?.color).not.toBe(DOWN_COLOR);
       expect(selected?.color).not.toBe('#F28E2B');
-      fireEvent.click(screen.getByRole('button', { name: 'Show list' }));
+      // The pass count still includes the selected gene, and its menu shows the list.
+      fireEvent.click(screen.getByRole('button', { name: '2 pass' }));
+      fireEvent.click(screen.getByRole('menuitem', { name: 'Show list' }));
       expect(screen.getByRole('button', { name: 'Pomc ✓' })).toBeTruthy();
       expect(screen.getByText('↑ Up in Case (1)')).toBeTruthy();
     } finally { spy.mockRestore(); }

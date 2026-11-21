@@ -16,7 +16,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { PageShell } from '../common/PageShell';
-import { AuthorValidationBadge, AuthorEvidenceLabel } from '../common/AuthorValidation';
+import { AuthorValidationBadge, AuthorEvidenceLabel, authorEvidenceText } from '../common/AuthorValidation';
 import { ArmPills } from '../common/StudyMetadata';
 import { ResultBars, ResultScaleLegend, discoveryScaleMax } from './ResultBars';
 import { loadDatasetCatalog, registryCards, type CatalogState, type DatasetCard } from '../data/datasetCatalog';
@@ -33,7 +33,7 @@ import {
   EMPTY_FILTERS, filterCards, groupByCategory, sortCards,
   type FacetKey, type LibraryFilters, type LibrarySort,
 } from './libraryFilters';
-import { LibraryToolbar, categoryColor, Icon, type IconName } from './LibraryToolbar';
+import { LibraryToolbar, categoryColor } from './LibraryToolbar';
 import { exportLibraryCsv } from './libraryExport';
 import { useExportAction } from '../utils/exportAction';
 import { StudyRecord } from './StudyRecord';
@@ -517,35 +517,42 @@ function StudyCard({ card, selected, inSet, scaleMax, onSelect, onToggleCompare 
 // ── Table ───────────────────────────────────────────────────────────────────
 //
 // A record grid, after Attio's: hairline rules on every cell, a sticky header
-// and a sticky Study column, and a count in the footer. Styling that the inline
-// style props cannot express (sticky offsets, row hover, the column rules) lives
-// in responsive.css under .library-table.
+// and a sticky Study column, and a footer bar that spans the table. Styling that
+// the inline style props cannot express (sticky offsets, row hover, the column
+// rules, the column widths) lives in responsive.css under .library-table.
+//
+// FIXED LAYOUT, so the table fits a laptop. Every column but Study has a set
+// width sized to its content (the `col` class below); Study takes what is left
+// and truncates first, its full name one hover away. Left to the auto layout,
+// the longest study name and evidence label set their columns and pushed the
+// verification badges — the trust signal — off the right edge at 1440px.
 
 interface ColumnSpec {
   label: string;
-  icon: IconName;
+  /** Width class in responsive.css; Study has none and takes the remainder. */
+  col: string;
   align?: 'right';
   title?: string;
 }
 
 const COLUMNS: ColumnSpec[] = [
-  { label: 'Study', icon: 'category' },
-  { label: 'Region', icon: 'region' },
-  { label: 'Contrast', icon: 'contrast' },
-  { label: 'N', icon: 'power', align: 'right', title: 'Replicates, baseline v case, on the default track' },
+  { label: 'Study', col: 'library-col-study' },
+  { label: 'Region', col: 'library-col-region' },
+  { label: 'Contrast', col: 'library-col-contrast' },
+  { label: 'N', col: 'library-col-n', align: 'right', title: 'Replicates, baseline v case, on the default track' },
   // The same two numbers the cards lead with. Without them the layout toggle
   // swaps not just the layout but the subject: cards about what a study found,
   // table about how big it was.
   // Counts of SIGNIFICANT results, not of genes measured; the header says so
   // because a bare "Genes" read as the size of the gene list.
-  { label: 'Sig. genes', icon: 'hash', align: 'right',
+  { label: 'Sig. genes', col: 'library-col-genes', align: 'right',
     title: `Genes with FDR < ${DEFAULT_FDR_CUTOFF} in each study's default comparison, on its default track. Hover a count for how many were tested.` },
-  { label: 'Sig. pathways', icon: 'hash', align: 'right',
+  { label: 'Sig. pathways', col: 'library-col-paths', align: 'right',
     title: `Pathway terms with fgsea adjusted P < ${DEFAULT_FDR_CUTOFF} in each study's default comparison, on its default track, summed across its gene-set collections.` },
-  { label: 'Tracks', icon: 'layers', align: 'right' },
-  { label: 'Accession', icon: 'link' },
-  { label: 'Validation', icon: 'shield' },
-  { label: 'Compare set', icon: 'plus' },
+  { label: 'Tracks', col: 'library-col-tracks', align: 'right' },
+  { label: 'Accession', col: 'library-col-accession' },
+  { label: 'Validation', col: 'library-col-validation' },
+  { label: 'Compare set', col: 'library-col-compare' },
 ];
 
 /**
@@ -579,14 +586,14 @@ function LibraryTable({ cards, selectedId, onSelect, isInSet, onToggleCompare }:
 }) {
   return (
     <table className="library-table">
+      <colgroup>
+        {COLUMNS.map((col) => <col key={col.label} className={col.col} />)}
+      </colgroup>
       <thead>
         <tr>
           {COLUMNS.map((col) => (
-            <th key={col.label} title={col.title} className={col.align === 'right' ? 'num' : undefined}>
-              <span className="library-th">
-                <Icon name={col.icon} size={12} color="var(--text-muted)" />
-                {col.label}
-              </span>
+            <th key={col.label} scope="col" title={col.title} className={col.align === 'right' ? 'is-right' : undefined}>
+              {col.label}
             </th>
           ))}
         </tr>
@@ -603,13 +610,13 @@ function LibraryTable({ cards, selectedId, onSelect, isInSet, onToggleCompare }:
                   keyboard, which would make the whole table view inoperable
                   without a pointer. */}
               <td className="library-study-cell">
-                <button type="button" aria-pressed={on} data-study-id={d.id}
+                <button type="button" aria-pressed={on} data-study-id={d.id} title={d.name}
                   onClick={(e) => { e.stopPropagation(); onSelect(d.id); }}>
                   <span aria-hidden="true" style={{ width: 7, height: 7, borderRadius: '50%', flexShrink: 0, background: categoryColor(d.category) }} />
-                  {d.name}
+                  <span className="clip-2">{d.name}</span>
                 </button>
               </td>
-              <td style={{ color: 'var(--text-muted)' }}><span className="clip" title={d.region}>{d.region}</span></td>
+              <td style={{ color: 'var(--text-muted)' }}><span className="clip-2" title={d.region}>{d.region}</span></td>
               {/* Baseline FIRST, with an arrow rather than "vs", so this column
                   reads in the same order as the N column beside it. Written
                   "HFD vs Chow" against an N of "7 v 8" it claimed HFD=7 — the
@@ -617,7 +624,7 @@ function LibraryTable({ cards, selectedId, onSelect, isInSet, onToggleCompare }:
                   make up most of the corpus the reversal was invisible. */}
               <td className="mono">
                 {card.baselineGroup && card.caseGroup
-                  ? <span className="clip" title={`${card.baselineGroup.label} → ${card.caseGroup.label}`}>
+                  ? <span className="clip-2" title={`${card.baselineGroup.label} → ${card.caseGroup.label}`}>
                       {`${card.baselineGroup.label} → ${card.caseGroup.label}`}
                     </span>
                   : '—'}
@@ -634,8 +641,18 @@ function LibraryTable({ cards, selectedId, onSelect, isInSet, onToggleCompare }:
               <DiscoveryCell card={card} kind="genes" />
               <DiscoveryCell card={card} kind="paths" />
               <td className="num" style={{ color: 'var(--text-muted)' }}>{card.trackCount ?? '—'}</td>
-              <td className="mono" style={{ color: 'var(--accent)' }}>{d.geo || (d.doi ? 'DOI' : '—')}</td>
-              <td><span className="library-validation"><AuthorValidationBadge record={card.validation} compact /><AuthorEvidenceLabel record={card.validation} /></span></td>
+              <td className="mono" style={{ color: 'var(--accent)' }}>
+                <span className="clip" title={d.geo || d.doi || undefined}>{d.geo || (d.doi ? 'DOI' : '—')}</span>
+              </td>
+              <td>
+                <span className="library-validation">
+                  <AuthorValidationBadge record={card.validation} compact />
+                  {/* Two lines at most; the whole label stays on hover. */}
+                  <span className="library-evidence" title={authorEvidenceText(card.validation)}>
+                    <AuthorEvidenceLabel record={card.validation} />
+                  </span>
+                </span>
+              </td>
               {/* The toggle stops its click, so the row does not open the record. */}
               <td>
                 <CompareSetToggle size="sm" inSet={isInSet(d)} name={d.name} onToggle={() => onToggleCompare(d)} />
@@ -644,17 +661,18 @@ function LibraryTable({ cards, selectedId, onSelect, isInSet, onToggleCompare }:
           );
         })}
       </tbody>
+      {/* One bar across the whole table. The Sig. definition is visible here, not
+          only in the header tooltips, which touch screens never show; its content
+          is sticky on the left so a sideways scroll cannot hide it. */}
       <tfoot>
         <tr>
-          <td className="library-study-cell num">
-            <span className="library-count-cell">{cards.length}</span> {cards.length === 1 ? 'study' : 'studies'}
-            {/* Visible, not only in the header tooltips, which touch screens never
-                show; in the sticky Study cell so a sideways scroll cannot hide it. */}
-            <span className="library-foot-note">
-              Sig. = FDR &lt; {DEFAULT_FDR_CUTOFF}, default track and comparison
+          <td colSpan={COLUMNS.length}>
+            <span className="library-foot">
+              <span><span className="library-count-cell">{cards.length}</span> {cards.length === 1 ? 'study' : 'studies'}</span>
+              <span aria-hidden="true" className="library-foot-sep">·</span>
+              <span>Sig. = FDR &lt; {DEFAULT_FDR_CUTOFF}, on each study's default track and comparison</span>
             </span>
           </td>
-          <td colSpan={COLUMNS.length - 1} />
         </tr>
       </tfoot>
     </table>

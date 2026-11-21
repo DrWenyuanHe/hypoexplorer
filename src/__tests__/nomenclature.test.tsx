@@ -1,12 +1,13 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { render, screen, fireEvent, act, within } from '@testing-library/react';
+import { useMemo } from 'react';
 import {
   loadAliasIndex, factsFor, resolveByOtherName, _resetNomenclature,
   nomenclatureAuthorityForOrganism, NOMENCLATURE_AUTHORITIES, NOMENCLATURE_STATUS,
   type AliasIndex,
 } from '../data/nomenclature';
 import { _resetBundleCache, _setBundleTransport } from '../data/bundleSource';
-import { stubGeneSelection, stubVolcanoView } from './fixtures';
+import { stubVolcanoView } from './fixtures';
 
 // The nomenclature table: the alias/previous-symbol index behind gene search,
 // and the "this symbol is outdated" markers it drives.
@@ -246,11 +247,29 @@ describe('GeneSearchBox — searching by another name', () => {
   });
 
   it('shows alias and previous symbols only when the toggle is on', async () => {
-    const { input } = await box();
+    // The toggle is an item in the shared picker's Gene list menu, so drive it
+    // there rather than on the bare box.
+    const { GenePicker } = await import('../common/GenePicker');
+    const { useGeneSelection } = await import('../explorer/explorerSession');
+    const { geneVocabulary, useBoundGeneSelection } = await import('../explorer/geneVocabulary');
+    function Picker() {
+      const vocabulary = useMemo(() => geneVocabulary([{ geneNames: GENE_NAMES, authority: null }]), []);
+      const selection = useBoundGeneSelection(useGeneSelection(), vocabulary);
+      return <GenePicker selection={selection} filenameParts={['test']} />;
+    }
+    await act(async () => {
+      render(<Picker />);
+      await loadAliasIndex();
+    });
+    const input = screen.getByLabelText('Search gene');
     await type(input, 'AGRP');
     expect(screen.getByRole('button', { name: /AGRP/ }).textContent).not.toContain('ASIP2');
 
-    await act(async () => { fireEvent.click(screen.getByRole('button', { name: /Aliases/i })); });
+    fireEvent.click(screen.getByRole('button', { name: 'Gene list' }));
+    const toggle = screen.getByRole('menuitemcheckbox', { name: /aliases and previous symbols/i });
+    expect(toggle).toHaveAttribute('aria-checked', 'false');
+    await act(async () => { fireEvent.click(toggle); });
+    expect(toggle).toHaveAttribute('aria-checked', 'true');
     await type(input, 'AGRP');
     expect(screen.getByRole('button', { name: /AGRP/ }).textContent).toContain('ASIP2');
   });
@@ -263,46 +282,58 @@ describe('GeneSearchBox — searching by another name', () => {
   });
 });
 
-describe('GeneExplorerTab — the view buttons are always reachable', () => {
+describe('GeneExplorerTab — the view buttons join the selection', () => {
   async function explorer() {
     const { GeneExplorerTab } = await import('../gene-explorer/GeneExplorerTab');
     const { buildPopData } = await import('../data/buildPopData');
+    const { useGeneSelection } = await import('../explorer/explorerSession');
     const { HX_MACAQUE_SNRNA_E9_FIXTURE, MACAQUE_DATASET, MACAQUE_CONTRAST } = await import('./fixtures');
     const popData = buildPopData(HX_MACAQUE_SNRNA_E9_FIXTURE, MACAQUE_DATASET, MACAQUE_CONTRAST)!;
+    function Explorer() {
+      return <GeneExplorerTab geneSelection={useGeneSelection()} volcano={stubVolcanoView()} popData={popData} />;
+    }
     await act(async () => {
-      render(
-        <GeneExplorerTab
-          geneSelection={stubGeneSelection()}
-          volcano={stubVolcanoView()}
-          popData={popData}
-        />,
-      );
+      render(<Explorer />);
       await loadAliasIndex();
     });
   }
 
-  it('offers Bar charts and Summary table with nothing selected', async () => {
+  function select(gene: string) {
+    const input = screen.getByLabelText('Search gene');
+    fireEvent.change(input, { target: { value: gene } });
+    fireEvent.keyDown(input, { key: 'Enter' });
+  }
+
+  it('offers Bar charts and Summary table once a gene is selected', async () => {
     await explorer();
-    // They used to appear only once a gene was picked, which hid both views
-    // behind a step nothing on screen mentioned.
+    // With nothing selected the toolbar stays one row; the search placeholder
+    // and the plot's hint say how to start.
+    expect(screen.queryByRole('button', { name: /Bar charts/i })).toBeNull();
+    expect(screen.queryByRole('button', { name: /Summary table/i })).toBeNull();
+    select('POMC');
     expect(screen.getByRole('button', { name: /Bar charts/i })).toBeTruthy();
     expect(screen.getByRole('button', { name: /Summary table/i })).toBeTruthy();
   });
 
-  it('opens on a prompt that can fill the selection it is missing', async () => {
+  it('lands on a prompt that can refill the selection when its last gene is removed', async () => {
     await explorer();
+    select('POMC');
     await act(async () => { fireEvent.click(screen.getByRole('button', { name: /Bar charts/i })); });
     const dialog = within(await screen.findByRole('dialog'));
+    // Removing the last gene while the pop-up is open keeps the pop-up.
+    await act(async () => { fireEvent.click(screen.getAllByRole('button', { name: 'Remove POMC' })[0]); });
     expect(dialog.getByText(/Select a gene/i)).toBeTruthy();
     // The prompt carries a real search box, so the pop-up is a way IN rather
     // than a dead end you have to close to get past.
     expect(dialog.getByLabelText('Search gene')).toBeTruthy();
   });
 
-  it('titles an empty pop-up without a "0 genes" count', async () => {
+  it('titles an emptied pop-up without a "0 genes" count', async () => {
     await explorer();
+    select('POMC');
     await act(async () => { fireEvent.click(screen.getByRole('button', { name: /Summary table/i })); });
     const dialog = await screen.findByRole('dialog');
+    await act(async () => { fireEvent.click(screen.getAllByRole('button', { name: 'Remove POMC' })[0]); });
     expect(dialog.getAttribute('aria-label') ?? '').not.toMatch(/0 genes/);
   });
 });

@@ -4,10 +4,11 @@
 // reachable from wherever a study was just added.
 //
 // Text carries the count (DESIGN.md: state in words, never colour alone), the
-// count itself in mono. Sized to sit beside the version badge.
+// count itself in mono. Shares the header-control treatment with the other
+// header utilities (src/common/headerControl.css).
 
 import { useState } from 'react';
-import { FONT_MONO, FONT_SANS } from '../styles/constants';
+import '../common/headerControl.css';
 import { CompareSetDrawer } from './CompareSetDrawer';
 import { useCompareSet, type CompareSetItem } from './compareSetStore';
 
@@ -33,16 +34,10 @@ export function CompareSetButton({ onCompare, onOpenLibrary }: CompareSetButtonP
         aria-expanded={open}
         aria-label={`Compare set, ${n} ${n === 1 ? 'study' : 'studies'}`}
         title="Studies picked for side-by-side comparison"
-        style={{
-          display: 'inline-flex', alignItems: 'center', gap: 5, whiteSpace: 'nowrap',
-          fontSize: 11, padding: '4px 9px', fontFamily: FONT_SANS, fontWeight: 500,
-          border: '1px solid var(--border)', borderRadius: 6, cursor: 'pointer',
-          background: n ? 'var(--row-selected)' : 'transparent',
-          color: n ? 'var(--text-primary)' : 'var(--text-muted)',
-        }}
+        className={n ? 'header-control header-control--on' : 'header-control'}
       >
         Compare set
-        <span style={{ fontFamily: FONT_MONO, fontWeight: 600 }}>· {n}</span>
+        <span className="header-control-figure">· {n}</span>
       </button>
       {open && (
         <CompareSetDrawer

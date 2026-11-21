@@ -198,7 +198,10 @@ export function CellNavigator({
                       className={active ? 'cell-nav-row' : 'cell-nav-row hover-row'}
                       style={{
                         display: 'flex', alignItems: 'center', gap: 8,
-                        width: '100%', padding: active ? '5px 14px 5px 11px' : '5px 14px',
+                        // Every row carries the 3px left edge (transparent
+                        // unless active), so one padding keeps the dot and id
+                        // in the same column whether the row is active or not.
+                        width: '100%', padding: '5px 14px 5px 11px',
                         background: active ? 'var(--row-selected)' : undefined,
                         border: 'none', borderLeft: active ? '3px solid var(--color-selected)' : '3px solid transparent',
                         cursor: 'pointer', textAlign: 'left',

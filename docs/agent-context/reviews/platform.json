@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "01acfc735600290d4be7816be452668cc553358e00122eb5f063d486da6191d5",
-  "outcome": "no-impact",
-  "explanation": "App mounts UpdateModal once in a thin wrapper above the view switch (AppViews), replacing the per-branch copies, so the expression survey and the route-error page now show the update prompt. It sits outside each lazily loaded view's Suspense boundary from appViews, so it also shows while a view chunk downloads. Routing, views and data flow are unchanged.",
+  "fingerprint": "191cef7709c399d412b21d988ab4b6a98491a6e57ef352e05e4e21a34ea50ad9",
+  "outcome": "updated",
+  "explanation": "The explorer shell in App.tsx has no breadcrumb: the header is the logo and the 28px utilities, and the study line's dataset name is the button that opens the library, replacing \"All datasets\". The hero's gene count and DOI link are neutral, and the accent strip is 4px. View switching, routing and lazy views are unchanged.",
   "references": [
     "src/App.tsx",
-    "src/appViews.tsx",
-    "src/pwa/UpdateModal.tsx"
+    "src/common/headerControl.css",
+    "docs/agent-context/workflows.md"
   ]
 }

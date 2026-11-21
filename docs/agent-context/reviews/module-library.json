@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-library",
-  "fingerprint": "f0772e21a805cb0c8a44d66947fa8212ce382c130108f530801ac4a110150252",
+  "fingerprint": "94082c5960d1596d59d3285d17cf5b533b2e93010ddbcd03391d587dd84b2653",
   "outcome": "updated",
-  "explanation": "DatasetLibrary starts on the cards layout at phone width (600px and under), where the table showed only a truncated study column; desktop and tablet keep the table-first default and the layout toggle is unchanged.",
+  "explanation": "LibraryTable uses a fixed table layout with a colgroup, so all ten columns fit from 1280px wide; long cells wrap to two lines before truncating with a title, the footer is one full-width row, and headers carry scope=\"col\" without decorative icons. Filtering, sorting, the cards layout and the study record are unchanged.",
   "references": [
     "src/library/DatasetLibrary.tsx",
-    "docs/agent-context/workflows.md"
+    "src/styles/responsive.css"
   ]
 }
