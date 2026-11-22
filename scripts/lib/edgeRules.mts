@@ -1,6 +1,6 @@
 // Zone edge rules for the data host, and the pure logic that reconciles them with
 // a zone's existing Rulesets API entry points. No network access here: the
-// caller (scripts/apply_edge_rules.mts) fetches and writes, this module decides.
+// caller (scripts/deploy/apply_edge_rules.mts) fetches and writes, this module decides.
 // Unit-tested in src/__tests__/edgeRules.test.ts.
 //
 // The checked-in payloads under cloudflare/<phase>/<ref>.json are renderings of

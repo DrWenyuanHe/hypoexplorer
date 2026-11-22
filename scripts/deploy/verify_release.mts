@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { readReleaseBuild } from './lib/releaseBuild.mjs';
-import { allAtlasProblems, TRACKER_CATALOG } from './lib/deployInputs.mjs';
+import { readReleaseBuild } from '../lib/releaseBuild.mjs';
+import { allAtlasProblems, TRACKER_CATALOG } from '../lib/deployInputs.mjs';
 
 const root = process.cwd();
 const dist = resolve(root, process.argv[2] ?? 'dist');

@@ -2,7 +2,7 @@
   "$schema": "../../node_modules/wrangler/config-schema.json",
 
   // Cron-only spend guard for the R2 data host. src/index.ts and
-  // docs/EDGE_PROTECTION.md carry the rationale.
+  // docs/runbooks/EDGE_PROTECTION.md carry the rationale.
   //
   //   npm run guard:deploy     deploy (OAuth login via --env-file .env.cfdeploy)
   //   npm run guard:dev        local run in observe mode; trigger with /__scheduled

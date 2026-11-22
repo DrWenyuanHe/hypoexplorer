@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "analysis",
-  "fingerprint": "c9542e16b9cfc6cfdbf61bbe9c441f60ca1fa4f52f7943477d4295e5fd5af190",
+  "fingerprint": "0c0d50c253c600c6fa2ab281bdeb4e6493d17ec4115bfd4dbd88ce1206637f33",
   "outcome": "updated",
-  "explanation": "A Codex closure pass reviewed the 92 open author-validation datasets with a worker and an independent refuter each. 86 upheld proposals were merged into manual-review, verification-review and comparability-review records, with 15 new comparison specs; six spec replacements are held. Findings, prompts, checks and the merge script are under codex-2026-11-21/. No pipeline, model, bundle or producer changed; generated records still need regeneration in the maintainer checkout.",
+  "explanation": "Merges main into the Codex closure pass. From this branch: 86 upheld worker/refuter proposals merged into manual-review, verification-review and comparability-review records with 15 new comparison specs, six spec replacements held, and the pass record under codex-2026-11-21/. From main: the quality-report freshness command and the directory reorganization of docs and tooling. No pipeline, model, bundle or producer changed.",
   "references": [
     "data/author-validation/codex-2026-11-21/README.md",
     "data/author-validation/additional-comparison-specs.json",
-    "data/author-validation/verification-review.json"
+    "data/author-validation/README.md",
+    "scripts/build_quality_report_r460.mts"
   ]
 }

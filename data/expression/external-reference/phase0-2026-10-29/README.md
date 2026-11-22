@@ -1,7 +1,7 @@
 # External reference expression: Phase 0 evidence (2026-10-29)
 
 Measurements behind the Phase 0 section of
-[the implementation plan](../../../../docs/EXTERNAL_REFERENCE_EXPRESSION_PLAN_2026-10-29.md).
+[the implementation plan](../../../../docs/records/EXTERNAL_REFERENCE_EXPRESSION_PLAN_2026-10-29.md).
 Nothing here is a browser product, and no app code reads these files.
 
 Source downloads are not committed. Each measurement file records the URL, byte

@@ -5,7 +5,7 @@ Retained sources for the expression survey's GTEx source
 tissue "Brain - Hypothalamus", 59,033 GENCODE v39 features × 257 donors.
 It is an expression-only reference and not a registered dataset. The tracker's
 `GTEx-v11` rejection governs differential-expression intake only (see its review
-note and [the plan](../../../docs/EXTERNAL_REFERENCE_EXPRESSION_PLAN_2026-10-29.md)).
+note and [the plan](../../../docs/records/EXTERNAL_REFERENCE_EXPRESSION_PLAN_2026-10-29.md)).
 
 ## Files
 

@@ -10,7 +10,7 @@ upload; the Cloudflare deploy does not use it (see below).
 The app CI workflow runs type checks, lint, `deadcode` (knip), `context:check`, tests and a
 built-site Chromium smoke check. It fetches the query catalog and the reference
 atlases from the live origins instead of building them, so it checks the app
-against the published data, not the data itself. The [publication release procedure](../PUBLICATION_RELEASE.md)
+against the published data, not the data itself. The [publication release procedure](../runbooks/PUBLICATION_RELEASE.md)
 documents citation, licensing, exact release identity and local archive packaging.
 `verify:release` rejects an app built from different source or data, even if its
 version is unchanged. `verify:deploy` compares that identity with `/release.json`
@@ -18,7 +18,7 @@ on the deployed site. Exports carry the same identity.
 `pnpm run build:agent-export` packages every dataset's published bundle results
 as plain CSV with agent instructions, for a manual Zenodo deposit linked from
 `/methods/`. It reads `public/datasets/` and writes only the ignored
-`dist-export/`; see the [agent export runbook](../AGENT_EXPORT.md).
+`dist-export/`; see the [agent export runbook](../runbooks/AGENT_EXPORT.md).
 For app-only TypeScript validation use `pnpm exec tsc -p tsconfig.json --noEmit` and
 `pnpm exec tsc -p tsconfig.node.json --noEmit`. Both are incremental; delete the
 ignored `.tmp/tsc/` to force a full check.
@@ -39,7 +39,7 @@ to pin such an input rather than record a checksum no other checkout reproduces.
 The site is an assets Worker configured in [wrangler.jsonc](../../wrangler.jsonc).
 `pnpm run deploy:cf` runs `prepare:deploy`, `build`, `verify:release`,
 `wrangler deploy` and `verify:deploy`; `deploy:cf:dry` stops at
-`wrangler deploy --dry-run`. [prepare_deploy.mts](../../scripts/prepare_deploy.mts)
+`wrangler deploy --dry-run`. [prepare_deploy.mts](../../scripts/deploy/prepare_deploy.mts)
 fetches the gitignored inputs the build ships (query catalog, tracker catalog,
 reference atlases) when they are missing, keeps complete local atlases, and stops
 when the local query pointers differ from the data origin's, because the app
@@ -47,20 +47,20 @@ would pin an index R2 does not serve (`--refresh-query` takes the origin's).
 `verify:release` fails when `dist/` lacks an atlas file or the tracker catalog,
 and `verify:deploy` checks that the live site serves them. Keep the
 assets-only site on native Cloudflare delivery. Cloudflare compresses at the
-edge and ignores the sidecars, so `public/.htaccess`, `scripts/precompress_dist.mts`
+edge and ignores the sidecars, so `public/.htaccess`, `scripts/deploy/precompress_dist.mts`
 and `deploy:dist` are kept only as an Apache rollback; `public/_headers` is the
 live cache policy.
 
 The R2 custom domain `data.hypoexplorer.com` serves bundles directly; no Worker
 sits in front of it (the earlier data gate Worker was retired in 2026-10). R2
 egress is free, so the cost to bound is Class B reads on edge-cache misses.
-[Edge protection](../EDGE_PROTECTION.md) documents the data host's edge cache
+[Edge protection](../runbooks/EDGE_PROTECTION.md) documents the data host's edge cache
 and WAF rules, the cache purge after an upload, and the scheduled spend guard
 Worker that blocks the data host when month-to-date Class B reads reach
 8,000,000 (the free allowance is 10 million per month).
 
 Dataset bundles and the query indexes are published together by `upload:bundles`;
-inspect [the uploader](../../scripts/upload_bundles_r2.mts) before use. It refuses
+inspect [the uploader](../../scripts/deploy/upload_bundles_r2.mts) before use. It refuses
 bundles restored from the public data release (`fetch:data`, `data:offline`),
 whose KEGG collections and macaque per-animal CPM are emptied: the marker
 `fetch:data` writes, the release's `KEGG_NOT_INCLUDED.md`, an empty macaque `cpm`
@@ -121,7 +121,7 @@ immutable caching on everything else. When enabled, the service worker also
 limits mutable pointers to 300 seconds. App version 0.14.2 changes their browser URLs to escape
 previously cached responses. The edge lifetime of the pointers follows the edge
 cache rules and the post-upload purge described in
-[edge protection](../EDGE_PROTECTION.md).
+[edge protection](../runbooks/EDGE_PROTECTION.md).
 `public/query/` is generated and ignored. Off-origin builds remove dataset,
 query and QC trees from site assets; the tracker catalog stays origin-relative.
 Prerendered public documents are real assets.
@@ -162,13 +162,13 @@ evidence ledgers are separate chunks reached only from the views that use them.
 Use groups, not `manualChunks`: Rolldown's shim captures a matched module with
 its dependencies, which once put React inside the charts chunk and made every
 page download recharts. After a build, check the `modulepreload` links in
-`dist/index.html`; [the November 20 record](../APP_LOADING_2026-11-20.md) has the
+`dist/index.html`; [the November 20 record](../records/APP_LOADING_2026-11-20.md) has the
 measurements. `public/_headers` gives `/fonts/*` and `/brand/*` one day of
 freshness with a week of stale-while-revalidate, since their names are stable
 but not hashed. The hub's data-origin light probes with a bodiless HEAD.
 
-The [September 15 loading audit](../DATA_LOADING_AUDIT_2026-09-15.md) records baseline
-payload measurements; [the implementation report](../DATA_LOADING_IMPLEMENTATION_2026-09-15.md)
+The [September 15 loading audit](../records/DATA_LOADING_AUDIT_2026-09-15.md) records baseline
+payload measurements; [the implementation report](../records/DATA_LOADING_IMPLEMENTATION_2026-09-15.md)
 records the changes and their validation. Immutable
 query objects use their data build ID alone as the browser cache key. Mutable
 dataset filenames, metadata, nomenclature and query pointers use the first 32

@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "6a92d7ebb95eba7ae05b2ecb7d83a9b2d0239c509e00b65e9020300c7f6c0710",
-  "outcome": "no-impact",
-  "explanation": "From main: workflows.md changed only in its ui-change route (lazy views and test preloading). The dataset-change route, its builders, registry rules, bundle checks and contracts are unchanged, and no dataset, bundle or registry file was touched. From the cross-study listing: No dataset registration, bundle builder, sidecar or query index format changed. The row builders add a tier derived from the q and p they already read, so a dataset change still produces the same bundles and index shards; only how the views order and label those rows moved into src/statistics.",
+  "fingerprint": "df61e11c81fafc8aad8c30536181b344a92557f4253c7116e19659623e8b5353",
+  "outcome": "updated",
+  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: pending verification-advancement replays go to a GitHub issue and OXT/AVP step 7 names the maintainer-only checks. Dataset contract and real shapes stay at docs/; builders and registry rules are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "docs/DATASET_CONTRACT.md",
-    "src/data/crossDatasetRows.ts"
+    "data/intake/oxt-avp-2026-10-19/README.md",
+    "docs/DATASET_CONTRACT.md"
   ]
 }

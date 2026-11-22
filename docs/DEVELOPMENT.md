@@ -54,7 +54,7 @@ pnpm run dev:offline    # http://localhost:5173, reading public/ only
 - `data:offline` runs `fetch:data --no-matrices` (the release in
   `data-release.json`, checked against its SHA-256 values), then
   `build:query-index` and `build:expression-index` over the restored bundles.
-- `dev:offline` (`scripts/dev_offline.mjs`) starts Vite in `offline` mode with
+- `dev:offline` (`scripts/dev/dev_offline.mjs`) starts Vite in `offline` mode with
   `VITE_BUNDLE_BASE_URL` forced empty, even if your shell sets it, so every bundle
   and index is read same-origin from `public/`. It refuses to start until
   `data:offline` has run.
@@ -102,7 +102,7 @@ first, and `pnpm test` needs `pnpm run fetch:expression` as well.
 Deploys are manual. `pnpm run deploy:cf` needs `.env.cfdeploy` with the Cloudflare
 credentials, and runs:
 
-1. `prepare:deploy` (`scripts/prepare_deploy.mts`). It fetches the inputs a
+1. `prepare:deploy` (`scripts/deploy/prepare_deploy.mts`). It fetches the inputs a
    production build ships but this repository does not carry: the query catalog
    from the data origin, the tracker catalog from hypoexplorer.com, and any GTEx,
    HPA or Allen atlas under `public/expression/` that is missing or incomplete.
@@ -160,8 +160,8 @@ Every pull request to `main` must pass these checks:
 - [CONTEXT.md](../CONTEXT.md): domain vocabulary (dataset, track, group, contrast). Read it before changing the data layer.
 - [DATASET_CONTRACT.md](DATASET_CONTRACT.md): the data shapes a dataset bundle must provide.
 - [REAL_DATA_SHAPES.md](REAL_DATA_SHAPES.md): quirks of the upstream tables the builders handle.
-- [EXPRESSION_SURVEY.md](EXPRESSION_SURVEY.md): survey sources, scales and eligibility.
-- [AGENT_EXPORT.md](AGENT_EXPORT.md): the full analysis-table export.
-- [SEO.md](SEO.md): static study pages and source attribution.
-- [PERF_BASELINE.md](PERF_BASELINE.md) and [REFACTOR_CHECKLIST.md](REFACTOR_CHECKLIST.md): what to measure and what to preserve.
+- [EXPRESSION_SURVEY.md](runbooks/EXPRESSION_SURVEY.md): survey sources, scales and eligibility.
+- [AGENT_EXPORT.md](runbooks/AGENT_EXPORT.md): the full analysis-table export.
+- [SEO.md](runbooks/SEO.md): static study pages and source attribution.
+- [PERF_BASELINE.md](runbooks/PERF_BASELINE.md) and [REFACTOR_CHECKLIST.md](runbooks/REFACTOR_CHECKLIST.md): what to measure and what to preserve.
 - [DESIGN.md](../DESIGN.md) and [PRODUCT.md](../PRODUCT.md): the design system and product commitments.

@@ -3,7 +3,7 @@ import sharp from 'sharp';
 import { mkdir, writeFile, copyFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
-const root = resolve(import.meta.dirname, '..');
+const root = resolve(import.meta.dirname, '../..');
 const source = resolve(root, 'brand/source');
 const exportsDir = resolve(root, 'brand/exports');
 const delivery = resolve(root, 'public/brand/v1');

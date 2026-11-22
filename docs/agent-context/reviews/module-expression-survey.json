@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-expression-survey",
-  "fingerprint": "21cfd4aa8b9705608b2d93cec91d76fcfd6d92878c6bcc777f5002a645f417a7",
+  "fingerprint": "1d5c703f8b48dc8dfc87392624ee5b72963737138356d53254323ff01d47ff9f",
   "outcome": "no-impact",
-  "explanation": "Only expressionSurvey.css changed: the page heading takes the shared reference-page title values and the header top padding goes from 32px to 28px. No view logic, data access, index code or documented behaviour changed.",
+  "explanation": "Directory reorganization: loose docs moved to docs/runbooks/ and docs/records/, and deploy, fetch and dev tooling scripts moved to scripts/deploy/, scripts/fetch/ and scripts/dev/. The expression survey runbook moved to docs/runbooks/ with relative links adjusted; survey code and reference data are untouched.",
   "references": [
-    "src/expression-survey/expressionSurvey.css",
-    "src/common/prose.css"
+    "docs/runbooks/EXPRESSION_SURVEY.md",
+    "src/expression-survey/expressionData.ts"
   ]
 }

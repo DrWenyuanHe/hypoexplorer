@@ -20,13 +20,13 @@ path that R2 must look up before answering 404.
 
 | Piece | Where | Effect |
 | --- | --- | --- |
-| `hypoexplorer_data_cache` | cache rule, [payload](../cloudflare/http_request_cache_settings/hypoexplorer_data_cache.json) | Every response on the data host is eligible for cache. The cache key ignores the query string, so `?v=` values cannot force misses. Edge and browser TTLs follow the origin's `Cache-Control`. |
-| `hypoexplorer_data_methods` | custom rule, [payload](../cloudflare/http_request_firewall_custom/hypoexplorer_data_methods.json) | Blocks every method except GET and HEAD on the data host. |
-| `hypoexplorer_data_paths` | custom rule, [payload](../cloudflare/http_request_firewall_custom/hypoexplorer_data_paths.json) | Allows `/datasets/`, `/query/` and `/qc/` paths ending in `.js` or `.pdf`, and the pinned HypoMap atlas files under `/hypomap/<tag>/`. Blocks every other path, paths containing `..` or `//`, and paths longer than 256 bytes. |
-| `hypoexplorer_data_shutoff` | custom rule, [payload](../cloudflare/http_request_firewall_custom/hypoexplorer_data_shutoff.json) | Blocks every request to the data host. Created **disabled**. Only the spend guard toggles it. |
-| `hypoexplorer_data_burst` | rate limiting rule, [payload](../cloudflare/http_ratelimit/hypoexplorer_data_burst.json) | Counts `/datasets/`, `/query/`, `/qc/` and `/hypomap/<tag>/` requests. More than 400 in 10 seconds from one IP at one Cloudflare location blocks that IP for 10 seconds. |
-| Upload purge | [uploader](../scripts/upload_bundles_r2.mts) | After a real upload, purges the changed keys from the edge cache. |
-| Spend guard | [Worker](../workers/spend-guard/src/index.ts) | Every 10 minutes, enables the shutoff rule when month-to-date Class B operations on the bucket reach 8,000,000, and disables it again when they are below that (on the first run of each UTC month). |
+| `hypoexplorer_data_cache` | cache rule, [payload](../../cloudflare/http_request_cache_settings/hypoexplorer_data_cache.json) | Every response on the data host is eligible for cache. The cache key ignores the query string, so `?v=` values cannot force misses. Edge and browser TTLs follow the origin's `Cache-Control`. |
+| `hypoexplorer_data_methods` | custom rule, [payload](../../cloudflare/http_request_firewall_custom/hypoexplorer_data_methods.json) | Blocks every method except GET and HEAD on the data host. |
+| `hypoexplorer_data_paths` | custom rule, [payload](../../cloudflare/http_request_firewall_custom/hypoexplorer_data_paths.json) | Allows `/datasets/`, `/query/` and `/qc/` paths ending in `.js` or `.pdf`, and the pinned HypoMap atlas files under `/hypomap/<tag>/`. Blocks every other path, paths containing `..` or `//`, and paths longer than 256 bytes. |
+| `hypoexplorer_data_shutoff` | custom rule, [payload](../../cloudflare/http_request_firewall_custom/hypoexplorer_data_shutoff.json) | Blocks every request to the data host. Created **disabled**. Only the spend guard toggles it. |
+| `hypoexplorer_data_burst` | rate limiting rule, [payload](../../cloudflare/http_ratelimit/hypoexplorer_data_burst.json) | Counts `/datasets/`, `/query/`, `/qc/` and `/hypomap/<tag>/` requests. More than 400 in 10 seconds from one IP at one Cloudflare location blocks that IP for 10 seconds. |
+| Upload purge | [uploader](../../scripts/deploy/upload_bundles_r2.mts) | After a real upload, purges the changed keys from the edge cache. |
+| Spend guard | [Worker](../../workers/spend-guard/src/index.ts) | Every 10 minutes, enables the shutoff rule when month-to-date Class B operations on the bucket reach 8,000,000, and disables it again when they are below that (on the first run of each UTC month). |
 
 Blocked requests are answered by the WAF with Cloudflare's 403 page before the
 cache or R2 is consulted, so they cost nothing.
@@ -38,13 +38,13 @@ allowed prefix and extension still reaches R2 and costs one Class B read. The ra
 limit and the spend guard bound that cost.
 
 The HypoMap atlas branch admits only the tag pinned in
-[hypomap-release.json](../hypomap-release.json): `manifest.json`,
+[hypomap-release.json](../../hypomap-release.json): `manifest.json`,
 `metadata.json.gz` and `search-index.json.gz` by exact path, and gene shards as
 `genes-` followed by exactly four characters and `.json.gz`, checked by prefix,
 suffix and path length. Without a regular expression the rule cannot require
 those four characters to be digits. Any other four characters reach R2 as a
 404, like any other random key. The shared shape is in
-[hypomapAtlas.mts](../scripts/lib/hypomapAtlas.mts). Because the tag is part of
+[hypomapAtlas.mts](../../scripts/lib/hypomapAtlas.mts). Because the tag is part of
 the rule, a new atlas tag needs `pnpm run edge:apply --apply` before an app that
 reads that tag is deployed.
 
@@ -52,7 +52,7 @@ reads that tag is deployed.
 
 The uploader stores `Cache-Control: public, max-age=300` on `query/tracks.js` and
 `query/expression-manifest.js`, and `public, max-age=31536000, immutable` on
-everything else ([r2Incremental.mts](../scripts/lib/r2Incremental.mts)). With both
+everything else ([r2Incremental.mts](../../scripts/lib/r2Incremental.mts)). With both
 TTLs set to "respect origin", the pointers stay at 300 seconds at the edge and in
 browsers. A zone-level Browser Cache TTL longer than the origin's value once
 forced four hours on the pointers. Cloudflare raises the browser TTL to the zone
@@ -88,10 +88,10 @@ bytes for a year under the immutable header. A purge cannot reach browser caches
 The dataset, query and QC paths need no CORS. Every request the app makes to them
 is a no-CORS request:
 
-- bundles load as `<script src>` ([bundleSource.ts](../src/data/bundleSource.ts));
-- QC PDFs load in an `<iframe>` or `<a>` ([QCTab.tsx](../src/qc/QCTab.tsx));
+- bundles load as `<script src>` ([bundleSource.ts](../../src/data/bundleSource.ts));
+- QC PDFs load in an `<iframe>` or `<a>` ([QCTab.tsx](../../src/qc/QCTab.tsx));
 - the reachability probe uses `fetch(..., { method: 'HEAD', mode: 'no-cors' })`
-  ([originHealth.ts](../src/data/originHealth.ts)), which the method rule
+  ([originHealth.ts](../../src/data/originHealth.ts)), which the method rule
   admits and which downloads no body.
 
 The only CORS fetch path is the optional streaming transport, enabled by
@@ -108,11 +108,11 @@ policy first:
 Apply it with `pnpm exec wrangler r2 bucket cors set hypoexplorer-datasets --file cors.json`, then purge the
 host ([R2 CORS](https://developers.cloudflare.com/r2/buckets/cors/)).
 
-The HypoMap atlas is different. [atlas.ts](../src/search/hypomap/atlas.ts) always
+The HypoMap atlas is different. [atlas.ts](../../src/search/hypomap/atlas.ts) always
 reads it with `fetch()`, so a hosted build with `VITE_HYPOMAP_EXPRESSION` on needs
 a bucket CORS policy for the app origins, whatever `VITE_BUNDLE_CORS` says.
 R2 CORS policies apply to the whole bucket, not to one prefix. The
-[delivery runbook](agent-context/delivery.md#hypomap-atlas) gives the policy, the
+[delivery runbook](../agent-context/delivery.md#hypomap-atlas) gives the policy, the
 checks and the fallback. The method rule blocks `OPTIONS`, so atlas reads must stay
 simple GET requests with no custom headers, which need no preflight.
 
@@ -218,7 +218,7 @@ After the cutover, `GATE_STATUS_KEY` in `.env.local` is unused and can be delete
    a new month the count is low again, and the run disables the rule.
 
 The guard is configured through `vars` in
-[wrangler.jsonc](../workers/spend-guard/wrangler.jsonc):
+[wrangler.jsonc](../../workers/spend-guard/wrangler.jsonc):
 
 - `GUARD_MODE`:
   - `enforce` writes.
