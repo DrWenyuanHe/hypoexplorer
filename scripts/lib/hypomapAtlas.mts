@@ -4,7 +4,7 @@
 // uploader (upload_bundles_r2.mts) and their tests.
 //
 // The release holds manifest.json, metadata.json.gz, search-index.json.gz and
-// gene shards genes-NNNN.json.gz (scripts/fetch_hypomap.mts installs and
+// gene shards genes-NNNN.json.gz (scripts/fetch/fetch_hypomap.mts installs and
 // verifies them under public/hypomap/<tag>/).
 import { createHash } from 'node:crypto';
 import { readdir, readFile } from 'node:fs/promises';

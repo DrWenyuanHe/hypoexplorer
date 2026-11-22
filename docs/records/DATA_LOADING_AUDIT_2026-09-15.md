@@ -5,7 +5,7 @@ index, incremental uploader and cache corrections are documented in
 [the implementation report](DATA_LOADING_IMPLEMENTATION_2026-09-15.md).
 
 > Note (2026-10): the data gate Worker described here was retired; see
-> [edge protection](EDGE_PROTECTION.md) for the current data-host protection.
+> [edge protection](../runbooks/EDGE_PROTECTION.md) for the current data-host protection.
 
 ## Conclusion
 
@@ -51,7 +51,7 @@ NeuroSeq's manifest is 48,474 bytes, gene directory 4,006,871 bytes and Lepr sha
 63,019 bytes. Most of that first-query cost is the directory. Its entire collection
 is 259 JSON files / 17,777,289 bytes; it is not all downloaded for one gene.
 Exact paths, source hashes and compression estimates are retained in
-[the byte census](../data/performance/loading-audit-2026-09-15.json).
+[the byte census](../../data/performance/loading-audit-2026-09-15.json).
 
 The existing-source adapter correctly omits pathways, but still downloads full
 DE tables and expression arrays for every gene in each selected track. One requested
@@ -89,7 +89,7 @@ These observations cover sampled responses, not every object or edge location.
 Two subsequent tiny metadata GETs measured 622.7 ms on a new connection and
 72.8 ms on the reused connection, both CDN HIT and 2,296 compressed bytes.
 These are HTTP request durations, not browser page speed or pure network RTT.
-[Retained public response evidence](../data/performance/r2-cache-audit-2026-09-15.json).
+[Retained public response evidence](../../data/performance/r2-cache-audit-2026-09-15.json).
 
 The mutable `/query/tracks.js` pointer returned `Cache-Control: public,
 max-age=14400` (four hours), while the uploader specifies 300 seconds. This can

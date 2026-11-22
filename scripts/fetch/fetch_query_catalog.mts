@@ -19,7 +19,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const OUT = path.join(ROOT, 'public/query');
 const base = (process.env.VITE_BUNDLE_BASE_URL || 'https://data.hypoexplorer.com').replace(/\/+$/, '');
 

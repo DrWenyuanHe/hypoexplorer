@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "00c6863b03e032b014f3bc98375252dabdc06f2bbbaf6310696ea6944d33a530",
+  "fingerprint": "b876b0d3b792447999c9a07985b8190d53af8e887125e9dce94ad29802542884",
   "outcome": "updated",
-  "explanation": "The verification route and author-validation README now name pnpm exec tsx scripts/build_quality_report_r460.mts --check as the public freshness check for the quality report, keeping check:quality as maintainer-only. The quality report producer prints the same command. Policies, ledgers, assessments and sealed producers are unchanged.",
+  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: the verification route and author-validation README name build_quality_report_r460.mts --check as the public quality-report freshness check. Links into moved runbooks resolve under docs/runbooks/; policies and ledgers are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
     "data/author-validation/README.md",

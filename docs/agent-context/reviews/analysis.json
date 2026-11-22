@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "analysis",
-  "fingerprint": "359ae7a11ef9b38a86d8d8cfd45065b73a3e18fcac3259fc87d7b4151c993bcf",
+  "fingerprint": "bf6696fc7a0b151b369a9290aa368bafddfb14d29696264472b1e9c8c6fad5bd",
   "outcome": "updated",
-  "explanation": "Command pointers only. The author-validation README, the OXT/AVP intake runbook step 7 and the quality report text (build_quality_report_r460.mts and its generated report) now name build_quality_report_r460.mts --check in place of check:quality, which this repository does not carry. Assessments, policies, ledgers and dated evidence records are unchanged.",
+  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: the author-validation README, OXT/AVP intake step 7 and the quality report name build_quality_report_r460.mts --check instead of check:quality. From this branch: three data/expression README plan links now point to docs/records/. No evidence or result changed.",
   "references": [
     "data/author-validation/README.md",
     "data/intake/oxt-avp-2026-10-19/README.md",
     "scripts/build_quality_report_r460.mts",
-    "data/quality/QUALITY_REPORT.generated.md"
+    "data/expression/gtex/README.md"
   ]
 }

@@ -3,14 +3,14 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { createReadStream, existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative, resolve } from 'node:path';
-import { readReleaseBuild, releaseSourceFiles } from './lib/releaseBuild.mjs';
-import { createPublicationArchive } from './lib/publicationArchive.mjs';
+import { readReleaseBuild, releaseSourceFiles } from '../lib/releaseBuild.mjs';
+import { createPublicationArchive } from '../lib/publicationArchive.mjs';
 
 // Packages only an already verified build. No network writes or DOI assignment.
 const root = process.cwd();
 const dist = resolve(root, process.argv[2] ?? 'dist');
 execFileSync(process.execPath, [resolve(root, 'node_modules/tsx/dist/cli.mjs'),
-  resolve(root, 'scripts/verify_release.mts'), dist], { cwd: root, windowsHide: true, stdio: 'inherit' });
+  resolve(root, 'scripts/deploy/verify_release.mts'), dist], { cwd: root, windowsHide: true, stdio: 'inherit' });
 const release = readReleaseBuild(root);
 const built = JSON.parse(readFileSync(join(dist, 'release.json'), 'utf8'));
 assert.equal(built.releaseId, release.releaseId, 'Build is stale: rebuild and verify before packaging');

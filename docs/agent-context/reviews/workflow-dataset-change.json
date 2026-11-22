@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "d7848a00369300c629251844b298c30e0d24612379b78b9a9c2661f17fdeb96a",
+  "fingerprint": "df61e11c81fafc8aad8c30536181b344a92557f4253c7116e19659623e8b5353",
   "outcome": "updated",
-  "explanation": "The dataset-change route now records a pending verification-advancement replay in a GitHub issue instead of TODOS.md, which only redirects to issues. The OXT/AVP runbook step 7 says which checks exist only in the maintainer checkout. Builders, registry rules and bundle checks are unchanged.",
+  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: pending verification-advancement replays go to a GitHub issue and OXT/AVP step 7 names the maintainer-only checks. Dataset contract and real shapes stay at docs/; builders and registry rules are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
     "data/intake/oxt-avp-2026-10-19/README.md",
-    "TODOS.md"
+    "docs/DATASET_CONTRACT.md"
   ]
 }

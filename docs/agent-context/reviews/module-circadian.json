@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-circadian",
-  "fingerprint": "8fe93497599fd4e52d15318aaf08ed7f2f9c93f31ba3de24d407173d7835c7e7",
-  "outcome": "updated",
-  "explanation": "CircadianResultsTable runs its three exports (rhythmicity CSV, raw time-course CSV, workbook) inside withExportEvidence, so their provenance can read the internal QC ledger that now loads on the first export. The export functions in circadianExport.ts are unchanged and still synchronous where they were.",
+  "fingerprint": "916d93d7d1213540f55d503cc900ab7ea3308ec0f6a97930d198027a51f20c71",
+  "outcome": "no-impact",
+  "explanation": "The circadian validation runbook moved to docs/runbooks/ with relative links adjusted. The workbook session now copies a pooled Node Buffer with new Uint8Array(bytes) instead of Buffer.slice, which returned a view of the whole pool and produced an unreadable file; the workbook protocol, sheets and browser path are unchanged.",
   "references": [
-    "src/circadian/CircadianResultsTable.tsx",
-    "src/circadian/circadianExport.ts",
-    "src/utils/lazyExport.ts"
+    "docs/runbooks/CIRCADIAN_VALIDATION.md",
+    "src/circadian/circadianWorkbook.ts",
+    "src/__tests__/circadianWorkbook.test.ts"
   ]
 }

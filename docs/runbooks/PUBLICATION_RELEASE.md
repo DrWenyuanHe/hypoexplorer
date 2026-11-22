@@ -29,7 +29,7 @@ sample-value and workbook helpers.
    release (`pnpm run fetch:data`) has KEGG and the macaque per-animal CPM removed
    and is not a publication source. Retained historical checks require the Git
    history and the documented analysis environments. See the
-   [delivery contract](agent-context/delivery.md).
+   [delivery contract](../agent-context/delivery.md).
 3. Run `pnpm run build`. It runs `vite build` only: run the scientific checks
    (`check:*`) that apply separately. The app CI build and browser tests do not
    replace them.
@@ -74,7 +74,7 @@ approval. Record the returned DOI and archive URL in `CITATION.cff` and the publ
 citation guide; never invent or borrow a DOI. A local package is not a public
 archive. Keep old deposited versions accessible when updating the site.
 
-The [MIT license](../LICENSE) covers original code. [REUSE.md](../REUSE.md) applies
+The [MIT license](../../LICENSE) covers original code. [REUSE.md](../../REUSE.md) applies
 CC BY 4.0 to original contributions to derived outputs and explicitly preserves
 source-study and third-party terms. The archive does not grant rights the author
 does not hold.

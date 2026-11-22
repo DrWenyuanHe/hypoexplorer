@@ -1,7 +1,7 @@
 // Reconcile the data host's zone edge rules (cloudflare/<phase>/<ref>.json) with
 // the zone's Rulesets API entry points. DRY RUN BY DEFAULT: it reads the three
 // entry points and prints what it would create or update. Nothing is written
-// without --apply. docs/EDGE_PROTECTION.md is the operator runbook.
+// without --apply. docs/runbooks/EDGE_PROTECTION.md is the operator runbook.
 //
 //   npm run edge:apply                       # read-only plan
 //   npm run edge:apply -- --apply            # write the plan, then purge the data host if the cache rule changed
@@ -17,12 +17,12 @@
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
-import { CloudflareApiError, createCloudflareClient, resolveEdgeCredentials, type CloudflareClient } from './lib/cloudflareApi.mjs';
+import { CloudflareApiError, createCloudflareClient, resolveEdgeCredentials, type CloudflareClient } from '../lib/cloudflareApi.mjs';
 import {
   buildEdgeRules, CACHE_PHASE, CUSTOM_PHASE, DATA_HOST, describePlan, EDGE_PHASES, payloadPath, planPhase,
   RATELIMIT_PHASE, validateRule, type EdgePhase, type EdgeRule, type PhasePlan, type RemoteRuleset,
-} from './lib/edgeRules.mjs';
-import { manualPurgeInstructions, purgeEdgeCache } from './lib/edgePurge.mjs';
+} from '../lib/edgeRules.mjs';
+import { manualPurgeInstructions, purgeEdgeCache } from '../lib/edgePurge.mjs';
 
 const argv = process.argv.slice(2);
 const known = new Set(['--apply', '--purge-host', '--write-payloads', '--env-file']);
@@ -66,7 +66,7 @@ if (!token) {
   console.error([
     'CLOUDFLARE_EDGE_TOKEN is not set (environment, --env-file or .env.local).',
     'Create a custom API token for the hypoexplorer.com zone with: Zone > Cache Rules > Edit,',
-    'Zone > Zone WAF > Edit, Zone > Cache Purge > Purge. See docs/EDGE_PROTECTION.md.',
+    'Zone > Zone WAF > Edit, Zone > Cache Purge > Purge. See docs/runbooks/EDGE_PROTECTION.md.',
   ].join('\n'));
   process.exit(2);
 }

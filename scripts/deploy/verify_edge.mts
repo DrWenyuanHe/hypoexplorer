@@ -1,5 +1,5 @@
 // Read-only live probes of the data host's zone edge rules. Run AFTER
-// `npm run edge:apply -- --apply` (docs/EDGE_PROTECTION.md). About a dozen small
+// `npm run edge:apply -- --apply` (docs/runbooks/EDGE_PROTECTION.md). About a dozen small
 // requests; it never probes the rate limit (that would block this address).
 //
 //   npm run verify:edge
@@ -21,7 +21,7 @@
 //      response to a request without Origin still carries CORS for the app.
 //      APP_ORIGIN overrides the app origin (default https://hypoexplorer.com).
 import { randomBytes } from 'node:crypto';
-import { HYPOMAP_PATH_PREFIX } from './lib/hypomapAtlas.mjs';
+import { HYPOMAP_PATH_PREFIX } from '../lib/hypomapAtlas.mjs';
 
 const origin = (process.env.DATA_ORIGIN ?? 'https://data.hypoexplorer.com').replace(/\/+$/, '');
 const appOrigin = (process.env.APP_ORIGIN ?? 'https://hypoexplorer.com').replace(/\/+$/, '');
@@ -114,6 +114,6 @@ if (allowGate) console.log(`INFO  gate Worker ${gateSeen ? 'still answers (expec
 const failures = results.filter((result) => !result.ok).length;
 console.log(`\n${results.length - failures}/${results.length} checks passed against ${origin}.`);
 if (failures) {
-  console.error('Edge protection is not in the expected state. docs/EDGE_PROTECTION.md lists the rollback for each step.');
+  console.error('Edge protection is not in the expected state. docs/runbooks/EDGE_PROTECTION.md lists the rollback for each step.');
   process.exitCode = 1;
 }

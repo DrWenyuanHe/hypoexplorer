@@ -43,7 +43,7 @@ import zlib from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DIST = path.resolve(__dirname, '..', 'dist');
+const DIST = path.resolve(__dirname, '../..', 'dist');
 
 // Compress only text assets big enough to matter: below ~4 KB the sidecar +
 // header overhead eats the win and TCP ships it in a packet or two anyway.

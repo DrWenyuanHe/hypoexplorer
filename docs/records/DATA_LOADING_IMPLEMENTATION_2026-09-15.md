@@ -1,7 +1,7 @@
 # Data loading improvements — 2026-09-15
 
 > Note (2026-10): the data gate Worker described here was retired; see
-> [edge protection](EDGE_PROTECTION.md) for the current data-host protection.
+> [edge protection](../runbooks/EDGE_PROTECTION.md) for the current data-host protection.
 
 ## Implemented behavior
 
@@ -24,7 +24,7 @@ tracks. NeuroSeq continues to use its previously validated separate source impor
 
 ## Fidelity and publication safety
 
-The retained [validation evidence](../data/expression/existing/validation.json)
+The retained [validation evidence](../../data/expression/existing/validation.json)
 records 534,346 feature rows and **5,785,609 exact finite sample values**, with zero
 numerical difference. Every normalized source query matches the full-track adapter;
 raw sample identities are independently aligned. Fourteen ambiguous source keys
@@ -55,7 +55,7 @@ Read-only checks against the real R2 API verified an existing metadata object wa
 unchanged and produced zero PUT callbacks. The new expression generation needs
 514 initial objects / 24,090,848 stored bytes (24.1 MB); repeated preparation reused
 all 514 verified compressed files. No objects were uploaded during these checks.
-[Retained remote comparison](../data/performance/r2-incremental-verification-2026-09-15.json).
+[Retained remote comparison](../../data/performance/r2-incremental-verification-2026-09-15.json).
 
 ## Cache correction
 
@@ -98,4 +98,4 @@ fingerprint mismatches remain outside this loading change.
 These implementation changes are local. The Cloudflare checks were read-only;
 the new index and cache Worker have not been published. Publish data before the
 app that references it, then deploy the gate and verify both live pointers. The
-[delivery runbook](agent-context/delivery.md) contains the exact commands.
+[delivery runbook](../agent-context/delivery.md) contains the exact commands.

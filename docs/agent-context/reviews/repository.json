@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "18f03ec9fc3167b1322e335cce9767236afdae90718b06a25854799bad5c78b5",
+  "fingerprint": "ef2e748bedc60f226a3d2d357a8364e57c45a5f07476991777d71a876ff46986",
   "outcome": "updated",
-  "explanation": "PROJECT_GUIDANCE.md and REFACTOR_CHECKLIST.md now point pending ledger rebuilds and follow-ups at GitHub issues, since TODOS.md only redirects there. workflows.md verification names the public quality-report freshness check. No code or configuration behavior changed.",
+  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: PROJECT_GUIDANCE.md and the refactor checklist point follow-ups and pending ledger rebuilds at GitHub issues. From this branch: package.json script paths, docs/README.md, scripts/README.md and .vscode/settings.json reflect the new layout.",
   "references": [
     "docs/PROJECT_GUIDANCE.md",
-    "docs/REFACTOR_CHECKLIST.md",
-    "TODOS.md"
+    "docs/runbooks/REFACTOR_CHECKLIST.md",
+    "package.json",
+    "scripts/README.md",
+    ".vscode/settings.json"
   ]
 }

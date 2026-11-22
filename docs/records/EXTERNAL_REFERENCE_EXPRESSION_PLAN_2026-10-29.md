@@ -15,7 +15,7 @@ All three providers send `Access-Control-Allow-Origin: *`, so a browser on
 hypoexplorer.com could call GTEx and HPA directly. We will not do that.
 
 - The survey only says "verified" when every value matches a retained source
-  (see [the survey runbook](EXPRESSION_SURVEY.md)). Live responses cannot be
+  (see [the survey runbook](../runbooks/EXPRESSION_SURVEY.md)). Live responses cannot be
   archived, hashed or replayed by a `--check` mode.
 - Third-party uptime becomes ours. On 2026-10-29 the Allen human microarray
   service returned `"Informatics service request failed"` for every query, and the
@@ -45,7 +45,7 @@ a response; "docs" means read in provider documentation only.
 
 The initial probe responses were not retained. Phase 0 reran the load-bearing
 requests and retained them under
-[`data/expression/external-reference/phase0-2026-10-29/`](../data/expression/external-reference/phase0-2026-10-29/README.md).
+[`data/expression/external-reference/phase0-2026-10-29/`](../../data/expression/external-reference/phase0-2026-10-29/README.md).
 Where the two disagree, the Phase 0 figures below supersede this table.
 
 ## Phase 0 results
@@ -299,7 +299,7 @@ Decisions, resolved 2026-10-29 (the project owner accepted the recommendations):
 ## Context maintenance
 
 Each phase changes source under `src/`, `scripts/`, `data/` and `docs/`, so each
-PR runs the [maintenance procedure](agent-context/README.md): `context:review`,
+PR runs the [maintenance procedure](../agent-context/README.md): `context:review`,
 `context:generate`, per-area review records, `context:check` and `test:context`.
 Expected areas: `expression-survey`, `search`, `types`, `acknowledgements`.
 

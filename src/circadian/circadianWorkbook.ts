@@ -75,9 +75,10 @@ export function startWorkbook(XLSX: XLSXModule, start: WorkbookStart): WorkbookS
       const bytes = XLSX.write(wb, { bookType: 'xlsx', type: 'buffer', compression: true }) as Uint8Array;
       // A view onto part of a larger (pooled) buffer must be copied out so the
       // returned ArrayBuffer holds exactly the file and can be transferred.
+      // Not bytes.slice(): on a Node Buffer that is another view of the pool.
       return bytes.byteOffset === 0 && bytes.byteLength === bytes.buffer.byteLength
         ? bytes.buffer as ArrayBuffer
-        : bytes.slice().buffer as ArrayBuffer;
+        : new Uint8Array(bytes).buffer;
     },
   };
 }

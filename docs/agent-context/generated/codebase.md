@@ -325,7 +325,7 @@ Start here:
 - [src/circadian/CircadianTab.tsx](<../../../src/circadian/CircadianTab.tsx>)
 - [src/circadian/multipleTesting.ts](<../../../src/circadian/multipleTesting.ts>)
 - [src/circadian/jtkCycle.ts](<../../../src/circadian/jtkCycle.ts>)
-- [docs/CIRCADIAN_VALIDATION.md](<../../CIRCADIAN_VALIDATION.md>)
+- [docs/runbooks/CIRCADIAN_VALIDATION.md](<../../runbooks/CIRCADIAN_VALIDATION.md>)
 
 Covered source files (17):
 - [src/circadian/ArmStatsStrip.tsx](<../../../src/circadian/ArmStatsStrip.tsx>)
@@ -572,7 +572,7 @@ Start here:
 - [src/expression-survey/ExpressionSurveyView.tsx](<../../../src/expression-survey/ExpressionSurveyView.tsx>)
 - [src/expression-survey/expressionData.ts](<../../../src/expression-survey/expressionData.ts>)
 - [src/expression-survey/sourceJson.ts](<../../../src/expression-survey/sourceJson.ts>)
-- [docs/EXPRESSION_SURVEY.md](<../../EXPRESSION_SURVEY.md>)
+- [docs/runbooks/EXPRESSION_SURVEY.md](<../../runbooks/EXPRESSION_SURVEY.md>)
 - [src/expression-survey/expressionIndex.ts](<../../../src/expression-survey/expressionIndex.ts>)
 - [data/expression/existing/README.md](<../../../data/expression/existing/README.md>)
 - [src/expression-survey/referenceExpression.ts](<../../../src/expression-survey/referenceExpression.ts>)

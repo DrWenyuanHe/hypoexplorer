@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "aa742e6f1882d7735c555df62e9d1b5c16899acea3a9f90f6264ed06a9da44eb",
-  "outcome": "updated",
-  "explanation": "From main: originHealth probes the data origin with a no-cors, no-store HEAD instead of a GET, so the hub light and error banners no longer download the 200 KB query manifest body. The diagnosis states, memo window and probe path are unchanged; EDGE_PROTECTION.md notes that the method rule admits HEAD. From the cross-study listing: geneRow and pathwayRow now set each row's significance tier once with significanceTier(q, p), and significant is that tier's FDR call; direction is unchanged, so the index and fallback paths still build identical rows. The unused summarizeGroup aggregate is removed from crossDataset.ts.",
+  "fingerprint": "32a2f1a3dae6816b19dc4dc4b3444ba8546af3075f590f65903acaa527df9c1c",
+  "outcome": "no-impact",
+  "explanation": "Directory reorganization: loose docs moved to docs/runbooks/ and docs/records/, and deploy, fetch and dev tooling scripts moved to scripts/deploy/, scripts/fetch/ and scripts/dev/. The data module only gained updated doc paths in siteInfo.ts and the tracker review note text; registry, loaders and quality decisions are unchanged.",
   "references": [
-    "src/data/crossDatasetRows.ts",
-    "src/data/crossDataset.ts",
-    "docs/REFACTOR_CHECKLIST.md",
-    "src/data/originHealth.ts",
-    "docs/EDGE_PROTECTION.md"
+    "src/data/siteInfo.ts",
+    "src/data/tracker/reviews.json",
+    "docs/runbooks/REFACTOR_CHECKLIST.md",
+    "docs/runbooks/EDGE_PROTECTION.md"
   ]
 }

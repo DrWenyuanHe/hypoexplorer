@@ -24,8 +24,8 @@ this repository.
   full-precision tables in `data/raw/results/` and `geo_replication/`.
 
 The archive and the column contracts live in
-[`scripts/build_agent_export.mts`](../scripts/build_agent_export.mts) and
-[`scripts/lib/agentExport.mts`](../scripts/lib/agentExport.mts). The contract
+[`scripts/build_agent_export.mts`](../../scripts/build_agent_export.mts) and
+[`scripts/lib/agentExport.mts`](../../scripts/lib/agentExport.mts). The contract
 test is `src/__tests__/agentExport.test.ts`.
 
 ## Options
@@ -48,7 +48,7 @@ this. A full build reads about 1.1 GB of bundles and takes about 1.5 minutes.
 
 ## Licensing decisions (2026-11-02)
 
-- HypoExplorer's contributions are CC BY 4.0, as in [REUSE.md](../REUSE.md).
+- HypoExplorer's contributions are CC BY 4.0, as in [REUSE.md](../../REUSE.md).
   Source studies, gene sets and nomenclature keep their own terms, which
   `LICENSE-DATA.md` lists.
 - **KEGG.** All `KEGG_*` pathways are MSigDB KEGG_LEGACY sets, which MSigDB

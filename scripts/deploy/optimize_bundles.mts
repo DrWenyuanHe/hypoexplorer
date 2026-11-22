@@ -20,16 +20,16 @@
 // (scripts/build_query_index.mts) so shard stats derive from the same bytes,
 // and re-upload (npm run upload:bundles) if bundles are served off-origin.
 //
-// Run:  npx tsx scripts/optimize_bundles.mts [--dry-run] [--only <datasetId>]
+// Run:  npx tsx scripts/deploy/optimize_bundles.mts [--dry-run] [--only <datasetId>]
 
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
-import { slimTrackObject, slimPathwayBlock } from './lib/bundleSlim.mjs';
+import { slimTrackObject, slimPathwayBlock } from '../lib/bundleSlim.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const REPO_ROOT = path.resolve(__dirname, '..');
+const REPO_ROOT = path.resolve(__dirname, '../..');
 const DATASETS_DIR = path.join(REPO_ROOT, 'public', 'datasets');
 
 const argv = process.argv.slice(2);

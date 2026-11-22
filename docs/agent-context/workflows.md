@@ -51,7 +51,7 @@ provenance, and `pnpm run check:oxt-avp` verifies public products and the
 source/model/output audit. GSE30733 remains held and is not an admitted manifest
 row. Preserve the declared pool units and deposited log-expression scale.
 
-Expression-only sources follow the [survey runbook](../EXPRESSION_SURVEY.md)
+Expression-only sources follow the [survey runbook](../runbooks/EXPRESSION_SURVEY.md)
 instead of creating a contrast. GSE147092 uses
 `scripts/build_oxt_reference.mts` and the
 [retained source import](../../data/expression/oxt-reference/README.md).
@@ -123,7 +123,7 @@ its earlier audit remains a historical record.
 
 `scripts/historical_native_runtime.py` relocates only its three allow-listed
 native replay invocations after verifying code, executable and package identity;
-follow the [native runtime runbook](../HISTORICAL_NATIVE_RUNTIME.md). It and its
+follow the [native runtime runbook](../runbooks/HISTORICAL_NATIVE_RUNTIME.md). It and its
 tests (`scripts/test_historical_native_runtime.py`) are in the maintainer's
 repository, not here.
 Missing source files or retrieval receipts still fail closed; the source-
@@ -149,7 +149,7 @@ checks still require their original source files.
 
 ## ui-change
 
-Read the [refactor checklist](../REFACTOR_CHECKLIST.md),
+Read the [refactor checklist](../runbooks/REFACTOR_CHECKLIST.md),
 [code map](generated/codebase.md), [shared contracts](generated/contracts.md)
 and [CONTEXT.md](../../CONTEXT.md). Inputs are the requested view/route and its
 dataset, track and contrast state. Routing uses appRouter/appLinks; every explorer
@@ -201,7 +201,7 @@ Run the app and script TypeScript checks documented in
 [project guidance](../PROJECT_GUIDANCE.md) and focused Vitest tests. Use a browser
 for navigation, loading, accessibility or layout changes.
 
-Circadian changes also follow [the numerical validation runbook](../CIRCADIAN_VALIDATION.md).
+Circadian changes also follow [the numerical validation runbook](../runbooks/CIRCADIAN_VALIDATION.md).
 Keep effective JTK period families, unsupported-design reasons, missing-value
 handling and within-gene versus gene-wise corrections explicit in the UI and
 exports. A matched numerical reference does not establish biological calibration

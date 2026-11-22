@@ -16,7 +16,7 @@ export const BETA_NOTICE = 'HypoExplorer is in beta testing.';
  * Zenodo DOI of the full-dataset agent export (`pnpm run build:agent-export`),
  * e.g. '10.5281/zenodo.1234567'. Null until the archive is deposited; the
  * methods page then says the download is not yet published. See
- * docs/AGENT_EXPORT.md.
+ * docs/runbooks/AGENT_EXPORT.md.
  *
  * @public Used by scripts/lib/seoGuides.mts.
  */

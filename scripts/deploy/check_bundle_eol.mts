@@ -5,12 +5,12 @@
 // that differ only in line endings and leaves anything with a real content
 // change for review.
 import { fileURLToPath } from 'node:url';
-import { FIXED_EOL_PATHSPECS, findEolDrift, restoreEolDrift } from './lib/bundleEol.mjs';
+import { FIXED_EOL_PATHSPECS, findEolDrift, restoreEolDrift } from '../lib/bundleEol.mjs';
 
 // Pathspecs resolve against the working directory, so from anywhere but the
 // repository root the pattern would match nothing and the gate would pass while
 // a stale copy remained. Anchor to this script's repository instead.
-const ROOT = fileURLToPath(new URL('..', import.meta.url));
+const ROOT = fileURLToPath(new URL('../..', import.meta.url));
 
 const drift = findEolDrift(FIXED_EOL_PATHSPECS, ROOT);
 if (drift === null) {
