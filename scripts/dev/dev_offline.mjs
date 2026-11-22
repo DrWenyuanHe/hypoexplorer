@@ -12,7 +12,7 @@ import { existsSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const at = (relative) => path.join(ROOT, relative);
 const restored = existsSync(at('public/datasets')) && readdirSync(at('public/datasets'), { withFileTypes: true })
   .some((entry) => entry.isDirectory() && readdirSync(at(`public/datasets/${entry.name}`)).some((file) => file.startsWith('track_')));

@@ -8,7 +8,7 @@ import {
 // ── Registry golden ───────────────────────────────────────────────────────────────────────
 // The fully-resolved DATASETS registry defines scientific data: which arms a
 // study compares, in which direction, under which expression unit (see
-// docs/REFACTOR_CHECKLIST.md, "Data-safety guardrail"). This snapshot pins
+// docs/runbooks/REFACTOR_CHECKLIST.md, "Data-safety guardrail"). This snapshot pins
 // EVERY field of EVERY entry, in registry order, so a registry refactor is
 // provably recursively value-equivalent. Key order inside an entry is
 // canonicalized (alphabetical) because it is not part of the contract, while

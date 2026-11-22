@@ -2,7 +2,7 @@
 
 A standing checklist for refactoring the HypoExplorer app (`src/`). It captures the
 invariants the codebase already relies on, so a change stays safe and consistent.
-Outstanding follow-ups live in [`../TODOS.md`](../TODOS.md).
+Outstanding follow-ups live in [`../TODOS.md`](../../TODOS.md).
 
 ## Before you start
 

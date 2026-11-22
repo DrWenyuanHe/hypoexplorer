@@ -5,7 +5,7 @@ Retained sources for the expression survey's Allen source
 for the 102 tissue samples, across the six donors, that the atlas ontology places
 under the hypothalamus (structure 4540). That is 58,692 probes × 102 samples.
 It is an expression-only reference and not a registered dataset (see
-[the plan](../../../docs/EXTERNAL_REFERENCE_EXPRESSION_PLAN_2026-10-29.md), Phase 2).
+[the plan](../../../docs/records/EXTERNAL_REFERENCE_EXPRESSION_PLAN_2026-10-29.md), Phase 2).
 
 ## Files
 

@@ -3,7 +3,7 @@
  * Normal builds read data/seo/studySources.json and never need these local inputs
  * or a network connection. Missing local inputs preserve existing snapshot rows.
  *
- * npx tsx scripts/refresh_seo_sources.mts [--fetch-series] [--fetch-papers] [--check]
+ * npx tsx scripts/dev/refresh_seo_sources.mts [--fetch-series] [--fetch-papers] [--check]
  * --fetch-series fills missing titles and publication links from official GEO records.
  * --fetch-papers requests PMIDs registered locally or linked by the source series.
  * No tracker survey prose, abstracts, author affiliation guesses, or credentials.
@@ -13,8 +13,8 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 
 import { dirname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gunzipSync } from 'node:zlib';
-import { DATASETS } from '../src/data/datasets';
-import { datasetPmid } from '../src/utils/datasetLinks';
+import { DATASETS } from '../../src/data/datasets';
+import { datasetPmid } from '../../src/utils/datasetLinks';
 
 interface SourceRecord {
   sourceTitle?: string;
@@ -38,7 +38,7 @@ interface SourceRecord {
   paperRelationshipNote?: string;
 }
 
-const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const output = resolve(root, 'data/seo/studySources.json');
 const previous: Record<string, SourceRecord> = existsSync(output)
   ? JSON.parse(readFileSync(output, 'utf8')) : {};
@@ -201,7 +201,7 @@ if (process.argv.includes('--fetch-papers')) {
 const serialized = `${JSON.stringify(Object.fromEntries(Object.entries(snapshot).sort(([a], [b]) => a.localeCompare(b))), null, 2)}\n`;
 if (process.argv.includes('--check')) {
   if (!existsSync(output) || readFileSync(output, 'utf8') !== serialized) {
-    throw new Error('SEO source snapshot differs; run scripts/refresh_seo_sources.mts and review the changes.');
+    throw new Error('SEO source snapshot differs; run scripts/dev/refresh_seo_sources.mts and review the changes.');
   }
 } else {
   mkdirSync(dirname(output), { recursive: true });

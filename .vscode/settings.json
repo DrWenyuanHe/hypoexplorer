@@ -1,0 +1,14 @@
+{
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "package.json": "pnpm-lock.yaml, pnpm-workspace.yaml, biome.json, knip.json",
+    "tsconfig.json": "tsconfig.*.json",
+    "vite.config.ts": "index.html",
+    "wrangler.jsonc": "data-release.json, hypomap-release.json, public-safety.json",
+    ".env.example": ".env.*",
+    ".gitignore": ".gitattributes",
+    "README.md": "CHANGELOG.md, CITATION.cff, LICENSE, REUSE.md, VERSION, TODOS.md",
+    "AGENTS.md": "CLAUDE.md, CONTEXT.md, DESIGN.md, PRODUCT.md"
+  }
+}

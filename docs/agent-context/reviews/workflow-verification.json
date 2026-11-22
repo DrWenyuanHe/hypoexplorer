@@ -1,11 +1,10 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "03d9199358f1398e8b204dd3cf59ef37b7b9941a6bae43ce0d5d1e798b834ecf",
+  "fingerprint": "91e7b8c16ac2d51bcbae03fcb5ee65f54d7a4302b670ea335847c16bbfdec60e",
   "outcome": "no-impact",
-  "explanation": "Among verification sources only src/verification/VerificationView.tsx changed, and only its layout: it renders through the shared ProsePage. Verification evidence, quality ledgers, author concordance and their checks are unchanged, and workflows.md changed only in its ui-change route.",
+  "explanation": "Directory reorganization: loose docs moved to docs/runbooks/ and docs/records/, and deploy, fetch and dev tooling scripts moved to scripts/deploy/, scripts/fetch/ and scripts/dev/. Verification workflow links now resolve to docs/runbooks/; author validation evidence and verification guidance are unchanged.",
   "references": [
-    "src/verification/VerificationView.tsx",
     "docs/agent-context/workflows.md",
     "data/author-validation/README.md"
   ]

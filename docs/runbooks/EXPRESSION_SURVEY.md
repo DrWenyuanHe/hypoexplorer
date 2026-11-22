@@ -65,7 +65,7 @@ unambiguous ID and are never silently merged; placeholder IDs fall back to porta
 
 The `external` collection holds public reference atlases imported from retained,
 hash-pinned releases. They are never fetched from the providers at runtime. The
-[implementation plan](EXTERNAL_REFERENCE_EXPRESSION_PLAN_2026-10-29.md) records why,
+[implementation plan](../records/EXTERNAL_REFERENCE_EXPRESSION_PLAN_2026-10-29.md) records why,
 along with the Phase 0 measurements and the decisions behind this design.
 
 | Source | Survey placement | Values |
@@ -105,9 +105,9 @@ These directories are gitignored build artifacts (about 230 MB in 8,200 files).
 artifact step run it. A missing or inconsistent provider is reported on the page,
 and other sources keep working. The builders verify each retained hash, replay every
 emitted value against its source, and check each provider's API against retained
-checkpoints. See the [GTEx runbook](../data/expression/gtex/README.md), the
-[HPA runbook](../data/expression/hpa/README.md) and the
-[Allen runbook](../data/expression/allen-human/README.md).
+checkpoints. See the [GTEx runbook](../../data/expression/gtex/README.md), the
+[HPA runbook](../../data/expression/hpa/README.md) and the
+[Allen runbook](../../data/expression/allen-human/README.md).
 
 ### On the gene page
 
@@ -188,8 +188,8 @@ failures are retryable; inconsistent data requires a corrected app/data publicat
 Run `pnpm run build:expression-index` after source or catalog changes, then
 `pnpm run check:expression-index`. The check compares every indexed source query to
 the original adapter, independently aligns raw sample columns and verifies every
-generated product. See [the lossless-index runbook](../data/expression/existing/README.md)
-and [retained validation](../data/expression/existing/validation.json).
+generated product. See [the lossless-index runbook](../../data/expression/existing/README.md)
+and [retained validation](../../data/expression/existing/validation.json).
 
 `public/expression/neuroseq/` ships same-origin, with a manifest, gene index, small
 gene shards and validation report. It does not use the separate DE bundle origin.
@@ -201,7 +201,7 @@ file allow-list, to NeuroSeq, the OXT reference and the external atlases alike. 
 Run `python scripts/build_neuroseq_expression.py --check` for an offline source-byte
 and full-matrix fidelity check. The default builder regenerates products from the
 retained archive; `--fetch` explicitly refreshes the public source. See
-[the acquisition runbook](../data/expression/neuroseq/README.md) for the original
+[the acquisition runbook](../../data/expression/neuroseq/README.md) for the original
 response archive, hashes and catalog metadata. The source catalog retains original
 CRLF bytes through an explicit `.gitattributes` rule.
 
@@ -217,8 +217,8 @@ population/condition filters, missing genes, exports and desktop/mobile layouts.
 When revising the catalog, inspect the underlying sample groups and stored units.
 Update this document and maintained context alongside source changes.
 
-See [the original loading audit](DATA_LOADING_AUDIT_2026-09-15.md) and
-[implemented loading changes](DATA_LOADING_IMPLEMENTATION_2026-09-15.md) for measured
+See [the original loading audit](../records/DATA_LOADING_AUDIT_2026-09-15.md) and
+[implemented loading changes](../records/DATA_LOADING_IMPLEMENTATION_2026-09-15.md) for measured
 request footprints, upload behavior and cache limits.
 
 ## Implementation verification — 2026-09-15

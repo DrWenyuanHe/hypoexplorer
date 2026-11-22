@@ -40,7 +40,7 @@
         "src/circadian/CircadianTab.tsx",
       "src/circadian/multipleTesting.ts",
       "src/circadian/jtkCycle.ts",
-      "docs/CIRCADIAN_VALIDATION.md"
+      "docs/runbooks/CIRCADIAN_VALIDATION.md"
       ]
     },
     "common": {
@@ -111,7 +111,7 @@
         "src/expression-survey/ExpressionSurveyView.tsx",
         "src/expression-survey/expressionData.ts",
         "src/expression-survey/sourceJson.ts",
-        "docs/EXPRESSION_SURVEY.md",
+        "docs/runbooks/EXPRESSION_SURVEY.md",
         "src/expression-survey/expressionIndex.ts",
         "data/expression/existing/README.md",
         "src/expression-survey/referenceExpression.ts",
@@ -319,7 +319,7 @@
         "scripts/",
         "docs/DATASET_CONTRACT.md",
         "docs/REAL_DATA_SHAPES.md",
-        "docs/EXPRESSION_SURVEY.md",
+        "docs/runbooks/EXPRESSION_SURVEY.md",
         "data/expression/",
         "data/intake/"
       ]
@@ -342,7 +342,7 @@
     },
     "ui-change": {
       "summary": "Change navigation, views or exports",
-      "runbook": "docs/REFACTOR_CHECKLIST.md",
+      "runbook": "docs/runbooks/REFACTOR_CHECKLIST.md",
       "modules": [
         "explorer",
         "gene-explorer",
@@ -358,7 +358,7 @@
         "src/App.tsx",
         "src/appRouter.ts",
         "CONTEXT.md",
-        "docs/REFACTOR_CHECKLIST.md"
+        "docs/runbooks/REFACTOR_CHECKLIST.md"
       ]
     },
     "delivery": {
@@ -372,10 +372,10 @@
         "vite.config.ts",
         "wrangler.jsonc",
         "package.json",
-        "scripts/verify_deploy.mts",
-        "scripts/upload_bundles_r2.mts",
+        "scripts/deploy/verify_deploy.mts",
+        "scripts/deploy/upload_bundles_r2.mts",
         "scripts/lib/uploadPublication.mts",
-        "docs/DATA_LOADING_AUDIT_2026-09-15.md",
+        "docs/records/DATA_LOADING_AUDIT_2026-09-15.md",
         "docs/agent-context/delivery.md",
         "scripts/build_expression_index.mts",
         "scripts/build_oxt_reference.mts",
@@ -384,20 +384,20 @@
         "scripts/lib/expressionIndexBuildIdentity.mts",
         "scripts/lib/r2Incremental.mts",
         "scripts/lib/r2RemoteInventory.mts",
-        "docs/DATA_LOADING_IMPLEMENTATION_2026-09-15.md",
+        "docs/records/DATA_LOADING_IMPLEMENTATION_2026-09-15.md",
         "cloudflare/",
-        "docs/EDGE_PROTECTION.md",
-        "scripts/apply_edge_rules.mts",
-        "scripts/verify_edge.mts",
+        "docs/runbooks/EDGE_PROTECTION.md",
+        "scripts/deploy/apply_edge_rules.mts",
+        "scripts/deploy/verify_edge.mts",
         "scripts/lib/edgeRules.mts",
         "scripts/lib/edgePurge.mts",
         "scripts/lib/cloudflareApi.mts",
-        "scripts/prepare_deploy.mts",
+        "scripts/deploy/prepare_deploy.mts",
         "scripts/lib/deployInputs.mts",
-        "scripts/verify_release.mts",
-        "scripts/fetch_query_catalog.mts",
-        "scripts/fetch_expression_references.mts",
-        "scripts/fetch_data.mts",
+        "scripts/deploy/verify_release.mts",
+        "scripts/fetch/fetch_query_catalog.mts",
+        "scripts/fetch/fetch_expression_references.mts",
+        "scripts/fetch/fetch_data.mts",
         "scripts/lib/publicDataRelease.mts",
         "docs/DEVELOPMENT.md",
         ".github/workflows/application.yml"

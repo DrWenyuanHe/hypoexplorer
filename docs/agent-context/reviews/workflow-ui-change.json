@@ -1,13 +1,11 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "e9a9422b462bb6e31edc572e5226d94c8c5536f81cb2a7e89c86beb12f9ef243",
-  "outcome": "updated",
-  "explanation": "The ui-change route now says: the hub shows one list of entry rows; the explorer study line's name opens the library and the explorer header has no breadcrumb, with the utilities sharing one row at desktop widths; and the volcano controls are one row with Gene list, thresholds and pass menus in place of the folded plot controls. Routing, loading, export and statistics rules in the route are unchanged.",
+  "fingerprint": "1d686ca230e9155946a07a9c4bd9c1fc1066d439cba614a1406fb4448a48cc70",
+  "outcome": "no-impact",
+  "explanation": "Directory reorganization: loose docs moved to docs/runbooks/ and docs/records/, and deploy, fetch and dev tooling scripts moved to scripts/deploy/, scripts/fetch/ and scripts/dev/. The UI workflow links to the refactor checklist at docs/runbooks/REFACTOR_CHECKLIST.md; the checklist content is unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/App.tsx",
-    "src/gene-explorer/VolcanoPlot.tsx",
-    "src/common/ToolbarPopover.tsx"
+    "docs/runbooks/REFACTOR_CHECKLIST.md"
   ]
 }

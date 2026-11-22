@@ -16,8 +16,8 @@
 // than gzip ones.
 //
 // Usage:
-//   npx tsx scripts/verify_deploy.mts                       # https://hypoexplorer.com
-//   npx tsx scripts/verify_deploy.mts https://staging.host   # any origin
+//   npx tsx scripts/deploy/verify_deploy.mts                       # https://hypoexplorer.com
+//   npx tsx scripts/deploy/verify_deploy.mts https://staging.host   # any origin
 //   npm run verify:deploy
 //
 // Exits non-zero if any check fails, so it can gate a deploy.
@@ -27,18 +27,18 @@ import zlib from 'node:zlib';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { listDatasets } from '../src/data/datasets';
-import { manifestFreshness, REBUILD_HINT } from '../src/data/indexFreshness';
-import { readReleaseBuild } from './lib/releaseBuild.mjs';
-import { ATLAS_DIRS, TRACKER_CATALOG } from './lib/deployInputs.mjs';
-import { verifyServedReleaseData } from './lib/deployedDataVerification.mjs';
-import { releaseBundleVersion } from '../src/data/releaseIdentity';
+import { listDatasets } from '../../src/data/datasets';
+import { manifestFreshness, REBUILD_HINT } from '../../src/data/indexFreshness';
+import { readReleaseBuild } from '../lib/releaseBuild.mjs';
+import { ATLAS_DIRS, TRACKER_CATALOG } from '../lib/deployInputs.mjs';
+import { verifyServedReleaseData } from '../lib/deployedDataVerification.mjs';
+import { releaseBundleVersion } from '../../src/data/releaseIdentity';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const pkg = JSON.parse(
-  readFileSync(path.resolve(__dirname, '..', 'package.json'), 'utf8'),
+  readFileSync(path.resolve(__dirname, '../..', 'package.json'), 'utf8'),
 ) as { version: string };
-const EXPECTED_RELEASE = readReleaseBuild(path.resolve(__dirname, '..'));
+const EXPECTED_RELEASE = readReleaseBuild(path.resolve(__dirname, '../..'));
 const BUNDLE_VERSION = releaseBundleVersion(EXPECTED_RELEASE.releaseId, pkg.version);
 
 const ORIGIN = (process.argv[2] ?? 'https://hypoexplorer.com').replace(/\/+$/, '');
@@ -76,7 +76,7 @@ function resolveBundleBase(): string {
   if (process.env.VITE_BUNDLE_BASE_URL !== undefined) return process.env.VITE_BUNDLE_BASE_URL;
   for (const f of BUILD_ENV_FILES) {
     try {
-      const text = readFileSync(path.resolve(__dirname, '..', f), 'utf8');
+      const text = readFileSync(path.resolve(__dirname, '../..', f), 'utf8');
       const m = text.match(/^VITE_BUNDLE_BASE_URL=(.*)$/m);
       if (m) return m[1].trim().replace(/^["']|["']$/g, '');
     } catch {
@@ -326,7 +326,7 @@ check(
 // Guarded by an identity-size match first: if the deployed bundle is not the
 // same bytes as the local one, the local compression is not a valid yardstick,
 // so the check degrades to the weak form rather than reporting a false failure.
-const probeSource = path.resolve(__dirname, '..', 'public', PROBE_BUNDLE.replace(/^\//, ''));
+const probeSource = path.resolve(__dirname, '../..', 'public', PROBE_BUNDLE.replace(/^\//, ''));
 let localBr: number | null = null;
 let sameContent = false;
 try {
@@ -390,7 +390,7 @@ if (brotli.status === 200 && gzip.status === 200) {
 // and the edge check below simply omits the "cost vs brotli-11" note. Only the
 // Apache (sidecar) model needs it, and says so if it is missing.
 const APP_PROBE = '/nomenclature/table.js';
-const appProbeSource = path.resolve(__dirname, '..', 'dist', 'nomenclature', 'table.js');
+const appProbeSource = path.resolve(__dirname, '../..', 'dist', 'nomenclature', 'table.js');
 let appLocalLen: number | null = null;
 let appLocalBr: number | null = null;
 try {
@@ -745,7 +745,7 @@ check(
 
     let buildNote = '';
     try {
-      const localTracks = readFileSync(path.resolve(__dirname, '..', 'public', 'query', 'tracks.js'), 'utf8');
+      const localTracks = readFileSync(path.resolve(__dirname, '../..', 'public', 'query', 'tracks.js'), 'utf8');
       const localBuildId = localTracks.match(/"buildId"\s*:\s*"([a-z0-9]+)"/)?.[1] ?? null;
       if (localBuildId && manifest.buildId !== localBuildId) {
         problems.push(
@@ -779,7 +779,7 @@ check(
 // Release labels are claims. Verify the actual objects at the browser's cache
 // keys too. This is an exact pointer check plus two track samples, not a remote
 // checksum of every shard/track in the full corpus.
-for (const result of await verifyServedReleaseData(path.resolve(__dirname, '..'), {
+for (const result of await verifyServedReleaseData(path.resolve(__dirname, '../..'), {
   dataOrigin: DATA_ORIGIN, bundleVersion: BUNDLE_VERSION,
   querySha256: EXPECTED_RELEASE.dataBuildSha256, expressionBuildId: EXPECTED_RELEASE.expressionBuildId,
 }, fetchBytes)) check(result.ok, result.name, result.detail);
@@ -801,7 +801,7 @@ for (const relative of [...ATLAS_DIRS.map((dir) => `expression/${dir}/manifest.j
 // means every other result above describes the OLD build.
 let localEntry: string | null = null;
 try {
-  const localHtml = readFileSync(path.resolve(__dirname, '..', 'dist', 'index.html'), 'utf8');
+  const localHtml = readFileSync(path.resolve(__dirname, '../..', 'dist', 'index.html'), 'utf8');
   localEntry = localHtml.match(/assets\/(index-[A-Za-z0-9_-]+\.js)/)?.[1] ?? null;
 } catch {
   // No local dist/ — nothing to compare against. Reported below, not failed.

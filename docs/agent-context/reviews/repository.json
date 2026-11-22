@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "6a0089eccc484261b7747ae74170c587dfcaa53c49ab23a7a9245c6e3497e0e0",
+  "fingerprint": "d0dc4bc6a4ce64184841066de94cee09033550c7ea4707eb987e5d3579ddceb1",
   "outcome": "updated",
-  "explanation": "DESIGN.md's Topbar bullet now says the explorer header has no breadcrumb and gives the shared 28px utility treatment. workflows.md ui-change describes the hub entry list, the dataset picker in the study line, the breadcrumb-free explorer header and the one-row volcano toolbar. index.html replaces the hub card rules with entry-row rules and sets accent-color for native checkboxes, radios, ranges and progress bars.",
+  "explanation": "Directory reorganization: loose docs moved to docs/runbooks/ and docs/records/, and deploy, fetch and dev tooling scripts moved to scripts/deploy/, scripts/fetch/ and scripts/dev/. package.json script entries, docs/README.md, the new scripts/README.md index and .vscode/settings.json file nesting reflect the new layout; evidence producers stay at scripts/ by design.",
   "references": [
-    "DESIGN.md",
-    "docs/agent-context/workflows.md",
-    "index.html"
+    "package.json",
+    "docs/README.md",
+    "scripts/README.md",
+    ".vscode/settings.json"
   ]
 }

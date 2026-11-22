@@ -18,10 +18,10 @@ import { existsSync, lstatSync, mkdirSync, readFileSync, realpathSync, renameSyn
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gunzipSync } from 'node:zlib';
-import { readTar } from './lib/tarball.mjs';
-import { PUBLIC_RELEASE_MARKER } from './lib/publicDataRelease.mjs';
+import { readTar } from '../lib/tarball.mjs';
+import { PUBLIC_RELEASE_MARKER } from '../lib/publicDataRelease.mjs';
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const skipMatrices = process.argv.includes('--no-matrices');
 const pin = JSON.parse(readFileSync(path.join(ROOT, 'data-release.json'), 'utf8')) as {
   tag: string;

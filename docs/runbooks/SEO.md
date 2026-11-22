@@ -36,8 +36,8 @@ being inferred from a study's display name.
 Refresh the snapshot with:
 
 ```sh
-pnpm exec tsx scripts/refresh_seo_sources.mts --fetch-series --fetch-papers
-pnpm exec tsx scripts/refresh_seo_sources.mts --check
+pnpm exec tsx scripts/dev/refresh_seo_sources.mts --fetch-series --fetch-papers
+pnpm exec tsx scripts/dev/refresh_seo_sources.mts --check
 ```
 
 The first command fills missing titles from official GEO or EMBL-EBI records,

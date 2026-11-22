@@ -7,7 +7,7 @@
   // WHY THIS EXISTS
   // ---------------
   // The data already lives on Cloudflare R2 (data.hypoexplorer.com, uploaded by
-  // scripts/upload_bundles_r2.mts). Since that cutover the app host carries only
+  // scripts/deploy/upload_bundles_r2.mts). Since that cutover the app host carries only
   // the shell — 42 files, ~38 MB, largest file 16.5 MB — which is far inside the
   // static-asset limits (20,000 files on the free plan, 25 MiB per file). The
   // manual upload was the last reason Hostinger was in the picture, and it is
@@ -70,7 +70,7 @@
   // Domains with exactly this list. www was attached from the dashboard on
   // 2026-10-14 and the next deploy silently detached it, leaving www with no
   // DNS record at all. Its pages carry canonical → apex. The 301 www → apex Redirect
-  // Rule in docs/SEO.md is still owed; zone redirects run before the Worker, so this
+  // Rule in docs/runbooks/SEO.md is still owed; zone redirects run before the Worker, so this
   // Custom Domain is what gives that rule a proxied hostname to fire on.
   "routes": [
     { "pattern": "hypoexplorer.com", "custom_domain": true },

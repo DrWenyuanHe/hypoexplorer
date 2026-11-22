@@ -18,9 +18,9 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { ATLAS_DIRS, atlasFiles } from './lib/deployInputs.mjs';
+import { ATLAS_DIRS, atlasFiles } from '../lib/deployInputs.mjs';
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const app = (process.env.HYPOEXPLORER_APP_ORIGIN || 'https://hypoexplorer.com').replace(/\/+$/, '');
 const requested = process.argv.slice(2).filter((arg) => arg !== '--');
 const unknown = requested.filter((dir) => !ATLAS_DIRS.includes(dir));

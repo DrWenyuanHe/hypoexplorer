@@ -28,9 +28,9 @@ import { createRequire } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadEnv } from 'vite';
-import { ATLAS_DIRS, atlasProblems, expressionBuildIdOf, QUERY_POINTERS, TRACKER_CATALOG } from './lib/deployInputs.mjs';
+import { ATLAS_DIRS, atlasProblems, expressionBuildIdOf, QUERY_POINTERS, TRACKER_CATALOG } from '../lib/deployInputs.mjs';
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const PUBLIC = path.join(ROOT, 'public');
 const refreshQuery = process.argv.includes('--refresh-query');
 const app = (process.env.HYPOEXPLORER_APP_ORIGIN || 'https://hypoexplorer.com').replace(/\/+$/, '');
@@ -96,7 +96,7 @@ for (const dir of ATLAS_DIRS) if (!incomplete.includes(dir)) console.log(`  publ
 if (incomplete.length) {
   console.log(`  fetching ${incomplete.join(', ')} from ${app}`);
   const require = createRequire(import.meta.url);
-  const run = spawnSync(process.execPath, [require.resolve('tsx/cli'), path.join(ROOT, 'scripts/fetch_expression_references.mts'), ...incomplete], {
+  const run = spawnSync(process.execPath, [require.resolve('tsx/cli'), path.join(ROOT, 'scripts/fetch/fetch_expression_references.mts'), ...incomplete], {
     cwd: ROOT, stdio: 'inherit', env: { ...process.env, HYPOEXPLORER_APP_ORIGIN: app },
   });
   if (run.status !== 0) failures.push(`fetching ${incomplete.join(', ')} failed`);

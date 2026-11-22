@@ -3,9 +3,9 @@ import { mkdir, mkdtemp, readFile, rename, rm, writeFile } from 'node:fs/promise
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gunzipSync } from 'node:zlib';
-import { readTar } from './lib/tarball.mjs';
+import { readTar } from '../lib/tarball.mjs';
 
-const root = fileURLToPath(new URL('../', import.meta.url));
+const root = fileURLToPath(new URL('../../', import.meta.url));
 const pin = JSON.parse(await readFile(path.join(root, 'hypomap-release.json'), 'utf8'));
 const source = process.argv[2];
 const sha = (bytes: Buffer) => createHash('sha256').update(bytes).digest('hex');

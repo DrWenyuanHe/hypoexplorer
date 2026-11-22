@@ -51,7 +51,7 @@
 // CLOUDFLARE_EDGE_TOKEN (Cache Purge permission; read from the environment,
 // --env-file or .env.local). A real upload refuses to start without that token
 // unless --no-purge is given, and exits non-zero if the purge fails. Neither
-// --dry-run nor --remote-dry-run ever purges. docs/EDGE_PROTECTION.md.
+// --dry-run nor --remote-dry-run ever purges. docs/runbooks/EDGE_PROTECTION.md.
 //
 // Bundles are loaded as classic scripts (JSONP-style globals), so cross-origin
 // serving needs no CORS config on the bucket — that is the reason the convention
@@ -82,12 +82,12 @@ import { createRequire } from 'node:module';
 import os from 'node:os';
 import path from 'node:path';
 import { parseEnv } from 'node:util';
-import { acquireR2LocalLock, prepareR2Object, queryPublicationPrefixes, R2_POINTER_KEYS, synchronizeR2Objects, type R2PreparedObject } from './lib/r2Incremental.mjs';
-import { createR2InventoryReader } from './lib/r2RemoteInventory.mjs';
-import { createCloudflareClient, resolveEdgeCredentials } from './lib/cloudflareApi.mjs';
-import { manualPurgeInstructions, purgeEdgeCache, purgeRequestForKeys } from './lib/edgePurge.mjs';
-import { reducedBundleFindings } from './lib/publicDataRelease.mjs';
-import { HYPOMAP_KEY_PREFIX, installedHypomapAtlas } from './lib/hypomapAtlas.mjs';
+import { acquireR2LocalLock, prepareR2Object, queryPublicationPrefixes, R2_POINTER_KEYS, synchronizeR2Objects, type R2PreparedObject } from '../lib/r2Incremental.mjs';
+import { createR2InventoryReader } from '../lib/r2RemoteInventory.mjs';
+import { createCloudflareClient, resolveEdgeCredentials } from '../lib/cloudflareApi.mjs';
+import { manualPurgeInstructions, purgeEdgeCache, purgeRequestForKeys } from '../lib/edgePurge.mjs';
+import { reducedBundleFindings } from '../lib/publicDataRelease.mjs';
+import { HYPOMAP_KEY_PREFIX, installedHypomapAtlas } from '../lib/hypomapAtlas.mjs';
 
 const BUCKET = process.env.R2_BUCKET ?? 'hypoexplorer-datasets';
 const PUBLIC_ROOT = path.resolve('public'); // keys are computed relative to here
@@ -136,7 +136,7 @@ const dryRun = argv.includes('--dry-run');
 const remoteDryRun = argv.includes('--remote-dry-run');
 // Skip the post-upload edge purge. Only for a publisher that purges by other
 // means: the data host's cache key ignores ?v=, so unpurged keys keep serving
-// their previous bytes from the edge (docs/EDGE_PROTECTION.md).
+// their previous bytes from the edge (docs/runbooks/EDGE_PROTECTION.md).
 const noPurge = argv.includes('--no-purge');
 const expressionOnly = argv.includes('--expression-only');
 const allowReduced = argv.includes('--allow-reduced-bundles');
@@ -454,7 +454,7 @@ const edgeClient = !remoteDryRun && !noPurge && edge.token ? createCloudflareCli
 if (!remoteDryRun && !noPurge && !edgeClient) {
   console.error('\nERROR: CLOUDFLARE_EDGE_TOKEN is not set (environment, --env-file or .env.local).');
   console.error('A real upload must purge the changed keys from the edge cache afterwards: the data host');
-  console.error('ignores ?v= in its cache key. Create the token described in docs/EDGE_PROTECTION.md');
+  console.error('ignores ?v= in its cache key. Create the token described in docs/runbooks/EDGE_PROTECTION.md');
   console.error('(Zone > Cache Purge > Purge), or pass --no-purge and purge the data host yourself.');
   process.exit(2);
 }
