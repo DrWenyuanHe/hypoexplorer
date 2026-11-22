@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "03d9199358f1398e8b204dd3cf59ef37b7b9941a6bae43ce0d5d1e798b834ecf",
+  "fingerprint": "b71a28460ebd9b4ba3b13bd88d02311f6a781c5283ea05381da3175f272a4680",
   "outcome": "no-impact",
-  "explanation": "Among verification sources only src/verification/VerificationView.tsx changed, and only its layout: it renders through the shared ProsePage. Verification evidence, quality ledgers, author concordance and their checks are unchanged, and workflows.md changed only in its ui-change route.",
+  "explanation": "Only review ledgers and a dated pass folder changed. The verification route, its policies, ledger builders, sealed producers and checks are unchanged; the pass README records that the ledger builders stop on withheld evidence in a public checkout, as the route already says.",
   "references": [
-    "src/verification/VerificationView.tsx",
     "docs/agent-context/workflows.md",
+    "data/author-validation/codex-2026-11-21/README.md",
     "data/author-validation/README.md"
   ]
 }

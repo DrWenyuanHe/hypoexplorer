@@ -1,0 +1,132 @@
+{
+  "datasetId": "gse308884",
+  "accession": "GSE308884",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "All 10 labeled RNA effects match the registered direction in each contrast, and all 25 Figure 4E genes reverse between contrasts. The registered directional counts for those 25 disagree with Figure S6C. All 10 Figure 4C labels meet the authors’ diet discovery rule, while zero of the 10 registered diet rows reach 10% FDR.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE308884/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "The volcano labels agree in direction. The rescue direction counts and the diet discovery calls differ.",
+      "note": "In Figures 4C and S6B, the same 10 genes match the registered signs in both contrasts. The authors class all 10 as discoveries in DIO vehicle versus lean and report zero treatment discoveries at 10% FDR. Zero of the 10 registered rows reach 10% FDR in either contrast. All 25 Figure 4E genes reverse in the registered results, but their directional counts differ from the authors’ selection diagram.",
+      "reviewFlags": [
+        "Figure S6C reports 14 diet-up/drug-down and 12 diet-down/drug-up intersections before one exclusion. The 25 printed Figure 4E genes give 11 and 14 in the registered tables. The published diagram gives counts without gene identities.",
+        "The authors used a protein-coding, TMM-normalized, sample-weighted voomLmFit analysis. HypoExplorer fitted unweighted limma to deposited log2 CPM. The contribution of each difference to the diet discovery discrepancy is unknown.",
+        "The ten volcano labels belong to the 25-gene heatmap set. The evidence falls below the 30-paired-gene minimum for author-concordance-v2 in each contrast."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Guo et al. Figure 4C and 4E, with RNA methods",
+          "url": "https://www.biorxiv.org/content/10.1101/2025.10.06.680810v1.full.pdf",
+          "kind": "paper"
+        },
+        {
+          "label": "Supplemental Figure 6 and caption",
+          "url": "https://www.biorxiv.org/content/biorxiv/early/2025/10/09/2025.10.06.680810/DC1/embed/media-1.pdf?download=true",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO family SOFT with series metadata and all 18 sample records",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE308nnn/GSE308884/soft/GSE308884_family.soft.gz",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Deposited GEO workbook with samples, gene identifiers, counts and log2 CPM",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE308nnn/GSE308884/suppl/GSE308884_raw_and_normalized_counts.xlsx",
+          "kind": "processed_data"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The ten named volcano effects agree in both registered contrasts. All 25 heatmap genes reverse, but the registered split of 11 diet-up and 14 diet-down cannot result from dropping one gene from the authors’ 14 diet-up and 12 diet-down intersections. The diet discovery calls also differ. The available figures do not identify the author-fitted direction of every heatmap gene.",
+      "nextStep": "Obtain the signed protein-coding voomLmFit tables for both registered contrasts, with tested feature IDs, raw P and adjusted P. Reconcile the two top-100 intersections, the identity of the excluded gene and its direction, and the Figure 4C discovery classifications.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "dio_vs_lean",
+        "tn783_vs_vehicle"
+      ],
+      "basis": "Compare the side of zero for each labeled point in Figures 4C and S6B with its registered logFC. For all Figure 4E symbols, count reversals and compare the directional totals with the Figure S6C intersections.",
+      "reference": "Guo et al., bioRxiv 10.1101/2025.10.06.680810v1, main PDF pp. 22–23 (Figure 4), RNA sampling and analysis methods at lines 1261–1264 and 1298–1321, and supplement pp. 9–10 (Figure S6 and caption). The GEO family SOFT and deposited workbook document the samples. The saved geo-series.html contains a reCAPTCHA challenge.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "The GEO family SOFT, workbook and registered sample sheets agree on 18 male mouse hypothalamus libraries in three groups of six. The same six DIO vehicle mice occur in both contrasts. The authors retained and down-weighted two vehicle samples with suspected pituitary contamination. Both DIO arms have 28 days in the workbook, the Results say four weeks, and the RNA methods and GEO series design say 29 days."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Figure 4C is DIO vehicle minus lean untreated, and Figure S6B is DIO TN-783 minus DIO vehicle, matching the registered case and baseline assignments. Figure 4D compares TN-783 with lean."
+        },
+        "features": {
+          "status": "limited",
+          "note": "All 25 printed Figure 4E symbols have exactly one versioned feature ID in the GEO workbook and one exact symbol match in each published DE table. The authors filtered to protein-coding genes. The reviewed sources do not list their full set of tested IDs."
+        },
+        "effects": {
+          "status": "different",
+          "note": "Each volcano panel gives five positive and five negative labeled effects, all matching the registered signs. All 25 Figure 4E genes reverse in the registered tables, with 11 diet-up/drug-down and 14 diet-down/drug-up. Figure S6C gives 14 and 12 before one exclusion, which permits 13/12 or 14/11. Its intersection members are unnamed. Figure 4E shows per-sample normalized expression. Original fitted magnitudes and the top-100 ranks remain unassessed."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The Figure 4C caption defines a discovery by FDR < 0.10 and absolute fold change > 20%. Its vertical axis shows unadjusted P on a −log10 scale. All 10 diet labels are author discoveries, and their registered adjusted P values range from 0.228463 to 0.760396. The S6B caption reports zero author treatment discoveries at FDR < 0.10. All 10 corresponding registered treatment rows have adjusted P = 0.875321 (rounded). Neither PDF supplies exact gene-wise fitted P or FDR for these comparisons. S6D shows separate ANOVA/Tukey tests on selected expression measurements."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The same 10 labels appear in both volcano panels and in the 25 printed heatmap rows. The registered tables publish 34,829 diet and 34,025 treatment symbols from 34,899 and 34,094 tested rows, respectively. Genome-wide author effect coverage is unknown."
+        }
+      },
+      "criteria": "Use every label in the two registered-contrast RNA volcano panels and every printed Figure 4E row. Test signs against zero with the published orientation and no effect-size cutoff. For the 25 genes, count each direction of reversal. The authors ranked each direction by P, intersected opposite-direction top-100 lists and excluded one uncharacterized gene. Compare FDR classes at the published threshold and keep the rank selection and exact statistics unassessed.",
+      "conclusion": "The direct comparisons establish sign agreement for the ten labeled genes in each contrast and reversal for all 25 heatmap genes. The direction counts differ from Figure S6C, and diet discoveries differ on the ten labeled genes. Neither contrast has the 30 paired genes required for an author-concordance-v2 pass. A numerical comparison spec would require a defensible series of paired author effect values."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Unique matched volcano labels and matching directions, DIO vehicle versus lean",
+      "value": "10 matched of 10 labeled, 10 same direction",
+      "script": "data/author-validation/continued-sources/GSE308884/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Unique matched volcano labels and matching directions, DIO TN-783 versus vehicle",
+      "value": "10 matched of 10 labeled, 10 same direction",
+      "script": "data/author-validation/continued-sources/GSE308884/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Figure 4E genes with opposite signs in the two registered contrasts",
+      "value": "25 of 25 unique matched genes",
+      "script": "data/author-validation/continued-sources/GSE308884/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Registered adjusted P below 0.10 among the volcano labels",
+      "value": "0 of 10 in each contrast",
+      "script": "data/author-validation/continued-sources/GSE308884/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Registered DE rows",
+      "value": "34,829 for dio_vs_lean and 34,025 for tn783_vs_vehicle",
+      "script": "data/author-validation/continued-sources/GSE308884/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Reconciled libraries",
+      "value": "18, with 6 in each of the vehicle, TN-783 and lean groups",
+      "script": "data/author-validation/continued-sources/GSE308884/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Direction of registered reversal for all 25 Figure 4E genes, in Figure S6C category order",
+      "value": "11 diet-up/drug-down and 14 diet-down/drug-up",
+      "script": "data/author-validation/continued-sources/GSE308884/codex-2026-11-21/refute/recheck.py"
+    }
+  ],
+  "openIssues": [
+    "The signed member lists and identity of the one excluded gene are needed to explain the difference from the Figure S6C counts.",
+    "The reviewed public sources do not provide the full original fitted coefficient, raw P and adjusted P tables. The contributions of feature filtering, sample weights and model choice to the diet discovery discrepancy remain unquantified."
+  ]
+}

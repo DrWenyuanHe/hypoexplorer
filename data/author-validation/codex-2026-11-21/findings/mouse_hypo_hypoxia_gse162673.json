@@ -1,0 +1,101 @@
+{
+  "datasetId": "mouse_hypo_hypoxia_gse162673",
+  "accession": "GSE162673",
+  "category": "partial_untested",
+  "closure": "compared",
+  "summary": "All 80 genes labeled as upregulated in Figure 5A matched the registered two-hour hypothalamic hypoxia contrast. Registered effects were positive for 78 (97.5%) and negative for Bcl11a and Egr4. The figure supports a selected-gene direction comparison, with exact author cohort membership, effect sizes and inference still unresolved.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE162673/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "Registered hypoxia effects agree in direction for 78 of 80 genes labeled in Figure 5A",
+      "note": "The published PDF and the archived author manuscript give the same 80 labels in the same order. All were included. Seventy-nine symbols joined directly and mouse Gene 235493 identifies Fam214a as Atosa. Bcl11a and Egr4 have negative registered log2 fold changes. The downloaded GEO counts match the registered input checksum in GSE162673_provenance.tsv. The caption supplies direction and a selection rule but no per-gene DESeq2 estimates, P values or FDR. The 313-gene headline and the precise libraries used in Figure 5A remain unresolved. See data/author-validation/continued-sources/GSE162673/codex-2026-11-21/SEARCH_LOG.md.",
+      "reviewFlags": [
+        "Figure 5A labels 80 upregulated genes. The identity of the remaining genes behind the 313-gene headline and the authors’ tested universe are unavailable.",
+        "The caption allows three to four samples in each arm. The deposited and registered groups each have four, and the authors’ fitted library IDs are unspecified.",
+        "Bcl11a and Egr4 are directionally discordant. Individual author effect sizes, P values and FDR are unavailable."
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The selected direction comparison is complete. All 80 author-listed genes pair, and 78 have positive edgeR-QL effects. Bcl11a and Egr4 have negative effects. The paper’s 313-gene headline, the reviewer response’s description of the figure as exhaustive, and the caption’s sample-size range prevent whole-contrast sign-off. The GEO counts contain sample measurements only.",
+      "nextStep": "For a full comparison, obtain the exact GSM inclusions, the Figure 5A selection rule and the complete author DESeq2 table, including raw and adjusted P values. Retain the 80-gene comparison and both opposite signs.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "hypoxia_vs_normoxia"
+      ],
+      "basis": "Direction stated for each labeled Figure 5A row, compared to the sign of the registered hypothalamus edgeR-QL coefficient. No reconstruction, magnitude estimation from colors or local significance filter was used.",
+      "reference": "Vanderhaeghen et al., doi:10.15252/embr.202153083, Figure 5A (published PDF page 11, caption page 12). The accepted manuscript repeats the panel on PDF page 58. The review process file page 16 corroborates the direction of Crh.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "GSE162673 supplies four named biological replicates per arm. All eight sample descriptions match the count columns and the registered groups. Figure 5A describes female C57BL/6J hypothalamus with N = 3–4 per arm and leaves fitted GSM membership unspecified."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Both analyses compare two hours of hypoxia against normoxia in mouse hypothalamus. Positive is higher under hypoxia. Liver, DEX, qPCR, ChIP and protein experiments are outside this comparison."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 80 distinct labels join one-to-one. Seventy-nine match the registered symbol exactly. Mouse Gene 235493 and MGI:2387648 identify Fam214a as Atosa, and the registered feature map assigns ENSMUSG00000034858 to Atosa. No ambiguous, duplicated or unmatched row remains."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "The caption assigns every displayed gene an upward author direction. Registered coefficients are nonzero for all 80. Seventy-eight agree. Bcl11a (−0.1816) and Egr4 (−0.0112) are negative locally. Author log2 fold changes, correlations and magnitude differences are unavailable."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "The caption states LFC > 0.3 and P ≤ 0.05. The narrative uses P < 0.05 and the hypothalamic DESeq2 methods describe 5% FDR. Per-gene author P/FDR and which statistic governed selection are unavailable. Among the 80 displayed genes, 66 have registered raw P < 0.05 and 33 have registered FDR < 0.05. These are local counts only."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All 80 figure rows pair, covering 80 of the 313 upregulated genes reported in the text by count (25.6%). The peer-review response calls the heatmap exhaustive. The figure supplies no rows for 16,862 of the 16,942 registered genes, including 361 registered FDR discoveries. Author calls for these genes are unknown."
+        }
+      },
+      "criteria": "Use every labeled row, its caption-defined sign and the unmodified case-minus-baseline registered coefficient. The selected reference has 100% coverage, 80/80 nonzero pairs and 78/80 same-sign pairs. These meet the v2 numerical direction cutoffs within this panel. Shared cohort compatibility is unresolved. The available categorical signs cannot supply quantitative authorEffect values for an additional comparison spec.",
+      "conclusion": "Direction agrees for 97.5% of the all-up panel, with two opposite registered effects. Whole-contrast concordance, author effect magnitudes and significance agreement remain unassessed."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Unique labeled Figure 5A genes and paired registered symbols",
+      "value": "80/80. The published and accepted PDF labels agree row for row. There were 79 exact joins and one documented mouse synonym (Fam214a → Atosa).",
+      "script": "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/compare_figure5a.py"
+    },
+    {
+      "claim": "Same direction among nonzero pairs",
+      "value": "78/80 (97.5%). Bcl11a = −0.181580685379098 and Egr4 = −0.011171819841222 registered log2FC.",
+      "script": "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/compare_figure5a.py"
+    },
+    {
+      "claim": "Coverage of the stated author upregulated count",
+      "value": "80/313 (25.56%) by count. The selection of the displayed rows is unresolved.",
+      "script": "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/compare_figure5a.py"
+    },
+    {
+      "claim": "Registered inference within and outside the panel",
+      "value": "66/80 raw P < 0.05 and 33/80 FDR < 0.05. Of 394 registered FDR calls, 361 have no Figure 5A row. Paired author P/FDR counts are unassessed.",
+      "script": "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/compare_figure5a.py"
+    },
+    {
+      "claim": "Contents of the GEO processed deposit",
+      "value": "55,487 distinct feature IDs and eight integer-count columns. All eight GSM records declare no sample supplement. The series matrix contains zero gene rows.",
+      "script": "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/inspect_sources.py"
+    }
+  ],
+  "openIssues": [
+    "Figure 5A reports three to four libraries per group. GEO and the registered fit have four per group. Which GSM accessions entered the authors’ hypothalamic DESeq2 fit?",
+    "The final paper reports 313 upregulated genes, but the heatmap has 80 labels and the peer-review response describes the panel as showing all qualifying genes. What selection produced Figure 5A, and did its P cutoff use raw or adjusted values?",
+    "The complete author DESeq2 table with identifiers, signed log2 fold changes, raw P values, adjusted P values and testing eligibility was not located. Per-gene effect magnitudes and inference remain unassessed."
+  ]
+}

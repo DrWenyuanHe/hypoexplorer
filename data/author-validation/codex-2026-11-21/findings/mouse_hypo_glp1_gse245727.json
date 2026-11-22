@@ -1,0 +1,60 @@
+{
+  "datasetId": "mouse_hypo_glp1_gse245727",
+  "accession": "GSE245727",
+  "category": "not_located",
+  "closure": "no_valid_comparison",
+  "summary": "Figure 5b reports 23 semaglutide-versus-vehicle discoveries as a count, without gene identifiers. The registered GLP-1-versus-vehicle edgeR table has zero discoveries at FDR < 0.05. The published gene-level panels use a different contrast or a different cohort, so gene-level concordance remains unassessed.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE245727/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "GEO confirms the registered arms. The linked author result gives only a discovery count for monoagonist versus vehicle.",
+      "note": "GSE245727 has six hypothalamic GLP-1 and six vehicle libraries in the registered contrast. The Figure 5 code reads the same 0149 library series and estimates peptide minus vehicle. The paper calls the monoagonist semaglutide. Figure 5b shows 18 semaglutide-only discoveries and five shared with the conjugate. Figures 5c and 5e use conjugate minus semaglutide. Figure 3f uses a separate eight-mouse-per-arm experiment. The GEO files contain per-library featureCounts counts. The paper, supplements and author code provided no gene identifiers, effects or individual test statistics for the Figure 5b monoagonist-versus-vehicle set.",
+      "reviewFlags": [
+        "The authors' 0149 sample metadata file is referenced by the code but was absent from the public repository. The link to semaglutide rests on library identifiers, the Figure 5 analysis and the paper's treatment labels.",
+        "The original input assembly has no committed source checksum manifest. The current GEO archive and its members are hashed in the continued evidence."
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The available author result for the registered arms is a Venn count. It gives 23 DESeq2 discoveries at BH-adjusted P < 0.05, while the registered edgeR-QL table gives zero at FDR < 0.05. The count supplies no gene identifiers or effects. The gene-labelled panels cover another cohort or use the conjugate as a treatment arm.",
+      "nextStep": "To compare genes, obtain the Figure 5 DEGs.peptide table for condition_peptide_vs_vehicle with gene identifiers, log2 fold changes, raw P and adjusted P, together with the 0149 sample-to-treatment key used in jona-seq2_meta.csv.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered sample groups in the GEO archive, matched to the local sample sheet",
+      "value": "6 GLP-1, 6 vehicle",
+      "script": "data/author-validation/continued-sources/GSE245727/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "GEO sample supplementary tables inspected in full",
+      "value": "23 featureCounts files, each with 55,401 count rows and one BAM count column",
+      "script": "data/author-validation/continued-sources/GSE245727/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Publication supplement inventory reconciled across Nature, PMC, Europe PMC and BioStudies",
+      "value": "20 files, including 18 workbooks with 200 worksheets and two PDFs",
+      "script": "data/author-validation/continued-sources/GSE245727/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Figure 5b semaglutide discoveries under the author script's adjusted-P < 0.05 rule, transcribed from disjoint Venn regions",
+      "value": "18 semaglutide only + 5 shared with the conjugate = 23",
+      "script": "data/author-validation/continued-sources/GSE245727/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Registered edgeR-QL output, counted from the DE table",
+      "value": "17,727 gene rows, 0 with padj < 0.05",
+      "script": "data/author-validation/continued-sources/GSE245727/codex-2026-11-21/inspect_evidence.py"
+    }
+  ],
+  "openIssues": [
+    "A gene-level DESeq2 result and the original 0149 sample key are needed to compare the affected genes and investigate the discovery-count difference. Author effects, directions, individual P values, adjusted P values and tested-gene coverage remain unassessed."
+  ]
+}

@@ -1,0 +1,214 @@
+{
+  "datasetId": "mouse_mbh_maternal_emulsifier_gse231769",
+  "accession": "GSE231769",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "S1 labels 43 genes up and 38 down. The paper reports 45 up and 38 down, and the first author’s thesis repeats those counts while listing 63 genes already in S1. The named effects pass both author-concordance-v2 routes. Resolving the count difference and the significance rule requires the authors’ Figure 3A gene list and analysis details.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE231769/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "summary": "Both effect-concordance tests pass across 14,483 paired genes. S1 and the paper differ by two in the upregulated count.",
+      "note": "For the registered P21 male MBH contrast, the PLOS, Europe PMC and Figshare copies of S1 are byte-identical. Worksheet positions 65–173 contain no values. One additional result lacks a gene ID and is labelled NS. All 14,483 named S1 IDs match uniquely to the 14,592 registered IDs. The named pairs have Pearson r = 0.991707 and Spearman rho = 0.995943. Direction agrees for 14,195 pairs, including all 81 genes labelled Up or Down in S1. This meets both author-concordance-v2 routes. The registered coefficients reproduce exposed-minus-control means from the deposited TMM log2 CPM to within 4.6e-14. S1 labels 43 genes up and 38 down. The paper reports 45 up and 38 down without giving the membership of that 83-gene set separately. Thesis Annex 1 repeats the first 63 named S1 rows in order. All 63 labels agree, and the largest absolute logFC difference is 4.90e-9. Figure 3A labels the ordinate −log10(P.Value). Its guides read approximately P = 0.05 and logFC = ±0.65. Raw P < 0.05 and |logFC| > 0.65 reproduce all S1 labels on the named rows. Nearby effect cutoffs give the same labels, so the authors’ implemented cutoff remains unknown. At raw P < 0.05 and |logFC| > log2(1.5), the named S1 and registered tables yield 109 and 88 calls with 85 shared. Among paired genes the counts are 109 and 87 with 85 shared. Mylk4 accounts for the extra registered call. At adjusted P < 0.05 alone, both registered calls are among five named S1 calls. Adding the 1.5-fold requirement gives zero in each available table. The original fit and plotting code were not located in the reviewed sources.",
+      "reviewFlags": [
+        "S1 contains 109 empty worksheet positions and one unkeyed NS result. The 109 registered genes without a keyed author result have unassessed author effects and inference. The empty positions carry no gene identities.",
+        "The paper reports two more upregulated calls than S1 labels. The public records establish the counts but leave the membership of the reported set unresolved. The thesis annex repeats 63 S1 genes, and the paper’s figure-data DOI returned HTTP 404.",
+        "The caption specifies FDR and a 1.5-fold cutoff. The methods specify nominal P and a 1.5-fold cutoff. The plot and S1 labels support a nominal-P interpretation, but the exact calling rule and original fit remain unresolved."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "PLOS Biology manuscript, RNA-seq methods and Figure 3 caption",
+          "url": "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3002171",
+          "kind": "paper"
+        },
+        {
+          "label": "Full text in PubMed Central",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10449393/",
+          "kind": "paper"
+        },
+        {
+          "label": "PLOS S1 differential expression workbook",
+          "url": "https://journals.plos.org/plosbiology/article/file?id=10.1371/journal.pbio.3002171.s001&type=supplementary",
+          "kind": "author_result"
+        },
+        {
+          "label": "Europe PMC supplementary archive",
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10449393/supplementaryFiles",
+          "kind": "author_result"
+        },
+        {
+          "label": "PLOS Figshare mirror of S1",
+          "url": "https://plos.figshare.com/articles/dataset/List_of_differentially_expressed_genes_DEGs_and_gene_ontology_GO_enriched_pathway_analysis_of_the_down_regulated_genes_obtained_from_RNA_sequencing_of_P21_male_offspring_from_control_and_emulsifiers_treated_dams_/24026784",
+          "kind": "author_result"
+        },
+        {
+          "label": "Published Figure 3, original TIFF",
+          "url": "https://journals.plos.org/plosbiology/article/figure/image?id=10.1371/journal.pbio.3002171.g003&size=original",
+          "kind": "author_result"
+        },
+        {
+          "label": "Milà Guasch thesis, Annex 1, printed pages 109–110",
+          "url": "https://diposit.ub.edu/server/api/core/bitstreams/f855c3ef-e455-4731-8c2b-3f21335d9525/content",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO sample metadata and processed inputs",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE231769",
+          "kind": "processed_data"
+        }
+      ],
+      "paperAccess": "pmc_full_text",
+      "pmcUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10449393/",
+      "pmcId": "PMC10449393",
+      "pubmedUrl": "https://pubmed.ncbi.nlm.nih.gov/37616199/",
+      "status": "review_required",
+      "comparisonLevel": "direct"
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "Both v2 effect-concordance routes pass across 14,483 named pairs. The paper reports 83 calls, S1 labels 81 and the thesis annex repeats 63 S1 rows. The 43-versus-45 up counts establish a net difference of two. Without a separate keyed list for Figure 3A, the membership differences and the cause are unknown. The caption specifies FDR, the methods specify nominal P, and neither written rule reproduces the reported count on the available results.",
+      "nextStep": "Which keyed up- and downregulated gene lists produced Figure 3A and the reported 45 up and 38 down? Please reconcile those lists with S1, or confirm a reporting error. Can the authors supply the complete keyed limma table and the fitting and plotting code, including the input normalization, design, weights if used, P-value column and effect cutoff?",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "maternal_emulsifier_vs_control"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Direct comparison of the registered limma output with every named S1 row, including NS rows. The coverage denominator is all 14,592 registered genes. The selected thesis annex and the unlabelled plot were examined separately for evidence about the reported calls.",
+      "reference": "PLOS S1, Differentially Expressed Genes worksheet. Secondary selected reference from Milà Guasch, Annex 1, printed pages 109–110.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "The manuscript and GEO describe P21 male MBH RNA-seq from four control litters and five exposed litters. The registered sheet and GEO sample records match on four control and five exposed libraries (GSM7300216–GSM7300224). The litter counts are reported in aggregate. The sheet gives library, BioSample and SRA identifiers, with no per-library dam or litter ID."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "P21 male mediobasal hypothalamus, maternal CMC plus P80 versus control water. S1 Up and Down denote change in exposed offspring. The registered coefficient uses groupcase with control as baseline."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 14,483 unique named S1 identifiers join exactly to registered IDs. The workbook’s unnamed result has no auditable gene mapping."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both estimates describe maternal emulsifier minus control in log2 units. Pearson r = 0.991707, Spearman rho = 0.995943, same direction in 14,195/14,483 nonzero pairs, median absolute logFC difference = 0.004021. The registered group-mean contrast reproduces directly from GEO."
+        },
+        "inference": {
+          "status": "different",
+          "note": "All 14,483 named pairs have finite raw and adjusted P values. At adjusted P < 0.05 there are five named S1 calls and two registered calls, with two in common. The added 1.5-fold requirement gives zero in each table. At raw P < 0.05 and 1.5-fold, 109 named S1 and 87 paired registered genes pass, with 85 in common. Raw P < 0.05 and |logFC| > 0.65 recover the S1 labels exactly. Figure 3A supports an approximate guide location. The reviewed sources do not establish the implemented cutoff or the original fit settings."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "14,483/14,592 registered genes have paired finite results (99.253%). All named S1 genes are covered. The other 109 local genes, including Mylk4, lack author statistics. Every one of the 63 selected thesis genes is already in S1."
+        }
+      },
+      "criteria": "Use the registered exposed-minus-control direction and exact unique gene IDs. The v2 policy requires at least 30 pairs covering at least 90% of the registered output for this table. Either Pearson and Spearman must both reach 0.90, or at least 90% of at least 30 nonzero pairs must agree in direction and those nonzero pairs must cover at least 90% of all pairs. Check the case assignment, identifier match and effect definition on either route. Count raw-P and FDR calls separately on named whole tables and on shared finite rows. Apply the conventional 1.5-fold boundary |logFC| > log2(1.5) for the two written rules. Check the prior empirical 0.65 observation against all named rows and the plotted guides.",
+      "conclusion": "Both v2 routes pass for paired gene effects. The published calls and original inference remain unresolved because the reported gene list, complete keyed statistics and exact calling procedure were not recovered."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "mouse_mbh_maternal_emulsifier_gse231769",
+      "accession": "GSE231769",
+      "contrast": "maternal_emulsifier_vs_control",
+      "localPath": "geo_replication/datasets/GSE231769_mouse_mbh_maternal_emulsifier/processed/GSE231769_DE.tsv",
+      "localKey": "id",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE231769_mouse_mbh_maternal_emulsifier/processed/GSE231769_DE.tsv",
+        "sha256": "3f42cc24906c6849e41924cff2d3de46529ddc982ed6cf85c8dc9c1f9259927d",
+        "bytes": 1405182
+      },
+      "authorPath": "data/author-validation/continued-sources/GSE231769/codex-2026-11-21/author-results.tsv",
+      "sourceUrl": "https://journals.plos.org/plosbiology/article/file?id=10.1371/journal.pbio.3002171.s001&type=supplementary",
+      "sha256": "9cc448cf4b01b2dca713b212e584264f794338b65188a7628faf29d402671d68",
+      "format": "tsv",
+      "authorKey": "id",
+      "authorEffect": "logFC",
+      "authorAdjustedP": "adj.P.Val",
+      "orientationSign": 1,
+      "localMethod": "limma lmFit/eBayes on submitted TMM log2 CPM, group-only fit",
+      "authorMethod": "limma on Kallisto-derived mouse gene expression, original fit settings unresolved",
+      "orientation": "Maternal emulsifier minus control in both sources.",
+      "note": "Replacement for this dataset’s existing S1 comparison spec. All identified S1 statistics were extracted before joining to the current registered table. The 81 S1 labels and the thesis’s selected genes are secondary scopes.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE231769/codex-2026-11-21/S1.xlsx",
+          "sourceUrl": "https://journals.plos.org/plosbiology/article/file?id=10.1371/journal.pbio.3002171.s001&type=supplementary",
+          "sha256": "016bd3107fa41d92b6bdf7666d85b0eca3390a669c2b93ab4f8c5ab69bf21ad3",
+          "bytes": 1590358
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE231769/codex-2026-11-21/compare.py",
+          "sourceUrl": "Local deterministic extraction of all named S1 rows and comparison script",
+          "sha256": "b564f202bfe15daf842ba8feee1ee7e9cb44da1737dc557ae2889f9ac88a895d",
+          "bytes": 11424
+        }
+      ]
+    }
+  },
+  "computed": [
+    {
+      "claim": "S1 coverage on registered output",
+      "value": "14,483/14,592 (99.2530%). All named author IDs join. An additional unkeyed author result and 109 local IDs are unassessed.",
+      "script": "data/author-validation/continued-sources/GSE231769/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Workbook gap and archive identity",
+      "value": "Value-free worksheet positions 65–173 inclusive. The PLOS, Europe PMC and Figshare S1 workbook bytes agree.",
+      "script": "data/author-validation/continued-sources/GSE231769/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Pearson and Spearman on all paired effects",
+      "value": "0.991706617 and 0.995942727",
+      "script": "data/author-validation/continued-sources/GSE231769/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Nonzero paired direction and magnitude",
+      "value": "14,195/14,483 same direction (98.0115%), nonzero coverage 100%, median absolute logFC difference 0.004020848, RMS scale ratio 0.964780149.",
+      "script": "data/author-validation/continued-sources/GSE231769/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Largest absolute registered effect difference from deposited case-minus-control mean log2 CPM",
+      "value": "4.526934382909076e-14",
+      "script": "data/author-validation/continued-sources/GSE231769/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Published S1 labels and nominal-P pattern",
+      "value": "43 Up, 38 Down and 14,402 NS among named S1 rows. At raw P < 0.05 and |logFC| > 0.65 the label disagreement count is zero. At fixed raw P < 0.05, the largest absolute logFC among NS rows is 0.6488888208626378 and the smallest among labelled rows is 0.6533392781839094. Any strict absolute-logFC cutoff from the former value up to, but excluding, the latter separates the same labels. Maximum labelled adjusted P = 0.379951059.",
+      "script": "data/author-validation/continued-sources/GSE231769/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Published figure guides estimated from native raster",
+      "value": "A pixel measurement on the native TIFF gives approximately −0.647 and +0.655 logFC, and nominal P ≈ 0.0499 on the labelled ordinate. These measurements support approximate guides at ±0.65 and P = 0.05.",
+      "script": "data/author-validation/continued-sources/GSE231769/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Author thesis Annex 1 (selected)",
+      "value": "34 up and 29 down. All 63 are the leading S1 rows, in order. All 63 agree in direction with the registered result. No additional author ID.",
+      "script": "data/author-validation/continued-sources/GSE231769/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "FDR < 0.05, shared finite named genes",
+      "value": "5 author, 2 registered, 2 shared. The FDR plus 1.5-fold rule yields 0 in each table.",
+      "script": "data/author-validation/continued-sources/GSE231769/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Nominal P < 0.05 and 1.5-fold",
+      "value": "Available named tables (S1 / registered / common): 109 / 88 / 85. On shared finite rows: 109 / 87 / 85. Mylk4 is a registered call without a keyed S1 result.",
+      "script": "data/author-validation/continued-sources/GSE231769/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Previously reported nominal-P and absolute-logFC > 0.65 pattern",
+      "value": "Available named tables (S1 / registered / common): 81 / 64 / 59. On shared finite rows: 81 / 63 / 59. Mylk4 is the only registered positive outside the paired set.",
+      "script": "data/author-validation/continued-sources/GSE231769/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "Which keyed up- and downregulated gene lists produced Figure 3A and the reported 45 up and 38 down? Please reconcile those lists with S1, or confirm a reporting error. Can the authors supply the complete keyed limma table and the fitting and plotting code, including the input normalization, design, weights if used, P-value column and effect cutoff?",
+    "The 109 registered genes without keyed author results remain unassessed. The cited figure-data DOI did not resolve, and Annex 1 supplies no additional gene."
+  ]
+}

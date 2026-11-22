@@ -1,0 +1,232 @@
+{
+  "datasetId": "gse135007",
+  "accession": "GSE135007",
+  "category": "partial_untested",
+  "closure": "compared",
+  "summary": "Of 490 distinct genes with a four-week hypothalamus effect in Nolte et al.’s selected GO, KEGG and QTL tables, 431 pair with a registered Gough Island versus WSB coefficient. Direction agrees for 429/431 pairs (Pearson r = 0.9895, Spearman rho = 0.9773). Coverage of the selected author genes is 87.96%, below the 90% author-concordance-v2 requirement.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "Compared signed log2 fold changes for 431 of 490 author-selected four-week hypothalamus genes.",
+      "note": "Tables 3 and 11 came from the Zenodo copy of the Dryad deposit. Tables 4 and 10 came from the article’s PMC supplement. The authors estimated the sex-averaged Gough Island versus WSB effect in a DESeq2 strain-by-sex model. The registered edgeR model fits a common strain effect adjusted for sex. Positive coefficients indicate higher expression in Gough mice. Of 431 pairs, 429 agree in sign and 371 also meet registered FDR < 0.05. The authors report 4,039 hypothalamus discoveries in Figure 1A. The four selected tables supply neither the full gene list nor numeric gene-level P or FDR.",
+      "reviewFlags": [
+        "Coverage is 431/490 (87.96%) for the selected author reference. The policy requires 90%.",
+        "Published GO, KEGG and QTL selections limit the comparison. Sixty paired author discoveries have registered FDR ≥ 0.05. The tables omit numeric gene-level P and FDR.",
+        "The models handle sex differently. The paper reports a single litter for four-week Gough males, and individual litter assignments are unavailable in the registered model."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Primary paper",
+          "url": "https://doi.org/10.1093/gbe/evaa118",
+          "kind": "paper"
+        },
+        {
+          "label": "Dryad file inventory",
+          "url": "https://datadryad.org/api/v2/versions/78227/files",
+          "kind": "author_result"
+        },
+        {
+          "label": "Zenodo preservation copy of Dryad Tables 3, 7 and 11",
+          "url": "https://zenodo.org/records/3990425",
+          "kind": "author_result"
+        },
+        {
+          "label": "PMC supplementary archive with Tables 4 and 10",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC7487164.1/evaa118_supplementary_data.zip",
+          "kind": "author_result"
+        },
+        {
+          "label": "Article Figure 1A with the hypothalamus discovery count",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC7487164.1/evaa118f1.jpg",
+          "kind": "paper"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "All 490 distinct selected author IDs were retained. Of 431 pairs, 429 agree in direction and 371 meet registered FDR < 0.05. Correlation and direction meet the numerical criteria, while selected-reference coverage is 87.96%. A genome-wide comparison of effects, P values and FDR requires the complete author results.",
+      "nextStep": "For full-universe review, obtain the complete four-week hypothalamus sex-averaged strain results with Ensembl IDs, log2 fold changes, raw P and BH-adjusted P including missing values, and reconcile the two model contrasts.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "gough_vs_wsb"
+      ],
+      "basis": "Current registered whole-hypothalamus edgeR-QL table, with DE and input identities checked against its serialization-successor provenance.",
+      "reference": "Nolte et al. supplementary Tables 3 and 4 give DE genes in enriched GO terms and KEGG pathways. Table 10 lists DE genes near body-size QTL, and Table 11 describes QTL/SNP candidates. All 24 Table 11 hypothalamus effects and all nine corresponding main Table 2 entries repeat Table 10 effects at its reported precision.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "The paper sampled four-week-old mouse hypothalamus from both strains and treated each mouse as a replicate. All 20 registered GSMs, tissue, age, sex, strain and animal labels reconcile to GEO, with five mice of each sex per strain. The coefficient lists omit GSMs. The paper describes related litters, including one litter for the four-week island males."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Both measure the island-minus-WSB difference across sexes in four-week whole hypothalamus. The paper averages sex-specific log2 contrasts from a strain-by-sex model. The registered additive model estimates a common strain effect adjusted for sex in the balanced cohort. Positive values indicate higher expression in Gough mice throughout."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "The join used Ensembl gene IDs across author tables. Each of the 431 pairs has a unique identical count profile across all 20 GSMs in the registered input and canonical matrix, plus a corroborating author or MGI symbol. Of 59 unpaired IDs, 56 match a canonical profile without a published coefficient. Cd209f and Gm9945 also lack a published coefficient. Eno1 has a published coefficient, but its canonical count profile differs from the individual author feature."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both effects use log2 units and positive values for higher expression in Gough mice. Pearson r = 0.9895, Spearman rho = 0.9773 and median absolute log2 difference = 0.02372. Of 431 nonzero pairs, 429 agree in direction. Lsm8 and Selenbp2 have opposite signs in the two analyses. The sex-averaged and common-effect models can yield different magnitudes."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "The authors defined DE at BH-adjusted P < 0.05 in a DESeq2 strain-by-sex model before pathway and QTL selection. The registered analysis used edgeR quasi-likelihood on length-scaled counts with an additive sex term. Of the 431 paired author discoveries, 371 meet registered FDR < 0.05 and 60 have registered FDR ≥ 0.05. Of all 3,324 registered discoveries, 2,953 lack a paired effect in these selections. The retained gene lists supply zero numeric author P or FDR pairs. Whole-list overlap remains unknown."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The 431 pairs cover 87.96% of the 490 distinct genes in the selected author reference and 2.77% of the 15,568 published Explorer DE rows. All 59 unpaired author genes stay in the first denominator. Figure 1A reports 4,039 author discoveries, or 21% of detected four-week hypothalamus transcripts. The aggregate count does not identify the complete author tested-gene universe."
+        }
+      },
+      "criteria": "author-concordance-v2 requires at least 30 pairs and 90% relevant coverage. Either Pearson and Spearman must both reach 0.90, or at least 90% of at least 30 nonzero pairs must agree in sign with those pairs covering at least 90% of all pairs. Cohort, contrast, features and effect definitions must also be compatible. Selected scope uses every distinct selected author gene as its denominator.",
+      "conclusion": "Close the direct comparison for these selected effects. Both numerical agreement routes pass on the pairs. Coverage falls below 90%, and full author inference and full verification remain open."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "gse135007",
+      "accession": "GSE135007",
+      "contrast": "gough_vs_wsb",
+      "localPath": "geo_replication/datasets/GSE135007_discovery_20260905/processed/GSE135007_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/author-effects.tsv",
+      "sourceUrl": "https://doi.org/10.1093/gbe/evaa118",
+      "sha256": "80e49ef6f05321dcbc420391ffffa78a6fe575b5a6905934a5cff9eb680e3a33",
+      "format": "tsv",
+      "authorKey": "join_key",
+      "authorEffect": "author_log2FC",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL",
+      "authorMethod": "DESeq2 sex-averaged strain contrast from a model including strain, sex and their interaction",
+      "orientation": "Gough Island relative to WSB in four-week hypothalamus in both sources.",
+      "note": "The normalized reference combines Tables 3 and 11 from the Dryad deposit preserved by Zenodo with Tables 4 and 10 from the PMC article supplement. The latter two tables are the only source for 120 selected IDs. Every distinct author ID occurs once. Cross-table repeats agree at the published precision, and unpaired IDs retain their Ensembl keys. No cutoff on registered effect size or significance was applied. Of 490 selected IDs, 431 pair and 429 agree in sign. Numeric gene-level author P and FDR are unavailable in these tables.",
+      "interpretation": "effects_compared",
+      "resultScope": "Selected GO, KEGG and QTL genes only.",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/sources/Supplementary_Table3_MJNolte_etal_2020.xlsx",
+          "sourceUrl": "https://zenodo.org/api/records/3990425/files/Supplementary_Table3_MJNolte_etal_2020.xlsx/content",
+          "sha256": "1fa62cb145f5bfff73726c27288e6be7950e8b666910692cffc4f63594ac0b64",
+          "bytes": 38329869
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/sources/Supplementary_Table11_MJNolte_etal_2020.xlsx",
+          "sourceUrl": "https://zenodo.org/api/records/3990425/files/Supplementary_Table11_MJNolte_etal_2020.xlsx/content",
+          "sha256": "5b475941c9e0843cfb4dbeb1659659a43dd50ea8d731ec40a361aeca47dd20b3",
+          "bytes": 185849
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/sources/evaa118_supplementary_data.zip",
+          "sourceUrl": "https://pmc-oa-opendata.s3.amazonaws.com/PMC7487164.1/evaa118_supplementary_data.zip",
+          "sha256": "d6d289d4b50c1ecef78dd89f823eb02dec277068c6fda0494e4b9ea90a608a4e",
+          "bytes": 4633901
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/sources/efetch.xml",
+          "sourceUrl": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=7487164&retmode=xml",
+          "sha256": "2bc73ec2322fea0f8cc1fded257ae405c5cb092dcf447c9fe31392ea08f0055f",
+          "bytes": 243783
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/sources/dryad-files.json",
+          "sourceUrl": "https://datadryad.org/api/v2/versions/78227/files",
+          "sha256": "92808ae6fbb57fff7b2f6a46ac63b82da5c24387c26422550702ba959ba088b4",
+          "bytes": 2273
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/compare.py",
+          "sourceUrl": "Selection, cross-table consistency, identifier reconciliation and metrics",
+          "sha256": "82c88afa9f82153c5b89dc62acbc1feec158015f406bc4e8b504ad92d38c9ba8",
+          "bytes": 12569
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/inspect_sources.py",
+          "sourceUrl": "Workbook reader and source inventory",
+          "sha256": "d1b3f590e9dd558e692577ed29781873bcdd4805c1992853ff97d46d8f864688",
+          "bytes": 6190
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/compare.py",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE135007_discovery_20260905/processed/GSE135007_DE.tsv",
+        "sourceUrl": "Current registered whole-hypothalamus DE output",
+        "sha256": "e1c745ad883a19fc788f7c82d78d6e759872d41bb698f1a312cef1503262d19d",
+        "bytes": 1553279
+      }
+    }
+  },
+  "computed": [
+    {
+      "claim": "Distinct selected author Ensembl IDs",
+      "value": "490",
+      "script": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Paired effects / selected author IDs",
+      "value": "431/490 (87.96%)",
+      "script": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Paired effects / all published Explorer DE rows",
+      "value": "431/15568 (2.77%)",
+      "script": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Same direction / nonzero pairs",
+      "value": "429/431 (99.54%)",
+      "script": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Pearson correlation of signed log2 effects",
+      "value": "0.9895098396797406",
+      "script": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Spearman correlation of signed log2 effects",
+      "value": "0.9772982473932111",
+      "script": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Median absolute log2 fold-change difference",
+      "value": "0.023719048341648064",
+      "script": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Unpaired selected IDs",
+      "value": "59",
+      "script": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Discordant paired signs",
+      "value": "Lsm8, Selenbp2",
+      "script": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered FDR < 0.05, all / paired / without a selected pair",
+      "value": "3324 / 371 / 2953",
+      "script": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "GEO hypothalamus GSMs reconciled to registered samples",
+      "value": "20",
+      "script": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/inspect_sources.py"
+    },
+    {
+      "claim": "SHA-256 of the recovered supplementary table 3, matched against Dryad",
+      "value": "1fa62cb145f5bfff73726c27288e6be7950e8b666910692cffc4f63594ac0b64",
+      "script": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/inspect_sources.py"
+    }
+  ],
+  "openIssues": [
+    "Selected-reference coverage is 431/490 (87.96%), below 90%. The paper gives an aggregate count of 4,039 hypothalamus discoveries. Gene-level effects, raw P and BH-adjusted P across the complete author universe remain unavailable in the reviewed sources.",
+    "The author sex-averaged interaction-model contrast and the registered additive sex-adjusted coefficient can differ. Individual litter assignments are unavailable in the deposited sample metadata."
+  ]
+}

@@ -1,0 +1,170 @@
+{
+  "datasetId": "gse262407",
+  "accession": "GSE262407",
+  "category": "unresolved",
+  "closure": "compared",
+  "summary": "The mouse-level fit including Arc15 reproduces all 5,350 Figure 2g astrocyte effects for HFD versus control diet under saline. Those genes cover 54.28% of the registered output. For glucose versus saline on control diet, the two published astrocyte tables differ in effect size on 510 shared genes, agree in direction on all 510 and differ in FDR call on five.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE262407/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "Direct author effects cover 12 of 28 population–contrast pairs. The Figure 2g refit supports including Arc15. The two published estimates of the astrocyte glucose response on control diet remain unreconciled.",
+      "note": "Including Arc15 gives 5,350 of 5,350 Figure 2g genes, with a maximum absolute log2FC difference of 1.07674e-10. Applying the Figure 2c PCA mouse cutoff to the DE fit loses 10 published genes and adds six. With Arc15, the fit also reproduces all 529 selected control-diet astrocyte glucose effects in Supplementary Data 1 (SD1) to within 4.172e-10. The 510 genes shared with Supplementary Figure 5a agree in sign. Their median absolute log2FC difference is 0.004650 and the maximum is 0.078297. At FDR < 0.05, 70 shared genes are called in both sources, two only in SD1 and three only in the figure. SD3 and GEO count 75,862 nuclei, including 5,588 ARC/VMH astrocytes. The paper reports 75,787. Its regional totals localize the 75-nucleus difference to DVC neurons. See comparisons.json, refit-metrics.tsv and refute/ in data/author-validation/continued-sources/GSE262407/codex-2026-11-21.",
+      "reviewFlags": [
+        "Figure 2g pairs 5,350 of 9,857 registered genes. Coverage of the registered output is below the 90% requirement for a full author table.",
+        "The ARC/VMH column in Supplementary Figure 5a contains the genes shared between regions. Its coefficients and five shared-gene FDR calls differ from SD1.",
+        "The Ghrh, OPC and oligodendrocyte comparisons are sensitive to low-nucleus mouse exclusions. The authors' whole-population DE donor lists are unavailable in the pinned code.",
+        "Sixteen population–contrast pairs have no matching author coefficient in the reviewed sources. Nominal-P lists, genes shared between regions and effects-only panels support only their stated scopes."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Primary paper",
+          "url": "https://doi.org/10.1038/s41467-026-77116-9",
+          "kind": "paper"
+        },
+        {
+          "label": "Pinned author code",
+          "url": "https://github.com/perslab/Brown-2025/tree/773a267395c0c0b21e47312c1de3a14d77b4e02d",
+          "kind": "author_result"
+        },
+        {
+          "label": "Supplementary Data 1 (ARC/VMH glia)",
+          "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-026-77116-9/MediaObjects/41467_2026_77116_MOESM4_ESM.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Source Data 2 (Figure 2c mouse names and Figure 2g astrocyte results)",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13623956.1/41467_2026_77116_MOESM13_ESM.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Source Data 13 (Supplementary Figure 5a regional astrocyte results)",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13623956.1/41467_2026_77116_MOESM24_ESM.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Supplementary Data 3 (cell counts by region and population)",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13623956.1/41467_2026_77116_MOESM6_ESM.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Supplementary Data 4 (ARC/VMH neuronal effects)",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13623956.1/41467_2026_77116_MOESM7_ESM.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Source Data 3 (Figure 3c Ghrh diet effects)",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13623956.1/41467_2026_77116_MOESM14_ESM.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Source Data 14 (Supplementary Figure 6a Ghrh glucose effects)",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13623956.1/41467_2026_77116_MOESM25_ESM.xlsx",
+          "kind": "author_result"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The fit including Arc15 reproduces Figure 2g and the 529 SD1 astrocyte coefficients for glucose versus saline on control diet. For Figure 2g, 5,350 of 9,857 registered genes pair (Pearson 0.976342, Spearman 0.976763, same sign 4,994/5,350). The author calls 34 genes at FDR < 0.05 and the registered output calls zero. Supplementary Figure 5a contains 5,239 ARC/VMH effects from a cross-region intersection. Its 510 genes shared with SD1 all agree in direction, but all coefficients differ and five FDR calls change. The same fit recovers 5,235 of those 5,239 genes with a maximum absolute log2FC difference of 0.206314.",
+      "nextStep": "Which ARC/VMH astrocyte barcodes, mice, gene filter and edgeR fit produced the .y columns of Supplementary Figure 5a, and which version represents the control-diet glucose response? The donor manifests and full tested tables for that panel and SD1 would distinguish the two fits.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "hfd_vs_chow_saline",
+        "glucose_vs_saline_chow",
+        "glucose_vs_saline_hfd"
+      ],
+      "basis": "All seven registered populations and four contrasts were checked for a matching author coefficient. Direct exact-symbol comparisons cover the three listed contrast IDs in astrocytes, Ghrh neurons, OPCs and oligodendrocytes. comparisons.json records 20 source blocks in those 12 contexts. refit-metrics.tsv assesses mouse inclusion with separate LRT fits to the deposited counts.",
+      "reference": "SD1 and SD4 contain nominal-P selections. Source Data 2, 3 and 14 provide the full Figure 2g, Figure 3c Ghrh and Supplementary Figure 6a results, respectively. Source Data 13 contains the ARC/VMH side of a gene intersection with DVC. Source Data 5 and 7 provide selected Ghrh results. Figure 7d reports control-diet and HFD effects for genes selected at control-diet FDR < 0.05.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Arc15 has 25 ARC/VMH astrocytes and received control diet and saline. The nine-mouse Figure 2g refit reproduces all published effects to within 1.077e-10. Removing Arc15 as in the Figure 2c PCA loses ten published genes and adds six. The nine-mouse control-diet glucose refit also recovers all 529 SD1 effects (maximum absolute log2FC difference 4.17129e-10). Arc15 is outside both HFD-only arms. Ghrh refits admitting low-count mice recover both full volcano gene sets. For OPCs under HFD, the paper’s two-cell rule retains Arc30 (3 nuclei) and Arc28 (10). The four-cell rule from the Insr subgroup code drops Arc30 and keeps Arc28. The registered 20-cell rule drops both. The four-cell result is a sensitivity analysis. The original OPC donor manifest is unavailable."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "The paper compares HFD (D12492i) minus control diet (D12450Ji) under saline and glucose minus saline within each diet. The registry calls the control diet ‘chow’. Case and baseline agree for all 12 measured contexts. None of the seven HFD-versus-control comparisons under glucose had a corresponding published coefficient in the reviewed sources. The GSE262408 pilot is separate."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Exact, unique gene symbols within each source block. Eight Figure 3c Ghrh symbols are absent from its registered output. comparisons.json names unmatched author genes. The wider registered and narrower author tested universes are preserved."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both analyses report case-minus-baseline log2 fold changes. Figure 2g has Pearson 0.976342, Spearman 0.976763 and 4,994/5,350 same-sign pairs against the registered output. For the two author control-diet astrocyte glucose tables, all 510 shared effects differ numerically and all 510 agree in sign."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The registered output uses a two-arm edgeR quasi-likelihood test. The authors describe robust dispersion estimation, an edgeR likelihood-ratio test and BH adjustment. Figure 2g has 34 author and zero registered calls at FDR < 0.05. For control-diet astrocyte glucose response, SD1 and the regional figure have 76 and 73 calls in their respective tables. On the 510 shared genes, 70 are called in both, two only in SD1 and three only in the figure. Figure 7d itself supplies no P values or FDR. Three of its 40 Ghrh genes lack an HFD effect."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Twelve of 28 contexts have direct comparisons. Full author tables cover 54.28% of registered Figure 2g genes, 83.14% for Figure 3c Ghrh and 94.14% for Supplementary Figure 6a Ghrh. The last clears numeric coverage with a different mouse cohort. Figure 7a has 19 Ghrh pairs, below the 30-pair minimum. The 16 unmeasured contexts comprise all four contrasts for pooled ARC/VMH, pooled neurons and pooled tanycytes, plus HFD versus control under glucose for the four populations with comparisons."
+        }
+      },
+      "criteria": "Apply author-concordance-v2 separately to each source and context. Require at least 30 pairs and 90% relevant coverage, using the registered universe for full tables and the stated author reference for selected lists. Require compatible cohort, contrast, features and effects, plus Pearson and Spearman both at least 0.90 or at least 90% same direction among at least 30 nonzero pairs covering at least 90% of all pairs. Inference and magnitude differences are contextual.",
+      "conclusion": "Including Arc15 is strongly supported by reconstruction of Figure 2g and the selected SD1 control-diet astrocyte glucose effects. Figure 2g clears the effect-correlation and direction thresholds but covers only 54.28% of the registered table. All 513 SD1 HFD astrocyte glucose effects pair and agree in direction within that nominal-P list (Pearson 0.979501, Spearman 0.974294). The two author control-diet glucose tables still require fit provenance. Dataset-wide concordance and full-verification sign-off remain unestablished."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered direct comparisons",
+      "value": "Twenty source blocks contribute coefficients to 12 of 28 registered population–contrast pairs across three contrast IDs. All 28 registered DE tables match the hashes in their own provenance.",
+      "script": "data/author-validation/continued-sources/GSE262407/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "ARC astrocyte census and pseudobulk",
+      "value": "5,588 ARC astrocyte nuclei across 20 mice, including 25 for control-diet saline Arc15. All 499,240 gene-by-mouse count entries match the registered source matrix. The published census and GEO each total 75,862 nuclei.",
+      "script": "data/author-validation/continued-sources/GSE262407/codex-2026-11-21/nuclei.py"
+    },
+    {
+      "claim": "Figure 2g independent reference reconstruction",
+      "value": "Including Arc15 gives 5,350 tested genes and 5,350 shared, maximum |ΔlogFC| 1.07674e-10, maximum |ΔP| 4.54940e-10 and maximum |ΔFDR| 1.16348e-9. Excluding Arc15 gives 5,346 tested, 10 reference-only, 6 fit-only and maximum |ΔlogFC| 0.643705 on shared genes.",
+      "script": "data/author-validation/continued-sources/GSE262407/codex-2026-11-21/refit.R"
+    },
+    {
+      "claim": "Independent single-nucleus eligibility test",
+      "value": "Of the Figure 2g genes, zero fall below 10% detection with Arc15, versus 10 without Arc15. Golga7 in the SD1 chow-glucose selection has 239 detections among 2,397 cells when Arc15 is excluded.",
+      "script": "data/author-validation/continued-sources/GSE262407/codex-2026-11-21/eligibility.py"
+    },
+    {
+      "claim": "Figure 2g against the registered astrocyte HFD versus control-diet result under saline",
+      "value": "5,350 / 9,857 registered genes (54.2761%), 5,350 / 5,350 author genes. Pearson 0.976342, Spearman 0.976763, direction 4,994 / 5,350. FDR < 0.05 calls: author 34, registered 0, overlap 0.",
+      "script": "data/author-validation/continued-sources/GSE262407/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Other broad Ghrh reference tables",
+      "value": "Diet under saline: 5,870 pairs / 5,878 author / 7,060 registered. Glucose on control diet: 5,657 pairs / 5,657 author / 6,009 registered. The independent LRT gene sets and the registered comparisons are recorded separately.",
+      "script": "data/author-validation/continued-sources/GSE262407/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Two published estimates of the ARC/VMH astrocyte response to glucose on control diet",
+      "value": "SD1 supplies 529 nominal-P-selected effects. Supplementary Figure 5a supplies 5,239 ARC/VMH effects intersected by gene with DVC. On their 510 shared genes the absolute log2FC differences range from 0.00000560108 to 0.0782966 (median 0.00464995). All 510 signs agree. At FDR < 0.05, 70 are called in both, two only in SD1, three only in the regional figure and 435 in neither.",
+      "script": "data/author-validation/continued-sources/GSE262407/codex-2026-11-21/refute/check_comparisons.py"
+    },
+    {
+      "claim": "OPC, glucose on HFD, against SD1 selected rows",
+      "value": "The two-cell refit omits 22 published genes under both documented 10% boundaries. The four-cell subgroup rule omits zero and has maximum |ΔlogFC| 0.000198. The registered cohort refit omits one and has maximum |ΔlogFC| 0.312009.",
+      "script": "data/author-validation/continued-sources/GSE262407/codex-2026-11-21/refit.R"
+    },
+    {
+      "claim": "Localization of the 75-nucleus difference",
+      "value": "The paper and GEO both give 31,126 ARC/VMH neurons and 28,084 non-neuronal nuclei across both regions. The Results give 16,577 DVC neurons. SD3 and GEO give 16,652. The difference in totals is confined to the DVC neuronal count at this level of aggregation.",
+      "script": "data/author-validation/continued-sources/GSE262407/codex-2026-11-21/refute/check_comparisons.py"
+    }
+  ],
+  "openIssues": [
+    "Which ARC/VMH astrocyte barcodes, mice, gene filter and edgeR fit produced the .y columns of Supplementary Figure 5a, and which version represents the control-diet glucose response? The donor manifests and full tested tables for that panel and SD1 would distinguish the two fits.",
+    "The pinned repository lacks the fitted donor lists and generating script for whole-population DE. The exact OPC exclusions and the reason for the 75-nucleus difference in DVC neuron totals remain unknown.",
+    "The additional-comparison format accepts one metric record per dataset and lacks a track field. Its separate scoped reader is specific to GSE148252. The population-level results stay in the evidence files. Sixteen registered contexts have no matching author coefficient in the reviewed sources."
+  ]
+}

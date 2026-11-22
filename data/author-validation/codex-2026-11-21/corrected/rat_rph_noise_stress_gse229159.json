@@ -1,0 +1,164 @@
+{
+  "datasetId": "rat_rph_noise_stress_gse229159",
+  "accession": "GSE229159",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "All 358 uniquely paired genes agree in direction for seven daily noise exposures versus control. Of the 405 author-selected genes, 47 lack a published registered effect and 49 of the 358 pairs pass FDR < 0.05 in both analyses. The 88.40% reference coverage and the additional rat in each registered arm limit this comparison under author-concordance-v2.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE229159/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "Seven daily noise exposures versus control compared with the authors’ significant-gene table",
+      "note": "Frontiers Figshare and PMC supply byte-identical copies of S1. All 358 uniquely paired effects agree in direction (Pearson 0.991593, Spearman 0.986957). The other 47 of 405 author Ensembl IDs lack a registered symbol. The authors report excluding one rat per group. Reconstruction from their published baseMeans identifies PH01 (RS7) and PH20 (control) as the additional registered rats. The downloaded GEO count matrix matches its historical hash. The current family SOFT gzip differs from its historical pin, and the 12 registered sample identities and treatment assignments match its records. The search, source fingerprints, extraction and row-level comparisons are retained in data/author-validation/continued-sources/GSE229159/codex-2026-11-21.",
+      "reviewFlags": [
+        "S1 contains BH-selected discoveries only. Paired coverage is 88.40% of that list, below the 90% requirement.",
+        "The author RNA-seq fit used five animals per arm after library QC. The registered fit includes six per arm.",
+        "Among 358 paired author discoveries, 49 pass registered FDR < 0.05. Author raw P and inference outside S1 remain unassessed."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "The authors published effect sizes and BH-adjusted P for 405 RS7-versus-control discoveries. Stable IDs give 358 pairs, all with the same sign. The author DESeq2 fit excludes one library per arm that the registered edgeR fit includes. Selected-reference coverage falls below 90%, and 309 of the 358 paired author discoveries exceed the registered FDR cutoff.",
+      "nextStep": "For full-universe review, obtain the unfiltered DESeq2 RS7-versus-control export with Ensembl IDs, raw and adjusted P, filtering information and the fitted design. Retain the documented cohort difference in any assessment of the registered result.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "noise_stress_7d_vs_control"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Current registered rPH edgeR-QL coefficient for seven daily loud-noise exposures relative to no stress.",
+      "reference": "Campeau et al., Supplementary Table S1, pages 2–11, complete Control vs. 7 Loud noise exposures block. The authors selected genes at BH-adjusted P ≤ 0.05.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "different",
+          "note": "Independent adult male rat rPH specimens were collected 24 hours after the last exposure. GEO has six rats per arm. The manuscript excluded one library per arm before DE. A reconstruction using counts and all 405 published baseMeans identifies GSM7156104 (PH01, RS7) and GSM7156123 (PH20, control) as the two extra animals in the registered contrast. The authors' DESeq2 baseMeans reflect 20 animals across four arms."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Both effects compare rPH at the same endpoint after seven daily exposures with no-stress controls. Figure 2 defines direction relative to control. The one- and three-exposure pairwise contrasts and the separate in situ cohort are outside scope."
+        },
+        "features": {
+          "status": "limited",
+          "note": "Used the printed rat Ensembl ID and the registered feature map. All 405 IDs are distinct. Exactly 358 map one-to-one to a published effect, including eight with different printed and current symbol labels. The 47 unmapped IDs remain unpaired. Five of their printed labels occur in the registered table under other stable IDs."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both studies estimate a log2 fold change in the same direction. For the 358 paired effects, Pearson is 0.991593, Spearman is 0.986957, and 358 of 358 nonzero pairs have the same sign. Median absolute difference is 0.026445 log2 units. The paired RMS registered-to-author effect ratio is 0.963731."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The authors used DESeq2 1.28.1 Wald tests and BH-adjusted P ≤ 0.05. All 405 S1 adjusted P values in this contrast are below 0.05. The registered two-arm edgeR quasi-likelihood fit used TMM normalization and BH adjustment across 15,754 tested rows. The published output contains 12,993 symbol-level effects and 55 discoveries at FDR < 0.05. Of 358 paired genes, 49 pass both cutoffs and 309 pass only the author cutoff. The other six published discoveries lack a paired author adjusted P. Bounds from the published raw and adjusted P values establish 61 discoveries across the full fit, including six unpublished rows. The identities of those six rows are unknown from the published table. S1 omits raw P values."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The comparison retains all 405 selected author IDs. It covers 358/405 (88.40%) of the published selection and 358/12,993 (2.76%) of published registered effects. The unfiltered author testing universe was not located."
+        }
+      },
+      "criteria": "Apply author-concordance-v2 to all paired, uniquely mapped effects. For this selected list the coverage denominator is all 405 reference rows. Require at least 30 pairs, 90% selected-reference coverage and supported cohort, contrast, identifier and effect compatibility. The numerical alternatives are Pearson and Spearman each ≥0.90, or ≥90% direction agreement on at least 30 nonzero pairs covering ≥90% of all pairs. Report adjusted-P calls and magnitudes as context.",
+      "conclusion": "Both numerical alternatives pass on the 358 pairs. The registered fit includes one additional rat per comparison arm. Forty-seven author IDs lack a published registered effect, leaving the identifier assessment limited and selected-reference coverage at 88.40%, below the 90% requirement. The evidence supports a selected-gene comparison without v2 acceptance or full verification."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "rat_rph_noise_stress_gse229159",
+      "accession": "GSE229159",
+      "contrast": "noise_stress_7d_vs_control",
+      "localPath": "geo_replication/datasets/GSE229159_rnor_rph_noise_stress/processed/GSE229159_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/author-rs7-vs-control.tsv",
+      "sourceUrl": "https://ndownloader.figshare.com/files/41149442",
+      "sha256": "76b773d298891744c5a450cf28c6e42e9187c9e64ce2eca9884921818acaaacb",
+      "format": "tsv",
+      "authorKey": "output_key",
+      "authorEffect": "log2FoldChange",
+      "authorAdjustedP": "author_padj",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL, registered two-arm TMM fit",
+      "authorMethod": "DESeq2 1.28.1, Wald test with BH adjustment, S1 significant genes only",
+      "orientation": "S1 reports RS7 relative to no stress, as established by Figure 2 and the RNA-seq directions reported for Camk4, Gabrb2, Grin2a, Gad1 and Slc32a1. Use the printed log2 fold change with sign +1.",
+      "note": "All 405 printed Ensembl IDs remain in the normalized reference. The 358 one-to-one feature-map matches use the registered symbol. The 47 IDs without a registered symbol retain their distinct Ensembl keys and cannot join to a local effect. Local and author cohorts differ. All 358 effects agree in sign and 49 paired discoveries pass local FDR. Omitted author statistics remain unassessed. S1 has no raw P column.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/sources/Data_Sheet_1.pdf",
+          "bytes": 828786,
+          "sha256": "17b05811bb5e164aedd88f2b2c4518c05e2f7bf19183078a55f583ef0382b9a1",
+          "sourceUrl": "https://ndownloader.figshare.com/files/41149442"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/sources/pmc-article.xml",
+          "bytes": 171288,
+          "sha256": "314c39b280f8c62d4015ba8e2a9d58b848ce7497569569a1adfb460ba07d9f97",
+          "sourceUrl": "https://pmc-oa-opendata.s3.amazonaws.com/PMC10288150.1/PMC10288150.1.xml"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/sources/GSE229159_featurecounttrim24.txt.gz",
+          "bytes": 915095,
+          "sha256": "23063e4af5b88f9b23fe45ef5789c043761cde6f1d3bf91cdbfa031590dba36e",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE229nnn/GSE229159/suppl/GSE229159_featurecounttrim24.txt.gz"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/sources/GSE229159_family.soft.gz",
+          "bytes": 5380,
+          "sha256": "c6f5bd138333e57889c8dfb861964de57d4505442d82a834a96b33e2e109533d",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE229nnn/GSE229159/soft/GSE229159_family.soft.gz"
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/compare.py",
+      "resultScope": "selected_results",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE229159_rnor_rph_noise_stress/processed/GSE229159_DE.tsv",
+        "sha256": "fa5f0b472752c04c088f87b784778e106a8ea38d96248ef621b7d3c3bb81f204",
+        "bytes": 1288203
+      }
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered and author cohort membership",
+      "value": "GEO supplies 24 animals across four arms. The registered contrast has six RS7 and six control rats. All 405 published baseMeans reproduce at printed precision using default DESeq2 normalization on five per arm. The inferred excluded libraries are PH01, PH08, PH18 and PH20. PH01 (GSM7156104) and PH20 (GSM7156123) are in the registered contrast. Maximum absolute reconstruction difference is 0.000004795.",
+      "script": "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Deposited count matrix and supplementary inventory",
+      "value": "32,883 feature IDs and 24 integer-count columns. The family SOFT lists one series deposit and NONE for all 24 sample supplementary-file fields. The ENA query for PRJNA953086 returns 24 runs and zero analysis records.",
+      "script": "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Published selection and identifier reconciliation",
+      "value": "405 distinct RS7-versus-control Ensembl IDs, 358 paired one-to-one, 47 without a registered symbol. Eight paired printed labels differ from the registered symbol, including two printed as NA. Five unpaired printed names also occur under different source IDs.",
+      "script": "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Reference and output coverage",
+      "value": "358/405 (88.3951%) of the author-selected reference and 358/12,993 (2.7553%) of published registered effects.",
+      "script": "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Effect concordance in the selected reference",
+      "value": "Pearson 0.99159278, Spearman 0.98695734. All 358 pairs have two nonzero effects and all 358 agree in direction. Median absolute log2FC difference 0.02644459. Paired RMS registered/author effect ratio 0.96373130.",
+      "script": "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "FDR calls on comparable pairs and in each source",
+      "value": "Of 405 author discoveries, 358 have paired published effects. Of these, 49 pass registered FDR < 0.05 and 309 exceed that cutoff. The published registered table contains 55 discoveries. Six of the 55 lack a paired author adjusted P (Avp, Daw1, Fhip1a, Gpr63, Lrrtm1, Ntng1). The BH rejection count over all 15,754 tested rows is 61, inferred from the Prkcq and Pdk3 boundary values. Thus six additional discoveries lie among the 2,761 unpublished tested rows. No author adjusted P equals 0.05. S1 omits author raw P values.",
+      "script": "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Source integrity",
+      "value": "The two official supplementary PDFs have identical bytes. The deposited count gzip matches its historical pin. The retrieved family SOFT gzip SHA-256 differs from its historical pin, while its 12 registered sample identities, tissues and assignments match the samplesheet.",
+      "script": "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "The public sources reviewed provide only the significant-gene list. Author raw P values, all-gene adjusted P values and the full testing universe remain unavailable.",
+    "Different cohort membership, normalization and DE models limit interpretation of the FDR differences. The separate contribution of each was not estimated.",
+    "The freshly retrieved family SOFT gzip differs from the historical SHA-256. Its registered sample metadata are reconciled, but the historical and current compressed files have not been reconciled byte-for-byte."
+  ]
+}

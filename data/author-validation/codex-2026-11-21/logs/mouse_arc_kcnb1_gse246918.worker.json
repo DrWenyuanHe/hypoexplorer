@@ -1,0 +1,18 @@
+{
+  "datasetId": "mouse_arc_kcnb1_gse246918",
+  "outcome": "compared",
+  "summary": "Both author-selected genes increased in Kcnb1-null mice relative to WT. Lepr had a published log2 fold change of +1.14 and a registered value of +1.485. Figure S4 showed a measured increase for Jak2, whose registered value was +0.903. The single numerical pair falls below the 30-pair concordance minimum. The proposal passed validation. [Paper](https://pmc.ncbi.nlm.nih.gov/articles/PMC11556505/) · [Figure S4](https://pmc-oa-opendata.s3.amazonaws.com/PMC11556505.2/FSB2-38-e70111-s001.pdf)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/mouse_arc_kcnb1_gse246918.json",
+    "data/author-validation/continued-sources/GSE246918/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE246918/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE246918/codex-2026-11-21/selected-genes.tsv",
+    "data/author-validation/continued-sources/GSE246918/codex-2026-11-21/review-results.json",
+    "data/author-validation/continued-sources/GSE246918/codex-2026-11-21/validation.txt"
+  ],
+  "openIssues": [
+    "The paper and all six GEO samples identify bulk hypothalamus. The registered arcuate-nucleus label lacks dissection support.",
+    "The complete author DESeq2 table was unavailable. Dryad blocked access to its Figure 2 archive, so its contents remain unknown.",
+    "The paper highlights Lepr as a discovery. Its registered BH FDR was 0.05228. The exact author-adjusted P value and the cause of the inference difference remain unresolved."
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "datasetId": "mouse_hypo_oxt_trap_gse242245",
+  "accession": "GSE242245",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "All 17 published Figure 2I genes with a registered coefficient agree in direction for CCK-8s versus vehicle in chow-fed mice. The Discussion adds one matching direction for Trappc9. The authors reported 158 discoveries at adjusted P < 0.05, while the registered edgeR-QL table has zero.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE242245/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "The registered chow CCK treatment effect agrees in direction for 18 author-selected genes",
+      "note": "Figure 2I labels 22 author discoveries in chow-fed oxytocin-neuron RiboTag immunoprecipitates. Seventeen have registered coefficients and all 17 signs match. Each has registered raw P < 0.05 and none has registered FDR < 0.05. Five figure labels have a mapped input feature but lack a registered DE row. The authors describe Trappc9/Nbp as CCK-induced in the Discussion. Its registered sign agrees and its individual author P/FDR remains unassessed. The final Figure 2I caption, the Results and the explicit notebook contrast establish CCK minus vehicle. GEO and the notebook identify three CCK and four vehicle IP libraries, with two to three hypothalami pooled per library. The notebook fits the IP coefficient with the chow inputs included in the model and prints 158 discoveries. The registered seven-library IP fit yields zero. The public archives contain the executed notebook and sample counts. The full author DE export was not located.",
+      "reviewFlags": [
+        "The figure and narrative provide directions for 23 distinct symbols. Five have no registered coefficient, and exact author coefficients and gene-wise P/FDR were unavailable. This selected comparison falls below author-concordance-v2 requirements.",
+        "The preprint Figure 2I caption names a diet comparison. The final caption and both versions’ Results identify the chow treatment contrast. The caption’s four-mouse shorthand differs from the deposited pooled-library counts.",
+        "The restored QC summary reports nSig = 142. The registered DE table and restored per-gene track each yield zero FDR discoveries.",
+        "The GEO archive is pinned for this review. The registered legacy input comparison remains structural."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "All 17 paired Figure 2I directions and the additional narrative Trappc9 direction agree with the registered signs. Seventeen author-labeled discoveries have evaluable registered FDR and none passes 0.05. The chow DESeq2 and registered edgeR-QL fits differ in the libraries used to estimate normalization and dispersion, filtering and testing. The available sources establish the discrepancy in calls but do not quantify how much each modeling difference contributes.",
+      "nextStep": "For a genome-wide comparison, obtain the authors’ DifferentialExpressionAnalysis_IPcck_vs_IPveh.csv or equivalent res_IP object with gene identifiers, log2 fold changes, raw P, adjusted P and missing tests. Reconcile the QC summary count with the registered per-gene output.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "cck_vs_vehicle"
+      ],
+      "basis": "Compare the signs of all labeled Figure 2I points and the additional explicit CCK-induced transcript in the Discussion with the registered groupcase logFC. Record the red-point discovery category separately from the direction. Use the deposited DESeq2 notebook only for cohort, model, orientation and printed call totals.",
+      "reference": "Gruber et al., Cell Reports, DOI 10.1016/j.celrep.2023.113305, Figure 2I and Discussion. The matching RiboTag notebook is in Zenodo 7673205 and the named GitHub repository. See author-readings.tsv, selected-comparison.tsv, audit.json and the source manifest in the evidence folder.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "Adult male standard-chow OXT RiboTag hypothalamic IPs, collected two hours after injection, with two to three hypothalami pooled per library. GSM7757020–GSM7757022 supply the three CCK IP libraries. GSM7757023–GSM7757026 supply the four vehicle IP libraries. Notebook group labels and the heatmap agree with these counts. The caption says n = 4 mice. The authors’ original count-matrix header was unavailable for a byte-level sample match. Their fit also included eight chow input libraries."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "The final Figure 2I caption and Results specify the standard-chow IP treatment comparison. The authors’ results() call contrasts IPcckChow against IPvehChow, consistent with registered case minus baseline. The preprint caption names a diet contrast, whereas its own Results attribute these panels and 158 discoveries to chow CCK versus vehicle. The notebook treats the vehicle diet contrast separately."
+        },
+        "features": {
+          "status": "limited",
+          "note": "All 22 figure labels and the additional Discussion symbol Trappc9 have unique literal matches in the input feature map. Seventeen figure genes and Trappc9 have registered coefficients. Exoc3l2, Cnpy1, Scn11a, Il21r and Six1 are present in the counts and feature map but absent from the registered DE table. Nrap and Trappc9 were retained as separate genes."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "All nine higher and eight lower paired figure effects match the registered signs. The separately stated induction of Trappc9 agrees with its positive registered coefficient. The comparison reads directions from the graph and prose. Exact author coefficients, effect-size differences, Pearson and Spearman remain unassessed."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The chow DESeq2 notebook uses four groups, median-ratio size factors, a mean normalized count cutoff of 10, a local dispersion fit and a Wald contrast. It prints 158 calls among 16,953 genes with a nonmissing adjusted-P comparison. The seven-IP registered TMM/edgeR-QL fit reports zero FDR < 0.05 across 17,013 public rows. All 17 paired red labels have registered raw P < 0.05 and none passes registered FDR. The other five labeled discoveries lack a local test result. The original per-gene author P/FDR values and Trappc9’s author discovery status remain unassessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The reference yields 17 of 22 plotted directions and 18 of 23 directions including the narrative gene. The unlabeled points and unnamed heatmap rows cannot be joined by gene. The registered FDR family has 17,018 tested features, including five unpublished unmapped features. The exact author tested-gene universe and identities of all 158 discoveries were unavailable."
+        }
+      },
+      "criteria": "Use all figure labels in the published orientation and a literal symbol join. Keep Trappc9’s narrative direction separate from plotted discoveries. Apply the published adjusted-P cutoff of 0.05 and the registered FDR cutoff of 0.05 to their respective results. With only 18 paired directions and 18 of 23 selected references covered, the review falls below the 30-pair and 90% reference-coverage requirements of author-concordance-v2.",
+      "conclusion": "The public results support directional agreement for the 18 paired author-selected genes and establish a difference in discovery counts. Full-universe effect concordance and per-gene author inference remain unassessed."
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO sample file and library inventory",
+      "value": "23 GSM files, each with 29,915 feature/count rows. The series matrix has zero gene rows. ENA lists 46 sequencing runs for the 23 library titles. The registered cohort has three chow CCK IP and four chow vehicle IP libraries.",
+      "script": "data/author-validation/continued-sources/GSE242245/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Direction, calls and missing local effects for all Figure 2I labels",
+      "value": "22 labeled discoveries, 14 higher and 8 lower. Seventeen have registered coefficients (9 higher, 8 lower). All 17 directions agree, all 17 have registered raw P < 0.05 and zero have registered FDR < 0.05. The five unavailable rows are Exoc3l2, Cnpy1, Scn11a, Il21r and Six1.",
+      "script": "data/author-validation/continued-sources/GSE242245/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Additional author narrative result",
+      "value": "Trappc9 has registered log2FC +0.650129942209384, consistent with the reported induction. Its author discovery status and P/FDR were unavailable. Across both sources, 18 of 23 directions are paired and all 18 agree.",
+      "script": "data/author-validation/continued-sources/GSE242245/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Author and registered discovery counts",
+      "value": "The paper and notebook report 158 under the chow IP CCK-minus-vehicle contrast. The notebook prints 16,795 FALSE and 158 TRUE at adjusted P < 0.05. The registered table contains 17,013 finite adjusted P values and zero FDR < 0.05. The fit tests 17,018 features, including five unpublished unmapped rows.",
+      "script": "data/author-validation/continued-sources/GSE242245/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered output identity and QC cross-check",
+      "value": "geo_replication/datasets/GSE242245_mmus_pvn_ot_trap/processed/GSE242245_DE.tsv has SHA-256 b7711b5bbf587f1902d333149fb086a605bde71e2a1ccf70833ddd91773bbc9d. The local per-gene track also has 17,013 genes and zero FDR discoveries. The local QC summary reports nSig = 142. audit.json identifies both restored files by path and SHA-256.",
+      "script": "data/author-validation/continued-sources/GSE242245/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "The full chow IP treatment export is missing from the reviewed public sources. Exact gene-wise effects, raw P, adjusted P, and the full author testing and discovery lists require that export.",
+    "Five plotted author discoveries lack registered coefficients. The comparison supplies only directions for selected genes and cannot earn a concordance-v2 pass or full verification.",
+    "The restored QC summary’s 142 discoveries conflict with the zero obtained from the registered DE table and per-gene browser track."
+  ]
+}

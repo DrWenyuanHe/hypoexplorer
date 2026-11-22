@@ -1,0 +1,142 @@
+{
+  "datasetId": "mouse_hypo_maternal_hcd_gse242187",
+  "accession": "GSE242187",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "Independent expression profiles support the assignments of all six male libraries, and all 15,358 registered effects pair with the deposited results. The author’s Wald P values and adjusted-P calculation reproduce from the published statistics. The exact fit that produced the coefficients and standard errors, and the dams represented in each arm, require the authors’ run records.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE242187/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "Male library assignments and author FDRs reconciled. Original model fit and maternal replication require author records.",
+      "note": "Six independent ARCHS4 profiles support the individual GSM assignments. Maternal HCD versus RD under common post-weaning HCD gives Pearson 0.95519 and Spearman 0.98869 across all 15,358 registered gene effects. Both numerical author-concordance-v2 routes pass. The full GEO result yields the paper’s 25 discoveries, seven up and eighteen down. Of 15,290 pairs with finite FDR, the author calls 20 and edgeR calls zero. The author’s low-expression status and BH adjustment reproduce from the table. Residual inference concerns center on the original fitted coefficients, standard errors and treatment-unit design. See data/author-validation/continued-sources/GSE242187/codex-2026-11-21/SEARCH_LOG.md.",
+      "reviewFlags": [
+        "Profile matching supports individual library identities. GEO control titles 5A5/6/7 and original FASTQ prefixes 5A1/2/3 differ. The author crosswalk and offspring-to-dam assignments are still missing.",
+        "The original run script, DESeq2 build, model and dispersion or coefficient-prior settings remain undocumented. The historical group-only diagnostics leave 13 author discoveries unreconciled.",
+        "Five author discoveries fall outside the registered DE table. Another 68 registered genes have unavailable author FDR."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "GEO author 5A-versus-3A result",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE242nnn/GSE242187/suppl/GSE242187_5A_vs_3A_control_vs_comparison.deseq.res.csv.gz",
+          "kind": "author_result"
+        },
+        {
+          "label": "Study methods and Figure 3",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10806294/",
+          "kind": "paper"
+        },
+        {
+          "label": "Sequencing project and sample relations",
+          "url": "https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1011935",
+          "kind": "database"
+        },
+        {
+          "label": "ARCHS4 expression profiles for the six GSMs",
+          "url": "https://maayanlab.cloud/sigpy/data/samples?gsm_ids=GSM7754589,GSM7754590,GSM7754591,GSM7754601,GSM7754602,GSM7754603&species=mouse",
+          "kind": "processed_data"
+        }
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "Every registered effect was compared. All six library identities have independent profile support, and the deposited Wald tests and BH family reproduce from the reported coefficients and standard errors. Reapplying BH to both sets of raw P values on one shared gene set still yields 19 author calls and zero registered calls. Public records do not identify the fitted settings or the maternal experimental units.",
+      "nextStep": "For the male 5A control versus 3A comparison, could you share the DESeq2 script and session or workflow log that produced the GEO coefficients and standard errors, together with the sample sheet identifying each Mona library, GSM and dam or litter? Check the design and blocks, dispersion fit, coefficient prior, outlier handling and timing of filtering against the deposited gene-level statistics, including the residual discoveries from the historical diagnostic.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "mat_hcd_vs_rd"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Current registered mouse whole-hypothalamus edgeR-QL versus the full GEO DESeq2 table, in the recorded case-minus-baseline direction. The within-family BH calculation is a separate diagnostic.",
+      "reference": "GSE242187_5A_vs_3A_control_vs_comparison.deseq.res.csv.gz and corresponding counts, Elgazzaz et al. Figure 3C, SRA original filenames, six-GSM ARCHS4 profiles and RNA Express guide 15052918 Rev. A. Source hashes and derived tables are in data/author-validation/continued-sources/GSE242187/codex-2026-11-21.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Three HCD-HCD and three RD-HCD male offspring libraries. On 22,774 uniquely matched symbols, every count column and GSM expression profile are one another’s closest match. Mona 13/14/15 correspond to GSM7754589/90/91 and Mona 25/26/27 to GSM7754601/02/03. All 146,526 integer count cells are conserved. Maternal exposure is assigned to dams, and the number of independent litters represented in each arm is unknown."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Figure 3C and the GEO descriptions identify maternal HCD minus maternal RD in male offspring maintained on HCD after weaning. The original log2 fold changes enter the comparison with sign +1."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "The feature map uniquely links original case-sensitive gene IDs to registered symbols. All 15,358 registered effects have a finite same-gene author effect. Calcr, Ckm, Fezf1, Gabra6 and Sim1 are author discoveries outside the registered output."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both outputs estimate case-minus-baseline expression on a log2 scale. All-pair Pearson is 0.95519 and Spearman is 0.98869. Same-gene directions agree for 15,129 of 15,358 nonzero pairs. The median absolute difference is 0.07101 log2 units and the registered-to-author RMS ratio is 1.5645. Magnitude remains contextual under v2."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Reported log2 fold change divided by its SE reproduces the author’s Wald statistic. Two-sided normal tails reproduce the raw P values. BH over the 15,384 OK genes (baseMean at least 10) reproduces the deposited finite FDRs. The complete author table gives 25 discoveries. Paired finite FDRs yield 20 author and zero registered discoveries. Historical group-only DESeq2 diagnostics leave 13 author calls unreconciled. The author’s model design, dispersion fit and coefficient prior remain unconfirmed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "15,358 paired effects cover 100% of the registered output and 79.72% of the 19,266 finite author effects. Statistical comparison covers 15,290 finite FDR pairs. Five author discoveries are outside the registered output and 68 registered genes lack author FDR."
+        }
+      },
+      "criteria": "Compare every uniquely paired finite effect in the documented orientation. For a full table, author-concordance-v2 measures coverage of the registered output and applies its published correlation or nonzero-direction criterion. Assess maternal replication separately from numerical agreement. Use the published adjusted-P threshold of 0.05 on finite values, and report unpaired discoveries and missing author statistics separately.",
+      "conclusion": "Both numerical concordance routes pass for the registered comparison. Maternal replication and the original inference settings remain open, and the author and registered discovery sets differ."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Individual Mona/GSM assignments supported by reciprocal profile matches",
+      "value": "6 of 6 across 22,774 unique shared symbols. Matching r = 0.90089–0.96139. Largest runner-up r = 0.58819.",
+      "script": "data/author-validation/continued-sources/GSE242187/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Integer count cells conserved and maximum six-sample author baseMean error",
+      "value": "146,526 cells. Maximum absolute baseMean error 4.80214e-10 or less.",
+      "script": "data/author-validation/continued-sources/GSE242187/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Paired finite effects and coverage",
+      "value": "15,358 pairs out of 15,358 registered and 19,266 finite author effects (100% and 79.72%).",
+      "script": "data/author-validation/continued-sources/GSE242187/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Author-concordance-v2 numerical routes",
+      "value": "Pearson 0.95518791, Spearman 0.98868687, same nonzero direction 15,129/15,358 (98.51%).",
+      "script": "data/author-validation/continued-sources/GSE242187/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Effect magnitudes",
+      "value": "Median absolute log2 fold-change difference 0.07101347. Registered/author RMS effect ratio 1.56450010.",
+      "script": "data/author-validation/continued-sources/GSE242187/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Reconstruction of deposited author inference",
+      "value": "19,266 finite raw P values. Maximum absolute two-sided Wald P error 2.84e-15 or less. BH over 15,384 OK rows reproduces adjusted P to within 3.11e-15. All OK rows have baseMean at least 10.",
+      "script": "data/author-validation/continued-sources/GSE242187/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Complete reference and paired finite FDR results at 0.05",
+      "value": "Complete author 25 (7 up, 18 down), complete registered 0. Paired finite FDRs 15,290, author 20, registered 0, joint 0.",
+      "script": "data/author-validation/continued-sources/GSE242187/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Coverage limits for calls",
+      "value": "5 author discoveries outside the registered output (Calcr, Ckm, Fezf1, Gabra6 and Sim1). 68 registered genes lack author FDR.",
+      "script": "data/author-validation/continued-sources/GSE242187/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Conditional BH diagnostic on the same 15,290 genes using each method’s raw P values",
+      "value": "19 author and 0 registered discoveries.",
+      "script": "data/author-validation/continued-sources/GSE242187/codex-2026-11-21/review.py"
+    }
+  ],
+  "openIssues": [
+    "For the male 5A control versus 3A comparison, could you share the DESeq2 script and session or workflow log that produced the GEO coefficients and standard errors, together with the sample sheet identifying each Mona library, GSM and dam or litter?",
+    "The earlier HypoExplorer review records 13 unreconciled author discoveries in its group-only DESeq2 diagnostics. Their row-level diagnostic outputs were unavailable in this checkout."
+  ]
+}

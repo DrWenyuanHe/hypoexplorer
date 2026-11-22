@@ -1,0 +1,61 @@
+{
+  "datasetId": "mouse_hypo_glp1_gse245727",
+  "accession": "GSE245727",
+  "category": "not_located",
+  "closure": "no_valid_comparison",
+  "summary": "Figure 5b reports 23 semaglutide-versus-vehicle discoveries. The registered GLP-1-versus-vehicle edgeR table has zero discoveries among 17,727 published symbols at FDR < 0.05. The figure gives no gene identities for this contrast, so gene-level concordance remains unassessed.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE245727/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "GEO and the registered sample sheet agree on six GLP-1 and six vehicle libraries. Figure 5b gives a discovery count for semaglutide versus vehicle.",
+      "note": "All 12 registered mouse hypothalamus libraries match GEO treatment labels, 0149 library numbers and local sample names. Figure 5 describes five daily injections in diet-induced obese mice, with six mice per arm and a semaglutide dose of 10 nmol/kg. The code uses 0149 sample names and estimates peptide minus vehicle with DESeq2. Figure 5b shows 18 semaglutide-only discoveries and five shared with the conjugate. Figures 5c and 5e report conjugate minus semaglutide. The GLP-1 row in Figure 3f comes from a separate experiment with eight mice per arm at 100 nmol/kg. The reviewed paper, supplements, GEO deposit and code yielded no gene identifiers paired with effects for Figure 5b's peptide-versus-vehicle coefficient.",
+      "reviewFlags": [
+        "GEO calls the arm GLP-1, the Figure 5 code calls it peptide, and the paper calls it semaglutide. The 0149 library prefix, arm sizes and author code support the link. The public author repository lacks jona-seq2_meta.csv, so the assignment of individual libraries in the published fit remains unconfirmed.",
+        "The registered provenance pins the assembled matrix, sample sheet and DE table. The original GEO archive used in assembly has no committed source checksum manifest. The new archive and member checksums identify the copies reviewed here."
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "Figure 5b gives 23 discoveries at BH-adjusted P < 0.05 for the DESeq2 peptide-minus-vehicle fit. The registered edgeR-QL table gives zero among 17,727 published symbols at the same cutoff. The Venn diagram supplies neither gene identities nor signed effects. The gene-labelled figures use the conjugate contrast or a separate cohort. There are zero paired effects, and coverage of the author-tested genes is unknown.",
+      "nextStep": "Obtain the full gene-keyed DEGs.peptide output for condition_peptide_vs_vehicle, including signed log2 fold changes, and confirm the 0149 treatment assignments with jona-seq2_meta.csv or an equivalent sample key. Use the reference gene IDs and tested universe to assess matching and coverage. Request raw and BH-adjusted P values for the separate investigation of the discovery-count difference.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered sample groups in the GEO archive, matched to the local sample sheet",
+      "value": "6 GLP-1 and 6 vehicle libraries. Each matches the GEO sample and library number, the registration sample name and group, and the registered raw library-size total.",
+      "script": "data/author-validation/continued-sources/GSE245727/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "GEO sample supplementary tables inspected in full",
+      "value": "23 featureCounts files, each with 55,401 count rows and one BAM count column",
+      "script": "data/author-validation/continued-sources/GSE245727/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Publication supplement inventory reconciled across Nature, PMC, Europe PMC and BioStudies",
+      "value": "20 files, including 18 workbooks with 200 worksheets and two PDFs",
+      "script": "data/author-validation/continued-sources/GSE245727/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Figure 5b semaglutide discoveries under the author script's adjusted-P < 0.05 rule, transcribed from disjoint Venn regions",
+      "value": "18 semaglutide only + 5 shared with the conjugate = 23",
+      "script": "data/author-validation/continued-sources/GSE245727/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Registered edgeR-QL output, counted from the DE table",
+      "value": "17,727 published symbols, all with finite adjusted P values. Zero have padj < 0.05. Minimum padj is 0.0920943878305264. The provenance records 17,847 tested features, including 120 unpublished unmapped rows.",
+      "script": "data/author-validation/continued-sources/GSE245727/codex-2026-11-21/refute/recheck.py"
+    }
+  ],
+  "openIssues": [
+    "The gene-keyed Figure 5 peptide-versus-vehicle effects, author-tested universe and original library assignments remain unavailable in the reviewed sources. Gene-level direction, effect size and coverage remain unassessed.",
+    "Gene-level author P values and adjusted P values would help explain the 23-versus-zero discovery counts. A list limited to the 23 discoveries could support a selected-gene review if identifiers and effects were supplied, but would fall below the 30-pair concordance minimum."
+  ]
+}

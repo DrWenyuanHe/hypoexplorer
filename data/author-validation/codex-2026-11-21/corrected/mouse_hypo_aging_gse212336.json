@@ -1,0 +1,136 @@
+{
+  "datasetId": "mouse_hypo_aging_gse212336",
+  "accession": "GSE212336",
+  "category": "access_blocked",
+  "closure": "compared",
+  "summary": "All 26 genes labeled in Hahn et al. Figure 2B matched the registered direction of change for hypothalamus at 21 versus 3 months (19 up, 7 down). The panel shows 26 of the 82 genes in the authors’ common aging signature. Table S1 reports across-age correlations. Exact author endpoint coefficients, P values and FDR remain unassessed.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE212336/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "All 26 displayed hypothalamic age-effect directions agreed",
+      "note": "Figure 2B and author scripts 01 and 07 identify the sex-adjusted age contrast. Each printed symbol joined one registered gene, and all 26 signs agreed across the figure renditions and the registered edgeR-QL table. The GEO SOFT sample records and count matrix match the registered source checksums. The saved GEO series webpage (geo-series.html) is a reCAPTCHA challenge. Cohort verification used the SOFT file, authors’ sample metadata and registered sample sheet.",
+      "reviewFlags": [
+        "The panel covers 26 of the 82 common aging signature genes in Table S1 and 26 of 13,518 registered genes. The 26 pairs fall below the author-concordance-v2 minimum of 30.",
+        "The authors’ input matrix identifies 21,076 gene rows. Figure 2B gives binned effects. The reviewed sources did not supply the full hypothalamic endpoint table showing exact log2 fold changes and which rows received a raw or adjusted P value.",
+        "The authors fit DESeq2 across all ages. HypoExplorer fits edgeR-QL to the two endpoint groups. Both fits include sex."
+      ],
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Hahn et al., manuscript and Figure 2",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10528304/",
+          "kind": "paper"
+        },
+        {
+          "label": "Publisher Figure 2, panel B",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S009286742300805X-gr2_lrg.jpg",
+          "kind": "author_result"
+        },
+        {
+          "label": "Table S1, BioStudies public file",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/biostudies/S-EPMC/304/S-EPMC10528304/Files/NIHMS1924184-supplement-11.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Authors’ DESeq2 and Figure 2B scripts",
+          "url": "https://github.com/OliInTheValley/SpatioTemporal_Analysis/tree/50465dc776f8c48f9dadcb34402099ba6668e560",
+          "kind": "database"
+        },
+        {
+          "label": "bioRxiv v3, Figure 2B",
+          "url": "https://www.biorxiv.org/content/10.1101/2022.09.18.508419v3.full.pdf",
+          "kind": "paper"
+        },
+        {
+          "label": "GSE212336 GEO family SOFT sample records",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE212nnn/GSE212336/soft/GSE212336_family.soft.gz",
+          "kind": "processed_data"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "All 26 displayed directions agreed for the sex-adjusted 21-minus-3-month comparison. The authors fit DESeq2 across seven ages. The registered edgeR-QL fit uses the two endpoint groups. The hypothalamus rows in Table S1 report across-age Spearman correlations and their raw and adjusted P values. The reviewed materials supply no paired endpoint P or FDR values.",
+      "nextStep": "For a full numerical comparison, obtain the authors’ results_list_CA1$Both$hy[['21_vs_3']]$resall output with symbols, log2 fold changes, raw P and adjusted P, including rows with missing tests.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "aged_vs_young"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Direct comparison of the sign of each labeled hypothalamic Figure 2B cell with the sign of the corresponding registered edgeR-QL logFC. Every displayed row was included.",
+      "reference": "Hahn et al., Cell Figure 2B and Table S1. Author scripts 01 and 07 at commit 50465dc776f8c48f9dadcb34402099ba6668e560 identify the model, orientation, column order and palette. The panel labels define the displayed subset. The journal PDF and JPEGs and all three bioRxiv versions corroborate the reading of the same experiment.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "The paper describes right-hemisphere hypothalamic punches. GEO SOFT records, the authors’ metadata and the registered sample sheet identify the same 20 endpoint mice. At 3 months there were 4 males and 5 females, and at 21 months there were 6 males and 5 females. The authors’ hypothalamic fit includes 55 mice across seven ages. The Figure 1A caption gives 3–5 males per age. The Results text gives 3–6, consistent with the six distinct male IDs at 21 months."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Both sexes, hypothalamus, 21 months minus 3 months, adjusted for sex. In script 07 the comparisons against 3 months are ordered 12, 15, 18, 21, 26 and 28 months with column clustering disabled."
+        },
+        "features": {
+          "status": "matched",
+          "note": "All 26 distinct plotted mouse symbols joined a unique registered row by exact symbol. No aliases, duplicates or unmatched labels entered the comparison."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "The authors plot DESeq2 log2 fold changes. All 19 positive and 7 negative color-coded effects had the same sign in the registered edgeR-QL table. Effect magnitudes, Pearson and Spearman were unassessed because the figure bins the coefficients into colors."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "The panel does not give gene-level P values or FDR for the 21-versus-3 coefficient. Of the 26 registered rows, 23 had FDR < 0.05. Author discovery counts and shared discovery counts remain unknown."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All 26 displayed genes had paired nonzero directions. They account for 26 of the 82 common aging signature genes in Table S1 and 26 of 13,518 registered genes (0.1923%). The caption describes a selection from the signature. Script 07 gives the age order and candidate heat maps. The printed labels establish which genes the authors displayed. The full endpoint result table was unavailable in the reviewed sources."
+        }
+      },
+      "criteria": "Read the fourth age column in the labeled hypothalamus block and compare every printed row by exact symbol, before applying any local significance threshold. Author-concordance-v2 requires at least 30 pairs, compatible definitions and at least 90% relevant coverage. The direction route also requires at least 30 nonzero pairs covering at least 90% of all pairs, with at least 90% directional agreement. The correlation route requires Pearson and Spearman each at least 0.90.",
+      "conclusion": "Directions agreed for all 26 displayed genes. This selected comparison falls below the v2 pair minimum. Binned colors prevent an exact coefficient comparison. Inferential agreement and agreement outside the displayed panel remain unassessed."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Figure 2B rows joined by exact symbol, with nonzero directions on both sides",
+      "value": "26/26",
+      "script": "data/author-validation/continued-sources/GSE212336/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Directional agreement in the displayed panel",
+      "value": "26/26 (100%): 19 up, 7 down, 0 opposite",
+      "script": "data/author-validation/continued-sources/GSE212336/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered coverage and local discovery context",
+      "value": "26/13,518 registered genes; local FDR < 0.05 for 23/26 displayed genes and 625/13,518 overall; no author endpoint P or FDR assessed",
+      "script": "data/author-validation/continued-sources/GSE212336/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Hypothalamic cohort membership verified against the GEO records and author metadata",
+      "value": "9 at 3 months and 11 at 21 months; all 20 endpoint animals matched. The all-age author metadata contains 55 hypothalamic samples.",
+      "script": "data/author-validation/continued-sources/GSE212336/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Published workbook and displayed signature coverage",
+      "value": "15 worksheets. The age-correlation sheet has 277 hypothalamic symbols with Spearman coefficients and correlation P values (raw and adjusted). The cross-region DEG sheet identifies 82 common aging signature genes, including all 26 Figure 2B labels.",
+      "script": "data/author-validation/continued-sources/GSE212336/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Source integrity and author input universe",
+      "value": "All 97 manifest sizes and SHA-256 digests match (158,059,823 bytes). Seven files are error or interstitial receipts, including geo-series.html. The uncompressed GEO and commit-pinned author count matrices are byte-identical (SHA-256 ea0d504125af731c37a2f7d734a3246ca60a003f5c0123eaabf80570e7965ddb), with 21,076 distinct input symbols and 847 sample columns. Run the audit with --author-counts to repeat the online comparison.",
+      "script": "data/author-validation/continued-sources/GSE212336/codex-2026-11-21/refute/audit.py"
+    }
+  ],
+  "openIssues": [
+    "A full numerical comparison requires the authors’ sex-adjusted hypothalamus 21-versus-3 result table, including missing tests. Exact coefficient magnitudes, P values, FDR and agreement outside the 26 displayed genes remain unassessed."
+  ]
+}

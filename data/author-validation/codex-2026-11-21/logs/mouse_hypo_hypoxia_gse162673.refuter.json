@@ -1,0 +1,15 @@
+{
+  "datasetId": "mouse_hypo_hypoxia_gse162673",
+  "outcome": "upheld_with_corrections",
+  "summary": "The selected-gene comparison holds. All 46 source files matched their recorded hashes and sizes. All 80 Figure 5A genes paired uniquely, and 78 agreed in direction (97.5%). Bcl11a and Egr4 had negative registered effects. The corrected proposal records the manuscript’s link between the panel and a HIF1β promoter motif, along with evidence that the authors plotted fewer controls than the registered fit used. The proposal passed the ledger field and enum checks.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_hypoxia_gse162673.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_hypoxia_gse162673.json",
+    "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/refute/check_review.py"
+  ],
+  "openIssues": [
+    "Omitting N-2 (GSM4956661) reproduces all seven plotted Crh observations within 0.13 normalized count. Its inclusion in the Figure 5A DESeq2 fit remains unconfirmed.",
+    "The manuscript links Figure 5A to 80 motif-bearing genes among 313 upregulated genes. The peer-review response describes the panel as exhaustive. The exact selection rule, P-value definition and complete author DESeq2 table remain unresolved.",
+    "The hypothalamic methods report paired-end NextSeq 500 sequencing. ENA identifies all eight runs as single-end NovaSeq 6000."
+  ]
+}

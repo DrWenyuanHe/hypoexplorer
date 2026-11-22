@@ -1,0 +1,110 @@
+{
+  "datasetId": "mouse_hypo_dr_gse227689",
+  "accession": "GSE227689",
+  "category": "access_blocked",
+  "closure": "compared",
+  "summary": "All 23 labeled hypothalamus effects in Figure 6J agree in direction with the registered dietary-restriction versus ad libitum contrast. Figure 6B shows hypothalamic discoveries under the authors’ adjusted P < 0.05 rule, while the registered analysis has zero among 13,804 genes. The published Table S1 repeats 566 rows between treatments, including 22 of its 27 hypothalamus-specific aDR labels.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE227689/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "All 23 Figure 6J directions agree. Figure 6B and the registered analysis differ on hypothalamic discoveries, and Table S1 has conflicting gene assignments.",
+      "note": "The GEO family SOFT and count matrix match their deposited-file pins. They identify the same eight female mice as the author metadata and registered fit. STAR Methods describe atlas-guided hypothalamic tissue punches for bulk RNA-seq. Figure 6J supplies effect directions. Publisher Table S1, both BioStudies copies, and preprint Table S10 supply selected discovery labels. The reviewed sources lack a complete hypothalamus DESeq2 result with numeric effects, raw P and adjusted P.",
+      "reviewFlags": [
+        "Table S1 cells A697:D1262 are identical on the aDR and YMP sheets. Five of 27 hypothalamus-specific labels precede the shared block. All five have registered raw P < 0.05 and zero pass BH < 0.05. The 22 labels in the block have uncertain aDR attribution. Nrn1 and Slc17a6 also have conflicting region-specific labels earlier on the aDR sheet.",
+        "Figure 6C labels 655 single-region aDR genes. The aDR sheet contains 1,155 single-region rows covering 1,095 distinct symbols. Figure 6J and the Results report 23 genes, and the legend says 24. Gjb6 and Sgk1 are plotted but assigned three regions in Table S1. Its signature class instead includes Gjc2 and Mthfd1l.",
+        "Figure 6J covers 23 of 13,804 registered genes. Full-contrast effect sizes, author P values and BH-adjusted P values remain unassessed. The panel falls below the 30-pair concordance minimum."
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "All 23 labeled Figure 6J signs agree with registered logFC. Figure 6B shows both up- and down-regulated hypothalamic discoveries at adjusted P < 0.05. The registered edgeR-QL result has zero BH discoveries. The extent of gene-level disagreement remains unresolved because Table S1 repeats a block across treatments and conflicts with the published figure.",
+      "nextStep": "Request the female hy aDR_vs_AL DESeq2 resall or resOrdered export with sample IDs, gene symbols, log2FoldChange, pvalue, padj and missing values preserved. Request the treatment-specific discovery lists used for Figure 6B–C and the exact signature used for Figure 6J.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "dietary_restriction_vs_ad_libitum"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Compare every printed symbol in the Hypoth. column of Figure 6J with the sign of the registered groupcase logFC. For inference, read Figure 6B and evaluate all explicitly hypothalamus-specific labels in the aDR sheet at BH < 0.05. Report shared rows separately and distinguish Cirbp’s inferred membership from explicit region labels.",
+      "reference": "Hahn et al., Cell 186 (2023), Figures 6B, 6C and 6J, Results and STAR Methods. Publisher Table S1 is byte-identical to the retained BioStudies workbook. Preprint v3 Figure 7J and Table S10 contain the same panel signs and intervention-sheet data. Author scripts 19–21 and the matched GEO, ENA and sample records document the comparison. https://doi.org/10.1016/j.cell.2023.07.027",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Both analyses use the same eight hypothalamus bulk libraries from 19-month-old female C57BL/6JN mice. STAR Methods describe atlas-guided coronal tissue punches and right-hemisphere RNA isolation. aDR mouse IDs are 62, 64, 65 and 67. AL IDs are 63, 66, 68 and 69. Mouse 61 occurs elsewhere in the dietary experiment and has no deposited hypothalamus library. Each included mouse maps to one count column, GSM and ENA run. The mice were housed two to three per cage. The available sample tables do not identify cage assignments."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Script 19 separates the dietary intervention from plasma treatment. Script 20 extracts both treatment contrasts within each region and script 21 plots female aDR_vs_AL, including hy. Positive log2 fold change indicates higher expression under restriction for both analyses. The Results describe four weeks, the Figure 6A legend gives five, and STAR Methods describe seven days at 10% restriction followed by 25%, with collection at 19 months. The shared library IDs establish the endpoint."
+        },
+        "features": {
+          "status": "matched",
+          "note": "Each of the 23 printed symbols and each of the 27 hypothalamus-specific row labels maps exactly to one source count feature and one registered gene. Gjb6 and Sgk1 occur elsewhere on the aDR sheet with three regions each. The workbook signature class includes Gjc2 (four regions) and Mthfd1l (five). The discrepancy concerns signature membership. The full author testing universe remains unverified."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "The figure displays DESeq2 log2 fold change for aDR versus AL. Registered edgeR-QL logFC uses the same biological direction. The 19 yellow and four cyan hypothalamus cells agree with the registered signs. The heatmap bins do not identify exact effect sizes for correlation or magnitude comparisons."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Script 20 excludes liver, fits the brain-wide DESeq2 model, then subsets the fitted object by region and refits ~treatment with local dispersion fitting. It extracts Wald results with Cook’s cutoff and uses BH-adjusted P < 0.05. The registered model uses filterByExpr, TMM and an edgeR quasi-likelihood F test for groupcase. Figure 6B shows hypothalamic discoveries in both directions. The registered fit has zero. The five explicit hypothalamus labels preceding the repeated rows are Fam13b, Fkbp9, Gpt2, Mapk4 and Trim2. Each has registered raw P < 0.05 and BH ≥ 0.05. The 22 shared-block labels have uncertain attribution. Cirbp’s 14-region count implies hypothalamus membership if its workbook entry is correct. No numeric author P or adjusted P is given for these genes in this contrast."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Figure coverage is 23/23 printed symbols and 23/13,804 registered genes (0.167%). The 15 columns include both hippocampal punches. Cross-region signature selection excludes posterior hippocampus and counts 14 eligible brain regions. Full author testing coverage and the identities of all hypothalamic discoveries remain unknown."
+        }
+      },
+      "criteria": "Use every printed row in the labeled hypothalamus column, exact gene symbols, the cyan-to-yellow log2FC scale and the published aDR-minus-AL orientation. The authors selected the signature for discovery in at least four regions. Use BH < 0.05 for discovery and report nominal P only as context. All 23 directional pairs were usable, below the author-concordance-v2 minimum of 30. Exact numeric author effects needed for Pearson, Spearman and magnitude comparisons are unavailable.",
+      "conclusion": "The selected-panel comparison supports directional agreement. The paper and registered analysis differ on the presence of hypothalamic discoveries. The conflicting treatment and region labels limit gene-level interpretation. Full verification and author-concordance-v2 acceptance remain unsupported."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Integrity and publisher identity",
+      "value": "All 53 manifest entries match their byte counts and SHA-256 values (67,158,263 bytes total). The saved geo-series.html is a reCAPTCHA page. Cohort evidence comes from the complete GEO gzip files. A publisher GET of https://ars.els-cdn.com/content/image/1-s2.0-S009286742300805X-mmc1.xlsx returned the same 6,336,651 bytes and SHA-256 5c2087d8b8bacd110c0ba40876131d26e4ad5286482c22a7bac5348efa89475c as both retained Table S1 files.",
+      "script": "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Cohort and deposit",
+      "value": "Four aDR mice (62, 64, 65, 67) and four AL mice (63, 66, 68, 69) match between author metadata, count columns, GEO characteristics, the registered group assignments and ENA runs. The matrix has 21,076 gene rows by 238 libraries. All 238 GSM records specify NONE for the sample supplement. ENA has 238 distinct runs.",
+      "script": "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Figure 6J hypothalamus directions",
+      "value": "Both the published PDF and preprint v3 PDF give four decreases (Chordc1, Cxcl12, Fabp7, Kdr) and 19 increases. Direction agreement is 23/23. Directional coverage is 23/23 panel rows and 23/13,804 registered rows. Seventeen of 23 have registered raw P < 0.05 and zero have BH < 0.05.",
+      "script": "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Table S1 and preprint S10 discovery labels",
+      "value": "The four intervention-sheet data fields agree between versions. Each treatment sheet has 1,260 data rows. Across treatments, rows 697–1262 are identical in all four fields (566 rows). All 27 hypothalamus-specific rows on the aDR sheet map to distinct registered genes. Among the five outside the block, five have registered raw P < 0.05 and zero pass BH < 0.05. Among the 22 inside, both counts are zero. Nrn1 is labeled visual cortex at row 446 and hypothalamus at 845. Slc17a6 is labeled olfactory bulb at 585 and hypothalamus at 1083. There are 1,155 single-region rows representing 1,095 distinct symbols.",
+      "script": "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "All-region discovery inferred from the workbook",
+      "value": "Script 20 removes liver and script 21 excludes posterior hippocampus when counting regions. Table S1 row 3 reports Cirbp in 14 of the 14 eligible brain regions. Its implied hypothalamic discovery depends on the accuracy of that count. Registered logFC is +0.5132579569, P is 0.0000644686 and BH is 0.4536374970. Exact author P and BH values remain unavailable.",
+      "script": "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Figure versus workbook signature membership",
+      "value": "The 23 printed Figure 6J labels overlap the workbook’s 23 aDR signature labels at 21 symbols. Gjb6 and Sgk1 occur only in the plotted signature. Gjc2 and Mthfd1l occur only in the workbook signature class.",
+      "script": "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Registered DE identity and Benjamini–Hochberg calls",
+      "value": "geo_replication/datasets/GSE227689_mmus_hypothalamus_rejuvenation_dr/processed/GSE227689_DE.tsv has SHA-256 b75b15a5a34e5ec1a9f699289ca32bd3f0b86fc441d096a5f8d24fc8cdb32175. Reapplying BH to all 13,804 raw P values reproduces the saved adjusted values to 1e-12. The minimum BH is 0.4536374970 and zero genes pass BH < 0.05.",
+      "script": "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/refute/audit.py"
+    }
+  ],
+  "openIssues": [
+    "The reviewed sources provide no complete female hypothalamus aDR-versus-AL DESeq2 export. Exact per-gene effects, raw and adjusted P values, missing tests and whole-contrast concordance remain unassessed.",
+    "The authors’ treatment-specific discovery lists and Figure 6J input are needed to resolve the 566 shared rows, the conflicting region labels and the two differences in signature membership."
+  ]
+}

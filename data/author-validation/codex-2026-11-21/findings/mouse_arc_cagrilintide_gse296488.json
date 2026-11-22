@@ -1,0 +1,119 @@
+{
+  "datasetId": "mouse_arc_cagrilintide_gse296488",
+  "accession": "GSE296488",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "Figure 6 reports 404 WT hypothalamic DEGs (96 up, 308 down) at six mice per group. The registered analysis uses seven vehicle and eight cagrilintide libraries and has zero genes at BH adjusted P < 0.05. The public records do not identify the libraries used for the figure, its exact DEG rule or its gene-level results.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE296488/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Figure 6 cohort, DEG rule and gene-level results require author clarification",
+      "note": "Study 3 and the GEO series identify 3 nmol/kg cagrilintide for 21 days. The treated GSMs say 0.3 nmol/kg. The paper describes bilateral MBH punches including ARC/VMN, and GEO labels these libraries ARC. Figure 6 gives six mice per group and compares each arm to WT vehicle. Its WT cagrilintide MBH bars show 404 DEGs, 96 up and 308 down. The paper reports that 117 of 138 brain samples qualified for sequencing and that CountQC later removed two ARC samples across all groups. GEO contains 116 libraries across the study. The seven WT vehicle and eight WT cagrilintide ARC deposits all enter the registered analysis. Their kallisto files contain transcript abundances and match the source pins. The current limma result on log2(gene-summed TPM + 1) has 28,705 published symbols, zero BH adjusted P < 0.05, 2,985 raw P < 0.05 (2,146 up, 839 down), and minimum published adjusted P 0.0643336618892822. The paper names the SUSHI DESeq2App. Its figure, genuine appendix and GEO deposits supply no final group manifest, figure-specific calling rule or per-gene treatment effects. Author P values, FDR, effect agreement and reference coverage remain unassessed.",
+      "reviewFlags": [
+        "Taking six per arm literally would leave one of the seven deposited vehicle libraries and two of the eight treated libraries outside Figure 6. The two study-wide ARC CountQC exclusions have no published arm or sample IDs.",
+        "The 404 author calls lack an explicit statistical rule and gene identities. The generic P < 0.05 statement and thresholds for the separate module analysis cannot be assigned to this figure.",
+        "Use the publisher or Europe PMC copy of the appendix. The BioStudies file served under the same name contains an unrelated respiratory-patient table."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Study 3 methods, Figure 6 and data-sharing statement",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12270663/#fig6",
+          "kind": "paper"
+        },
+        {
+          "label": "Europe PMC figure images and genuine supplementary appendix",
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12270663/supplementaryFiles",
+          "kind": "author_result"
+        },
+        {
+          "label": "Publisher supplementary appendix",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2352396425002804-mmc1.docx",
+          "kind": "paper"
+        },
+        {
+          "label": "GEO family SOFT with all deposited sample labels",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE296nnn/GSE296488/soft/GSE296488_family.soft.gz",
+          "kind": "database"
+        },
+        {
+          "label": "GEO inventory of per-library kallisto files",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE296nnn/GSE296488/suppl/filelist.txt",
+          "kind": "processed_data"
+        }
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The MBH bars report 404 WT cagrilintide DEGs at six mice per arm. The registered seven-vehicle/eight-treated fit has zero BH discoveries. The published group counts, unnamed regional exclusions, missing DEG rule and missing author gene table prevent a like-for-like test.",
+      "nextStep": "Which GSM or Brain_region library IDs and final group sizes were used for the WT MBH cagrilintide and vehicle bars in Figure 6, and which groups supplied the two ARC CountQC exclusions? Please provide the SUSHI contrast and DEG rule (feature filters, raw or adjusted P criterion, adjustment method and any effect-size cutoff) and the complete gene-level export with identifiers, treated-versus-vehicle effects, raw P and adjusted P.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Published Figure 6a–c WT cagrilintide MBH bars against WT vehicle, visually read from gr6.jpg",
+      "value": "404 total, 96 up, 308 down",
+      "script": "data/author-validation/continued-sources/GSE296488/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Figure 6 legend and CountQC methods",
+      "value": "6 per arm, 2 ARC exclusions across all genotypes and treatments",
+      "script": "data/author-validation/continued-sources/GSE296488/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "RNA quality check before sequencing, across brain regions",
+      "value": "117 of 138 brain samples met criteria",
+      "script": "data/author-validation/continued-sources/GSE296488/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "SOFT records, series archive members and ENA runs",
+      "value": "116 sample records, 116 per-sample archive members, 116 matching run aliases",
+      "script": "data/author-validation/continued-sources/GSE296488/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Eligible WT ARC libraries in SOFT and the registered model",
+      "value": "7 vehicle, 8 cagrilintide",
+      "script": "data/author-validation/continued-sources/GSE296488/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Deposited excess relative to the printed six per group, conditional on both arms being drawn from the deposits",
+      "value": "1 vehicle and 2 treated, identities unknown",
+      "script": "data/author-validation/continued-sources/GSE296488/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Current fit and registered DE table",
+      "value": "28,715 tested, 10 unmapped tested rows unpublished, 28,705 distinct published gene symbols",
+      "script": "data/author-validation/continued-sources/GSE296488/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered calls among published symbols",
+      "value": "0 BH adjusted P < 0.05, 2,985 raw P < 0.05 (2,146 up, 839 down)",
+      "script": "data/author-validation/continued-sources/GSE296488/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Minimum adjusted P among published rows",
+      "value": "0.0643336618892822",
+      "script": "data/author-validation/continued-sources/GSE296488/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Accession-linked WT processed files inspected against registered source pins",
+      "value": "15 files, 121,798 transcript rows each, 5 kallisto columns",
+      "script": "data/author-validation/continued-sources/GSE296488/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Pairable author gene-level treatment effects in the examined material",
+      "value": "0 pairs. Correlation, direction, paired inference and reference coverage are unassessed.",
+      "script": "data/author-validation/continued-sources/GSE296488/codex-2026-11-21/audit.py"
+    }
+  ],
+  "openIssues": [
+    "Which GSM or Brain_region library IDs and final group sizes were used for the WT MBH cagrilintide and vehicle bars in Figure 6, and which groups supplied the two ARC CountQC exclusions? Please provide the SUSHI contrast and DEG rule (feature filters, raw or adjusted P criterion, adjustment method and any effect-size cutoff) and the complete gene-level export with identifiers, treated-versus-vehicle effects, raw P and adjusted P.",
+    "SSRN returned HTTP 403 for the preprint and its standard download. The final article, its figure images and the publisher appendix were examined directly."
+  ]
+}

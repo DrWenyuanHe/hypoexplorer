@@ -1,0 +1,34 @@
+{
+  "datasetId": "mouse_arc_corticosterone_gse128148",
+  "outcome": "compared",
+  "summary": "The GEO and registered results agree in direction for 10,722 of 11,173 paired genes (95.96%), passing the author-concordance-v2 direction criterion. At the paper’s adjusted P < 0.1 cutoff, six genes are shared between 43 author calls and seven registered calls. The Figure 2C caption reports Npy’s raw P of 1.75e-7 as adjusted. The deposit gives adjusted P = 0.00046317, consistent with the first author’s thesis. The comparison replayed byte-for-byte. [Manuscript](https://pmc.ncbi.nlm.nih.gov/articles/PMC6667392/) · [Thesis, Table 8.4](https://research.manchester.ac.uk/files/83388204/FULL_TEXT.PDF#page=227)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/mouse_arc_corticosterone_gse128148.json",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/comparison.json",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/paired-effects.tsv.gz",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/validation.json",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/compare.py",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/verify.py",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/fetch.py",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/retrieval.json",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/GSE128148_2019_Wray_4week_normalised_outliers_excluded.txt.gz",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/GSE128148_2019_Wray_4week_raw_counts.txt.gz",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/GSE128148_family.soft.gz",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/PMC6667392.1.xml",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/pmc-inventory.xml",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/gr2.jpg",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/mmc1.xlsx",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/mmc2.pptx",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/thesis-methods-indexed.txt",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/thesis-Npy-indexed.txt",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/github-repositories.json",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/datacite.json"
+  ],
+  "openIssues": [
+    "Exact historical reproduction requires the authors’ DESeq2 version and original commands specifying the coefficient prior, independent filtering and Cook’s handling. The earlier refit remains a conditional diagnostic. No contrast is proposed for full verification.",
+    "The thesis PDF download returned HTTP 403. The evidence folder retains the publicly indexed methods and appendix rows. The GEO statistics independently reproduce Npy’s adjusted P.",
+    "Adopting the proposal requires updating the active source-bound effects review because it pins the wording of the previous assessment. No ledger was edited."
+  ]
+}

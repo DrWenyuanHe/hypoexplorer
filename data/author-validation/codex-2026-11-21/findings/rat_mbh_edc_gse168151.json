@@ -1,0 +1,104 @@
+{
+  "datasetId": "rat_mbh_edc_gse168151",
+  "accession": "GSE168151",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "Four of six selected P21 F1 MBH-PoA genes agreed in direction between the authors’ qPCR measurements and the registered EDC-versus-vehicle RNA-seq effects. Drd1 and Crh had opposite signs. The public RNA-seq results report gene ontology enrichment and supply per-sample counts, leaving the authors’ gene-level RNA-seq effects and inference unassessed.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE168151/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Selected P21 F1 qPCR validation compared with registered RNA-seq effects",
+      "note": "Tables S3 and S5 give qPCR group means for six genes in P21 female F1 MBH-PoA. Th, Dnm1, Darpp32 (Ppp1r1b) and Nr3c1 decreased in both assays. Drd1 and Crh increased by qPCR and had negative registered coefficients. The GEO TAR and family SOFT match their registered source pins. All four vehicle and four EDC RNA profiles reconcile to F1 GEO treatment fields. The published RNA-seq display gives GO-term enrichment, and no author gene-level F1 RNA-seq result table was located.",
+      "reviewFlags": [
+        "The qPCR assay measured six animals per arm. Overlap with the sequenced animals and the RNA library-to-dam/litter mapping remain unknown.",
+        "The selected cross-assay panel falls below the 30-pair v2 minimum. Genome-wide author RNA-seq effects, P values and FDR remain unassessed."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "The published F1 P21 qPCR tables answer the same tissue-level exposure question for six selected genes. Four agree in direction with registered edgeR-QL. Different measurement methods and incomplete animal linkage limit interpretation of Drd1 and Crh, the two opposite signs.",
+      "nextStep": "To assess RNA-seq concordance, obtain the original F1 EDC-versus-vehicle edgeR output with tested identifiers, log2 fold changes, raw P and adjusted P, plus the library inclusion, dam/litter mapping and analysis settings.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "edc_vs_vehicle"
+      ],
+      "basis": "Compare the sign and magnitude of each registered edgeR-QL log2 fold change with log2(EDC qPCR mean / control qPCR mean) for every F1 P21 MBH-PoA mRNA measurement in Figures 6A and S10A. Use the numerical means printed in Tables S3 and S5.",
+      "reference": "López-Rodríguez et al., EHP8795, supplemental PDF ehp8795.s001.acco.pdf, Table S3 on PDF page 18 and Table S5 on PDF page 22. Figure 6A and Figure S10A identify the generation, age and mRNA assay. The preprint describes the same experiment.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Species, sex, age and anatomical dissection align. The qPCR panels use six animals per arm, with six litters per arm specified for Figure 6A. GEO treatment fields and the sample sheet document four F1 libraries per arm. Animal overlap and the RNA library-to-litter mapping are unknown."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Maternal-lineage EDC mixture relative to vehicle in the P21 F1 female MBH-PoA. Both effect signs use EDC minus control on a log2 scale. F3, other ages, cross-fostering, protein, methylation and chromatin measurements fall outside this comparison."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All six qPCR targets join uniquely to the registered table. Five use exact rat gene symbols. NCBI Gene 360616 records Darpp32 as an alias for Ppp1r1b. The RNA-seq testing universe used by the authors is unknown."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "The qPCR effects use published, rounded, beta-actin-normalized group means. The RNA-seq effects are fitted count-model coefficients. Among six nonzero pairs, four agree in sign. Pearson is 0.599705, Spearman is 0.485714 and the median absolute log2 difference is 1.135646. Drd1 (qPCR +1.770, RNA-seq −0.192) and Crh (+0.084, −1.098) have opposite signs."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The printed qPCR P values are assay-specific. Figure 6A used two-way ANOVA with Sidak comparisons. Three qPCR P values are below 0.05, while five of the six registered genes have BH < 0.05. The author RNA-seq raw and adjusted P values remain unassessed for every gene."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Six of six selected qPCR targets are paired, representing six of 12,911 published registered genes. The registered fit tested 14,587 rows including 1,676 unpublished rows. Figure S9 reports RNA-seq GO enrichment. The full F1 gene-level author RNA-seq table was not located."
+        }
+      },
+      "criteria": "Use every gene in the two same-age F1 expression panels, preserve the published exposure direction and compare all nonzero pairs without a significance filter. Author-concordance-v2 requires at least 30 pairs for either numerical route, 90% relevant coverage and compatible cohort, contrast, identifiers and effect definitions. P values and magnitudes provide context.",
+      "conclusion": "Selected cross-assay directions agree for Th, Dnm1, Ppp1r1b and Nr3c1. Drd1 and Crh have opposite observed directions. The six pairs and incomplete cohort linkage preclude a v2 pass. Reproduction of the authors’ RNA-seq analysis remains unassessed."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Selected qPCR pairs and direction",
+      "value": "6/6 uniquely matched and nonzero, 4/6 same direction. Opposite signs for Drd1 and Crh.",
+      "script": "data/author-validation/continued-sources/GSE168151/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Cross-assay effect agreement on all six selected pairs",
+      "value": "Pearson 0.599705, Spearman 0.485714, median absolute log2 difference 1.135646, maximum 1.961588.",
+      "script": "data/author-validation/continued-sources/GSE168151/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Scope of registered gene coverage",
+      "value": "6/12,911 published rows (0.046472%). The registered fit includes 14,587 rows, of which 1,676 were unmapped and unpublished.",
+      "script": "data/author-validation/continued-sources/GSE168151/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Assay-specific inference",
+      "value": "qPCR reported P < 0.05 for Th, Dnm1 and Drd1. Registered BH < 0.05 for Th, Dnm1, Ppp1r1b, Nr3c1 and Crh. Of 6,864 registered BH calls, 6,859 are outside the qPCR panel. No author RNA-seq P or FDR pairs.",
+      "script": "data/author-validation/continued-sources/GSE168151/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Deposited GEO files and registered cohort",
+      "value": "16 sample count files, each with 32,883 Ensembl gene rows and three count columns. Eight F1 and eight F3 files. The four F1 libraries per arm match the registered sheet. The series matrix contains zero gene rows.",
+      "script": "data/author-validation/continued-sources/GSE168151/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Fingerprint of the registered DE table",
+      "value": "geo_replication/datasets/GSE168151_rnor_mbh_edc/processed/GSE168151_DE.tsv — SHA-256 16c67ba8aec24efd8b2bf1b02826506ec4fdabdd25dd4d3c6586fcac6d7d966b.",
+      "script": "data/author-validation/continued-sources/GSE168151/codex-2026-11-21/audit.py"
+    }
+  ],
+  "openIssues": [
+    "No public gene-level F1 RNA-seq effects or inference were located. The qPCR panel cannot establish genome-wide concordance.",
+    "The library-to-dam/litter mapping and overlap between sequenced animals and the qPCR validation animals remain unknown."
+  ]
+}

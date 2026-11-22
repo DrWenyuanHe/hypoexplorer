@@ -1,0 +1,23 @@
+{
+  "datasetId": "mouse_hypo_obesity_gse329539",
+  "outcome": "compared",
+  "summary": "Of 54 author-selected genes, 23 had an unambiguous registered obesity-versus-control effect. Directions agreed for 22. M6pr-ps reversed from +2.65 in the paper to −0.101 in HypoExplorer. The comparison falls below the author-concordance-v2 minimum of 30 pairs and 90% selected-reference coverage. The proposal passed validation, and no ledger was edited. [Published tables](https://pmc.ncbi.nlm.nih.gov/articles/PMC13025380/#genes-17-00297-t001)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/mouse_hypo_obesity_gse329539.json",
+    "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/selected-effects.tsv",
+    "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/sample-crosswalk.tsv",
+    "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/table2-crosscheck.tsv",
+    "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/compare.py",
+    "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/comparison.json",
+    "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/retrieve.py",
+    "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/requests.jsonl",
+    "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/verify.py",
+    "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/verification.json"
+  ],
+  "openIssues": [
+    "The paper reports 393 obesity-associated DEGs. No registered gene passes FDR < 0.05. The full author DESeq2 table, per-gene P/FDR values and exact model inputs were unavailable to reconcile that difference.",
+    "Tables 1 and 2 report different obesity effects for Ppargc1b (−1.93 and −1.46). Table 1 was used because it identifies the full selected list by Ensembl ID. Using Table 2’s value leaves the direction count and closure decision unchanged."
+  ]
+}

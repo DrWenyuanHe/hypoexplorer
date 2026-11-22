@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_mbh_maternal_emulsifier_gse231769",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 28 source files matched their recorded hashes and sizes, and all 11 computations reproduced. Both effect-concordance tests pass across 14,483 paired genes. S1 labels 43 genes up and 38 down, while the paper reports 45 up and 38 down. That establishes a net difference of two, but the published counts do not identify which genes differ. The corrected proposal retains `needs_author_contact` and passed the repository proposal checker. [Published study](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3002171)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_mbh_maternal_emulsifier_gse231769.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_mbh_maternal_emulsifier_gse231769.json",
+    "data/author-validation/continued-sources/GSE231769/codex-2026-11-21/refute/recheck.py"
+  ],
+  "openIssues": [
+    "The authors’ keyed Figure 3A gene lists and original fit and plotting code are needed to reconcile the counts and confirm the cutoff. Several nearby cutoffs reproduce every named S1 label.",
+    "109 registered genes lack keyed author statistics. The study reports four control and five exposed litters in aggregate, and the sample sheet provides no per-library litter IDs."
+  ]
+}

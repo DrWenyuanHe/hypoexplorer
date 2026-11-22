@@ -1,0 +1,75 @@
+{
+  "datasetId": "mouse_hypo_hfd_tc_gse305719",
+  "accession": "GSE305719",
+  "category": "not_located",
+  "closure": "no_valid_comparison",
+  "summary": "GEO links the Oku et al. paper, which reports coordinated fluctuations in hypothalamic gene expression across the HFD time course. Its rankings and unlabeled heatmap rows provide no signed gene-level week-12 versus day-0 effect. The deposited counts and the authors’ code confirm the data source and analysis scope, leaving endpoint concordance unassessed.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE305719/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "GEO links the study paper. Its hypothalamic network results answer a different question from the registered endpoint.",
+      "note": "Oku et al. (https://doi.org/10.1587/nolta.17.186) report synchronous fluctuations across the HFD time course. All six day-0 and six week-12 registered hypothalamus libraries match GEO. The freshly downloaded counts archive matches the input SHA-256 in the registered provenance. Figure 13A has no gene row labels, Figure 13C shows network membership, and Table II ranks genes by an unsigned intervention score. The published results and paper-linked GitHub archive supply no signed endpoint gene effects or corresponding P/FDR. Source inventory and inspection are in data/author-validation/continued-sources/GSE305719/codex-2026-11-21/SEARCH_LOG.md.",
+      "reviewFlags": [
+        "The registered contrast spans HFD week 12 and day 0. Published DNB rankings, cluster peaks and network membership cannot assess gene-level endpoint concordance.",
+        "The JST catalogue also links a GakuNin RDM project. Its institutional sign-in prevents public inspection of its files."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The linked paper reports hypothalamic gene clusters selected for synchronous variation. Its intervention rankings have no endpoint sign, and the rows in its time-course heatmap have no gene identifiers. GEO supplies library counts. The paper, its supplement inventory, the public code archive and the searched deposits yielded no author effects or P/FDR for hfd12w_vs_0d.",
+      "nextStep": "Reopen if an author-issued whole-hypothalamus result identifies the endpoint samples and gives signed gene effects for HFD week 12 relative to day 0. Assess any supplied gene-level P values and FDR within the reported testing universe.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered GEO-matched hypothalamus libraries by arm",
+      "value": "6 at HFD week 12 and 6 at day 0",
+      "script": "data/author-validation/continued-sources/GSE305719/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "GEO series supplementary count matrix contents",
+      "value": "20,646 unique gene symbols and 1,104 sample columns, all nonnegative integer counts; no additional result columns",
+      "script": "data/author-validation/continued-sources/GSE305719/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "GEO sample-level files and embedded rows",
+      "value": "All 1,104 GSM records declare no supplementary file and zero embedded data rows",
+      "script": "data/author-validation/continued-sources/GSE305719/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered edgeR quasi-likelihood table",
+      "value": "14,376 distinct tested symbols; 617 with adjusted P < 0.05",
+      "script": "data/author-validation/continued-sources/GSE305719/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered input digest reproduced from the public GEO archive",
+      "value": "ee72455b5c1dec8d52e14ecaa025f6e70dea9cec435f2aed87a962d4643051f5",
+      "script": "data/author-validation/continued-sources/GSE305719/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Published hypothalamus DNB clusters and fluctuation peaks in Table I",
+      "value": "179 genes at day 1, 146 at week 2, 103 at week 3",
+      "script": "data/author-validation/continued-sources/GSE305719/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Publisher-listed supplements",
+      "value": "0",
+      "script": "data/author-validation/continued-sources/GSE305719/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Files checked against the recursive tree of the paper-linked GitHub commit",
+      "value": "90 files: 87 Python scripts, README, license and flowchart",
+      "script": "data/author-validation/continued-sources/GSE305719/codex-2026-11-21/audit.py"
+    }
+  ],
+  "openIssues": [
+    "No public author result identified for the registered signed endpoint effect or its gene-level inference. The GakuNin RDM file inventory is accessible only after institutional sign-in."
+  ]
+}

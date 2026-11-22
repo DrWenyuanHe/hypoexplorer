@@ -1,0 +1,89 @@
+{
+  "datasetId": "mouse_hypo_diabetes_gse235792",
+  "accession": "GSE235792",
+  "category": "not_located",
+  "closure": "needs_author_contact",
+  "summary": "The preprint reports 82 hypothalamic calls at adjusted P < 0.1 among mice weighing >13.5 g at weaning. GEO defines high weaning weight as >14 g, and the registered edgeR fit used values that GEO describes as normalized linear counts. The retrieved sources do not link the reported calls to specific GSMs, a signed coefficient or a gene-level table.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE235792/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "The deposited expression files match their source hashes. The preprint reports a hypothalamic discovery count, but its cohort, fitted contrast and gene-level results require author clarification.",
+      "note": "The eight registered sample files and family SOFT match their retained sizes and SHA-256 hashes. All 87 sample files reproduce the corresponding columns of the series-level normalized linear matrix when joined by Ensembl ID. GEO documents tissue-specific DESeq2 normalization. The registered preparation merged eight of these integer-valued columns and the edgeR-QL fit treated them as counts. The preprint reports 82 hypothalamic calls at adjusted P < 0.1 on printed page 16. The registered high-minus-low glucose output has zero calls among 18,698 published genes at that cutoff. The author cohort, input scale used for testing, coefficient and per-gene statistics remain unresolved.",
+      "reviewFlags": [
+        "The preprint uses >13.5 g at weaning and GEO uses >14 g. Both cutoffs could select the same animals. The preprint does not identify the GSMs behind the 82 calls.",
+        "All eight registered inputs equal columns in the deposit labeled normalized linear counts. The registered model treated these values as count input. The authors have not identified which count matrix they fitted.",
+        "The manuscript cites Supplementary Figure 1. The reviewed publisher and repository records yielded no attachment or tested-gene table for the registered contrast."
+      ],
+      "paperAccess": "publisher_full_text",
+      "evidenceLinks": [
+        {
+          "label": "Hastreiter et al., bioRxiv preprint, printed page 16",
+          "url": "https://www.biorxiv.org/content/10.1101/2024.01.29.577705v1.full.pdf",
+          "kind": "paper"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "GEO identifies the eight registered samples and their Ensembl-level expression values. The preprint gives a tissue-level discovery count. The reviewed material does not tie a signed effect or per-gene statistic to the registered contrast for any author gene, so pair coverage and concordance under author-concordance-v2 cannot be assessed.",
+      "nextStep": "Which GSMs, exclusions, model and signed coefficient produced the 82 hypothalamic calls? Were GSM7509651-GSM7509654 compared against GSM7509661-GSM7509664, high minus low glucose? Please identify the cited supplement, the input count scale and the tested-gene table with identifiers, signed effects, raw P and adjusted P.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Hypothalamic discoveries and threshold reported in the preprint, printed page 16",
+      "value": "82 genes at adjusted P < 0.1",
+      "script": "data/author-validation/continued-sources/GSE235792/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Weaning-weight lower bounds stated for transcriptomics (preprint) and high weight (GEO)",
+      "value": "Preprint >13.5 g, GEO >14 g",
+      "script": "data/author-validation/continued-sources/GSE235792/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "GEO BioSamples in the registered high-weaning-weight hypothalamic groups",
+      "value": "4 high-glucose and 4 low-glucose, all distinct",
+      "script": "data/author-validation/continued-sources/GSE235792/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered sample files and family record matching the retained source hashes",
+      "value": "8 sample files and 1 family SOFT",
+      "script": "data/author-validation/continued-sources/GSE235792/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "GEO sample supplementary files with exactly one named sample column alongside Ensembl_gene_id",
+      "value": "87 of 87",
+      "script": "data/author-validation/continued-sources/GSE235792/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Extra normalized linear matrix",
+      "value": "55,401 gene rows, 87 sample columns, 0 unmatched columns",
+      "script": "data/author-validation/continued-sources/GSE235792/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Published registered DE rows and discoveries at the preprint cutoff",
+      "value": "18,698 rows, 0 with adjusted P < 0.1",
+      "script": "data/author-validation/continued-sources/GSE235792/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Agreement between each GEO sample file and its named normalized linear matrix column after joining by Ensembl ID",
+      "value": "4,819,887 of 4,819,887 expression values identical across 55,401 genes and 87 samples",
+      "script": "data/author-validation/continued-sources/GSE235792/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Registered normalized-expression column totals matching the preparation and edgeR input library sizes",
+      "value": "8 of 8",
+      "script": "data/author-validation/continued-sources/GSE235792/codex-2026-11-21/refute/recheck.py"
+    }
+  ],
+  "openIssues": [
+    "Which GSMs, exclusions, model and signed coefficient produced the 82 hypothalamic calls? Were GSM7509651-GSM7509654 compared against GSM7509661-GSM7509664, high minus low glucose? Please identify the cited supplement, the input count scale and the tested-gene table with identifiers, signed effects, raw P and adjusted P."
+  ]
+}

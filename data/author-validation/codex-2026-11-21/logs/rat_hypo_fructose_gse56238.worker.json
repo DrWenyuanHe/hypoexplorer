@@ -1,0 +1,18 @@
+{
+  "datasetId": "rat_hypo_fructose_gse56238",
+  "outcome": "compared",
+  "summary": "The registered fructose-versus-chow result agrees in direction for 19 of 20 genes in the original paper’s Figure 5b. Crhr1 has the opposite sign, and only Mc3r passes registered BH FDR < 0.05 among the 10 genes the authors marked significant. All 15 individually identified genes in the follow-up complement figure agree in direction. The proposal passed validation, and no ledger was edited.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/rat_hypo_fructose_gse56238.json",
+    "data/author-validation/continued-sources/GSE56238/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE56238/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE56238/codex-2026-11-21/figure-comparison.tsv",
+    "data/author-validation/continued-sources/GSE56238/codex-2026-11-21/review.py",
+    "data/author-validation/continued-sources/GSE56238/codex-2026-11-21/review-output.json",
+    "data/author-validation/continued-sources/GSE56238/codex-2026-11-21/verification.txt"
+  ],
+  "openIssues": [
+    "The two papers used different selection rules on the same RNA-seq cohort. Each panel falls below the 30-pair concordance minimum. Two composite complement labels could not be assigned to individual genes.",
+    "The full Cuffdiff table was not located. Exact author effects, gene-wise P and FDR values, and genome-wide discovery overlap remain unassessed. The figures provide signs or color bands, so no numerical comparison spec was proposed."
+  ]
+}

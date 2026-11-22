@@ -1,0 +1,61 @@
+{
+  "datasetId": "mouse_arc_hfd_gse225038",
+  "accession": "GSE225038",
+  "category": "not_located",
+  "closure": "no_valid_comparison",
+  "summary": "The registered contrast estimates whole-gene HFD-minus-chow effects in Cre-negative arcuate nucleus (ARC) littermates. Figure 1E–F gives Agrp isoform abundance by diet, and the paper’s whole-gene Agrp and Klf4 tests compare genotypes. The reviewed sources provide no author whole-gene diet estimate tied to the seven registered libraries.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE225038/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "GEO identifies all seven registered ARC libraries. Figure 1 reports Agrp isoform abundance by diet with unresolved sample membership.",
+      "note": "The GEO workbook supplies counts and RPKM for 13 libraries. The seven deposited controls match the registered sample sheet. Figure 1E–F plots Agrp-A, -B and -C in transcripts per million (TPM) and gives their within-gene percentages. Summing the three plotted means on the linear TPM scale could approximate mean total Agrp for each figure group. The caption does not identify the individual libraries. Figure 2A tests whole-gene Agrp by genotype on chow, and Table 1 tests it by genotype in HFD-fed males. PMC and Europe PMC list no supplement. The workbook and repository searches yielded no author gene-level HFD-minus-chow effect for the registered controls. The figure and source inventory are available at https://pmc.ncbi.nlm.nih.gov/articles/PMC10866620/figure/F0001/ and data/author-validation/continued-sources/GSE225038/codex-2026-11-21/SOURCES.tsv.",
+      "reviewFlags": [
+        "The legacy analysis has no committed source-file checksum manifest. This review fingerprints the GEO workbook. The converted TSV.gz count input was unavailable for rehashing in this checkout.",
+        "Figure 1E–F reports two males and two females per diet. The deposited chow controls comprise two male libraries and one female library. The public records leave the figure’s sample membership and the reason for the count discrepancy unresolved."
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The paper supplies isoform-specific TPM and proportions by diet, and whole-gene results for a knockout-versus-littermate comparison. The caption and GEO counts differ for chow controls. A sum of digitized isoform means would be a one-gene reconstruction for the plotted mice. The registered analysis estimates a whole-gene log2 fold change between the four HFD and three chow control libraries. The reviewed sources provide no matched author effect, P value or FDR for that contrast.",
+      "nextStep": "Reopen the diet comparison if author gene-level effects can be linked to the registered libraries. For a selected Agrp reconstruction, first establish the GSMs used in each Figure 1 panel and obtain the per-library isoform TPMs. For a broader comparison, request the tested genes, model and available P values and FDR.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO workbook layout across every populated worksheet",
+      "value": "One worksheet with 55,421 data rows. Its 33 populated columns comprise seven annotations, 13 counts and 13 RPKM measurements.",
+      "script": "data/author-validation/continued-sources/GSE225038/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "GEO series and sample-file inventory",
+      "value": "1 series supplementary workbook. All 13 GSM records declare NONE for sample supplementary files.",
+      "script": "data/author-validation/continued-sources/GSE225038/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Deposited control libraries matched to the registered arms using GSM genotype and diet, sex labels in library titles, workbook headers and the registered sample sheet",
+      "value": "HFD 4 (2 male, 2 female), chow 3 (2 male, 1 female). The Methods identify littermate controls as Cre-negative. The Figure 1E–F caption reports 2 male and 2 female per diet without listing GSMs.",
+      "script": "data/author-validation/continued-sources/GSE225038/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Registered edgeR-QL HFD-minus-chow output",
+      "value": "22,463 rows and 22,463 distinct gene symbols. SHA-256 eb6ff0f0029b80bbfce885b7597210de55d203ace4fb334357461df445c6d61d.",
+      "script": "data/author-validation/continued-sources/GSE225038/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "ENA inventory for PRJNA933607",
+      "value": "13 read runs matched to the GEO samples, 0 submitted analysis records in the project query.",
+      "script": "data/author-validation/continued-sources/GSE225038/codex-2026-11-21/refute/recheck.py"
+    }
+  ],
+  "openIssues": [
+    "Which GSMs contributed to Figure 1E and 1F, and how does the caption’s chow group size relate to the three deposited chow-control libraries? Per-library TPMs and sample IDs would permit a separate Agrp reconstruction if membership matches.",
+    "Author agreement in whole-gene effects, raw P values and FDR for the registered diet contrast remains unassessed."
+  ]
+}

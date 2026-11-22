@@ -1,0 +1,135 @@
+{
+  "datasetId": "mouse_hypo_spatial_aging_gse270383",
+  "accession": "GSE270383",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "All 33 published Section_3 hypothalamic effects agree in direction with the registered animal-level effects. Of the 4,476 registered profiles, 72 fall below the 600-UMI minimum in both the preprint and final Methods. The reviewed sources do not identify the beads retained and assigned to the hypothalamus for the final Table S5.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE270383/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "All 33 selected effects agree in direction. The deposited counts identify 72 registered hypothalamic profiles below the published UMI minimum, and final membership requires author confirmation.",
+      "note": "Final Table S2 maps the _4 and _5 specimens from all six female mice to anatomical Section 3. The registered edgeR quasi-likelihood model uses three mice per age and 4,476 profiles with the deposited hypothalamus label. The complete GEO metadata and barcode files match the registered source hashes. The preprint reports 128,405 profiles, equal to the deposited total. Its supplementary Methods (p. 2) and the final Methods both specify a 600-UMI minimum. At that minimum the deposited nCount_RNA leaves 126,363 profiles, including 4,404 hypothalamic profiles. All 72 below-minimum hypothalamic profiles belong to FY1. The final article reports 98,006 profiles after iterative cluster QC. The integration example uses a 400-UMI minimum and leaves the iterative exclusions to a comment. The DE example groups Immunocohort.rds by genotype. For the 33 final Table S5 pairs, Pearson r = 0.984089 and Spearman rho = 0.976270. Ten pass registered animal-level FDR < 0.05.",
+      "reviewFlags": [
+        "The registered analysis includes 32 FY1_4 and 40 FY1_5 hypothalamic profiles below 600 deposited UMIs. The 28,357-profile study-wide difference after that minimum cannot identify final regional membership.",
+        "Table S5 supplies selected profile-level results. Corresponding author animal-level P values and FDR are unavailable."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Final article and wild-type aging methods",
+          "url": "https://doi.org/10.1038/s41593-026-02293-1",
+          "kind": "paper"
+        },
+        {
+          "label": "Final supplementary workbook, Tables S2 and S5",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13337494.1/41593_2026_2293_MOESM3_ESM.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO series files",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE270nnn/GSE270383/suppl/",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Author aging-analysis code at the reviewed revision",
+          "url": "https://github.com/AbdulAbdulRU/IRISeq/tree/51e8dd1fb92d25085302650eb7a9ca60654eaf33",
+          "kind": "processed_data"
+        },
+        {
+          "label": "STOmics series-level H5AD inventory",
+          "url": "https://db.cngb.org/stomics/datasets/STDS0000306/data",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Preprint supplementary Methods, p. 2 (aging bead QC)",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC11326199.1/NIHPP2024.08.06.606712v1-supplement-4.pdf",
+          "kind": "paper"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The six mice and their sections are identifiable. Using the deposited UMI counts, 72 registered hypothalamic profiles fail the minimum specified by both publications. The 600-UMI rule alone leaves 126,363 study-wide profiles against the final 98,006. The two STOmics objects contain 128,405 observations each. Their observation fields and the reviewed analysis code do not identify the final wild-type bead-to-region mapping.",
+      "nextStep": "Which GSE270383 receiver-bead IDs from FY1–FY3 and FO1–FO3 survived final wild-type aging QC, and which were assigned to Hypothalamus in Section_3 for Table S5? Please supply the barcode, specimen, retention decision and final region, or the equivalent annotated object joinable to GEO, and confirm which UMI counts were used for the published 600-UMI minimum.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "aged_vs_young"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered R 4.6.0 animal-pseudobulk edgeR-QL log fold changes paired by exact symbol with final Table S5 spatial-profile effects.",
+      "reference": "Final Supplementary Tables 1–10, Table_S5, Region = Hypothalamus and Section_ID = Section_3. Table_S2 identifies the sections and mice.",
+      "assessment": "not_established",
+      "dimensions": {
+        "cohort": {
+          "status": "different",
+          "note": "The six female mice and adjacent sections match. On the deposited counts, 72 of the 4,476 registered hypothalamic profiles fall below the published minimum, all from young mouse FY1 (32 in _4 and 40 in _5). Final regional counts and the full overlap after cluster QC remain unknown."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Wild-type female hypothalamus at 23 versus 4 months. Old is positive. Table S2 maps both _4 and _5 for each mouse to Section 3."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 33 distinct author gene_short_name values match gene_id and join to unique registered symbols. The join required no aliases or exclusions."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Table S5 fold.change agrees, to the workbook’s precision, with (max.expr + 0.01) / (second.expr + 0.01) in TPM. Take log2 and assign a positive sign when max.tissue is Old. The registered logFC is the fitted old-versus-young edgeR coefficient on animal pseudobulks with TMM normalization. The estimators share direction and log2 units. All 33 nonzero pairs agree in sign, with Pearson r = 0.984089, Spearman rho = 0.976270 and median absolute difference = 0.212902 log2 units."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Table S5 reports spatial-profile Monocle2 likelihood-ratio P values and multiple-testing-adjusted q values. All 33 selected rows pass its compound selection rule. Ten of the 33 pass FDR < 0.05 in the registered animal-level edgeR quasi-likelihood model. The paper supplies no matched animal-level P values or FDR."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All 33 selected reference genes pair with 33 of 12,337 registered genes (0.2675%). The remaining 139 of 149 registered FDR discoveries are absent from this compound-filtered list. Table S5 therefore gives no profile-level P or q values for those 139 genes in the target region and section."
+        }
+      },
+      "criteria": "Use every Hypothalamus / Section_3 row. The authors selected q < 0.05, fold change > 3 and maximum TPM > 50. No local significance or magnitude filter was applied. For selected results, v2 requires ≥30 pairs and ≥90% reference coverage, plus either Pearson and Spearman ≥0.90 or ≥90% directional agreement across ≥30 nonzero pairs covering ≥90% of pairs. The 33 pairs meet both numerical routes. Cohort compatibility is also required.",
+      "conclusion": "The 33 selected effects meet both v2 numerical criteria. The deposited counts demonstrate a profile eligibility difference, and final bead membership remains unresolved. These results support agreement on the selected effects only. Full-universe agreement and animal-level author inference remain unassessed."
+    }
+  },
+  "computed": [
+    {
+      "claim": "WT profile counts, GEO metadata and matching barcode vector",
+      "value": "128,405 unique metadata IDs match the GEO barcode vector in order. The deposited hypothalamus label covers 4,476 profiles. Table S2 identifies 24 specimens, including both anatomical Section 3 specimens for each of six females.",
+      "script": "data/author-validation/continued-sources/GSE270383/codex-2026-11-21/refute/verify.py"
+    },
+    {
+      "claim": "Apply the code example’s 400-UMI minimum and the 600-UMI minimum stated in both publications to deposited nCount_RNA",
+      "value": "At ≥400, 128,405 profiles remain study-wide and 4,476 in the deposited hypothalamus. At ≥600, 126,363 and 4,404 remain. The 72 hypothalamic profiles below 600 comprise 32 from FY1_4 and 40 from FY1_5. The study-wide ≥600 total exceeds the final 98,006 by 28,357. The preprint reports 128,405 despite also describing the 600-UMI minimum.",
+      "script": "data/author-validation/continued-sources/GSE270383/codex-2026-11-21/refute/verify.py"
+    },
+    {
+      "claim": "Final Table S5, all selected Section_3 Hypothalamus rows against the current registered table",
+      "value": "33/33 unique symbols paired and all 33 nonzero signs agree (12 old-high, 21 young-high). Pearson 0.98408914, Spearman 0.97627005, median absolute log2 difference 0.21290218, local/author RMS effect ratio 1.10960735. The largest absolute difference between the workbook fold.change and the 0.01-offset TPM ratio is 1.10 × 10^-7 (rounded).",
+      "script": "data/author-validation/continued-sources/GSE270383/codex-2026-11-21/refute/verify.py"
+    },
+    {
+      "claim": "Reference coverage, output coverage and local animal-level discoveries on the final list",
+      "value": "33/33 reference genes and 33/12,337 output genes. 10/33 have local FDR < 0.05. A further 139 of 149 local discoveries lack a final selected author row.",
+      "script": "data/author-validation/continued-sources/GSE270383/codex-2026-11-21/refute/verify.py"
+    },
+    {
+      "claim": "Preprint version 1, independently scoped to its own Table S5, as a version check",
+      "value": "43/43 listed genes pair and agree in direction. 31 genes appear on both the preprint and final lists. Pearson 0.99554291, Spearman 0.97115675 and 16/43 with local FDR < 0.05 for the preprint list.",
+      "script": "data/author-validation/continued-sources/GSE270383/codex-2026-11-21/refute/verify.py"
+    },
+    {
+      "claim": "STOmics series-level H5AD objects, read from retained HDF5 metadata byte ranges",
+      "value": "Both contain 128,405 observations × 23,956 variables. The base object has only an observation index. The processed object adds cluster and QC columns without a final retention flag or the paper’s region assignments.",
+      "script": "data/author-validation/continued-sources/GSE270383/codex-2026-11-21/refute/verify.py"
+    }
+  ],
+  "openIssues": [
+    "Which GSE270383 receiver-bead IDs from FY1–FY3 and FO1–FO3 survived final wild-type aging QC, and which were assigned to Hypothalamus in Section_3 for Table S5? Please supply the barcode, specimen, retention decision and final region, or the equivalent annotated object joinable to GEO, and confirm which UMI counts were used for the published 600-UMI minimum."
+  ]
+}

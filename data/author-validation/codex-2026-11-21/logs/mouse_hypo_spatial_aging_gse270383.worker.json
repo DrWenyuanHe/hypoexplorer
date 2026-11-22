@@ -1,0 +1,20 @@
+{
+  "datasetId": "mouse_hypo_spatial_aging_gse270383",
+  "outcome": "needs_author_contact",
+  "summary": "Applying the final paper’s 600-UMI minimum to GEO leaves 126,363 profiles, 28,357 more than the reported final cohort. The public code and processed deposits do not identify which profiles survived the remaining QC. All 33 selected hypothalamic genes agree in effect direction with the registered output, and 10 pass animal-level FDR < 0.05.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/mouse_hypo_spatial_aging_gse270383.json",
+    "data/author-validation/continued-sources/GSE270383/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE270383/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE270383/codex-2026-11-21/results.json",
+    "data/author-validation/continued-sources/GSE270383/codex-2026-11-21/selected_pairs.tsv",
+    "data/author-validation/continued-sources/GSE270383/codex-2026-11-21/inventory.json",
+    "data/author-validation/continued-sources/GSE270383/codex-2026-11-21/mirror.json",
+    "data/author-validation/continued-sources/GSE270383/codex-2026-11-21/audit.py",
+    "data/author-validation/continued-sources/GSE270383/codex-2026-11-21/inspect_mirror.py",
+    "data/author-validation/continued-sources/GSE270383/codex-2026-11-21/retrieve.py"
+  ],
+  "openIssues": [
+    "Which GSE270383 receiver-bead barcodes from FY1–FY3 and FO1–FO3 survived final wild-type aging QC, and which were assigned to Hypothalamus in Section_3 for Table S5? A final barcode-to-sample and region table, or an annotated object with identifiers joinable to GEO, would resolve the cohort question."
+  ]
+}

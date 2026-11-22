@@ -1,0 +1,119 @@
+{
+  "datasetId": "mouse_hypo_plx3397_gse243697",
+  "accession": "GSE243697",
+  "category": "access_blocked",
+  "closure": "compared",
+  "summary": "All 64 genes with a one-to-one match in the authors’ Figure 3A–B agree in direction with the registered PLX3397-minus-vehicle result. The panels show 65 genes in total. The remaining gene, Fam205a2, shares a registered coefficient with Fam205a4, and the public panels provide no fitted effect sizes or gene-level RNA-seq P values or FDR.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE243697/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "summary": "Published RNA-seq heatmaps support the treatment direction for 64 of 65 selected genes",
+      "note": "The public Figure 3 caption identifies panel A as upregulated and panel B as downregulated in PLX3397-treated hypothalamus. The eight P19 GEO profiles match the registered design, with two females and two males per arm. All 64 one-to-one directions agree with the sex-adjusted edgeR-QL result. The registered Spata31f1b coefficient combines the printed Fam205a2 feature with Fam205a4. Among the 64 comparable genes, 44 meet registered BH FDR < 0.05. The series deposit contains counts, FPKM and annotations. The DOCX contains supplementary figures and an RT-PCR primer table. The main text remains subscription-restricted.",
+      "reviewFlags": [
+        "The comparison covers the genes printed in Figure 3A–B. Fam205a2 has no separate registered coefficient. The figure supplies directions only, and genome-wide effects, tested-gene coverage and author RNA-seq inference remain unassessed.",
+        "GEO describes limma-voom with batch and technical PCs. The exact design, inclusion of sex in the author fit, and library-to-litter or within-litter treatment assignments remain unresolved."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Figure 3, public RNA-seq heatmaps and caption",
+          "url": "https://www.nature.com/articles/s41380-023-02326-2/figures/3",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO series, sample metadata and expression matrix",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE243697",
+          "kind": "database"
+        },
+        {
+          "label": "Publisher preview and data availability",
+          "url": "https://www.nature.com/articles/s41380-023-02326-2",
+          "kind": "paper"
+        },
+        {
+          "label": "Publisher supplementary figures and primer table",
+          "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41380-023-02326-2/MediaObjects/41380_2023_2326_MOESM1_ESM.docx",
+          "kind": "author_result"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "The author-designated RNA-seq directions agree with all 64 one-to-one registered coefficients. One of the 65 printed features contributes to a two-feature registered coefficient. The GEO-described limma-voom fit and the registered sex-adjusted edgeR-QL fit differ. The authors’ fitted magnitudes, raw P values and FDR remain unavailable for comparison.",
+      "nextStep": "For genome-wide comparison, can the authors provide the complete P19 PLX3397-versus-vehicle limma-voom table with stable gene IDs, fitted log2 fold changes, raw P and adjusted P values, along with the design and contrast, sample-level covariates (including sex and batch), and library-to-litter assignments?",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "plx3397_vs_vehicle_sex_adjusted"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Compare the authors’ up/down designation for every figure row with the sign of the matching registered edgeR-QL logFC. Include every printed row in reference coverage and require a one-to-one source feature for the sign test. Registered FDR is descriptive.",
+      "reference": "Sun et al., Molecular Psychiatry, doi:10.1038/s41380-023-02326-2, Figure 3A–B. The publisher caption gives the direction for each panel. Panel C reports GO enrichment and panel D reports RT-PCR. GEO gene_name and gene_id supply the identifier link.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "The eight GSE243697 P19 whole-hypothalamus sample titles and GSMs match the registered samplesheet. ENA supplies matching experiments. Each treatment arm has two female and two male profiles. The panels label the four profiles per arm by number. Exact panel-column-to-GSM order and litter assignment are unavailable."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Both sources compare P19 hypothalamic expression after P9–P15 PLX3397 treatment with vehicle. Panel A means higher with PLX3397 and panel B means lower. The registered contrast adjusts for sex. The GEO methods do not establish whether the author design included sex."
+        },
+        "features": {
+          "status": "limited",
+          "note": "64 figure labels join one-to-one through deposited Ensembl IDs to published DE symbols. Fam205a2 (ENSMUSG00000094066) and Fam205a4 (ENSMUSG00000078746) are summed as Spata31f1b before the registered fit. The figure labels Fam205a2 alone, so it remains unpaired."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "The caption supplies a biological direction for each RNA-seq gene. The positive or negative registered coefficient agrees for 64 of 64 nonzero pairs. An exact author coefficient, effect scale for the heatmap cells, and magnitude and correlation comparisons are unavailable."
+        },
+        "inference": {
+          "status": "different",
+          "note": "GEO describes RUV and limma-voom with batch and the first two alignment/sequencing PCs. The registered model uses TMM, edgeR-QL and sex. Of the 64 pairs, 44 meet registered BH FDR < 0.05. Author gene-level RNA-seq P and FDR are unassessed throughout. RT-PCR significance in panel D belongs to another assay."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All 65 selected labels are accounted for. The 64 one-to-one pairs cover 98.46% of that reference, and all 64 have comparable nonzero directions. The complete author testing universe and discovery list remain unavailable."
+        }
+      },
+      "criteria": "Keep all rows in author panel order. For the selected reference use author-concordance-v2 thresholds of at least 30 pairs, 90% reference coverage and, on its direction route, at least 30 nonzero pairs covering 90% of pairs with 90% same-gene agreement. Evaluate semantic compatibility separately. Assess author correlations or inference only with published numerical values.",
+      "conclusion": "The selected genes meet the numerical direction and coverage criteria. The accessible figure supports agreement in biological direction. The exact fitted effect definitions and inference remain unresolved. A numerical comparison spec would require author effect sizes."
+    }
+  },
+  "computed": [
+    {
+      "claim": "One-to-one RNA-seq directions in all Figure 3A–B labels",
+      "value": "65 selected (17 up, 48 down). 64/65 pair one-to-one (98.46%). All 64 have nonzero directions and agree (16 up, 48 down).",
+      "script": "data/author-validation/continued-sources/GSE243697/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Unpaired source feature",
+      "value": "Fam205a2 maps to ENSMUSG00000094066. It shares the registered Spata31f1b coefficient with Fam205a4 (ENSMUSG00000078746).",
+      "script": "data/author-validation/continued-sources/GSE243697/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Registered inference for the paired figure genes",
+      "value": "44/64 meet BH FDR < 0.05 (6 up, 38 down). The other 20 fall outside the registered threshold. Author per-gene RNA-seq P and adjusted P values remain unassessed.",
+      "script": "data/author-validation/continued-sources/GSE243697/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Current registered output",
+      "value": "21,884 published DE rows, 478 registered FDR < 0.05 discoveries, 434 of those outside the paired figure set. The DE SHA-256 is d6627f744cb77c944c85e10f1c98a470f0b69ec134e20703f5b4a6dcf2d55365 and matches its R 4.6.0 provenance.",
+      "script": "data/author-validation/continued-sources/GSE243697/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Public expression deposit and replication",
+      "value": "55,401 rows with annotation, eight count columns and eight FPKM columns. Eight GSMs list no sample supplement. Eight ENA read runs match the registered sample titles and experiment accessions, with zero ENA analysis records.",
+      "script": "data/author-validation/continued-sources/GSE243697/codex-2026-11-21/review.py"
+    }
+  ],
+  "openIssues": [
+    "The complete author DE export, exact design and contrast, and litter assignments remain unavailable. Fitted magnitudes, genome-wide concordance and author inference remain unassessed.",
+    "There is no gene-specific registered effect for the figure’s Fam205a2 row.",
+    "The separate analysis_qc.tsv reports 22,125 DE rows and 479 discoveries. The registered DE table and its own provenance agree on 21,884 rows and 478 discoveries. The comparison uses the registered DE table."
+  ]
+}

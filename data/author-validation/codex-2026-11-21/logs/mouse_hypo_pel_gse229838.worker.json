@@ -1,0 +1,18 @@
+{
+  "datasetId": "mouse_hypo_pel_gse229838",
+  "outcome": "compared",
+  "summary": "The registered analysis agrees with the authors’ reported decreases in Avp and Oxt. Neither reaches registered FDR < 0.05. Across all 13 Figure 2A markers with a registered result, seven expression directions agree and six differ. The review closes for these selected markers. [Published Figure 2](https://pmc.ncbi.nlm.nih.gov/articles/PMC11127955/#Fig2)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/mouse_hypo_pel_gse229838.json",
+    "data/author-validation/continued-sources/GSE229838/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE229838/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE229838/codex-2026-11-21/figure2_markers.tsv",
+    "data/author-validation/continued-sources/GSE229838/codex-2026-11-21/compare.py",
+    "data/author-validation/continued-sources/GSE229838/codex-2026-11-21/comparison.json",
+    "data/author-validation/continued-sources/GSE229838/codex-2026-11-21/verification.json"
+  ],
+  "openIssues": [
+    "Figure 2 plots deposited SHAM-2 and SHAM-3. The registered analysis also includes SHAM-1 (GSM7178967). The authors’ fitted sample manifest is needed to determine whether their DESeq2 analysis also omitted SHAM-1.",
+    "The complete author DESeq2 table was not located. Genome-wide effect agreement, exact author P values and FDRs, and discovery overlap remain unassessed."
+  ]
+}

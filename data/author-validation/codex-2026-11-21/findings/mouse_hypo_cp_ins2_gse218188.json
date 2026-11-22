@@ -1,0 +1,188 @@
+{
+  "datasetId": "mouse_hypo_cp_ins2_gse218188",
+  "accession": "GSE218188",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "The registered hypothalamus contrast agrees in direction for all 14 genes labelled in Figure 4B and all six additional genes with a direction reported in the Discussion. The 14 graphically estimated log2 fold changes fall below the 30-pair concordance minimum. The full author table and per-gene FDR remain unavailable.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Published hypothalamic directions compared for 20 selected genes",
+      "note": "The GEO hypothalamic normalized-count file and family SOFT match their existing source pins. The published comparator was AAV5-CMV-GFP. Figure 4C identifies the same five GFP and five Ins2 hypothalamic libraries as the registered limma fit. All 14 labelled Figure 4B effects and six additional expression directions named in the Discussion agree in sign. Magnitudes differ, including Slc17a7 at about +0.20 in the plot and +1.19 locally. Among these 20 genes, 17 have local raw P < 0.05 and none have local BH FDR < 0.05. Exact author statistics and the full tested-gene list were not located.",
+      "reviewFlags": [
+        "The numerical reference consists of 14 figure-selected graphical estimates. Six additional genes have direction only. Full-table agreement and author FDR remain unassessed.",
+        "Distinct hypothalamic library and BioSample identifiers are documented. The biological replication unit per library is unresolved."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "All 20 selected directions agree. Figure 4B supports 14 approximate paired log2 fold changes (Pearson 0.769, Spearman 0.860) with differences in magnitude between author DESeq2 and registered limma. The six additional directions have no numerical author coefficient. The comparison falls below the minimum for either concordance route.",
+      "nextStep": "For genome-wide review, obtain the hypothalamic Ins2-versus-GFP DESeq2 results with gene ID, log2 fold change, raw P and adjusted P, the model and filtering settings, and the exact rule used for the 1,714 calls. Confirm which effect estimates were plotted and how the ten libraries map to mice or disjoint pools.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "ins2_overexpression_vs_control"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Direct comparison of every labelled marker in the Figure 4B hypothalamic volcano plot with the registered limma coefficient. The Discussion supplies a separate comparison of six additional directions.",
+      "reference": "Mazucanti et al., Cell Reports, DOI 10.1016/j.celrep.2023.112903, Figure 4B (Document S2, PDF page 9), Figure 4C sample labels, Results and Discussion. Figure 4B is retained at publisher resolution with its point-centre transcription and calibration.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Whole hypothalamus from WT C57BL/6J mice, two months after treatment, fasted overnight before collection. Figure 4C shows GFP 1–5 and Ins2 1, 2, 3, 5, 6. The GEO group, sample-sheet column, ENA run and BioSample agree for each of the ten libraries. The library-to-mouse or disjoint-pool mapping remains unresolved. Pooling indexed libraries for sequencing does not supply that mapping."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "AAV5-CMV-Ins2 minus AAV5-CMV-GFP as shown in Figure 4. The registry displays ‘Untreated control’ and GEO uses ‘no treatment control’. The count columns and Figure 4C identify these controls as GFP. Higher hypothalamic expression in the Ins2 arm is positive. The CP tissue analysis in Figure S4 and the Ins2 knockdown experiment have different targets."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 14 figure symbols and six additional symbols named in the Discussion have one exact registered mouse-symbol match. Figure 4B and the publisher text resolve the PMC rendering ‘II17rc’ as Il17rc. Sat1 uses the figure's literal label. The full author tested-gene list is unavailable."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "DESeq2 and limma both report case-minus-control expression on a log2 scale. The 14 plotted centres yield approximate Pearson 0.769 and Spearman 0.860. All 14 signs agree, with median absolute difference 0.063 and maximum 0.990 log2 units (Slc17a7). The plot does not specify coefficient shrinkage. The six narrative signs agree and have no recoverable magnitude."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "The authors used DESeq2 on featureCounts reads. The registered analysis used limma on log2(DESeq2-normalized counts + 1). All 14 labelled markers lie above the raw P < 0.05 line and have local raw P < 0.05. Three additional narrative genes meet the local nominal threshold. Exact author P, gene-wise FDR and the identities of all author calls remain unavailable. The entire registered table has zero BH FDR < 0.05 discoveries. It is not possible to compare author and registered FDR calls."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Every one of the 14 figure-selected effects pairs, covering 0.0675% of 20,752 registered genes. The six narrative-only genes add direction evidence. Figure 4C displays 80 rows without gene labels. The original call list for the reported 966 increases and 748 decreases was not located."
+        }
+      },
+      "criteria": "Use the author-labelled points and explicit transcriptomic statements with the published orientation. The v2 selected-reference denominator is 14, all paired and nonzero. Both routes require at least 30 pairs. Pearson and Spearman are below 0.90, while direction has 14/14 agreement. The six text-only signs supply no numerical effects. Nominal P and FDR are contextual and assessed only where available.",
+      "conclusion": "The selected genes reproduce the published directions. The plot contains too few numerical effects for v2 acceptance, and the estimates differ in magnitude. Genome-wide agreement, author FDR and biological replication remain unverified."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "mouse_hypo_cp_ins2_gse218188",
+      "accession": "GSE218188",
+      "contrast": "ins2_overexpression_vs_control",
+      "localPath": "geo_replication/datasets/GSE218188_mmus_hypothalamus_cp_ins2/processed/GSE218188_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/figure4b_effects.tsv",
+      "sourceUrl": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124723009142-gr4_lrg.jpg",
+      "sha256": "492a6bc610d4f93c46c3205d51b6703ad66241fd3f8c8b984e0a66af50aa1ff9",
+      "format": "tsv",
+      "authorKey": "symbol",
+      "authorEffect": "approx_log2FC",
+      "orientationSign": 1,
+      "localMethod": "limma on log2(DESeq2-normalized count + 1)",
+      "authorMethod": "DESeq2 on featureCounts reads. Effect estimates digitized from Figure 4B.",
+      "orientation": "Hypothalamus after CP Ins2 overexpression minus GFP-vector control.",
+      "note": "Selected results. All 14 labelled Figure 4B markers are included. Each approximate author coefficient was read from the publisher plot axis and rounded to 0.001. Exact source coefficients and author FDR are unavailable. The six prose-only directions are documented outside this numerical spec. Fourteen pairs are below the 30-pair minimum for either author-concordance-v2 route.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/sources/publisher-fig4.jpg",
+          "sourceUrl": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124723009142-gr4_lrg.jpg",
+          "sha256": "f646f4c62358b09f865c3610acb773b702f1b38bc25a2e3ee0ee311200985366",
+          "bytes": 1261230
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/sources/publisher-mmc2.pdf",
+          "sourceUrl": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124723009142-mmc2.pdf",
+          "sha256": "4d33a6d44f33b415ee0c0ab0310170a529f69e4542f91ab7703d7a30828a7041",
+          "bytes": 8441732
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/figure4b_centres.tsv",
+          "sourceUrl": "Manual transcription of all labelled Figure 4B marker centres in the unscaled crop",
+          "sha256": "2fc6f37f13a60aab2f873c9551c165756beb0d1a3a1aa8c1f175da4598101285",
+          "bytes": 282
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py",
+          "sourceUrl": "Reproducible crop, coordinate calibration, exact symbol join and numerical comparison",
+          "sha256": "ead20e9d75e47823a1fbe3e1d00d436c1487989e1568074bd1f759f896e06391",
+          "bytes": 11570
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py",
+      "resultScope": "All 14 labelled hypothalamic gene effects in Figure 4B, as approximate values digitized from the published axes.",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE218188_mmus_hypothalamus_cp_ins2/processed/GSE218188_DE.tsv",
+        "sourceUrl": "Registered hypothalamic Ins2-overexpression-versus-control DE table",
+        "sha256": "5640c754a4f946bd18ad8e62265c3cdbd96c3caa4891678d348f21ba32674f2d",
+        "bytes": 2010123
+      }
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO sample-level files and series matrix",
+      "value": "All 21 GSM supplementary-file fields say NONE. The series matrix has zero data rows.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Contents of the two series supplementary count files",
+      "value": "25,239 unique gene IDs in each. HT has ten sample columns and CP has eleven. Both files contain only an identifier and sample values.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered hypothalamus libraries matched to GEO, ENA and BioSample",
+      "value": "5 GFP controls and 5 Ins2 cases. Ten distinct BioSample accessions.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "All labelled Figure 4B effects paired and agreeing in direction",
+      "value": "14/14 uniquely paired, all nonzero and all directionally concordant. Eleven increases and three decreases. All 14 meet nominal P < 0.05 in both models.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Additional explicitly named changes in the Discussion",
+      "value": "6/6 directions agree. Three have local raw P < 0.05. No numerical author effect assigned.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Distinct selected author genes, agreement and registered inference",
+      "value": "20/20 agree in direction (17 up, 3 down). Seventeen have local raw P < 0.05 and zero have local BH FDR < 0.05.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Numerical-pair coverage",
+      "value": "14/14 selected plotted effects and 14/20,752 registered effects (0.0675%).",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure 4B correlations with registered logFC, using digitized values",
+      "value": "Pearson 0.7686 and Spearman 0.8603. Spearman uses average ranks for ties after rounding graphical estimates to 0.001.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Absolute differences in log2 fold change using the plotted estimates",
+      "value": "Median 0.0631 and maximum 0.9898. Slc17a7 is approximately +0.201 in the plot and +1.19078 in the registered table.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Scale of a ten-pixel marker radius on Figure 4B",
+      "value": "About 0.0084 log2 units horizontally and 0.0840 on the negative-log10 raw P axis vertically.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered nominal and adjusted calls over the full table",
+      "value": "1,372 of 20,752 have raw P < 0.05 and zero have BH FDR < 0.05. Among nominal genes, 486 have logFC > +0.2 and 432 have logFC < −0.2.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Published hypothalamic discovery totals read from the manuscript",
+      "value": "1,714 total, 966 up and 748 down. The three labelled increases Slc6a11, Grin2b and Gabbr2 sit below +0.2 even allowing a ten-pixel marker radius.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "The reviewed public sources do not provide the full hypothalamic DESeq2 result with exact coefficients, raw P, adjusted P, filtering and the gene identities behind the 1,714 reported calls.",
+    "The written fold-change rule, the reported decreases and several highlighted effects below +0.2 leave the authors’ precise call rule and the relationship between plotted and tested effects open.",
+    "GEO, ENA and Figure 4C identify the ten libraries. The assignment of each library to an individual mouse or a disjoint biological pool remains undocumented."
+  ]
+}

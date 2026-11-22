@@ -1,0 +1,15 @@
+{
+  "datasetId": "mouse_hypo_fedfast_gse254155",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 40 source hashes and sizes matched, and all eight proposed computations reproduced. The fasting contrast passes both effect-concordance criteria. Ten paired effects round to zero in the browser bundle, changing sign agreement from 16,575/16,906 to 16,570/16,896. All 789 shared FDR discoveries survive rounding. The corrected proposal also records a discrepancy in the author’s normalized mean counts. It passed the repository proposal checker.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_fedfast_gse254155.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_fedfast_gse254155.json",
+    "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/refute/recheck.py"
+  ],
+  "openIssues": [
+    "The numerical reference is the bioRxiv workbook. Equivalence to the journal worksheet remains unverified.",
+    "Four Excel date cells have ambiguous gene identifiers, leaving three registered genes unpaired.",
+    "Individual animal identities, pooling and the exact DESeq2 settings remain undocumented. Default normalization did not reproduce all author base means."
+  ]
+}

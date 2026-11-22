@@ -1,0 +1,144 @@
+{
+  "datasetId": "mouse_hypothalamic_cells_mogroside_gse275887",
+  "accession": "GSE275887",
+  "category": "not_located",
+  "closure": "needs_author_contact",
+  "summary": "Supplementary File S1 contains the author’s differential-expression results. All six registered profiles match columns on sheet H3 (high glucose), although GEO and the registry label them normal glucose. The sample identities can be traced numerically, but the physical glucose condition requires the authors’ plate-to-library key.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE275887/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Published gene effects recovered. The registered libraries carry conflicting glucose labels.",
+      "note": "The deposited count archive and family SOFT match the registered source checksums. The manuscript identifies GSE275887 and defines treatment as 24 h of 160 µM mogroside V versus vehicle in the 5.5 mM or 25 mM medium. The six registered GEO normal-glucose libraries match S1’s high-glucose normalized counts across all Ensembl features after one scale factor per column. Five normal-glucose workbook columns match GEO high-glucose libraries. N3_2 has no match among the deposited count profiles. Table 1 assigned-read totals and the numbered sample list in S3 support the workbook's grouping. SRA retains the MO filenames and GEO titles but gives no independent record of the medium in each well.",
+      "reviewFlags": [
+        "The source glucose labels conflict. H3 agreement measures agreement on the registered libraries only. An automated comparison for the registered normal-glucose condition would assign an unconfirmed biological label.",
+        "GSM8487285 and GSM8487287 contain identical decompressed counts despite distinct SRA runs and original FASTQ filenames.",
+        "The paper gives three RNA profiles per condition. Independence of the culture preparations remains unestablished."
+      ],
+      "paperAccess": "publisher_full_text",
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Manuscript, methods and Table 1",
+          "url": "https://www.mdpi.com/2076-3417/15/23/12391",
+          "kind": "paper"
+        },
+        {
+          "label": "Publisher supplement with S1 differential-expression tables and S3 sample list",
+          "url": "https://mdpi-res.com/d_attachment/applsci/applsci-15-12391/article_deploy/applsci-15-12391-s001.zip",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO sample records and per-library counts",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE275887",
+          "kind": "database"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "The published normal-glucose sheet N3 and the registered GEO normal-glucose libraries describe different count profiles. The high-glucose sheet H3 matches every registered library. Both sheets were compared in their stated orientation. Neither establishes a concordant result for a confirmed normal-glucose cohort.",
+      "nextStep": "Which GSM and MO library IDs came from the 5.5 mM and 25 mM wells, and which original count file belongs to S1 column N3_2? Please provide the plate-to-library key and the intended counts for GSM8487287 (MO23), whose deposited count file duplicates GSM8487285 (MO21).",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "mogroside_v_160um_vs_vehicle"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Compare the current registered edgeR-QL table with S1 sheet N3 as the published normal-glucose result. Use the independently identified H3 column matches to assess the same numerical libraries separately. The unchanged dose-versus-vehicle coefficients were compared across all unambiguous finite pairs.",
+      "reference": "Applied Sciences, DOI 10.3390/app152312391, Supplementary File S1.xlsx (N3 and H3), Table 1 and the S3 sample list. GEO GSE275887 and SRA PRJNA1153497 supply sample metadata, original filenames and deposited count-file identities. The source hashes and registered output hash are in SOURCES.tsv and results.json, respectively.",
+      "assessment": "not_comparable",
+      "dimensions": {
+        "cohort": {
+          "status": "different",
+          "note": "GEO GSM8487265–67 (vehicle) and GSM8487274–76 (160 µM) reproduce all six H3 normalized-count columns up to scaling. No N3 column matches those libraries. N3_2 matches none of the deposited profiles. Independent culture replication remains uncertain."
+        },
+        "contrast": {
+          "status": "different",
+          "note": "The drug dose, 24 h time point, vehicle and treatment-minus-control orientation align. The glucose stratum differs between GEO and the publication for the same six libraries."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Join Ensembl IDs by the registered feature map to uniquely mapped output symbols. On each sheet, 11,703 of 11,738 output symbols have a single source feature and a finite paired effect. The remaining 35 combine multiple features."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Both report model-based treatment-versus-vehicle log2 fold changes. N3 Pearson/Spearman are −0.07161/−0.10950, with 5,317 of 11,703 signs agreeing and median absolute difference 0.26122. For H3 on the matched libraries they are 0.99943/0.99946, with 11,566 signs agreeing and median absolute difference 0.00694. The glucose label prevents biological sign-off."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The authors used DESeq2 and the registered analysis used edgeR-QL. At the paper's adjusted P < 0.10, N3/H3 have 17/16 calls and the registered result has zero. At FDR < 0.05 the counts are 8/5 and zero. All these author calls have local tests. Only 2,842 pairs on each sheet have finite adjusted P on both sides. Missing author statistics remain unassessed. The paper's discussion reports 18 genes in each high-dose comparison."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Both full sheets cover 56,941 Ensembl IDs. Paired effects cover 99.70% of the registered output, 49.97% of finite N3 effects and 49.40% of finite H3 effects. Differences in filtering, mapping and aggregation limit coverage of the author universe."
+        }
+      },
+      "criteria": "For a full reference, author-concordance-v2 requires at least 30 pairs and 90% coverage of registered effects. Either both correlations must reach 0.90 or at least 90% of nonzero pairs must agree in sign, with at least 30 such pairs covering 90% of pairs. Cohort, contrast, features and effect definitions must also be compatible. P and FDR are contextual. Use all one-to-one pairs and preserve each sheet’s stated sign.",
+      "conclusion": "N3 fails both numerical routes and compares different libraries. H3 meets both numerical routes on the registered libraries, but its published glucose stratum conflicts with the registered contrast. The biological comparison remains unresolved and neither sheet supports an automated same-contrast spec."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered output covered on each sheet",
+      "value": "11,703 / 11,738 (99.7018%). Each of the 35 excluded symbols maps to multiple features.",
+      "script": "data/author-validation/continued-sources/GSE275887/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "N3 reference coverage",
+      "value": "11,703 / 23,419 finite effects (49.9722%)",
+      "script": "data/author-validation/continued-sources/GSE275887/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "H3 reference coverage",
+      "value": "11,703 / 23,688 finite effects (49.4048%)",
+      "script": "data/author-validation/continued-sources/GSE275887/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "N3 Pearson, Spearman and same-direction nonzero pairs",
+      "value": "−0.071610, −0.109498, 5,317 / 11,703 (45.4328%)",
+      "script": "data/author-validation/continued-sources/GSE275887/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "H3 Pearson, Spearman and same-direction nonzero pairs",
+      "value": "0.999431, 0.999460, 11,566 / 11,703 (98.8294%)",
+      "script": "data/author-validation/continued-sources/GSE275887/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Strict adjusted-P calls across full N3 / H3 / registered tables",
+      "value": "< 0.10: 17 / 16 / 0. < 0.05: 8 / 5 / 0. Each sheet has 2,848 finite author adjusted P values and 2,842 finite adjusted-P pairs.",
+      "script": "data/author-validation/continued-sources/GSE275887/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Fingerprint matches from the two sheets",
+      "value": "6 H3 and 0 N3 columns match the registered set. 5 N3 columns match other GSMs and N3_2 has no match across 24 deposits.",
+      "script": "data/author-validation/continued-sources/GSE275887/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "GEO samples whose assigned-read total matches the corresponding Table 1 sample under the opposite glucose label",
+      "value": "23 / 24",
+      "script": "data/author-validation/continued-sources/GSE275887/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Byte-identical decompressed count files",
+      "value": "GSM8487285 (MO21) and GSM8487287 (MO23)",
+      "script": "data/author-validation/continued-sources/GSE275887/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Original SRA files for the duplicate count profiles",
+      "value": "SRR30463136 / MO21.fastq.gz and SRR30463134 / MO23.fastq.gz",
+      "script": "data/author-validation/continued-sources/GSE275887/codex-2026-11-21/sra_review.py"
+    }
+  ],
+  "openIssues": [
+    "Which GSM and MO library IDs came from the 5.5 mM and 25 mM wells, and which original count file belongs to S1 column N3_2? Please provide the plate-to-library key and the intended counts for GSM8487287 (MO23), whose deposited count file duplicates GSM8487285 (MO21).",
+    "Which result version or selection rule produced the 18 high-dose genes reported for each glucose condition? S1 gives 17 and 16 at the stated cutoff.",
+    "The public methods do not identify independent culture preparations for the three RNA profiles per arm."
+  ]
+}

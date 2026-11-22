@@ -1,0 +1,143 @@
+{
+  "datasetId": "human_hypo_neuron_mkrn3_gse208722",
+  "accession": "GSE208722",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "All 110 Figure 2 genes that match a registered DE row agree in the day-30 MKRN3-KO 1 minus WT 1 direction. Two provide labeled volcano effects and 108 provide sample-heatmap directions only. The authors’ stated fold-change cutoff conflicts with the volcano plot, leaving their discovery rule unresolved.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE208722/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "summary": "All 110 matched Figure 2 directions agree. The author fold-change rule remains unresolved.",
+      "note": "Figure 2A, B and D–G show 114 distinct RNA-seq labels. NRCAM and SLIT2 have positive plotted effects and positive registered edgeR coefficients. For another 108 paired genes the comparison uses mean heatmap color across three differentiations of each clone. Of the 110 paired genes, 28 have registered BH FDR < 0.05. The article calls the selected genes differentially expressed and reports 404 discoveries (176 higher and 228 lower in KO). All three labeled orange points in A fall between 0 and +1 on the log2(fold change) axis. The Methods and legend give a cutoff of 1. The official supplements cover clone and mouse experiments, methods, proteomics and interactions. GEO supplies six sample count files. The reviewed sources did not yield the complete DESeq2 results.",
+      "reviewFlags": [
+        "The plotting and selection rules need reconciliation. SLIT1, SLIT2 and NRCAM are colored as upregulated discoveries below +1 on the printed log2 scale. Heatmap colors give expression directions. Exact RNA-seq coefficients, raw P values and adjusted P values are unavailable.",
+        "Four figure labels have no published DE row. SLIT1 has a mapped feature and counts. The other three are Ensembl IDs without a registered symbol. Full-universe concordance and discovery overlap remain unassessed.",
+        "The registered DE table and local per-gene browser track each yield 59 published genes at FDR < 0.05. The local QC summary records 289 for the same track."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Figure 2, labeled RNA-seq volcano points and sample heatmaps",
+          "url": "https://insight.jci.org/articles/view/164178/figure/2",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO series and sample metadata",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE208722",
+          "kind": "database"
+        },
+        {
+          "label": "Deposited counts for the six differentiations",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE208nnn/GSE208722/suppl/",
+          "kind": "processed_data"
+        },
+        {
+          "label": "PMC full text and RNA-seq methods",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10243807/",
+          "kind": "paper"
+        },
+        {
+          "label": "Complete Europe PMC supplement archive",
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10243807/supplementaryFiles",
+          "kind": "paper"
+        },
+        {
+          "label": "Publisher manuscript, Figure 2 and official supplements",
+          "url": "https://insight.jci.org/articles/view/164178",
+          "kind": "paper"
+        }
+      ],
+      "paperAccess": "publisher_full_text",
+      "status": "review_required",
+      "comparisonLevel": "direct"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The selected direction comparison is complete. All 110 paired signs agree, and 28 meet registered BH FDR < 0.05. Naulé et al. describe the figure genes as DESeq2 discoveries. Figure 2A’s three labeled orange points lie below the stated log2 fold-change cutoff of 1. The fitted-effect signs for NRCAM and SLIT2 remain readable. The cause of the plotting or selection discrepancy and the contribution of model differences to the discovery counts remain unresolved.",
+      "nextStep": "Obtain the KO 1 versus WT 1 DESeq2 export with stable IDs, coefficients, raw and adjusted P values including missing values, design and contrast. Request the Figure 2 plotting code or plotting table to identify the x-axis transformation, coefficient used for coloring, and rule that yielded 404 discoveries. Reconcile the local QC summary against the per-gene result.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "mkrn3_deficient_vs_wild_type"
+      ],
+      "basis": "Use every gene labeled in Figure 2A and every row in B and D–G. Compare labeled volcano signs and KO-minus-WT means on each heatmap’s color key with signs in GSE208722_DE.tsv. Count repeated labels once and retain unmatched labels. Use the published per-gene padj column for registered calls. Read the labeled volcano points against the printed x ticks to check the stated selection rule.",
+      "reference": "Naulé et al., JCI Insight (PMID 37092553), Figure 2A, B, D, E, F and G. Panel C reports GO enrichment. Panel H measures expression by RT-qPCR across additional clones. The directional RNA-seq comparison uses the published image and RNA-seq legend.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "The Methods specify day-30 hiPSC-derived hypothalamic ARC neurons from three separate differentiations of clone WT 1 and three of KO 1. GEO, the count archive, ENA and the samplesheet identify the same six libraries. Replication is within one clone per genotype. GEO’s series summary calls the perturbation CRISPRi. The manuscript and Supplemental Figure 1 describe Cas9 editing and clone characterization. Both assign the same WT and MKRN3-deficient groups."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "The registered case coefficient is MKRN3 deficient minus wild type. The Figure 2A caption establishes higher expression in KO for the labeled points. The condition labels establish direction separately in every heatmap, including the interleaved columns in F."
+        },
+        "features": {
+          "status": "limited",
+          "note": "110 of 114 distinct figure labels match unique published symbols. SLIT1 maps to ENSG00000187122 and has deposited counts but no published DE row. ENSG00000167383, ENSG00000227120 and ENSG00000254818 each have a dropped_no_symbol entry. Unpublished rows supply no comparable registered result for these four labels."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "All 110 paired directions agree (71 higher, 39 lower in KO). NRCAM and SLIT2 are positive on the plotted log2 axis and have registered log2 fold changes of +0.361745 and +0.479832, respectively. Their exact author coefficients and the transformation used for plotting are unknown. The other 108 paired signs come from the expression colors of the six samples. Coefficient correlations remain unassessed."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Authors report DESeq2 Wald testing, BH-adjusted P cutoff 0.05 and log2 fold-change cutoff 1. The three labeled discoveries in panel A all plot between 0 and +1. The source does not resolve whether the axis, coloring or stated cutoff explains the discrepancy. The registered edgeR-QL groupcase test adjusts over 18,400 tested rows, including 1,626 unpublished rows. Among 110 paired genes, 28 pass registered FDR < 0.05 and 27 also have absolute registered log2 fold change > 1. The latter is a descriptive count under the written cutoffs. NRCAM and SLIT2 both have registered FDR 0.999990. Exact author per-gene P and FDR remain unavailable."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The figure labels 114 distinct genes the authors describe as differentially expressed. Of these, 110 have a registered row (96.49% of labeled genes, 0.656% of the 16,774 published rows). Of 59 published registered FDR discoveries, 28 appear among these labels and the other 31 have unknown author status. The local QC summary gives nSig = 289. The full author tested universe and the identities of all 404 reported discoveries remain unavailable."
+        }
+      },
+      "criteria": "Use all figure labels and the published KO-minus-WT orientation before looking up registered values. Author-concordance-v2 requires compatible cohort, contrast, identifiers and effects, at least 30 paired genes and 90% relevant coverage. Its numerical routes require Pearson and Spearman both ≥ 0.90, or at least 90% same-direction agreement among at least 30 nonzero pairs covering at least 90% of all pairs. Only two genes have a paired volcano effect direction. The remaining 108 sample-heatmap signs cannot supply the required fitted-effect pairs.",
+      "conclusion": "The selected direction comparison supports closure as compared. The reported fold-change cutoff conflicts with the labeled volcano positions. The detailed inference review remains unresolved, and the available fitted-effect pairs are insufficient for an author-concordance-v2 pass or full sign-off."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Distinct author labels and sign agreement with registered output",
+      "value": "114 labels, 110 paired (96.49% of selected labels), 110 agreeing, 4 unpaired. Two paired labeled volcano directions and 108 additional heatmap directions.",
+      "script": "data/author-validation/continued-sources/GSE208722/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure panels before deduplication, expressed as agree / paired / labeled",
+      "value": "A 2/2/3, B 47/47/50, D 25/25/25, E 24/24/25, F 15/15/16, G 13/13/13.",
+      "script": "data/author-validation/continued-sources/GSE208722/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered inference among figure-selected genes",
+      "value": "28 of the 110 paired genes have registered BH FDR < 0.05. Of these, 27 also have absolute registered log2 fold change > 1. The registered DE table contains 16,774 published rows and 59 BH discoveries, including 31 outside the selected panels. The BH family comprises 18,400 tested rows.",
+      "script": "data/author-validation/continued-sources/GSE208722/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Disposition of unmatched author labels",
+      "value": "SLIT1 has a mapped source feature and no registered DE row. ENSG00000167383, ENSG00000227120 and ENSG00000254818 are marked dropped_no_symbol in the registered feature map.",
+      "script": "data/author-validation/continued-sources/GSE208722/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Deposited sources and paper discovery count",
+      "value": "GEO contains six two-column sample count files of 57,373 rows each and zero series-matrix feature rows. ENA has six read runs and zero study analyses. All three official supplemental objects match byte for byte across JCI, PMC and Europe PMC. The article reports 404 DEGs, 176 higher and 228 lower in KO.",
+      "script": "data/author-validation/continued-sources/GSE208722/codex-2026-11-21/inspect_sources.py"
+    },
+    {
+      "claim": "Location of all three labeled discoveries on the Figure 2A log2(fold change) axis",
+      "value": "Conservative readings from the publisher raster put NRCAM at approximately +0.39 to +0.47, SLIT2 at +0.51 to +0.57 and SLIT1 at +0.87 to +0.94. Every interval lies below +1. These intervals describe pixel positions on the labeled scale. The two paired registered coefficients are +0.361745 for NRCAM and +0.479832 for SLIT2.",
+      "script": "data/author-validation/continued-sources/GSE208722/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Local browser track and QC summary for the registered contrast",
+      "value": "public/datasets/human_hypo_neuron_mkrn3_gse208722/track_hypothalamic_neurons.js (SHA-256 dbbdbfccbdfa9c91edb3250ec365de058a787894ee5c8aec58a9017626917355) has the same 16,774 genes and 59 FDR < 0.05 calls as the registered table. public/datasets/human_hypo_neuron_mkrn3_gse208722/qc_global.js (SHA-256 57d5b340f0c516585b6c07e86147d345e5029a0e7cae7e432c171cdec7851ff0) lists nGenes = 16,774 and nSig = 289.",
+      "script": "data/author-validation/continued-sources/GSE208722/codex-2026-11-21/refute/audit.py"
+    }
+  ],
+  "openIssues": [
+    "The exact Figure 2 selection rule or plotted coefficient scale requires author code or the plotting table. The public materials reviewed lack the complete DESeq2 results, model specification and tested-gene list.",
+    "Four labels lack published registered rows. Only two matched genes provide plotted coefficient signs. Genome-wide effect concordance, complete discovery overlap and full verification remain unassessed.",
+    "The local QC summary reports 289 discoveries. The per-gene browser and registered DE tables each give 59 at BH FDR < 0.05."
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "datasetId": "mouse_hypo_pel_gse229838",
+  "accession": "GSE229838",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "Wu et al. report lower Avp and Oxt expression in day-10 PEL mouse hypothalamus. Both registered coefficients are negative and neither meets BH FDR < 0.05. Seven of 13 paired Figure 2A marker directions agree with registered coefficients. The figure includes two sham libraries and the registered fit includes three.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE229838/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "The registered result reproduces the reported directions of Avp and Oxt. Agreement is mixed across the displayed hypothalamic markers.",
+      "note": "The Results name Avp and Oxt as downregulated in day-10 PEL versus sham. Their registered edgeR log2 fold changes are -0.7931 and -1.5848, with BH FDRs of 0.9064 and 0.7220. Seven of 13 paired Figure 2A marker directions agree, including Avp and Oxt. The paper supplies per-library colours and Figure 2B expression means. The searched sources lack fitted DESeq2 coefficients, a tested-gene list and exact gene-level DESeq2 P values.",
+      "reviewFlags": [
+        "Figure 2A labels its two control columns Sham-1 and Sham-2. Figure 2B means and Figure 2A sample orderings support their assignment, in that order, to deposited SHAM-2 and SHAM-3. The paper reports excluding a sham outlier. S2I marks a sham point without a sample ID. The registered fit includes all three shams. The fitted DESeq2 manifest and animal-to-library assignments remain unconfirmed.",
+        "Six descriptive marker directions differ. Figure 2A specifies adjusted P < 0.05. The methods report BH correction and also use an unqualified P < 0.05 for DEGs. GEO describes CLC processing and calls the normalized values RPKM in sample metadata. The deposited column names and Figure 2B say FPKM. The published HISAT2/featureCounts workflow has no public link to a specific fitted input matrix.",
+        "The retained GEO download has a verified hash. The legacy local input retains its structural source match. The selected directions and missing author inference limit full verification."
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "Both named RNA-seq directions agree with registered edgeR, and six of 13 paired heatmap expression directions differ. None of the 13 meets registered BH FDR < 0.05. The figure and registered fit differ in sham membership. These sources support a selected directional comparison. Fitted author sample membership and gene-level DESeq2 inference remain unresolved.",
+      "nextStep": "Ask which GSMs and biological replicates entered the hypothalamic day-10 PEL minus sham coefficient and whether GSM7178967 was excluded from that fit. Request the fitted input and contrast, the discovery rule, and the full tested-gene export with gene IDs, log2 fold changes, raw P, adjusted P and missing tests.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "pel_vs_sham"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Compare the two RNA-seq directions named in the Results with registered edgeR logFC. For Figure 2A, average the digitized colour-scale positions within each plotted arm and compare the direction of PEL minus sham with the registered coefficient. Use the deposited columns ending in _fpkm to check plotted sample identities and expression patterns.",
+      "reference": "Wu et al., Translational Psychiatry (2024), DOI 10.1038/s41398-024-02930-y. Hypothalamic Results and Figure 2A/B on published page 5, with Supplementary Figure S2I and the accession-linked GSE229838 matrix and GSM records.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "different",
+          "note": "The paper describes mouse hypothalamic tissue including the SON and PVN. Figure 2A shows three PEL and two sham libraries. Its columns labelled Sham-1 and Sham-2 match deposited SHAM-2 (GSM7178968) and SHAM-3 (GSM7178969), respectively, by expression pattern. Registered edgeR also includes GSM7178967. The authors report a sham exclusion and S2I marks an unnumbered sham point. The assignment applies to the plotted libraries. The fitted DESeq2 manifest and animal-to-library mapping remain unresolved."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Untreated PEL at day 10 minus sham-operated hypothalamus. GEO labels the retained PEL samples day 10 and sham samples day 0. GH treatment, the day-3 lesion and hippocampal assays are outside this comparison."
+        },
+        "features": {
+          "status": "limited",
+          "note": "Both explicitly named genes map uniquely. Of 17 displayed marker labels, 15 resolve through deposited Ensembl IDs and the registered feature map. Mch and Gnrh correspond to Pmch and Gnrh1. Deposited Gh1 maps to Gh. Prl and Gh lack a displayed registered DE row. Glu and Gaba have no unique gene identifier in the figure."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "The two named genes have negative registered coefficients. Figure 2A labels its per-library colour scale “Log2 Foldchange” and gives no gene-wise fitted PEL-minus-sham coefficient. Seven of 13 plotted directions agree with registered signs. Trh, Pmch, Pomc, Chat, Th and Ghrh differ. With SHAM-1 included, five of those six change arithmetic mean-expression direction in the deposited _fpkm columns. Chat stays lower. Figure 2B and the column names say FPKM, while the GEO sample-processing text says RPKM. The source does not resolve that terminology."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The authors specify DESeq2 1.10.1 and BH adjustment. Figure 2A gives adjusted P < 0.05. The methods separately give P < 0.05 without saying whether that P is adjusted. Figure 2B uses a t-test of plotted expression. The registered edgeR quasi-likelihood BH FDRs are 0.9064 for Avp and 0.7220 for Oxt. Exact author DESeq2 P values and adjusted P values remain unassessed. Thirteen of the 15 identified heatmap markers have lower mean colour-scale positions after lesion, while the paper reports seven downregulated DEGs genome-wide. The figure colours alone cannot assign author discovery calls."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The comparison covers both named genes. Of 17 Figure 2A labels, 15 map to stable IDs and 13 have registered DE rows, including both named genes. The paper reports 499 up and seven down. The registered table contains 283 up and four down at BH FDR < 0.05 across 14,575 displayed rows, with 14,590 features in the fit's BH family. All 287 registered discoveries fall outside the paired panel. The overlap of the complete discovery lists remains unknown."
+        }
+      },
+      "criteria": "Keep all 17 displayed labels in the accounting and use PEL minus sham throughout. Count author-named DE directions separately from descriptive heatmap signs. Author-concordance-v2 requires compatible cohorts, contrasts, identifiers and effect definitions, at least 30 paired genes and 90% relevant coverage. The correlation route requires both Pearson and Spearman >= 0.90. The direction route requires >= 90% agreement in at least 30 nonzero pairs covering >= 90% of all pairs. The two named directions and 13 descriptive pairs are both below the pair minimum.",
+      "conclusion": "The two named directions agree. Across all 13 paired heatmap rows, seven descriptive directions agree across the different plotted and registered sham cohorts. These data support the selected comparison. They supply no fitted author coefficients for an effect-size comparison spec and do not qualify any contrast for full verification."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Text-identified downregulated genes and registered statistics",
+      "value": "2/2 directions agree. Avp logFC −0.793084, P 0.571815, BH 0.906378. Oxt logFC −1.584850, P 0.244519, BH 0.722026.",
+      "script": "data/author-validation/continued-sources/GSE229838/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Complete Figure 2A marker accounting",
+      "value": "17 displayed, 15 stable-ID mappings, 13 paired and seven directions agreeing. Six differ, two labels are ambiguous and two mapped genes have no registered DE row. Zero of the 13 meet registered FDR < 0.05.",
+      "script": "data/author-validation/continued-sources/GSE229838/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Inferred identities of the plotted Figure 2 controls",
+      "value": "The columns labelled Sham-1 and Sham-2 match deposited SHAM-2 and SHAM-3 in that order. Their deposited Avp and Oxt means are 181.546 and 155.731 (_fpkm columns), versus approximately 182 and 156 from the PMC bars. Each gene distinguishes that pair from both alternatives. Across 15 identified genes, 104 of 104 non-tied within-gene orderings involving a sham agree, with one raster tie.",
+      "script": "data/author-validation/continued-sources/GSE229838/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Effect of including SHAM-1 on descriptive means in the deposited _fpkm columns",
+      "value": "Five of the six discordant marker directions change sign when SHAM-1 is added to the plotted FPKM comparison. Chat retains its plotted direction.",
+      "script": "data/author-validation/continued-sources/GSE229838/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Discovery counts and unassessed author coverage",
+      "value": "Manuscript 499 up and seven down. Registered BH FDR < 0.05 gives 283 up and four down among 14,575 displayed DE rows. The fit's BH family has 14,590 rows. The full author list and gene-wise DESeq2 statistics were absent from the inspected sources.",
+      "script": "data/author-validation/continued-sources/GSE229838/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Deposited scope",
+      "value": "The GEO matrix has 22,274 features and 59 columns, including 24 ending in _fpkm and 24 ending in _count. GEO sample metadata describe the normalized values as RPKM. All 24 GSM records report zero sample-table rows and no sample supplement. The series matrix has zero feature rows. The ENA project queries return 24 runs and zero analysis rows.",
+      "script": "data/author-validation/continued-sources/GSE229838/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Complete public supplement",
+      "value": "Publisher, PMC Open Data and the Europe PMC export contain the same DOCX, SHA-256 6bea41a21b88a748c86c1cc340ffd402a59ee94911430a42354257c6806a9c24. It contains four supplementary figure images and zero Word tables or embedded workbook files.",
+      "script": "data/author-validation/continued-sources/GSE229838/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "Figure 2 implies GSM7178967 was omitted from the plot. The paper states a sham outlier was excluded, but the outlier panel does not name a GSM. The fitted sample manifest and biological replicate assignments are needed to verify the exclusion in the DESeq2 fit.",
+    "The complete author DESeq2 export, tested-gene universe and exact discovery rule remain unavailable. Genome-wide effect agreement, per-gene author P/FDR and full discovery overlap remain unassessed."
+  ]
+}

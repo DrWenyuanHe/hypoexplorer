@@ -1,0 +1,18 @@
+{
+  "datasetId": "mouse_arc_pyy_glp1_gse160802",
+  "outcome": "compared",
+  "summary": "Supplementary Figure 8D shows 21 selected ARC genes. Nineteen had registered coefficients: 12 agreed with the plotted treatment direction and seven differed. Figure 8B reported 48 upregulated and 126 downregulated ARC genes, while zero registered genes met the paper’s stated FDR cutoff of 0.01. [Publisher supplement](https://ars.els-cdn.com/content/image/1-s2.0-S2212877821002477-mmc2.pptx)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/mouse_arc_pyy_glp1_gse160802.json",
+    "data/author-validation/continued-sources/GSE160802/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE160802/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE160802/codex-2026-11-21/figure-S8D-ARC-pairs.tsv",
+    "data/author-validation/continued-sources/GSE160802/codex-2026-11-21/comparison.json",
+    "data/author-validation/continued-sources/GSE160802/codex-2026-11-21/verification.json"
+  ],
+  "openIssues": [
+    "The authors’ ARC DESeq2 table and exact filtering and design settings were unavailable. The 174-versus-zero discovery discrepancy remains unexplained.",
+    "The heatmap supports directions only. Hs3st2 and Lyve1 lacked registered coefficients, and 19 pairs fall below the 30-gene concordance minimum. Gene-wise author P values and FDR remain unassessed.",
+    "The registry citation describes obese-diabetic mice. The RNA-seq cohort comprised lean mice given vehicle or IP118 plus PY115. [Manuscript](https://pmc.ncbi.nlm.nih.gov/articles/PMC8717237/)"
+  ]
+}

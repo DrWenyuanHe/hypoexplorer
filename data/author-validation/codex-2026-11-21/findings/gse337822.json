@@ -1,0 +1,90 @@
+{
+  "datasetId": "gse337822",
+  "accession": "GSE337822",
+  "category": "not_located",
+  "closure": "confirmed_not_located",
+  "summary": "No public author gene-level effects were located for the sex-adjusted preoptic isoflurane-versus-oxygen contrast in any registered population. GEO supplies counts, barcodes and feature annotations. The related sleep-study supplements concern a different experiment.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE337822/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "source_unavailable",
+      "comparisonLevel": "processed_source",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "No public author gene-level results located for the preoptic isoflurane contrast",
+      "note": "The GEO archive contains 180 sample files spanning 20 mice. They contain feature annotations, nucleus barcodes and feature-by-nucleus counts. The series matrix has no gene rows. Searches by accession, title, contributor and experimental design located no author gene-level effects for isoflurane versus oxygen in any registered population. The related GSE243489 paper compares recovery sleep with undisturbed sleep.",
+      "reviewFlags": [
+        "Author effect sizes, P values and FDR remain unassessed in excitatory neurons, inhibitory neurons and non-neuronal cells."
+      ],
+      "evidenceLinks": [
+        {
+          "kind": "database",
+          "label": "GEO series and sample metadata",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE337822"
+        },
+        {
+          "kind": "database",
+          "label": "GEO inventory of the sample archive",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE337nnn/GSE337822/suppl/filelist.txt"
+        },
+        {
+          "kind": "database",
+          "label": "ENA project for the isoflurane experiment",
+          "url": "https://www.ebi.ac.uk/ena/browser/view/PRJNA1491233"
+        },
+        {
+          "kind": "database",
+          "label": "Recovery-sleep study used for the reference taxonomy",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE243489"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The GEO archive contains 180 sample files spanning 20 mice. They contain feature annotations, nucleus barcodes and feature-by-nucleus counts. The series matrix has no gene rows. Searches by accession, title, contributor and experimental design located no author gene-level effects for isoflurane versus oxygen in any registered population. The related GSE243489 paper compares recovery sleep with undisturbed sleep.",
+      "nextStep": "Reopen if a manuscript, supplement or public deposit supplies gene-level isoflurane-versus-oxygen effects with a documented population and mouse cohort.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO mice with treatment and sex labels reconciled to each registered samplesheet",
+      "value": "20",
+      "script": "data/author-validation/continued-sources/GSE337822/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "GEO archive members inspected and matched to the sample SOFT inventory and retained input hashes",
+      "value": "180",
+      "script": "data/author-validation/continued-sources/GSE337822/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "GEO archive members by content",
+      "value": "60 matrix / 60 features / 60 barcodes",
+      "script": "data/author-validation/continued-sources/GSE337822/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Feature rows in the GEO series matrix",
+      "value": "0",
+      "script": "data/author-validation/continued-sources/GSE337822/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Registered DE rows by track",
+      "value": "excitatory 15806, inhibitory 18581, nonneu 14180",
+      "script": "data/author-validation/continued-sources/GSE337822/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "ENA read runs, distinct linked samples and derived analysis records",
+      "value": "80 runs, 20 samples, 0 analyses",
+      "script": "data/author-validation/continued-sources/GSE337822/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Europe PMC hits for the GSE, BioProject or SRA study identifiers",
+      "value": "0",
+      "script": "data/author-validation/continued-sources/GSE337822/codex-2026-11-21/summarize_search.py"
+    }
+  ],
+  "openIssues": [
+    "Author effect concordance and inference remain unassessed pending release of a matching gene-level result."
+  ]
+}

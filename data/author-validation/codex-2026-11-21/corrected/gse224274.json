@@ -1,0 +1,106 @@
+{
+  "datasetId": "gse224274",
+  "accession": "GSE224274",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "Figure 1c and the registered food-cue comparison share zero exact or case-insensitive gene labels. Six label pairs map to the same current Mouse Genome Informatics (MGI) marker across the two tables. The original feature IDs, including four labels stored as Excel dates, and the GEO export history are needed to establish which features the authors measured and deposited.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE224274/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "Figure 1c and GEO describe the same food-cue contrast and have no exact or case-insensitive gene labels in common.",
+      "note": "The 12 registered library labels match the GEO sample records. All 69,168 CPM values in the deposited matrix equal the registered inputs for those genes and libraries. Figure 1c reports six mice per arm and SENS relative to NEO. Its workbook gives group-level log2 fold changes and −log10 P values without individual library IDs or adjusted P values. The registered limma coefficient is mean log2(CPM + 1) in SENS minus the mean in NEO. The registered DE table retains 5,143 of 5,764 deposited rows after variance filtering. All 621 excluded rows are zero throughout. None of the 14,952 readable figure labels matches either table by spelling, including after case folding. GEO mentions a 10-read cutoff. The available files do not identify the featureCounts rows selected for the figure and the deposit.",
+      "reviewFlags": [
+        "Six pairs of differently spelled labels share current MGI marker IDs. In Ensembl release 102 for GRCm38, Ccdc121 and 4930548H24Rik are on different chromosomes, and 4933403O08Rik and Tex16 have separate gene IDs. The authors’ annotation and stable feature IDs are needed to evaluate these candidates.",
+        "Four Figure 1c labels survive only as dates in that sheet. With zero source-confirmed effect pairs, effect direction, magnitude, raw-P and FDR agreement remain unassessed."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Primary paper",
+          "url": "https://doi.org/10.1038/s42255-026-01535-7",
+          "kind": "paper"
+        },
+        {
+          "label": "Original Figure 1 source data",
+          "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs42255-026-01535-7/MediaObjects/42255_2026_1535_MOESM3_ESM.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Figure 1 caption and contrast",
+          "url": "https://www.nature.com/articles/s42255-026-01535-7/figures/1",
+          "kind": "paper"
+        },
+        {
+          "label": "Submitted CPM matrix",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE224nnn/GSE224274/suppl/GSE224274_CPM-Gys.txt.gz",
+          "kind": "processed_data"
+        },
+        {
+          "label": "GEO series and sample metadata",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE224nnn/GSE224274/soft/GSE224274_family.soft.gz",
+          "kind": "database"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "Across the full tables, the readable labels yield zero exact or case-insensitive matches before and after the registered filter. Under that label rule, resolving the four dates could add at most four pairs. A separate check found six current MGI identifiers shared across differently named rows. Those identifiers do not establish which features were counted in the authors’ annotation. Neither concordance route has the 30 confirmed effect pairs or 90% coverage required by author-concordance-v2.",
+      "nextStep": "Which featureCounts annotation, gene IDs and filtering or export code produced Figure 1c and GSE224274_CPM-Gys.txt.gz? Please provide the sample-labelled matrix for the 12 NEO/SENS libraries, the rows retained for each output, and the original identifiers at Fig.1c cells A1361, A10699, A10933 and A11775.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Figure 1c data rows, readable unique labels, and date-typed labels",
+      "value": "14,956 rows, 14,952 readable unique labels, 4 dates",
+      "script": "data/author-validation/continued-sources/GSE224274/codex-2026-11-21/measure.py"
+    },
+    {
+      "claim": "Date cells in Fig.1c and their stored values in workbook row order",
+      "value": "A1361 = 2002-08-01, A10699 = 2003-08-01, A10933 = 2004-08-01, A11775 = 2001-08-01. All four are numeric serials formatted mmm-yy.",
+      "script": "data/author-validation/continued-sources/GSE224274/codex-2026-11-21/measure.py"
+    },
+    {
+      "claim": "GEO CPM and registered analysis input",
+      "value": "5,764 genes. All values match by gene and sample across 6 NEO and 6 SENS libraries.",
+      "script": "data/author-validation/continued-sources/GSE224274/codex-2026-11-21/measure.py"
+    },
+    {
+      "claim": "Effect of the registered variance filter",
+      "value": "5,143 genes retained. The 621 excluded genes are zero in every library.",
+      "script": "data/author-validation/continued-sources/GSE224274/codex-2026-11-21/measure.py"
+    },
+    {
+      "claim": "Figure 1c readable labels matched by exact or case-insensitive spelling to GEO or registered DE",
+      "value": "0 exact and 0 case-insensitive matches to each set. Readable reference coverage 0/14,952 and registered coverage 0/5,143.",
+      "script": "data/author-validation/continued-sources/GSE224274/codex-2026-11-21/measure.py"
+    },
+    {
+      "claim": "Confirmed pairs and upper bound from unresolved dates under the same matching rule",
+      "value": "0 pairs by exact or case-insensitive label. If only the four date cells were resolved, the upper bound under that rule would be 4. No correlation, directional agreement or inference comparison can be calculated from the literal joins.",
+      "script": "data/author-validation/continued-sources/GSE224274/codex-2026-11-21/measure.py"
+    },
+    {
+      "claim": "Detection across deposited libraries",
+      "value": "3,095 of 5,764 genes are nonzero in at most 3 of 12 libraries. Column totals range from 999,936.276 to 1,000,000.000 CPM, rounded to 3 decimals.",
+      "script": "data/author-validation/continued-sources/GSE224274/codex-2026-11-21/measure.py"
+    },
+    {
+      "claim": "Author inference fields",
+      "value": "6 rows lack a finite log2 fold change, 1 lacks a finite transformed raw P, and Figure 1c has no adjusted P column.",
+      "script": "data/author-validation/continued-sources/GSE224274/codex-2026-11-21/measure.py"
+    },
+    {
+      "claim": "Do differently named rows share current mouse marker IDs, and do these establish original feature equivalence?",
+      "value": "Six MGI IDs occur on both sides when readable labels from the full tables are looked up in data/nomenclature/nomenclature.tsv. All six involve a current and a previous symbol. Ensembl GRCm38 release 102 assigns distinct genes to at least two of these pairs. GEO specifies GRCm38 without an annotation release. All six remain candidates for the authors to resolve.",
+      "script": "data/author-validation/continued-sources/GSE224274/codex-2026-11-21/refute/check.py"
+    }
+  ],
+  "openIssues": [
+    "Which featureCounts annotation, gene IDs and filtering or export code produced Figure 1c and GSE224274_CPM-Gys.txt.gz? Please provide the sample-labelled matrix for the 12 NEO/SENS libraries, the rows retained for each output, and the original identifiers at Fig.1c cells A1361, A10699, A10933 and A11775."
+  ]
+}

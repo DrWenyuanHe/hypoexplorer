@@ -1,0 +1,187 @@
+{
+  "datasetId": "cattle_arc_nutrition_gse153498",
+  "accession": "GSE153498",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "Of 80 selected ARC genes, all 80 meet the Methods’ fold-change and 10% FDR cutoffs using S2’s own values, and 57 meet its 5% heading. Direction agrees for 74 of 75 genes paired with the registered result. Two author tables give different fold changes for the same nine genes, and the Results and Figure 1a assign different tested-gene totals to ARC.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "summary": "The registered ARC comparison agrees in direction for 74 of 75 paired S2 genes. The S2 selection rule, fold-change calculation and ARC test family still need author clarification.",
+      "note": "The high-versus-moderate ARC comparison includes 14 and 15 heifers, respectively. Five of the 80 S2 Ensembl IDs lack published registered effects. The 75 unique pairs have Pearson 0.855154, Spearman 0.768540 and 74 agreeing nonzero signs. AVP has S2 signed FC +1.912 (log2FC +0.935083), a deposited log2 ratio of arithmetic means of +0.784144, and a registered difference of mean log2(abundance + 1) of −0.696924. S5 lists AVP at +1.738. For all nine ARC regulators with numeric FCs in S5, the S2 absolute signed-linear FC is 0.174 larger. Table 2A follows S2 within 0.01. All 80 S2 rows have |FC| > 1.5 and q < 0.10, and 57 have q < 0.05. No published registered gene passes BH at either cutoff. With candidate integer counts, effective library sizes inferred by treating the GEO abundances as scaled CPM, and the default edgeR 3.20.9 prior, 78 of 80 S2 effects fall outside conservative bounds over nonnegative dispersions. The origin of the S2 and S5 FCs remains open.",
+      "reviewFlags": [
+        "The Results and S2 heading give q < 0.05. Only 57 S2 rows qualify. The Methods specify BH FDR 10% and FC > 1.5. GEO sample records corroborate the FDR cutoff. The unselected tests and selection command are needed to establish which rule produced S2.",
+        "S2 and S5 give consistently different FC magnitudes for the nine regulators reported in both sheets. KMT2A crosses |FC| = 1.5 (−1.549 in S2, −1.375 in S5). The S2 reporting calculation, author model inputs and gene-level raw P values remain unresolved.",
+        "The Results assign 14,417 tested genes to ARC and 14,021 to the remaining hypothalamus. Figure 1a’s region labels assign those totals in reverse. The gene list after filtering is unavailable in the reviewed sources, and five S2 IDs lack published registered rows."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "GEO series and sample metadata",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE153498",
+          "kind": "database"
+        },
+        {
+          "label": "Deposited ARC expression matrix",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE153nnn/GSE153498/suppl/GSE153498_Arcuate_merged_counts.txt.gz",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Publisher Methods and Results",
+          "url": "https://www.nature.com/articles/s41598-021-93080-4",
+          "kind": "paper"
+        },
+        {
+          "label": "Publisher workbook, ARC sample QC (S1A), selected genes (S2) and regulators (S5)",
+          "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41598-021-93080-4/MediaObjects/41598_2021_93080_MOESM1_ESM.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Published Table 1, selected ARC genes",
+          "url": "https://www.nature.com/articles/s41598-021-93080-4/tables/1",
+          "kind": "author_result"
+        },
+        {
+          "label": "Published Table 2A, ARC regulator fold changes and overlap P values",
+          "url": "https://www.nature.com/articles/s41598-021-93080-4/tables/2",
+          "kind": "author_result"
+        },
+        {
+          "label": "Published Figure 1, region labels, gene counts and shared-gene fold changes",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8263617.1/41598_2021_93080_Fig1_HTML.jpg",
+          "kind": "author_result"
+        }
+      ],
+      "paperAccess": "pmc_full_text",
+      "pmcUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8263617/",
+      "pmcId": "PMC8263617",
+      "pubmedUrl": "https://pubmed.ncbi.nlm.nih.gov/34234169/",
+      "status": "review_required",
+      "comparisonLevel": "direct"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The selected list supports 74/75 agreeing effect directions and disagrees with the 5% label. It cannot establish the selection procedure. The nine numerical S5 regulator FCs differ systematically from S2, the two sources of the ARC testing total disagree, and the reviewed materials lack the full model output and export commands.",
+      "nextStep": "Which fitted ARC comparison and reporting steps generated the signed FCs in S2 and S5? Please supply the edgeR version, count input, effective library sizes, dispersions, complete high-versus-moderate exactTest output and export commands. Why is the S2 FC magnitude 0.174 larger for every one of the nine shared regulators, and which values were used for selection? Which BH and fold-change cutoffs produced S2? Can you reconcile the 80 listed genes with the 57 below q = 0.05, and identify which threshold label should apply? Which retained gene IDs and filtering command define the ARC testing family? The Results give 14,417 ARC genes, while the ARC circle in Figure 1a totals 14,021.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "high_vs_moderate_plane_nutrition"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Direct comparison of every uniquely paired S2 signed-linear FC, converted as sign(FC) × log2(|FC|), with the high-minus-moderate registered limma coefficient. S5, Table 2A and Figure 1 check the authors’ reporting. Deposited arithmetic ratios and candidate count-model bounds are diagnostics.",
+      "reference": "Sánchez et al., Supplemental Table S2, all 80 selected ARC Ensembl IDs. S1A, GEO and the deposited matrix establish subject membership. Table 1 repeats 18 selected IDs. S5 gives a second FC for nine of the 80, all also reported in Table 2A.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "One ARC library per heifer at 21 weeks, 14 high-plane and 15 moderate-plane. The 29 S1A subject IDs, GEO GSMs, sample-sheet assignments and matrix columns reconcile. The unique ARC column 981_F corresponds to subject 981, whose S1A filename uses 981_A."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "The sole registered coefficient and S2 describe high relative to moderate early-life nutrition in heifer ARC. Positive values indicate higher expression in the high-plane group."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 80 S2 Ensembl IDs occur in the deposit. The documented transform gives unique 29-library expression profiles for the 75 joins to current registered rows. The feature map marks the five remaining IDs dropped_no_symbol. Their registered effects and statistics are unavailable."
+        },
+        "effects": {
+          "status": "different",
+          "note": "The registered coefficient is the difference of group means on log2(abundance + 1). S2 reports signed-linear FCs after an analysis described as edgeR exact testing. The FC export formula is unknown. Of 75 nonzero pairs, 74 agree in sign. Pearson is 0.855154, Spearman 0.768540 and the median absolute log2FC difference 0.340901. AVP reverses sign between the deposited ratio of means and the registered mean-log coefficient. For all nine S5 regulators with a numeric FC, S2 increases |FC| by 0.174 relative to S5."
+        },
+        "inference": {
+          "status": "different",
+          "note": "S2 supplies finite q values for all 80 selected genes. At 5% there are 57 S2 calls, 54 paired. At 10% there are 80 S2 calls, 75 paired. Across 15,708 published limma rows, BH calls and overlaps at both thresholds are zero. The Methods specify BH, TMM and edgeR 3.20.9 exact testing. GEO sample processing gives FDR < 0.1 and lists edgeR v3.5. Table 2A P values match S5’s upstream-regulator overlap P values. Gene-level author raw P values and the unselected testing family remain unassessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The 75 pairs cover 93.75% of S2 and 0.47746% of the 15,708 published registered genes. The registered BH family has 19,923 tested features. Five S2 IDs have no published row. The Results assign 14,417 genes to ARC, while Figure 1a assigns 13,872 shared plus 149 ARC-only genes, or 14,021. The reviewed files supply no full ARC list against which to resolve the discrepancy."
+        }
+      },
+      "criteria": "Use all 80 selected S2 IDs and all 75 unique finite pairs. Under author-concordance-v2, selected-reference coverage is 93.75%, all 75 pairs are nonzero, and 98.6667% agree in sign. The numerical direction route passes. Both correlations fall below 0.90 and the effect-definition assessment remains different, so overall concordance remains under review. Count calls at both published q cutoffs. Use S5 only for the nine shared regulators, without extrapolating their FC difference to the other 71.",
+      "conclusion": "The registered output agrees in direction for most S2 genes. Public data establish the threshold counts within S2 and the S2–S5 discrepancy. The authors’ reporting formula, actual selection rule, gene-level raw P values and ARC testing family remain unresolved."
+    }
+  },
+  "computed": [
+    {
+      "claim": "S1A/GEO ARC cohort, reconciled by subject",
+      "value": "29 heifers, 14 high and 15 moderate",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Full S2 selection under the two published q thresholds with |FC| > 1.5",
+      "value": "At 0.10, 80 (54 up, 26 down). At 0.05, 57 (43 up, 14 down). Minimum |FC| 1.52 and maximum q 0.0991.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Publisher Table 1 checked by exact S2 Ensembl ID",
+      "value": "18 listed, 16 with S2 q < 0.05. LHX6 q = 0.0548 and HBD q = 0.0927.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Current registered coverage and same-gene direction",
+      "value": "75/80 (93.75%) selected genes paired. All 75 pairs are nonzero. 74/75 (98.6667%) agree in sign.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Direct effects across all current pairs",
+      "value": "Pearson 0.85515404, Spearman 0.76854032, median absolute log2FC difference 0.34090063, registered/author paired RMS ratio 0.53942673.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Current registered coefficient replay from the registered expression matrix",
+      "value": "15,708 published DE rows, maximum absolute difference 5.024e-15. The fit tested 19,923 features including hidden rows.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Author and registered calls on matched rows and publication-wide registered counts",
+      "value": "75 finite q pairs. At 5%, 54 paired author calls and 3 S2 calls without a published registered row. At 10%, 75 and 5. Zero local calls and zero overlap at either threshold.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Arithmetic-mean diagnostic on all 80 deposited S2 features",
+      "value": "80/80 matching directions, Pearson 0.99545367, median absolute log2FC difference 0.15272890 and maximum 0.18351919.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "AVP high/moderate log2 effects",
+      "value": "Author +0.935083, deposited arithmetic ratio +0.784144, registered mean-log difference −0.696924.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Candidate count reconstruction and S2 group means/SDs",
+      "value": "Maximum initial integer distance 0.00640020. At three displayed decimals, high means match 74/80 and moderate means 77/80. Neither arm’s sample SDs match any S2 row.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Candidate ≥1 raw CPM in ≥14 libraries filter",
+      "value": "The candidate ≥1 raw CPM in ≥14 libraries filter retains 14,189 genes, including 74 from S2. Literally removing genes below 1 CPM in ≥14 libraries leaves 14,086 genes, including 71 from S2. The Results text assigns 14,417 to ARC. Figure 1a assigns 14,021 to ARC.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Conditional bounds for the edgeR 3.20.9 default-prior effect across nonnegative dispersions",
+      "value": "For the reconstructed counts, 78/80 S2 log2FCs lie outside the outer bounds if the deposited values are scaled CPM. After the candidate ≥1 raw CPM in ≥14 libraries filter, 73/74 lie outside for each TMM library-total convention. The AVP upper bound is +0.79652 with the CPM-implied sizes and +0.80028 with reset-size TMM. These bounds assume edgeR 3.20.9 exactTest’s default prior and do not identify which FCs the authors exported.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "All ARC regulator FCs reported in both S2 and S5, checked against Table 2A",
+      "value": "All nine have the same sign and |S2 FC| − |S5 FC| = 0.174 at the reported precision. AVP is +1.912 versus +1.738 and KMT2A is −1.549 versus −1.375. All nine Table 2A FCs are within 0.01 of S2, and its nine P values equal the S5 overlap P values. Of the S5 FCs, 8/9 fall inside the CPM-implied outer bounds (AVP is outside), and all 8 filter-eligible FCs fall inside each TMM set of outer bounds. Inclusion gives no fitted coefficient.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Published Figure 1 region labels and ARC fold changes",
+      "value": "Figure 1a labels 13,872 shared, 149 ARC-only and 545 remaining-hypothalamus-only genes, totaling 14,021 for ARC and 14,417 for remaining hypothalamus. The Results assign the totals in reverse. Figure 1b’s five ARC FCs agree with S2 to two decimals. The PMC Open Data figure linked above is 59,011 bytes with SHA-256 90fec066a8d4bf680d596959cec5213548b720b07e1efcfa1ae47f72258606e1.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/refute/audit.py"
+    }
+  ],
+  "openIssues": [
+    "Which fitted ARC comparison and reporting steps generated the signed FCs in S2 and S5? Please supply the edgeR version, count input, effective library sizes, dispersions, complete high-versus-moderate exactTest output and export commands. Why is the S2 FC magnitude 0.174 larger for every one of the nine shared regulators, and which values were used for selection?",
+    "Which BH and fold-change cutoffs produced S2? Can you reconcile the 80 listed genes with the 57 below q = 0.05, and identify which threshold label should apply?",
+    "Which retained gene IDs and filtering command define the ARC testing family? The Results give 14,417 ARC genes, while the ARC circle in Figure 1a totals 14,021.",
+    "When merging the revised effects note, refresh the source-bound effects review that requires an exact match to the prior note (R 4.6.0 review dated 2026-09-26, comparison fingerprint 30b7d6bdbcd944cc34f2b071ed390c35152dc0275429a95219dcc27384b41b79). The registered comparison, orientation and pair metrics are unchanged. The effects assessment remains under review."
+  ]
+}

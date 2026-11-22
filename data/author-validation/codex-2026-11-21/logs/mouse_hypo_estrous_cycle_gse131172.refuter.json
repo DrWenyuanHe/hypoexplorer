@@ -1,0 +1,15 @@
+{
+  "datasetId": "mouse_hypo_estrous_cycle_gse131172",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 57 manifest entries matched their recorded SHA-256 and size. Four of eight selected regulators could be compared, and all four agreed in direction. Foxa2 required the activity ordering to resolve its identity under independent figure calibration. The corrected proposal omits the comparison specification because it would report 100% coverage instead of 50%. The proposal passed validation. Neither author-concordance-v2 route passes.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_estrous_cycle_gse131172.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_estrous_cycle_gse131172.json",
+    "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/refute/recheck.py",
+    "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/refute/check_coverage.mjs"
+  ],
+  "openIssues": [
+    "Four selected regulators still lack uniquely readable expression effects. The reviewed sources also lack the full hypothalamus DEGSeq table and gene-wise expression P and q values.",
+    "A structured comparison requires the reader to retain all eight selected regulators in the coverage denominator."
+  ]
+}

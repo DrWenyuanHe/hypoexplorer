@@ -1,0 +1,15 @@
+{
+  "datasetId": "mouse_hypo_hfd_tc_gse305719",
+  "outcome": "refuted",
+  "summary": "All 50 source files passed integrity checks, and all eight proposed computations reproduced. The `no_valid_comparison` closure failed. Using only intermediate time points, I independently recovered all 179 gene identities in Figure 13A. Of 170 genes present in the registered output, 156 had a readable week-12 versus day-0 direction. Among those, 147 agreed with the registered direction and nine were opposite. [Oku et al., Figure 13](https://doi.org/10.1587/nolta.17.186)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_hfd_tc_gse305719.json",
+    "data/author-validation/continued-sources/GSE305719/codex-2026-11-21/refute/figure13.py",
+    "data/author-validation/continued-sources/GSE305719/codex-2026-11-21/refute/verify_sources.py"
+  ],
+  "openIssues": [
+    "The comparison covers a selected heatmap panel. Fourteen paired directions remain indeterminate at the figure’s color resolution, and nine plotted genes lack a registered DE row.",
+    "Gene-level author endpoint P values and FDR remain unavailable. The published figure supports directional comparison only.",
+    "The manual review still needs a publisher full-text access record and paper link."
+  ]
+}

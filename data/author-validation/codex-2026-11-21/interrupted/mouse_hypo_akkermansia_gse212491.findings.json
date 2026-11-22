@@ -1,0 +1,55 @@
+{
+  "datasetId": "mouse_hypo_akkermansia_gse212491",
+  "accession": "GSE212491",
+  "category": "not_located",
+  "closure": "no_valid_comparison",
+  "summary": "Ha et al. report Akkermansia versus PBS within fructose-fed mice, but each reported sequencing effect is specific to a hypothalamic cell type or neuronal subtype. The registered effect combines all deposited cells within each library. The whole-hypothalamus qPCR experiment tests oleoylethanolamide versus vehicle, so it cannot supply the missing treatment effect.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE212491/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Ha et al. report cell-type-specific effects for the fructose arms. The registered whole-hypothalamus contrast has no equivalent author result in the reviewed sources.",
+      "note": "The GEO series archive and family SOFT match the retained source hashes. The registered edgeR-QL fit uses 47,492 deposited cell barcodes summed within six libraries, three fructose controls and three fructose plus Akkermansia. The revised preprint (10.1101/2022.09.06.506855, Fig. 2 and Table S1) identifies three mice per arm and 7,244 post-QC cells across the fructose arms. All 23 Table S1 sheets report results for individual cell types or neuronal subtypes. Figure 6J,K tests hypothalamic expression after oleoylethanolamide administration. The authors' same-treatment qPCR in Fig. 4L measures ileum. Agreement in whole-hypothalamus effects and inference remains unassessed.",
+      "reviewFlags": [
+        "The public record supports the mouse count per arm. Individual cage assignments for the sequenced libraries remain undocumented.",
+        "Cell-type-specific sequencing effects have a different biological scope from the registered whole-hypothalamus coefficient."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "Both versions of the preprint supply direct gene-level effects for the same treatment direction within cell populations. Neither supplies a gene-level AkkF-versus-PBSF effect across the whole hypothalamus. The GEO sample files contain gene-by-barcode counts, and the whole-hypothalamus qPCR intervention is oleoylethanolamide.",
+      "nextStep": "Reopen if an author-issued whole-hypothalamus AkkF-versus-PBSF gene table becomes available with the contributing libraries, cell filtering and effect definition.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered whole-hypothalamus fit",
+      "value": "15,564 distinct gene symbols from 47,492 deposited barcodes across three fructose-control and three fructose plus Akkermansia libraries.",
+      "script": "data/author-validation/continued-sources/GSE212491/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Fructose-arm cells contributing to the authors’ post-QC single-cell analysis, as reported in the revised manuscript",
+      "value": "4,198 AkkF + 3,046 PBSF = 7,244 cells.",
+      "script": "data/author-validation/continued-sources/GSE212491/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Scope of the revised Supplemental Table 1",
+      "value": "All 23 sheets contain cell-type or neuronal-subtype gene-effect rows. Of 13,819 rows across both diets, 7,347 carry an AkkF-versus-PBSF label. These are rows across populations, not a count of distinct genes.",
+      "script": "data/author-validation/continued-sources/GSE212491/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Contents of the GEO deposit",
+      "value": "12 sample archives match the family SOFT inventory. Each contains a genes.tsv, a barcodes.tsv and an integer Matrix Market matrix. The series matrix contains zero expression data rows.",
+      "script": "data/author-validation/continued-sources/GSE212491/codex-2026-11-21/inspect_evidence.py"
+    }
+  ],
+  "openIssues": [
+    "Agreement for the registered whole-hypothalamus treatment effect remains unassessed. A whole-hypothalamus author table for the fructose arms would permit a new review."
+  ]
+}

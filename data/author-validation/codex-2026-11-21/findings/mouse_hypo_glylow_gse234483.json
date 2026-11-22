@@ -1,0 +1,151 @@
+{
+  "datasetId": "mouse_hypo_glylow_gse234483",
+  "accession": "GSE234483",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "The first preprint reports 10,359 acute hypothalamic genes at adjusted P < 0.05. Later versions and the publication report 1,407 without identifying the included genes or the revised selection rule. The recovered Table S2 supports the direction of all 113 named Gly-Low effects in its caloric-restriction comparison, while the change in the genome-wide count requires clarification from the authors.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE234483/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "Selected Gly-Low effects agree with Explorer. The reported acute discovery count changed from 10,359 to 1,407 between preprint versions.",
+      "note": "The GEO deposit and RNA-seq Methods identify five four-month control and four Gly-Low libraries after one week. The current registered edgeR table has 10,146 FDR < 0.05 calls among 17,017 published genes. All 32 Table S1 Figure 3A/B mean effects and all 113 Gly-Low log2 effects named in the recovered Table S2 Figure S4F block agree in direction with Explorer. Both sets meet the two numerical concordance routes within their own selected scope. The S4F workbook heading compares Gly-Low with a caloric-restriction study, whereas the published figure uses S4F for food consumption. Table S2 also gives four sample effects each for Fcf1 and Nip7. Preprint v2 Figure S4A gives effects and caption-described adjusted P values for five genes. Among the four with registered rows, Gh passes FDR < 0.05 in both analyses, Ghsr and Ghrh pass only locally, and Ghr passes in neither. Ghrhr has no published registered DE row. The first preprint's adjusted-P threshold applies to its stated 10,359 genes. The revised versions and publication do not document how they obtained 1,407. The versioned sources, row-level comparisons and sample-ratio check are retained in data/author-validation/continued-sources/GSE234483/codex-2026-11-21.",
+      "reviewFlags": [
+        "The final 1,407-gene membership and selection rule remain unavailable. The named author effects and finite preprint statistics cover selected panels only.",
+        "The paper describes three months in Results and four months in the RNA-seq Methods. GEO and the reconstructed sample ratios support the registered four-month acute cohort. Cage allocation and the animal-to-library mapping remain unspecified."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Publication and supplemental figures, including the RNA-seq Methods",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124725011933-mmc5.pdf",
+          "kind": "paper"
+        },
+        {
+          "label": "First preprint with the earlier count and adjusted-P criterion",
+          "url": "https://www.biorxiv.org/content/10.1101/2022.08.10.503411v1.full",
+          "kind": "paper"
+        },
+        {
+          "label": "Second preprint with the revised count",
+          "url": "https://www.biorxiv.org/content/10.1101/2022.08.10.503411v2.full",
+          "kind": "paper"
+        },
+        {
+          "label": "Published Table S1, Figure 3A/B source data",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124725011933-mmc3.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Published Table S2, Figure S4 gene-level source data",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124725011933-mmc4.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Second preprint supplement, Figure S4A effects and statistics",
+          "url": "https://www.biorxiv.org/content/biorxiv/early/2023/06/08/2022.08.10.503411/DC1/embed/media-1.docx?download=true",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO deposit and sample-level annotations",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE234483",
+          "kind": "processed_data"
+        }
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "Preprint v1 reports 10,359 acute DE genes at adjusted P < 0.05. Preprints v2 and v3 and the publication report 1,407 without providing a membership table or the revised rule. All published supplements are accessible. Their selected effects support the registered orientation, and a small preprint table shows differences in adjusted-P calls.",
+      "nextStep": "Which GEO libraries, tested gene IDs, DESeq2 design and results call produced the final 1,407 genes? Please provide the per-gene results or code that marks those genes, including the P adjustment, filters and effect-size rule, and explain how the selection changed from the 10,359 reported in preprint version 1.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "glylow_vs_control"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Current registered hypothalamus edgeR quasi-likelihood treatment coefficient. Each source panel is compared separately. The GEO sample-ratio calculation checks orientation only.",
+      "reference": "Published Table S1 Figure 3A/B, Table S2 worksheet Figure S4 blocks E and F, and the second preprint's Supplement Figure S4A.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "GEO and RNA-seq Methods identify five control and four Gly-Low libraries in the one-week four-month cohort. The 128 Table S1 sample ratios support this assignment. The Results text differs on age, and the per-library animal and cage assignments remain unspecified."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Acute Gly-Low minus control diet in male C57BL/6J whole hypothalamus. Table S2 S4F column N is explicitly Gly-Low. Column M concerns the separate caloric-restriction study. The published S4F figure caption concerns food intake."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 32 S1 symbols, 113 S4F symbols and two S4E symbols join within their panels. Three former symbols resolve through MGI, and two labels differ only in capitalization. Registered Eno1 aggregates two source features. Four of five preprint symbols have registered effects. Ghrhr is present in the feature map and absent from the published DE rows."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "S1 and S4E give per-sample log effects summarized by their mean. S4F gives a Gly-Low versus control log2 fold change per named gene. The registered value is a group-model log2 coefficient. S1 and S4F each have complete directional agreement and both Pearson and Spearman above 0.98. All four paired preprint signs and both S4E signs agree."
+        },
+        "inference": {
+          "status": "different",
+          "note": "In preprint v2 Figure S4A the caption calls the displayed P values adjusted. Among four pairs at 0.05, Gh passes both analyses, Ghsr and Ghrh pass only locally, and Ghr passes neither. Ghrhr has an author adjusted P of 0.0342 and no local row. Raw author P and workbook gene-level FDR are unassessed. The current registered FDR total is 10,146 and the final author count has an unspecified selection rule."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The two larger panels cover all their selected reference rows. S4F pairs 113 of 17,017 registered genes. S4E pairs 2 of 2, and the preprint table pairs 4 of 5. The complete final author testing universe and the identities of the 1,407 remain unavailable."
+        }
+      },
+      "criteria": "Apply author-concordance-v2 per panel. Both larger references have at least 30 pairs, complete selected-reference coverage and complete nonzero coverage. Both numerical routes pass within each reference. S4E and the preprint table fall below the pair minimum. Effect magnitude and P/FDR remain contextual. No threshold was inferred from the observed count.",
+      "conclusion": "The registered output reproduces the directions in the published selected panels. The four comparable preprint adjusted-P calls include two local-only calls. The change in the published discovery total remains unresolved."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Versioned author-reported acute gene counts",
+      "value": "Preprint v1: 10,359 at adjusted P < 0.05 out of a stated 28,226 protein-coding genes. Preprints v2 and v3 and the publication: 1,407.",
+      "script": "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "GEO count deposit and retained acute libraries",
+      "value": "54,532 gene IDs by 20 libraries. Five acute controls and four acute Gly-Low libraries. Zero sample supplements.",
+      "script": "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Current registered result",
+      "value": "17,017 published genes and 10,146 FDR < 0.05 calls. 17,169 tested fit rows include 152 unmapped rows.",
+      "script": "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Published Table S1 Figure 3A/B against registered edgeR",
+      "value": "32/32 paired and same direction, Pearson 0.99856498, Spearman 0.98900293, median absolute log2 difference 0.01374432.",
+      "script": "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Published Table S2 Figure S4F Gly-Low column against registered edgeR",
+      "value": "113/113 paired and same direction, Pearson 0.99999562, Spearman 0.99975048, median absolute log2 difference 0.01923283. Zero paired author adjusted P values.",
+      "script": "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Published Table S2 Figure S4E mean per-hypothalamus effects",
+      "value": "2/2 paired and same direction. Median absolute log2 difference 0.15877070.",
+      "script": "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Preprint v2 Figure S4A inference on shared genes",
+      "value": "4/5 paired and 4/4 same direction. At adjusted P < 0.05: one in both, two local only, zero author only among pairs and one in neither. Ghrhr has author adjusted P 0.0342 and no registered row. 10,143 local calls lack a usable author adjusted P in this panel.",
+      "script": "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Independent check of S1 per-sample effects against deposited acute counts",
+      "value": "128 log2 ratios, Pearson 0.99999344, maximum absolute log2 difference 0.03849136. Eno1 uses the registered two-feature sum.",
+      "script": "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "Which GEO libraries, tested gene IDs, DESeq2 design and results call produced the final 1,407 genes? Please provide the per-gene results or code that marks those genes, including the P adjustment, filters and effect-size rule, and explain how the selection changed from the 10,359 reported in preprint version 1.",
+    "The public records identify the acute libraries and give no animal-to-library or cage allocation key. The RNA-seq Methods and GEO assign four months to the treated cohort while the Results text says three months."
+  ]
+}

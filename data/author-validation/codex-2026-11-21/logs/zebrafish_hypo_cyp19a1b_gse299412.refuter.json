@@ -1,0 +1,13 @@
+{
+  "datasetId": "zebrafish_hypo_cyp19a1b_gse299412",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 30 source hashes and sizes matched, and all nine numerical claims reproduced. Of 231 author-selected genes, 157 have published local effects and 149 agree in direction. Coverage is 67.97%, below the 90% requirement. The corrected proposal distinguishes the workbook’s group values from fitted limma coefficients, explains the change from 179 historical pairs to 157 published pairs, and clarifies that three local discoveries have a dash in Table S4 while 40 are absent. The corrected proposal passed validation.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/zebrafish_hypo_cyp19a1b_gse299412.json",
+    "data/author-validation/codex-2026-11-21/corrected/zebrafish_hypo_cyp19a1b_gse299412.json",
+    "data/author-validation/continued-sources/GSE299412/codex-2026-11-21/refute/verify.py"
+  ],
+  "openIssues": [
+    "The needs_author_contact closure remains justified. Tracing the eight opposite signs requires the authors’ sample-level rlog values, group-summary calculation, filtering code and gene-wise limma results."
+  ]
+}

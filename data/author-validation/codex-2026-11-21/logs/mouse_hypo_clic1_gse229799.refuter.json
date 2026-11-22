@@ -1,0 +1,16 @@
+{
+  "datasetId": "mouse_hypo_clic1_gse229799",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 27 source files matched their recorded sizes and SHA-256 hashes. Across 14,269 paired effects, Pearson was 0.746223, Spearman was 0.572998, and 68.93% agreed in direction. Neither concordance route passed. Matching the heatmap columns to the deposited matrix placed K10_S88 in the plotted KO group and W15_S83 in WT. The corrected proposal retains needs_author_contact, documents tissue and strain conflicts, and clarifies that 23 of the 44 IDs dropped by the registered symbol map have an author symbol. [Figure 7B](https://pmc-oa-opendata.s3.amazonaws.com/PMC10480059.1/gr7.jpg)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_clic1_gse229799.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_clic1_gse229799.json",
+    "data/author-validation/continued-sources/GSE229799/codex-2026-11-21/refute/recheck.py"
+  ],
+  "openIssues": [
+    "K10_S88 maps to SRR24182099, whose sample is labeled WT10/WT. Its animal genotype and condition in the fitted model still require confirmation.",
+    "W15_S83 has no matching original FASTQ name among the nine project runs. Its animal and raw library remain unidentified.",
+    "All nine GEO records specify hypothalamus but describe frozen perigonadal adipose tissue in the protocol. GEO lists C57b/6J, while the paper describes a CD-1 KO line. The sequenced tissue and genetic background require confirmation. [GEO sample](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM7178034) · [Study methods](https://pmc.ncbi.nlm.nih.gov/articles/PMC10480059/)",
+    "The checkout’s QC summary reports 422 significant genes. The registered table, browser track and live QC summary agree on 43 at FDR < 0.05."
+  ]
+}

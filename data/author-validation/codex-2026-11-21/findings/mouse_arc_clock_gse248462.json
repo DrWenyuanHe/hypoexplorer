@@ -1,0 +1,63 @@
+{
+  "datasetId": "mouse_arc_clock_gse248462",
+  "accession": "GSE248462",
+  "category": "not_located",
+  "closure": "access_blocked_documented",
+  "summary": "The recovered ARC results describe disrupted rhythms and expression at individual Zeitgeber times. The journal lists Data S1–S8, but the publisher and public mirrors did not deliver the files, so whether they contain an across-time genotype effect remains unknown. GEO confirms that the registered libraries contain pooled arcuate tissue from controls and mice with hepatocyte-specific REV-ERBα/β deletion.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE248462/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "GEO confirms the pooled ARC REV-ERBα/β cohort. Access to the final journal supplements remains blocked.",
+      "note": "The freshly downloaded GEO raw count matrix matches the input SHA-256 in the registered analysis provenance (7afd4ddebf35c883d8a53cfe9f30c2c166abb9e3bc55ba5451a91e394c936040). Its 48 sample columns include all 24 registered ARC libraries. The GEO series and final paper describe three replicate pools per arm and time, drawn from 3–4 mice per ARC pool. All registered ARC GSM records identify floxed REV-ERBα/β mice, and their Cre or EGFP assignments match the registered sample sheet. Figure 2A reports dryR rhythm disruption, and the Pomc and CART result in Figure 2D is specific to ZT22. The final Data S1–S8 could not be inspected. See data/author-validation/continued-sources/GSE248462/codex-2026-11-21/SEARCH_LOG.md.",
+      "reviewFlags": [
+        "The registry time-series design names a Bmal1/Clock double knockout and three mice per arm per time. The GEO and publication records support hepatocyte Nr1d1/Nr1d2 deletion and three pooled biological replicates per arm per time. The sample protocols specify three mice per pool and the series and final paper report a range of 3–4.",
+        "The legacy source has no separate committed source-file checksum manifest. The checksum match here is against the registered provenance input hash.",
+        "Final journal attachments remain inaccessible. Pooled author effects, inference and coverage are unassessed."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "access_blocked",
+      "comparisonOutcome": "not_tested",
+      "reason": "The registered edgeR-QL coefficient compares 12 ARC HepDKO pools with 12 EGFP pools across ZT4, ZT10, ZT16 and ZT22. The accessible publication reports rhythm classification and time-specific expression. GEO supplies counts and ENA supplies reads. The final journal lists Data S1–S8, but the publisher supplement routes returned 403, PMC lists only two manuscript PDFs behind a challenge, and Europe PMC declined the supplement export for this article. The content of the final data files and concordance for the pooled contrast remain unknown.",
+      "nextStep": "Obtain the final Data S1–S8 and legends. If those omit a pooled effect, ask Woodie or Lazar whether the final ARC cohort was analyzed for an across-time HepDKO-versus-EGFP genotype effect and, if so, request the gene-level table, sample assignments, normalization, model and available P/FDR columns.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered ARC sample membership reconciled to GEO and count columns",
+      "value": "24 ARC libraries, 12 HepDKO and 12 control. Each arm has 3 pooled libraries at each of ZT4, ZT10, ZT16 and ZT22.",
+      "script": "data/author-validation/continued-sources/GSE248462/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Official GEO count matrix and supplementary inventory",
+      "value": "25,229 distinct gene labels and 48 library columns. All 1,210,992 count cells are nonnegative integers. Zero extra result columns. All 48 GSM records list NONE for the supplementary file.",
+      "script": "data/author-validation/continued-sources/GSE248462/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered pooled genotype output",
+      "value": "15,365 unique symbols in 15,365 rows. DE SHA-256 92caa970b75bcb5223c0d447e3228e3edfe7a578177011feaa80d2e8dc73b7a9. The GEO compressed input matches the provenance SHA-256 7afd4ddebf35c883d8a53cfe9f30c2c166abb9e3bc55ba5451a91e394c936040.",
+      "script": "data/author-validation/continued-sources/GSE248462/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "ENA evidence under PRJNA1044072",
+      "value": "48 distinct read runs, 0 linked analysis records in the analysis query.",
+      "script": "data/author-validation/continued-sources/GSE248462/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Published rhythm-disruption counts read from Figure 2 caption",
+      "value": "105 ARC and 522 nodose genes. These are author-reported dryR rhythm-disruption counts.",
+      "script": "data/author-validation/continued-sources/GSE248462/codex-2026-11-21/audit.py"
+    }
+  ],
+  "openIssues": [
+    "The public copies inspected did not deliver Science Data S1–S8 or the two PMC manuscript attachments. Their contents and the existence of a comparable author table remain unverified.",
+    "The registry time-series genotype and replication description needs correction to reflect hepatocyte REV-ERBα/β deletion and pooled biological replicates.",
+    "The deposited sample protocols and the series/paper differ in the stated number of mice per pool. Individual donor identities and pool sizes cannot be reconstructed from those descriptions."
+  ]
+}

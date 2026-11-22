@@ -1,0 +1,15 @@
+{
+  "datasetId": "mouse_hypo_astro_hfhs_gse205313",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 93 source files matched their recorded hashes and sizes. The independent comparison reproduced 642 nominal calls among 788 paired genes and all 16 selected RNA directions. This supports closure as compared within the preprint’s scope. The 16 directions fall below the 30-pair concordance minimum. The corrected proposal documents a conflict over Npy, traces 89 of 92 unpaired labels to expression filtering, and identifies nine genes shared across all three regions in the hypothalamic GO table.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_astro_hfhs_gse205313.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_astro_hfhs_gse205313.json",
+    "data/author-validation/continued-sources/GSE205313/codex-2026-11-21/refute/check.py"
+  ],
+  "openIssues": [
+    "The published paper calls Npy shared across all three regions. Preprint Table S1 lists it only in cortex, and the registered hypothalamic P is 0.646. The final publisher workbook remains unverified. [Published results, section 3.1](https://onlinelibrary.wiley.com/doi/10.1002/glia.24237)",
+    "The exact input to the hypothalamic GO analysis remains unresolved.",
+    "The complete author DESeq2 table and sample-column key are still needed to reconcile 146 nominal-call differences, three unresolved feature labels and exact cohort membership."
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "datasetId": "mouse_lha_hfd_gse130597",
+  "accession": "GSE130597",
+  "category": "unresolved",
+  "closure": "no_valid_comparison",
+  "summary": "Applying the authors’ QC rules to all 28,410 deposited barcodes reproduces the published 10,086 control and 10,108 HFD cells. The authors estimated diet effects within individual cell clusters. The registered LHA track estimates one pool-adjusted diet effect across all captured cells summed by mouse, a comparison the paper did not report.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE130597/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Published QC cell counts reproduced in both diets. Author cluster-level effects do not cover the registered mixed-cell LHA track.",
+      "note": "The GEO TAR and family SOFT match the registered source hashes. The barcodes map to seven mice per diet. Replaying the author script’s QC filters with Seurat 1.4.0.16 subset semantics accounts for the 8,216 exclusions and reproduces the paper’s two arm counts and the notebook’s median nGene and nUMI. The executed notebook assigns 303 cells to cluster 9, which is omitted from the reported diet figures. The remaining clusters total 19,891 cells. Data S1 describes within-cluster asinh effects and single-cell likelihood-ratio P values. Data S2 describes functional annotation and glutamatergic pseudotime. The registered edgeR quasi-likelihood coefficient pools all 28,410 captured cells by mouse and adjusts for sequencing pool. See the barcode reconstruction, audit and search log in data/author-validation/continued-sources/GSE130597/codex-2026-11-21.",
+      "reviewFlags": [
+        "Barcode QC membership is reconstructed from the deposited counts and code. An author-labelled barcode-to-cluster object was unavailable for independent row-level confirmation.",
+        "Neither supplement provides the all-captured-cell, mouse-level diet coefficient. The paper and executed code establish the scope of Data S1 and S2. The publisher returned HTTP 403 for both workbooks on this pass."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Rossi et al. manuscript and Figure 1 cohort",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7318865/",
+          "kind": "paper"
+        },
+        {
+          "label": "Executed Stuber lab single-cell analysis notebook",
+          "url": "https://github.com/stuberlab/Rossi-Basiri-et-al-2019/blob/f120a39c3f1bbe987b34ab47e09bc49557d27df6/scRNAseq_analysis/scRNAseq_analysis.ipynb",
+          "kind": "author_result"
+        },
+        {
+          "label": "Supplementary methods and descriptions of Data S1/S2",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/biostudies/S-EPMC/865/S-EPMC7318865/Files/NIHMS1595746-supplement-Supplementary_Material.pdf",
+          "kind": "paper"
+        },
+        {
+          "label": "GEO counts and per-mouse metadata",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE130597",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Author Data S1 cluster-level results",
+          "url": "https://www.science.org/doi/suppl/10.1126/science.aax1184/suppl_file/aax1184_data_s1.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Author Data S2 enrichment and pseudotime results",
+          "url": "https://www.science.org/doi/suppl/10.1126/science.aax1184/suppl_file/aax1184_data_s2.xlsx",
+          "kind": "author_result"
+        }
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The public QC rules account for the difference between the deposited and published cell counts in both diets. The author’s HFD-minus-chow effects and likelihood-ratio tests condition on cell cluster. The Explorer coefficient combines all captured cells at mouse level, including those excluded by author QC. Concordance of registered effects, P values and FDR is unassessed.",
+      "nextStep": "Reopen direct comparison if an author gene-level HFD-minus-chow table for the all-captured-cell mouse pseudobulk becomes available. For separate cluster-specific analyses, the original fitted Seurat object or a sample-qualified barcode-to-cluster table would establish cluster identities.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Deposited to QC-retained barcodes across all mice, using the author thresholds",
+      "value": "28,410 deposited, 20,194 retained, 8,216 excluded",
+      "script": "data/author-validation/continued-sources/GSE130597/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Deposited and reconstructed counts by diet, checked against the published retained counts",
+      "value": "Chow 14,430 to 10,086. HFD 13,980 to 10,108. Both retained totals match Figure 1.",
+      "script": "data/author-validation/continued-sources/GSE130597/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Medians among reconstructed QC-retained cells, checked against the executed notebook",
+      "value": "619 detected genes and 961 UMIs per cell",
+      "script": "data/author-validation/continued-sources/GSE130597/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Author notebook cluster sizes and cluster selection used in the diet figures",
+      "value": "15 clusters total 20,194 cells. The 14 displayed clusters total 19,891. Cluster 9 contains 303.",
+      "script": "data/author-validation/continued-sources/GSE130597/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered biological replication, tested symbols and author candidate-gene scope",
+      "value": "7 chow and 7 HFD mice. The registered table has 12,471 distinct symbols. The notebook identifies 13,007 common candidate genes before cluster-specific testing.",
+      "script": "data/author-validation/continued-sources/GSE130597/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "SHA-256 of the registered DE table, verified against its recorded provenance",
+      "value": "06064f79d4bc9ccf572c72dd545f987bbe44abebaade2f0b3b4d11fdcaac4dcd",
+      "script": "data/author-validation/continued-sources/GSE130597/codex-2026-11-21/audit.py"
+    }
+  ],
+  "openIssues": [
+    "The original barcode-to-cluster assignments remain unavailable for a separate cluster-level reproduction. The retained QC barcode list is a reconstruction.",
+    "The publisher returned HTTP 403 for both Excel workbooks. Their stated scope was checked against the saved supplement and analysis code."
+  ]
+}

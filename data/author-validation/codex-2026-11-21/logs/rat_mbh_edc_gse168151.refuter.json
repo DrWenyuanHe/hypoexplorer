@@ -1,0 +1,14 @@
+{
+  "datasetId": "rat_mbh_edc_gse168151",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 36 source files matched their recorded hashes and sizes. The saved GEO series page was a reCAPTCHA challenge, so the corrected proposal relies on the family SOFT and count archive to establish the cohort. All six numerical claims reproduced. Four of six qPCR targets agreed in direction with registered RNA-seq effects. Drd1 and Crh had opposite signs, and neither met both assays’ thresholds. The proposal passed validation for these six selected genes, below the 30-pair concordance minimum.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/rat_mbh_edc_gse168151.json",
+    "data/author-validation/codex-2026-11-21/corrected/rat_mbh_edc_gse168151.json",
+    "data/author-validation/continued-sources/GSE168151/codex-2026-11-21/refute/verify.py"
+  ],
+  "openIssues": [
+    "The reviewed sources supplied no original F1 gene-level RNA-seq effects or inference. The paper describes featureCounts, while the deposited files use STAR ReadsPerGene format.",
+    "The RNA library-to-litter assignments and overlap between the sequenced and qPCR animals remain unknown."
+  ]
+}

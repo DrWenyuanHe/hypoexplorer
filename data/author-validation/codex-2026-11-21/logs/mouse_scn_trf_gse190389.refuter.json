@@ -1,0 +1,15 @@
+{
+  "datasetId": "mouse_scn_trf_gse190389",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 30 retained sources passed integrity checks. I reproduced 22 discoveries in the author worksheet and three in the registered output, with only Gfap shared. Neither concordance route passes across the 16,212 paired effects. Following the registered feature map uncovered a 38th expression discrepancy: the author’s Septin1 profile matches GEO Gm4532 across all 45 libraries, and its effect sign is opposite to the registered Septin1 result. The corrected proposal passed validation. The manuscript reports zero SCN discoveries, so needs_author_contact remains justified. [Manuscript](https://pmc.ncbi.nlm.nih.gov/articles/PMC10026518/)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_scn_trf_gse190389.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_scn_trf_gse190389.json",
+    "data/author-validation/continued-sources/GSE190389/codex-2026-11-21/refute/check_sources.py",
+    "data/author-validation/continued-sources/GSE190389/codex-2026-11-21/refute/recompute.py"
+  ],
+  "openIssues": [
+    "Which SCN samples, fit and selection rule produced the manuscript’s zero when both published FDR conventions yield 22 worksheet discoveries?",
+    "The historical feature assignments, complete BH testing family and edgeR fit settings remain unresolved."
+  ]
+}

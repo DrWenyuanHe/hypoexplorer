@@ -1,0 +1,81 @@
+{
+  "datasetId": "gse317867",
+  "accession": "GSE317867",
+  "category": "not_located",
+  "closure": "access_blocked_documented",
+  "summary": "The archived GEO sample descriptions identify a DESeq2 test of rebound IP versus control IP, and the September intake lists GSE317867_deseq2_results_combined.csv.gz. GEO reports private access until the scheduled July 1, 2027 release, and searches found no public copy or matching paper from which to compare gene-level results.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE317867/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "source_unavailable",
+      "comparisonLevel": "processed_source",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "The authors describe the registered sleep-rebound comparison. Their combined DESeq2 results file is access blocked.",
+      "note": "Archived GEO processing fields for the included PVN BacTRAP pools name three DESeq2 tests. RS-IP versus Control-IP addresses the registered rebound contrast. The other two tests compare IP with input within each sleep condition. The September intake lists the combined DESeq2 CSV alongside count and FPKM matrices. On November 22, 2026, GEO displayed a private-access notice for the series and all 18 samples. The CSV URL returned HTTP 403, and the public ENA project record repeated the scheduled July 1, 2027 release date. The literature and repository searches identified no accessible PVN author coefficients. All eight BioSamples linked to the similarly titled GSE318040 describe white adipose tissue.",
+      "reviewFlags": [
+        "The combined file’s rows, coefficient encoding and coverage remain unknown. The authors describe an additional FosL10a enrichment filter.",
+        "The registered edgeR-QL table contains raw P values and FDR for 18,314 published symbols. Author coefficients and gene-level statistics are unavailable for comparison, leaving effect concordance, P-value and FDR agreement, and discovery overlap unassessed."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "GEO series access notice",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE317867&targ=all&form=text&view=full",
+          "kind": "database"
+        },
+        {
+          "label": "Combined DESeq2 results URL from the September intake (access blocked)",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE317nnn/GSE317867/suppl/GSE317867_deseq2_results_combined.csv.gz",
+          "kind": "author_result"
+        },
+        {
+          "label": "ENA project record and GEO release notice",
+          "url": "https://www.ebi.ac.uk/ena/browser/api/xml/PRJNA1415731",
+          "kind": "database"
+        },
+        {
+          "label": "Companion GSE318040 project and linked BioSamples",
+          "url": "https://ddbj.nig.ac.jp/resource/bioproject/PRJNA1416368.json",
+          "kind": "database"
+        },
+        {
+          "label": "Companion-series BioSample identifying white adipose tissue",
+          "url": "https://www.ebi.ac.uk/ena/browser/api/xml/SAMN54962065",
+          "kind": "database"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "access_blocked",
+      "comparisonOutcome": "not_tested",
+      "reason": "The archived sample metadata identifies the author’s RS-IP versus Control-IP DESeq2 analysis, and the intake inventory names the combined results file. GEO and ENA report the series is private. The named public download returned an HTML access error, and no matching publication supplement or public repository supplied gene-level values.",
+      "nextStep": "Recheck GSE317867_deseq2_results_combined.csv.gz on or after July 1, 2027, or when a public copy appears. Use the source labels to isolate RS-IP versus Control-IP, check coefficient direction and whether the rows precede or follow the FosL10a enrichment filter, then compare with the registered rebound_vs_control output.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered PVN IP cohort and excluded paired inputs",
+      "value": "4 rebound pools, 5 control pools, 9 paired input assays excluded",
+      "script": "data/author-validation/continued-sources/GSE317867/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Distinct published gene symbols in the current registered edgeR-QL DE table",
+      "value": "18314",
+      "script": "data/author-validation/continued-sources/GSE317867/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Retained included-IP sample records naming both the RS-IP versus Control-IP test and combined DESeq2 CSV",
+      "value": "9 of 9",
+      "script": "data/author-validation/continued-sources/GSE317867/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Live GEO sample records displaying the private-access notice and July 1, 2027 release date",
+      "value": "18 of 18",
+      "script": "data/author-validation/continued-sources/GSE317867/codex-2026-11-21/inspect_evidence.py"
+    }
+  ],
+  "openIssues": [
+    "The combined DESeq2 CSV remains inaccessible. Its gene identifiers, coefficient columns, raw and adjusted P values, and coverage before or after enrichment filtering require the author file or an equivalent public supplement."
+  ]
+}

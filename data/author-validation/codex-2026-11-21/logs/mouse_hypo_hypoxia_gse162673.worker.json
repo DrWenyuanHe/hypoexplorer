@@ -1,0 +1,24 @@
+{
+  "datasetId": "mouse_hypo_hypoxia_gse162673",
+  "outcome": "compared",
+  "summary": "All 80 genes labeled as upregulated in Figure 5A matched the registered two-hour hypothalamic hypoxia contrast. Registered effects agreed in direction for 78 of 80 genes (97.5%). Bcl11a and Egr4 had negative registered effects. The proposal closes this selected-gene comparison without claiming genome-wide verification. No ledger was edited. [Published Figure 5A](https://link.springer.com/content/pdf/10.15252/embr.202153083.pdf)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/mouse_hypo_hypoxia_gse162673.json",
+    "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/figure5a_comparison.tsv",
+    "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/comparison.json",
+    "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/compare_figure5a.py",
+    "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/inspect_sources.py",
+    "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/source_inspection.json",
+    "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/retrieve.py",
+    "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/followup.py",
+    "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/retrieval.json",
+    "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/figure5_p1_zoom_0_47_328_792.png"
+  ],
+  "openIssues": [
+    "Figure 5A reports three to four samples per group. GEO and the registered fit contain four per group. The exact libraries in the authors’ fit remain unidentified.",
+    "The paper reports 313 upregulated genes. The figure labels 80, and the peer-review response describes the panel as exhaustive. The selection rule remains unresolved.",
+    "The public sources reviewed contain no complete author DESeq2 table or per-gene estimates, P values or FDR for the panel. Magnitude and inference remain unassessed, so no numerical comparison spec was proposed."
+  ]
+}

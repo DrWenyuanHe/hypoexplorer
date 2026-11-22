@@ -1,0 +1,15 @@
+{
+  "datasetId": "rat_pvn_stress_gse261833",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 46 source hashes and sizes matched, and all ten reported calculations reproduced. All five Figure 4A symbols agree in direction. Four meet the paper’s screen in the registered output, with Clec7a below the fold-change cutoff. The corrected proposal retains the `compared` closure and records the unexplained screen discrepancy as `unresolved`. It passes the ledger validator and grants no full contrast sign-off. [Figure 4A](https://www.sciopen.com/article/10.26599/1671-5411.2024.12.002?issn=1671-5411)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/rat_pvn_stress_gse261833.json",
+    "data/author-validation/codex-2026-11-21/corrected/rat_pvn_stress_gse261833.json",
+    "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/refute/audit.py"
+  ],
+  "openIssues": [
+    "The two deposited features labeled Hmgb2 have opposite registered signs. Figure 4A does not identify which feature or aggregation was plotted.",
+    "The paper reports 211 upregulated and 292 downregulated genes. The registered screen gives 70 and 123. The full author table and tested-feature universe remain unavailable.",
+    "The local QC summary stores 674 FDR discoveries. Both the registered DE table and the restored track yield 8. The deployed QC count remains unverified."
+  ]
+}

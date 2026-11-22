@@ -1,0 +1,99 @@
+{
+  "datasetId": "rat_hypo_fructose_gse56238",
+  "accession": "GSE56238",
+  "category": "partial_untested",
+  "closure": "compared",
+  "summary": "For fructose versus chow, the registered analysis agrees with 19 of the 20 gene directions in the original Figure 5b. Crhr1 reverses sign, and Mc3r alone meets the registered BH cutoff among ten genes the figure marks significant. All 15 individually identifiable genes in the follow-up complement figure agree in direction on the same cohort.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE56238/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Published pathway figures compared, with unresolved direction and significance differences",
+      "note": "The deposited FPKM matrix and family SOFT match the registered source hashes. The saved GEO landing page is a reCAPTCHA screen. The SOFT identifies the series, both papers, the expression matrix and all 13 samples. In the 2015 CRF/POMC figure, 19/20 directions agree and 1/10 asterisked genes passes registered BH FDR < 0.05. The Results and figure mark Pomc significant, while the Discussion combines RNA-seq and RT-PCR in a description of a roughly fivefold, nonsignificant increase. In the 2018 complement figure, 15/15 single-gene directions agree. The RNA-seq analysis in that paper tested enrichment at the pathway level. All three indexed supplements match their publisher copies and contain no gene-wise Cuffdiff export.",
+      "reviewFlags": [
+        "The 2015 Results and Figure 5b place Crhr1 lower in fructose. Both the registered coefficient and the deposited group-mean FPKM ratio are positive. The sources do not explain this reversal or the nine marked genes that miss the registered BH cutoff.",
+        "Figure 5b and the 2015 Discussion differ in how they describe Pomc. Figure 1 in the follow-up shows C3 in two positive color bands. Neither source provides a precise RNA-seq coefficient for these narrative or graphical comparisons."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "Figure 5b supplies 20 nonzero paired directions. Nineteen agree, Crhr1 reverses sign, and Mc3r is the only shared discovery among ten asterisked genes. The cause of the differences is unknown. The complement figure supplies 15 agreeing single-gene directions and no gene-wise RNA-seq tests. Each reference falls below 30 pairs. The two methods and their different testing families are documented, but their contribution to the differences has not been established.",
+      "nextStep": "Obtain the original Cuffdiff export with row identifiers, estimates and condition order, test status, P and q, and the command or settings that generated Figure 5b. Reconcile Crhr1, the Pomc significance descriptions and the nine discordant calls. Cage assignments would clarify replication for the diet exposure.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "fructose_vs_chow"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Compare every assignable colored node with the sign of the registered fructose-minus-chow coefficient. Count a repeated gene once per figure. Use the 2015 figure’s printed asterisks and the registered BH cutoff of 0.05. The 2018 fold-change screen selected inputs for pathway enrichment. The panel also depicts genes below that screen.",
+      "reference": "Harrell et al. (PMID 26356038), Figure 5b, Methods 2.9 and 2.12, Results and Discussion. Harrell et al. (PMID 29787857), Figure 1 and sections 2.5, 2.14 and 3.2. The original JPEGs, article XML and figure-comparison.tsv are in the evidence folder. refute/recompute.py checks the counts and the four C3 boxes.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "The papers identify the same GSE56238 libraries from PND80 male Wistar whole hypothalamus. All seven chow and six fructose matrix columns match the GEO and registered assignments. The original paper identifies fasted, non-stressed saline controls and reports excluding one fructose brain for handling and storage before RNA-seq. Rats shared cages during diet exposure. Individual cage assignments are unavailable."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "High-fructose diet (55% of energy) versus standard chow (0.30%) from PND25, with tissue collected at PND80. In 2015 the caption and Results anchor red as higher expression in fructose. In 2018 the legend gives signs, Methods names both groups without specifying the numerator of the plotted bands, and the fructose/chow ratios of deposited group means independently support all 15 single-gene directions. RT-PCR, other tissues and surgical cohorts have separate endpoints."
+        },
+        "features": {
+          "status": "limited",
+          "note": "All 20 distinct colored gene labels in Figure 5b link to registered symbols. Figure 1 has 17 distinct colored labels, of which 15 identify a single gene and all 15 link. C1q (a,b,c) and C4(a,b) use a shared color for multiple gene labels, so they have no individual pairing. Repeated pathway nodes count once per figure. The DE table publishes 14,036 symbols."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "The figures depict relative log2 FPKM. The registered coefficient is the fructose-minus-chow difference in mean log2(FPKM + 1). Crhr1 is blue in Figure 5b and down in the Results, versus +0.0392122 locally. For C3, two boxes in the 2018 figure use 0.01–0.25 and two use 0.26–0.50. Only the positive sign is common to all four. No exact author coefficients can be assigned from these colors or from the roughly fivefold Pomc discussion, which combines assays."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The 2015 paper reports 966 discoveries among 17,366 transcripts at Cuffdiff FDR < 0.05. Of ten marked genes, only Mc3r passes registered BH < 0.05. The registered BH family includes 14,412 tested features, 376 unpublished. Among 14,036 published symbols, 257 pass and 256 lie outside Figure 5b. All 257 lack numerical author q values in the reviewed sources. The 2018 paper reports 2,639 transcripts in its fold-change screen and uses q < 0.05 for pathway enrichment. Its RNA-seq analysis has no individual-gene significance test."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All 20 distinct colored genes in Figure 5b pair. In Figure 1, 15 of 17 distinct colored labels identify a single gene, and all 15 pair. C1q(a,b,c) and C4(a,b) each have a shared color. Paper-specific coverage is confined to these pathways. Whole-list discovery overlap and genome-wide paired author estimates remain unknown."
+        }
+      },
+      "criteria": "Use all distinct, individually identifiable colored nodes in each figure, with fructose versus chow fixed across genes. Preserve the printed stars in the original paper, including the Pomc star. The 2018 panel has no per-gene significance criterion. Assess each reference separately under author-concordance-v2. Each has fewer than the required 30 pairs, and neither gives exact paired coefficients for correlation.",
+      "conclusion": "The selected figures support direct directional comparisons. The original paper has one unexplained sign reversal and nine marked discoveries that miss the registered threshold. The follow-up supports 15 individual directions. Neither reference establishes genome-wide concordance."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Original Figure 5b, all distinct colored genes",
+      "value": "20/20 paired with nonzero registered effects. Directions agree for 19/20. Crhr1 is down in the paper and +0.0392121964803183 in the registered result (BH 0.911274585869366).",
+      "script": "data/author-validation/continued-sources/GSE56238/codex-2026-11-21/refute/recompute.py"
+    },
+    {
+      "claim": "Figure 5b Cuffdiff significance markers and registered BH calls",
+      "value": "10 marked, 1 registered BH < 0.05 among the 20 pairs, 1 shared (Mc3r, BH 0.0380516060544142). Of 257 local discoveries, 256 lie outside this panel and all 257 lack a numerical author q value.",
+      "script": "data/author-validation/continued-sources/GSE56238/codex-2026-11-21/refute/recompute.py"
+    },
+    {
+      "claim": "Follow-up Figure 1, distinct colored complement labels",
+      "value": "17 distinct colored labels. All 15 single-gene pairs have nonzero registered effects and agree in sign. C1q(a,b,c) and C4(a,b) are composite. All four C3 boxes are positive, split evenly between 0.01–0.25 and 0.26–0.50. C1r, C2 and Cfb meet the registered BH cutoff. Gene-wise author RNA-seq significance is unassessed.",
+      "script": "data/author-validation/continued-sources/GSE56238/codex-2026-11-21/refute/recompute.py"
+    },
+    {
+      "claim": "GEO and registered denominator",
+      "value": "17,366 FPKM rows, seven chow and six fructose columns, 13 GSM records with no sample supplement, 13 unique PRJNA242679 ENA runs and zero rows in the ENA submitted-analysis query. Applying the registered variance filter gives 14,412 tested features. The 376 unmapped tested rows leave 14,036 published symbols. Reconstructed coefficients differ from registered values by at most 4.23e-14.",
+      "script": "data/author-validation/continued-sources/GSE56238/codex-2026-11-21/refute/recompute.py"
+    },
+    {
+      "claim": "Source supplement identity",
+      "value": "All 3 BioStudies DOCX files match the corresponding Elsevier bytes. For 2015, BioStudies supplement 1 matches publisher mmc2, and supplement 2 matches mmc1. The 2018 supplement matches mmc1.",
+      "script": "data/author-validation/continued-sources/GSE56238/codex-2026-11-21/refute/recompute.py"
+    }
+  ],
+  "openIssues": [
+    "The reviewed sources contain no full Cuffdiff export or numerical gene-wise P and q. The cause of the Crhr1 reversal, the nine discordant discovery calls and genome-wide overlap remain unresolved.",
+    "The 2015 Discussion combines RNA-seq and RT-PCR in its Pomc description despite the differing assay results. The 2018 figure gives two positive bands for C3. Exact RNA-seq coefficients and the selected animals’ cage assignments remain unavailable."
+  ]
+}

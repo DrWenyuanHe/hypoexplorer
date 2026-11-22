@@ -1,0 +1,185 @@
+{
+  "datasetId": "rat_mbh_perinatal_des_gse225359",
+  "accession": "GSE225359",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "Franssen et al.’s public Figshare workbook reports gene-level DESeq2 results for P90 female rat mediobasal hypothalamus after perinatal DES12 exposure versus vehicle. Both author-concordance-v2 numerical routes pass on 13,002 paired genes. At FDR < 0.05, 828 calls overlap between 2,498 author discoveries and 847 registered discoveries.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "DES12 effects agree across the registered MBH output, with different FDR calls",
+      "note": "The GEO count matrix and family SOFT match their retained SHA-256 pins. The public Figshare summary sheet supplies the complete source feature list for the registered contrast. Stable Ensembl IDs pair 13,002 of 13,008 registered effects. Both numerical concordance routes pass. Author DESeq2 and registered edgeR-QL differ in effect magnitude and FDR calls.",
+      "reviewFlags": [
+        "The published coefficient table lacks raw P values. Filtering, dispersion estimation and the multiple-testing families have not been reproduced under the authors’ exact DESeq2 settings.",
+        "The ten offspring profiles can be identified. Their maternal litter membership remains unresolved."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "The full Figshare gene table supports a direct comparison of the registered contrast. Pearson is 0.9021, Spearman is 0.9888 and 12,775 of 13,002 nonzero pairs agree in direction. Among the 13,002 genes with finite adjusted P on both sides, 2,281 pass the author cutoff, 847 pass the registered cutoff and 828 pass both.",
+      "nextStep": "For full reproduction, obtain the authors’ DESeq2 design, filtering settings, raw test results and offspring-to-dam assignments. Reconcile the tested families and the discovery differences in a separately documented author-method replay.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "registeredContrastIds": [
+        "des12_vs_vehicle"
+      ],
+      "basis": "Registered R 4.6.0 edgeR quasi-likelihood output for track mbh against the P90 DES12 coefficient and adjusted P in the Figures 3–7 workbook. All deposited reference rows were considered.",
+      "reference": "Figshare 21842124 v1, file 38764173, sheet summary. Columns A and B identify the gene. Columns AL and AM are MBH, DES, P90, D12 log2FC versus vehicle and adjusted P. The selected DEG workbook and the rounded values in manuscript Table 2 independently identify the target column within the same study.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "All five vehicle and five DES12 registered offspring libraries match the complete P90 female MBH groups in GEO by GSM, title and count column. The paper describes five profiles per group and pairwise comparisons. The result workbook does not enumerate fit members. Dams received the exposure, and the available sample labels do not establish distinct maternal litters."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Perinatal DES 12 µg/kg body weight/day versus corn-oil vehicle in female rat MBH at P90. The authors’ figure workbook explicitly gives fold changes versus control. Registry groupcase has the same direction. Orientation multiplier +1."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "The author sheet covers all 32,883 MBH source Ensembl IDs. Only one-to-one mappings through the registered feature map enter the correlation. Of 22,616 finite author effects, 6,022 lack a published symbol mapping, 3,580 have uniquely mapped symbols outside the DE table and 12 belong to multi-ID symbols. Six published coefficients combine source IDs and remain unpaired."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both coefficients express treatment versus vehicle on the log2 scale. DESeq2 and edgeR-QL use different estimators. Pearson 0.9021, Spearman 0.9888, and 98.25% directional agreement. The median absolute log2FC difference is 0.01624 and the registered-to-author RMS effect ratio is 1.654. The magnitude difference remains material to interpretation."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The authors used pairwise DESeq2 with adjusted P < 0.05 and no fold-change cutoff. Registered edgeR-QL fits groupcase and adjusts across all tested fit rows, including unpublished features. The full positive lists contain 2,498 author and 847 registered calls. Among paired finite tests, 1,453 pass only for the authors, 19 only for the registered output and 828 for both. The other 217 author discoveries lack an effect pair. No registered discovery lacks an author test. Raw author P values are unavailable and all missing author adjusted P values remain unassessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "13,002/13,008 (99.95%) of registered effects and 13,002/22,616 (57.49%) of finite author effects pair. The full-results policy uses the registered denominator. All 13,002 pairs have two nonzero effects and finite adjusted P values. The source includes another 10,267 rows without a finite target effect."
+        }
+      },
+      "criteria": "Use every finite, uniquely paired effect with its published sign. For full results author-concordance-v2 requires at least 30 pairs covering at least 90% of the registered output, with Pearson and Spearman each at least 0.90 or at least 90% same direction among 30 or more nonzero pairs covering at least 90% of all pairs. Cohort, contrast, identifiers and effect definitions must also be compatible. Magnitudes and FDR calls provide context.",
+      "conclusion": "Both effect-concordance routes meet policy for the registered P90 MBH contrast. Size differences, inference and unresolved litter membership limit the full reproduction claim."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "rat_mbh_perinatal_des_gse225359",
+      "accession": "GSE225359",
+      "contrast": "des12_vs_vehicle",
+      "localPath": "geo_replication/datasets/GSE225359_rnor_mbh_perinatal_des/processed/GSE225359_DE.tsv",
+      "localKey": "symbol",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE225359_rnor_mbh_perinatal_des/processed/GSE225359_DE.tsv",
+        "sha256": "f5b21a173d81433a33637cb1f056bf17540cc33ca7b2addf68775d6ba4145761",
+        "bytes": 1287401
+      },
+      "authorPath": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/author-effects.tsv",
+      "sourceUrl": "https://ndownloader.figshare.com/files/38764173",
+      "sha256": "6999098e640ce57e5b3e642efc7eb4a545755a020a468b444c65f8131db1da41",
+      "format": "tsv",
+      "authorKey": "output_id",
+      "authorEffect": "logFC",
+      "authorAdjustedP": "padj",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL, R 4.6.0, groupcase on the ten registered offspring profiles",
+      "authorMethod": "Pairwise DESeq2, author-reported MBH DES12 versus vehicle at P90",
+      "orientation": "DES12 minus vehicle in both tables. The extraction preserves the deposited sign.",
+      "note": "Full workbook, sheet summary, columns AL:AM. All 32,883 Ensembl rows are retained. One-to-one published feature mappings use the registered symbol as output_id. Other rows retain their source ID and remain unpaired. 13,002 effect pairs have finite adjusted P on both sides. Whole-list FDR counts (2,498 author and 847 local) and shared finite-test counts (2,281 author, 847 local, 828 shared) use the prespecified 0.05 cutoff. Missing values are blank.",
+      "interpretation": "effect_match_inference_differs",
+      "resultScope": "full_results",
+      "normalizationScript": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/compare.py",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/fig3-7.xlsx",
+          "sourceUrl": "https://ndownloader.figshare.com/files/38764173",
+          "sha256": "0b09f446aee8f871fa7320459d1511940791174069fb4b9c9b665ec05971e851",
+          "bytes": 24185275
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/deg.xlsx",
+          "sourceUrl": "https://ndownloader.figshare.com/files/39255323",
+          "sha256": "fdf1acd482a80efcc6e22e18cb2ac89adb2200c5f793da384909c613261ac378",
+          "bytes": 3677642
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/article.xml",
+          "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10108553/fullTextXML",
+          "sha256": "f678a11b4e51175d12f7d4c8051eba0ea82947241ac9da2922091551f503acc1",
+          "bytes": 243896
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/family.soft.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE225nnn/GSE225359/soft/GSE225359_family.soft.gz",
+          "sha256": "412455c6f49185151f37ee061521a5c23e14d3ae7992d15c01beb9b31d6e8c42",
+          "bytes": 12795
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/compare.py",
+          "sourceUrl": "Reproducible extraction and comparison",
+          "sha256": "9a299aa45688b72b329c70f07ca8c9af11ef041123306aa1eeb272b2101afab8",
+          "bytes": 7804
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/workbook.py",
+          "sourceUrl": "Worksheet parser used by the extraction",
+          "sha256": "8f769ee6e4ec0fa45dc46d3f3ef0475b4966062ad46101bfdf8fea3f21051660",
+          "bytes": 1941
+        },
+        {
+          "path": "geo_replication/datasets/GSE225359_rnor_mbh_perinatal_des/processed/GSE225359_feature_map.tsv.gz",
+          "sourceUrl": "Registered Ensembl-to-symbol map used by the extraction",
+          "sha256": "b31b3971c6d1c75ebf42aa223da8c9e755f6cbe633ef5b6902167c03bde8127f",
+          "bytes": 216604
+        }
+      ]
+    }
+  },
+  "computed": [
+    {
+      "claim": "Source features, finite DES12 effects, finite adjusted P values",
+      "value": "32,883 / 22,616 / 15,768",
+      "script": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Effect pairs and coverage",
+      "value": "13,002 paired of 13,008 registered (99.9539%) and 22,616 finite author effects (57.4903%)",
+      "script": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Pearson, Spearman and direction",
+      "value": "0.90208002 / 0.98883948 / 12,775 of 13,002 nonzero pairs (98.2541%)",
+      "script": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Median absolute log2FC difference and RMS ratio of registered to author effects",
+      "value": "0.01623716 / 1.65357710",
+      "script": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "FDR < 0.05 on whole lists and jointly evaluable genes",
+      "value": "2,498 author, 847 registered overall. Of 13,002 paired finite tests, 2,281 author, 847 registered and 828 shared. 217 author calls lack a pair. All 2,281 paired author discoveries agree in sign.",
+      "script": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure 3D exclusive and inclusive P90 D12 calls",
+      "value": "2,496 D12 only, plus Mpst (D3 and D12) and Zbtb17 (D6 and D12). 2,498 inclusive.",
+      "script": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/inspect_sources.py"
+    },
+    {
+      "claim": "Manuscript Table 2 P90 D12 column",
+      "value": "23 of 23 printed effects match the full workbook at the displayed precision",
+      "script": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/inspect_sources.py"
+    },
+    {
+      "claim": "Local cohort matched to GEO titles, GSMs and count columns",
+      "value": "5 vehicle and 5 DES12. Both series matrices have 105 sample-count columns and 32,883 features. All 210 sample records declare no sample supplement.",
+      "script": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/inspect_sources.py"
+    }
+  ],
+  "openIssues": [
+    "Dam/litter IDs for the ten offspring RNA libraries remain unresolved.",
+    "The full workbook supplies adjusted P and log2FC. Exact author fit settings and raw P values would be needed to reproduce the inferential differences."
+  ]
+}
