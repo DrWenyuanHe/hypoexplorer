@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "91e7b8c16ac2d51bcbae03fcb5ee65f54d7a4302b670ea335847c16bbfdec60e",
-  "outcome": "no-impact",
-  "explanation": "Directory reorganization: loose docs moved to docs/runbooks/ and docs/records/, and deploy, fetch and dev tooling scripts moved to scripts/deploy/, scripts/fetch/ and scripts/dev/. Verification workflow links now resolve to docs/runbooks/; author validation evidence and verification guidance are unchanged.",
+  "fingerprint": "b876b0d3b792447999c9a07985b8190d53af8e887125e9dce94ad29802542884",
+  "outcome": "updated",
+  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: the verification route and author-validation README name build_quality_report_r460.mts --check as the public quality-report freshness check. Links into moved runbooks resolve under docs/runbooks/; policies and ledgers are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "data/author-validation/README.md"
+    "data/author-validation/README.md",
+    "scripts/build_quality_report_r460.mts"
   ]
 }

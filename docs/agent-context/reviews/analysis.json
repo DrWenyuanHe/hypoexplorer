@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "analysis",
-  "fingerprint": "f9a4a7192e6b0d763dd91c70e3a1802dd6a9ae232638476a4e66736b51e9333d",
-  "outcome": "no-impact",
-  "explanation": "Directory reorganization: loose docs moved to docs/runbooks/ and docs/records/, and deploy, fetch and dev tooling scripts moved to scripts/deploy/, scripts/fetch/ and scripts/dev/. Only the plan links in three data/expression README files changed to docs/records/; no analysis code, evidence or result changed.",
+  "fingerprint": "bf6696fc7a0b151b369a9290aa368bafddfb14d29696264472b1e9c8c6fad5bd",
+  "outcome": "updated",
+  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: the author-validation README, OXT/AVP intake step 7 and the quality report name build_quality_report_r460.mts --check instead of check:quality. From this branch: three data/expression README plan links now point to docs/records/. No evidence or result changed.",
   "references": [
-    "data/expression/gtex/README.md",
-    "data/expression/allen-human/README.md",
-    "docs/records/EXTERNAL_REFERENCE_EXPRESSION_PLAN_2026-10-29.md"
+    "data/author-validation/README.md",
+    "data/intake/oxt-avp-2026-10-19/README.md",
+    "scripts/build_quality_report_r460.mts",
+    "data/expression/gtex/README.md"
   ]
 }

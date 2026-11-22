@@ -20,4 +20,4 @@ QC separation policy: qc-separation-v1. The source internal-QC policy and all un
 
 Author concordance policy: author-concordance-v2. See the JSON policy for exact thresholds; these are project defaults, not universal scientific cutoffs.
 
-The JSON includes every checklist and per-comparison assessment. The TSV includes dataset and comparison decisions. Regenerate with `npm run build:quality`; verify freshness with `npm run check:quality`.
+The JSON includes every checklist and per-comparison assessment. The TSV includes dataset and comparison decisions. Regenerate with `pnpm run build:quality`; verify freshness with `pnpm exec tsx scripts/build_quality_report_r460.mts --check`.

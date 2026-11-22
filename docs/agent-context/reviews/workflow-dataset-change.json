@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "06f91b02aee213abf6cb0b1fd3d15c5f37bb4833c08fff8e1dc62e7151461f7c",
-  "outcome": "no-impact",
-  "explanation": "Directory reorganization: loose docs moved to docs/runbooks/ and docs/records/, and deploy, fetch and dev tooling scripts moved to scripts/deploy/, scripts/fetch/ and scripts/dev/. Dataset contract and real shapes stay at docs/; workflow links to the expression survey and refactor checklist now resolve under docs/runbooks/.",
+  "fingerprint": "df61e11c81fafc8aad8c30536181b344a92557f4253c7116e19659623e8b5353",
+  "outcome": "updated",
+  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: pending verification-advancement replays go to a GitHub issue and OXT/AVP step 7 names the maintainer-only checks. Dataset contract and real shapes stay at docs/; builders and registry rules are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
+    "data/intake/oxt-avp-2026-10-19/README.md",
     "docs/DATASET_CONTRACT.md"
   ]
 }

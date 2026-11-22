@@ -27,7 +27,7 @@ the corpus changes. For the rat intake, the
 classifications while preserving other retained authorities. A new dataset also changes the shared quality and author
 ledgers that dated verification reports pin. Those pins are replayed in the
 maintainer's checkout (its `check:verification-advancement`), which this
-repository does not carry; record the replay as pending in `TODOS.md` (see
+repository does not carry; record the replay as pending in a GitHub issue (see
 [verification](#verification)). Context generation does not rebuild scientific data.
 
 The registry's `expressionUnit` is authoritative for display: `buildPopData`,
@@ -87,7 +87,9 @@ Inspect `src/data/datasetQualityR460.ts`, `pipelineQc.ts`,
 `authorConcordanceR460.ts` and the relevant audit/builder scripts; the pinned
 `datasetQuality.ts` and `authorConcordance.ts` serve sealed producers only. Use `check:author-validation` and the applicable dated intake/replay checks from
 package.json; they need retained inputs that `pnpm run fetch:data` restores only
-in part. The maintainer's checkout also runs `check:quality`, which is not here.
+in part. The maintainer's checkout also runs `check:quality`, which is not here;
+`pnpm exec tsx scripts/build_quality_report_r460.mts --check` checks the quality
+report's freshness, given the same restored inputs.
 Run `pnpm run check:bundle-eol` before an audit records any SHA-256 pin: pin
 writers hash the working file, and a stale copy whose line endings differ from
 the committed blob yields a pin that no clean checkout reproduces.

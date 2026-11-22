@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "d0dc4bc6a4ce64184841066de94cee09033550c7ea4707eb987e5d3579ddceb1",
+  "fingerprint": "ef2e748bedc60f226a3d2d357a8364e57c45a5f07476991777d71a876ff46986",
   "outcome": "updated",
-  "explanation": "Directory reorganization: loose docs moved to docs/runbooks/ and docs/records/, and deploy, fetch and dev tooling scripts moved to scripts/deploy/, scripts/fetch/ and scripts/dev/. package.json script entries, docs/README.md, the new scripts/README.md index and .vscode/settings.json file nesting reflect the new layout; evidence producers stay at scripts/ by design.",
+  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: PROJECT_GUIDANCE.md and the refactor checklist point follow-ups and pending ledger rebuilds at GitHub issues. From this branch: package.json script paths, docs/README.md, scripts/README.md and .vscode/settings.json reflect the new layout.",
   "references": [
+    "docs/PROJECT_GUIDANCE.md",
+    "docs/runbooks/REFACTOR_CHECKLIST.md",
     "package.json",
-    "docs/README.md",
     "scripts/README.md",
     ".vscode/settings.json"
   ]

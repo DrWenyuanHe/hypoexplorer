@@ -166,7 +166,10 @@ outputs are final:
    `npm run check:upstream`, `npm run check:query-index`,
    `npm run check:expression-index`, `npm run check:oxt-avp`,
    `npm run check:author-validation`, `npm run check:quality` and
-   `npm run check:verification-advancement`.
+   `npm run check:verification-advancement`. The last two exist only in the
+   maintainer's checkout; elsewhere run
+   `npx tsx scripts/build_quality_report_r460.mts --check` and record the
+   advancement replay as pending in a GitHub issue.
 8. Complete TypeScript, lint, relevant tests, application build and the context
    maintenance procedure in `docs/agent-context/README.md`. Validate the final
    combined checkout after all registry, evidence and documentation edits.
