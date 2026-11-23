@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "b876b0d3b792447999c9a07985b8190d53af8e887125e9dce94ad29802542884",
-  "outcome": "updated",
-  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: the verification route and author-validation README name build_quality_report_r460.mts --check as the public quality-report freshness check. Links into moved runbooks resolve under docs/runbooks/; policies and ledgers are unchanged.",
+  "fingerprint": "975fc28333e90de51e2a061fe0a5e0dc2e2629a6e81110c9ada5553e95324573",
+  "outcome": "no-impact",
+  "explanation": "Only the shared CONTEXT.md vocabulary and the HypoMap note in workflows.md changed: the atlas file shape now lives in the data-origin layout while hypomapAtlas.mts keeps the release integrity checks. QC review, evidence authoring and verification commands are unchanged.",
   "references": [
+    "CONTEXT.md",
     "docs/agent-context/workflows.md",
-    "data/author-validation/README.md",
-    "scripts/build_quality_report_r460.mts"
+    "scripts/lib/hypomapAtlas.mts"
   ]
 }

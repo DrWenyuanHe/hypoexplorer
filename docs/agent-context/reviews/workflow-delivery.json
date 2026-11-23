@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "1a0cbd870d00b602a9af8dd850deb673374fb0c7930268c590e2c636a83d1903",
+  "fingerprint": "c9730bcd4ad63f3315da6143775affdc8cdb89895cd7dd6070ceef54b3140033",
   "outcome": "updated",
-  "explanation": "Directory reorganization: loose docs moved to docs/runbooks/ and docs/records/, and deploy, fetch and dev tooling scripts moved to scripts/deploy/, scripts/fetch/ and scripts/dev/. The delivery runbook and catalog now cite scripts/deploy/ and scripts/fetch/ paths and the moved edge, publication and loading docs; commands keep their pnpm names.",
+  "explanation": "Delivery now reads one data-origin layout (src/data/dataOriginLayout.ts) for pointer keys, build-id rules, generation prefixes, cache policy, purge prefixes and WAF admission, and one query-generation reader (scripts/lib/queryGeneration.mts) behind prepare:deploy, fetch:query and the uploader. The uploader publishes only WAF-admitted keys and reports others. delivery.md, EDGE_PROTECTION.md and the catalog sources describe this; Cloudflare payloads are byte-identical.",
   "references": [
     "docs/agent-context/delivery.md",
-    "docs/agent-context/catalog.json",
-    "package.json"
+    "docs/runbooks/EDGE_PROTECTION.md",
+    "scripts/lib/queryGeneration.mts",
+    "scripts/deploy/upload_bundles_r2.mts",
+    "src/data/dataOriginLayout.ts"
   ]
 }

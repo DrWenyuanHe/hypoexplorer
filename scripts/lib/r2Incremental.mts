@@ -3,9 +3,9 @@ import { mkdir, open, readFile, rename, rm, writeFile, type FileHandle } from 'n
 import path from 'node:path';
 import { promisify } from 'node:util';
 import zlib from 'node:zlib';
+import { isPointerKey, originObject } from '../../src/data/dataOriginLayout';
 import { uploadWithPublicationBarrier } from './uploadPublication.mjs';
 
-export const R2_POINTER_KEYS = new Set(['query/tracks.js', 'query/expression-manifest.js']);
 const compress = promisify(zlib.brotliCompress);
 const decompress = promisify(zlib.brotliDecompress);
 const HTTP_FIELDS = ['cacheControl', 'cacheExpiry', 'contentDisposition', 'contentEncoding', 'contentLanguage', 'contentType'] as const;
@@ -32,32 +32,8 @@ export interface R2PreparedObject {
 export const digest = (algorithm: 'sha256' | 'md5', bytes: Uint8Array | string): string =>
   createHash(algorithm).update(bytes).digest('hex');
 
-export function queryPublicationPrefixes(tracksBuildId: unknown, expressionBuildId: unknown, expressionOnly: boolean): string[] {
-  if (typeof expressionBuildId !== 'string' || !/^[a-f0-9]{64}$/.test(expressionBuildId)) throw new Error('Expression query pointer has an invalid build ID.');
-  const expression = [`query/expression/${expressionBuildId}/`, 'query/expression-manifest.js'];
-  if (expressionOnly) return expression;
-  if (typeof tracksBuildId !== 'string' || !/^[a-z0-9]{1,64}$/.test(tracksBuildId)) throw new Error('Track query pointer has an invalid build ID.');
-  return [`query/${tracksBuildId}/`, 'query/tracks.js', ...expression];
-}
-
 export function metadataHash(metadata: R2HttpMetadata): string {
   return digest('sha256', JSON.stringify(HTTP_FIELDS.map((field) => metadata[field] ?? '')));
-}
-
-export function objectMetadata(key: string): R2HttpMetadata {
-  const extension = path.extname(key).toLowerCase();
-  const types: Record<string, string> = {
-    '.js': 'application/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8',
-    '.csv': 'text/csv; charset=utf-8', '.txt': 'text/plain; charset=utf-8',
-    '.map': 'application/json; charset=utf-8', '.pdf': 'application/pdf',
-    // HypoMap .json.gz: gzip bytes with no Content-Encoding, so neither the edge
-    // nor the browser decodes them before the app checks their SHA-256.
-    '.gz': 'application/gzip',
-  };
-  return {
-    contentType: types[extension] ?? 'application/octet-stream',
-    cacheControl: R2_POINTER_KEYS.has(key) ? 'public, max-age=300' : 'public, max-age=31536000, immutable',
-  };
 }
 
 /** Cache bytes, not a claim that an object exists remotely. Every hit is verified. */
@@ -67,7 +43,9 @@ export async function prepareR2Object(file: string, key: string, cacheDirectory:
 } = {}): Promise<R2PreparedObject> {
   const source = await readFile(file);
   const sourceSha256 = digest('sha256', source);
-  const encoded = ['.js', '.json', '.csv', '.txt', '.map'].includes(path.extname(file).toLowerCase()) && source.length >= 4096;
+  // Type, lifetime and compressibility are the data-origin layout's, per key.
+  const { contentType, cacheControl, compressible } = originObject(key);
+  const encoded = compressible && source.length >= 4096;
   const settings = encoded ? `br:q11:size-hint:node-${process.versions.brotli}:${options.encoderVersion ?? '1'}` : 'identity:1';
   const cacheKey = digest('sha256', `${sourceSha256}:${settings}`);
   await mkdir(cacheDirectory, { recursive: true });
@@ -91,7 +69,7 @@ export async function prepareR2Object(file: string, key: string, cacheDirectory:
     try { await writeFile(temporary, stored); await rename(temporary, uploadPath); }
     finally { await rm(temporary, { force: true }); }
   }
-  const httpMetadata = { ...objectMetadata(key), ...(encoded ? { contentEncoding: 'br' } : {}) };
+  const httpMetadata: R2HttpMetadata = { contentType, cacheControl, ...(encoded ? { contentEncoding: 'br' } : {}) };
   return {
     key, sourceSha256, sourceSize: source.length,
     storedSha256: digest('sha256', stored), storedMd5: digest('md5', stored), storedSize: stored.length,
@@ -139,9 +117,9 @@ export async function synchronizeR2Objects(objects: readonly R2PreparedObject[],
   const result = { uploaded: [] as string[], unchanged, planned, unverifiable,
     failures: [] as Array<{ object: R2PreparedObject; error: unknown }>, skippedPointers: [] as string[] };
   if (options.dryRun || !changed.length) return result;
-  const pointers = changed.filter((object) => R2_POINTER_KEYS.has(object.key));
-  const payloads = changed.filter((object) => !R2_POINTER_KEYS.has(object.key));
-  const required = objects.filter((object) => !R2_POINTER_KEYS.has(object.key));
+  const pointers = changed.filter((object) => isPointerKey(object.key));
+  const payloads = changed.filter((object) => !isPointerKey(object.key));
+  const required = objects.filter((object) => !isPointerKey(object.key));
   const upload = async (object: R2PreparedObject) => {
     const bytes = await readFile(object.uploadPath);
     if (bytes.length !== object.storedSize || digest('sha256', bytes) !== object.storedSha256) {
@@ -166,7 +144,7 @@ export async function synchronizeR2Objects(objects: readonly R2PreparedObject[],
     return current;
   };
   let current = await verify([]);
-  for (const pointer of objects.filter((object) => R2_POINTER_KEYS.has(object.key))) {
+  for (const pointer of objects.filter((object) => isPointerKey(object.key))) {
     if (!sameRemote(initial.get(pointer.key), current.get(pointer.key))) {
       throw new Error(`Concurrent publication detected: ${pointer.key} changed. No new pointers were published.`);
     }
@@ -189,7 +167,7 @@ export async function synchronizeR2Objects(objects: readonly R2PreparedObject[],
     }
   }
   // Verify unchanged pointers too: a publisher can have started during our PUTs.
-  await verify(objects.filter((object) => R2_POINTER_KEYS.has(object.key)));
+  await verify(objects.filter((object) => isPointerKey(object.key)));
   return result;
 }
 

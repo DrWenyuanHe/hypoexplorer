@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "6332afd571d1a070691152954777958570d37caa7380be7a3af0e7b320d0b822",
+  "fingerprint": "676902f75e5fb84f10cca0e736b2786dee9129052d37fb2dbef721751654005c",
   "outcome": "no-impact",
-  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). The refactor checklist now lives at docs/runbooks/REFACTOR_CHECKLIST.md and, from main, tracks follow-ups in GitHub issues. The ui-change route, views, routing and exports are unchanged.",
+  "explanation": "Only CONTEXT.md gained the Data-origin layout entry, a delivery-side module. Views, routing, exports and the ui-change route are unchanged; originHealth.ts probes the same /query/tracks.js path.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "docs/runbooks/REFACTOR_CHECKLIST.md"
+    "CONTEXT.md",
+    "docs/agent-context/workflows.md"
   ]
 }

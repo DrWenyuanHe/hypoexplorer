@@ -7,7 +7,8 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 const pin = vi.hoisted(() => ({ tag: 'hypomap-atlas-test', archive: 'hypomap-atlas.tar.gz', archiveSha256: '', manifestSha256: '' }));
 vi.mock('../../hypomap-release.json', () => ({ default: pin }));
 
-const { HYPOMAP_KEY_PREFIX, installedHypomapAtlas } = await import('../../scripts/lib/hypomapAtlas.mjs');
+const { installedHypomapAtlas } = await import('../../scripts/lib/hypomapAtlas.mjs');
+const { HYPOMAP_KEY_PREFIX } = await import('../data/dataOriginLayout');
 
 const sha = (bytes: Buffer | string) => createHash('sha256').update(bytes).digest('hex');
 const roots: string[] = [];

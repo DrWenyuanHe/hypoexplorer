@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { expressionManifestKey, isBuildId, POINTERS } from '../../src/data/dataOriginLayout';
 import { sha256 } from './releaseBuild.mjs';
 
 export interface ServedDataCheck { ok: boolean; name: string; detail: string }
@@ -19,16 +20,17 @@ export async function verifyServedReleaseData(
 ): Promise<ServedDataCheck[]> {
   const results: ServedDataCheck[] = [];
   const version = `?v=${encodeURIComponent(options.bundleVersion)}`;
+  const expressionBuildId = isBuildId('expression', options.expressionBuildId) ? options.expressionBuildId : null;
   const targets = [
-    { path: '/query/tracks.js', suffix: version, name: 'deployed query pointer matches release SHA-256', pinnedHash: options.querySha256 },
-    { path: '/query/expression-manifest.js', suffix: version, name: 'deployed expression pointer matches local bytes' },
-    ...(options.expressionBuildId && /^[a-f0-9]{64}$/.test(options.expressionBuildId) ? [{
-      path: `/query/expression/${options.expressionBuildId}/manifest.js`, suffix: '',
+    { path: `/${POINTERS.tracks.key}`, suffix: version, name: 'deployed query pointer matches release SHA-256', pinnedHash: options.querySha256 },
+    { path: `/${POINTERS.expression.key}`, suffix: version, name: 'deployed expression pointer matches local bytes' },
+    ...(expressionBuildId ? [{
+      path: `/${expressionManifestKey(expressionBuildId)}`, suffix: '',
       name: 'deployed pinned expression manifest matches local bytes',
     }] : []),
     ...REPRESENTATIVE_TRACKS.map((path) => ({ path, suffix: version, name: `sampled track matches local SHA-256: ${path}` })),
   ];
-  if (!options.expressionBuildId || !/^[a-f0-9]{64}$/.test(options.expressionBuildId)) {
+  if (!expressionBuildId) {
     results.push({ ok: false, name: 'deployed pinned expression manifest matches local bytes', detail: 'No valid local expression build identity' });
   }
   for (const target of targets) {

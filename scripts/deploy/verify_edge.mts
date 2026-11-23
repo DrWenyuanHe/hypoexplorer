@@ -10,7 +10,7 @@
 // Checks:
 //   1. the cache key ignores ?v=: the same pointer fetched with two fresh random
 //      ?v= values is a cache HIT the second time;
-//   2. both query pointers carry a 300-second browser TTL (max-age=300);
+//   2. both query pointers carry the layout's pointer TTL (max-age=300);
 //   3. a disallowed method and disallowed paths are blocked (403) by the WAF,
 //      with no sign of an R2 response (no ETag / Last-Modified / cf-cache-status);
 //   4. GET and HEAD of a real object still succeed;
@@ -21,7 +21,9 @@
 //      response to a request without Origin still carries CORS for the app.
 //      APP_ORIGIN overrides the app origin (default https://hypoexplorer.com).
 import { randomBytes } from 'node:crypto';
-import { HYPOMAP_PATH_PREFIX } from '../lib/hypomapAtlas.mjs';
+import { HYPOMAP_KEY_PREFIX, POINTER_MAX_AGE_SECONDS, POINTER_NAMES, POINTERS } from '../../src/data/dataOriginLayout';
+
+const HYPOMAP_PATH_PREFIX = `/${HYPOMAP_KEY_PREFIX}`;
 
 const origin = (process.env.DATA_ORIGIN ?? 'https://data.hypoexplorer.com').replace(/\/+$/, '');
 const appOrigin = (process.env.APP_ORIGIN ?? 'https://hypoexplorer.com').replace(/\/+$/, '');
@@ -30,7 +32,7 @@ const checkAtlas = process.argv.includes('--hypomap');
 // routed (runbook step 3). It skips check 5 and only reports whether the gate answered.
 const allowGate = process.argv.includes('--allow-gate');
 let gateSeen = false;
-const POINTERS = ['/query/tracks.js', '/query/expression-manifest.js'] as const;
+const POINTER_PATHS = POINTER_NAMES.map((name) => `/${POINTERS[name].key}`);
 const results: Array<{ ok: boolean; name: string; detail: string }> = [];
 const check = (name: string, ok: boolean, detail: string) => results.push({ ok, name, detail });
 const version = () => randomBytes(16).toString('hex');
@@ -56,17 +58,17 @@ const describe = (response: Response) =>
   `HTTP ${response.status}, cf-cache-status=${response.headers.get('cf-cache-status') ?? '-'}, cache-control=${response.headers.get('cache-control') ?? '-'}`;
 
 // 1 + 2 + 4: query-string-insensitive cache and the pointer TTL.
-for (const pointer of POINTERS) {
+for (const pointer of POINTER_PATHS) {
   const first = await probe('GET', `${pointer}?v=${version()}`);
   const second = await probe('GET', `${pointer}?v=${version()}`);
   check(`GET ${pointer} succeeds`, first.status === 200 && second.status === 200, `${describe(first)}; ${describe(second)}`);
   check(`cache key ignores ?v= (${pointer})`, second.headers.get('cf-cache-status') === 'HIT',
     `first ${first.headers.get('cf-cache-status') ?? '-'}, second (new random ?v=) ${second.headers.get('cf-cache-status') ?? '-'}`);
   const age = maxAge(second.headers.get('cache-control'));
-  check(`300 s browser TTL (${pointer})`, age === 300, `cache-control: ${second.headers.get('cache-control') ?? '(none)'}`);
+  check(`${POINTER_MAX_AGE_SECONDS} s browser TTL (${pointer})`, age === POINTER_MAX_AGE_SECONDS, `cache-control: ${second.headers.get('cache-control') ?? '(none)'}`);
 }
-const head = await probe('HEAD', POINTERS[0]);
-check(`HEAD ${POINTERS[0]} succeeds`, head.status === 200, describe(head));
+const head = await probe('HEAD', POINTER_PATHS[0]);
+check(`HEAD ${POINTER_PATHS[0]} succeeds`, head.status === 200, describe(head));
 
 // 3: WAF blocks, answered before cache or R2.
 const blocked = async (method: string, path: string, rule: string) => {
@@ -75,8 +77,8 @@ const blocked = async (method: string, path: string, rule: string) => {
   check(`${rule}: ${method} ${path} blocked`, response.status === 403 && !fromOrigin.length,
     `HTTP ${response.status}${fromOrigin.length ? `, origin headers present: ${fromOrigin.join(', ')}` : ''}`);
 };
-await blocked('POST', POINTERS[0], 'method rule');
-await blocked('OPTIONS', POINTERS[0], 'method rule');
+await blocked('POST', POINTER_PATHS[0], 'method rule');
+await blocked('OPTIONS', POINTER_PATHS[0], 'method rule');
 await blocked('GET', `/robots.txt?v=${version()}`, 'path rule');
 await blocked('GET', `/elsewhere/${version()}.js`, 'path rule');
 await blocked('GET', `/datasets/${version()}.txt`, 'path rule');

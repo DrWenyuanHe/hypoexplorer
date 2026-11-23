@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "ef2e748bedc60f226a3d2d357a8364e57c45a5f07476991777d71a876ff46986",
+  "fingerprint": "e66db7576c3330f8f32c17ef36d0b6b72b31eb564112e74abf7be67e1500594a",
   "outcome": "updated",
-  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: PROJECT_GUIDANCE.md and the refactor checklist point follow-ups and pending ledger rebuilds at GitHub issues. From this branch: package.json script paths, docs/README.md, scripts/README.md and .vscode/settings.json reflect the new layout.",
+  "explanation": "CONTEXT.md names the new Data-origin layout module and the query-generation reader, and vite.config.ts reads the pointer keys, the pointer lifetime and the self-contained service-worker pointer matcher from the layout. The emitted service-worker route and catalog stamps are unchanged; no repository configuration or policy changed.",
   "references": [
-    "docs/PROJECT_GUIDANCE.md",
-    "docs/runbooks/REFACTOR_CHECKLIST.md",
-    "package.json",
-    "scripts/README.md",
-    ".vscode/settings.json"
+    "CONTEXT.md",
+    "vite.config.ts",
+    "src/data/dataOriginLayout.ts"
   ]
 }

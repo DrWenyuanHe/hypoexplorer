@@ -9,6 +9,7 @@
 // without a scheme and match any query string.
 //   https://developers.cloudflare.com/cache/how-to/purge-cache/
 //   https://developers.cloudflare.com/cache/how-to/purge-cache/purge_by_prefix/
+import { originObject } from '../../src/data/dataOriginLayout';
 import { DATA_HOST, ZONE_ID } from './edgeRules.mjs';
 import { CloudflareApiError, type CloudflareClient } from './cloudflareApi.mjs';
 
@@ -16,22 +17,9 @@ export const MAX_PREFIXES_PER_PURGE = 100;
 
 export type PurgeRequest = { prefixes: string[] } | { hosts: string[] };
 
-/**
- * The narrowest prefix that covers a changed key: one directory per dataset or
- * query build, one for the QC PDF pool, and the exact key for top-level files
- * such as the two query pointers.
- */
-export function purgePrefixForKey(key: string): string {
-  const clean = key.replace(/^\/+/, '');
-  const parts = clean.split('/');
-  if (parts[0] === 'qc') return 'qc/';
-  if (parts[0] === 'query' && parts[1] === 'expression' && parts.length >= 4) return `${parts.slice(0, 3).join('/')}/`;
-  if (parts.length >= 3) return `${parts.slice(0, 2).join('/')}/`;
-  return clean;
-}
-
+/** One purge prefix per changed key's directory (dataOriginLayout's purgePrefix), or the whole host past the request limit. */
 export function purgeRequestForKeys(keys: readonly string[], host = DATA_HOST): PurgeRequest | null {
-  const prefixes = [...new Set(keys.filter(Boolean).map(purgePrefixForKey))].sort().map((prefix) => `${host}/${prefix}`);
+  const prefixes = [...new Set(keys.filter(Boolean).map((key) => originObject(key).purgePrefix))].sort().map((prefix) => `${host}/${prefix}`);
   if (!prefixes.length) return null;
   return prefixes.length > MAX_PREFIXES_PER_PURGE ? { hosts: [host] } : { prefixes };
 }

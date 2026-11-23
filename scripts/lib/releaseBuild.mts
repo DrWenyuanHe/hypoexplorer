@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import assert from 'node:assert/strict';
+import { POINTERS } from '../../src/data/dataOriginLayout';
 import type { ReleaseIdentity } from '../../src/data/releaseIdentity';
 import { readQueryCatalogBuild } from './queryCatalogBuild.mjs';
 import { readExpressionIndexBuild } from './expressionIndexBuildIdentity.mjs';
@@ -61,7 +62,7 @@ export function readReleaseBuild(root: string): ReleaseIdentity {
   if (archived) assert.equal(sourceSha256, archived.release.sourceSha256, 'Archived source fingerprint does not match');
   const tracked = archived ? null : new Set(git(root, ['ls-files', '-z']).split('\0'));
   const changed = archived ? [] : git(root, ['diff', '--name-only', 'HEAD', '-z']).split('\0');
-  const queryPath = resolve(root, 'public/query/tracks.js');
+  const queryPath = resolve(root, 'public', POINTERS.tracks.key);
   const query = readQueryCatalogBuild(queryPath);
   const identity = {
     schemaVersion: 1 as const,
@@ -71,7 +72,7 @@ export function readReleaseBuild(root: string): ReleaseIdentity {
     sourceDirty: archived ? archived.release.sourceDirty as boolean : changed.some(isReleaseSource) || files.some((path) => !tracked!.has(path)),
     dataBuildId: query.buildId,
     dataBuildSha256: sha256(readFileSync(queryPath)),
-    expressionBuildId: readExpressionIndexBuild(resolve(root, 'public/query/expression-manifest.js')),
+    expressionBuildId: readExpressionIndexBuild(resolve(root, 'public')),
     // Analysis environment, not a claim that every study used every method.
     analysisVersions: 'R 4.6.0; edgeR 4.10.1; limma 3.68.4; fgsea 1.38.0',
     geneSetVersions: 'msigdbr 26.1.0; MSigDB 2026.1.Hs; study-specific collections in pathway provenance',

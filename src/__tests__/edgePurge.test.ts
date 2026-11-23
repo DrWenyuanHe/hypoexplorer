@@ -1,25 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 import { CloudflareApiError, createCloudflareClient, resolveEdgeCredentials } from '../../scripts/lib/cloudflareApi.mjs';
-import { MAX_PREFIXES_PER_PURGE, manualPurgeInstructions, purgeEdgeCache, purgePrefixForKey, purgeRequestForKeys } from '../../scripts/lib/edgePurge.mjs';
+import { MAX_PREFIXES_PER_PURGE, manualPurgeInstructions, purgeEdgeCache, purgeRequestForKeys } from '../../scripts/lib/edgePurge.mjs';
 
-const EXPRESSION = `query/expression/${'a'.repeat(64)}`;
-
-describe('purgePrefixForKey', () => {
-  it('collapses each changed key to the narrowest directory that groups a release', () => {
-    expect(purgePrefixForKey('datasets/macaque_snrna/meta.js')).toBe('datasets/macaque_snrna/');
-    expect(purgePrefixForKey('datasets/macaque_snrna/sub/track.js')).toBe('datasets/macaque_snrna/');
-    expect(purgePrefixForKey('qc/Ast1__Astrocyte_1.pdf')).toBe('qc/');
-    expect(purgePrefixForKey('query/1es70pa3wryw0/genes/a1.js')).toBe('query/1es70pa3wryw0/');
-    expect(purgePrefixForKey(`${EXPRESSION}/s0001.js`)).toBe(`${EXPRESSION}/`);
-    expect(purgePrefixForKey(`${EXPRESSION}/genes/s0001.js`)).toBe(`${EXPRESSION}/`);
-  });
-
-  it('keeps top-level files exact, including both pointers', () => {
-    expect(purgePrefixForKey('query/tracks.js')).toBe('query/tracks.js');
-    expect(purgePrefixForKey('query/expression-manifest.js')).toBe('query/expression-manifest.js');
-    expect(purgePrefixForKey('/query/tracks.js')).toBe('query/tracks.js');
-  });
-});
+// Each key's purge prefix is the data-origin layout's (dataOriginLayout.test.ts).
 
 describe('purgeRequestForKeys', () => {
   it('dedupes, sorts and prefixes the host without a scheme', () => {

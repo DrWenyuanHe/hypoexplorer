@@ -27,6 +27,7 @@ import zlib from 'node:zlib';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { parsePointer, POINTERS } from '../../src/data/dataOriginLayout';
 import { listDatasets } from '../../src/data/datasets';
 import { manifestFreshness, REBUILD_HINT } from '../../src/data/indexFreshness';
 import { readReleaseBuild } from '../lib/releaseBuild.mjs';
@@ -508,7 +509,7 @@ if (appLocalLen !== null) {
   const SENTINEL = `v=${BUNDLE_VERSION}`;
   const LEGACY = [
     `/datasets/macaque_snrna/meta.js?${SENTINEL}`,
-    `/query/tracks.js?${SENTINEL}`,
+    `/${POINTERS.tracks.key}?${SENTINEL}`,
     `/qc/?${SENTINEL}`,
   ];
   const problems: string[] = [];
@@ -710,7 +711,7 @@ check(
 {
   type QueryManifest = Parameters<typeof manifestFreshness>[0] & { buildId?: string };
   const CHECK_NAME = 'deployed query manifest is fresh for this registry';
-  const manifestUrl = `${DATA_ORIGIN}/query/tracks.js?v=${BUNDLE_VERSION}`;
+  const manifestUrl = `${DATA_ORIGIN}/${POINTERS.tracks.key}?v=${BUNDLE_VERSION}`;
   let detailOnFailure: string | null = null;
   let manifest: QueryManifest | null = null;
   try {
@@ -745,19 +746,18 @@ check(
 
     let buildNote = '';
     try {
-      const localTracks = readFileSync(path.resolve(__dirname, '../..', 'public', 'query', 'tracks.js'), 'utf8');
-      const localBuildId = localTracks.match(/"buildId"\s*:\s*"([a-z0-9]+)"/)?.[1] ?? null;
-      if (localBuildId && manifest.buildId !== localBuildId) {
+      const localBuildId = parsePointer('tracks', readFileSync(path.resolve(__dirname, '../..', 'public', POINTERS.tracks.key), 'utf8')).buildId;
+      if (manifest.buildId !== localBuildId) {
         problems.push(
           `deployed buildId "${manifest.buildId ?? '(none)'}" != local "${localBuildId}" — the deployed index `
           + 'is not the one this checkout built (stale-data replays pass every structural need; only the '
           + 'content-derived id catches them)',
         );
-      } else if (localBuildId) {
+      } else {
         buildNote = `, buildId ${localBuildId} matches local`;
       }
     } catch {
-      buildNote = ' (no local public/query/tracks.js — buildId comparison skipped)';
+      buildNote = ` (no readable local public/${POINTERS.tracks.key} — buildId comparison skipped)`;
     }
 
     const shown = problems.slice(0, 3).join('; ');

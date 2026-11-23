@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "df61e11c81fafc8aad8c30536181b344a92557f4253c7116e19659623e8b5353",
-  "outcome": "updated",
-  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: pending verification-advancement replays go to a GitHub issue and OXT/AVP step 7 names the maintainer-only checks. Dataset contract and real shapes stay at docs/; builders and registry rules are unchanged.",
+  "fingerprint": "31e2c0be743e2bd36cb8e5a8c4c5257277811a1f4e5e95541f529afdbe72d524",
+  "outcome": "no-impact",
+  "explanation": "Only the shared CONTEXT.md vocabulary and the delivery catalog entry changed (new Data-origin layout module). Adding or changing a dataset still follows the same registry, bundle-writer and index-rebuild steps; the uploader publishes the same .js bundles.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "data/intake/oxt-avp-2026-10-19/README.md",
-    "docs/DATASET_CONTRACT.md"
+    "CONTEXT.md",
+    "docs/agent-context/workflows.md"
   ]
 }

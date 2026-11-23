@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "df711276c587705cd067a1ebac77b5895a90b657062023110bc21fbf55d50454",
+  "fingerprint": "cb1cfe19ad3729836daa25357c401a299dcf2db85b7b33092ccf11adbcb35304",
   "outcome": "no-impact",
-  "explanation": "Directory reorganization: loose docs moved to docs/runbooks/ and docs/records/, and deploy, fetch and dev tooling scripts moved to scripts/deploy/, scripts/fetch/ and scripts/dev/. One registry test comment now cites docs/runbooks/REFACTOR_CHECKLIST.md; no assertion, fixture or snapshot changed.",
+  "explanation": "Data-origin layout refactor: dataOriginLayout.test.ts adds one per-key table (tree, mutability, Cache-Control, Content-Type, purge prefix, WAF admission), the uploader/WAF and pointer-TTL invariants and build-id parsing; queryGeneration.test.ts covers the reader over a temp directory and an in-memory HTTP origin. The purgePrefixForKey, pathAllowed and queryPublicationPrefixes cases moved into that table. Test conventions are unchanged.",
   "references": [
-    "src/__tests__/datasetsRegistry.test.ts",
-    "docs/runbooks/REFACTOR_CHECKLIST.md"
+    "src/__tests__/dataOriginLayout.test.ts",
+    "src/__tests__/queryGeneration.test.ts",
+    "src/__tests__/edgeRules.test.ts",
+    "src/__tests__/edgePurge.test.ts"
   ]
 }
