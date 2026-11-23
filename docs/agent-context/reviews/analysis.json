@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "analysis",
-  "fingerprint": "0c0d50c253c600c6fa2ab281bdeb4e6493d17ec4115bfd4dbd88ce1206637f33",
+  "fingerprint": "2ab4ce9f0e10b00173fbcf03386c1c7ab1b744d2308ffb87b8fec4ea16852208",
   "outcome": "updated",
-  "explanation": "Merges main into the Codex closure pass. From this branch: 86 upheld worker/refuter proposals merged into manual-review, verification-review and comparability-review records with 15 new comparison specs, six spec replacements held, and the pass record under codex-2026-11-21/. From main: the quality-report freshness command and the directory reorganization of docs and tooling. No pipeline, model, bundle or producer changed.",
+  "explanation": "Adds build_release_bundle.mts to the Codex closure pass folder. It builds the pass evidence part for the next hypoexplorer-data release under the data repository rules: the pass own scripts and records are scrubbed and packed reproducibly, and third-party inputs and derived tables are listed in sources.json by URL and SHA-256. The pass README records it. Ledgers, pipelines and producers are unchanged.",
   "references": [
+    "data/author-validation/codex-2026-11-21/build_release_bundle.mts",
     "data/author-validation/codex-2026-11-21/README.md",
-    "data/author-validation/additional-comparison-specs.json",
-    "data/author-validation/README.md",
-    "scripts/build_quality_report_r460.mts"
+    "data-release.json"
   ]
 }
