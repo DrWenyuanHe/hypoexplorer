@@ -74,6 +74,25 @@ describe('compareCell', () => {
   ])('%s', (_, col, gene, expected) => {
     expect(summarize(compareCell(col, popDataMap, gene))).toEqual(expected);
   });
+
+  it('reads the samples only when a reader asks for the arms, and only once', () => {
+    // A summary table or tally needs only the DE record; resolving the arms
+    // walks the sample axis, which is quadratic on a large track.
+    const base = pop();
+    let reads = 0;
+    const counted: PopData = { ...base, get sampleOrder() { reads += 1; return base.sampleOrder; } };
+    const cols = [column('counted')];
+    const cells = cols.map((c) => compareCell(c, { counted }, 'POMC'));
+    expect(tallyGene(cells)).toMatchObject({ detected: 1 });
+    expect(reads).toBe(0);
+    const [cell] = cells;
+    if (cell.kind !== 'measured') throw new Error('expected a measured cell');
+    expect(cell.arms.map((a) => a.mean)).toEqual([15, 35]);
+    const afterFirst = reads;
+    expect(afterFirst).toBeGreaterThan(0);
+    expect(cell.arms).toBe(cell.arms);
+    expect(reads).toBe(afterFirst);
+  });
 });
 
 describe('tallyGene', () => {

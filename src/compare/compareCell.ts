@@ -59,8 +59,8 @@ export type CompareCell =
     /** The column's own spelling of the gene. */
     gene: string;
     de: GeneDERecord;
-    /** [baseline, case] for the column's contrast; empty when it has none. */
-    arms: CompareArm[];
+    /** [baseline, case] for the column's contrast; empty when it has none. Read lazily, once. */
+    readonly arms: CompareArm[];
   };
 
 // A column the caller did not flag but has no popData for is still a column
@@ -102,7 +102,18 @@ export function compareCell(
   }
   const de = resolveGeneCI(pd, gene);
   if (!de) return { kind: 'not-detected', column, pd };
-  return { kind: 'measured', column, pd, gene: de.gene, de, arms: armsOf(pd, de.gene) };
+  // The arms are read on first use and kept: most readers (the summary tables,
+  // the tally, the pathway view) need only the DE record, and resolving an arm
+  // walks the whole sample axis, which on a 391-sample track across a long gene
+  // list would stall every render for numbers nobody shows.
+  let arms: CompareArm[] | undefined;
+  return {
+    kind: 'measured', column, pd, gene: de.gene, de,
+    get arms() {
+      arms ??= armsOf(pd, de.gene);
+      return arms;
+    },
+  };
 }
 
 /** The DE record of a measured cell, or undefined for the other two kinds. */
