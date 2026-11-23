@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-dataset-tracker",
-  "fingerprint": "6a18e7844c4441073e967d10e08eecb593b640ae2394c0f14e29877558f5d3b0",
-  "outcome": "no-impact",
-  "explanation": "Layout-only rework of the tracker view: three primary filters plus a More filters panel declared once in trackerFilterDefs, removable active-filter chips with Clear all, empty status chips hidden, and one-line table rows with merged species/region and n columns and icon-only quality badges. DEFAULT_TRACKER_FILTERS moves into trackerLogic; firstN no longer keeps a list comma. Filtering, sorting, review state and routes are unchanged, so the module description stays accurate.",
+  "fingerprint": "d0d2ae1ba8c5e9c874577ba919b8f77abe0ca6ff5f9d09d91180815a1dd28c10",
+  "outcome": "updated",
+  "explanation": "DatasetTrackerView drops the beta banner from its header and imports the shared siteChrome.css for its header-row styles instead of reaching them through BetaNotice.",
   "references": [
-    "src/dataset-tracker/TrackerFilters.tsx",
-    "src/dataset-tracker/TrackerTable.tsx",
-    "src/dataset-tracker/trackerLogic.ts"
+    "src/dataset-tracker/DatasetTrackerView.tsx",
+    "src/common/siteChrome.css"
   ]
 }

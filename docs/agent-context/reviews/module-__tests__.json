@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "18b61f0cc8a2f07ca412ddaa022fac4904c7be1b17ad5c83026f13a930db1da4",
+  "fingerprint": "a04184ff629e1cee24f349c110f9786f9452e72e1373837b240d5f455f23287a",
   "outcome": "updated",
-  "explanation": "searchVocabulary.test.ts adds a staged-load test (a held-back gene index still lets names.js answer oxytocin through subscribeSearchVocabulary and peekSearchVocabulary(true), while peekSearchVocabulary() stays null until the full union) and a name-index reuse test covering appended unnamed symbols, appended named genes and an unrelated gene list. unifiedSearchBox.test.tsx and hubUnits.test.tsx expect the partial option and the hub load on pointer enter.",
+  "explanation": "Merge of two test changes. From main: searchVocabulary.test.ts adds the staged-load and name-index reuse tests, and unifiedSearchBox.test.tsx and hubUnits.test.tsx expect the partial suggestion option and the hub vocabulary load on pointer enter. From this branch: seoPages.test.ts asserts that study, guide and About pages contain no 'beta testing' wording and that study page footers link SOURCE_REPO_URL and DATA_REPO_URL on GitHub.",
   "references": [
+    "src/__tests__/seoPages.test.ts",
     "src/__tests__/searchVocabulary.test.ts",
     "src/__tests__/unifiedSearchBox.test.tsx",
-    "src/__tests__/hubUnits.test.tsx",
-    "src/search/searchVocabulary.ts"
+    "src/__tests__/hubUnits.test.tsx"
   ]
 }

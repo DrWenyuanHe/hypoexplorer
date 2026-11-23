@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "8e7aa5e6cd54267e5bb57b744c350278f425a4cdae289f47b8ad63fb63e39e50",
+  "fingerprint": "697f0088870cf2d2356c4120c90ad6f5949a94e1c560437c224fdddeaa94d38e",
   "outcome": "updated",
-  "explanation": "Adds src/data/dataOriginLayout.ts, the pure DOM-free statement of the R2 data origin: bundle trees, the two pointers with their build-id formats and one parser, query-generation prefixes and the per-key object policy. originHealth.ts now probes the tracks pointer key from it. CONTEXT.md gains a Data-origin layout entry; loaders and the registry are unchanged.",
+  "explanation": "siteInfo.ts drops BETA_NOTICE and adds SOURCE_REPO_URL and DATA_REPO_URL, the GitHub repositories for the application source and the processed data release.",
   "references": [
-    "src/data/dataOriginLayout.ts",
-    "src/data/originHealth.ts",
-    "CONTEXT.md"
+    "src/data/siteInfo.ts",
+    "data-release.json"
   ]
 }

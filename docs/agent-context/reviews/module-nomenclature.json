@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-nomenclature",
-  "fingerprint": "03ba4edfd8cec5f406d140724600ef69c13c1dea96aa18e0e5dd3c1b71dfc859",
-  "outcome": "updated",
-  "explanation": "NomenclatureView moves its header and filter styling into nomenclature.css: a wider search field, and the Authority and Status filters as two labelled groups whose chips keep aria-pressed and scroll sideways on one line under 900px. The long authority note sits in a details element. The table, matching and data loading are unchanged.",
+  "fingerprint": "a5580816c33ba7db4df5697e94dd22012a5ad4b54db8aa06625af8585087cc71",
+  "outcome": "no-impact",
+  "explanation": "NomenclatureView builds its source TSV link from the shared SOURCE_REPO_URL constant; the resulting URL and the page behaviour are unchanged.",
   "references": [
     "src/nomenclature/NomenclatureView.tsx",
-    "src/nomenclature/nomenclature.css"
+    "src/data/siteInfo.ts"
   ]
 }

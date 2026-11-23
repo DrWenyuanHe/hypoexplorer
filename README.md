@@ -102,7 +102,7 @@ so the exact build can be identified.
 - **Wenyuan He**: creator and maintainer
 - **Helene Li**: creator and contributor
 
-Questions, corrections and beta feedback: open an
+Questions, corrections and feedback: open an
 [issue](https://github.com/DrWenyuanHe/hypoexplorer/issues) or write to
 wenyuan.he@mail.utoronto.ca.
 

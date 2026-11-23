@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-hub",
-  "fingerprint": "f13512d97bf6cdda95ff613bb0609ceaeef225f627e88e9ede2a0d6072d9b2e1",
+  "fingerprint": "0907197b6639a1be6a20575c16339082324277402c863d8cac3e1da887007ef7",
   "outcome": "updated",
-  "explanation": "LandingHub replaces its entry cards with one list of entry rows (library, expression survey and, when the atlas study is registered, the macaque atlas with a sibling Compare button); the card icons are gone and the nav aligns with the footer edge. Search, routing and the accessible names are unchanged. workflows.md describes the list.",
+  "explanation": "LandingHub drops the beta banner above its bar and adds 'Source code on GitHub' and 'Data repository on GitHub' links, opening in a new tab, to the footer's Reference row. index.html's pre-mount header loses its beta line.",
   "references": [
     "src/hub/LandingHub.tsx",
-    "index.html",
-    "docs/agent-context/workflows.md"
+    "src/data/siteInfo.ts",
+    "index.html"
   ]
 }

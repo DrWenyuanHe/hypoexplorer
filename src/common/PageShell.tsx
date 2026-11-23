@@ -1,5 +1,5 @@
 // The chrome every full-page (non-explorer) view shares: the 4px accent strip,
-// the sticky header with the HypoExplorer logo, beta notice, and Home breadcrumb
+// the sticky header with the HypoExplorer logo and Home breadcrumb
 // trail. GeneReport, PathwayReport and the reference pages are its adapters; the explorer shell (App) keeps its own structurally different
 // topbar, and the hub/tracker keep their CSS-driven chrome.
 //
@@ -8,7 +8,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { Fragment } from 'react';
 import { FONT_MONO, PAGE_ACCENT_GRADIENT } from '../styles/constants';
-import { BetaNotice } from './BetaNotice';
+import './siteChrome.css';
 import { BrandLink } from './BrandLink';
 
 export interface PageShellBreadcrumb {
@@ -79,7 +79,6 @@ export function PageShell({ onHome, breadcrumbs, children, mainStyle, mainClassN
             <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 10 }}>{headerRight}</div>
           )}
         </div>
-        <BetaNotice />
       </header>
 
       <main className={mainClassName} style={{ flex: 1, ...(fill ? { minHeight: 0 } : null), ...mainStyle }}>{children}</main>

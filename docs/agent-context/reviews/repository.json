@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "74e897b6b385b2b89a1e385efba1df277249920bbcc84508b594715904e4262a",
+  "fingerprint": "54e29c0b208777a349bd6826f98d1370cb4f701c3234cf6d4f0b2339af93c00e",
   "outcome": "updated",
-  "explanation": "Merge of two documentation changes among repository sources. From main: docs/agent-context/workflows.md now says the hub vocabulary loads when a pointer first reaches the search box or on first focus, that suggestions follow the partial stages, and that the results page waits for the full vocabulary. From this branch: docs/runbooks/EDGE_PROTECTION.md notes that HEAD on the data host always reports cf-cache-status DYNAMIC and costs an R2 Class B read, and that cache checks must use GET. Build, delivery, rule payloads and data-origin configuration are unchanged.",
+  "explanation": "Merge of documentation changes. From main: workflows.md says the hub vocabulary loads on first pointer or focus and suggestions follow the partial stages; EDGE_PROTECTION.md says HEAD on the data host is never cached and cache checks must use GET. From this branch: all beta testing wording is removed from index.html's descriptions and intro, the README and the SEO runbook, which now says siteInfo shares the GitHub repository links.",
   "references": [
     "docs/agent-context/workflows.md",
     "docs/runbooks/EDGE_PROTECTION.md",
-    "AGENTS.md"
+    "docs/runbooks/SEO.md",
+    "README.md",
+    "index.html"
   ]
 }
