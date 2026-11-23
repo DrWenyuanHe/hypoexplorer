@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "3e8771e89aeb78e02e1c4d10f139c83c31191cdd163fc0a09adf3c113e7eaee6",
+  "fingerprint": "54e29c0b208777a349bd6826f98d1370cb4f701c3234cf6d4f0b2339af93c00e",
   "outcome": "updated",
-  "explanation": "All beta testing wording is removed: the banner in every app header, the crawlable pages' header strip, the study, About and guide page prose, the citation's '[web application; beta]' and the og/twitter/JSON-LD descriptions in index.html. README and the SEO runbook drop the beta feedback wording; the runbook says siteInfo shares the repository links.",
+  "explanation": "Merge of documentation changes. From main: workflows.md says the hub vocabulary loads on first pointer or focus and suggestions follow the partial stages; EDGE_PROTECTION.md says HEAD on the data host is never cached and cache checks must use GET. From this branch: all beta testing wording is removed from index.html's descriptions and intro, the README and the SEO runbook, which now says siteInfo shares the GitHub repository links.",
   "references": [
-    "README.md",
+    "docs/agent-context/workflows.md",
+    "docs/runbooks/EDGE_PROTECTION.md",
     "docs/runbooks/SEO.md",
+    "README.md",
     "index.html"
   ]
 }

@@ -1,10 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "a46e24ecbcea4445873de84634e689c7938a9f12b58ed1e2ad885792cee99553",
+  "fingerprint": "9330e8e41ccc7998aa1176c499d689d270b5841b9865627c53fa26045652d414",
   "outcome": "updated",
-  "explanation": "All beta testing wording is removed: the banner in every app header, the crawlable pages' header strip, the study, About and guide page prose, the citation's '[web application; beta]' and the og/twitter/JSON-LD descriptions in index.html. Shared header styles move to src/common/siteChrome.css; the landing footer and static footers add GitHub links.",
+  "explanation": "Merge of two UI changes. From main: the unified search box shows suggestions from partial vocabulary stages and warms the load on pointer enter. From this branch: the beta banner and beta wording are removed from every app header and static page, shared header styles move to src/common/siteChrome.css, and the landing and static footers link the source and data repositories on GitHub.",
   "references": [
+    "docs/agent-context/workflows.md",
+    "src/search/UnifiedSearchBox.tsx",
     "src/common/siteChrome.css",
     "src/hub/LandingHub.tsx",
     "scripts/lib/seoPages.mts"

@@ -305,8 +305,12 @@ names builder excludes unresolved `ambiguous` authority rows before grouping:
 candidate diagnostics, aliases and dataset reach from those rows are not search
 names. Valid records from other authorities can still supply names for the same
 uppercase symbol; gene-index symbol search remains available.
-vocabulary loads on the box's first focus, so the hub fetches no query data
-until a visitor searches. A direct gene match leads the page as one featured
+vocabulary loads when a pointer first reaches the box or it is first focused, so
+the hub fetches no query data until a visitor reaches for the search. The box's
+suggestions follow `subscribeSearchVocabulary`: named genes show as soon as the
+same-origin `names.js` lands, and the data origin's symbol and pathway indexes
+fold in when they arrive. The results page waits for the full vocabulary
+(`loadSearchVocabulary`), so its counts never shift under the reader. A direct gene match leads the page as one featured
 row, followed by "Also matching": the other genes the query matched (POMCA and
 POMCB for POMC), eight under All and every one on the Genes breakdown. Every
 gene row reads an index-only summary (significant datasets, tracks up and down,
