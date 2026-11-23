@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "ef2e748bedc60f226a3d2d357a8364e57c45a5f07476991777d71a876ff46986",
+  "fingerprint": "1123623b84aba4cf5f6c7f6e88d7ff2905b82297e19cb2e2b7d8c77da87cd6c7",
   "outcome": "updated",
-  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: PROJECT_GUIDANCE.md and the refactor checklist point follow-ups and pending ledger rebuilds at GitHub issues. From this branch: package.json script paths, docs/README.md, scripts/README.md and .vscode/settings.json reflect the new layout.",
+  "explanation": "CONTEXT.md extends the bundle-reader seam entry (listDiskCorpus, jsonpHeader, the new adopters and the SEO pages on readDatasetFromDisk) and adds the query-index corpus read module. The refactor checklist gains the rule that scripts read bundles only through the reader, and the SEO runbook says study-page labels come from it.",
   "references": [
-    "docs/PROJECT_GUIDANCE.md",
+    "CONTEXT.md",
     "docs/runbooks/REFACTOR_CHECKLIST.md",
-    "package.json",
-    "scripts/README.md",
-    ".vscode/settings.json"
+    "docs/runbooks/SEO.md",
+    "scripts/lib/bundleReader.mts"
   ]
 }

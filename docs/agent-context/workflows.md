@@ -8,7 +8,8 @@ Inputs are the study identity, source files, sample design, contrasts and
 analysis outputs. Inspect `src/data/datasets.ts`, registered sidecars and the
 appropriate builder; shared writes use `scripts/lib/bundleWriter.mts` and script
 reads use `scripts/lib/bundleReader.mts` (`readJsonp` for published bytes,
-`readDatasetFromDisk` for what the explorer shows).
+`listDiskCorpus` to sweep `public/datasets`, `readDatasetFromDisk` for what the
+explorer shows). A directory the registry does not name is reported, never read.
 A builder passes every track of a study to one `writeDatasetBundles` call, which
 writes the merged study files and derives QC counts (nSig is FDR<0.05). Sidecar
 intakes build through `buildIntakeStudies` in `scripts/lib/intakeStudies.mts`

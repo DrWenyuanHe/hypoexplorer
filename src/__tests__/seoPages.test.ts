@@ -10,6 +10,8 @@ import { listDatasets } from '../data/datasets';
 import { AUTHOR_EMAIL, AUTHOR_NAME, BETA_NOTICE, SITE_URL } from '../data/siteInfo';
 import type { DatasetMeta } from '../types';
 import { getGuideDocuments } from '../../scripts/lib/seoGuides.mjs';
+import { readDatasetFromDisk } from '../../scripts/lib/bundleReader.mjs';
+import { trackLabel } from '../data/datasetMeta';
 
 const parse = (html: string) => new DOMParser().parseFromString(html, 'text/html');
 const datasets = listDatasets();
@@ -59,6 +61,19 @@ describe('crawlable study build', () => {
     }
     expect(titles.size).toBe(datasets.length);
     expect(descriptions.size).toBe(datasets.length);
+  });
+
+  it('labels every track exactly as the bundle reader (and so the explorer) shows it', () => {
+    for (const dataset of datasets) {
+      const document = parse(readFileSync(join(output, 'studies', dataset.id, 'index.html'), 'utf8'));
+      const shown = Array.from(document.querySelectorAll('tbody tr')).map((row) => row.querySelector('td')?.textContent);
+      const meta = readDatasetFromDisk(dataset).meta;
+      expect(shown, dataset.id).toEqual(meta.populations.map((trackId) => trackLabel(meta, trackId)));
+    }
+    // The published meta.js keeps the source wording; the page shows the reviewed label.
+    const reviewed = readFileSync(join(output, 'studies', 'mouse_pvn_crh_ela_gse174085', 'index.html'), 'utf8');
+    expect(reviewed).toContain('PVN CRH neurons (litter pseudobulk)');
+    expect(reviewed).not.toContain('animal pseudobulk');
   });
 
   it('puts only canonical pages in the sitemap and advertises it in robots.txt', () => {

@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "6332afd571d1a070691152954777958570d37caa7380be7a3af0e7b320d0b822",
+  "fingerprint": "d9ecfd78929f0ab4b6142f0a33eef917a775e34e863d38f323f5c8383eb3b765",
   "outcome": "no-impact",
-  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). The refactor checklist now lives at docs/runbooks/REFACTOR_CHECKLIST.md and, from main, tracks follow-ups in GitHub issues. The ui-change route, views, routing and exports are unchanged.",
+  "explanation": "Only the changelog entry and the refactor checklist line about reading bundle files in scripts changed for this route. No view, route, tab or export changed; the UI-change runbook still describes navigation and exports correctly and needs no edit.",
   "references": [
     "docs/agent-context/workflows.md",
-    "docs/runbooks/REFACTOR_CHECKLIST.md"
+    "docs/runbooks/REFACTOR_CHECKLIST.md",
+    "src/changelog/changelog.ts"
   ]
 }

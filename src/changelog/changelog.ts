@@ -6,6 +6,14 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-11-22',
+    title: 'Study pages use the reviewed track label',
+    items: [
+      'The static study page for GSE174085 (early-life adversity, PVN CRH neurons) now names its track "PVN CRH neurons (litter pseudobulk)", as the explorer does. Before, the page used the original file\'s "animal pseudobulk".',
+      'No data, result or analysis changed.',
+    ],
+  },
+  {
     date: '2026-11-21',
     title: 'Quieter explorer, volcano and reference pages',
     items: [

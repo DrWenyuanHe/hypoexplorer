@@ -1,11 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "df711276c587705cd067a1ebac77b5895a90b657062023110bc21fbf55d50454",
-  "outcome": "no-impact",
-  "explanation": "Directory reorganization: loose docs moved to docs/runbooks/ and docs/records/, and deploy, fetch and dev tooling scripts moved to scripts/deploy/, scripts/fetch/ and scripts/dev/. One registry test comment now cites docs/runbooks/REFACTOR_CHECKLIST.md; no assertion, fixture or snapshot changed.",
+  "fingerprint": "076bc615f8348f958c2ad877e65b18cf026b026c73913f237748a3af200ffccf",
+  "outcome": "updated",
+  "explanation": "Bundle-reader adoption: queryIndexCorpus.test.ts drives the query index's corpus read over a temp corpus with missing, malformed, wrong-shape, wrong-global and unregistered bundles; bundleReader.test.ts covers listDiskCorpus and jsonpHeader; seoPages.test.ts pins every study-page track label to readDatasetFromDisk. The private parseExpressionBundle test is removed with the parser, and deployGuards fixtures now use locator globals.",
   "references": [
-    "src/__tests__/datasetsRegistry.test.ts",
-    "docs/runbooks/REFACTOR_CHECKLIST.md"
+    "src/__tests__/queryIndexCorpus.test.ts",
+    "src/__tests__/bundleReader.test.ts",
+    "src/__tests__/seoPages.test.ts",
+    "src/__tests__/deployGuards.test.ts",
+    "src/__tests__/expressionIndexBuild.test.ts"
   ]
 }

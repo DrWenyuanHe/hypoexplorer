@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "1a0cbd870d00b602a9af8dd850deb673374fb0c7930268c590e2c636a83d1903",
+  "fingerprint": "c2bd673036035417ffa891495e585d10b6964e11a06f9cd95cbab32de8c09493",
   "outcome": "updated",
-  "explanation": "Directory reorganization: loose docs moved to docs/runbooks/ and docs/records/, and deploy, fetch and dev tooling scripts moved to scripts/deploy/, scripts/fetch/ and scripts/dev/. The delivery runbook and catalog now cite scripts/deploy/ and scripts/fetch/ paths and the moved edge, publication and loading docs; commands keep their pnpm names.",
+  "explanation": "The query index reads its corpus through scripts/lib/queryIndexCorpus.mts (added to the delivery sources): missing or malformed bundles are skipped and feed the no-partial-index guard, wrong-global bundles throw. The uploader's freshness and pointer reads, the reduced-release macaque check, the deploy verifier and the bundle optimizer parse through the bundle reader; the optimizer no longer evaluates bundles. Index output bytes are unchanged.",
   "references": [
-    "docs/agent-context/delivery.md",
     "docs/agent-context/catalog.json",
-    "package.json"
+    "docs/agent-context/delivery.md",
+    "scripts/build_query_index.mts",
+    "scripts/lib/queryIndexCorpus.mts",
+    "scripts/deploy/upload_bundles_r2.mts"
   ]
 }

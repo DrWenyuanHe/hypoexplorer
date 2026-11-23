@@ -29,6 +29,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { listDatasets } from '../../src/data/datasets';
 import { manifestFreshness, REBUILD_HINT } from '../../src/data/indexFreshness';
+import { MANIFEST_GLOBAL } from '../../src/data/queryWire';
+import { parseJsonp } from '../lib/bundleReader.mjs';
 import { readReleaseBuild } from '../lib/releaseBuild.mjs';
 import { ATLAS_DIRS, TRACKER_CATALOG } from '../lib/deployInputs.mjs';
 import { verifyServedReleaseData } from '../lib/deployedDataVerification.mjs';
@@ -720,9 +722,9 @@ check(
         + 'cross-dataset query takes the slow full-download path. If /query was never uploaded to this '
         + 'origin, run `npm run upload:bundles`.';
     } else {
-      const assignment = res.body.indexOf('=');
-      if (assignment < 0) throw new Error('no assignment in tracks.js');
-      const parsed: unknown = JSON.parse(res.body.slice(assignment + 1).trim().replace(/;\s*$/, ''));
+      // Parsed (never evaluated) by the bundle reader, which also refuses a
+      // body assigning any global but the manifest's.
+      const parsed: unknown = parseJsonp(res.body, MANIFEST_GLOBAL, 'tracks.js');
       // Trust-boundary shape gate: a 200 whose payload parses but is not a
       // manifest (CDN error page, wrong object) must FAIL this check, not
       // throw past it and abort the whole report.

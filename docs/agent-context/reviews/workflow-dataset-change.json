@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "df61e11c81fafc8aad8c30536181b344a92557f4253c7116e19659623e8b5353",
+  "fingerprint": "c0bcad0fb16e023847ee2ea7f04c6f9d09befd709e90c557a6643d1924bd8ec2",
   "outcome": "updated",
-  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: pending verification-advancement replays go to a GitHub issue and OXT/AVP step 7 names the maintainer-only checks. Dataset contract and real shapes stay at docs/; builders and registry rules are unchanged.",
+  "explanation": "Script reads of published bundles now go through scripts/lib/bundleReader.mts everywhere a dataset change is consumed: the query index, expression index, bundle optimizer, upload guards, deploy verifier and SEO study pages. The dataset-change route names listDiskCorpus as the one sweep of public/datasets and states that a directory the registry does not name is reported and never read; CONTEXT.md and the refactor checklist record the same rule.",
   "references": [
     "docs/agent-context/workflows.md",
-    "data/intake/oxt-avp-2026-10-19/README.md",
-    "docs/DATASET_CONTRACT.md"
+    "scripts/lib/bundleReader.mts",
+    "scripts/lib/queryIndexCorpus.mts",
+    "CONTEXT.md",
+    "docs/runbooks/REFACTOR_CHECKLIST.md"
   ]
 }
