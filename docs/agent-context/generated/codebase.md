@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (247):
+Covered source files (248):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -233,6 +233,7 @@ Covered source files (247):
 - [src/__tests__/queryCatalogBuild.test.ts](<../../../src/__tests__/queryCatalogBuild.test.ts>)
 - [src/__tests__/queryCatalogIdentity.test.ts](<../../../src/__tests__/queryCatalogIdentity.test.ts>)
 - [src/__tests__/queryIndex.test.ts](<../../../src/__tests__/queryIndex.test.ts>)
+- [src/__tests__/queryIndexCorpus.test.ts](<../../../src/__tests__/queryIndexCorpus.test.ts>)
 - [src/__tests__/queryWire.test.ts](<../../../src/__tests__/queryWire.test.ts>)
 - [src/__tests__/r2Incremental.test.ts](<../../../src/__tests__/r2Incremental.test.ts>)
 - [src/__tests__/rawTrack.test.ts](<../../../src/__tests__/rawTrack.test.ts>)

@@ -7,7 +7,6 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gzipSync } from 'node:zlib';
 import { getDataset } from '../src/data/datasets';
-import { resolveTrackUrl, sameOriginDataset } from '../src/data/bundleLocators';
 import { EXISTING_EXPRESSION_SOURCES } from '../src/expression-survey/existingCatalog';
 import { expressionForGenes } from '../src/expression-survey/existingExpressionValues';
 import {
@@ -18,18 +17,13 @@ import {
 } from '../src/expression-survey/expressionIndexFormat';
 import type { Dataset, ExpressionGeneResult, ExpressionSource, RawTrack } from '../src/types';
 import { findEolDrift } from './lib/bundleEol.mjs';
+import { datasetBundlePaths, parseJsonp } from './lib/bundleReader.mjs';
 import { writeIndexProduct } from './lib/indexProducts.mjs';
 
 const ROOT = path.resolve('.');
+const PUBLIC_ROOT = path.join(ROOT, 'public');
 const sha256 = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex');
 const jsonp = (global: string, value: unknown): string => `var ${global} = ${JSON.stringify(value)};\n`;
-
-/** Parse only a JSON assignment, never execute a downloaded/source script. */
-export function parseExpressionBundle(text: string): RawTrack {
-  const match = /^\s*(?:var|let|const)\s+[A-Za-z_$][\w$]*\s*=\s*([\s\S]*?)\s*;?\s*$/.exec(text);
-  if (!match) throw new Error('Expected one JSON bundle assignment.');
-  return JSON.parse(match[1].replace(/;$/, '')) as RawTrack;
-}
 
 export function indexedSourceFromRaw(source: ExpressionSource, raw: RawTrack, dataset: Dataset): {
   source: ExpressionIndexSource;
@@ -131,12 +125,15 @@ export async function buildExpressionIndex(options: { outDir?: string; evidenceD
   for (const source of EXISTING_EXPRESSION_SOURCES) {
     const dataset = getDataset(source.datasetId!);
     assert.ok(dataset, `Unknown dataset ${source.datasetId}`);
-    const relativePath = resolveTrackUrl(sameOriginDataset(dataset), source.trackId!).replace(/^\//, '');
+    // Named by the shared locators and parsed (never executed) by the bundle
+    // reader, which refuses a file assigning any other track's global.
+    const bundle = datasetBundlePaths(dataset, { publicRoot: PUBLIC_ROOT }).track(source.trackId!);
+    const relativePath = path.relative(PUBLIC_ROOT, bundle.file).split(path.sep).join('/');
     let raw = rawCache.get(relativePath);
     if (!raw) {
-      const bytes = await readFile(path.join(ROOT, 'public', relativePath));
+      const bytes = await readFile(bundle.file);
       inputs.set(relativePath, { path: `public/${relativePath}`, sha256: sha256(bytes), bytes: bytes.length });
-      raw = parseExpressionBundle(bytes.toString('utf8'));
+      raw = parseJsonp<RawTrack>(bytes.toString('utf8'), bundle.global, `public/${relativePath}`);
       rawCache.set(relativePath, raw);
     }
     const built = indexedSourceFromRaw(source, raw, dataset);

@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "d530ff48d5acb87a04e6900c83c2ecdd0a4c9fc0708256069f7bf4304f5fc0d9",
+  "fingerprint": "819fe7ce6b79af877e2ccb3a827680c9698e7f1d0adc34a8a83fb04820f8dc8a",
   "outcome": "no-impact",
-  "explanation": "Only the dated Codex pass folder and the data-release pin changed. The verification route, its policies, ledger builders, sealed producers and checks are unchanged; fetch:data now also restores the pass evidence the route cites.",
+  "explanation": "Merges main into the Codex closure pass. From main: bundle-reader adoption touches scripts and tests in this route but no evidence producer, ledger or pinned file; macaqueQc.mts, replicationEvidence.mts and historicalEvidence.mts keep their own parsers, and the reduced-release macaque check covers every staged track bundle. From this branch: only review ledgers, the dated pass folder and the data-release pin changed. Verification commands and evidence rules are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "data/author-validation/codex-2026-11-21/README.md",
-    "data-release.json"
+    "data/internal-qc/assessments.generated.json",
+    "data/author-validation/codex-2026-11-21/README.md"
   ]
 }
