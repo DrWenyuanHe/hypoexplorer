@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "975fc28333e90de51e2a061fe0a5e0dc2e2629a6e81110c9ada5553e95324573",
+  "fingerprint": "0487c3a8d9a6b731190ae864908f9ac24bb36456746b9a20d972857606ec4dcb",
   "outcome": "no-impact",
-  "explanation": "Only the shared CONTEXT.md vocabulary and the HypoMap note in workflows.md changed: the atlas file shape now lives in the data-origin layout while hypomapAtlas.mts keeps the release integrity checks. QC review, evidence authoring and verification commands are unchanged.",
+  "explanation": "Only the shared CONTEXT.md vocabulary and the HypoMap note in workflows.md changed: the atlas file shape now lives in the data-origin layout while hypomapAtlas.mts keeps the release integrity checks. The release source allow-list adds hypomap-release.json so archived verify:release can load the layout. QC review, evidence authoring and verification commands are unchanged.",
   "references": [
     "CONTEXT.md",
     "docs/agent-context/workflows.md",
-    "scripts/lib/hypomapAtlas.mts"
+    "scripts/lib/hypomapAtlas.mts",
+    "scripts/lib/releaseBuild.mts"
   ]
 }

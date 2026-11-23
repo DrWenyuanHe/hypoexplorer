@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "cb1cfe19ad3729836daa25357c401a299dcf2db85b7b33092ccf11adbcb35304",
+  "fingerprint": "a3bf2714a962e10a482d2accc6b9b640c651d6d3c08ee0a1ec047ca4956a5f5b",
   "outcome": "no-impact",
-  "explanation": "Data-origin layout refactor: dataOriginLayout.test.ts adds one per-key table (tree, mutability, Cache-Control, Content-Type, purge prefix, WAF admission), the uploader/WAF and pointer-TTL invariants and build-id parsing; queryGeneration.test.ts covers the reader over a temp directory and an in-memory HTTP origin. The purgePrefixForKey, pathAllowed and queryPublicationPrefixes cases moved into that table. Test conventions are unchanged.",
+  "explanation": "Data-origin layout refactor: dataOriginLayout.test.ts adds one per-key table (tree, mutability, Cache-Control, Content-Type, purge prefix, WAF admission), the uploader/WAF and pointer-TTL invariants and build-id parsing; queryGeneration.test.ts covers the reader over a temp directory and an in-memory HTTP origin. The purgePrefixForKey, pathAllowed and queryPublicationPrefixes cases moved into that table. Review fix: releaseIdentity.test.ts now checks that every JSON file non-test source imports is a release source, so an extracted publication archive can run verify:release. Test conventions are unchanged.",
   "references": [
     "src/__tests__/dataOriginLayout.test.ts",
     "src/__tests__/queryGeneration.test.ts",
+    "src/__tests__/releaseIdentity.test.ts",
     "src/__tests__/edgeRules.test.ts",
     "src/__tests__/edgePurge.test.ts"
   ]

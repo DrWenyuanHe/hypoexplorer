@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "31e2c0be743e2bd36cb8e5a8c4c5257277811a1f4e5e95541f529afdbe72d524",
+  "fingerprint": "8088b84af9e65b26366a7e22b8374d2166820c9ae5bbd8f958b7d2a51022db68",
   "outcome": "no-impact",
-  "explanation": "Only the shared CONTEXT.md vocabulary and the delivery catalog entry changed (new Data-origin layout module). Adding or changing a dataset still follows the same registry, bundle-writer and index-rebuild steps; the uploader publishes the same .js bundles.",
+  "explanation": "Only the shared CONTEXT.md vocabulary, the delivery catalog entry (new Data-origin layout module) and the release source allow-list (hypomap-release.json now archived) changed. Adding or changing a dataset still follows the same registry, bundle-writer and index-rebuild steps; the uploader publishes the same .js bundles.",
   "references": [
     "CONTEXT.md",
-    "docs/agent-context/workflows.md"
+    "docs/agent-context/workflows.md",
+    "scripts/lib/releaseBuild.mts"
   ]
 }

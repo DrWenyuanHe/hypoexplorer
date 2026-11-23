@@ -17,7 +17,9 @@ export function isReleaseSource(path: string): boolean {
   if (['.gitignore', '.gitattributes', 'public/.htaccess', 'public/.assetsignore'].includes(path)) return true;
   if (path === 'nar-research/dataset-survey/scout_master_combined.json') return true;
   if (/(^|\/)(?:\.[^/]+|node_modules|dist)(\/|$)/.test(path)) return false;
-  if (/^(?:package(?:-lock)?\.json|index\.html|(?:vite|playwright)\.config\.ts|tsconfig(?:\.node)?\.json|biome\.json|wrangler\.jsonc|VERSION|README\.md|CHANGELOG\.md|CITATION\.cff|LICENSE|REUSE\.md)$/.test(path)) return true;
+  // hypomap-release.json pins the atlas tag the app reads and the data-origin
+  // layout (src/data/dataOriginLayout.ts) imports, so verify:release loads it too.
+  if (/^(?:package(?:-lock)?\.json|hypomap-release\.json|index\.html|(?:vite|playwright)\.config\.ts|tsconfig(?:\.node)?\.json|biome\.json|wrangler\.jsonc|VERSION|README\.md|CHANGELOG\.md|CITATION\.cff|LICENSE|REUSE\.md)$/.test(path)) return true;
   // These retained evidence/config imports affect rendered scientific claims
   // independently of the query index. They are required to rebuild the app.
   if (/^data\/.+\.(?:json|ts|mts|mjs|R|py)$/.test(path)) return true;
