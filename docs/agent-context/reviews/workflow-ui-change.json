@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "6332afd571d1a070691152954777958570d37caa7380be7a3af0e7b320d0b822",
-  "outcome": "no-impact",
-  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). The refactor checklist now lives at docs/runbooks/REFACTOR_CHECKLIST.md and, from main, tracks follow-ups in GitHub issues. The ui-change route, views, routing and exports are unchanged.",
+  "fingerprint": "0faa74f1933dcad55047897ecf1108c4229572570cb18d616cb81af0442f25b4",
+  "outcome": "updated",
+  "explanation": "The ui-change route now says that what a Compare column says about a gene, including per-arm n, mean and SEM, comes from src/compare/compareCell.ts, and the compare catalog entry references that module. Routing, views, export naming and the compare-set columns are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "docs/runbooks/REFACTOR_CHECKLIST.md"
+    "docs/agent-context/catalog.json",
+    "src/compare/compareCell.ts"
   ]
 }

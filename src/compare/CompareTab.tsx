@@ -18,7 +18,7 @@ import { CompareGenesView, GENE_BLOCK_ATTR, TILE_ATTR } from './CompareGenesView
 import { columnsForPops } from './compareColumns';
 import { compareGenesCsv, compareGenesWorkbook, compareValuesCsv } from './compareSummary';
 import { chartTileExport, saveChartBlocksPng, saveChartTilesZip, saveElementPng, type ChartTileFile } from './compareFigureExport';
-import { resolveGeneCI } from './resolveGene';
+import { compareCell } from './compareCell';
 import { DownloadIcon, DownloadMenu, type DownloadMenuItem } from './DownloadMenu';
 import type { Dataset, DatasetMeta, PopData, ResolvedContrast } from '../types';
 import type { CompareViewState } from '../utils/analysisState';
@@ -205,9 +205,9 @@ export function CompareTab({ meta, dataset, contrast, defaultPops, initialView, 
       if (!gene) continue;
       for (const el of block.querySelectorAll<HTMLElement>(`[${TILE_ATTR}]`)) {
         const col = columns.find((c) => c.key === el.getAttribute(TILE_ATTR));
-        const pd = col ? popDataMap[col.key] : null;
-        const de = resolveGeneCI(pd, gene);
-        if (!col || !pd || !de) continue;
+        const cell = col ? compareCell(col, popDataMap, gene) : null;
+        if (!col || cell?.kind !== 'measured') continue;
+        const { pd, de } = cell;
         const file = chartTileExport({ pd, gene: de.gene, label: col.chartLabel ?? col.label, pValue: de.PValue, chartScale });
         tiles.push({ el, folder: gene, ...file });
       }

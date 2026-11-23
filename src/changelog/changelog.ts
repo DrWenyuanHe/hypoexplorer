@@ -6,6 +6,14 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-11-22',
+    title: 'Blank compare-set means for genes a study did not test',
+    items: [
+      'In the compare-set Excel download, a study with no result for a gene now has blank group means, like its blank logFC and P, the Compare tab download and the "No detected expression" chart. Before, the means could be filled from that study\'s expression values.',
+      'No other value on screen or in a download changed.',
+    ],
+  },
+  {
     date: '2026-11-21',
     title: 'Quieter explorer, volcano and reference pages',
     items: [

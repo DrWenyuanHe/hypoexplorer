@@ -24,7 +24,7 @@ import { columnsSubject, exportName } from '../utils/exportProvenance';
 import { COLOR_WARNING_TEXT, DOWN_TEXT_COLOR, FONT_MONO, FONT_SANS, UP_TEXT_COLOR } from '../styles/constants';
 import type { PopData } from '../types';
 import type { CompareColumn } from './compareColumns';
-import { resolveGeneCI } from './resolveGene';
+import { cellDE, compareCell, type UnavailableStatus } from './compareCell';
 import { tallyGene } from './compareSummary';
 import { EXPORT_IGNORE_ATTR, chartTileExport, saveChartPng, saveChartSvg, saveElementPng } from './compareFigureExport';
 import { DownloadIcon, DownloadMenu } from './DownloadMenu';
@@ -73,15 +73,14 @@ const VISUALLY_HIDDEN: CSSProperties = {
   overflow: 'hidden', clip: 'rect(0 0 0 0)', whiteSpace: 'nowrap', border: 0,
 };
 
-const UNAVAILABLE_LABEL: Record<NonNullable<CompareColumn['unavailable']>['status'], string> = {
+const UNAVAILABLE_LABEL: Record<UnavailableStatus, string> = {
   loading: 'Loading…',
   failed: 'Could not load',
   'unknown-track': 'Track not in this dataset',
 };
 
-/** The cell text for a column that has no data to show, and why. */
-function unavailableText(col: CompareColumn): string {
-  const status = col.unavailable?.status ?? 'failed';
+/** The table text for a column that has no data to show, and why. */
+function unavailableText(status: UnavailableStatus): string {
   return status === 'failed' ? 'failed' : status === 'loading' ? 'loading…' : 'no such track';
 }
 
@@ -152,10 +151,10 @@ export function CompareGenesView({
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 6 }}>
                 {columns.map((col) => {
-                  const pd = popDataMap[col.key];
-                  const de = col.unavailable ? undefined : resolveGeneCI(pd, gene);
+                  const cell = compareCell(col, popDataMap, gene);
                   const qc = col.qc;
-                  if (pd && de) {
+                  if (cell.kind === 'measured') {
+                    const { pd, de } = cell;
                     return (
                       <ChartTile key={col.key} col={col} pd={pd} gene={de.gene} pValue={de.PValue} downloads={chartDownloads}>
                         {qc && qc.is3v3 === false && (
@@ -171,7 +170,8 @@ export function CompareGenesView({
                       </ChartTile>
                     );
                   }
-                  const status = col.unavailable?.status;
+                  const unavailable = cell.kind === 'unavailable' ? cell : null;
+                  const status = unavailable?.status;
                   return (
                     <div key={col.key} style={{
                       borderTop: `2px solid ${col.color}`,
@@ -194,7 +194,7 @@ export function CompareGenesView({
                       ) : status ? (
                         <span style={{ fontSize: 12, color: status === 'failed' ? COLOR_WARNING_TEXT : 'var(--text-muted)' }}>
                           {UNAVAILABLE_LABEL[status]}
-                          {status === 'failed' && col.unavailable?.message ? `: ${col.unavailable.message}` : ''}
+                          {status === 'failed' && unavailable?.message ? `: ${unavailable.message}` : ''}
                         </span>
                       ) : (
                         <span style={{ fontSize: 12, color: '#999', fontStyle: 'italic' }}>
@@ -283,7 +283,8 @@ export function CompareGenesView({
               </thead>
               <tbody>
                 {selectedGenes.map((gene) => {
-                  const tally = showTally ? tallyGene(columns, popDataMap, gene) : null;
+                  const cells = columns.map((col) => compareCell(col, popDataMap, gene));
+                  const tally = showTally ? tallyGene(cells) : null;
                   return (
                     <tr key={gene}>
                       <td style={{ ...STICKY_FIRST, padding: '3px 6px', fontWeight: 500, borderBottom: '1px solid var(--border)' }}>{gene}</td>
@@ -300,21 +301,22 @@ export function CompareGenesView({
                           )}
                         </td>
                       )}
-                      {columns.map((col) => {
-                        if (col.unavailable) {
+                      {cells.map((cell) => {
+                        const { key } = cell.column;
+                        if (cell.kind === 'unavailable') {
                           return (
-                            <td key={col.key} colSpan={4} style={{
+                            <td key={key} colSpan={4} style={{
                               padding: '3px 4px', textAlign: 'center', borderBottom: '1px solid var(--border)',
-                              color: col.unavailable.status === 'failed' ? COLOR_WARNING_TEXT : 'var(--text-muted)',
+                              color: cell.status === 'failed' ? COLOR_WARNING_TEXT : 'var(--text-muted)',
                               fontStyle: 'italic',
                             }}>
-                              {unavailableText(col)}
+                              {unavailableText(cell.status)}
                             </td>
                           );
                         }
-                        const de = resolveGeneCI(popDataMap[col.key], gene);
+                        const de = cellDE(cell);
                         return (
-                          <Fragment key={col.key}>
+                          <Fragment key={key}>
                             <td style={{ padding: '3px 4px', textAlign: 'right', borderBottom: '1px solid var(--border)', color: (de?.logFC ?? 0) > 0 ? 'var(--accent-up)' : 'var(--accent-down)' }}>
                               {de ? de.logFC.toFixed(3) : '–'}
                             </td>
@@ -372,7 +374,8 @@ function LongSummaryTable({ columns, popDataMap, genes }: {
           {columns.map((col, i) => {
             const first = i === 0;
             const rule: CSSProperties = first ? { borderTop: '2px solid var(--border-dark, var(--border))' } : {};
-            const de = col.unavailable ? undefined : resolveGeneCI(popDataMap[col.key], gene);
+            const cell = compareCell(col, popDataMap, gene);
+            const de = cellDE(cell);
             return (
               <tr key={col.key}>
                 <td style={{ ...LONG_CELL, ...rule, fontWeight: 600 }}>{first ? gene : ''}</td>
@@ -385,12 +388,12 @@ function LongSummaryTable({ columns, popDataMap, genes }: {
                     <span style={{ color: 'var(--text-muted)', fontFamily: FONT_SANS }}> {col.chartLabel.replace(col.label, '').trim()}</span>
                   )}
                 </td>
-                {col.unavailable ? (
+                {cell.kind === 'unavailable' ? (
                   <td colSpan={4} style={{
                     ...LONG_CELL, ...rule, textAlign: 'center', fontStyle: 'italic',
-                    color: col.unavailable.status === 'failed' ? COLOR_WARNING_TEXT : 'var(--text-muted)',
+                    color: cell.status === 'failed' ? COLOR_WARNING_TEXT : 'var(--text-muted)',
                   }}>
-                    {unavailableText(col)}
+                    {unavailableText(cell.status)}
                   </td>
                 ) : (
                   <>

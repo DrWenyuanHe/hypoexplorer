@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "df711276c587705cd067a1ebac77b5895a90b657062023110bc21fbf55d50454",
-  "outcome": "no-impact",
-  "explanation": "Directory reorganization: loose docs moved to docs/runbooks/ and docs/records/, and deploy, fetch and dev tooling scripts moved to scripts/deploy/, scripts/fetch/ and scripts/dev/. One registry test comment now cites docs/runbooks/REFACTOR_CHECKLIST.md; no assertion, fixture or snapshot changed.",
+  "fingerprint": "4c00a2b9faac24e80f08d365551db1ef19bf96c31a1ee6383dc0e07eaac5f570",
+  "outcome": "updated",
+  "explanation": "Adds compareCell.test.ts, a table test at the compare cell's interface (flagged and missing-popData columns unavailable, missing DE row and cpm-only gene not detected, single-value arm, normal arms, own-spelling match, no contrast) plus the tally over cells. compareDownloads.test.ts now covers sheet layout only: header order, unavailable columns left out of every sheet, the tally lead and blank means for an undetected gene in the compare-set sheet.",
   "references": [
-    "src/__tests__/datasetsRegistry.test.ts",
-    "docs/runbooks/REFACTOR_CHECKLIST.md"
+    "src/__tests__/compareCell.test.ts",
+    "src/__tests__/compareDownloads.test.ts",
+    "src/compare/compareCell.ts"
   ]
 }

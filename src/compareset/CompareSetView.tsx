@@ -22,7 +22,7 @@ import { GenePicker } from '../common/GenePicker';
 import { CompareGenesView } from '../compare/CompareGenesView';
 import { ComparePathwayView } from '../compare/ComparePathwayView';
 import { STUDY_NOUN } from '../compare/compareColumns';
-import { compareSummaryRows, tallyGene } from '../compare/compareSummary';
+import { compareSummaryRows } from '../compare/compareSummary';
 import { useGeneSelection, useVolcanoView } from '../explorer/explorerSession';
 import { geneVocabulary, useBoundGeneSelection } from '../explorer/geneVocabulary';
 import { nomenclatureAuthorityForStoredDatasetSymbols } from '../data/nomenclature';
@@ -130,11 +130,7 @@ export function CompareSetView({ items, onItemsChange, onHome, onOpenDataset, on
 
   // The Metadata sheet records the QC ledger, which loads on the first export.
   const exportExcel = () => runExport(() => withExportEvidence(() => {
-    const summary = compareSummaryRows(readyColumns, popDataMap, selectedGenes).map((row, i) => {
-      const { Gene, ...rest } = row;
-      const tally = tallyGene(readyColumns, popDataMap, selectedGenes[i]);
-      return { Gene, Detected: tally.detected, SigFDR05: tally.sig, Up: tally.up, Down: tally.down, ...rest } as WorkbookRow;
-    });
+    const summary = compareSummaryRows(columns, popDataMap, selectedGenes, { tally: true });
     const legend: WorkbookRow[] = states.map((s) => {
       const counts = contrastArmCounts(s.contrast, s.popData, s.meta, s.item.trackId);
       return {
