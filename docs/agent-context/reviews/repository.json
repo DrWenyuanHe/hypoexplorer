@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "0c0e8059c898c070eefea3a2ddee7050a53b534d4ae6a36a0ac89d6e225e3887",
+  "fingerprint": "b60ef0e80e55e922df7bbc379247141c9d810e841f5b602b2881fb1ae3e21163",
   "outcome": "updated",
-  "explanation": "Merges main into the Codex closure pass. From main: the search paragraph in docs/agent-context/workflows.md now says the hub vocabulary loads when a pointer first reaches the box or on first focus, that suggestions follow the partial stages, and that the results page waits for the full vocabulary; build, delivery and data-origin configuration are unchanged by it. From this branch: data-release.json pins hypoexplorer-data release data-2026-11-22 with the evidence-codex-2026-11-21 part, the five existing parts stay at data-2026-11-06, and public-safety.json keeps the reviewed writing-rule allowances for the closure pass files.",
+  "explanation": "Merges main into the Codex closure pass. From main: docs/runbooks/EDGE_PROTECTION.md notes that HEAD on the data host always reports cf-cache-status DYNAMIC and costs an R2 Class B read, and that cache checks must use GET; docs/agent-context/workflows.md says the hub vocabulary loads when a pointer first reaches the search box or on first focus, that suggestions follow the partial stages, and that the results page waits for the full vocabulary. Rule payloads and data-origin configuration are unchanged by either. From this branch: data-release.json pins hypoexplorer-data release data-2026-11-22 with the evidence-codex-2026-11-21 part, the five existing parts stay at data-2026-11-06, and public-safety.json keeps the reviewed writing-rule allowances for the closure pass files.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/search/searchVocabulary.ts",
-    "src/search/UnifiedSearchBox.tsx",
+    "docs/runbooks/EDGE_PROTECTION.md",
     "data-release.json",
     "public-safety.json"
   ]
