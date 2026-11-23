@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "2cb1d9d4acdfbf2ebbadd9eaab86cb83356a3fde108e3f99aafac8c5d8a80f16",
+  "fingerprint": "ba021d26b8eb19cf9afdd454d18a1359a14d32ce15e88b56e278fb0919721993",
   "outcome": "updated",
-  "explanation": "public-safety.json gains 26 reviewed writing-rule allowances for the author-validation ledgers and Codex closure pass files. Those files cite published graduate work by the original study authors (Wray, Mila Guasch, Lutomska, Thai) as third-party evidence, not the owner writing the rule guards. The safety rules themselves are unchanged.",
+  "explanation": "data-release.json pins hypoexplorer-data release data-2026-11-22: its files.tsv and scrubbed.json, and a new evidence-codex-2026-11-21 part. The five existing parts keep their data-2026-11-06 URLs, which fetch:data resolves per part. public-safety.json keeps the reviewed writing-rule allowances for the closure pass files.",
   "references": [
-    "public-safety.json",
-    "scripts/lib/publicSafety.mts",
-    "data/author-validation/manual-review.json"
+    "data-release.json",
+    "scripts/fetch/fetch_data.mts",
+    "public-safety.json"
   ]
 }

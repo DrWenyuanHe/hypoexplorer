@@ -139,19 +139,24 @@ ledgers. `check_proposals.cjs` and `check_specs.mts` are the checks applied here
 - A comparison that changes a reviewed concordance comparison needs a successor
   concordance review bound to the regenerated comparison (GSE284408 is one).
 
+## Data release
+
+The evidence folders (`continued-sources/<ACCESSION>/codex-2026-11-21/`) ship in
+hypoexplorer-data release `data-2026-11-22` as the `evidence-codex-2026-11-21` part,
+which `data-release.json` pins; `pnpm run fetch:data` restores them.
+`build_release_bundle.mts` built the part under the data repository's rules: 1,040
+of the pass's own scripts and records, scrubbed, are redistributed; 5,226
+third-party inputs and derived files (7.32 GB) are listed in `sources.json` with
+their URLs and SHA-256. `check_copied_text.py` compares every redistributed file
+with the downloads it was built from and lists, in `copied-text.json`, the 28
+records that carry 40 or more copied words of publication text or author table
+rows; the builder withholds them. The release's other parts stay pinned at
+`data-2026-11-06`.
+
 ## Not yet done
 
-- **Evidence.** The evidence folders
-  (`continued-sources/<ACCESSION>/codex-2026-11-21/`) ship in the data release,
-  not in git. `build_release_bundle.mts` builds the release part under the data
-  repository's rules: 1,040 of the pass's own scripts and records, scrubbed, are
-  redistributed; 5,226 third-party inputs and derived files (7.32 GB) are listed
-  in its `sources.json` with their URLs and SHA-256. `check_copied_text.py` compares
-  every redistributed file with the downloads it was built from and lists, in
-  `copied-text.json`, the 28 records that carry 40 or more copied words of
-  publication text or author table rows; the builder withholds them. The part must enter the next
-  data release, and the full local evidence must join the maintainer's retained
-  audit cache.
+- **Full local evidence.** The 7.1 GB of downloads and the Codex transcripts are
+  not in the release; they must join the maintainer's retained audit cache.
 - **Generated records.** As with the Nov 15 pass, `compare_author_results.mts`
   cannot run from the public release, so `direct-comparisons.generated.*`,
   `validation-records.generated.*`, the tracker and `data/quality/` must be

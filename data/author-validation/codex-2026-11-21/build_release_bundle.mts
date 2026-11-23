@@ -3,16 +3,17 @@
 // (scrubbed of personal addresses, pre-signed URLs and machine paths); third-party inputs
 // and tables derived from them are listed in sources.json with their SHA-256 instead.
 //
-//   pnpm exec tsx data/author-validation/codex-2026-11-21/build_release_bundle.mts [--survey] [--out <dir>]
+//   RELEASE_FILES_TSV=<pinned files.tsv> pnpm exec tsx data/author-validation/codex-2026-11-21/build_release_bundle.mts [--survey] [--list-evidence] [--out <dir>]
 //
 // Inputs: every file under data/author-validation/continued-sources/*/codex-2026-11-21/, plus the
 // raw sources this pass recovered at the paths earlier specs pin. Copies of files the current
 // release already carries are dropped. Nothing is uploaded.
 import { createHash } from 'node:crypto';
-import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { gzipSync } from 'node:zlib';
+import { tarEnd, tarEntry } from '../../../scripts/lib/tarball.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(here, '../../..');
@@ -160,7 +161,8 @@ const sources = entries.filter((e) => e.kind === 'source' || e.kind === 'derived
 const tally = (k: Kind) => { const xs = entries.filter((e) => e.kind === k); return { files: xs.length, MB: +(xs.reduce((s, e) => s + e.bytes, 0) / 1e6).toFixed(1) }; };
 const summary = { evidence: tally('evidence'), sources: tally('source'), derived: tally('derived'), releaseCopies: tally('release-copy') };
 console.log(JSON.stringify(summary, null, 2));
-if (process.argv.includes('--list-evidence')) for (const e of entries.filter((x) => x.kind === 'evidence')) console.error(`${e.bytes}	${e.path}`);
+// --list-evidence prints the redistributed files (size, path) to stderr for review.
+if (process.argv.includes('--list-evidence')) for (const e of entries.filter((x) => x.kind === 'evidence')) console.error(`${e.bytes}\t${e.path}`);
 if (survey) {
   const ext = (k: Kind) => Object.entries(entries.filter((e) => e.kind === k).reduce<Record<string, number>>((m, e) => {
     const x = (e.path.match(/\.([A-Za-z0-9]+)(\.gz)?$/)?.[1] ?? 'none').toLowerCase(); m[x] = (m[x] ?? 0) + 1; return m; }, {})).sort((a, b) => b[1] - a[1]);
@@ -170,21 +172,19 @@ if (survey) {
   process.exit(0);
 }
 
-// Stage the redistributed files at their repository paths, scrubbed, then pack them.
+// Pack the scrubbed files with the release archives' own deterministic ustar/PAX writer,
+// which fetch:data's reader understands (GNU tar's long-name entries it does not).
 rmSync(OUT, { recursive: true, force: true });
-const stage = join(OUT, 'stage');
+mkdirSync(OUT, { recursive: true });
 const files: string[] = ['path\tpart\tbytes\tsha256'];
-for (const e of entries.filter((x) => x.kind === 'evidence')) {
+const blocks: Buffer[] = [];
+for (const e of entries.filter((x) => x.kind === 'evidence').sort((a, b) => (a.path < b.path ? -1 : 1))) {
   const out = scrubText(e.path, readFileSync(join(ROOT, e.path)));
-  mkdirSync(dirname(join(stage, e.path)), { recursive: true });
-  writeFileSync(join(stage, e.path), out);
+  blocks.push(...tarEntry(e.path, out));
   files.push(`${e.path}\t${PART}\t${out.length}\t${sha256(out)}`);
 }
 const archive = join(OUT, `${PART}.tar.gz`);
-// Relative paths: GNU tar reads a drive letter ("C:...") as a remote host. Sorted names, a
-// fixed time and owner, and gzip -n make the archive bytes reproducible.
-execFileSync('tar', ['--sort=name', '--mtime=2026-11-21 00:00Z', '--owner=0', '--group=0', '--numeric-owner',
-  '-czf', `${PART}.tar.gz`, '-C', 'stage', 'data'], { cwd: OUT, stdio: 'inherit', env: { ...process.env, GZIP: '-n' } });
+writeFileSync(archive, gzipSync(Buffer.concat([...blocks, tarEnd()]), { level: 9 }));
 writeFileSync(join(OUT, 'files.tsv'), `${files.join('\n')}\n`);
 writeFileSync(join(OUT, 'sources.json'), `${JSON.stringify({ schemaVersion: 1, note: 'Third-party inputs and derived tables behind the 2026-11-21 Codex closure pass. They are not redistributed: fetch each from its URL and check its SHA-256. "not-fetchable" entries are derived tables the pass scripts rebuild from the listed inputs.', entries: sources }, null, 2)}\n`);
 writeFileSync(join(OUT, 'scrubbed.json'), `${JSON.stringify(scrubbed, null, 2)}\n`);
@@ -192,4 +192,3 @@ writeFileSync(join(OUT, 'release-copies.tsv'), ['path\tsha256', ...entries.filte
 const archiveBytes = readFileSync(archive);
 writeFileSync(join(OUT, 'part.json'), `${JSON.stringify({ name: PART, file: `${PART}.tar.gz`, sha256: sha256(archiveBytes), bytes: archiveBytes.length, compression: 'gzip', optional: false, files: files.length - 1 }, null, 2)}\n`);
 console.log(`staged ${files.length - 1} files; ${PART}.tar.gz ${(archiveBytes.length / 1e6).toFixed(1)} MB; ${sources.length} sources.json entries; ${scrubbed.length} scrubbed files`);
-if (process.argv.includes('--list-evidence')) for (const e of entries.filter((x) => x.kind === 'evidence')) console.error(`${e.bytes}\t${e.path}`);
