@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "ef2e748bedc60f226a3d2d357a8364e57c45a5f07476991777d71a876ff46986",
+  "fingerprint": "efdb5cd64c66d20e9c8688ef6a6436dabe4eb174f10fee81717c3f1a4b284f46",
   "outcome": "updated",
-  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: PROJECT_GUIDANCE.md and the refactor checklist point follow-ups and pending ledger rebuilds at GitHub issues. From this branch: package.json script paths, docs/README.md, scripts/README.md and .vscode/settings.json reflect the new layout.",
+  "explanation": "CONTEXT.md gains the Study publication record entry: scripts/lib/studyRecord.mts as the one place build scripts decide the verified paper, repository link, default contrast and per-track arm counts, and scripts/lib/html.mts as the shared HTML escaper. The SEO runbook names the record and its focused test.",
   "references": [
-    "docs/PROJECT_GUIDANCE.md",
-    "docs/runbooks/REFACTOR_CHECKLIST.md",
-    "package.json",
-    "scripts/README.md",
-    ".vscode/settings.json"
+    "CONTEXT.md",
+    "docs/runbooks/SEO.md",
+    "scripts/lib/studyRecord.mts"
   ]
 }

@@ -8,8 +8,9 @@ import {
 } from '../../scripts/lib/seoPages.mjs';
 import { listDatasets } from '../data/datasets';
 import { AUTHOR_EMAIL, AUTHOR_NAME, BETA_NOTICE, SITE_URL } from '../data/siteInfo';
-import type { DatasetMeta } from '../types';
+import type { Dataset, DatasetMeta } from '../types';
 import { getGuideDocuments } from '../../scripts/lib/seoGuides.mjs';
+import { studyRecord, type StudySource } from '../../scripts/lib/studyRecord.mjs';
 
 const parse = (html: string) => new DOMParser().parseFromString(html, 'text/html');
 const datasets = listDatasets();
@@ -92,16 +93,16 @@ describe('crawlable study build', () => {
   });
 });
 
+// Which paper is verified is the study record's decision (studyRecord.test.ts);
+// these tests pin how a page lays out a record it is given.
 describe('study provenance and safe rendering', () => {
+  const withSource = (dataset: Dataset, source: StudySource, meta?: DatasetMeta) => ({ record: studyRecord(dataset, { [dataset.id]: source }, meta) });
+
   it('escapes source prose in HTML and JSON-LD without turning metadata into executable markup', () => {
     const name = 'Study </script><script>alert("injected")</script> & comparisons';
-    // The snapshot has to name the registry's own publication, or the identity
-    // gate below drops it and the escaping path is never reached.
     const doi = '10.5555/escaping-fixture';
     const dataset = { ...datasets[0], name, citation: '<img src=x onerror=alert(1)>', doi, pmid: undefined };
-    const document = parse(renderStudyPage(dataset, {
-      source: { paperTitle: name, paperDoi: doi, paperUrl: 'javascript:alert(1)' },
-    }));
+    const document = parse(renderStudyPage(dataset, withSource(dataset, { paperTitle: name, paperDoi: doi, paperUrl: 'javascript:alert(1)' })));
     expect(document.querySelector('h1')?.textContent).toBe(name);
     expect(document.querySelectorAll('script')).toHaveLength(1);
     expect(document.querySelector('main img, a[href^="javascript:"], img[onerror]')).toBeNull();
@@ -110,36 +111,24 @@ describe('study provenance and safe rendering', () => {
     expect(graph[0].citation.url ?? '').not.toMatch(/^javascript:/);
   });
 
-  // A snapshot that cannot be tied to the registry's publication must not
-  // contribute ANY citation field. Emitting its title or authors next to the
-  // registry's DOI would attribute one paper's authorship to another paper.
-  it('drops a whole source snapshot whose publication identity does not match', () => {
+  // An unverified snapshot contributes no citation field to the page or the
+  // directory card: its title and authors never sit beside another paper's DOI.
+  it('renders an unverified snapshot as the registry citation alone, on the page and in the directory', () => {
     const dataset = { ...datasets[0], doi: '10.5555/registry-paper', pmid: '11111111',
       citation: 'Registry citation for the actual paper.' };
-    const document = parse(renderStudyPage(dataset, { source: {
+    const details = withSource(dataset, {
       paperTitle: 'An unrelated paper that is not this dataset',
       paperAuthors: ['Nobody, A.'], paperJournal: 'Journal of Elsewhere', paperYear: '1999',
       paperPmid: '99999999', paperDoi: '10.5555/some-other-paper',
-    } }));
+    });
+    const document = parse(renderStudyPage(dataset, details));
     const graph = JSON.parse(document.querySelector('script')!.textContent!)['@graph'];
     expect(graph[0].citation).toBe(dataset.citation);
-    expect(document.body.textContent).not.toContain('An unrelated paper that is not this dataset');
-    expect(document.body.textContent).not.toContain('Nobody, A.');
-    expect(document.body.textContent).not.toContain('Journal of Elsewhere');
-    expect(document.body.textContent).not.toContain('Source publication');
-    expect(document.body.textContent).not.toContain('10.5555/some-other-paper');
-  });
-
-  it.each([undefined, '', ' '])('does not verify a title-only snapshot because both DOI values are %j', (doi) => {
-    const dataset = { ...datasets[0], doi, pmid: '', citation: 'Repository record without a verified publication.' };
-    const source = { paperTitle: 'An unverified publication title', paperDoi: doi, paperAuthors: ['Unverified Author'], paperYear: '2024' };
-    const document = parse(renderStudyPage(dataset, { source }));
-    const graph = JSON.parse(document.querySelector('script')!.textContent!)['@graph'];
-    expect(graph[0].citation).toBe(dataset.citation);
-    expect(document.body.textContent).not.toContain(source.paperTitle);
-    expect(document.body.textContent).not.toContain('Unverified Author');
-    const catalog = parse(renderStudiesPage([dataset], { [dataset.id]: { source } }));
-    expect(catalog.body.textContent).not.toContain(source.paperTitle);
+    for (const text of ['An unrelated paper that is not this dataset', 'Nobody, A.', 'Journal of Elsewhere', 'Source publication', '10.5555/some-other-paper']) {
+      expect(document.body.textContent).not.toContain(text);
+    }
+    const catalog = parse(renderStudiesPage([dataset], { [dataset.id]: details }));
+    expect(catalog.body.textContent).not.toContain('An unrelated paper that is not this dataset');
     expect(catalog.body.textContent).toContain(dataset.citation);
   });
 
@@ -165,10 +154,10 @@ describe('study provenance and safe rendering', () => {
 
   it('pairs verified paper titles with the verified DOI, without calling a paper DOI a dataset identifier', () => {
     const dataset = { ...datasets[0], pmid: '12345678', doi: '10.1000/old-link' };
-    const document = parse(renderStudyPage(dataset, { source: {
+    const document = parse(renderStudyPage(dataset, withSource(dataset, {
       paperTitle: 'The verified publication', paperPmid: '12345678',
       paperUrl: 'https://pubmed.ncbi.nlm.nih.gov/12345678/', paperDoi: '10.1000/correct-link',
-    } }));
+    })));
     const graph = JSON.parse(document.querySelector('script')!.textContent!)['@graph'];
     expect(graph[0].citation.identifier).toBe('https://doi.org/10.1000/correct-link');
     expect(graph[0].identifier).not.toContain('https://doi.org/10.1000/correct-link');
@@ -176,14 +165,14 @@ describe('study provenance and safe rendering', () => {
     expect(document.querySelector('a[href="https://doi.org/10.1000/old-link"]')).toBeNull();
   });
 
-  it('uses source-linked publications and labels preprints without assigning study authorship to the app author', () => {
+  it('labels preprints and collective authors without assigning study authorship to the app author', () => {
     const dataset = { ...datasets[0], pmid: '', doi: '', citation: 'Repository record' };
-    const document = parse(renderStudyPage(dataset, { source: {
+    const document = parse(renderStudyPage(dataset, withSource(dataset, {
       paperTitle: 'A source-linked preprint', paperPmid: '12345678', sourcePubmedIds: ['12345678'],
       paperDoi: '10.1000/source', paperUrl: 'https://pubmed.ncbi.nlm.nih.gov/12345678/',
       paperAuthors: ['Study Author', 'Research Consortium'], paperCollectiveAuthors: ['Research Consortium'], paperYear: '2024', paperIsPreprint: true,
       sourceTitle: 'The full source experiment', sourceUrl: 'https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE12345',
-    } }));
+    })));
     const graph = JSON.parse(document.querySelector('script')!.textContent!)['@graph'];
     expect(graph[0].citation).toMatchObject({ identifier: 'https://doi.org/10.1000/source', author: [{ '@type': 'Person', name: 'Study Author' }, { '@type': 'Organization', name: 'Research Consortium' }], datePublished: '2024', creativeWorkStatus: 'Preprint' });
     expect(graph[0].isAccessibleForFree).toBe(true);
@@ -200,20 +189,23 @@ describe('study provenance and safe rendering', () => {
     expect(actual.body.textContent).toContain('not a publication of the hypothalamus dataset itself');
   });
 
-  it('uses factorial group counts for the default comparison instead of the legacy pooled pair', () => {
+  it('lays out the record\'s per-track counts under its arm labels and marks unknown counts with a dash', () => {
     const dataset = { ...datasets[0], defaultTrack: 'track', groups: [
       { key: 'p0', label: 'P0', color: '#000' }, { key: 'p21', label: 'P21', color: '#fff' },
     ], contrasts: [{ id: 'age', baseline: 'p0', case: 'p21', isDefault: true }] };
     const meta: DatasetMeta = {
-      populations: ['track'], labels: { track: 'POMC neurons' }, types: {}, colors: {},
+      populations: ['track', 'other'], labels: { track: 'POMC neurons' }, types: {}, colors: {},
       nGenes: { track: 1234 }, groupN: { p0: 4, p21: 5 },
-      qcFlags: { track: { nNormal: 8, nObese: 9 } },
+      qcFlags: { track: { nNormal: 8, nObese: 9 }, other: { nNormal: 8, nObese: 9 } },
     };
-    const document = parse(renderStudyPage(dataset, { meta }));
-    expect(Array.from(document.querySelectorAll('tbody td')).map((cell) => cell.textContent)).toEqual(['POMC neurons', '1,234', '4', '5']);
-    const malformed = parse(renderStudyPage(dataset, { meta: { ...meta,
+    const document = parse(renderStudyPage(dataset, withSource(dataset, {}, meta)));
+    expect(Array.from(document.querySelectorAll('thead th')).map((cell) => cell.textContent)).toEqual(['Track', 'Features', 'P0 n', 'P21 n']);
+    expect(Array.from(document.querySelectorAll('tbody td')).map((cell) => cell.textContent))
+      .toEqual(['POMC neurons', '1,234', '4', '5', 'other', '—', '–', '–']);
+    expect(document.querySelector('caption')?.textContent).toContain('A dash marks a track whose count for this comparison is not recorded');
+    const malformed = parse(renderStudyPage(dataset, withSource(dataset, {}, { ...meta,
       groupN: { p0: '<img src=x onerror=alert(1)>' as unknown as number, p21: 5 },
-    } }));
+    })));
     expect(malformed.querySelector('main img, img[onerror]')).toBeNull();
     expect(malformed.querySelector('tbody')?.textContent).toContain('<img src=x onerror=alert(1)>');
   });

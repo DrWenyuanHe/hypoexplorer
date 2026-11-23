@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "6332afd571d1a070691152954777958570d37caa7380be7a3af0e7b320d0b822",
+  "fingerprint": "74c2ebb3e2cdb3e12c207ec218e498381dbe86b20db204b2f657caaceffcd903",
   "outcome": "no-impact",
-  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). The refactor checklist now lives at docs/runbooks/REFACTOR_CHECKLIST.md and, from main, tracks follow-ups in GitHub issues. The ui-change route, views, routing and exports are unchanged.",
+  "explanation": "The static study pages render the study publication record; the in-app views, routing, tabs and exports are unchanged. The agent export's publication columns follow the same record, documented in the SEO runbook and the export column docs.",
   "references": [
     "docs/agent-context/workflows.md",
-    "docs/runbooks/REFACTOR_CHECKLIST.md"
+    "scripts/lib/studyRecord.mts",
+    "scripts/lib/agentExport.mts"
   ]
 }

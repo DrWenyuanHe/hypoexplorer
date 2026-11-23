@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "b876b0d3b792447999c9a07985b8190d53af8e887125e9dce94ad29802542884",
-  "outcome": "updated",
-  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: the verification route and author-validation README name build_quality_report_r460.mts --check as the public quality-report freshness check. Links into moved runbooks resolve under docs/runbooks/; policies and ledgers are unchanged.",
+  "fingerprint": "d164fde973e2cfbc3edaf65dd9ca8f7c443e0d1426a5db0996b9df05d8066ad1",
+  "outcome": "no-impact",
+  "explanation": "The publication identity rule moved into scripts/lib/studyRecord.mts and now also governs the agent export; it decides which paper is cited, not any QC, design or author-concordance evidence. Verification policies, ledgers and reports are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "data/author-validation/README.md",
-    "scripts/build_quality_report_r460.mts"
+    "scripts/lib/studyRecord.mts"
   ]
 }

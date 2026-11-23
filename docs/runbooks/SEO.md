@@ -33,6 +33,14 @@ of official GEO/BioStudies titles and PubMed/Crossref publication metadata; buil
 connection or ignored analysis inputs. Missing titles remain absent rather than
 being inferred from a study's display name.
 
+`scripts/lib/studyRecord.mts` decides, from the registry entry, this snapshot and
+the dataset meta, which snapshot paper is verified for a dataset (registry PMID,
+the record's only linked PMID, or an exact DOI), the repository link, the default
+comparison and each track's sample counts. Study pages, the citation guide and
+the agent export all render from that record, so they always name the same
+paper. A track whose count for the default comparison is not recorded shows a
+dash rather than another track's count.
+
 Refresh the snapshot with:
 
 ```sh
@@ -82,9 +90,10 @@ During the initial source check, three registry citation errors were corrected:
 ## Verification and publishing
 
 Run `pnpm run typecheck`, `pnpm test`, and `pnpm run build`. The focused
-`seoPages.test.ts` checks registry coverage, unique metadata, sitemap URLs,
-structured data, source attribution, safe HTML/JSON rendering, development routes,
-sample-count semantics, and author contact details.
+`studyRecord.test.ts` pins the publication identity rule, link guards and
+per-track sample counts. `seoPages.test.ts` checks registry coverage, unique
+metadata, sitemap URLs, structured data, how a record's citation and counts are
+laid out, safe HTML/JSON rendering, development routes and author contact details.
 
 After publishing the built assets, confirm the homepage, `/studies/`, `/about/`,
 `/methods/`, `/how-to-cite/`, and a study page return their own HTML

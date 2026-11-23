@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "df711276c587705cd067a1ebac77b5895a90b657062023110bc21fbf55d50454",
-  "outcome": "no-impact",
-  "explanation": "Directory reorganization: loose docs moved to docs/runbooks/ and docs/records/, and deploy, fetch and dev tooling scripts moved to scripts/deploy/, scripts/fetch/ and scripts/dev/. One registry test comment now cites docs/runbooks/REFACTOR_CHECKLIST.md; no assertion, fixture or snapshot changed.",
+  "fingerprint": "50f83590a21793eefff9fed6ca83e6a45a113b0de83720713b74f0b3683f91d1",
+  "outcome": "updated",
+  "explanation": "Adds studyRecord.test.ts, which pins the study publication record at its interface: a PMID named only in the citation, the source record's only linked PMID, empty DOIs, DOI-only and case-insensitive DOI matches, https-only links, the default contrast and labels, and per-track arm counts. seoPages.test.ts drops its identity cases and keeps layout; seoStudyContent.test.ts passes a record instead of raw meta.",
   "references": [
-    "src/__tests__/datasetsRegistry.test.ts",
-    "docs/runbooks/REFACTOR_CHECKLIST.md"
+    "src/__tests__/studyRecord.test.ts",
+    "src/__tests__/seoPages.test.ts",
+    "scripts/lib/studyRecord.mts"
   ]
 }

@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "df61e11c81fafc8aad8c30536181b344a92557f4253c7116e19659623e8b5353",
-  "outcome": "updated",
-  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: pending verification-advancement replays go to a GitHub issue and OXT/AVP step 7 names the maintainer-only checks. Dataset contract and real shapes stay at docs/; builders and registry rules are unchanged.",
+  "fingerprint": "a30a7be7d342790fedc8564ae13c9b98aa58c3b4bef5719a74e2164c8daccc56",
+  "outcome": "no-impact",
+  "explanation": "Study pages and the agent export now read publication identity and per-track counts through scripts/lib/studyRecord.mts. Adding a dataset still needs only its registry entry, bundles and optional studySources.json snapshot; the dataset-change steps, contract and builders are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "data/intake/oxt-avp-2026-10-19/README.md",
-    "docs/DATASET_CONTRACT.md"
+    "scripts/lib/studyRecord.mts",
+    "docs/runbooks/SEO.md"
   ]
 }
