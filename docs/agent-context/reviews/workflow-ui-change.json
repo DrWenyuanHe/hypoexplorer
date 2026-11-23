@@ -1,11 +1,14 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "676902f75e5fb84f10cca0e736b2786dee9129052d37fb2dbef721751654005c",
-  "outcome": "no-impact",
-  "explanation": "Only CONTEXT.md gained the Data-origin layout entry, a delivery-side module. Views, routing, exports and the ui-change route are unchanged; originHealth.ts probes the same /query/tracks.js path.",
+  "fingerprint": "c21bb74034aac40df4000a489a06a5d2cf49e8eb8fd148ab36adbe3039ecd7b7",
+  "outcome": "updated",
+  "explanation": "The ui-change route keeps main's changes: Compare column values come from src/compare/compareCell.ts, the study-selection module (studySelectionLink.ts in the router, StudySelectionPanel in both reports) and static study pages rendering the study publication record. This change only adds the delivery-side Data-origin layout entry to CONTEXT.md; originHealth.ts probes the same /query/tracks.js path through the layout. Routing, tabs and export naming are otherwise unchanged.",
   "references": [
-    "CONTEXT.md",
-    "docs/agent-context/workflows.md"
+    "docs/agent-context/workflows.md",
+    "docs/agent-context/catalog.json",
+    "src/compare/compareCell.ts",
+    "src/crossdataset/studySelectionLink.ts",
+    "src/data/originHealth.ts"
   ]
 }

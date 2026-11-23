@@ -8,7 +8,8 @@ Inputs are the study identity, source files, sample design, contrasts and
 analysis outputs. Inspect `src/data/datasets.ts`, registered sidecars and the
 appropriate builder; shared writes use `scripts/lib/bundleWriter.mts` and script
 reads use `scripts/lib/bundleReader.mts` (`readJsonp` for published bytes,
-`readDatasetFromDisk` for what the explorer shows).
+`listDiskCorpus` to sweep `public/datasets`, `readDatasetFromDisk` for what the
+explorer shows). A directory the registry does not name is reported, never read.
 A builder passes every track of a study to one `writeDatasetBundles` call, which
 writes the merged study files and derives QC counts (nSig is FDR<0.05). Sidecar
 intakes build through `buildIntakeStudies` in `scripts/lib/intakeStudies.mts`
@@ -170,7 +171,9 @@ significance reads each row's `tier` (set once by `geneRow` / `pathwayRow` from
 much to show and what starts folded; it labels rows with
 `src/statistics/TierLabel.tsx`, explains q / FDR / padj columns with `QTerm`,
 and keeps counts on the FDR call in both modes; sample
-values and export labels use sampleValues; bundle loading uses trackData.
+values and export labels use sampleValues; what a Compare column says about a
+gene (unavailable, not detected or measured, with per-arm n / mean / SEM) comes
+from `src/compare/compareCell.ts`; bundle loading uses trackData.
 Header identity uses BrandLink and the shared brand asset constants. For logo,
 favicon or typography changes, read the [brand guide](../../brand/README.md);
 check the app headers and prerendered public pages at desktop and mobile sizes.
@@ -364,33 +367,41 @@ filters in a collapsed Study filters section. The term-less `#/gene`,
 a saved `?analysis=`, to the empty results page (`#/search`), and the router
 replaces such a history entry rather than stacking it.
 
-Study selection is coordinated by `useStudySelection` in
-`src/crossdataset/geneStudyScope.tsx`. GeneReport and PathwayReport use it
-for catalog readiness, eligibility, selected studies
-and query identity. The router retains persistent gene/pathway selection state;
-`useReportQuery` retains request loading and cancellation. The selection module
-also coordinates resets through the existing state owners: gene/pathway reset
-categories, evidence/sample filters and individual selection.
+Study selection is one module, `src/crossdataset/studySelection.ts`,
+parameterized by report kind. Its value (`{ categories, datasetIds, filters }`)
+is stored by the router, one per report kind, and App passes it with the
+router's setter straight to GeneReport or PathwayReport. `useStudySelection`
+derives catalog readiness, eligibility, the selected studies, the typed query
+(`{ term, datasets }`), the visible result groups and the reset;
+`useReportQuery` keeps request loading and cancellation. Both reports render
+`StudySelectionPanel` and key their error boundary on the term alone.
+`selectionFromLink` / `selectionLink` are the selection's URL form, used by
+boot, Back/Forward and the URL writer alike. The value and its URL form live in
+`src/crossdataset/studySelectionLink.ts` because the router is in the entry
+bundle: it must not import `studySelection.ts`, whose catalog and quality
+imports pull in both evidence ledgers. `src/__tests__/lazyChunkBoundaries.test.ts`
+fails if the entry graph reaches either ledger.
 
 A sample-count filter waits for the catalog request to settle, including
 registry-only fallback, then excludes unknown counts. Without that filter,
 queries may start from registry cards. Gene/pathway categories narrow the
 requested studies. Pathway selection always excludes studies
 without pathway support. Preserve incoming term spelling in gene/pathway
-queries and uppercase it for bars. Lifecycle tests live in
-`src/__tests__/studySelection.test.tsx`; the App scope tests retain copied-link,
-remount and cross-view verification.
+queries and uppercase it for bars. Selection rules, parameterized by report
+kind, and the link form are tested at the module's interface in
+`src/__tests__/studySelection.test.tsx`; the App scope tests keep one copied-link
+smoke per report and the check that a category toggle does not remount a report.
 
 Gene and Pathway Explorer's suggested-search cards select study categories without
 supplying or submitting a search term. Categories combine as a union; sample-size and quality
 filters narrow that union, followed by the expandable individual-study selection.
 No filters means all applicable datasets; Pathway Explorer includes only studies
 with pathway results. All datasets resets every filter, while an explicit
-empty individual selection remains empty. App retains the sample-size, quality
-and individual-study filters independently for each explorer through report
-remounts. Gene categories follow the existing gene route; pathway categories stay
-in App state. Query identity includes the selected dataset IDs so the
-loader requests the selected corpus.
+empty individual selection remains empty. The router retains each report's whole
+selection independently through report remounts. Gene categories are also the
+gene route's path scope; pathway categories travel in the analysis snapshot.
+Query identity includes the selected dataset IDs so the loader requests the
+selected corpus.
 
 Larger groups requires at least five measured samples in each arm of the default
 population and comparison, using the same catalog as the dataset library. Unknown

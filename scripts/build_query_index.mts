@@ -109,7 +109,7 @@
 //       --check verifies the emitted index against the source bundles and exits
 //       non-zero on any mismatch; it writes nothing.
 
-import { readdir, readFile } from 'node:fs/promises';
+import { readdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
@@ -121,7 +121,7 @@ import path from 'node:path';
 import { getDataset, listDatasets } from '../src/data/datasets';
 import { deTableFor, groupSamplesOf, strictSiblingPathwaysFor } from '../src/data/rawTrack';
 import { defaultArmCounts, getActiveContrast } from '../src/data/contrasts';
-import type { DatasetMeta, GeneDERecord, PathwaySibling, RawTrack } from '../src/types';
+import type { DatasetMeta } from '../src/types';
 import {
   type BuiltDatasetSummary, type BuiltQueryManifest, type CardDetail, type DiscoverySummary, type ExprIndexRow,
   type GeneIndexRow, type PathwayDbCount, type PathwayIndexRow, type QueryManifest, type QueryTrackEntry,
@@ -136,6 +136,8 @@ import {
 import { isLowPower } from '../src/utils/qcFlags';
 import { DEFAULT_FDR_CUTOFF } from '../src/statistics/policy';
 import { writeIndexProduct } from './lib/indexProducts.mjs';
+import { BundleReadError, readOptionalJsonp } from './lib/bundleReader.mjs';
+import { openQueryCorpus } from './lib/queryIndexCorpus.mjs';
 
 // This script is the WRITE adapter of src/data/queryWire.ts, which owns the
 // whole wire format: shard counts and the key hash, every file path and JSONP
@@ -167,7 +169,9 @@ const SIG_EFFECT = 4;
 // If you change SIG_FDR here, change it in src/data/crossDataset.ts too — or
 // better, do not round probabilities at all (costs ~29 MB on this corpus).
 
-const DATASETS_DIR = path.resolve('public/datasets');
+// The corpus is public/ under the working directory, read through the bundle
+// reader (scripts/lib/queryIndexCorpus.mts owns the read and its skip policy).
+const PUBLIC_ROOT = path.resolve('public');
 
 const argv = process.argv.slice(2);
 const checkOnly = argv.includes('--check');
@@ -231,65 +235,17 @@ function sig(x: unknown, d: number): number | null {
   return typeof x === 'number' && Number.isFinite(x) ? Number(x.toPrecision(d)) : null;
 }
 
-// Parse a `var NAME = {...};` JSONP bundle back into an object. The generated
-// files are machine-written with a fixed shape (header comments, then a single
-// top-level assignment), so slicing from the first bracket after `var ` is
-// sufficient and avoids evaluating untrusted code.
-async function readBundle<T>(file: string): Promise<T | null> {
-  if (!existsSync(file)) return null;
-  const src = await readFile(file, 'utf8');
-  const varAt = src.indexOf('var ');
-  if (varAt < 0) return null;
-  const objAt = src.indexOf('{', varAt);
-  const arrAt = src.indexOf('[', varAt);
-  const start = objAt < 0 ? arrAt : arrAt < 0 ? objAt : Math.min(objAt, arrAt);
-  if (start < 0) return null;
+// --check reads this script's own products back through the bundle reader,
+// under the global each one must assign. Absent, malformed or wrong-global is
+// null, which the check reports as a failure (naming the reader's reason).
+function readIndexProduct<T>(file: string, global: string): T | null {
   try {
-    return JSON.parse(src.slice(start).replace(/;\s*$/, '')) as T;
-  } catch {
+    return readOptionalJsonp<T>(file, global);
+  } catch (error) {
+    if (!(error instanceof BundleReadError)) throw error;
+    console.error(`  ${error.message}`);
     return null;
   }
-}
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null && !Array.isArray(value);
-}
-
-function isStringArray(value: unknown): value is string[] {
-  return Array.isArray(value) && value.every((item) => typeof item === 'string');
-}
-
-function isDeRow(value: unknown): value is GeneDERecord {
-  if (!isRecord(value)) return false;
-  return typeof value.gene === 'string'
-    && typeof value.logFC === 'number'
-    && typeof value.PValue === 'number'
-    && (typeof value.FDR === 'number' || value.FDR === null)
-    && (value.se === undefined || typeof value.se === 'number' || value.se === null);
-}
-
-function isRawTrack(value: unknown): value is RawTrack {
-  if (!isRecord(value)) return false;
-  if (value.de !== undefined && (!Array.isArray(value.de) || !value.de.every(isDeRow))) return false;
-  if (value.deByContrast !== undefined) {
-    if (!isRecord(value.deByContrast)
-      || !Object.values(value.deByContrast).every((rows) => Array.isArray(rows) && rows.every(isDeRow))) return false;
-  }
-  if (value.cpm !== undefined) {
-    if (!isRecord(value.cpm) || !Object.values(value.cpm).every((values) => Array.isArray(values)
-      && values.every((cell) => typeof cell === 'number' || cell === null))) return false;
-  }
-  if (value.meta !== undefined) {
-    if (!isRecord(value.meta)) return false;
-    for (const field of ['sampleOrder', 'sampleNames', 'normalSamples', 'obeseSamples'] as const) {
-      if (value.meta[field] !== undefined && !isStringArray(value.meta[field])) return false;
-    }
-    if (value.meta.groupSamples !== undefined) {
-      if (!isRecord(value.meta.groupSamples)
-        || !Object.values(value.meta.groupSamples).every(isStringArray)) return false;
-    }
-  }
-  return true;
 }
 
 // The wire shapes — manifest entry, browse summary, discoveries, card detail and
@@ -459,46 +415,39 @@ const legacyPathwayDefaults = new Set<string>();
 const legacyPlainPathways = new Set<string>();
 const refusedPathwayDefaults = new Set<string>();
 
-const datasetIds = (await readdir(DATASETS_DIR, { withFileTypes: true }))
-  .filter((e) => e.isDirectory())
-  .map((e) => e.name)
-  .sort();
+// The corpus is the registry's datasets that have a bundle directory, in
+// directory-name order (scripts/lib/queryIndexCorpus.mts). A directory the
+// registry does not name is not indexed: no locator names its bundles, and the
+// library and reports render from the registry. A missing or malformed bundle
+// is a skipped track; a bundle assigning another study's global throws.
+const corpus = openQueryCorpus({ publicRoot: PUBLIC_ROOT });
+for (const dir of corpus.unregistered) {
+  console.warn(`  ! datasets/${dir}: not in src/data/datasets.ts — not indexed`);
+}
 
 // Each dataset's meta, kept so the browse summaries can be built after pass 1 —
 // they must count INDEXED tracks, which is only known once every bundle has been
 // read and the unparseable ones dropped.
 const metas = new Map<string, BundleMeta>();
 
-for (const ds of datasetIds) {
-  const dir = path.join(DATASETS_DIR, ds);
-  const meta = await readBundle<BundleMeta>(path.join(dir, 'meta.js'));
-  if (meta) metas.set(ds, meta);
-  if (!meta?.populations?.length) {
-    console.warn(`  ! ${ds}: no meta.js / no populations`);
-    skippedTracks.push(`${ds} (no meta.js / no populations)`);
-    continue;
-  }
+for (const { dataset: registered0, meta, tracks: datasetTracks } of corpus.read(({ entry, warning }) => {
+  console.warn(`  ! ${warning}`);
+  skippedTracks.push(entry);
+})) {
+  const ds = registered0.id;
+  metas.set(ds, meta);
 
-  for (const trackId of meta.populations) {
-    const trackFile = path.join(dir, `track_${trackId}.js`);
-    const parsed = await readBundle<unknown>(trackFile);
-    if (!isRawTrack(parsed)) {
-      console.warn(`  ! ${ds}/${trackId}: track bundle missing or unparseable`);
-      skippedTracks.push(`${ds}/${trackId} (bundle missing or unparseable)`);
-      continue;
-    }
-    const raw = parsed;
-    srcBytes += (await readFile(trackFile)).byteLength;
+  for (const { trackId, raw, bytes, pathways: pathSibling } of datasetTracks()) {
+    srcBytes += bytes;
 
     const ti = tracks.length;
     tracks.push(trackEntry(ds, trackId, meta));
 
-    const registered0 = getDataset(ds);
     const activeContrast0 = getActiveContrast(registered0);
     const contrastId = activeContrast0?.id;
     const de = deTableFor(raw, contrastId);
     const explicitDefaultDe = contrastId ? raw.deByContrast?.[contrastId] : undefined;
-    if (registered0 && registered0.contrasts.length > 1 && explicitDefaultDe === undefined && raw.de) {
+    if (registered0.contrasts.length > 1 && explicitDefaultDe === undefined && raw.de) {
       const audit = legacyDefaultAudits.get(ds) ?? { tracks: 0, missingArmKeys: [] };
       audit.tracks++;
       const groupKeys = new Set(Object.keys(groupSamplesOf(raw) ?? {}));
@@ -518,7 +467,7 @@ for (const ds of datasetIds) {
     }
 
     const disc = discoveryFor(ds, trackId);
-    const isDefaultTrack = registered0?.defaultTrack === trackId;
+    const isDefaultTrack = registered0.defaultTrack === trackId;
     const cloud: Array<[number, number]> = [];
     for (const r of de) {
       if (!r.gene) continue;
@@ -566,10 +515,9 @@ for (const ds of datasetIds) {
     // disagree about which block serves the default. Its 'legacy-default'
     // source is the contract shape (the registered default lives in `default`,
     // deliberately NOT repeated inside `byContrast`, and carries no contrast
-    // id) — attribution is unverifiable-by-content: index it, loudly.
-    const pathSibling = await readBundle<PathwaySibling>(
-      path.join(dir, `track_${trackId}.pathways.js`),
-    );
+    // id) — attribution is unverifiable-by-content: index it, loudly. The
+    // sibling was read with the track (pathSibling); a broken one skipped the
+    // whole track there rather than reading as "no pathways".
     // Both arguments are the registered default's id on purpose: the index
     // only ever speaks for the registered default. Passing the ACTIVE id via
     // activeContrast0 keeps the provenance honest — if the index ever indexes
@@ -583,7 +531,7 @@ for (const ds of datasetIds) {
     // `de` table the gene side already audits above. Single-contrast datasets
     // are the normal case for this shape and say nothing.
     if (pathSibling && resolvedSibling.source === 'legacy-plain'
-      && registered0 && registered0.contrasts.length > 1) {
+      && registered0.contrasts.length > 1) {
       legacyPlainPathways.add(ds);
     }
     const pathDb = resolvedSibling.db as Record<string, PathRec[]> | null;
@@ -656,7 +604,7 @@ for (const ds of refusedPathwayDefaults) {
   );
 }
 
-console.log(`indexed ${tracks.length} tracks from ${datasetIds.length} datasets (${(srcBytes / 1048576).toFixed(1)} MB of source bundles)`);
+console.log(`indexed ${tracks.length} tracks from ${corpus.datasets.length} datasets (${(srcBytes / 1048576).toFixed(1)} MB of source bundles)`);
 console.log(`  ${geneIndex.size} distinct genes, ${pathIndex.size} distinct pathways, ${dbNames.length} pathway DBs`);
 if (skippedNoSe) console.log(`  note: ${skippedNoSe} DE rows carry no 'se' (those tracks plot without a 95% CI)`);
 if (exactKept) console.log(`  note: ${exactKept} probabilities kept at full precision (rounding them would have crossed the ${SIG_FDR} significance threshold)`);
@@ -685,14 +633,9 @@ const datasetSummaries: BuiltDatasetSummary[] = [];
 for (const [ds, trackIds] of [...indexedTracksByDs].sort((a, b) => a[0].localeCompare(b[0]))) {
   const meta = metas.get(ds);
   const registered = getDataset(ds);
-  // A bundle directory the registry does not know about cannot be browsed —
-  // the library renders from the registry and would have no name, arms or
-  // links for it. Its tracks stay in the index (the reports read them through
-  // the manifest, which is registry-independent); only the card is withheld.
-  if (!registered) {
-    console.warn(`  ! ${ds}: indexed but not in src/data/datasets.ts — no browse card will be emitted`);
-    continue;
-  }
+  // The corpus holds registered datasets only (a directory the registry does
+  // not name is reported above and never read), so this cannot fail.
+  if (!registered) throw new Error(`${ds}: indexed without a registry entry`);
   // Fall back to the first INDEXED track when the declared default did not
   // survive pass 1, so a card never headlines counts for a track the library
   // would refuse to open.
@@ -811,18 +754,17 @@ let exprSrcBytes = 0;
 // impossible by construction rather than by luck.
 const pickerGeneNames = new Set<string>();
 for (const summary of datasetSummaries) {
-  const trackFile = path.join(DATASETS_DIR, summary.ds, `track_${summary.defaultTrack}.js`);
-  const parsed = await readBundle<unknown>(trackFile);
-  const raw = isRawTrack(parsed) ? parsed : null;
-  if (raw) exprSrcBytes += (await readFile(trackFile)).byteLength;
+  const reopened = corpus.track(summary.ds, summary.defaultTrack);
   // Pass 1 already indexed this exact file, so an unreadable one here is not a
   // corpus fault but a race (a rebuild mid-run). Fatal either way: a summary
   // with empty scaffolding would be a dataset the client silently drops.
-  if (!raw) {
-    console.error(`  ! ${summary.ds}/${summary.defaultTrack}: default track unreadable on the expression pass`);
+  if ('skip' in reopened) {
+    console.error(`  ! ${summary.ds}/${summary.defaultTrack}: default track unreadable on the expression pass (${reopened.skip})`);
     skippedTracks.push(`${summary.ds}/${summary.defaultTrack} (unreadable on the expression pass)`);
     continue;
   }
+  const { raw } = reopened;
+  exprSrcBytes += reopened.bytes;
   // sampleOrder and groupSamples resolve through the app's own back-compat
   // readers, NOT a second hand-spelled copy of the legacy shapes: the macaque
   // bundles state their arms as normalSamples/obeseSamples, and rawTrack.ts is
@@ -971,7 +913,7 @@ if (checkOnly) {
     );
     bad++;
   }
-  const manifest = await readBundle<QueryManifest>(path.join(OUT_DIR, MANIFEST_FILE));
+  const manifest = readIndexProduct<QueryManifest>(path.join(OUT_DIR, MANIFEST_FILE), MANIFEST_GLOBAL);
   if (!manifest) {
     console.error(`FAIL: no ${MANIFEST_FILE} at ${OUT_DIR}`);
     process.exit(1);
@@ -1008,15 +950,15 @@ if (checkOnly) {
   // uses. It is also the reason --check is worth the corpus read the upload
   // preflight now spends on it.
   let shardsChecked = 0;
-  const compareShards = async <V,>(
-    index: Map<string, V>, fileOf: (shard: number) => string, shardOf: (k: string) => number,
-    n: number, label: string,
+  const compareShards = <V,>(
+    index: Map<string, V>, fileOf: (shard: number) => string, globalOf: (shard: number) => string,
+    shardOf: (k: string) => number, n: number, label: string,
   ) => {
     const want = bucketize(index, shardOf, n);
     let checked = 0;
     for (let i = 0; i < n; i++) {
       const name = fileOf(i);
-      const env = await readBundle<{ b?: string; d?: Record<string, unknown> }>(path.join(OUT_DIR, buildId, name));
+      const env = readIndexProduct<{ b?: string; d?: Record<string, unknown> }>(path.join(OUT_DIR, buildId, name), globalOf(i));
       if (!env) { console.error(`FAIL: missing or unparseable shard ${name}`); bad++; continue; }
       if (env.b !== buildId) { console.error(`FAIL: ${name} has build ${env.b}, manifest has ${buildId}`); bad++; continue; }
       const got = env.d;
@@ -1044,14 +986,14 @@ if (checkOnly) {
     }
     return checked;
   };
-  const nGenes = await compareShards(geneIndex, geneShardFile, geneShard, GENE_SHARDS, 'gene');
-  const nPaths = await compareShards(pathIndex, pathwayShardFile, pathwayShard, PATHWAY_SHARDS, 'pathway');
+  const nGenes = compareShards(geneIndex, geneShardFile, geneShardGlobal, geneShard, GENE_SHARDS, 'gene');
+  const nPaths = compareShards(pathIndex, pathwayShardFile, pathwayShardGlobal, pathwayShard, PATHWAY_SHARDS, 'pathway');
   // Expression rows get the same full comparison, for the same reason: a value
   // that drifted from its bundle is a wrong bar with no error anywhere.
-  const nExpr = await compareShards(exprIndex, exprShardFile, exprShard, EXPR_SHARDS, 'expression');
+  const nExpr = compareShards(exprIndex, exprShardFile, exprShardGlobal, exprShard, EXPR_SHARDS, 'expression');
 
   // The autocomplete union and the interned DB-name table.
-  const namesEnv = await readBundle<{ d?: string[] }>(path.join(OUT_DIR, buildId, PATHWAY_NAMES_FILE));
+  const namesEnv = readIndexProduct<{ d?: string[] }>(path.join(OUT_DIR, buildId, PATHWAY_NAMES_FILE), PATHWAY_NAMES_GLOBAL);
   const names = namesEnv?.d;
   const wantNames = [...pathIndex.keys()].sort();
   if (!names || names.length !== wantNames.length || names.some((n, i) => n !== wantNames[i])) {
@@ -1059,7 +1001,7 @@ if (checkOnly) {
     bad++;
   }
   // The gene-name union backing the Compare view's picker.
-  const geneNamesEnv = await readBundle<{ d?: string[] }>(path.join(OUT_DIR, buildId, GENE_NAMES_FILE));
+  const geneNamesEnv = readIndexProduct<{ d?: string[] }>(path.join(OUT_DIR, buildId, GENE_NAMES_FILE), GENE_NAMES_GLOBAL);
   const gotGeneNames = geneNamesEnv?.d;
   if (!gotGeneNames || gotGeneNames.length !== geneNames.length || gotGeneNames.some((n, i) => n !== geneNames[i])) {
     console.error(`FAIL: ${GENE_NAMES_FILE} has ${gotGeneNames?.length ?? 0} names, expected ${geneNames.length}`);
@@ -1165,7 +1107,7 @@ if (checkOnly) {
     }
     for (const ti of wantTrackPathIdx) {
       const name = trackPathwaysFile(ti);
-      const env = await readBundle<{ b?: string; d?: unknown }>(path.join(OUT_DIR, buildId, name));
+      const env = readIndexProduct<{ b?: string; d?: unknown }>(path.join(OUT_DIR, buildId, name), trackPathwaysGlobal(ti));
       if (!env) { console.error(`FAIL: missing or unparseable ${name}`); bad++; continue; }
       if (env.b !== buildId) { console.error(`FAIL: ${name} has build ${env.b}, manifest has ${buildId}`); bad++; continue; }
       if (JSON.stringify(env.d) !== JSON.stringify(trackPathwaysPayload(ti))) {

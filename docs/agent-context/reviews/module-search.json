@@ -1,14 +1,15 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "eda70603e9ccd5dde1fe8d9f27b4aea2777c13b8f92af58b059fb40ee49b5e63",
+  "fingerprint": "67d28696dc5ba870086685c039d76c357bcbab66e5b08f5a82d795025527b629",
   "outcome": "updated",
-  "explanation": "searchSummaries.ts now caches the index's study groups (GeneSummary / PathwaySummary carry groups) instead of a finished CrossStudySummary with eager top/topFdr lists; index-only loading, retry after null and unavailable-versus-empty are unchanged. SearchPage lists those groups at render through listCrossStudy, reads each row's own tier for data-tier and the Call column, and the condition-pathways card follows the FDR-mode lead. TierLabel left portalCards for src/statistics.",
+  "explanation": "atlas.ts is now the single reader of the HypoMap export: named gene records, WHOLE/NO_REGION/EXPRESSION_UNIT/COHORT, pooled and per-dataset metrics, datasetSummary (mean, SEM), spatialTable/datasetTable/atlasTable, findAtlasGene, missMessage, one cached load per symbol, and a swappable transport with a cache reset. HypoMapPreview and Coexpression read those instead of the wire and share one wording for a missing or ambiguous gene; CsvDialog downloads through the export-provenance seam; codetection.ts only imports WHOLE. A by-dataset detection table records its expression unit as not applicable (percentages only), so only tables carrying mean expression record EXPRESSION_UNIT; atlasTable now wraps only the comparison table.",
   "references": [
-    "src/search/searchSummaries.ts",
-    "src/search/SearchPage.tsx",
-    "src/search/portalCards.tsx",
-    "src/search/search.css",
-    "src/statistics/crossStudyListing.ts"
+    "src/search/hypomap/atlas.ts",
+    "src/search/hypomap/HypoMapPreview.tsx",
+    "src/search/hypomap/Coexpression.tsx",
+    "src/search/hypomap/CsvDialog.tsx",
+    "src/search/hypomap/codetection.ts",
+    "CONTEXT.md"
   ]
 }

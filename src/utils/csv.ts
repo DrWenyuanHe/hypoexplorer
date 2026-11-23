@@ -27,7 +27,7 @@
 //     ("-1.25", "+3e-4"), because a spreadsheet reads that as a number, not a
 //     formula.
 import { downloadFile } from './exportAction';
-import type { ExportProvenance } from './exportProvenance';
+import type { AtlasProvenance, ExportProvenance } from './exportProvenance';
 import { provenanceColumns } from './exportProvenanceFormat';
 
 /** One CSV cell value. Rows are arrays in column order. */
@@ -41,7 +41,7 @@ interface CsvOptions {
    * cell, or split down the column when it is longer than a spreadsheet cell
    * holds (see `cellChunks`).
    */
-  provenance?: ExportProvenance;
+  provenance?: ExportProvenance | AtlasProvenance;
   /**
    * For a long table whose rows are different tracks (one row per population):
    * each row's identifier columns describe that row's own track, instead of

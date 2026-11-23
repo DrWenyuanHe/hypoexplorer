@@ -9,6 +9,8 @@ import { afterEach, describe, expect, it } from 'vitest';
 import {
   BundleReadError,
   datasetBundlePaths,
+  jsonpHeader,
+  listDiskCorpus,
   parseJsonp,
   readDatasetFromDisk,
   readJsonp,
@@ -158,6 +160,12 @@ describe('parseJsonp', () => {
     expect(failure(() => parseJsonp('alert(1); var HX_A = {};', 'HX_A')).reason).toBe('malformed');
   });
 
+  it('returns the generator header verbatim for an in-place rewrite', () => {
+    expect(jsonpHeader('// AUTO-GENERATED\n// second\nvar HX_A = {};')).toBe('// AUTO-GENERATED\n// second\n');
+    expect(jsonpHeader('var HX_A = {};')).toBe('');
+    expect(jsonpHeader('/* a */ var HX_A = 1')).toBe('/* a */ ');
+  });
+
   it('distinguishes a missing required bundle from an absent optional one', () => {
     const root = tempRoot();
     const absent = join(root, 'absent.js');
@@ -168,6 +176,31 @@ describe('parseJsonp', () => {
     const broken = join(root, 'broken.js');
     writeFileSync(broken, 'var HX_A = {;\n');
     expect(failure(() => readOptionalJsonp(broken, 'HX_A')).reason).toBe('malformed');
+  });
+});
+
+describe('listDiskCorpus', () => {
+  it('lists registered datasets in directory order and names, but never reads, unregistered folders', () => {
+    const root = tempRoot();
+    const zeta = dataset('zeta_ds');
+    const alpha = dataset('alpha_ds');
+    const gone = dataset('gone_ds');
+    writeDatasetBundles(zeta, [payload()], { outRoot: root });
+    writeDatasetBundles(alpha, [payload()], { outRoot: root });
+    mkdirSync(join(root, 'datasets', 'stray_ds'), { recursive: true });
+    writeFileSync(join(root, 'datasets', 'stray_ds', 'meta.js'), 'not a bundle at all');
+    writeFileSync(join(root, 'datasets', 'README.md'), '# not a directory');
+
+    const corpus = listDiskCorpus({ publicRoot: root, registry: [zeta, gone, alpha] });
+    expect(corpus.datasets.map(({ dataset: ds }) => ds.id)).toEqual(['alpha_ds', 'zeta_ds']);
+    expect(corpus.datasets[0].paths.meta).toEqual(datasetBundlePaths(alpha, { publicRoot: root }).meta);
+    expect(corpus.unregistered).toEqual(['stray_ds']);
+    expect(corpus.absent.map((ds) => ds.id)).toEqual(['gone_ds']);
+  });
+
+  it('is empty, not an error, when public/ has no datasets folder', () => {
+    const ds = dataset('lonely_ds');
+    expect(listDiskCorpus({ publicRoot: tempRoot(), registry: [ds] })).toEqual({ datasets: [], unregistered: [], absent: [ds] });
   });
 });
 

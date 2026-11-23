@@ -1,14 +1,16 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "a3bf2714a962e10a482d2accc6b9b640c651d6d3c08ee0a1ec047ca4956a5f5b",
-  "outcome": "no-impact",
-  "explanation": "Data-origin layout refactor: dataOriginLayout.test.ts adds one per-key table (tree, mutability, Cache-Control, Content-Type, purge prefix, WAF admission), the uploader/WAF and pointer-TTL invariants and build-id parsing; queryGeneration.test.ts covers the reader over a temp directory and an in-memory HTTP origin. The purgePrefixForKey, pathAllowed and queryPublicationPrefixes cases moved into that table. Review fix: releaseIdentity.test.ts now checks that every JSON file non-test source imports is a release source, so an extracted publication archive can run verify:release. Test conventions are unchanged.",
+  "fingerprint": "7be7c35687298d153d70f2a476b57fc964bf60a7275b3aebe08f8487b9431994",
+  "outcome": "updated",
+  "explanation": "Combined result of the data-origin layout with main's compare cell, study publication record, bundle-reader adoption, study-selection module and HypoMap atlas client. From this change: dataOriginLayout.test.ts is one per-key table (tree, mutability, Cache-Control, Content-Type, purge prefix, WAF admission) with the uploader/WAF and pointer-TTL invariants and build-id parsing; queryGeneration.test.ts runs the reader over a temp directory and an in-memory HTTP origin; the purgePrefixForKey, pathAllowed and queryPublicationPrefixes cases moved into that table; releaseIdentity.test.ts checks every JSON file non-test source imports is a release source. From main: compareCell.test.ts, studyRecord.test.ts, queryIndexCorpus.test.ts, the listDiskCorpus and jsonpHeader cases in bundleReader.test.ts, studySelection.test.tsx and hypomapAtlasClient.test.ts, with geneStudyScope.test.ts and hypomapMetrics.test.ts removed.",
   "references": [
     "src/__tests__/dataOriginLayout.test.ts",
     "src/__tests__/queryGeneration.test.ts",
     "src/__tests__/releaseIdentity.test.ts",
-    "src/__tests__/edgeRules.test.ts",
-    "src/__tests__/edgePurge.test.ts"
+    "src/__tests__/compareCell.test.ts",
+    "src/__tests__/studyRecord.test.ts",
+    "src/__tests__/queryIndexCorpus.test.ts",
+    "src/__tests__/hypomapAtlasClient.test.ts"
   ]
 }

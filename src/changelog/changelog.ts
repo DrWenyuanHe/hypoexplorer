@@ -6,6 +6,41 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-11-22',
+    title: 'Blank compare-set means for genes a study did not test',
+    items: [
+      'In the compare-set Excel download, a study with no result for a gene now has blank group means, like its blank logFC and P, the Compare tab download and the "No detected expression" chart. Before, the means could be filled from that study\'s expression values.',
+      'No other value on screen or in a download changed.',
+    ],
+  },
+  {
+    date: '2026-11-22',
+    title: 'Study pages and the data download name the same paper',
+    items: [
+      'The study pages, the citation guide and the agent-ready data download now use one rule to decide which paper describes a dataset. Four studies had a paper on their study page but none in the download: GSE235792, GSE212491, GSE174753 and GSE330152. The download now lists their paper too.',
+      'The "Available cell populations" table on a study page shows each track\'s own sample counts. Before, every row repeated the default track\'s counts. On GSE262407, the OPC, oligodendrocyte, tanycyte and Ghrh-neuron rows now read 3 and 4, not 4 and 5. A dash marks a track whose count is not recorded.',
+      'No data, result or analysis changed.',
+    ],
+  },
+  {
+    date: '2026-11-22',
+    title: 'Study pages use the reviewed track label',
+    items: [
+      'The static study page for GSE174085 (early-life adversity, PVN CRH neurons) now names its track "PVN CRH neurons (litter pseudobulk)", as the explorer does. Before, the page used the original file\'s "animal pseudobulk".',
+      'No data, result or analysis changed.',
+    ],
+  },
+  {
+    date: '2026-11-22',
+    title: 'Study filters on the gene page update in place',
+    items: [
+      'Choosing a study category on a gene page no longer reloads the whole page. The Study filters section stays open, text typed in the search box is kept, and the expression cards are not downloaded again. The pathway report already worked this way.',
+      'The gene page and the pathway report now use the same Study filters controls, so their category, quality, sample-size and study choices behave the same way. Each page still keeps its own selection.',
+      'Opening a shared gene or pathway link no longer reorders the settings in the address bar. Older links open as before.',
+      'No data, result or analysis changed.',
+    ],
+  },
+  {
     date: '2026-11-21',
     title: 'Quieter explorer, volcano and reference pages',
     items: [

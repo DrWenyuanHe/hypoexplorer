@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "module-changelog",
-  "fingerprint": "2ade68d0470f00ebeed81ece0aaaca7af8de7140d5e60c55b3e1b324a9ee3471",
+  "fingerprint": "fc69aee9f83b298378fb331ed0c3ef2e5299eda17d96e63983eb697dbeacd00f",
   "outcome": "updated",
-  "explanation": "Adds the 2026-11-21 \"Quieter explorer, volcano and reference pages\" entry: no explorer breadcrumb row, one row of volcano controls with Gene list, thresholds and pass menus, view buttons shown once a gene is selected, the hub entry list, the library table fit, the nomenclature facet rows and the shared reference-page layout. It states that no data, result or analysis changed.",
+  "explanation": "Four 2026-11-22 entries. This change adds \"Blank compare-set means for genes a study did not test\": in the compare-set Excel download a study with no result for a gene now has blank group means, matching its blank logFC and P, and no other value changed. From main, kept unchanged: \"Study pages and the data download name the same paper\", \"Study pages use the reviewed track label\" and \"Study filters on the gene page update in place\", each stating that no data, result or analysis changed.",
   "references": [
     "src/changelog/changelog.ts",
-    "docs/agent-context/workflows.md"
+    "src/compare/compareSummary.ts",
+    "docs/runbooks/SEO.md",
+    "src/crossdataset/studySelection.ts"
   ]
 }

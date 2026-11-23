@@ -29,6 +29,8 @@
 //   timeSeriesSubject      one registered time course (no contrast exists)
 //   columnsSubject         side-by-side columns, each its own track: the
 //                          Compare tab's populations or the compare set's studies
+//   AtlasSubject           one gene of the pinned HypoMap atlas export, built by
+//                          src/search/hypomap/atlas.ts (atlasExportProvenance)
 //
 // The snapshot never upgrades an absence into a claim: missing evidence is
 // recorded as missing ("Unrecorded" in the sheet, null in the JSON).
@@ -101,6 +103,24 @@ export interface ColumnsSubject {
 }
 
 export type ExportSubject = TrackSubject | ColumnsSubject;
+
+/** Every kind of file the HypoMap atlas cards write, recorded as `exportKind`. */
+export type AtlasExportKind = 'hypomap_spatial' | 'hypomap_datasets' | 'hypomap_comparison';
+
+/**
+ * One gene read from a pinned release of the HypoMap atlas export
+ * (src/search/hypomap/atlas.ts builds it). The atlas is an external reference,
+ * not a registered dataset: it has no track, contrast, retained evidence or
+ * explorer link, and its snapshot says so rather than leaving them out.
+ */
+export interface AtlasSubject {
+  shape: 'atlas';
+  /** The tag and manifest SHA-256 pinned in hypomap-release.json. */
+  release: { tag: string; manifestSha256: string };
+  cohort: string;
+  gene: { id: string; symbol: string };
+  expressionUnit: string;
+}
 
 /**
  * A loaded track. Contrasts default to the active one and groups to its two
@@ -200,7 +220,9 @@ function contrastIds(track: TrackSubject): string[] {
  * explicit contrast costs a few characters where a missing one costs a
  * misattributed file. A kind with no contrast (a time course) omits the part.
  */
-export function exportName(subject: ExportSubject, parts: Array<string | undefined>, extension: string): string {
+export function exportName(subject: ExportSubject | AtlasSubject, parts: Array<string | undefined>, extension: string): string {
+  // The atlas release tag is the identity a track's dataset, track and contrast give.
+  if (subject.shape === 'atlas') return exportFilename([subject.release.tag, ...parts], extension);
   if (subject.shape === 'track') {
     return exportFilename([
       subject.dataset?.id ?? 'unknown-dataset', subject.trackId ?? 'unknown-track',
@@ -390,5 +412,38 @@ export function exportProvenance(kind: ExportKind, subject: ExportSubject, setti
 }
 
 export type ExportProvenance = ReturnType<typeof exportProvenance>;
+
+const ATLAS_DATASET = 'Not applicable: HypoMap is an external single-cell atlas, not a registered HypoExplorer dataset. Each row names its contributing study by HypoMap label and accession.';
+const ATLAS_CONTRASTS = 'Not applicable: atlas exports describe cells within each scope, not a baseline/case contrast.';
+const ATLAS_EVIDENCE = 'Not recorded: HypoExplorer retains no QC or replication evidence for the HypoMap atlas. The release tag and manifest SHA-256 identify the exact export that was read.';
+const ATLAS_SOURCE_URL_SCOPE = 'Not applicable: the HypoMap cards have no link of their own; the gene and the settings are recorded here.';
+
+/**
+ * The snapshot for one HypoMap atlas file. It names the pinned release (tag
+ * and manifest SHA-256), the cohort and the gene, and spells every field a
+ * registered dataset would fill as an explicit absence.
+ */
+export function atlasExportProvenance(kind: AtlasExportKind, subject: AtlasSubject, settings: ExportSettings = {}) {
+  return {
+    schemaVersion: 1 as const,
+    exportKind: kind,
+    exportedAt: new Date().toISOString(),
+    release: RELEASE_IDENTITY,
+    atlas: { name: 'HypoMap', releaseTag: subject.release.tag, manifestSha256: subject.release.manifestSha256, cohort: subject.cohort },
+    gene: subject.gene,
+    dataset: ATLAS_DATASET,
+    contrasts: ATLAS_CONTRASTS,
+    expression: { unit: subject.expressionUnit, exportScale: 'Values as the card shows them, computed from the stored export counts.' },
+    evidence: ATLAS_EVIDENCE,
+    settings,
+    sourceUrl: null,
+    sourceUrlScope: ATLAS_SOURCE_URL_SCOPE,
+    csvMetadataPlacement: CSV_METADATA_PLACEMENT,
+    methodsUrl: METHODS_URL,
+    reuse: REUSE,
+  };
+}
+
+export type AtlasProvenance = ReturnType<typeof atlasExportProvenance>;
 
 export { metadataSheet, provenanceRows } from './exportProvenanceFormat';

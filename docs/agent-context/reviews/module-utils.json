@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "module-utils",
-  "fingerprint": "d124ea20a9b17461bb3271016d4795b2a43ecfd40c03cad042d33fd39e6f836d",
+  "fingerprint": "3ce4b352b88b9535013622bffec30f3b1d4fa0780b88b31794cdc0ca5115768c",
   "outcome": "updated",
-  "explanation": "lazyExport.ts gains loadExportEvidence, the fail-closed exportEvidence accessor and withExportEvidence (never rejects, runs synchronously once the ledger is loaded, retries a failed download on the next export). exportProvenance.ts reads evidence through the accessor instead of importing internalQc.ts statically.",
+  "explanation": "Combined result of two independent utils changes. analysisState.ts types the study snapshot's filters as StudyFilters from crossdataset/studySelectionLink.ts (a type-only import) and drops hasStudyAnalysis, whose rule moved into selectionLink; parseStudyAnalysis and the version-1 field set are unchanged, so existing analysis= links parse as before. exportProvenance.ts gains AtlasSubject, AtlasExportKind and atlasExportProvenance for HypoMap atlas files (release tag, manifest SHA-256, cohort and gene, with explicit absences); exportName accepts the atlas subject, provenanceColumns writes AtlasRelease, AtlasManifestSHA256, ExpressionUnit and ExportMetadataJSON for it, and csv.ts accepts that snapshot.",
   "references": [
-    "src/utils/lazyExport.ts",
+    "src/utils/analysisState.ts",
+    "src/crossdataset/studySelectionLink.ts",
     "src/utils/exportProvenance.ts",
-    "src/data/internalQc.ts"
+    "src/utils/exportProvenanceFormat.ts",
+    "src/utils/csv.ts"
   ]
 }

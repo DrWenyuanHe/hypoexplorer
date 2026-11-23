@@ -6,11 +6,12 @@
 // Shared by the Compare tab and the compare-set view so the on-screen table
 // and the downloaded sheet cannot disagree about a cell — the export used to
 // be built inline in the tab, beside a table that read the same fields a
-// second time.
+// second time. Every builder reads its (column, gene) answers from the
+// compare-cell module, so the unavailable-skip and not-detected rules are the
+// cell's, not each builder's.
 
-import { mean, std } from '../utils/math';
 import { pToStar } from '../utils/format';
-import { displayUnit, getGroupedValues, getRawSampleRows, groupLabels, meanColumnLabel } from '../utils/sampleValues';
+import { displayUnit, groupLabels, meanColumnLabel } from '../utils/sampleValues';
 import { effectDirection, isFdrSignificant } from '../statistics/policy';
 import {
   columnsSubject, exportName, exportProvenance, metadataSheet, trackSubject,
@@ -20,7 +21,7 @@ import type { WorkbookRow, WorkbookSheet } from '../utils/workbook';
 import type { CsvCell } from '../utils/csv';
 import type { PopData } from '../types';
 import type { CompareColumn } from './compareColumns';
-import { resolveGeneCI } from './resolveGene';
+import { compareCell, type CompareArm, type CompareCell } from './compareCell';
 
 /**
  * A COUNT of per-column verdicts for one gene, not a test.
@@ -43,60 +44,60 @@ export interface GeneTally {
   down: number;
 }
 
-export function tallyGene(
-  columns: readonly CompareColumn[],
-  popDataMap: Record<string, PopData | null>,
-  gene: string,
-): GeneTally {
+/** Tally one gene's cells, one per column. An unavailable cell is not counted at all. */
+export function tallyGene(cells: readonly CompareCell[]): GeneTally {
   const tally: GeneTally = { detected: 0, ready: 0, sig: 0, up: 0, down: 0 };
-  for (const col of columns) {
-    if (col.unavailable) continue;
-    const pd = popDataMap[col.key];
-    if (!pd) continue;
+  for (const cell of cells) {
+    if (cell.kind === 'unavailable') continue;
     tally.ready += 1;
-    const de = resolveGeneCI(pd, gene);
-    if (!de) continue;
+    if (cell.kind !== 'measured') continue;
     tally.detected += 1;
-    if (!isFdrSignificant(de.FDR)) continue;
+    if (!isFdrSignificant(cell.de.FDR)) continue;
     tally.sig += 1;
-    const direction = effectDirection(de.logFC);
+    const direction = effectDirection(cell.de.logFC);
     if (direction === 'up') tally.up += 1;
     else if (direction === 'down') tally.down += 1;
   }
   return tally;
 }
 
-/** An arm's mean to four places, or '' when the arm has no values. */
-function groupMean(values: readonly number[] | undefined): number | '' {
-  return values?.length ? +mean([...values]).toFixed(4) : '';
-}
+const round4 = (v: number): number => +v.toFixed(4);
+
+/** A statistic to four places, or '' when the cell or arm has none. */
+const fixed4 = (v: number | null | undefined): number | '' => (v == null ? '' : round4(v));
 
 /**
- * The summary sheet: per gene, each column's logFC / p / stars and its two
- * group means, prefixed by the column key so a sheet with twelve studies
- * stays readable. Group-mean headers come from meanColumnLabel so the unit is
- * never mislabelled across columns that measure in different ones.
+ * The compare-set summary sheet: per gene, each column's logFC / p / stars and
+ * its two group means, prefixed by the column key so a sheet with twelve
+ * studies stays readable. Group-mean headers come from meanColumnLabel so the
+ * unit is never mislabelled across columns that measure in different ones.
+ * An unavailable column contributes no cells; a column that did not detect the
+ * gene contributes blank ones, its group means included. With `tally`, each
+ * row leads with the gene's Detected / SigFDR05 / Up / Down counts.
  */
 export function compareSummaryRows(
   columns: readonly CompareColumn[],
   popDataMap: Record<string, PopData | null>,
   genes: readonly string[],
+  { tally = false }: { tally?: boolean } = {},
 ): WorkbookRow[] {
   return genes.map((gene) => {
+    const cells = columns.map((col) => compareCell(col, popDataMap, gene));
     const row: WorkbookRow = { Gene: gene };
-    for (const col of columns) {
-      const pd = popDataMap[col.key];
-      if (!pd) continue;
-      const de = resolveGeneCI(pd, gene);
-      row[`${col.key}_logFC`] = de?.logFC ?? '';
-      row[`${col.key}_PValue`] = de?.PValue ?? '';
-      row[`${col.key}_Stars`] = de?.PValue != null ? pToStar(de.PValue) : '';
-      const { baselineLabel, caseLabel } = groupLabels(pd.contrast);
-      const [base, caseGroup] = getGroupedValues(pd, de?.gene ?? gene, pd.contrast);
-      // A study that did not measure the gene has no values for an arm; its
-      // mean is blank like the other missing cells, not mean([]) = 0.
-      row[`${col.key}_${meanColumnLabel(pd, baselineLabel)}`] = groupMean(base?.values);
-      row[`${col.key}_${meanColumnLabel(pd, caseLabel)}`] = groupMean(caseGroup?.values);
+    if (tally) {
+      const t = tallyGene(cells);
+      Object.assign(row, { Detected: t.detected, SigFDR05: t.sig, Up: t.up, Down: t.down });
+    }
+    for (const cell of cells) {
+      if (cell.kind === 'unavailable') continue;
+      const { key } = cell.column;
+      const measured = cell.kind === 'measured' ? cell : null;
+      row[`${key}_logFC`] = measured?.de.logFC ?? '';
+      row[`${key}_PValue`] = measured?.de.PValue ?? '';
+      row[`${key}_Stars`] = measured?.de.PValue != null ? pToStar(measured.de.PValue) : '';
+      const { baselineLabel, caseLabel } = groupLabels(cell.pd.contrast);
+      row[`${key}_${meanColumnLabel(cell.pd, baselineLabel)}`] = fixed4(measured?.arms[0]?.mean);
+      row[`${key}_${meanColumnLabel(cell.pd, caseLabel)}`] = fixed4(measured?.arms[1]?.mean);
     }
     return row;
   });
@@ -111,11 +112,18 @@ export function compareSummaryRows(
 // one row per gene × population × animal in the values, each row carrying its
 // own group names and unit so it means the same thing out of context.
 
-const round4 = (v: number): number => +v.toFixed(4);
-
 /** The unit the values are written in: always as deposited, never the chart's display scale. */
 function unitOf(pd: PopData): string {
   return displayUnit(pd);
+}
+
+/** An arm's n / mean / SEM cells; n is blank, not 0, when the gene was not detected. */
+function armCells(detected: boolean, arm: CompareArm | undefined) {
+  return {
+    n: detected ? arm?.n ?? 0 : '',
+    mean: fixed4(arm?.mean),
+    sem: fixed4(arm?.sem),
+  };
 }
 
 /**
@@ -132,26 +140,18 @@ export function compareSummaryLongRows(
   const rows: WorkbookRow[] = [];
   for (const gene of genes) {
     for (const col of columns) {
-      const pd = popDataMap[col.key];
-      if (!pd || col.unavailable) continue;
-      const de = resolveGeneCI(pd, gene);
-      const { baselineLabel, caseLabel } = groupLabels(pd.contrast);
-      const [base, caseGroup] = de ? getGroupedValues(pd, de.gene, pd.contrast) : [];
-      const arm = (values: readonly number[] | undefined) => {
-        const n = values?.length ?? 0;
-        return {
-          n: de ? n : '',
-          mean: n ? round4(mean([...values ?? []])) : '',
-          sem: n > 1 ? round4(std([...values ?? []]) / Math.sqrt(n)) : '',
-        };
-      };
-      const b = arm(base?.values);
-      const c = arm(caseGroup?.values);
+      const cell = compareCell(col, popDataMap, gene);
+      if (cell.kind === 'unavailable') continue;
+      const measured = cell.kind === 'measured' ? cell : null;
+      const de = measured?.de;
+      const { baselineLabel, caseLabel } = groupLabels(cell.pd.contrast);
+      const b = armCells(!!measured, measured?.arms[0]);
+      const c = armCells(!!measured, measured?.arms[1]);
       rows.push({
         Gene: gene,
         Population: col.key,
         Label: col.chartLabel ?? col.label,
-        Detected: de ? 'yes' : 'no',
+        Detected: measured ? 'yes' : 'no',
         logFC: de?.logFC ?? '',
         PValue: de?.PValue ?? '',
         FDR: de?.FDR ?? '',
@@ -164,7 +164,7 @@ export function compareSummaryLongRows(
         'Case n': c.n,
         'Case mean': c.mean,
         'Case SEM': c.sem,
-        Unit: unitOf(pd),
+        Unit: unitOf(cell.pd),
       });
     }
   }
@@ -184,21 +184,21 @@ export function compareValueRows(
   const rows: WorkbookRow[] = [];
   for (const gene of genes) {
     for (const col of columns) {
-      const pd = popDataMap[col.key];
-      if (!pd || col.unavailable) continue;
-      const de = resolveGeneCI(pd, gene);
-      if (!de) continue;
-      const unit = unitOf(pd);
-      for (const sample of getRawSampleRows(pd, [de.gene])) {
-        rows.push({
-          Gene: gene,
-          Population: col.key,
-          Label: col.chartLabel ?? col.label,
-          Group: sample.condition,
-          Sample: sample.sample,
-          Value: sample.value,
-          Unit: unit,
-        });
+      const cell = compareCell(col, popDataMap, gene);
+      if (cell.kind !== 'measured') continue;
+      const unit = unitOf(cell.pd);
+      for (const arm of cell.arms) {
+        for (const sample of arm.samples) {
+          rows.push({
+            Gene: gene,
+            Population: col.key,
+            Label: col.chartLabel ?? col.label,
+            Group: arm.label,
+            Sample: sample.id,
+            Value: sample.value,
+            Unit: unit,
+          });
+        }
       }
     }
   }

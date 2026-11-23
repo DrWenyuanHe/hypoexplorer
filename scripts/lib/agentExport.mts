@@ -75,7 +75,7 @@ export const COLUMN_DOCS: Record<string, Record<string, string>> = {
     doi: 'DOI of the source publication, when one exists.',
     pmid: 'PubMed id of the source publication; empty when the deposit has no paper.',
     citation: 'Citation prose from the registry.',
-    paper_title: 'Verified publication title (only when its PMID matches `pmid`).',
+    paper_title: 'Verified publication title: present only when the paper\'s PMID matches `pmid`, is the repository record\'s only linked PMID, or its DOI matches `doi`. The study page shows the same paper.',
     paper_first_author: 'First author of that publication.',
     paper_relationship: 'How the paper relates to the deposit (e.g. `primary`, `methods`).',
     source_url: 'Link to the repository record.',

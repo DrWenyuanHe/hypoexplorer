@@ -34,9 +34,9 @@ import { requireAuthorValidation } from '../src/data/authorValidation';
 import { sourceAccession, upstreamProcessingFor } from '../src/data/upstreamProcessing';
 import { DEFAULT_FDR_CUTOFF, isFdrSignificant } from '../src/statistics/policy';
 import { SITE_URL, studyPageHref } from '../src/data/siteInfo';
-import type { Dataset } from '../src/types';
 import sourceMetadata from '../data/seo/studySources.json';
 import { readDatasetFromDisk } from './lib/bundleReader.mjs';
+import { studyRecord, type StudySources } from './lib/studyRecord.mjs';
 import { ZipWriter } from './lib/zipWriter.mjs';
 import {
   CONTRAST_COLUMNS, DATASET_COLUMNS, DE_COLUMNS, FGSEA_COLUMNS, SAMPLE_COLUMNS, TRACK_COLUMNS, TRACK_CONTRAST_COLUMNS,
@@ -116,31 +116,9 @@ function safeSegment(segment: string): string {
 
 // ── Source metadata ──────────────────────────────────────────────────────────
 
-interface SourcePublication {
-  paperTitle?: string;
-  paperDoi?: string;
-  paperPmid?: string;
-  paperAuthors?: string[];
-  paperRelationship?: string;
-  sourceUrl?: string;
-}
-const sources = sourceMetadata as Record<string, SourcePublication>;
-
-/** Publication record for a dataset, matched on PMID exactly as seoGuides does. */
-function publicationFor(dataset: Dataset): SourcePublication | undefined {
-  const source = sources[dataset.id] ?? (dataset.geo ? sources[dataset.geo] : undefined);
-  return source && source.paperPmid === dataset.pmid ? source : undefined;
-}
-
-function repositoryUrl(dataset: Dataset): string | undefined {
-  const source = sources[dataset.id] ?? (dataset.geo ? sources[dataset.geo] : undefined);
-  try {
-    const url = new URL(source?.sourceUrl ?? '');
-    return url.protocol === 'https:' ? url.href : undefined;
-  } catch {
-    return undefined;
-  }
-}
+// Publication identity and the repository link come from the study record, the
+// same one the study pages render, so the export and the site name one paper.
+const sources: StudySources = sourceMetadata;
 
 function qualityOf(datasetId: string, contrastId?: string): [string, string, string] {
   const q = datasetQuality(requireAuthorValidation(datasetId), contrastId);
@@ -312,7 +290,8 @@ for (const dataset of selected) {
   totals.deRows += deCsv.rows;
   totals.fgseaRows += fgseaCsv.rows;
 
-  const publication = publicationFor(dataset);
+  const record = studyRecord(dataset, sources, meta);
+  const publication = record.publication.status === 'verified' ? record.publication.source : undefined;
   const upstream = upstreamProcessingFor(dataset);
   const { bundleBaseUrl: _b, metaFile: _m, metaGlobalKey: _mg, qcFile: _q, qcGlobalKey: _qg,
     bundleFileTemplate: _bf, globalKeyTemplate: _gk, isDefault: _d, ...registryEntry } = dataset;
@@ -332,7 +311,7 @@ for (const dataset of selected) {
     dataset.preparation, dataset.featureType, dataset.featureLabel, dataset.expressionUnit ?? CPM_TMM_UNIT,
     dataset.supportsPathways, meta.populations.length, contrasts.length, dataset.defaultTrack, defaultContrast.id,
     sourceAccession(dataset), dataset.geo, dataset.doi, dataset.pmid, dataset.citation, publication?.paperTitle,
-    publication?.paperAuthors?.[0], publication?.paperRelationship, repositoryUrl(dataset), upstream?.aligner,
+    publication?.paperAuthors?.[0], publication?.paperRelationship, record.repositoryUrl, upstream?.aligner,
     upstream?.genome, upstream?.annotation, ...qualityOf(dataset.id), `${SITE_URL}${studyPageHref(dataset.id)}`,
   ]);
   for (const c of contrasts) {

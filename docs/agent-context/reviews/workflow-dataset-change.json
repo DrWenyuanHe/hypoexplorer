@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "8088b84af9e65b26366a7e22b8374d2166820c9ae5bbd8f958b7d2a51022db68",
-  "outcome": "no-impact",
-  "explanation": "Only the shared CONTEXT.md vocabulary, the delivery catalog entry (new Data-origin layout module) and the release source allow-list (hypomap-release.json now archived) changed. Adding or changing a dataset still follows the same registry, bundle-writer and index-rebuild steps; the uploader publishes the same .js bundles.",
+  "fingerprint": "90d3cad58f55f7a85ef392b25e98b40c83180ef4a3485c6e12f25b725cf090ee",
+  "outcome": "updated",
+  "explanation": "From main: script reads of published bundles go through scripts/lib/bundleReader.mts (query index, expression index, bundle optimizer, upload guards, deploy verifier, SEO study pages), listDiskCorpus is the one sweep of public/datasets, and study pages and the agent export read publication identity through scripts/lib/studyRecord.mts. From this change: the delivery catalog names the Data-origin layout and the release allow-list archives hypomap-release.json. Adding a dataset still needs only its registry entry, bundles, index rebuild and optional studySources.json snapshot; the uploader publishes the same .js bundles.",
   "references": [
-    "CONTEXT.md",
     "docs/agent-context/workflows.md",
+    "scripts/lib/bundleReader.mts",
+    "scripts/lib/studyRecord.mts",
+    "src/data/dataOriginLayout.ts",
     "scripts/lib/releaseBuild.mts"
   ]
 }

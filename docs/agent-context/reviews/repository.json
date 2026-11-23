@@ -1,13 +1,15 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "ef4cb4f502727f28d43c5d9e6fca9ac8ed76b3b5cc2f3eaf23de9876df7a72c2",
+  "fingerprint": "7e07ab0bbd32b1f2c54f95b0919224fa982b7bdd995b533f4b604efeb81d62b5",
   "outcome": "updated",
-  "explanation": "CONTEXT.md names the new Data-origin layout module and the query-generation reader, and vite.config.ts reads the pointer keys, the pointer lifetime and the self-contained service-worker pointer matcher from the layout. The emitted service-worker route and catalog stamps are unchanged. releaseBuild.mts now allow-lists hypomap-release.json as release source, because the layout (loaded by verify:release) and the app import it; no other repository configuration or policy changed.",
+  "explanation": "CONTEXT.md keeps both sides: the Data-origin layout entry with the query-generation reader from this change, and main's Compare cell, extended bundle-reader seam, query-index corpus read and Study publication record entries. vite.config.ts reads the pointer keys, pointer lifetime and the self-contained service-worker pointer matcher from the layout, with the emitted route and stamps unchanged; releaseBuild.mts allow-lists hypomap-release.json as release source. The SEO runbook, refactor checklist and knip.json changes come from main unchanged.",
   "references": [
     "CONTEXT.md",
     "vite.config.ts",
     "src/data/dataOriginLayout.ts",
-    "scripts/lib/releaseBuild.mts"
+    "scripts/lib/releaseBuild.mts",
+    "scripts/lib/studyRecord.mts",
+    "src/compare/compareCell.ts"
   ]
 }

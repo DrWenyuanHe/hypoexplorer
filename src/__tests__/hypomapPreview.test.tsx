@@ -1,26 +1,30 @@
 import { fireEvent, render, screen, within } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { tabKeyTarget } from '../utils/tabKeys';
+import { atlasFiles, fixtureDatasets, memoryTransport } from './hypomapFixture';
 
-// The HypoMap export is not checked in; a three-context fixture drives the ready-state views.
-vi.mock('../search/hypomap/atlas', async (original) => ({
-  ...await original<typeof import('../search/hypomap/atlas')>(),
-  loadAtlasGene: async () => ({
-    state: 'ready',
-    gene: ['ENSMUSG1', 'Pomc', 'pro-opiomelanocortin'],
-    geneAt: () => undefined,
-    metadata: {
-      cohort: 'fixture cohort',
-      contexts: ['Whole hypothalamus', 'Arcuate hypothalamic nucleus', 'Supraoptic nucleus'],
-      datasets: ['D1', 'D2'],
-      eligible_cells: { D1: [100, 40, 10], D2: [50, 20, 5] },
-      study_cards: [{ HypoMap_label: 'One' }, { HypoMap_label: 'Two' }],
-    },
-    record: [0, [], [[[20, 10, 2], [40, 20, 4]], [[5, 4, 1], [10, 8, 2]]]],
-  }),
-}));
+// The HypoMap export is not checked in; a three-context, 18-dataset fixture export is served
+// to the atlas client through its in-memory transport.
+const pin = vi.hoisted(() => ({ tag: 'hypomap-atlas-test', archive: '', archiveSha256: '', manifestSha256: '' }));
+vi.mock('../../hypomap-release.json', () => ({ default: pin }));
 
+const { _resetAtlasCache, _setAtlasTransport } = await import('../search/hypomap/atlas');
 const { HypoMapPreview } = await import('../search/hypomap/HypoMapPreview');
+
+const { files, manifestSha256 } = atlasFiles({
+  contexts: ['Whole hypothalamus', 'Arcuate hypothalamic nucleus', 'Supraoptic nucleus'],
+  datasets: fixtureDatasets(18, i => (i < 2 ? [[100, 40, 10], [50, 20, 5]][i] : [10, 4, 1])),
+  genes: [['ENSMUSG1', 'Pomc', 'pro-opiomelanocortin'], ['ENSMUSG2', 'Cartpt', 'CART prepropeptide']],
+  aliases: { cart: [1] },
+  outside: { cart: ['Cart-ps'] },
+  records: { 0: [[[20, 10, 2], [40, 20, 4]], [[5, 4, 1], [10, 8, 2]], ...Array(16).fill(null)] },
+});
+
+beforeEach(() => {
+  pin.manifestSha256 = manifestSha256;
+  _resetAtlasCache();
+  _setAtlasTransport(memoryTransport(files).transport);
+});
 
 async function renderReady() {
   render(<HypoMapPreview symbol="Pomc" />);
@@ -80,5 +84,18 @@ describe('HypoMapPreview views', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Reset to whole hypothalamus' }));
     expect(screen.getByRole('heading', { name: 'Whole hypothalamus' })).toBeTruthy();
     expect(screen.queryByRole('button', { name: 'Reset to whole hypothalamus' })).toBeNull();
+  });
+});
+
+describe('HypoMapPreview states', () => {
+  it('names an ambiguous symbol and its canonical candidates', async () => {
+    render(<HypoMapPreview symbol="cart" />);
+    expect(await screen.findByText('Multiple HypoMap features match cart. Search a canonical symbol: Cartpt, Cart-ps.')).toBeTruthy();
+  });
+
+  it('states the cohort and lists the off-plane region with its detection', async () => {
+    await renderReady();
+    expect(screen.getByText('Among cells included in HypoMap · 384,925 cells from 18 contributing datasets.')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Supraoptic nucleus · 20.00%' })).toBeTruthy();
   });
 });

@@ -13,6 +13,7 @@ const genes = wire.index.genes as Gene[];
 const [agrp, npy, pomc, cartpt] = genes;
 const ids = wire.index.datasets.map(ds => ds.id);
 
+/** The co-detection client reads only the wire half of a loaded atlas: gene, record, metadata and geneAt. */
 function atlas(overrides: Partial<ReadyAtlas['metadata']> = {}): ReadyAtlas {
   return {
     state: 'ready',
@@ -27,7 +28,7 @@ function atlas(overrides: Partial<ReadyAtlas['metadata']> = {}): ReadyAtlas {
       study_cards: wire.index.datasets.map(ds => ({ HypoMap_label: ds.label })),
       ...overrides,
     },
-  } as ReadyAtlas;
+  } as Partial<ReadyAtlas> as ReadyAtlas;
 }
 
 const golden = (name: string) => {

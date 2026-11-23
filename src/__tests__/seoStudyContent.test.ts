@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest';
 import {
   renderStudyContext, studySearchDescription, studySearchTitle,
 } from '../../scripts/lib/seoStudyContent.mjs';
+import { studyRecord } from '../../scripts/lib/studyRecord.mjs';
 import editorial from '../../data/seo/studyEditorial.json';
 import { getAuthorValidation } from '../data/authorValidation';
 import { datasetQuality, QUALITY_STATUS } from '../data/datasetQualityR460';
@@ -19,6 +20,7 @@ const metaFor = (dataset: Dataset): DatasetMeta => {
   const contents = readFileSync(resolve('public/datasets', dataset.id, 'meta.js'), 'utf8');
   return JSON.parse(contents.slice(contents.indexOf('{'), contents.lastIndexOf('}') + 1));
 };
+const recordFor = (dataset: Dataset) => studyRecord(dataset, {}, metaFor(dataset));
 
 describe('study discovery content', () => {
   it('keeps unique accession-led titles and descriptions across the registry', () => {
@@ -51,7 +53,7 @@ describe('study discovery content', () => {
   });
 
   it('distinguishes selected HFD cohorts and sampling duration from the original studies', () => {
-    const wt = parse(renderStudyContext(find('GSE220533'), metaFor(find('GSE220533')))).body.textContent!;
+    const wt = parse(renderStudyContext(find('GSE220533'), recordFor(find('GSE220533')))).body.textContent!;
     expect(wt).toContain('wild-type chow and high-fat-diet samples');
     expect(wt).toContain('knockout arms');
     expect(wt).toContain('7 Chow samples and 8 HFD samples');
@@ -65,7 +67,7 @@ describe('study discovery content', () => {
 
   it('uses factorial default cell sizes and keeps exploratory axes separate from source-paper maturation', () => {
     const dataset = find('GSE135639');
-    const text = parse(renderStudyContext(dataset, metaFor(dataset))).body.textContent!;
+    const text = parse(renderStudyContext(dataset, recordFor(dataset))).body.textContent!;
     expect(text).toContain('3 Chow · P21 samples and 4 HFD · P21 samples');
     expect(text).not.toContain('8 Chow · P21');
     expect(text).not.toContain('9 HFD · P21');
