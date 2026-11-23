@@ -1,11 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "df711276c587705cd067a1ebac77b5895a90b657062023110bc21fbf55d50454",
-  "outcome": "no-impact",
-  "explanation": "Directory reorganization: loose docs moved to docs/runbooks/ and docs/records/, and deploy, fetch and dev tooling scripts moved to scripts/deploy/, scripts/fetch/ and scripts/dev/. One registry test comment now cites docs/runbooks/REFACTOR_CHECKLIST.md; no assertion, fixture or snapshot changed.",
+  "fingerprint": "6b67a6eb8b916adeca752eaeadaa2531e46f7085d7139bf686893bdedef92b19",
+  "outcome": "updated",
+  "explanation": "hypomapAtlasClient.test.ts tests the HypoMap atlas client through its in-memory transport (checksums, gzip and host-decoded files, cohort check, alias/ambiguous/outside-export resolution, the shared per-symbol load, metrics, mean/SEM and the CSV tables) and absorbs hypomapMetrics.test.ts, which is removed. hypomapFixture.ts builds the fixture export; the preview and co-expression view tests read it through the transport instead of mocking loadAtlasGene, and csvDialog.test.tsx checks the atlas provenance columns.",
   "references": [
-    "src/__tests__/datasetsRegistry.test.ts",
-    "docs/runbooks/REFACTOR_CHECKLIST.md"
+    "src/__tests__/hypomapAtlasClient.test.ts",
+    "src/__tests__/hypomapFixture.ts",
+    "src/__tests__/hypomapPreview.test.tsx",
+    "src/__tests__/hypomapCoexpression.test.tsx",
+    "src/__tests__/csvDialog.test.tsx"
   ]
 }

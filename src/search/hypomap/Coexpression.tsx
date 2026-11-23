@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { type Gene, loadAtlasGene, type ReadyAtlas } from './atlas';
+import { type AtlasTable, atlasTable, findAtlasGene, type Gene, loadAtlasGene, missMessage, type ReadyAtlas, WHOLE } from './atlas';
 import {
   CATEGORIES, type Category, categoryLabels, comparisonCsv, type DatasetOutcome, loadComparison, loadRanking, unsupportedReason,
 } from './codetection';
-import { type Csv, CsvDialog } from './CsvDialog';
+import { CsvDialog } from './CsvDialog';
 import { useLoad } from './useLoad';
 import './preview.css';
 import './coexpression.css';
@@ -25,26 +25,25 @@ function UnsupportedList({ rows, query, partner }: { rows: DatasetOutcome[]; que
 }
 
 function PairExplorer({ atlas }: { atlas: ReadyAtlas }) {
-  const { gene, metadata } = atlas;
+  const { gene } = atlas;
+  const ids = atlas.datasets.map(dataset => dataset.id);
   const [query, setQuery] = useState('');
   const [queryError, setQueryError] = useState('');
-  const [choices, setChoices] = useState<string[]>([]);
   const [lookingUp, setLookingUp] = useState(false);
   const [partner, setPartner] = useState<Gene | null>(null);
-  const [datasets, setDatasets] = useState(metadata.datasets);
+  const [datasets, setDatasets] = useState(ids);
   const [population, setPopulation] = useState('');
   const [expanded, setExpanded] = useState<Category | null>(null);
-  const [csv, setCsv] = useState<Csv | null>(null);
+  const [table, setTable] = useState<AtlasTable | null>(null);
 
-  const ranking = useLoad(gene[0], signal => loadRanking(atlas, signal));
-  const comparison = useLoad(partner && datasets.length ? `${partner[0]}|${datasets.join(',')}` : null,
+  const ranking = useLoad(gene.id, signal => loadRanking(atlas, signal));
+  const comparison = useLoad(partner && datasets.length ? `${partner.id}|${datasets.join(',')}` : null,
     signal => loadComparison(atlas, partner as Gene, datasets, signal));
 
   function selectPartner(next: Gene) {
-    setQuery(next[1]);
+    setQuery(next.symbol);
     setQueryError('');
-    setChoices([]);
-    if (next[0] === partner?.[0]) return;
+    if (next.id === partner?.id) return;
     setPopulation('');
     setExpanded(null);
     setPartner(next);
@@ -53,12 +52,10 @@ function PairExplorer({ atlas }: { atlas: ReadyAtlas }) {
   async function findPartner(input: string) {
     setLookingUp(true);
     setQueryError('');
-    setChoices([]);
     try {
-      const result = await loadAtlasGene(input);
-      if (result.state === 'ambiguous') setChoices([...result.candidates]);
-      else if (result.state === 'missing') setQueryError(`No atlas feature matched ${input}.`);
-      else if (result.gene[0] === gene[0]) setQueryError('Choose a different gene.');
+      const result = await findAtlasGene(input);
+      if (result.state !== 'ready') setQueryError(missMessage(result, input));
+      else if (result.gene.id === gene.id) setQueryError('Choose a different gene.');
       else selectPartner(result.gene);
     } catch {
       setQueryError('Could not look up this gene. Try again.');
@@ -80,7 +77,7 @@ function PairExplorer({ atlas }: { atlas: ReadyAtlas }) {
   });
   const labels = partner ? categoryLabels(gene, partner) : null;
   const rankingValue = ranking.state === 'loaded' ? ranking.value : null;
-  const total = metadata.datasets.length;
+  const total = atlas.datasets.length;
 
   return (
     <>
@@ -92,35 +89,34 @@ function PairExplorer({ atlas }: { atlas: ReadyAtlas }) {
         <button type="submit" className="portal-secondary" disabled={lookingUp || !query.trim()}>Compare genes</button>
       </form>
       {queryError && <p role="status">{queryError}</p>}
-      {!!choices.length && <p role="status">Multiple matches. Search a canonical symbol: {choices.join(', ')}.</p>}
       <h4>Top 5 co-detected genes</h4>
       {ranking.state === 'loading' && <p role="status">Loading recommendations…</p>}
       {ranking.state === 'failed' && <p role="status">Could not load recommendations. <Retry onClick={ranking.retry}>Retry</Retry></p>}
       {rankingValue?.state === 'rejected' && <p role="alert">{rankingValue.message}</p>}
       {rankingValue?.state === 'ready' && (
         <>
-          <p className="portal-note">Ranked by the share of {gene[1]}-positive cells that also detect the partner across {rankingValue.datasetCount === total
+          <p className="portal-note">Ranked by the share of {gene.symbol}-positive cells that also detect the partner across {rankingValue.datasetCount === total
             ? `all ${total}` : `${rankingValue.datasetCount} of ${total}`} HypoMap datasets.</p>
           {rankingValue.partners.length ? <ol className="hm-ranking">{rankingValue.partners.map(candidate => (
-            <li key={candidate.gene[0]}>
-              <button type="button" className="portal-secondary" aria-pressed={partner?.[0] === candidate.gene[0]} disabled={lookingUp}
+            <li key={candidate.gene.id}>
+              <button type="button" className="portal-secondary" aria-pressed={partner?.id === candidate.gene.id} disabled={lookingUp}
                 title={`${format.format(candidate.both)} of ${format.format(rankingValue.queryPositive)} cells`} onClick={() => selectPartner(candidate.gene)}>
-                <span>{candidate.gene[1]}</span><strong>{percent(candidate.conditionalPercent)}</strong>
+                <span>{candidate.gene.symbol}</span><strong>{percent(candidate.conditionalPercent)}</strong>
               </button>
-              <small className="hm-reverse-rank">{gene[1]} ranks #{format.format(candidate.reverseRank)} for {candidate.gene[1]}</small>
+              <small className="hm-reverse-rank">{gene.symbol} ranks #{format.format(candidate.reverseRank)} for {candidate.gene.symbol}</small>
             </li>
           ))}</ol> : <p>No co-detected partners in the atlas.</p>}
         </>
       )}
-      {partner && labels && <section className="hm-card hm-pair" aria-label={`${gene[1]} × ${partner[1]}`}>
-        <h4>{gene[1]} × {partner[1]}</h4>
+      {partner && labels && <section className="hm-card hm-pair" aria-label={`${gene.symbol} × ${partner.symbol}`}>
+        <h4>{gene.symbol} × {partner.symbol}</h4>
         {comparison.state === 'idle' ? <p>Select at least one dataset.</p>
           : comparison.state === 'failed' ? <p role="status">Comparison could not be loaded. <Retry onClick={comparison.retry}>Retry comparison</Retry></p>
           : !result ? <p role="status">Loading measured comparison…</p>
           : result.state === 'rejected' ? <p role="alert">{result.message}</p>
           : result.state === 'unsupported' ? (
             <>
-              <p role="status">No selected dataset measures both {gene[1]} and {partner[1]}, so there is no co-detection to show.</p>
+              <p role="status">No selected dataset measures both {gene.symbol} and {partner.symbol}, so there is no co-detection to show.</p>
               <UnsupportedList rows={result.datasets} query={gene} partner={partner} />
             </>
           ) : data && row && (
@@ -137,8 +133,8 @@ function PairExplorer({ atlas }: { atlas: ReadyAtlas }) {
               <option value="">All hypothalamic cells</option>
               {data.c7.map(entry => <option key={entry.label}>{entry.label}</option>)}
             </select></label>
-            <p><strong>{percent(row.conditionalPercent)}</strong> of {gene[1]}-positive cells also detect {partner[1]} · {format.format(row.counts.both)} of {format.format(row.counts.both + row.counts.queryOnly)} cells</p>
-            <p className="portal-note">Whole hypothalamus · {format.format(row.eligible)} eligible cells in {scope.toLowerCase()}</p>
+            <p><strong>{percent(row.conditionalPercent)}</strong> of {gene.symbol}-positive cells also detect {partner.symbol} · {format.format(row.counts.both)} of {format.format(row.counts.both + row.counts.queryOnly)} cells</p>
+            <p className="portal-note">{WHOLE} · {format.format(row.eligible)} eligible cells in {scope.toLowerCase()}</p>
             <div className="hm-pair-chart">
               <div className="hm-donut" aria-hidden="true" style={{ background: row.eligible ? `conic-gradient(${stops.join(',')})` : '#e1e8ef' }}>
                 <div><strong>{format.format(row.eligible)}</strong><small>eligible cells</small></div>
@@ -157,25 +153,26 @@ function PairExplorer({ atlas }: { atlas: ReadyAtlas }) {
                 <li key={entry.label}>{entry.label} · {format.format(entry.counts[expanded])} cells · {percent(row.counts[expanded] ? 100 * entry.counts[expanded] / row.counts[expanded] : null)}</li>
               ))}</ul>
             </section>}
-            <button type="button" className="portal-secondary" onClick={() => setCsv(comparisonCsv(data, gene, partner, group?.label ?? null))}>Preview comparison CSV</button>
+            <button type="button" className="portal-secondary" onClick={() => setTable(atlasTable(atlas, 'hypomap_comparison', comparisonCsv(data, gene, partner, group?.label ?? null),
+              { partner: { id: partner.id, symbol: partner.symbol }, population: group?.label ?? null, datasets }))}>Preview comparison CSV</button>
           </>
         )}
         <fieldset className="hm-legend">
           <legend>Comparison datasets</legend>
-          {metadata.datasets.map((id, i) => (
+          {atlas.datasets.map(({ id, label }) => (
             <label key={id}><input type="checkbox" checked={datasets.includes(id)} onChange={event => {
               setExpanded(null);
-              setDatasets(event.target.checked ? metadata.datasets.filter(dataset => dataset === id || datasets.includes(dataset))
+              setDatasets(event.target.checked ? ids.filter(dataset => dataset === id || datasets.includes(dataset))
                 : datasets.filter(dataset => dataset !== id));
-            }} />{metadata.study_cards[i].HypoMap_label}</label>
+            }} />{label}</label>
           ))}
         </fieldset>
       </section>}
       <details className="hm-coexpression-method">
         <summary>How co-detection is calculated</summary>
-        <p>A gene is detected when a cell has at least one stored raw count. The conditional score divides cells detecting both genes by cells detecting {gene[1]}. Reverse rank is the position of {gene[1]} among all genes co-detected with the partner. Ties use higher total detection, then atlas index order. Category percentages divide by all eligible cells. Counts are pooled across the selected datasets before percentages are calculated; a selected dataset that does not measure both genes is listed and left out of the pool.</p>
+        <p>A gene is detected when a cell has at least one stored raw count. The conditional score divides cells detecting both genes by cells detecting {gene.symbol}. Reverse rank is the position of {gene.symbol} among all genes co-detected with the partner. Ties use higher total detection, then atlas index order. Category percentages divide by all eligible cells. Counts are pooled across the selected datasets before percentages are calculated; a selected dataset that does not measure both genes is listed and left out of the pool.</p>
       </details>
-      {csv && <CsvDialog csv={csv} onClose={() => setCsv(null)} />}
+      {table && <CsvDialog table={table} onClose={() => setTable(null)} />}
     </>
   );
 }
@@ -189,8 +186,7 @@ export function Coexpression({ symbol }: { symbol: string }) {
       <p className="portal-note">Single-cell co-detection in the mouse HypoMap atlas.</p>
       {atlas.state === 'loading' && <p role="status">Loading HypoMap gene…</p>}
       {atlas.state === 'failed' && <p role="status">Could not load HypoMap. <Retry onClick={atlas.retry}>Retry</Retry></p>}
-      {value && (value.state === 'ready' ? <PairExplorer atlas={value} /> :
-        <p>{value.state === 'ambiguous' ? `Multiple features match ${symbol}: ${value.candidates.join(', ')}.` : `No atlas feature matched ${symbol}.`}</p>)}
+      {value && (value.state === 'ready' ? <PairExplorer atlas={value} /> : <p>{missMessage(value, symbol)}</p>)}
     </section>
   );
 }
