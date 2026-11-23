@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "f6fab6a49f151224f8357970e1fbb89abc3f1e90d1d7145a276445f6a58f46c2",
+  "fingerprint": "3c8763773667ea6656560c04115bb5e6a6cd5365474154b5aaf262ef3de243fc",
   "outcome": "updated",
-  "explanation": "CONTEXT.md adds the HypoMap atlas client entry (transport and cache reset, checksums, cohort, resolution, named genes, region vocabulary, metrics, tables, shared per-symbol load) and extends the export-provenance entry with the atlas subject and its explicit absences. No repository configuration or command changed. CONTEXT.md notes that only atlas tables carrying mean expression record the expression unit.",
+  "explanation": "CONTEXT.md carries both new entries: the Study-selection module (studySelectionLink.ts as the router-facing value and URL form kept off the evidence ledgers, with the forest-primitive and App router entries updated for no useCategoryScope and no reportScope) and the HypoMap atlas client (transport, checksums, cohort, resolution, metrics, tables, shared per-symbol load), plus the export-provenance atlas subject. The refactor checklist points cross-dataset study selection at studySelection.ts, studySelectionLink.ts and StudySelectionPanel. knip.json drops its ignoreDependencies entry for @typescript/typescript6, which lazyChunkBoundaries.test.ts now uses; PROJECT_GUIDANCE needs no change.",
   "references": [
     "CONTEXT.md",
-    "src/search/hypomap/atlas.ts",
-    "src/utils/exportProvenance.ts"
+    "docs/runbooks/REFACTOR_CHECKLIST.md",
+    "knip.json",
+    "src/crossdataset/studySelectionLink.ts",
+    "src/search/hypomap/atlas.ts"
   ]
 }

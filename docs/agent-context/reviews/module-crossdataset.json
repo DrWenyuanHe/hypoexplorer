@@ -1,16 +1,17 @@
 {
   "version": 1,
   "area": "module-crossdataset",
-  "fingerprint": "b3eb37b888ec9698e28082f816700ef6535c9f183beab0d682b7830b407d722b",
+  "fingerprint": "7cfb3853121411eeef18aa31421406e47b9d591d5f2fe5f60273f49581d85f36",
   "outcome": "updated",
-  "explanation": "From main: CrossDatasetCompare (#/compare/<gene>) is deleted and GeneReport loses its Compare as bars button and onCompareDatasets prop. useStudySelection drops the bars kind it served. forestReport.tsx now names only the gene and pathway forests as its users. From the cross-study listing: GeneReport's study table and PathwayReport's headline, category headers and dataset blocks take what leads, the order and the counts from listCrossStudy; the per-view tierOf, TIER_RANK, byFdr, byTier and byTierThenEffect sorts are gone. Grouping by research area or category, folding, the quiet-areas line, the 3-track rule, the FDR-based \"strongest\" and the shared axes stay in the views. Both use the shared TierLabel; forestReport.css pairs .report-de-tier with .portal-tier so its size wins in any sheet order.",
+  "explanation": "Study selection is one module in two files: studySelectionLink.ts holds the value ({ categories, datasetIds, filters }) and its URL form (selectionFromLink / selectionLink) with registry and type imports only, so the entry-bundle router can hold it; studySelection.ts holds useStudySelection, which derives the catalog wait, selected studies, the typed { term, datasets } query, visible groups and reset, and is reached only from the lazily loaded reports because its catalog and quality imports pull in both evidence ledgers. StudySelectionPanel.tsx is the one Study filters panel both reports render. geneStudyScope.tsx and forestReport's useCategoryScope are deleted; useReportQuery takes a typed request instead of a JSON string key; searchLanding drops NOOP_SCOPE.",
   "references": [
+    "src/crossdataset/studySelection.ts",
+    "src/crossdataset/studySelectionLink.ts",
+    "src/crossdataset/StudySelectionPanel.tsx",
     "src/crossdataset/GeneReport.tsx",
     "src/crossdataset/PathwayReport.tsx",
-    "src/crossdataset/forestReport.css",
-    "src/statistics/crossStudyListing.ts",
-    "src/crossdataset/geneStudyScope.tsx",
     "src/crossdataset/forestReport.tsx",
-    "src/__tests__/studySelection.test.tsx"
+    "src/crossdataset/searchLanding.tsx",
+    "CONTEXT.md"
   ]
 }

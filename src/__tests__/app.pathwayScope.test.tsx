@@ -1,3 +1,6 @@
+// App-level smoke for the pathway report's study selection: the router, App and
+// the report wired together. The selection rules themselves are tested at the
+// module's interface in studySelection.test.tsx.
 import { afterEach, beforeEach, describe, expect, it, vi, beforeAll } from 'vitest';
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import App from '../App';
@@ -33,7 +36,6 @@ vi.mock('../data/datasetQualityR460', async (original) => ({
 }));
 
 const PATHWAY = 'HALLMARK_ADIPOGENESIS';
-const NEXT_PATHWAY = 'HALLMARK_INFLAMMATORY_RESPONSE';
 // Every test starts on a named report and searches on from it.
 const START = 'HALLMARK_HYPOXIA';
 const MACAQUE = getDataset('macaque_snrna')!;
@@ -58,7 +60,7 @@ beforeEach(() => {
     ...card, nBaseline: card.dataset.id === MOUSE.id ? 8 : 3, nCase: 8,
   })) });
   queryPathway.mockReset().mockImplementation(async (pathway: string) => report(pathway));
-  loadIndex.mockReset().mockResolvedValue([START, PATHWAY, NEXT_PATHWAY]);
+  loadIndex.mockReset().mockResolvedValue([START, PATHWAY]);
 });
 
 afterEach(() => { window.history.replaceState(null, '', '/'); });
@@ -67,22 +69,15 @@ async function search(pathway = PATHWAY) {
   fireEvent.change(screen.getByRole('textbox', { name: 'Search a pathway' }), { target: { value: pathway } });
   fireEvent.mouseDown(await screen.findByRole('button', { name: pathway }));
 }
-// The study filters sit in a collapsed <details> on the report. Opening is
-// idempotent, so a test can call it after any remount.
-// The filter panel's own live count. A report carries other status regions
-// (loading, expression cards), so the query is scoped to the panel when there
-// is one, and falls back to the page's only status elsewhere (Compare).
-const scopeStatus = () => {
-  const details = document.querySelector('details.report-filters') as HTMLElement | null;
-  return details ? within(details).getByRole('status') : screen.getByRole('status');
-};
-const openFilters = () => {
-  const details = document.querySelector('details.report-filters') as HTMLDetailsElement | null;
-  if (details) details.open = true;
-};
+const filtersPanel = () => document.querySelector('details.report-filters') as HTMLDetailsElement;
+// The filter panel's own live count; the report carries other status regions.
+const scopeStatus = () => within(filtersPanel()).getByRole('status');
+// The study filters sit in a collapsed <details>. Opening is idempotent, so a
+// test can call it after any remount.
+const openFilters = () => { filtersPanel().open = true; };
 
-describe('App pathway category scope', () => {
-  it('restores a copied pathway analysis in a fresh session with its study restrictions', async () => {
+describe('App pathway report study selection', () => {
+  it('keeps a selection through a search and restores it from the copied link', async () => {
     const first = render(<App />); openFilters();
     fireEvent.click(screen.getByRole('button', { name: /^Diet-induced obesity / }));
     fireEvent.click(screen.getByRole('button', { name: /^Larger groups / }));
@@ -91,113 +86,34 @@ describe('App pathway category scope', () => {
     fireEvent.click(screen.getByRole('button', { name: /^Datasets / }));
     fireEvent.click(screen.getByRole('button', { name: 'Clear selection' }));
     fireEvent.click(screen.getByRole('checkbox', { name: `${MOUSE.name} ${MOUSE.organism}` }));
+    // A new pathway remounts the report; the selection belongs to the router.
     await search();
-    await waitFor(() => expect(requestedIds()).toEqual([MOUSE.id]));
+    await waitFor(() => expect(queryPathway).toHaveBeenLastCalledWith(PATHWAY, expect.any(Object)));
+    expect(requestedIds()).toEqual([MOUSE.id]);
+    expect(await screen.findByText(MOUSE.name)).toBeInTheDocument();
+    expect(screen.queryByText(MACAQUE.name)).toBeNull();
     const copied = window.location.hash;
-    expect(copied).toContain('?analysis=');
+    expect(copied).toMatch(/^#\/pathway\/HALLMARK_ADIPOGENESIS\?analysis=/);
     first.unmount();
     queryPathway.mockClear();
     window.history.replaceState(null, '', `/${copied}`);
     render(<App />); openFilters();
     await waitFor(() => expect(queryPathway).toHaveBeenCalled());
     expect(requestedIds()).toEqual([MOUSE.id]);
-    openFilters();
     for (const name of [/^Diet-induced obesity /, /^Larger groups /, 'Pipeline QC Passed']) {
       expect(screen.getByRole('button', { name })).toHaveAttribute('aria-pressed', 'true');
     }
+    await waitFor(() => expect(window.location.hash).toBe(copied));
   });
 
-  it('retains category selection across pathway searches', async () => {
+  it('keeps the report\'s own state when a category is toggled', async () => {
     render(<App />); openFilters();
-    fireEvent.click(screen.getByRole('button', { name: /^Primate atlas / }));
-    await search();
-
-    expect(await screen.findByText(MACAQUE.name)).toBeInTheDocument();
-    expect(screen.queryByText(MOUSE.name)).toBeNull();
-    openFilters();
-    expect(screen.getByRole('button', { name: /^Primate atlas/ })).toHaveAttribute('aria-pressed', 'true');
-    expect(screen.getByRole('button', { name: /^All datasets / })).toHaveAttribute('aria-pressed', 'false');
-
-    // Changing the pathway remounts the report to reset its error boundary.
-    // The selected category must still belong to the search after that remount.
-    const nextSearch = screen.getByRole('textbox', { name: 'Search a pathway' });
-    fireEvent.change(nextSearch, { target: { value: 'INFLAMMATORY_RESPONSE' } });
-    fireEvent.mouseDown(await screen.findByRole('button', { name: NEXT_PATHWAY }));
-
-    expect(await screen.findByText(MACAQUE.name)).toBeInTheDocument();
-    expect(queryPathway).toHaveBeenLastCalledWith(NEXT_PATHWAY, expect.any(Object));
-    expect(screen.queryByText(MOUSE.name)).toBeNull();
-    openFilters();
-    expect(screen.getByRole('button', { name: /^Primate atlas/ })).toHaveAttribute('aria-pressed', 'true');
-
-    fireEvent.click(screen.getByRole('button', { name: /^All datasets / }));
-    expect(await screen.findByText(MOUSE.name)).toBeInTheDocument();
-    expect(requestedIds()).toEqual(listDatasets().filter((dataset) => dataset.supportsPathways).map((dataset) => dataset.id));
-  });
-
-  it('combines category, sample size and independent quality checks through searches', async () => {
-    render(<App />); openFilters();
-    fireEvent.click(screen.getByRole('button', { name: /^Diet-induced obesity / }));
-    fireEvent.click(screen.getByRole('button', { name: /^Larger groups / }));
-    fireEvent.click(screen.getByRole('button', { name: 'Pipeline QC Passed' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Experimental design Passed' }));
-    await waitFor(() => expect(scopeStatus()).toHaveTextContent(/^1 of /));
-    expect(queryPathway).not.toHaveBeenCalledWith(PATHWAY, expect.anything());
-    await search();
-    expect(await screen.findByText(MOUSE.name)).toBeInTheDocument();
-    expect(requestedIds()).toEqual([MOUSE.id]);
-    expect(queryPathway).toHaveBeenLastCalledWith(PATHWAY, expect.any(Object));
-    openFilters();
-    for (const name of ['Larger groups At least 5 samples per group', 'Pipeline QC Passed', 'Experimental design Passed']) {
-      expect(screen.getByRole('button', { name })).toHaveAttribute('aria-pressed', 'true');
-    }
-    const nextSearch = screen.getByRole('textbox', { name: 'Search a pathway' });
-    fireEvent.change(nextSearch, { target: { value: 'INFLAMMATORY_RESPONSE' } });
-    fireEvent.mouseDown(await screen.findByRole('button', { name: NEXT_PATHWAY }));
-    await waitFor(() => expect(queryPathway).toHaveBeenLastCalledWith(NEXT_PATHWAY, expect.any(Object)));
-    expect(requestedIds()).toEqual([MOUSE.id]);
-    openFilters();
-    fireEvent.click(screen.getByRole('button', { name: 'Author concordance Passed' }));
-    expect(await screen.findByText('No datasets selected.')).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: /^All datasets / }));
-    expect(await screen.findByText(MACAQUE.name)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Author concordance Passed' })).toHaveAttribute('aria-pressed', 'false');
-  });
-
-  it('preserves individual selections and does not search the corpus for an empty selection', async () => {
-    render(<App />); openFilters();
-    fireEvent.click(screen.getByRole('button', { name: /^Primate atlas / }));
-    fireEvent.click(screen.getByRole('button', { name: /^Datasets / }));
-    const study = screen.getByRole('checkbox', { name: `${MACAQUE.name} ${MACAQUE.organism}` });
-    fireEvent.click(study);
-    expect(scopeStatus()).toHaveTextContent(/^0 of /);
-    fireEvent.click(study);
-    await search();
-    expect(await screen.findByText(MACAQUE.name)).toBeInTheDocument();
-    expect(requestedIds()).toEqual([MACAQUE.id]);
-    openFilters();
-    fireEvent.click(screen.getByRole('button', { name: /^Datasets / }));
-    fireEvent.click(screen.getByRole('button', { name: 'Clear selection' }));
-    const calls = queryPathway.mock.calls.length;
-    expect(await screen.findByText('No datasets selected.')).toBeInTheDocument();
-    expect(queryPathway).toHaveBeenCalledTimes(calls);
-  });
-
-  it('excludes studies without pathway support from the picker and query', async () => {
-    loadCatalog.mockResolvedValue({ state: 'complete', cards: registryCards().map((card) => card.dataset.id === MOUSE.id
-      ? { ...card, dataset: { ...card.dataset, supportsPathways: false } } : card) });
-    render(<App />); openFilters();
-    const count = listDatasets().filter((dataset) => dataset.supportsPathways && dataset.id !== MOUSE.id).length;
-    await waitFor(() => expect(scopeStatus()).toHaveTextContent(`${count} of ${count} pathway-capable datasets selected`));
-    fireEvent.click(screen.getByRole('button', { name: /^Datasets / }));
-    expect(screen.queryByRole('checkbox', { name: `${MOUSE.name} ${MOUSE.organism}` })).toBeNull();
-    await search();
-    // Searching remounts the report, which starts from the registry cards until
-    // its catalog load settles; a query keyed on that snapshot is cancelled and
-    // re-run. Assert on the query that stands, not the first one issued.
     await waitFor(() => expect(queryPathway).toHaveBeenCalled());
-    await waitFor(() => expect(requestedIds()).not.toContain(MOUSE.id));
-    expect(requestedIds()).toContain(MACAQUE.id);
+    const panel = filtersPanel();
+    fireEvent.click(screen.getByRole('button', { name: /^Primate atlas / }));
+    const primate = listDatasets().filter((dataset) => dataset.category === 'Primate atlas' && dataset.supportsPathways);
+    await waitFor(() => expect(requestedIds()).toEqual(primate.map((dataset) => dataset.id)));
+    expect(filtersPanel()).toBe(panel);
+    expect(panel.open).toBe(true);
   });
-
 });
