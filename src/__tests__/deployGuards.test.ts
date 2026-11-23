@@ -86,6 +86,25 @@ describe('upload guard: public data release bundles', () => {
     await expect(reducedBundleFindings(root)).rejects.toThrow('assigns POP; expected HX_MACAQUE_SNRNA_AST1');
   });
 
+  it('checks every staged macaque track bundle, declared or not, even without meta.js', async () => {
+    // The uploader publishes every file in the folder, so coverage cannot rest on meta.js.
+    const bare = scratch();
+    put(bare, 'datasets/macaque_snrna/track_Ast1.js', 'var HX_MACAQUE_SNRNA_AST1 = {"cpm":{}};\n');
+    put(bare, 'datasets/macaque_snrna/track_Ast1.pathways.js', 'var HX_MACAQUE_SNRNA_AST1_PATH = {};\n');
+    expect(await reducedBundleFindings(bare, { only: 'macaque_snrna' })).toEqual([
+      expect.stringContaining('1 of 1 datasets/macaque_snrna track bundles'),
+    ]);
+
+    const undeclared = scratch();
+    macaque(undeclared, '{"cpm":{"OXT":[1,2]}}');
+    put(undeclared, 'datasets/macaque_snrna/track_Ext2.js', 'var HX_MACAQUE_SNRNA_EXT2 = {"cpm":{}};\n');
+    expect(await reducedBundleFindings(undeclared, { only: 'macaque_snrna' })).toEqual([
+      expect.stringContaining('1 of 2 datasets/macaque_snrna track bundles'),
+    ]);
+    put(undeclared, 'datasets/macaque_snrna/track_Ext2.js', 'var POP = {"cpm":{}};\n');
+    await expect(reducedBundleFindings(undeclared, { only: 'macaque_snrna' })).rejects.toThrow('assigns POP; expected HX_MACAQUE_SNRNA_EXT2');
+  });
+
   it('recognizes the marker, the KEGG note, withheld CPM and an all-empty KEGG corpus', async () => {
     const root = scratch();
     put(root, PUBLIC_RELEASE_MARKER, JSON.stringify({ tag: 'data-2026-11-06' }));

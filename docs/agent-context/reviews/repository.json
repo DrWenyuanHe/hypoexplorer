@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "1123623b84aba4cf5f6c7f6e88d7ff2905b82297e19cb2e2b7d8c77da87cd6c7",
+  "fingerprint": "9a8a25038ea3ba722fec5fc51d2996140f5317b04a652b5311a129d73cf9a909",
   "outcome": "updated",
-  "explanation": "CONTEXT.md extends the bundle-reader seam entry (listDiskCorpus, jsonpHeader, the new adopters and the SEO pages on readDatasetFromDisk) and adds the query-index corpus read module. The refactor checklist gains the rule that scripts read bundles only through the reader, and the SEO runbook says study-page labels come from it.",
+  "explanation": "CONTEXT.md extends the bundle-reader seam entry (listDiskCorpus, jsonpHeader, the new adopters and the SEO pages on readDatasetFromDisk) and adds the query-index corpus read module. The refactor checklist gains the rule that scripts read bundles only through the reader, and the SEO runbook says study-page labels come from it. Review follow-up: the reduced-release macaque check covers every track_<id>.js in the folder as well as the declared tracks, so a missing meta.js or an undeclared file cannot pass unchecked (deployGuards.test.ts).",
   "references": [
     "CONTEXT.md",
     "docs/runbooks/REFACTOR_CHECKLIST.md",

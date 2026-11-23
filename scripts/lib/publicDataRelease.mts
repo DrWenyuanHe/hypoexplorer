@@ -64,16 +64,30 @@ export async function reducedBundleFindings(publicRoot: string, scope: ReducedBu
   if (!existsSync(datasetsRoot)) return findings;
 
   if (!scope.only || scope.only === MACAQUE) {
-    // The declared macaque tracks, named and parsed by the bundle reader. A
-    // malformed or misplaced bundle throws (BundleReadError) rather than
+    // Every macaque track bundle the upload would publish: the tracks meta.js
+    // declares AND every track_<id>.js file in the folder, since the uploader
+    // walks the whole directory (a missing meta.js or an undeclared file must
+    // not slip past the check). Each is named and parsed by the bundle reader;
+    // a malformed or misplaced bundle throws (BundleReadError) rather than
     // passing as "not reduced": the upload stops on it in every mode.
     const macaque = getDataset(MACAQUE);
     if (!macaque) throw new Error(`${MACAQUE} is not in the dataset registry`);
     const paths = datasetBundlePaths(macaque, { publicRoot });
     const meta = readOptionalJsonp<{ populations?: string[] }>(paths.meta.file, paths.meta.global);
+    const trackIds = new Set(meta?.populations ?? []);
+    if (existsSync(paths.dir)) {
+      for (const name of (await readdir(paths.dir)).sort()) {
+        const id = /^track_(.+)\.js$/.exec(name)?.[1];
+        if (!id || name.endsWith('.pathways.js')) continue;
+        if (path.resolve(paths.track(id).file) !== path.resolve(paths.dir, name)) {
+          throw new Error(`datasets/${MACAQUE}/${name}: not a track bundle its locator names; cannot check it`);
+        }
+        trackIds.add(id);
+      }
+    }
     let present = 0;
     let withheld = 0;
-    for (const trackId of meta?.populations ?? []) {
+    for (const trackId of trackIds) {
       const bundle = paths.track(trackId);
       const payload = readOptionalJsonp<{ cpm?: unknown }>(bundle.file, bundle.global);
       if (!payload) continue;

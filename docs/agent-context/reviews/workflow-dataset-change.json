@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "c0bcad0fb16e023847ee2ea7f04c6f9d09befd709e90c557a6643d1924bd8ec2",
+  "fingerprint": "5de299a4635e3cc3849331d54c6004c4d34f9e59a5632ae29d739ab12cbf47ce",
   "outcome": "updated",
-  "explanation": "Script reads of published bundles now go through scripts/lib/bundleReader.mts everywhere a dataset change is consumed: the query index, expression index, bundle optimizer, upload guards, deploy verifier and SEO study pages. The dataset-change route names listDiskCorpus as the one sweep of public/datasets and states that a directory the registry does not name is reported and never read; CONTEXT.md and the refactor checklist record the same rule.",
+  "explanation": "Script reads of published bundles now go through scripts/lib/bundleReader.mts everywhere a dataset change is consumed: the query index, expression index, bundle optimizer, upload guards, deploy verifier and SEO study pages. The dataset-change route names listDiskCorpus as the one sweep of public/datasets and states that a directory the registry does not name is reported and never read; CONTEXT.md and the refactor checklist record the same rule. Review follow-up: the reduced-release macaque check covers every track_<id>.js in the folder as well as the declared tracks, so a missing meta.js or an undeclared file cannot pass unchecked (deployGuards.test.ts).",
   "references": [
     "docs/agent-context/workflows.md",
     "scripts/lib/bundleReader.mts",

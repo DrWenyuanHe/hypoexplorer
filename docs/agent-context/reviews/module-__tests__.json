@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "076bc615f8348f958c2ad877e65b18cf026b026c73913f237748a3af200ffccf",
+  "fingerprint": "5af83a712d62b8a06f3d0d3967d0a7a120dd4dc871a3f3e16ac25d81cb5d9231",
   "outcome": "updated",
-  "explanation": "Bundle-reader adoption: queryIndexCorpus.test.ts drives the query index's corpus read over a temp corpus with missing, malformed, wrong-shape, wrong-global and unregistered bundles; bundleReader.test.ts covers listDiskCorpus and jsonpHeader; seoPages.test.ts pins every study-page track label to readDatasetFromDisk. The private parseExpressionBundle test is removed with the parser, and deployGuards fixtures now use locator globals.",
+  "explanation": "Bundle-reader adoption: queryIndexCorpus.test.ts drives the query index's corpus read over a temp corpus with missing, malformed, wrong-shape, wrong-global and unregistered bundles; bundleReader.test.ts covers listDiskCorpus and jsonpHeader; seoPages.test.ts pins every study-page track label to readDatasetFromDisk. The private parseExpressionBundle test is removed with the parser, and deployGuards fixtures now use locator globals. Review follow-up: the reduced-release macaque check covers every track_<id>.js in the folder as well as the declared tracks, so a missing meta.js or an undeclared file cannot pass unchecked (deployGuards.test.ts).",
   "references": [
     "src/__tests__/queryIndexCorpus.test.ts",
     "src/__tests__/bundleReader.test.ts",

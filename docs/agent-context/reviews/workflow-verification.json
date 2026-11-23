@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "e104361505b82a34f2956acc783e04bf1595a3a54b7a9878dd4be2d55772ec98",
+  "fingerprint": "c440a38295af1b9bee5bad694c4058398feda4ec119ba089dace623e8f993d14",
   "outcome": "no-impact",
-  "explanation": "Bundle-reader adoption touches scripts and tests in this route's scope but no evidence producer, ledger or pinned file: macaqueQc.mts and replicationEvidence.mts are fingerprinted in data/internal-qc/assessments.generated.json and historicalEvidence.mts runs in the sealed loader, so all three keep their own parsers. Verification commands and evidence rules are unchanged.",
+  "explanation": "Bundle-reader adoption touches scripts and tests in this route's scope but no evidence producer, ledger or pinned file: macaqueQc.mts and replicationEvidence.mts are fingerprinted in data/internal-qc/assessments.generated.json and historicalEvidence.mts runs in the sealed loader, so all three keep their own parsers. Verification commands and evidence rules are unchanged. Review follow-up: the reduced-release macaque check covers every track_<id>.js in the folder as well as the declared tracks, so a missing meta.js or an undeclared file cannot pass unchecked (deployGuards.test.ts).",
   "references": [
     "docs/agent-context/workflows.md",
     "data/internal-qc/assessments.generated.json",
