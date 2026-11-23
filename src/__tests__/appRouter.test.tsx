@@ -59,7 +59,7 @@ describe('appRouter — view selection', () => {
     expect(result.current.view).toBe('report');
     expect(result.current.reportGene).toBe('POMC');
     // An unscoped search means "all categories", not "no categories".
-    expect(result.current.reportScope).toBeNull();
+    expect(result.current.geneStudySelection.categories).toBeNull();
 
     act(() => { result.current.searchPathway('HALLMARK_ADIPOGENESIS'); });
     expect(result.current.view).toBe('pathway-report');
@@ -67,7 +67,7 @@ describe('appRouter — view selection', () => {
 
     act(() => { result.current.searchGene('LEPR', ['Diet-induced obesity']); });
     expect(result.current.view).toBe('report');
-    expect(result.current.reportScope).toEqual(['Diet-induced obesity']);
+    expect(result.current.geneStudySelection.categories).toEqual(['Diet-induced obesity']);
 
   });
 

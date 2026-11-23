@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "6332afd571d1a070691152954777958570d37caa7380be7a3af0e7b320d0b822",
-  "outcome": "no-impact",
-  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). The refactor checklist now lives at docs/runbooks/REFACTOR_CHECKLIST.md and, from main, tracks follow-ups in GitHub issues. The ui-change route, views, routing and exports are unchanged.",
+  "fingerprint": "210d074defa9e6bf5aec2e7834f2a38b7f29987a78d8f67a6c3d448cc1587466",
+  "outcome": "updated",
+  "explanation": "The ui-change workflow's study-selection paragraphs now describe one module parameterized by report kind: the router holds one selection per report, App passes it with the setter straight through, both reports render StudySelectionPanel and key their boundary on the term, and the rules are tested at the module's interface.",
   "references": [
     "docs/agent-context/workflows.md",
-    "docs/runbooks/REFACTOR_CHECKLIST.md"
+    "docs/agent-context/catalog.json",
+    "src/crossdataset/studySelection.ts",
+    "src/App.tsx"
   ]
 }

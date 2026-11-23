@@ -1,11 +1,15 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "df711276c587705cd067a1ebac77b5895a90b657062023110bc21fbf55d50454",
-  "outcome": "no-impact",
-  "explanation": "Directory reorganization: loose docs moved to docs/runbooks/ and docs/records/, and deploy, fetch and dev tooling scripts moved to scripts/deploy/, scripts/fetch/ and scripts/dev/. One registry test comment now cites docs/runbooks/REFACTOR_CHECKLIST.md; no assertion, fixture or snapshot changed.",
+  "fingerprint": "b0f4abb89f0bf1756b5b542e9c4218475c893082f314d38136f40bdabdd88e66",
+  "outcome": "updated",
+  "explanation": "studySelection.test.tsx now tests the study-selection module at its interface, parameterized by report kind (empty selections never widen, selections survive a term remount, link bytes round-trip, the panel wording). The App gene and pathway scope tests keep one copied-link smoke each plus a check that a category toggle does not remount the report. geneStudyScope.test.ts and the useCategoryScope tests are removed; report and router tests pass the new selection props.",
   "references": [
-    "src/__tests__/datasetsRegistry.test.ts",
-    "docs/runbooks/REFACTOR_CHECKLIST.md"
+    "src/__tests__/studySelection.test.tsx",
+    "src/__tests__/app.geneScope.test.tsx",
+    "src/__tests__/app.pathwayScope.test.tsx",
+    "src/__tests__/forestReport.test.tsx",
+    "src/__tests__/geneReport.test.tsx",
+    "src/__tests__/pathwayReport.test.tsx"
   ]
 }

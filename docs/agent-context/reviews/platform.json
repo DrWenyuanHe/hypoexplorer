@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "191cef7709c399d412b21d988ab4b6a98491a6e57ef352e05e4e21a34ea50ad9",
+  "fingerprint": "068f4958bd69c0547575dee03d954e15cbb4e3273376bcf2ebf15702c9acd66f",
   "outcome": "updated",
-  "explanation": "The explorer shell in App.tsx has no breadcrumb: the header is the logo and the 28px utilities, and the study line's dataset name is the button that opens the library, replacing \"All datasets\". The hero's gene count and DOI link are neutral, and the accent strip is 4px. View switching, routing and lazy views are unchanged.",
+  "explanation": "The router stores one study selection per report kind (geneStudySelection, pathwayStudySelection) and reads and writes links through selectionFromLink / selectionLink; the gene-only reportScope and setReportScope are gone, so boot and Back/Forward now read a link's categories by the same rule. App drops its six scope adapters and keys the gene report boundary on the term alone, as the pathway report already was.",
   "references": [
+    "src/appRouter.ts",
     "src/App.tsx",
-    "src/common/headerControl.css",
-    "docs/agent-context/workflows.md"
+    "src/crossdataset/studySelection.ts"
   ]
 }

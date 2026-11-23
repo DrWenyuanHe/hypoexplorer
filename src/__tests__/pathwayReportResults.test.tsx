@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { PathwayReport } from '../crossdataset/PathwayReport';
+import { DEFAULT_STUDY_SELECTION } from '../crossdataset/studySelection';
 import { CompareSetButton } from '../compareset/CompareSetButton';
 import { _resetCompareSetStore, getSnapshot } from '../compareset/compareSetStore';
 import { getDataset } from '../data/datasets';
@@ -30,7 +31,7 @@ beforeEach(() => {
 });
 
 function mount(onCompare = vi.fn()) {
-  return render(<PathwayReport pathway={pathway} onHome={() => {}} onSearchPathway={() => {}} headerRight={<CompareSetButton onCompare={onCompare} />} />);
+  return render(<PathwayReport pathway={pathway} selection={DEFAULT_STUDY_SELECTION} onSelectionChange={() => {}} onHome={() => {}} onSearchPathway={() => {}} headerRight={<CompareSetButton onCompare={onCompare} />} />);
 }
 
 describe('pathway result study cards', () => {

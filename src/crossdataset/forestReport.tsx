@@ -1,16 +1,16 @@
 // Shared primitives for the cross-dataset report pages (GeneReport's log2FC
 // forest and PathwayReport's NES forest): the
 // direction encoding, the contrast label, the category
-// grouping, the category-scope state machine + its filter chip, the
-// report-query lifecycle, and the shared six-column grid.
+// grouping, the filter chip, the report-query lifecycle, and the shared
+// six-column grid. Which studies a report covers is study selection's
+// (studySelection.ts), not this file's.
 //
 // Deliberately NOT one all-owning <ForestReport>: GeneReport carries policy
 // (95% CI whiskers, collapsible dataset disclosures, provenance links) that
 // PathwayReport doesn't have, and a schema wide enough to express all of it
 // would expose GeneReport's implementation as an interface. Each report keeps its own ForestRow; what lives here is what
 // they genuinely share.
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import type { Dispatch, SetStateAction } from 'react';
+import { useEffect, useState } from 'react';
 import { ProgressBar } from '../common/ProgressBar';
 import { Spinner } from '../common/Spinner';
 import { useBundleBytes } from '../data/useBundleProgress';
@@ -63,54 +63,6 @@ export function FilterChip({ label, count, active, onClick, title }: { label: st
   );
 }
 
-export interface CategoryScope<TCategory> {
-  /** Which categories show. null = all. */
-  activeCats: Set<TCategory> | null;
-  setActiveCats: Dispatch<SetStateAction<Set<TCategory> | null>>;
-  toggleCat: (category: TCategory) => void;
-}
-
-// The category-filter state machine both cross-dataset views share: seeded from
-// the incoming scope (e.g. a hub physiology tile), re-seeded whenever that scope
-// changes, and toggled under the "empty set collapses to null = all" rule — so
-// unticking the last chip widens back to every dataset instead of emptying the
-// view.
-export function useCategoryScope<TCategory>(scope?: readonly TCategory[] | null, onChange?: (scope: TCategory[] | null) => void): CategoryScope<TCategory> {
-  const scopeKey = (scope ?? []).join(',');
-  const [activeCats, setActiveCats] = useState<Set<TCategory> | null>(
-    scope?.length ? new Set(scope) : null,
-  );
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-seed only when the scope identity changes
-  useEffect(() => { setActiveCats(scope?.length ? new Set(scope) : null); }, [scopeKey]);
-
-  const toggleCat = useCallback((category: TCategory) => {
-    setActiveCats((prev) => {
-      const next = new Set(prev ?? []);
-      if (next.has(category)) next.delete(category); else next.add(category);
-      return next.size === 0 ? null : next;
-    });
-  }, []);
-
-  // Route-owned scopes use the supplied value directly, so Back/Forward and a
-  // filter click cannot race an effect that copies one state into another.
-  const controlledCats = useMemo(() => scope?.length ? new Set(scope) : null, [scope]);
-  const setControlled: CategoryScope<TCategory>['setActiveCats'] = useCallback((action) => {
-    const next = typeof action === 'function' ? action(controlledCats) : action;
-    onChange?.(next ? [...next] : null);
-  }, [controlledCats, onChange]);
-  const toggleControlled = useCallback((category: TCategory) => {
-    setControlled((prev) => {
-      const next = new Set(prev ?? []);
-      if (next.has(category)) next.delete(category); else next.add(category);
-      return next.size ? next : null;
-    });
-  }, [setControlled]);
-  return onChange
-    ? { activeCats: controlledCats, setActiveCats: setControlled, toggleCat: toggleControlled }
-    : { activeCats, setActiveCats, toggleCat };
-}
-
 // Group report rows into categories, in the canonical category order regardless
 // of input order; categories with no groups are dropped.
 export function groupForestCategories<TGroup, TCategory extends string>(
@@ -144,42 +96,44 @@ export interface ReportQueryState<TResult> {
   error: string | null;
 }
 
-// The report-query lifecycle both reports share: reset on key change, track
-// per-track progress, and suppress every state update after cleanup so a
-// superseded query can't clobber the current one.
-export function useReportQuery<TResult>(
-  key: string,
-  load: (key: string, options: { onProgress: (loaded: number, total: number) => void }) => Promise<TResult>,
+// The report-query lifecycle both reports share: reset when the request
+// changes, track per-track progress, and suppress every state update after
+// cleanup so a superseded query can't clobber the current one. The request is a
+// typed value whose IDENTITY is the query (study selection keeps it stable while
+// the term and selected studies are unchanged); null is idle.
+export function useReportQuery<TRequest, TResult>(
+  request: TRequest | null,
+  load: (request: TRequest, options: { onProgress: (loaded: number, total: number) => void }) => Promise<TResult>,
   errorMessage: string,
 ): ReportQueryState<TResult> {
   const [result, setResult] = useState<TResult | null>(null);
-  // An empty key is IDLE, not loading. A report still waiting on its study
+  // A null request is IDLE, not loading. A report still waiting on its study
   // selection (sample counts not yet loaded) mounts with one, and starting at
   // `true` would show a spinner for a query that has not been issued.
-  const [loading, setLoading] = useState(Boolean(key));
+  const [loading, setLoading] = useState(request !== null);
   const [progress, setProgress] = useState({ loaded: 0, total: 0 });
   const [error, setError] = useState<string | null>(null);
   const bytes = useBundleBytes(loading);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: `load` and `errorMessage` are stable per call site; the query re-runs on `key` alone.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: `load` and `errorMessage` are stable per call site; the query re-runs on `request` alone.
   useEffect(() => {
-    // Clearing the key has to clear the RESULT too. Bailing out early while
+    // Clearing the request has to clear the RESULT too. Bailing out early while
     // leaving the previous query's result in place would render the old gene's
     // forest under an empty heading — invisible while every report was remounted
     // per query, and a real bug the moment one can be cleared in place.
-    if (!key) {
+    if (request === null) {
       setResult(null); setError(null); setProgress({ loaded: 0, total: 0 }); setLoading(false);
       return;
     }
     let cancelled = false;
     setLoading(true); setError(null); setResult(null); setProgress({ loaded: 0, total: 0 });
-    load(key, {
+    load(request, {
       onProgress: (loaded, total) => { if (!cancelled) setProgress({ loaded, total }); },
     })
       .then((r) => { if (!cancelled) { setResult(r); setLoading(false); } })
       .catch(() => { if (!cancelled) { setError(errorMessage); setLoading(false); } });
     return () => { cancelled = true; };
-  }, [key]);
+  }, [request]);
 
   return { result, loading, progress, bytes, error };
 }

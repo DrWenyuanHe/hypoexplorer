@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "ef2e748bedc60f226a3d2d357a8364e57c45a5f07476991777d71a876ff46986",
+  "fingerprint": "2cec7d533e4710bf3931e4024ca8101a47d3cee9845ecf107ecf2d4da097cbd1",
   "outcome": "updated",
-  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: PROJECT_GUIDANCE.md and the refactor checklist point follow-ups and pending ledger rebuilds at GitHub issues. From this branch: package.json script paths, docs/README.md, scripts/README.md and .vscode/settings.json reflect the new layout.",
+  "explanation": "CONTEXT.md adds the Study-selection module entry and updates the forest-primitive and App router entries (no useCategoryScope, no reportScope). The refactor checklist points cross-dataset study selection at studySelection.ts and StudySelectionPanel and drops the useCategoryScope line.",
   "references": [
-    "docs/PROJECT_GUIDANCE.md",
+    "CONTEXT.md",
     "docs/runbooks/REFACTOR_CHECKLIST.md",
-    "package.json",
-    "scripts/README.md",
-    ".vscode/settings.json"
+    "src/crossdataset/studySelection.ts"
   ]
 }

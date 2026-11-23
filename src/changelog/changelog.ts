@@ -6,6 +6,16 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-11-22',
+    title: 'Study filters on the gene page update in place',
+    items: [
+      'Choosing a study category on a gene page no longer reloads the whole page. The Study filters section stays open, text typed in the search box is kept, and the expression cards are not downloaded again. The pathway report already worked this way.',
+      'The gene page and the pathway report now share one set of study filters, so their category, quality, sample-size and study controls behave the same way.',
+      'Opening a shared gene or pathway link no longer reorders the settings in the address bar. Older links open as before.',
+      'No data, result or analysis changed.',
+    ],
+  },
+  {
     date: '2026-11-21',
     title: 'Quieter explorer, volcano and reference pages',
     items: [

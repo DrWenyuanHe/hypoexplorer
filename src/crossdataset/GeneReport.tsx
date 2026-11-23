@@ -1,17 +1,15 @@
 import { useState, useEffect, useId, useMemo, useCallback } from 'react';
 import type { Dispatch, MouseEvent, ReactNode, SetStateAction } from 'react';
 import { queryGeneAcrossDatasets } from '../data/crossDataset';
-import { datasetCategory, DATASET_CATEGORIES, listDatasets } from '../data/datasets';
+import { datasetCategory, DATASET_CATEGORIES } from '../data/datasets';
 import type { DatasetCategory } from '../data/datasets';
 import { datasetHref, libraryHref, isPlainLeftClick } from '../utils/appLinks';
 import { fmtFDR, fmtP, fmtSigned } from '../utils/format';
 import { FONT_MONO, UP_TEXT_COLOR as UP, DOWN_TEXT_COLOR as DOWN } from '../styles/constants';
-import { useReportQuery, useCategoryScope, ReportLoading } from './forestReport';
+import { useReportQuery, ReportLoading } from './forestReport';
 import { categoryColor } from '../library/LibraryToolbar';
-import {
-  DatasetScopePanel, ScopeSummary, NOOP_SCOPE,
-} from './searchLanding';
-import { useStudySelection, GeneStudySuggestions, type GeneStudyFilters } from './geneStudyScope';
+import { useStudySelection, type StudyQuery, type StudySelection } from './studySelection';
+import { StudySelectionPanel } from './StudySelectionPanel';
 import { PageShell } from '../common/PageShell';
 import { EmptyState } from '../common/EmptyState';
 import { DEFAULT_FDR_CUTOFF, NOMINAL_P_CUTOFF } from '../statistics/policy';
@@ -387,21 +385,15 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
 interface GeneReportProps {
   /** The gene to report on. */
   gene: string;
-  /** Optional category filter the report opens with (a preset, or a `#/gene/<g>/<cat>` link). null = all. */
-  scope?: DatasetCategory[] | null;
-  onScopeChange?: (scope: DatasetCategory[] | null) => void;
   /**
-   * Which datasets are in scope; null = all.
-   *
-   * Owned by App rather than by this component because searching another gene
-   * remounts the report (the ErrorBoundary is keyed by gene), and the selection
-   * has to survive that. App also
-   * serializes these restrictions into the versioned analysis URL.
+   * The gene report's study selection (categories, individual studies,
+   * filters) and its setter. Owned by the router rather than by this component
+   * because searching another gene remounts the report (the ErrorBoundary is
+   * keyed by gene), and the selection has to survive that; the router also
+   * writes it into the URL.
    */
-  datasetScope?: string[] | null;
-  onDatasetScopeChange?: Dispatch<SetStateAction<string[] | null>>;
-  studyFilters?: GeneStudyFilters;
-  onStudyFiltersChange?: (filters: GeneStudyFilters) => void;
+  selection: StudySelection;
+  onSelectionChange: Dispatch<SetStateAction<StudySelection>>;
   onHome: () => void;
   /** Search a gene, carrying the scope it was searched under. */
   onSearchGene: (gene: string, scope?: DatasetCategory[] | null) => void;
@@ -416,75 +408,39 @@ interface GeneReportProps {
   headerRight?: ReactNode;
 }
 
-/** The serialized selection keeps the report hook's key and requested corpus aligned. */
-async function querySelectedGene(key: string, options: { onProgress: (loaded: number, total: number) => void }) {
-  const [gene, ids]: [string, string[]] = JSON.parse(key);
-  const datasets = listDatasets().filter((dataset) => ids.includes(dataset.id));
-  if (datasets.length === 0) return { gene, total: 0, loaded: 0, groups: [] };
-  return queryGeneAcrossDatasets(gene, { ...options, datasets });
+/** Query the selected studies; an empty selection asks for nothing. */
+async function queryGene({ term, datasets }: StudyQuery, options: { onProgress: (loaded: number, total: number) => void }) {
+  if (datasets.length === 0) return { gene: term, total: 0, loaded: 0, groups: [] };
+  return queryGeneAcrossDatasets(term, { ...options, datasets });
 }
 
 export function GeneReport({
-  gene, scope, onScopeChange, datasetScope = null, onDatasetScopeChange,
-  studyFilters, onStudyFiltersChange,
+  gene, selection: value, onSelectionChange,
   onHome, onSearchGene, onOpenDataset, onShowPathway, onOpenPathway, onOpenExpression, headerRight,
 }: GeneReportProps) {
   const [query, setQuery] = useState(gene);
-  const categories = useCategoryScope(scope, onScopeChange);
-  const { activeCats, toggleCat } = categories;
-  const { cards, eligibleCards, availableDatasets, selectedDatasets, awaitingCounts,
-    queryKey, filters, changeFilters, reset } = useStudySelection({
-    kind: 'gene', term: gene, categories, datasetScope,
-    studyFilters, onStudyFiltersChange, onDatasetScopeChange,
-  });
+  const selection = useStudySelection({ kind: 'gene', term: gene, value, onChange: onSelectionChange });
+  const { activeCategories, selectedDatasets, awaitingCounts, visibleGroups: selectGroups } = selection;
   const { result, loading, progress, bytes, error } = useReportQuery(
-    queryKey, querySelectedGene, 'Could not load cross-dataset data.',
+    selection.query, queryGene, 'Could not load cross-dataset data.',
   );
 
   useEffect(() => { setQuery(gene); }, [gene]);
 
-  // A follow-up search keeps the scope the user is currently reading under.
-  // Dropping it here (as an unscoped search would) silently widens the report
-  // back to the whole corpus on every gene change.
-  const currentScope = useCallback(
-    () => (activeCats ? [...activeCats] : null),
-    [activeCats],
-  );
-
+  // A follow-up search keeps the categories the user is currently reading
+  // under. Dropping them here (as an unscoped search would) silently widens the
+  // report back to the whole corpus on every gene change.
+  const categories = value.categories;
   const submit = useCallback(() => {
     const g = query.trim();
-    if (g && g !== gene) onSearchGene(g, currentScope());
-  }, [query, gene, onSearchGene, currentScope]);
+    if (g && g !== gene) onSearchGene(g, categories);
+  }, [query, gene, onSearchGene, categories]);
 
-  // The two filters: the selected datasets, then the visible categories.
-  const visibleGroups = useMemo(
-    () => result?.groups.filter((group) => selectedDatasets.some((dataset) => dataset.id === group.dataset.id)
-      && (!activeCats || activeCats.has(datasetCategory(group.dataset.id)))) ?? [],
-    [result, selectedDatasets, activeCats],
-  );
-  const scopeLabel = activeCats ? [...activeCats].join(' + ') : null;
-  // The studies the pathways card follows: the selection, narrowed to the
-  // visible categories as the table is. null until sample counts settle it.
-  const contextStudies = useMemo(
-    () => (awaitingCounts ? null : selectedDatasets.filter((d) => !activeCats || activeCats.has(datasetCategory(d.id)))),
-    [awaitingCounts, selectedDatasets, activeCats],
-  );
-
-  const scopeControls = (
-    <>
-      <GeneStudySuggestions cards={cards} eligibleCards={eligibleCards} categories={activeCats} filters={filters}
-        hasIndividualSelection={datasetScope !== null} onCategory={toggleCat} onFilters={changeFilters}
-        onReset={reset} />
-      <DatasetScopePanel datasets={availableDatasets} selected={datasetScope}
-        onChange={onDatasetScopeChange ?? NOOP_SCOPE} allowEmpty />
-      <ScopeSummary>
-        <span role="status">{awaitingCounts ? 'Loading sample counts…' : `${selectedDatasets.length} of ${cards.length} datasets selected`}</span>
-        {filters.minSamples > 0 && <span className="qsearch-filter-note">Sample counts apply to the default population and comparison; other populations may differ. Unknown counts are excluded.</span>}
-        {filters.requiredChecks.length > 0 && <span className="qsearch-filter-note">Only datasets passing each selected quality check are included.</span>}
-        {!awaitingCounts && selectedDatasets.length === 0 && <span className="qsearch-filter-note">No datasets match. Change the filters or choose All datasets.</span>}
-      </ScopeSummary>
-    </>
-  );
+  const visibleGroups = useMemo(() => (result ? selectGroups(result.groups) : []), [result, selectGroups]);
+  const scopeLabel = activeCategories ? [...activeCategories].join(' + ') : null;
+  // The studies the pathways card follows: the selection the table shows.
+  // null until sample counts settle it.
+  const contextStudies = awaitingCounts ? null : selectedDatasets;
 
   return (
     <PageShell
@@ -521,10 +477,7 @@ export function GeneReport({
             pathways card below follows the same selection. */}
         <section className="portal-card report-de-card" data-section="differential-expression" aria-labelledby="report-de-title">
           <h2 id="report-de-title" className="portal-card-title">Differential expression across studies</h2>
-          <details className="report-filters">
-            <summary>Study filters <span>{selectedDatasets.length} datasets selected</span></summary>
-            <div>{scopeControls}</div>
-          </details>
+          <StudySelectionPanel selection={selection} />
 
           {loading || awaitingCounts ? (
             <ReportLoading

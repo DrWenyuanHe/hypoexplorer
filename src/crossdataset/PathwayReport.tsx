@@ -9,7 +9,7 @@
 import { useState, useMemo } from 'react';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
 import { queryPathwayAcrossDatasets, loadPathwayIndex } from '../data/crossDataset';
-import { datasetCategory, DATASET_CATEGORIES, listDatasets } from '../data/datasets';
+import { datasetCategory, DATASET_CATEGORIES } from '../data/datasets';
 import { datasetHref, libraryHref } from '../utils/appLinks';
 import { CompareSetToggle } from '../compareset/CompareSetToggle';
 import { toggleItem, useCompareSet } from '../compareset/compareSetStore';
@@ -20,12 +20,11 @@ import { fmtP, fmtFDR, fmtSigned } from '../utils/format';
 import { FONT_MONO, DIRECTION_UP_COLOR as UP, DIRECTION_DOWN_COLOR as DOWN } from '../styles/constants';
 import {
   FOREST_GRID, axisPct, directionColor, contrastLabel, groupForestCategories, useReportQuery,
-  useCategoryScope, ReportLoading, type CategoryScope,
+  ReportLoading,
 } from './forestReport';
-import {
-  DatasetScopePanel, ScopeSummary, useSearchIndex, NOOP_SCOPE,
-} from './searchLanding';
-import { useStudySelection, GeneStudySuggestions as StudySuggestions, type GeneStudyFilters } from './geneStudyScope';
+import { useSearchIndex } from './searchLanding';
+import { useStudySelection, type StudyQuery, type StudySelection } from './studySelection';
+import { StudySelectionPanel } from './StudySelectionPanel';
 import { PageShell } from '../common/PageShell';
 import { DEFAULT_FDR_CUTOFF, NOMINAL_P_CUTOFF } from '../statistics/policy';
 import { PATHWAY_KEYS, listCrossStudy } from '../statistics/crossStudyListing';
@@ -217,42 +216,32 @@ function PathwaySearch({ index, onPick }: { index: string[]; onPick: (p: string)
 interface PathwayReportProps {
   /** The pathway to report on. */
   pathway: string;
-  /** Held above the report's error boundary so searches and retries retain it. */
-  categoryScope?: CategoryScope<DatasetCategory>;
   /**
-   * Which datasets are in scope; null = all. App preserves this in the analysis URL.
+   * The pathway report's study selection and its setter, held by the router
+   * above the report's term-keyed error boundary so searches and retries keep
+   * it; the router also writes it into the analysis URL.
    */
-  datasetScope?: string[] | null;
-  onDatasetScopeChange?: Dispatch<SetStateAction<string[] | null>>;
-  studyFilters?: GeneStudyFilters;
-  onStudyFiltersChange?: (filters: GeneStudyFilters) => void;
+  selection: StudySelection;
+  onSelectionChange: Dispatch<SetStateAction<StudySelection>>;
   headerRight?: ReactNode;
   onHome: () => void;
   onSearchPathway: (pathway: string) => void;
 }
 
-/** Query only the pathway-capable studies identified by the current selection. */
-async function querySelectedPathway(key: string, options: { onProgress: (loaded: number, total: number) => void }) {
-  const [pathway, ids]: [string, string[]] = JSON.parse(key);
-  const datasets = listDatasets().filter((dataset) => dataset.supportsPathways && ids.includes(dataset.id));
-  if (datasets.length === 0) return { pathway, total: 0, loaded: 0, groups: [] };
-  return queryPathwayAcrossDatasets(pathway, { ...options, datasets });
+/** Query the selected pathway-capable studies; an empty selection asks for nothing. */
+async function queryPathway({ term, datasets }: StudyQuery, options: { onProgress: (loaded: number, total: number) => void }) {
+  if (datasets.length === 0) return { pathway: term, total: 0, loaded: 0, groups: [] };
+  return queryPathwayAcrossDatasets(term, { ...options, datasets });
 }
 
 export function PathwayReport({
-  pathway, categoryScope, datasetScope = null, onDatasetScopeChange, studyFilters, onStudyFiltersChange, headerRight, onHome, onSearchPathway,
+  pathway, selection: value, onSelectionChange, headerRight, onHome, onSearchPathway,
 }: PathwayReportProps) {
   const index = useSearchIndex(loadPathwayIndex);
-  const localCategoryScope = useCategoryScope<DatasetCategory>(null);
-  const categories = categoryScope ?? localCategoryScope;
-  const { activeCats, toggleCat } = categories;
-  const { cards, eligibleCards, availableDatasets, selectedDatasets, awaitingCounts,
-    queryKey, filters, changeFilters, reset } = useStudySelection({
-    kind: 'pathway', term: pathway, categories, datasetScope,
-    studyFilters, onStudyFiltersChange, onDatasetScopeChange,
-  });
+  const selection = useStudySelection({ kind: 'pathway', term: pathway, value, onChange: onSelectionChange });
+  const { selectedDatasets, awaitingCounts, visibleGroups: selectGroups } = selection;
   const { result, loading, progress, bytes, error } = useReportQuery(
-    queryKey, querySelectedPathway, 'Could not load cross-dataset pathway data.',
+    selection.query, queryPathway, 'Could not load cross-dataset pathway data.',
   );
 
   const bound = useMemo(() => {
@@ -262,18 +251,10 @@ export function PathwayReport({
     return Math.max(1, Math.ceil(max));
   }, [result]);
 
-  // Datasets first, then categorize, then categories — the same order the Gene
+  // The selection's groups, then categorized — the same order the Gene
   // Explorer uses, so an emptied category disappears rather than rendering as a
   // headed, empty section.
-  const datasetGroups = useMemo(
-    () => result?.groups.filter((group) => selectedDatasets.some((dataset) => dataset.id === group.dataset.id)) ?? [],
-    [result, selectedDatasets],
-  );
-  const categorized = useMemo(() => categorize(datasetGroups), [datasetGroups]);
-  const visibleCategorized = useMemo(
-    () => (activeCats ? categorized.filter((c) => activeCats.has(c.category)) : categorized),
-    [categorized, activeCats],
-  );
+  const visibleCategorized = useMemo(() => categorize(result ? selectGroups(result.groups) : []), [result, selectGroups]);
   const visibleGroups = useMemo(() => visibleCategorized.flatMap((c) => c.groups), [visibleCategorized]);
 
   // Counted over the VISIBLE groups, not over every group in the result. A
@@ -285,22 +266,6 @@ export function PathwayReport({
     const { tracks, nominal } = listCrossStudy(visibleGroups, listingMode, PATHWAY_KEYS, 'effect');
     return { sigTracks: tracks.fdr, up: tracks.up, down: tracks.down, nTracks: tracks.measured, nominalTracks: nominal?.tracks ?? 0 };
   }, [result, visibleGroups, listingMode]);
-
-  const scopeControls = (
-    <>
-      <StudySuggestions cards={cards} eligibleCards={eligibleCards} categories={activeCats} filters={filters}
-        hasIndividualSelection={datasetScope !== null} onCategory={toggleCat} onFilters={changeFilters}
-        onReset={reset} />
-      <DatasetScopePanel datasets={availableDatasets} selected={datasetScope}
-        onChange={onDatasetScopeChange ?? NOOP_SCOPE} allowEmpty />
-      <ScopeSummary>
-        <span role="status">{awaitingCounts ? 'Loading sample counts…' : `${selectedDatasets.length} of ${cards.length} pathway-capable datasets selected`}</span>
-        {filters.minSamples > 0 && <span className="qsearch-filter-note">Sample counts apply to the default population and comparison; other populations may differ. Unknown counts are excluded.</span>}
-        {filters.requiredChecks.length > 0 && <span className="qsearch-filter-note">Only datasets passing each selected quality check are included.</span>}
-        {!awaitingCounts && selectedDatasets.length === 0 && <span className="qsearch-filter-note">No datasets match. Change the filters or choose All datasets.</span>}
-      </ScopeSummary>
-    </>
-  );
 
   return (
     <PageShell
@@ -324,10 +289,7 @@ export function PathwayReport({
           </div>
         </div>
 
-        <details className="report-filters">
-          <summary>Study filters <span>{selectedDatasets.length} datasets selected</span></summary>
-          <div>{scopeControls}</div>
-        </details>
+        <StudySelectionPanel selection={selection} />
 
         {loading || awaitingCounts ? (
           <ReportLoading label={awaitingCounts ? 'Loading sample counts…' : 'Loading pathway across selected datasets…'} progress={progress} bytes={bytes} unit="tracks" />

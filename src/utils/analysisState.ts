@@ -1,15 +1,19 @@
 import { DATASET_CATEGORIES, type DatasetCategory } from '../data/datasetCategories';
 import { DB_NAMES } from '../data/constants';
-import type { GeneStudyFilters } from '../crossdataset/geneStudyScope';
+import type { StudyFilters } from '../crossdataset/studySelection';
 import { PATHWAY_SORT_DIRS } from '../pathway-explorer/pathwayTable';
 import { CHART_SCALES, type ChartScale } from './chartScale';
 
-/** Public URL contract. Add a new version when its meaning changes. */
+/**
+ * Public URL contract. Add a new version when its meaning changes. A report's
+ * study selection is written to and read from this snapshot only through
+ * `selectionLink` / `selectionFromLink` (crossdataset/studySelection.ts).
+ */
 export interface StudyAnalysisState {
   version: 1;
   datasetIds: string[] | null;
   categories: DatasetCategory[] | null;
-  filters: GeneStudyFilters;
+  filters: StudyFilters;
   chartScale?: ChartScale;
 }
 
@@ -80,7 +84,7 @@ export function parseStudyAnalysis(value: unknown): StudyAnalysisState | null {
     ...(value.chartScale ? { chartScale: value.chartScale } : {}),
     datasetIds: value.datasetIds === null ? null : [...new Set(value.datasetIds)],
     categories: value.categories === null ? null : [...new Set(value.categories)] as DatasetCategory[],
-    filters: { minSamples, requiredChecks: [...new Set(requiredChecks)] as GeneStudyFilters['requiredChecks'] },
+    filters: { minSamples, requiredChecks: [...new Set(requiredChecks)] as StudyFilters['requiredChecks'] },
   };
 }
 
@@ -104,10 +108,4 @@ export function parseExplorerAnalysis(value: unknown): ExplorerAnalysisState | n
     volcano: { metric, logFCThresh, sigThresh },
     pathway: { search, dbFilter: Object.fromEntries(DB_NAMES.map((db) => [db, dbFilter[db] as boolean])), fdrThresh, sortKey: sortKey as string },
   };
-}
-
-/** Default links remain short; any restriction (including an empty set) is explicit. */
-export function hasStudyAnalysis(state: StudyAnalysisState): boolean {
-  return state.datasetIds !== null || state.categories !== null
-    || state.filters.minSamples !== 0 || state.filters.requiredChecks.length > 0;
 }
