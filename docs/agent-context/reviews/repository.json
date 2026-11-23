@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "73409770b20ffabd46979d9c85eac63f067ae196fdc43b96d7e45a579dc50cfb",
+  "fingerprint": "eace3a4d5421b720ba25e680d6f7a048937bac700f67ced2beaac8e14460f788",
   "outcome": "updated",
-  "explanation": "Merges main into the Codex closure pass. From main: CONTEXT.md adds the HypoMap atlas client entry and extends the export-provenance entry with the atlas subject; only atlas tables carrying mean expression record the expression unit. From this branch: data-release.json pins hypoexplorer-data release data-2026-11-22 with the evidence-codex-2026-11-21 part, the five existing parts stay at data-2026-11-06, and public-safety.json keeps the reviewed writing-rule allowances for the closure pass files.",
+  "explanation": "Merges main into the Codex closure pass. From main: CONTEXT.md carries the Study-selection module and HypoMap atlas client entries plus the export-provenance atlas subject, the refactor checklist points cross-dataset study selection at studySelection.ts, studySelectionLink.ts and StudySelectionPanel, and knip.json drops its @typescript/typescript6 ignore. From this branch: data-release.json pins hypoexplorer-data release data-2026-11-22 with the evidence-codex-2026-11-21 part, the five existing parts stay at data-2026-11-06, and public-safety.json keeps the reviewed writing-rule allowances for the closure pass files.",
   "references": [
     "CONTEXT.md",
-    "src/search/hypomap/atlas.ts",
+    "docs/runbooks/REFACTOR_CHECKLIST.md",
+    "knip.json",
     "data-release.json",
     "public-safety.json"
   ]

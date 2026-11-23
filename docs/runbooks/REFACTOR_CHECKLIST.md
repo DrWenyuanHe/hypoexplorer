@@ -62,8 +62,6 @@ leave them byte-for-byte unchanged:
 - [ ] What a cross-study view leads with, its order and its counts → `listCrossStudy`
       in `src/statistics/crossStudyListing.ts` (no per-view tier sort or tally); the
       tier label → `TierLabel` in `src/statistics/TierLabel.tsx`.
-- [ ] Category-scope chips on report pages → `useCategoryScope` / `FilterChip` in
-      `src/crossdataset/forestReport.tsx`.
 - [ ] Export buttons (disabled-when-busy + spinner wiring) → `ExportButton` in
       `src/common/ExportButton.tsx`; labels stay per-site props.
 - [ ] Sortable table state/comparator (nulls last in BOTH directions) →
@@ -102,11 +100,14 @@ leave them byte-for-byte unchanged:
       (builders never hand-spell filenames/global keys; manifests are assertion
       inputs). Registry golden: the `datasetsRegistry.test.ts` snapshot is never
       regenerated to make a failure pass — fix the entry instead.
-- [ ] Cross-dataset study selection → `useStudySelection` in
-      `src/crossdataset/geneStudyScope.tsx` (catalog readiness, eligibility,
-      query identity and reset coordination). Preserve explicit empty selections
-      and bars' category-only display filtering; route state and report-query
-      cancellation stay with their existing owners.
+- [ ] Cross-dataset study selection (categories, individual studies, filters) →
+      `useStudySelection` in `src/crossdataset/studySelection.ts` (catalog
+      readiness, eligibility, typed query, visible groups, reset), the value and
+      its URL form in `src/crossdataset/studySelectionLink.ts`, and
+      `StudySelectionPanel` for the controls. One value per report kind in the
+      router, which imports only `studySelectionLink.ts` (the hook would pull the
+      evidence ledgers into the entry bundle); preserve explicit empty
+      selections; report-query cancellation stays with `useReportQuery`.
 - [ ] Query-index freshness → `manifestFreshness` in `src/data/indexFreshness.ts`
       (declare needs; unverifiable = degrade to per-track). Offline closure:
       `pnpm exec tsx scripts/check_datasets.mts` (structural; default tracks only —

@@ -1,9 +1,8 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import { afterEach } from 'vitest';
 import {
-  axisPct, dirGlyph, directionColor, contrastLabel, groupForestCategories,
-  useCategoryScope, FilterChip,
+  axisPct, dirGlyph, directionColor, contrastLabel, groupForestCategories, FilterChip,
 } from '../crossdataset/forestReport';
 import { listDatasets } from '../data/datasets';
 import { listContrasts } from '../data/contrasts';
@@ -88,53 +87,17 @@ describe('contrastLabel', () => {
   });
 });
 
-describe('useCategoryScope', () => {
-  function Harness({ scope }: { scope?: string[] | null }) {
-    const { activeCats, setActiveCats, toggleCat } = useCategoryScope(scope);
-    return (
-      <div>
-        <span data-testid="active">{activeCats ? [...activeCats].join('+') : 'all'}</span>
-        <FilterChip label="All" count={0} active={activeCats === null} onClick={() => setActiveCats(null)} />
-        {['A', 'B'].map((c) => (
-          <FilterChip key={c} label={c} count={1} active={!!activeCats?.has(c)} onClick={() => toggleCat(c)} />
-        ))}
-      </div>
-    );
-  }
-  const active = () => screen.getByTestId('active').textContent;
-
-  it('seeds from the incoming scope, else null (= all)', () => {
-    const { unmount } = render(<Harness scope={null} />);
-    expect(active()).toBe('all');
-    unmount();
-    render(<Harness scope={['B']} />);
-    expect(active()).toBe('B');
-  });
-
-  it('re-seeds when the scope identity changes', () => {
-    const { rerender } = render(<Harness scope={['A']} />);
-    expect(active()).toBe('A');
-    rerender(<Harness scope={['B']} />);
-    expect(active()).toBe('B');
-  });
-
-  it('collapses an emptied selection back to null (= all), never to an empty view', () => {
-    render(<Harness scope={null} />);
-    fireEvent.click(screen.getByRole('button', { name: /^A / }));
-    expect(active()).toBe('A');
-    fireEvent.click(screen.getByRole('button', { name: /^B / }));
-    expect(active()).toBe('A+B');
-    fireEvent.click(screen.getByRole('button', { name: /^A / }));
-    expect(active()).toBe('B');
-    fireEvent.click(screen.getByRole('button', { name: /^B / }));
-    expect(active()).toBe('all');
-  });
-
-  it('marks the active chip with aria-pressed', () => {
-    render(<Harness scope={['A']} />);
-    expect(screen.getByRole('button', { name: /^A / })).toHaveAttribute('aria-pressed', 'true');
-    expect(screen.getByRole('button', { name: /^B / })).toHaveAttribute('aria-pressed', 'false');
-    expect(screen.getByRole('button', { name: /^All / })).toHaveAttribute('aria-pressed', 'false');
+describe('FilterChip', () => {
+  it('marks the active chip with aria-pressed and shows its count', () => {
+    const onClick = vi.fn();
+    render(<div>
+      <FilterChip label="A" count={3} active onClick={onClick} />
+      <FilterChip label="B" active={false} onClick={() => {}} />
+    </div>);
+    expect(screen.getByRole('button', { name: 'A 3' })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: 'B' })).toHaveAttribute('aria-pressed', 'false');
+    fireEvent.click(screen.getByRole('button', { name: 'A 3' }));
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 });
 

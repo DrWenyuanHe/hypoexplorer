@@ -1,10 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "940eb0d60c48ab85bfd276fe4c54a67d32dfce153809ad3f77ebdf5b940ee69d",
+  "fingerprint": "1cdfbacc14a98fcf3391c9849bbe86c5141e563b3a9a0386b915bd977959695f",
   "outcome": "updated",
-  "explanation": "hypomapAtlasClient.test.ts tests the HypoMap atlas client through its in-memory transport (checksums, gzip and host-decoded files, cohort check, alias/ambiguous/outside-export resolution, the shared per-symbol load, metrics, mean/SEM and the CSV tables) and absorbs hypomapMetrics.test.ts, which is removed. hypomapFixture.ts builds the fixture export; the preview and co-expression view tests read it through the transport instead of mocking loadAtlasGene, and csvDialog.test.tsx checks the atlas provenance columns. The client tests pin the recorded expression unit of the detection, mean and comparison tables.",
+  "explanation": "Combined result of the study-selection module and the HypoMap atlas client. studySelection.test.tsx tests the study-selection module at its interface, parameterized by report kind (empty selections never widen, selections survive a term remount, link bytes round-trip, the panel wording), importing the value and URL form from studySelectionLink.ts. lazyChunkBoundaries.test.ts walks the entry graph from main.tsx with the TypeScript 6 syntax tree and bundler resolution, skips only compiler-erased type imports, fails on unresolved relative runtime imports and fails if either evidence ledger is reachable. The App gene and pathway scope tests keep one copied-link smoke each; geneStudyScope.test.ts and the useCategoryScope tests are removed. hypomapAtlasClient.test.ts tests the HypoMap atlas client through its in-memory transport (checksums, gzip, cohort, resolution, shared per-symbol load, metrics, mean/SEM, CSV tables and their expression unit) and absorbs hypomapMetrics.test.ts, which is removed; hypomapFixture.ts builds the fixture export the preview, co-expression and csvDialog tests read.",
   "references": [
+    "src/__tests__/studySelection.test.tsx",
+    "src/__tests__/lazyChunkBoundaries.test.ts",
+    "src/__tests__/app.geneScope.test.tsx",
+    "src/__tests__/app.pathwayScope.test.tsx",
     "src/__tests__/hypomapAtlasClient.test.ts",
     "src/__tests__/hypomapFixture.ts",
     "src/__tests__/hypomapPreview.test.tsx",

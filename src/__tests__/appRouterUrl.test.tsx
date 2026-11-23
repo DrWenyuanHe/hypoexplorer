@@ -334,7 +334,7 @@ describe('appRouter — booting from the URL', () => {
     window.history.replaceState(null, '', '/#/gene/LEPR/Circadian');
     const { result } = renderRouter();
     expect(result.current.reportGene).toBe('LEPR');
-    expect(result.current.reportScope).toEqual(['Circadian']);
+    expect(result.current.geneStudySelection.categories).toEqual(['Circadian']);
   });
 
   it('boots a search link on the results page with its query and filter', async () => {
