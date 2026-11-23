@@ -21,8 +21,8 @@ preparation, expression scale and evidence status. `studyEditorial.json` supplie
 13 reviewed scientific scope notes with repository evidence paths, plus concise
 title overrides. Titles retain accessions and full scientific terms; a character
 target never cuts a word or drops a material distinction.
-The homepage includes readable HTML and navigation before React starts. Headers
-state that the app is currently in beta testing.
+The homepage includes readable HTML and navigation before React starts. Page
+footers link the source code and data repositories on GitHub.
 
 ## Sources and attribution
 
@@ -59,7 +59,7 @@ metadata when those optional files are absent. Review the resulting changes. Dat
 accessions identify the data; DOI and PMID identify the source publication.
 `isBasedOn` links reanalysis pages to the original repository. Wenyuan He is
 identified as the application author, separately from the original researchers.
-The public author details and beta wording are shared in `src/data/siteInfo.ts`.
+The public author details and repository links are shared in `src/data/siteInfo.ts`.
 Publication authors, journal, year and verified preprint status appear on study
 pages and in the cited ScholarlyArticle schema. PubMed collective authors are
 Organizations, not Persons. Dataset creator, license and download URLs are not
