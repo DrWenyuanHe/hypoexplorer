@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "ba021d26b8eb19cf9afdd454d18a1359a14d32ce15e88b56e278fb0919721993",
+  "fingerprint": "73409770b20ffabd46979d9c85eac63f067ae196fdc43b96d7e45a579dc50cfb",
   "outcome": "updated",
-  "explanation": "data-release.json pins hypoexplorer-data release data-2026-11-22: its files.tsv and scrubbed.json, and a new evidence-codex-2026-11-21 part. The five existing parts keep their data-2026-11-06 URLs, which fetch:data resolves per part. public-safety.json keeps the reviewed writing-rule allowances for the closure pass files.",
+  "explanation": "Merges main into the Codex closure pass. From main: CONTEXT.md adds the HypoMap atlas client entry and extends the export-provenance entry with the atlas subject; only atlas tables carrying mean expression record the expression unit. From this branch: data-release.json pins hypoexplorer-data release data-2026-11-22 with the evidence-codex-2026-11-21 part, the five existing parts stay at data-2026-11-06, and public-safety.json keeps the reviewed writing-rule allowances for the closure pass files.",
   "references": [
+    "CONTEXT.md",
+    "src/search/hypomap/atlas.ts",
     "data-release.json",
-    "scripts/fetch/fetch_data.mts",
     "public-safety.json"
   ]
 }

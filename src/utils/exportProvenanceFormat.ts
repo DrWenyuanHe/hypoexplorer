@@ -7,7 +7,7 @@
 // can import them without downloading that ~4 MB ledger chunk. The type import
 // below is erased at build time and adds no runtime edge.
 
-import type { ExportProvenance } from './exportProvenance';
+import type { AtlasProvenance, ExportProvenance } from './exportProvenance';
 import type { WorkbookRow, WorkbookSheet } from './workbook';
 
 interface ContrastRecord { id: string; direction: string }
@@ -22,9 +22,18 @@ interface TrackRecord {
 /**
  * The provenance columns the CSV seam (utils/csv.ts) appends after a file's
  * scientific columns, in this order. A columns subject joins one value per
- * column with ' | ', in column order.
+ * column with ' | ', in column order. A HypoMap atlas file has no dataset,
+ * track or contrast; its columns name the pinned atlas release instead.
  */
-export function provenanceColumns(metadata: ExportProvenance): WorkbookRow {
+export function provenanceColumns(metadata: ExportProvenance | AtlasProvenance): WorkbookRow {
+  if ('atlas' in metadata) {
+    return {
+      AtlasRelease: metadata.atlas.releaseTag,
+      AtlasManifestSHA256: metadata.atlas.manifestSha256,
+      ExpressionUnit: metadata.expression.unit,
+      ExportMetadataJSON: JSON.stringify(metadata),
+    };
+  }
   const tracks: TrackRecord[] = 'columns' in metadata ? metadata.columns : [metadata];
   const value = (read: (track: TrackRecord) => string | null) =>
     (tracks.length === 1 ? read(tracks[0]) : tracks.map(read).join(' | '));
