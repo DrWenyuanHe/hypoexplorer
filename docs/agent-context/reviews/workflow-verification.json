@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "819fe7ce6b79af877e2ccb3a827680c9698e7f1d0adc34a8a83fb04820f8dc8a",
+  "fingerprint": "1b9f4e8ba228bb5634141a1420529061262423430ba6dbd95f95dc97143094b8",
   "outcome": "no-impact",
-  "explanation": "Merges main into the Codex closure pass. From main: bundle-reader adoption touches scripts and tests in this route but no evidence producer, ledger or pinned file; macaqueQc.mts, replicationEvidence.mts and historicalEvidence.mts keep their own parsers, and the reduced-release macaque check covers every staged track bundle. From this branch: only review ledgers, the dated pass folder and the data-release pin changed. Verification commands and evidence rules are unchanged.",
+  "explanation": "Merges main into the Codex closure pass. From main: the publication identity rule in scripts/lib/studyRecord.mts governs the study pages and the agent export and reads the registry and tracker, not QC, design or author-concordance evidence; bundle-reader adoption leaves the fingerprinted and sealed parsers alone. From this branch: only review ledgers, the dated pass folder and the data-release pin changed. Verification commands and evidence rules are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "data/internal-qc/assessments.generated.json",
+    "scripts/lib/studyRecord.mts",
     "data/author-validation/codex-2026-11-21/README.md"
   ]
 }

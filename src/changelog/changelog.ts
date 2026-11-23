@@ -7,6 +7,15 @@ export interface ChangelogEntry {
 export const CHANGELOG: ChangelogEntry[] = [
   {
     date: '2026-11-22',
+    title: 'Study pages and the data download name the same paper',
+    items: [
+      'The study pages, the citation guide and the agent-ready data download now use one rule to decide which paper describes a dataset. Four studies had a paper on their study page but none in the download: GSE235792, GSE212491, GSE174753 and GSE330152. The download now lists their paper too.',
+      'The "Available cell populations" table on a study page shows each track\'s own sample counts. Before, every row repeated the default track\'s counts. On GSE262407, the OPC, oligodendrocyte, tanycyte and Ghrh-neuron rows now read 3 and 4, not 4 and 5. A dash marks a track whose count is not recorded.',
+      'No data, result or analysis changed.',
+    ],
+  },
+  {
+    date: '2026-11-22',
     title: 'Study pages use the reviewed track label',
     items: [
       'The static study page for GSE174085 (early-life adversity, PVN CRH neurons) now names its track "PVN CRH neurons (litter pseudobulk)", as the explorer does. Before, the page used the original file\'s "animal pseudobulk".',

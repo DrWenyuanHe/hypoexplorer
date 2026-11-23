@@ -3,10 +3,11 @@
 import editorialJson from '../../data/seo/studyEditorial.json';
 import { getAuthorValidation } from '../../src/data/authorValidation';
 import { datasetQuality, QUALITY_BADGES, QUALITY_STATUS } from '../../src/data/datasetQualityR460';
-import { defaultArmCounts, getActiveContrast } from '../../src/data/contrasts';
 import { SITE_NAME } from '../../src/data/siteInfo';
 import { CPM_TMM_UNIT } from '../../src/data/expressionUnits';
-import type { Dataset, DatasetMeta } from '../../src/types';
+import type { Dataset } from '../../src/types';
+import { escapeHtml } from './html.mjs';
+import { studyRecord, type StudyRecord } from './studyRecord.mjs';
 
 interface StudyEditorial {
   searchTopic?: string;
@@ -18,9 +19,6 @@ interface StudyEditorial {
 }
 
 const editorial: Record<string, StudyEditorial> = editorialJson;
-const escapeHtml = (value: unknown): string => String(value ?? '').replace(/[&<>"']/g, (character) => ({
-  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-})[character]!);
 
 function searchTopic(dataset: Dataset): string {
   // Only the final assay parenthesis is removed. Internal genotype qualifiers
@@ -72,26 +70,24 @@ function expressionGuidance(dataset: Dataset): string {
   return `Expression values use ${unit}. Keep this unit when exporting or comparing values. Values on other normalization scales are not directly interchangeable.`;
 }
 
-function defaultSampleSummary(dataset: Dataset, meta?: DatasetMeta): string {
-  const contrast = getActiveContrast(dataset);
-  if (!contrast || !meta?.populations.includes(dataset.defaultTrack)) return '';
-  const counts = defaultArmCounts(dataset, meta, meta.qcFlags?.[dataset.defaultTrack]);
-  if (counts.nBaseline == null || counts.nCase == null) return '';
-  const trackLabel = meta.labels?.[dataset.defaultTrack] || dataset.defaultTrack;
-  return `The default track, ${trackLabel}, includes ${counts.nBaseline} ${contrast.baseline.label} samples and ${counts.nCase} ${contrast.caseGroup.label} samples in this comparison. These are analysis sample counts. Check the source for biological replication and pooling.`;
+function defaultSampleSummary(dataset: Dataset, record: StudyRecord): string {
+  const track = record.tracks.find((entry) => entry.id === dataset.defaultTrack);
+  if (!record.defaultContrast || !track || track.nBaseline == null || track.nCase == null) return '';
+  const { baselineLabel, caseLabel } = record.armLabels;
+  return `The default track, ${track.label}, includes ${track.nBaseline} ${baselineLabel} samples and ${track.nCase} ${caseLabel} samples in this comparison. These are analysis sample counts. Check the source for biological replication and pooling.`;
 }
 
 /** Safe, no-JavaScript HTML to insert before the existing provenance section. */
-export function renderStudyContext(dataset: Dataset, meta?: DatasetMeta): string {
+export function renderStudyContext(dataset: Dataset, record: StudyRecord = studyRecord(dataset, {})): string {
   const note = editorial[dataset.id];
-  const contrast = getActiveContrast(dataset);
+  const { baselineLabel, caseLabel } = record.armLabels;
   const scope = `This dataset contains ${dataset.modality} data from ${dataset.organism}, sampled from ${dataset.region.toLowerCase()}. `
-    + (contrast ? `The default comparison examines ${dataset.featureLabel.toLowerCase()} expression in ${contrast.caseGroup.label} relative to ${contrast.baseline.label}.` : 'The available tracks and comparisons are listed below.');
-  const samples = defaultSampleSummary(dataset, meta);
-  const trackCount = meta?.populations.length;
+    + (record.defaultContrast ? `The default comparison examines ${dataset.featureLabel.toLowerCase()} expression in ${caseLabel} relative to ${baselineLabel}.` : 'The available tracks and comparisons are listed below.');
+  const samples = defaultSampleSummary(dataset, record);
+  const trackCount = record.tracks.length;
   const exploratory = dataset.contrasts.filter((entry) => entry.exploratory).length;
-  const record = getAuthorValidation(dataset.id);
-  const quality = record ? datasetQuality(record) : undefined;
+  const validation = getAuthorValidation(dataset.id);
+  const quality = validation ? datasetQuality(validation) : undefined;
   const verificationCopy = quality
     ? `<h3>Evidence and verification</h3>${QUALITY_BADGES.map(({key, label}) => `<p><strong>${escapeHtml(label)} ${escapeHtml(QUALITY_STATUS[quality[key].status].suffix)}.</strong> ${escapeHtml(quality[key].scope)}</p>`).join('')}<p>Pipeline QC can pass while experimental-design limitations remain. Read both assessments before interpreting results.</p><p>Open the dataset in the Explorer to read each check and its evidence. Author concordance compares effects for matched genes. It does not require identical author P values or FDR.</p>`
     : '<h3>Evidence and verification</h3><p>Author-result verification has not been assessed for this dataset.</p>';

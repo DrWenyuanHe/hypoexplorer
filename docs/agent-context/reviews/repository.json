@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "1eed5143205ea8984a7306b877a8d8feb841853711c52b1a143f66c0c54bd4f0",
+  "fingerprint": "60d7584001b6aee678c95612a27a08bb32117333583e67dac3b9d0537b48c374",
   "outcome": "updated",
-  "explanation": "Merges main into the Codex closure pass. From main: CONTEXT.md carries the bundle-reader seam extension and query-index corpus read module alongside the Study-selection module and HypoMap atlas client entries; the refactor checklist routes script bundle reads through scripts/lib/bundleReader.mts and study selection through studySelection.ts, studySelectionLink.ts and StudySelectionPanel; the SEO runbook takes study-page labels from the reader; knip.json drops its @typescript/typescript6 ignore. From this branch: data-release.json pins hypoexplorer-data release data-2026-11-22 with the evidence-codex-2026-11-21 part, the five existing parts stay at data-2026-11-06, and public-safety.json keeps the reviewed writing-rule allowances for the closure pass files.",
+  "explanation": "Merges main into the Codex closure pass. From main: CONTEXT.md keeps the extended bundle-reader seam and query-index corpus read module and adds the Study publication record entry (scripts/lib/studyRecord.mts decides the verified paper, repository link, default contrast and per-track arm counts; scripts/lib/html.mts is the shared escaper); the SEO runbook names studyRecord.test.ts; the refactor checklist and knip.json changes are unchanged. From this branch: data-release.json pins hypoexplorer-data release data-2026-11-22 with the evidence-codex-2026-11-21 part, the five existing parts stay at data-2026-11-06, and public-safety.json keeps the reviewed writing-rule allowances for the closure pass files.",
   "references": [
     "CONTEXT.md",
-    "docs/runbooks/REFACTOR_CHECKLIST.md",
-    "scripts/lib/bundleReader.mts",
+    "scripts/lib/studyRecord.mts",
+    "docs/runbooks/SEO.md",
     "data-release.json",
     "public-safety.json"
   ]
