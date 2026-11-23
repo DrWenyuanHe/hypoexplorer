@@ -9,8 +9,11 @@
 //      otherwise read as the wrong study). `datasetBundlePaths` maps every
 //      bundle of a registry `Dataset` onto public/ through the same locators the
 //      browser and the writer use, so no script hand-spells `track_<id>.js`.
-//      Producers that round-trip published bytes (refresh, audits) use only
-//      this layer: it applies no display rule.
+//      Producers that round-trip published bytes (refresh, audits, the query
+//      index, the bundle optimizer) use only this layer: it applies no display
+//      rule. `listDiskCorpus` is the one sweep of public/datasets: the registry
+//      decides what is read, and a directory no registry entry locates is
+//      reported, never read.
 //
 //   2. Disk → what the browser shows. `readDatasetFromDisk(dataset)` returns
 //      the dataset as the explorer resolves it: reviewed display corrections
@@ -20,8 +23,8 @@
 //      pathway siblings. A script that publishes what the site shows (the
 //      agent export) reads through this layer and restates none of those rules.
 
-import { existsSync, readFileSync } from 'node:fs';
-import { dirname } from 'node:path';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { dirname, join, relative, sep } from 'node:path';
 import {
   resolvePathwayGlobalKey,
   resolvePathwayIndexGlobalKey,
@@ -35,6 +38,7 @@ import {
 } from '../../src/data/bundleLocators';
 import { getActiveContrast } from '../../src/data/contrasts';
 import { trackLabel } from '../../src/data/datasetMeta';
+import { listDatasets } from '../../src/data/datasets';
 import { resolveExpressionUnit } from '../../src/data/expressionUnits';
 import {
   groupSamplesOf,
@@ -93,6 +97,16 @@ function afterLeadingComments(source: string): number {
       return at;
     }
   }
+}
+
+/**
+ * The leading BOM, comments and whitespace before a bundle's assignment, verbatim
+ * (the generator's header, which an in-place rewrite keeps). Empty when the
+ * assignment comes first; the whole text when a block comment never closes.
+ */
+export function jsonpHeader(source: string): string {
+  const start = afterLeadingComments(source);
+  return start < 0 ? source : source.slice(0, start);
 }
 
 /** Parse JSONP source text that must assign `expectedGlobal`. `file` only labels errors. */
@@ -165,6 +179,71 @@ export function datasetBundlePaths(dataset: Dataset, opts: DiskReadOptions = {})
     pathways: (trackId) => at(resolvePathwayUrl(located, trackId), resolvePathwayGlobalKey(dataset, trackId)),
     timeSeries: (trackId) => at(resolveTimeSeriesUrl(located, trackId), resolveTimeSeriesGlobalKey(dataset, trackId)),
   };
+}
+
+// ── The corpus on disk ───────────────────────────────────────────────────────
+
+/** One registered dataset whose bundle directory exists. */
+export interface CorpusDataset {
+  dataset: Dataset;
+  paths: DatasetBundlePaths;
+}
+
+/** What a sweep of public/datasets finds, measured against the registry. */
+export interface DiskCorpus {
+  /**
+   * Registered datasets whose bundle directory exists, ordered by that
+   * directory's path below datasets/ (code-unit order, as a sorted readdir
+   * gives), so a sweep emits in the same order on every machine.
+   */
+  datasets: CorpusDataset[];
+  /**
+   * Directories under datasets/ that no registry entry locates, sorted. They
+   * are NEVER read: only a registry entry names a bundle's files and window
+   * globals, and guessing them would read a stray or misplaced folder as a
+   * study. A caller decides whether their presence is an error.
+   */
+  unregistered: string[];
+  /** Registered datasets with no bundle directory on disk, in registry order. */
+  absent: Dataset[];
+}
+
+export interface DiskCorpusOptions extends DiskReadOptions {
+  /** The registry to measure the disk against. Defaults to src/data/datasets.ts. */
+  registry?: readonly Dataset[];
+}
+
+/**
+ * Sweep public/datasets once: which registered datasets have bundles here,
+ * which are absent, and which directories are not studies at all. Reads no
+ * bundle; open each entry with `paths` (raw bytes) or `readDatasetFromDisk`.
+ */
+export function listDiskCorpus(opts: DiskCorpusOptions = {}): DiskCorpus {
+  const root = opts.publicRoot ?? DEFAULT_OUT_ROOT;
+  const datasetsRoot = join(root, 'datasets');
+  const registry = opts.registry ?? listDatasets();
+  const below = (dir: string) => relative(datasetsRoot, dir).split(sep).join('/');
+
+  const located: Array<CorpusDataset & { key: string }> = [];
+  const absent: Dataset[] = [];
+  for (const dataset of registry) {
+    const paths = datasetBundlePaths(dataset, opts);
+    if (existsSync(paths.dir)) located.push({ dataset, paths, key: below(paths.dir) });
+    else absent.push(dataset);
+  }
+  located.sort((a, b) => (a.key < b.key ? -1 : a.key > b.key ? 1 : 0));
+
+  // A top-level directory is a study's when it IS a located dataset directory
+  // or holds one (a locator may nest a study one level deeper).
+  const owners = new Set(registry.map((dataset) => below(datasetBundlePaths(dataset, opts).dir).split('/')[0]));
+  const unregistered = existsSync(datasetsRoot)
+    ? readdirSync(datasetsRoot, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory() && !owners.has(entry.name))
+      .map((entry) => entry.name)
+      .sort()
+    : [];
+
+  return { datasets: located.map(({ dataset, paths }) => ({ dataset, paths })), unregistered, absent };
 }
 
 // ── Disk → what the browser shows ────────────────────────────────────────────

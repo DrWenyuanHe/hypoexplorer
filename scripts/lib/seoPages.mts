@@ -13,40 +13,17 @@ import { upstreamDisplay, upstreamProcessingFor } from '../../src/data/upstreamP
 import type { Dataset, DatasetMeta } from '../../src/types';
 import { renderStudyContext, studySearchDescription, studySearchTitle } from './seoStudyContent.mjs';
 import { getGuideDocuments } from './seoGuides.mjs';
+import { escapeHtml } from './html.mjs';
+import { studyRecord, type StudyRecord, type StudySources } from './studyRecord.mjs';
+import { datasetBundlePaths, readDatasetFromDisk } from './bundleReader.mjs';
 import { BRAND, BRAND_HEAD } from '../../src/common/brand';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 
-/** Only metadata verified against a source record belongs here. */
-export interface StudySource {
-  paperTitle?: string;
-  paperUrl?: string;
-  paperPmid?: string;
-  paperDoi?: string;
-  paperAuthors?: string[];
-  paperCollectiveAuthors?: string[];
-  paperYear?: string;
-  paperJournal?: string;
-  paperIsPreprint?: boolean;
-  sourcePubmedIds?: string[];
-  paperRelationship?: 'methods';
-  paperRelationshipNote?: string;
-  sourceTitle?: string;
-  summary?: string;
-  overallDesign?: string;
-  sourceUrl?: string;
-}
-
 interface StudyDetails {
-  source?: StudySource;
-  meta?: DatasetMeta;
+  /** The study's publication record; a dataset with no snapshot or meta gets an empty one. */
+  record?: StudyRecord;
   accessions?: string[];
-}
-
-export function escapeHtml(value: unknown): string {
-  return String(value ?? '').replace(/[&<>"']/g, (character) => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-  })[character]!);
 }
 
 function jsonLd(value: unknown): string {
@@ -58,41 +35,6 @@ export function studyPath(dataset: Pick<Dataset, 'id'>): string {
   // URL, without a second slug-to-dataset index to drift out of sync.
   if (!/^[a-z0-9][a-z0-9_-]*$/.test(dataset.id)) throw new Error(`Unsafe study id: ${dataset.id}`);
   return `/studies/${dataset.id}/`;
-}
-
-/** The snapshot's PMID, but only when it demonstrably names the registry's publication. */
-function verifiedPaperPmid(dataset: Dataset, source: StudySource = {}): string | undefined {
-  const registeredPmid = datasetPmid(dataset);
-  if (!source.paperPmid) return undefined;
-  if (source.paperPmid === registeredPmid) return source.paperPmid;
-  const onlyId = !registeredPmid && source.sourcePubmedIds?.length === 1
-    && source.sourcePubmedIds[0] === source.paperPmid;
-  return onlyId ? source.paperPmid : undefined;
-}
-
-/**
- * Whether the PubMed snapshot can be tied to the dataset's registered
- * publication. Every rendered citation field — structured data, the visible
- * source-publication block and the directory card — is gated on this together,
- * so a snapshot that fails it is dropped whole rather than contributing a title
- * and author list next to another paper's DOI.
- */
-function citationDescribesDataset(dataset: Dataset, source: StudySource = {}): boolean {
-  if (!source.paperTitle) return false;
-  // Two absent (or empty) DOIs are not evidence that the publications match.
-  // A title-only snapshot must pass the same identity gate as a full citation.
-  const matchingDoi = Boolean(source.paperDoi?.trim() && source.paperDoi === dataset.doi);
-  return Boolean(verifiedPaperPmid(dataset, source) || matchingDoi);
-}
-
-function webUrl(value: string | undefined): string | undefined {
-  if (!value) return undefined;
-  try {
-    const url = new URL(value);
-    return url.protocol === 'https:' ? url.href : undefined;
-  } catch {
-    return undefined;
-  }
 }
 
 const CSS = `
@@ -159,48 +101,33 @@ function studyDescription(dataset: Dataset): string {
   return studySearchDescription(dataset);
 }
 
-function trackTable(dataset: Dataset, meta: DatasetMeta | undefined): string {
-  if (!meta?.populations?.length) return '';
-  // nNormal/nObese describe the default contrast, not arbitrary group names.
-  const selected = dataset.contrasts.find((contrast) => contrast.isDefault) ?? dataset.contrasts[0];
-  const baseline = dataset.groups.find((group) => group.key === selected?.baseline)?.label ?? 'Baseline';
-  const comparison = dataset.groups.find((group) => group.key === selected?.case)?.label ?? 'Case';
+function trackTable(dataset: Dataset, record: StudyRecord): string {
+  if (!record.tracks.length) return '';
+  const { defaultContrast, armLabels, tracks } = record;
+  const unknown = tracks.some((track) => track.nBaseline == null || track.nCase == null);
   return `<section class="panel"><h2>Available ${escapeHtml(dataset.trackNoun === 'population' ? 'cell populations' : 'tracks')}</h2>
-<div class="table-wrap"><table><caption>Detected features and sample counts for ${escapeHtml(selected ? contrastLabel(dataset, selected) : 'the default comparison')}. Counts are specific to each track.</caption>
-<thead><tr><th scope="col">Track</th><th scope="col">Features</th><th scope="col">${escapeHtml(baseline)} n</th><th scope="col">${escapeHtml(comparison)} n</th></tr></thead>
-<tbody>${meta.populations.map((track) => {
-    const qc = meta.qcFlags?.[track];
-    const baselineCount = (selected ? meta.groupN?.[selected.baseline] : undefined) ?? qc?.nNormal;
-    const caseCount = (selected ? meta.groupN?.[selected.case] : undefined) ?? qc?.nObese;
-    return `<tr><td>${escapeHtml(meta.labels?.[track] || track)}</td><td>${escapeHtml(meta.nGenes?.[track]?.toLocaleString('en-US') ?? '—')}</td><td>${escapeHtml(baselineCount ?? '—')}</td><td>${escapeHtml(caseCount ?? '—')}</td></tr>`;
-  }).join('')}</tbody></table></div></section>`;
+<div class="table-wrap"><table><caption>Detected features and sample counts for ${escapeHtml(defaultContrast ? defaultContrast.label : 'the default comparison')}. Counts are specific to each track.${unknown ? ' A dash marks a track whose count for this comparison is not recorded.' : ''}</caption>
+<thead><tr><th scope="col">Track</th><th scope="col">Features</th><th scope="col">${escapeHtml(armLabels.baselineLabel)} n</th><th scope="col">${escapeHtml(armLabels.caseLabel)} n</th></tr></thead>
+<tbody>${tracks.map((track) => `<tr><td>${escapeHtml(track.label)}</td><td>${escapeHtml(track.features?.toLocaleString('en-US') ?? '—')}</td><td>${escapeHtml(track.nBaseline ?? '–')}</td><td>${escapeHtml(track.nCase ?? '–')}</td></tr>`).join('')}</tbody></table></div></section>`;
 }
 
 export function renderStudyPage(dataset: Dataset, details: StudyDetails = {}, related: Dataset[] = []): string {
   const path = studyPath(dataset);
-  const { source = {}, meta, accessions = [] } = details;
+  const { record = studyRecord(dataset, {}), accessions = [] } = details;
+  const { source, publication } = record;
   const identifiers = [...new Set([dataset.geo, ...accessions].filter((value): value is string => Boolean(value)))];
-  // The paper title and DOI must describe the same publication. The verified
-  // PubMed snapshot takes precedence over an older registry DOI for that PMID.
-  const registeredPmid = datasetPmid(dataset);
-  const verifiedPmid = verifiedPaperPmid(dataset, source);
-  // Identity is a property of the whole citation, not of the DOI alone. If the
-  // snapshot cannot be tied to the registry's publication, its title, authors,
-  // year, journal and URL are all suspect together — emitting them beside the
-  // registry's DOI would attribute one paper's authorship to another paper's
-  // identifier, inside ScholarlyArticle metadata on an indexable page. So an
-  // unverified snapshot is dropped whole and the registry's own citation stands.
-  const citationVerified = citationDescribesDataset(dataset, source);
-  const paperDoi = citationVerified ? source.paperDoi : undefined;
-  const links = datasetExternalLinks({ ...dataset, pmid: registeredPmid || verifiedPmid, doi: paperDoi ?? dataset.doi });
-  const sourceUrl = webUrl(source.sourceUrl);
-  const paperUrl = (citationVerified ? webUrl(source.paperUrl) : undefined)
-    ?? links.find((link) => link.kind === 'doi' || link.kind === 'pubmed')?.href;
-  const sourceLink = sourceUrl ?? links.find((link) => link.kind === 'repository')?.href;
+  // The record decides publication identity. An unverified snapshot is dropped
+  // whole (title, authors, year, journal and URL together) and the registry's
+  // own citation stands; a verified one's DOI replaces an older registry DOI.
+  const verified = publication.status === 'verified' ? publication : undefined;
+  const paperDoi = verified?.doi;
+  const links = datasetExternalLinks({ ...dataset, pmid: record.pmid, doi: record.doi });
+  const paperUrl = verified?.url ?? links.find((link) => link.kind === 'doi' || link.kind === 'pubmed')?.href;
+  const sourceLink = record.repositoryUrl ?? links.find((link) => link.kind === 'repository')?.href;
   const title = studySearchTitle(dataset, identifiers[0]);
   const description = studyDescription(dataset);
-  const sourceCitation = citationVerified && source.paperTitle
-    ? { '@type': 'ScholarlyArticle', name: source.paperTitle, ...(paperUrl ? { url: paperUrl } : {}), ...(paperDoi ? { identifier: `https://doi.org/${paperDoi}` } : {}),
+  const sourceCitation = verified
+    ? { '@type': 'ScholarlyArticle', name: verified.title, ...(paperUrl ? { url: paperUrl } : {}), ...(paperDoi ? { identifier: `https://doi.org/${paperDoi}` } : {}),
       ...(source.paperAuthors?.length ? { author: source.paperAuthors.map((name) => ({ '@type': source.paperCollectiveAuthors?.includes(name) ? 'Organization' : 'Person', name })) } : {}),
       ...(source.paperYear ? { datePublished: source.paperYear } : {}),
       ...(source.paperJournal ? { isPartOf: { '@type': 'Periodical', name: source.paperJournal } } : {}),
@@ -235,15 +162,15 @@ export function renderStudyPage(dataset: Dataset, details: StudyDetails = {}, re
 ${identifiers.length ? `<div class="chips" aria-label="Dataset accessions">${identifiers.map((identifier) => `<span class="chip">${escapeHtml(identifier)}</span>`).join('')}</div>` : ''}
 <div class="actions"><a class="button" href="/#/dataset/${dataset.id}">Explore this dataset</a><a class="button secondary" href="/#/library/${dataset.id}">View in dataset library</a></div>
 <div class="layout"><div>
-${renderStudyContext(dataset, meta)}
+${renderStudyContext(dataset, record)}
 <section class="panel"><h2>Source study</h2>
 <p>${escapeHtml(dataset.citation)}</p>
-${citationVerified && source.paperTitle ? `<h3>${source.paperRelationship === 'methods' ? 'Related methods publication' : 'Source publication'}${source.paperIsPreprint ? ' · preprint' : ''}</h3><p>${paperUrl ? `<a href="${escapeHtml(paperUrl)}">${escapeHtml(source.paperTitle)}</a>` : escapeHtml(source.paperTitle)}</p>${source.paperAuthors?.length ? `<p class="small">${escapeHtml(source.paperAuthors.slice(0, 6).join(', '))}${source.paperAuthors.length > 6 ? ', et al.' : ''}</p>` : ''}${source.paperJournal || source.paperYear ? `<p class="small">${escapeHtml([source.paperJournal, source.paperYear].filter(Boolean).join(' · '))}</p>` : ''}` : ''}
+${verified ? `<h3>${source.paperRelationship === 'methods' ? 'Related methods publication' : 'Source publication'}${source.paperIsPreprint ? ' · preprint' : ''}</h3><p>${paperUrl ? `<a href="${escapeHtml(paperUrl)}">${escapeHtml(verified.title)}</a>` : escapeHtml(verified.title)}</p>${source.paperAuthors?.length ? `<p class="small">${escapeHtml(source.paperAuthors.slice(0, 6).join(', '))}${source.paperAuthors.length > 6 ? ', et al.' : ''}</p>` : ''}${source.paperJournal || source.paperYear ? `<p class="small">${escapeHtml([source.paperJournal, source.paperYear].filter(Boolean).join(' · '))}</p>` : ''}` : ''}
 ${source.paperRelationshipNote ? `<p class="note">${escapeHtml(source.paperRelationshipNote)}</p>` : ''}
 ${source.sourceTitle ? `<h3>Repository study title</h3><p>${escapeHtml(source.sourceTitle)}</p>` : ''}
 ${source.summary ? `<p>${escapeHtml(source.summary)}</p>` : ''}
 ${source.overallDesign ? `<h3>Source study design</h3><p>${escapeHtml(source.overallDesign)}</p>` : ''}
-<ul class="source-links">${links.map((link) => `<li><a href="${escapeHtml(link.href)}">${escapeHtml(link.kind === 'doi' ? `DOI ${paperDoi ?? dataset.doi}` : link.kind === 'repository' ? `${repositoryName(dataset.geo)} ${link.label}` : link.label)}</a></li>`).join('')}${sourceLink && !links.some((link) => link.href === sourceLink) ? `<li><a href="${escapeHtml(sourceLink)}">Original repository record</a></li>` : ''}</ul>
+<ul class="source-links">${links.map((link) => `<li><a href="${escapeHtml(link.href)}">${escapeHtml(link.kind === 'doi' ? `DOI ${record.doi}` : link.kind === 'repository' ? `${repositoryName(dataset.geo)} ${link.label}` : link.label)}</a></li>`).join('')}${sourceLink && !links.some((link) => link.href === sourceLink) ? `<li><a href="${escapeHtml(sourceLink)}">Original repository record</a></li>` : ''}</ul>
 <p class="small" style="margin-top:16px">The original study authors produced these data. ${SITE_NAME} displays selected data and analyses that may cover only part of the study.</p>
 <p class="small"><a href="/how-to-cite/">How to cite the dataset, publication and ${SITE_NAME}</a></p>
 </section>
@@ -256,7 +183,7 @@ ${dataset.contrasts.map((contrast) => {
 ${dataset.timeSeries?.design ? `<h3>Time-course design</h3><p>${escapeHtml(dataset.timeSeries.design)}</p>` : ''}
 <p class="small">Positive differential-expression values indicate higher expression in the case group relative to the baseline. Check the comparison direction and study design when interpreting results.</p>
 </section>
-${trackTable(dataset, meta)}
+${trackTable(dataset, record)}
 <section class="panel"><h2>Expression and analysis results</h2><p>Open this dataset to inspect ${escapeHtml(dataset.featureLabel.toLowerCase())} expression and differential-expression results across the available ${escapeHtml(dataset.trackNoun === 'population' ? 'cell populations' : 'tracks')}.${dataset.supportsPathways ? ' Pathway enrichment is also available. The pathway databases differ by dataset.' : ''}</p><p class="small">${escapeHtml(BETA_NOTICE)} Features and analyses may change during testing. Review the original source, analysis methods and quality-control checks before using a result in research.</p></section>
 </div><aside aria-label="Study details"><section class="panel"><h2>At a glance</h2><dl class="facts">${facts.map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('')}<div><dt>Experimental groups</dt><dd>${dataset.groups.map((group) => escapeHtml(group.label)).join('<br>')}</dd></div></dl></section>
 ${related.length ? `<section class="panel"><h2>Related studies</h2><ul class="related">${related.map((entry) => `<li><a href="${studyPath(entry)}">${escapeHtml(entry.geo ? `${entry.geo}: ${entry.name}` : entry.name)}</a></li>`).join('')}</ul></section>` : ''}
@@ -284,8 +211,9 @@ export function renderStudiesPage(datasets: Dataset[], details: Record<string, S
 <div class="actions"><a class="button" href="/#/library">Open dataset library</a></div>
 <nav class="category-links" aria-label="Study themes">${groups.map(({ category, datasets: entries }) => `<a href="#${categoryId(category)}">${escapeHtml(category)} (${entries.length})</a>`).join('')}</nav>
 ${groups.map(({ category, datasets: entries }) => `<section class="catalog-section" id="${categoryId(category)}"><h2>${escapeHtml(category)} <span class="small">${entries.length} studies</span></h2><div class="study-list">${entries.map((dataset) => {
-    const source = details[dataset.id]?.source;
-    return `<article class="study-card"><div class="accession">${escapeHtml(dataset.geo || details[dataset.id]?.accessions?.[0] || 'Primate atlas')}</div><h3><a href="${studyPath(dataset)}">${escapeHtml(dataset.name)}</a></h3><p>${escapeHtml(dataset.organism)} · ${escapeHtml(dataset.modality)} · ${escapeHtml(dataset.region)}</p><p>${escapeHtml(dataset.contrasts.map((contrast) => contrastLabel(dataset, contrast)).join('; '))}</p><p class="paper">${citationDescribesDataset(dataset, source) && source?.paperRelationship === 'methods' ? 'Related methods publication: ' : ''}${escapeHtml((citationDescribesDataset(dataset, source) && source?.paperTitle) || dataset.citation)}</p>${datasetPmid(dataset) ? `<p class="mono small">PMID ${escapeHtml(datasetPmid(dataset))}</p>` : ''}</article>`;
+    const publication = details[dataset.id]?.record?.publication;
+    const verified = publication?.status === 'verified' ? publication : undefined;
+    return `<article class="study-card"><div class="accession">${escapeHtml(dataset.geo || details[dataset.id]?.accessions?.[0] || 'Primate atlas')}</div><h3><a href="${studyPath(dataset)}">${escapeHtml(dataset.name)}</a></h3><p>${escapeHtml(dataset.organism)} · ${escapeHtml(dataset.modality)} · ${escapeHtml(dataset.region)}</p><p>${escapeHtml(dataset.contrasts.map((contrast) => contrastLabel(dataset, contrast)).join('; '))}</p><p class="paper">${verified?.source.paperRelationship === 'methods' ? 'Related methods publication: ' : ''}${escapeHtml(verified?.title || dataset.citation)}</p>${datasetPmid(dataset) ? `<p class="mono small">PMID ${escapeHtml(datasetPmid(dataset))}</p>` : ''}</article>`;
   }).join('')}</div></section>`).join('')}` });
 }
 
@@ -312,27 +240,25 @@ function readOptionalJson<T>(file: string, fallback: T): T {
   return existsSync(file) ? JSON.parse(readFileSync(file, 'utf8')) as T : fallback;
 }
 
+// The study page shows the dataset as the explorer does: read through the
+// bundle reader, so reviewed display corrections (the GSE174085 "litter
+// pseudobulk" label) apply here exactly as loadDatasetMeta applies them.
 function readMeta(dataset: Dataset): DatasetMeta | undefined {
-  const file = join(ROOT, 'public', 'datasets', dataset.id, 'meta.js');
-  if (!existsSync(file)) return undefined;
-  // Bundles are JSON assignments. Read the JSON without executing JavaScript.
-  const contents = readFileSync(file, 'utf8');
-  const match = contents.match(/(?:var\s+|window\.)[A-Z0-9_]+\s*=\s*(\{[\s\S]*\})\s*;?\s*$/);
-  if (!match) throw new Error(`Cannot read study metadata: ${file}`);
-  return JSON.parse(match[1]) as DatasetMeta;
+  const opts = { publicRoot: join(ROOT, 'public') };
+  if (!existsSync(datasetBundlePaths(dataset, opts).meta.file)) return undefined;
+  return readDatasetFromDisk(dataset, opts).meta;
 }
 
 function readSourceContext() {
   return {
-    sources: readOptionalJson<Record<string, StudySource>>(join(ROOT, 'data/seo/studySources.json'), {}),
+    sources: readOptionalJson<StudySources>(join(ROOT, 'data/seo/studySources.json'), {}),
     accessions: readOptionalJson<Record<string, { accessions?: string[] }>>(join(ROOT, 'src/data/tracker/explorerAccessions.json'), {}),
   };
 }
 
 function studyDetails(dataset: Dataset, context: ReturnType<typeof readSourceContext>, includeMeta = true): StudyDetails {
   return {
-    source: context.sources[dataset.id] ?? (dataset.geo ? context.sources[dataset.geo] : undefined),
-    ...(includeMeta ? { meta: readMeta(dataset) } : {}),
+    record: studyRecord(dataset, context.sources, includeMeta ? readMeta(dataset) : undefined),
     accessions: context.accessions[dataset.id]?.accessions,
   };
 }

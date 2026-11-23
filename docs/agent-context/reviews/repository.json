@@ -1,11 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "140b86f612fcd79e348098fe42336375f00b9a665480bc4bf90bbbad55d7c94c",
+  "fingerprint": "648c298085bbca426da8ec15b8d56c530df697c1f1741bdb13ebfb8dbb57ad55",
   "outcome": "updated",
-  "explanation": "CONTEXT.md gains a Compare cell entry naming src/compare/compareCell.ts as the single answer to what a Compare column says about a gene (unavailable, not detected or measured) and the views and export builders that read it. No root configuration, package script or instruction file changed. The Compare cell CONTEXT.md entry now records that arms are read lazily.",
+  "explanation": "CONTEXT.md keeps both sides: the Compare cell entry (src/compare/compareCell.ts as the single answer to what a Compare column says about a gene, with arms read lazily) and main's extended bundle-reader seam entry, query-index corpus read module and Study publication record entry (scripts/lib/studyRecord.mts and the shared scripts/lib/html.mts escaper). The SEO runbook, refactor checklist and knip.json changes come from main unchanged; this change touches no root configuration or package script.",
   "references": [
     "CONTEXT.md",
-    "src/compare/compareCell.ts"
+    "src/compare/compareCell.ts",
+    "scripts/lib/studyRecord.mts",
+    "scripts/lib/bundleReader.mts",
+    "docs/runbooks/SEO.md"
   ]
 }

@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (248):
+Covered source files (250):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -174,15 +174,15 @@ Covered source files (248):
 - [src/__tests__/geneModal.test.tsx](<../../../src/__tests__/geneModal.test.tsx>)
 - [src/__tests__/genePicker.test.tsx](<../../../src/__tests__/genePicker.test.tsx>)
 - [src/__tests__/geneReport.test.tsx](<../../../src/__tests__/geneReport.test.tsx>)
-- [src/__tests__/geneStudyScope.test.ts](<../../../src/__tests__/geneStudyScope.test.ts>)
 - [src/__tests__/geneSymbol.test.ts](<../../../src/__tests__/geneSymbol.test.ts>)
 - [src/__tests__/geneVocabulary.test.tsx](<../../../src/__tests__/geneVocabulary.test.tsx>)
 - [src/__tests__/hubSections.test.ts](<../../../src/__tests__/hubSections.test.ts>)
 - [src/__tests__/hubUnits.test.tsx](<../../../src/__tests__/hubUnits.test.tsx>)
 - [src/__tests__/hypomapAtlas.test.ts](<../../../src/__tests__/hypomapAtlas.test.ts>)
+- [src/__tests__/hypomapAtlasClient.test.ts](<../../../src/__tests__/hypomapAtlasClient.test.ts>)
 - [src/__tests__/hypomapCodetection.test.ts](<../../../src/__tests__/hypomapCodetection.test.ts>)
 - [src/__tests__/hypomapCoexpression.test.tsx](<../../../src/__tests__/hypomapCoexpression.test.tsx>)
-- [src/__tests__/hypomapMetrics.test.ts](<../../../src/__tests__/hypomapMetrics.test.ts>)
+- [src/__tests__/hypomapFixture.ts](<../../../src/__tests__/hypomapFixture.ts>)
 - [src/__tests__/hypomapPreview.test.tsx](<../../../src/__tests__/hypomapPreview.test.tsx>)
 - [src/__tests__/indexFreshness.test.ts](<../../../src/__tests__/indexFreshness.test.ts>)
 - [src/__tests__/indexProducts.test.ts](<../../../src/__tests__/indexProducts.test.ts>)
@@ -234,6 +234,7 @@ Covered source files (248):
 - [src/__tests__/queryCatalogBuild.test.ts](<../../../src/__tests__/queryCatalogBuild.test.ts>)
 - [src/__tests__/queryCatalogIdentity.test.ts](<../../../src/__tests__/queryCatalogIdentity.test.ts>)
 - [src/__tests__/queryIndex.test.ts](<../../../src/__tests__/queryIndex.test.ts>)
+- [src/__tests__/queryIndexCorpus.test.ts](<../../../src/__tests__/queryIndexCorpus.test.ts>)
 - [src/__tests__/queryWire.test.ts](<../../../src/__tests__/queryWire.test.ts>)
 - [src/__tests__/r2Incremental.test.ts](<../../../src/__tests__/r2Incremental.test.ts>)
 - [src/__tests__/rawTrack.test.ts](<../../../src/__tests__/rawTrack.test.ts>)
@@ -274,6 +275,7 @@ Covered source files (248):
 - [src/__tests__/statisticsPolicy.test.ts](<../../../src/__tests__/statisticsPolicy.test.ts>)
 - [src/__tests__/studyFactTable.test.tsx](<../../../src/__tests__/studyFactTable.test.tsx>)
 - [src/__tests__/studyMetadataAdapters.test.ts](<../../../src/__tests__/studyMetadataAdapters.test.ts>)
+- [src/__tests__/studyRecord.test.ts](<../../../src/__tests__/studyRecord.test.ts>)
 - [src/__tests__/studyRecordDisclosure.test.tsx](<../../../src/__tests__/studyRecordDisclosure.test.tsx>)
 - [src/__tests__/studySelection.test.tsx](<../../../src/__tests__/studySelection.test.tsx>)
 - [src/__tests__/studyTopGenes.test.tsx](<../../../src/__tests__/studyTopGenes.test.tsx>)
@@ -445,18 +447,21 @@ Start here:
 - [src/crossdataset/GeneReport.tsx](<../../../src/crossdataset/GeneReport.tsx>)
 - [src/crossdataset/PathwayReport.tsx](<../../../src/crossdataset/PathwayReport.tsx>)
 - [src/crossdataset/forestReport.tsx](<../../../src/crossdataset/forestReport.tsx>)
-- [src/crossdataset/geneStudyScope.tsx](<../../../src/crossdataset/geneStudyScope.tsx>)
+- [src/crossdataset/studySelection.ts](<../../../src/crossdataset/studySelection.ts>)
+- [src/crossdataset/studySelectionLink.ts](<../../../src/crossdataset/studySelectionLink.ts>)
 
-Covered source files (9):
+Covered source files (11):
 - [src/crossdataset/EffectPreview.tsx](<../../../src/crossdataset/EffectPreview.tsx>)
 - [src/crossdataset/GeneEffectPreview.tsx](<../../../src/crossdataset/GeneEffectPreview.tsx>)
 - [src/crossdataset/GeneReport.tsx](<../../../src/crossdataset/GeneReport.tsx>)
 - [src/crossdataset/PathwayEffectPreview.tsx](<../../../src/crossdataset/PathwayEffectPreview.tsx>)
 - [src/crossdataset/PathwayReport.tsx](<../../../src/crossdataset/PathwayReport.tsx>)
+- [src/crossdataset/StudySelectionPanel.tsx](<../../../src/crossdataset/StudySelectionPanel.tsx>)
 - [src/crossdataset/forestReport.css](<../../../src/crossdataset/forestReport.css>)
 - [src/crossdataset/forestReport.tsx](<../../../src/crossdataset/forestReport.tsx>)
-- [src/crossdataset/geneStudyScope.tsx](<../../../src/crossdataset/geneStudyScope.tsx>)
 - [src/crossdataset/searchLanding.tsx](<../../../src/crossdataset/searchLanding.tsx>)
+- [src/crossdataset/studySelection.ts](<../../../src/crossdataset/studySelection.ts>)
+- [src/crossdataset/studySelectionLink.ts](<../../../src/crossdataset/studySelectionLink.ts>)
 
 ## data
 

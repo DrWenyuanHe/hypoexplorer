@@ -87,6 +87,9 @@ import { createR2InventoryReader } from '../lib/r2RemoteInventory.mjs';
 import { createCloudflareClient, resolveEdgeCredentials } from '../lib/cloudflareApi.mjs';
 import { manualPurgeInstructions, purgeEdgeCache, purgeRequestForKeys } from '../lib/edgePurge.mjs';
 import { reducedBundleFindings } from '../lib/publicDataRelease.mjs';
+import { BundleReadError, listDiskCorpus, readOptionalJsonp } from '../lib/bundleReader.mjs';
+import { MANIFEST_FILE, MANIFEST_GLOBAL } from '../../src/data/queryWire';
+import { EXPRESSION_INDEX_POINTER_GLOBAL } from '../../src/expression-survey/expressionIndexFormat';
 import { HYPOMAP_KEY_PREFIX, installedHypomapAtlas } from '../lib/hypomapAtlas.mjs';
 
 const BUCKET = process.env.R2_BUCKET ?? 'hypoexplorer-datasets';
@@ -182,20 +185,14 @@ const wranglerPkg = JSON.parse(await readFile(wranglerPkgPath, 'utf8')) as { bin
 const binRel = typeof wranglerPkg.bin === 'string' ? wranglerPkg.bin : wranglerPkg.bin.wrangler;
 const WRANGLER_BIN = path.join(path.dirname(wranglerPkgPath), binRel);
 
-// Parse a `var NAME = {...};` JSONP bundle back into an object — same fixed
-// machine-written shape (and same slicing approach) as build_query_index.mts.
-async function readBundleFile<T>(file: string): Promise<T | null> {
-  if (!existsSync(file)) return null;
-  const src = await readFile(file, 'utf8');
-  const varAt = src.indexOf('var ');
-  if (varAt < 0) return null;
-  const start = src.indexOf('{', varAt);
-  if (start < 0) return null;
-  try {
-    return JSON.parse(src.slice(start).replace(/;\s*$/, '')) as T;
-  } catch {
-    return null;
-  }
+// Bundles and index pointers are read through the bundle reader
+// (lib/bundleReader.mts): parsed without evaluation, under the global their
+// locator names. An absent file is null; a malformed or wrong-global one is a
+// BundleReadError, which the freshness check reports and the pointer read
+// lets abort the upload.
+function readBundleProblem(error: unknown): string {
+  if (error instanceof BundleReadError) return `${path.relative(PUBLIC_ROOT, error.file).split(path.sep).join('/')}: ${error.detail}`;
+  throw error;
 }
 
 // Verify the local query index was built against the local bundles. Publishing
@@ -209,9 +206,12 @@ async function readBundleFile<T>(file: string): Promise<T | null> {
 // (hence the warning printed there).
 async function indexFreshnessProblems(): Promise<string[]> {
   const problems: string[] = [];
-  const manifest = await readBundleFile<{ tracks?: Array<{ ds: string; trackId: string }> }>(
-    path.join(PUBLIC_ROOT, 'query', 'tracks.js'),
-  );
+  let manifest: { tracks?: Array<{ ds: string; trackId: string }> } | null;
+  try {
+    manifest = readOptionalJsonp(path.join(PUBLIC_ROOT, 'query', MANIFEST_FILE), MANIFEST_GLOBAL);
+  } catch (error) {
+    return [readBundleProblem(error)];
+  }
   if (!manifest) return problems;   // index absence is gated separately below
   if (!Array.isArray(manifest.tracks)) return ['query/tracks.js is unparseable or has no track list'];
 
@@ -222,12 +222,22 @@ async function indexFreshnessProblems(): Promise<string[]> {
     else byDs.set(t.ds, [t.trackId]);
   }
 
-  const datasetsRoot = path.join(PUBLIC_ROOT, 'datasets');
-  const dirs = existsSync(datasetsRoot)
-    ? (await readdir(datasetsRoot, { withFileTypes: true })).filter((e) => e.isDirectory()).map((e) => e.name).sort()
-    : [];
-  for (const ds of dirs) {
-    const meta = await readBundleFile<{ populations?: string[] }>(path.join(datasetsRoot, ds, 'meta.js'));
+  // The registry decides which directories are studies; one it does not name
+  // is uploaded by the walk below but no index can cover it, so it is a problem.
+  const corpus = listDiskCorpus({ publicRoot: PUBLIC_ROOT });
+  for (const dir of corpus.unregistered) {
+    problems.push(`datasets/${dir} is not in src/data/datasets.ts — the query index does not cover it`);
+  }
+  const dirs = [...corpus.datasets.map(({ dataset }) => dataset.id), ...corpus.unregistered];
+  for (const { dataset, paths } of corpus.datasets) {
+    const ds = dataset.id;
+    let meta: { populations?: string[] } | null;
+    try {
+      meta = readOptionalJsonp(paths.meta.file, paths.meta.global);
+    } catch (error) {
+      problems.push(readBundleProblem(error));
+      continue;
+    }
     if (!meta?.populations?.length) {
       problems.push(`datasets/${ds}/meta.js is missing or declares no populations — cannot verify the index against it`);
       continue;
@@ -283,8 +293,9 @@ function putObject(object: R2PreparedObject): Promise<void> {
 }
 
 const queryPrefixes = only || hypomapOnly ? [] : queryPublicationPrefixes(
-  (await readBundleFile<{ buildId?: unknown }>(path.join(PUBLIC_ROOT, 'query/tracks.js')))?.buildId,
-  (await readBundleFile<{ buildId?: unknown }>(path.join(PUBLIC_ROOT, 'query/expression-manifest.js')))?.buildId,
+  expressionOnly ? undefined
+    : readOptionalJsonp<{ buildId?: unknown }>(path.join(PUBLIC_ROOT, 'query', MANIFEST_FILE), MANIFEST_GLOBAL)?.buildId,
+  readOptionalJsonp<{ buildId?: unknown }>(path.join(PUBLIC_ROOT, 'query/expression-manifest.js'), EXPRESSION_INDEX_POINTER_GLOBAL)?.buildId,
   expressionOnly,
 );
 const selectedQueryKey = (key: string) => queryPrefixes.some((prefix) => prefix.endsWith('/') ? key.startsWith(prefix) : key === prefix);

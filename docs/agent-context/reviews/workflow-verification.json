@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "b876b0d3b792447999c9a07985b8190d53af8e887125e9dce94ad29802542884",
-  "outcome": "updated",
-  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: the verification route and author-validation README name build_quality_report_r460.mts --check as the public quality-report freshness check. Links into moved runbooks resolve under docs/runbooks/; policies and ledgers are unchanged.",
+  "fingerprint": "944339e77be21fb450a8ecfb18532f15767134bb6059116adf2792c92f0e3941",
+  "outcome": "no-impact",
+  "explanation": "The publication identity rule lives in scripts/lib/studyRecord.mts and governs the study pages and the agent export; it decides which paper is cited, not QC, design or author-concordance evidence. Main's bundle-reader adoption leaves macaqueQc.mts, replicationEvidence.mts and historicalEvidence.mts on their own parsers because they are fingerprinted or sealed. Verification commands, ledgers and evidence rules are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "data/author-validation/README.md",
-    "scripts/build_quality_report_r460.mts"
+    "scripts/lib/studyRecord.mts",
+    "data/internal-qc/assessments.generated.json",
+    "scripts/lib/historicalEvidence.mts"
   ]
 }

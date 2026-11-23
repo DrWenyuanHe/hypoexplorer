@@ -5,6 +5,8 @@ import { QUALITY_STATUS } from '../../src/data/datasetQualityR460';
 import { AUTHOR_BIO, AUTHOR_EMAIL, AUTHOR_NAME, CONTRIBUTOR_NAMES, DATA_EXPORT_DOI, SITE_NAME, SITE_URL, studyPageHref } from '../../src/data/siteInfo';
 import sourceMetadata from '../../data/seo/studySources.json';
 import { ACKNOWLEDGEMENTS, SOFTWARE_REFERENCES } from '../../src/acknowledgements/references';
+import { escapeHtml } from './html.mjs';
+import { studyRecord, type StudySources } from './studyRecord.mjs';
 
 export interface GuideDocument {
   title: string;
@@ -14,18 +16,7 @@ export interface GuideDocument {
   schema: unknown[];
 }
 
-interface SourcePublication {
-  paperTitle?: string;
-  paperDoi?: string;
-  paperPmid?: string;
-  paperAuthors?: string[];
-  sourceUrl?: string;
-}
-
-const sources = sourceMetadata as Record<string, SourcePublication>;
-const escapeHtml = (value: unknown): string => String(value ?? '').replace(/[&<>"']/g, (character) => ({
-  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-})[character]!);
+const sources: StudySources = sourceMetadata;
 
 // The software, gene-set collections and reference atlases behind the results.
 function softwareReferences(): string {
@@ -36,25 +27,20 @@ function softwareReferences(): string {
 function publicationExample(datasetId: string): string {
   const dataset = listDatasets().find((entry) => entry.id === datasetId);
   if (!dataset) return '';
-  const source = sources[datasetId] ?? (dataset.geo ? sources[dataset.geo] : undefined);
-  // A snapshot for a different publication must not be silently attached.
-  const matched = source?.paperPmid === dataset.pmid ? source : undefined;
-  const doi = matched?.paperDoi || dataset.doi;
+  // A snapshot for a different publication is never attached; the record's
+  // identity rule decides, and a missing repository URL is not guessed.
+  const record = studyRecord(dataset, sources);
+  const verified = record.publication.status === 'verified' ? record.publication : undefined;
+  const doi = verified?.doi || dataset.doi;
   const doiUrl = doi && /^10\.\d{4,9}\/[^\s<>"']+$/.test(doi) ? `https://doi.org/${doi}` : undefined;
-  const publication = matched?.paperTitle || dataset.citation;
-  const author = matched?.paperAuthors?.[0];
-  let repositoryUrl: string | undefined;
-  try {
-    const candidate = new URL(source?.sourceUrl || '');
-    if (candidate.protocol === 'https:') repositoryUrl = candidate.href;
-  } catch { /* A missing source URL is not filled with a guessed link. */ }
-  const contrast = dataset.contrasts.find((item) => item.isDefault) ?? dataset.contrasts[0];
-  const baseline = dataset.groups.find((group) => group.key === contrast?.baseline)?.label;
-  const comparison = dataset.groups.find((group) => group.key === contrast?.case)?.label;
+  const publication = verified?.title || dataset.citation;
+  const author = verified?.source.paperAuthors?.[0];
+  const { repositoryUrl } = record;
+  const { baselineLabel, caseLabel } = record.armLabels;
   return `<article class="comparison"><h3>${escapeHtml(dataset.geo || 'CNP0003785')}: ${escapeHtml(dataset.name)}</h3>
 <p><strong>Source publication:</strong> ${author ? `${escapeHtml(author)} et al. ` : ''}${escapeHtml(publication)}${doiUrl ? ` <a href="${escapeHtml(doiUrl)}">DOI ${escapeHtml(doi)}</a>.` : ''}</p>
 ${repositoryUrl ? `<p><strong>Dataset deposit:</strong> <a href="${escapeHtml(repositoryUrl)}">${escapeHtml(dataset.geo || 'CNP0003785')} original repository record</a>.</p>` : ''}
-<p>The <a href="${escapeHtml(studyPageHref(dataset.id))}">${escapeHtml(SITE_NAME)} study overview</a> describes the ${escapeHtml(comparison)} versus ${escapeHtml(baseline)} comparison. Record the track or population and any additional comparison you used.</p>
+<p>The <a href="${escapeHtml(studyPageHref(dataset.id))}">${escapeHtml(SITE_NAME)} study overview</a> describes the ${escapeHtml(caseLabel)} versus ${escapeHtml(baselineLabel)} comparison. Record the track or population and any additional comparison you used.</p>
 ${datasetId === 'macaque_snrna' ? '<p>The macaque example is an obese-versus-normal reanalysis of the Lei et al. source cohort. The source article is not a publication of this reanalysis, and the reanalysis does not currently have its own publication citation.</p>' : '<p>This is the selected hypothalamus comparison from a wider brain atlas. Cite the original atlas, and state the selected region and comparison rather than implying you analysed every deposited sample.</p>'}</article>`;
 }
 

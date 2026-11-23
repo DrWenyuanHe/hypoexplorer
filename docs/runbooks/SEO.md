@@ -28,10 +28,20 @@ state that the app is currently in beta testing.
 
 `src/data/datasets.ts` defines the integrated studies and comparisons.
 `public/datasets/<id>/meta.js` provides track and sample information, read as
-JSON rather than executed. `data/seo/studySources.json` is a committed snapshot
+JSON rather than executed, through the bundle reader's `readDatasetFromDisk`
+(`scripts/lib/bundleReader.mts`), so a study page shows the same reviewed track
+labels as the explorer. `data/seo/studySources.json` is a committed snapshot
 of official GEO/BioStudies titles and PubMed/Crossref publication metadata; builds need no network
 connection or ignored analysis inputs. Missing titles remain absent rather than
 being inferred from a study's display name.
+
+`scripts/lib/studyRecord.mts` decides, from the registry entry, this snapshot and
+the dataset meta, which snapshot paper is verified for a dataset (registry PMID,
+the record's only linked PMID, or an exact DOI), the repository link, the default
+comparison and each track's sample counts. Study pages, the citation guide and
+the agent export all render from that record, so they always name the same
+paper. A track whose count for the default comparison is not recorded shows a
+dash rather than another track's count.
 
 Refresh the snapshot with:
 
@@ -82,9 +92,11 @@ During the initial source check, three registry citation errors were corrected:
 ## Verification and publishing
 
 Run `pnpm run typecheck`, `pnpm test`, and `pnpm run build`. The focused
-`seoPages.test.ts` checks registry coverage, unique metadata, sitemap URLs,
-structured data, source attribution, safe HTML/JSON rendering, development routes,
-sample-count semantics, and author contact details.
+`studyRecord.test.ts` pins the publication identity rule, link guards and
+per-track sample counts. `seoPages.test.ts` checks registry coverage, unique
+metadata, sitemap URLs, structured data, how a record's citation and counts are
+laid out, safe HTML/JSON rendering, development routes, track labels against the
+bundle reader, and author contact details.
 
 After publishing the built assets, confirm the homepage, `/studies/`, `/about/`,
 `/methods/`, `/how-to-cite/`, and a study page return their own HTML

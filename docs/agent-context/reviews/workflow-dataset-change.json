@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "df61e11c81fafc8aad8c30536181b344a92557f4253c7116e19659623e8b5353",
+  "fingerprint": "aaa64202b32a046ce0bf36e7fc6bf994721588111a8fb042a128d0f36484cf10",
   "outcome": "updated",
-  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: pending verification-advancement replays go to a GitHub issue and OXT/AVP step 7 names the maintainer-only checks. Dataset contract and real shapes stay at docs/; builders and registry rules are unchanged.",
+  "explanation": "From main: script reads of published bundles go through scripts/lib/bundleReader.mts for the query index, expression index, bundle optimizer, upload guards, deploy verifier and SEO study pages, and listDiskCorpus is the one sweep of public/datasets (workflows.md, CONTEXT.md, refactor checklist). From this change: study pages and the agent export read publication identity and per-track counts through scripts/lib/studyRecord.mts, whose meta input on the study pages now comes from the bundle reader. Adding a dataset still needs only its registry entry, bundles and optional studySources.json snapshot.",
   "references": [
     "docs/agent-context/workflows.md",
-    "data/intake/oxt-avp-2026-10-19/README.md",
-    "docs/DATASET_CONTRACT.md"
+    "scripts/lib/bundleReader.mts",
+    "scripts/lib/queryIndexCorpus.mts",
+    "scripts/lib/studyRecord.mts",
+    "docs/runbooks/SEO.md"
   ]
 }

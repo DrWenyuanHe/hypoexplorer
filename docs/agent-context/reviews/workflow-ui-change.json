@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "b4fcf253b81c8f9ca4af3133fb5d7582de6d7214eb1f720b5f0182a2e43c72e7",
+  "fingerprint": "fd0a789b1183bd4e8357279284edbb444d16ccfe691e44176e045c215fa823cf",
   "outcome": "updated",
-  "explanation": "The ui-change route now says that what a Compare column says about a gene, including per-arm n, mean and SEM, comes from src/compare/compareCell.ts, and the compare catalog entry references that module. Routing, views, export naming and the compare-set columns are unchanged. Rechecked after compareCell.ts made measured-cell arms lazy; the route still points at the module.",
+  "explanation": "The ui-change route keeps both changes: what a Compare column says about a gene, including per-arm n, mean and SEM, comes from src/compare/compareCell.ts (catalog compare entry references it), and from main the study-selection module (studySelectionLink.ts in the router, StudySelectionPanel in both reports) plus static study pages rendering the study publication record. Routing, tabs and export naming are otherwise unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
     "docs/agent-context/catalog.json",
-    "src/compare/compareCell.ts"
+    "src/compare/compareCell.ts",
+    "src/crossdataset/studySelectionLink.ts",
+    "scripts/lib/studyRecord.mts"
   ]
 }

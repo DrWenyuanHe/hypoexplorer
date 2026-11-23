@@ -58,6 +58,12 @@ describe('deploy inputs: reference atlases', () => {
 
 describe('upload guard: public data release bundles', () => {
   const pathways = (kegg: string) => `var POP_PATHWAYS = {"GO_BP":[{"pathway":"GOBP_X"}],"KEGG":${kegg}};\n`;
+  // The macaque check reads declared tracks through the bundle reader, under
+  // the globals the registry's locators name.
+  const macaque = (root: string, track: string, header = '') => {
+    put(root, 'datasets/macaque_snrna/meta.js', 'var HX_MACAQUE_SNRNA_META = {"populations":["Ast1"]};\n');
+    put(root, 'datasets/macaque_snrna/track_Ast1.js', `${header}var HX_MACAQUE_SNRNA_AST1 = ${track};\n`);
+  };
 
   it('counts empty and populated KEGG collections', () => {
     expect(keggCollections(pathways('[]'))).toEqual({ total: 1, empty: 1 });
@@ -69,8 +75,34 @@ describe('upload guard: public data release bundles', () => {
     const root = scratch();
     put(root, 'datasets/gse1/track_a.pathways.js', pathways('[{"pathway":"KEGG_RIBOSOME"}]'));
     put(root, 'datasets/gse2/track_b.pathways.js', pathways('[]'));
-    put(root, 'datasets/macaque_snrna/track_Ast1.js', 'var POP = {"genes":[],"cpm":{"OXT":[1,2]}};\n');
+    macaque(root, '{"genes":[],"cpm":{"OXT":[1,2]}}');
     expect(await reducedBundleFindings(root)).toEqual([]);
+  });
+
+  it('refuses a macaque track bundle that assigns another global instead of passing it', async () => {
+    const root = scratch();
+    put(root, 'datasets/macaque_snrna/meta.js', 'var HX_MACAQUE_SNRNA_META = {"populations":["Ast1"]};\n');
+    put(root, 'datasets/macaque_snrna/track_Ast1.js', 'var POP = {"cpm":{}};\n');
+    await expect(reducedBundleFindings(root)).rejects.toThrow('assigns POP; expected HX_MACAQUE_SNRNA_AST1');
+  });
+
+  it('checks every staged macaque track bundle, declared or not, even without meta.js', async () => {
+    // The uploader publishes every file in the folder, so coverage cannot rest on meta.js.
+    const bare = scratch();
+    put(bare, 'datasets/macaque_snrna/track_Ast1.js', 'var HX_MACAQUE_SNRNA_AST1 = {"cpm":{}};\n');
+    put(bare, 'datasets/macaque_snrna/track_Ast1.pathways.js', 'var HX_MACAQUE_SNRNA_AST1_PATH = {};\n');
+    expect(await reducedBundleFindings(bare, { only: 'macaque_snrna' })).toEqual([
+      expect.stringContaining('1 of 1 datasets/macaque_snrna track bundles'),
+    ]);
+
+    const undeclared = scratch();
+    macaque(undeclared, '{"cpm":{"OXT":[1,2]}}');
+    put(undeclared, 'datasets/macaque_snrna/track_Ext2.js', 'var HX_MACAQUE_SNRNA_EXT2 = {"cpm":{}};\n');
+    expect(await reducedBundleFindings(undeclared, { only: 'macaque_snrna' })).toEqual([
+      expect.stringContaining('1 of 2 datasets/macaque_snrna track bundles'),
+    ]);
+    put(undeclared, 'datasets/macaque_snrna/track_Ext2.js', 'var POP = {"cpm":{}};\n');
+    await expect(reducedBundleFindings(undeclared, { only: 'macaque_snrna' })).rejects.toThrow('assigns POP; expected HX_MACAQUE_SNRNA_EXT2');
   });
 
   it('recognizes the marker, the KEGG note, withheld CPM and an all-empty KEGG corpus', async () => {
@@ -78,7 +110,7 @@ describe('upload guard: public data release bundles', () => {
     put(root, PUBLIC_RELEASE_MARKER, JSON.stringify({ tag: 'data-2026-11-06' }));
     put(root, KEGG_NOTE, '# KEGG is not included\n');
     put(root, 'datasets/gse1/track_a.pathways.js', pathways('[]'));
-    put(root, 'datasets/macaque_snrna/track_Ast1.js', '// header\nvar POP = {"genes":[],"cpm":{}};\n');
+    macaque(root, '{"genes":[],"cpm":{}}', '// header\n');
     put(root, 'datasets/macaque_snrna/track_Ast1.pathways.js', pathways('[]'));
     const findings = await reducedBundleFindings(root);
     expect(findings).toHaveLength(4);
@@ -90,7 +122,7 @@ describe('upload guard: public data release bundles', () => {
   it('judges a single-dataset upload by the markers and that dataset only', async () => {
     const root = scratch();
     put(root, 'datasets/gse1/track_a.pathways.js', pathways('[]'));
-    put(root, 'datasets/macaque_snrna/track_Ast1.js', 'var POP = {"cpm":{}};\n');
+    macaque(root, '{"cpm":{}}');
     // A single study can legitimately have no KEGG results.
     expect(await reducedBundleFindings(root, { only: 'gse1' })).toEqual([]);
     expect(await reducedBundleFindings(root, { only: 'macaque_snrna' })).toHaveLength(1);
