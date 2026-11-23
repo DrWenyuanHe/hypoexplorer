@@ -7,7 +7,7 @@ const pin = vi.hoisted(() => ({ tag: 'hypomap-atlas-test', archive: '', archiveS
 vi.mock('../../hypomap-release.json', () => ({ default: pin }));
 
 const {
-  _resetAtlasCache, _setAtlasTransport, datasetSummary, datasetTable, EXPRESSION_UNIT, findAtlasGene, loadAtlasGene, missMessage,
+  _resetAtlasCache, _setAtlasTransport, atlasTable, datasetSummary, datasetTable, EXPRESSION_UNIT, findAtlasGene, loadAtlasGene, missMessage,
   NO_REGION, spatialTable, WHOLE,
 } = await import('../search/hypomap/atlas');
 
@@ -187,9 +187,21 @@ describe('dataset summary and tables', () => {
       rows: [['Study 1', 'D01', ARC, 50], ['Study 3', 'D03', ARC, null]],
     });
     expect(detection.settings).toEqual({ region: ARC, metric: 'detection', datasets: ['D03', 'D01'] });
-    const mean = datasetTable(atlas, WHOLE, 'mean', ['D01']).csv;
-    expect(mean.title).toBe(`Pomc · ${WHOLE} · Mean expression by dataset`);
-    expect(mean.headers[3]).toBe(EXPRESSION_UNIT);
-    expect(mean.rows).toEqual([['Study 1', 'D01', WHOLE, 2]]);
+    // A table of percentages never records the log-expression unit.
+    expect(detection.subject.expressionUnit).toBe('Not applicable: percentages of eligible cells.');
+    const mean = datasetTable(atlas, WHOLE, 'mean', ['D01']);
+    expect(mean.csv.title).toBe(`Pomc · ${WHOLE} · Mean expression by dataset`);
+    expect(mean.csv.headers[3]).toBe(EXPRESSION_UNIT);
+    expect(mean.csv.rows).toEqual([['Study 1', 'D01', WHOLE, 2]]);
+    expect(mean.subject.expressionUnit).toBe(EXPRESSION_UNIT);
+  });
+
+  it('wraps a co-detection comparison table as counts and percentages, with no expression unit', async () => {
+    serve();
+    const atlas = await ready();
+    const csv = { title: 'Pomc × Agrp', headers: ['Dataset'], rows: [['Study 1']] };
+    const comparison = atlasTable(atlas, csv, { population: null });
+    expect(comparison).toMatchObject({ kind: 'hypomap_comparison', csv, settings: { population: null } });
+    expect(comparison.subject.expressionUnit).toBe('Not applicable: cell counts and percentages of eligible cells.');
   });
 });

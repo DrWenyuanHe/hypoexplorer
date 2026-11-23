@@ -153,7 +153,7 @@ function PairExplorer({ atlas }: { atlas: ReadyAtlas }) {
                 <li key={entry.label}>{entry.label} · {format.format(entry.counts[expanded])} cells · {percent(row.counts[expanded] ? 100 * entry.counts[expanded] / row.counts[expanded] : null)}</li>
               ))}</ul>
             </section>}
-            <button type="button" className="portal-secondary" onClick={() => setTable(atlasTable(atlas, 'hypomap_comparison', comparisonCsv(data, gene, partner, group?.label ?? null),
+            <button type="button" className="portal-secondary" onClick={() => setTable(atlasTable(atlas, comparisonCsv(data, gene, partner, group?.label ?? null),
               { partner: { id: partner.id, symbol: partner.symbol }, population: group?.label ?? null, datasets }))}>Preview comparison CSV</button>
           </>
         )}

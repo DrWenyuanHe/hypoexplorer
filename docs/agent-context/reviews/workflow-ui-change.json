@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "2f12b05d861ede3e01d1c230c62165b24f0b2b0f27cfb66d4a32867834b1093b",
+  "fingerprint": "48a30b6c002d6ea0c5523b8f46f90b04e7f2da4a76fc5b4cf88b2bfb93fbe2b9",
   "outcome": "no-impact",
-  "explanation": "The gated HypoMap cards now read values from the atlas client and download CSVs through the export-provenance seam, which the ui-change route already directs exports through. Navigation, routes, views and the refactor checklist are unchanged, so the workflow text still holds.",
+  "explanation": "The gated HypoMap cards now read values from the atlas client and download CSVs through the export-provenance seam, which the ui-change route already directs exports through. Navigation, routes, views and the refactor checklist are unchanged, so the workflow text still holds. The HypoMap detection CSV records its unit as not applicable rather than the log-expression unit.",
   "references": [
     "docs/agent-context/workflows.md",
     "docs/runbooks/REFACTOR_CHECKLIST.md",

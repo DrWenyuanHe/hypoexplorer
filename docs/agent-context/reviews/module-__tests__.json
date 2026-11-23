@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "6b67a6eb8b916adeca752eaeadaa2531e46f7085d7139bf686893bdedef92b19",
+  "fingerprint": "940eb0d60c48ab85bfd276fe4c54a67d32dfce153809ad3f77ebdf5b940ee69d",
   "outcome": "updated",
-  "explanation": "hypomapAtlasClient.test.ts tests the HypoMap atlas client through its in-memory transport (checksums, gzip and host-decoded files, cohort check, alias/ambiguous/outside-export resolution, the shared per-symbol load, metrics, mean/SEM and the CSV tables) and absorbs hypomapMetrics.test.ts, which is removed. hypomapFixture.ts builds the fixture export; the preview and co-expression view tests read it through the transport instead of mocking loadAtlasGene, and csvDialog.test.tsx checks the atlas provenance columns.",
+  "explanation": "hypomapAtlasClient.test.ts tests the HypoMap atlas client through its in-memory transport (checksums, gzip and host-decoded files, cohort check, alias/ambiguous/outside-export resolution, the shared per-symbol load, metrics, mean/SEM and the CSV tables) and absorbs hypomapMetrics.test.ts, which is removed. hypomapFixture.ts builds the fixture export; the preview and co-expression view tests read it through the transport instead of mocking loadAtlasGene, and csvDialog.test.tsx checks the atlas provenance columns. The client tests pin the recorded expression unit of the detection, mean and comparison tables.",
   "references": [
     "src/__tests__/hypomapAtlasClient.test.ts",
     "src/__tests__/hypomapFixture.ts",

@@ -279,8 +279,16 @@ export type AtlasTable = { kind: AtlasExportKind; csv: Csv; subject: AtlasSubjec
 
 const metricHeader = (field: MetricField) => field === 'detection' ? '% detected' : EXPRESSION_UNIT;
 
-/** Wraps a table with the atlas release, cohort and gene it was read from. */
-export function atlasTable(atlas: ReadyAtlas, kind: AtlasExportKind, csv: Csv, settings: ExportSettings = {}): AtlasTable {
+/**
+ * What a table's ExpressionUnit records when it carries no mean expression: the stored
+ * expression unit describes only mean expression, never counts or percentages.
+ */
+const NO_EXPRESSION = {
+  counts: 'Not applicable: cell counts and percentages of eligible cells.',
+  detection: 'Not applicable: percentages of eligible cells.',
+} as const;
+
+function table(atlas: ReadyAtlas, kind: AtlasExportKind, csv: Csv, expressionUnit: string, settings: ExportSettings = {}): AtlasTable {
   return {
     kind,
     csv,
@@ -289,29 +297,34 @@ export function atlasTable(atlas: ReadyAtlas, kind: AtlasExportKind, csv: Csv, s
       release: { tag: release.tag, manifestSha256: release.manifestSha256 },
       cohort: atlas.metadata.cohort,
       gene: { id: atlas.gene.id, symbol: atlas.gene.symbol },
-      expressionUnit: kind === 'hypomap_comparison' ? 'Not applicable: cell counts and percentages of eligible cells.' : EXPRESSION_UNIT,
+      expressionUnit,
     },
     settings,
   };
 }
 
+/** Wraps co-detection's comparison table (cell counts and percentages) with the atlas release, cohort and gene it was read from. */
+export function atlasTable(atlas: ReadyAtlas, csv: Csv, settings: ExportSettings = {}): AtlasTable {
+  return table(atlas, 'hypomap_comparison', csv, NO_EXPRESSION.counts, settings);
+}
+
 /** Pooled metrics for every scope the export reports. */
 export function spatialTable(atlas: ReadyAtlas): AtlasTable {
-  return atlasTable(atlas, 'hypomap_spatial', {
+  return table(atlas, 'hypomap_spatial', {
     title: `${atlas.gene.symbol} · Spatial expression`,
     headers: ['Region', 'Eligible cells', 'Detected cells', '% detected', EXPRESSION_UNIT],
     rows: atlas.regions.map(name => {
       const row = atlas.pooled[name];
       return [name, row.eligible, row.positive, row.detection, row.mean];
     }),
-  });
+  }, EXPRESSION_UNIT);
 }
 
 /** One metric for the chosen datasets (`ids`, kept in export order) in one scope. */
 export function datasetTable(atlas: ReadyAtlas, region: string, field: MetricField, ids: readonly string[]): AtlasTable {
-  return atlasTable(atlas, 'hypomap_datasets', {
+  return table(atlas, 'hypomap_datasets', {
     title: `${atlas.gene.symbol} · ${region} · ${field === 'detection' ? 'Detection' : 'Mean expression'} by dataset`,
     headers: ['Dataset', 'Accession', 'Region', metricHeader(field)],
     rows: atlas.byDataset(region).filter(row => ids.includes(row.id)).map(row => [row.label, row.id, region, row[field]]),
-  }, { region, metric: field, datasets: [...ids] });
+  }, field === 'detection' ? NO_EXPRESSION.detection : EXPRESSION_UNIT, { region, metric: field, datasets: [...ids] });
 }
