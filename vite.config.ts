@@ -12,13 +12,14 @@ import { readQueryCatalogBuild } from './scripts/lib/queryCatalogBuild.mjs';
 import { readExpressionIndexBuild } from './scripts/lib/expressionIndexBuildIdentity.mjs';
 import { readReleaseBuild } from './scripts/lib/releaseBuild.mjs';
 import type { ReleaseIdentity } from './src/data/releaseIdentity';
+import { isPointerRequest, POINTER_MAX_AGE_SECONDS, POINTERS } from './src/data/dataOriginLayout';
 import { BRAND, BRAND_HEAD } from './src/common/brand';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 function queryCatalogDefinitions(mode: string): Record<string, string> {
   // Tests supply their own observed and expected fixture catalog independently.
   if (mode === 'test') return { __QUERY_CATALOG_BUILD_ID__: JSON.stringify('test') };
-  const catalog = readQueryCatalogBuild(resolve(__dirname, 'public/query/tracks.js'));
+  const catalog = readQueryCatalogBuild(resolve(__dirname, 'public', POINTERS.tracks.key));
   return {
     __QUERY_CATALOG_BUILD_ID__: JSON.stringify(catalog.buildId),
     __QUERY_CATALOG_CONTENT__: JSON.stringify(catalog.content),
@@ -607,8 +608,8 @@ export default defineConfig(async ({ mode }): Promise<ViteUserConfig> => {
             method: 'GET',
           },
           {
-            // Both mutable query pointers have a five-minute lifetime, aligned
-            // with the max-age=300 the uploader stores on those R2 objects.
+            // Both mutable query pointers have the data-origin layout's pointer
+            // lifetime (five minutes), the max-age the uploader stores on them.
             //
             // It names the build id that every shard URL is derived from, so a
             // client holding a stale copy keeps requesting the previous build's
@@ -619,14 +620,15 @@ export default defineConfig(async ({ mode }): Promise<ViteUserConfig> => {
             // background. Older entries expire after five minutes.
             //
             // MUST precede the shard rule below: that one matches any /query/
-            // path, including this one.
-            urlPattern: ({ url }) => /(^|\/)query\/(?:tracks|expression-manifest)\.js$/.test(url.pathname),
+            // path, including this one. isPointerRequest is self-contained:
+            // workbox serializes the matcher with toString().
+            urlPattern: isPointerRequest,
             handler: 'StaleWhileRevalidate',
             method: 'GET',
             options: {
               cacheName: 'hypoexplorer-query-manifest',
               cacheableResponse: { statuses: [200] },
-              expiration: { maxEntries: 4, maxAgeSeconds: 300 },
+              expiration: { maxEntries: 4, maxAgeSeconds: POINTER_MAX_AGE_SECONDS },
             },
           },
           {
@@ -722,7 +724,7 @@ export default defineConfig(async ({ mode }): Promise<ViteUserConfig> => {
     __BUNDLE_SIZES__: JSON.stringify(measureBundleSizes()),
     ...queryCatalogDefinitions(mode),
     ...(mode === 'test' ? {} : {
-      __EXPRESSION_INDEX_BUILD_ID__: JSON.stringify(readExpressionIndexBuild(resolve(__dirname, 'public/query/expression-manifest.js'))),
+      __EXPRESSION_INDEX_BUILD_ID__: JSON.stringify(readExpressionIndexBuild(resolve(__dirname, 'public'))),
     }),
     // Tests must resolve the same dataset registry on every machine. The test
     // envDir above keeps .env.local out of Vite's OWN env loading, but an

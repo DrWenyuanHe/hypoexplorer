@@ -71,9 +71,12 @@
 // https://developers.cloudflare.com/speed/optimization/content/compression/.
 // Fetched directly from r2.dev, a no-br client would get raw brotli bytes.
 //
-// Cache-Control policy lives in lib/r2Incremental.mts:
-// immutable-for-a-year everywhere (same ?v= contract as same-origin), except
-// the mutable query/tracks.js and query/expression-manifest.js pointers.
+// Which keys exist, their Content-Type and their Cache-Control live in the
+// data-origin layout (src/data/dataOriginLayout.ts): immutable-for-a-year
+// everywhere (same ?v= contract as same-origin), except the two mutable query
+// pointers. Only keys the data host's path rule admits are published; any other
+// file under a bundle tree is reported and left out, since it would upload and
+// then answer 403.
 
 import { spawn, spawnSync } from 'node:child_process';
 import { readdir, readFile } from 'node:fs/promises';
@@ -82,15 +85,18 @@ import { createRequire } from 'node:module';
 import os from 'node:os';
 import path from 'node:path';
 import { parseEnv } from 'node:util';
-import { acquireR2LocalLock, prepareR2Object, queryPublicationPrefixes, R2_POINTER_KEYS, synchronizeR2Objects, type R2PreparedObject } from '../lib/r2Incremental.mjs';
+import {
+  BUNDLE_TREES, generationPrefixes, HYPOMAP_KEY_PREFIX, inGeneration, isPointerKey, POINTER_NAMES, POINTERS, uploadDecision,
+} from '../../src/data/dataOriginLayout';
+import { acquireR2LocalLock, prepareR2Object, synchronizeR2Objects, type R2PreparedObject } from '../lib/r2Incremental.mjs';
 import { createR2InventoryReader } from '../lib/r2RemoteInventory.mjs';
 import { createCloudflareClient, resolveEdgeCredentials } from '../lib/cloudflareApi.mjs';
 import { manualPurgeInstructions, purgeEdgeCache, purgeRequestForKeys } from '../lib/edgePurge.mjs';
 import { reducedBundleFindings } from '../lib/publicDataRelease.mjs';
+import { installedHypomapAtlas } from '../lib/hypomapAtlas.mjs';
+import { diskOrigin, generationOf, readQueryGeneration } from '../lib/queryGeneration.mjs';
 import { BundleReadError, listDiskCorpus, readOptionalJsonp } from '../lib/bundleReader.mjs';
 import { MANIFEST_FILE, MANIFEST_GLOBAL } from '../../src/data/queryWire';
-import { EXPRESSION_INDEX_POINTER_GLOBAL } from '../../src/expression-survey/expressionIndexFormat';
-import { HYPOMAP_KEY_PREFIX, installedHypomapAtlas } from '../lib/hypomapAtlas.mjs';
 
 const BUCKET = process.env.R2_BUCKET ?? 'hypoexplorer-datasets';
 const PUBLIC_ROOT = path.resolve('public'); // keys are computed relative to here
@@ -131,8 +137,8 @@ if (!Number.isInteger(CONCURRENCY) || CONCURRENCY < 1) {
 // via the build id and falls back, which is safe but again silently slow.
 //
 // `qc` is the per-population QA report PDFs (QCTab's report modal fetches
-// `${bundleBaseUrl}/qc/<file>`), stored uncompressed — see COMPRESSIBLE above.
-const UPLOAD_DIRS = ['datasets', 'query', 'qc'] as const;
+// `${bundleBaseUrl}/qc/<file>`), stored uncompressed.
+const UPLOAD_DIRS = BUNDLE_TREES;
 
 const argv = process.argv.slice(2);
 const dryRun = argv.includes('--dry-run');
@@ -188,8 +194,9 @@ const WRANGLER_BIN = path.join(path.dirname(wranglerPkgPath), binRel);
 // Bundles and index pointers are read through the bundle reader
 // (lib/bundleReader.mts): parsed without evaluation, under the global their
 // locator names. An absent file is null; a malformed or wrong-global one is a
-// BundleReadError, which the freshness check reports and the pointer read
-// lets abort the upload.
+// BundleReadError, which the freshness check reports. The query pointers are
+// read by the generation reader (lib/queryGeneration.mts), whose failures abort
+// the upload.
 function readBundleProblem(error: unknown): string {
   if (error instanceof BundleReadError) return `${path.relative(PUBLIC_ROOT, error.file).split(path.sep).join('/')}: ${error.detail}`;
   throw error;
@@ -292,14 +299,14 @@ function putObject(object: R2PreparedObject): Promise<void> {
   });
 }
 
-const queryPrefixes = only || hypomapOnly ? [] : queryPublicationPrefixes(
-  expressionOnly ? undefined
-    : readOptionalJsonp<{ buildId?: unknown }>(path.join(PUBLIC_ROOT, 'query', MANIFEST_FILE), MANIFEST_GLOBAL)?.buildId,
-  readOptionalJsonp<{ buildId?: unknown }>(path.join(PUBLIC_ROOT, 'query/expression-manifest.js'), EXPRESSION_INDEX_POINTER_GLOBAL)?.buildId,
-  expressionOnly,
-);
-const selectedQueryKey = (key: string) => queryPrefixes.some((prefix) => prefix.endsWith('/') ? key.startsWith(prefix) : key === prefix);
+// The query generation being published: the build ids the local pointers name,
+// read and validated by the same reader prepare_deploy and fetch:query use.
+// Only that generation's keys are candidates; older local builds stay local.
+const generation = only || hypomapOnly ? null
+  : generationOf(await readQueryGeneration(diskOrigin(PUBLIC_ROOT), { tracks: !expressionOnly }));
+const queryPrefixes = generation ? generationPrefixes(generation) : [];
 const files: string[] = [];
+const refused: string[] = [];
 const perDir: Record<string, number> = {};
 for (const dir of hypomapOnly ? [] : UPLOAD_DIRS) {
   const abs = path.join(PUBLIC_ROOT, dir);
@@ -312,16 +319,16 @@ for (const dir of hypomapOnly ? [] : UPLOAD_DIRS) {
   }
   let n = 0;
   for await (const f of walk(abs)) {
-    // Dotfiles here are leftover server config, not data: the only one is
-    // public/datasets/.htaccess, an Apache cache policy that stopped doing
-    // anything when these bundles moved to R2. Config has no business as a
-    // public bucket object; the live policy is the --cache-control flag above.
-    if (path.basename(f).startsWith('.')) continue;
+    const key = toKey(f);
     // --only filters the dataset subtree; the query index and the QC PDF pool
     // are global, so both are excluded when a single dataset is targeted.
-    if (only && !toKey(f).startsWith(`datasets/${only}/`)) continue;
-    if (expressionOnly && !selectedQueryKey(toKey(f))) continue;
-    if (dir === 'query' && !selectedQueryKey(toKey(f))) continue;
+    if (only && !key.startsWith(`datasets/${only}/`)) continue;
+    if (expressionOnly && !(generation && inGeneration(key, generation))) continue;
+    // Dotfiles are leftover server config (public/datasets/.htaccess, an Apache
+    // policy dormant since the R2 cutover) or local markers, never data.
+    const decision = uploadDecision(key, generation);
+    if (decision === 'refused') refused.push(key);
+    if (decision !== 'selected') continue;
     files.push(f);
     n++;
   }
@@ -339,6 +346,9 @@ if (hypomapFiles.length) {
   files.push(...hypomapFiles);
   perDir.hypomap = hypomapFiles.length;
 }
+if (refused.length) {
+  console.warn(`  ! leaving out ${refused.length} file(s) the data host's path rule would refuse (403): ${refused.slice(0, 5).join(', ')}${refused.length > 5 ? ', …' : ''}`);
+}
 // Publish order matters. query/tracks.js is the POINTER: it names the build id
 // that every shard URL derives from, so it must be written only AFTER every
 // shard of that build is in place. Uploading it early opens a window where
@@ -349,7 +359,7 @@ if (hypomapFiles.length) {
 // required object fails. (The pointer is also the one non-immutable object.)
 files.sort((a, b) => {
   const ka = toKey(a), kb = toKey(b);
-  if (R2_POINTER_KEYS.has(ka) !== R2_POINTER_KEYS.has(kb)) return R2_POINTER_KEYS.has(ka) ? 1 : -1;
+  if (isPointerKey(ka) !== isPointerKey(kb)) return isPointerKey(ka) ? 1 : -1;
   return ka < kb ? -1 : ka > kb ? 1 : 0;
 });
 
@@ -374,7 +384,7 @@ if (reduced.length) {
 }
 
 if (!only && !hypomapOnly) {
-  const requiredPointers = expressionOnly ? ['query/expression-manifest.js'] : [...R2_POINTER_KEYS];
+  const requiredPointers = expressionOnly ? [POINTERS.expression.key] : POINTER_NAMES.map((name) => POINTERS[name].key);
   for (const key of requiredPointers) {
     if (!files.some((file) => toKey(file) === key)) throw new Error(`Required query pointer is missing: ${key}. Rebuild the indexes before publication.`);
   }
@@ -510,7 +520,8 @@ try {
 } catch { throw new Error('Wrangler did not return a supported API/OAuth token.'); }
 const hypomapPrefixes = hypomapFiles.length ? [HYPOMAP_KEY_PREFIX] : [];
 const list = createR2InventoryReader({ account, bucket: BUCKET, token, prefixes: hypomapOnly ? hypomapPrefixes
-  : expressionOnly ? queryPrefixes : only ? [`datasets/${only}/`] : ['datasets/', 'qc/', ...queryPrefixes, ...hypomapPrefixes] });
+  : expressionOnly ? queryPrefixes : only ? [`datasets/${only}/`]
+  : [...UPLOAD_DIRS.filter((dir) => dir !== 'query').map((dir) => `${dir}/`), ...queryPrefixes, ...hypomapPrefixes] });
 const releaseLock = await acquireR2LocalLock(path.join(os.tmpdir(), 'hypoexplorer-r2-locks'), account, BUCKET);
 try {
   const cache = path.resolve('.wrangler/r2-upload-cache');

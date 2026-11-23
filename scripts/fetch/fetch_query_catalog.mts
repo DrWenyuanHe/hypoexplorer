@@ -18,33 +18,20 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { generationFiles, httpOrigin, readQueryGeneration } from '../lib/queryGeneration.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
-const OUT = path.join(ROOT, 'public/query');
 const base = (process.env.VITE_BUNDLE_BASE_URL || 'https://data.hypoexplorer.com').replace(/\/+$/, '');
 
-async function fetchText(relative: string): Promise<string> {
-  const response = await fetch(`${base}/query/${relative}`);
-  if (!response.ok) throw new Error(`${base}/query/${relative}: HTTP ${response.status}`);
-  return response.text();
-}
-
-function save(relative: string, text: string): void {
-  const target = path.join(OUT, relative);
+// Read and validate the whole generation before writing any of it, so a
+// malformed or half-published origin leaves public/query untouched.
+const generation = await readQueryGeneration(httpOrigin(base));
+for (const { key, text } of generationFiles(generation)) {
+  const target = path.join(ROOT, 'public', ...key.split('/'));
   mkdirSync(path.dirname(target), { recursive: true });
   writeFileSync(target, text);
-  console.log(`wrote public/query/${relative} (${text.length.toLocaleString()} bytes)`);
+  console.log(`wrote public/${key} (${text.length.toLocaleString()} bytes)`);
 }
-
-const tracks = await fetchText('tracks.js');
-const pointer = await fetchText('expression-manifest.js');
-const buildId = pointer.match(/"buildId":"([a-f0-9]{64})"/)?.[1];
-if (!buildId) throw new Error('expression-manifest.js names no expression build');
-const immutable = await fetchText(`expression/${buildId}/manifest.js`);
-
-save('tracks.js', tracks);
-save('expression-manifest.js', pointer);
-save(`expression/${buildId}/manifest.js`, immutable);
 
 // The Dataset Tracker's catalog is generated from survey notes this repository
 // does not carry, so the deployed copy is fetched from the app host.

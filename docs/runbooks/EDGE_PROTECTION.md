@@ -43,8 +43,10 @@ The HypoMap atlas branch admits only the tag pinned in
 `genes-` followed by exactly four characters and `.json.gz`, checked by prefix,
 suffix and path length. Without a regular expression the rule cannot require
 those four characters to be digits. Any other four characters reach R2 as a
-404, like any other random key. The shared shape is in
-[hypomapAtlas.mts](../../scripts/lib/hypomapAtlas.mts). Because the tag is part of
+404, like any other random key. The shared shape, and the JavaScript twin of
+the whole path rule (`originObject(key).wafAllowed`), are in the
+[data-origin layout](../../src/data/dataOriginLayout.ts); the uploader publishes
+only keys it admits. Because the tag is part of
 the rule, a new atlas tag needs `pnpm run edge:apply --apply` before an app that
 reads that tag is deployed.
 
@@ -52,7 +54,7 @@ reads that tag is deployed.
 
 The uploader stores `Cache-Control: public, max-age=300` on `query/tracks.js` and
 `query/expression-manifest.js`, and `public, max-age=31536000, immutable` on
-everything else ([r2Incremental.mts](../../scripts/lib/r2Incremental.mts)). With both
+everything else (the [data-origin layout](../../src/data/dataOriginLayout.ts)). With both
 TTLs set to "respect origin", the pointers stay at 300 seconds at the edge and in
 browsers. A zone-level Browser Cache TTL longer than the origin's value once
 forced four hours on the pointers. Cloudflare raises the browser TTL to the zone

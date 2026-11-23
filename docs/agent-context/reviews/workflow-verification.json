@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "1b9f4e8ba228bb5634141a1420529061262423430ba6dbd95f95dc97143094b8",
+  "fingerprint": "6d99643b7528434a4654ade5cdac51db73fa21ae2ca63c1f0c550b9f47cc4398",
   "outcome": "no-impact",
-  "explanation": "Merges main into the Codex closure pass. From main: the publication identity rule in scripts/lib/studyRecord.mts governs the study pages and the agent export and reads the registry and tracker, not QC, design or author-concordance evidence; bundle-reader adoption leaves the fingerprinted and sealed parsers alone. From this branch: only review ledgers, the dated pass folder and the data-release pin changed. Verification commands and evidence rules are unchanged.",
+  "explanation": "Merges main into the Codex closure pass. From main: the publication identity rule in studyRecord.mts decides which paper is cited, not QC or author-concordance evidence; bundle-reader adoption leaves the fingerprinted and sealed parsers alone; the HypoMap atlas file shape moves into the data-origin layout while hypomapAtlas.mts keeps its integrity checks. From this branch: only review ledgers, the dated pass folder and the data-release pin changed. QC review, evidence authoring and verification commands are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "scripts/lib/studyRecord.mts",
+    "scripts/lib/hypomapAtlas.mts",
     "data/author-validation/codex-2026-11-21/README.md"
   ]
 }

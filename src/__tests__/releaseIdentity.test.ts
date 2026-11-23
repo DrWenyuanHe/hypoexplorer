@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
-import { existsSync, mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { dirname, join, relative, resolve } from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
 import { isReleaseSource, readReleaseBuild, sourceFingerprint } from '../../scripts/lib/releaseBuild.mjs';
 import { expressionIndexGlobal } from '../expression-survey/expressionIndexFormat';
@@ -25,6 +25,28 @@ describe('release source identity', () => {
     expect(isReleaseSource('nar-research/dataset-survey/scout_master_combined.json')).toBe(true);
     expect(isReleaseSource('public/fonts/source/font.woff2')).toBe(true);
     expect(isReleaseSource('public/datasets/macaque_snrna/track_e9.js')).toBe(false);
+  });
+
+  it('archives every JSON file the archived source imports, so an extracted archive can verify and rebuild', () => {
+    // An extracted publication archive runs verify:release (readReleaseBuild
+    // imports the data-origin layout, which imports hypomap-release.json) and
+    // rebuilds the app; a JSON import missing from the allow-list breaks both.
+    const repo = resolve(__dirname, '../..');
+    const missing: string[] = [];
+    for (const dir of ['src', 'scripts']) {
+      for (const entry of readdirSync(join(repo, dir), { recursive: true, encoding: 'utf8' })) {
+        const file = `${dir}/${entry.replace(/\\/g, '/')}`;
+        // Tests are not on the verify or build path.
+        if (!/\.(?:ts|tsx|mts)$/.test(file) || file.includes('/__tests__/') || !isReleaseSource(file)) continue;
+        for (const [, specifier] of readFileSync(join(repo, file), 'utf8').matchAll(/from '(\.{1,2}\/[^']+\.json)'/g)) {
+          const target = relative(repo, resolve(repo, dirname(file), specifier)).replace(/\\/g, '/');
+          // Retained evidence held outside a public checkout is not imported unconditionally here.
+          if (existsSync(join(repo, target)) && !isReleaseSource(target)) missing.push(`${file} -> ${target}`);
+        }
+      }
+    }
+    expect(missing).toEqual([]);
+    expect(isReleaseSource('hypomap-release.json')).toBe(true);
   });
 
   it('ignores checkout EOL but changes when source contents or paths change', () => {

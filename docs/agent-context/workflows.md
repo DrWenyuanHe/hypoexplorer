@@ -229,8 +229,9 @@ server's proxy and only via the client `src/search/hypomap/codetection.ts`, whic
 fails closed when the service's export hash disagrees with the pin and keeps
 unsupported datasets visible; `services/hypomap/codetection_wire.json` pins the
 wire for both the Python and vitest tests. Hosted builds read the atlas from R2 under `/hypomap/<tag>/`.
-`scripts/lib/hypomapAtlas.mts` defines the file shape for the data host's path
-rule and the uploader (`upload:bundles --hypomap-only`). The path rule names the
+`src/data/dataOriginLayout.ts` defines the atlas file shape for the data host's
+path rule and the uploader; `scripts/lib/hypomapAtlas.mts` verifies an installed
+release before `upload:bundles --hypomap-only` publishes it. The path rule names the
 pinned tag, so a tag change regenerates the Cloudflare payloads. The manual rule,
 CORS and upload steps are in [delivery](delivery.md#hypomap-atlas); until they are
 done, the flags stay off in hosted builds.

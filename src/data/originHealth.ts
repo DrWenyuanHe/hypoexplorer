@@ -37,6 +37,7 @@
 // outage it has no standing to diagnose from inside one browser tab.
 
 import { BUNDLE_BASE } from './bundleBase';
+import { POINTERS } from './dataOriginLayout';
 
 export type OriginStatus =
   /** navigator says there is no network at all. */
@@ -66,7 +67,7 @@ export interface OriginDiagnosis {
  * is never answered out of a stale year-old cache entry — and `cache: 'no-store'`
  * below stops even that one from being served from the local cache.
  */
-const PROBE_PATH = '/query/tracks.js';
+const PROBE_PATH = `/${POINTERS.tracks.key}`;
 
 /** How long a verdict stands before another failure re-probes. */
 const TTL_MS = 30_000;

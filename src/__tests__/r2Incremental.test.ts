@@ -5,7 +5,7 @@ import { promisify } from 'node:util';
 import zlib from 'node:zlib';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
-  acquireR2LocalLock, metadataHash, objectMetadata, prepareR2Object, queryPublicationPrefixes, remoteMatches,
+  acquireR2LocalLock, metadataHash, prepareR2Object, remoteMatches,
   synchronizeR2Objects, type R2PreparedObject, type R2RemoteObject,
 } from '../../scripts/lib/r2Incremental.mjs';
 import { createR2InventoryReader } from '../../scripts/lib/r2RemoteInventory.mjs';
@@ -36,17 +36,6 @@ function fakeOrigin(initial: readonly R2PreparedObject[]) {
 }
 
 describe('verified incremental R2 publication', () => {
-  it('selects only the two current namespaces and rejects unsafe or malformed build IDs', () => {
-    const expressionBuild = 'a'.repeat(64);
-    expect(queryPublicationPrefixes('123abc', expressionBuild, false)).toEqual([
-      'query/123abc/', 'query/tracks.js', `query/expression/${expressionBuild}/`, 'query/expression-manifest.js',
-    ]);
-    expect(queryPublicationPrefixes(undefined, expressionBuild, true)).toHaveLength(2);
-    for (const invalid of ['../other', '/absolute', 'build/child', '', undefined]) {
-      expect(() => queryPublicationPrefixes(invalid, expressionBuild, false)).toThrow('invalid build ID');
-      expect(() => queryPublicationPrefixes('valid', invalid, false)).toThrow('invalid build ID');
-    }
-  });
   it('bootstraps a fresh checkout from remote bytes and HTTP metadata without payload PUTs', async () => {
     const directory = await workspace();
     const object = await fixture('datasets/example/track.js', directory);
@@ -75,7 +64,6 @@ describe('verified incremental R2 publication', () => {
   it('treats every HTTP metadata change as a write, including unexpected disposition and cache expiry', async () => {
     const object = await fixture('query/tracks.js', await workspace());
     expect(object.httpMetadata.cacheControl).toBe('public, max-age=300');
-    expect(objectMetadata('query/expression-manifest.js').cacheControl).toBe('public, max-age=300');
     for (const [field, value] of Object.entries({ cacheControl: 'public, max-age=14400', contentType: 'text/plain',
       contentEncoding: 'gzip', contentLanguage: 'en', contentDisposition: 'attachment', cacheExpiry: '2099-01-01' })) {
       const other = remote(object);

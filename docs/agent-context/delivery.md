@@ -115,6 +115,18 @@ The account/bucket lock excludes other local publishers; CI must also serialize
 publishers on different hosts. Concurrent remote changes are detected, but the REST
 check-and-write sequence is not a distributed atomic transaction.
 
+The [data-origin layout](../../src/data/dataOriginLayout.ts) is the one
+statement of the bucket: its trees, the two pointers and each pointer's build-id
+format (one parser, `parsePointer`), the prefixes a query generation occupies,
+and for any key its tree, mutability, Cache-Control, Content-Type, purge prefix
+and whether the edge path rule admits it. The uploader, the edge rules and
+purge, deploy preparation and verification, `vite.config.ts` and the app's
+origin probe read it. The [query-generation reader](../../scripts/lib/queryGeneration.mts)
+reads both pointers and the immutable expression manifest from `public/` or the
+origin for `prepare:deploy`, `fetch:query` and the uploader. The uploader
+publishes only keys the edge admits (`.js` and `.pdf` under the bundle trees)
+and reports any other file there instead of uploading it.
+
 The uploader stores `public, max-age=300` on `/query/tracks.js` and
 `/query/expression-manifest.js`, the only mutable objects, and year-long
 immutable caching on everything else. When enabled, the service worker also

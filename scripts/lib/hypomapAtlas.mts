@@ -1,7 +1,8 @@
 // The HypoMap atlas files the app reads (src/search/hypomap/atlas.ts) from
 // `${BUNDLE_BASE}/hypomap/<tag>/`, with the tag pinned in hypomap-release.json.
-// One definition shared by the data host's path rule (edgeRules.mts), the R2
-// uploader (upload_bundles_r2.mts) and their tests.
+// Where the release sits and which names it may hold are part of the data-origin
+// layout (src/data/dataOriginLayout.ts); this module adds the integrity checks
+// the R2 uploader (upload_bundles_r2.mts) runs before publishing it.
 //
 // The release holds manifest.json, metadata.json.gz, search-index.json.gz and
 // gene shards genes-NNNN.json.gz (scripts/fetch/fetch_hypomap.mts installs and
@@ -10,19 +11,10 @@ import { createHash } from 'node:crypto';
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import release from '../../hypomap-release.json';
+import {
+  HYPOMAP_FIXED_FILES, HYPOMAP_KEY_PREFIX, HYPOMAP_SHARD_DIGITS, HYPOMAP_SHARD_PREFIX, HYPOMAP_TAG,
+} from '../../src/data/dataOriginLayout';
 
-// A tag is interpolated into object keys and a firewall expression; refuse
-// anything but a plain release name rather than escape it.
-if (!/^[a-z0-9][a-z0-9.-]{0,63}$/.test(release.tag)) throw new Error(`hypomap-release.json has an invalid tag: ${release.tag}`);
-
-export const HYPOMAP_TAG: string = release.tag;
-/** R2 key prefix (no leading slash) and request path prefix of the pinned atlas. */
-export const HYPOMAP_KEY_PREFIX = `hypomap/${HYPOMAP_TAG}/`;
-export const HYPOMAP_PATH_PREFIX = `/${HYPOMAP_KEY_PREFIX}`;
-export const HYPOMAP_FIXED_FILES = ['manifest.json', 'metadata.json.gz', 'search-index.json.gz'] as const;
-export const HYPOMAP_SHARD_PREFIX = 'genes-';
-export const HYPOMAP_SHARD_DIGITS = 4;
-export const HYPOMAP_SHARD_SUFFIX = '.json.gz';
 const SHARD = new RegExp(`^${HYPOMAP_SHARD_PREFIX}\\d{${HYPOMAP_SHARD_DIGITS}}\\.json\\.gz$`);
 
 /** The exact file names a release may contain. Stricter than the edge rule, which cannot test for digits. */

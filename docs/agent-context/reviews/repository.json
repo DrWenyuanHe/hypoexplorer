@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "59a8398071c3e3bd9c7b162c57caa10789e607d2bdcefbc68025b6122dc62aac",
+  "fingerprint": "bc3e072a118acc65bdc02534e2ec342be66669de0bfff579bde8aab2126d9738",
   "outcome": "updated",
-  "explanation": "Merges main into the Codex closure pass. From main: CONTEXT.md adds the Compare cell entry (src/compare/compareCell.ts answers what a Compare column says about a gene, with arms read lazily) and keeps the extended bundle-reader seam, query-index corpus read module and Study publication record entries; the SEO runbook, refactor checklist and knip.json are unchanged. From this branch: data-release.json pins hypoexplorer-data release data-2026-11-22 with the evidence-codex-2026-11-21 part, the five existing parts stay at data-2026-11-06, and public-safety.json keeps the reviewed writing-rule allowances for the closure pass files.",
+  "explanation": "Merges main into the Codex closure pass. From main: CONTEXT.md adds the Data-origin layout entry with the query-generation reader beside the Compare cell, bundle-reader seam, query-index corpus read and Study publication record entries; vite.config.ts reads pointer keys, lifetime and the service-worker matcher from the layout; releaseBuild.mts allow-lists hypomap-release.json as release source. From this branch: data-release.json pins hypoexplorer-data release data-2026-11-22 with the evidence-codex-2026-11-21 part, the five existing parts stay at data-2026-11-06, and public-safety.json keeps the reviewed writing-rule allowances for the closure pass files.",
   "references": [
     "CONTEXT.md",
-    "src/compare/compareCell.ts",
-    "scripts/lib/studyRecord.mts",
+    "src/data/dataOriginLayout.ts",
+    "scripts/lib/releaseBuild.mts",
     "data-release.json",
     "public-safety.json"
   ]

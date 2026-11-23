@@ -1,9 +1,10 @@
 // The gitignored inputs a production build ships but this repository does not
 // carry, and how to tell whether a checkout (or a built dist/) has them.
 //
-// - public/query/{tracks.js,expression-manifest.js,expression/<id>/manifest.js}:
-//   the query catalog Vite stamps into the app. It must be the catalog the data
-//   origin serves, or the deployed app pins an index generation R2 does not hold.
+// - public/query/: the query generation Vite stamps into the app (both pointers
+//   and the immutable expression manifest; scripts/lib/queryGeneration.mts reads
+//   it). It must be the generation the data origin serves, or the deployed app
+//   pins an index generation R2 does not hold.
 // - public/tracker/catalog.js: the Dataset Tracker catalog, generated from survey
 //   notes that are not in this repository.
 // - public/expression/{gtex,hpa,allen-human}/: the GTEx, HPA and Allen reference
@@ -20,7 +21,6 @@ import {
 export const ATLAS_DIRS: readonly string[] = EXTERNAL_PROVIDERS.map((provider) => EXTERNAL_REFERENCE_ROOTS[provider].replace(/^\/expression\//, ''));
 
 export const TRACKER_CATALOG = 'tracker/catalog.js';
-export const QUERY_POINTERS = ['query/tracks.js', 'query/expression-manifest.js'] as const;
 
 interface AtlasManifestCounts {
   lookupShardCount: number;
@@ -71,9 +71,4 @@ export function atlasProblems(atlasRoot: string, label: string): string[] {
 /** Problems across every atlas under `<root>/expression/`. `root` is public/ or dist/. */
 export function allAtlasProblems(root: string, rootLabel: string): string[] {
   return ATLAS_DIRS.flatMap((dir) => atlasProblems(path.join(root, 'expression', dir), `${rootLabel}/expression/${dir}`));
-}
-
-/** The expression build a pointer file names, or null. */
-export function expressionBuildIdOf(pointer: string): string | null {
-  return pointer.match(/"buildId":"([a-f0-9]{64})"/)?.[1] ?? null;
 }

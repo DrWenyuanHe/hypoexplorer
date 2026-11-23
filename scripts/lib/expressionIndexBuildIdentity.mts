@@ -1,24 +1,24 @@
 import { readFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { expressionIndexGlobal } from '../../src/expression-survey/expressionIndexFormat';
+import { join } from 'node:path';
+import { expressionManifestKey, parsePointer, POINTERS, verifyExpressionManifest } from '../../src/data/dataOriginLayout';
+import { EXPRESSION_INDEX_SCHEMA_VERSION, EXPRESSION_INDEX_SHARDS } from '../../src/expression-survey/expressionIndexFormat';
 
-/** Pin the app to a complete immutable expression corpus, independent of pointer caches. */
-export function readExpressionIndexBuild(pointerPath: string): string {
-  const read = (path: string, global: string) => {
-    const source = readFileSync(path, 'utf8');
-    const match = source.match(new RegExp(`^(?:\\s|//[^\\n]*\\n)*var ${global}\\s*=\\s*(\\{[\\s\\S]*\\})\\s*;\\s*$`));
-    if (!match) throw new Error('Expression index has an invalid data wrapper; run npm run build:expression-index.');
-    return JSON.parse(match[1]);
-  };
-  const manifest = read(pointerPath, 'HX_EXPRESSION_MANIFEST');
-  if (manifest.schemaVersion !== 1 || !/^[a-f0-9]{64}$/.test(manifest.buildId) ||
-      manifest.shardCount !== 512 || !Array.isArray(manifest.sources) || !manifest.sources.length) {
-    throw new Error('Expression index has no valid build identity; run npm run build:expression-index.');
+/**
+ * Pin the app to a complete immutable expression corpus, independent of pointer
+ * caches: the build id the pointer under `publicRoot` names, after checking the
+ * index format and that the generation's immutable manifest holds the same payload.
+ */
+export function readExpressionIndexBuild(publicRoot: string): string {
+  const read = (key: string) => readFileSync(join(publicRoot, ...key.split('/')), 'utf8');
+  try {
+    const pointer = parsePointer('expression', read(POINTERS.expression.key));
+    const { schemaVersion, shardCount, sources } = pointer.manifest;
+    if (schemaVersion !== EXPRESSION_INDEX_SCHEMA_VERSION || shardCount !== EXPRESSION_INDEX_SHARDS || !Array.isArray(sources) || !sources.length) {
+      throw new Error(`${pointer.key} is not a schema ${EXPRESSION_INDEX_SCHEMA_VERSION}, ${EXPRESSION_INDEX_SHARDS}-shard index with sources`);
+    }
+    verifyExpressionManifest(pointer, read(expressionManifestKey(pointer.buildId)));
+    return pointer.buildId;
+  } catch (error) {
+    throw new Error(`Expression index has no valid build identity (${error instanceof Error ? error.message : String(error)}); run npm run build:expression-index.`);
   }
-  const immutable = read(join(dirname(pointerPath), 'expression', manifest.buildId, 'manifest.js'),
-    expressionIndexGlobal(manifest.buildId, 'manifest'));
-  if (JSON.stringify(immutable) !== JSON.stringify(manifest)) {
-    throw new Error('Expression index pointer does not match its immutable manifest.');
-  }
-  return manifest.buildId;
 }
