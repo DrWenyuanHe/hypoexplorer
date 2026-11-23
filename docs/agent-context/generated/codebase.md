@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (246):
+Covered source files (247):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -178,9 +178,10 @@ Covered source files (246):
 - [src/__tests__/hubSections.test.ts](<../../../src/__tests__/hubSections.test.ts>)
 - [src/__tests__/hubUnits.test.tsx](<../../../src/__tests__/hubUnits.test.tsx>)
 - [src/__tests__/hypomapAtlas.test.ts](<../../../src/__tests__/hypomapAtlas.test.ts>)
+- [src/__tests__/hypomapAtlasClient.test.ts](<../../../src/__tests__/hypomapAtlasClient.test.ts>)
 - [src/__tests__/hypomapCodetection.test.ts](<../../../src/__tests__/hypomapCodetection.test.ts>)
 - [src/__tests__/hypomapCoexpression.test.tsx](<../../../src/__tests__/hypomapCoexpression.test.tsx>)
-- [src/__tests__/hypomapMetrics.test.ts](<../../../src/__tests__/hypomapMetrics.test.ts>)
+- [src/__tests__/hypomapFixture.ts](<../../../src/__tests__/hypomapFixture.ts>)
 - [src/__tests__/hypomapPreview.test.tsx](<../../../src/__tests__/hypomapPreview.test.tsx>)
 - [src/__tests__/indexFreshness.test.ts](<../../../src/__tests__/indexFreshness.test.ts>)
 - [src/__tests__/indexProducts.test.ts](<../../../src/__tests__/indexProducts.test.ts>)

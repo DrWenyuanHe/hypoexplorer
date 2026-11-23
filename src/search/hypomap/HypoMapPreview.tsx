@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { AtlasMap, regions } from './AtlasMap';
-import { type DatasetMetrics, datasetMetrics, loadAtlasGene, type Metrics, poolMetrics, type ReadyAtlas } from './atlas';
-import { type Csv, CsvDialog } from './CsvDialog';
+import {
+  type AtlasTable, COHORT, type DatasetMetrics, datasetSummary, datasetTable, EXPRESSION_UNIT, loadAtlasGene, type MetricField, type Metrics,
+  missMessage, type ReadyAtlas, spatialTable, WHOLE,
+} from './atlas';
+import { CsvDialog } from './CsvDialog';
 import { useLoad } from './useLoad';
 import { tabKeyTarget } from '../../utils/tabKeys';
 import './preview.css';
 
-const whole = 'Whole hypothalamus';
-const unit = 'ln(1 + counts per 10k)';
 const colors = ['#376592', '#a6632c', '#338071', '#96577f', '#577a32', '#785ca5', '#a94953', '#24758b', '#7d663a', '#58768c', '#5c6fc6', '#aa5835', '#3c8262', '#8e5272', '#777442', '#315f83', '#6578a2', '#a35c53'];
 const count = new Intl.NumberFormat('en-US');
 const views = [
@@ -36,7 +37,7 @@ function Summary({ row }: { row: Metrics }) {
       </div>
       <div>
         <strong>{value(row.mean)}</strong> mean when detected
-        <small>{unit}</small>
+        <small>{EXPRESSION_UNIT}</small>
         <details className="hm-formula"><summary>Expression formula</summary>
           <div className="hm-equation" role="math" aria-label="Natural logarithm of one plus 10,000 times gene count divided by total stored counts per cell">
             <span>ln</span><span className="hm-math-paren">(</span><span>1 + 10,000 ×</span>
@@ -52,21 +53,18 @@ function Summary({ row }: { row: Metrics }) {
 
 function Chart({ rows, field, checked, onExport }: {
   rows: DatasetMetrics[];
-  field: 'detection' | 'mean';
+  field: MetricField;
   checked: string[];
   onExport: () => void;
 }) {
   const title = field === 'detection' ? '% detected' : 'Mean expression when detected';
-  const values = rows.flatMap(row => row[field] === null ? [] : [row[field]]);
-  const mean = values.length ? values.reduce((sum, n) => sum + n, 0) / values.length : null;
-  const sem = mean !== null && values.length > 1
-    ? Math.sqrt(values.reduce((sum, n) => sum + (n - mean) ** 2, 0) / (values.length * (values.length - 1))) : null;
+  const { values, mean, sem } = datasetSummary(rows, field);
   const max = field === 'detection' ? 100 : Math.max(1, Math.ceil(Math.max(...values, (mean ?? 0) + (sem ?? 0))));
   const y = (n: number) => 190 - n / max * 170;
   return (
     <section className="hm-card">
       <h5>{title}</h5>
-      <small>{field === 'mean' ? unit : 'Percent of eligible cells'}</small>
+      <small>{field === 'mean' ? EXPRESSION_UNIT : 'Percent of eligible cells'}</small>
       <svg className="hm-chart" viewBox="0 0 235 215" aria-label={title}>
         {[0, .25, .5, .75, 1].map(tick => (
           <g key={tick}>
@@ -94,22 +92,13 @@ function Chart({ rows, field, checked, onExport }: {
 
 function AtlasViews({ data }: { data: ReadyAtlas }) {
   const [view, setView] = useState<(typeof views)[number]['id']>('spatial');
-  const [region, setRegion] = useState(whole);
+  const [region, setRegion] = useState(WHOLE);
   const [checked, setChecked] = useState<string[]>([]);
-  const [csv, setCsv] = useState<Csv | null>(null);
-  const { metadata, record, gene } = data;
-  const rows = datasetMetrics(metadata, record, region);
-  const summaries = Object.fromEntries(metadata.contexts.map(context => [context, poolMetrics(datasetMetrics(metadata, record, context))]));
-  const named = metadata.contexts.filter(context => context !== whole && context !== 'No HypoMap region');
-  const offPlane = named.filter(context => !Object.values<string>(regions).includes(context));
-
-  function exportChart(field: 'detection' | 'mean') {
-    setCsv({
-      title: `${gene[1]} · ${region} · ${field === 'detection' ? 'Detection' : 'Mean expression'} by dataset`,
-      headers: ['Dataset', 'Accession', 'Region', field === 'detection' ? '% detected' : unit],
-      rows: rows.filter(row => checked.includes(row.id)).map(row => [row.label, row.id, region, row[field]]),
-    });
-  }
+  const [table, setTable] = useState<AtlasTable | null>(null);
+  const rows = data.byDataset(region);
+  const summaries = data.pooled;
+  const offPlane = data.namedRegions.filter(context => !Object.values<string>(regions).includes(context));
+  const exportChart = (field: MetricField) => setTable(datasetTable(data, region, field, checked));
 
   return (
     <>
@@ -132,24 +121,17 @@ function AtlasViews({ data }: { data: ReadyAtlas }) {
             </button>
           ))}
         </div>
-        {view === 'spatial' && <button className="hm-view-export" type="button" onClick={() => setCsv({
-          title: `${gene[1]} · Spatial expression`,
-          headers: ['Region', 'Eligible cells', 'Detected cells', '% detected', unit],
-          rows: metadata.contexts.map(name => {
-            const row = summaries[name];
-            return [name, row.eligible, row.positive, row.detection, row.mean];
-          }),
-        })}>Preview spatial CSV <span aria-hidden="true">↗</span></button>}
+        {view === 'spatial' && <button className="hm-view-export" type="button" onClick={() => setTable(spatialTable(data))}>Preview spatial CSV <span aria-hidden="true">↗</span></button>}
       </div>
       <div id="hm-view-panel" role="tabpanel" aria-labelledby={`hm-tab-${view}`}>
       {view === 'spatial' ? (
         <div className="hm-grid">
           <section className="hm-card">
             <h5>Coronal hypothalamus schematic</h5>
-            <AtlasMap summaries={summaries} region={region} onSelect={name => setRegion(region === name ? whole : name)} />
+            <AtlasMap summaries={summaries} region={region} onSelect={name => setRegion(region === name ? WHOLE : name)} />
             {!!offPlane.length && <details className="hm-other-regions"><summary><span>Regions off this plane</span><span className="hm-region-count">{offPlane.length}</span></summary>
               <div className="hm-controls">{offPlane.map(name => (
-                <button key={name} type="button" className="portal-secondary" aria-pressed={region === name} onClick={() => setRegion(region === name ? whole : name)}>
+                <button key={name} type="button" className="portal-secondary" aria-pressed={region === name} onClick={() => setRegion(region === name ? WHOLE : name)}>
                   {name} · {value(summaries[name].detection, '%')}
                 </button>
               ))}</div>
@@ -158,7 +140,7 @@ function AtlasViews({ data }: { data: ReadyAtlas }) {
           <section className="hm-card">
             <header className="hm-summary-header">
               <h5>{region}</h5>
-              {region !== whole && <button className="hm-scope-reset" type="button" onClick={() => setRegion(whole)} aria-label="Reset to whole hypothalamus">← Whole hypothalamus</button>}
+              {region !== WHOLE && <button className="hm-scope-reset" type="button" onClick={() => setRegion(WHOLE)} aria-label="Reset to whole hypothalamus">← {WHOLE}</button>}
             </header>
             <Summary row={summaries[region]} />
           </section>
@@ -166,7 +148,7 @@ function AtlasViews({ data }: { data: ReadyAtlas }) {
       ) : (
         <>
           <label className="hm-region">Region <select value={region} onChange={event => setRegion(event.target.value)}>
-            {[whole, ...named].map(name => <option key={name}>{name}</option>)}
+            {[WHOLE, ...data.namedRegions].map(name => <option key={name}>{name}</option>)}
           </select></label>
           <div className="hm-grid">
             <Chart rows={rows} field="detection" checked={checked} onExport={() => exportChart('detection')} />
@@ -192,7 +174,7 @@ function AtlasViews({ data }: { data: ReadyAtlas }) {
       )}
       </div>
       <p className="portal-note">Zero detection means no counts were stored for this scope. Per-study feature coverage is unavailable in the atlas export.</p>
-      {csv && <CsvDialog csv={csv} onClose={() => setCsv(null)} />}
+      {table && <CsvDialog table={table} onClose={() => setTable(null)} />}
     </>
   );
 }
@@ -204,12 +186,10 @@ export function HypoMapPreview({ symbol }: { symbol: string }) {
   return (
     <section className="hm-preview" id="hypomap-preview" aria-labelledby="hypomap-preview-title">
       <h3 id="hypomap-preview-title">Mouse single-cell expression in HypoMap</h3>
-      <p className="portal-note">Among cells included in HypoMap · 384,925 cells from 18 contributing datasets.</p>
+      <p className="portal-note">Among cells included in HypoMap · {count.format(COHORT.cells)} cells from {COHORT.datasets} contributing datasets.</p>
       {load.state === 'loading' && <p role="status">Loading HypoMap expression…</p>}
       {load.state === 'failed' && <p role="status">HypoMap preview data could not be loaded. <button type="button" className="portal-secondary" onClick={load.retry}>Retry</button></p>}
-      {result?.state === 'missing' && <p>No HypoMap feature matched {symbol}.</p>}
-      {result?.state === 'ambiguous' && <p>Multiple atlas features match {symbol}. Search a canonical symbol: {result.candidates.join(', ')}.</p>}
-      {result?.state === 'ready' && <AtlasViews data={result} />}
+      {result && (result.state === 'ready' ? <AtlasViews data={result} /> : <p>{missMessage(result, symbol)}</p>)}
     </section>
   );
 }

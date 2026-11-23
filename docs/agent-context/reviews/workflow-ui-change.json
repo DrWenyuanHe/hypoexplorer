@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "574808bea6bf28b308234b1382cf3058ca2374d94211d722597515c08d66aecc",
+  "fingerprint": "c26980e8558f3fb60e5470c8d5ece207256d8590cef1fd9170af6a6e9c86bee8",
   "outcome": "updated",
-  "explanation": "The ui-change workflow's study-selection paragraphs now describe one module parameterized by report kind: the router holds one selection per report through studySelectionLink.ts (never the hook, which would pull the evidence ledgers into the entry bundle, as lazyChunkBoundaries.test.ts checks), App passes it with the setter straight through, both reports render StudySelectionPanel and key their boundary on the term, and the rules are tested at the module's interface. The catalog lists studySelectionLink.ts.",
+  "explanation": "The ui-change workflow's study-selection paragraphs describe one module parameterized by report kind: the router holds one selection per report through studySelectionLink.ts (never the hook, which would pull the evidence ledgers into the entry bundle, as lazyChunkBoundaries.test.ts checks), App passes it with the setter straight through, both reports render StudySelectionPanel and key their boundary on the term. The catalog lists studySelectionLink.ts. The merged HypoMap atlas-client change needs no workflow text: its CSVs go through the export-provenance seam the route already names, and navigation and views are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
     "docs/agent-context/catalog.json",
     "src/crossdataset/studySelection.ts",
     "src/crossdataset/studySelectionLink.ts",
-    "src/App.tsx"
+    "src/search/hypomap/CsvDialog.tsx"
   ]
 }

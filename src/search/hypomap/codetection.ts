@@ -1,5 +1,5 @@
 import release from '../../../hypomap-release.json';
-import type { Gene, ReadyAtlas } from './atlas';
+import { type Gene, type ReadyAtlas, WHOLE } from './atlas';
 import type { Csv } from './CsvDialog';
 
 /**
@@ -19,7 +19,6 @@ import type { Csv } from './CsvDialog';
 
 /** Routed to the service's `/api/` by the offline dev proxy (vite.config.ts) or a hosted reverse proxy. */
 const API = '/hypomap-preview-api';
-const WHOLE = 'Whole hypothalamus';
 
 export const CATEGORIES = ['both', 'queryOnly', 'partnerOnly', 'neither'] as const;
 export type Category = (typeof CATEGORIES)[number];
