@@ -1,4 +1,4 @@
-import type { Metrics } from './atlas';
+import { EXPRESSION_UNIT, type Metrics } from './atlas';
 
 export const regions = {
   PVN: 'Paraventricular hypothalamic nucleus',
@@ -66,7 +66,7 @@ export function AtlasMap({ summaries, region, onSelect }: {
       </svg>
       <div className="hm-map-legend">
         <strong>Mean expression among detected cells</strong>
-        <small>ln(1 + counts per 10k)</small>
+        <small>{EXPRESSION_UNIT}</small>
         {max > 0 ? (
           <>
             <div className="hm-map-ramp" style={{ background: `linear-gradient(90deg, ${color(0)}, ${color(1)})` }} />

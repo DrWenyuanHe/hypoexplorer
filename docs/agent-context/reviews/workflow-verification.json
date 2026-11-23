@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "d164fde973e2cfbc3edaf65dd9ca8f7c443e0d1426a5db0996b9df05d8066ad1",
+  "fingerprint": "944339e77be21fb450a8ecfb18532f15767134bb6059116adf2792c92f0e3941",
   "outcome": "no-impact",
-  "explanation": "The publication identity rule moved into scripts/lib/studyRecord.mts and now also governs the agent export; it decides which paper is cited, not any QC, design or author-concordance evidence. Verification policies, ledgers and reports are unchanged.",
+  "explanation": "The publication identity rule lives in scripts/lib/studyRecord.mts and governs the study pages and the agent export; it decides which paper is cited, not QC, design or author-concordance evidence. Main's bundle-reader adoption leaves macaqueQc.mts, replicationEvidence.mts and historicalEvidence.mts on their own parsers because they are fingerprinted or sealed. Verification commands, ledgers and evidence rules are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "scripts/lib/studyRecord.mts"
+    "scripts/lib/studyRecord.mts",
+    "data/internal-qc/assessments.generated.json",
+    "scripts/lib/historicalEvidence.mts"
   ]
 }

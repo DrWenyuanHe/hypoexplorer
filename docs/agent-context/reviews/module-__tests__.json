@@ -1,12 +1,16 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "50f83590a21793eefff9fed6ca83e6a45a113b0de83720713b74f0b3683f91d1",
+  "fingerprint": "7b71001951123ad0dc6a649323e687960ee5b1ebd6debcef82cf4f8ebd1c543d",
   "outcome": "updated",
-  "explanation": "Adds studyRecord.test.ts, which pins the study publication record at its interface: a PMID named only in the citation, the source record's only linked PMID, empty DOIs, DOI-only and case-insensitive DOI matches, https-only links, the default contrast and labels, and per-track arm counts. seoPages.test.ts drops its identity cases and keeps layout; seoStudyContent.test.ts passes a record instead of raw meta.",
+  "explanation": "Combined result of the study publication record with main's bundle-reader adoption, study-selection module and HypoMap atlas client. Study record: studyRecord.test.ts pins the record at its interface (a PMID named only in the citation, the source record's only linked PMID, empty DOIs, DOI-only and case-insensitive DOI matches, https-only links, the default contrast and labels, per-track arm counts); seoPages.test.ts drops its identity cases and keeps layout, and keeps main's check that every study-page track label equals readDatasetFromDisk; seoStudyContent.test.ts passes a record instead of raw meta. From main: queryIndexCorpus.test.ts, the listDiskCorpus and jsonpHeader cases in bundleReader.test.ts, deployGuards locator fixtures, studySelection.test.tsx, lazyChunkBoundaries.test.ts, hypomapAtlasClient.test.ts and hypomapFixture.ts, with geneStudyScope.test.ts and hypomapMetrics.test.ts removed.",
   "references": [
     "src/__tests__/studyRecord.test.ts",
     "src/__tests__/seoPages.test.ts",
-    "scripts/lib/studyRecord.mts"
+    "scripts/lib/studyRecord.mts",
+    "src/__tests__/queryIndexCorpus.test.ts",
+    "src/__tests__/bundleReader.test.ts",
+    "src/__tests__/studySelection.test.tsx",
+    "src/__tests__/hypomapAtlasClient.test.ts"
   ]
 }

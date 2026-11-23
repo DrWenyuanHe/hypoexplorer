@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "efdb5cd64c66d20e9c8688ef6a6436dabe4eb174f10fee81717c3f1a4b284f46",
+  "fingerprint": "433f18bf43e249793aa292bc8fdf228bcd95c294656746c77d9a9763c77fd8cf",
   "outcome": "updated",
-  "explanation": "CONTEXT.md gains the Study publication record entry: scripts/lib/studyRecord.mts as the one place build scripts decide the verified paper, repository link, default contrast and per-track arm counts, and scripts/lib/html.mts as the shared HTML escaper. The SEO runbook names the record and its focused test.",
+  "explanation": "CONTEXT.md keeps main's extended bundle-reader seam entry (listDiskCorpus, jsonpHeader, new adopters, SEO pages on readDatasetFromDisk) and the query-index corpus read module, and adds the Study publication record entry: scripts/lib/studyRecord.mts decides the verified paper, repository link, default contrast and per-track arm counts, and scripts/lib/html.mts is the shared HTML escaper. The SEO runbook names studyRecord.test.ts and keeps main's note that track labels are checked against the bundle reader. The refactor checklist and knip.json changes come from main unchanged.",
   "references": [
     "CONTEXT.md",
     "docs/runbooks/SEO.md",
-    "scripts/lib/studyRecord.mts"
+    "scripts/lib/studyRecord.mts",
+    "scripts/lib/bundleReader.mts",
+    "docs/runbooks/REFACTOR_CHECKLIST.md"
   ]
 }

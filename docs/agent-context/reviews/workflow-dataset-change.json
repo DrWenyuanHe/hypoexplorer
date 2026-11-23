@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "a30a7be7d342790fedc8564ae13c9b98aa58c3b4bef5719a74e2164c8daccc56",
-  "outcome": "no-impact",
-  "explanation": "Study pages and the agent export now read publication identity and per-track counts through scripts/lib/studyRecord.mts. Adding a dataset still needs only its registry entry, bundles and optional studySources.json snapshot; the dataset-change steps, contract and builders are unchanged.",
+  "fingerprint": "aaa64202b32a046ce0bf36e7fc6bf994721588111a8fb042a128d0f36484cf10",
+  "outcome": "updated",
+  "explanation": "From main: script reads of published bundles go through scripts/lib/bundleReader.mts for the query index, expression index, bundle optimizer, upload guards, deploy verifier and SEO study pages, and listDiskCorpus is the one sweep of public/datasets (workflows.md, CONTEXT.md, refactor checklist). From this change: study pages and the agent export read publication identity and per-track counts through scripts/lib/studyRecord.mts, whose meta input on the study pages now comes from the bundle reader. Adding a dataset still needs only its registry entry, bundles and optional studySources.json snapshot.",
   "references": [
     "docs/agent-context/workflows.md",
+    "scripts/lib/bundleReader.mts",
+    "scripts/lib/queryIndexCorpus.mts",
     "scripts/lib/studyRecord.mts",
     "docs/runbooks/SEO.md"
   ]

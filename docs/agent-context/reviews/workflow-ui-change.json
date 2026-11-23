@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "74c2ebb3e2cdb3e12c207ec218e498381dbe86b20db204b2f657caaceffcd903",
-  "outcome": "no-impact",
-  "explanation": "The static study pages render the study publication record; the in-app views, routing, tabs and exports are unchanged. The agent export's publication columns follow the same record, documented in the SEO runbook and the export column docs.",
+  "fingerprint": "f5222a1063b6481ef5c99d3ed1e73f784da0db5146c59797205a6bac88f3b75d",
+  "outcome": "updated",
+  "explanation": "From main: the ui-change workflow describes the study-selection module (studySelectionLink.ts in the router, StudySelectionPanel in both reports) and the catalog lists studySelectionLink.ts. From this change: the static study pages render the study publication record and the agent export's publication columns follow the same record, documented in the SEO runbook; in-app views, routing, tabs and exports are otherwise unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
+    "docs/agent-context/catalog.json",
+    "src/crossdataset/studySelectionLink.ts",
     "scripts/lib/studyRecord.mts",
     "scripts/lib/agentExport.mts"
   ]

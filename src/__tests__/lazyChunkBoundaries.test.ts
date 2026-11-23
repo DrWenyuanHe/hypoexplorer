@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { readdirSync, readFileSync, statSync } from 'node:fs';
-import { join, relative } from 'node:path';
+import { join, relative, resolve } from 'node:path';
+import ts from '@typescript/typescript6';
 
 // Guards the code-splitting boundaries that keep the landing hub small.
 //
@@ -59,7 +60,92 @@ function staticImportersOf(spec: RegExp): string[] {
     .map((f) => relative(process.cwd(), f).replace(/\\/g, '/'));
 }
 
+/** A module specifier the bundler loads as an asset, not as a module to walk. */
+const ASSET_SPECIFIER = /\.(css|svg|png|jpe?g|webp|woff2?)$|\?/;
+
+/**
+ * The value-carrying module specifiers of one file, read from its syntax tree:
+ * static imports, side-effect imports and re-exports. `import type`, `export
+ * type`, and declarations whose every named binding is `type` are erased by
+ * the compiler, so they are left out; dynamic `import()` is an expression, not
+ * a declaration, so it never appears (it is the split point).
+ */
+function runtimeSpecifiers(file: string): string[] {
+  const source = ts.createSourceFile(file, readFileSync(file, 'utf8'), ts.ScriptTarget.Latest, false,
+    file.endsWith('.tsx') ? ts.ScriptKind.TSX : ts.ScriptKind.TS);
+  const specs: string[] = [];
+  for (const statement of source.statements) {
+    if (ts.isImportDeclaration(statement)) {
+      const clause = statement.importClause;
+      if (clause?.isTypeOnly) continue;
+      const bindings = clause?.namedBindings;
+      if (clause && !clause.name && bindings && ts.isNamedImports(bindings)
+        && bindings.elements.length > 0 && bindings.elements.every((element) => element.isTypeOnly)) continue;
+      if (ts.isStringLiteral(statement.moduleSpecifier)) specs.push(statement.moduleSpecifier.text);
+    } else if (ts.isExportDeclaration(statement) && statement.moduleSpecifier) {
+      if (statement.isTypeOnly) continue;
+      const clause = statement.exportClause;
+      if (clause && ts.isNamedExports(clause)
+        && clause.elements.length > 0 && clause.elements.every((element) => element.isTypeOnly)) continue;
+      if (ts.isStringLiteral(statement.moduleSpecifier)) specs.push(statement.moduleSpecifier.text);
+    }
+  }
+  return specs;
+}
+
+/**
+ * Every file the entry module reaches through runtime imports (the eager
+ * graph), mapped to the file that first imported it. Specifiers resolve the
+ * way the compiler and Vite do (`moduleResolution: bundler`, so `./x.js` finds
+ * `x.ts`, and JSON resolves). A relative runtime import that does not resolve
+ * is reported rather than skipped, so a resolver gap cannot hide an edge.
+ */
+function eagerGraph(entry: string): { graph: Map<string, string | null>; unresolved: string[] } {
+  const options: ts.CompilerOptions = {
+    module: ts.ModuleKind.ESNext, moduleResolution: ts.ModuleResolutionKind.Bundler,
+    resolveJsonModule: true, allowImportingTsExtensions: true, jsx: ts.JsxEmit.ReactJSX,
+  };
+  const graph = new Map<string, string | null>([[entry, null]]);
+  const unresolved: string[] = [];
+  const queue = [entry];
+  while (queue.length) {
+    const file = queue.shift()!;
+    if (!/\.tsx?$/.test(file)) continue;
+    for (const spec of runtimeSpecifiers(file)) {
+      if (!spec.startsWith('.') || ASSET_SPECIFIER.test(spec)) continue;
+      const found = ts.resolveModuleName(spec, file, options, ts.sys).resolvedModule?.resolvedFileName;
+      if (!found) { unresolved.push(`${relative(process.cwd(), file)}: ${spec}`); continue; }
+      const target = resolve(found);
+      if (!graph.has(target)) { graph.set(target, file); queue.push(target); }
+    }
+  }
+  return { graph, unresolved };
+}
+
 describe('lazy chunk boundaries', () => {
+  it('the entry graph reaches neither evidence ledger', () => {
+    // The internal QC (~3.9 MB) and author-validation (~1 MB) ledgers load with
+    // the views that show evidence, never on the hub's first paint. The router
+    // sits in the entry graph, so it holds study selection's value and URL form
+    // (crossdataset/studySelectionLink.ts) and must not reach the derivation
+    // hook, whose catalog and quality imports pull in both ledgers.
+    const { graph, unresolved } = eagerGraph(join(SRC, 'main.tsx'));
+    expect(unresolved).toEqual([]);
+    const chain = (file: string) => {
+      const steps: string[] = [];
+      for (let at: string | null | undefined = file; at; at = graph.get(at)) steps.unshift(relative(process.cwd(), at).replace(/\\/g, '/'));
+      return steps.join(' -> ');
+    };
+    const ledgers = [
+      join(process.cwd(), 'data', 'internal-qc', 'assessments.generated.json'),
+      join(process.cwd(), 'data', 'author-validation', 'validation-records.generated.json'),
+    ];
+    expect(ledgers.filter((ledger) => graph.has(ledger)).map(chain)).toEqual([]);
+    // The walk is live: it does reach the router and the light selection module.
+    expect(graph.has(join(SRC, 'appRouter.ts'))).toBe(true);
+    expect(graph.has(join(SRC, 'crossdataset', 'studySelectionLink.ts'))).toBe(true);
+  });
+
   it('recharts is imported by exactly one module', () => {
     expect(staticImportersOf(/^recharts$/)).toEqual(['src/gene-explorer/BarSEMChartImpl.tsx']);
   });

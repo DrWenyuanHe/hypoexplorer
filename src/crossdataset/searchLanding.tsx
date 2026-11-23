@@ -2,7 +2,8 @@
 // the expandable per-dataset picker, its summary line and the lazily loaded
 // search vocabulary.
 //
-// Gene study-category and quality cards live in geneStudyScope.tsx.
+// The category and quality cards and the panel that assembles these pieces
+// live in StudySelectionPanel.tsx.
 //
 // COLOR NOTE (DESIGN.md, the One Voice Rule): the scope controls follow
 // FilterChip's blue `var(--accent)`, not the orange `var(--color-selected)` that
@@ -15,12 +16,6 @@ import { FONT_MONO } from '../styles/constants';
 import { datasetCategory, DATASET_CATEGORIES } from '../data/datasets';
 import type { DatasetCategory } from '../data/datasets';
 import type { Dataset } from '../types';
-
-/**
- * Stand-in for an absent `onChange`, so the picker still renders (read-only)
- * for a caller that does not own a scope — the report's own tests, mainly.
- */
-export const NOOP_SCOPE: Dispatch<SetStateAction<string[] | null>> = () => {};
 
 /**
  * The per-dataset scope picker.

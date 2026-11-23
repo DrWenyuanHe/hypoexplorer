@@ -17,6 +17,8 @@
 import { existsSync } from 'node:fs';
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { getDataset } from '../../src/data/datasets';
+import { datasetBundlePaths, readOptionalJsonp } from './bundleReader.mjs';
 
 /** Written by fetch:data, relative to public/. Dotfiles are never uploaded. */
 export const PUBLIC_RELEASE_MARKER = 'datasets/.public-data-release.json';
@@ -27,17 +29,6 @@ const MACAQUE = 'macaque_snrna';
 export interface ReducedBundleScope {
   /** Only this dataset's bundles are being published (`upload:bundles --only`). */
   only?: string | null;
-}
-
-/** Parse a `var NAME = {...};` bundle; null when it is not one. */
-function bundlePayload(text: string): unknown {
-  const start = text.indexOf('{', Math.max(0, text.indexOf('var ')));
-  if (start < 0) return null;
-  try {
-    return JSON.parse(text.slice(start).replace(/;\s*$/, ''));
-  } catch {
-    return null;
-  }
 }
 
 const isEmptyObject = (value: unknown) => !!value && typeof value === 'object' && !Array.isArray(value) && Object.keys(value).length === 0;
@@ -73,17 +64,38 @@ export async function reducedBundleFindings(publicRoot: string, scope: ReducedBu
   if (!existsSync(datasetsRoot)) return findings;
 
   if (!scope.only || scope.only === MACAQUE) {
-    const macaque = path.join(datasetsRoot, MACAQUE);
-    const tracks = existsSync(macaque)
-      ? (await readdir(macaque)).filter((name) => /^track_.+\.js$/.test(name) && !name.endsWith('.pathways.js'))
-      : [];
+    // Every macaque track bundle the upload would publish: the tracks meta.js
+    // declares AND every track_<id>.js file in the folder, since the uploader
+    // walks the whole directory (a missing meta.js or an undeclared file must
+    // not slip past the check). Each is named and parsed by the bundle reader;
+    // a malformed or misplaced bundle throws (BundleReadError) rather than
+    // passing as "not reduced": the upload stops on it in every mode.
+    const macaque = getDataset(MACAQUE);
+    if (!macaque) throw new Error(`${MACAQUE} is not in the dataset registry`);
+    const paths = datasetBundlePaths(macaque, { publicRoot });
+    const meta = readOptionalJsonp<{ populations?: string[] }>(paths.meta.file, paths.meta.global);
+    const trackIds = new Set(meta?.populations ?? []);
+    if (existsSync(paths.dir)) {
+      for (const name of (await readdir(paths.dir)).sort()) {
+        const id = /^track_(.+)\.js$/.exec(name)?.[1];
+        if (!id || name.endsWith('.pathways.js')) continue;
+        if (path.resolve(paths.track(id).file) !== path.resolve(paths.dir, name)) {
+          throw new Error(`datasets/${MACAQUE}/${name}: not a track bundle its locator names; cannot check it`);
+        }
+        trackIds.add(id);
+      }
+    }
+    let present = 0;
     let withheld = 0;
-    for (const name of tracks) {
-      const payload = bundlePayload(await readFile(path.join(macaque, name), 'utf8')) as { cpm?: unknown } | null;
-      if (payload && 'cpm' in payload && isEmptyObject(payload.cpm)) withheld++;
+    for (const trackId of trackIds) {
+      const bundle = paths.track(trackId);
+      const payload = readOptionalJsonp<{ cpm?: unknown }>(bundle.file, bundle.global);
+      if (!payload) continue;
+      present++;
+      if (typeof payload === 'object' && 'cpm' in payload && isEmptyObject(payload.cpm)) withheld++;
     }
     if (withheld) {
-      findings.push(`${withheld} of ${tracks.length} datasets/${MACAQUE} track bundles have an empty per-animal CPM, as the public release withholds it`);
+      findings.push(`${withheld} of ${present} datasets/${MACAQUE} track bundles have an empty per-animal CPM, as the public release withholds it`);
     }
   }
 

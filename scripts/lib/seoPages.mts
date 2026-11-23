@@ -15,6 +15,7 @@ import { renderStudyContext, studySearchDescription, studySearchTitle } from './
 import { getGuideDocuments } from './seoGuides.mjs';
 import { escapeHtml } from './html.mjs';
 import { studyRecord, type StudyRecord, type StudySources } from './studyRecord.mjs';
+import { datasetBundlePaths, readDatasetFromDisk } from './bundleReader.mjs';
 import { BRAND, BRAND_HEAD } from '../../src/common/brand';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
@@ -239,14 +240,13 @@ function readOptionalJson<T>(file: string, fallback: T): T {
   return existsSync(file) ? JSON.parse(readFileSync(file, 'utf8')) as T : fallback;
 }
 
+// The study page shows the dataset as the explorer does: read through the
+// bundle reader, so reviewed display corrections (the GSE174085 "litter
+// pseudobulk" label) apply here exactly as loadDatasetMeta applies them.
 function readMeta(dataset: Dataset): DatasetMeta | undefined {
-  const file = join(ROOT, 'public', 'datasets', dataset.id, 'meta.js');
-  if (!existsSync(file)) return undefined;
-  // Bundles are JSON assignments. Read the JSON without executing JavaScript.
-  const contents = readFileSync(file, 'utf8');
-  const match = contents.match(/(?:var\s+|window\.)[A-Z0-9_]+\s*=\s*(\{[\s\S]*\})\s*;?\s*$/);
-  if (!match) throw new Error(`Cannot read study metadata: ${file}`);
-  return JSON.parse(match[1]) as DatasetMeta;
+  const opts = { publicRoot: join(ROOT, 'public') };
+  if (!existsSync(datasetBundlePaths(dataset, opts).meta.file)) return undefined;
+  return readDatasetFromDisk(dataset, opts).meta;
 }
 
 function readSourceContext() {
