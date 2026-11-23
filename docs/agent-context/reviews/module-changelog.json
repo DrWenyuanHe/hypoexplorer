@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "module-changelog",
-  "fingerprint": "9fb150ce59ddc93b128755faed9d685ceb8b433850ddfe0dc0ef5f02f0f4af6c",
+  "fingerprint": "fc69aee9f83b298378fb331ed0c3ef2e5299eda17d96e63983eb697dbeacd00f",
   "outcome": "updated",
-  "explanation": "Three 2026-11-22 entries. \"Study pages and the data download name the same paper\": one publication rule for study pages, the citation guide and the agent download, the four studies (GSE235792, GSE212491, GSE174753, GSE330152) whose paper now appears in the download, and per-track sample counts on study pages (GSE262407 rows). From main, \"Study pages use the reviewed track label\" (GSE174085 shows the litter pseudobulk label) and \"Study filters on the gene page update in place\". Each states that no data, result or analysis changed.",
+  "explanation": "Four 2026-11-22 entries. This change adds \"Blank compare-set means for genes a study did not test\": in the compare-set Excel download a study with no result for a gene now has blank group means, matching its blank logFC and P, and no other value changed. From main, kept unchanged: \"Study pages and the data download name the same paper\", \"Study pages use the reviewed track label\" and \"Study filters on the gene page update in place\", each stating that no data, result or analysis changed.",
   "references": [
     "src/changelog/changelog.ts",
+    "src/compare/compareSummary.ts",
     "docs/runbooks/SEO.md",
-    "src/data/reviewedTrackLabels.ts",
     "src/crossdataset/studySelection.ts"
   ]
 }

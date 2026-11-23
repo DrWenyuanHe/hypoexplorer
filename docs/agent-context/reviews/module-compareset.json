@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "module-compareset",
-  "fingerprint": "da52b5c2bef5a323cac80dae2fdab14d8176eed1adc601198b9a11c2f016476f",
+  "fingerprint": "b667ffb4d52ca76803ff14dc1ebf13288fdd8a7b6484f165d1bbeb04c992c925",
   "outcome": "updated",
-  "explanation": "CompareSetToggle gains a size=\"header\" variant and CompareSetButton takes the shared header-control class, so the header utilities are one 28px height; the sm and md toggle sizes are unchanged. CompareSetVolcanoPanel imports volcanoToolbar.css and its Hide/Show volcano control uses the gx button style. The store, columns and exports are unchanged.",
+  "explanation": "CompareSetView's Excel export calls compareSummaryRows(columns, popDataMap, genes, { tally: true }) instead of pre-filtering ready columns and splicing tallyGene counts into each row; the compare cell skips unavailable columns, so the Compare sheet keeps its Gene, Detected, SigFDR05, Up, Down column order. The Columns and Metadata sheets still use the ready columns as before.",
   "references": [
-    "src/compareset/CompareSetToggle.tsx",
-    "src/compareset/CompareSetButton.tsx",
-    "src/compareset/CompareSetVolcanoPanel.tsx",
-    "src/common/headerControl.css"
+    "src/compareset/CompareSetView.tsx",
+    "src/compare/compareSummary.ts",
+    "src/compare/compareCell.ts"
   ]
 }

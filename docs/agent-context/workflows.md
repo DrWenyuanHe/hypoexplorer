@@ -171,7 +171,9 @@ significance reads each row's `tier` (set once by `geneRow` / `pathwayRow` from
 much to show and what starts folded; it labels rows with
 `src/statistics/TierLabel.tsx`, explains q / FDR / padj columns with `QTerm`,
 and keeps counts on the FDR call in both modes; sample
-values and export labels use sampleValues; bundle loading uses trackData.
+values and export labels use sampleValues; what a Compare column says about a
+gene (unavailable, not detected or measured, with per-arm n / mean / SEM) comes
+from `src/compare/compareCell.ts`; bundle loading uses trackData.
 Header identity uses BrandLink and the shared brand asset constants. For logo,
 favicon or typography changes, read the [brand guide](../../brand/README.md);
 check the app headers and prerendered public pages at desktop and mobile sizes.

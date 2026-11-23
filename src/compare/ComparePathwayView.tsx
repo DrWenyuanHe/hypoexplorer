@@ -18,7 +18,7 @@ import { PathwayToolbar } from '../pathway-explorer/PathwayToolbar';
 import type { PopData } from '../types';
 import { usePathwayView } from '../explorer/explorerSession';
 import { POPULATION_NOUN, type ColumnNoun, type CompareColumn } from './compareColumns';
-import { resolveGeneCI } from './resolveGene';
+import { cellDE, compareCell } from './compareCell';
 
 interface PopPathwayEntry {
   NES: number;
@@ -67,6 +67,12 @@ interface ComparePathwayViewProps {
 
 export function ComparePathwayView({ columns, popDataMap, columnNoun }: ComparePathwayViewProps) {
   const noun = columnNoun ?? POPULATION_NOUN;
+  // A column's own spelling of a leading-edge gene (Pomc for POMC), or the
+  // gene as given when the column did not detect it.
+  const ownSpelling = (col: CompareColumn, gene: string): string => {
+    const cell = compareCell(col, popDataMap, gene);
+    return cell.kind === 'measured' ? cell.gene : gene;
+  };
   // The Compare view's own pathway view state — the second instance of the
   // slice, over its own row type.
   const pathwayView = usePathwayView<UnifiedPathway>();
@@ -178,7 +184,7 @@ export function ComparePathwayView({ columns, popDataMap, columnNoun }: CompareP
     const rows = leOverlap.map(({ gene, count, pops: inPops }) => {
       const row: Record<string, string | number> = { Gene: gene, [noun.short]: `${count}/${nPops}` };
       for (const col of columns) {
-        const de = resolveGeneCI(popDataMap[col.key], gene);
+        const de = cellDE(compareCell(col, popDataMap, gene));
         row[`${col.key}_logFC`] = de?.logFC ?? '';
         row[`${col.key}_PValue`] = de?.PValue ?? '';
         row[`${col.key}_FDR`] = de?.FDR ?? '';
@@ -194,7 +200,7 @@ export function ComparePathwayView({ columns, popDataMap, columnNoun }: CompareP
       // Per-column tidy rows via the shared builder, in the column's own
       // spelling of each gene; prepend the column key. Column order (Pop, Gene,
       // Sample, Condition, <value>) is preserved by the spread.
-      const own = genes.map((g) => resolveGeneCI(pd, g)?.gene ?? g);
+      const own = genes.map((g) => ownSpelling(col, g));
       for (const r of rawValueRows(pd, own)) rawRows.push({ [noun.exportHeader]: col.key, ...r });
     }
     const subject = columnsSubject(columns, popDataMap);
@@ -436,7 +442,7 @@ export function ComparePathwayView({ columns, popDataMap, columnNoun }: CompareP
                           {inColumns.map((col) => {
                             const pd = popDataMap[col.key];
                             return pd ? (
-                              <BarSEMChart key={col.key} gene={resolveGeneCI(pd, gene)?.gene ?? gene}
+                              <BarSEMChart key={col.key} gene={ownSpelling(col, gene)}
                                 popData={pd}
                                 popLabel={col.chartLabel ?? col.label} />
                             ) : null;
@@ -480,7 +486,7 @@ export function ComparePathwayView({ columns, popDataMap, columnNoun }: CompareP
                           <td style={{ padding: '3px 6px' }}>{gene}</td>
                           <td style={{ padding: '3px 6px', textAlign: 'center', fontWeight: 600 }}>{count}/{nDetected}</td>
                           {columns.map((col) => {
-                            const de = resolveGeneCI(popDataMap[col.key], gene);
+                            const de = cellDE(compareCell(col, popDataMap, gene));
                             const lfc = de?.logFC ?? null;
                             return (
                               <Fragment key={col.key}>

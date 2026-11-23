@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "f5222a1063b6481ef5c99d3ed1e73f784da0db5146c59797205a6bac88f3b75d",
+  "fingerprint": "fd0a789b1183bd4e8357279284edbb444d16ccfe691e44176e045c215fa823cf",
   "outcome": "updated",
-  "explanation": "From main: the ui-change workflow describes the study-selection module (studySelectionLink.ts in the router, StudySelectionPanel in both reports) and the catalog lists studySelectionLink.ts. From this change: the static study pages render the study publication record and the agent export's publication columns follow the same record, documented in the SEO runbook; in-app views, routing, tabs and exports are otherwise unchanged.",
+  "explanation": "The ui-change route keeps both changes: what a Compare column says about a gene, including per-arm n, mean and SEM, comes from src/compare/compareCell.ts (catalog compare entry references it), and from main the study-selection module (studySelectionLink.ts in the router, StudySelectionPanel in both reports) plus static study pages rendering the study publication record. Routing, tabs and export naming are otherwise unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
     "docs/agent-context/catalog.json",
+    "src/compare/compareCell.ts",
     "src/crossdataset/studySelectionLink.ts",
-    "scripts/lib/studyRecord.mts",
-    "scripts/lib/agentExport.mts"
+    "scripts/lib/studyRecord.mts"
   ]
 }

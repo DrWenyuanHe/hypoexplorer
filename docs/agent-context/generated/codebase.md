@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (249):
+Covered source files (250):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -101,6 +101,7 @@ Covered source files (249):
 - [src/__tests__/circadianTable.test.tsx](<../../../src/__tests__/circadianTable.test.tsx>)
 - [src/__tests__/circadianTimeSeries.test.ts](<../../../src/__tests__/circadianTimeSeries.test.ts>)
 - [src/__tests__/circadianWorkbook.test.ts](<../../../src/__tests__/circadianWorkbook.test.ts>)
+- [src/__tests__/compareCell.test.ts](<../../../src/__tests__/compareCell.test.ts>)
 - [src/__tests__/compareDownloads.test.ts](<../../../src/__tests__/compareDownloads.test.ts>)
 - [src/__tests__/compareLinks.test.tsx](<../../../src/__tests__/compareLinks.test.tsx>)
 - [src/__tests__/compareSet.test.tsx](<../../../src/__tests__/compareSet.test.tsx>)
@@ -406,12 +407,14 @@ Within-dataset comparisons across tracks.
 Start here:
 - [src/compare/CompareTab.tsx](<../../../src/compare/CompareTab.tsx>)
 - [src/compare/CompareGenesView.tsx](<../../../src/compare/CompareGenesView.tsx>)
+- [src/compare/compareCell.ts](<../../../src/compare/compareCell.ts>)
 
-Covered source files (8):
+Covered source files (9):
 - [src/compare/CompareGenesView.tsx](<../../../src/compare/CompareGenesView.tsx>)
 - [src/compare/ComparePathwayView.tsx](<../../../src/compare/ComparePathwayView.tsx>)
 - [src/compare/CompareTab.tsx](<../../../src/compare/CompareTab.tsx>)
 - [src/compare/DownloadMenu.tsx](<../../../src/compare/DownloadMenu.tsx>)
+- [src/compare/compareCell.ts](<../../../src/compare/compareCell.ts>)
 - [src/compare/compareColumns.ts](<../../../src/compare/compareColumns.ts>)
 - [src/compare/compareFigureExport.ts](<../../../src/compare/compareFigureExport.ts>)
 - [src/compare/compareSummary.ts](<../../../src/compare/compareSummary.ts>)
