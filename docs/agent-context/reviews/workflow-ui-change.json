@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "c21bb74034aac40df4000a489a06a5d2cf49e8eb8fd148ab36adbe3039ecd7b7",
+  "fingerprint": "234a6e1ad9938abf90f9aa9990894a069071cd6ea4a85e5bb0efff952b122de3",
   "outcome": "updated",
-  "explanation": "The ui-change route keeps main's changes: Compare column values come from src/compare/compareCell.ts, the study-selection module (studySelectionLink.ts in the router, StudySelectionPanel in both reports) and static study pages rendering the study publication record. This change only adds the delivery-side Data-origin layout entry to CONTEXT.md; originHealth.ts probes the same /query/tracks.js path through the layout. Routing, tabs and export naming are otherwise unchanged.",
+  "explanation": "The ui-change route is unchanged apart from the unified search: the box shows suggestions from partial vocabulary stages and warms the load on pointer enter, documented in the search paragraph of workflows.md. Routing, explorer position, tabs, exports and the lazy view list are untouched.",
   "references": [
     "docs/agent-context/workflows.md",
-    "docs/agent-context/catalog.json",
-    "src/compare/compareCell.ts",
-    "src/crossdataset/studySelectionLink.ts",
-    "src/data/originHealth.ts"
+    "src/search/UnifiedSearchBox.tsx",
+    "src/search/useSearchVocabulary.ts"
   ]
 }
