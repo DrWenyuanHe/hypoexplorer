@@ -1,16 +1,11 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "7be7c35687298d153d70f2a476b57fc964bf60a7275b3aebe08f8487b9431994",
+  "fingerprint": "801678240b88db82a7a1602c70c727b3244a53c1e69f1f584a761adb9f8222e4",
   "outcome": "updated",
-  "explanation": "Combined result of the data-origin layout with main's compare cell, study publication record, bundle-reader adoption, study-selection module and HypoMap atlas client. From this change: dataOriginLayout.test.ts is one per-key table (tree, mutability, Cache-Control, Content-Type, purge prefix, WAF admission) with the uploader/WAF and pointer-TTL invariants and build-id parsing; queryGeneration.test.ts runs the reader over a temp directory and an in-memory HTTP origin; the purgePrefixForKey, pathAllowed and queryPublicationPrefixes cases moved into that table; releaseIdentity.test.ts checks every JSON file non-test source imports is a release source. From main: compareCell.test.ts, studyRecord.test.ts, queryIndexCorpus.test.ts, the listDiskCorpus and jsonpHeader cases in bundleReader.test.ts, studySelection.test.tsx and hypomapAtlasClient.test.ts, with geneStudyScope.test.ts and hypomapMetrics.test.ts removed.",
+  "explanation": "seoPages.test.ts asserts that study, guide and About pages contain no 'beta testing' wording and that study page footers link SOURCE_REPO_URL and DATA_REPO_URL on GitHub.",
   "references": [
-    "src/__tests__/dataOriginLayout.test.ts",
-    "src/__tests__/queryGeneration.test.ts",
-    "src/__tests__/releaseIdentity.test.ts",
-    "src/__tests__/compareCell.test.ts",
-    "src/__tests__/studyRecord.test.ts",
-    "src/__tests__/queryIndexCorpus.test.ts",
-    "src/__tests__/hypomapAtlasClient.test.ts"
+    "src/__tests__/seoPages.test.ts",
+    "scripts/lib/seoPages.mts"
   ]
 }

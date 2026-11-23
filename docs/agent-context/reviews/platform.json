@@ -1,13 +1,10 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "220e0f807de1bd9abdabcf324b26f094433d4c71843b9c8a169189958b3b0ae7",
+  "fingerprint": "0d801dcb19a31d257b9479b57be86c6b8a0c812243ee2731f48d31e2c13db63c",
   "outcome": "updated",
-  "explanation": "The router stores one study selection per report kind (geneStudySelection, pathwayStudySelection) and reads and writes links through selectionFromLink / selectionLink, imported from studySelectionLink.ts so the entry bundle never reaches the derivation hook or the evidence ledgers it pulls in; the gene-only reportScope and setReportScope are gone, so boot and Back/Forward now read a link's categories by the same rule. App drops its six scope adapters and keys the gene report boundary on the term alone, as the pathway report already was.",
+  "explanation": "App.tsx no longer renders the compact, session-dismissible beta notice under the explorer header; routing, header controls and load-error placement are unchanged.",
   "references": [
-    "src/appRouter.ts",
-    "src/App.tsx",
-    "src/crossdataset/studySelectionLink.ts",
-    "src/__tests__/lazyChunkBoundaries.test.ts"
+    "src/App.tsx"
   ]
 }

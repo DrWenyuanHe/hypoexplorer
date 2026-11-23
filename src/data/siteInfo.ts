@@ -11,7 +11,10 @@ export const AUTHOR_BIO = 'Wenyuan He created HypoExplorer and holds a PhD from 
  * @public Used by scripts/lib/seoPages.mts and seoGuides.mts.
  */
 export const CONTRIBUTOR_NAMES: readonly string[] = ['Helene Li'];
-export const BETA_NOTICE = 'HypoExplorer is in beta testing.';
+/** Application source code, linked from the landing footer and crawlable pages. */
+export const SOURCE_REPO_URL = 'https://github.com/DrWenyuanHe/hypoexplorer';
+/** Release repository for the processed data bundles (see data-release.json). */
+export const DATA_REPO_URL = 'https://github.com/DrWenyuanHe/hypoexplorer-data';
 /**
  * Zenodo DOI of the full-dataset agent export (`pnpm run build:agent-export`),
  * e.g. '10.5281/zenodo.1234567'. Null until the archive is deposited; the

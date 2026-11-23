@@ -45,11 +45,11 @@ import {
   type NomenclatureAuthority, type NomenclatureRow, type NomenclatureStatus, type NomenclatureTable,
 } from '../data/nomenclature';
 import { geneAuthorityUrl } from '../utils/geneLinks';
+import { SOURCE_REPO_URL } from '../data/siteInfo';
 import './nomenclature.css';
 
 /** Where the committed source table lives, so a reader can check it directly. */
-const SOURCE_TSV_URL =
-  'https://github.com/DrWenyuanHe/hypoexplorer/blob/main/data/nomenclature/nomenclature.tsv';
+const SOURCE_TSV_URL = `${SOURCE_REPO_URL}/blob/main/data/nomenclature/nomenclature.tsv`;
 
 /** How many matching rows the table renders. See the header note. */
 const PAGE_ROWS = 300;

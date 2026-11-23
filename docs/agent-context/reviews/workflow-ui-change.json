@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "c21bb74034aac40df4000a489a06a5d2cf49e8eb8fd148ab36adbe3039ecd7b7",
+  "fingerprint": "a46e24ecbcea4445873de84634e689c7938a9f12b58ed1e2ad885792cee99553",
   "outcome": "updated",
-  "explanation": "The ui-change route keeps main's changes: Compare column values come from src/compare/compareCell.ts, the study-selection module (studySelectionLink.ts in the router, StudySelectionPanel in both reports) and static study pages rendering the study publication record. This change only adds the delivery-side Data-origin layout entry to CONTEXT.md; originHealth.ts probes the same /query/tracks.js path through the layout. Routing, tabs and export naming are otherwise unchanged.",
+  "explanation": "All beta testing wording is removed: the banner in every app header, the crawlable pages' header strip, the study, About and guide page prose, the citation's '[web application; beta]' and the og/twitter/JSON-LD descriptions in index.html. Shared header styles move to src/common/siteChrome.css; the landing footer and static footers add GitHub links.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "docs/agent-context/catalog.json",
-    "src/compare/compareCell.ts",
-    "src/crossdataset/studySelectionLink.ts",
-    "src/data/originHealth.ts"
+    "src/common/siteChrome.css",
+    "src/hub/LandingHub.tsx",
+    "scripts/lib/seoPages.mts"
   ]
 }

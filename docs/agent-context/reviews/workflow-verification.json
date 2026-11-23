@@ -1,14 +1,11 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "a0f2b49012ff76cb52d098ff5c7ab902c6a420d7389b86b51dbca63deaff7ccc",
+  "fingerprint": "9e57509822cc2ee3a037e2b4240745b2b277a69db919aaae7f6f63d85a70ce6a",
   "outcome": "no-impact",
-  "explanation": "Main's publication identity rule (scripts/lib/studyRecord.mts) decides which paper is cited on study pages and the agent export, not QC or author-concordance evidence; its bundle-reader adoption leaves the fingerprinted or sealed evidence parsers alone. This change moves the HypoMap atlas file shape into the data-origin layout while hypomapAtlas.mts keeps the release integrity checks, and archives hypomap-release.json with the release source. QC review, evidence authoring and verification commands are unchanged.",
+  "explanation": "Only page shells and release-status prose changed (no beta wording, GitHub links); evidence status, author validation and verification guidance are untouched.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "scripts/lib/studyRecord.mts",
-    "scripts/lib/hypomapAtlas.mts",
-    "scripts/lib/releaseBuild.mts",
-    "scripts/lib/historicalEvidence.mts"
+    "scripts/lib/seoPages.mts",
+    "docs/agent-context/workflows.md"
   ]
 }

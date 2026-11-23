@@ -1,14 +1,11 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "90d3cad58f55f7a85ef392b25e98b40c83180ef4a3485c6e12f25b725cf090ee",
-  "outcome": "updated",
-  "explanation": "From main: script reads of published bundles go through scripts/lib/bundleReader.mts (query index, expression index, bundle optimizer, upload guards, deploy verifier, SEO study pages), listDiskCorpus is the one sweep of public/datasets, and study pages and the agent export read publication identity through scripts/lib/studyRecord.mts. From this change: the delivery catalog names the Data-origin layout and the release allow-list archives hypomap-release.json. Adding a dataset still needs only its registry entry, bundles, index rebuild and optional studySources.json snapshot; the uploader publishes the same .js bundles.",
+  "fingerprint": "04b15fc73a4ef00db265e2d225c8afe2010123b74a164e11fedd7033c0205d2f",
+  "outcome": "no-impact",
+  "explanation": "Crawlable study pages lose their beta strip and beta sentence and gain GitHub footer links; study content, registry declarations and the dataset intake workflow are unaffected.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "scripts/lib/bundleReader.mts",
-    "scripts/lib/studyRecord.mts",
-    "src/data/dataOriginLayout.ts",
-    "scripts/lib/releaseBuild.mts"
+    "scripts/lib/seoPages.mts",
+    "docs/agent-context/workflows.md"
   ]
 }
