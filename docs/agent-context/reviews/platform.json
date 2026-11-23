@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "068f4958bd69c0547575dee03d954e15cbb4e3273376bcf2ebf15702c9acd66f",
+  "fingerprint": "220e0f807de1bd9abdabcf324b26f094433d4c71843b9c8a169189958b3b0ae7",
   "outcome": "updated",
-  "explanation": "The router stores one study selection per report kind (geneStudySelection, pathwayStudySelection) and reads and writes links through selectionFromLink / selectionLink; the gene-only reportScope and setReportScope are gone, so boot and Back/Forward now read a link's categories by the same rule. App drops its six scope adapters and keys the gene report boundary on the term alone, as the pathway report already was.",
+  "explanation": "The router stores one study selection per report kind (geneStudySelection, pathwayStudySelection) and reads and writes links through selectionFromLink / selectionLink, imported from studySelectionLink.ts so the entry bundle never reaches the derivation hook or the evidence ledgers it pulls in; the gene-only reportScope and setReportScope are gone, so boot and Back/Forward now read a link's categories by the same rule. App drops its six scope adapters and keys the gene report boundary on the term alone, as the pathway report already was.",
   "references": [
     "src/appRouter.ts",
     "src/App.tsx",
-    "src/crossdataset/studySelection.ts"
+    "src/crossdataset/studySelectionLink.ts",
+    "src/__tests__/lazyChunkBoundaries.test.ts"
   ]
 }

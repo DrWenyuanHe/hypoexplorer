@@ -2,7 +2,7 @@ import { useState, type ComponentProps } from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { PathwayReport } from '../crossdataset/PathwayReport';
-import { DEFAULT_STUDY_SELECTION } from '../crossdataset/studySelection';
+import { DEFAULT_STUDY_SELECTION } from '../crossdataset/studySelectionLink';
 
 /** The report over a selection held outside it, as the router holds it. */
 function Report(props: Omit<ComponentProps<typeof PathwayReport>, 'pathway' | 'selection' | 'onSelectionChange'>) {

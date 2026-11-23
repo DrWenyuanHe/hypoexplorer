@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-utils",
-  "fingerprint": "f7dc00aba6d5c711690e07937e81537990aeaf6f2c341883ae0e271574931f9b",
+  "fingerprint": "c7a962c77d5e116f3c4f7f17303a36536cfd86753a31b19dff9f32f11d035e51",
   "outcome": "updated",
-  "explanation": "analysisState.ts types the study snapshot's filters as StudyFilters from crossdataset/studySelection.ts and drops hasStudyAnalysis, whose rule moved into selectionLink. parseStudyAnalysis and the version-1 field set are unchanged, so every existing analysis= link parses as before.",
+  "explanation": "analysisState.ts types the study snapshot's filters as StudyFilters from crossdataset/studySelectionLink.ts (a type-only import) and drops hasStudyAnalysis, whose rule moved into selectionLink. parseStudyAnalysis and the version-1 field set are unchanged, so every existing analysis= link parses as before.",
   "references": [
     "src/utils/analysisState.ts",
-    "src/crossdataset/studySelection.ts",
+    "src/crossdataset/studySelectionLink.ts",
     "src/utils/appLinks.ts"
   ]
 }

@@ -54,7 +54,7 @@ import { COMPARE_SET_MAX, compareSetKey, type CompareSetItem } from './comparese
 import type { CompareViewState, ExplorerAnalysisState } from './utils/analysisState';
 import {
   DEFAULT_STUDY_SELECTION, selectionFromLink, selectionLink, type StudySelection,
-} from './crossdataset/studySelection';
+} from './crossdataset/studySelectionLink';
 import { listContrasts } from './data/contrasts';
 import { setChartScale, useChartScale } from './common/chartScaleStore';
 import type { SearchFilter } from './search/searchTypes';
@@ -127,7 +127,7 @@ export interface AppRouter {
   /**
    * Each report's study selection, one value per report kind. Held here, above
    * the term-keyed report boundaries, so it survives searches and is written
-   * into the report's URL (crossdataset/studySelection.ts owns that form).
+   * into the report's URL (crossdataset/studySelectionLink.ts owns that form).
    */
   geneStudySelection: StudySelection;
   pathwayStudySelection: StudySelection;

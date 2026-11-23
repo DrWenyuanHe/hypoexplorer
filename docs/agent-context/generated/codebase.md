@@ -442,8 +442,9 @@ Start here:
 - [src/crossdataset/PathwayReport.tsx](<../../../src/crossdataset/PathwayReport.tsx>)
 - [src/crossdataset/forestReport.tsx](<../../../src/crossdataset/forestReport.tsx>)
 - [src/crossdataset/studySelection.ts](<../../../src/crossdataset/studySelection.ts>)
+- [src/crossdataset/studySelectionLink.ts](<../../../src/crossdataset/studySelectionLink.ts>)
 
-Covered source files (10):
+Covered source files (11):
 - [src/crossdataset/EffectPreview.tsx](<../../../src/crossdataset/EffectPreview.tsx>)
 - [src/crossdataset/GeneEffectPreview.tsx](<../../../src/crossdataset/GeneEffectPreview.tsx>)
 - [src/crossdataset/GeneReport.tsx](<../../../src/crossdataset/GeneReport.tsx>)
@@ -454,6 +455,7 @@ Covered source files (10):
 - [src/crossdataset/forestReport.tsx](<../../../src/crossdataset/forestReport.tsx>)
 - [src/crossdataset/searchLanding.tsx](<../../../src/crossdataset/searchLanding.tsx>)
 - [src/crossdataset/studySelection.ts](<../../../src/crossdataset/studySelection.ts>)
+- [src/crossdataset/studySelectionLink.ts](<../../../src/crossdataset/studySelectionLink.ts>)
 
 ## data
 

@@ -101,11 +101,13 @@ leave them byte-for-byte unchanged:
       inputs). Registry golden: the `datasetsRegistry.test.ts` snapshot is never
       regenerated to make a failure pass — fix the entry instead.
 - [ ] Cross-dataset study selection (categories, individual studies, filters) →
-      the value and `useStudySelection` in `src/crossdataset/studySelection.ts`
-      (catalog readiness, eligibility, typed query, visible groups, reset, URL
-      form) and `StudySelectionPanel` for the controls. One value per report kind
-      in the router; preserve explicit empty selections; report-query
-      cancellation stays with `useReportQuery`.
+      `useStudySelection` in `src/crossdataset/studySelection.ts` (catalog
+      readiness, eligibility, typed query, visible groups, reset), the value and
+      its URL form in `src/crossdataset/studySelectionLink.ts`, and
+      `StudySelectionPanel` for the controls. One value per report kind in the
+      router, which imports only `studySelectionLink.ts` (the hook would pull the
+      evidence ledgers into the entry bundle); preserve explicit empty
+      selections; report-query cancellation stays with `useReportQuery`.
 - [ ] Query-index freshness → `manifestFreshness` in `src/data/indexFreshness.ts`
       (declare needs; unverifiable = degrade to per-track). Offline closure:
       `pnpm exec tsx scripts/check_datasets.mts` (structural; default tracks only —

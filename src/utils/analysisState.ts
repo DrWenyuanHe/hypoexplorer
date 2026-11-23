@@ -1,13 +1,13 @@
 import { DATASET_CATEGORIES, type DatasetCategory } from '../data/datasetCategories';
 import { DB_NAMES } from '../data/constants';
-import type { StudyFilters } from '../crossdataset/studySelection';
+import type { StudyFilters } from '../crossdataset/studySelectionLink';
 import { PATHWAY_SORT_DIRS } from '../pathway-explorer/pathwayTable';
 import { CHART_SCALES, type ChartScale } from './chartScale';
 
 /**
  * Public URL contract. Add a new version when its meaning changes. A report's
  * study selection is written to and read from this snapshot only through
- * `selectionLink` / `selectionFromLink` (crossdataset/studySelection.ts).
+ * `selectionLink` / `selectionFromLink` (crossdataset/studySelectionLink.ts).
  */
 export interface StudyAnalysisState {
   version: 1;

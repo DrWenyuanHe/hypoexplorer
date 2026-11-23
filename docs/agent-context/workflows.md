@@ -372,7 +372,11 @@ derives catalog readiness, eligibility, the selected studies, the typed query
 `useReportQuery` keeps request loading and cancellation. Both reports render
 `StudySelectionPanel` and key their error boundary on the term alone.
 `selectionFromLink` / `selectionLink` are the selection's URL form, used by
-boot, Back/Forward and the URL writer alike.
+boot, Back/Forward and the URL writer alike. The value and its URL form live in
+`src/crossdataset/studySelectionLink.ts` because the router is in the entry
+bundle: it must not import `studySelection.ts`, whose catalog and quality
+imports pull in both evidence ledgers. `src/__tests__/lazyChunkBoundaries.test.ts`
+fails if the entry graph reaches either ledger.
 
 A sample-count filter waits for the catalog request to settle, including
 registry-only fallback, then excludes unknown counts. Without that filter,

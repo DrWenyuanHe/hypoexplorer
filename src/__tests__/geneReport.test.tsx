@@ -5,7 +5,7 @@ import { getActiveContrast } from '../data/contrasts';
 import { geneRow, type GeneRowInput } from '../data/crossDatasetRows';
 import { _resetCompareSetStore, getSnapshot } from '../compareset/compareSetStore';
 import { CompareSetButton } from '../compareset/CompareSetButton';
-import { DEFAULT_STUDY_SELECTION } from '../crossdataset/studySelection';
+import { DEFAULT_STUDY_SELECTION } from '../crossdataset/studySelectionLink';
 import { _resetBundleCache, _setBundleTransport } from '../data/bundleSource';
 import { _resetTrackCache } from '../data/loadTrack';
 import type { BaselineTeaser } from '../search/searchSummaries';

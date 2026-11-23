@@ -23,7 +23,8 @@ import {
   ReportLoading,
 } from './forestReport';
 import { useSearchIndex } from './searchLanding';
-import { useStudySelection, type StudyQuery, type StudySelection } from './studySelection';
+import { useStudySelection, type StudyQuery } from './studySelection';
+import type { StudySelection } from './studySelectionLink';
 import { StudySelectionPanel } from './StudySelectionPanel';
 import { PageShell } from '../common/PageShell';
 import { DEFAULT_FDR_CUTOFF, NOMINAL_P_CUTOFF } from '../statistics/policy';

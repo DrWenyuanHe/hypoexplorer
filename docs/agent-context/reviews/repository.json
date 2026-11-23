@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "2cec7d533e4710bf3931e4024ca8101a47d3cee9845ecf107ecf2d4da097cbd1",
+  "fingerprint": "8c29d0add0563a75c684e7875a8f31e9c8750c5c58d1557acc01e6f374ca11d3",
   "outcome": "updated",
-  "explanation": "CONTEXT.md adds the Study-selection module entry and updates the forest-primitive and App router entries (no useCategoryScope, no reportScope). The refactor checklist points cross-dataset study selection at studySelection.ts and StudySelectionPanel and drops the useCategoryScope line.",
+  "explanation": "CONTEXT.md adds the Study-selection module entry, naming studySelectionLink.ts as the router-facing value and URL form kept off the evidence ledgers, and updates the forest-primitive and App router entries (no useCategoryScope, no reportScope). The refactor checklist points cross-dataset study selection at studySelection.ts, studySelectionLink.ts and StudySelectionPanel and drops the useCategoryScope line.",
   "references": [
     "CONTEXT.md",
     "docs/runbooks/REFACTOR_CHECKLIST.md",
-    "src/crossdataset/studySelection.ts"
+    "src/crossdataset/studySelection.ts",
+    "src/crossdataset/studySelectionLink.ts"
   ]
 }

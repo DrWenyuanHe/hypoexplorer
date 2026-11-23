@@ -1,4 +1,4 @@
-// Study selection at its interface (crossdataset/studySelection.ts): the value,
+// Study selection at its interface (crossdataset/studySelection.ts and studySelectionLink.ts): the value,
 // its derivation for each report kind, and its URL form. The App-level scope
 // tests keep one smoke per report; the rules live here.
 import { useState } from 'react';
@@ -9,10 +9,11 @@ import * as catalogModule from '../data/datasetCatalog';
 import { DATASET_CATEGORIES } from '../data/datasetCategories';
 import { datasetQuality } from '../data/datasetQualityR460';
 import { useReportQuery } from '../crossdataset/forestReport';
+import { useStudySelection, type StudyQuery, type StudySelectionState } from '../crossdataset/studySelection';
 import {
-  DEFAULT_STUDY_FILTERS, DEFAULT_STUDY_SELECTION, selectionFromLink, selectionLink, useStudySelection,
-  type StudyQuery, type StudySelection, type StudySelectionKind, type StudySelectionState,
-} from '../crossdataset/studySelection';
+  DEFAULT_STUDY_FILTERS, DEFAULT_STUDY_SELECTION, selectionFromLink, selectionLink,
+  type StudySelection, type StudySelectionKind,
+} from '../crossdataset/studySelectionLink';
 import { STUDY_CATEGORY_CARDS, StudySelectionPanel } from '../crossdataset/StudySelectionPanel';
 import { parseRoute, routeHref, type AppRoute } from '../utils/appLinks';
 import type { ChartScale } from '../utils/chartScale';

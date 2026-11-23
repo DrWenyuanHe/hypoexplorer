@@ -59,7 +59,64 @@ function staticImportersOf(spec: RegExp): string[] {
     .map((f) => relative(process.cwd(), f).replace(/\\/g, '/'));
 }
 
+/**
+ * Every file the entry module reaches through static, value-carrying imports
+ * and re-exports (the eager graph), mapped to the file that first imported it.
+ * Dynamic `import()` is the split point, so it is never followed; `import type`
+ * and imports whose every specifier is `type` are erased, so they are skipped.
+ */
+function eagerGraph(entry: string): Map<string, string | null> {
+  const resolveSpec = (from: string, spec: string): string | null => {
+    const base = join(from, '..', spec);
+    for (const ext of ['', '.ts', '.tsx', '/index.ts', '/index.tsx']) {
+      try { if (statSync(base + ext).isFile()) return base + ext; } catch { /* next candidate */ }
+    }
+    return null;
+  };
+  const seen = new Map<string, string | null>([[entry, null]]);
+  const queue = [entry];
+  const re = /^\s*(import|export)\s+(?!\()(type\s)?([^;]*?)\s*from\s+['"](\.[^'"]+)['"]|^\s*import\s+['"](\.[^'"]+)['"]/gm;
+  while (queue.length) {
+    const file = queue.shift()!;
+    if (!/\.tsx?$/.test(file)) continue;
+    const src = readFileSync(file, 'utf8');
+    for (let m = re.exec(src); m !== null; m = re.exec(src)) {
+      if (m[2]) continue;
+      const names = m[3] ?? '';
+      if (/^\{[^}]*\}$/.test(names.trim())
+        && names.replace(/[{}]/g, '').split(',').map((s) => s.trim()).filter(Boolean).every((s) => s.startsWith('type '))) continue;
+      const spec = m[4] ?? m[5];
+      if (spec.endsWith('.css')) continue;
+      const target = resolveSpec(file, spec);
+      if (target && !seen.has(target)) { seen.set(target, file); queue.push(target); }
+    }
+  }
+  return seen;
+}
+
 describe('lazy chunk boundaries', () => {
+  it('the entry graph reaches neither evidence ledger', () => {
+    // The internal QC (~3.9 MB) and author-validation (~1 MB) ledgers load with
+    // the views that show evidence, never on the hub's first paint. The router
+    // sits in the entry graph, so it holds study selection's value and URL form
+    // (crossdataset/studySelectionLink.ts) and must not reach the derivation
+    // hook, whose catalog and quality imports pull in both ledgers.
+    const graph = eagerGraph(join(SRC, 'main.tsx'));
+    const chain = (file: string) => {
+      const steps: string[] = [];
+      for (let at: string | null | undefined = file; at; at = graph.get(at)) steps.unshift(relative(process.cwd(), at).replace(/\\/g, '/'));
+      return steps.join(' -> ');
+    };
+    const ledgers = [
+      join(process.cwd(), 'data', 'internal-qc', 'assessments.generated.json'),
+      join(process.cwd(), 'data', 'author-validation', 'validation-records.generated.json'),
+    ];
+    expect(ledgers.filter((ledger) => graph.has(ledger)).map(chain)).toEqual([]);
+    // The walk is live: it does reach the router and the light selection module.
+    expect(graph.has(join(SRC, 'appRouter.ts'))).toBe(true);
+    expect(graph.has(join(SRC, 'crossdataset', 'studySelectionLink.ts'))).toBe(true);
+  });
+
   it('recharts is imported by exactly one module', () => {
     expect(staticImportersOf(/^recharts$/)).toEqual(['src/gene-explorer/BarSEMChartImpl.tsx']);
   });

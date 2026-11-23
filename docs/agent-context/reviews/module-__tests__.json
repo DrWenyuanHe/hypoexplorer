@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "b0f4abb89f0bf1756b5b542e9c4218475c893082f314d38136f40bdabdd88e66",
+  "fingerprint": "44489550e256a33e1e3a89c7147eef8d4d6ece9b9583f1dade46e394f7dd38ac",
   "outcome": "updated",
-  "explanation": "studySelection.test.tsx now tests the study-selection module at its interface, parameterized by report kind (empty selections never widen, selections survive a term remount, link bytes round-trip, the panel wording). The App gene and pathway scope tests keep one copied-link smoke each plus a check that a category toggle does not remount the report. geneStudyScope.test.ts and the useCategoryScope tests are removed; report and router tests pass the new selection props.",
+  "explanation": "studySelection.test.tsx now tests the study-selection module at its interface, parameterized by report kind (empty selections never widen, selections survive a term remount, link bytes round-trip, the panel wording), importing the value and URL form from studySelectionLink.ts. lazyChunkBoundaries.test.ts gains an entry-graph walk from main.tsx that fails if either evidence ledger is statically reachable. The App gene and pathway scope tests keep one copied-link smoke each plus a check that a category toggle does not remount the report. geneStudyScope.test.ts and the useCategoryScope tests are removed; report and router tests pass the new selection props.",
   "references": [
     "src/__tests__/studySelection.test.tsx",
+    "src/__tests__/lazyChunkBoundaries.test.ts",
     "src/__tests__/app.geneScope.test.tsx",
     "src/__tests__/app.pathwayScope.test.tsx",
     "src/__tests__/forestReport.test.tsx",

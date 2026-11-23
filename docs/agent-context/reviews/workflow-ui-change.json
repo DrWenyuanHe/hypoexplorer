@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "210d074defa9e6bf5aec2e7834f2a38b7f29987a78d8f67a6c3d448cc1587466",
+  "fingerprint": "574808bea6bf28b308234b1382cf3058ca2374d94211d722597515c08d66aecc",
   "outcome": "updated",
-  "explanation": "The ui-change workflow's study-selection paragraphs now describe one module parameterized by report kind: the router holds one selection per report, App passes it with the setter straight through, both reports render StudySelectionPanel and key their boundary on the term, and the rules are tested at the module's interface.",
+  "explanation": "The ui-change workflow's study-selection paragraphs now describe one module parameterized by report kind: the router holds one selection per report through studySelectionLink.ts (never the hook, which would pull the evidence ledgers into the entry bundle, as lazyChunkBoundaries.test.ts checks), App passes it with the setter straight through, both reports render StudySelectionPanel and key their boundary on the term, and the rules are tested at the module's interface. The catalog lists studySelectionLink.ts.",
   "references": [
     "docs/agent-context/workflows.md",
     "docs/agent-context/catalog.json",
     "src/crossdataset/studySelection.ts",
+    "src/crossdataset/studySelectionLink.ts",
     "src/App.tsx"
   ]
 }
