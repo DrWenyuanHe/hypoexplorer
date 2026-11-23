@@ -26,6 +26,19 @@
 // same reason — the hub can start the load on first focus and use whatever
 // arrives.
 //
+// SUGGESTIONS DO NOT WAIT FOR THE SLOWEST SOURCE
+// ----------------------------------------------
+// names.js is same-origin and holds every named gene, so it answers "pomc" on
+// its own; the two indexes come from the data origin, which can take seconds
+// on a cold cache. Each source that lands publishes a richer PARTIAL vocabulary
+// to subscribeSearchVocabulary listeners (the search box's suggestions), while
+// loadSearchVocabulary still resolves only to the full union (the results page,
+// whose counts and best match must not change under the reader).
+//
+// A partial vocabulary is only ever extended by appending unnamed index
+// symbols, so the name index — most of the build cost — is built once and
+// reused by every later stage (see nameIndexFor).
+//
 // searchAll IS PURE AND PER-KEYSTROKE
 // -----------------------------------
 // It scans ~112k genes and ~5.8k pathways on every keystroke, so everything that
@@ -87,8 +100,12 @@ function decodeNames(payload: NamesPayload | null): GeneEntry[] {
   return out;
 }
 
-/** names.js entries, then every index symbol names.js lacks (with no names). */
-function mergeVocabulary(named: GeneEntry[], symbols: readonly string[], pathways: readonly string[]): SearchVocabulary {
+/**
+ * names.js entries, then every index symbol names.js lacks (with no names).
+ * `pathways` is used as given (see normPathways), so every stage of one load
+ * shares the same array and its prepared rows.
+ */
+function mergeVocabulary(named: readonly GeneEntry[], symbols: readonly string[], pathways: readonly string[]): SearchVocabulary {
   const genes: GeneEntry[] = named.slice();
   const have = new Set(named.map((g) => g.symbol));
   for (const raw of symbols) {
@@ -97,24 +114,52 @@ function mergeVocabulary(named: GeneEntry[], symbols: readonly string[], pathway
     have.add(symbol);
     genes.push({ symbol, name: '', otherNames: [], aliases: [], datasets: 0 });
   }
-  return { genes, pathways: [...new Set(pathways.map((p) => p.toUpperCase()))] };
+  return { genes, pathways };
 }
+
+const normPathways = (pathways: readonly string[]): string[] => [...new Set(pathways.map((p) => p.toUpperCase()))];
 
 let vocabularyPromise: Promise<SearchVocabulary> | null = null;
 /** The memoized vocabulary once it has resolved, for synchronous first renders. */
 let loadedVocabulary: SearchVocabulary | null = null;
+/** The richest vocabulary published so far: a partial stage, then the full one. */
+let latestVocabulary: SearchVocabulary | null = null;
+
+type VocabularyListener = (vocab: SearchVocabulary) => void;
+const listeners = new Set<VocabularyListener>();
+
+function publish(vocab: SearchVocabulary): void {
+  // Build the index now, off the keystroke path, so the first search after
+  // each stage does not pay for it.
+  prepared(vocab);
+  latestVocabulary = vocab;
+  for (const listener of listeners) listener(vocab);
+}
 
 /**
  * The vocabulary if it has already loaded this session, else null. Lets a
  * freshly mounted results page render its answer on the first frame instead of
- * flashing a loading line for a value it already has.
+ * flashing a loading line for a value it already has. With `partial`, a
+ * vocabulary still missing a source counts too.
  */
-export function peekSearchVocabulary(): SearchVocabulary | null {
-  return loadedVocabulary;
+export function peekSearchVocabulary(partial = false): SearchVocabulary | null {
+  return partial ? latestVocabulary : loadedVocabulary;
 }
 
 /**
- * The search vocabulary. Never rejects; resolves to whatever its sources yield.
+ * Hear each vocabulary as its sources land: partial stages first (names.js is
+ * usually first, with every named gene), then the full union, which is also
+ * what loadSearchVocabulary resolves to. Stages only ever grow. Subscribing
+ * does not start the load. Returns the unsubscribe function.
+ */
+export function subscribeSearchVocabulary(listener: VocabularyListener): () => void {
+  listeners.add(listener);
+  return () => { listeners.delete(listener); };
+}
+
+/**
+ * The full search vocabulary. Never rejects; resolves to whatever its sources
+ * yield. Partial stages reach subscribeSearchVocabulary listeners on the way.
  *
  * Memoized on the PROMISE, so the hub box and the results page share one load.
  * An all-empty result is NOT memoized — every source failed, most likely a
@@ -124,18 +169,29 @@ export function peekSearchVocabulary(): SearchVocabulary | null {
  */
 export function loadSearchVocabulary(): Promise<SearchVocabulary> {
   if (!vocabularyPromise) {
+    let named: GeneEntry[] = [];
+    let symbols: readonly string[] = [];
+    let pathways: string[] = [];
+    let pending = 3;
+    // A source that lands before the others publishes what has arrived so far.
+    // The last one publishes nothing here: the full vocabulary follows at once.
+    const landed = () => {
+      if (--pending === 0 || (!named.length && !symbols.length && !pathways.length)) return;
+      try { publish(mergeVocabulary(named, symbols, pathways)); } catch { /* the full load still follows */ }
+    };
     vocabularyPromise = Promise.all([
-      loadOptionalBundle<NamesPayload>(NAMES_URL, NAMES_GLOBAL).catch(() => null),
-      loadGeneIndex().catch(() => [] as string[]),
-      loadPathwayIndex().catch(() => [] as string[]),
+      loadOptionalBundle<NamesPayload>(NAMES_URL, NAMES_GLOBAL).catch(() => null)
+        .then((v) => { named = decodeNames(v); landed(); }),
+      loadGeneIndex().catch(() => [] as string[])
+        .then((v) => { symbols = v ?? []; landed(); }),
+      loadPathwayIndex().catch(() => [] as string[])
+        .then((v) => { pathways = normPathways(v ?? []); landed(); }),
     ])
-      .then(([names, symbols, pathways]) => mergeVocabulary(decodeNames(names), symbols ?? [], pathways ?? []))
+      .then(() => mergeVocabulary(named, symbols, pathways))
       .catch(() => mergeVocabulary([], [], []))
       .then((vocab) => {
         if (!vocab.genes.length && !vocab.pathways.length) vocabularyPromise = null;
-        // Build the per-vocabulary index now, off the keystroke path, so the
-        // first search after the load does not pay for it.
-        else { prepared(vocab); loadedVocabulary = vocab; }
+        else { loadedVocabulary = vocab; publish(vocab); }
         return vocab;
       });
   }
@@ -146,6 +202,9 @@ export function loadSearchVocabulary(): Promise<SearchVocabulary> {
 export function _resetSearchVocabulary(): void {
   vocabularyPromise = null;
   loadedVocabulary = null;
+  latestVocabulary = null;
+  lastNameIndex = null;
+  listeners.clear();
 }
 
 // ── Normalization ───────────────────────────────────────────────────────────
@@ -196,18 +255,20 @@ interface PathwayRow {
   words: string;
 }
 
-interface PreparedVocabulary {
-  genes: readonly GeneEntry[];
-  bySymbol: Map<string, number>;
-  /** Punctuation-free key of each symbol that HAS punctuation ('HLA-A' -> 'hlaa'). */
-  byCompactSymbol: Map<string, number[]>;
+/**
+ * What the names, other names and aliases of genes[0..covered) contribute.
+ * Every gene from `covered` on has none, so the same index serves any
+ * vocabulary that only appends unnamed symbols (see nameIndexFor).
+ */
+interface NameIndex {
   byName: Map<string, NameRef[]>;
   byDerivedName: Map<string, NameRef[]>;
   byAlias: Map<string, NameRef[]>;
   /**
-   * Per gene: every normalized name, each preceded by '\n', words separated by
-   * ' '. '' for a gene with no names. "\n" + q finds a name prefix; " " + q or
-   * "\n" + q finds a word prefix — one includes() per test instead of a loop.
+   * Per gene below `covered`: every normalized name, each preceded by '\n',
+   * words separated by ' '. '' for a gene with no names. "\n" + q finds a name
+   * prefix; " " + q or "\n" + q finds a word prefix — one includes() per test
+   * instead of a loop. Only read through `named`.
    */
   nameHay: string[];
   /** Indexes of the genes with a non-empty nameHay: the only ones a name scan visits. */
@@ -219,12 +280,43 @@ interface PreparedVocabulary {
    */
   allNames: string;
   allNamesStart: Int32Array;
+}
+
+interface PreparedVocabulary extends NameIndex {
+  genes: readonly GeneEntry[];
+  bySymbol: Map<string, number>;
+  /** Punctuation-free key of each symbol that HAS punctuation ('HLA-A' -> 'hlaa'). */
+  byCompactSymbol: Map<string, number[]>;
   /** Gene indexes sorted by symbol, for the symbol-prefix binary search. */
   symbolOrder: Int32Array;
   pathways: PathwayRow[];
 }
 
 const cache = new WeakMap<SearchVocabulary, PreparedVocabulary>();
+const pathwayCache = new WeakMap<readonly string[], PathwayRow[]>();
+
+/** The last name index built, and the genes it was built over. */
+let lastNameIndex: { genes: readonly GeneEntry[]; index: NameIndex } | null = null;
+
+const hasNames = (g: GeneEntry): boolean => !!g.name || g.otherNames.length > 0 || g.aliases.length > 0;
+
+/**
+ * The name index for `genes`, reusing the last one when `genes` only appends
+ * unnamed entries to the genes it was built over — the case for every later
+ * stage of one load, which adds the index's LOC…/Gm… tail to names.js.
+ */
+function nameIndexFor(genes: readonly GeneEntry[]): NameIndex {
+  const last = lastNameIndex;
+  if (last && last.genes.length <= genes.length) {
+    let reusable = true;
+    for (let i = 0; i < last.genes.length && reusable; i++) reusable = last.genes[i] === genes[i];
+    for (let i = last.genes.length; i < genes.length && reusable; i++) reusable = !hasNames(genes[i]);
+    if (reusable) return last.index;
+  }
+  const index = buildNameIndex(genes);
+  lastNameIndex = { genes, index };
+  return index;
+}
 
 function pushRef(map: Map<string, NameRef[]>, key: string, ref: NameRef): void {
   if (!key) return;
@@ -240,11 +332,6 @@ function prepared(vocab: SearchVocabulary): PreparedVocabulary {
   const genes = vocab.genes;
   const bySymbol = new Map<string, number>();
   const byCompactSymbol = new Map<string, number[]>();
-  const byName = new Map<string, NameRef[]>();
-  const byDerivedName = new Map<string, NameRef[]>();
-  const byAlias = new Map<string, NameRef[]>();
-  const nameHay: string[] = new Array(genes.length);
-
   for (let i = 0; i < genes.length; i++) {
     const g = genes[i];
     if (!bySymbol.has(g.symbol)) bySymbol.set(g.symbol, i);
@@ -253,7 +340,50 @@ function prepared(vocab: SearchVocabulary): PreparedVocabulary {
       const at = byCompactSymbol.get(compact);
       if (at) at.push(i); else byCompactSymbol.set(compact, [i]);
     }
+  }
+  const symbolOrder = Int32Array.from(genes.keys()).sort((a, b) => {
+    const sa = genes[a].symbol;
+    const sb = genes[b].symbol;
+    return sa < sb ? -1 : sa > sb ? 1 : a - b;
+  });
 
+  let pathways = pathwayCache.get(vocab.pathways);
+  if (!pathways) {
+    pathways = vocab.pathways.map(pathwayRow);
+    pathwayCache.set(vocab.pathways, pathways);
+  }
+
+  const out: PreparedVocabulary = {
+    ...nameIndexFor(genes), genes, bySymbol, byCompactSymbol, symbolOrder, pathways,
+  };
+  cache.set(vocab, out);
+  return out;
+}
+
+function pathwayRow(id: string): PathwayRow {
+  const { db, dbLabel, title } = describePathway(id);
+  const titleNorm = normText(title);
+  const prefix = id.indexOf('_') > 0 && db !== 'OTHER' ? id.slice(0, id.indexOf('_')).toLowerCase() : '';
+  return {
+    id, db, dbLabel, title,
+    dbOrder: DB_ORDER[db],
+    idNorm: normText(id),
+    titleNorm,
+    words: ` ${prefix} ${titleNorm}`,
+  };
+}
+
+function buildNameIndex(genes: readonly GeneEntry[]): NameIndex {
+  const byName = new Map<string, NameRef[]>();
+  const byDerivedName = new Map<string, NameRef[]>();
+  const byAlias = new Map<string, NameRef[]>();
+  // Only the genes up to the last one with names: the unnamed tail adds nothing.
+  let covered = genes.length;
+  while (covered > 0 && !hasNames(genes[covered - 1])) covered--;
+  const nameHay: string[] = new Array(covered);
+
+  for (let i = 0; i < covered; i++) {
+    const g = genes[i];
     let hay = '';
     for (const name of g.name ? [g.name, ...g.otherNames] : g.otherNames) {
       const norm = normText(name);
@@ -274,7 +404,7 @@ function prepared(vocab: SearchVocabulary): PreparedVocabulary {
   for (const [key, refs] of byDerivedName) if (refs.length > DERIVED_NAME_MAX_GENES) byDerivedName.delete(key);
 
   const namedList: number[] = [];
-  for (let i = 0; i < genes.length; i++) if (nameHay[i]) namedList.push(i);
+  for (let i = 0; i < covered; i++) if (nameHay[i]) namedList.push(i);
   const named = Int32Array.from(namedList);
   const allNamesStart = new Int32Array(named.length);
   const parts: string[] = new Array(named.length);
@@ -284,32 +414,7 @@ function prepared(vocab: SearchVocabulary): PreparedVocabulary {
     parts[k] = nameHay[named[k]];
     offset += parts[k].length;
   }
-  const allNames = parts.join('');
-  const symbolOrder = Int32Array.from(genes.keys()).sort((a, b) => {
-    const sa = genes[a].symbol;
-    const sb = genes[b].symbol;
-    return sa < sb ? -1 : sa > sb ? 1 : a - b;
-  });
-
-  const pathways = vocab.pathways.map((id): PathwayRow => {
-    const { db, dbLabel, title } = describePathway(id);
-    const titleNorm = normText(title);
-    const prefix = id.indexOf('_') > 0 && db !== 'OTHER' ? id.slice(0, id.indexOf('_')).toLowerCase() : '';
-    return {
-      id, db, dbLabel, title,
-      dbOrder: DB_ORDER[db],
-      idNorm: normText(id),
-      titleNorm,
-      words: ` ${prefix} ${titleNorm}`,
-    };
-  });
-
-  const out: PreparedVocabulary = {
-    genes, bySymbol, byCompactSymbol, byName, byDerivedName, byAlias, nameHay, named,
-    allNames, allNamesStart, symbolOrder, pathways,
-  };
-  cache.set(vocab, out);
-  return out;
+  return { byName, byDerivedName, byAlias, nameHay, named, allNames: parts.join(''), allNamesStart };
 }
 
 // ── Pathway titles ──────────────────────────────────────────────────────────

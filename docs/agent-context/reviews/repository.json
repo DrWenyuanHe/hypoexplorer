@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "a27b261979c73390115f11e2e54821505f1c2c94792413b31d6b7f694addac4d",
-  "outcome": "no-impact",
-  "explanation": "Only docs/runbooks/EDGE_PROTECTION.md changed. It now says that HEAD on the data host always reports cf-cache-status DYNAMIC and reaches R2 as a Class B HeadObject, and that the cache must be checked with GET (cf-cache-status and Age). No code, rule payload, layout, directory or startup-map fact changed, so AGENTS.md, CONTEXT.md and the generated maps stay as they are.",
+  "fingerprint": "74e897b6b385b2b89a1e385efba1df277249920bbcc84508b594715904e4262a",
+  "outcome": "updated",
+  "explanation": "Merge of two documentation changes among repository sources. From main: docs/agent-context/workflows.md now says the hub vocabulary loads when a pointer first reaches the search box or on first focus, that suggestions follow the partial stages, and that the results page waits for the full vocabulary. From this branch: docs/runbooks/EDGE_PROTECTION.md notes that HEAD on the data host always reports cf-cache-status DYNAMIC and costs an R2 Class B read, and that cache checks must use GET. Build, delivery, rule payloads and data-origin configuration are unchanged.",
   "references": [
+    "docs/agent-context/workflows.md",
     "docs/runbooks/EDGE_PROTECTION.md",
-    "AGENTS.md",
-    "CONTEXT.md"
+    "AGENTS.md"
   ]
 }

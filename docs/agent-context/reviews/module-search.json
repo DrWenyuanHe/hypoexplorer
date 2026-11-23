@@ -1,15 +1,14 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "67d28696dc5ba870086685c039d76c357bcbab66e5b08f5a82d795025527b629",
+  "fingerprint": "0c0023064abf6fb75f5e5744710f666a28f969056a2cfffb9753a99b237cc7f0",
   "outcome": "updated",
-  "explanation": "atlas.ts is now the single reader of the HypoMap export: named gene records, WHOLE/NO_REGION/EXPRESSION_UNIT/COHORT, pooled and per-dataset metrics, datasetSummary (mean, SEM), spatialTable/datasetTable/atlasTable, findAtlasGene, missMessage, one cached load per symbol, and a swappable transport with a cache reset. HypoMapPreview and Coexpression read those instead of the wire and share one wording for a missing or ambiguous gene; CsvDialog downloads through the export-provenance seam; codetection.ts only imports WHOLE. A by-dataset detection table records its expression unit as not applicable (percentages only), so only tables carrying mean expression record EXPRESSION_UNIT; atlasTable now wraps only the comparison table.",
+  "explanation": "The search vocabulary now loads in stages: each source that lands publishes a partial vocabulary to subscribeSearchVocabulary listeners, so the box suggests named genes as soon as the same-origin names.js arrives instead of waiting seconds for the data origin gene_names.js. loadSearchVocabulary and peekSearchVocabulary() still mean the full union, which the results page keeps using so its counts never shift. prepared() splits a NameIndex (names, other names, aliases) that nameIndexFor reuses when a later stage only appends unnamed index symbols, and caches pathway rows per pathways array. useSearchVocabulary takes { partial }, and UnifiedSearchBox uses it and also starts the hub load on pointer enter.",
   "references": [
-    "src/search/hypomap/atlas.ts",
-    "src/search/hypomap/HypoMapPreview.tsx",
-    "src/search/hypomap/Coexpression.tsx",
-    "src/search/hypomap/CsvDialog.tsx",
-    "src/search/hypomap/codetection.ts",
-    "CONTEXT.md"
+    "src/search/searchVocabulary.ts",
+    "src/search/useSearchVocabulary.ts",
+    "src/search/UnifiedSearchBox.tsx",
+    "src/search/SearchPage.tsx",
+    "docs/agent-context/workflows.md"
   ]
 }
