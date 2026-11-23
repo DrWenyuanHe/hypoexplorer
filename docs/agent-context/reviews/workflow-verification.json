@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "b876b0d3b792447999c9a07985b8190d53af8e887125e9dce94ad29802542884",
-  "outcome": "updated",
-  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: the verification route and author-validation README name build_quality_report_r460.mts --check as the public quality-report freshness check. Links into moved runbooks resolve under docs/runbooks/; policies and ledgers are unchanged.",
+  "fingerprint": "c440a38295af1b9bee5bad694c4058398feda4ec119ba089dace623e8f993d14",
+  "outcome": "no-impact",
+  "explanation": "Bundle-reader adoption touches scripts and tests in this route's scope but no evidence producer, ledger or pinned file: macaqueQc.mts and replicationEvidence.mts are fingerprinted in data/internal-qc/assessments.generated.json and historicalEvidence.mts runs in the sealed loader, so all three keep their own parsers. Verification commands and evidence rules are unchanged. Review follow-up: the reduced-release macaque check covers every track_<id>.js in the folder as well as the declared tracks, so a missing meta.js or an undeclared file cannot pass unchecked (deployGuards.test.ts).",
   "references": [
     "docs/agent-context/workflows.md",
-    "data/author-validation/README.md",
-    "scripts/build_quality_report_r460.mts"
+    "data/internal-qc/assessments.generated.json",
+    "scripts/lib/historicalEvidence.mts"
   ]
 }

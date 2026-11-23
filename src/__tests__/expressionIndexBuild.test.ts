@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { indexedSourceFromRaw, parseExpressionBundle } from '../../scripts/build_expression_index.mjs';
+import { indexedSourceFromRaw } from '../../scripts/build_expression_index.mjs';
 import { getDataset } from '../data/datasets';
 import { EXISTING_EXPRESSION_SOURCES } from '../expression-survey/existingCatalog';
 import { expressionIndexBucket, expressionIndexGlobal, expressionIndexKey } from '../expression-survey/expressionIndexFormat';
@@ -42,11 +42,6 @@ describe('lossless expression index build', () => {
     expect(() => indexedSourceFromRaw({ ...source, sampleCount: 6 }, raw, dataset)).toThrow('Catalog source count drift');
     raw.meta!.groupSamples!.case = ['fed', 'excluded'];
     expect(() => indexedSourceFromRaw(source, raw, dataset)).toThrow('Overlapping source conditions');
-  });
-
-  it('parses a single JSON assignment without evaluating arbitrary source code', () => {
-    expect(parseExpressionBundle('var HX_TRACK = {"cpm":{"Lepr":[0.12345678901234568]}};\n').cpm.Lepr[0]).toBe(0.12345678901234568);
-    expect(() => parseExpressionBundle('var HX_TRACK = {}; throw new Error("executed");')).toThrow();
   });
 
   it('normalizes the source key before stable hashing and isolates globals by data build', () => {

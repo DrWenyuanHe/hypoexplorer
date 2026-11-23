@@ -100,6 +100,11 @@ leave them byte-for-byte unchanged:
       (builders never hand-spell filenames/global keys; manifests are assertion
       inputs). Registry golden: the `datasetsRegistry.test.ts` snapshot is never
       regenerated to make a failure pass — fix the entry instead.
+- [ ] Reading bundle files in a script → `scripts/lib/bundleReader.mts`:
+      `readJsonp` / `readOptionalJsonp` (parse, never evaluate; expected global),
+      `datasetBundlePaths` (locator-named files), `listDiskCorpus` (the one sweep
+      of `public/datasets`), `readDatasetFromDisk` (what the explorer shows). No
+      private JSONP parser and no `readdir` of `public/datasets`.
 - [ ] Cross-dataset study selection (categories, individual studies, filters) →
       `useStudySelection` in `src/crossdataset/studySelection.ts` (catalog
       readiness, eligibility, typed query, visible groups, reset), the value and

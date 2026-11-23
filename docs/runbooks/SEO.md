@@ -28,7 +28,9 @@ state that the app is currently in beta testing.
 
 `src/data/datasets.ts` defines the integrated studies and comparisons.
 `public/datasets/<id>/meta.js` provides track and sample information, read as
-JSON rather than executed. `data/seo/studySources.json` is a committed snapshot
+JSON rather than executed, through the bundle reader's `readDatasetFromDisk`
+(`scripts/lib/bundleReader.mts`), so a study page shows the same reviewed track
+labels as the explorer. `data/seo/studySources.json` is a committed snapshot
 of official GEO/BioStudies titles and PubMed/Crossref publication metadata; builds need no network
 connection or ignored analysis inputs. Missing titles remain absent rather than
 being inferred from a study's display name.
@@ -84,7 +86,8 @@ During the initial source check, three registry citation errors were corrected:
 Run `pnpm run typecheck`, `pnpm test`, and `pnpm run build`. The focused
 `seoPages.test.ts` checks registry coverage, unique metadata, sitemap URLs,
 structured data, source attribution, safe HTML/JSON rendering, development routes,
-sample-count semantics, and author contact details.
+sample-count semantics, track labels against the bundle reader, and author
+contact details.
 
 After publishing the built assets, confirm the homepage, `/studies/`, `/about/`,
 `/methods/`, `/how-to-cite/`, and a study page return their own HTML

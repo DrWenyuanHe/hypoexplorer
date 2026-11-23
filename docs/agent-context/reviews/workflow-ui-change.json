@@ -1,14 +1,15 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "c26980e8558f3fb60e5470c8d5ece207256d8590cef1fd9170af6a6e9c86bee8",
+  "fingerprint": "1ad9ed7e143e8596a55913a28c07d961d3cb8b350979a8511665c50b2b53b5b2",
   "outcome": "updated",
-  "explanation": "The ui-change workflow's study-selection paragraphs describe one module parameterized by report kind: the router holds one selection per report through studySelectionLink.ts (never the hook, which would pull the evidence ledgers into the entry bundle, as lazyChunkBoundaries.test.ts checks), App passes it with the setter straight through, both reports render StudySelectionPanel and key their boundary on the term. The catalog lists studySelectionLink.ts. The merged HypoMap atlas-client change needs no workflow text: its CSVs go through the export-provenance seam the route already names, and navigation and views are unchanged.",
+  "explanation": "The ui-change workflow's study-selection paragraphs describe one module parameterized by report kind: the router holds one selection per report through studySelectionLink.ts (never the hook, which would pull the evidence ledgers into the entry bundle, as lazyChunkBoundaries.test.ts checks), App passes it with the setter straight through, both reports render StudySelectionPanel and key their boundary on the term. The catalog lists studySelectionLink.ts. The bundle-reader adoption changes only the changelog entry and the refactor checklist line about reading bundle files in scripts for this route; the HypoMap atlas-client CSVs go through the export-provenance seam the route already names. Navigation, views and exports are otherwise unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
     "docs/agent-context/catalog.json",
+    "docs/runbooks/REFACTOR_CHECKLIST.md",
+    "src/changelog/changelog.ts",
     "src/crossdataset/studySelection.ts",
-    "src/crossdataset/studySelectionLink.ts",
-    "src/search/hypomap/CsvDialog.tsx"
+    "src/crossdataset/studySelectionLink.ts"
   ]
 }

@@ -1,18 +1,18 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "1cdfbacc14a98fcf3391c9849bbe86c5141e563b3a9a0386b915bd977959695f",
+  "fingerprint": "92d78437b9750e49e4d60b8101dded7d05ba60ab6fdf7ad6985b5b8616695fc6",
   "outcome": "updated",
-  "explanation": "Combined result of the study-selection module and the HypoMap atlas client. studySelection.test.tsx tests the study-selection module at its interface, parameterized by report kind (empty selections never widen, selections survive a term remount, link bytes round-trip, the panel wording), importing the value and URL form from studySelectionLink.ts. lazyChunkBoundaries.test.ts walks the entry graph from main.tsx with the TypeScript 6 syntax tree and bundler resolution, skips only compiler-erased type imports, fails on unresolved relative runtime imports and fails if either evidence ledger is reachable. The App gene and pathway scope tests keep one copied-link smoke each; geneStudyScope.test.ts and the useCategoryScope tests are removed. hypomapAtlasClient.test.ts tests the HypoMap atlas client through its in-memory transport (checksums, gzip, cohort, resolution, shared per-symbol load, metrics, mean/SEM, CSV tables and their expression unit) and absorbs hypomapMetrics.test.ts, which is removed; hypomapFixture.ts builds the fixture export the preview, co-expression and csvDialog tests read.",
+  "explanation": "Combined result of the bundle-reader adoption, the study-selection module and the HypoMap atlas client. Bundle reader: queryIndexCorpus.test.ts drives the query index's corpus read over a temp corpus with missing, malformed, wrong-shape, wrong-global and unregistered bundles; bundleReader.test.ts covers listDiskCorpus and jsonpHeader; seoPages.test.ts pins every study-page track label to readDatasetFromDisk; the private parseExpressionBundle test is removed with the parser; deployGuards fixtures use locator globals, and the reduced-release macaque check covers every track_<id>.js in the folder as well as the declared tracks. Study selection: studySelection.test.tsx tests the module at its interface, parameterized by report kind, importing the value and URL form from studySelectionLink.ts; lazyChunkBoundaries.test.ts fails if either evidence ledger is reachable from the entry graph; geneStudyScope.test.ts and the useCategoryScope tests are removed. HypoMap: hypomapAtlasClient.test.ts tests the atlas client through its in-memory transport and absorbs hypomapMetrics.test.ts, which is removed; hypomapFixture.ts builds the fixture export the preview, co-expression and csvDialog tests read.",
   "references": [
+    "src/__tests__/queryIndexCorpus.test.ts",
+    "src/__tests__/bundleReader.test.ts",
+    "src/__tests__/seoPages.test.ts",
+    "src/__tests__/deployGuards.test.ts",
+    "src/__tests__/expressionIndexBuild.test.ts",
     "src/__tests__/studySelection.test.tsx",
     "src/__tests__/lazyChunkBoundaries.test.ts",
-    "src/__tests__/app.geneScope.test.tsx",
-    "src/__tests__/app.pathwayScope.test.tsx",
     "src/__tests__/hypomapAtlasClient.test.ts",
-    "src/__tests__/hypomapFixture.ts",
-    "src/__tests__/hypomapPreview.test.tsx",
-    "src/__tests__/hypomapCoexpression.test.tsx",
-    "src/__tests__/csvDialog.test.tsx"
+    "src/__tests__/hypomapFixture.ts"
   ]
 }
