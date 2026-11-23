@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "analysis",
-  "fingerprint": "2ab4ce9f0e10b00173fbcf03386c1c7ab1b744d2308ffb87b8fec4ea16852208",
+  "fingerprint": "44c4429fc71c4d9a93d332b84d779a9160978cddad8686d7ceb7e578947efdd8",
   "outcome": "updated",
-  "explanation": "Adds build_release_bundle.mts to the Codex closure pass folder. It builds the pass evidence part for the next hypoexplorer-data release under the data repository rules: the pass own scripts and records are scrubbed and packed reproducibly, and third-party inputs and derived tables are listed in sources.json by URL and SHA-256. The pass README records it. Ledgers, pipelines and producers are unchanged.",
+  "explanation": "Adds check_copied_text.py and its copied-text.json to the Codex closure pass folder. It compares each record the release bundle would redistribute with the downloads recorded in SOURCES.tsv and lists the 28 that carry 40 or more copied words of publication text or author table rows; build_release_bundle.mts withholds them as derived records, as the data repository requires. Ledgers, pipelines and producers are unchanged.",
   "references": [
+    "data/author-validation/codex-2026-11-21/check_copied_text.py",
     "data/author-validation/codex-2026-11-21/build_release_bundle.mts",
-    "data/author-validation/codex-2026-11-21/README.md",
-    "data-release.json"
+    "data/author-validation/codex-2026-11-21/README.md"
   ]
 }

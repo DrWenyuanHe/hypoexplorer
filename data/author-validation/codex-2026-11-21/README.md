@@ -23,6 +23,7 @@ break the worker's proposal. Workers write only their evidence folder and
 | `scripts/` | `run_one.sh` (worker then refuter, resumable), `run_wave.sh`, `launch.sh` (detached) and dataset lists |
 | `check_specs.mts`, `merge.cjs` | Spec rule check and the ledger merge |
 | `build_release_bundle.mts` | Builds this pass's data-release part, `sources.json` and `scrubbed.json` |
+| `check_copied_text.py`, `copied-text.json` | Copied-publication-text check and the records it withholds from the release |
 | `round1/`, `interrupted/` | First-round outputs of refuted datasets; partial outputs of jobs killed mid-run |
 
 Closure states: `compared`, `no_valid_comparison`, `confirmed_not_located`,
@@ -143,9 +144,12 @@ ledgers. `check_proposals.cjs` and `check_specs.mts` are the checks applied here
 - **Evidence.** The evidence folders
   (`continued-sources/<ACCESSION>/codex-2026-11-21/`) ship in the data release,
   not in git. `build_release_bundle.mts` builds the release part under the data
-  repository's rules: 1,068 of the pass's own scripts and records, scrubbed, are
-  redistributed; 5,198 third-party inputs and derived tables (7.32 GB) are listed
-  in its `sources.json` with their URLs and SHA-256. The part must enter the next
+  repository's rules: 1,040 of the pass's own scripts and records, scrubbed, are
+  redistributed; 5,226 third-party inputs and derived files (7.32 GB) are listed
+  in its `sources.json` with their URLs and SHA-256. `check_copied_text.py` compares
+  every redistributed file with the downloads it was built from and lists, in
+  `copied-text.json`, the 28 records that carry 40 or more copied words of
+  publication text or author table rows; the builder withholds them. The part must enter the next
   data release, and the full local evidence must join the maintainer's retained
   audit cache.
 - **Generated records.** As with the Nov 15 pass, `compare_author_results.mts`

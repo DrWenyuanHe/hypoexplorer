@@ -97,6 +97,11 @@ function holdsTablePreview(bytes: Buffer): boolean {
   return visit(doc, 0);
 }
 
+// Records that check_copied_text.py found carrying copied publication text or table rows.
+const copiedTextPath = join(here, 'copied-text.json');
+const copiedText = new Set<string>(existsSync(copiedTextPath)
+  ? JSON.parse(readFileSync(copiedTextPath, 'utf8')).files.map((f: { path: string }) => f.path) : []);
+
 type Kind = 'evidence' | 'source' | 'derived' | 'release-copy';
 type Entry = { path: string; bytes: number; sha256: string; kind: Kind; url?: string; recordedIn?: string };
 const entries: Entry[] = [];
@@ -109,7 +114,7 @@ for (const p of inputs) {
   let kind: Kind;
   if (inRelease.has(digest)) kind = 'release-copy';
   else if (isDownload || RECOVERED.includes(p)) kind = 'source';
-  else if (p.endsWith('.json') && holdsTablePreview(bytes)) kind = 'derived';
+  else if (copiedText.has(p) || (p.endsWith('.json') && holdsTablePreview(bytes))) kind = 'derived';
   else if (p.endsWith('/SOURCES.tsv') || OWN_CODE.test(p) || OWN_RECORD.test(p)) kind = 'evidence';
   else kind = 'derived';
   entries.push({ path: p, bytes: bytes.length, sha256: digest, kind, url: isDownload ? rec!.url : undefined, recordedIn: rec?.sourcesFile });
