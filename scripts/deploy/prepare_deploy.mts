@@ -28,7 +28,8 @@ import { createRequire } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadEnv } from 'vite';
-import { ATLAS_DIRS, atlasProblems, expressionBuildIdOf, QUERY_POINTERS, TRACKER_CATALOG } from '../lib/deployInputs.mjs';
+import { ATLAS_DIRS, atlasProblems, TRACKER_CATALOG } from '../lib/deployInputs.mjs';
+import { diskOrigin, httpOrigin, readQueryGeneration } from '../lib/queryGeneration.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const PUBLIC = path.join(ROOT, 'public');
@@ -55,19 +56,17 @@ const failures: string[] = [];
 // ── Query catalog ────────────────────────────────────────────────────────────
 console.log(`Query catalog (data origin ${bundleBase || 'same-origin'})`);
 if (!bundleBase) {
-  // A same-origin build ships public/query itself, so there is no origin to match.
-  for (const pointer of QUERY_POINTERS) if (!readLocal(pointer)) failures.push(`public/${pointer} is missing; build the indexes first`);
+  // A same-origin build ships public/query itself, so there is no origin to
+  // match; it must still hold one complete, consistent generation.
+  await readQueryGeneration(diskOrigin(PUBLIC)).catch((error: Error) => failures.push(`${error.message}; build the indexes first`));
 } else {
-  const [tracks, pointer] = await Promise.all(QUERY_POINTERS.map((relative) => fetchText(`${bundleBase}/${relative}`)));
-  const buildId = expressionBuildIdOf(pointer);
-  if (!buildId) throw new Error(`${bundleBase}/query/expression-manifest.js names no expression build`);
-  const immutable = `query/expression/${buildId}/manifest.js`;
-  const remote: Record<string, string> = { 'query/tracks.js': tracks, 'query/expression-manifest.js': pointer };
-  const present = QUERY_POINTERS.filter((relative) => readLocal(relative) !== null);
-  const differing = QUERY_POINTERS.filter((relative) => {
-    const text = readLocal(relative);
-    return text !== null && text.replace(/\r\n/g, '\n') !== remote[relative].replace(/\r\n/g, '\n');
-  });
+  const remote = await readQueryGeneration(httpOrigin(bundleBase, { headers: { 'cache-control': 'no-cache' } }));
+  const pointers = [remote.tracks!, remote.expression];
+  const present = pointers.filter((pointer) => readLocal(pointer.key) !== null);
+  const differing = pointers.filter((pointer) => {
+    const text = readLocal(pointer.key);
+    return text !== null && text.replace(/\r\n/g, '\n') !== pointer.text.replace(/\r\n/g, '\n');
+  }).map((pointer) => pointer.key);
   if (differing.length && !refreshQuery) {
     failures.push(
       `public/${differing.join(' and public/')} ${differing.length === 1 ? 'differs' : 'differ'} from ${bundleBase}. The deployed app would pin an index `
@@ -75,12 +74,12 @@ if (!bundleBase) {
       + "origin's with pnpm run prepare:deploy --refresh-query (or pnpm run fetch:query).",
     );
   } else {
-    if (present.length < QUERY_POINTERS.length || differing.length) {
-      for (const relative of QUERY_POINTERS) writeLocal(relative, remote[relative]);
+    if (present.length < pointers.length || differing.length) {
+      for (const pointer of pointers) writeLocal(pointer.key, pointer.text);
     } else {
       console.log('  public/query matches the data origin');
     }
-    if (!readLocal(immutable)) writeLocal(immutable, await fetchText(`${bundleBase}/${immutable}`));
+    if (!readLocal(remote.expressionManifest.key)) writeLocal(remote.expressionManifest.key, remote.expressionManifest.text);
   }
 }
 

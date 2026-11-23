@@ -1,16 +1,16 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "a140b634ba50be4df87469d82d8f34152a21dc3c0dc64c9e461e5c9c5a5a62e0",
+  "fingerprint": "7be7c35687298d153d70f2a476b57fc964bf60a7275b3aebe08f8487b9431994",
   "outcome": "updated",
-  "explanation": "Combined result of the compare cell with main's study publication record, bundle-reader adoption, study-selection module and HypoMap atlas client. Compare cell: compareCell.test.ts is a table test at the cell's interface (flagged and missing-popData columns unavailable, missing DE row and cpm-only gene not detected, single-value arm, normal arms, own-spelling match, no contrast, the tally over cells) and pins that a measured cell reads samples only on first arms access, once; compareDownloads.test.ts now covers sheet layout only. From main: studyRecord.test.ts, seoPages.test.ts and seoStudyContent.test.ts for the study record, queryIndexCorpus.test.ts, the listDiskCorpus and jsonpHeader cases in bundleReader.test.ts, studySelection.test.tsx, lazyChunkBoundaries.test.ts, hypomapAtlasClient.test.ts and hypomapFixture.ts, with geneStudyScope.test.ts and hypomapMetrics.test.ts removed.",
+  "explanation": "Combined result of the data-origin layout with main's compare cell, study publication record, bundle-reader adoption, study-selection module and HypoMap atlas client. From this change: dataOriginLayout.test.ts is one per-key table (tree, mutability, Cache-Control, Content-Type, purge prefix, WAF admission) with the uploader/WAF and pointer-TTL invariants and build-id parsing; queryGeneration.test.ts runs the reader over a temp directory and an in-memory HTTP origin; the purgePrefixForKey, pathAllowed and queryPublicationPrefixes cases moved into that table; releaseIdentity.test.ts checks every JSON file non-test source imports is a release source. From main: compareCell.test.ts, studyRecord.test.ts, queryIndexCorpus.test.ts, the listDiskCorpus and jsonpHeader cases in bundleReader.test.ts, studySelection.test.tsx and hypomapAtlasClient.test.ts, with geneStudyScope.test.ts and hypomapMetrics.test.ts removed.",
   "references": [
+    "src/__tests__/dataOriginLayout.test.ts",
+    "src/__tests__/queryGeneration.test.ts",
+    "src/__tests__/releaseIdentity.test.ts",
     "src/__tests__/compareCell.test.ts",
-    "src/__tests__/compareDownloads.test.ts",
-    "src/compare/compareCell.ts",
     "src/__tests__/studyRecord.test.ts",
     "src/__tests__/queryIndexCorpus.test.ts",
-    "src/__tests__/studySelection.test.tsx",
     "src/__tests__/hypomapAtlasClient.test.ts"
   ]
 }

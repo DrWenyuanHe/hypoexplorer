@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "aaa64202b32a046ce0bf36e7fc6bf994721588111a8fb042a128d0f36484cf10",
+  "fingerprint": "90d3cad58f55f7a85ef392b25e98b40c83180ef4a3485c6e12f25b725cf090ee",
   "outcome": "updated",
-  "explanation": "From main: script reads of published bundles go through scripts/lib/bundleReader.mts for the query index, expression index, bundle optimizer, upload guards, deploy verifier and SEO study pages, and listDiskCorpus is the one sweep of public/datasets (workflows.md, CONTEXT.md, refactor checklist). From this change: study pages and the agent export read publication identity and per-track counts through scripts/lib/studyRecord.mts, whose meta input on the study pages now comes from the bundle reader. Adding a dataset still needs only its registry entry, bundles and optional studySources.json snapshot.",
+  "explanation": "From main: script reads of published bundles go through scripts/lib/bundleReader.mts (query index, expression index, bundle optimizer, upload guards, deploy verifier, SEO study pages), listDiskCorpus is the one sweep of public/datasets, and study pages and the agent export read publication identity through scripts/lib/studyRecord.mts. From this change: the delivery catalog names the Data-origin layout and the release allow-list archives hypomap-release.json. Adding a dataset still needs only its registry entry, bundles, index rebuild and optional studySources.json snapshot; the uploader publishes the same .js bundles.",
   "references": [
     "docs/agent-context/workflows.md",
     "scripts/lib/bundleReader.mts",
-    "scripts/lib/queryIndexCorpus.mts",
     "scripts/lib/studyRecord.mts",
-    "docs/runbooks/SEO.md"
+    "src/data/dataOriginLayout.ts",
+    "scripts/lib/releaseBuild.mts"
   ]
 }

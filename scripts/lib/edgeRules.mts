@@ -20,9 +20,7 @@
 //     https://developers.cloudflare.com/waf/rate-limiting-rules/#availability
 //     https://developers.cloudflare.com/waf/rate-limiting-rules/parameters/
 
-import {
-  HYPOMAP_FIXED_FILES, HYPOMAP_PATH_PREFIX, HYPOMAP_SHARD_DIGITS, HYPOMAP_SHARD_PREFIX, HYPOMAP_SHARD_SUFFIX,
-} from './hypomapAtlas.mjs';
+import { BUNDLE_EXTENSIONS, BUNDLE_TREES, HYPOMAP_KEY_PREFIX, HYPOMAP_PATH_RULE, MAX_PATH_LENGTH } from '../../src/data/dataOriginLayout';
 
 export const DATA_HOST = 'data.hypoexplorer.com';
 export const ZONE_ID = '2646afd72ee9db3111c4a475c4d43a58';
@@ -53,23 +51,22 @@ export const REF_SHUTOFF = 'hypoexplorer_data_shutoff';
 export const RUNTIME_OWNED_ENABLED = new Set([REF_SHUTOFF]);
 
 /**
- * What the bucket can contain. Mirrors the retired gate's checkPath()
+ * What the bucket can contain, rendered from the data-origin layout
+ * (src/data/dataOriginLayout.ts, whose originObject().wafAllowed is this rule's
+ * JavaScript twin). It mirrors the retired gate's checkPath()
  * (workers/data-gate/src/rules.ts, measured over all 5,522 keys on 2026-09-04):
  * three top-level prefixes, two extensions, keys at most 256 characters, no
  * `..` or `//`. The gate's character-class check needed a regex, which Free
  * custom rules do not offer; R2 answers such keys with a 404 (one Class B read),
  * which the rate limit and the spend guard bound.
  *
- * Plus the pinned HypoMap atlas (hypomapAtlas.mts): only the tag named in
- * hypomap-release.json, its three fixed files by exact path, and gene shards
- * as `genes-` + exactly four characters + `.json.gz`. Without regex the rule
- * cannot require those four characters to be digits; a non-digit name is a 404.
- * A new tag changes this rule, so apply it before deploying a build that reads
- * the new tag.
+ * Plus the pinned HypoMap atlas: only the tag named in hypomap-release.json,
+ * its three fixed files by exact path, and gene shards as `genes-` + exactly
+ * four characters + `.json.gz`. Without regex the rule cannot require those
+ * four characters to be digits; a non-digit name is a 404. A new tag changes
+ * this rule, so apply it before deploying a build that reads the new tag.
  */
-export const ALLOWED_PREFIXES = ['/datasets/', '/query/', '/qc/'] as const;
-export const ALLOWED_EXTENSIONS = ['.js', '.pdf'] as const;
-export const MAX_PATH_LENGTH = 256;
+const ALLOWED_PREFIXES = BUNDLE_TREES.map((tree) => `/${tree}/`);
 export const ALLOWED_METHODS = ['GET', 'HEAD'] as const;
 
 export const BURST_REQUESTS_PER_PERIOD = 400;
@@ -110,15 +107,12 @@ const q = (value: string) => JSON.stringify(value);
 const any = (terms: string[]) => (terms.length === 1 ? terms[0] : `(${terms.join(' or ')})`);
 const hostIs = (host: string) => `http.host eq ${q(host)}`;
 const prefixTerms = () => ALLOWED_PREFIXES.map((prefix) => `starts_with(${PATH}, ${q(prefix)})`);
-const byteLength = (value: string) => new TextEncoder().encode(value).length;
-const HYPOMAP_EXACT_PATHS = HYPOMAP_FIXED_FILES.map((file) => `${HYPOMAP_PATH_PREFIX}${file}`);
-const HYPOMAP_SHARD_START = `${HYPOMAP_PATH_PREFIX}${HYPOMAP_SHARD_PREFIX}`;
-const HYPOMAP_SHARD_LENGTH = byteLength(HYPOMAP_SHARD_START) + HYPOMAP_SHARD_DIGITS + byteLength(HYPOMAP_SHARD_SUFFIX);
 
 /** True for the pinned atlas paths: exact fixed files, or a shard name of the exact shard length. */
 function hypomapExpression(): string {
-  return `(${PATH} in {${HYPOMAP_EXACT_PATHS.map(q).join(' ')}} or (starts_with(${PATH}, ${q(HYPOMAP_SHARD_START)})`
-    + ` and ends_with(${PATH}, ${q(HYPOMAP_SHARD_SUFFIX)}) and len(${PATH}) eq ${HYPOMAP_SHARD_LENGTH}))`;
+  const { exactPaths, shardStart, shardSuffix, shardPathLength } = HYPOMAP_PATH_RULE;
+  return `(${PATH} in {${exactPaths.map(q).join(' ')}} or (starts_with(${PATH}, ${q(shardStart)})`
+    + ` and ends_with(${PATH}, ${q(shardSuffix)}) and len(${PATH}) eq ${shardPathLength}))`;
 }
 
 export function methodExpression(host = DATA_HOST): string {
@@ -126,7 +120,7 @@ export function methodExpression(host = DATA_HOST): string {
 }
 
 export function pathExpression(host = DATA_HOST): string {
-  const bundles = `(${any(prefixTerms())} and ${any(ALLOWED_EXTENSIONS.map((ext) => `ends_with(${PATH}, ${q(ext)})`))})`;
+  const bundles = `(${any(prefixTerms())} and ${any(BUNDLE_EXTENSIONS.map((ext) => `ends_with(${PATH}, ${q(ext)})`))})`;
   const outside = [
     `not (${bundles} or ${hypomapExpression()})`,
     `${PATH} contains ${q('..')}`,
@@ -138,18 +132,7 @@ export function pathExpression(host = DATA_HOST): string {
 
 /** Free rate-limit expressions may use only the URI path, so the host cannot be named. */
 export function burstExpression(): string {
-  return any([...prefixTerms(), `starts_with(${PATH}, ${q(HYPOMAP_PATH_PREFIX)})`]);
-}
-
-/** The JavaScript twin of pathExpression(): true when the request is let through. */
-export function pathAllowed(path: string): boolean {
-  const bundle = ALLOWED_PREFIXES.some((prefix) => path.startsWith(prefix))
-    && ALLOWED_EXTENSIONS.some((ext) => path.endsWith(ext));
-  const atlas = HYPOMAP_EXACT_PATHS.includes(path) || (path.startsWith(HYPOMAP_SHARD_START)
-    && path.endsWith(HYPOMAP_SHARD_SUFFIX) && byteLength(path) === HYPOMAP_SHARD_LENGTH);
-  return (bundle || atlas)
-    && !path.includes('..') && !path.includes('//')
-    && new TextEncoder().encode(path).length <= MAX_PATH_LENGTH;
+  return any([...prefixTerms(), `starts_with(${PATH}, ${q(`/${HYPOMAP_KEY_PREFIX}`)})`]);
 }
 
 export function buildEdgeRules(host = DATA_HOST): Record<EdgePhase, EdgeRule[]> {
@@ -177,7 +160,7 @@ export function buildEdgeRules(host = DATA_HOST): Record<EdgePhase, EdgeRule[]> 
       },
       {
         ref: REF_PATHS,
-        description: 'Data host: block paths outside /datasets/, /query/, /qc/ with .js or .pdf and the pinned /hypomap/ atlas files',
+        description: `Data host: block paths outside ${ALLOWED_PREFIXES.join(', ')} with ${BUNDLE_EXTENSIONS.join(' or ')} and the pinned /hypomap/ atlas files`,
         expression: pathExpression(host),
         action: 'block',
         enabled: true,

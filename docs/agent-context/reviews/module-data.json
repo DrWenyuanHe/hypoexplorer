@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "32a2f1a3dae6816b19dc4dc4b3444ba8546af3075f590f65903acaa527df9c1c",
-  "outcome": "no-impact",
-  "explanation": "Directory reorganization: loose docs moved to docs/runbooks/ and docs/records/, and deploy, fetch and dev tooling scripts moved to scripts/deploy/, scripts/fetch/ and scripts/dev/. The data module only gained updated doc paths in siteInfo.ts and the tracker review note text; registry, loaders and quality decisions are unchanged.",
+  "fingerprint": "8e7aa5e6cd54267e5bb57b744c350278f425a4cdae289f47b8ad63fb63e39e50",
+  "outcome": "updated",
+  "explanation": "Adds src/data/dataOriginLayout.ts, the pure DOM-free statement of the R2 data origin: bundle trees, the two pointers with their build-id formats and one parser, query-generation prefixes and the per-key object policy. originHealth.ts now probes the tracks pointer key from it. CONTEXT.md gains a Data-origin layout entry; loaders and the registry are unchanged.",
   "references": [
-    "src/data/siteInfo.ts",
-    "src/data/tracker/reviews.json",
-    "docs/runbooks/REFACTOR_CHECKLIST.md",
-    "docs/runbooks/EDGE_PROTECTION.md"
+    "src/data/dataOriginLayout.ts",
+    "src/data/originHealth.ts",
+    "CONTEXT.md"
   ]
 }

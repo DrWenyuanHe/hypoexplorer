@@ -3,10 +3,15 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import {
   buildEdgeRules, burstExpression, CACHE_PHASE, coversDesired, CUSTOM_PHASE, describePlan, EDGE_PHASES, methodExpression,
-  pathAllowed, pathExpression, payloadPath, planPhase, RATELIMIT_PHASE, REF_BURST, REF_METHODS, REF_PATHS,
+  pathExpression, payloadPath, planPhase, RATELIMIT_PHASE, REF_BURST, REF_METHODS, REF_PATHS,
   REF_SHUTOFF, validateRule, type EdgeRule, type RemoteRuleset,
 } from '../../scripts/lib/edgeRules.mjs';
-import { HYPOMAP_FIXED_FILES, HYPOMAP_PATH_PREFIX, HYPOMAP_TAG, hypomapFileAllowed } from '../../scripts/lib/hypomapAtlas.mjs';
+import { BUNDLE_EXTENSIONS, BUNDLE_TREES, HYPOMAP_FIXED_FILES, HYPOMAP_KEY_PREFIX, MAX_PATH_LENGTH } from '../data/dataOriginLayout';
+
+// Which paths the rule admits is pinned once, on its JavaScript twin
+// (originObject().wafAllowed, dataOriginLayout.test.ts); these tests pin how
+// the rule is rendered.
+const HYPOMAP_PATH_PREFIX = `/${HYPOMAP_KEY_PREFIX}`;
 
 const rules = buildEdgeRules();
 const live = (rule: EdgeRule, extra: Record<string, unknown> = {}) => ({
@@ -68,22 +73,11 @@ describe('expressions', () => {
     expect(burstExpression()).toContain(`starts_with(http.request.uri.path, "${HYPOMAP_PATH_PREFIX}")`);
   });
 
-  it('let through only the pinned HypoMap atlas files', () => {
-    for (const file of [...HYPOMAP_FIXED_FILES, 'genes-0000.json.gz', 'genes-0123.json.gz', 'genes-9999.json.gz']) {
-      expect(hypomapFileAllowed(file), file).toBe(true);
-      expect(pathAllowed(`${HYPOMAP_PATH_PREFIX}${file}`), file).toBe(true);
-    }
-    for (const bad of [
-      '/hypomap/', HYPOMAP_PATH_PREFIX, `${HYPOMAP_PATH_PREFIX}manifest.js`, `${HYPOMAP_PATH_PREFIX}metadata.json`,
-      `${HYPOMAP_PATH_PREFIX}genes-000.json.gz`, `${HYPOMAP_PATH_PREFIX}genes-00000.json.gz`, `${HYPOMAP_PATH_PREFIX}genes-0000.json`,
-      `${HYPOMAP_PATH_PREFIX}other-0000.json.gz`, `${HYPOMAP_PATH_PREFIX}x/manifest.json`, `${HYPOMAP_PATH_PREFIX}genes-0//.json.gz`,
-      '/hypomap/hypomap-atlas-2000-01-01/manifest.json', `/hypomap/${HYPOMAP_TAG}.old/manifest.json`, '/hypomap/manifest.json',
-      `/datasets/${HYPOMAP_TAG}/genes-0000.json.gz`, `${HYPOMAP_PATH_PREFIX}genes-..00.json.gz`,
-    ]) expect(pathAllowed(bad), bad).toBe(false);
-    // The edge rule cannot test for digits (no regex on Free); R2 answers such a key
-    // with a 404, and the uploader's stricter check never stages one.
-    expect(pathAllowed(`${HYPOMAP_PATH_PREFIX}genes-abcd.json.gz`)).toBe(true);
-    expect(hypomapFileAllowed('genes-abcd.json.gz')).toBe(false);
+  it('render the bundle branch from the layout trees, extensions and length limit', () => {
+    const expression = pathExpression();
+    for (const tree of BUNDLE_TREES) expect(expression).toContain(`starts_with(http.request.uri.path, "/${tree}/")`);
+    for (const ext of BUNDLE_EXTENSIONS) expect(expression).toContain(`ends_with(http.request.uri.path, "${ext}")`);
+    expect(expression).toContain(`len(http.request.uri.path) gt ${MAX_PATH_LENGTH}`);
   });
 
   it('render the atlas branch with exact fixed paths and the shard path length', () => {
@@ -91,26 +85,6 @@ describe('expressions', () => {
     for (const file of HYPOMAP_FIXED_FILES) expect(expression).toContain(`"${HYPOMAP_PATH_PREFIX}${file}"`);
     expect(expression).toContain(`starts_with(http.request.uri.path, "${HYPOMAP_PATH_PREFIX}genes-")`);
     expect(expression).toContain(`len(http.request.uri.path) eq ${`${HYPOMAP_PATH_PREFIX}genes-0000.json.gz`.length}`);
-  });
-
-  it('let every legitimate request shape through', () => {
-    for (const ok of [
-      '/datasets/cattle_arc_nutrition_gse153498/meta.js',
-      '/datasets/cattle_arc_nutrition_gse153498/track_arcuate.pathways.js',
-      '/query/tracks.js',
-      '/query/expression-manifest.js',
-      '/query/1es70pa3wryw0/genes/a1.js',
-      '/query/expression/0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef/s0001.js',
-      '/qc/Ast1__Astrocyte_1.pdf',
-    ]) expect(pathAllowed(ok), ok).toBe(true);
-  });
-
-  it('block everything the retired gate refused by shape', () => {
-    for (const bad of [
-      '/', '/robots.txt', '/favicon.ico', '/_gate/status', '/datasets/', '/datasets/x/meta.json',
-      '/other/x.js', '/datasets/../x.js', '/datasets//x.js', `/datasets/${'a'.repeat(250)}.js`,
-      '/hypomap/x.js', '/datasets/x/manifest.json', '/query/x.json.gz',
-    ])expect(pathAllowed(bad), bad).toBe(false);
   });
 });
 

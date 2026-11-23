@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "944339e77be21fb450a8ecfb18532f15767134bb6059116adf2792c92f0e3941",
+  "fingerprint": "a0f2b49012ff76cb52d098ff5c7ab902c6a420d7389b86b51dbca63deaff7ccc",
   "outcome": "no-impact",
-  "explanation": "The publication identity rule lives in scripts/lib/studyRecord.mts and governs the study pages and the agent export; it decides which paper is cited, not QC, design or author-concordance evidence. Main's bundle-reader adoption leaves macaqueQc.mts, replicationEvidence.mts and historicalEvidence.mts on their own parsers because they are fingerprinted or sealed. Verification commands, ledgers and evidence rules are unchanged.",
+  "explanation": "Main's publication identity rule (scripts/lib/studyRecord.mts) decides which paper is cited on study pages and the agent export, not QC or author-concordance evidence; its bundle-reader adoption leaves the fingerprinted or sealed evidence parsers alone. This change moves the HypoMap atlas file shape into the data-origin layout while hypomapAtlas.mts keeps the release integrity checks, and archives hypomap-release.json with the release source. QC review, evidence authoring and verification commands are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
     "scripts/lib/studyRecord.mts",
-    "data/internal-qc/assessments.generated.json",
+    "scripts/lib/hypomapAtlas.mts",
+    "scripts/lib/releaseBuild.mts",
     "scripts/lib/historicalEvidence.mts"
   ]
 }

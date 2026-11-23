@@ -3,6 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { createReadStream, existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative, resolve } from 'node:path';
+import { expressionGenerationPrefix, POINTER_NAMES, POINTERS, trackGenerationPrefix } from '../../src/data/dataOriginLayout';
 import { readReleaseBuild, releaseSourceFiles } from '../lib/releaseBuild.mjs';
 import { createPublicationArchive } from '../lib/publicationArchive.mjs';
 
@@ -30,13 +31,14 @@ async function digest(path: string): Promise<string> {
   for await (const chunk of createReadStream(path)) hash.update(chunk);
   return hash.digest('hex');
 }
+// The release's own query generation, not every generation left in public/query.
 const dataRoots = [
   'public/datasets', 'public/nomenclature',
-  `public/query/${release.dataBuildId}`, `public/query/expression/${release.expressionBuildId}`,
+  `public/${trackGenerationPrefix(release.dataBuildId)}`, `public/${expressionGenerationPrefix(release.expressionBuildId)}`,
 ];
 const dataFiles = [
   ...dataRoots.flatMap((path) => filesUnder(resolve(root, path))),
-  resolve(root, 'public/query/tracks.js'), resolve(root, 'public/query/expression-manifest.js'),
+  ...POINTER_NAMES.map((name) => resolve(root, 'public', POINTERS[name].key)),
 ].sort();
 const dataInventory = [];
 for (const file of dataFiles) dataInventory.push({

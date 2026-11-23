@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (250):
+Covered source files (252):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -120,6 +120,7 @@ Covered source files (250):
 - [src/__tests__/csvDialog.test.tsx](<../../../src/__tests__/csvDialog.test.tsx>)
 - [src/__tests__/csvDownload.ts](<../../../src/__tests__/csvDownload.ts>)
 - [src/__tests__/currentIntakePathwayEvidence.test.ts](<../../../src/__tests__/currentIntakePathwayEvidence.test.ts>)
+- [src/__tests__/dataOriginLayout.test.ts](<../../../src/__tests__/dataOriginLayout.test.ts>)
 - [src/__tests__/dataOriginStatus.test.tsx](<../../../src/__tests__/dataOriginStatus.test.tsx>)
 - [src/__tests__/datasetInfo.test.tsx](<../../../src/__tests__/datasetInfo.test.tsx>)
 - [src/__tests__/datasetLibrary.test.tsx](<../../../src/__tests__/datasetLibrary.test.tsx>)
@@ -233,6 +234,7 @@ Covered source files (250):
 - [src/__tests__/qualityConsistency.test.ts](<../../../src/__tests__/qualityConsistency.test.ts>)
 - [src/__tests__/queryCatalogBuild.test.ts](<../../../src/__tests__/queryCatalogBuild.test.ts>)
 - [src/__tests__/queryCatalogIdentity.test.ts](<../../../src/__tests__/queryCatalogIdentity.test.ts>)
+- [src/__tests__/queryGeneration.test.ts](<../../../src/__tests__/queryGeneration.test.ts>)
 - [src/__tests__/queryIndex.test.ts](<../../../src/__tests__/queryIndex.test.ts>)
 - [src/__tests__/queryIndexCorpus.test.ts](<../../../src/__tests__/queryIndexCorpus.test.ts>)
 - [src/__tests__/queryWire.test.ts](<../../../src/__tests__/queryWire.test.ts>)
@@ -477,7 +479,7 @@ Start here:
 - [src/data/queryIndex.ts](<../../../src/data/queryIndex.ts>)
 - [data/intake/oxt-avp-2026-10-19/README.md](<../../../data/intake/oxt-avp-2026-10-19/README.md>)
 
-Covered source files (56):
+Covered source files (57):
 - [src/data/authorComparability.ts](<../../../src/data/authorComparability.ts>)
 - [src/data/authorConcordance.ts](<../../../src/data/authorConcordance.ts>)
 - [src/data/authorConcordanceR460.ts](<../../../src/data/authorConcordanceR460.ts>)
@@ -492,6 +494,7 @@ Covered source files (56):
 - [src/data/contrasts.ts](<../../../src/data/contrasts.ts>)
 - [src/data/crossDataset.ts](<../../../src/data/crossDataset.ts>)
 - [src/data/crossDatasetRows.ts](<../../../src/data/crossDatasetRows.ts>)
+- [src/data/dataOriginLayout.ts](<../../../src/data/dataOriginLayout.ts>)
 - [src/data/datasetCatalog.ts](<../../../src/data/datasetCatalog.ts>)
 - [src/data/datasetCategories.ts](<../../../src/data/datasetCategories.ts>)
 - [src/data/datasetFacets.ts](<../../../src/data/datasetFacets.ts>)
