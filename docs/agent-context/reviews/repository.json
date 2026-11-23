@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "c7ae089fa72b201a083564eb8d535c0f4e0c63abad75b87f2a47f270a3c9b3c6",
+  "fingerprint": "74e897b6b385b2b89a1e385efba1df277249920bbcc84508b594715904e4262a",
   "outcome": "updated",
-  "explanation": "Only docs/agent-context/workflows.md changed among repository sources: the search paragraph now says the hub vocabulary loads when a pointer first reaches the box or on first focus, that suggestions follow the partial stages, and that the results page waits for the full vocabulary. Build, delivery and data-origin configuration are unchanged.",
+  "explanation": "Merge of two documentation changes among repository sources. From main: docs/agent-context/workflows.md now says the hub vocabulary loads when a pointer first reaches the search box or on first focus, that suggestions follow the partial stages, and that the results page waits for the full vocabulary. From this branch: docs/runbooks/EDGE_PROTECTION.md notes that HEAD on the data host always reports cf-cache-status DYNAMIC and costs an R2 Class B read, and that cache checks must use GET. Build, delivery, rule payloads and data-origin configuration are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/search/searchVocabulary.ts",
-    "src/search/UnifiedSearchBox.tsx"
+    "docs/runbooks/EDGE_PROTECTION.md",
+    "AGENTS.md"
   ]
 }
