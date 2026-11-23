@@ -1,18 +1,16 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "92d78437b9750e49e4d60b8101dded7d05ba60ab6fdf7ad6985b5b8616695fc6",
+  "fingerprint": "7b71001951123ad0dc6a649323e687960ee5b1ebd6debcef82cf4f8ebd1c543d",
   "outcome": "updated",
-  "explanation": "Combined result of the bundle-reader adoption, the study-selection module and the HypoMap atlas client. Bundle reader: queryIndexCorpus.test.ts drives the query index's corpus read over a temp corpus with missing, malformed, wrong-shape, wrong-global and unregistered bundles; bundleReader.test.ts covers listDiskCorpus and jsonpHeader; seoPages.test.ts pins every study-page track label to readDatasetFromDisk; the private parseExpressionBundle test is removed with the parser; deployGuards fixtures use locator globals, and the reduced-release macaque check covers every track_<id>.js in the folder as well as the declared tracks. Study selection: studySelection.test.tsx tests the module at its interface, parameterized by report kind, importing the value and URL form from studySelectionLink.ts; lazyChunkBoundaries.test.ts fails if either evidence ledger is reachable from the entry graph; geneStudyScope.test.ts and the useCategoryScope tests are removed. HypoMap: hypomapAtlasClient.test.ts tests the atlas client through its in-memory transport and absorbs hypomapMetrics.test.ts, which is removed; hypomapFixture.ts builds the fixture export the preview, co-expression and csvDialog tests read.",
+  "explanation": "Combined result of the study publication record with main's bundle-reader adoption, study-selection module and HypoMap atlas client. Study record: studyRecord.test.ts pins the record at its interface (a PMID named only in the citation, the source record's only linked PMID, empty DOIs, DOI-only and case-insensitive DOI matches, https-only links, the default contrast and labels, per-track arm counts); seoPages.test.ts drops its identity cases and keeps layout, and keeps main's check that every study-page track label equals readDatasetFromDisk; seoStudyContent.test.ts passes a record instead of raw meta. From main: queryIndexCorpus.test.ts, the listDiskCorpus and jsonpHeader cases in bundleReader.test.ts, deployGuards locator fixtures, studySelection.test.tsx, lazyChunkBoundaries.test.ts, hypomapAtlasClient.test.ts and hypomapFixture.ts, with geneStudyScope.test.ts and hypomapMetrics.test.ts removed.",
   "references": [
+    "src/__tests__/studyRecord.test.ts",
+    "src/__tests__/seoPages.test.ts",
+    "scripts/lib/studyRecord.mts",
     "src/__tests__/queryIndexCorpus.test.ts",
     "src/__tests__/bundleReader.test.ts",
-    "src/__tests__/seoPages.test.ts",
-    "src/__tests__/deployGuards.test.ts",
-    "src/__tests__/expressionIndexBuild.test.ts",
     "src/__tests__/studySelection.test.tsx",
-    "src/__tests__/lazyChunkBoundaries.test.ts",
-    "src/__tests__/hypomapAtlasClient.test.ts",
-    "src/__tests__/hypomapFixture.ts"
+    "src/__tests__/hypomapAtlasClient.test.ts"
   ]
 }

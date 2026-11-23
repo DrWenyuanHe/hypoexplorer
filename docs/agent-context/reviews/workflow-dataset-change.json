@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "5de299a4635e3cc3849331d54c6004c4d34f9e59a5632ae29d739ab12cbf47ce",
+  "fingerprint": "aaa64202b32a046ce0bf36e7fc6bf994721588111a8fb042a128d0f36484cf10",
   "outcome": "updated",
-  "explanation": "Script reads of published bundles now go through scripts/lib/bundleReader.mts everywhere a dataset change is consumed: the query index, expression index, bundle optimizer, upload guards, deploy verifier and SEO study pages. The dataset-change route names listDiskCorpus as the one sweep of public/datasets and states that a directory the registry does not name is reported and never read; CONTEXT.md and the refactor checklist record the same rule. Review follow-up: the reduced-release macaque check covers every track_<id>.js in the folder as well as the declared tracks, so a missing meta.js or an undeclared file cannot pass unchecked (deployGuards.test.ts).",
+  "explanation": "From main: script reads of published bundles go through scripts/lib/bundleReader.mts for the query index, expression index, bundle optimizer, upload guards, deploy verifier and SEO study pages, and listDiskCorpus is the one sweep of public/datasets (workflows.md, CONTEXT.md, refactor checklist). From this change: study pages and the agent export read publication identity and per-track counts through scripts/lib/studyRecord.mts, whose meta input on the study pages now comes from the bundle reader. Adding a dataset still needs only its registry entry, bundles and optional studySources.json snapshot.",
   "references": [
     "docs/agent-context/workflows.md",
     "scripts/lib/bundleReader.mts",
     "scripts/lib/queryIndexCorpus.mts",
-    "CONTEXT.md",
-    "docs/runbooks/REFACTOR_CHECKLIST.md"
+    "scripts/lib/studyRecord.mts",
+    "docs/runbooks/SEO.md"
   ]
 }
