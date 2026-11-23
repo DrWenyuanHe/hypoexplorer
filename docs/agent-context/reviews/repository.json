@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "8c29d0add0563a75c684e7875a8f31e9c8750c5c58d1557acc01e6f374ca11d3",
+  "fingerprint": "51ea99f93b9b73814d7dd94613df0239faed83d1550256868432edc26870d2f8",
   "outcome": "updated",
-  "explanation": "CONTEXT.md adds the Study-selection module entry, naming studySelectionLink.ts as the router-facing value and URL form kept off the evidence ledgers, and updates the forest-primitive and App router entries (no useCategoryScope, no reportScope). The refactor checklist points cross-dataset study selection at studySelection.ts, studySelectionLink.ts and StudySelectionPanel and drops the useCategoryScope line.",
+  "explanation": "CONTEXT.md adds the Study-selection module entry, naming studySelectionLink.ts as the router-facing value and URL form kept off the evidence ledgers, and updates the forest-primitive and App router entries (no useCategoryScope, no reportScope). The refactor checklist points cross-dataset study selection at studySelection.ts, studySelectionLink.ts and StudySelectionPanel and drops the useCategoryScope line. knip.json drops its ignoreDependencies entry for @typescript/typescript6, which knip now sees used by lazyChunkBoundaries.test.ts; PROJECT_GUIDANCE's knip paragraph does not mention that entry and needs no change.",
   "references": [
     "CONTEXT.md",
     "docs/runbooks/REFACTOR_CHECKLIST.md",
-    "src/crossdataset/studySelection.ts",
+    "knip.json",
+    "docs/PROJECT_GUIDANCE.md",
     "src/crossdataset/studySelectionLink.ts"
   ]
 }

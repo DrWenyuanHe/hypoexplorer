@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { readdirSync, readFileSync, statSync } from 'node:fs';
-import { join, relative } from 'node:path';
+import { join, relative, resolve } from 'node:path';
+import ts from '@typescript/typescript6';
 
 // Guards the code-splitting boundaries that keep the landing hub small.
 //
@@ -59,39 +60,66 @@ function staticImportersOf(spec: RegExp): string[] {
     .map((f) => relative(process.cwd(), f).replace(/\\/g, '/'));
 }
 
+/** A module specifier the bundler loads as an asset, not as a module to walk. */
+const ASSET_SPECIFIER = /\.(css|svg|png|jpe?g|webp|woff2?)$|\?/;
+
 /**
- * Every file the entry module reaches through static, value-carrying imports
- * and re-exports (the eager graph), mapped to the file that first imported it.
- * Dynamic `import()` is the split point, so it is never followed; `import type`
- * and imports whose every specifier is `type` are erased, so they are skipped.
+ * The value-carrying module specifiers of one file, read from its syntax tree:
+ * static imports, side-effect imports and re-exports. `import type`, `export
+ * type`, and declarations whose every named binding is `type` are erased by
+ * the compiler, so they are left out; dynamic `import()` is an expression, not
+ * a declaration, so it never appears (it is the split point).
  */
-function eagerGraph(entry: string): Map<string, string | null> {
-  const resolveSpec = (from: string, spec: string): string | null => {
-    const base = join(from, '..', spec);
-    for (const ext of ['', '.ts', '.tsx', '/index.ts', '/index.tsx']) {
-      try { if (statSync(base + ext).isFile()) return base + ext; } catch { /* next candidate */ }
+function runtimeSpecifiers(file: string): string[] {
+  const source = ts.createSourceFile(file, readFileSync(file, 'utf8'), ts.ScriptTarget.Latest, false,
+    file.endsWith('.tsx') ? ts.ScriptKind.TSX : ts.ScriptKind.TS);
+  const specs: string[] = [];
+  for (const statement of source.statements) {
+    if (ts.isImportDeclaration(statement)) {
+      const clause = statement.importClause;
+      if (clause?.isTypeOnly) continue;
+      const bindings = clause?.namedBindings;
+      if (clause && !clause.name && bindings && ts.isNamedImports(bindings)
+        && bindings.elements.length > 0 && bindings.elements.every((element) => element.isTypeOnly)) continue;
+      if (ts.isStringLiteral(statement.moduleSpecifier)) specs.push(statement.moduleSpecifier.text);
+    } else if (ts.isExportDeclaration(statement) && statement.moduleSpecifier) {
+      if (statement.isTypeOnly) continue;
+      const clause = statement.exportClause;
+      if (clause && ts.isNamedExports(clause)
+        && clause.elements.length > 0 && clause.elements.every((element) => element.isTypeOnly)) continue;
+      if (ts.isStringLiteral(statement.moduleSpecifier)) specs.push(statement.moduleSpecifier.text);
     }
-    return null;
+  }
+  return specs;
+}
+
+/**
+ * Every file the entry module reaches through runtime imports (the eager
+ * graph), mapped to the file that first imported it. Specifiers resolve the
+ * way the compiler and Vite do (`moduleResolution: bundler`, so `./x.js` finds
+ * `x.ts`, and JSON resolves). A relative runtime import that does not resolve
+ * is reported rather than skipped, so a resolver gap cannot hide an edge.
+ */
+function eagerGraph(entry: string): { graph: Map<string, string | null>; unresolved: string[] } {
+  const options: ts.CompilerOptions = {
+    module: ts.ModuleKind.ESNext, moduleResolution: ts.ModuleResolutionKind.Bundler,
+    resolveJsonModule: true, allowImportingTsExtensions: true, jsx: ts.JsxEmit.ReactJSX,
   };
-  const seen = new Map<string, string | null>([[entry, null]]);
+  const graph = new Map<string, string | null>([[entry, null]]);
+  const unresolved: string[] = [];
   const queue = [entry];
-  const re = /^\s*(import|export)\s+(?!\()(type\s)?([^;]*?)\s*from\s+['"](\.[^'"]+)['"]|^\s*import\s+['"](\.[^'"]+)['"]/gm;
   while (queue.length) {
     const file = queue.shift()!;
     if (!/\.tsx?$/.test(file)) continue;
-    const src = readFileSync(file, 'utf8');
-    for (let m = re.exec(src); m !== null; m = re.exec(src)) {
-      if (m[2]) continue;
-      const names = m[3] ?? '';
-      if (/^\{[^}]*\}$/.test(names.trim())
-        && names.replace(/[{}]/g, '').split(',').map((s) => s.trim()).filter(Boolean).every((s) => s.startsWith('type '))) continue;
-      const spec = m[4] ?? m[5];
-      if (spec.endsWith('.css')) continue;
-      const target = resolveSpec(file, spec);
-      if (target && !seen.has(target)) { seen.set(target, file); queue.push(target); }
+    for (const spec of runtimeSpecifiers(file)) {
+      if (!spec.startsWith('.') || ASSET_SPECIFIER.test(spec)) continue;
+      const found = ts.resolveModuleName(spec, file, options, ts.sys).resolvedModule?.resolvedFileName;
+      if (!found) { unresolved.push(`${relative(process.cwd(), file)}: ${spec}`); continue; }
+      const target = resolve(found);
+      if (!graph.has(target)) { graph.set(target, file); queue.push(target); }
     }
   }
-  return seen;
+  return { graph, unresolved };
 }
 
 describe('lazy chunk boundaries', () => {
@@ -101,7 +129,8 @@ describe('lazy chunk boundaries', () => {
     // sits in the entry graph, so it holds study selection's value and URL form
     // (crossdataset/studySelectionLink.ts) and must not reach the derivation
     // hook, whose catalog and quality imports pull in both ledgers.
-    const graph = eagerGraph(join(SRC, 'main.tsx'));
+    const { graph, unresolved } = eagerGraph(join(SRC, 'main.tsx'));
+    expect(unresolved).toEqual([]);
     const chain = (file: string) => {
       const steps: string[] = [];
       for (let at: string | null | undefined = file; at; at = graph.get(at)) steps.unshift(relative(process.cwd(), at).replace(/\\/g, '/'));
