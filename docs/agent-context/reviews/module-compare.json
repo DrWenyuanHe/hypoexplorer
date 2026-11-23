@@ -1,13 +1,15 @@
 {
   "version": 1,
   "area": "module-compare",
-  "fingerprint": "0c7d6d59fefb45a05354b5507716ffe06560794ad76d1941fc40cbfb5eb1c755",
+  "fingerprint": "79179874d6df074ded279a369157bb173412046f7b329bb396d09db953dc856b",
   "outcome": "updated",
-  "explanation": "CompareTab, ComparePathwayView and the chart tiles in CompareGenesView run their workbook, CSV, ZIP and SVG exports inside withExportEvidence. chartTileExport returns its provenance as a getter, because tiles describe themselves on every render and the snapshot now needs the ledger that loads on the first export.",
+  "explanation": "Adds compareCell.ts: compareCell(column, popDataMap, gene) returns unavailable, not-detected or measured (own spelling, DE record, per-arm samples with n, mean and SEM via getGroupColumns + valueAt). tallyGene now takes cells; compareSummaryRows, compareSummaryLongRows and compareValueRows, the CompareGenesView tiles and both summary tables, the Compare tab chart ZIP and the pathway view's leading-edge table and export all read cells. compareSummaryRows skips unavailable columns, takes the compare-set tally as an option, and leaves group means blank when a column has no DE row for the gene. A measured cell resolves its arms lazily on first read and keeps them, so DE-only readers (summary tables, tally, pathway view) never walk the sample axis.",
   "references": [
-    "src/compare/CompareTab.tsx",
-    "src/compare/compareFigureExport.ts",
+    "src/compare/compareCell.ts",
+    "src/compare/compareSummary.ts",
     "src/compare/CompareGenesView.tsx",
-    "src/compare/ComparePathwayView.tsx"
+    "src/compare/ComparePathwayView.tsx",
+    "src/compare/CompareTab.tsx",
+    "CONTEXT.md"
   ]
 }

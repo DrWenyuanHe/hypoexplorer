@@ -7,6 +7,14 @@ export interface ChangelogEntry {
 export const CHANGELOG: ChangelogEntry[] = [
   {
     date: '2026-11-22',
+    title: 'Blank compare-set means for genes a study did not test',
+    items: [
+      'In the compare-set Excel download, a study with no result for a gene now has blank group means, like its blank logFC and P, the Compare tab download and the "No detected expression" chart. Before, the means could be filled from that study\'s expression values.',
+      'No other value on screen or in a download changed.',
+    ],
+  },
+  {
+    date: '2026-11-22',
     title: 'Study pages and the data download name the same paper',
     items: [
       'The study pages, the citation guide and the agent-ready data download now use one rule to decide which paper describes a dataset. Four studies had a paper on their study page but none in the download: GSE235792, GSE212491, GSE174753 and GSE330152. The download now lists their paper too.',
