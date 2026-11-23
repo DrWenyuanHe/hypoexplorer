@@ -1,14 +1,18 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "5af83a712d62b8a06f3d0d3967d0a7a120dd4dc871a3f3e16ac25d81cb5d9231",
+  "fingerprint": "92d78437b9750e49e4d60b8101dded7d05ba60ab6fdf7ad6985b5b8616695fc6",
   "outcome": "updated",
-  "explanation": "Bundle-reader adoption: queryIndexCorpus.test.ts drives the query index's corpus read over a temp corpus with missing, malformed, wrong-shape, wrong-global and unregistered bundles; bundleReader.test.ts covers listDiskCorpus and jsonpHeader; seoPages.test.ts pins every study-page track label to readDatasetFromDisk. The private parseExpressionBundle test is removed with the parser, and deployGuards fixtures now use locator globals. Review follow-up: the reduced-release macaque check covers every track_<id>.js in the folder as well as the declared tracks, so a missing meta.js or an undeclared file cannot pass unchecked (deployGuards.test.ts).",
+  "explanation": "Combined result of the bundle-reader adoption, the study-selection module and the HypoMap atlas client. Bundle reader: queryIndexCorpus.test.ts drives the query index's corpus read over a temp corpus with missing, malformed, wrong-shape, wrong-global and unregistered bundles; bundleReader.test.ts covers listDiskCorpus and jsonpHeader; seoPages.test.ts pins every study-page track label to readDatasetFromDisk; the private parseExpressionBundle test is removed with the parser; deployGuards fixtures use locator globals, and the reduced-release macaque check covers every track_<id>.js in the folder as well as the declared tracks. Study selection: studySelection.test.tsx tests the module at its interface, parameterized by report kind, importing the value and URL form from studySelectionLink.ts; lazyChunkBoundaries.test.ts fails if either evidence ledger is reachable from the entry graph; geneStudyScope.test.ts and the useCategoryScope tests are removed. HypoMap: hypomapAtlasClient.test.ts tests the atlas client through its in-memory transport and absorbs hypomapMetrics.test.ts, which is removed; hypomapFixture.ts builds the fixture export the preview, co-expression and csvDialog tests read.",
   "references": [
     "src/__tests__/queryIndexCorpus.test.ts",
     "src/__tests__/bundleReader.test.ts",
     "src/__tests__/seoPages.test.ts",
     "src/__tests__/deployGuards.test.ts",
-    "src/__tests__/expressionIndexBuild.test.ts"
+    "src/__tests__/expressionIndexBuild.test.ts",
+    "src/__tests__/studySelection.test.tsx",
+    "src/__tests__/lazyChunkBoundaries.test.ts",
+    "src/__tests__/hypomapAtlasClient.test.ts",
+    "src/__tests__/hypomapFixture.ts"
   ]
 }

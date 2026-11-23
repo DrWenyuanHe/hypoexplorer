@@ -1,13 +1,16 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "9a8a25038ea3ba722fec5fc51d2996140f5317b04a652b5311a129d73cf9a909",
+  "fingerprint": "2892f5f280593017b04abca0ab6434a3da389fceb75435203d72bfe674557909",
   "outcome": "updated",
-  "explanation": "CONTEXT.md extends the bundle-reader seam entry (listDiskCorpus, jsonpHeader, the new adopters and the SEO pages on readDatasetFromDisk) and adds the query-index corpus read module. The refactor checklist gains the rule that scripts read bundles only through the reader, and the SEO runbook says study-page labels come from it. Review follow-up: the reduced-release macaque check covers every track_<id>.js in the folder as well as the declared tracks, so a missing meta.js or an undeclared file cannot pass unchecked (deployGuards.test.ts).",
+  "explanation": "CONTEXT.md carries the bundle-reader seam extension (listDiskCorpus, jsonpHeader, the new adopters and the SEO pages on readDatasetFromDisk) and the query-index corpus read module alongside the Study-selection module and HypoMap atlas client entries from main. The refactor checklist keeps both rules: scripts read bundles only through scripts/lib/bundleReader.mts, and cross-dataset study selection goes through studySelection.ts, studySelectionLink.ts and StudySelectionPanel. The SEO runbook says study-page labels come from the reader. knip.json drops its ignoreDependencies entry for @typescript/typescript6; PROJECT_GUIDANCE needs no change.",
   "references": [
     "CONTEXT.md",
     "docs/runbooks/REFACTOR_CHECKLIST.md",
     "docs/runbooks/SEO.md",
-    "scripts/lib/bundleReader.mts"
+    "knip.json",
+    "scripts/lib/bundleReader.mts",
+    "src/crossdataset/studySelectionLink.ts",
+    "src/search/hypomap/atlas.ts"
   ]
 }

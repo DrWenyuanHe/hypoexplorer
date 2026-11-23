@@ -5,6 +5,7 @@ import { getActiveContrast } from '../data/contrasts';
 import { geneRow, type GeneRowInput } from '../data/crossDatasetRows';
 import { _resetCompareSetStore, getSnapshot } from '../compareset/compareSetStore';
 import { CompareSetButton } from '../compareset/CompareSetButton';
+import { DEFAULT_STUDY_SELECTION } from '../crossdataset/studySelectionLink';
 import { _resetBundleCache, _setBundleTransport } from '../data/bundleSource';
 import { _resetTrackCache } from '../data/loadTrack';
 import type { BaselineTeaser } from '../search/searchSummaries';
@@ -136,7 +137,7 @@ type ReportProps = Partial<Parameters<typeof GeneReport>[0]>;
 
 function renderReport(onOpenDataset?: (datasetId: string, trackId?: string) => void, onCompare = vi.fn(), props: ReportProps = {}) {
   return render(
-    <GeneReport gene="POMC" scope={null} onHome={() => {}} onSearchGene={() => {}} onOpenDataset={onOpenDataset}
+    <GeneReport gene="POMC" selection={DEFAULT_STUDY_SELECTION} onSelectionChange={() => {}} onHome={() => {}} onSearchGene={() => {}} onOpenDataset={onOpenDataset}
       headerRight={<CompareSetButton onCompare={onCompare} />} {...props} />,
   );
 }
@@ -562,7 +563,7 @@ describe('GeneReport — differential expression table', () => {
   });
 
   it('narrows the table to the active categories', async () => {
-    renderReport(undefined, vi.fn(), { scope: ['Primate atlas'] });
+    renderReport(undefined, vi.fn(), { selection: { ...DEFAULT_STUDY_SELECTION, categories: ['Primate atlas'] } });
     const card = await findDeCard();
     expect(card.querySelector('.portal-verdict')).toHaveTextContent('Significant in 1 of 1 datasets, across 1 research area');
     expect(deTables(card).map((t) => t.dataset.area)).toEqual(['Primate atlas']);
@@ -572,7 +573,7 @@ describe('GeneReport — differential expression table', () => {
   // The empty states render inside the section, below its study filters, so the
   // control that fixes the selection sits right above the message.
   it('shows the empty state inside the section when no dataset is selected', async () => {
-    renderReport(undefined, vi.fn(), { datasetScope: [] });
+    renderReport(undefined, vi.fn(), { selection: { ...DEFAULT_STUDY_SELECTION, datasetIds: [] } });
     const empty = await screen.findByText('No datasets selected.');
     const section = deSection() as HTMLElement;
     expect(section.contains(empty)).toBe(true);
@@ -604,7 +605,7 @@ describe('GeneReport — differential expression table', () => {
   });
 
   it('shows the empty state when the selection leaves no result groups', async () => {
-    renderReport(undefined, vi.fn(), { scope: ['Aging'] });
+    renderReport(undefined, vi.fn(), { selection: { ...DEFAULT_STUDY_SELECTION, categories: ['Aging'] } });
     const empty = await screen.findByText('No results for this selection.');
     const section = deSection() as HTMLElement;
     expect(section.contains(empty)).toBe(true);

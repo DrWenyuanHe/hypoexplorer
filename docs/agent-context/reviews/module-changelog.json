@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-changelog",
-  "fingerprint": "6e84a2834a25f7192d142d852b584bf88721dda22c6165763023cb8c8ca61669",
+  "fingerprint": "00ec4d34ac04a6642fe78e82497c7924dd68ca718d55025d20de43c424299476",
   "outcome": "updated",
-  "explanation": "Adds the 2026-11-22 \"Study pages use the reviewed track label\" entry: the static GSE174085 study page now shows \"PVN CRH neurons (litter pseudobulk)\" as the explorer does, instead of the source file's \"animal pseudobulk\". It states that no data, result or analysis changed.",
+  "explanation": "Two 2026-11-22 entries. \"Study pages use the reviewed track label\": the static GSE174085 study page now shows \"PVN CRH neurons (litter pseudobulk)\" as the explorer does, instead of the source file's \"animal pseudobulk\". \"Study filters on the gene page update in place\": a category change no longer reloads the gene page, both reports use the same Study filters controls while each keeps its own selection, and a landed shared link keeps its settings order in the address bar. Each states that no data, result or analysis changed.",
   "references": [
     "src/changelog/changelog.ts",
-    "src/data/reviewedTrackLabels.ts"
+    "src/data/reviewedTrackLabels.ts",
+    "src/crossdataset/studySelection.ts"
   ]
 }

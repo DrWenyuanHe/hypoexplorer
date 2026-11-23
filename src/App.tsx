@@ -8,7 +8,6 @@ import { useOriginDiagnosis } from './data/useOriginDiagnosis';
 import { CLOUDFLARE_STATUS_URL, explainOrigin, shouldLinkStatusPage } from './data/originHealth';
 import { useAppRouter } from './appRouter';
 import { getDefaultDataset, getDataset, listDatasets } from './data/datasets';
-import type { DatasetCategory } from './data/datasets';
 import { nomenclatureAuthorityForStoredDatasetSymbols } from './data/nomenclature';
 import { contrastArmCounts, getActiveContrast, listContrasts } from './data/contrasts';
 import { getCellSubname } from './utils/format';
@@ -30,8 +29,6 @@ import { useExplorerSession } from './explorer/explorerSession';
 import { preloadBarSEMChart } from './gene-explorer/BarSEMChart';
 import { ArmPills, ArmVariesBadge, factsFromMeta } from './common/StudyMetadata';
 import { datasetExternalLinks } from './utils/datasetLinks';
-import type { GeneStudyFilters } from './crossdataset/geneStudyScope';
-import { useCategoryScope } from './crossdataset/forestReport';
 import { useChartScale, setChartScale } from './common/chartScaleStore';
 import { ShareAnalysisButton } from './common/ShareAnalysisButton';
 import { CompareSetButton } from './compareset/CompareSetButton';
@@ -249,14 +246,14 @@ function AppViews({ initialView = 'hub' }: AppProps) {
   );
 
   const {
-    view, routeError, reportGene, reportScope, reportPathway, trackerSelectedAcc,
+    view, routeError, reportGene, reportPathway, trackerSelectedAcc,
     goHome, enterTool, enterExplorer,
     searchGene: searchGeneFromHub,
     searchPathway: searchPathwayFromHub,
     openTracker, openInExplorer, openMethodology, openVerification, openNomenclature, openExpression,
     openLibrary, setLibraryDataset, setLibraryCategories, libraryDatasetId, libraryCategories,
     compareSetItems, openCompareSet, setCompareSetItems,
-    geneAnalysis, pathwayAnalysis, setGeneAnalysis, setPathwayAnalysis, setReportScope,
+    geneStudySelection, pathwayStudySelection, setGeneStudySelection, setPathwayStudySelection,
     searchQuery, searchFilter, search, setSearchFilter,
   } = useAppRouter(initialView, explorerNav, explorerAt);
 
@@ -282,33 +279,6 @@ function AppViews({ initialView = 'hub' }: AppProps) {
 
   // The hub's search box submits to the unified results page.
   const searchFromHub = useCallback((query: string) => search(query), [search]);
-
-  // Which studies the cross-dataset explorers are scoped to; null = all.
-  //
-  // The router owns these above the term-keyed report ErrorBoundaries, so they
-  // survive searches and restore from copied analysis URLs. Keep independent
-  // gene/pathway selections; these adapters expose the existing view contracts.
-  const geneDatasetScope = geneAnalysis.datasetIds;
-  const geneStudyFilters = geneAnalysis.filters;
-  const pathwayDatasetScope = pathwayAnalysis.datasetIds;
-  const pathwayStudyFilters = pathwayAnalysis.filters;
-  const setGeneDatasetScope = useCallback<React.Dispatch<React.SetStateAction<string[] | null>>>((action) => {
-    setGeneAnalysis((state) => ({ ...state, datasetIds: typeof action === 'function' ? action(state.datasetIds) : action }));
-  }, [setGeneAnalysis]);
-  const setPathwayDatasetScope = useCallback<React.Dispatch<React.SetStateAction<string[] | null>>>((action) => {
-    setPathwayAnalysis((state) => ({ ...state, datasetIds: typeof action === 'function' ? action(state.datasetIds) : action }));
-  }, [setPathwayAnalysis]);
-  const setGeneStudyFilters = useCallback((filters: GeneStudyFilters) => {
-    setGeneAnalysis((state) => ({ ...state, filters }));
-  }, [setGeneAnalysis]);
-  const setPathwayStudyFilters = useCallback((filters: GeneStudyFilters) => {
-    setPathwayAnalysis((state) => ({ ...state, filters }));
-  }, [setPathwayAnalysis]);
-  const setPathwayCategories = useCallback((categories: DatasetCategory[] | null) => {
-    setPathwayAnalysis((state) => ({ ...state, categories }));
-  }, [setPathwayAnalysis]);
-  // Preserve category selection through the same term-keyed remount and retries.
-  const pathwayCategoryScope = useCategoryScope<DatasetCategory>(pathwayAnalysis.categories, setPathwayCategories);
 
   // Load the active track whenever the explorer is on screen.
   //
@@ -390,15 +360,15 @@ function AppViews({ initialView = 'hub' }: AppProps) {
 
   // Cross-dataset gene report (#/gene/<symbol>), opened from search results.
   const geneReport = (gene: string) => (
-    <ErrorBoundary key={`report-${gene}-${(reportScope ?? []).join(',')}`}>
+    // Keyed on the term alone, as the pathway report is: a study-selection
+    // change re-queries in place and keeps the report's own state (the typed
+    // search text, the open Study filters, the loaded expression cards); a new
+    // gene starts a fresh report.
+    <ErrorBoundary key={`report-${gene}`}>
       <GeneReport
         gene={gene}
-        scope={reportScope}
-        onScopeChange={setReportScope}
-        datasetScope={geneDatasetScope}
-        onDatasetScopeChange={setGeneDatasetScope}
-        studyFilters={geneStudyFilters}
-        onStudyFiltersChange={setGeneStudyFilters}
+        selection={geneStudySelection}
+        onSelectionChange={setGeneStudySelection}
         onHome={goHome}
         onSearchGene={searchGeneFromHub}
         onOpenDataset={openInExplorer}
@@ -413,11 +383,8 @@ function AppViews({ initialView = 'hub' }: AppProps) {
     <ErrorBoundary key={`pathway-${pathway}`}>
       <PathwayReport
         pathway={pathway}
-        categoryScope={pathwayCategoryScope}
-        datasetScope={pathwayDatasetScope}
-        onDatasetScopeChange={setPathwayDatasetScope}
-        studyFilters={pathwayStudyFilters}
-        onStudyFiltersChange={setPathwayStudyFilters}
+        selection={pathwayStudySelection}
+        onSelectionChange={setPathwayStudySelection}
         onHome={goHome}
         onSearchPathway={searchPathwayFromHub}
         headerRight={<><ShareAnalysisButton /><CompareSetButton onCompare={openCompareSet} onOpenLibrary={openLibraryPlain} /></>}
