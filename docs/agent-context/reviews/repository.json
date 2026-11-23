@@ -1,15 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "7e07ab0bbd32b1f2c54f95b0919224fa982b7bdd995b533f4b604efeb81d62b5",
-  "outcome": "updated",
-  "explanation": "CONTEXT.md keeps both sides: the Data-origin layout entry with the query-generation reader from this change, and main's Compare cell, extended bundle-reader seam, query-index corpus read and Study publication record entries. vite.config.ts reads the pointer keys, pointer lifetime and the self-contained service-worker pointer matcher from the layout, with the emitted route and stamps unchanged; releaseBuild.mts allow-lists hypomap-release.json as release source. The SEO runbook, refactor checklist and knip.json changes come from main unchanged.",
+  "fingerprint": "a27b261979c73390115f11e2e54821505f1c2c94792413b31d6b7f694addac4d",
+  "outcome": "no-impact",
+  "explanation": "Only docs/runbooks/EDGE_PROTECTION.md changed. It now says that HEAD on the data host always reports cf-cache-status DYNAMIC and reaches R2 as a Class B HeadObject, and that the cache must be checked with GET (cf-cache-status and Age). No code, rule payload, layout, directory or startup-map fact changed, so AGENTS.md, CONTEXT.md and the generated maps stay as they are.",
   "references": [
-    "CONTEXT.md",
-    "vite.config.ts",
-    "src/data/dataOriginLayout.ts",
-    "scripts/lib/releaseBuild.mts",
-    "scripts/lib/studyRecord.mts",
-    "src/compare/compareCell.ts"
+    "docs/runbooks/EDGE_PROTECTION.md",
+    "AGENTS.md",
+    "CONTEXT.md"
   ]
 }
