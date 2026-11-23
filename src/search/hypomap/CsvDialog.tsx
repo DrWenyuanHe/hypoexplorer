@@ -1,15 +1,18 @@
 import { useEffect, useRef } from 'react';
 import { writeCsv } from '../../utils/csv';
-import { exportFilename } from '../../utils/exportAction';
+import { atlasExportProvenance, exportName } from '../../utils/exportProvenance';
+import type { AtlasTable } from './atlas';
 
 export type Csv = { title: string; headers: string[]; rows: (string | number | null)[][] };
 
-export function CsvDialog({ csv, onClose }: { csv: Csv; onClose: () => void }) {
+export function CsvDialog({ table, onClose }: { table: AtlasTable; onClose: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => { dialog.current?.showModal(); }, []);
-  // The bytes, the filename sanitizer and the hand-off belong to the CSV and
-  // export-action seams.
-  const download = () => writeCsv(exportFilename([csv.title], 'csv'), csv.headers, csv.rows);
+  const { csv } = table;
+  // The preview shows the table alone. The download is named and stamped with the atlas
+  // release by the export-provenance seam and written by the CSV seam.
+  const download = () => writeCsv(exportName(table.subject, [csv.title], 'csv'), csv.headers, csv.rows,
+    { provenance: atlasExportProvenance(table.kind, table.subject, table.settings) });
   return (
     <dialog ref={dialog} className="hm-dialog" onClose={onClose} aria-labelledby="hm-csv-title">
       <h3 id="hm-csv-title">{csv.title}</h3>
