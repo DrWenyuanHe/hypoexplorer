@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "a58d07986546cee68d9364887f0041344dd9a46c5fa99ad9da9c85f1256dc6ab",
+  "fingerprint": "e9881092610950102e6fd560c5551e4b9c4ef07d3f38867cce52159c59bfe17e",
   "outcome": "updated",
-  "explanation": "datasets.ts corrects text for four studies against their GEO records and papers: GSE248462 time-series design (hepatocyte Nr1d1/Nr1d2, three pools per arm and timepoint), GSE160802 citation (lean mice, IP118 and PY115 coadministered), GSE246918 name and citation (hypothalamus) and GSE162563 name, citation and baseline label (GnRH-depleted supernatant, mixed control group). reviewedTrackLabels.ts becomes a per-dataset table that also corrects the GSE246918 and GSE162563 track labels at display time, and loadDatasetMeta.ts asks that table which datasets need it instead of naming one id; ids, region, preparation, contrasts and bundle bytes are unchanged.",
+  "explanation": "datasets.ts corrects four studies against their GEO records and papers: GSE248462 time-series design (hepatocyte Nr1d1/Nr1d2, three pools per arm and timepoint), GSE160802 citation (lean mice, IP118 and PY115 coadministered), GSE246918 name, citation and region (Whole hypothalamus) and GSE162563 name, citation, baseline label, modality and preparation (GnRH-depleted supernatant, Bulk tissue). reviewedTrackLabels.ts becomes a per-dataset table that corrects the GSE246918 and GSE162563 track labels at display time, and loadDatasetMeta.ts asks that table which datasets need it. Ids, contrasts and bundle bytes are unchanged.",
   "references": [
     "src/data/datasets.ts",
     "src/data/reviewedTrackLabels.ts",

@@ -1,14 +1,11 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "9330e8e41ccc7998aa1176c499d689d270b5841b9865627c53fa26045652d414",
-  "outcome": "updated",
-  "explanation": "Merge of two UI changes. From main: the unified search box shows suggestions from partial vocabulary stages and warms the load on pointer enter. From this branch: the beta banner and beta wording are removed from every app header and static page, shared header styles move to src/common/siteChrome.css, and the landing and static footers link the source and data repositories on GitHub.",
+  "fingerprint": "be562ba0d6eff1f8679dada83daf9f594342a89f6c608074130d7b53cb7980bc",
+  "outcome": "no-impact",
+  "explanation": "The survey catalog regroups one existing source and the registry changes two facet values that the Library filters already offer; navigation, views, filters and export formats are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/search/UnifiedSearchBox.tsx",
-    "src/common/siteChrome.css",
-    "src/hub/LandingHub.tsx",
-    "scripts/lib/seoPages.mts"
+    "src/expression-survey/existingCatalog.ts"
   ]
 }

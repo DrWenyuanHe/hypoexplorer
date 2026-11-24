@@ -5,7 +5,7 @@ const REVIEWED: Record<string, { trackId: string; from: string; to: string }> = 
   // GSE174085 Supplementary Table S1.
   mouse_pvn_crh_ela_gse174085: { trackId: 'crh_pvn', from: 'PVN CRH neurons (animal pseudobulk)', to: 'PVN CRH neurons (litter pseudobulk)' },
   // All six GEO samples and the paper (PMID 39436109, section 2.4.1) describe hypothalami.
-  mouse_arc_kcnb1_gse246918: { trackId: 'arcuate', from: 'Arcuate nucleus (ARC)', to: 'Hypothalamus' },
+  mouse_arc_kcnb1_gse246918: { trackId: 'arcuate', from: 'Arcuate nucleus (ARC)', to: 'Whole hypothalamus' },
   // GEO 'rna fraction: GnRH Depleted Supernatant' for all 11 libraries (PMID 33095238).
   mouse_gnrh_androgen_gse162563: { trackId: 'poa', from: 'GnRH / preoptic area (TRAP)', to: 'Preoptic area (GnRH-depleted TRAP supernatant)' },
 };

@@ -149,7 +149,7 @@ const MANIFEST: ManifestEntry[] = [
     color: '#FABFD2', armKeys: ['control', 'case'] as const, },
   // ── Batch-5: GEO-fetched + edgeR-QL processed this session (stress, antipsychotic/MC4R, dopamine-POMC, androgenization, hibernation, FGF1, diabetes, cachexia) ──
   { geoId: 'GSE246918', websiteId: 'mouse_arc_kcnb1_gse246918',
-    trackId: 'arcuate', trackLabel: 'Hypothalamus',
+    trackId: 'arcuate', trackLabel: 'Whole hypothalamus',
     color: '#4E79A7', armKeys: ['control', 'case'] as const, },
   { geoId: 'GSE158751', websiteId: 'mouse_hypo_risperidone_gse158751',
     trackId: 'hypothalamus', trackLabel: 'Whole hypothalamus',

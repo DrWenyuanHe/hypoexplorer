@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "5cb32e7671b087d302f07bce81d36e88880a610d5d4c80e84f757ed94e3aac40",
+  "fingerprint": "62dcd35f2ec7fe9880344ab6bd5d7b412438cb984340d66f9b5a3879cbc4e7a5",
   "outcome": "updated",
-  "explanation": "The registry snapshot changes only for the seven corrected registry strings of GSE248462, GSE160802, GSE246918 and GSE162563. reviewedTrackLabels.test.ts checks the two added display labels and that the source metadata and other studies keep their own label. bundleReaderParity.test.ts checks the two labels in the browser loader against the unchanged meta.js text.",
+  "explanation": "The registry snapshot changes only for the corrected strings of GSE248462, GSE160802, GSE246918 and GSE162563, including the region, modality and preparation values. reviewedTrackLabels.test.ts and bundleReaderParity.test.ts check the two added display labels, and expressionSurvey.test.ts checks that the GSE162563 supernatant is a tissue source and not a population.",
   "references": [
     "src/__tests__/__snapshots__/datasetsRegistry.test.ts.snap",
     "src/__tests__/reviewedTrackLabels.test.ts",
-    "src/__tests__/bundleReaderParity.test.ts"
+    "src/__tests__/bundleReaderParity.test.ts",
+    "src/__tests__/expressionSurvey.test.ts"
   ]
 }

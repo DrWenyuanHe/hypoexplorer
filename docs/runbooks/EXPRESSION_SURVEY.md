@@ -173,6 +173,8 @@ The Henry GSE68177 sources are labeled manual fluorescent neuron sorting, correc
 the expression view's description without changing historical DE evidence records.
 The GSE65663 SON source retains deposited median-baselined log2 RMA values from
 five independent five-rat RNA pools per arm; it represents bulk tissue.
+The GSE162563 POA source is the GnRH-depleted supernatant of a TRAP pull-down, so it is
+cataloged as tissue, never as a GnRH-neuron population.
 
 ## Data delivery and validation
 

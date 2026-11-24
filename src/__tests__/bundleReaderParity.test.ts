@@ -43,7 +43,7 @@ describe('Node reader ↔ browser loader label parity', () => {
   });
 
   it.each([
-    ['mouse_arc_kcnb1_gse246918', 'arcuate', 'Arcuate nucleus (ARC)', 'Hypothalamus'],
+    ['mouse_arc_kcnb1_gse246918', 'arcuate', 'Arcuate nucleus (ARC)', 'Whole hypothalamus'],
     ['mouse_gnrh_androgen_gse162563', 'poa', 'GnRH / preoptic area (TRAP)', 'Preoptic area (GnRH-depleted TRAP supernatant)'],
   ])('applies the reviewed label of %s in the browser loader', async (id, track, source, corrected) => {
     expect(readFileSync(datasetBundlePaths(getDataset(id)!).meta.file, 'utf8')).toContain(source);

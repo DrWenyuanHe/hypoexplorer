@@ -42,7 +42,8 @@ const GSE160802_REASON = 'Text correction (2026-11-24), values unchanged: cohort
 const GSE246918_REASON = 'Text correction (2026-11-24), values unchanged: the source name and tissue of all six GEO samples are hypothalamus, '
   + 'and the paper (PMID 39436109, section 2.4.1) extracted RNA from hypothalami. Neither describes an arcuate dissection.';
 const GSE162563_REASON = 'Text correction (2026-11-24), values unchanged: the 11 fitted GEO libraries are the GnRH-depleted supernatant, not the GnRH immunoprecipitate, '
-  + 'and the paper (PMID 33095238) states that one of the five adult control replicates is from an uninjected dam. GEO labels all five Vehicle.';
+  + 'and the paper (PMID 33095238) states that one of the five adult control replicates is from an uninjected dam. GEO labels all five Vehicle. '
+  + 'The paper describes the depleted RNA as RNA of the other cells in the punch plus GnRH-neuron RNA not on polysomes, so it is not a targeted-cell translatome.';
 const REASONS: { field: string; datasetId?: string; old?: unknown; new?: unknown; reason: string }[] = [
   { field: 'expressionUnit', old: 'CPM', new: 'CPM (TMM-normalized)',
     reason: 'Rule C2: the browser shows CPM computed with the TMM factors of the DE fit itself (<stem>_CPM_TMM.tsv.gz; the macaque atlas normcpm.csv), so the displayed unit is CPM (TMM-normalized). See data/quality/regeneration-r460-2026-09-25/README.md (Rules applied to every producer).' },
@@ -55,10 +56,13 @@ const REASONS: { field: string; datasetId?: string; old?: unknown; new?: unknown
   { field: 'timeSeries', datasetId: 'mouse_arc_clock_gse248462', reason: GSE248462_REASON },
   { field: 'citation', datasetId: 'mouse_arc_pyy_glp1_gse160802', reason: GSE160802_REASON },
   { field: 'name', datasetId: 'mouse_arc_kcnb1_gse246918', reason: GSE246918_REASON },
+  { field: 'region', datasetId: 'mouse_arc_kcnb1_gse246918', reason: GSE246918_REASON },
   { field: 'citation', datasetId: 'mouse_arc_kcnb1_gse246918', reason: GSE246918_REASON },
   { field: 'name', datasetId: 'mouse_gnrh_androgen_gse162563', reason: GSE162563_REASON },
   { field: 'citation', datasetId: 'mouse_gnrh_androgen_gse162563', reason: GSE162563_REASON },
   { field: 'groups', datasetId: 'mouse_gnrh_androgen_gse162563', reason: GSE162563_REASON },
+  { field: 'modality', datasetId: 'mouse_gnrh_androgen_gse162563', reason: GSE162563_REASON },
+  { field: 'preparation', datasetId: 'mouse_gnrh_androgen_gse162563', reason: GSE162563_REASON },
 ];
 
 function git(argv: string[], input?: string): Buffer {
