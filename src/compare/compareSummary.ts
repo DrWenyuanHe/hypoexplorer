@@ -22,6 +22,7 @@ import type { CsvCell } from '../utils/csv';
 import type { PopData } from '../types';
 import type { CompareColumn } from './compareColumns';
 import { compareCell, type CompareArm, type CompareCell } from './compareCell';
+import type { SymbolRenames } from '../data/symbolRenames';
 
 /**
  * A COUNT of per-column verdicts for one gene, not a test.
@@ -73,16 +74,18 @@ const fixed4 = (v: number | null | undefined): number | '' => (v == null ? '' : 
  * unit is never mislabelled across columns that measure in different ones.
  * An unavailable column contributes no cells; a column that did not detect the
  * gene contributes blank ones, its group means included. With `tally`, each
- * row leads with the gene's Detected / SigFDR05 / Up / Down counts.
+ * row leads with the gene's Detected / SigFDR05 / Up / Down counts. With
+ * `renames`, a column that stores the gene under a renamed symbol is read
+ * under it, as on screen (compareCell).
  */
 export function compareSummaryRows(
   columns: readonly CompareColumn[],
   popDataMap: Record<string, PopData | null>,
   genes: readonly string[],
-  { tally = false }: { tally?: boolean } = {},
+  { tally = false, renames = null }: { tally?: boolean; renames?: SymbolRenames | null } = {},
 ): WorkbookRow[] {
   return genes.map((gene) => {
-    const cells = columns.map((col) => compareCell(col, popDataMap, gene));
+    const cells = columns.map((col) => compareCell(col, popDataMap, gene, renames));
     const row: WorkbookRow = { Gene: gene };
     if (tally) {
       const t = tallyGene(cells);

@@ -304,7 +304,17 @@ OXT; pathway ids are matched word by word against readable titles. The
 names builder excludes unresolved `ambiguous` authority rows before grouping:
 candidate diagnostics, aliases and dataset reach from those rows are not search
 names. Valid records from other authorities can still supply names for the same
-uppercase symbol; gene-index symbol search remains available.
+uppercase symbol; gene-index symbol search remains available. The same builder
+writes `public/nomenclature/renames.js`, the rename groups (`src/data/symbolRenames.ts`,
+CONTEXT.md): members of a group are always each other's search aliases, a
+retired placeholder member gets its own row, and an alias its own authority
+uses as another stored gene's current symbol is dropped. The gene report and
+search summaries read a study under another member of the queried symbol's
+group in that study's authority (`queryGeneViaIndex` and the full-download
+path in `src/data/crossDataset.ts`, one row per track by `pickStoredMember`),
+mark such rows `storedAs`, and the gene page names those studies above the
+table and tags each row; the expression preview looks the row up under its
+stored symbol. Compare and the compare set pass the table to `compareCell`.
 vocabulary loads on the box's first focus, so the hub fetches no query data
 until a visitor searches. A direct gene match leads the page as one featured
 row, followed by "Also matching": the other genes the query matched (POMCA and

@@ -334,6 +334,7 @@ export interface TrackRow {
     tier: SignificanceTier;
     significant: boolean;
     lowPower: boolean;
+    storedAs?: string;
 }
 ```
 

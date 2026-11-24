@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "6ebf08bfaa596e4719adf6cb780c770b9c2e434bce3ed381dd1bb0f8369ceed2",
-  "outcome": "no-impact",
-  "explanation": "The tile layout follows the existing UI rules: the survey workspace loads through lazyView so the search page chunk stays unchanged, exports go through the survey's own export path, and routing is untouched. The ui-change workflow needs no new rule.",
+  "fingerprint": "8ce23e93fe2fc2b45bb104d38f9d87850f7225665ed097754da6415a59501ac4",
+  "outcome": "updated",
+  "explanation": "The tile layout follows the existing UI rules: the survey workspace loads through lazyView so the search page chunk stays unchanged, exports go through the survey's own export path, and routing is untouched, so it needs no new rule. The rename work does: the ui-change workflow now describes renames.js from the names builder, its search alias rules, the gene report and summaries reading studies under rename-group members with storedAs and pickStoredMember, the gene page note and row tag, the preview lookup and compareCell receiving the table.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/common/lazyView.tsx",
-    "src/search/portalCards.tsx"
+    "src/search/portalCards.tsx",
+    "src/data/crossDataset.ts",
+    "src/data/symbolRenames.ts"
   ]
 }

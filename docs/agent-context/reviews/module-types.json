@@ -1,12 +1,10 @@
 {
   "version": 1,
   "area": "module-types",
-  "fingerprint": "4028f31c65ed00409ad9e5c7e06746ad07b9e8e54ded26440da05b165b8bc958",
+  "fingerprint": "b43516af448ac5990013cb5a8af6bac669cf4b8ba88941988ac0fd02bbd2ca64",
   "outcome": "updated",
-  "explanation": "TrackRow and PathwayTrackRow gain tier: SignificanceTier, documented as set by the row builders, with significant kept as the FDR call. The orphaned GroupSummary interface is removed with its producer, and its contract description leaves the catalog.",
+  "explanation": "TrackRow gains an optional storedAs: the symbol a track stores the gene under when it is another member of the queried symbol rename group, absent when the track stores the queried symbol.",
   "references": [
-    "src/types/index.ts",
-    "docs/agent-context/catalog.json",
-    "docs/agent-context/generated/contracts.md"
+    "src/types/index.ts"
   ]
 }

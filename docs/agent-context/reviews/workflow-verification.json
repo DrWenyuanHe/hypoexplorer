@@ -1,14 +1,11 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "a0f2b49012ff76cb52d098ff5c7ab902c6a420d7389b86b51dbca63deaff7ccc",
+  "fingerprint": "64096f0dc2436959d989040f9788f31b2bd71a3cd594a03d7bea9c80dd236c81",
   "outcome": "no-impact",
-  "explanation": "Main's publication identity rule (scripts/lib/studyRecord.mts) decides which paper is cited on study pages and the agent export, not QC or author-concordance evidence; its bundle-reader adoption leaves the fingerprinted or sealed evidence parsers alone. This change moves the HypoMap atlas file shape into the data-origin layout while hypomapAtlas.mts keeps the release integrity checks, and archives hypomap-release.json with the release source. QC review, evidence authoring and verification commands are unchanged.",
+  "explanation": "Rename groups change which stored symbol a report reads for a study, not QC, author concordance or verification evidence; no verification record, ledger or gate reads the rename table or the search names.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "scripts/lib/studyRecord.mts",
-    "scripts/lib/hypomapAtlas.mts",
-    "scripts/lib/releaseBuild.mts",
-    "scripts/lib/historicalEvidence.mts"
+    "docs/PROJECT_GUIDANCE.md",
+    "CONTEXT.md"
   ]
 }

@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-compareset",
-  "fingerprint": "b667ffb4d52ca76803ff14dc1ebf13288fdd8a7b6484f165d1bbeb04c992c925",
+  "fingerprint": "b70b1a6d1dbca96e5478dcddaac63d2241523ba9cb0dec98e3f5d8a26881d6a6",
   "outcome": "updated",
-  "explanation": "CompareSetView's Excel export calls compareSummaryRows(columns, popDataMap, genes, { tally: true }) instead of pre-filtering ready columns and splicing tallyGene counts into each row; the compare cell skips unavailable columns, so the Compare sheet keeps its Gene, Detected, SigFDR05, Up, Down column order. The Columns and Metadata sheets still use the ready columns as before.",
+  "explanation": "CompareSetView passes the rename table to compareSummaryRows so the Excel summary reads renamed symbols as the on-screen table does, and CompareSetVolcanoPanel highlights a selected gene under the symbol the study stores.",
   "references": [
     "src/compareset/CompareSetView.tsx",
-    "src/compare/compareSummary.ts",
-    "src/compare/compareCell.ts"
+    "src/compareset/CompareSetVolcanoPanel.tsx",
+    "src/compare/compareSummary.ts"
   ]
 }

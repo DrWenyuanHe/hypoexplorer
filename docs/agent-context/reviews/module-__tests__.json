@@ -1,13 +1,15 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "b21e8eab216fd4a4d975e4fd4ed4d3ffef057b1905a401afbea41878a6648822",
+  "fingerprint": "f9e73822f46d2df31ae3b3ac3b3480e91c93fcaa8ec9f6e77131eead80770449",
   "outcome": "updated",
-  "explanation": "Survey view tests run single-gene flows through GenePageSurvey and the survey page through its handoff. Card tests cover the tile rows, each tile opening its own source under its row, releasing the focus, the handed-over scope and the HypoMap tile; familyTeaser.test.ts covers the study-library and tissue summaries, and the NeuroSeq teaser tests now match the survey's default without SFO records.",
+  "explanation": "Survey view tests run single-gene flows through GenePageSurvey and the survey page through its handoff. Card tests cover the tile rows, each tile opening its own source under its row, releasing the focus, the handed-over scope and the HypoMap tile; familyTeaser.test.ts covers the study-library and tissue summaries, and the NeuroSeq teaser tests now match the survey's default without SFO records. Rename coverage: symbolRenames.test.ts covers decoding, authority scoping, pickStoredMember, compareCell and the compare-set summary under a renamed symbol, and renamedStudies; queryIndex.test.ts covers both query paths reading a retired member, own-row precedence, several partners, authority scoping and an absent table, and counts the rename table beside the two index requests.",
   "references": [
     "src/__tests__/portalCards.test.tsx",
     "src/__tests__/familyTeaser.test.ts",
     "src/__tests__/baselineTeaser.test.ts",
-    "src/__tests__/expressionSurveyView.test.tsx"
+    "src/__tests__/expressionSurveyView.test.tsx",
+    "src/__tests__/symbolRenames.test.ts",
+    "src/__tests__/queryIndex.test.ts"
   ]
 }

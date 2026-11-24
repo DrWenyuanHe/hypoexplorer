@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "8e7aa5e6cd54267e5bb57b744c350278f425a4cdae289f47b8ad63fb63e39e50",
+  "fingerprint": "ee52fc68436370823ad1c00f32f73d52e6dd0130617942da7d604fa5d2784bc7",
   "outcome": "updated",
-  "explanation": "Adds src/data/dataOriginLayout.ts, the pure DOM-free statement of the R2 data origin: bundle trees, the two pointers with their build-id formats and one parser, query-generation prefixes and the per-key object policy. originHealth.ts now probes the tracks pointer key from it. CONTEXT.md gains a Data-origin layout entry; loaders and the registry are unchanged.",
+  "explanation": "Adds symbolRenames.ts (React-free client for public/nomenclature/renames.js: rename groups per authority, renameGroupOf, renamePartners, pickStoredMember, renameAuthorityOf) and useSymbolRenames.ts. queryGeneViaIndex reads partner shards beside the queried key and the full-download path checks partners in each DE table, one row per track, marking storedAs; the rename table loads beside the manifest.",
   "references": [
-    "src/data/dataOriginLayout.ts",
-    "src/data/originHealth.ts",
+    "src/data/symbolRenames.ts",
+    "src/data/useSymbolRenames.ts",
+    "src/data/crossDataset.ts",
     "CONTEXT.md"
   ]
 }

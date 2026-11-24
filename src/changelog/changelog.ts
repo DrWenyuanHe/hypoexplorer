@@ -6,6 +6,17 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-11-24',
+    title: 'A renamed gene is one gene across studies',
+    items: [
+      "Studies store a gene under whatever symbol their annotation used, so one gene could sit under its current symbol in some studies and a retired one in others. MGI renamed Gm8773 to Fam237b, and 38 mouse studies still store Gm8773. The Fam237b gene page listed only the studies that store Fam237b, and the Gm8773 page only the others. Both pages now list all of them, including the AgRP fed/fast study GSE68177 (log2FC 1.55, FDR 0.0047), which stores Gm8773.",
+      'A study is read under another symbol only when its own nomenclature authority (MGI, RGD or HGNC) records that symbol as the same gene: one current symbol, the same authority ID, and never a split gene. Placeholder namings, such as RGD1561149 becoming Nhsl3, count. Aliases that the authority lists without renaming the gene do not. 7,435 genes have such a rename in the collection.',
+      'Each row read this way is marked with the symbol the study stores ("as Gm8773"), and the page names how many studies store the gene that way. Expression previews, the search summaries, Compare and the compare set (screen and Excel download) read the same rows.',
+      'In search, a renamed gene finds its other symbol: typing Gm8773 now says it is Fam237b. An alias that its own authority uses as another gene\'s current symbol no longer finds that gene: searching FAM237A no longer offers FAM237B.',
+      'No data, result or analysis changed. A study that stores both symbols keeps the row for the symbol searched.',
+    ],
+  },
+  {
     date: '2026-11-23',
     title: "A gene's expression survey is on its gene page",
     items: [

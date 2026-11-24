@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "cd07b3a7bb1a58458c39cceef574708488c43cf42da1ef8a52f8b1589563adae",
+  "fingerprint": "875bd4ac02c0c52d7640de25b864f89b6a63653b405da28a2eb17e3f6d2fd3a6",
   "outcome": "updated",
-  "explanation": "Project guidance says a gene's survey lives on its gene page as one tile per source, each opening that source's survey, and that #/expression keeps multi-gene comparison, the catalog and validation, naming GeneSurvey.tsx as the shared workspace; the expression-survey catalog summary and the regenerated startup map agree.",
+  "explanation": "Project guidance says a gene's survey lives on its gene page as one tile per source, each opening that source's survey, and that #/expression keeps multi-gene comparison, the catalog and validation, naming GeneSurvey.tsx as the shared workspace; the expression-survey catalog summary and the regenerated startup map agree. Project guidance says to run build:search-names after build:nomenclature, that it writes names.js and renames.js, that its --check fails when either is stale, and where its rule tests live. CONTEXT.md defines the rename group, its join rules and pickStoredMember.",
   "references": [
     "docs/PROJECT_GUIDANCE.md",
     "docs/agent-context/catalog.json",
-    "AGENTS.md"
+    "AGENTS.md",
+    "CONTEXT.md",
+    "scripts/build_search_names.mts"
   ]
 }

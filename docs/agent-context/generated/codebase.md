@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (253):
+Covered source files (254):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -284,6 +284,7 @@ Covered source files (253):
 - [src/__tests__/studyTopGenes.test.tsx](<../../../src/__tests__/studyTopGenes.test.tsx>)
 - [src/__tests__/supersededProjection.ts](<../../../src/__tests__/supersededProjection.ts>)
 - [src/__tests__/swHandover.test.ts](<../../../src/__tests__/swHandover.test.ts>)
+- [src/__tests__/symbolRenames.test.ts](<../../../src/__tests__/symbolRenames.test.ts>)
 - [src/__tests__/trackColumns.test.tsx](<../../../src/__tests__/trackColumns.test.tsx>)
 - [src/__tests__/trackData.test.ts](<../../../src/__tests__/trackData.test.ts>)
 - [src/__tests__/trackPathwaysIndex.test.ts](<../../../src/__tests__/trackPathwaysIndex.test.ts>)
@@ -480,7 +481,7 @@ Start here:
 - [src/data/queryIndex.ts](<../../../src/data/queryIndex.ts>)
 - [data/intake/oxt-avp-2026-10-19/README.md](<../../../data/intake/oxt-avp-2026-10-19/README.md>)
 
-Covered source files (57):
+Covered source files (59):
 - [src/data/authorComparability.ts](<../../../src/data/authorComparability.ts>)
 - [src/data/authorConcordance.ts](<../../../src/data/authorConcordance.ts>)
 - [src/data/authorConcordanceR460.ts](<../../../src/data/authorConcordanceR460.ts>)
@@ -528,6 +529,7 @@ Covered source files (57):
 - [src/data/reviewedTrackLabels.ts](<../../../src/data/reviewedTrackLabels.ts>)
 - [src/data/september5Studies.generated.json](<../../../src/data/september5Studies.generated.json>)
 - [src/data/siteInfo.ts](<../../../src/data/siteInfo.ts>)
+- [src/data/symbolRenames.ts](<../../../src/data/symbolRenames.ts>)
 - [src/data/trackColumns.ts](<../../../src/data/trackColumns.ts>)
 - [src/data/trackData.ts](<../../../src/data/trackData.ts>)
 - [src/data/tracker/explorerAccessions.json](<../../../src/data/tracker/explorerAccessions.json>)
@@ -538,6 +540,7 @@ Covered source files (57):
 - [src/data/useAliasIndex.ts](<../../../src/data/useAliasIndex.ts>)
 - [src/data/useBundleProgress.ts](<../../../src/data/useBundleProgress.ts>)
 - [src/data/useOriginDiagnosis.ts](<../../../src/data/useOriginDiagnosis.ts>)
+- [src/data/useSymbolRenames.ts](<../../../src/data/useSymbolRenames.ts>)
 
 ## dataset-tracker
 
