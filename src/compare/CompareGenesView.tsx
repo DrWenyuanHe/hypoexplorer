@@ -26,6 +26,8 @@ import type { PopData } from '../types';
 import type { CompareColumn } from './compareColumns';
 import { cellDE, compareCell, type UnavailableStatus } from './compareCell';
 import { tallyGene } from './compareSummary';
+import { useSymbolRenames } from '../data/useSymbolRenames';
+import type { SymbolRenames } from '../data/symbolRenames';
 import { EXPORT_IGNORE_ATTR, chartTileExport, saveChartPng, saveChartSvg, saveElementPng } from './compareFigureExport';
 import { DownloadIcon, DownloadMenu } from './DownloadMenu';
 
@@ -105,6 +107,9 @@ export function CompareGenesView({
   chartDownloads = false, layout = 'fill', summaryLayout = 'wide', summaryStartsOpen = true,
 }: CompareGenesViewProps) {
   const long = summaryLayout === 'long';
+  // A study that stores a gene under a renamed symbol (Gm8773 for Fam237b) is
+  // measured under that symbol once the rename table arrives (compareCell).
+  const renames = useSymbolRenames();
   const [showAllCharts, setShowAllCharts] = useState(false);
   // The summary table folds away so the charts can have the room; the
   // numbers it holds are also in the Excel/CSV download. A view may start it
@@ -151,7 +156,7 @@ export function CompareGenesView({
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 6 }}>
                 {columns.map((col) => {
-                  const cell = compareCell(col, popDataMap, gene);
+                  const cell = compareCell(col, popDataMap, gene, renames);
                   const qc = col.qc;
                   if (cell.kind === 'measured') {
                     const { pd, de } = cell;
@@ -247,7 +252,7 @@ export function CompareGenesView({
             </button>
             {summaryActions}
           </div>
-          {tableOpen && long && <LongSummaryTable columns={columns} popDataMap={popDataMap} genes={selectedGenes} />}
+          {tableOpen && long && <LongSummaryTable columns={columns} popDataMap={popDataMap} genes={selectedGenes} renames={renames} />}
           {tableOpen && !long && <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', minWidth: 'max-content', borderCollapse: 'separate', borderSpacing: 0, fontSize: 11, fontFamily: FONT_MONO }}>
               <thead>
@@ -283,7 +288,7 @@ export function CompareGenesView({
               </thead>
               <tbody>
                 {selectedGenes.map((gene) => {
-                  const cells = columns.map((col) => compareCell(col, popDataMap, gene));
+                  const cells = columns.map((col) => compareCell(col, popDataMap, gene, renames));
                   const tally = showTally ? tallyGene(cells) : null;
                   return (
                     <tr key={gene}>
@@ -354,8 +359,9 @@ const LONG_HEAD: CSSProperties = {
  * named on its block's first row, and a heavier rule separates blocks, so a
  * long block stays attributable without repeating the name on every row.
  */
-function LongSummaryTable({ columns, popDataMap, genes }: {
+function LongSummaryTable({ columns, popDataMap, genes, renames }: {
   columns: readonly CompareColumn[]; popDataMap: Record<string, PopData | null>; genes: readonly string[];
+  renames: SymbolRenames | null;
 }) {
   return (
     <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: 0, fontSize: 11, fontFamily: FONT_MONO }}>
@@ -374,7 +380,7 @@ function LongSummaryTable({ columns, popDataMap, genes }: {
           {columns.map((col, i) => {
             const first = i === 0;
             const rule: CSSProperties = first ? { borderTop: '2px solid var(--border-dark, var(--border))' } : {};
-            const cell = compareCell(col, popDataMap, gene);
+            const cell = compareCell(col, popDataMap, gene, renames);
             const de = cellDE(cell);
             return (
               <tr key={col.key}>

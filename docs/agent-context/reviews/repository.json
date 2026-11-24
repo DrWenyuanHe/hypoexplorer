@@ -1,10 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "3769fc29adf0c5f52567988cc04b0bb65996e392c276c2759bf2521c17453555",
+  "fingerprint": "a64c95ab55b4d76a6d25aa07720244104883141181a0a1a7b1a553abbd3f3e7a",
   "outcome": "updated",
-  "explanation": "CHANGELOG.md's Unreleased section records that Enter in the gene search selects the gene typed. No guidance, command, configuration or workflow changed.",
+  "explanation": "Project guidance says to run build:search-names after build:nomenclature, that it writes names.js and renames.js, that its --check fails when either is stale, and where its rule tests live. CONTEXT.md defines the rename group, its join rules and pickStoredMember.",
   "references": [
-    "CHANGELOG.md"
+    "docs/PROJECT_GUIDANCE.md",
+    "CONTEXT.md",
+    "scripts/build_search_names.mts"
   ]
 }

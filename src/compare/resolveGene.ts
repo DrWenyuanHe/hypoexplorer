@@ -12,6 +12,7 @@
 // popCache hands out one PopData per (raw, dataset, contrast), and a pathway
 // hydration that replaces it simply gets a fresh index.
 
+import { pickStoredMember, renameAuthorityOf, renameGroupOf, type SymbolRenames } from '../data/symbolRenames';
 import type { GeneDERecord, PopData } from '../types';
 
 const upperIndex = new WeakMap<PopData, Map<string, string>>();
@@ -31,11 +32,33 @@ function indexFor(pd: PopData): Map<string, string> {
   return index;
 }
 
-/** The column's DE record for `gene`, matched exactly first, then by case. */
-export function resolveGeneCI(pd: PopData | null | undefined, gene: string): GeneDERecord | undefined {
+/**
+ * The column's DE record for `gene`, matched exactly first, then by case, then
+ * (given the rename table) under another member of the gene's rename group in
+ * the column's own authority: a compare set that holds Fam237b reads a study
+ * that stores the retired Gm8773 under Gm8773 (see data/symbolRenames). The
+ * record's `gene` is always the column's own spelling, so a view prints the
+ * symbol that study stores.
+ */
+export function resolveGeneCI(
+  pd: PopData | null | undefined,
+  gene: string,
+  renames?: SymbolRenames | null,
+): GeneDERecord | undefined {
   if (!pd) return undefined;
   const direct = pd.deByGene[gene];
   if (direct) return direct;
-  const own = indexFor(pd).get(gene.toUpperCase());
-  return own ? pd.deByGene[own] : undefined;
+  const index = indexFor(pd);
+  const own = index.get(gene.toUpperCase());
+  if (own) return pd.deByGene[own];
+  const group = renameGroupOf(renames ?? null, gene, renameAuthorityOf(pd.dataset));
+  if (!group) return undefined;
+  const found: Array<{ symbol: string; value: GeneDERecord }> = [];
+  for (const member of group.members) {
+    if (member.toUpperCase() === gene.toUpperCase()) continue;
+    const stored = index.get(member.toUpperCase());
+    const record = stored ? pd.deByGene[stored] : undefined;
+    if (record) found.push({ symbol: member, value: record });
+  }
+  return pickStoredMember(found, group)?.value;
 }

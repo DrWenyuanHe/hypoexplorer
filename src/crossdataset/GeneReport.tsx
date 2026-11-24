@@ -23,6 +23,7 @@ import { ListingModeToggle, QTerm } from '../statistics/ListingModeToggle';
 import { CompareSetToggle } from '../compareset/CompareSetToggle';
 import { toggleItem, useCompareSet } from '../compareset/compareSetStore';
 import { GeneEffectPreview } from './GeneEffectPreview';
+import { renameAuthorityOf } from '../data/symbolRenames';
 import { GeneContextCards, GeneExpressionCards } from '../search/portalCards';
 import './forestReport.css';
 import type {
@@ -135,6 +136,29 @@ function areaGroups(groups: DatasetGroup[], mode: ListingMode, showRest: boolean
     || DATASET_CATEGORIES.indexOf(a.category) - DATASET_CATEGORIES.indexOf(b.category));
 }
 
+/**
+ * The studies that store the gene under another member of its rename group
+ * (see data/symbolRenames), one entry per stored symbol. Their rows are the
+ * same gene read under the symbol the study stores, so the page says so once
+ * here and marks each row.
+ */
+export function renamedStudies(groups: readonly DatasetGroup[]): Array<{ symbol: string; authority: string; studies: number }> {
+  const by = new Map<string, { symbol: string; authority: string; ids: Set<string> }>();
+  for (const g of groups) {
+    for (const t of g.tracks) {
+      if (!t.storedAs) continue;
+      const authority = renameAuthorityOf(g.dataset) ?? '';
+      const key = `${authority}\u0000${t.storedAs}`;
+      const at = by.get(key) ?? { symbol: t.storedAs, authority, ids: new Set<string>() };
+      at.ids.add(g.dataset.id);
+      by.set(key, at);
+    }
+  }
+  return [...by.values()]
+    .map(({ symbol, authority, ids }) => ({ symbol, authority, studies: ids.size }))
+    .sort((a, b) => b.studies - a.studies || a.symbol.localeCompare(b.symbol));
+}
+
 function GeneStudyTable({ gene, groups, onOpenDataset }: {
   gene: string;
   groups: DatasetGroup[];
@@ -184,6 +208,7 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
   const isOpen = (area: AreaGroup) => !(folded[area.category] ?? (area.significant + area.nominal === 0 && lead.length > 0));
   const toggleArea = (area: AreaGroup) => setFolded((f) => ({ ...f, [area.category]: isOpen(area) }));
   const areasId = useId();
+  const renamed = useMemo(() => renamedStudies(groups), [groups]);
 
   if (measured.length === 0) {
     if (failed.length === 0) return <p className="portal-note">{gene} is not measured in any selected study.</p>;
@@ -198,6 +223,18 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
   return (
     <>
       {failedNote}
+      {renamed.length > 0 && (
+        <p className="portal-note report-de-renamed">
+          {renamed.map((r, i) => (
+            <span key={`${r.authority}:${r.symbol}`}>
+              {i > 0 && ' '}
+              <b>{r.studies}</b> {r.studies === 1 ? 'study stores' : 'studies store'} this gene as{' '}
+              <span className="report-de-acc">{r.symbol}</span>, which {r.authority} records as the same gene as {gene}.
+            </span>
+          ))}
+          {' '}Their results are listed here and marked with the symbol they store.
+        </p>
+      )}
       <div className="report-de-mode"><ListingModeToggle /></div>
       <p className="portal-verdict">
         Significant in <b>{studiesSignificant}</b> of <b>{measured.length}</b> datasets
@@ -304,6 +341,11 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
                         <span className="report-de-population">{track.label || track.trackId}</span>
                         {track.lowPower && (
                           <span className="portal-lowpower" title="Fewer than 3 replicates in a group: treat this result with caution.">low power</span>
+                        )}
+                        {track.storedAs && (
+                          <span className="report-de-stored" title={`This study stores the gene as ${track.storedAs}, the same gene under another symbol.`}>
+                            as {track.storedAs}
+                          </span>
                         )}
                         <span className="report-de-source">
                           <i>{dataset.organism}</i> · {dataset.preparation}
