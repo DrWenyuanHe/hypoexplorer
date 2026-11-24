@@ -54,18 +54,34 @@ test('the volcano paints its points and a click selects the gene under it', asyn
   const before = await readCanvas(page);
   expect(before.selected).toBe(0);
   if (!before.point) throw new Error('No threshold-passing point is painted');
-  if (isMobile) await plot.tap({ position: before.point });
-  else await plot.click({ position: before.point });
+  const chips = page.getByRole('button', { name: /^Remove / });
+  if (isMobile) {
+    await plot.tap({ position: before.point });
+  } else {
+    // Hovering names the gene that a click then selects. The tooltip is read
+    // before the click: the first selection adds a row above the plot, which
+    // moves the point out from under the pointer.
+    await plot.hover({ position: before.point });
+    const tooltip = plot.locator('g').filter({ hasText: 'Click to add' }).last();
+    const hovered = await tooltip.locator('text').first().textContent();
+    await plot.click({ position: before.point });
+    await expect(chips).toHaveAccessibleName(`Remove ${hovered}`);
+  }
 
-  // The plot's tooltip names the gene it hit; that gene alone is now selected.
-  const tooltip = plot.locator('g').filter({ hasText: '◆ Selected' }).last();
-  await expect(tooltip).toBeVisible();
-  const gene = await tooltip.locator('text').first().textContent();
-  await expect(page.getByRole('button', { name: /^Remove / })).toHaveCount(1);
-  await expect(page.getByRole('button', { name: `Remove ${gene}`, exact: true })).toBeVisible();
+  await expect(chips).toHaveCount(1);
+  const gene = (await chips.getAttribute('aria-label'))?.replace(/^Remove /, '') ?? '';
   // It is redrawn as a diamond in the selection color.
   await expect
     .poll(async () => (await readCanvas(page)).selected, { message: 'the selected gene is marked' })
     .toBeGreaterThan(10);
+
+  // The topmost point has the lowest P value, so the table lists it first.
+  await page
+    .getByRole('group', { name: 'Volcano view' })
+    .getByRole('button', { name: 'Table', exact: true })
+    .click();
+  const first = page.getByRole('table', { name: 'Volcano gene results' }).getByRole('row').nth(1);
+  await expect(first.getByRole('cell').first()).toHaveText(gene);
+  await expect(first.getByRole('button', { name: `${gene} selected`, exact: true })).toBeVisible();
   await expectHealthy(page, problems);
 });
