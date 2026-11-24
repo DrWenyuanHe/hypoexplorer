@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "f3f2299edf79b74f2b31830e353265fd3a0716886f2f9e85e9a04d585fc67472",
+  "fingerprint": "bdec256d8d4aee4af0932c878e5f9c2d27ecfdd89eb590d330a6be24dfc4b817",
   "outcome": "updated",
-  "explanation": "workflows.md now says the gene report header holds Share analysis and the compare-set button (Compare as bars was removed in 49e764a) and that gene and pathway effect previews load through useTrackColumn, gene previews omitting pathways. REFACTOR_CHECKLIST, PERF_BASELINE, PUBLICATION_RELEASE and DESIGN.md drop the removed bars view and fmtMetaQ and describe the accent strip per shell. No view, route or export code changed.",
+  "explanation": "Merge of main into the documentation triage. From main: the ui-change workflow says the router runs one navigation attempt at a time with its own history write policy; a new shell control that moves the explorer calls supersede() before navigate, and a value a view reports back starts an attempt only when it changes. From this branch: the gene report header holds Share analysis and the compare-set button (Compare as bars is gone), and gene and pathway effect previews load through useTrackColumn. Runbooks drop the removed bars view and fmtMetaQ.",
   "references": [
     "docs/agent-context/workflows.md",
+    "src/appRouter.ts",
+    "src/App.tsx",
     "src/data/trackColumns.ts",
-    "docs/runbooks/REFACTOR_CHECKLIST.md",
-    "DESIGN.md"
+    "docs/runbooks/REFACTOR_CHECKLIST.md"
   ]
 }

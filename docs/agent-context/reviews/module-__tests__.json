@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "a04184ff629e1cee24f349c110f9786f9452e72e1373837b240d5f455f23287a",
+  "fingerprint": "e2e7b6c3391766ec497b9e4b6e087e8c558bb003da2b5c387534dd8b43ba92c0",
   "outcome": "updated",
-  "explanation": "Merge of two test changes. From main: searchVocabulary.test.ts adds the staged-load and name-index reuse tests, and unifiedSearchBox.test.tsx and hubUnits.test.tsx expect the partial suggestion option and the hub vocabulary load on pointer enter. From this branch: seoPages.test.ts asserts that study, guide and About pages contain no 'beta testing' wording and that study page footers link SOURCE_REPO_URL and DATA_REPO_URL on GitHub.",
+  "explanation": "Navigation attempts in the router. navigationAttempts.test.tsx pins that a search, Home, openInExplorer, filter, library record or emptied compare set made while a cold #/dataset/<id>/<track> link is landing wins after that metadata resolves or rejects (B2), that a followed explicit default-track link is canonicalized in place so Back leaves it (B4), that an unrecognized anchor is kept at boot and mid-landing (B8), that a shell tab click supersedes a boot landing, and that settings-only and no-hash initialView writes still replace. appRouter.test.tsx now awaits the verified openInExplorer(id, track) and resets history with replaceState so a late hashchange cannot supersede the next test.",
   "references": [
-    "src/__tests__/seoPages.test.ts",
-    "src/__tests__/searchVocabulary.test.ts",
-    "src/__tests__/unifiedSearchBox.test.tsx",
-    "src/__tests__/hubUnits.test.tsx"
+    "src/__tests__/navigationAttempts.test.tsx",
+    "src/__tests__/appRouter.test.tsx",
+    "src/__tests__/appRouterUrl.test.tsx",
+    "src/appRouter.ts"
   ]
 }

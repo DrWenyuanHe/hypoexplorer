@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "56a7d6a90e973d2f57563b6a2d360ba1ff73c419fc98464e22f44524448065ce",
+  "fingerprint": "f082c9671f5b4b31cba4fd33e652025cdd2f192ae0d85289d4fdb6f6c9ba4f79",
   "outcome": "updated",
-  "explanation": "Repository docs were triaged so code, types and tests are the source of truth and docs keep decisions, invariants, provenance and procedure order. CONTEXT.md entries now name the owning file and its invariants and drop removed symbols (SigPill, localExportProvenance, LoadGeneListButton). PRODUCT.md and DESIGN.md describe the current product and point to index.html for token values. CHANGELOG.md gains the unreleased 2026-11-16..22 entries. Dated records gain status notes. PROJECT_GUIDANCE.md adds a Files not in this repository section. Runbooks drop the removed Compare as bars view and fmtMetaQ.",
+  "explanation": "Merge of main into the documentation triage. From main: the App router uses navigation attempts with a replace/push/hold write policy, view setters start an attempt only on a real change, shell controls call supersede() before navigate, and the new route-landing module decides what a URL means. From this branch: docs keep decisions, invariants, provenance and procedure order and point to code; CONTEXT.md entries name the owner and its invariants. The merged CONTEXT.md keeps the trimmed form and carries main's router rules plus a new Route landing entry. PRODUCT, DESIGN, CHANGELOG, runbooks and records are as triaged.",
   "references": [
     "CONTEXT.md",
-    "docs/README.md",
-    "docs/PROJECT_GUIDANCE.md",
-    "CHANGELOG.md",
-    "docs/runbooks/PERF_BASELINE.md"
+    "docs/agent-context/workflows.md",
+    "src/appRouter.ts",
+    "src/routeLanding.ts",
+    "docs/README.md"
   ]
 }
