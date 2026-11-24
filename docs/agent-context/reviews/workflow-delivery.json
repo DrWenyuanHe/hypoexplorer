@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "90298085c7597c35de5636bb32d3bc5108c629a3954ee63a9e03524528f98655",
-  "outcome": "no-impact",
-  "explanation": "The EDGE_PROTECTION cost model now notes that HEAD is never served from the edge cache: it reports DYNAMIC and costs one R2 Class B HeadObject, the originHealth reachability probe sends one HEAD per check, and cache checks must use GET because curl -I always shows DYNAMIC. verify_edge.mts already checks caching with GET. The cache rule payload, apply_edge_rules.mts and delivery.md steps are unchanged.",
+  "fingerprint": "ea2f29f5a7dd33809f69f0abe3f0aa6141150a5df3bb7dbf33df322615402470",
+  "outcome": "updated",
+  "explanation": "The required Build and browser smoke job keeps its name and commands, but test:smoke now also opens every view and explorer tab, follows search and shared links, reads saved CSV and Excel exports and checks the volcano canvas, with one retry in CI. Build, release verification and deployment steps are unchanged.",
   "references": [
-    "docs/runbooks/EDGE_PROTECTION.md",
+    "scripts/smoke/playwright.config.ts",
     "docs/agent-context/delivery.md",
-    "scripts/deploy/verify_edge.mts",
-    "src/data/originHealth.ts"
+    "docs/DEVELOPMENT.md"
   ]
 }

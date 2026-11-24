@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "04b15fc73a4ef00db265e2d225c8afe2010123b74a164e11fedd7033c0205d2f",
+  "fingerprint": "40e88a7efb46f1f02044518eeb5ee89148e6bdc57b43d62933456f30cc947886",
   "outcome": "no-impact",
-  "explanation": "Crawlable study pages lose their beta strip and beta sentence and gain GitHub footer links; study content, registry declarations and the dataset intake workflow are unaffected.",
+  "explanation": "Only browser smoke specs under scripts/smoke, one unit test and their documentation changed. Dataset builders, registry declarations, bundles and the intake procedure are unaffected; the smoke reads existing studies from the published data origin.",
   "references": [
-    "scripts/lib/seoPages.mts",
+    "scripts/smoke/viewLinks.ts",
     "docs/agent-context/workflows.md"
   ]
 }
