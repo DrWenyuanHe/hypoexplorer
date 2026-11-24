@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import { renderHook, act } from '@testing-library/react';
+import { renderHook, act, waitFor } from '@testing-library/react';
 import { useAppRouter, type ExplorerNavigation } from '../appRouter';
 import type { NavigationIntent } from '../explorer/explorerPosition';
 import { _resetDatasetMetaCache } from '../data/loadDatasetMeta';
@@ -38,7 +38,9 @@ function renderRouter(initialView = 'hub') {
   return { ...hook, explorer };
 }
 
-afterEach(() => { window.location.hash = ''; _resetDatasetMetaCache(); });
+// replaceState, not `location.hash = ''`: assigning the hash fires a late
+// hashchange, which is a URL event and would supersede the next test's landing.
+afterEach(() => { window.history.replaceState(null, '', '/'); _resetDatasetMetaCache(); });
 
 describe('appRouter — view selection', () => {
   it('starts on the requested view', () => {
@@ -120,14 +122,29 @@ describe('appRouter — the explorer adapter', () => {
     expect(result.current.view).toBe('explorer');
   });
 
-  it('openInExplorer sends ONE open intent naming no tab', () => {
+  it('openInExplorer sends ONE open intent naming no tab', async () => {
     // No tab means the Gene Explorer: arriving from a report link while the QC
     // tab was last active must not land on QC for a dataset not yet looked at.
     // One intent, so no intermediate position can render between two calls.
+    // A named track is checked against the dataset's metadata first, as a
+    // followed link's is, so the intent arrives once that check resolves.
     const { result, explorer } = renderRouter();
-    act(() => { result.current.openInExplorer('mouse_hypo_hfd_gse220533', 'whole'); });
-    expect(explorer.calls).toEqual(['open:mouse_hypo_hfd_gse220533/whole']);
+    act(() => { result.current.openInExplorer('macaque_snrna', 'i23'); });
+    await waitFor(() => expect(result.current.view).toBe('explorer'));
+    expect(explorer.calls).toEqual(['open:macaque_snrna/i23']);
+  });
+
+  it('openInExplorer with no track keeps the current one, without a check', () => {
+    const { result, explorer } = renderRouter();
+    act(() => { result.current.openInExplorer('mouse_hypo_hfd_gse220533'); });
+    expect(explorer.calls).toEqual(['open:mouse_hypo_hfd_gse220533']);
     expect(result.current.view).toBe('explorer');
+  });
+
+  it('openInExplorer lands a track the dataset lacks on its default track', async () => {
+    const { result, explorer } = renderRouter();
+    act(() => { result.current.openInExplorer('macaque_snrna', 'no_such_track'); });
+    await waitFor(() => expect(explorer.calls).toEqual(['open:macaque_snrna/e9']));
   });
   it('enterExplorer shows the shell without touching the selected tool', () => {
     const { result, explorer } = renderRouter();
@@ -193,8 +210,9 @@ describe('appRouter — deep-link races', () => {
     });
 
     const datasetCalls = explorer.calls.filter((c) => c.startsWith('open:'));
-    // The last navigation must be the newest hash, never the superseded one.
-    expect(datasetCalls[datasetCalls.length - 1]).toBe('open:mouse_hypo_hfd_gse220533');
+    // The last navigation must be the newest hash, never the superseded one. A
+    // trackless link names the dataset's default track: a URL is absolute.
+    expect(datasetCalls[datasetCalls.length - 1]).toBe('open:mouse_hypo_hfd_gse220533/whole');
   });
 });
 

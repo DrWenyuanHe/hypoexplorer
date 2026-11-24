@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "9330e8e41ccc7998aa1176c499d689d270b5841b9865627c53fa26045652d414",
+  "fingerprint": "c86afeae9dae4fac70856bb58723f2a582039dcc6094e012871505349b15b304",
   "outcome": "updated",
-  "explanation": "Merge of two UI changes. From main: the unified search box shows suggestions from partial vocabulary stages and warms the load on pointer enter. From this branch: the beta banner and beta wording are removed from every app header and static page, shared header styles move to src/common/siteChrome.css, and the landing and static footers link the source and data repositories on GitHub.",
+  "explanation": "The ui-change workflow now says the router runs one navigation attempt at a time with its own history write policy: a new shell control that moves the explorer calls supersede() before navigate, and a value a view reports back starts an attempt only when it changes. appRouter.ts gains supersede on AppRouter and a verified openInExplorer(id, track); App.tsx routes its track, tab, contrast, leave-Compare and send-genes controls through it. AppView stays declared in appRouter.ts.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/search/UnifiedSearchBox.tsx",
-    "src/common/siteChrome.css",
-    "src/hub/LandingHub.tsx",
-    "scripts/lib/seoPages.mts"
+    "src/appRouter.ts",
+    "src/App.tsx",
+    "src/routeLanding.ts"
   ]
 }
