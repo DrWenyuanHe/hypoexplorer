@@ -1,15 +1,13 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "67d28696dc5ba870086685c039d76c357bcbab66e5b08f5a82d795025527b629",
+  "fingerprint": "a250c450b7ecfd1e7f6aaf4a6115cdd069a94c0a3ebaad9c3e329e4af389e345",
   "outcome": "updated",
-  "explanation": "atlas.ts is now the single reader of the HypoMap export: named gene records, WHOLE/NO_REGION/EXPRESSION_UNIT/COHORT, pooled and per-dataset metrics, datasetSummary (mean, SEM), spatialTable/datasetTable/atlasTable, findAtlasGene, missMessage, one cached load per symbol, and a swappable transport with a cache reset. HypoMapPreview and Coexpression read those instead of the wire and share one wording for a missing or ambiguous gene; CsvDialog downloads through the export-provenance seam; codetection.ts only imports WHOLE. A by-dataset detection table records its expression unit as not applicable (percentages only), so only tables carrying mean expression record EXPRESSION_UNIT; atlasTable now wraps only the comparison table.",
+  "explanation": "GeneExpressionCards is now a mouse row and a human row of source tiles (NeuroSeq, study library, tissue, a single-cell slot; GTEx, Allen, HPA subregions and clusters). Each tile opens its source's survey under its row through a lazyView of GenePageSurvey held to that source; the HypoMap preview sits behind the single-cell tile. searchSummaries adds loadFamilyTeaser (each source's highest cohort mean, ranked within the most common unit), leaves SFO boundary records out of the NeuroSeq teaser and gives GTEx and Allen spreads a mean.",
   "references": [
-    "src/search/hypomap/atlas.ts",
-    "src/search/hypomap/HypoMapPreview.tsx",
-    "src/search/hypomap/Coexpression.tsx",
-    "src/search/hypomap/CsvDialog.tsx",
-    "src/search/hypomap/codetection.ts",
-    "CONTEXT.md"
+    "src/search/portalCards.tsx",
+    "src/search/searchSummaries.ts",
+    "src/search/search.css",
+    "docs/runbooks/EXPRESSION_SURVEY.md"
   ]
 }

@@ -1,27 +1,33 @@
 // The gene and pathway cards shared by the search page and the gene page:
-// a gene's baseline expression in sorted mouse hypothalamic populations, its
-// values in the human reference atlases (GTEx, HPA, Allen), the pathways
+// a gene's expression in sorted mouse hypothalamic populations, the study
+// library's populations and tissue, its values in the human reference atlases
+// (GTEx, HPA, Allen), each opening its full survey, the pathways
 // enriched in the conditions where it changes, and reserved slots for data
 // that is not built yet (mouse single-cell atlases, co-expression), so a
 // layout does not shift when it arrives.
 //
 // Everything here reads cheap sources only: the query index (plus one small
-// track-pathways file per followed condition), the same-origin NeuroSeq files
-// and the same-origin external reference shards. See ./searchSummaries.
+// track-pathways file per followed condition), the same-origin NeuroSeq files,
+// the expression index and the same-origin external reference shards. See
+// ./searchSummaries.
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
+import { lazyView, ViewLoading } from '../common/lazyView';
 import { dirGlyph } from '../crossdataset/forestReport';
+import type { SurveyScope } from '../expression-survey/expressionSurvey';
 import { DEFAULT_FDR_CUTOFF } from '../statistics/policy';
 import { DOWN_TEXT_COLOR, NEUTRAL_TEXT_COLOR, UP_TEXT_COLOR } from '../styles/constants';
 import { fmtFDR, fmtP, fmtSigned } from '../utils/format';
 import { DbBadge } from './DbBadge';
 import { describePathway } from './searchVocabulary';
 import {
-  loadBaselineTeaser, loadConditionPathways, loadReferenceAtlases,
-  type BaselineTeaser, type ConditionPathway, type ConditionRef, type ReferenceAtlas, type ReferenceAtlases, type ReferenceLevel,
+  loadBaselineTeaser, loadConditionPathways, loadFamilyTeaser, loadReferenceAtlases, REFERENCE_ATLAS_SOURCES,
+  type BaselineTeaser, type ConditionPathway, type ConditionRef, type FamilyTeaser, type ReferenceAtlas, type ReferenceAtlases,
+  type ReferenceLevel, type SourceFamily,
 } from './searchSummaries';
-import type { Dataset, Direction } from '../types';
+import type { SurveyFocus } from '../expression-survey/GeneSurvey';
+import type { Dataset, Direction, ExpressionSource } from '../types';
 import './search.css';
 import { Coexpression } from './hypomap/Coexpression';
 import { HypoMapPreview } from './hypomap/HypoMapPreview';
@@ -307,9 +313,16 @@ export function ConditionPathwaysSection({ symbol, studies, onShowPathway, onOpe
   );
 }
 
-// ── Baseline expression teaser ─────────────────────────────────────────────
+// ── Where the gene is expressed: one tile per source ───────────────────────
+//
+// Each source shows its headline values in its own unit; its "Every …" button
+// opens that source's full survey (every cohort, sample and export) under its
+// row. Mouse and human sources sit in separate rows and are never pooled.
 
-const BASELINE_TOP = 5;
+const BASELINE_TOP = 3;
+const FAMILY_TOP = 3;
+const REFERENCE_LEVELS_TOP = 3;
+const CLUSTERS_TOP = 3;
 
 function fmtTpm(tpm: number): string {
   if (tpm >= 100) return tpm.toFixed(0);
@@ -326,12 +339,67 @@ function SourceTitle({ id, name, method }: { id: string; name: string; method: s
   );
 }
 
+/** The sources a tile can open, and the survey each one opens. */
+export type SourceDrillId = 'neuroseq' | 'studies' | 'tissue' | 'single-cell' | 'gtex' | 'allen' | 'subregions' | 'clusters';
+const MOUSE_DRILLS: readonly SourceDrillId[] = ['neuroseq', 'studies', 'tissue', 'single-cell'];
+
+/** A tile's way into its source: the button that opens (or closes) the source's full survey. */
+interface TileOpen {
+  open: SourceDrillId | null;
+  onOpen?: (id: SourceDrillId) => void;
+  panelId: string;
+}
+
+function Tile({ id, label, slot, nav, children }: {
+  id: SourceDrillId;
+  label?: string;
+  slot?: string;
+  nav?: TileOpen;
+  children: ReactNode;
+}) {
+  const open = nav?.open === id;
+  return (
+    <div className={`gene-tile${open ? ' gene-tile--open' : ''}`} data-tile={id} data-slot={slot}>
+      {children}
+      {nav?.onOpen && label && (
+        <button
+          type="button"
+          className="gene-tile-open"
+          aria-expanded={open}
+          aria-controls={open ? nav.panelId : undefined}
+          onClick={() => nav.onOpen?.(id)}
+        >
+          {open ? 'Close' : `${label} →`}
+        </button>
+      )}
+    </div>
+  );
+}
+
+function LevelBars({ levels, top, unit, gene }: { levels: ReferenceLevel[]; top: number; unit: string; gene: string }) {
+  const max = levels[0]?.value ?? 0;
+  return (
+    <ul className="portal-bars" aria-label={`Highest published ${unit} of ${gene}`}>
+      {levels.slice(0, top).map((level) => (
+        <li key={level.key}>
+          <span className="portal-bar-label" title={level.label}>{level.label}</span>
+          <span className="portal-bar-track" aria-hidden="true">
+            <span className="portal-bar" style={{ width: `${max > 0 ? Math.max(1, (level.value / max) * 100) : 0}%` }} />
+          </span>
+          {/* As published (HPA gives one decimal); padding would claim precision. */}
+          <span className="portal-bar-value">{String(level.value)}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export function BaselineSection({ symbol }: { symbol: string }) {
   const load = useLoad<BaselineTeaser | null>(symbol, loadBaselineTeaser);
   const teaser = load.state === 'done' ? load.value : null;
   return (
     <section className="portal-source" data-section="baseline-expression" aria-labelledby="portal-baseline-title">
-      <SourceTitle id="portal-baseline-title" name="NeuroSeq" method="sorted populations" />
+      <SourceTitle id="portal-baseline-title" name="NeuroSeq" method="sorted populations · TPM" />
       {load.state === 'loading' ? (
         <p className="portal-note" role="status">Loading population expression…</p>
       ) : !teaser ? (
@@ -358,8 +426,54 @@ export function BaselineSection({ symbol }: { symbol: string }) {
             ))}
           </ul>
           <p className="portal-note">
-            Mean TPM across each source group's sorted-neuron libraries; top {Math.min(BASELINE_TOP, teaser.groups.length)} of{' '}
-            {teaser.groups.length} source groups in {teaser.populationCount} populations. Source groups are not pooled, as in the survey.
+            Mean TPM of each source group's sorted-neuron libraries; top {Math.min(BASELINE_TOP, teaser.groups.length)} of{' '}
+            {teaser.groups.length} source groups in {teaser.populationCount} populations, without the SFO boundary records.
+          </p>
+        </>
+      )}
+    </section>
+  );
+}
+
+const FAMILY_TEXT: Record<SourceFamily, { name: string; method: string; noun: string }> = {
+  studies: { name: 'Study library', method: 'sorted and tagged populations', noun: 'studies' },
+  tissue: { name: 'Tissue & bulk', method: 'mouse and pig', noun: 'sources' },
+};
+
+/** The study-library populations, or the mouse and pig tissue sources: each source's highest cohort mean. */
+export function FamilySection({ symbol, family }: { symbol: string; family: SourceFamily }) {
+  const load = useLoad<FamilyTeaser | null>(symbol, (key) => loadFamilyTeaser(key, family));
+  const teaser = load.state === 'done' ? load.value : null;
+  const text = FAMILY_TEXT[family];
+  const titleId = `portal-family-${family}`;
+  return (
+    <section className="portal-source" data-section={family === 'studies' ? 'study-populations' : 'tissue'} aria-labelledby={titleId}>
+      <SourceTitle id={titleId} name={text.name} method={text.method} />
+      {load.state === 'loading' ? (
+        <p className="portal-note" role="status">Loading {text.noun}…</p>
+      ) : !teaser ? (
+        <p className="portal-note">These {text.noun} could not be loaded.</p>
+      ) : !teaser.levels.length ? (
+        <p className="portal-note">{symbol} is not among the genes these {teaser.total} {text.noun} retained.</p>
+      ) : (
+        <>
+          <ul className="portal-bars" aria-label={`Highest cohort mean of ${symbol} per source, ${teaser.unit}`}>
+            {teaser.levels.slice(0, FAMILY_TOP).map((level) => (
+              <li key={level.sourceId}>
+                <span className="portal-bar-label" title={`${level.label}, ${level.study}, ${level.cohort}, n = ${level.n}`}>
+                  {level.label}
+                  <span className="portal-card-sub" style={{ display: 'block', overflow: 'hidden', textOverflow: 'ellipsis' }}>{level.study} · {level.cohort}</span>
+                </span>
+                <span className="portal-bar-track" aria-hidden="true">
+                  <span className="portal-bar" style={{ width: `${Math.max(1, (level.mean / teaser.levels[0].mean) * 100)}%` }} />
+                </span>
+                <span className="portal-bar-value">{fmtTpm(level.mean)}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="portal-note">
+            Highest cohort mean per source, {teaser.unit}. {teaser.inUnit} of the {teaser.measured} {text.noun} with {symbol} use
+            this unit{teaser.measured > teaser.inUnit ? '; the rest are listed in their own units inside' : ''}.
           </p>
         </>
       )}
@@ -373,9 +487,6 @@ export function BaselineSection({ symbol }: { symbol: string }) {
 // own unit. Nothing is converted, ranked across atlases or pooled with mouse
 // data; a symbol that differs from the human gene's is shown as a match.
 
-const REFERENCE_LEVELS_TOP = 4;
-const CLUSTERS_TOP = 5;
-
 function fmtLog2(value: number): string {
   return value.toFixed(2);
 }
@@ -388,24 +499,6 @@ function atlasGap(atlas: ReferenceAtlas, symbol: string): string | null {
   return null;
 }
 
-function LevelBars({ levels, top, unit, gene }: { levels: ReferenceLevel[]; top: number; unit: string; gene: string }) {
-  const max = levels[0]?.value ?? 0;
-  return (
-    <ul className="portal-bars" aria-label={`Highest published ${unit} of ${gene}`}>
-      {levels.slice(0, top).map((level) => (
-        <li key={level.key}>
-          <span className="portal-bar-label" title={level.label}>{level.label}</span>
-          <span className="portal-bar-track" aria-hidden="true">
-            <span className="portal-bar" style={{ width: `${max > 0 ? Math.max(1, (level.value / max) * 100) : 0}%` }} />
-          </span>
-          {/* As published (HPA gives one decimal); padding would claim precision. */}
-          <span className="portal-bar-value">{String(level.value)}</span>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
 function GtexAtlas({ atlas, symbol }: { atlas: ReferenceAtlas; symbol: string }) {
   const gap = atlasGap(atlas, symbol);
   const spread = atlas.status === 'available' ? atlas.rows[0]?.spread : null;
@@ -416,7 +509,8 @@ function GtexAtlas({ atlas, symbol }: { atlas: ReferenceAtlas; symbol: string })
         <>
           <p className="portal-ref-value"><b className="mono">{fmtTpm(spread.median)}</b> TPM</p>
           <p className="portal-note">
-            Median of {spread.donors} donors; interquartile {fmtTpm(spread.low)}–{fmtTpm(spread.high)}.
+            Median of {spread.donors} donors; interquartile {fmtTpm(spread.low)}–{fmtTpm(spread.high)}. The donor mean,{' '}
+            {fmtTpm(spread.mean)} TPM, is what the full survey ranks.
           </p>
         </>
       )}
@@ -486,11 +580,8 @@ function AllenAtlas({ atlas, symbol }: { atlas: ReferenceAtlas; symbol: string }
             </tbody>
           </table>
           <p className="portal-note">
-            Each row is one probe, a short DNA sequence on the array that detects{' '}
-            {atlas.status === 'available' ? atlas.gene : symbol} RNA. Values are log2 signal: each donor's mean
-            over their hypothalamic samples ({first.samples} across {first.donors} donors), then the median and
-            the lowest to highest donor.
-            Higher means more RNA; the scale is not comparable with TPM.
+            One row per probe for {atlas.status === 'available' ? atlas.gene : symbol}, in log2 signal: the median and range of
+            each donor's mean over their hypothalamic samples ({first.samples} across {first.donors} donors). Not comparable with TPM.
           </p>
         </>
       )}
@@ -506,16 +597,16 @@ function matchedGene(atlases: ReferenceAtlases | null, symbol: string): string |
 }
 
 /**
- * The human column of the expression section: GTEx and Allen whole-tissue
- * readouts, then the HPA subregions and snRNA-seq clusters. One load serves
- * every atlas; a provider that fails leaves only its own block empty.
+ * The human row of the expression section: GTEx and Allen whole-tissue
+ * readouts, then the HPA subregions and snRNA-seq clusters, one tile each. One
+ * load serves every atlas; a provider that fails leaves only its own tile empty.
  */
-export function ReferenceAtlasSection({ symbol }: { symbol: string }) {
+export function ReferenceAtlasSection({ symbol, nav }: { symbol: string; nav?: TileOpen }) {
   const load = useLoad<ReferenceAtlases | null>(symbol, loadReferenceAtlases);
   const atlases = load.state === 'done' ? load.value : null;
   const human = matchedGene(atlases, symbol);
   return (
-    <section className="gene-expr-lane" data-section="reference-atlases" aria-labelledby="portal-ref-title">
+    <section className="gene-expr-row" data-section="reference-atlases" aria-labelledby="portal-ref-title">
       <h3 id="portal-ref-title" className="gene-expr-lane-title">
         Human hypothalamus <span className="portal-card-sub">Reference atlases of postmortem adult tissue</span>
       </h3>
@@ -530,11 +621,11 @@ export function ReferenceAtlasSection({ symbol }: { symbol: string }) {
               {symbol} → <b>{human}</b>, the human gene of the same symbol. Shown apart from the mouse data and never pooled with it.
             </p>
           )}
-          <div className="gene-expr-sources">
-            <GtexAtlas atlas={atlases.gtex} symbol={symbol} />
-            <AllenAtlas atlas={atlases.allen} symbol={symbol} />
-            <SubregionAtlas atlas={atlases.subregions} symbol={symbol} />
-            <ClustersAtlas atlas={atlases.clusters} symbol={symbol} />
+          <div className="gene-expr-tiles">
+            <Tile id="gtex" label="Every donor" nav={nav}><GtexAtlas atlas={atlases.gtex} symbol={symbol} /></Tile>
+            <Tile id="allen" label="Every probe and donor" nav={nav}><AllenAtlas atlas={atlases.allen} symbol={symbol} /></Tile>
+            <Tile id="subregions" label="Every subregion" nav={nav}><SubregionAtlas atlas={atlases.subregions} symbol={symbol} /></Tile>
+            <Tile id="clusters" label="Every cluster" nav={nav}><ClustersAtlas atlas={atlases.clusters} symbol={symbol} /></Tile>
           </div>
         </>
       )}
@@ -544,39 +635,143 @@ export function ReferenceAtlasSection({ symbol }: { symbol: string }) {
 
 // ── Gene page groups ───────────────────────────────────────────────────────
 
+// A source's full survey, in its own chunk: the search page imports this
+// module, and its first paint should not pay for the survey's tables and exports.
+const GenePageSurvey = lazyView(
+  () => import('../expression-survey/GeneSurvey').then((module) => module.GenePageSurvey),
+  <ViewLoading label="Loading every cohort…" />,
+);
+
+const isNonHuman = (source: ExpressionSource) => source.species !== 'Homo sapiens';
+const onlySource = (id: string) => (source: ExpressionSource) => source.id === id;
+const POPULATIONS: SurveyScope = {
+  mode: 'populations', collection: 'neuroseq', region: 'all', includeSfo: false, selectedIds: null, tissueKind: 'whole', referenceOnly: false,
+};
+const TISSUE: SurveyScope = { ...POPULATIONS, mode: 'tissue', tissueKind: 'all' };
+const REFERENCES: SurveyScope = { ...POPULATIONS, mode: 'tissue', tissueKind: 'external' };
+
+/** What each tile opens: a title, the survey scope, and the sources it is held to. */
+const DRILLS: Record<Exclude<SourceDrillId, 'single-cell'>, { title: string; scope: SurveyScope; focus: SurveyFocus }> = {
+  neuroseq: { title: 'NeuroSeq sorted populations', scope: POPULATIONS, focus: {} },
+  studies: { title: 'Study library populations', scope: { ...POPULATIONS, collection: 'existing' }, focus: {} },
+  tissue: { title: 'Mouse and pig tissue', scope: TISSUE, focus: { include: isNonHuman } },
+  gtex: { title: 'GTEx v10 hypothalamus', scope: REFERENCES, focus: { include: onlySource(REFERENCE_ATLAS_SOURCES.gtex) } },
+  allen: { title: 'Allen Human Brain Atlas', scope: REFERENCES, focus: { include: onlySource(REFERENCE_ATLAS_SOURCES.allen) } },
+  subregions: { title: 'Human Protein Atlas subregions', scope: REFERENCES, focus: { include: onlySource(REFERENCE_ATLAS_SOURCES.subregions) } },
+  clusters: {
+    title: 'Human Protein Atlas snRNA-seq clusters',
+    scope: { ...POPULATIONS, collection: 'external' },
+    focus: { include: onlySource(REFERENCE_ATLAS_SOURCES.clusters) },
+  },
+};
+
 /**
- * Where the gene is expressed, as one section: mouse sources beside the human
- * reference atlases, each source in its own unit, then the way to the survey.
+ * The survey a tile (or the survey page's handover) opened, under its row. A
+ * tile's survey is held to its source; "All sources and filters" releases it.
  */
-export function GeneExpressionCards({ symbol, onOpenExpression }: { symbol: string; onOpenExpression?: () => void }) {
+function SourceDrill({ id, drill, symbol, panelId, onClose }: {
+  id: SourceDrillId | 'handoff';
+  drill: { title: string; scope?: SurveyScope; focus?: SurveyFocus };
+  symbol: string;
+  panelId: string;
+  onClose: () => void;
+}) {
+  const [wide, setWide] = useState(false);
+  const ref = useRef<HTMLElement>(null);
+  // The panel opens below the tiles: bring it into view, and to the top when the survey page handed the gene over.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: scrolls once, when the panel opens.
+  useEffect(() => {
+    ref.current?.scrollIntoView?.({ block: id === 'handoff' ? 'start' : 'nearest' });
+  }, []);
+  const focused = Boolean(drill.focus) && !wide;
+  return (
+    <section ref={ref} id={panelId} className="gene-expr-drill" data-section="expression-survey" data-drill={id} aria-labelledby={`${panelId}-title`}>
+      <div className="gene-expr-drill-head">
+        <h3 id={`${panelId}-title`} className="gene-expr-lane-title">
+          {focused ? drill.title : 'Every source and sample'}{' '}
+          <span className="portal-card-sub">{symbol} in each cohort and sample, in the source's own unit</span>
+        </h3>
+        <div className="gene-expr-drill-actions">
+          {id !== 'single-cell' && drill.focus && (
+            <button type="button" className="portal-secondary" aria-pressed={wide} onClick={() => setWide((value) => !value)}>
+              {wide ? `Only ${drill.title}` : 'All sources and filters'}
+            </button>
+          )}
+          <button type="button" className="gene-expr-close" aria-label={`Close ${drill.title}`} onClick={onClose}>×</button>
+        </div>
+      </div>
+      {id === 'single-cell'
+        ? <HypoMapPreview key={symbol} symbol={symbol} />
+        : <GenePageSurvey key={`${id}:${wide}`} symbol={symbol} initialScope={drill.scope} focus={focused ? drill.focus : undefined} />}
+    </section>
+  );
+}
+
+/**
+ * Where the gene is expressed, as one section: a mouse row and a human row of
+ * sources, each tile in its own unit. A tile opens that source's full survey
+ * (every cohort, sample and export) under its row. `surveyScope` (set when the
+ * survey page hands a gene over) opens the survey at once, in that scope.
+ */
+export function GeneExpressionCards({ symbol, surveyScope, onOpenExpression }: {
+  symbol: string;
+  surveyScope?: SurveyScope;
+  onOpenExpression?: () => void;
+}) {
   const showHypoMap = import.meta.env.VITE_HYPOMAP_EXPRESSION === '1';
+  const [open, setOpen] = useState<SourceDrillId | 'handoff' | null>(surveyScope ? 'handoff' : null);
+  const panelId = useId();
+  const toggle = (id: SourceDrillId) => setOpen((current) => (current === id ? null : id));
+  const nav: TileOpen = { open: open === 'handoff' ? null : open, onOpen: toggle, panelId };
+  const drill = (id: SourceDrillId | 'handoff') => (id === 'handoff'
+    ? { title: 'Every source and sample', scope: surveyScope }
+    : id === 'single-cell' ? { title: 'HypoMap mouse single-cell atlas' } : DRILLS[id]);
+  const panel = (where: 'mouse' | 'human' | 'handoff') => {
+    if (!open) return null;
+    const here = open === 'handoff' ? 'handoff' : MOUSE_DRILLS.includes(open) ? 'mouse' : 'human';
+    return here === where
+      ? <SourceDrill key={open} id={open} drill={drill(open)} symbol={symbol} panelId={panelId} onClose={() => setOpen(null)} />
+      : null;
+  };
   return (
     <section className="portal-card gene-expr" data-cards="expression" aria-labelledby="gene-expr-title">
-      <h2 id="gene-expr-title" className="portal-card-title">Where {symbol} is expressed</h2>
-      <div className="gene-expr-lanes">
-        <section className="gene-expr-lane" data-species="mouse" aria-labelledby="gene-expr-mouse-title">
-          <h3 id="gene-expr-mouse-title" className="gene-expr-lane-title">Mouse hypothalamus</h3>
-          <BaselineSection symbol={symbol} />
-          {!showHypoMap && (
-            <section className="portal-source portal-source--soon" data-slot="single-cell-mouse" aria-label="Single-cell atlases (coming soon)">
-              <h4 className="portal-source-title">Single-cell atlases <span className="portal-soon">Coming soon</span></h4>
-              <p className="portal-note">{symbol} expression by cell type across mouse hypothalamic single-cell atlases.</p>
-            </section>
-          )}
-        </section>
-        <ReferenceAtlasSection symbol={symbol} />
-      </div>
-      {/* The mouse single-cell slot, given the card's full width: its map and summary need more than the mouse lane. */}
-      {showHypoMap && <HypoMapPreview key={symbol} symbol={symbol} />}
-      <div className="gene-expr-foot">
-        <p className="portal-note">
-          Each source keeps its own published unit, and its bars are scaled to its own highest value. Every sample,
-          probe and donor, with exports and sources: the expression survey, Tissue &amp; bulk → Reference atlases.
-        </p>
+      <div className="gene-expr-head">
+        <h2 id="gene-expr-title" className="portal-card-title">Where {symbol} is expressed</h2>
         {onOpenExpression && (
-          <button type="button" className="portal-secondary" onClick={onOpenExpression}>Open expression survey</button>
+          <button type="button" className="portal-link portal-link--quiet" onClick={onOpenExpression}>Compare with other genes →</button>
         )}
       </div>
+      <section className="gene-expr-row" data-species="mouse" aria-labelledby="gene-expr-mouse-title">
+        <h3 id="gene-expr-mouse-title" className="gene-expr-lane-title">Mouse hypothalamus</h3>
+        <div className="gene-expr-tiles">
+          <Tile id="neuroseq" label="Every source group" nav={nav}><BaselineSection symbol={symbol} /></Tile>
+          <Tile id="studies" label="Every study population" nav={nav}><FamilySection symbol={symbol} family="studies" /></Tile>
+          <Tile id="tissue" label="Every tissue source" nav={nav}><FamilySection symbol={symbol} family="tissue" /></Tile>
+          {showHypoMap ? (
+            <Tile id="single-cell" label="Open the atlas" nav={nav}>
+              <section className="portal-source" aria-labelledby="gene-expr-sc-title">
+                <SourceTitle id="gene-expr-sc-title" name="HypoMap" method="mouse single-cell" />
+                <p className="portal-note">{symbol} by cell type across the HypoMap mouse hypothalamus atlas.</p>
+              </section>
+            </Tile>
+          ) : (
+            <Tile id="single-cell" slot="single-cell-mouse">
+              <section className="portal-source portal-source--soon" aria-label="Single-cell atlases (coming soon)">
+                <h4 className="portal-source-title">Single-cell atlases <span className="portal-soon">Coming soon</span></h4>
+                <p className="portal-note">{symbol} expression by cell type across mouse hypothalamic single-cell atlases.</p>
+              </section>
+            </Tile>
+          )}
+        </div>
+        {panel('mouse')}
+      </section>
+      <ReferenceAtlasSection symbol={symbol} nav={nav} />
+      {panel('human')}
+      {panel('handoff')}
+      <p className="portal-note gene-expr-foot-note">
+        Each source keeps its own published unit, and its bars are scaled to its own highest value. Choose a source for
+        every cohort, sample and export.
+      </p>
     </section>
   );
 }

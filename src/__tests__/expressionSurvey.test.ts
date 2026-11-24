@@ -49,7 +49,7 @@ describe('source selection', () => {
     src('sorted', { collection: 'existing', scope: 'isolated-neurons', region: 'Hypothalamus' }),
     src('gtex-hyp', { collection: 'external', scope: 'tissue', region: 'Hypothalamus' }),
   ];
-  const filters: SourceFilters = { section: 'survey', collection: 'neuroseq', region: 'all', includeSfo: false, selectedIds: null, tissueKind: 'whole' };
+  const filters: SourceFilters = { mode: 'populations', collection: 'neuroseq', region: 'all', includeSfo: false, selectedIds: null, tissueKind: 'whole' };
 
   it.each<[string, Partial<SourceFilters>, string[], string[]]>([
     ['NeuroSeq leaves SFO boundary records out by default', {}, ['arh-agrp', 'pvh'], ['ARH', 'PVH']],
@@ -81,7 +81,7 @@ describe('source selection', () => {
     ['all', ['whole', 'hypothalamus', 'arc-tissue', 'arh-tissue', 'pvn-tissue', 'sorted', 'gtex-hyp']],
   ])('the tissue tab selects %s preparations', (tissueKind, selected) => {
     // The population picker is irrelevant on the tissue tab.
-    expect(ids(selectSources(sources, { ...filters, section: 'tissue', tissueKind, selectedIds: [] }).selected)).toEqual(selected);
+    expect(ids(selectSources(sources, { ...filters, mode: 'tissue', tissueKind, selectedIds: [] }).selected)).toEqual(selected);
   });
 
   it('filters the catalog by collection, region and case-insensitive text over every descriptive field', () => {

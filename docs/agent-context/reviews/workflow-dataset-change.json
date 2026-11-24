@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "90d3cad58f55f7a85ef392b25e98b40c83180ef4a3485c6e12f25b725cf090ee",
-  "outcome": "updated",
-  "explanation": "From main: script reads of published bundles go through scripts/lib/bundleReader.mts (query index, expression index, bundle optimizer, upload guards, deploy verifier, SEO study pages), listDiskCorpus is the one sweep of public/datasets, and study pages and the agent export read publication identity through scripts/lib/studyRecord.mts. From this change: the delivery catalog names the Data-origin layout and the release allow-list archives hypomap-release.json. Adding a dataset still needs only its registry entry, bundles, index rebuild and optional studySources.json snapshot; the uploader publishes the same .js bundles.",
+  "fingerprint": "46dfbcc87b714f22d86de5620d5a1226b1de525a33f209e6d7812a91823012c6",
+  "outcome": "no-impact",
+  "explanation": "Only the expression survey runbook and project guidance wording changed, describing how the gene page shows and opens each survey source. Adding or changing a dataset, its bundles, the expression catalog entries and their checks follow the same steps and commands as before.",
   "references": [
+    "docs/runbooks/EXPRESSION_SURVEY.md",
     "docs/agent-context/workflows.md",
-    "scripts/lib/bundleReader.mts",
-    "scripts/lib/studyRecord.mts",
-    "src/data/dataOriginLayout.ts",
-    "scripts/lib/releaseBuild.mts"
+    "docs/PROJECT_GUIDANCE.md"
   ]
 }

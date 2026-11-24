@@ -23,6 +23,7 @@ import { CompareSetToggle } from '../compareset/CompareSetToggle';
 import { toggleItem, useCompareSet } from '../compareset/compareSetStore';
 import { GeneEffectPreview } from './GeneEffectPreview';
 import { GeneContextCards, GeneExpressionCards } from '../search/portalCards';
+import type { SurveyScope } from '../expression-survey/expressionSurvey';
 import './forestReport.css';
 import type {
   DatasetGroup,
@@ -404,8 +405,10 @@ interface GeneReportProps {
   onShowPathway?: (pathwayId: string) => void;
   /** Open a pathway's full report. */
   onOpenPathway?: (pathwayId: string) => void;
-  /** Open the baseline expression survey from the expression card. */
+  /** Open the expression survey page (multi-gene comparison, catalog) from the expression card. */
   onOpenExpression?: () => void;
+  /** The survey page's scope when it handed this gene over: the card opens every source in it. */
+  expressionScope?: SurveyScope;
   headerRight?: ReactNode;
 }
 
@@ -417,7 +420,7 @@ async function queryGene({ term, datasets }: StudyQuery, options: { onProgress: 
 
 export function GeneReport({
   gene, selection: value, onSelectionChange,
-  onHome, onSearchGene, onOpenDataset, onShowPathway, onOpenPathway, onOpenExpression, headerRight,
+  onHome, onSearchGene, onOpenDataset, onShowPathway, onOpenPathway, onOpenExpression, expressionScope, headerRight,
 }: GeneReportProps) {
   const [query, setQuery] = useState(gene);
   const selection = useStudySelection({ kind: 'gene', term: gene, value, onChange: onSelectionChange });
@@ -471,7 +474,7 @@ export function GeneReport({
 
         {/* Where the gene is expressed, before how it changes. */}
         <div className="report-gene-cards">
-          <GeneExpressionCards symbol={gene} onOpenExpression={onOpenExpression} />
+          <GeneExpressionCards symbol={gene} surveyScope={expressionScope} onOpenExpression={onOpenExpression} />
         </div>
 
         {/* How it changes. The study filters sit with the table they narrow; the

@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "220e0f807de1bd9abdabcf324b26f094433d4c71843b9c8a169189958b3b0ae7",
+  "fingerprint": "78b7dba05e60801e011a372a8348c5c4d6029c0936bbf4ed77352d549015088d",
   "outcome": "updated",
-  "explanation": "The router stores one study selection per report kind (geneStudySelection, pathwayStudySelection) and reads and writes links through selectionFromLink / selectionLink, imported from studySelectionLink.ts so the entry bundle never reaches the derivation hook or the evidence ledgers it pulls in; the gene-only reportScope and setReportScope are gone, so boot and Back/Forward now read a link's categories by the same rule. App drops its six scope adapters and keys the gene report boundary on the term alone, as the pathway report already was.",
+  "explanation": "App holds the survey-to-gene-page handoff in memory: ExpressionSurveyView calls onOpenGene(symbol, scope), App stores { gene, scope } and opens the gene report through searchGene, and passes the scope to that gene's report only. Routes and appRouter are unchanged; #/expression and #/gene/<symbol> keep their forms.",
   "references": [
-    "src/appRouter.ts",
     "src/App.tsx",
-    "src/crossdataset/studySelectionLink.ts",
-    "src/__tests__/lazyChunkBoundaries.test.ts"
+    "src/appRouter.ts",
+    "src/utils/appLinks.ts"
   ]
 }

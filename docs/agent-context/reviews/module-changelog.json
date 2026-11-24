@@ -1,13 +1,10 @@
 {
   "version": 1,
   "area": "module-changelog",
-  "fingerprint": "fc69aee9f83b298378fb331ed0c3ef2e5299eda17d96e63983eb697dbeacd00f",
+  "fingerprint": "ef23371783646d287390dbe15f8823ad73a8a2294eceddc1b729c6a84923076b",
   "outcome": "updated",
-  "explanation": "Four 2026-11-22 entries. This change adds \"Blank compare-set means for genes a study did not test\": in the compare-set Excel download a study with no result for a gene now has blank group means, matching its blank logFC and P, and no other value changed. From main, kept unchanged: \"Study pages and the data download name the same paper\", \"Study pages use the reviewed track label\" and \"Study filters on the gene page update in place\", each stating that no data, result or analysis changed.",
+  "explanation": "The 2026-11-23 release note describes the gene page's source tiles, each opening its source's full survey, the new study-library and tissue tiles, the NeuroSeq tile without SFO records and the GTEx donor mean, the survey page handing one gene to its gene page, and Tissue & bulk as a mode inside the gene survey.",
   "references": [
-    "src/changelog/changelog.ts",
-    "src/compare/compareSummary.ts",
-    "docs/runbooks/SEO.md",
-    "src/crossdataset/studySelection.ts"
+    "src/changelog/changelog.ts"
   ]
 }

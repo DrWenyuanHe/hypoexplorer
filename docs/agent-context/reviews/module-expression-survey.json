@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "module-expression-survey",
-  "fingerprint": "1d5c703f8b48dc8dfc87392624ee5b72963737138356d53254323ff01d47ff9f",
-  "outcome": "no-impact",
-  "explanation": "Directory reorganization: loose docs moved to docs/runbooks/ and docs/records/, and deploy, fetch and dev tooling scripts moved to scripts/deploy/, scripts/fetch/ and scripts/dev/. The expression survey runbook moved to docs/runbooks/ with relative links adjusted; survey code and reference data are untouched.",
+  "fingerprint": "44c1d02b1f165fc9d6c76e3cbaf1564814229da53ab43f51bb0150d03abfdd7a",
+  "outcome": "updated",
+  "explanation": "The survey workspace moved into GeneSurvey.tsx and SourceDetail.tsx so the gene page and the survey page render one component, with SurveyScope replacing section-keyed filters and Tissue & bulk a mode inside it. SurveyFocus holds the workspace to one source or family for the gene page's tiles (mode and collection fixed, include narrows the sources). One symbol surveyed on the survey page opens its gene page with that scope.",
   "references": [
-    "docs/runbooks/EXPRESSION_SURVEY.md",
-    "src/expression-survey/expressionData.ts"
+    "src/expression-survey/GeneSurvey.tsx",
+    "src/expression-survey/ExpressionSurveyView.tsx",
+    "src/expression-survey/expressionSurvey.ts",
+    "docs/runbooks/EXPRESSION_SURVEY.md"
   ]
 }
