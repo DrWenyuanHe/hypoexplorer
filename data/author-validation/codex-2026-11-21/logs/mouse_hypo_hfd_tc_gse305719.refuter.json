@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_hypo_hfd_tc_gse305719",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 53 retained files matched their recorded SHA-256 and size. I recovered all 179 heatmap row identities. Of 170 genes with registered results, 156 had a readable endpoint direction under the stated color rule. Of those, 147 agreed with edgeR and nine had opposite signs. The corrected proposal retains closure as compared for this selected cluster, records the exact count-file checksum match, and clarifies that Table I reports peaks in cluster fluctuation strength. [Oku et al., Figure 13A and Table I](https://doi.org/10.1587/nolta.17.186)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_hfd_tc_gse305719.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_hfd_tc_gse305719.json",
+    "data/author-validation/continued-sources/GSE305719/codex-2026-11-21/refute/endpoint_sensitivity.py"
+  ],
+  "openIssues": [
+    "Fourteen paired directions are indeterminate under the primary color rule, and nine panel genes lack a registered result. A wider color allowance reduces readable directions to 147/170 (86.47%), below the 90% directional-coverage cutoff.",
+    "The reviewed sources supplied no author-fitted endpoint fold changes, raw P values or FDR. Full-contrast concordance remains unassessed. The linked [GakuNin project](https://rdm.nii.ac.jp/ak82u/) requires institutional sign-in."
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "datasetId": "mouse_arc_kcnb1_gse246918",
+  "accession": "GSE246918",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "For Kcnb1-null versus WT, the authors report a Lepr log2 fold change of +1.14 and show an increase in Jak2. Both agree in direction with the registered edgeR results (+1.485 and +0.903, respectively). The comparison covers two selected genes from bulk hypothalamic tissue, with one numerical effect pair and no genome-wide sign-off.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE246918/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "Published Lepr and Jak2 increases agree in direction for the deposited hypothalamic samples.",
+      "note": "The GEO count file matches the SHA-256 recorded for the registered fit. Sections 3.3 and 3.6 report the same Lepr result as Figure 2A, counted once. Figure S4 identifies Jak2 as a measured increase on its transcriptome overlay. The registered log2 effects are +1.48485 for Lepr and +0.90344 for Jak2. The authors report Lepr P < 0.000115 without specifying its adjustment in that sentence. The registered Lepr raw P is 0.003732 and BH FDR is 0.05228. See data/author-validation/continued-sources/GSE246918/codex-2026-11-21/selected-genes.tsv and SEARCH_LOG.md.",
+      "reviewFlags": [
+        "The paper and every GEO sample describe hypothalamic tissue. The registered arcuate-nucleus label is more specific than the dissection evidence.",
+        "The authors report discoveries under an adjusted-P criterion. No published registered gene passes BH FDR < 0.05. The full author table and original design call were unavailable. The paper and GEO also give different DESeq2 versions.",
+        "One numerical effect and one additional direction fall below the author-concordance-v2 minimum."
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "Both selected genes increase in the author and registered analyses. Lepr is the only quantitative pair. Figure 2A places Lepr in the authors’ discovery region, while its registered BH FDR is 0.05228. The authors used DESeq2 and HypoExplorer used edgeR-QL. The complete author testing family and gene-level adjusted P values could not be recovered.",
+      "nextStep": "For a genome-wide comparison, obtain the Figure 2A DESeq2 export with stable IDs, signed coefficients, raw P, adjusted P, tested rows and design/contrast settings. Check the uninspected Dryad Figure 2 archive through authorized access. Review the arcuate track label against the RNA extraction method and GEO tissue records.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "ko_vs_wt"
+      ],
+      "basis": "Direct comparison to the registered edgeR-QL groupcase coefficient. Include every identifiable, single-gene transcriptome measurement in Figure 2A and the Figure S4 pathway overlay. Use the explicit printed Lepr coefficient and the measured direction for Jak2.",
+      "reference": "Forzisi-Kathera-Ibarra et al., DOI 10.1096/fj.202401931R, sections 2.4, 3.2, 3.3 and 3.6, Figure 2A and supporting Figure S4. GEO GSE246918 family SOFT, deposited counts and ENA PRJNA1035099 establish library identity.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "The deposited six libraries match all six registered sample labels and genotype assignments. GEO reports three mice per genotype, with one six-month-old and two one-month-old mice in each group. All six source records and the RNA extraction method specify hypothalamus. Arcuate-restricted sampling is unestablished."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "The paper’s NULL-versus-WT plot and the registered knockout-versus-WT coefficient use the same orientation. Both analyses use the genotype comparison across ages."
+        },
+        "features": {
+          "status": "matched",
+          "note": "Lepr and Jak2 each map to one registered symbol and one deposited mouse Ensembl ID, ENSMUSG00000057722 and ENSMUSG00000024789, respectively. The S4 PI3K complex has no unique gene identifier."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "The Lepr gene-level DESeq2 and edgeR-QL log2 fold changes are +1.14 and +1.48485150926516. The registered coefficient is 0.34485150926516 higher than the printed value. The S4 Jak2 measurement is positive and the registered coefficient is +0.903440941321312. S4 supplies no numerical Jak2 effect."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The paper describes DESeq2 1.26.0 and an FDR-adjusted P < 0.05 discovery criterion. GEO names DESeq2 1.22.1. Lepr is highlighted in the Figure 2A region keyed to log2 fold change and adjusted P. Its text P bound has unspecified adjustment and gives no exact P or FDR. Registered Lepr and Jak2 have BH FDR 0.05228 and 0.05328. Jak2 author significance and all exact paired P/FDR comparisons remain unassessed. The cause of the discovery discrepancy is unresolved."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Both reference genes join uniquely among 17,136 published registered genes. One has a numerical effect and both have direction. No usable all-gene author result was recovered. The Figure 2 archive on Dryad was inaccessible and its contents remain unknown."
+        }
+      },
+      "criteria": "Use the paper’s original NULL/WT sign, gene-specific measured colors from the S4 legend, and the stated discovery threshold for context. Keep bounds, predictions, complex-valued nodes and missing statistics separate from exact gene measurements. Under author-concordance-v2, either numerical route requires at least 30 paired genes, at least 90% relevant coverage and compatible cohort, contrast, identifiers and effect definitions. The correlation route requires Pearson and Spearman ≥ 0.90. The direction route requires ≥ 90% agreement among at least 30 nonzero pairs covering ≥ 90% of pairs.",
+      "conclusion": "Both selected directions agree. Correlations are undefined for the one numerical effect pair. The evidence supports neither a v2 pass nor full verification. The comparison producer requires at least three numerical pairs, so no additional comparison spec is proposed."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Source counts, cohort and registered coverage",
+      "value": "46,078 input features, 3 knockout and 3 WT mice, 17,384 fitted rows, 17,136 published genes and 0 published genes with BH FDR < 0.05.",
+      "script": "data/author-validation/continued-sources/GSE246918/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Lepr, knockout relative to WT",
+      "value": "Published log2FC +1.14, registered +1.48485150926516, registered minus published +0.34485150926516. Published P < 0.000115 with unspecified adjustment, registered raw P 0.00373178603809942 and BH FDR 0.0522753010167823.",
+      "script": "data/author-validation/continued-sources/GSE246918/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Jak2, knockout relative to WT",
+      "value": "Figure S4 measured increase. Registered log2FC +0.903440941321312, raw P 0.00495955516188371, BH FDR 0.0532772467709325. Author magnitude and significance unassessed.",
+      "script": "data/author-validation/continued-sources/GSE246918/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Selected-gene comparison scope",
+      "value": "2/2 directions agree, 1 numerical effect pair, 0 exact raw-P pairs, 0 exact adjusted-P pairs. Pearson and Spearman are undefined.",
+      "script": "data/author-validation/continued-sources/GSE246918/codex-2026-11-21/review.py"
+    }
+  ],
+  "openIssues": [
+    "A complete author DESeq2 table and design/contrast settings are missing. Dryad identifies Figure 2 as file 3589879, but the download was blocked and its contents could not be verified.",
+    "The registered ARC label lacks dissection support in the deposited sample records and RNA extraction method.",
+    "Exact author P/FDR, the implementation of the paper’s discovery rule, and the reason for the difference in discovery counts remain unresolved."
+  ]
+}

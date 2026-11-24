@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_hypo_diabetes_gse329555",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 62 source files matched their recorded hashes and sizes, and all nine computations reproduced. The proposal missed that GSE329539 contains identical C1–C3 counts across all 78,334 gene IDs. None of its columns matches DM1–DM4. No author gene-level RNA result was located for the registered diabetic-versus-control contrast, so confirmed_not_located stands and author concordance remains untested. The corrected proposal passed the ledger validator.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_diabetes_gse329555.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_diabetes_gse329555.json",
+    "data/author-validation/continued-sources/GSE329555/codex-2026-11-21/refute/check_evidence.py"
+  ],
+  "openIssues": [
+    "Wiley returned HTTP 403 for the curcumin supplement. Its contents and connection to the sequenced libraries remain unknown.",
+    "Animal identity, pooling and litter allocation remain unresolved for the seven libraries. GEO’s series and sample records also disagree on when treatment began."
+  ]
+}

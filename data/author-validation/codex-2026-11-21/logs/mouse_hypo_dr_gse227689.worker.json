@@ -1,0 +1,26 @@
+{
+  "datasetId": "mouse_hypo_dr_gse227689",
+  "outcome": "compared",
+  "summary": "All 23 genes labeled in the hypothalamus column of Figure 6J agree with the registered dietary-restriction effect direction: 19 increased and four decreased. None of the 13,804 registered genes passed BH FDR < 0.05. The proposal passed validation, and the offline comparison reproduced byte for byte. [Figure 6J](https://huguenardlab.stanford.edu/reprints/200_Hahn.pdf#page=11)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/mouse_hypo_dr_gse227689.json",
+    "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/retrieve.py",
+    "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/retrieval.json",
+    "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/sources/",
+    "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/compare.py",
+    "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/results.json",
+    "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/figure6J-directions.tsv",
+    "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/table-S1-calls.tsv",
+    "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/figure6J.png",
+    "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/figure6-overview.png",
+    "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/preprint-figure7-overview.png",
+    "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/verify.py",
+    "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/checks.json"
+  ],
+  "openIssues": [
+    "Table S1 repeats 566 rows across the dietary-restriction and young-plasma sheets, leaving treatment attribution uncertain for 22 of 27 hypothalamus-specific labels. The figure and workbook also differ on two signature genes. [BioStudies Table S1](https://www.ebi.ac.uk/biostudies/files/S-EPMC10528304/NIHMS1924184-supplement-11.xlsx)",
+    "The complete author DESeq2 table with numeric hypothalamus effects, P values and FDR was unavailable in the reviewed sources. The 23 figure directions fall below the 30-pair concordance minimum, so full verification remains open."
+  ]
+}

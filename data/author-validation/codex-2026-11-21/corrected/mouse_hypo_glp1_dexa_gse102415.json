@@ -1,0 +1,79 @@
+{
+  "datasetId": "mouse_hypo_glp1_dexa_gse102415",
+  "accession": "GSE102415",
+  "category": "access_blocked",
+  "closure": "no_valid_comparison",
+  "summary": "Figure 5A reports selected KEGG enrichments and gene-set counts after five days of treatment in diet-induced obese mouse hypothalamus. The reviewed author materials supply no gene identifiers paired with effects for GLP-1/dexamethasone versus vehicle. The figure caption reports five mice per group and the registered fit uses six deposited samples per arm.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE102415/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "The GEO count archive and family SOFT match the registered source checksums. The recovered article and supplement support a pathway-level result for day five.",
+      "note": "Figure 5A gives hypergeometric enrichment statistics and a four-treatment Venn diagram. The conjugate-only region contains 126 genes whose identities are absent from the figure. Figure 1C measures hypothalamic transcripts after 14 days. Figure S6E measures Aif1 and Gfap relative to Ppib after four days. Table S1 lists PCR primers and probes. Each of the 30 GEO sample files holds one count per feature. The registered edgeR quasi-likelihood coefficient groupcase estimates log2 expression in the conjugate group relative to vehicle. The fit tested 18,201 rows, including 1,027 unmapped rows. The released DE table contains 17,174 distinct mapped symbols. Figure 5A states five mice per group and GEO describes five hypothalamic samples per group. The six vehicle and six conjugate GSMs used by Explorer are identifiable. Their membership in the published fit remains unknown.",
+      "reviewFlags": [
+        "The published RNA-seq sample membership is unresolved. The retained sources give no Figure 5A inclusion key.",
+        "The reviewed RNA-seq result provides no per-gene effect, raw P value, adjusted P value or tested-gene list with which to assess the registered contrast."
+      ],
+      "reviewedAt": "2026-11-21",
+      "paperAccess": "publisher_full_text",
+      "evidenceLinks": [
+        {
+          "label": "Quarta et al., publisher-formatted full article at Helmholtz Munich, Figure 5A and STAR Methods",
+          "url": "https://push-zb.helmholtz-munich.de/deliver.php?id=19738",
+          "kind": "paper"
+        },
+        {
+          "label": "Publisher supplement, Figures S1–S6 and PCR reagent Table S1",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S1550413117305508-mmc1.pdf",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO family SOFT with the sample accessions and treatment labels",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE102nnn/GSE102415/soft/GSE102415_family.soft.gz",
+          "kind": "processed_data"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The day-five pathway bars and Venn counts establish that the authors analyzed these treatments. They supply neither gene identities nor signed RNA-seq effects. The identifiable hypothalamic transcripts were measured in other time courses. Cohort equivalence, per-gene effect and inference agreement, and reference coverage therefore remain unassessed.",
+      "nextStep": "Obtain the Figure 5A sample-to-GSM inclusion list and clarify the reported n=5. Request the day-five conjugate-versus-vehicle gene identifiers, signed effects and definitions. A full tested-gene list and available raw and adjusted P values would also allow coverage and inference to be assessed.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Published symbol rows in the registered glp1_dexa_vs_vehicle edgeR-QL table",
+      "value": "17,174 rows and 17,174 distinct symbols. Provenance records 18,201 tested rows including 1,027 unmapped. geo_replication/datasets/GSE102415_mmus_hypo_glp1_dexa/processed/GSE102415_DE.tsv (SHA-256 50b3d607ac7999e9afed0d83f1d0c309033034024ae1b1bc05906d6ebe345265).",
+      "script": "data/author-validation/continued-sources/GSE102415/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Registered cohort reconciled across the sample sheet, model provenance, SOFT and archive members",
+      "value": "6 conjugate GSMs (GSM2736227–GSM2736232) and 6 vehicle GSMs (GSM2736209–GSM2736214).",
+      "script": "data/author-validation/continued-sources/GSE102415/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Contents of every sample supplement listed in SOFT",
+      "value": "30 files in five arms of six. Each has 37,310 distinct versioned Ensembl mouse gene IDs and five HTSeq summary rows, with one nonnegative integer count per row.",
+      "script": "data/author-validation/continued-sources/GSE102415/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Other records in the sequencing deposit",
+      "value": "The GEO series matrix has a 30-sample header and zero feature rows. The ENA reports for PRJNA397715 contain 30 distinct sequencing runs and zero submitted analysis records.",
+      "script": "data/author-validation/continued-sources/GSE102415/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Sample sizes reported for the author experiment",
+      "value": "The Figure 5A caption specifies 5 mice per group. The GEO series design specifies 5 hypothalamic samples per experimental group.",
+      "script": "data/author-validation/continued-sources/GSE102415/codex-2026-11-21/refute/recheck.py"
+    }
+  ],
+  "openIssues": [
+    "Which GSMs entered the published RNA-seq analysis, and what accounts for the difference between the reported group size and the six deposited samples per arm?",
+    "No author gene-level result was located for the registered five-day contrast. Helmholtz attachment 19739 returned zero bytes, so its contents remain unknown."
+  ]
+}

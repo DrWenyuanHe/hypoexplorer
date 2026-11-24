@@ -1,0 +1,15 @@
+{
+  "datasetId": "mouse_arc_pyy_glp1_gse160802",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 46 source files matched their recorded hashes and sizes, and all six computations reproduced. The selected-gene comparison stands: 12 of 19 ARC directions agree, below the 30-pair concordance minimum. Figure 8B reports 174 discoveries. None of the 13,452 published registered genes passes FDR < 0.01. The corrected proposal passes the repository validator.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_arc_pyy_glp1_gse160802.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_arc_pyy_glp1_gse160802.json",
+    "data/author-validation/continued-sources/GSE160802/codex-2026-11-21/refute/check.py"
+  ],
+  "openIssues": [
+    "The local QC summary reports 305 genes at FDR < 0.05. Both gene-level tables give zero. The live QC file returned HTTP 403.",
+    "The authors’ ARC gene-level results and model details are needed to explain the 174 discoveries. The registered FDR calculation included 27 additional unmapped features whose results are unpublished.",
+    "The registry describes obese-diabetic mice and names only IP118. The sequencing cohort was lean and received IP118 plus PY115. The paper and GEO also name different RNA extraction kits."
+  ]
+}

@@ -1,0 +1,179 @@
+{
+  "datasetId": "mouse_hypo_insulin_gse132352",
+  "accession": "GSE132352",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "Table S1 reports the registered high-dose insulin versus basal saline contrast in whole hypothalamus. Of 2,301 author-selected rows, 2,122 paired with the registered output and all agreed in direction, meeting both author-concordance-v2 effect criteria for this list. At FDR < 0.05, the paired genes yielded 1,220 author calls, 15 registered calls and 14 shared calls.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "High-dose hypothalamus effects compared with the authors’ Table S1",
+      "note": "The GEO count matrix matches the SHA-256 in registered provenance. GEO and ENA identify the registered case as the 12 mU/kg/min insulin group after 3 h. Every deposited high-dose and basal hypothalamic library is included. Table S1's HTM_High sheet contains 2,301 gene-level rows selected at nominal P < 0.01. Of these, 2,122 pair unambiguously. Every pair agrees in sign, with Pearson 0.97254 and Spearman 0.97402. At printed FDR < 0.05, 14 of the 15 assessable registered discoveries also pass in the author table. One further registered discovery lacks an assessable author statistic.",
+      "reviewFlags": [
+        "The author worksheet covers a nominal-P-selected set. Genome-wide author effects and FDR remain unassessed outside that set.",
+        "The paper gives the starting clamp cohort and names one excluded high-dose library. The complete limma design, including the fitted basal library IDs, was unavailable."
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "The official high-dose hypothalamus worksheet supports a direct comparison of selected genes. Both effect-concordance routes pass within that scope. At FDR < 0.05, the full available lists contain 1,323 author calls and 16 registered calls. Among paired genes they yield 1,220 and 15, with 14 shared. The authors used voom/limma and the registered fit used edgeR quasi-likelihood.",
+      "nextStep": "For full-universe review, obtain the unfiltered high-dose hypothalamus limma table with stable identifiers and unrounded statistics, plus the fitted sample and design files. Confirm which basal libraries entered the fit and reconcile the tested families.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "insulin_vs_saline"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Direct comparison of every row of the publisher's HTM_High worksheet to the current registered R 4.6.0 edgeR-QL result. Cohort selection follows the sample sheet, registered groupcase coefficient and deposited dose labels.",
+      "reference": "Cai et al., Diabetes, DOI 10.2337/db20-1119. Publisher figshare record 14568204, file 27952974, Table_S1_Significant_gene_lists.xlsx, HTM_High!A1:I2302. The published logFC, raw P and FDR are columns G, E and F.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "GEO, ENA, count columns and the registered fit identify the same five deposited high-dose and five basal hypothalami from 3-month-old male C57BL/6J mice. Six low-dose hypothalamus libraries belong to another arm. The paper describes six mice per clamp condition and explicitly excludes the low-quality high-dose TRA00038406, which is absent from the deposit. A complete author fit roster and an explanation for the five deposited basal hypothalami are unavailable."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Whole hypothalamus after 3 h at 12 mU/kg/min insulin versus basal saline. The author worksheet names the dose and both group means. The registry labels the case Insulin, and every case TRA identifier resolves to High in GEO. Positive effects indicate higher expression under high-dose insulin in both sources."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Exact source symbols and MGI accessions were reconciled with the registered Ensembl-to-symbol feature map and mouse nomenclature before comparing effects. There are 2,122 unique pairs, including 135 with changed author labels. Among the 179 unpaired rows, 142 resolve to a feature lacking a published effect, 34 have unresolved identifiers, two have ambiguous identities and one maps to a multi-feature aggregate. HTM_High.tsv records each disposition."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both estimates express the high-dose versus basal effect on the log2 scale. S1 provides the limma coefficient and signed linear fold. Converting the latter gives a maximum absolute difference of 0.00736 from reported logFC, consistent with printed precision. The registered TMM-normalized edgeR coefficient uses the original orientation. All 2,122 pairs agree in sign. Median absolute log2 difference is 0.06779 and the maximum is 2.92329 for Snord82. The registered-to-author RMS effect ratio is 0.91855."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The manuscript describes TMM, a one-CPM-in-three-samples filter, voom observation and sample-quality weights and limma. The registered group-only edgeR-QL fit uses filterByExpr, TMM and BH adjustment over 13,834 tested features. In the 2,122 paired rows, printed FDR < 0.05 yields 1,220 author calls, 15 registered calls and 14 shared. The published worksheet has 1,323 such calls and the full registered table has 16. Eight author FDR values round to 0.05. The author FDR for Stxbp5l, a registered discovery without a paired row, remains unassessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All 2,301 published HTM_High rows have finite effects and raw P < 0.01. Coverage is 2,122/2,301 (92.22%) for this source-defined list and 2,122/13,709 (15.48%) for the registered output. The author sheet omits the rest of the tested family."
+        }
+      },
+      "criteria": "Use the entire HTM_High list, the reported high-minus-basal logFC and unambiguous one-to-one gene pairs. The v2 minimum is 30 pairs, 90% relevant coverage and compatible cohort, contrast, features and effects. Pearson and Spearman must both reach 0.90, or at least 90% of at least 30 nonzero pairs must agree in sign with nonzero pairs covering at least 90% of all pairs. Use printed FDR < 0.05 for contextual calls and keep missing tests unassessed.",
+      "conclusion": "Selected-list coverage reaches 92.22%. Pearson 0.97254, Spearman 0.97402 and 2,122 concordant signs among 2,122 nonzero pairs satisfy both numerical routes. The author and registered methods yield different calls. Full-universe comparison and full reproduction remain open."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "mouse_hypo_insulin_gse132352",
+      "accession": "GSE132352",
+      "contrast": "insulin_vs_saline",
+      "localPath": "geo_replication/datasets/GSE132352_mmus_hypo_insulin/processed/GSE132352_DE.tsv",
+      "localKey": "symbol",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE132352_mmus_hypo_insulin/processed/GSE132352_DE.tsv",
+        "sha256": "df0584d7d04d853457968b37d852c1919a728ee504792f9ce63c6c961df144b2",
+        "bytes": 1357157
+      },
+      "authorPath": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/HTM_High.tsv",
+      "sourceUrl": "https://ndownloader.figshare.com/files/27952974",
+      "sha256": "7706f0c032e979b142718fcb47d8f40223fe3701b7012d4b028bc3b85fc4183c",
+      "format": "tsv",
+      "authorKey": "join_key",
+      "authorEffect": "author_logFC",
+      "authorAdjustedP": "author_FDR",
+      "orientationSign": 1,
+      "localMethod": "edgeR quasi-likelihood on TMM-normalized counts, groupcase coefficient",
+      "authorMethod": "limma on voom-weighted TMM log2 CPM, selected HTM_High rows of Supplementary Table S1",
+      "orientation": "High-dose insulin (12 mU/kg/min) relative to basal saline after 3 h in hypothalamus. Use the sheet's reported logFC unchanged.",
+      "resultScope": "selected_results",
+      "interpretation": "effect_match_inference_differs",
+      "note": "All 2,301 high-dose worksheet rows enter the author denominator. Row-specific nonmatching keys retain missing or ambiguous identities and features without a comparable registered coefficient. All 2,122 paired effects agree in sign. Table S1 is selected on nominal P. Missing author statistics outside S1 remain unassessed.",
+      "normalizationScript": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/compare.py",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/public/Table_S1_Significant_gene_lists.xlsx",
+          "sha256": "ddf2a00b30a94cba044bc6ca03b212c94284af1692a4ce8646bc06b1bfbf7035",
+          "bytes": 527633,
+          "sourceUrl": "https://ndownloader.figshare.com/files/27952974"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/public/series_family.soft.gz",
+          "sha256": "eb5dfb2cf3e1f11f92d46845860b31a500d6361f5b5a75014394850dc6775461",
+          "bytes": 4756,
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE132nnn/GSE132352/soft/GSE132352_family.soft.gz"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/public/mgi_ensembl.rpt",
+          "sha256": "39c260219e43c9016bd5d958eca9fab8461dce68657d821dc1037254bf0c0d67",
+          "bytes": 16192673,
+          "sourceUrl": "https://www.informatics.jax.org/downloads/reports/MRK_ENSEMBL.rpt"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/public/GSE132352_count_table.csv.gz",
+          "sha256": "aaec13c0525760c3e3d4163207809892c9557a9c41292bbc1bb5a6d73691e8f9",
+          "bytes": 1719169,
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE132nnn/GSE132352/suppl/GSE132352_count_table.csv.gz"
+        },
+        {
+          "path": "geo_replication/datasets/GSE132352_mmus_hypo_insulin/processed/GSE132352_feature_map.tsv.gz",
+          "sha256": "c5a7ce3ee32606a64285078f1d288ff9a03f1672f05bf245cfe164fb9b8affc1",
+          "bytes": 347133,
+          "sourceUrl": "Registered per-feature identifier map for this analysis"
+        },
+        {
+          "path": "data/nomenclature/nomenclature.tsv",
+          "sha256": "e93dd96852f0ce87365ca44c3566b03d774fcf062a8a8be8f1fe37d444c8f5ee",
+          "bytes": 20974092,
+          "sourceUrl": "Repository mouse nomenclature snapshot used to check MGI identifiers"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/compare.py",
+          "sha256": "bf95a60b24d1e63f7a00e6978714b0308bede34486849d359934fce6c14dc713",
+          "bytes": 14260,
+          "sourceUrl": "Offline extraction and gene comparison for GSE132352"
+        }
+      ]
+    }
+  },
+  "computed": [
+    {
+      "claim": "Deposited counts and registered arms",
+      "value": "46,071 Ensembl features and 52 library columns. Hypothalamus has five basal, six low-dose and five high-dose libraries. The registered fit uses all five basal and all five high-dose libraries.",
+      "script": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "One-to-one gene coverage",
+      "value": "2,122/2,301 author rows (92.22%) and 2,122/13,709 published registered genes (15.48%). The author list contains 1,191 positive and 1,110 negative effects.",
+      "script": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Author rows without a comparable registered coefficient",
+      "value": "142 mapped without published effect, 34 unresolved identifiers, two ambiguous identities and one multi-feature aggregate.",
+      "script": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Effect size and direction",
+      "value": "Pearson 0.972543803, Spearman 0.974016533 and 2,122/2,122 nonzero pairs agree in sign. Median absolute log2 difference 0.067786124, maximum 2.923290301 and RMS effect ratio 0.918547311.",
+      "script": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "FDR < 0.05 on the reported values",
+      "value": "Among pairs, 1,220 author, 15 registered, 14 shared. Across all available rows, 1,323 author and 16 registered. One registered call lacks a paired author FDR and 103 author calls lack a paired registered FDR. Eight author values equal 0.05 at printed precision.",
+      "script": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Nominal P < 0.01",
+      "value": "All 2,301 author rows pass. In the registered output, 648 pass overall and 545 of the 2,122 paired genes pass.",
+      "script": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure 1B strict fold subset using displayed signed FC",
+      "value": "For P < 0.01 and absolute linear fold > 1.5, 1,106 author and 474 registered calls overall. Within pairs, 934 author, 407 registered and 377 shared. The source prints 51 fold magnitudes as 1.5.",
+      "script": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "The unfiltered high-dose limma results and original design are unavailable in the reviewed public sources. Full-universe concordance, the exact fitted basal roster and the original unrounded decisions at displayed boundaries remain unverified."
+  ]
+}

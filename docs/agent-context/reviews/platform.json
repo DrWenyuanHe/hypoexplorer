@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "6f93c20b51c72119c58d0f3d5b58251689e167d8847602205e54f831e74d1a72",
+  "fingerprint": "193d0f56b93ebfbfa43497f852fa3f40fce6aa74cc30492ae081976b23e71e7b",
   "outcome": "updated",
-  "explanation": "bootState and applyRoute are replaced by the pure route-landing module: boot seeds the page with applyPage over landHash, and Back/Forward lands through the same landHash/settleExplorer path. A refused boot link no longer saves its chart scale, a trackless or unknown-track URL lands on the default track, a Compare link with a bad analysis in any query position is refused, an unknown dataset pasted mid-session restores the address bar, and App renders the error page ahead of the expression survey.",
+  "explanation": "Merges main into the route-landing change. From main: App.tsx no longer renders the session-dismissible beta notice under the explorer header. From this branch: bootState and applyRoute are replaced by the pure route-landing module, so boot and Back/Forward land through the same landHash/settleExplorer path; a refused boot link no longer saves its chart scale, a trackless or unknown-track URL lands on the default track, a Compare link with a bad analysis in any query position is refused, an unknown dataset pasted mid-session restores the address bar, and App renders the error page ahead of the expression survey.",
   "references": [
     "src/routeLanding.ts",
     "src/appRouter.ts",

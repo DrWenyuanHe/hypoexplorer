@@ -1,0 +1,230 @@
+{
+  "datasetId": "hamster_hypo_torpor_gse179663",
+  "accession": "GSE179663",
+  "category": "unresolved",
+  "closure": "compared",
+  "summary": "The authors’ statistical script explains the reversed torpor effects in the publication. It writes the default normothermia-minus-torpor coefficient to the file labeled torpor-minus-normothermia. After orienting the full author table to the registered contrast, all 15,099 registered genes pair and 12,932 agree in direction (85.65%), below author-concordance-v2 acceptance.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "summary": "Author code explains the reversed sign in the published torpor results",
+      "note": "The Ulm deposit links the statistical script and full workbook to GSE179663. File2statistics.R computes the requested SPHT-minus-SPNT contrast in a separate object, then exports resOrdered from the default results(dds), which gives SPNT minus SPHT. The deposit, GEO count check and both numerical orientations are documented in data/author-validation/continued-sources/GSE179663/codex-2026-11-21/SEARCH_LOG.md. Comparisons use one mouse GeneID per registered symbol and preserve missing author tests.",
+      "reviewFlags": [
+        "After orientation, Pearson 0.805081, Spearman 0.829910 and directional agreement 85.65% fall below the policy cutoffs.",
+        "The published captions assign the opposite biological sign to the exported coefficients. The original sample CSV is absent from the deposit. Animal labels, per-sample files, the tested GeneIDs and workbook base means were checked independently.",
+        "The authors fit a group-only DESeq2 model with transcript-length offsets. The registered edgeR-QL model adjusts for sex and uses TMM and different filtering."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "GEO series and sample assignments",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE179663",
+          "kind": "database"
+        },
+        {
+          "label": "Deposited per-sample RSEM estimates",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE179nnn/GSE179663/suppl/GSE179663_RAW.tar",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Published paper and torpor baseline captions",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8804604/",
+          "kind": "paper"
+        },
+        {
+          "label": "Supplementary Tables S1–S3",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8804604.1/FEB4-12-443-s001.docx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Authors’ Ulm deposit for this paper",
+          "url": "https://doi.org/10.18725/OPARU-45070",
+          "kind": "author_result"
+        },
+        {
+          "label": "Archived author statistical script",
+          "url": "https://web.archive.org/web/20230922174745id_/https://oparu.uni-ulm.de/xmlui/bitstream/handle/123456789/45146/File2statistics.R?sequence=3&isAllowed=y",
+          "kind": "author_result"
+        },
+        {
+          "label": "Archived full author results workbook",
+          "url": "https://web.archive.org/web/20230922174745id_/https://oparu.uni-ulm.de/xmlui/bitstream/handle/123456789/45146/File3results.xlsx?sequence=4&isAllowed=y",
+          "kind": "author_result"
+        }
+      ],
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct"
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "The published R code writes the default DESeq2 coefficient under the requested contrast’s filename. The eight GEO samples reproduce the workbook’s 16,195 retained GeneIDs and base means. With one source-supported inversion, 15,099 registered effects pair. Pearson is 0.805081, Spearman is 0.829910 and 12,932 pairs agree in direction. Both v2 acceptance routes fall short. At adjusted P < 0.05, the full lists overlap at 227 genes from 759 author and 278 registered calls. One registered call has missing author adjusted P.",
+      "nextStep": "Close the direction review with the source-supported orientation. Retain the published label, literal comparison and inference differences alongside the full-table comparison.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "registeredContrastIds": [
+        "spontaneous_torpor_vs_normothermia_author_mouse_projection"
+      ],
+      "basis": "Compare every registered edgeR-QL log2 fold change with the unrounded DESeq2 effect on the full SP_HTvsNT worksheet of File3results.xlsx. Orient the author export once from SPNT-minus-SPHT to SPHT-minus-SPNT. Preserve the literal worksheet comparison and the historical selected Table S3 comparison in results.json.",
+      "reference": "Ulm DOI 10.18725/OPARU-45070, File2statistics.R lines 25–49, File3results.xlsx worksheet SP_HTvsNT columns A–J, and ReadMe.pdf. Author S1/S2 animal and accession tables, GEO RSEM/metadata and ENA runs identify the biological groups.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Eight short-photoperiod whole-hypothalamus samples at ZT04. Table S1 terminal temperatures and sex, Table S2 animal/GSM/BioSample/run links, GEO titles and files, ENA and the registered sample sheet agree. The labeled eight libraries reproduce the workbook’s entire retained GeneID set and base means. The original DESeq2 input CSV is unavailable."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "File2statistics.R reads group labels SPHT and SPNT with no releveling. The default DESeq2 result uses SPHT as reference. The explicit SPHT-minus-SPNT object is never exported. Apply −1 once to the exported effects, while retaining literal publication signs as evidence."
+        },
+        "features": {
+          "status": "matched",
+          "note": "Join by author-projected mouse GeneID through the checked registered feature map. All 15,099 registered symbols have a unique mapped GeneID. The stable-ID join retains 409 pairs with different symbol strings. The 1,096 author-only GeneIDs comprise 1,088 mapped genes outside the published DE table and eight without a mapped symbol."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both coefficients measure log2 fold change between the same biological states. In the registered direction, Pearson is 0.805081 and Spearman is 0.829910. All 15,099 pairs are nonzero and 12,932 agree in direction (85.65%). Median absolute log2FC difference is 0.041932 and the local-to-author RMS effect ratio is 0.805014. Before alignment the two correlations were negative and 2,167 directions agreed."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Author DESeq2 Wald tests use a group-only design, rounded RSEM counts, tximport length offsets and a row-sum filter. Registered edgeR-QL uses fractional counts, TMM, sex adjustment and filterByExpr. Raw P is finite for 15,088 pairs, adjusted P for 14,599. Of the latter, 759 author and 277 registered calls pass adjusted P < 0.05, with 227 shared. Across all registered genes there are 278 calls, one with missing author adjusted P."
+        },
+        "coverage": {
+          "status": "compatible",
+          "note": "The complete torpor worksheet contains 16,195 finite effects. The join covers 15,099/15,099 registered genes and 15,099/16,195 author genes (93.23%). SP_HTvsNT_reg is a significance-filtered tab. The 68 predefined indicator genes in article Table S3 are a separate, selected reference."
+        }
+      },
+      "criteria": "Use all finite effects from the full torpor worksheet, unique GeneIDs, the code-defined sign and the fixed author-concordance-v2 rules. At least 30 pairs and 90% output coverage are required. Both correlations must reach 0.90, or at least 90% of at least 30 nonzero pairs must agree in direction with nonzero pairs covering at least 90% of the join. Require biological and feature compatibility. Treat P, FDR and magnitude differences as context.",
+      "conclusion": "The code, workbook and deposited expression data settle the sign conflict. Both effect-concordance routes fall below acceptance on the full registered output. The comparison closes with documented discrepancies and no full verification sign-off."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "hamster_hypo_torpor_gse179663",
+      "accession": "GSE179663",
+      "contrast": "spontaneous_torpor_vs_normothermia_author_mouse_projection",
+      "localPath": "geo_replication/datasets/GSE179663_psun_hypothalamus_torpor/processed/GSE179663_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/author-torpor.tsv",
+      "sourceUrl": "https://web.archive.org/web/20230922174745id_/https://oparu.uni-ulm.de/xmlui/bitstream/handle/123456789/45146/File3results.xlsx?sequence=4&isAllowed=y",
+      "sha256": "bd0c5d804fd0716eea713e3047a810a276ccea5e7f59f1fe86363e573a221633",
+      "format": "tsv",
+      "authorKey": "join_key",
+      "authorEffect": "workbook_log2FC",
+      "authorAdjustedP": "author_padj",
+      "orientationSign": -1,
+      "localMethod": "edgeR-QL, sex-adjusted, TMM",
+      "authorMethod": "DESeq2 1.22.2 Wald test, group-only design, tximport 1.10.1 RSEM with length offsets",
+      "orientation": "File2statistics.R exports resOrdered from default results(dds) with SPHT as reference. Multiply workbook log2(FC) by −1 exactly once for registered SPHT minus SPNT. Adjusted P is unchanged.",
+      "note": "Full unfiltered SP_HTvsNT worksheet. The extraction preserves original workbook effects. Its join key uses the registered feature map for each mouse GeneID, retaining unmapped identifiers as unpaired GeneIDs. File2statistics.R and the GEO count-based normalization establish direction independently of either concordance score. Whole-list calls and finite paired inference are reported separately in results.json.",
+      "interpretation": "effect_differences",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/archived-File3results.xlsx",
+          "sha256": "555d809ce05e0444c16343156fd83e6dc4e2d7eade90109953118478f25fe555",
+          "bytes": 5634428,
+          "sourceUrl": "https://web.archive.org/web/20230922174745id_/https://oparu.uni-ulm.de/xmlui/bitstream/handle/123456789/45146/File3results.xlsx?sequence=4&isAllowed=y"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/archived-File2statistics.R",
+          "sha256": "ecdf2fa9393e1d4a2d72a203e7c349b37f72f576d349da6e0dbf4085c66938ae",
+          "bytes": 12163,
+          "sourceUrl": "https://web.archive.org/web/20230922174745id_/https://oparu.uni-ulm.de/xmlui/bitstream/handle/123456789/45146/File2statistics.R?sequence=3&isAllowed=y"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/archived-ReadMe.pdf",
+          "sha256": "0225af9c5aabc8eaee1b12c4d5a5ba386888ad018d315e809980c2fcba829123",
+          "bytes": 265550,
+          "sourceUrl": "https://web.archive.org/web/20230922174745id_/https://oparu.uni-ulm.de/xmlui/bitstream/handle/123456789/45146/ReadMe.pdf?sequence=7&isAllowed=y"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/FEB4-12-443-s001.docx",
+          "sha256": "aab2cc585fa87e9abad31fa44e8815f6be55f0eb09fb96496857ba1d54875210",
+          "bytes": 314918,
+          "sourceUrl": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8804604.1/FEB4-12-443-s001.docx"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/GSE179663_RAW.tar",
+          "sha256": "f4fb00cc551f75059b47ebc8748c2e61f779e19838eddc12172809616856dde0",
+          "bytes": 11397120,
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE179nnn/GSE179663/suppl/GSE179663_RAW.tar"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/GSE179663_family.soft.gz",
+          "sha256": "f504361210102c64725274bcb4bb8ceaa402ebcda4898bb6bd51fe13e403fc5e",
+          "bytes": 3055,
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE179nnn/GSE179663/soft/GSE179663_family.soft.gz"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/DESeq2_1.22.2.tar.gz",
+          "sha256": "39a4c5d59134bcb7d306fb99587090bfdae905e4c0ffdc0ab907d95e0982aa58",
+          "bytes": 2062838,
+          "sourceUrl": "https://bioconductor.org/packages/3.8/bioc/src/contrib/DESeq2_1.22.2.tar.gz"
+        },
+        {
+          "path": "geo_replication/datasets/GSE179663_psun_hypothalamus_torpor/processed/GSE179663_feature_map.tsv.gz",
+          "sourceUrl": "Registered one-to-one mouse GeneID-to-symbol map",
+          "bytes": 111910,
+          "sha256": "ab39ba4a04ca0c59985c126963b7fc50dbd2adeeb891a1d51aad946e07f73995"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/review.py",
+          "sha256": "48ef72b3addcbb3f3c3d63084a374218b9a4ff491679aab319e26696c3f96815",
+          "bytes": 16764,
+          "sourceUrl": "Reproducible workbook extraction and registered-output comparison"
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/review.py",
+      "resultScope": "Full SP_HTvsNT worksheet, including every finite author effect and missing test cells.",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE179663_psun_hypothalamus_torpor/processed/GSE179663_DE.tsv",
+        "sourceUrl": "Current registered Explorer DE table",
+        "bytes": 1495395,
+        "sha256": "2cf8652792194c39e51acc774e6d7f26cf44e166a8b21ef85434ab2e9d49cb7a"
+      }
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO replay of the group-only normalization and prefilter",
+      "value": "16,195 identical GeneIDs. Maximum absolute workbook baseMean residual 3.26e−9.",
+      "script": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "GEO HT/NT normalized mean ratio versus literal workbook coefficient",
+      "value": "16,112 opposite directions among 16,191 finite, nonzero ratios. Pearson −0.990261 and Spearman −0.997537.",
+      "script": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Printed indicator panel checked separately",
+      "value": "Of 68 rows, 61 have numeric effects and 53 pair by exact registered symbol. Only 5/53 literal directions agree. All 51 uniquely matched numeric author-workbook symbols reproduce the printed two-decimal effects.",
+      "script": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Full table, GeneID coverage",
+      "value": "15,099 shared, 1,096 author only and 0 registered only. Registered coverage 100%, author coverage 93.23%.",
+      "script": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Literal workbook orientation against registered output",
+      "value": "Pearson −0.805081, Spearman −0.829910, 2,167/15,099 directions agree.",
+      "script": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Code-aligned workbook orientation against registered output",
+      "value": "Pearson 0.805081, Spearman 0.829910, 12,932/15,099 nonzero directions agree (85.6481%). Median absolute log2FC difference 0.041932. Neither v2 route passes.",
+      "script": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Finite inference and adjusted P < 0.05",
+      "value": "15,088 finite raw-P pairs, 14,599 finite adjusted-P pairs. Whole positive-call intersection/union 227/810. On paired finite adjusted P, intersection/union 227/809. One registered discovery has missing author adjusted P and none lack an author row.",
+      "script": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/review.py"
+    }
+  ],
+  "openIssues": [
+    "The deposited file inventory omits Samples_SPHTvsSPNT.csv. Public sample records and count-derived base means support the cohort, and the export code and count directions resolve the sign.",
+    "The two analysis methods yield different effects and inference. Neither author-concordance-v2 numerical route passes, and full verification remains unsigned."
+  ]
+}

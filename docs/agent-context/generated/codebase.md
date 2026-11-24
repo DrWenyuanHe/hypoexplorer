@@ -365,10 +365,8 @@ Start here:
 - [src/common/BrandLink.tsx](<../../../src/common/BrandLink.tsx>)
 - [brand/README.md](<../../../brand/README.md>)
 
-Covered source files (37):
+Covered source files (36):
 - [src/common/AuthorValidation.tsx](<../../../src/common/AuthorValidation.tsx>)
-- [src/common/BetaNotice.css](<../../../src/common/BetaNotice.css>)
-- [src/common/BetaNotice.tsx](<../../../src/common/BetaNotice.tsx>)
 - [src/common/BrandLink.tsx](<../../../src/common/BrandLink.tsx>)
 - [src/common/CellSelectorPopup.tsx](<../../../src/common/CellSelectorPopup.tsx>)
 - [src/common/ChartScaleToggle.tsx](<../../../src/common/ChartScaleToggle.tsx>)
@@ -400,6 +398,7 @@ Covered source files (37):
 - [src/common/lazyView.tsx](<../../../src/common/lazyView.tsx>)
 - [src/common/prose.css](<../../../src/common/prose.css>)
 - [src/common/prose.tsx](<../../../src/common/prose.tsx>)
+- [src/common/siteChrome.css](<../../../src/common/siteChrome.css>)
 - [src/common/toolIcons.tsx](<../../../src/common/toolIcons.tsx>)
 - [src/common/useCompactLayout.ts](<../../../src/common/useCompactLayout.ts>)
 - [src/common/useSortedRows.ts](<../../../src/common/useSortedRows.ts>)

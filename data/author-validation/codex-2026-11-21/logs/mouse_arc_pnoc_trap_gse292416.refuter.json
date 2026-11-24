@@ -1,0 +1,15 @@
+{
+  "datasetId": "mouse_arc_pnoc_trap_gse292416",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 11 source files passed integrity checks, and all nine computations reproduced. The direct comparison covers 13,946 of 16,832 registered genes (82.85%), below the 90% concordance requirement. The corrected proposal retains `compared` closure and keeps the scientific review `unresolved`. The paper’s rule reproduces the count of 236 enriched genotype-DE genes. Figure 4B reports 3,550 enriched genes, but the rule yields 2,348 distinct IDs, of which 2,197 have both volcano-plot coordinates. The corrected proposal passed the repository validator. [Cell Figure 4B](https://www.sciencedirect.com/science/article/pii/S0092867425004039)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_arc_pnoc_trap_gse292416.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_arc_pnoc_trap_gse292416.json",
+    "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/refute/check.py"
+  ],
+  "openIssues": [
+    "The authors’ Figure 4B plotting IDs, counting procedure and exact DESeq2 fitting settings remain unknown. The relevant publisher passages were available through the search index. Direct article and PDF requests returned HTTP 403.",
+    "GEO documents pooled hypothalamic dissections. The registry’s ARC-only anatomical interpretation remains unverified, and its citation names Jais et al. while PMID 40273910 identifies Solheim et al. [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE292416) · [PubMed](https://pubmed.ncbi.nlm.nih.gov/40273910/)",
+    "The built-in symbol comparator still reports 13,116 pairs, including five conflicting source IDs and 31 multi-ID aggregates."
+  ]
+}

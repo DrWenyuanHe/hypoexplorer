@@ -1,0 +1,61 @@
+{
+  "datasetId": "mouse_hypo_hfhs_gse235479",
+  "accession": "GSE235479",
+  "category": "not_located",
+  "closure": "no_valid_comparison",
+  "summary": "Baker and colleagues’ Three Bears archive contains strain-specific diet results for adipose, heart, islet, kidney, liver and skeletal muscle. The manuscript documents hypothalamus collection, but the archive omits that tissue, GEO supplies expression and annotation only, and the conference abstract gives no gene-level NZO hypothalamus estimates.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE235479/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "Three Bears author diet results cover six other tissues",
+      "note": "The Baker et al. eLife reviewed preprint (10.7554/eLife.108435.1) and bioRxiv preprint (10.1101/2025.02.12.637923) describe hypothalamus collection and cite sibling accessions in GSE235498. The current Churchill Lab Three Bears portal supplies strain-specific diet effects, raw P and adjusted P for six tissues. Its archive omits hypothalamus, and none of the registered ORSAM barcodes appears in its sample manifests. The 2022 GSA abstract 396V describes a hypothalamic response without assigning gene-level effects to the NZO diet contrast. Both deposited GEO expression matrices contain gene identifiers and sample columns only. The separate annotation table and all GSM supplementary fields were checked. All twelve registered libraries map to NZO hypothalamus with matching sex and diet. Source inventory, methods, and local output hashes are in data/author-validation/continued-sources/GSE235479/codex-2026-11-21/SEARCH_LOG.md and audit.json.",
+      "reviewFlags": [
+        "The public author results cover other tissues. Same-tissue effects and inference remain unassessed for hfhs_vs_control.",
+        "GEO identifies the hypothalamus libraries by ORSAM and GSM. The authors describe group housing for NZO mice but supply no hypothalamus library-to-mouse or cage assignment in the inspected sources.",
+        "The legacy input lacks a committed source-file checksum manifest. This review pins the freshly retrieved GEO source files."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The Three Bears archive contains gene-level NZO diet effects and raw and adjusted P values for six other tissues. The registered target is NZO whole hypothalamus. Its GEO measurements and the conference abstract supply no same-tissue author contrast estimates for pairing.",
+      "nextStep": "Reopen if the authors release the NZO hypothalamus HFHS-versus-control gene table with its sample list, sex adjustment, effect direction and inference columns.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered edgeR-QL table for hfhs_vs_control",
+      "value": "18,208 rows and 18,208 distinct published symbols. SHA-256 af2f7f666b72d74c5ca7bae6dfc0bcb37f10ab896e995c035f7701e6778849e1.",
+      "script": "data/author-validation/continued-sources/GSE235479/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered libraries reconciled to GEO tissue, strain, sex and diet",
+      "value": "6 control and 6 HFHS. Each arm has 3 female and 3 male libraries.",
+      "script": "data/author-validation/continued-sources/GSE235479/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "GEO expression, annotation and sample supplement inventory",
+      "value": "Counts and VST each have 24,265 rows, 2 identifier columns and 36 ORSAM columns. Annotation has 24,265 rows and 8 columns. All 36 GSM records declare NONE for supplementary files.",
+      "script": "data/author-validation/continued-sources/GSE235479/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Author portal archive coverage of the registered target",
+      "value": "6 tissues with NZO diet-effect rows. None is hypothalamus. 0 of 12 registered barcodes occur in the portal sample manifests.",
+      "script": "data/author-validation/continued-sources/GSE235479/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Official supplement inventory",
+      "value": "The bioRxiv and eLife JATS each point to the same Supplemental Figures filename. The bioRxiv supplement has 6 extended figures over 7 pages, also present in the Research Square manuscript.",
+      "script": "data/author-validation/continued-sources/GSE235479/codex-2026-11-21/audit.py"
+    }
+  ],
+  "openIssues": [
+    "A same-cohort author table or original fitted results would be needed to assess the registered hypothalamus contrast. The public files also leave the individual mouse and cage assignments for those libraries unresolved."
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "datasetId": "mouse_hypo_oxt_trap_gse242245",
+  "outcome": "compared",
+  "summary": "For CCK-8s versus vehicle on standard chow, all 17 paired Figure 2I genes agreed in direction with the registered result. The Discussion added one matching direction for Trappc9. The authors reported 158 discoveries at adjusted P < 0.05, while the registered edgeR-QL analysis yielded zero. [Published study](https://pmc.ncbi.nlm.nih.gov/articles/PMC10636643/)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/mouse_hypo_oxt_trap_gse242245.json",
+    "data/author-validation/continued-sources/GSE242245/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE242245/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE242245/codex-2026-11-21/author-readings.tsv",
+    "data/author-validation/continued-sources/GSE242245/codex-2026-11-21/selected-comparison.tsv",
+    "data/author-validation/continued-sources/GSE242245/codex-2026-11-21/compare.py",
+    "data/author-validation/continued-sources/GSE242245/codex-2026-11-21/audit.json"
+  ],
+  "openIssues": [
+    "Five plotted discoveries lack registered coefficients. The 18 paired directions among 23 named genes fall below the concordance-v2 pair-count and coverage requirements.",
+    "The full author DESeq2 export was not located. Exact author coefficients and gene-wise P/FDR remain unavailable for a numerical comparison spec.",
+    "The restored QC summary reports 142 discoveries. The registered DE table and per-gene browser track each yield zero at FDR < 0.05."
+  ]
+}

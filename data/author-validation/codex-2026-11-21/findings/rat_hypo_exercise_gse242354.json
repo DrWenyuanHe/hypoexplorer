@@ -1,0 +1,201 @@
+{
+  "datasetId": "rat_hypo_exercise_gse242354",
+  "accession": "GSE242354",
+  "category": "unresolved",
+  "closure": "compared",
+  "summary": "MoTrPAC excluded male sedentary control GSM7759948 as a PC4 outlier in hypothalamus RNA-seq, and replaying its published rule reproduced the exclusion. The registered five-control limma output disagrees with the four-control, covariate-adjusted DESeq2 result across 16,772 one-to-one genes. Omitting that control alone raises direction agreement from 70.91% to 74.41%.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "The consortium’s PC4 exclusion is reproducible. The registered effects fall below both concordance thresholds.",
+      "note": "The GEO count and SOFT files and the Ensembl release 96 GTF match the registered source manifest. The consortium temporal atlas (PMID 38693412), its final exclusion roster and its code identify the excluded vial and establish the timewise RNA-seq method as DESeq2. The 16,798-pair November 15 join reproduces. Removing 26 additional joins to locally pooled genes leaves 16,772 one-to-one effects, with Pearson 0.3046, Spearman 0.5672 and 70.91% same-direction agreement. Coverage is 79.06% of the full registered output. At timewise adjusted P < 0.05 the authors report 11 calls, including ten paired genes, all with the same local sign. The registered output has zero calls. See continued-sources/GSE242354/codex-2026-11-21/SEARCH_LOG.md, cohort.tsv and metrics.json.",
+      "reviewFlags": [
+        "The registered result includes GSM7759948 (vial 90217015402), a confirmed PC4 outlier under the authors’ hypothalamus RNA-seq rule. An author-aligned cohort should exclude this control.",
+        "The exclusion-only sensitivity still falls below both effect-concordance routes. The relative contributions of count modelling, normalization and covariates to the remaining differences are unquantified."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "MoTrPAC hypothalamus timewise differential results",
+          "url": "https://raw.githubusercontent.com/MoTrPAC/MotrpacRatTraining6moData/f831a4fe421ec11687640452484a8247137aa74a/data/TRNSCRPT_HYPOTH_DA.rda",
+          "kind": "author_result"
+        },
+        {
+          "label": "MoTrPAC final sample exclusions and reasons",
+          "url": "https://raw.githubusercontent.com/MoTrPAC/MotrpacRatTraining6moData/f831a4fe421ec11687640452484a8247137aa74a/data-raw/outliers.tsv",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Temporal atlas supplementary methods, transcriptomics QC and differential analysis",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC11062907.1/41586_2023_6877_MOESM1_ESM.pdf",
+          "kind": "paper"
+        },
+        {
+          "label": "MoTrPAC timewise RNA-seq model implementation",
+          "url": "https://raw.githubusercontent.com/MoTrPAC/MotrpacRatTraining6mo/bea2ab1120c0bc0a4f4aa9602e93ecf5685e54fb/R/transcript_differential_analysis.R",
+          "kind": "database"
+        }
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "The full male eight-week author result was compared in the registered direction. The final roster, deposited normalized matrix and PCA rule resolve the exclusion of GSM7759948. MoTrPAC fitted DESeq2 across the male time course using four technical covariates. HypoExplorer fitted a two-arm, unadjusted limma model with one additional control. Of 16,771 nonzero one-to-one pairs, 11,892 agree in sign. Both numerical routes and the full-output coverage requirement fall below policy thresholds.",
+      "nextStep": "For a revision intended to follow the authors’ RNA-seq QC, exclude GSM7759948, retain the five trained males and four controls, and version the resulting fit. Score any revised registered output separately. The current comparison records a disagreement and supports no contrast sign-off.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "exercise8w_vs_sedentary"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "The current R 4.6.0 registered male eight-week trained-minus-sedentary limma coefficients on log2(CPM + 1). The single-control omission is a separate effects-only sensitivity on a fixed gene universe.",
+      "reference": "Male 8w rows in the consortium’s full TRNSCRPT_HYPOTH_DA table, using unshrunken logFC, p_value and timewise adj_p_value. SHA-256 c92379487df7edf00fd23cb433c4d1fcfcfda06fac295e50d0e6245dc2f4ab62.",
+      "assessment": "not_established",
+      "dimensions": {
+        "cohort": {
+          "status": "different",
+          "note": "GEO, PHENO and RNA-seq metadata identify the same five trained males. The registered result keeps five sedentary males. MoTrPAC keeps four after excluding animal 10023259, vial 90217015402 (GSM7759948), on PC4. The other two listed tissue exclusions are female. The male fit also uses the 1w, 2w and 4w groups."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Both estimate the eight-week training effect in male whole hypothalamus, with the sedentary males as denominator. The comparison uses the authors’ male 8w timewise coefficient at orientation +1."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Paired genes have exactly one source Ensembl ID per registered symbol using the pinned Rnor_6.0 release 96 GTF. The GEO count matrix exposes locally pooled symbols even when only one constituent survives author filtering. Omitted rows and mapping multiplicities are listed in unpaired_author.tsv."
+        },
+        "effects": {
+          "status": "different",
+          "note": "The registered coefficient is a difference of group means on log2(CPM + 1). The deposited logFC is the unshrunken conditional log2 fold change from a DESeq2 count model. Pearson is 0.3046, Spearman 0.5672 and direction agreement 70.91% on the registered comparison. Removing only GSM7759948 gives 0.3390, 0.6522 and 74.41% in a separate sensitivity."
+        },
+        "inference": {
+          "status": "different",
+          "note": "MoTrPAC uses a sex-specific negative-binomial model across training groups, integer-coerced counts, pct_globin, rin, pct_umi_dup and median_5_3_bias, and assay-wide BY adjustment for timewise P values. The registered two-arm model uses limma moderated t tests and BH adjustment over its tested genes. All 16,772 pairs have finite raw and adjusted P on both sides. The full author table has 11 adjusted-P calls below 0.05, ten paired. The registered output has zero. The unmatched author call maps to the pooled symbol Gns."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "16,772 pairs cover 98.92% of 16,955 author rows and 79.06% of 21,215 registered rows. The full-results policy uses the latter denominator. There are 181 author rows in 97 pooled symbols and two eligible author rows without a registered effect. In total 4,443 registered rows lack a one-to-one partner."
+        }
+      },
+      "criteria": "author-concordance-v2 requires compatible cohort, contrast, identifiers and effect definitions, at least 30 paired genes, and at least 90% registered-output coverage for a full reference. Either Pearson and Spearman must both reach 0.90, or at least 90% of at least 30 nonzero pairs covering 90% of all pairs must agree in sign. Magnitude, P and FDR are contextual.",
+      "conclusion": "The direct comparison closes with disagreement. The outlier decision is reproducible, and dropping this one control accounts for only part of the difference in directional agreement. Both effect routes remain below threshold, registered coverage is insufficient, and full verification is unwarranted."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "rat_hypo_exercise_gse242354",
+      "accession": "GSE242354",
+      "contrast": "exercise8w_vs_sedentary",
+      "localPath": "geo_replication/datasets/GSE242354_rnor_hypothalamus_exercise/processed/GSE242354_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/author_one_to_one.tsv",
+      "sourceUrl": "https://raw.githubusercontent.com/MoTrPAC/MotrpacRatTraining6moData/f831a4fe421ec11687640452484a8247137aa74a/data/TRNSCRPT_HYPOTH_DA.rda",
+      "sha256": "bbd497cb8398cee46afb8a9ee95eb7078642b261fdf87bf2abdc4b989335e082",
+      "format": "tsv",
+      "authorKey": "symbol",
+      "authorEffect": "logFC",
+      "authorAdjustedP": "adj_p_value",
+      "orientationSign": 1,
+      "orientation": "Eight-week trained males minus sedentary males in both tables. Use the deposited unshrunken coefficient.",
+      "localMethod": "limma",
+      "authorMethod": "MoTrPAC sex-specific timewise DESeq2 model with group, pct_globin, rin, pct_umi_dup and median_5_3_bias. Control vial 90217015402 excluded as a PC4 outlier.",
+      "note": "Replaces the previous symbol join for this contrast. All 16,774 author rows with one-to-one source identifiers are eligible. Two lack a registered row. Metrics were measured directly on the current R 4.6.0 output. Across all 16,955 author rows, 181 map to locally pooled symbols. The complete result and excluded rows are retained for the original denominator and the 11 full-reference BY calls. The eligible table contains ten calls.",
+      "interpretation": "effect_disagreement_review",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/TRNSCRPT_HYPOTH_DA.rda",
+          "bytes": 8407428,
+          "sha256": "c92379487df7edf00fd23cb433c4d1fcfcfda06fac295e50d0e6245dc2f4ab62",
+          "sourceUrl": "https://raw.githubusercontent.com/MoTrPAC/MotrpacRatTraining6moData/f831a4fe421ec11687640452484a8247137aa74a/data/TRNSCRPT_HYPOTH_DA.rda"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/TRNSCRPT_DA.Rd",
+          "bytes": 5565,
+          "sha256": "0e8bb9f30763a40879a7276bb26ff649362f8b4ea766884de013108e0caf01ce",
+          "sourceUrl": "https://raw.githubusercontent.com/MoTrPAC/MotrpacRatTraining6moData/f831a4fe421ec11687640452484a8247137aa74a/man/TRNSCRPT_DA.Rd"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/outliers.tsv",
+          "bytes": 5197,
+          "sha256": "db66774854486e3c0758f0e5eedc089ec48f42c0ba39b1c48c44a33c8da4c691",
+          "sourceUrl": "https://raw.githubusercontent.com/MoTrPAC/MotrpacRatTraining6moData/f831a4fe421ec11687640452484a8247137aa74a/data-raw/outliers.tsv"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/transcript_differential_analysis.R",
+          "bytes": 22046,
+          "sha256": "17bf9aa25e35ef5075e4bc03cdf93d375aa33cb7bd709b24b46e45be3254ad2b",
+          "sourceUrl": "https://raw.githubusercontent.com/MoTrPAC/MotrpacRatTraining6mo/bea2ab1120c0bc0a4f4aa9602e93ecf5685e54fb/R/transcript_differential_analysis.R"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/Rattus_norvegicus.Rnor_6.0.96.gtf.gz",
+          "bytes": 11796110,
+          "sha256": "3e5f0f10ab29ed2a976ee4d88208d15f4eedbd815dafe3f1a96ba9374783227e",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-96/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.96.gtf.gz"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/GSE242354_motrpac_pass1b-06_t54-hypothalamus_transcript-rna-seq_rsem-genes-count.txt.gz",
+          "bytes": 2128505,
+          "sha256": "9842c7495cf0335245f7bfa838b71220866ddf9530c7c140aaf4aa0dd98a4b73",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE242nnn/GSE242354/suppl/GSE242354_motrpac_pass1b-06_t54-hypothalamus_transcript-rna-seq_rsem-genes-count.txt.gz"
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/review.py",
+      "resultScope": "full_results",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE242354_rnor_hypothalamus_exercise/processed/GSE242354_DE.tsv",
+        "sha256": "a7036f08ed771f64eff68b0902d2a838a0b315834c9d403ded79f1eaea4f84f4",
+        "bytes": 2108470
+      }
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO cohort and final RNA-seq exclusions",
+      "value": "5 registered trained, 5 controls. Author male fit includes 5 each at 1w, 2w, 4w and 8w, with 4 controls. GSM7759948 is the only excluded registered animal.",
+      "script": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Replay of the consortium PCA rule",
+      "value": "Across 50 hypothalamus samples, all 3 excluded vials and all 4 PC labels match. PC4 explains 7.508664% of variance and control 90217015402 lies 26.957617 IQRs beyond its nearer hinge.",
+      "script": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Previous within-author-table symbol join",
+      "value": "16,798 pairs. Pearson 0.30458548, Spearman 0.56668929, 11,907/16,796 same direction.",
+      "script": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "One-to-one source-ID audit",
+      "value": "16,955 author rows, 181 rows in 97 pooled symbols (26 more paired rows excluded than before), 2 unpaired eligible rows, 16,772 pairs.",
+      "script": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Full-reference and registered-output coverage",
+      "value": "16,772/16,955 = 98.9207% author. 16,772/21,215 = 79.0573% registered.",
+      "script": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Registered effects against the full author table on one-to-one pairs",
+      "value": "Pearson 0.30459928, Spearman 0.56720483, 11,892/16,771 = 70.9081% same direction, nonzero coverage 99.9940%. Median absolute difference 0.07296, paired RMS local/author ratio 0.13491.",
+      "script": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Sensitivity restricted to the documented control omission",
+      "value": "Maximum all-sample reconstruction error 5.11e-15 on the registered log2 scale. Omitting GSM7759948 only, on the same 16,772 pairs, gives Pearson 0.33902455, Spearman 0.65215440 and 12,480/16,771 = 74.4142% same direction.",
+      "script": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Paired inference and whole-table discoveries",
+      "value": "Raw P < 0.05 on 16,772 finite pairs: 597 author, 802 registered, 162 shared. Adjusted P < 0.05: 11 author across all rows, 10 paired (all same sign), 0 registered, 0 shared. Unpaired author call ENSRNOG00000047350 maps to Gns.",
+      "script": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/review.py"
+    }
+  ],
+  "openIssues": [
+    "The registered fit includes the PC4 outlier. A future author-aligned fit would require a separately versioned registered result.",
+    "The single-control sensitivity measures the exclusion effect. The contributions of covariate adjustment, count modelling and normalization to the remaining disagreement have not been isolated."
+  ]
+}

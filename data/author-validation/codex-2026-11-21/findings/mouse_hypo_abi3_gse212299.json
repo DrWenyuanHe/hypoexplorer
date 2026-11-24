@@ -1,0 +1,59 @@
+{
+  "datasetId": "mouse_hypo_abi3_gse212299",
+  "accession": "GSE212299",
+  "category": "not_located",
+  "closure": "no_valid_comparison",
+  "summary": "Smith et al. report 31 hypothalamic DEGs after adjusting for body weight. HypoExplorer estimates the KO-minus-WT difference without that adjustment in the same four KO and four WT mice. The public figures, supplement and deposits reviewed provide no author genotype-only effects for this contrast.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE212299/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "Published hypothalamic gene results adjust for body weight",
+      "note": "All eight hypothalamus GEO assignments match the registered sample sheet. Figure 3A labels selected genes from the DESeq2 model with scaled body weight and genotype. Supplementary Table 1 lists MetaCore enrichment P values and contributing network objects. The registered edgeR model includes genotype alone. GEO supplies per-library counts. See data/author-validation/continued-sources/GSE212299/codex-2026-11-21/SEARCH_LOG.md.",
+      "reviewFlags": [
+        "The historical processed-input match remains structural. This review fingerprints the public archive and registered DE table."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "Figure 3A and Supplementary Table 1 provide selected results from a body-weight-adjusted hypothalamus analysis. The authors estimated the genotype effect at a given body weight. HypoExplorer estimates the overall difference between the observed genotype groups. The source search yielded no author genotype-only result for the registered mice.",
+      "nextStep": "A direct comparison requires the authors' genotype-only KO-minus-WT hypothalamus table for GSM6523623–GSM6523630, including gene identifiers, log2 fold changes, raw P, adjusted P, filtering and model settings.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered hypothalamus libraries reconciled to individual GEO metadata and archive members",
+      "value": "4 Abi3 KO and 4 WT",
+      "script": "data/author-validation/continued-sources/GSE212299/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Contents of every per-sample GEO count file",
+      "value": "16 files, each with 53,700 Ensembl gene rows and 5 HTSeq summary rows in 2 columns",
+      "script": "data/author-validation/continued-sources/GSE212299/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Published symbols and FDR < 0.05 results in the registered genotype-only table",
+      "value": "13,040 unique symbols and 0 FDR < 0.05",
+      "script": "data/author-validation/continued-sources/GSE212299/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Weight-adjusted hypothalamic DEGs reported by the authors in Results section 3.4, extracted from the saved article",
+      "value": "31",
+      "script": "data/author-validation/continued-sources/GSE212299/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Public supplementary presentation inspected in both distributions",
+      "value": "6 slides, including Supplementary Table 1 with 10 process networks and 10 pathways. All internal files match between the Figshare and Europe PMC packages.",
+      "script": "data/author-validation/continued-sources/GSE212299/codex-2026-11-21/audit.py"
+    }
+  ],
+  "openIssues": [
+    "Author concordance for the genotype-only hypothalamus contrast remains unassessed. A matching author result table would allow the review to be reopened."
+  ]
+}

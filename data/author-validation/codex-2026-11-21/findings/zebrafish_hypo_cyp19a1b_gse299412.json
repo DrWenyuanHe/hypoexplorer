@@ -1,0 +1,185 @@
+{
+  "datasetId": "zebrafish_hypo_cyp19a1b_gse299412",
+  "accession": "GSE299412",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "Table S4 and the current published male hypothalamus DE table agree in direction for 149 of 157 paired genes. Of 231 selected genes, 52 fail the registered expression filter and another 22 lack a published symbol, including tnc. Eight sign reversals remain, and the authors' sample-level rlog values, filtering code and full limma output are needed to explain them.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE299412/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "summary": "Table S4 and the current male hypothalamus DE table agree in direction for 149 of 157 paired genes",
+      "note": "Table S4 identifies 231 male hypothalamus mutant-versus-WT genes (50 up, 181 down) within a 703-gene union. GEO and the registered sample sheet identify the same six WT and five mutant pools of three adult fish. Replaying the registered expression filter on the deposited UMI counts explains all 52 historical filter exclusions. A further 22 selected genes passed the filter under reserved identifiers and have no published effect, including tnc. The current DE table publishes 5,007 of the 5,474 fitted features. Eight of 157 published pairs reverse direction, all author-down and locally positive with raw P and FDR above 0.05. Among the 89 published local FDR discoveries, 46 have a male hypothalamus selection flag and 43 lack one. Table S4 supplies group rlog means and direction flags. Gene-level author P values, BH-adjusted P values and the sample-level rlog matrix remain unavailable in the inspected results. The dated GSE299412 evidence folder contains all selected rows and their dispositions.",
+      "reviewFlags": [
+        "Eight published effects reverse the Table S4 direction. The authors' rlog inputs and fitted limma results are needed to trace those signs.",
+        "157 of 231 selected genes have a published pair (67.97%). This falls below the 90% selected-reference coverage required by author-concordance-v2.",
+        "Author inference remains unassessed. The public paper describes selection and BH adjustment, while Table S4 omits numerical P and adjusted P."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Published methods and Figure 7",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12376962/",
+          "kind": "paper"
+        },
+        {
+          "label": "Table S4 from the PMC open-access article package",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC12376962.1/JNC-169-0-s006.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Europe PMC supplementary archive",
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12376962/supplementaryFiles",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO deposited UMI-count matrix",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE299nnn/GSE299412/suppl/GSE299412_data.txt.gz",
+          "kind": "processed_data"
+        }
+      ],
+      "paperAccess": "pmc_full_text",
+      "pmcUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12376962/",
+      "pmcId": "PMC12376962",
+      "pubmedUrl": "https://pubmed.ncbi.nlm.nih.gov/40853063/",
+      "status": "review_required",
+      "comparisonLevel": "direct"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The current published output covers 157 of 231 selected genes. The registered filter and symbol mapping account for every unpaired gene. The authors' group means and flags agree with each other, but eight published edgeR coefficients have the opposite sign. The complete author rlog matrix, analysis code and gene-wise tests were not located in the inspected sources.",
+      "nextStep": "Which sample-level rlog matrix and analysis script generated the Adult_Hypo_male_ko vs Adult_Hypo_male_wt column in Table S4? Please identify the libraries and size factors used for rlog, the per-pool or per-group detection and fold-change rules, the limma design and contrast, and the genes included in the BH adjustment. Can you supply the per-gene coefficient, raw P and adjusted P before final selection so the eight opposite signs and author selection of the 52 locally filtered genes can be traced?",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "cyp19a1b_mutant_vs_wild_type_male"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Table S4 mutant minus WT rlog group means and reported directions paired by exact source symbol to the current published edgeR-QL DE table.",
+      "reference": "PMC Table S4, worksheet STRATEGY2.LIMMA_suptable_export, Adult_Hypo_male_ko vs Adult_Hypo_male_wt. All 231 flagged rows retained.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "The GEO family and sample sheet identify the same adult male hypothalamus pools, six WT and five mutant, each representing three fish. Each pool is one biological replicate."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Mutant minus wild type within male hypothalamus in both sources. The workbook flag agrees with the sign of the group-mean difference for every selected gene."
+        },
+        "features": {
+          "status": "limited",
+          "note": "All 231 source symbols are unique in GEO. Of 52 failing the registered CPM support rule, 47 have published-symbol mappings and five have reserved labels. Another 22 pass the filter under reserved labels. Exactly 157 have published effects."
+        },
+        "effects": {
+          "status": "different",
+          "note": "The author difference of rlog group means and the TMM-offset edgeR coefficient use different estimators. Signs agree in 149 of 157 nonzero pairs. Pearson r = 0.882737 and Spearman rho = 0.681191. Eight author-down effects are locally positive."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "The paper describes limma and BH adjustment after detection and fold-change screening. Table S4 has no numerical author P/FDR. Local FDR < 0.05 holds for 46 selected genes and 89 published genes overall. All eight opposite pairs have local raw P and FDR above 0.05."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "157/231 (67.97%) of the selected author list and 157/5,007 (3.14%) of the published local table are paired. The 703-gene union covers multiple contrasts. Its omissions cannot define a complete tested or negative set."
+        }
+      },
+      "criteria": "Use all author-flagged rows and exact identifiers. Author-concordance-v2 requires at least 30 pairs and 90% selected-reference coverage. Direction agreement is 94.90% across all 157 nonzero pairs. Both correlation coefficients fall below 0.90 and selected-reference coverage falls below 90%. P/FDR and magnitude are contextual. The group-mean differences alone cannot establish equivalent coefficients or inference.",
+      "conclusion": "The comparison establishes selected-gene directions and accounts for all unpaired rows. It does not meet v2 acceptance, and the cause of the eight reversals remains open."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "zebrafish_hypo_cyp19a1b_gse299412",
+      "accession": "GSE299412",
+      "contrast": "cyp19a1b_mutant_vs_wild_type_male",
+      "localPath": "geo_replication/datasets/GSE299412_drer_hypothalamus/processed/GSE299412_DE.tsv",
+      "localKey": "symbol",
+      "localMethod": "edgeR-QL",
+      "authorMethod": "Table S4 rlog group means and limma-selected genes",
+      "orientation": "Adult male hypothalamus mutant minus WT. Subtract the two Table S4 group rlog means and verify the sign against the same contrast's UP/DOWN flag.",
+      "note": "All 231 selected author symbols retained before joining to the current published DE table. Of 157 exact pairs, 149 agree in direction. The 52 expression-filter failures and 22 additional unpublished reserved identifiers carry no published effect. Author P and FDR are unavailable.",
+      "authorPath": "data/author-validation/continued-sources/GSE299412/codex-2026-11-21/author-effects.tsv",
+      "sourceUrl": "https://pmc-oa-opendata.s3.amazonaws.com/PMC12376962.1/JNC-169-0-s006.xlsx",
+      "sha256": "48a2c1b141809d9ebd5cfa9bcdd57cd8d03dc626879891c5bf6f5fb4c04e8f05",
+      "format": "tsv",
+      "authorKey": "source_symbol",
+      "authorEffect": "author_effect",
+      "orientationSign": 1,
+      "interpretation": "effects_compared",
+      "resultScope": "selected_results",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE299412/codex-2026-11-21/JNC-169-0-s006.xlsx",
+          "sourceUrl": "https://pmc-oa-opendata.s3.amazonaws.com/PMC12376962.1/JNC-169-0-s006.xlsx",
+          "sha256": "da25bd90c2554881da65db414ab71ccef6a200cf9e50b5665798da1ea6964c87",
+          "bytes": 403318
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE299412/codex-2026-11-21/compare.py",
+          "sourceUrl": "Complete source-only selection and mutant-minus-WT extraction. Local dispositions are computed after the author table is written.",
+          "sha256": "b709ca94964d8f9b66b0fa5fd47866ddb793e30d54f15336f5fd1c6919e991a3",
+          "bytes": 12533
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE299412/codex-2026-11-21/compare.py",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE299412_drer_hypothalamus/processed/GSE299412_DE.tsv",
+        "sourceUrl": "Current registered male hypothalamus DE table on the R 4.6.0 production route",
+        "sha256": "c7a77d9a84a6807d8820a8aa62457d467917ab87d5cfc22e38185df75fb60ec9",
+        "bytes": 495232
+      }
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO matrix and registered cohort",
+      "value": "15,418 genes across 63 libraries. Six WT and five mutant male hypothalamus pools match the registered sample sheet.",
+      "script": "data/author-validation/continued-sources/GSE299412/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Author reference",
+      "value": "703 unique genes across 12 contrast columns. The male hypothalamus column selects 231 (50 UP and 181 DOWN). Every flag agrees with the difference of group means.",
+      "script": "data/author-validation/continued-sources/GSE299412/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered filter and publication",
+      "value": "5,474 fitted features, including 467 without a published symbol. The current DE table has 5,007 rows.",
+      "script": "data/author-validation/continued-sources/GSE299412/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Disposition of the 231 selected genes",
+      "value": "157 published, 22 passed the filter with reserved labels, 47 mapped and five reserved labels failed the filter. All 52 failures had fewer than five pools at the 21.23525477 CPM cutoff. All 52 passed the total-count minimum of 15.",
+      "script": "data/author-validation/continued-sources/GSE299412/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Coverage and direction",
+      "value": "157/231 = 67.97% reference coverage. 157/5,007 = 3.14% published-output coverage. All 157 pairs are nonzero and 149 agree (94.90%).",
+      "script": "data/author-validation/continued-sources/GSE299412/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Paired effect magnitudes",
+      "value": "Pearson 0.88273743, Spearman 0.68119065, median absolute difference 0.26498119, RMS local/author effect ratio 1.07703520.",
+      "script": "data/author-validation/continued-sources/GSE299412/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Opposite effects",
+      "value": "arl1, cnot8, kcmf1, kras, mea1, pde6d, tcf3b, tsc2. All eight are DOWN in Table S4 and positive in edgeR. tnc passed the registered filter under reserved ID __UNMAPPED_DRER_ROW_13290.",
+      "script": "data/author-validation/continued-sources/GSE299412/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Depth diagnostic for the eight reversals",
+      "value": "All eight have lower mean raw UMI counts in mutant pools. Seven have higher arithmetic mean TMM CPM in mutants. Neither diagnostic recovers the authors' rlog procedure.",
+      "script": "data/author-validation/continued-sources/GSE299412/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Published calls and author statistics",
+      "value": "89 published local FDR < 0.05, of which 46 have a male hypothalamus selection flag and 43 lack one. No opposite pair passes local raw P < 0.05 or FDR < 0.05. No paired author P/FDR values are supplied.",
+      "script": "data/author-validation/continued-sources/GSE299412/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "Which sample-level rlog matrix and analysis script generated the Adult_Hypo_male_ko vs Adult_Hypo_male_wt column in Table S4? Please identify the libraries and size factors used for rlog, the per-pool or per-group detection and fold-change rules, the limma design and contrast, and the genes included in the BH adjustment. Can you supply the per-gene coefficient, raw P and adjusted P before final selection so the eight opposite signs and author selection of the 52 locally filtered genes can be traced?"
+  ]
+}

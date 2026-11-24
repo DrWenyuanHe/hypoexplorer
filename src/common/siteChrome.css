@@ -1,0 +1,24 @@
+/* Shared site header and the landing footer's reference links. */
+.hub-util .site-reference-link:focus-visible {
+  outline: 2px solid var(--color-selected);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.site-header { --site-header-padding: 24px; flex-shrink: 0; min-width: 0; }
+.hub-util .site-reference-link {
+  font-size: var(--fs-13);
+  color: var(--text-mono);
+  text-underline-offset: 3px;
+}
+.hub-util .site-reference-link:hover { color: var(--text-primary); }
+
+.site-header-row { min-width: 0; flex-wrap: wrap; }
+.site-header-breadcrumbs { min-width: 0; flex-wrap: wrap; overflow-wrap: anywhere; }
+.site-header-controls { flex-wrap: wrap; }
+.tracker-root .tk-top.site-header-row { height: auto; min-height: 44px; padding: 8px var(--site-header-padding); }
+.tracker-root .tk-crumb { flex-wrap: wrap; }
+
+@media (max-width: 600px) {
+  .site-header { --site-header-padding: 16px; }
+}

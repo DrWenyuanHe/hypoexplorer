@@ -1,0 +1,18 @@
+{
+  "datasetId": "gse308884",
+  "outcome": "compared",
+  "summary": "All 10 genes labeled in the [diet](https://www.biorxiv.org/content/10.1101/2025.10.06.680810v1.full.pdf) and [TN-783](https://www.biorxiv.org/content/biorxiv/early/2025/10/09/2025.10.06.680810/DC1/embed/media-1.pdf?download=true) volcano plots matched the registered effect direction in each contrast. All 25 genes the authors identified as reversing with treatment also reversed in the registered results. Significance differed for the diet contrast: all 10 labeled genes met the authors’ discovery rule, while none reached 10% FDR in HypoExplorer.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/gse308884.json",
+    "data/author-validation/continued-sources/GSE308884/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE308884/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE308884/codex-2026-11-21/compare.py",
+    "data/author-validation/continued-sources/GSE308884/codex-2026-11-21/selected-genes.tsv",
+    "data/author-validation/continued-sources/GSE308884/codex-2026-11-21/audit.json",
+    "data/author-validation/continued-sources/GSE308884/codex-2026-11-21/verification.json"
+  ],
+  "openIssues": [
+    "The public figures support a selected-gene comparison. Full author coefficients and exact gene-wise P and FDR values remain unavailable for both contrasts, so neither contrast qualifies for full verification.",
+    "The contribution of filtering, sample weighting and model choice to the diet FDR discrepancy remains unresolved."
+  ]
+}

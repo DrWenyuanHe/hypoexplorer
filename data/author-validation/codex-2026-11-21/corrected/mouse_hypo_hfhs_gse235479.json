@@ -1,0 +1,89 @@
+{
+  "datasetId": "mouse_hypo_hfhs_gse235479",
+  "accession": "GSE235479",
+  "category": "not_located",
+  "closure": "no_valid_comparison",
+  "summary": "The Three Bears archive contains strain-specific diet results for adipose, heart, islet, kidney, liver and skeletal muscle. The preprints report hypothalamus collection, and conference abstract 396V describes a hypothalamic diet response. Neither supplies an attributable gene effect for HFHS versus control in NZO hypothalamus, and the three GSE235479 series supplements contain expression or annotation.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE235479/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "Three Bears author diet results cover six other tissues",
+      "note": "The eLife reviewed preprint (10.7554/eLife.108435.1) and bioRxiv preprint (10.1101/2025.02.12.637923) list hypothalamus collection and cite seven sibling series in GSE235498. Their data-availability statements omit GSE235479. The Three Bears portal has within-strain diet estimates for six other tissues. GSA abstract 396V mentions a hypothalamic response, but its UCP2 and UCP3 findings lack an NZO hypothalamus-specific direction. The GSE235479 family SOFT lists the three series files and every GSM supplement field. The saved GEO web page is a reCAPTCHA challenge. Counts, VST and annotation contain no author diet coefficients. The 12 registered libraries match the GEO strain, tissue, sex and diet labels. File fingerprints and the read-only replay are in data/author-validation/continued-sources/GSE235479/codex-2026-11-21/SOURCES.tsv and refute/recheck.py in that folder.",
+      "reviewFlags": [
+        "The inspected author sources contain no gene effect attributable to hfhs_vs_control in NZO whole hypothalamus. Author effect agreement and inference remain unassessed.",
+        "NZO mice were group housed. GEO identifies the target libraries by ORSAM and GSM. The reviewed sample metadata and portal manifests leave the library-to-mouse and cage assignments unresolved.",
+        "The legacy analysis lacks a committed source-file checksum manifest. The dated evidence manifest fingerprints the retrieved GEO files."
+      ],
+      "reviewedAt": "2026-11-21",
+      "paperAccess": "publisher_full_text",
+      "evidenceLinks": [
+        {
+          "label": "Baker et al., eLife reviewed preprint v1 (publisher PDF)",
+          "url": "https://cdn.elifesciences.org/preprints/108435/elife-preprint-108435-v1.pdf",
+          "kind": "paper"
+        },
+        {
+          "label": "Three Bears archive with diet results for six other tissues",
+          "url": "https://churchilllab.jax.org/threebears/download",
+          "kind": "author_result"
+        },
+        {
+          "label": "GSA abstract 396V on the eight-tissue study",
+          "url": "https://abs.genetics-gsa.org/pages/peqg22/Reports/ViewProgram/396",
+          "kind": "paper"
+        },
+        {
+          "label": "GSE235479 family SOFT with series and sample metadata",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE235nnn/GSE235479/soft/GSE235479_family.soft.gz",
+          "kind": "database"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The portal reports gene-level NZO diet effects for six other tissues. None of its 257 sample-manifest rows matches a registered hypothalamus barcode. The GEO series supplements and the conference abstract supply no gene effect or direction attributable to the registered NZO whole-hypothalamus contrast. There are zero eligible pairs for author-concordance-v2.",
+      "nextStep": "Reopen when an author table, figure or fitted result identifies gene effects or directions for HFHS versus control in the registered NZO hypothalamus cohort. Establish the samples, orientation and sex handling, then assess the genes and statistics the source actually reports. Effects-only evidence can support a scoped comparison while inference remains unassessed.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered edgeR-QL table for hfhs_vs_control",
+      "value": "18,208 published rows with 18,208 distinct symbols. SHA-256 af2f7f666b72d74c5ca7bae6dfc0bcb37f10ab896e995c035f7701e6778849e1. The provenance records 18,525 tested rows including 317 unmapped rows. The published table has 136 rows with FDR < 0.05.",
+      "script": "data/author-validation/continued-sources/GSE235479/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Registered libraries reconciled to GEO tissue, strain, sex and diet",
+      "value": "6 control and 6 HFHS. Each arm has 3 female and 3 male libraries.",
+      "script": "data/author-validation/continued-sources/GSE235479/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "GEO expression, annotation and sample supplement inventory",
+      "value": "Counts and VST each have 24,265 rows, 2 identifier columns and 36 ORSAM columns. Annotation has 24,265 rows and 8 columns. All 36 GSM records declare NONE for supplementary files.",
+      "script": "data/author-validation/continued-sources/GSE235479/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Author portal archive coverage of the registered target",
+      "value": "25 substantive archive files cover six tissues. The NZO diet strata have 129,831 gene-by-tissue rows, 127,034 with a finite log2FoldChange and 126,333 with a finite log2FoldChange, pvalue and padj. Zero of 12 registered ORSAM barcodes occur in the six sample manifests (257 rows). Hypothalamus is absent.",
+      "script": "data/author-validation/continued-sources/GSE235479/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Official supplement inventory",
+      "value": "The eLife and bioRxiv JATS each name supplements/637923_file03.pdf. The retrieved bioRxiv supplement contains six extended figures on seven pages. The same six figure captions appear on Research Square pages 44, 45, 47, 48, 49 and 50.",
+      "script": "data/author-validation/continued-sources/GSE235479/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Retained-source fingerprints and content exceptions",
+      "value": "All 63 files match the listed SHA-256 and byte count (203,995,490 bytes total). geo-series.html is a reCAPTCHA response, viewer-host.html is a 34-byte comment and portal-target.json is a message for the unsupported tissue. The GEO inventory comes from geo-family.soft.gz.",
+      "script": "data/author-validation/continued-sources/GSE235479/codex-2026-11-21/refute/recheck.py"
+    }
+  ],
+  "openIssues": [
+    "Gene-level author effects or directions for the registered hypothalamus contrast remain unavailable in the reviewed material. Individual mouse and cage assignments remain unresolved for the 12 libraries."
+  ]
+}

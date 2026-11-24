@@ -1,0 +1,103 @@
+{
+  "datasetId": "mouse_hypo_fasting_gse87544",
+  "accession": "GSE87544",
+  "category": "access_blocked",
+  "closure": "no_valid_comparison",
+  "summary": "The detailed sheet of Chen et al.’s Table S6 reports 1,865 selected effects within 34 neuronal subtypes. HypoExplorer estimates one 24-hour food-deprived versus fed effect per tested gene across all 14,437 retained cells aggregated by mouse. The reviewed sources provide no author estimate for that registered contrast.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE87544/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "Table S6 reports fasting responses within neuronal subtypes. The registered hypothalamus track aggregates all retained cells by mouse.",
+      "note": "GEO supplies seven batch-by-condition units consistent with the four fed and three food-deprived mice processed separately in five batches. The registered edgeR quasi-likelihood fit adjusts for batch and has one residual degree of freedom. Table S6 covers 2,315 neuronal cells. Each detailed row has a subtype, gene symbol and raw MAST hurdle-test P value. Despite its log2fold_change heading, the effect equals ln((1 + mean FD TPM) / (1 + mean fed TPM)), with per-cell TPM averaged within each subtype and condition. The deposited normalized matrix reproduces both means for every listed row on the ln(1 + mean TPM) scale. The summary counts 1,998 results, 133 more than the detailed list across 18 subtypes. Table S6 supplies neither a pooled author effect nor gene-level adjusted P values. The registry treats its own analysis as exploratory.",
+      "reviewFlags": [
+        "The 1,865 detailed rows are a selected list. Pooling those effects across subtypes would omit cells and genes and discard the registered mouse and batch structure.",
+        "Eight of 64 repeated-barcode pairs exchange their normalized and count profiles between the unsuffixed and .1 cell IDs. One pair crosses the GABA6 and zothers labels, explaining ten differences when Table S6 is reconstructed from merged counts. Each pair stays within a single registered mouse unit."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Table S6. Food-deprivation responses within neuronal subtypes",
+          "url": "https://www.ebi.ac.uk/biostudies/files/S-EPMC5782816/NIHMS934741-supplement-7.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Supplemental procedures, figures and table descriptions",
+          "url": "https://www.ebi.ac.uk/biostudies/files/S-EPMC5782816/NIHMS934741-supplement-1.pdf",
+          "kind": "paper"
+        },
+        {
+          "label": "Official merged 14,437-cell count matrix",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE87nnn/GSE87544/suppl/GSE87544_Merged_17samples_14437cells_count.txt.gz",
+          "kind": "processed_data"
+        },
+        {
+          "label": "GEO cell assignments for the 14,437 retained cells (47 distinct labels)",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE87nnn/GSE87544/suppl/GSE87544_1443737Cells.SVM.cluster.identity.renamed.csv.gz",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Deposited normalized cell expression used to verify the Table S6 effect scale",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE87nnn/GSE87544/suppl/GSE87544_1443737Cells.Expresssion.Matrix.log_tpm%2B1_.renamed.RData.gz",
+          "kind": "processed_data"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The published subtype tests use the same 24-hour food-deprived versus fed orientation as deprived_vs_fed. Table S6 conditions on neuronal subtype and averages individual cells within each group. The registered edgeR coefficient is a batch-adjusted log2 fold change from seven pseudobulks of all retained cells. There are zero same-scope effect pairs, even where gene symbols match. Effect and inference concordance remain unassessed.",
+      "nextStep": "Reopen if author gene-level effects for the all-cell food-deprived versus fed contrast become available with mouse membership, aggregation and model documented. Author P values, the adjustment method and tested-gene coverage would also permit an inference review.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Table S6 detailed rows and coverage",
+      "value": "1,865 distinct gene-by-subtype rows across 34 neuronal subtypes, zero pooled rows. The summary’s diff.gene.num totals 1,998. Counts differ in 18 subtypes. All 1,703 literal gene symbols occur in the merged matrix and 1,701 in the registered DE table. Gm16551 and Wnt10a lack a literal registered row. Symbol overlap supplies zero pairs for the registered biological comparison.",
+      "script": "data/author-validation/continued-sources/GSE87544/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Cells in the Table S6 subtype summary",
+      "value": "All 34 fed and food-deprived cell counts agree individually with the deposited cluster and feeding labels. The totals are 1,064 fed and 1,251 food-deprived cells, or 2,315 overall.",
+      "script": "data/author-validation/continued-sources/GSE87544/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Table S6 effect scale, orientation and selection",
+      "value": "Across all 3,730 condition means, ln(1 + within-subtype mean per-cell TPM) reconstructed from the normalized workspace agrees within 6.3e-15. The workbook’s log2fold_change equals mean.FD minus mean.Fed within 1.1e-14. For GABA15 Agrp the ratio with the +1 offset is 1.82435, its natural log is 0.601224 and its log2 is 0.867383. The workbook gives 0.601224. All 1,865 tests are labeled hurdle. The largest raw P is 0.00999554 and the smallest absolute tabulated effect is 0.586468. The authors describe selection at fold change >1.5 and raw P<0.01. All listed rows were checked.",
+      "script": "data/author-validation/continued-sources/GSE87544/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "GEO merged counts, normalized workspace and cell assignments",
+      "value": "The merged matrix and the sole numeric data frame in the normalized workspace each contain the same 23,284 gene symbols and 14,437 cell IDs. The cluster table has the identical cell-ID set and 47 distinct labels. Summed merged counts total 47,340,924.",
+      "script": "data/author-validation/continued-sources/GSE87544/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Within-subtype effects from the merged counts",
+      "value": "Using deposited cell IDs literally, library-size-normalized merged counts reproduce 1,855 of 1,865 tabulated effects within 1e-8. All ten differences arise in the GABA6 food-deprived mean. The normalized profiles of B1CAGACCGGCCGT_Hungry and its .1 partner match the opposite count columns across 23,284 genes. The assigned clusters are zothers and GABA6, respectively. This exchange stays within B1_Hungry. Using the verified exchange in a diagnostic calculation reproduces all 45 GABA6 food-deprived means from counts within 1.4e-12. Across all 64 repeated-barcode pairs, 112 of 128 profiles match the same cell ID and 16 match their opposite-suffix partner within 1e-8 on the normalized scale.",
+      "script": "data/author-validation/continued-sources/GSE87544/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "GEO sample supplements represented in the RAW archive",
+      "value": "All 17 members match the sample files declared in GEO family SOFT. Reading each gzip stream to its end yielded integer gene-by-barcode count rows and 18,300 barcode columns across technical partitions.",
+      "script": "data/author-validation/continued-sources/GSE87544/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Registered cohort and model",
+      "value": "14,437 retained cells resolve to 4 normal-fed and 3 food-deprived mouse units. The five-batch design with groupcase for deprived minus fed has rank 6 across 7 rows, leaving 1 residual degree of freedom.",
+      "script": "data/author-validation/continued-sources/GSE87544/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Registered DE output",
+      "value": "14,881 distinct symbols with finite edgeR-QL logFC. SHA-256 bc0cc9e562a5966dff21b54de900d8df3c2aa5b2fc50da2d88bd1cd1bef50c61 matches the registered DE provenance. One numerical adjusted P is below 0.05. The registry makes no gene-level FDR claim for this exploratory contrast.",
+      "script": "data/author-validation/continued-sources/GSE87544/codex-2026-11-21/refute/recheck.py"
+    }
+  ],
+  "openIssues": [
+    "No author result for the registered all-cell contrast was identified in the reviewed sources. The historical viewer did not resolve. Whole-track effects, P values and FDR agreement remain unassessed.",
+    "The workbook gives no explanation for the 133-result gap between its summary counts and detailed list. The identities and statistics of the additional results counted in the summary cannot be inferred from those counts."
+  ]
+}

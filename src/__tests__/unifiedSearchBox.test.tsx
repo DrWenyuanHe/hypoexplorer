@@ -189,7 +189,15 @@ describe('UnifiedSearchBox', () => {
     expect(useSearchVocabulary).toHaveBeenCalled();
     expect(useSearchVocabulary.mock.calls.every(([enabled]) => enabled === false)).toBe(true);
     fireEvent.focus(box);
-    expect(useSearchVocabulary).toHaveBeenLastCalledWith(true);
+    // Suggestions follow the partial stages rather than waiting for every source.
+    expect(useSearchVocabulary).toHaveBeenLastCalledWith(true, { partial: true });
+  });
+
+  it('starts the hub load when a pointer reaches the box, before focus', () => {
+    const { form } = renderBox();
+    expect(useSearchVocabulary.mock.calls.every(([enabled]) => enabled === false)).toBe(true);
+    fireEvent.pointerEnter(form.querySelector('.hub-search-box') as HTMLElement);
+    expect(useSearchVocabulary).toHaveBeenLastCalledWith(true, { partial: true });
   });
 
   it('loads the vocabulary at once on the results page, prefilled with the query', () => {

@@ -1,0 +1,82 @@
+{
+  "datasetId": "mouse_hypo_astro_trap_gse214683",
+  "accession": "GSE214683",
+  "category": "partial_untested",
+  "closure": "no_valid_comparison",
+  "summary": "The registered contrast estimates HFD minus chow in sham-operated mice from astrocyte-enriched hypothalamic immunoprecipitates (IP). The released author results measure orchiectomy on HFD and a three-group trend. The paper mentions a sham diet test after naming genes in two fractions, without reporting an IP-specific diet effect or assigning a diet call unambiguously to an IP gene.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE214683/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "The GEO count matrix matches the registered input fingerprint. The authors report different contrasts.",
+      "note": "The registered edgeR quasi-likelihood fit compares six sham HFD mice with seven sham chow mice. The GEO count matrix matches the producer’s input SHA-256. In Supplemental Data S1, the pairwise Sleuth coefficient measures orchiectomy minus sham on HFD. The ordinal sheet reports a Wald linear coefficient across chow sham, HFD sham and HFD orchiectomy. Its P values test the entire ordered group term by likelihood ratio, with adjustment for cell composition in both models. Row labels and author code resolve the swapped IP ordinal and supernatant (SN) pairwise descriptions in the gene tables and all four enrichment collections. The paper names nine IP and two SN ordinal genes before mentioning a separate sham diet test. It gives neither the diet coefficients nor enough detail to assign IP-specific calls.",
+      "reviewFlags": [
+        "The immunoprecipitate measures astrocyte-enriched ribosome-associated RNA from the hypothalamus.",
+        "The authors give a collective significance statement for the sham diet comparison. Its fraction, gene-specific results and tested universe remain unclear."
+      ],
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Figure 3 and the Results paragraph on the unshown sham diet test",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10202485/#F0003",
+          "kind": "paper"
+        },
+        {
+          "label": "Supplemental Data S1 with all four gene-level model outputs",
+          "url": "https://doi.org/10.6084/m9.figshare.22065005",
+          "kind": "author_result"
+        },
+        {
+          "label": "Sleuth models and coefficient extraction in the authors’ analysis script",
+          "url": "https://github.com/novonordisk-research/ORX_HFD_Astrocytes_TRAPseq/blob/d580f57276e6e3b11ae3b600628469742ae5929b/Analysis_and_figures.R#L383-L432",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO series with the deposited count matrix, TPM matrix and sample records",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE214683",
+          "kind": "processed_data"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The released pairwise IP model excludes chow. The ordinal IP model includes HFD orchiectomy and reports a three-group coefficient. Neither supplies the HFD-minus-chow effect among sham mice. All nine IP genes named in the ordinal Results have registered BH FDR above 0.05, but the paper gives no unambiguous IP diet calls or coefficients to pair. Author-concordance-v2 therefore has zero usable effect pairs.",
+      "nextStep": "Ask the authors which fractions and genes the unshown sham diet test covered. Request the IP HFD-minus-chow table, sample IDs, model and covariates, tested genes, coefficients, raw P values and multiple-testing procedure with adjusted P values.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered cohort, orientation and producer fingerprints",
+      "value": "The 13 sham IP sample titles match 13 distinct GEO animal numbers, with six HFD cases and seven chow controls. Positive groupcase logFC means higher on HFD. The GEO raw-count file is 1,481,896 bytes with SHA-256 d9d47d8df9d17a5069d818df8f51754b55af3f48ff43b40bd5921461b3d9bc88, exactly the producer’s input fingerprint. The local GSE214683_samplesheet.tsv and GSE214683_DE.tsv match their producer hashes, 582cd0049e689619a7e22143ee0b287c712ca3ca32f2def7f086270e0cd9b99c and 9fd6b36400d4f57a53ade9a086b2fb7e4e9afb6ec9d4593da5f8e102d3274e87, respectively. File paths are recorded in inspect.json under registered.files.",
+      "script": "data/author-validation/continued-sources/GSE214683/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Registered results for every IP symbol named in the ordinal Results paragraph",
+      "value": "All nine symbols match uniquely. Zero of nine and zero of all 13,612 published symbols pass registered BH FDR < 0.05. All nine have adjusted P = 0.999944389574082. Hmgcs2 (0.00108248), Pomc (0.00953500) and Phyhd1 (0.03528822) have nominal raw P < 0.05. These are registered diet statistics only.",
+      "script": "data/author-validation/continued-sources/GSE214683/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Inventory of Supplemental Data S1 by worksheet contents",
+      "value": "One description, four gene-level tables and 16 enrichment tables give 21 sheets. IP pairwise and ordinal have 14,449 and 14,517 unique symbols. SN pairwise and ordinal have 15,354 and 15,430. Ten description entries transpose IP ordinal and SN pairwise across the five blocks. The nine named IP symbols are exactly the nine IP ordinal BH calls below 0.05.",
+      "script": "data/author-validation/continued-sources/GSE214683/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "GEO and ENA deposits for this study",
+      "value": "The raw counts and TPM have 26,792 and 51,065 unique symbol rows, respectively. Each has 40 numeric sample columns matching the 40 GEO titles. All 40 GSM records declare no supplement and zero embedded data rows. The ENA project reports 40 unique runs with FASTQ links and zero analysis records.",
+      "script": "data/author-validation/continued-sources/GSE214683/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Integrity and content of the retained source inventory",
+      "value": "All 63 files match the listed SHA-256 and size (25,250,887 bytes total). All eight Figshare attachments match the depositor’s MD5 and size. The file article/oa.xml contains a BioC no-result help page, and article/epmc-supplement-response.txt contains a service error. The article text comes from article/pmc.html and the workbook comes from Figshare.",
+      "script": "data/author-validation/continued-sources/GSE214683/codex-2026-11-21/refute/recheck.py"
+    }
+  ],
+  "openIssues": [
+    "The authors’ sham diet test is reported only in prose. Its coverage of the nine named IP genes, fitted model, tested universe, gene effects and inferential statistics remain unknown."
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "datasetId": "gse224274",
+  "accession": "GSE224274",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "The 14,952 readable Figure 1c gene labels share no exact or case-insensitive match with the 5,764 genes deposited in GEO or the 5,143 genes in the registered food-cue comparison. The discrepancy is already present in the author sources. Identifying the exported gene set and the four gene names stored as Excel dates requires the original analysis files.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE224274/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "Figure 1c and the GEO matrix describe the same food-cue comparison but share no readable gene labels",
+      "note": "GEO and the registered input contain the same gene-by-sample values for six NEO and six SENS libraries. The registered variance filter removes 621 genes with zero CPM in every library. All 14,952 readable Figure 1c labels are already absent from the unfiltered deposit. The original workbook stores four additional gene identifiers as numeric dates. GEO describes a 10-read cutoff but does not identify which side of that cutoff was exported. Effects, direction, raw P and FDR agreement remain unassessed.",
+      "reviewFlags": [
+        "The registered output covers the deposited gene set. Its agreement with the reported POMC translatome cannot be measured on identifiable genes.",
+        "The identities of the four date cells and the provenance of the CPM export require author confirmation."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Primary paper",
+          "url": "https://doi.org/10.1038/s42255-026-01535-7",
+          "kind": "paper"
+        },
+        {
+          "label": "Original Figure 1 source data",
+          "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs42255-026-01535-7/MediaObjects/3_ESM.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Submitted CPM matrix",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE224nnn/GSE224274/suppl/GSE224274_CPM-Gys.txt.gz",
+          "kind": "processed_data"
+        },
+        {
+          "label": "GEO series and sample metadata",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE224nnn/GSE224274/soft/GSE224274_family.soft.gz",
+          "kind": "database"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "Figure 1c reports SENS relative to NEO. The figure and registered output describe the same arms, but their identifiable gene sets are disjoint even before the registered variance filter. The original workbook contains dates without gene IDs in four cells. Even matching every date cell would yield at most four pairs under the recorded identifier rule, below the 30 required for author-concordance-v2. The CPM export and its metadata cannot establish whether it contains genes excluded by the authors' filter.",
+      "nextStep": "Which featureCounts matrix and filtering rule produced Figure 1c for the 12 NEO/SENS libraries, and which rows were exported to GSE224274_CPM-Gys.txt.gz? Please provide the original sample-labelled matrix with stable gene IDs, the kept/excluded row lists or export code, and the original IDs for Fig.1c cells A1361, A10699, A10933 and A11775.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Figure 1c data rows, readable unique labels, and date-typed labels",
+      "value": "14,956 rows, 14,952 readable unique labels, 4 dates",
+      "script": "data/author-validation/continued-sources/GSE224274/codex-2026-11-21/measure.py"
+    },
+    {
+      "claim": "Date cells in Fig.1c and their stored values in workbook row order",
+      "value": "A1361 = 2002-08-01, A10699 = 2003-08-01, A10933 = 2004-08-01, A11775 = 2001-08-01. All four are numeric serials formatted mmm-yy.",
+      "script": "data/author-validation/continued-sources/GSE224274/codex-2026-11-21/measure.py"
+    },
+    {
+      "claim": "GEO CPM and registered analysis input",
+      "value": "5,764 genes. All values match by gene and sample across 6 NEO and 6 SENS libraries.",
+      "script": "data/author-validation/continued-sources/GSE224274/codex-2026-11-21/measure.py"
+    },
+    {
+      "claim": "Effect of the registered variance filter",
+      "value": "5,143 genes retained. The 621 excluded genes are zero in every library.",
+      "script": "data/author-validation/continued-sources/GSE224274/codex-2026-11-21/measure.py"
+    },
+    {
+      "claim": "Figure 1c readable labels matched to GEO or registered DE",
+      "value": "0 exact and 0 case-insensitive matches to each set. Readable reference coverage 0/14,952 and registered coverage 0/5,143.",
+      "script": "data/author-validation/continued-sources/GSE224274/codex-2026-11-21/measure.py"
+    },
+    {
+      "claim": "Confirmed pairs and upper bound from unresolved dates under the same matching rule",
+      "value": "0 confirmed, at most 4 if all four date identities were distinct registered genes. Correlation, directional agreement and inference agreement are undefined.",
+      "script": "data/author-validation/continued-sources/GSE224274/codex-2026-11-21/measure.py"
+    },
+    {
+      "claim": "Detection across deposited libraries",
+      "value": "3,095 of 5,764 genes are nonzero in at most 3 of 12 libraries. Column totals range from 999,936.276 to 1,000,000.000 CPM, rounded to 3 decimals.",
+      "script": "data/author-validation/continued-sources/GSE224274/codex-2026-11-21/measure.py"
+    },
+    {
+      "claim": "Author inference fields",
+      "value": "6 rows lack a finite log2 fold change, 1 lacks a finite transformed raw P, and Figure 1c has no adjusted P column.",
+      "script": "data/author-validation/continued-sources/GSE224274/codex-2026-11-21/measure.py"
+    }
+  ],
+  "openIssues": [
+    "Which featureCounts matrix and filtering rule produced Figure 1c for the 12 NEO/SENS libraries, and which rows were exported to GSE224274_CPM-Gys.txt.gz? Please provide the original sample-labelled matrix with stable gene IDs, the kept/excluded row lists or export code, and the original IDs for Fig.1c cells A1361, A10699, A10933 and A11775."
+  ]
+}

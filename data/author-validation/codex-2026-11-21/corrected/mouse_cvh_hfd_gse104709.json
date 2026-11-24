@@ -1,0 +1,131 @@
+{
+  "datasetId": "mouse_cvh_hfd_gse104709",
+  "accession": "GSE104709",
+  "category": "access_blocked",
+  "closure": "compared",
+  "summary": "All 14 RNA-seq genes plotted by Perron et al. agree in direction with the registered chronic HFD versus chow comparison. Table 2 reports 31 chronic-diet q-values or bounds for eight genes. Only Trh and Npy among those eight meet registered BH FDR < 0.05.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE104709/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "Plotted chronic-diet directions agree for all 14 genes. The published and registered models yield different discovery lists.",
+      "note": "Male C57BL/6J mice remained on chow or a diet with 45% of calories from fat. The study used ventral hypothalamic punches, termed circumventricular hypothalamus in GEO. Collection at ZT6–7 followed three hours of forced wakefulness with food available. The chronic comparison includes diet-associated body-weight differences. Dryad’s RNAPreps.xlsx identifies the 20 animals in the ten sequenced chronic-arm pools. The registered fit uses five two-mouse pools per arm and excludes both diet-switch groups. The authors merged the three technical runs per library. GEO has 21,654 Ensembl rows and 21,518 distinct trimmed symbols. The paper reports 21,517 detected genes. The registered preparation sums same-symbol PORT-normalized counts, takes log2(count + 1), and fits limma to variable genes. The chronic figure signs and Table 2 comparisons use the gene-level DE table. The GEO family SOFT, series matrix and counts gzip files match the intake manifest. The separate saved geo.html response is a reCAPTCHA page.",
+      "reviewFlags": [
+        "Table 2 reports q-values for selected genes. The author figures give directions of mean normalized counts. A genome-wide table of signed chronic-diet coefficients and inference was unavailable in the reviewed material.",
+        "S4 Table uses shifted supplemental figure numbers. Twelve chronic pairwise Tukey results can be reconciled with the GEO counts, four by explicit figure label and eight by inferred panel mapping. The Tk1 omnibus F and two pairwise values involving switch arms differ on replay.",
+        "The local QC summary gives nSig = 278 for cvh. The registered DE table and local gene-level bundle each contain 13 genes at BH FDR < 0.05."
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "All 14 selected figure directions agree. Each limma-voom filter setting has the same six printed chronic discoveries at q < 0.15, of which only Trh and Npy meet registered BH < 0.15. At 0.05 the overlap is two of five printed limma-voom calls. The high-filter methods share five chronic calls and six gene names when all Table 2 tests are included. This accounts for the Results summary and the high-filter Common row without changing the printed C4b or Agrp assignments.",
+      "nextStep": "For a genome-wide comparison, obtain the original per-filter MAANOVA and limma-voom outputs with tested gene IDs, contrast definitions, signed coefficients, raw P values and q-values. Reconcile the local QC summary count with the gene-level bundle as a separate data-quality issue.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "hfd_vs_chow"
+      ],
+      "basis": "The source table is geo_replication/datasets/GSE104709_mmus_cvh_hfd_rnaseq/processed/GSE104709_DE.tsv (SHA-256 87fc8d09791fbc20bae4365632a8764d85b14e8d9d644fafa3cd9b4207a5bd94), for cvh / hfd_vs_chow. Compare figure directions with registered logFC and Table 2 chronic q-values with registered BH values by symbol. The local gene-level bundle independently reproduces the discovery counts. Reconstructing figure statistics from the deposited counts checks the panel assignments.",
+      "reference": "Perron et al., doi:10.1371/journal.pone.0196743. PLOS Table 2, Fig 3, S2 Fig and S3 Fig. Figshare record 6252461 preserves the Table 2 cells. S4 Table supplies selected Tukey P values. Dryad version 22458 (doi:10.5061/dryad.qm01v75) and GSE104709 document the pools and deposited measurements.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Group and pool number join the Dryad RNAseq Pools sheet to all ten registered libraries. The retained chronic pools are RC P1, P2, P3, P5 and P6, and HFD P19, P20, P21, P23 and P24. Each contains two distinct mice. The paper reports one library QC exclusion in each chronic arm and one in the HFD-to-RC arm. GEO and ENA identify three sequencing runs per retained library."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "The registered coefficient is HFD NoDS minus RC NoDS. In Fig 3, S2 Fig and S3 Fig this is the fourth RNA-seq bar minus the first. Table 2 marks the chronic test with ¥, the opposing switches with § and the four-group MAANOVA test with ϕ. The unmarked Common row counts gene names across these tests."
+        },
+        "features": {
+          "status": "limited",
+          "note": "Each of the 14 plotted symbols maps uniquely to one GEO Ensembl ID and one registered gene, including all eight symbols with a chronic Table 2 q-value. The article reports 21,517 detected genes, 15,833 after the low filter and 12,752 after the high filter. Per-gene author fit membership across these universes remains unavailable."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "The direction of the arithmetic mean of deposited PORT counts agrees with the plotted direction and the registered difference in mean log2(count + 1) for all 14 genes. Pomc and Hcrt were controls for which the authors expected similar expression across groups. These are descriptive signs. The reviewed sources provide no signed author coefficients for a fitted-effect magnitude or correlation comparison."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "Table 2 uses q < 0.15. Limma-voom and MAANOVA each used unfiltered counts and filters retaining genes averaging at least 5 or 50 reads per sample. The registered two-group limma analysis uses BH across 20,681 tested rows. The high-filter chronic lists each contain six genes and share five. C4b occurs only in the MAANOVA chronic list and Agrp only in the limma-voom chronic list. Agrp also has a four-group MAANOVA q-value. S4 Table separately reports Tukey-adjusted pairwise P values following significant four-group ANOVAs. Twelve chronic Tukey values or bounds match a GEO count replay at printed precision. Four panel labels agree directly and eight supplemental assignments are inferred. Unprinted chronic raw P and q-values remain unassessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All 14 figure genes and all 31 printed chronic q entries for eight distinct genes are accounted for. Eleven of the 13 registered BH < 0.05 genes lack any printed chronic q-value. The matched figure set covers 14 of 20,681 registered genes and contains no paired fitted author coefficients. The evidence falls below the 30-pair concordance minimum."
+        }
+      },
+      "criteria": "Use HFD NoDS relative to RC NoDS throughout. Include every RNA-seq panel and every Table 2 chronic subscript. Compare each model and filter at the publication cutoff of 0.15 and the registered cutoff of 0.05. Author-concordance-v2 requires compatible cohort, contrast, identifiers and effect definitions, at least 30 gene pairs and at least 90% relevant coverage. A numerical pass requires both Pearson and Spearman ≥ 0.90, or ≥ 90% sign agreement on at least 30 nonzero pairs covering ≥ 90% of the pairs.",
+      "conclusion": "The 14 plotted directions agree, and discovery overlap depends on the model and filter. The high-filter Common row is consistent with the printed subscripts across tests. The selected results support a direct comparison with limits. Genome-wide inference, fitted-effect concordance and full verification remain unassessed."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered chronic-diet results",
+      "value": "20,681 gene rows, 13 with BH < 0.05 and 16 with BH < 0.15. Recomputing BH from the registered raw P values and applying both cutoffs to the local gene-level bundle gives the same two sets.",
+      "script": "data/author-validation/continued-sources/GSE104709/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Coverage and directions of published RNA-seq figures",
+      "value": "14/14 unique selected genes match the registered direction (9 higher and 5 lower with HFD). All eight genes with a chronic Table 2 q-value are included. Only Trh and Npy among the 14 pass registered BH < 0.05.",
+      "script": "data/author-validation/continued-sources/GSE104709/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Table 2 chronic q-values, keeping model and filter separate",
+      "value": "31 entries for eight genes. Unfiltered, low- and high-filter MAANOVA have 2, 5 and 6 entries respectively. Limma-voom has 6 in each setting. The Figshare workbook and publisher XML yield identical subtests.",
+      "script": "data/author-validation/continued-sources/GSE104709/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Matched-cutoff overlap of limma-voom lists with registered calls",
+      "value": "At 0.15, 2 of 6 printed author discoveries overlap 16 registered calls in each filter setting. At 0.05, 2 of 5 overlap 13 registered calls. Eleven registered BH < 0.05 discoveries lack any chronic q in Table 2.",
+      "script": "data/author-validation/continued-sources/GSE104709/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "High-filter chronic calls and the scope of Table 2’s Common row",
+      "value": "MAANOVA reports chronic C4b q = 0.10, four-group C4b q = 0.12 and four-group Agrp q = 0.12. Limma-voom reports chronic Agrp q = 0.008. Each method has six chronic calls, five shared. Pooling gene names over subtests yields the six shared genes in the printed Common row.",
+      "script": "data/author-validation/continued-sources/GSE104709/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Unambiguously labeled Fig 3 RNA-seq chronic post-hoc tests in S4 Table",
+      "value": "Tukey-adjusted P = 0.0020 for Agrp and < 0.0001 for Npy, Cartpt and Trh. These are within-gene group comparisons.",
+      "script": "data/author-validation/continued-sources/GSE104709/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Dryad archive and cohort",
+      "value": "The two Dryad members match the deposited sizes and MD5s. The 2,501,894-byte inner ZIP equals the Zenodo copy byte for byte. Ten registered pools join to 20 distinct mice through arm and pool number.",
+      "script": "data/author-validation/continued-sources/GSE104709/codex-2026-11-21/inspect_sources.py"
+    },
+    {
+      "claim": "GEO and ENA inventories",
+      "value": "The GEO family SOFT, series matrix and normalized counts match the intake digests. There are 21,654 Ensembl rows, 21,518 distinct trimmed symbols, 21 sample columns, and 21 GSMs listing no individual supplement. ENA returns 63 distinct runs (three per GSM) and zero submitted analyses for PRJNA413547. The saved GEO web page is a challenge response.",
+      "script": "data/author-validation/continued-sources/GSE104709/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "S4 Table supplemental panel assignments checked against deposited PORT counts",
+      "value": "The four-arm count replay supports reading S4 Table’s S3A/D as final S2A/D and S4A–F as final S3A–F. For HFD NoDS versus RC NoDS, the printed Tukey P values are Sbno2 < 0.0001, Serpina3n 0.0002, Ikzf3 0.18, Tk1 0.63, Cldn2 0.96, Atxn7l2 0.0001, Rbm3 0.0085 and C4b 0.0021. All eight match at the printed precision or bound. These assignments are inferred from the panel patterns and numerical replay.",
+      "script": "data/author-validation/continued-sources/GSE104709/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Differences outside the chronic pair in the S4 Table replay",
+      "value": "For the inferred Tk1 row the four-group F is 12.00705 (printed 12.1) and HFD-to-RC versus HFD NoDS Tukey P is 0.044674 (printed 0.45). For Agrp the RC NoDS versus HFD-to-RC P is 0.235775 (printed 0.34). The twelve chronic-pair rows all reproduce at the reported precision or bound.",
+      "script": "data/author-validation/continued-sources/GSE104709/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Local QC summary versus per-gene discovery count",
+      "value": "public/datasets/mouse_cvh_hfd_gse104709/qc_global.js (SHA-256 4b4a85b2c728d936d56bc4419a37732edf738e588d1ccf065650a4a7278efc48) records nSig = 278. In the same directory track_cvh.js (SHA-256 1371f969805c144a2341d8a183f72143dc7f73fb705d70f2aa89a49c9826564b) and the registered DE table each contain the same 13 BH < 0.05 genes.",
+      "script": "data/author-validation/continued-sources/GSE104709/codex-2026-11-21/refute/audit.py"
+    }
+  ],
+  "openIssues": [
+    "Genome-wide author effects, exact fitted gene membership and full chronic-diet inference remain unavailable in the reviewed public files. Fourteen descriptive signs fall below the v2 minimum of 30 pairs.",
+    "The S4 Table supplemental gene assignments are inferred. The original author analysis would clarify the Tk1 omnibus F and the two pairwise discrepancies involving switch arms.",
+    "The local QC summary records 278 discoveries where its gene-level bundle has 13. The registry citation and sample-sheet pool-members fields also predate the Dryad reconciliation."
+  ]
+}

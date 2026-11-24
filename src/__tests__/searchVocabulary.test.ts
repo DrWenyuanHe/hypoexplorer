@@ -8,7 +8,9 @@ import {
   describePathway,
   geneMatchLabel,
   loadSearchVocabulary,
+  peekSearchVocabulary,
   searchAll,
+  subscribeSearchVocabulary,
 } from '../search/searchVocabulary';
 import { lookupSynonyms, SEARCH_SYNONYMS, synonymKey } from '../search/searchSynonyms';
 import type { GeneEntry, SearchVocabulary } from '../search/searchTypes';
@@ -331,6 +333,34 @@ describe('loadSearchVocabulary', () => {
     expect(searchAll(vocab, 'oxytocin').best).toMatchObject({ kind: 'gene', hit: { entry: { symbol: 'OXT' } } });
   });
 
+  it('publishes the names before a slow index lands, then the full union', async () => {
+    _setBundleTransport(serveNames(NAMES_FIXTURE));
+    let releaseGenes: (v: string[]) => void = () => {};
+    vi.mocked(loadGeneIndex).mockReturnValue(new Promise((resolve) => { releaseGenes = resolve; }));
+    const stages: SearchVocabulary[] = [];
+    subscribeSearchVocabulary((v) => stages.push(v));
+
+    const full = loadSearchVocabulary();
+    await vi.waitFor(() => expect(stages.length).toBeGreaterThan(0));
+    // The gene index is still in flight, yet the names already answer a search.
+    const early = stages[stages.length - 1];
+    expect(early.genes.map((g) => g.symbol)).toEqual(['HCRT', 'OXT']);
+    expect(searchAll(early, 'oxytocin').best).toMatchObject({ kind: 'gene', hit: { entry: { symbol: 'OXT' } } });
+    expect(peekSearchVocabulary(true)).toBe(early);
+    // The results page's view stays empty until every source has landed.
+    expect(peekSearchVocabulary()).toBeNull();
+
+    releaseGenes(['GM12345', 'HCRT', 'OXT', 'POMC']);
+    const vocab = await full;
+    expect(stages[stages.length - 1]).toBe(vocab);
+    expect(peekSearchVocabulary()).toBe(vocab);
+    expect(vocab.genes.map((g) => g.symbol)).toEqual(['HCRT', 'OXT', 'GM12345', 'POMC']);
+    // The later stage reuses the names and adds the index tail.
+    expect(searchAll(vocab, 'oxytocin').best).toMatchObject({ kind: 'gene', hit: { entry: { symbol: 'OXT' } } });
+    expect(searchAll(vocab, 'gm123').genes.map((h) => h.entry.symbol)).toEqual(['GM12345']);
+    expect(searchAll(vocab, 'orexin a').best).toMatchObject({ kind: 'gene', hit: { entry: { symbol: 'HCRT' } } });
+  });
+
   it('does not memoize an all-empty result, so the next call retries', async () => {
     _setBundleTransport(serveNames(undefined));
     vi.mocked(loadGeneIndex).mockResolvedValue([]);
@@ -338,6 +368,29 @@ describe('loadSearchVocabulary', () => {
     expect(await loadSearchVocabulary()).toEqual({ genes: [], pathways: [] });
     vi.mocked(loadGeneIndex).mockResolvedValue(['POMC']);
     expect((await loadSearchVocabulary()).genes.map((g) => g.symbol)).toEqual(['POMC']);
+  });
+});
+
+describe('name index reuse across vocabularies', () => {
+  const oxt = gene('OXT', 'oxytocin/neurophysin I prepropeptide', 107, { aliases: ['OT'] });
+  const pomc = gene('POMC', 'proopiomelanocortin', 105);
+
+  it('serves a vocabulary that appends unnamed symbols, and rebuilds for one that appends names', () => {
+    const base: SearchVocabulary = { genes: [oxt, pomc], pathways: [] };
+    expect(searchAll(base, 'oxytocin').genes.map((h) => h.entry.symbol)).toEqual(['OXT']);
+
+    const tail: SearchVocabulary = { genes: [oxt, pomc, gene('GM42', '', 0)], pathways: [] };
+    expect(searchAll(tail, 'proopio').genes.map((h) => h.entry.symbol)).toEqual(['POMC']);
+    expect(searchAll(tail, 'OT').best).toMatchObject({ hit: { match: 'alias', entry: { symbol: 'OXT' } } });
+    expect(searchAll(tail, 'gm4').genes.map((h) => h.entry.symbol)).toEqual(['GM42']);
+
+    const named: SearchVocabulary = { genes: [oxt, pomc, gene('CRH', 'corticotropin releasing hormone', 90)], pathways: [] };
+    expect(searchAll(named, 'corticotropin').genes.map((h) => h.entry.symbol)).toEqual(['CRH']);
+
+    // A different gene list entirely: indexes must not leak between them.
+    const other: SearchVocabulary = { genes: [pomc], pathways: [] };
+    expect(searchAll(other, 'oxytocin').genes).toEqual([]);
+    expect(searchAll(other, 'proopio').genes.map((h) => h.entry.symbol)).toEqual(['POMC']);
   });
 });
 

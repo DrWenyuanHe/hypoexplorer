@@ -16,6 +16,18 @@ million ([R2 pricing](https://developers.cloudflare.com/r2/pricing/)). A miss is
 cheap to force in two ways: a unique `?v=` value (cache busting) and a random
 path that R2 must look up before answering 404.
 
+HEAD requests are not served from the edge cache. Every HEAD reports
+`cf-cache-status: DYNAMIC` and reaches R2 as a `HeadObject` (Class B), even
+when GET on the same URL is a cache HIT. The reachability probe in
+[originHealth.ts](../../src/data/originHealth.ts) sends one HEAD per check.
+
+**Checking the cache:** use GET, for example
+`curl -s -o /dev/null -D - -H 'Accept-Encoding: br' <url>`, and read
+`cf-cache-status` and `Age`. `curl -I` sends HEAD, so it always shows `DYNAMIC`
+and says nothing about whether the cache rule works. Verified on 2026-11-23:
+`/query/<build>/gene_names.js` returned DYNAMIC to HEAD and HIT (`Age` about
+6 days) to GET, with and without `?v=`.
+
 ## What each piece does
 
 | Piece | Where | Effect |

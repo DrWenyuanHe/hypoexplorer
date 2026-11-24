@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { VersionBadge } from '../pwa/VersionBadge';
-import { BetaNotice } from '../common/BetaNotice';
+import '../common/siteChrome.css';
+import { DATA_REPO_URL, SOURCE_REPO_URL } from '../data/siteInfo';
 import { BRAND } from '../common/brand';
 import { DataOriginStatus } from './DataOriginStatus';
 import { HubSearch } from './HubSearch';
@@ -149,7 +150,6 @@ export function LandingHub({
   return (
     <div className="hub">
       <div className="hub-ribbon" />
-      <BetaNotice />
 
       <header className="hub-bar">
         <nav className="hub-nav" aria-label="Sections">
@@ -237,6 +237,8 @@ export function LandingHub({
               <a className="site-reference-link" href="/methods/">Methods guide</a>
               <a className="site-reference-link" href="/how-to-cite/">How to cite</a>
               <a className="site-reference-link" href="/about/">About</a>
+              <a className="site-reference-link" href={SOURCE_REPO_URL} target="_blank" rel="noopener noreferrer">Source code on GitHub</a>
+              <a className="site-reference-link" href={DATA_REPO_URL} target="_blank" rel="noopener noreferrer">Data repository on GitHub</a>
             </div>
           </div>
         </nav>

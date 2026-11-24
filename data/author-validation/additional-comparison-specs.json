@@ -1822,6 +1822,998 @@
         "sha256": "2de6397ff76a47a0f3237df23f528fb7fc2c30c5e03eb7e421f26381dd24c8a1",
         "bytes": 1040744
       }
+    },
+    {
+      "datasetId": "gse135007",
+      "accession": "GSE135007",
+      "contrast": "gough_vs_wsb",
+      "localPath": "geo_replication/datasets/GSE135007_discovery_20260905/processed/GSE135007_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/author-effects.tsv",
+      "sourceUrl": "https://doi.org/10.1093/gbe/evaa118",
+      "sha256": "80e49ef6f05321dcbc420391ffffa78a6fe575b5a6905934a5cff9eb680e3a33",
+      "format": "tsv",
+      "authorKey": "join_key",
+      "authorEffect": "author_log2FC",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL",
+      "authorMethod": "DESeq2 sex-averaged strain contrast from a model including strain, sex and their interaction",
+      "orientation": "Gough Island relative to WSB in four-week hypothalamus in both sources.",
+      "note": "The normalized reference combines Tables 3 and 11 from the Dryad deposit preserved by Zenodo with Tables 4 and 10 from the PMC article supplement. The latter two tables are the only source for 120 selected IDs. Every distinct author ID occurs once. Cross-table repeats agree at the published precision, and unpaired IDs retain their Ensembl keys. No cutoff on registered effect size or significance was applied. Of 490 selected IDs, 431 pair and 429 agree in sign. Numeric gene-level author P and FDR are unavailable in these tables.",
+      "interpretation": "effects_compared",
+      "resultScope": "Selected GO, KEGG and QTL genes only.",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/sources/Supplementary_Table3_MJNolte_etal_2020.xlsx",
+          "sourceUrl": "https://zenodo.org/api/records/3990425/files/Supplementary_Table3_MJNolte_etal_2020.xlsx/content",
+          "sha256": "1fa62cb145f5bfff73726c27288e6be7950e8b666910692cffc4f63594ac0b64",
+          "bytes": 38329869
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/sources/Supplementary_Table11_MJNolte_etal_2020.xlsx",
+          "sourceUrl": "https://zenodo.org/api/records/3990425/files/Supplementary_Table11_MJNolte_etal_2020.xlsx/content",
+          "sha256": "5b475941c9e0843cfb4dbeb1659659a43dd50ea8d731ec40a361aeca47dd20b3",
+          "bytes": 185849
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/sources/evaa118_supplementary_data.zip",
+          "sourceUrl": "https://pmc-oa-opendata.s3.amazonaws.com/PMC7487164.1/evaa118_supplementary_data.zip",
+          "sha256": "d6d289d4b50c1ecef78dd89f823eb02dec277068c6fda0494e4b9ea90a608a4e",
+          "bytes": 4633901
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/sources/efetch.xml",
+          "sourceUrl": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=7487164&retmode=xml",
+          "sha256": "2bc73ec2322fea0f8cc1fded257ae405c5cb092dcf447c9fe31392ea08f0055f",
+          "bytes": 243783
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/sources/dryad-files.json",
+          "sourceUrl": "https://datadryad.org/api/v2/versions/78227/files",
+          "sha256": "92808ae6fbb57fff7b2f6a46ac63b82da5c24387c26422550702ba959ba088b4",
+          "bytes": 2273
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/compare.py",
+          "sourceUrl": "Selection, cross-table consistency, identifier reconciliation and metrics",
+          "sha256": "82c88afa9f82153c5b89dc62acbc1feec158015f406bc4e8b504ad92d38c9ba8",
+          "bytes": 12569
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/inspect_sources.py",
+          "sourceUrl": "Workbook reader and source inventory",
+          "sha256": "d1b3f590e9dd558e692577ed29781873bcdd4805c1992853ff97d46d8f864688",
+          "bytes": 6190
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/compare.py",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE135007_discovery_20260905/processed/GSE135007_DE.tsv",
+        "sourceUrl": "Current registered whole-hypothalamus DE output",
+        "sha256": "e1c745ad883a19fc788f7c82d78d6e759872d41bb698f1a312cef1503262d19d",
+        "bytes": 1553279
+      }
+    },
+    {
+      "datasetId": "hamster_tanycyte_photoperiod_gse204883",
+      "accession": "GSE204883",
+      "contrast": "spip_vs_lpip_author_mouse_projection",
+      "localPath": "geo_replication/datasets/GSE204883_psun_tanycyte_photoperiod/processed/GSE204883_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/author-effects.tsv",
+      "sourceUrl": "https://ars.els-cdn.com/content/image/1-s2.0-S0960982223017426-mmc2.xlsx",
+      "sha256": "bb675871dbdc85e5ba073b56d4f0ff93c7303c59ba919b3980de36bff65c06ca",
+      "format": "tsv",
+      "authorKey": "output_key",
+      "authorEffect": "SPIP_minus_LPIP",
+      "authorAdjustedP": "FDR",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL, registered SPIP-minus-LPIP two-arm fit including SPIP19",
+      "authorMethod": "Data S1D reports a pairwise edgeR result. The archived four-group workflow uses median CPM ≥ 1, TMM and quasi-likelihood fitting after excluding SPIP19. It omits the sheet-D test command.",
+      "orientation": "Sheet D reports LPIP minus SPIP. Its workbook import names glm_test_LPIP_SPIP_anno_median_cpm1.txt, and its logFC equals the LP-referenced LPIP coefficient minus the LP-referenced SPIP coefficient from sheet A for all 13,345 IDs, to workbook precision. The extraction negates D once. The comparison reads SPIP_minus_LPIP with orientationSign +1.",
+      "note": "Full Data S1D. The normalized file retains every author row, with a unique unpaired key for aggregated or unmapped features. Only one-to-one registered symbols pair. The cohorts differ. Spearman and same-gene direction agreement fall below the v2 thresholds. The paper also gives LP/LPIP group sizes that differ from the archived design.",
+      "interpretation": "effect_disagreement_review",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/sources/mmc2.xlsx",
+          "sourceUrl": "https://ars.els-cdn.com/content/image/1-s2.0-S0960982223017426-mmc2.xlsx",
+          "sha256": "9bcbac7ca652a5c8f273cf44f95d5102409529dfa241366934a66c1dfdcc9e40",
+          "bytes": 6954842
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/sources/author-code.zip",
+          "sourceUrl": "https://zenodo.org/api/records/10285435/files/ShonaWood/MPP-MPP.zip/content",
+          "sha256": "bcde126d7286fe9a26263485e13f358a6ce309bbea87c27c371728087c8ca203",
+          "bytes": 8566839
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/sources/mmc5.pdf",
+          "sourceUrl": "https://ars.els-cdn.com/content/image/1-s2.0-S0960982223017426-mmc5.pdf",
+          "sha256": "cb7664b6f936c7107adc7f4d2542c69bd32a0fd21c1f5c326b2ba68d4ebe6a9c",
+          "bytes": 17357332
+        },
+        {
+          "path": "geo_replication/datasets/GSE204883_psun_tanycyte_photoperiod/processed/GSE204883_feature_map.tsv.gz",
+          "sha256": "7ac2dd60184025649c06240ff004668145b76c63df927ee0a682b923b2ff105f",
+          "bytes": 173541,
+          "sourceUrl": "Registered feature-to-symbol map for the current DE output"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/compare.py",
+          "sha256": "b314c77e458854c142656a45437a137938125409322fd7512dfaf12c3250b6cf",
+          "bytes": 11985,
+          "sourceUrl": "Reproducible extraction, orientation check and one-to-one mapping"
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/compare.py",
+      "resultScope": "Full published pairwise result in Data S1D, compared on unique registered feature mappings.",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE204883_psun_tanycyte_photoperiod/processed/GSE204883_DE.tsv",
+        "sha256": "0d3e5422de8edebd0c5277f1a6edaaed02c28db85c388ce89b4c3c435300e6e3",
+        "bytes": 1379735,
+        "sourceUrl": "Registered Explorer DE table, current R 4.6.0 output"
+      }
+    },
+    {
+      "datasetId": "mouse_gnrh_androgen_gse162563",
+      "accession": "GSE162563",
+      "contrast": "dht_vs_vehicle",
+      "localPath": "geo_replication/datasets/GSE162563_mmus_gnrh_androgen/processed/GSE162563_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE162563/codex-2026-11-21/sources/Burger_TRAPSeq_Data_5.xlsx",
+      "sourceUrl": "https://web.archive.org/web/20240613230604id_/https://deepblue.lib.umich.edu/data/downloads/hm50ts005",
+      "sha256": "6202ab2708e4d4d87da8131059f67f1236675fa9b06f1342bb73e149afb33cb5",
+      "format": "xlsx",
+      "sheetName": "5. Adult PNA vs Adult CON",
+      "headerRow": 1,
+      "authorKey": "gene_symbol",
+      "authorEffect": "log2FoldChange",
+      "authorAdjustedP": "padj",
+      "orientationSign": 1,
+      "localMethod": "edgeR 4.10.1 quasi-likelihood, 11 adult GnRH-depleted libraries, filterByExpr, TMM, (Intercept) + groupcase. The registered input retains fractional counts.",
+      "authorMethod": "Burger et al. report HTSeq 0.6.1 and DESeq2 1.14.1. Data 5 reports adult GnRH-depleted PNA/control log2FoldChange. Its baseMean spans all 23 depleted libraries. The original DESeq2 design formula and count input remain unverified.",
+      "orientation": "Condition Adult.PNA.Depleted divided by Control Adult.CON.Depleted, with the original sign. Both groups are the registered pools, including the untreated adult control.",
+      "note": "Use every finite effect on sheet 5 and join the deposited gene_symbol to the published registered symbol. The same-direction criterion passes and Pearson is below 0.90. The matched GEO checksum refers to the registered input. Workbook 5’s normalized abundances cannot be recovered by applying one common scale factor per library to those deposited counts.",
+      "interpretation": "effect_match_inference_differs",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE162563/codex-2026-11-21/sources/GSE155314-family.soft.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE155nnn/GSE155314/soft/GSE155314_family.soft.gz",
+          "sha256": "9834be5e63602782128418c4973022c8019aa6385472b37089aa3c5eda234561",
+          "bytes": 6400
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE162563/codex-2026-11-21/sources/geo-counts.txt.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE155nnn/GSE155314/suppl/GSE155314_raw_counts.txt.gz",
+          "sha256": "cd9d5f05a3bcd039e62a106e2c80a7099101b197ca59b88a6d25037b28af7e87",
+          "bytes": 1692285
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE162563/codex-2026-11-21/sources/pmc-reader.html",
+          "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7583650/",
+          "sha256": "c6b7a1d49cb1c15539247a8e7118df9760d43c8a5b6fec9056cb647a44a35d71",
+          "bytes": 279964
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE162563/codex-2026-11-21/sources/archived-work.html",
+          "sourceUrl": "https://web.archive.org/web/20240613222144id_/https://deepblue.lib.umich.edu/data/concern/data_sets/p5547r65p",
+          "sha256": "f4091a3f55f1ae70fc68e2bb7cb3cfb945459e2b664b285676c26551fc73411e",
+          "bytes": 56630
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE162563/codex-2026-11-21/sources/cdx-5.json",
+          "sourceUrl": "https://web.archive.org/cdx/search/cdx?url=deepblue.lib.umich.edu/data/downloads/hm50ts005*&output=json&filter=statuscode:200&fl=timestamp,original,mimetype,statuscode,digest,length&collapse=digest",
+          "sha256": "55540c9ee511ce017c685f35f5369ec7632c50c64e129d5c2d5bacfe7de52e32",
+          "bytes": 421
+        }
+      ],
+      "resultScope": "Full DESeq2 worksheet for the registered adult GnRH-depleted POA treatment contrast.",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE162563_mmus_gnrh_androgen/processed/GSE162563_DE.tsv",
+        "sha256": "27a1b0b8d12082f52fc29de1735414b16f92b58fe82151d08b58513cca9730d7",
+        "bytes": 1561421
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_aging_gse240365",
+      "accession": "GSE240365",
+      "contrast": "aged_vs_young",
+      "localPath": "geo_replication/datasets/GSE240365_mmus_hypothalamus_aging/processed/GSE240365_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/responses/mmc3_xls.txt",
+      "sourceUrl": "https://ars.els-cdn.com/content/image/1-s2.0-S0166432824000998-mmc3.xls",
+      "sha256": "997ceace70235e899b3ac07d5c4cc7a6d7adc2ed33242089bf9155d7d1486985",
+      "format": "tsv",
+      "authorKey": "gene_id",
+      "authorEffect": "log2FoldChange",
+      "authorAdjustedP": "q-value",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL on counts, TMM normalization and groupcase coefficient",
+      "authorMethod": "Published log2 fold-change estimates with SE, Wald-style statistic, raw P and q-value. GEO documents DESeq (2012) nbinomTest. The exact generating code and adjustment procedure are unavailable.",
+      "orientation": "Aged (AMHT, 22 months) minus young (YMHT, 12 weeks), with direction confirmed from the author expression columns.",
+      "note": "Selected author result list. Compare every published row and retain absent registered rows in the coverage denominator. The q-value column is the author adjusted statistic. Pairs support both effect routes, with 152/171 selected genes covered, below the 90% gate. Author values outside this list remain unassessed.",
+      "interpretation": "effect_match_inference_differs",
+      "resultScope": "Selected author DEGs for aged versus young hypothalamus.",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/responses/family.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE240nnn/GSE240365/soft/GSE240365_family.soft.gz",
+          "sha256": "7b47bfd57ed93a73243af01209e87f89c2474dc7102cfa5344362d2c9b7b9a70",
+          "bytes": 2537
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/responses/GSE240365_counts_anno.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE240nnn/GSE240365/suppl/GSE240365_counts_anno.txt.gz",
+          "sha256": "b2b19b772a73951e05fb4e2916780305eba9ff29fc691efb2ff3533a4e6e3a30",
+          "bytes": 233497
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/responses/GSE240365_FPKM_allsamples.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE240nnn/GSE240365/suppl/GSE240365_FPKM_allsamples.txt.gz",
+          "sha256": "c1aef90f8e038c9bb3f2670a85c99554c8020cf2cd192d375484ad6374a29641",
+          "bytes": 650351
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/responses/mmc2_docx.zip",
+          "sourceUrl": "https://ars.els-cdn.com/content/image/1-s2.0-S0166432824000998-mmc2.docx",
+          "sha256": "127a090e4cb6a88c1f354e465bd8d935e3314a05ecfa1995c281eeffe9d3ca7f",
+          "bytes": 16207
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/responses/public_mmc1_docx.zip",
+          "sourceUrl": "https://ars.els-cdn.com/content/image/1-s2.0-S0166432824000998-mmc1.docx",
+          "sha256": "d9af00e88b28f91a322a25fb58f8550675e65d8d5dd77debdf7004f5df328fc6",
+          "bytes": 16594
+        }
+      ],
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE240365_mmus_hypothalamus_aging/processed/GSE240365_DE.tsv",
+        "sha256": "377a5b813f2d86ccca93eb0e9e2ba74e3f5c4a429bdaba8aeaf859fb71ec1afe",
+        "bytes": 1459021,
+        "sourceUrl": "Registered Explorer DE output"
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_cp_ins2_gse218188",
+      "accession": "GSE218188",
+      "contrast": "ins2_overexpression_vs_control",
+      "localPath": "geo_replication/datasets/GSE218188_mmus_hypothalamus_cp_ins2/processed/GSE218188_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/figure4b_effects.tsv",
+      "sourceUrl": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124723009142-gr4_lrg.jpg",
+      "sha256": "492a6bc610d4f93c46c3205d51b6703ad66241fd3f8c8b984e0a66af50aa1ff9",
+      "format": "tsv",
+      "authorKey": "symbol",
+      "authorEffect": "approx_log2FC",
+      "orientationSign": 1,
+      "localMethod": "limma on log2(DESeq2-normalized count + 1)",
+      "authorMethod": "DESeq2 on featureCounts reads. Effect estimates digitized from Figure 4B.",
+      "orientation": "Hypothalamus after CP Ins2 overexpression minus GFP-vector control.",
+      "note": "This specification reproduces the comparison of the printed Figure 4B labels. Sat1 contributes one conditional string match to the 14 numerical pairs. The Results call it a glutamine transporter, so the reported 14/14 applies only to the printed symbols. The 13 biologically unambiguous pairs are evaluated separately in refute/audit.py. Do not infer a Slc38a1 result from the plot. Graphical effects are rounded to 0.001, and exact coefficients and per-gene FDR were unavailable. The six text-only directions are outside the numerical specification. Both numerical scopes fall below the 30-pair minimum.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/sources/publisher-fig4.jpg",
+          "sourceUrl": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124723009142-gr4_lrg.jpg",
+          "sha256": "f646f4c62358b09f865c3610acb773b702f1b38bc25a2e3ee0ee311200985366",
+          "bytes": 1261230
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/sources/publisher-mmc2.pdf",
+          "sourceUrl": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124723009142-mmc2.pdf",
+          "sha256": "4d33a6d44f33b415ee0c0ab0310170a529f69e4542f91ab7703d7a30828a7041",
+          "bytes": 8441732
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/figure4b_centres.tsv",
+          "sourceUrl": "Manual transcription of all labelled Figure 4B marker centres in the unscaled crop",
+          "sha256": "2fc6f37f13a60aab2f873c9551c165756beb0d1a3a1aa8c1f175da4598101285",
+          "bytes": 282
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py",
+          "sourceUrl": "Reproducible crop, coordinate calibration, exact symbol join and numerical comparison",
+          "sha256": "ead20e9d75e47823a1fbe3e1d00d436c1487989e1568074bd1f759f896e06391",
+          "bytes": 11570
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py",
+      "resultScope": "Literal-symbol comparison of the 14 labelled points in Figure 4B. One point has conflicting functional annotation. Thirteen plotted gene identities are unambiguous.",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE218188_mmus_hypothalamus_cp_ins2/processed/GSE218188_DE.tsv",
+        "sourceUrl": "Registered hypothalamic Ins2-overexpression-versus-control DE table",
+        "sha256": "5640c754a4f946bd18ad8e62265c3cdbd96c3caa4891678d348f21ba32674f2d",
+        "bytes": 2010123
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_fedfast_gse254155",
+      "accession": "GSE254155",
+      "contrast": "fast16h_vs_fed",
+      "localPath": "geo_replication/datasets/GSE254155_mmus_hypothalamus_fedfast/processed/GSE254155_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/author-effects.tsv",
+      "sourceUrl": "https://www.biorxiv.org/content/biorxiv/early/2024/01/30/2024.01.29.577255/DC2/embed/media-2.xlsx?download=true",
+      "sha256": "baeec7f947c10baa4a58ff044b61b4f45eb42716850c52a462f55429a135eace",
+      "format": "tsv",
+      "authorKey": "key",
+      "authorEffect": "log2FoldChange",
+      "authorAdjustedP": "padj",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL",
+      "authorMethod": "DESeq2, full preprint FastingInWT worksheet",
+      "orientation": "16-hour fasted minus ad libitum fed male wild-type hypothalamus at ZT16 in both fits. The author coefficient retains its original sign.",
+      "note": "Uses all 20,423 rows of the preprint FastingInWT sheet, including four unjoinable date cells with worksheet-row identifiers. Source-only, one-to-one reconciliation recovers 20 other date labels. The 16,906 shared pairs have finite coefficients and adjusted P. Both effect routes pass. FDR < 0.05 yields 929 author and 793 local calls overall, with 789 shared. Missing author adjusted P remains unassessed. The reported primary metrics use the full-precision DE TSV. The companion browser check preserves the pass with 16,896 nonzero pairs. The specification SHA-256 identifies the extracted TSV. The separate originalReferences entry identifies the downloaded XLSX.",
+      "interpretation": "effect_match_inference_differs",
+      "normalizationScript": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/compare.py",
+      "resultScope": "Full preprint result table for the registered wild-type ZT16 fasting contrast.",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/sources/preprint-media-2.xlsx",
+          "sourceUrl": "https://www.biorxiv.org/content/biorxiv/early/2024/01/30/2024.01.29.577255/DC2/embed/media-2.xlsx?download=true",
+          "sha256": "202a01424bbab1dca22ebddc3befdced9fedaa51bfab32a5d4cfc99d9fd39592",
+          "bytes": 3755270
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/sources/GSE254155_RAW.tar",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE254nnn/GSE254155/suppl/GSE254155_RAW.tar",
+          "sha256": "cede787409871958c96151f01abf6f1d41fb903b488a1977d191ec07535003ac",
+          "bytes": 125583360
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/sources/geo.soft.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE254nnn/GSE254155/soft/GSE254155_family.soft.gz",
+          "sha256": "d2647c09d9855a1ebbf4b1fd064c2a498dcb2888bb5fc99aa3a5019a1eeae3c9",
+          "bytes": 4026
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/sources/article.xml",
+          "sourceUrl": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=13035106&rettype=full&retmode=xml",
+          "sha256": "9965fa193a3da940aa092410c5d78a200059f5f0d51307dc139800c6af2c29a7",
+          "bytes": 98196
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/inventory.py",
+          "sourceUrl": "Retained extraction and comparison",
+          "sha256": "419556590bf2c1c7d0d9deb3079050c86eb4c12e739890928a67ef6c988e5e85",
+          "bytes": 2139
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/check_counts.py",
+          "sourceUrl": "Retained extraction and comparison",
+          "sha256": "1076616300f01d77844c466726d9cbfe9e0dfb9a610962dd4377e922f97f86eb",
+          "bytes": 5870
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/compare.py",
+          "sourceUrl": "Retained extraction and comparison",
+          "sha256": "6f90b1b7591433e62e7d02b2cdfe58a12d5cf1af537d09d7d372878ec021dc58",
+          "bytes": 9392
+        }
+      ],
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE254155_mmus_hypothalamus_fedfast/processed/GSE254155_DE.tsv",
+        "sha256": "01a02ad30354eabde9539ed889acfab6baa03a993b51154a98794b3e5d1a1791",
+        "bytes": 1698338,
+        "sourceUrl": "Registered Explorer DE output pinned against its R 4.6.0 provenance"
+      }
+    },
+    {
+      "datasetId": "mouse_hypo_heat_stress_gse128660",
+      "accession": "GSE128660",
+      "contrast": "heat_stress_36c_vs_control_25c",
+      "localPath": "geo_replication/datasets/GSE128660_mmus_hypothalamus_heat/processed/GSE128660_DE.tsv",
+      "localKey": "id",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE128660_mmus_hypothalamus_heat/processed/GSE128660_DE.tsv",
+        "sha256": "4f80fffbfdb2a5e9aaeed6a3370f6405c51ebd0b4395036d09094b59b3e85638",
+        "bytes": 3328600
+      },
+      "authorPath": "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/table-s2-hypothalamus.tsv",
+      "sourceUrl": "https://www.ebi.ac.uk/biostudies/files/S-EPMC6902726/fj.201901045R.sd1.xlsx",
+      "sha256": "56d47df31e81e77d76e79fb639b5951970f31c70a945db4b555760466753d9ac",
+      "format": "tsv",
+      "authorKey": "symbol",
+      "authorEffect": "author_log2FC",
+      "authorAdjustedP": "author_padj",
+      "orientationSign": 1,
+      "localMethod": "limma on log2(FPKM + 1)",
+      "authorMethod": "DESeq2 1.16.1 on counts, Table S2 selected HSP genes",
+      "orientation": "Heat-stressed hypothalamus relative to control in both sources, with the original Table S2 signs.",
+      "resultScope": "selected_results",
+      "interpretation": "effects_compared",
+      "note": "Every hypothalamic row of Table S2 is included. The seven matched pairs fall below the v2 minimum. Among these seven, three satisfy the paper’s rule locally and six satisfy local FDR < 0.05. Author raw P is unavailable. The registered analysis and the source panel have different scopes.",
+      "normalizationScript": "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/compare.py",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/sources/biostudies-workbook.xlsx",
+          "sha256": "59988caa3099ac417931eb47ed467795cef084c0b46fe604534c36b027b784d4",
+          "bytes": 198460,
+          "sourceUrl": "https://www.ebi.ac.uk/biostudies/files/S-EPMC6902726/fj.201901045R.sd1.xlsx"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/sources/pmc.html",
+          "sha256": "7b95ddbfcdaca8aae24330196e84818980395bd5442cbd93cab22ea45d95e48f",
+          "bytes": 240130,
+          "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6902726/"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/compare.py",
+          "sha256": "7c6fa9ea23ce1a1af41ec964fc70afcdc75d8b65521592f44c36a52691181735",
+          "bytes": 12852,
+          "sourceUrl": "Reproducible complete Table S2 tissue-block extraction and registered-output comparison"
+        }
+      ]
+    },
+    {
+      "datasetId": "mouse_hypo_insulin_gse132352",
+      "accession": "GSE132352",
+      "contrast": "insulin_vs_saline",
+      "localPath": "geo_replication/datasets/GSE132352_mmus_hypo_insulin/processed/GSE132352_DE.tsv",
+      "localKey": "symbol",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE132352_mmus_hypo_insulin/processed/GSE132352_DE.tsv",
+        "sha256": "df0584d7d04d853457968b37d852c1919a728ee504792f9ce63c6c961df144b2",
+        "bytes": 1357157
+      },
+      "authorPath": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/HTM_High.tsv",
+      "sourceUrl": "https://ndownloader.figshare.com/files/27952974",
+      "sha256": "7706f0c032e979b142718fcb47d8f40223fe3701b7012d4b028bc3b85fc4183c",
+      "format": "tsv",
+      "authorKey": "join_key",
+      "authorEffect": "author_logFC",
+      "authorAdjustedP": "author_FDR",
+      "orientationSign": 1,
+      "localMethod": "edgeR quasi-likelihood on TMM-normalized counts, groupcase coefficient",
+      "authorMethod": "limma on voom-weighted TMM log2 CPM, selected HTM_High rows of Supplementary Table S1",
+      "orientation": "High-dose insulin (12 mU/kg/min) relative to basal saline after 3 h in hypothalamus. Use the sheet's reported logFC unchanged.",
+      "resultScope": "selected_results",
+      "interpretation": "effect_match_inference_differs",
+      "note": "This specification replays 2,122 pairs from the original HTM_High.tsv, with all 2,301 source rows in the denominator. Row 1243 carries the stored key UNPAIRED:HTM_High:row1243. The independent accession audit resolves it as Oaz2, giving the 2,123-pair results reported separately in the scientific review. Both sets meet the same selected-list criteria. Author statistics outside S1 remain unassessed.",
+      "normalizationScript": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/compare.py",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/public/Table_S1_Significant_gene_lists.xlsx",
+          "sha256": "ddf2a00b30a94cba044bc6ca03b212c94284af1692a4ce8646bc06b1bfbf7035",
+          "bytes": 527633,
+          "sourceUrl": "https://ndownloader.figshare.com/files/27952974"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/public/series_family.soft.gz",
+          "sha256": "eb5dfb2cf3e1f11f92d46845860b31a500d6361f5b5a75014394850dc6775461",
+          "bytes": 4756,
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE132nnn/GSE132352/soft/GSE132352_family.soft.gz"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/public/mgi_ensembl.rpt",
+          "sha256": "39c260219e43c9016bd5d958eca9fab8461dce68657d821dc1037254bf0c0d67",
+          "bytes": 16192673,
+          "sourceUrl": "https://www.informatics.jax.org/downloads/reports/MRK_ENSEMBL.rpt"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/public/GSE132352_count_table.csv.gz",
+          "sha256": "aaec13c0525760c3e3d4163207809892c9557a9c41292bbc1bb5a6d73691e8f9",
+          "bytes": 1719169,
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE132nnn/GSE132352/suppl/GSE132352_count_table.csv.gz"
+        },
+        {
+          "path": "geo_replication/datasets/GSE132352_mmus_hypo_insulin/processed/GSE132352_feature_map.tsv.gz",
+          "sha256": "c5a7ce3ee32606a64285078f1d288ff9a03f1672f05bf245cfe164fb9b8affc1",
+          "bytes": 347133,
+          "sourceUrl": "Registered per-feature identifier map for this analysis"
+        },
+        {
+          "path": "data/nomenclature/nomenclature.tsv",
+          "sha256": "e93dd96852f0ce87365ca44c3566b03d774fcf062a8a8be8f1fe37d444c8f5ee",
+          "bytes": 20974092,
+          "sourceUrl": "Repository mouse nomenclature snapshot used to check MGI identifiers"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/compare.py",
+          "sha256": "bf95a60b24d1e63f7a00e6978714b0308bede34486849d359934fce6c14dc713",
+          "bytes": 14260,
+          "sourceUrl": "Offline extraction and gene comparison for GSE132352"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/refute/audit.py",
+          "sha256": "1470fa56dad4dbb57f32ddf43fc8791cc74d71981eb247148a13daa1a64a3dc5",
+          "bytes": 16762,
+          "sourceUrl": ""
+        }
+      ]
+    },
+    {
+      "datasetId": "mouse_hypo_obesity_gse329539",
+      "accession": "GSE329539",
+      "contrast": "obesity_vs_control",
+      "localPath": "geo_replication/archive/GSE329539_mmus_hypothalamus_rnaseq/processed/GSE329539_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/selected-effects.tsv",
+      "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13025380/fullTextXML",
+      "sha256": "03fec73f53022eaa7c70c4f265e5ee30798f8e915c61431d98661d8b75248094",
+      "format": "tsv",
+      "authorKey": "comparison_key",
+      "authorEffect": "author_logFC",
+      "orientationSign": 1,
+      "orientation": "Ob vs. C as printed in Table 1, untreated obese minus control in whole hypothalamus.",
+      "localMethod": "edgeR-QL, TMM, six registered libraries",
+      "authorMethod": "DESeq2 1.20.0, rounded Ob vs. C log2FC in manuscript Table 1",
+      "note": "All 54 author-selected rows retained. A key is the registered symbol only for an exact one-to-one source-feature match with a published DE row. Other rows retain the original Ensembl ID and remain outside the join. Compare 23 pairs with no author P/FDR. The two tables give different magnitudes for Ppargc1b. The alternative is recorded separately. M6pr-ps reverses. Coverage and pair count preclude v2 acceptance.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/paper.xml",
+          "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13025380/fullTextXML",
+          "sha256": "d25ff0705815099d6eeeb45806445a1f1539eacd7c3be781a4c6992a0e3841c9",
+          "bytes": 167817
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/publisher.xml",
+          "sourceUrl": "https://mdpi-res.com/d_attachment/genes/genes-17-00297/article_deploy/genes-17-00297.xml",
+          "sha256": "d2b1370e7bb36b88012967586655084a1de49a313a7b259a46ef69595967d722",
+          "bytes": 200958
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/compare.py",
+          "sourceUrl": "Reproducible Table 1 extraction, Table 2 cross-check and stable-ID joins",
+          "sha256": "af52f9dcb103d8c28dba9b2c5a48a8c56753c2a5eb1155495af088fb6a7cc3b5",
+          "bytes": 10884
+        },
+        {
+          "path": "geo_replication/archive/GSE329539_mmus_hypothalamus_rnaseq/processed/GSE329539_feature_map.tsv.gz",
+          "sourceUrl": "Registered input-feature to public-symbol mapping",
+          "sha256": "84775f08c84b5f429f2a02fd2c80028bccb436b3b15dfea40a42df9e8be5e251",
+          "bytes": 587851
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/mdpi-supplement.zip",
+          "sourceUrl": "https://mdpi-res.com/d_attachment/genes/genes-17-00297/article_deploy/genes-17-00297-s001.zip",
+          "sha256": "b11f12f600c8a434f9b1f3bff440289dc3d528fa4b5e23d67a29ca9b2e0ed666",
+          "bytes": 53645
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/family.soft.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE329nnn/GSE329539/soft/GSE329539_family.soft.gz",
+          "sha256": "b127bfd1249d8ba25ff43723c168bbbc71593f3ed688bec0ea92b44fc018afca",
+          "bytes": 3575
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/ena-read-counts.tsv",
+          "sourceUrl": "https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJNA1459453&result=read_run&fields=sample_alias,run_accession,read_count,base_count,library_layout",
+          "sha256": "15abdee1c50427ea05c805b36a0c46fd8d1f4173545f364c046be7c80c1a51f4",
+          "bytes": 664
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/compare.py",
+      "resultScope": "All 54 genes in the Table 1 Ob vs. C column define the selected reference. Effect comparisons cover the 23 one-to-one pairs.",
+      "localSnapshot": {
+        "path": "geo_replication/archive/GSE329539_mmus_hypothalamus_rnaseq/processed/GSE329539_DE.tsv",
+        "sourceUrl": "Registered Explorer DE output",
+        "sha256": "3c81e749c101102b0b5046ddc0136d69be0b8460acb6c7a4f5e35870a339e746",
+        "bytes": 1998509
+      }
+    },
+    {
+      "datasetId": "mouse_vmhvl_estradiol_gse181204",
+      "accession": "GSE181204",
+      "contrast": "eb_vs_vehicle",
+      "localPath": "geo_replication/datasets/GSE181204_mmus_vmhvl_estradiol/processed/GSE181204_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/author-effects.tsv",
+      "sourceUrl": "https://www.biorxiv.org/content/biorxiv/early/2019/10/10/794792/DC1/embed/media-1.pdf?download=true",
+      "sha256": "c3c2cb85e2717578bb93479c4466efd906d462375b415fc6ac9749cd63fee45c",
+      "format": "tsv",
+      "authorKey": "symbol",
+      "authorEffect": "logFC",
+      "authorAdjustedP": "padj",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL",
+      "authorMethod": "DESeq2 in the October 2019 preprint. The final published methods specify v1.14.1. The preprint identifies the BH adjustment, and its Table 1 prints effects and adjusted P values to five decimal places.",
+      "orientation": "Estradiol benzoate minus vehicle in ovariectomized female VMHvl, unchanged from the author reference.",
+      "note": "All 29 unique genes in the three printed Table 1 groups are included. All 29 agree in direction and 16 pass registered FDR < 0.05. Printed 0.00000 values retain the authors’ precision and serve only to establish the call. Raw author P is unassessed. The numerical comparison falls below the 30-pair v2 minimum. Figure-only signs are excluded from the spec.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/sources/preprint-v2-supplement.pdf",
+          "sourceUrl": "https://www.biorxiv.org/content/biorxiv/early/2019/10/10/794792/DC1/embed/media-1.pdf?download=true",
+          "sha256": "4c0cd559ab45a972804e929c5e314c6cc2444e85c41ec9b2f5e59c17e660c169",
+          "bytes": 643686
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/sources/preprint-v2.pdf",
+          "sourceUrl": "https://www.biorxiv.org/content/10.1101/794792v2.full.pdf",
+          "sha256": "8ac9e0cbd86d90a8b5b27294a20c9875625b05eb11e7e53016ac07afa2dea516",
+          "bytes": 24179952
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/sources/figure1.png",
+          "sourceUrl": "https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs41586-021-04010-3/MediaObjects/41586_2021_4010_Fig1_HTML.png",
+          "sha256": "93d55c3784b496e151789c9877cc6de56475eb51259b1882e78e65ceea031a19",
+          "bytes": 471237
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/sources/GSE181204_family.soft.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE181nnn/GSE181204/soft/GSE181204_family.soft.gz",
+          "sha256": "83442e8316bddc01c6fe77dd0fb9d2473288ad7779ce7424a4855fb62e0df5d2",
+          "bytes": 2538
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/sources/Methods_Supplemental_Figure_Legends.pdf",
+          "sourceUrl": "https://ftp.ebi.ac.uk/pub/databases/biostudies/S-EPMC/400/S-EPMC9113400/Files/NIHMS1799531-supplement-Methods_Supplemental_Figure_Legends.pdf",
+          "sha256": "1454fdc5126ed19841ac9f7443ed8cc295d79f404b79ad361c05661d6a317e75",
+          "bytes": 307923
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/table1-transcription.tsv",
+          "sourceUrl": "Visual transcription of all three groups on page 7, in printed order",
+          "sha256": "f0c307784b35ff4787bd275917dfacc38a578d85b1400b20a2b9da3b7238d90d",
+          "bytes": 1065
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/compare.py",
+          "sourceUrl": "Reproducible normalization and registered comparison",
+          "sha256": "73a1fb83dcd3b5f750aea2ce89e8550369a456a3c2a247a68c49405dd39c21d4",
+          "bytes": 8515
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/compare.py",
+      "resultScope": "Every gene with a printed effect and adjusted P in preprint v2 supplement Extended Data Table 1. These are selected discoveries in enriched groups.",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE181204_mmus_vmhvl_estradiol/processed/GSE181204_DE.tsv",
+        "sha256": "b4a88fd2b20ecb844af8293932f336309262a94cb5b817824979fa08a5bf7680",
+        "bytes": 1844097,
+        "sourceUrl": "Registered R 4.6.0 edgeR-QL DE output for vmhvl / eb_vs_vehicle"
+      }
+    },
+    {
+      "datasetId": "pig_hypo_low_growth_gse324226",
+      "accession": "GSE324226",
+      "contrast": "low_vs_high_growth_day39",
+      "localPath": "geo_replication/datasets/GSE324226_sscr_hypothalamus_adg/processed/GSE324226_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/author-effects.tsv",
+      "sourceUrl": "https://www.nature.com/articles/s41598-026-71457-7_reference.pdf",
+      "sha256": "1a00de550b53fc7a6ac07b4388ad3436a0846957e139e6ebe4f4afaa4b0ad13c",
+      "format": "tsv",
+      "authorKey": "output_id",
+      "authorEffect": "logFC",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL",
+      "authorMethod": "DESeq2 Wald, final ADG class with sex. RIN is reported separately in Methods. Figure 7 displays rounded coefficients.",
+      "orientation": "Day-39 hypothalamus, low minus high ADG in both sources.",
+      "note": "All 28 paired Figure 7 coefficients agree in direction (Pearson 0.9954, Spearman 0.9854). These represent 28 of 29 selected author genes and fall two pairs short of the concordance minimum. The reviewed sources do not supply exact per-gene DE P values, adjusted P values, or a full tested-gene table for this comparison. The day-39 supplementary biomarker matrix reports association P values. Its tissue headings conflict with the figure labels.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/reference.pdf",
+          "sourceUrl": "https://www.nature.com/articles/s41598-026-71457-7_reference.pdf",
+          "sha256": "0b1e8c15c159ec78792ba8102905684c7f71c4cd49a80097fabb6628868a85d5",
+          "bytes": 8549541
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/figure7_labels.tsv",
+          "sourceUrl": "Manual transcription of all Figure 7 hypothalamus labels, clockwise from PSMC1",
+          "sha256": "872e6652b231d93cece9c59ee06d3465f98dae72eeff666ea7126fcd7dad5898",
+          "bytes": 378
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/compare.py",
+          "sourceUrl": "Retained source inventory, identifier trace, normalization and comparison script",
+          "sha256": "8030cd71c6678181bf01e28571f3cf410566edbee14a52eddfa2e03cb348b56d",
+          "bytes": 11889
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/geo_raw.xlsx",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE324nnn/GSE324226/suppl/GSE324226_Processed_data_raw.xlsx",
+          "sha256": "921556200606c0d66b7760e8bdadbaaf2584cb69d6e323a0bcc8ed2739022e88",
+          "bytes": 8959180
+        },
+        {
+          "path": "geo_replication/datasets/GSE324226_sscr_hypothalamus_adg/processed/GSE324226_CPM_TMM.tsv.gz",
+          "sourceUrl": "Registered expression data used to trace stable IDs across all twelve libraries",
+          "sha256": "7267d62ee0c5a4d157b3bf675f41054491fcdab91f27b5c4586c1090dcdc85f9",
+          "bytes": 1530273
+        },
+        {
+          "path": "geo_replication/datasets/GSE324226_sscr_hypothalamus_adg/processed/GSE324226_cpm_normalization.tsv",
+          "sourceUrl": "Registered expression data used to trace stable IDs across all twelve libraries",
+          "sha256": "5aa184b1c2c402f7aaec29ef9aa17a637e93d7ae190a2ff39a2fd7c7ec5ed86a",
+          "bytes": 1409
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/uniprot_RANBP2.json",
+          "sourceUrl": "https://rest.uniprot.org/uniprotkb/search?query=organism_id%3A9823%20AND%20gene_exact%3ARANBP2&format=json&fields=accession,gene_names,xref_ensembl,xref_geneid",
+          "sha256": "3e9287b03b04f4fbec6c06c52e1bf63028350723ad51a07f9a8e32e85868112b",
+          "bytes": 3095
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/compare.py",
+      "resultScope": "Every hypothalamic label with a printed day-39 log2 fold change in Figure 7. The authors selected genes using DIABLO and displayed cross-tissue Pearson correlations with |r| > 0.80.",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE324226_sscr_hypothalamus_adg/processed/GSE324226_DE.tsv",
+        "sourceUrl": "Current registered R 4.6.0 day-39 hypothalamus DE output",
+        "sha256": "56588f64c29dfa470dd5b6effd072949b1617ab070d17cbb74d40f7cbff07c55",
+        "bytes": 1356173
+      }
+    },
+    {
+      "datasetId": "rat_hypo_ozone_gse133293",
+      "accession": "GSE133293",
+      "contrast": "ozone_vs_air",
+      "localPath": "geo_replication/datasets/GSE133293_rnor_hypothalamus_ozone/processed/GSE133293_DE.tsv",
+      "localKey": "symbol",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE133293_rnor_hypothalamus_ozone/processed/GSE133293_DE.tsv",
+        "sha256": "1426784b158eefb078cef959cdba0450288a5b55825e5785daa963153a69dc74",
+        "bytes": 2050464,
+        "sourceUrl": "Registered Explorer DE table"
+      },
+      "localMethod": "limma on log2(DESeq2-normalized count + 1)",
+      "authorMethod": "DESeq2 1.10.1, published rounded SH O3 / SH air fold changes",
+      "orientation": "log2 of the positive linear ozone/air ratio in Table 1B, in the published direction.",
+      "orientationSign": 1,
+      "note": "Table 1B contains the 20 most increased and 20 most decreased genes among the authors’ SHAM hypothalamus discoveries at FDR ≤ 0.10. All 40 published ratios entered the comparison. The table provides no per-gene numeric raw or adjusted P values. Pearson is 0.97595 and Spearman is 0.88509. Only the directional route of author-concordance-v2 passes on these selected genes.",
+      "interpretation": "effects_compared",
+      "resultScope": "selected_results",
+      "format": "tsv",
+      "authorKey": "symbol",
+      "authorEffect": "author_log2FC",
+      "authorPath": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/author-table1b.tsv",
+      "sha256": "aef87f5b8883d3f3ecf3740a24692b9798109d7a4e334d852894417730ce3fc7",
+      "sourceUrl": "https://oup.silverchair-cdn.com/article-minimal/5545529",
+      "normalizationScript": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/compare.py",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/publisher-mirror.html",
+          "sourceUrl": "https://oup.silverchair-cdn.com/article-minimal/5545529",
+          "sha256": "bf9daf6942529136384a1e3991170be27f0cdddc155c26c222fccd61192d5cfa",
+          "bytes": 336211
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/original-pmc.xml",
+          "sourceUrl": "https://pmc-oa-opendata.s3.amazonaws.com/PMC9344225.1/PMC9344225.1.xml",
+          "sha256": "3ebd69b07008cac48570154e63313735f36333e74fbd461bab2ecbf7fdc3ebda",
+          "bytes": 161274
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/original-kfz182_supplementary_data.docx",
+          "sourceUrl": "https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/toxsci/172/1/10.1093_toxsci_kfz182/2/kfz182_supplementary_data.docx?Expires=2147483647&Signature=InvCbGYzgbcYaN9Gj4fuxTdSw2kr2xjfk-PerdstHvecUkQQBHOjXZwQSThGmWluFkhJkB24yOdcTg308Gr7HasV~ORGbgklMikLOamgtqcXUuC98DkLd8ghkHzrmWmzGBDlNaWWETFs8C-ctdKXa0WCvJhTzob3MZd7DwHJLGU7yY7f5506lk3sBVRDJgAa0waHZHDVo8wrszXmTVCiwQYVQB~LcVNoax21MUZbYEy3gDbKQm102V7S1ueNF2CpJXYpwaCIC~JLPB7nULcz4UKA6SwkGjfCw-L4oXf5TBl7ZBCUdTfB8SQgaHXskMqykDLKargrBqmNsh0Cf8IbQA__&Key-Pair-Id=APKAIE5G5CRDK6RD3PGA",
+          "sha256": "2f326da5489f77cd9b93273cca792ef4e7257725e084094c81678ce44b969ba6",
+          "bytes": 997423
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/geo-family.soft.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE133nnn/GSE133293/soft/GSE133293_family.soft.gz",
+          "sha256": "19938069a0ab5b94ca8821d4469c7ef3a51282a1982aaf2f7d0e0fb51a85d492",
+          "bytes": 4294
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/geo-normalized.csv.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE133nnn/GSE133293/suppl/GSE133293_GRC341_GEO_Brain.Hypo.NormCounts.csv.gz",
+          "sha256": "c99af5e85c9c5e2bde3a1026743a14b6d12979bad0ec948aa990baf24b126c2f",
+          "bytes": 4134177
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/compare.py",
+          "sourceUrl": "Offline Table 1B extraction and comparison",
+          "sha256": "a8919e0becaef4ce6b962a15ea284f334b755cc0a245a134c2f28b8bca391cd6",
+          "bytes": 11750
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/ena-runs.tsv",
+          "sourceUrl": "https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJNA551004&result=read_run&fields=study_accession%2Csample_accession%2Crun_accession%2Cexperiment_title%2Cfastq_ftp&format=tsv",
+          "sha256": "7def14f326a91c6d10eac28105799832478c582e9c239fea89fb8d37811d3f75",
+          "bytes": 6146
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/epa.xlsx",
+          "sourceUrl": "https://pasteur.epa.gov/uploads/10.23719/1503697/Henriquez%202019%20Manuscript%20for%20Tox%20Sci%20-%20Data%20for%20Science%20Hub%20-%20Kodavanti%203%2028%2019%20%281%29.xlsx",
+          "sha256": "249aae8518f5868e9431010e39412104cb365332fd011945d0ec8337a47dec59",
+          "bytes": 3328799
+        }
+      ]
+    },
+    {
+      "datasetId": "rat_mbh_perinatal_des_gse225359",
+      "accession": "GSE225359",
+      "contrast": "des12_vs_vehicle",
+      "localPath": "geo_replication/datasets/GSE225359_rnor_mbh_perinatal_des/processed/GSE225359_DE.tsv",
+      "localKey": "symbol",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE225359_rnor_mbh_perinatal_des/processed/GSE225359_DE.tsv",
+        "sha256": "f5b21a173d81433a33637cb1f056bf17540cc33ca7b2addf68775d6ba4145761",
+        "bytes": 1287401
+      },
+      "authorPath": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/author-effects.tsv",
+      "sourceUrl": "https://ndownloader.figshare.com/files/38764173",
+      "sha256": "6999098e640ce57e5b3e642efc7eb4a545755a020a468b444c65f8131db1da41",
+      "format": "tsv",
+      "authorKey": "output_id",
+      "authorEffect": "logFC",
+      "authorAdjustedP": "padj",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL, R 4.6.0, groupcase on the ten registered offspring profiles",
+      "authorMethod": "Pairwise DESeq2, author-reported MBH DES12 versus vehicle at P90",
+      "orientation": "DES12 minus vehicle in both tables. The extraction preserves the deposited sign.",
+      "note": "Full workbook, sheet summary, columns AL:AM. All 32,883 Ensembl rows are retained. One-to-one published feature mappings use the registered symbol as output_id. Other rows retain their source ID and remain unpaired. 13,002 effect pairs have finite adjusted P on both sides. Whole-list FDR counts (2,498 author and 847 local) and shared finite-test counts (2,281 author, 847 local, 828 shared) use the prespecified 0.05 cutoff. Missing values are blank.",
+      "interpretation": "effect_match_inference_differs",
+      "resultScope": "full_results",
+      "normalizationScript": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/compare.py",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/fig3-7.xlsx",
+          "sourceUrl": "https://ndownloader.figshare.com/files/38764173",
+          "sha256": "0b09f446aee8f871fa7320459d1511940791174069fb4b9c9b665ec05971e851",
+          "bytes": 24185275
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/deg.xlsx",
+          "sourceUrl": "https://ndownloader.figshare.com/files/39255323",
+          "sha256": "fdf1acd482a80efcc6e22e18cb2ac89adb2200c5f793da384909c613261ac378",
+          "bytes": 3677642
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/article.xml",
+          "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10108553/fullTextXML",
+          "sha256": "f678a11b4e51175d12f7d4c8051eba0ea82947241ac9da2922091551f503acc1",
+          "bytes": 243896
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/family.soft.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE225nnn/GSE225359/soft/GSE225359_family.soft.gz",
+          "sha256": "412455c6f49185151f37ee061521a5c23e14d3ae7992d15c01beb9b31d6e8c42",
+          "bytes": 12795
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/compare.py",
+          "sourceUrl": "Reproducible extraction and comparison",
+          "sha256": "9a299aa45688b72b329c70f07ca8c9af11ef041123306aa1eeb272b2101afab8",
+          "bytes": 7804
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE225359/codex-2026-11-21/workbook.py",
+          "sourceUrl": "Worksheet parser used by the extraction",
+          "sha256": "8f769ee6e4ec0fa45dc46d3f3ef0475b4966062ad46101bfdf8fea3f21051660",
+          "bytes": 1941
+        },
+        {
+          "path": "geo_replication/datasets/GSE225359_rnor_mbh_perinatal_des/processed/GSE225359_feature_map.tsv.gz",
+          "sourceUrl": "Registered Ensembl-to-symbol map used by the extraction",
+          "sha256": "b31b3971c6d1c75ebf42aa223da8c9e755f6cbe633ef5b6902167c03bde8127f",
+          "bytes": 216604
+        }
+      ]
+    },
+    {
+      "datasetId": "rat_rph_noise_stress_gse229159",
+      "accession": "GSE229159",
+      "contrast": "noise_stress_7d_vs_control",
+      "localPath": "geo_replication/datasets/GSE229159_rnor_rph_noise_stress/processed/GSE229159_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/author-rs7-vs-control.tsv",
+      "sourceUrl": "https://ndownloader.figshare.com/files/41149442",
+      "sha256": "76b773d298891744c5a450cf28c6e42e9187c9e64ce2eca9884921818acaaacb",
+      "format": "tsv",
+      "authorKey": "output_key",
+      "authorEffect": "log2FoldChange",
+      "authorAdjustedP": "author_padj",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL, registered two-arm TMM fit",
+      "authorMethod": "DESeq2 1.28.1, Wald test with BH adjustment, S1 significant genes only",
+      "orientation": "S1 reports RS7 relative to no stress, as established by Figure 2 and the RNA-seq directions reported for Camk4, Gabrb2, Grin2a, Gad1 and Slc32a1. Use the printed log2 fold change with sign +1.",
+      "note": "All 405 printed Ensembl IDs remain in the normalized reference. The 358 one-to-one feature-map matches use the registered symbol. The 47 IDs without a registered symbol retain their distinct Ensembl keys and cannot join to a local effect. Local and author cohorts differ. All 358 effects agree in sign and 49 paired discoveries pass local FDR. Omitted author statistics remain unassessed. S1 has no raw P column.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/sources/Data_Sheet_1.pdf",
+          "bytes": 828786,
+          "sha256": "17b05811bb5e164aedd88f2b2c4518c05e2f7bf19183078a55f583ef0382b9a1",
+          "sourceUrl": "https://ndownloader.figshare.com/files/41149442"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/sources/pmc-article.xml",
+          "bytes": 171288,
+          "sha256": "314c39b280f8c62d4015ba8e2a9d58b848ce7497569569a1adfb460ba07d9f97",
+          "sourceUrl": "https://pmc-oa-opendata.s3.amazonaws.com/PMC10288150.1/PMC10288150.1.xml"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/sources/GSE229159_featurecounttrim24.txt.gz",
+          "bytes": 915095,
+          "sha256": "23063e4af5b88f9b23fe45ef5789c043761cde6f1d3bf91cdbfa031590dba36e",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE229nnn/GSE229159/suppl/GSE229159_featurecounttrim24.txt.gz"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/sources/GSE229159_family.soft.gz",
+          "bytes": 5380,
+          "sha256": "c6f5bd138333e57889c8dfb861964de57d4505442d82a834a96b33e2e109533d",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE229nnn/GSE229159/soft/GSE229159_family.soft.gz"
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/compare.py",
+      "resultScope": "selected_results",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE229159_rnor_rph_noise_stress/processed/GSE229159_DE.tsv",
+        "sha256": "fa5f0b472752c04c088f87b784778e106a8ea38d96248ef621b7d3c3bb81f204",
+        "bytes": 1288203
+      }
+    },
+    {
+      "datasetId": "rat_son_salt_gse65663",
+      "accession": "GSE65663",
+      "contrast": "salt_vs_control",
+      "localPath": "geo_replication/datasets/GSE65663_rnor_son_salt/processed/GSE65663_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/primary-gene-effects.tsv",
+      "sourceUrl": "https://www.ebi.ac.uk/biostudies/files/S-EPMC4386000/9016251045f6927940162e8533b81f37_tableS1-S6.xlsx",
+      "sha256": "3023773d86b6baf9487cd46e900a5fd98032244141e9ed3fa99d954826ad3fb7",
+      "format": "tsv",
+      "authorKey": "output_key",
+      "authorEffect": "log2FC",
+      "authorAdjustedP": "bh",
+      "orientationSign": 1,
+      "orientation": "Table S1 Log FC already measures SL minus EU.",
+      "localMethod": "limma with empirical-Bayes moderation after log-scale averaging by symbol",
+      "authorMethod": "GeneSpring GX12 RMA, median baseline, unequal-variance Welch test, probe-level BH",
+      "interpretation": "effect_match_inference_differs",
+      "note": "Greenwood et al., Table S1. The 9,843 salt-versus-euhydrated probe sets all have reported BH-adjusted P < 0.05. S1 omits probes outside this selected list. The pairs cover 3,564/5,719 (62.32%) of the selected single-Entrez reference and 3,564/14,604 (24.40%) of registered genes. The selected reference falls below the 90% v2 coverage requirement. The expression unit is log2. Each unpaired_entrez key retains one otherwise unpaired named reference gene. Only single-probe tests are carried into the BH comparison. The full probe audit preserves ambiguous and missing author IDs. The full-matrix Welch/BH replay is a separate check on probe selection. It contributes no additional rows to this direct comparison.",
+      "resultScope": "Primary S1 salt-vs-EU selected genes with one author Entrez ID. The pair requires the entire corresponding registered probe set.",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/sources/greenwood-bio.xlsx",
+          "sourceUrl": "https://www.ebi.ac.uk/biostudies/files/S-EPMC4386000/9016251045f6927940162e8533b81f37_tableS1-S6.xlsx",
+          "sha256": "0d8136b16c2da95e4091e6b15c56310abc9f9ee9c7d2ec2d2b6eb306b319eaa3",
+          "bytes": 2862055
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/sources/greenwood-pmc.html",
+          "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4386000/",
+          "sha256": "fdfe26ab0d5a4beaa982bbf0c7f90c19e43f7680f53afd8bf3f348f15dfd0dab",
+          "bytes": 225918
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/sources/geo-series.soft.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE65nnn/GSE65663/soft/GSE65663_family.soft.gz",
+          "sha256": "0ca67861a8b9b2cef09fac7d714cd58e140f22e5e6eeaa885a13fc98f5df4b33",
+          "bytes": 8667697
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/sources/GPL1355.annot.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/platforms/GPL1nnn/GPL1355/annot/GPL1355.annot.gz",
+          "sha256": "959b0339252170160d81d1e4a218c706910d0deef9caf0ef583e57291c316d08",
+          "bytes": 5714896
+        },
+        {
+          "path": "geo_replication/datasets/GSE65663_rnor_son_salt/processed/GSE65663_feature_map.tsv.gz",
+          "sourceUrl": "Registered analysis input or provenance",
+          "sha256": "130b54950d700423fa33fedc59f3369db551ccba0266ed07d47d6305844bdbca",
+          "bytes": 182086
+        },
+        {
+          "path": "geo_replication/datasets/GSE65663_rnor_son_salt/metadata/GSE65663_samplesheet.tsv",
+          "sourceUrl": "Registered analysis input or provenance",
+          "sha256": "5be226769dc4842ffaa851d030b31626dfc56815efc61252f885d1ca91dc0f8f",
+          "bytes": 535
+        },
+        {
+          "path": "geo_replication/datasets/GSE65663_rnor_son_salt/processed/GSE65663_provenance.tsv",
+          "sourceUrl": "Registered analysis input or provenance",
+          "sha256": "76f9ece6f5d4bdc94703ce5fdf7773b89f6790dac8c17cad22776a133b79a15d",
+          "bytes": 5852
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/compare.py",
+          "sourceUrl": "Reproducible workbook extraction and probe-identity comparison",
+          "sha256": "da90e30ea66e5d957b8432170bea6cad4c11d25a37580968b4f714f50f3374d5",
+          "bytes": 13127
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/compare.py",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE65663_rnor_son_salt/processed/GSE65663_DE.tsv",
+        "bytes": 1354869,
+        "sha256": "5c5eebcb95fcc18b934b598fbf1d04952e7b90ce52dd6a4bfefa9676b77fea61",
+        "sourceUrl": "Registered salt_vs_control DE output"
+      }
     }
   ]
 }

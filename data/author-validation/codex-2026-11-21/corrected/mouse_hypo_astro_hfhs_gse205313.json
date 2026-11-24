@@ -1,0 +1,159 @@
+{
+  "datasetId": "mouse_hypo_astro_hfhs_gse205313",
+  "accession": "GSE205313",
+  "category": "access_blocked",
+  "closure": "compared",
+  "summary": "In bioRxiv Table S1, 642 of 788 paired hypothalamic labels also meet the registered raw P < 0.05 cutoff. All 16 Table S3 RNA directions agree with edgeR, below the 30-pair concordance minimum. The published article and preprint workbook disagree about which regions called Npy.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE205313/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "Selected hypothalamic diet-response calls and directions compared using preprint Tables S1 and S3.",
+      "note": "Preprint Table S1 names 868 hypothalamus-only DEGs and 12 shared by all three regions. Of 788 paired labels, 642 meet the registered nominal cutoff and 146 have P ≥ 0.05. Of 92 labels without a published registered result, 89 match mapped local inputs removed by expression filtering. Table S3 provides nine up and seven down directions from GO contributors to the co-regulated transcript–protein analysis. All 16 agree with the registered RNA signs. These workbooks give no numerical gene-level RNA coefficients, P values or FDRs for this contrast. The GEO R-file sequence corroborates the four notebook exclusions. The original count-matrix column order remains unconfirmed. The sources for the November 21 review batch were retrieved on November 22, 2026 UTC.",
+      "reviewFlags": [
+        "The published article, section 3.1, names Npy as shared across cortex, hypothalamus and hippocampus. Preprint Table S1 lists Npy under CTX only (Non-overlapping DEGs, B994). Its registered hypothalamic P is 0.645836. The published Table S1 file is needed to resolve this discrepancy.",
+        "The paper describes GO analysis of region-exclusive DEGs. Nine genes in the preprint workbook’s own all-region list also appear on its HPT GO sheet. Another 111 paired GO contributors lie outside both explicit HPT lists. The archived code selects nominal HPT DEGs before enrichment.",
+        "The six-group DESeq2 Wald model and the hypothalamus-only edgeR quasi-likelihood model yield 146 different nominal calls among the paired preprint labels. The original count-matrix key and author results are needed for exact cohort and effect comparisons."
+      ],
+      "paperAccess": "publisher_full_text",
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Published article, bulk RNA methods and regional results",
+          "url": "https://pure.mpg.de/rest/items/item_3493159_3/component/file_3493160/content",
+          "kind": "paper"
+        },
+        {
+          "label": "bioRxiv Table S1, named DEGs and regional GO contributors",
+          "url": "https://www.biorxiv.org/content/biorxiv/early/2022/03/31/2022.03.30.486358/DC1/embed/media-1.xlsx?download=true",
+          "kind": "author_result"
+        },
+        {
+          "label": "bioRxiv Table S3, co-regulated transcript–protein pathway members",
+          "url": "https://www.biorxiv.org/content/biorxiv/early/2022/03/31/2022.03.30.486358/DC3/embed/media-3.xlsx?download=true",
+          "kind": "author_result"
+        },
+        {
+          "label": "Author bulk RNA analysis notebook at the reviewed commit",
+          "url": "https://github.com/viktormiok/AstrocytesHeterogenityARC/blob/145e6b10ed16cd7e4e4cc1a63b4ec84e90428a07/transcriptomics_analysis_v1.ipynb",
+          "kind": "author_result"
+        },
+        {
+          "label": "Archived author notebook with the HPT count outputs and GO input code",
+          "url": "https://github.com/viktormiok/AstrocytesHeterogenityARC/blob/145e6b10ed16cd7e4e4cc1a63b4ec84e90428a07/old%20notebooks/transcriptomics_analysis.ipynb",
+          "kind": "author_result"
+        },
+        {
+          "label": "Lutomska dissertation, Table 21 and Figure 6",
+          "url": "https://push-zb.helmholtz-munich.de/deliver.php?id=45886",
+          "kind": "paper"
+        },
+        {
+          "label": "GEO series, sample labels and deposited quantifications",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE205313",
+          "kind": "database"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The preprint supports a completed comparison of selected calls and directions. The registered fit differs on 146 paired nominal calls. The article and workbook disagree on Npy’s regional membership, and the workbook’s HPT GO contributors include genes its own lists classify as shared.",
+      "nextStep": "Obtain the final publisher Table S1, the unfiltered HPT_HFD versus HPT_Chow DESeq2 results with original feature IDs, the new_counts1.csv column-to-library key and the input IDs used for HPT GO enrichment. Use them to establish Npy’s regional calls, resolve three remaining source labels and reconcile the gene-level results.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "hfhs_vs_chow"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered astrocyte edgeR-QL groupcase output compared with the author’s selected nominal calls in bioRxiv Table S1 and the transcript direction implied by each HPT co-regulated contributor in Table S3.",
+      "reference": "Lutomska et al., bioRxiv 10.1101/2022.03.30.486358 v1, Tables S1 and S3 and Figure S1A. Glia 10.1002/glia.24237, sections 2.2, 2.5 and 3.1, supports the design and regional counts. Section 3.1 also makes a gene-level claim about Npy that conflicts with preprint Table S1. The archived transcriptomics notebook and dissertation Table 21 report the HPT nominal totals. The final Wiley workbook bytes remain unverified.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Both sources describe MACS-isolated ACSA2+ astrocytes from male mouse hypothalami after four months on diet. Each library represents a pool of two mice. The six chow and five HFHS GSMs match the registered sample sheet. Across all regions, every one of the 35 surviving R-file numbers has the notebook’s expected tissue and diet, and gaps 10, 13, 19 and 34 are precisely its exclusions. The original CSV header is needed to prove that its positions were ordered by R-file number."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "The author contrasts HPT_HFD against HPT_Chow in the DESeq2 code. GEO identifies that diet as HFHS. The registered hfhs_vs_chow coefficient has chow as the baseline."
+        },
+        "features": {
+          "status": "limited",
+          "note": "Of 880 distinct HPT-relevant Table S1 labels, 779 match registered results exactly and nine match a unique digit-leading symbol after R name conversion. Among the 92 unpaired labels, 89 match mapped features before edgeR expression filtering. Gm33155, Pde2a.1 and Poteg.1 have no unique match to a mapped input under these rules. The author notebook used make.names with unique names. Source-row suffixes were retained. All 16 distinct Table S3 mouse Gene IDs have unique registered partners."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "The HPT_up and HPT_down sheets contain gene IDs contributing to GO enrichment of co-regulated transcript–protein pairs. The registered transcript signs agree for 9 up and 7 down. Neither the named S1 calls nor these S3 memberships provide numerical RNA effects. Pearson, Spearman and effect magnitudes remain unassessed."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The author notebook uses raw Wald P < 0.05 on complete DESeq2 result rows. Of 788 paired Table S1 positives, 642 meet the registered raw P cutoff and 146 have P ≥ 0.05. There are 1,869 nominal calls in the 19,307 published edgeR rows, including 1,227 outside the paired named lists. BH correction covers all 19,320 tested rows, including 13 unpublished rows. Zero published rows have FDR < 0.05. The workbooks provide zero paired gene-level P or FDR values. For the separate published-text claim about Npy, the registered HPT raw P is 0.645836."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The two named lists cover 880 of 1,150 author-reported HPT nominal positives. Figure S1A assigns the other 270 to HPT–cortex only (190) and HPT–hippocampus only (80). Of 536 HPT GO contributor IDs, 503 pair with registered results. Nine paired contributors occur on the workbook’s all-region list and 111 lie outside both named HPT lists. All 33 unpaired GO IDs map to local input features removed by expression filtering. S3 covers 16 selected signs. The full gene-level author results and testing universe remain unavailable."
+        }
+      },
+      "criteria": "Use the published raw P < 0.05 rule for the explicit gene-call lists and HFHS minus chow for every signed comparison. For author-concordance-v2, compatible cohort, contrast, identifiers and effect definitions, at least 30 paired genes and at least 90% relevant coverage are required. Either Pearson and Spearman must both reach 0.90, or at least 90% of at least 30 nonzero pairs must agree in direction with nonzero pairs covering at least 90% of all pairs. P values, FDR and magnitudes are contextual.",
+      "conclusion": "The selected-result comparison is complete for the preprint lists. Sixteen agreeing qualitative directions and zero paired numerical RNA effects fall short of either concordance route. The nominal-call differences, the two sources’ assignments for Npy and the input used for the HPT GO table remain unresolved."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered DE output and independently checked nominal/FDR totals",
+      "value": "19,307 published genes, 1,869 with raw P < 0.05 and 0 with BH FDR < 0.05. The byte-level SHA-256 is 13f82b015625bc74476a2dd31c6d010af62e8e3c613ee5a5858fec21e3235040.",
+      "script": "data/author-validation/continued-sources/GSE205313/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "GEO numbering, archived sample-file contents and registered cohort",
+      "value": "All 35 sample-file headers contain transcript ID, length, effective length, TPM and estimated reads. Across the notebook’s 39 original positions the missing R numbers are 10, 13, 19 and 34. The 11 hypothalamic GSMs give six chow and five HFHS libraries.",
+      "script": "data/author-validation/continued-sources/GSE205313/codex-2026-11-21/audit_sources.py"
+    },
+    {
+      "claim": "Author overall nominal-call count and the two explicit Table S1 lists",
+      "value": "The archived notebook prints 1,150 HPT nominal calls, 581 up and 569 down. The preprint workbook names 868 HPT-only genes and 12 common to all regions, totalling 880.",
+      "script": "data/author-validation/continued-sources/GSE205313/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Matched and unmatched selected calls at the authors’ nominal threshold",
+      "value": "788/880 named labels join. Of those, 642 pass registered raw P < 0.05 and 146 do not. Of 868 HPT-only labels, 776 join and 632 pass. All 12 common labels join and 10 pass. The 92 unpaired labels have no assessed registered call in this comparison.",
+      "script": "data/author-validation/continued-sources/GSE205313/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "HPT Table S1 GO contributors, a secondary comparison",
+      "value": "503/536 distinct IDs join, with 426 nominal in edgeR. Of the 111 matched contributors beyond the two named lists, 98 are nominal. The union covers 899 registered genes, of which 740 are nominal.",
+      "script": "data/author-validation/continued-sources/GSE205313/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Deduplicated Table S3 HPT co-regulated directions",
+      "value": "All 16/16 selected genes agree in sign, nine up and seven down. All have local nominal P < 0.05 and none has local BH FDR < 0.05. There are zero paired numerical RNA effects or paired gene-level P/FDR values.",
+      "script": "data/author-validation/continued-sources/GSE205313/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Published Npy claim checked against the preprint workbook and registered HPT result",
+      "value": "Glia section 3.1 names Npy among all-region DEGs. Its only entry on the preprint’s explicit lists is Non-overlapping DEGs!B994 (CTX). Registered HPT log2FC = −0.13100473831254, raw P = 0.645835843902788 and BH FDR = 0.925098490356902. Npy is outside the 880 explicitly named HPT labels.",
+      "script": "data/author-validation/continued-sources/GSE205313/codex-2026-11-21/refute/check.py"
+    },
+    {
+      "claim": "Unpaired labels checked against the registered prefilter feature map",
+      "value": "89/92 unpaired named labels and 33/33 unpaired HPT GO IDs have a unique mapped local input feature removed by the edgeR expression filter. The three remaining named labels are Gm33155, Pde2a.1 and Poteg.1. The registered BH family contains 19,320 tested rows, of which 19,307 were published.",
+      "script": "data/author-validation/continued-sources/GSE205313/codex-2026-11-21/refute/check.py"
+    },
+    {
+      "claim": "Members shared across all three regions that occur in the preprint HPT GO table",
+      "value": "Nine of the 12 shared genes occur among the 503 paired HPT GO contributors: Asic1, Col3a1, Fcsk, Hmox1, Ifrd1, Lcn2, S100a8, S100a9 and Twf1.",
+      "script": "data/author-validation/continued-sources/GSE205313/codex-2026-11-21/refute/check.py"
+    }
+  ],
+  "openIssues": [
+    "Which regions called Npy at raw P < 0.05 in the final analysis, and what does the final version of Table S1 report?",
+    "Which HPT gene IDs generated the Table S1 GO terms that include nine genes on the all-region list?",
+    "Can the authors supply the complete HPT DESeq2 results with original feature IDs and the new_counts1.csv column-to-library key to reconcile the nominal calls, the three unresolved labels and exact cohort membership?"
+  ]
+}

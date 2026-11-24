@@ -1,0 +1,154 @@
+{
+  "datasetId": "mouse_hypo_maternal_hcd_gse242187",
+  "accession": "GSE242187",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "All 15,358 registered effects pair with the GEO result for maternal HCD versus RD in male offspring fed HCD after weaning. The deposited table reproduces the paper’s tally of 7 increases and 18 decreases, although the plotted adjusted P for Oxt differs from the deposit. The original DESeq2 fit and the number of dams represented in each arm still require author records.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE242187/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "All six library assignments have expression-profile support. The deposited Wald and adjusted-P calculations reproduce. The original fit, maternal replication and the plotted Oxt value remain unresolved.",
+      "note": "ARCHS4 reprocessed the same six libraries. On all 15,358 paired effects, Pearson is 0.95519, Spearman is 0.98869 and 98.51% agree in direction. Both numerical author-concordance-v2 routes pass. The limited cohort assessment keeps overall concordance under review. The full GEO table yields 25 discoveries under the paper’s adjusted-P rule. All 25 also clear the Figure 3 effect cutoff. The 15,290 genes with finite adjusted P in both tables include 20 author discoveries and zero edgeR discoveries. See data/author-validation/continued-sources/GSE242187/codex-2026-11-21/SEARCH_LOG.md and data/author-validation/continued-sources/GSE242187/codex-2026-11-21/refute/audit.py.",
+      "reviewFlags": [
+        "GEO control titles 5A5/6/7 and the SRA original-read prefixes 5A1/2/3 differ. The profile matches support the Mona-to-GSM inference. Author identifiers for the offspring and dams or litters are still needed to assess replication.",
+        "The original DESeq2 build, fitted model and dispersion or coefficient-prior settings remain unconfirmed. The September ledger reports 13 residual author discoveries across the historical diagnostics. The row-level diagnostic outputs were unavailable for this review.",
+        "Five author discoveries fall outside the registered DE table. Another 68 registered genes lack an author adjusted P.",
+        "Figure 3C plots Oxt near 6 on its −log10(adjusted P) axis. The deposited adjusted P of 7.050985 × 10⁻⁹ gives 8.15175. The reported discovery count and the direction of Oxt agree."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "GEO author 5A-versus-3A result",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE242nnn/GSE242187/suppl/GSE242187_5A_vs_3A_control_vs_comparison.deseq.res.csv.gz",
+          "kind": "author_result"
+        },
+        {
+          "label": "Study methods and Figure 3",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10806294/",
+          "kind": "paper"
+        },
+        {
+          "label": "Sequencing project and sample relations",
+          "url": "https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1011935",
+          "kind": "database"
+        },
+        {
+          "label": "ARCHS4 expression profiles for the six GSMs",
+          "url": "https://maayanlab.cloud/sigpy/data/samples?gsm_ids=GSM7754589,GSM7754590,GSM7754591,GSM7754601,GSM7754602,GSM7754603&species=mouse",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Published Figure 3, including the male HCD-HCD versus RD-HCD plot in panel C",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC10806294.1/gr3.jpg",
+          "kind": "paper"
+        }
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "All registered gene effects were compared. Reprocessed profiles support all six library assignments. The reported coefficients and SEs reproduce the deposited Wald statistics, and the raw P values reproduce the adjusted P values within the observed adjustment family. With BH applied to each method’s raw P values on the same 15,290 genes, the author and registered tables yield 19 and zero discoveries. The original fit, dam assignments and plotting value for Oxt remain unresolved.",
+      "nextStep": "Could you share the DESeq2 script and session or workflow log for male 3A versus 5A, the sample sheet linking Mona numbers and GSMs to offspring and dams or litters, and the data or display rule used to plot Oxt in Figure 3C? Use the run records to check the fitted design, dispersion, coefficient prior, outlier handling and filtering order.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "mat_hcd_vs_rd"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered six-library whole-hypothalamus edgeR-QL compared with the full deposited DESeq2 table in direction +1. The common-family BH calculation is a separate sensitivity check.",
+      "reference": "GSE242187 male 5A control / 3A comparison counts and results, Elgazzaz et al. §3.3, Figures 3C, S3F and S6I, GEO/SRA/ENA sample records, six-GSM ARCHS4 matrix and RNA Express guide 15052918 Rev. A. The retained sources are indexed in data/author-validation/continued-sources/GSE242187/codex-2026-11-21/SOURCES.tsv. The registered DE table and its SHA-256 are identified in results.json in the same folder.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Three HCD-HCD and three RD-HCD male offspring libraries. Using 22,774 unambiguous symbols, each count column and its ARCHS4 profile are reciprocal closest matches. In order, Mona 13/14/15 match GSM7754589/90/91 and Mona 25/26/27 match GSM7754601/02/03. All 146,526 deposited count cells agree with the integers recovered from registered TMM CPM. These are repeat measurements of library identity from the same sequence data. The number of independent dams or litters contributing the six libraries is unknown."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Figure 3C and the GEO descriptions identify maternal HCD minus maternal RD in male offspring maintained on HCD after weaning. The original log2 fold changes enter the comparison with sign +1."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 24,421 original case-sensitive feature IDs have a unique registered symbol. All 15,358 registered effects have a finite same-gene author effect. Five author discoveries fall outside the registered DE table (Calcr, Ckm, Fezf1, Gabra6 and Sim1)."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both outputs estimate case-minus-baseline expression on a log2 scale. All-pair Pearson is 0.95519 and Spearman is 0.98869. Same-gene directions agree for 15,129 of 15,358 nonzero pairs. The median absolute difference is 0.07101 log2 units and the registered-to-author RMS ratio is 1.5645. Magnitude remains contextual under v2."
+        },
+        "inference": {
+          "status": "different",
+          "note": "At the deposited precision, log2 fold change divided by SE reproduces the Wald statistic, two-sided normal tails reproduce raw P, and BH over 15,384 OK rows reproduces finite adjusted P. The author table has 25 discoveries and the registered table has zero. Figure 3C places Oxt near 6 on its −log10(adjusted P) axis, compared with 8.15175 from the deposit. The original coefficient and dispersion fits remain unconfirmed. The 13 historical residual calls are reported in the September ledger and were unavailable for gene-level replay here."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Paired effects cover 15,358 of 15,358 registered genes and 15,358 of 19,266 finite author effects (79.72%). On 15,290 finite adjusted-P pairs, the author calls 20, the registered analysis calls zero and the overlap is zero. Five author discoveries fall outside the registered DE table and 68 registered genes lack author adjusted P."
+        }
+      },
+      "criteria": "Use all uniquely paired finite effects with the registered sign. For a full table, v2 requires at least 30 pairs and 90% registered coverage. Both correlations must reach 0.90, or at least 90% of nonzero pairs must agree in direction, with at least 30 nonzero pairs covering at least 90% of all pairs. Assess cohort compatibility separately. Section 3.3 reports adjusted P ≤ 0.05 and Figure 3 gives a fold-change cutoff of 0.6 on the plot’s log2 scale. All 25 author calls clear both cutoffs. Neither adjusted-P column contains an exact 0.05, so the paper’s inclusive and Explorer’s strict P cutoff give the same counts.",
+      "conclusion": "Both numerical concordance routes pass over the full registered effect table. Maternal replication keeps the cohort assessment limited. The author and registered discovery sets differ, and the paper’s tally agrees with GEO despite the Oxt plotting discrepancy."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Individual Mona/GSM assignments supported by reciprocal profile matches to ARCHS4 reprocessing of the same six libraries",
+      "value": "6 of 6 across 22,774 unique shared symbols. Matching r = 0.90089–0.96139. Largest runner-up r = 0.58819.",
+      "script": "data/author-validation/continued-sources/GSE242187/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Integer count cells conserved and maximum six-sample author baseMean error",
+      "value": "146,526 cells. Maximum absolute baseMean error 4.80214e-10 or less.",
+      "script": "data/author-validation/continued-sources/GSE242187/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Paired finite effects and coverage",
+      "value": "15,358 pairs out of 15,358 registered and 19,266 finite author effects (100% and 79.72%).",
+      "script": "data/author-validation/continued-sources/GSE242187/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Author-concordance-v2 numerical routes",
+      "value": "Pearson 0.95518791, Spearman 0.98868687, same nonzero direction 15,129/15,358 (98.51%).",
+      "script": "data/author-validation/continued-sources/GSE242187/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Effect magnitudes",
+      "value": "Median absolute log2 fold-change difference 0.07101347. Registered/author RMS effect ratio 1.56450010.",
+      "script": "data/author-validation/continued-sources/GSE242187/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Wald and BH arithmetic conditional on the deposited statistics",
+      "value": "19,266 finite raw P values. Maximum absolute two-sided Wald P error 2.84e-15 or less. BH over 15,384 OK rows reproduces adjusted P to within 3.11e-15. All OK rows have baseMean at least 10.",
+      "script": "data/author-validation/continued-sources/GSE242187/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Complete reference and paired finite FDR results at 0.05",
+      "value": "Complete author 25 (7 up, 18 down), complete registered 0. Paired finite adjusted P values 15,290, author 20, registered 0, joint 0. No adjusted P equals 0.05. The smallest absolute author log2 fold change among the 25 is 1.05842.",
+      "script": "data/author-validation/continued-sources/GSE242187/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Coverage limits for calls",
+      "value": "5 author discoveries outside the registered output (Calcr, Ckm, Fezf1, Gabra6 and Sim1). 68 registered genes lack author FDR.",
+      "script": "data/author-validation/continued-sources/GSE242187/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Conditional BH diagnostic on the same 15,290 genes using each method’s raw P values",
+      "value": "19 author and 0 registered discoveries.",
+      "script": "data/author-validation/continued-sources/GSE242187/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Plotted and deposited significance of Oxt",
+      "value": "GEO log2 fold change −2.26757 and adjusted P 7.05098505371262e-9 imply −log10(adjusted P) 8.15175. The labeled point in Figure 3C lies near 6.0 (raster estimate 6.02).",
+      "script": "data/author-validation/continued-sources/GSE242187/codex-2026-11-21/refute/audit.py"
+    }
+  ],
+  "openIssues": [
+    "Request the original model script, version, workflow log and sample sheet linking each Mona library and GSM to its offspring and dam or litter.",
+    "Request the Figure 3C plotting input or transformation for Oxt. Its direction and discovery status agree across sources.",
+    "The historical group-only diagnostic outputs were unavailable for independent row-level verification of the September ledger’s 13 residual discoveries."
+  ]
+}

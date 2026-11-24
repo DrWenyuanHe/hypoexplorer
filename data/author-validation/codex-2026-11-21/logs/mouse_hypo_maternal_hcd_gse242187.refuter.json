@@ -1,0 +1,15 @@
+{
+  "datasetId": "mouse_hypo_maternal_hcd_gse242187",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 27 source files matched their recorded hashes and sizes. All nine computations reproduced. Both numerical concordance criteria pass across all 15,358 registered effects, and the GEO table reproduces the paper’s 7 increases and 18 decreases. One plotted statistic differs: Figure 3C places Oxt near 6 on the −log10(adjusted P) axis, while its deposited value gives 8.15. The corrected proposal passed validation and retains needs_author_contact.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_maternal_hcd_gse242187.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_maternal_hcd_gse242187.json",
+    "data/author-validation/continued-sources/GSE242187/codex-2026-11-21/refute/audit.py"
+  ],
+  "openIssues": [
+    "The six library assignments have expression-profile support. The offspring-to-dam or litter mapping is still needed to establish maternal replication.",
+    "The original DESeq2 fit and the Oxt plotting rule remain undocumented.",
+    "The historical row-level diagnostic outputs were unavailable to verify the previously reported 13 residual discoveries."
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "datasetId": "rat_hypo_fructose_gse56238",
+  "outcome": "upheld_with_corrections",
+  "summary": "The two figure comparisons reproduce: 19/20 gene directions agree in the original paper and 15/15 in the follow-up. All 69 manifest files matched their hashes and sizes, although the saved GEO landing page is a reCAPTCHA screen. The corrected proposal retains the figure-level comparison and marks the detailed review unresolved. It passed the proposal validator.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/rat_hypo_fructose_gse56238.json",
+    "data/author-validation/codex-2026-11-21/corrected/rat_hypo_fructose_gse56238.json",
+    "data/author-validation/continued-sources/GSE56238/codex-2026-11-21/refute/recompute.py"
+  ],
+  "openIssues": [
+    "Crhr1 reverses sign, and only Mc3r passes the registered BH cutoff among ten author-marked discoveries. The original Cuffdiff export is needed to reconcile these differences and assess genome-wide overlap.",
+    "The original paper gives conflicting accounts of Pomc significance. The follow-up depicts C3 in two positive color bands, supporting its direction alone.",
+    "Each figure falls below the 30-pair concordance minimum. The sequenced animals’ cage assignments remain unknown."
+  ]
+}

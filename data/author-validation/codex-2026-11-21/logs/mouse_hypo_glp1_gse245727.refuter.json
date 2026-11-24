@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_hypo_glp1_gse245727",
+  "outcome": "upheld_with_corrections",
+  "summary": "Verified all 96 source files and reproduced all five computations. Figure 5b reports 23 semaglutide-versus-vehicle discoveries. The registered edgeR table has zero among 17,727 published symbols at FDR < 0.05. The figure gives no gene identities for those 23 discoveries, so `no_valid_comparison` stands. The corrected proposal passed validation. [Published Figure 5](https://pmc.ncbi.nlm.nih.gov/articles/PMC11136670/#Fig5)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_glp1_gse245727.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_glp1_gse245727.json",
+    "data/author-validation/continued-sources/GSE245727/codex-2026-11-21/refute/recheck.py"
+  ],
+  "openIssues": [
+    "GEO labels the arm GLP-1. The library identifiers and study design support the link to semaglutide, but the authors’ sample key is needed to confirm individual assignments.",
+    "Gene identifiers, signed effects and the author-tested gene set are needed to assess concordance. Raw and adjusted P values would help investigate the separate discovery-count difference."
+  ]
+}

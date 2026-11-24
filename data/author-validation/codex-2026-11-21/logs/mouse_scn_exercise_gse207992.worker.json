@@ -1,0 +1,20 @@
+{
+  "datasetId": "mouse_scn_exercise_gse207992",
+  "outcome": "compared",
+  "summary": "All 28 distinct genes highlighted for wild-type scheduled versus unscheduled exercise in Figures 3C, S3 and S5 agreed in direction with the registered SCN output. Five of those 28 author-positive genes met the registered FDR < 0.05 cutoff. The proposal closes this selected-gene comparison without genome-wide sign-off. No ledger was edited. [Manuscript](https://doi.org/10.1016/j.isci.2023.106002) · [Supplement](https://ars.els-cdn.com/content/image/1-s2.0-S2589004223000792-mmc1.pdf)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/mouse_scn_exercise_gse207992.json",
+    "data/author-validation/continued-sources/GSE207992/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE207992/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE207992/codex-2026-11-21/selected_comparison.tsv",
+    "data/author-validation/continued-sources/GSE207992/codex-2026-11-21/comparison.json",
+    "data/author-validation/continued-sources/GSE207992/codex-2026-11-21/compare.py",
+    "data/author-validation/continued-sources/GSE207992/codex-2026-11-21/source_audit.json",
+    "data/author-validation/continued-sources/GSE207992/codex-2026-11-21/verification_output.txt"
+  ],
+  "openIssues": [
+    "The complete author DESeq2 table and fitting specification were unavailable. Exact effect magnitudes, per-gene P/FDR and genome-wide discovery overlap remain unassessed.",
+    "The Results and RNA-seq sample description label the same scheduled-exercise cohort CT22 and CT24, respectively. The sample identities are reconciled, but the precise circadian phase remains uncertain.",
+    "BioStudies served an unrelated clinical supplement under the expected filename. The comparison used the byte-identical publisher and PMC copies of Document S1."
+  ]
+}

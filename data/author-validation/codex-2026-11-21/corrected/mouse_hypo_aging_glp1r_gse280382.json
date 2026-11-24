@@ -1,0 +1,143 @@
+{
+  "datasetId": "mouse_hypo_aging_glp1r_gse280382",
+  "accession": "GSE280382",
+  "category": "partial_untested",
+  "closure": "compared",
+  "summary": "For aged exenatide versus aged vehicle in whole hypothalamus, 89 of 90 distinct genes in Figure 3A–C agree with the registered edgeR result in fitted-effect direction. Figure 2A shows concordant group-expression directions for all 50 heatmap rows, adding 48 distinct genes. Atp4a is the sole reversal across the 138 selected genes.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE280382/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "paperAccess": "publisher_full_text",
+      "reviewedAt": "2026-11-21",
+      "summary": "Registered effects agree in direction for 89 of 90 Figure 3 genes and with the displayed group difference for all 50 Figure 2A genes",
+      "note": "Figure 2A identifies all 17 registered mice. The recovered GEO AgedLT count matrix matches the producer’s input SHA-256. The registered sample sheet matches the producer’s sheet SHA-256, and its assignments match deposited metadata. Figure 3B shows a lower fitted effect for Atp4a, while registered edgeR gives a small positive estimate. Ndufb1 and Ppp1ccb occur in both figures.",
+      "reviewFlags": [
+        "Figure 3 includes pathway genes significant for aging, treatment, or both. The authors ranked Figure 2A counteraction genes by the absolute product of the two effects and selected 25 in each treatment direction. Only the named panels and the printed hypothalamus treatment column were compared.",
+        "Figure 2A displays normalized expression by animal. The archived long-term code batch-adjusts variance-stabilized expression while retaining group in the design, then scales each gene across animals for display. Only the Figure 3 dots supply directly readable fitted-effect signs. Exact author coefficients and gene-level inference remain unassessed."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Huang et al., Figures 2A and 3A–C, legends and STAR Methods",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S1550413125004747-mmc3.pdf",
+          "kind": "author_result"
+        },
+        {
+          "label": "Data S1, including Figure 2H category counts",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S1550413125004747-mmc2.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO series and deposited cohort files",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE280382",
+          "kind": "database"
+        },
+        {
+          "label": "Archived long-term cohort analysis code",
+          "url": "https://zenodo.org/records/13859698",
+          "kind": "database"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "All 90 distinct Figure 3 treatment signs pair with nonzero registered effects, and 89 agree (98.89%). Atp4a is blue (down) in Figure 3B and positive in edgeR (log2FC +0.01474, P 0.9072, FDR 0.9629). All 50 Figure 2A group-expression directions agree, including two genes in Figure 3. The descriptive union gives 137/138. Data S1 Figure 2H reports 1,954 hypothalamus genes in treatment-significant categories. It provides category totals without the identifiers needed to measure discovery overlap.",
+      "nextStep": "Obtain the numerical long-term hypothalamus source data behind Figures 2A and 3A–C and the full treated-versus-aged-vehicle DESeq2 export with tested and filtered IDs, shrunken log2FC, raw P and adjusted P. Reconcile the final design, RNA-integrity cutoff and gene filter before assessing genome-wide agreement or the Atp4a difference.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "glp1ra_vs_control"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Read all 50 Figure 2A row labels and every occupied hypothalamus treatment dot in Figure 3A–C. Use the right-hand treatment block, with hypothalamus fifth in A and B and third in C. Pair symbols with the registered edgeR table before applying any significance cutoff. Count each gene once per scope and retain repeated panel observations.",
+      "reference": "Huang et al., Cell Metabolism, DOI 10.1016/j.cmet.2025.10.014, combined PDF pages 7–9 and STAR Methods, Data S1 sheet Fig 2H, and Zenodo 13859698, LT_bulk_RNAseq.zip, Analysis_v3.R. SEARCH_LOG.md gives source and registered-table paths. The read-only replays are in refute/check_figures.py and refute/check_sources.py.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "The paper identifies a 30-week intervention in male mice beginning at 11 months. The 8 exenatide and 9 aged vehicle mice in the registered sheet match Figure 2A, the deposited metadata, count columns, GEO samples and ENA runs. The author analysis also included 8 young vehicle mice. Figure 3A–C refers to the Figure 2 sample sizes."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Whole hypothalamus, aged exenatide minus aged vehicle. The right-hand treatment block of each pathway plot has its own tissue ordering. The aged groups in Figure 2A follow the young group. Neither the age coefficient nor the short-term knockdown experiment enters the comparison."
+        },
+        "features": {
+          "status": "matched",
+          "note": "All 138 retained readings join exactly one registered row each. The small Figure 2A row 2 glyph is ambiguous between Ccl28 and Cd28 in isolation. Variation across the same animals after centering within each group supports Ccl28 (r = 0.8804 versus −0.0825). All repeated genes have consistent directions."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Figure 3 uses red for up and blue for down in the shrunken DESeq2 treatment log2 fold change. Its sign can be compared with the registered edgeR treatment sign. For Figure 2A the comparison uses the direction of the displayed difference between aged group means on the ordered expression color scale. Exact author coefficients, Pearson and Spearman correlations, and magnitude agreement remain unassessed."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The v1 long-term code fits DESeq2 with Group + Batch including young controls and uses apeglm shrinkage. It adds one to counts before rounding and filters low-count genes. The paper specifies RIN > 4, while the code uses RIN ≥ 4 and the deposited cohort metadata omit RIN. The registered edgeR-QL fit uses the two aged arms with an intercept and treatment group. Author significance uses adjusted P < 0.05. Figure 3 permits significance for aging alone. Data S1 counts 1,954 genes in treatment-significant categories. EdgeR calls 989 across its tested genes. Among the 138 displayed genes, edgeR gives 104 raw P < 0.05 and 55 FDR < 0.05. Per-gene author significance and the cause of the Atp4a reversal remain undetermined."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All 90 distinct Figure 3 signs pair with nonzero registered effects, covering 90/17,594 registered rows (0.512%). With the heatmap, the selected union covers 138/17,594 (0.784%). Of 989 registered FDR calls, 934 fall outside that union. Figure 2H gives counts without identifiers, and Figure 3 reports genes selected for either contrast, so discovery overlap remains unknown."
+        }
+      },
+      "criteria": "The published panels, tissue and treated-minus-vehicle orientation fix the reference before looking at edgeR values. For the Figure 3 fitted-effect signs, v2 requires at least 30 pairs and 90% relevant reference coverage, at least 30 nonzero pairs covering 90% of the pairs, and at least 90% direction agreement. All 90/90 pair and are nonzero, with 89/90 agreeing. The additional Figure 2A readout is descriptive.",
+      "conclusion": "Figure 3 alone meets the numerical direction and coverage criteria for its 90 selected genes. Atp4a disagrees. Including Figure 2A gives 137 matching directions among 138 distinct genes across both types of readout. The retained figures supply no exact paired numeric coefficients for an additional-comparison spec. Genome-wide concordance and full sign-off remain open."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Distinct mice in the deposited and registered hypothalamus treatment arms",
+      "value": "9 aged vehicle and 8 aged exenatide, verified by animal ID. All 8 young vehicle controls used for the published age comparison are outside the registered treatment fit.",
+      "script": "data/author-validation/continued-sources/GSE280382/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Agreement among all labeled heatmap rows in Figure 2A and all marked hypothalamus treatment rows in Figure 3A–C",
+      "value": "2A 50/50, 3A 42/42, 3B 12/13, 3C 45/45. Counts give agreements over paired rows. Each panel pairs every selected symbol.",
+      "script": "data/author-validation/continued-sources/GSE280382/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Fitted-effect signs independent of heatmap readout",
+      "value": "Figure 3 gives 89/90 distinct fitted-effect signs in agreement (98.89%). All 90 join and have nonzero signs. Ndufb1 and Ppp1ccb also occur in Figure 2A, whose other 48 genes contribute descriptive expression directions.",
+      "script": "data/author-validation/continued-sources/GSE280382/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Descriptive union of the two figure readouts",
+      "value": "138/138 reference coverage, 138/138 nonzero pairs, 137/138 directional agreement (99.28%). The figure reference has 76 higher and 62 lower genes. There are no unmatched selected symbols.",
+      "script": "data/author-validation/continued-sources/GSE280382/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Single direction discrepancy",
+      "value": "Atp4a, Figure 3B row 50, down in the author plot, registered log2FC +0.0147385427600678, raw P 0.907218585910895, FDR 0.962934592212613.",
+      "script": "data/author-validation/continued-sources/GSE280382/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered calls and coverage",
+      "value": "138 of 17,594 registered rows (0.784%). Among the 138, 104 have raw P < 0.05 and 55 have FDR < 0.05. Of 989 registered FDR calls, 934 fall outside the reference.",
+      "script": "data/author-validation/continued-sources/GSE280382/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure 2A row 2 label check using animal variation after removing each group mean",
+      "value": "For the candidate labels Ccl28 and Cd28 the within-arm correlations with the displayed animal profile are 0.8804 and −0.0825, respectively. This supports the reading Ccl28 independently of the registered treatment coefficient.",
+      "script": "data/author-validation/continued-sources/GSE280382/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Deposited GEO and linked ENA inventory",
+      "value": "All 620 GSM records declare NONE for sample supplements. The series declares six files, and ENA returns 620 sequencing runs.",
+      "script": "data/author-validation/continued-sources/GSE280382/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Data S1 Figure 2H aggregate for the hypothalamus",
+      "value": "Figure 2H gives 1,954 hypothalamus genes in the two balanced and two Rx-dominant categories (7 + 57 + 1,097 + 793). Under the paper’s definitions all four categories are treatment-significant. The sheet contains tissue, category and count.",
+      "script": "data/author-validation/continued-sources/GSE280382/codex-2026-11-21/inventory.py"
+    }
+  ],
+  "openIssues": [
+    "The article’s data-availability statement points to Data S1 for numerical plot values. The retained nine-sheet workbook provides Figure 2H category counts but lacks a gene-level Figure 2A or Figure 3 source table. Author coefficients, exact P and adjusted P, the full tested universe, and discovery overlap remain open.",
+    "Atp4a is lower in the author dot plot and slightly higher in edgeR. The exact author coefficient and the reason for the sign change remain unknown.",
+    "The tested gene IDs and run-specific filter settings would be needed for a full reproduction. The deposited AgedLT metadata omit the per-sample RIN values needed to distinguish the publication’s > 4 rule from the archived code’s ≥ 4 rule."
+  ]
+}

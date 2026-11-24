@@ -1,0 +1,15 @@
+{
+  "datasetId": "hamster_tanycyte_photoperiod_gse204883",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 43 source files matched their recorded hashes and sizes, and all ten computations reproduced. Across 13,311 paired genes, Pearson was 0.95202240, Spearman was 0.89977248, and 86.54% agreed in direction. Neither concordance route passed. The corrected proposal retains the `compared` closure, clarifies the evidence for the filter and contrast, and distinguishes 13,938 published symbols from 13,948 rows used for FDR adjustment. It passed the repository proposal validator.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/hamster_tanycyte_photoperiod_gse204883.json",
+    "data/author-validation/codex-2026-11-21/corrected/hamster_tanycyte_photoperiod_gse204883.json",
+    "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/refute/check.py"
+  ],
+  "openIssues": [
+    "The paper reports five LP and six LPIP animals. GEO labels and the archived design give six LP and five LPIP. The exact sample assignments used for sheet D remain unconfirmed.",
+    "The archived script omits the sheet-D test command. The workbook establishes the reported contrast direction, effects, and statistics.",
+    "The registered fit retains SPIP19, which the authors excluded. The comparison cannot isolate the effect of that exclusion from differences in filtering, aggregation, and model fitting."
+  ]
+}

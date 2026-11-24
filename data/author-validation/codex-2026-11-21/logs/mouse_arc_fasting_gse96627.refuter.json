@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_arc_fasting_gse96627",
+  "outcome": "upheld_with_corrections",
+  "summary": "The selected-results comparison is justified. All 47 source files matched their recorded hashes and sizes, and all 29,865 published coefficients reproduced. The proposal overlooked readable WT medians for Pcsk1 and Nhlh2, raising directional agreement from 11/11 to 13/13 assessable genes. The corrected proposal links both papers and records the three FDR discrepancies as unresolved. It passed the repository proposal checker. [JCI Figure 2](https://www.jci.org/articles/view/97007/figure/2)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_arc_fasting_gse96627.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_arc_fasting_gse96627.json",
+    "data/author-validation/continued-sources/GSE96627/codex-2026-11-21/refute/audit.py"
+  ],
+  "openIssues": [
+    "Pomc supplies the only paired fitted effect. The author-concordance-v2 minimum is 30.",
+    "Agrp, Lepr and Npy meet the reported author FDR bounds. None meets registered FDR < 0.05. The original author design, sample inclusion list and full test results are needed to explain the difference."
+  ]
+}

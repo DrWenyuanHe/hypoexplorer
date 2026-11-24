@@ -1,0 +1,78 @@
+{
+  "datasetId": "mouse_hypo_diabetes_gse235792",
+  "accession": "GSE235792",
+  "category": "not_located",
+  "closure": "needs_author_contact",
+  "summary": "Hastreiter et al. report 82 hypothalamic genes at adjusted P < 0.1. The preprint uses a weaning-weight cutoff of >13.5 g and GEO uses >14 g, and the public sources do not identify the mice, fitted contrast or gene-level results behind the count. The cited online supplement could not be located.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE235792/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "GEO inputs verified and preprint located. The reported hypothalamic result needs author clarification.",
+      "note": "The eight registered sample files and the family SOFT match the retained source hashes. All 87 GEO sample files contain one expression column each, and the separate normalized matrix contains only Ensembl IDs and sample columns. On printed page 16 of the bioRxiv preprint, the authors report 82 hypothalamic genes at adjusted P < 0.1 in mice above 13.5 g at weaning. GEO defines high weaning weight as above 14 g. The article gives no GSM membership or signed gene-level table, and its cited online supplement was not recovered. The registered high-minus-low edgeR-QL output has zero published genes at the same cutoff. The cause of the count difference and gene-level concordance remain unassessed.",
+      "reviewFlags": [
+        "The preprint and GEO give different lower bounds for high weaning weight. The animals contributing to the 82-gene result have not been identified.",
+        "The manuscript refers to Supplementary Figure 1. The publisher record, public archives and searched repositories yielded no attachment or table for the registered contrast."
+      ],
+      "paperAccess": "publisher_full_text",
+      "evidenceLinks": [
+        {
+          "label": "Hastreiter et al., bioRxiv preprint, printed page 16",
+          "url": "https://www.biorxiv.org/content/10.1101/2024.01.29.577705v1.full.pdf",
+          "kind": "paper"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The preprint supplies a tissue-level count and GEO supplies expression values. The public records do not identify the fitted hypothalamic cohort or supply gene identifiers, signed effects or per-gene inference for high versus low glycaemia in high-weaning-weight males. An author-concordance-v2 comparison cannot be scored.",
+      "nextStep": "Which GSMs, exclusions, design and coefficient produced the 82 hypothalamic genes at adjusted P < 0.1? Did the authors compare GSM7509651–GSM7509654 with GSM7509661–GSM7509664, high minus low glucose, and where are the cited supplement and tested-gene table with signed effects, raw P and adjusted P?",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Hypothalamic discoveries and threshold reported in the preprint, printed page 16",
+      "value": "82 genes at adjusted P < 0.1",
+      "script": "data/author-validation/continued-sources/GSE235792/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Weaning-weight lower bounds stated for transcriptomics (preprint) and high weight (GEO)",
+      "value": "Preprint >13.5 g, GEO >14 g",
+      "script": "data/author-validation/continued-sources/GSE235792/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "GEO BioSamples in the registered high-weaning-weight hypothalamic groups",
+      "value": "4 high-glucose and 4 low-glucose, all distinct",
+      "script": "data/author-validation/continued-sources/GSE235792/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered sample files and family record matching the retained source hashes",
+      "value": "8 sample files and 1 family SOFT",
+      "script": "data/author-validation/continued-sources/GSE235792/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "GEO sample supplementary files with exactly one named sample column alongside Ensembl_gene_id",
+      "value": "87 of 87",
+      "script": "data/author-validation/continued-sources/GSE235792/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Extra normalized linear matrix",
+      "value": "55,401 gene rows, 87 sample columns, 0 unmatched columns",
+      "script": "data/author-validation/continued-sources/GSE235792/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Published registered DE rows and discoveries at the preprint cutoff",
+      "value": "18,698 rows, 0 with adjusted P < 0.1",
+      "script": "data/author-validation/continued-sources/GSE235792/codex-2026-11-21/audit.py"
+    }
+  ],
+  "openIssues": [
+    "Which GSMs, exclusions, design and coefficient produced the 82 hypothalamic genes at adjusted P < 0.1? Did the authors compare GSM7509651–GSM7509654 with GSM7509661–GSM7509664, high minus low glucose, and where are the cited supplement and tested-gene table with signed effects, raw P and adjusted P?"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "datasetId": "mouse_arc_clock_gse248462",
+  "accession": "GSE248462",
+  "category": "not_located",
+  "closure": "access_blocked_documented",
+  "summary": "The registered ARC analysis compares 12 HepDKO pools with 12 EGFP pools across four Zeitgeber times. The paper reports disrupted rhythms and time-specific expression. Science lists Data S1–S8, but access to those attachments remains blocked on the public routes checked, leaving agreement for the pooled effect untested.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE248462/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "GEO confirms the ARC count file and pooled REV-ERB cohort. The registry misidentifies the knockout and the unit of replication.",
+      "note": "The official GEO count file matches the registered input SHA-256 (7afd4ddebf35c883d8a53cfe9f30c2c166abb9e3bc55ba5451a91e394c936040). All 24 registered ARC columns match the GEO sample records and their Cre or EGFP assignments. Each arm has three biological replicate pools at each of ZT4, ZT10, ZT16 and ZT22. The sample records identify male floxed Nr1d1/Nr1d2 mice. Cre induces hepatocyte-specific deletion. The registry time-series text names Bmal1/Clock and counts individual mice. Figure 2A measures rhythm disruption and the POMC/CART decrease reported for Figure 2D concerns ZT22. See data/author-validation/continued-sources/GSE248462/codex-2026-11-21/SEARCH_LOG.md and the independent refutation verdict.",
+      "reviewFlags": [
+        "The registry time-series description needs the correct genotype and unit of replication. The GEO sample protocols describe three mice per ARC pool. The GEO series and final paper give a range of three to four. Exact donor identities and pool sizes are unavailable.",
+        "The GEO ARC growth protocols specify 27 °C. The published manuscript gives 20–22 °C in its general animal methods. The housing temperature for the sequenced cohort is unresolved across those descriptions.",
+        "The legacy dataset lacks a separate source-file checksum manifest. The byte match is between the official compressed count matrix and the input hash in the registered analysis provenance.",
+        "The final data attachments remain inaccessible on the tested routes. Author effects, inference and coverage for the pooled contrast are unassessed."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "access_blocked",
+      "comparisonOutcome": "not_tested",
+      "reason": "The registry’s genotype and replication description requires review. The registered edgeR-QL groupcase coefficient is HepDKO minus EGFP across four times, with no time covariate. The accessible author results concern rhythmicity or individual times. GEO provides counts and ENA provides reads. The final Science article lists Data S1–S8. The supplement index and candidate file URLs returned 403, both PMC attachment requests returned challenge pages, and Europe PMC declined the supplement export. The public routes checked did not establish whether those data contain a matching gene-level effect. Agreement, P/FDR and paired coverage for the pooled coefficient remain untested.",
+      "nextStep": "Correct the registry time-series description to identify hepatocyte Nr1d1/Nr1d2 deletion and three ARC pools per arm and time. Obtain Data S1–S8 and their legends. If they cannot be obtained or omit the pooled contrast, ask Woodie or Lazar whether they estimated an across-time ARC HepDKO-versus-EGFP effect for these libraries. If so, request their gene-level effects, sample assignments, normalization, model and available P/FDR columns.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered ARC sample membership reconciled to GEO and count columns",
+      "value": "24 ARC libraries, 12 HepDKO and 12 EGFP. Each arm has three pooled libraries at each of ZT4, ZT10, ZT16 and ZT22.",
+      "script": "data/author-validation/continued-sources/GSE248462/codex-2026-11-21/refute/verify.py"
+    },
+    {
+      "claim": "Official GEO count matrix and supplementary inventory",
+      "value": "25,229 distinct gene labels and 48 library columns. All 1,210,992 count cells are nonnegative integers. There are zero extra result columns. All 48 GSMs list NONE for the supplementary file.",
+      "script": "data/author-validation/continued-sources/GSE248462/codex-2026-11-21/refute/verify.py"
+    },
+    {
+      "claim": "Registered pooled genotype output",
+      "value": "15,365 distinct tested symbols in 15,365 rows. DE SHA-256 92caa970b75bcb5223c0d447e3228e3edfe7a578177011feaa80d2e8dc73b7a9. GEO compressed input SHA-256 7afd4ddebf35c883d8a53cfe9f30c2c166abb9e3bc55ba5451a91e394c936040 matches the registered provenance.",
+      "script": "data/author-validation/continued-sources/GSE248462/codex-2026-11-21/refute/verify.py"
+    },
+    {
+      "claim": "ENA evidence under PRJNA1044072",
+      "value": "48 distinct read runs. The retained study-accession analysis query has zero data rows.",
+      "script": "data/author-validation/continued-sources/GSE248462/codex-2026-11-21/refute/verify.py"
+    },
+    {
+      "claim": "Published rhythm-disruption counts read from Figure 2 caption",
+      "value": "105 ARC genes in Figure 2A and 522 nodose genes in Figure 2E. These counts use the authors’ dryR rhythm classification.",
+      "script": "data/author-validation/continued-sources/GSE248462/codex-2026-11-21/refute/verify.py"
+    }
+  ],
+  "openIssues": [
+    "Data S1–S8 and the two named PMC manuscript PDFs could not be inspected through the routes checked. The journal inventory gives the Data S1–S8 labels. Their individual filenames and formats remain unconfirmed.",
+    "The registry time-series description still needs the genotype and pooled-replication correction.",
+    "The sources give no donor roster or per-library pool sizes and do not reconcile the housing temperature for the sequenced mice."
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_hypo_glp1_dexa_gse102415",
+  "outcome": "upheld_with_corrections",
+  "summary": "The `no_valid_comparison` closure stands. All 56 source files matched their recorded sizes and SHA-256 hashes, and all five computations reproduced. Figure 5A reports pathway enrichment and gene counts without identifying individual genes or their effects. The corrected proposal records full-paper access and classifies the available author results as `partial` and `not_comparable`. It passed the proposal validator.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_glp1_dexa_gse102415.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_glp1_dexa_gse102415.json",
+    "data/author-validation/continued-sources/GSE102415/codex-2026-11-21/refute/recheck.py"
+  ],
+  "openIssues": [
+    "Figure 5A reports five mice per group. The registered analysis uses six deposited samples per arm, and the published sample membership remains unknown.",
+    "The reviewed sources yielded no gene-level author effects for the five-day conjugate-versus-vehicle contrast. The Helmholtz research-data attachment returned zero bytes, so its contents remain unknown."
+  ]
+}

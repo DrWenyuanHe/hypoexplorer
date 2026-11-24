@@ -18,7 +18,6 @@ import { VersionBadge } from './pwa/VersionBadge';
 import { LoadingOverlay } from './common/LoadingOverlay';
 import { Spinner } from './common/Spinner';
 import { Skeleton } from './common/Skeleton';
-import { BetaNotice } from './common/BetaNotice';
 import { BrandLink } from './common/BrandLink';
 import { LandingHub } from './hub/LandingHub';
 import { CellNavigator } from './explorer/CellNavigator';
@@ -566,7 +565,6 @@ function AppViews({ initialView = 'hub' }: AppProps) {
             </button>
           </div>
         </div>
-        <BetaNotice compact />
       </header>
 
       {/* Load error (pinned above body-row so it appears even on initial load failure) */}

@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_vmhvl_estradiol_gse181204",
+  "outcome": "upheld_with_corrections",
+  "summary": "Verified all 66 manifest hashes and sizes and reproduced all ten computed claims. All 29 selected genes agree in direction, and 16 meet BH FDR < 0.05 in both analyses. The corrected proposal records the 13 differing FDR calls and clarifies which source establishes the cohort and DESeq2 version. It passes the proposal checker. Closure as compared is justified, but 29 numerical pairs fall below the 30-pair author-concordance-v2 minimum.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_vmhvl_estradiol_gse181204.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_vmhvl_estradiol_gse181204.json",
+    "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/refute/audit.py"
+  ],
+  "openIssues": [
+    "The reviewed sources lack the full author DESeq2 table. Genome-wide overlap, raw P values and the exact settings used for the 2019 table remain unassessed.",
+    "A fresh request for the 2019 supplement returned HTTP 429. The retained PDF opened successfully, and an independent render reproduced the table image pixel for pixel."
+  ]
+}

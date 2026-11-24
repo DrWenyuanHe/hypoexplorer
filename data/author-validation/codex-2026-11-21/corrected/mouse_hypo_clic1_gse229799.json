@@ -1,0 +1,173 @@
+{
+  "datasetId": "mouse_hypo_clic1_gse229799",
+  "accession": "GSE229799",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "Figure 7B places the processed K10_S88 column under KO and W15_S83 under WT. Original FASTQ names link K10_S88 to a sample labeled WT10/WT, and none of the nine project runs names W15_S83. The five-per-arm author result and the four-per-arm registered result fail both numerical concordance routes across 14,269 paired effects.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "The published plot supports the processed groups. The underlying animals, the W15_S83 raw library and conflicting tissue and strain descriptions still require confirmation.",
+      "note": "SRA original-file metadata identifies K10_S88 as SRR24182099 (SRX19979621, GSM7178034, SAMN34203541). The GEO description names that library, while its title is WT10 and its treatment is WT. The other eight run prefixes match the registered columns. W15_S83 occurs in Supplemental Table 1 and the GEO matrix and has no matching prefix in the nine project FASTQ pairs. All ten Figure 7B columns independently match the matrix order by their plotted expression patterns. K10_S88 falls under KO and W15_S83 under WT. The actual genotypes and the sample-to-condition vector used for fitting require a laboratory record. All nine GEO records also contain conflicting tissue descriptions, and their strain differs from the background reported for the KO line. The complete author and registered DE tables share 14,269 unambiguous effects. Pearson is 0.746223, Spearman is 0.572998, and 9,836 directions agree. At adjusted P < 0.05, 29 one-to-one calls overlap out of 38 author and 43 published registered calls. The authors fitted limma-voom to filtered, TMM-normalized counts. The registered limma model uses log2(deposited normalized expression + 1). Alternative cohort fits are sensitivities.",
+      "reviewFlags": [
+        "K10_S88 is plotted with KO and is linked to a submission labeled WT10/WT. Its original FASTQ names identify the run. The animal's genotype and the fitted condition vector require confirmation.",
+        "W15_S83 is plotted with WT. Its genotyped animal and raw library remain unidentified in PRJNA956069. The registered model excludes both K10_S88 and W15_S83.",
+        "All nine GEO source and tissue fields specify hypothalamus, as do the RNA-seq methods. All nine GEO treatment-protocol fields say “Frozen perigonadal adipose tissue.” GEO gives the strain as C57b/6J, while the paper describes a CD-1 background for the Clic1 KO line (§2.5). Confirm the tissue and genetic background for the sequenced cohort."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Disputed GEO sample with WT treatment and K10_S88 description",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM7178034",
+          "kind": "database"
+        },
+        {
+          "label": "NCBI BioSample SAMN34203541",
+          "url": "https://www.ncbi.nlm.nih.gov/biosample/SAMN34203541",
+          "kind": "database"
+        },
+        {
+          "label": "SRA project packages with original FASTQ filenames",
+          "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=sra&id=27369496,27369497,27369498,27369499,27369500,27369501,27369502,27369503,27369504&retmode=xml",
+          "kind": "database"
+        },
+        {
+          "label": "GEO series with normalized expression and all-gene KO versus WT results",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE229799",
+          "kind": "database"
+        },
+        {
+          "label": "Figure 7 and Supplemental Tables 1–2",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10480059/",
+          "kind": "paper"
+        },
+        {
+          "label": "Supplemental Tables 1 and 2, archived table package",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC10480059.1/mmc4.zip",
+          "kind": "author_result"
+        },
+        {
+          "label": "Archived Figure 7 with the group bars in panel B",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC10480059.1/gr7.jpg",
+          "kind": "paper"
+        }
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "The deposited KO-minus-WT statistics are available. The registered model retains four libraries per arm. The author plot places K10_S88 in KO and W15_S83 in WT. K10_S88's raw run has WT metadata, W15_S83 has no matching original filename or named sample in the reviewed project, and the public records disagree about the tissue protocol and mouse background.",
+      "nextStep": "Request the genotyping and library sample-sheet rows and the condition vector used for DE. Which mouse and genotype supplied K10_S88 (SRR24182099), and which mouse, genotype, FASTQ pair and public accessions correspond to W15_S83? If W15_S83 was omitted from the deposit, ask for the original library identifier. Which tissue and genetic background were used for the sequenced mice, and which GEO protocol or strain fields need correction?",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "clic1_ko_vs_wild_type"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Full-precision registered GSE229799_DE.tsv for clic1_ko_vs_wild_type, four KO and four WT. Compare every unambiguous Ensembl-to-symbol pair against the deposited five-per-arm KO-minus-WT coefficient. The browser track serializes rounded effects.",
+      "reference": "GSE229799 all-gene KO versus WT table and Supplemental Table 2 of PMID 37604246, aligned by unversioned mouse Ensembl ID. Supplemental Table 1 identifies the ten processed columns. Figure 7B supports group size, plotted assignment and direction.",
+      "assessment": "not_established",
+      "dimensions": {
+        "cohort": {
+          "status": "different",
+          "note": "The registered four KO and four WT columns agree across the sample sheet, GEO treatment and SRA filenames. The author plot adds K10_S88 to KO and W15_S83 to WT. The former has WT submission metadata and the latter lacks a matching project run. All nine GEO strain fields say C57b/6J. The paper describes a CD-1 KO line (§2.5). The background of the sequenced animals remains unresolved."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Both tables use KO minus WT. Section 3.8 identifies normal-chow hypothalamus, Figure 7B shows lower Clic1 in KO, and the deposited Clic1 logFC is −1.873275151. All nine GEO records specify male hypothalamus but also describe frozen perigonadal adipose tissue in the treatment protocol. The intended anatomical comparison is clear, while the specimen record needs reconciliation."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Unversioned Ensembl IDs join 14,269 author features to unique registered symbols. The registered map drops 44 IDs from symbol-level output. Of these, 23 have a non-NA author SYMBOL and 21 have NA. Another 38 IDs contribute to 18 registered aggregates. The join uses stable IDs even where Table 2 stores a gene-symbol cell as an Excel date."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Author coefficients are precision-weighted differences in log2 CPM, and registered coefficients are differences in mean log2(normalized expression + 1). Positive values indicate higher expression in KO. Across the full-precision pairs, median absolute logFC difference is 0.090795, Pearson is 0.746223 and Spearman is 0.572998. All 14,269 pairs are nonzero and 9,836 (68.93%) have the same sign."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The authors quantified reads with RSEM, retained CPM ≥ 1 in at least five samples, applied TMM and voom, and used condition-only limma with empirical Bayes moderation. Registered limma uses eight normalized columns. Its 14,331-row testing family includes 44 unpublished unmapped rows. Every paired row has finite raw and adjusted P on both sides. At adjusted P < 0.05 there are 38 calls among 14,351 author rows and 43 among 14,287 published registered rows. The one-to-one subset contains 37 and 42 calls, respectively, with 29 shared. The additional author call is one constituent of the significant registered Vmn2r29 aggregate."
+        },
+        "coverage": {
+          "status": "compatible",
+          "note": "14,269 pairs cover 99.874% of the 14,287 published registered symbols and 99.429% of the 14,351 author IDs for the sole registered contrast. The reference is the complete deposited DE table."
+        }
+      },
+      "criteria": "Under author-concordance-v2, require at least 30 pairs, at least 90% registered-output coverage and compatible cohort, contrast, identifiers and effect definitions. Require either Pearson and Spearman each ≥ 0.90, or ≥ 90% same direction among at least 30 nonzero pairs covering ≥ 90% of all pairs. Use the deposited orientation across all eligible pairs. Magnitude, raw P, FDR and call overlap are contextual.",
+      "conclusion": "The pair count and registered-output coverage meet the policy thresholds. Neither numerical route passes, and the cohorts differ. The plot supports the authors’ processed grouping. Animal identity, W15_S83 raw provenance, tissue and strain still require confirmation. No registered contrast qualifies for sign-off."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Project accession crosswalk and registered groups",
+      "value": "10 processed columns (5 K and 5 W), 9 GEO samples, 9 project-linked BioSamples, 9 SRA experiments and runs, 9 original FASTQ pairs. Registered groups are 4 KO and 4 WT. W15_S83 is the sole column without a matching project run.",
+      "script": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Raw library for disputed GEO genotype",
+      "value": "K10_S88_L001_R1_001.fastq.gz and K10_S88_L001_R2_001.fastq.gz map to SRR24182099 / SRX19979621 / SAMN34203541 / GSM7178034. The BioSample title is WT10 and treatment is WT.",
+      "script": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Deposited Clic1 normalized expression in the two disputed columns",
+      "value": "K10_S88 = 1.43432229000634, W15_S83 = 6.27492003921635. Expression gives no genotype sign-off.",
+      "script": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Unique feature overlap",
+      "value": "14,269 pairs from 14,351 author IDs and 14,287 published registered symbols. Of 82 unpaired author IDs, 44 are dropped_no_symbol in the registered map (23 have a non-NA author SYMBOL, 21 have NA), and 38 are constituents of 18 registered aggregate symbols.",
+      "script": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Author and registered effect coverage",
+      "value": "0.9942861124660303 of the reference and 0.998740113389795 of the registered output.",
+      "script": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "All-pair effects and v2 numerical routes on the full-precision registered table",
+      "value": "Pearson 0.7462234043855867, Spearman 0.572997948573123, median absolute logFC difference 0.090794617549678. Direction agrees in 9,836 of 14,269 nonzero pairs (0.6893265120190623), covering all pairs. Neither route passes.",
+      "script": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Adjusted P < 0.05 in the published DE tables and among finite one-to-one pairs",
+      "value": "38 author and 43 registered calls in the complete lists. Among paired rows, 37 author and 42 registered calls, with 29 shared, 8 author-only and 13 registered-only. Paired Jaccard is 0.58. The unpaired positive calls are ENSMUSG00000110105 and its registered aggregate Vmn2r29.",
+      "script": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Publication workbook versus GEO",
+      "value": "Both sheets have 14,351 unique Ensembl rows. Across the ten normalized columns the largest absolute difference from GEO is 5.684341886080802e-14. Maximum absolute logFC difference is 5.551115123125783e-17 and all adjusted P values match. The numerical comparison is keyed by Ensembl ID. The 24 date-formatted SYMBOL cells in Table 2 correspond to date-like text in GEO.",
+      "script": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "GEO cohort metadata and manuscript background",
+      "value": "All nine GEO samples specify male, hypothalamus and strain C57b/6J. All nine also say “Frozen perigonadal adipose tissue” in the treatment protocol. Sections 2.7 and 3.8 identify the intended tissue as hypothalamus. Section 2.5 describes the KO line as CD-1.",
+      "script": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Figure 7B plotted groups against the ten processed columns",
+      "value": "Each plotted column independently matches the corresponding GEO column in matrix order by minimum mean absolute within-row rank difference. This uses all 37 uniquely resolvable printed labels, including the three literal Ensembl labels, and omits the ambiguous Vmn2r29 symbol. The fifth KO column matches K10_S88 (distance 0.405 versus 1.946 for the next closest). The fifth WT column matches W15_S83 (0.095 versus 1.554). No genotype or column-order constraint was imposed. The comparison identifies plotted columns only.",
+      "script": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Limits of heatmap row identifiers",
+      "value": "Figure 7B labels ending in 00028, 00056 and 00290 have deposited adjusted P values of 0.940915726, 0.905671785 and 0.606782963, respectively, despite the heatmap's DEG caption. Gene-level inference and call counts use the full deposited table.",
+      "script": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Full-precision registered coefficients versus rounded track values",
+      "value": "Recomputing the four-KO minus four-WT mean difference after log2(normalized expression + 1) and registered aggregation gives a maximum absolute error of 5.49e-14 across 14,287 published coefficients. The rounded browser track has the same 43 FDR calls. It has 14,257 nonzero pairs and 9,830 sign agreements, compared with 14,269 and 9,836 at full precision.",
+      "script": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21/refute/recheck.py"
+    }
+  ],
+  "openIssues": [
+    "Which genotyped mouse supplied K10_S88 (GSM7178034, SAMN34203541, SRR24182099), and does the original fitted design confirm the KO assignment seen in Figure 7B?",
+    "Which mouse, genotype and original library supplied the plotted WT column W15_S83? What sample and run accessions identify it, or was it omitted from PRJNA956069?",
+    "Which tissue was dissected and what was the genetic background of the RNA-seq mice? Please reconcile the GEO adipose protocol with the hypothalamus fields and the GEO C57b/6J strain with the paper's CD-1 KO-line description."
+  ]
+}

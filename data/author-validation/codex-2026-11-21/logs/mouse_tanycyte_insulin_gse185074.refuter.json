@@ -1,0 +1,15 @@
+{
+  "datasetId": "mouse_tanycyte_insulin_gse185074",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 29 source files passed integrity checks, and all nine computations reproduced. The 13,408 paired effects cover 76.63% of the registered output, below the 90% requirement. The corrected proposal distinguishes Figure 8b’s 2,165 red tanycyte discoveries from its 5,126 other discoveries in blue and documents a genotype-label discrepancy in all seven registered libraries. The needs_author_contact closure remains justified. The corrected proposal passed validation.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_tanycyte_insulin_gse185074.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_tanycyte_insulin_gse185074.json",
+    "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/refute/recheck.py"
+  ],
+  "openIssues": [
+    "The original DESeq2 fitting cohort, pool terms, normalization, offsets and filtering order remain unresolved.",
+    "The seven library assignments match, but their GEO genotype field reads IRmKate2 while the TRAP methods describe Cre-treated IRwt/wt reporter controls.",
+    "The historical filter replay accounts for 29 of 32 absent author discoveries. The remaining three predecessor IDs are unverified."
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "datasetId": "rat_son_salt_gse65663",
+  "outcome": "upheld_with_corrections",
+  "summary": "Verified all 40 source files and reproduced all 12 reported computations. All 3,564 paired effects agree in direction, but they cover only 62.32% of the selected single-Entrez reference, below the 90% concordance requirement. The proposal misclassified 78 of the 2,035 incomplete probe families. All registered probes for those 78 appear in Table S1, but their author Entrez IDs do not fully agree. An independent Welch/BH replay across all 31,099 probes recovered exactly the 9,843 published selections. The corrected proposal retains the scoped `compared` closure and passes the repository validator.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/rat_son_salt_gse65663.json",
+    "data/author-validation/codex-2026-11-21/corrected/rat_son_salt_gse65663.json",
+    "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/refute/audit.py"
+  ],
+  "openIssues": [
+    "The unfiltered GeneSpring export was not located. Results for probes outside Table S1 can be reconstructed from the deposited matrix but remain unavailable for direct comparison with an author export.",
+    "Table S1 provides no gene-level P value or FDR for the 485 paired effects derived from multiple probes. Full-contrast verification remains open."
+  ]
+}

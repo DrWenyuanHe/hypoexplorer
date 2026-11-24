@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "687354e65bd89ec65bb462ad11c2908f6bb7b8d8dfbb9076ee06886ad63d7c9b",
+  "fingerprint": "2fcc28d92f26a8d8bc279328c4a649ccbf61938c99f135d75ba37e8da3ee047c",
   "outcome": "updated",
-  "explanation": "CONTEXT.md gains a Route landing entry (src/routeLanding.ts: landHash, landRoute, settleExplorer, applyPage, the six refusals and the absolute-destination rule) and the App router entry now points at it for what an untrusted route means, replacing the old line that an unknown track degrades to the default. No root instructions or delivery facts change.",
+  "explanation": "Merges main into the route-landing change. From main: beta testing wording is removed from index.html, the README and the SEO runbook; EDGE_PROTECTION.md says HEAD on the data host is never cached; data-release.json pins data-2026-11-22 with the Codex closure evidence and public-safety.json keeps its reviewed allowances. From this branch: CONTEXT.md gains a Route landing entry (src/routeLanding.ts, its six refusals and the absolute-destination rule) and the App router entry points at it instead of saying an unknown track degrades to the default.",
   "references": [
     "CONTEXT.md",
     "src/routeLanding.ts",
-    "src/appRouter.ts"
+    "docs/runbooks/EDGE_PROTECTION.md",
+    "README.md",
+    "data-release.json"
   ]
 }

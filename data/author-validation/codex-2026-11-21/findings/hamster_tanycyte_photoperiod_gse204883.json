@@ -1,0 +1,206 @@
+{
+  "datasetId": "hamster_tanycyte_photoperiod_gse204883",
+  "accession": "GSE204883",
+  "category": "access_blocked",
+  "closure": "compared",
+  "summary": "Publisher Data S1D and the registered SPIP-minus-LPIP analysis share 13,311 uniquely paired genes. Pearson is 0.95202, Spearman is 0.89977 and 11,520 pairs (86.54%) agree in direction, so neither numerical route meets author-concordance-v2. The registered fit also retains SPIP19, which the authors excluded.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "summary": "Published Data S1D compared with registered photoperiod effects for 13,311 genes",
+      "paperAccess": "publisher_full_text",
+      "pubmedUrl": "https://pubmed.ncbi.nlm.nih.gov/38218183/",
+      "note": "Both analyses use laser-captured P50 hypothalamic ependymal tissue from Siberian hamsters. The author script removes SPIP19 and specifies LP 6, LPIP 5, SPIP 4 and SP 5, consistent with the GEO file labels after exclusion. The paper reports LP 5 and LPIP 6 in its final analysis. The registered fit uses all five deposited SPIP and all five LPIP libraries, including GSM6199271 (SPIP19). The published logFC in Data S1D is LPIP minus SPIP. Sheet A independently establishes this direction in every gene through its two LP-referenced coefficients. Extraction negates D once to produce SPIP_minus_LPIP. The spec reads that column with sign +1. The four-group and two-arm edgeR fits also differ in their expression filters and tested features. The authors’ median-CPM rule on the deposited counts recovers exactly the 13,345 identifiers in D. STAR Methods gives 13,346 genes. At FDR < 0.05, the full lists contain 497 author and 333 registered discoveries, with 301 uniquely matched genes called in both.",
+      "reviewFlags": [
+        "The registered fit retains SPIP19. The authors excluded it for poor sequencing quality.",
+        "The paper and archived code report different LP and LPIP group sizes. The workbook, code comment and deposited-count filter give 13,345 genes, while STAR Methods gives 13,346.",
+        "Spearman is 0.89977248 and same-gene direction agreement is 0.86544963. Coverage and Pearson meet their v2 thresholds."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Paper and STAR Methods, publisher Document S2",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0960982223017426-mmc5.pdf",
+          "kind": "paper"
+        },
+        {
+          "label": "Data S1, worksheet D (original publisher workbook)",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0960982223017426-mmc2.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Versioned author analysis code",
+          "url": "https://zenodo.org/records/10285435",
+          "kind": "author_result"
+        },
+        {
+          "label": "PubMed study record",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/38218183/",
+          "kind": "paper"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "Data S1D is publicly available and has been compared. Neither v2 numerical route passes. The authors excluded SPIP19, the registered fit retains it, and the paper reports different LP/LPIP group sizes from the archived design.",
+      "nextStep": "Confirm the LP/LPIP assignments against the authors’ sample-to-design map if exact cohort sign-off is needed. Any analysis dropping SPIP19 or using all four groups should be recorded separately from the current registered output.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "spip_vs_lpip_author_mouse_projection"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Compare the current registered two-arm edgeR-QL result with the full published pairwise test in Data S1D. Both effect estimates measure a log2 expression difference between the intermediate-photoperiod groups. The author analysis used a different cohort and model.",
+      "reference": "Melum et al., Current Biology (2024), Data S1D. Sheet A provides an independent direction check. The Zenodo 10285435 script and GEO deposits identify the exclusion and four-group design.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "different",
+          "note": "Both analyses use laser-captured P50 hypothalamic ependymal tissue from Siberian hamsters. The author script removes SPIP19 and specifies LP 6, LPIP 5, SPIP 4 and SP 5, consistent with the GEO file labels after exclusion. The paper reports LP 5 and LPIP 6 in its final analysis. The registered fit uses all five deposited SPIP and all five LPIP libraries, including GSM6199271 (SPIP19)."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "The published logFC in Data S1D is LPIP minus SPIP. Sheet A independently establishes this direction in every gene through its two LP-referenced coefficients. Extraction negates D once to produce SPIP_minus_LPIP. The spec reads that column with sign +1. Both groups transferred to intermediate photoperiod at weaning."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Join the original mouse-projected Ensembl IDs to the registered feature map. Pair a symbol only when it has one input feature. Of 34 unpaired author rows, 23 map to aggregate symbols, 9 lack a registered symbol, and 2 map to symbols absent from the output. The 627 unpaired registered symbols comprise 22 aggregates and 605 without an author feature."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both analyses estimate group differences on the edgeR log2 scale. Across all 13,311 pairs, Pearson is 0.95202240 and Spearman is 0.89977248. All pairs have two nonzero effects and 11,520 agree in sign. Median absolute log2 difference is 0.05284, maximum 0.99076, and the ratio of registered to author RMS effect is 1.00590."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Both use TMM and edgeR quasi-likelihood. The author fit uses all four groups and filters on whole-experiment median CPM ≥ 1. The registered fit uses filterByExpr on the two arms and sums features sharing a symbol before testing. All paired raw P and FDR values are finite. At FDR < 0.05 there are 494 author, 320 registered and 301 common calls among paired genes. Another 3 author and 13 registered calls have no comparable counterpart. At the paper’s FDR < 0.001 threshold there are 114 author and 76 registered calls across the full lists, with 74 in common."
+        },
+        "coverage": {
+          "status": "compatible",
+          "note": "D contains all 13,345 identifiers recovered by the published filter, compared with 13,938 published registered genes. Paired coverage is 99.75% of the author table and 95.50% of the registered output. Both denominators include their unpaired rows. The paper’s Methods gives 13,346 genes."
+        }
+      },
+      "criteria": "Apply author-concordance-v2 across all finite one-to-one pairs. Full-results scope requires at least 30 pairs and 90% registered coverage, with compatible cohort, contrast, identifiers and effect definitions. Either Pearson and Spearman must both reach 0.90, or at least 90% of nonzero pairs must agree in sign, with at least 30 such pairs covering at least 90% of all pairs. Compare unrounded metrics. FDR < 0.05, the paper’s FDR < 0.001, and raw P < 0.05 are reported separately as context.",
+      "conclusion": "The full published contrast was compared. Spearman falls below 0.90 and 86.54% of nonzero pairs agree in direction. The SPIP19 exclusion independently prevents a cohort match. No contrast receives full verification."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "hamster_tanycyte_photoperiod_gse204883",
+      "accession": "GSE204883",
+      "contrast": "spip_vs_lpip_author_mouse_projection",
+      "localPath": "geo_replication/datasets/GSE204883_psun_tanycyte_photoperiod/processed/GSE204883_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/author-effects.tsv",
+      "sourceUrl": "https://ars.els-cdn.com/content/image/1-s2.0-S0960982223017426-mmc2.xlsx",
+      "sha256": "bb675871dbdc85e5ba073b56d4f0ff93c7303c59ba919b3980de36bff65c06ca",
+      "format": "tsv",
+      "authorKey": "output_key",
+      "authorEffect": "SPIP_minus_LPIP",
+      "authorAdjustedP": "FDR",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL, registered SPIP-minus-LPIP two-arm fit including SPIP19",
+      "authorMethod": "edgeR four-group quasi-likelihood model, whole-experiment median CPM ≥ 1, SPIP19 excluded",
+      "orientation": "The published logFC in Data S1D is LPIP minus SPIP. Sheet A independently establishes this direction in every gene through its two LP-referenced coefficients. Extraction negates D once to produce SPIP_minus_LPIP. The spec reads that column with sign +1.",
+      "note": "Full Data S1D. The normalized file retains every author row, with a unique unpaired key for aggregated or unmapped features. Only one-to-one registered symbols pair. The cohorts differ. Spearman and same-gene direction agreement fall below the v2 thresholds. The paper also gives LP/LPIP group sizes that differ from the archived design.",
+      "interpretation": "effect_disagreement_review",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/sources/mmc2.xlsx",
+          "sourceUrl": "https://ars.els-cdn.com/content/image/1-s2.0-S0960982223017426-mmc2.xlsx",
+          "sha256": "9bcbac7ca652a5c8f273cf44f95d5102409529dfa241366934a66c1dfdcc9e40",
+          "bytes": 6954842
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/sources/author-code.zip",
+          "sourceUrl": "https://zenodo.org/api/records/10285435/files/ShonaWood/MPP-MPP.zip/content",
+          "sha256": "bcde126d7286fe9a26263485e13f358a6ce309bbea87c27c371728087c8ca203",
+          "bytes": 8566839
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/sources/mmc5.pdf",
+          "sourceUrl": "https://ars.els-cdn.com/content/image/1-s2.0-S0960982223017426-mmc5.pdf",
+          "sha256": "cb7664b6f936c7107adc7f4d2542c69bd32a0fd21c1f5c326b2ba68d4ebe6a9c",
+          "bytes": 17357332
+        },
+        {
+          "path": "geo_replication/datasets/GSE204883_psun_tanycyte_photoperiod/processed/GSE204883_feature_map.tsv.gz",
+          "sha256": "7ac2dd60184025649c06240ff004668145b76c63df927ee0a682b923b2ff105f",
+          "bytes": 173541,
+          "sourceUrl": "Registered feature-to-symbol map for the current DE output"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/compare.py",
+          "sha256": "b314c77e458854c142656a45437a137938125409322fd7512dfaf12c3250b6cf",
+          "bytes": 11985,
+          "sourceUrl": "Reproducible extraction, orientation check and one-to-one mapping"
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/compare.py",
+      "resultScope": "Full published pairwise result in Data S1D, compared on unique registered feature mappings.",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE204883_psun_tanycyte_photoperiod/processed/GSE204883_DE.tsv",
+        "sha256": "0d3e5422de8edebd0c5277f1a6edaaed02c28db85c388ce89b4c3c435300e6e3",
+        "bytes": 1379735,
+        "sourceUrl": "Registered Explorer DE table, current R 4.6.0 output"
+      }
+    }
+  },
+  "computed": [
+    {
+      "claim": "Gene universes and unique pairs",
+      "value": "13,345 author genes, 13,938 registered genes, 13,311 paired (99.7452% author, 95.5015% registered).",
+      "script": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "All-pair effects in registered orientation",
+      "value": "Pearson 0.9520223963, Spearman 0.8997724812, 11,520/13,311 nonzero pairs with matching signs (86.54496%), 1,791 opposite.",
+      "script": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Effects on the log2 scale",
+      "value": "Median absolute difference 0.05283981, maximum 0.99075665, registered-to-author RMS ratio 1.00589615.",
+      "script": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Within-workbook contrast identity",
+      "value": "Maximum |D − (A_LPIP − A_SPIP)| = 1.021405182655144e-14 across 13,345 IDs.",
+      "script": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Published filtering and multiple testing",
+      "value": "After removal of SPIP19, median CPM ≥ 1 selects exactly the 13,345 author IDs. Maximum absolute difference between BH on all sheet-D raw P values and its FDR column is 2.55351295663786e-15.",
+      "script": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Unmatched features",
+      "value": "Author: 23 aggregate, 9 with no registered symbol, 2 mapped to absent output symbols. Registered: 22 aggregate, 605 single-feature symbols without an author row.",
+      "script": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "FDR < 0.05",
+      "value": "Whole lists 497 author, 333 registered, 301 common. Paired finite lists 494 author, 320 registered, 301 common. 13 registered calls lack an author pair, 3 author calls lack a registered pair.",
+      "script": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Paper FDR < 0.001",
+      "value": "Whole lists 114 author, 76 registered, 74 common. Paired finite lists 112 author, 75 registered, 74 common.",
+      "script": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Raw P < 0.05",
+      "value": "Whole lists 1,908 author, 1,757 registered, 1,401 common. Paired finite lists 1,904 author, 1,681 registered, 1,401 common.",
+      "script": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Archive cohort after named exclusion",
+      "value": "LP 6, LPIP 5, SPIP 4, SP 5. Registered samples comprise 5 LPIP and 5 SPIP including SPIP19.",
+      "script": "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "The paper reports five LP and six LPIP animals. The deposited code specifies six LP and five LPIP, consistent with the GEO labels. The archived script reads an external merged count table and assigns groups by column position. Which sample IDs and group assignments produced Data S1D?",
+    "SPIP19 inclusion, different filters, symbol aggregation and four-group versus two-arm fitting can each affect estimates. The direct comparison does not apportion the differences among them."
+  ]
+}

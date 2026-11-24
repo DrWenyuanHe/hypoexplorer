@@ -1,0 +1,15 @@
+{
+  "datasetId": "mouse_hypo_cp_ins2_gse218188",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 38 source files matched their recorded hashes and sizes. All 12 computations reproduced using the figure labels as printed. Thirteen unambiguous plotted genes and six additional genes named in the Discussion agree in direction. The Sat1 label has a conflicting functional description, and Il17rc ranks second among the 14 registered effects despite being described as most upregulated. The corrected proposal passed validation and retains closure as compared. The evidence falls below the 30-pair concordance minimum.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_cp_ins2_gse218188.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_cp_ins2_gse218188.json",
+    "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/refute/audit.py"
+  ],
+  "openIssues": [
+    "The stable gene ID behind the Sat1 point remains unresolved. The registered Sat1 and Slc38a1 rows have opposite signs.",
+    "The full author DESeq2 table, ranking rule and criteria behind the 1,714 reported calls are needed to reconcile the Il17rc ranking, the Slc17a7 effect difference and gene-wise inference.",
+    "The ten hypothalamic libraries are identifiable, but their assignment to individual mice or disjoint pools remains undocumented."
+  ]
+}

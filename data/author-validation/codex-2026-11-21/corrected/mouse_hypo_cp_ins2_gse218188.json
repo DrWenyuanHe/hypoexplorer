@@ -1,0 +1,207 @@
+{
+  "datasetId": "mouse_hypo_cp_ins2_gse218188",
+  "accession": "GSE218188",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "Thirteen Figure 4B genes with clear identities and six additional genes named in the Discussion agree in direction with the registered hypothalamic contrast. The fourteenth plot label, Sat1, also agrees as printed, but the paper describes a glutamine transporter and the intended gene is unresolved. The selected comparison falls below the 30-pair minimum, and the registered effect ranking differs from the published Il17rc headline.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Nineteen identified hypothalamic directions agree. The Sat1 annotation and the Il17rc ranking need review.",
+      "note": "The deposited hypothalamic matrix and family SOFT match their source pins. Figure 4C and the registered sample sheet identify five GFP-vector and five Ins2 libraries. Figure 4B supplies 14 graphical effects. All 14 printed symbols agree in sign with their exact registered rows. Sat1 is the mouse acetyltransferase symbol, while the Results describe a glutamine transporter. With that identity left open, 13 plotted and six text-only directions agree, 16 of the 19 meet local raw P < 0.05 and none meet BH FDR < 0.05. The paper describes Il17rc as most upregulated. It has the largest plotted increase among the labels, but the registered Slc17a7 effect is larger.",
+      "reviewFlags": [
+        "The published Sat1 label and transporter description conflict. Its literal-symbol comparison cannot identify the transporter.",
+        "Il17rc ranks second by registered logFC among the 14 labels. The largest absolute effect difference is about 0.990 log2 units for Slc17a7. The original DESeq2 output and ranking rule are needed to reconcile these observations.",
+        "The figure supplies 14 graphical estimates and the Discussion supplies six additional signs. The full author testing universe, call list and gene-wise adjusted P values remain unavailable in the reviewed sources.",
+        "The ten libraries have distinct BioSample IDs. Their assignment to individual mice or disjoint biological pools remains undocumented."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The direct comparison covers all 14 plotted labels and six additional directions. Thirteen plotted features and all six narrative features have clear identities and concordant signs. Treating Sat1 literally yields 14 plotted pairs with Pearson 0.7686 and Spearman 0.8603. Its functional description conflicts with the symbol. The registered effect ordering also differs for Il17rc and Slc17a7. The two models differ, and the available evidence does not establish the cause of those discrepancies.",
+      "nextStep": "Obtain the stable gene ID for the Sat1 point and the hypothalamic Ins2-versus-GFP DESeq2 table with gene IDs, log2 fold changes, raw P and adjusted P. Ask which plotted coefficients, ranking, filtering and two-sided call rule produced the Il17rc headline and 1,714 calls. Obtain the library-to-mouse or pool mapping.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "ins2_overexpression_vs_control"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Compare every labelled point in the published hypothalamic volcano plot on its printed symbol, with a separate calculation for the 13 unambiguous gene identities. Compare the six additional explicit increases in the Discussion by sign only.",
+      "reference": "Mazucanti et al., Cell Reports, DOI 10.1016/j.celrep.2023.112903. Document S2 includes Figure 4B and the Figure 4C library labels on PDF page 9. The Results and Discussion describe Sat1, Il17rc and the six additional directions. Mouse nomenclature is recorded in data/nomenclature/nomenclature.tsv (MGI:98233 and MGI:2145895). The publisher image, coordinate transcription and calibration are retained in the evidence folder.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Whole hypothalamus from WT C57BL/6J mice, two months after treatment, fasted overnight before collection. Figure 4C shows GFP 1–5 and Ins2 1, 2, 3, 5, 6. The GEO group, sample-sheet column, ENA run and BioSample agree for each of the ten libraries. The library-to-mouse or disjoint-pool mapping remains unresolved. Pooling indexed libraries for sequencing does not supply that mapping."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "AAV5-CMV-Ins2 minus AAV5-CMV-GFP as shown in Figure 4. The registry displays ‘Untreated control’ and GEO uses ‘no treatment control’. The count columns and Figure 4C identify these controls as GFP. Higher hypothalamic expression in the Ins2 arm is positive. The CP tissue analysis in Figure S4 and the Ins2 knockdown experiment have different targets."
+        },
+        "features": {
+          "status": "limited",
+          "note": "All 20 printed or named symbols have one exact registered row. The publisher text identifies Il17rc despite the PMC rendering “II17rc”. Figure 4B labels the negative point Sat1. The Results describe it as a glutamine transporter. Mouse Sat1 (MGI:98233) encodes an acetyltransferase. The glutamine transporter Slc38a1 (MGI:2145895) is a distinct registered row. The literal Sat1 logFC is −0.24439 (raw P 0.00402), whereas Slc38a1 is +0.01670 (raw P 0.67045). The published description alone cannot assign the plotted point to Slc38a1. Nineteen gene identities are clear."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Figure 4B shows DESeq2 log2 fold changes. The registered coefficient is the Ins2-minus-GFP difference in mean log2(normalized count + 1). Shrinkage of the plotted effects is unspecified. The 14 literal label pairs give Pearson 0.7686, Spearman 0.8603, median absolute difference 0.0631 and maximum 0.9898 (Slc17a7). For the 13 unambiguous pairs, Pearson is 0.7309 and Spearman 0.8253. Il17rc is the largest increase among the plotted labels. It ranks second among their registered effects, behind Slc17a7, and 1,102nd by descending logFC across 20,752 local genes. The authors’ full ranking universe and criterion are unknown."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "The authors applied DESeq2 to featureCounts read counts. The registered model used limma on log2(DESeq2-normalized counts + 1). All 14 markers have graphical −log10(P) between 2.24 and 6.03 and nominal raw P < 0.05 at the corresponding literal registered symbols. Three of the six additional genes meet the local nominal threshold. The full registered table has zero BH FDR < 0.05 calls. Author per-gene FDR, exact P and full call membership remain unassessed. The paper specifies raw P < 0.05 and log2FC > 0.2, reports decreases, and highlights three increases clearly below +0.2."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All 14 printed effect labels join by exact symbol (0.0675% of the 20,752 registered genes). Thirteen of 14 plotted features have unambiguous biological identities (92.86% of those labels and 0.0626% of local genes). Six further genes supply signs only. Figure 4C gives sample labels and a caption count of 80 genes, with no gene row labels. No full list for the reported 966 increases and 748 decreases was located."
+        }
+      },
+      "criteria": "Include all 14 author-labelled points, keep Sat1 visible as a conditional literal match, and report the other 13 pairs separately because of the published identifier conflict. Use the authors’ case-minus-control orientation and all six additional explicit transcriptomic directions. The v2 selected-reference denominator is 14. Both numerical routes require 30 pairs and 90% coverage. The correlation route requires both correlations ≥0.90. The direction route requires ≥90% agreement across ≥30 nonzero pairs covering ≥90% of pairs. Gene identity and cohort support also matter. Nominal P and FDR are contextual.",
+      "conclusion": "The 19 identified genes agree in direction. The literal Sat1 result agrees with the figure label, and the transporter interpretation remains unresolved. Il17rc falls behind Slc17a7 in the registered effect ranking. Neither numerical scope reaches 30 pairs. Genome-wide agreement, author FDR and biological replication remain unverified."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "mouse_hypo_cp_ins2_gse218188",
+      "accession": "GSE218188",
+      "contrast": "ins2_overexpression_vs_control",
+      "localPath": "geo_replication/datasets/GSE218188_mmus_hypothalamus_cp_ins2/processed/GSE218188_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/figure4b_effects.tsv",
+      "sourceUrl": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124723009142-gr4_lrg.jpg",
+      "sha256": "492a6bc610d4f93c46c3205d51b6703ad66241fd3f8c8b984e0a66af50aa1ff9",
+      "format": "tsv",
+      "authorKey": "symbol",
+      "authorEffect": "approx_log2FC",
+      "orientationSign": 1,
+      "localMethod": "limma on log2(DESeq2-normalized count + 1)",
+      "authorMethod": "DESeq2 on featureCounts reads. Effect estimates digitized from Figure 4B.",
+      "orientation": "Hypothalamus after CP Ins2 overexpression minus GFP-vector control.",
+      "note": "This specification reproduces the comparison of the printed Figure 4B labels. Sat1 contributes one conditional string match to the 14 numerical pairs. The Results call it a glutamine transporter, so the reported 14/14 applies only to the printed symbols. The 13 biologically unambiguous pairs are evaluated separately in refute/audit.py. Do not infer a Slc38a1 result from the plot. Graphical effects are rounded to 0.001, and exact coefficients and per-gene FDR were unavailable. The six text-only directions are outside the numerical specification. Both numerical scopes fall below the 30-pair minimum.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/sources/publisher-fig4.jpg",
+          "sourceUrl": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124723009142-gr4_lrg.jpg",
+          "sha256": "f646f4c62358b09f865c3610acb773b702f1b38bc25a2e3ee0ee311200985366",
+          "bytes": 1261230
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/sources/publisher-mmc2.pdf",
+          "sourceUrl": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124723009142-mmc2.pdf",
+          "sha256": "4d33a6d44f33b415ee0c0ab0310170a529f69e4542f91ab7703d7a30828a7041",
+          "bytes": 8441732
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/figure4b_centres.tsv",
+          "sourceUrl": "Manual transcription of all labelled Figure 4B marker centres in the unscaled crop",
+          "sha256": "2fc6f37f13a60aab2f873c9551c165756beb0d1a3a1aa8c1f175da4598101285",
+          "bytes": 282
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py",
+          "sourceUrl": "Reproducible crop, coordinate calibration, exact symbol join and numerical comparison",
+          "sha256": "ead20e9d75e47823a1fbe3e1d00d436c1487989e1568074bd1f759f896e06391",
+          "bytes": 11570
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py",
+      "resultScope": "Literal-symbol comparison of the 14 labelled points in Figure 4B. One point has conflicting functional annotation. Thirteen plotted gene identities are unambiguous.",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE218188_mmus_hypothalamus_cp_ins2/processed/GSE218188_DE.tsv",
+        "sourceUrl": "Registered hypothalamic Ins2-overexpression-versus-control DE table",
+        "sha256": "5640c754a4f946bd18ad8e62265c3cdbd96c3caa4891678d348f21ba32674f2d",
+        "bytes": 2010123
+      }
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO sample-level files and series matrix",
+      "value": "All 21 GSM supplementary-file fields say NONE. The series matrix has zero data rows.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Contents of the two series supplementary count files",
+      "value": "25,239 unique gene IDs in each. HT has ten sample columns and CP has eleven. Both files contain only an identifier and sample values.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered hypothalamus libraries matched to GEO, ENA and BioSample",
+      "value": "5 GFP controls and 5 Ins2 cases. Ten distinct BioSample accessions.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Literal-symbol comparison of all labelled Figure 4B effects",
+      "value": "Fourteen printed labels join unique registered rows. On that literal reading all 14 nonzero signs agree (11 up and three down), and all meet graphical author and registered raw P < 0.05. Sat1 contributes one conditional identity.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Additional explicitly named changes in the Discussion",
+      "value": "6/6 directions agree. Three have local raw P < 0.05. No numerical author effect assigned.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure and Discussion directions on literal printed symbols",
+      "value": "All 20 literal symbols agree in direction (17 up and three down). Seventeen have registered raw P < 0.05 and none have registered BH FDR < 0.05. The total includes the conditional Sat1 match.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Numerical-pair coverage",
+      "value": "14/14 printed effects have literal symbol pairs, covering 14/20,752 registered effects (0.0675%). Thirteen plotted features have an unambiguous identity.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Correlations of all 14 literal Figure 4B symbol pairs with registered logFC",
+      "value": "Pearson 0.7686 and Spearman 0.8603. Spearman uses average ranks for ties after rounding graphical estimates to 0.001.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Absolute differences for the 14 literal Figure 4B symbol pairs",
+      "value": "Median 0.0631 and maximum 0.9898. Slc17a7 is approximately +0.201 in the plot and +1.19078 in the registered table.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Scale of a ten-pixel marker radius on Figure 4B",
+      "value": "About 0.0084 log2 units horizontally and 0.0840 on the negative-log10 raw P axis vertically.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered nominal and adjusted calls over the full table",
+      "value": "1,372 of 20,752 have raw P < 0.05 and zero have BH FDR < 0.05. Among nominal genes, 486 have logFC > +0.2 and 432 have logFC < −0.2.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Published hypothalamic discovery totals read from the manuscript",
+      "value": "1,714 total, 966 up and 748 down. The three labelled increases Slc6a11, Grin2b and Gabbr2 sit below +0.2 even allowing a ten-pixel marker radius.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Plotted effects with unambiguous gene identity",
+      "value": "Thirteen of 14 labelled points (92.8571%, or 13/20,752 = 0.0626% locally) have unambiguous identities. All 13 nonzero signs agree. Pearson is 0.7309 and Spearman is 0.8253. The median absolute log2 difference is 0.0662 and the maximum is 0.9898. Including the six narrative signs gives 19/19 (17 up and two down), 16 local raw P < 0.05, and zero local BH FDR < 0.05.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Registered rows relevant to the Sat1 annotation conflict",
+      "value": "The literal Sat1 row has logFC −0.2443913 and raw P 0.0040209. The distinct glutamine transporter Slc38a1 has logFC +0.0166951 and raw P 0.6704471. Both coefficients are reproducible from the deposited samples. The intended feature ID is unknown.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Il17rc effect-size ranking",
+      "value": "Il17rc is first by graphical log2 fold change among the 14 labelled points and second among the same registered rows, behind Slc17a7. Its registered logFC is +0.56543. It ranks 1,102nd of 20,752 by descending registered logFC and 209th among the 1,372 with raw P < 0.05. These are local ranking universes. The rule used for the published superlative is unavailable.",
+      "script": "data/author-validation/continued-sources/GSE218188/codex-2026-11-21/refute/audit.py"
+    }
+  ],
+  "openIssues": [
+    "The reviewed public sources do not provide the full hypothalamic DESeq2 result with exact coefficients, raw P, adjusted P, filtering and the gene identities behind the 1,714 reported calls.",
+    "The written fold-change rule, the reported decreases and several highlighted effects below +0.2 leave the authors’ precise call rule and the relationship between plotted and tested effects open.",
+    "GEO, ENA and Figure 4C identify the ten libraries. The assignment of each library to an individual mouse or a disjoint biological pool remains undocumented.",
+    "The stable gene ID for the Figure 4B Sat1 point is needed to resolve the conflict between its printed symbol and the glutamine-transporter description.",
+    "The author effect table, plotted-coefficient definition and ranking rule are needed to reconcile the Il17rc headline and the Slc17a7 magnitude difference."
+  ]
+}

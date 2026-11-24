@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_hypo_diabetes_gse235792",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 83 source files matched their recorded sizes and SHA-256 hashes, and all seven reported values reproduced. The correction concerns the registered model input. Every one of the 4,819,887 per-sample expression values matched GEO’s normalized linear matrix, and the registered edgeR fit treated eight of those columns as counts. The preprint reports 82 hypothalamic discoveries at adjusted P < 0.1. The registered output has zero among 18,698 published genes at that cutoff. The available evidence cannot explain the difference or establish gene-level concordance. The corrected proposal passed the ledger validator.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_diabetes_gse235792.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_diabetes_gse235792.json",
+    "data/author-validation/continued-sources/GSE235792/codex-2026-11-21/refute/recheck.py"
+  ],
+  "openIssues": [
+    "Author contact remains necessary to identify the samples, exclusions, input count scale and signed contrast behind the 82 discoveries. The preprint and GEO give different weaning-weight cutoffs that could still select the same animals.",
+    "The cited supplement and a tested-gene table with signed effects, raw P values and adjusted P values remain unlocated."
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "datasetId": "rat_hypo_hfd_wtts_gse100349",
+  "accession": "GSE100349",
+  "category": "access_blocked",
+  "closure": "needs_author_contact",
+  "summary": "The complete paper and publisher supplements are accessible. Every one of the 13,266 gene rows in Table S2 repeats six result fields from a different-labelled polyadenylation site in Table S1, including the fields for both printed adjusted-P discoveries at the paper’s 0.10 cutoff. The original gene-level fit is needed to establish the effects and inference for this contrast.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE100349/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Recovered gene table repeats site-level statistics under different gene labels",
+      "note": "The deposited WTTS site matrix and family SOFT match their registered source hashes. The university-hosted published article and all six publisher supplements are accessible. The paper identifies S2 as the gene-summed result for the diet experiment. Across 9,395 unique gene-ID-supported pairs, the printed S2 log2 fold changes agree in direction with registered edgeR-QL for 4,724 genes. Every S2 result tuple matches a unique S1 site with another symbol or no symbol. The 9,395 pairs therefore document the problem with interpreting the printed columns. A separate HFD-minus-chow calculation from S2’s normalized library values agrees in direction for 8,291 pairs. Those descriptive changes do not recover the original fitted coefficients or tests.",
+      "reviewFlags": [
+        "The publisher and first-author archive give the same S2 worksheet values. A corrected, gene-ID-keyed result is needed before assigning S2 coefficients, P values or adjusted P values to genes.",
+        "The paper reports 73 genes at raw P < 0.01. S2 has 135 printed rows at that cutoff. Its two adjusted-P values below 0.10 repeat those for S1 sites 10545 and 3502.",
+        "Article sections 2.3 and 2.4 respectively describe pooled RNA and a control technical replicate, and four individual libraries per arm. GEO identifies eight distinct BioSamples. The fitted animal-to-library map remains unclear."
+      ],
+      "reviewedAt": "2026-11-21",
+      "paperAccess": "publisher_full_text",
+      "evidenceLinks": [
+        {
+          "label": "Published diet article hosted by Washington State University",
+          "url": "https://s3.wp.wsu.edu/uploads/sites/60/2018/02/JNBrutman.pdf",
+          "kind": "paper"
+        },
+        {
+          "label": "Publisher Supplementary Table S2, labelled gene results",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0031938418300349-mmc3.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Publisher Supplementary Table S1, site results",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0031938418300349-mmc2.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "First author’s dissertation and Chapter 3 supplements",
+          "url": "https://rex.libraries.wsu.edu/esploro/outputs/doctoral/Alternative-polyadenylation-as-a-genetic-regulatory/99901019837301842",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO family SOFT with sample and supplement inventory",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE100nnn/GSE100349/soft/GSE100349_family.soft.gz",
+          "kind": "database"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "The full labelled gene table is public. Its base mean, log2 fold change, standard error, test statistic, P and adjusted P on every row are identical to those for one S1 site with a different label. Direct comparison of the printed fields and separate comparison of the normalized expression columns cannot establish the original gene-level fitted results. Author-concordance-v2 remains unassessed for genuine gene effects.",
+      "nextStep": "Can you provide the original gene-ID-keyed, 36-day HFD-versus-chow WTTS gene-summed DESeq/DESeq2 output with log2 fold changes, raw P, adjusted P and fitted sample IDs, and explain why S2 columns M:R reproduce S1 site statistics for different gene labels? Which animals or pools contributed to each fitted library, and did the fit include a control technical replicate?",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "registeredContrastIds": [
+        "hfd_dio_vs_chow"
+      ],
+      "basis": "The unchanged registered gene-summed edgeR-QL table was compared with the full S2 worksheet as printed. The numerical pairings diagnose row attribution, with a separate descriptive check of normalized expression on its supplied scale.",
+      "reference": "Brutman et al., PMID 29391168, Supplementary Table S2 Sheet1 A:R. Table S1 T:Y identifies site-level result tuples. The author’s Chapter 3 archive preserves the same worksheet values. S3 gives site counts, S4–S5 characterize selected sites, and Figure 5 used an independent 40-day qPCR cohort.",
+      "assessment": "not_comparable",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "GEO, ENA, the registered sample sheet and the two diet groups support eight male Long-Evans hypothalamic libraries, four per arm at 36 days. Workbook identifiers differ from GEO titles. The paper describes pooling and a control technical replicate in one section and individual library preparations in the next. BioSample identity alone cannot resolve the fitted biological units."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "The same 36-day HFD/DIO versus standard-chow exposure is stated in both sources. HFD is case in the registered model. S2 E:H are control and I:L are HFD. The authors describe increased expression under HFD as positive."
+        },
+        "features": {
+          "status": "different",
+          "note": "All 13,266 S2 gene IDs are unique. Exact one-to-one symbols supported by the deposited gene ID yield 9,395 registered pairs. Twenty repeated S2 symbols account for 40 excluded rows. Every printed M:R tuple maps uniquely to a different-labelled S1 site, and together those sites have IDs 1 through 13,266."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "For literal S2 log2 fold changes versus registered effects, Pearson r = −0.008020, Spearman rho = −0.004849, and 4,724 of 9,395 nonzero signs agree. These metrics have no confirmed gene-level interpretation. Subtracting control from HFD mean normalized expression (E:L) yields r = 0.857791, rho = 0.891378 and 8,291 matching signs. The transformation of those displayed values is insufficiently documented to treat that difference as a fitted log2 fold change."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "S2 prints 13,170 finite raw P and 5,969 finite adjusted P values, all subject to the same site-attribution problem. At raw P < 0.01, there are 135 printed S2 rows versus 73 genes reported in the paper and 93 registered calls. At adjusted P < 0.10 the printed two labels are LOC108352883 and Reln, paired with statistics from unannotated site 10545 and Rgs10 site 3502. Registered edgeR-QL yields zero FDR < 0.05 discoveries. Missing and misattributed author tests remain unassessed. Full-source and jointly finite call counts are in audit.json."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The diagnostic join covers 9,395 of 9,439 registered rows (99.53%) and 9,395 of 13,266 S2 rows (70.82%). Of 44 unpaired registered symbols, 25 lack an S2 row and 19 have duplicate author symbols. In addition to the 40 duplicate-symbol rows, 3,831 unique S2 rows have no registered output. Gene-specific author fitted-effect coverage cannot be established."
+        }
+      },
+      "criteria": "Use every S2 row, unique case-sensitive symbol matches backed by the same deposited gene ID, and HFD minus chow. Check all six fitted fields, including literal missing-value positions, against every S1 site. Use the journal’s raw P < 0.01 and adjusted P < 0.10, with the project FDR < 0.05 separately. Author-concordance-v2 requires compatible cohort, contrast, identifiers and effect definitions, at least 30 pairs and 90% relevant coverage, plus both correlations ≥ 0.90 or at least 90% matching directions among at least 30 nonzero pairs covering 90% of pairs. Neither diagnostic establishes valid paired author gene coefficients.",
+      "conclusion": "The accessible S2 worksheet supports a descriptive comparison of the named genes’ normalized expression. Its printed model statistics cannot be attributed to those genes from public evidence. A corrected original fit and library key are required for a direct gene-result comparison specification or verification sign-off."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Exact S2 six-field matches to a unique S1 site",
+      "value": "13,266/13,266. Distinct site IDs span 1–13,266. Same printed symbol: 0.",
+      "script": "data/author-validation/continued-sources/GSE100349/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered DE path and observed SHA-256",
+      "value": "geo_replication/datasets/GSE100349_rnor_hypothalamus_hfd_wtts/processed/GSE100349_DE.tsv — 7c18c83df96ad50aaeb4f19a76ebfcf4b7f0ee3ea3eff49792dcf8d210ad90c3",
+      "script": "data/author-validation/continued-sources/GSE100349/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Eligible printed pairs and exclusions",
+      "value": "9,395/9,439 registered and 9,395/13,266 S2 rows. S2 exclusions: 3,831 absent and 40 rows with 20 duplicate symbols. Registered exclusions: 25 absent and 19 duplicated in S2.",
+      "script": "data/author-validation/continued-sources/GSE100349/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Printed S2 coefficient versus registered coefficient, diagnostic only",
+      "value": "9,395 nonzero pairs, 4,724 signs agree (50.28%), Pearson −0.008020, Spearman −0.004849, median absolute delta 0.611119.",
+      "script": "data/author-validation/continued-sources/GSE100349/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "HFD minus chow on S2’s displayed normalized-expression scale versus the registered coefficient",
+      "value": "9,395 nonzero pairs, 8,291 signs agree (88.25%), Pearson 0.857791, Spearman 0.891378.",
+      "script": "data/author-validation/continued-sources/GSE100349/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Printed S2 inference, before gene attribution",
+      "value": "13,170 finite raw P and 5,969 finite adjusted P. At raw P < 0.01, 135 S2 rows, 93 registered calls, 91 S2 and 93 registered calls among 9,324 jointly finite pairs, and zero shared. At adjusted P < 0.10, two S2 rows and zero registered calls. At adjusted P < 0.05, two S2 rows, zero registered and one printed S2 call among 4,247 jointly finite pairs.",
+      "script": "data/author-validation/continued-sources/GSE100349/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "WTTS sites in publisher S1 versus GEO; registered testing family",
+      "value": "89,022 site rows in S1 and 73,922 in GEO. Registered edgeR-QL tested 11,937 rows, including 2,498 unpublished features.",
+      "script": "data/author-validation/continued-sources/GSE100349/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Publisher versus author archive version check",
+      "value": "All four S1–S4 workbook cell digests match their Chapter 3 counterparts.",
+      "script": "data/author-validation/continued-sources/GSE100349/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Paper and thesis narrative cutoffs",
+      "value": "The published paper reports 2 genes at adjusted P < 0.10 and 73 at raw P < 0.01. The thesis reports 7 at adjusted P ≤ 0.30 and 73 at raw P ≤ 0.01.",
+      "script": "data/author-validation/continued-sources/GSE100349/codex-2026-11-21/inspect_support.py"
+    }
+  ],
+  "openIssues": [
+    "Can you provide the original gene-ID-keyed, 36-day HFD-versus-chow WTTS gene-summed DESeq/DESeq2 output with log2 fold changes, raw P, adjusted P and fitted sample IDs, and explain why S2 columns M:R reproduce S1 site statistics for different gene labels? Which animals or pools contributed to each fitted library, and did the fit include a control technical replicate?",
+    "The reported total of 73 genes at raw P < 0.01 cannot be traced to an authenticated gene-level result. The biological interpretation of the S2 model columns remains unresolved."
+  ]
+}

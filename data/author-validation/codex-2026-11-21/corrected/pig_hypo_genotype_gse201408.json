@@ -1,0 +1,155 @@
+{
+  "datasetId": "pig_hypo_genotype_gse201408",
+  "accession": "GSE201408",
+  "category": "unresolved",
+  "closure": "compared",
+  "summary": "Pooled and male-only base means identify HT125IBM (GSM6062950) as the excluded pure-Iberian male. All 43 published registered effects that pair with the 51 S4 genes agree in direction, and HROB is the sole shared call under the paper’s rule. A separate 19-animal genotype-only DESeq2 fit recovers 49 S4 calls, while S7’s significance markings conflict with S4 for three validation genes.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE201408/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "summary": "HT125IBM is the excluded male. The registered analysis calls HROB and MIR150-1 under the paper’s rule. Only HROB appears in S4. The S4 and S7 supplements disagree on three pooled significance labels.",
+      "paperAccess": "pmc_full_text",
+      "pmcId": "PMC9380940",
+      "pmcUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9380940/",
+      "note": "The article reports one excluded male pure Iberian. Separate fits to S4 and S6 base means identify HT125IBM (GSM6062950) by its zero weight to numerical precision. Default median-of-ratios normalization of the other 19 GEO libraries reproduces all 51 S4 base means with a maximum relative error of 4.22e-15. Registered sex-adjusted limma includes all 20 pigs and publishes 14,306 of 19,471 fitted genes. All 43 public S4 pairs agree in sign after orienting the author effects to pure Iberian minus crossbred (Pearson 0.971948, Spearman 0.991543). HROB, listed as C17orf53 in S4, and MIR150-1 meet BH < 0.1 and |log2FC| ≥ log2(1.2) in the registered table. Dropping HT125IBM in a separate limma fit keeps HROB and adds CENPF among the publicly mapped S4 genes. Separate 19-animal DESeq2 fits recover 49 S4 calls with genotype alone and 43 with sex plus genotype. All calls with finite adjusted P values in those fits fall in S4.",
+      "reviewFlags": [
+        "The paper reports R 4.0.3 and DESeq2. Its exact S4 design formula, package version and filtering settings remain uncertain. GEO describes the workbook as normalized expression, so interpreting the deposited integers as count input is conditional in the separate DESeq2 fits.",
+        "The registered cohort includes the excluded animal. Eight fitted S4 genes lack a public registered effect. The 43/51 reference coverage falls below 90%, and the author’s genome-wide P and BH results remain unavailable.",
+        "S7 defines bold RNA-seq values as significant. In its Global block GRPEL2 and UQCRC2 are bold and absent from S4, while TBCD is in S4 and printed in regular type. The five S7 effect directions can be checked separately. Its P column tests RNA-seq/qPCR correlation."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Article and genotype-direction definition",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9380940/",
+          "kind": "paper"
+        },
+        {
+          "label": "S4 pooled genotype results",
+          "url": "https://journals.plos.org/plosone/article/file?type=supplementary&id=10.1371/journal.pone.0272775.s005",
+          "kind": "author_result"
+        },
+        {
+          "label": "S6 male-only base means supporting the exclusion",
+          "url": "https://journals.plos.org/plosone/article/file?type=supplementary&id=10.1371/journal.pone.0272775.s007",
+          "kind": "author_result"
+        },
+        {
+          "label": "S7 validation effects and significance legend",
+          "url": "https://journals.plos.org/plosone/article/file?type=supplementary&id=10.1371/journal.pone.0272775.s008",
+          "kind": "author_result"
+        },
+        {
+          "label": "S2 identifiers for the validation genes",
+          "url": "https://journals.plos.org/plosone/article/file?type=supplementary&id=10.1371/journal.pone.0272775.s003",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO workbook and sample identities",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE201408",
+          "kind": "database"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The excluded library is identified numerically, and all 43 public S4 pairs agree in direction. Of 51 S4 calls, one meets the paper’s rule in the registered 20-animal limma fit. Separate 19-animal fits yield three S4 calls under limma (two publicly mapped), 49 under genotype-only DESeq2 and 43 under sex-adjusted DESeq2. The historical S4 inference remains incompletely reproduced, and S7’s pooled significance labels conflict with S4 for GRPEL2, UQCRC2 and TBCD.",
+      "nextStep": "At integration, refresh the existing S4 comparison note with the inferred exclusion and the two registered calls. To reconcile the remaining inference differences, obtain the original S4 design, DESeq2 version, filtering settings and all-tested table, and clarify which pooled significance labels the authors intended in S7.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "iberian_vs_crossbred_sex_adjusted"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Current published sex-adjusted genotype coefficient from limma on log2(GEO-described normalized expression + 1) for 10 pure Iberian and 10 crossbred pigs. Only current published DE rows enter the direct comparison. The 19-animal limma and DESeq2 fits are sensitivities.",
+      "reference": "Heras-Molina et al., PLOS ONE, DOI 10.1371/journal.pone.0272775. S4 Table lists pooled genotype DESeq2 results for 51 selected genes. S6 independently supports the sample exclusion. S7 Global gives five validation-gene RNA-seq effects, assessed separately.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "different",
+          "note": "At 60 days the authors sampled whole hypothalami from one pure Iberian and one crossbred per litter across ten litters. All ten crossbreds and five pure-Iberian females enter both analyses. The paper used four pure-Iberian males. The registered fit used all five. S4 and S6 base means identify the additional registered male as HT125IBM (GSM6062950)."
+        },
+        "contrast": {
+          "status": "limited",
+          "note": "Both estimate a pooled genotype contrast. The paper explicitly defines positive S4 effects as higher expression in crossbreds, so the comparison negates S4 to match registered pure Iberian minus crossbred. The registry adjusts for sex. The paper describes several models without specifying the S4 formula. The genotype-only sensitivity more closely reproduces S4."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Exact trimmed pig Ensembl IDs link S4 to GEO gene rows. Reserved row ordinals and every published expression profile verify the registered feature-map correspondence. Of 51 unique IDs, 43 have published registered effects. The other eight have feature-map status dropped_no_symbol."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both effect estimates are signed genotype differences in log2 units. The registered transformed-expression difference and DESeq2 log2 fold change use different estimators. All 43 nonzero pairs agree in sign, with Pearson 0.971948, Spearman 0.991543, median absolute difference 0.129947 and maximum 0.925409."
+        },
+        "inference": {
+          "status": "different",
+          "note": "S4 supplies DESeq2 Wald P and BH values for its selected genes. Registered limma gives two published calls under the paper’s combined rule. HROB is shared, and MIR150-1 has no S4 row. At BH < 0.05 alone, the 43 paired genes include 27 author calls, one registered call and one shared call. S7 marks pooled significance for GRPEL2 and UQCRC2, which are absent from S4, and leaves TBCD unmarked despite its S4 BH of 2.48e-7. Its correlation P values cannot settle these differences."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The 43 finite, nonzero pairs cover 84.31% of S4 and 0.30% of the 14,306 published registered effects. The eight remaining S4 IDs were fitted and lack public symbols. S7 reports five validation effects, three of which also occur in S4. S4 alone defines the denominator of 51."
+        }
+      },
+      "criteria": "Use all 51 S4 IDs. Negate S4’s crossbred-minus-Iberian effects to match the registered Iberian-minus-crossbred coefficient, and compare every public pair. Apply BH < 0.1 and |log2FC| ≥ log2(1.2). Count raw P and BH separately. The 43 pairs clear the v2 numerical thresholds for both correlation and direction. Reference coverage of 84.31% falls below the required 90%, and cohort membership differs.",
+      "conclusion": "The numerical exclusion and the comparison of S4 with the registered output are supported. Coverage and cohort differences preclude a concordance pass. S7’s qualitative significance labels and the two unrecovered S4 calls remain unresolved. The 19-animal fits are separate sensitivities."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Excluded GEO library from independent full-rank fits to pooled and male-only base means",
+      "value": "HT125IBM / GSM6062950. Pooled coefficient -1.86e-16, male-only coefficient -1.53e-16. All other pooled coefficients exceed 0.0400.",
+      "script": "data/author-validation/continued-sources/GSE201408/codex-2026-11-21/source_audit.py"
+    },
+    {
+      "claim": "Independent replay of S4 base means from the 19 retained GEO columns using default DESeq2 median-of-ratios normalization",
+      "value": "Maximum relative error 4.22e-15 across 51 genes.",
+      "script": "data/author-validation/continued-sources/GSE201408/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Current registered effect comparison, pure Iberian minus crossbred",
+      "value": "43/51 paired (84.31%). All 43 signs agree. Pearson 0.971947962 and Spearman 0.991543340. Median and maximum absolute log2FC differences 0.129947443 and 0.925408972.",
+      "script": "data/author-validation/continued-sources/GSE201408/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Paper-rule calls in the current 14,306-gene published table",
+      "value": "HROB and MIR150-1. Only HROB is in S4. Eight S4 IDs lack a published effect. The limma fit used 19,471 genes.",
+      "script": "data/author-validation/continued-sources/GSE201408/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Raw P < 0.05 and BH < 0.05 in the 43 direct pairs",
+      "value": "At raw P < 0.05 there are 43 author calls, 34 registered calls and 34 shared. At BH < 0.05 there are 27 author calls, 1 registered call and 1 shared. Across the published registered output 840 raw-P calls and 1 BH call have no S4 row.",
+      "script": "data/author-validation/continued-sources/GSE201408/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "S7 Global validation RNA-seq effects using the S2 identifiers",
+      "value": "All 5 Global RNA-seq effects agree in direction with their registered counterparts. PDZK1, SGCA and TBCD also occur in S4. Global RNA-seq values are bold for GRPEL2, PDZK1, SGCA and UQCRC2. The S7 legend assigns bold type to significant DE. S7 reports P for between-assay correlation and supplies no numeric gene-level DE P or BH.",
+      "script": "data/author-validation/continued-sources/GSE201408/codex-2026-11-21/refute/check_sources.py"
+    },
+    {
+      "claim": "20-animal limma replay against every published registered row",
+      "value": "Maximum absolute difference < 2.4e-13 across logFC, moderated t, raw P and BH.",
+      "script": "data/author-validation/continued-sources/GSE201408/codex-2026-11-21/sensitivity.R"
+    },
+    {
+      "claim": "19-animal sex-adjusted limma sensitivity under the paper’s rule",
+      "value": "5 calls among fitted genes, 4 with public symbols. The 3 S4 hits are HROB, CENPF and ENSSSCG00000008677. HROB remains significant from the registered fit. CENPF gains significance and ENSSSCG00000008677 has no public registered symbol.",
+      "script": "data/author-validation/continued-sources/GSE201408/codex-2026-11-21/sensitivity.R"
+    },
+    {
+      "claim": "19-animal conditional DESeq2 Wald fits using all biological genes under the paper’s rule",
+      "value": "The genotype-only fit recovers 49 of 51 S4 calls (42 publicly mapped), and the sex-adjusted fit recovers 43 (35 publicly mapped). All 51 S4 signs agree in both. The respective fits have 10,906 and 11,272 finite BH values across 25,880 input genes. In each fit every call under the rule falls within S4.",
+      "script": "data/author-validation/continued-sources/GSE201408/codex-2026-11-21/sensitivity.R"
+    }
+  ],
+  "openIssues": [
+    "The genotype-only reconstruction places CNOT8 and WFIKKN1 at BH 0.105019 versus 0.088813 in S4. The original S4 code, DESeq2 version and all-tested table would be needed to trace this difference. The separate fits use a newer runtime and a conditional count interpretation supported by base-mean replay.",
+    "Eight selected S4 genes lack public registered symbols, and the registered cohort includes the excluded animal. Selected-result concordance falls below the v2 reference-coverage requirement.",
+    "The S7 Global boldface legend and S4 pooled list disagree for GRPEL2, UQCRC2 and TBCD. The pooled GRPEL2 RNA-seq effect of −0.212 also falls below the stated absolute log2 fold-change cutoff. Author clarification is needed to interpret the markings."
+  ]
+}

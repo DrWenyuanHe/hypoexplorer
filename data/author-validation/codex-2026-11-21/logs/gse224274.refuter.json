@@ -1,0 +1,14 @@
+{
+  "datasetId": "gse224274",
+  "outcome": "upheld_with_corrections",
+  "summary": "The needs_author_contact closure is justified. All 20 source files matched their recorded sizes and SHA-256 hashes, and all eight computations reproduced. None of the 14,952 readable Figure 1c labels matched the 5,143 registered genes by exact or case-insensitive spelling. Six differently named pairs share current MGI identifiers, but a historical mouse annotation assigns distinct gene IDs to at least two of those pairs. The corrected proposal narrows the overlap claim, fixes the broken workbook link, and distinguishes the 5,764 deposited rows from the 5,143 tested rows. It passed the proposal validator.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/gse224274.json",
+    "data/author-validation/codex-2026-11-21/corrected/gse224274.json",
+    "data/author-validation/continued-sources/GSE224274/codex-2026-11-21/refute/check.py"
+  ],
+  "openIssues": [
+    "The authors’ featureCounts annotation, sample-labelled matrix, and filtering or export records are needed to reconcile Figure 1c with GEO and determine which features the six candidate pairs represent.",
+    "The original gene identifiers for the four date-formatted cells A1361, A10699, A10933, and A11775 remain unknown."
+  ]
+}

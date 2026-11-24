@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "8c601eecfdbd9f6733e4591d310f875e82ba267fe0af40afd78a9c92d2892fec",
+  "fingerprint": "911b847cd137a9a1b342415eb0fb40a23720ea9a5124281ea3c98b375aa086ba",
   "outcome": "updated",
-  "explanation": "The ui-change route now names src/routeLanding.ts as the one reader of a route at boot and for every later URL: registry checks, refusals, the default-track rule for URL destinations and the page a route opens are decided there, and appRouter.ts drives it. The catalog lists routeLanding.ts among the workflow sources and workflows.md says where route meaning lives.",
+  "explanation": "Merges main into the route-landing change. From main: the unified search box shows suggestions from partial vocabulary stages, the beta banner and wording are gone from every header and static page, shared header styles live in src/common/siteChrome.css and footers link the source and data repositories. From this branch: workflows.md and the catalog name src/routeLanding.ts as the one reader of a route for boot and every later URL (registry checks, refusals, the default track, the page it opens), driven by appRouter.ts.",
   "references": [
     "docs/agent-context/workflows.md",
     "docs/agent-context/catalog.json",
     "src/routeLanding.ts",
-    "src/appRouter.ts",
-    "CONTEXT.md"
+    "src/search/UnifiedSearchBox.tsx",
+    "src/common/siteChrome.css"
   ]
 }

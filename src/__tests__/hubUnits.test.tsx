@@ -78,7 +78,7 @@ describe('hub search box', () => {
     const { form } = renderHub();
     expect(useSearchVocabulary.mock.calls.every(([enabled]) => enabled === false)).toBe(true);
     fireEvent.focus(searchBox(form));
-    expect(useSearchVocabulary).toHaveBeenLastCalledWith(true);
+    expect(useSearchVocabulary).toHaveBeenLastCalledWith(true, { partial: true });
   });
 
   it('submits a picked suggestion by its symbol', () => {

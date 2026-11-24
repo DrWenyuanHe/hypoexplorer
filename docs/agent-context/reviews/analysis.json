@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "analysis",
-  "fingerprint": "bf6696fc7a0b151b369a9290aa368bafddfb14d29696264472b1e9c8c6fad5bd",
+  "fingerprint": "9bad6b07622be53fda2331c8cd6aabf38055babb384f48df103455a517e0b8d9",
   "outcome": "updated",
-  "explanation": "Merges main into the directory reorganization (docs to docs/runbooks/ and docs/records/; tooling to scripts/deploy/, scripts/fetch/, scripts/dev/). From main: the author-validation README, OXT/AVP intake step 7 and the quality report name build_quality_report_r460.mts --check instead of check:quality. From this branch: three data/expression README plan links now point to docs/records/. No evidence or result changed.",
+  "explanation": "The Codex closure pass evidence is published as the evidence-codex-2026-11-21 part of hypoexplorer-data release data-2026-11-22. build_release_bundle.mts now packs with the release archives own tarball writer, which fetch:data reads, and the pass README records the release in place of the pending note. Ledgers, pipelines and producers are unchanged.",
   "references": [
-    "data/author-validation/README.md",
-    "data/intake/oxt-avp-2026-10-19/README.md",
-    "scripts/build_quality_report_r460.mts",
-    "data/expression/gtex/README.md"
+    "data/author-validation/codex-2026-11-21/README.md",
+    "data/author-validation/codex-2026-11-21/build_release_bundle.mts",
+    "data-release.json"
   ]
 }

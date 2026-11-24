@@ -6,6 +6,15 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-11-23',
+    title: 'No beta notice; links to the source and data on GitHub',
+    items: [
+      'The beta testing notice is gone from every page header, the study and guide pages and the link previews.',
+      'The home page footer and the study, guide and About pages link the source code and the processed data releases on GitHub.',
+      'No data, result or analysis changed.',
+    ],
+  },
+  {
     date: '2026-11-22',
     title: 'Blank compare-set means for genes a study did not test',
     items: [

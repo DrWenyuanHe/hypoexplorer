@@ -1,0 +1,128 @@
+{
+  "datasetId": "mouse_scn_exercise_gse207992",
+  "accession": "GSE207992",
+  "category": "partial_untested",
+  "closure": "compared",
+  "summary": "All 28 distinct genes identified as differential for wild-type scheduled versus unscheduled exercise in Figures 3C, S3 and S5 have the same direction in the registered SCN output. Five of the 28 meet the registered FDR < 0.05 cutoff. The public figures and GEO workbook support this selected-gene comparison, while the complete author DESeq2 results and genome-wide concordance remain unassessed.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE207992/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "summary": "Wild-type SCN exercise comparison closed for 28 published gene directions",
+      "note": "Figure 3C, the WT top-20 panel of S3 and WT significance brackets in S5 identify 28 distinct author-positive genes. All 28 directions agree with the registered limma coefficient, and five meet registered FDR < 0.05. GEO sample records reconcile four wild-type mice per arm. The baseline mice had unscheduled wheel access. Sampling phase also differs between arms. The SVE phase is ZT14/CT22 in the Results and ZT14/CT24 in the RNA-seq sample list and GEO overall design. Exact DESeq2 estimates and per-gene P/FDR were unavailable. The publisher and PMC supply identical supplemental bytes. The BioStudies attachment under the same filename belongs to an unrelated clinical study.",
+      "reviewFlags": [
+        "The figures select genes and report directions, expression patterns or threshold categories. Genome-wide effects, FDR overlap and author-concordance-v2 remain unassessed.",
+        "The registered coefficient includes the sampling-phase difference. The manuscript and GEO use different circadian-time labels for the same WT SVE group."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Published article with Figure 3C and RNA-seq methods",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9971895/",
+          "kind": "paper"
+        },
+        {
+          "label": "Document S1, including the WT heatmap and q-value brackets",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2589004223000792-mmc1.pdf",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO series with normalized counts and sample metadata",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE207992",
+          "kind": "database"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "The 28 named WT RNA-seq discoveries all agree in direction with the registered limma output. Five are also registered FDR discoveries. The author DESeq2 analysis and the registered log-expression fit have different filtering and inference. Exact author effect sizes, P/FDR and the identities of the remaining discoveries were unavailable, so the full intersection and magnitude agreement are unknown.",
+      "nextStep": "For a genome-wide comparison, obtain the original WT SVE minus WT nSVE DESeq2 export with all tested identifiers, log2 fold changes, P values, adjusted P values, missing tests and the design/contrast call. Clarify CT22 versus CT24 for physiological interpretation.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "scheduled_exercise_vs_control_wild_type"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Published WT RNA-seq directions and positive FDR categories compared with the signed logFC and BH-adjusted P from the registered SCN DE table. GEO normalized counts corroborate the signs and identifiers.",
+      "reference": "Hitrec et al., iScience 26, 106002, Figure 3C and Document S1 Figures S3 and S5. The selected reference contains every labelled Figure 3C gene, every row in the S3 WT top-20 panel and every S5 gene with a WT positive bracket. The union counts each gene once.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Four Vipr2+/+ mouse SCN RNA-seq libraries per arm. GEO, workbook columns, the registered sample sheet, model provenance and ENA agree on these eight libraries. Vipr2-null libraries are outside the registered coefficient."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "WT scheduled minus freely exercising unscheduled mice, positive meaning higher under SVE. SVE ZT14 versus nSVE CT14 incorporates phase and wheel access. CT22 and CT24 appear as source annotations for the same SVE cohort."
+        },
+        "features": {
+          "status": "matched",
+          "note": "All 28 published symbols map uniquely through the GEO workbook's versioned mouse Ensembl IDs and the registered feature map. Fam189b maps to Entrep3 and Ndufa4 maps to Coxfa4. Each selected registered symbol has one source feature."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "All 10 labelled volcano signs, 20 S3 count-heatmap group directions and 11 S5 WT bar directions agree with registered limma signs. Across the 28 distinct genes, 21 are up and seven down. Heatmap and bar summaries do not supply fitted author coefficients. Magnitudes and correlations remain unassessed."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The authors report DESeq2 with independent filtering, Cook’s-distance handling and BH. The registered fit uses limma on log2(DESeq2-normalized count + 1). Five of 28 author-positive genes meet registered FDR < 0.05 and 23 miss it. Individual numeric author P and FDR remain unassessed. Method and testing-family differences are documented, while their contributions to individual discrepancies are unknown."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All 28 selected genes are joined. The authors report 795 WT discoveries among 9,524 genes passing filtering. The registered output displays 81 discoveries among 24,839 rows from a 25,547-feature BH family. Author status is unknown for the 76 registered discoveries outside the selected reference. Genome-wide overlap is unassessed."
+        }
+      },
+      "criteria": "Use the author-selected WT panels and their fixed case-minus-baseline orientation. Compare signs and the authors’ declared positive calls with registered BH FDR < 0.05. Keep exact author coefficients and P/FDR empty. The selected directions alone cannot satisfy the author-concordance-v2 requirement for at least 30 paired genes and relevant coverage.",
+      "conclusion": "The published WT directions agree across the selected genes, with fewer registered FDR calls in that set. This closes the scoped comparison. Full-precision DESeq2 output is needed for genome-wide effect and inference review."
+    }
+  },
+  "computed": [
+    {
+      "claim": "WT biological samples in the registered RNA-seq contrast",
+      "value": "4 scheduled and 4 unscheduled, verified against GEO and ENA",
+      "script": "data/author-validation/continued-sources/GSE207992/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Gene directions agreeing with the registered coefficient by figure panel",
+      "value": "Figure 3C 10/10, Figure S3 20/20, Figure S5 11/11",
+      "script": "data/author-validation/continued-sources/GSE207992/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Distinct selected genes and directional agreement after joining by versioned Ensembl ID",
+      "value": "28/28, comprising 21 up and 7 down. Unmatched 0. Ambiguous 0.",
+      "script": "data/author-validation/continued-sources/GSE207992/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered BH FDR < 0.05 among the author-positive selected genes",
+      "value": "5/28 meet the cutoff and 23/28 miss it. The other 76 of 81 registered calls have unknown author status in this reference.",
+      "script": "data/author-validation/continued-sources/GSE207992/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Publication and registered testing scope",
+      "value": "Manuscript 795 discoveries (556 up, 239 down) and 9,524 genes passing filtering. Registered 24,839 displayed rows in a 25,547-feature BH family.",
+      "script": "data/author-validation/continued-sources/GSE207992/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Renamed published symbols resolved by the original workbook and registered feature map",
+      "value": "Fam189b to Entrep3 and Ndufa4 to Coxfa4",
+      "script": "data/author-validation/continued-sources/GSE207992/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "GEO and ENA inventories",
+      "value": "55,401 gene rows in the GEO count sheet, 14 individual GSMs with no sample supplement, 14 ENA runs and 0 ENA submitted analyses",
+      "script": "data/author-validation/continued-sources/GSE207992/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Supplement identity",
+      "value": "Publisher and PMC Document S1 have identical SHA-256. The BioStudies attachment cover names a clinical stent study.",
+      "script": "data/author-validation/continued-sources/GSE207992/codex-2026-11-21/audit_sources.py"
+    }
+  ],
+  "openIssues": [
+    "The complete author WT DESeq2 table and fitted design were unavailable. Genome-wide effect magnitudes, exact per-gene inference and full discovery overlap remain unassessed.",
+    "The paper and GEO give CT22 and CT24 for the WT SVE cohort at ZT14. This limits interpretation of circadian phase without changing the sample match."
+  ]
+}
