@@ -5,8 +5,8 @@ import { expect, type Page } from '@playwright/test';
 /** Remote bundles come from the data origin; a cold fetch outlasts the 5 s default. */
 export const DATA_TIMEOUT = 30_000;
 
-const APP_ORIGIN = 'http://127.0.0.1:4179';
-const DATA_ORIGIN = 'https://data.hypoexplorer.com';
+/** The served app and the data origin. */
+const OUR_ORIGINS = new Set(['http://127.0.0.1:4179', 'https://data.hypoexplorer.com']);
 
 /**
  * Collect every sign that the page broke: uncaught errors, console errors (a
@@ -16,7 +16,7 @@ const DATA_ORIGIN = 'https://data.hypoexplorer.com';
  */
 export function watchForProblems(page: Page): string[] {
   const problems: string[] = [];
-  const ours = (url: string) => url.startsWith(APP_ORIGIN) || url.startsWith(DATA_ORIGIN);
+  const ours = (url: string) => OUR_ORIGINS.has(new URL(url).origin);
   page.on('pageerror', (error) => problems.push(`page error: ${error.message}`));
   page.on('console', (message) => {
     if (message.type() === 'error') problems.push(`console error: ${message.text()}`);
