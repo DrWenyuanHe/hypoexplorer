@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { useMemo } from 'react';
-import { act, render, renderHook, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, renderHook, screen, waitFor } from '@testing-library/react';
 import App from '../App';
 import { useAppRouter, type AppRouter, type ExplorerAt, type ExplorerNavigation } from '../appRouter';
 import {
@@ -300,9 +300,13 @@ describe('an unrecognized fragment is preserved (B8)', () => {
     expect(hash()).toBe('#some-anchor');
     expect(window.history.length).toBe(before);
 
+    // The next page pushes, so the anchor's entry is still there behind it
+    // (and, not being a route, is held in the address bar again on Back).
     act(() => { result.current.openLibrary({ datasetId: MACAQUE.id }); });
     await waitFor(() => expect(hash()).toBe(`#/library/${MACAQUE.id}`));
-    expect(window.history.length).toBe(before + 1);
+    await traverse('back');
+    await act(async () => {});
+    expect(hash()).toBe('#some-anchor');
   });
 
   it('keeps an anchor that arrives while a link is landing, and the view with it', async () => {
@@ -354,6 +358,22 @@ describe('write policy', () => {
     renderHook(() => useAppRouter('explorer', { navigate: vi.fn() }, at));
     await waitFor(() => expect(hash()).toBe(`#/dataset/${MACAQUE.id}/i23`));
     expect(window.history.length).toBe(before);
+  });
+});
+
+describe('the shell supersedes a pending landing', () => {
+  it('lets a tab click win over a cold link the app was opened at', async () => {
+    const meta = holdMouseMeta();
+    window.history.replaceState(null, '', COLD_LINK);
+    render(<App />);
+    fireEvent.click(await screen.findByRole('button', { name: 'Quality Control' }));
+    const qc = `#/dataset/${MACAQUE.id}/${MACAQUE.defaultTrack}/qc`;
+    await waitFor(() => expect(hash()).toBe(qc));
+
+    await meta.resolve();
+    await act(async () => {});
+    expect(hash()).toBe(qc);
+    expect(screen.getByRole('button', { name: /Active dataset: Macaque/i })).toBeInTheDocument();
   });
 });
 
