@@ -1,10 +1,11 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "baafac98457bc0e5f96db0f1f11c5feeeaac21e9282538734d70a1ca0e925fdb",
+  "fingerprint": "82bf29b34d146863a1778f40599598459b44b47af207bf0e6d973da6c4080f2e",
   "outcome": "no-impact",
-  "explanation": "The verification review model gains an optional followUp field. Dataset intake, registration and build steps are unchanged.",
+  "explanation": "Merge. From this branch: only browser smoke specs, one unit test and their documentation changed. From main: the verification review model gains an optional followUp field. Dataset intake, registration and build steps are unchanged.",
   "references": [
+    "scripts/smoke/viewLinks.ts",
     "src/data/authorVerification.ts",
     "data/author-validation/README.md"
   ]

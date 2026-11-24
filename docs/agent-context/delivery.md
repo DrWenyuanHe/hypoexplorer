@@ -7,8 +7,9 @@ retained inputs that are not here. The build needs the gitignored query catalog 
 `public/query/` (`pnpm run fetch:query` or `pnpm run prepare:deploy`).
 `pnpm run deploy:dist` builds and writes brotli/gzip sidecars for an Apache
 upload; the Cloudflare deploy does not use it (see below).
-The app CI workflow runs type checks, lint, `deadcode` (knip), `context:check`, tests and a
-built-site Chromium smoke check. It fetches the query catalog and the reference
+The app CI workflow runs type checks, lint, `deadcode` (knip), `context:check`, tests and the
+built-site Chromium smoke (views, tabs, links, exports and the volcano canvas, with
+one retry). It fetches the query catalog and the reference
 atlases from the live origins instead of building them, so it checks the app
 against the published data, not the data itself. The [publication release procedure](../runbooks/PUBLICATION_RELEASE.md)
 documents citation, licensing, exact release identity and local archive packaging.

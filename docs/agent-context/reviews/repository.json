@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "ccb96d2869092d8d383a1e58bce62ab937f833d4647eece3b3deb0a215043f17",
+  "fingerprint": "d0a93f36d724d744369d16e1d4e46ce9581a15be62eaeca3a78e5ac2436bee7b",
   "outcome": "updated",
-  "explanation": "CONTEXT.md sharpens the App router entry with the navigation attempt and the write policy (replace for a followed URL, push for a user action, hold for an unrecognized fragment, settings-only changes replace), the real-change rule for view-reported setters, the stable supersede() the shell calls before navigate, the rule that router-delivered intents never supersede, and the verified openInExplorer(id, track). The ui-change workflow tells a new shell control to call supersede() first.",
+  "explanation": "DEVELOPMENT.md, the delivery runbook and the UI-change runbook describe the wider built-site browser smoke: every view and explorer tab, search to study, shared links and history, saved exports and the volcano canvas, with one CI retry reported as flaky. The UI-change runbook says a new view or tab needs a viewLinks.ts entry and a ready check. The generated code map lists the new test.",
   "references": [
-    "CONTEXT.md",
-    "docs/agent-context/workflows.md",
-    "src/appRouter.ts"
+    "docs/DEVELOPMENT.md",
+    "docs/agent-context/delivery.md",
+    "docs/agent-context/workflows.md"
   ]
 }

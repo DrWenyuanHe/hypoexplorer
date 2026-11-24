@@ -88,7 +88,7 @@ first, and `pnpm test` needs `pnpm run fetch:expression` as well.
 | `pnpm run build` * | Production build in `dist/`, plus the static study and guide pages. It runs `vite build` only; the scientific checks are separate commands |
 | `pnpm run verify:release` | Checks the built release metadata, bootstrap script, guide pages, citation version, reference atlases and tracker catalog (run `prepare:deploy` and `build` first) |
 | `pnpm test` * | Vitest unit and component tests |
-| `pnpm run test:smoke` | Playwright smoke tests on the built site (run `build` first; install Chromium with `pnpm exec playwright install chromium`) |
+| `pnpm run test:smoke` | Playwright smoke tests on the built site: every view and explorer tab, search to study, shared links and history, saved exports, the volcano canvas (run `build` first; install Chromium with `pnpm exec playwright install chromium`) |
 | `pnpm run lint` | Biome lint |
 | `pnpm run typecheck` | TypeScript for the app, the scripts and the spend-guard Worker |
 | `pnpm run test:context` | Tests for the agent-context tooling |
@@ -133,7 +133,7 @@ Every pull request to `main` must pass these checks:
 |---|---|---|
 | Lint and typecheck | `application.yml` | `lint`, `typecheck`, `deadcode`, `test:context`, `context:check` |
 | Unit tests | `application.yml` | `pnpm test` with the fetched catalogs and atlases |
-| Build and browser smoke | `application.yml` | `prepare:deploy`, `build`, `verify:release`, `test:smoke` against R2 |
+| Build and browser smoke | `application.yml` | `prepare:deploy`, `build`, `verify:release`, `test:smoke` against R2 (one retry; a test that needed it is reported as flaky) |
 | Public safety | `public-safety.yml` | `check:public-safety` over every tracked file |
 | CodeQL (actions, javascript-typescript, python) | `security.yml` | Code scanning |
 | Dependency review | `security.yml` | Fails on a new dependency with a high or critical advisory |
