@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "220e0f807de1bd9abdabcf324b26f094433d4c71843b9c8a169189958b3b0ae7",
+  "fingerprint": "6f93c20b51c72119c58d0f3d5b58251689e167d8847602205e54f831e74d1a72",
   "outcome": "updated",
-  "explanation": "The router stores one study selection per report kind (geneStudySelection, pathwayStudySelection) and reads and writes links through selectionFromLink / selectionLink, imported from studySelectionLink.ts so the entry bundle never reaches the derivation hook or the evidence ledgers it pulls in; the gene-only reportScope and setReportScope are gone, so boot and Back/Forward now read a link's categories by the same rule. App drops its six scope adapters and keys the gene report boundary on the term alone, as the pathway report already was.",
+  "explanation": "bootState and applyRoute are replaced by the pure route-landing module: boot seeds the page with applyPage over landHash, and Back/Forward lands through the same landHash/settleExplorer path. A refused boot link no longer saves its chart scale, a trackless or unknown-track URL lands on the default track, a Compare link with a bad analysis in any query position is refused, an unknown dataset pasted mid-session restores the address bar, and App renders the error page ahead of the expression survey.",
   "references": [
+    "src/routeLanding.ts",
     "src/appRouter.ts",
     "src/App.tsx",
-    "src/crossdataset/studySelectionLink.ts",
-    "src/__tests__/lazyChunkBoundaries.test.ts"
+    "CONTEXT.md"
   ]
 }

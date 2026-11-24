@@ -1,16 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "7be7c35687298d153d70f2a476b57fc964bf60a7275b3aebe08f8487b9431994",
+  "fingerprint": "1854ab80d76c71b92b8e78a3a4ffcf74f3817103c2eef851165c66c86f0418d2",
   "outcome": "updated",
-  "explanation": "Combined result of the data-origin layout with main's compare cell, study publication record, bundle-reader adoption, study-selection module and HypoMap atlas client. From this change: dataOriginLayout.test.ts is one per-key table (tree, mutability, Cache-Control, Content-Type, purge prefix, WAF admission) with the uploader/WAF and pointer-TTL invariants and build-id parsing; queryGeneration.test.ts runs the reader over a temp directory and an in-memory HTTP origin; the purgePrefixForKey, pathAllowed and queryPublicationPrefixes cases moved into that table; releaseIdentity.test.ts checks every JSON file non-test source imports is a release source. From main: compareCell.test.ts, studyRecord.test.ts, queryIndexCorpus.test.ts, the listDiskCorpus and jsonpHeader cases in bundleReader.test.ts, studySelection.test.tsx and hypomapAtlasClient.test.ts, with geneStudyScope.test.ts and hypomapMetrics.test.ts removed.",
+  "explanation": "routeLanding.test.ts pins the pure landing rules as tables (every landHash refusal, page landings, settleExplorer with and without populations, applyPage preserving the inactive selection). routeLandingRegressions.test.tsx pins the boot and Back/Forward cases the two old readers got wrong (B1, B3, B5, B6, B7). appRouter.test.tsx now expects a trackless link to open the dataset default track.",
   "references": [
-    "src/__tests__/dataOriginLayout.test.ts",
-    "src/__tests__/queryGeneration.test.ts",
-    "src/__tests__/releaseIdentity.test.ts",
-    "src/__tests__/compareCell.test.ts",
-    "src/__tests__/studyRecord.test.ts",
-    "src/__tests__/queryIndexCorpus.test.ts",
-    "src/__tests__/hypomapAtlasClient.test.ts"
+    "src/__tests__/routeLanding.test.ts",
+    "src/__tests__/routeLandingRegressions.test.tsx",
+    "src/__tests__/appRouter.test.tsx"
   ]
 }

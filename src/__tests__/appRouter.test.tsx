@@ -193,8 +193,9 @@ describe('appRouter — deep-link races', () => {
     });
 
     const datasetCalls = explorer.calls.filter((c) => c.startsWith('open:'));
-    // The last navigation must be the newest hash, never the superseded one.
-    expect(datasetCalls[datasetCalls.length - 1]).toBe('open:mouse_hypo_hfd_gse220533');
+    // The last navigation must be the newest hash, never the superseded one. A
+    // trackless link names the dataset's default track: a URL is absolute.
+    expect(datasetCalls[datasetCalls.length - 1]).toBe('open:mouse_hypo_hfd_gse220533/whole');
   });
 });
 

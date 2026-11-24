@@ -354,6 +354,16 @@ function AppViews({ initialView = 'hub' }: AppProps) {
   const primaryLink = datasetLinks.find((l) => l.kind === 'repository') ?? datasetLinks[0] ?? null;
 
   // ── Full-page views outside the explorer shell ──
+  // A refused link applies nothing, so the view it was followed from is still
+  // set; the error page goes ahead of every view, or that view would hide it.
+  if (routeError) return (
+    <main style={{ maxWidth: 640, margin: '64px auto', padding: 24 }}>
+      <h1>Analysis link unavailable</h1>
+      <p role="alert">{routeError}</p>
+      <button type="button" onClick={goHome}>Return home</button>
+    </main>
+  );
+
   if (view === 'expression') {
     return <ErrorBoundary><Suspense fallback={<div role="status" style={{ padding: 32 }}>Opening expression survey…</div>}><ExpressionSurveyView onHome={goHome} /></Suspense></ErrorBoundary>;
   }
@@ -390,14 +400,6 @@ function AppViews({ initialView = 'hub' }: AppProps) {
         headerRight={<><ShareAnalysisButton /><CompareSetButton onCompare={openCompareSet} onOpenLibrary={openLibraryPlain} /></>}
       />
     </ErrorBoundary>
-  );
-
-  if (routeError) return (
-    <main style={{ maxWidth: 640, margin: '64px auto', padding: 24 }}>
-      <h1>Analysis link unavailable</h1>
-      <p role="alert">{routeError}</p>
-      <button type="button" onClick={goHome}>Return home</button>
-    </main>
   );
 
   // A report always names its term. The router never opens one without it; a

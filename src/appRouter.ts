@@ -43,21 +43,27 @@
 //   * THE FIRST WRITE REPLACES, THE REST PUSH. Normalizing the URL on arrival
 //     must not leave a synthetic entry behind the user's first page, or Back
 //     would land them on the site instead of leaving it.
+//
+// What a route MEANS (the registry checks, refusals, the default track, the
+// page it opens) is decided in routeLanding.ts, the one reader for boot and
+// for every later URL. This file is its driver: it holds the state, loads a
+// dataset's metadata when a named track has to be checked, and writes history.
 
 import { useCallback, useEffect, useMemo, useRef, useState, type Dispatch, type SetStateAction } from 'react';
 import { getDataset, type DatasetCategory } from './data/datasets';
 import { DEFAULT_EXPLORER_TAB } from './explorer/explorerTabs';
 import { COMPARE_TRACK, type NavigationIntent } from './explorer/explorerPosition';
 import { loadDatasetMeta } from './data/loadDatasetMeta';
-import { type AppRoute, type CompareSetRouteItem, isRetiredSearchLanding, parseRoute, routeHref } from './utils/appLinks';
-import { COMPARE_SET_MAX, compareSetKey, type CompareSetItem } from './compareset/compareSetStore';
+import { type CompareSetRouteItem, isRetiredSearchLanding, parseRoute, routeHref } from './utils/appLinks';
+import type { CompareSetItem } from './compareset/compareSetStore';
 import type { CompareViewState, ExplorerAnalysisState } from './utils/analysisState';
-import {
-  DEFAULT_STUDY_SELECTION, selectionFromLink, selectionLink, type StudySelection,
-} from './crossdataset/studySelectionLink';
-import { listContrasts } from './data/contrasts';
+import { selectionLink, type StudySelection } from './crossdataset/studySelectionLink';
 import { setChartScale, useChartScale } from './common/chartScaleStore';
 import type { SearchFilter } from './search/searchTypes';
+import {
+  applyPage, compareSetPage, initialPage, landHash, REFUSAL_MESSAGE, settleExplorer,
+  type Landing, type PageLanding, type PageState, type Settled,
+} from './routeLanding';
 
 /**
  * The views the app can be on.
@@ -222,171 +228,78 @@ export interface AppRouter {
   setCompareSetItems: (items: readonly CompareSetItem[]) => void;
 }
 
-/** The router state a route carries, resolved once at mount. */
-interface BootState {
-  view: AppView;
-  routeError: string | null;
-  gene: string | null;
-  pathway: string | null;
-  trackerAcc: string | null;
-  libraryDatasetId: string | null;
-  libraryCategories: DatasetCategory[] | null;
-  compareSetItems: CompareSetItem[];
-  searchQuery: string;
-  searchFilter: SearchFilter;
-  geneStudySelection: StudySelection;
-  pathwayStudySelection: StudySelection;
-  /** The explorer route to hand the shell once it exists; null when not one. */
-  explorer: Extract<AppRoute, { view: 'explorer' }> | null;
-}
-
-/**
- * A Compare link's view, checked against the dataset's real populations: an id
- * the dataset no longer has is dropped, and fewer than two left means the
- * dataset's default pair (a comparison of one is not a comparison). Genes and
- * the sub-tab need no check here; a gene a population lacks shows as such.
- */
-function compareViewFor(view: CompareViewState | undefined, populations: readonly string[]): CompareViewState {
-  if (!view) return {};
-  const { pops, ...rest } = view;
-  const known = pops?.filter((id) => populations.includes(id));
-  return known && known.length >= 2 ? { ...rest, pops: known } : rest;
-}
-
 /** Where to open the library: on a record, narrowed to categories, or neither. */
 export interface LibraryEntry {
   datasetId?: string | null;
   categories?: readonly DatasetCategory[] | null;
 }
 
-/**
- * Route columns → the columns the view can actually show: unknown datasets
- * dropped, a missing track filled with the dataset's default, duplicates
- * collapsed, the cap applied. The codec carries what a URL SAYS; this is where
- * the registry gets its vote, the same way the explorer arm validates its
- * dataset in `bootState` rather than in the parser.
- */
-function resolveCompareSetItems(items: readonly CompareSetRouteItem[]): CompareSetItem[] {
-  const seen = new Set<string>();
-  const out: CompareSetItem[] = [];
-  for (const item of items) {
-    const ds = getDataset(item.datasetId);
-    if (!ds) continue;
-    const resolved = { datasetId: ds.id, trackId: item.trackId ?? ds.defaultTrack };
-    const key = compareSetKey(resolved);
-    if (seen.has(key)) continue;
-    seen.add(key);
-    out.push(resolved);
-    if (out.length >= COMPARE_SET_MAX) break;
-  }
-  return out;
+/** The URL the app was opened at, landed before the first render. */
+interface Boot {
+  page: PageState;
+  routeError: string | null;
+  /** What is left for the mount effect: the chart scale, the explorer intent or the track check. */
+  landing: Landing | null;
 }
 
 /**
- * Resolve the URL the app was opened at into initial router state.
+ * Land the URL the app was opened at.
  *
  * SYNCHRONOUS ON PURPOSE. Applying the boot route from an effect instead would
  * render one frame of the wrong view, and — worse — give the URL-writing effect
  * a frame in which the state says 'hub' while the address bar says
  * `#/dataset/...`, which is all it takes to overwrite the link that was just
  * followed. Everything decidable from the registry is decided here; only the
- * track (which needs the dataset's metadata) is left to the mount effect.
+ * explorer (which needs the shell, and sometimes the dataset's metadata) is
+ * left to the mount effect.
  */
-function bootState(initialView: string): BootState {
-  const base: BootState = {
-    routeError: null,
-    // A report cannot open without its term, and only a URL supplies one.
-    view: (initialView === 'report' || initialView === 'pathway-report' ? 'hub' : initialView) as AppView,
-    gene: null,
-    pathway: null,
-    trackerAcc: null,
-    libraryDatasetId: null,
-    libraryCategories: null,
-    compareSetItems: [],
-    searchQuery: '',
-    searchFilter: 'all',
-    geneStudySelection: DEFAULT_STUDY_SELECTION,
-    pathwayStudySelection: DEFAULT_STUDY_SELECTION,
-    explorer: null,
-  };
+function bootFrom(initialView: AppView): Boot {
+  const page = initialPage(initialView);
   // No hash means no opinion — honour the caller's initialView (tests mount
   // straight into the explorer this way) rather than forcing the hub.
-  if (typeof window === 'undefined' || !window.location.hash) return base;
-  const route = parseRoute(window.location.hash);
-  if (!route) return window.location.hash.includes('?analysis=')
-    ? { ...base, routeError: 'This saved analysis is invalid or uses an unsupported version. Its settings have not been applied.' }
-    : base;
-  switch (route.view) {
-    case 'hub':
-    case 'methodology':
-    case 'verification':
-    case 'nomenclature':
-    case 'expression':
-      return { ...base, view: route.view };
-    case 'tracker':
-      return { ...base, view: 'tracker', trackerAcc: route.acc };
-    case 'search':
-      return { ...base, view: 'search', searchQuery: route.query, searchFilter: route.filter };
-    case 'library':
-      // Browsing, so nothing is validated against the bundles: the library
-      // renders from the registry, and an unknown id simply opens with no record
-      // showing rather than being worth a round trip.
-      return {
-        ...base,
-        view: 'library',
-        libraryDatasetId: route.datasetId && getDataset(route.datasetId) ? route.datasetId : null,
-        libraryCategories: route.categories,
-      };
-    case 'report':
-      return { ...base, view: 'report', gene: route.gene, geneStudySelection: selectionFromLink(route) };
-    case 'pathway-report':
-      return { ...base, view: 'pathway-report', pathway: route.pathway, pathwayStudySelection: selectionFromLink(route) };
-    case 'compare-set': {
-      // A link whose columns have all gone stale is not a comparison; the
-      // library is where the next column comes from.
-      const items = resolveCompareSetItems(route.items);
-      return items.length
-        ? { ...base, view: 'compare-set', compareSetItems: items }
-        : { ...base, view: 'library' };
-    }
+  if (typeof window === 'undefined' || !window.location.hash) return { page, routeError: null, landing: null };
+  const landing = landHash(window.location.hash);
+  switch (landing.kind) {
+    case 'page':
+      return { page: applyPage(page, landing.page), routeError: null, landing };
+    case 'refuse':
+      return { page, routeError: REFUSAL_MESSAGE[landing.refusal], landing };
     case 'explorer':
-      // An unknown dataset is ignored entirely: stay wherever the caller asked
-      // for, rather than opening the explorer on a study that isn't there.
-      if (!getDataset(route.datasetId)) return route.analysis
-        ? { ...base, routeError: 'The saved dataset is not available in this release. Its settings have not been applied.' }
-        : base;
-      if (route.analysis?.contrastId && !listContrasts(getDataset(route.datasetId)!).some((contrast) => contrast.id === route.analysis?.contrastId)) {
-        return { ...base, routeError: 'The saved comparison is not available in this dataset. Its settings have not been applied.' };
-      }
-      return { ...base, view: 'explorer', explorer: route };
+    case 'verify':
+      return { page: { ...page, view: 'explorer' }, routeError: null, landing };
+    default:
+      return { page, routeError: null, landing };
   }
 }
+
+/** The library entered fresh: no record, no scope. */
+const PLAIN_LIBRARY: PageLanding = { view: 'library', datasetId: null, categories: null };
 
 export function useAppRouter(
   initialView: string,
   explorer: ExplorerNavigation,
   explorerAt?: ExplorerAt,
 ): AppRouter {
-  const [boot] = useState(() => bootState(initialView));
+  const [boot] = useState(() => bootFrom(initialView as AppView));
   const chartScale = useChartScale();
-  const [view, setView] = useState<AppView>(boot.view);
+  const [page, setPage] = useState<PageState>(boot.page);
   const [routeError, setRouteError] = useState(boot.routeError);
-  const [reportGene, setReportGene] = useState<string | null>(boot.gene);
-  const [reportPathway, setReportPathway] = useState<string | null>(boot.pathway);
-  const [geneStudySelection, setGeneStudySelection] = useState(boot.geneStudySelection);
-  const [pathwayStudySelection, setPathwayStudySelection] = useState(boot.pathwayStudySelection);
-  const [trackerSelectedAcc, setTrackerSelectedAcc] = useState<string | null>(boot.trackerAcc);
-  const [libraryDatasetId, setLibraryDatasetId] = useState<string | null>(boot.libraryDatasetId);
-  const [libraryCategories, setLibraryCategoriesState] = useState<DatasetCategory[] | null>(boot.libraryCategories);
-  const [compareSetItems, setCompareSetItemsState] = useState<CompareSetItem[]>(boot.compareSetItems);
-  const [searchQuery, setSearchQuery] = useState<string>(boot.searchQuery);
-  const [searchFilter, setSearchFilterState] = useState<SearchFilter>(boot.searchFilter);
+  const {
+    view, reportGene, reportPathway, geneStudySelection, pathwayStudySelection, trackerSelectedAcc,
+    libraryDatasetId, libraryCategories, compareSetItems, searchQuery, searchFilter,
+  } = page;
 
   // True while a route read out of the URL has not finished landing in the app.
   // Starts true because the boot route is one, and gates every URL write — see
   // the header. State rather than a ref, so clearing it re-runs the write effect
   // instead of leaving the address bar one interaction stale.
   const [routePending, setRoutePending] = useState(true);
+
+  // A route that names nothing ('stay') changes no state, so the write effect
+  // needs a nudge to put the address bar back; and that write replaces the
+  // entry the browser just made for the dead link rather than pushing behind it.
+  const [reconcile, setReconcile] = useState(0);
+  const replaceNextWrite = useRef(false);
 
   // The explorer adapter is read through a ref so the navigation verbs stay
   // referentially stable: the shell rebuilds its callbacks whenever its own state
@@ -395,90 +308,99 @@ export function useAppRouter(
   const explorerRef = useRef(explorer);
   useEffect(() => { explorerRef.current = explorer; }, [explorer]);
 
-  const goHome = useCallback(() => { setRouteError(null); setView('hub'); }, []);
-  const enterExplorer = useCallback(() => setView('explorer'), []);
+  /** A verb that lands a page the same way a URL does. */
+  const toPage = useCallback((landing: PageLanding) => setPage((state) => applyPage(state, landing)), []);
+
+  const goHome = useCallback(() => { setRouteError(null); toPage({ view: 'hub' }); }, [toPage]);
+  const enterExplorer = useCallback(() => setPage((state) => ({ ...state, view: 'explorer' })), []);
 
   const enterTool = useCallback((tab: string) => {
     explorerRef.current.navigate({ type: 'tab', tab });
-    setView('explorer');
+    setPage((state) => ({ ...state, view: 'explorer' }));
   }, []);
 
   // A gene search. The report lazy-loads every track on first query, then
   // caches. A null/omitted scope means "all categories"; the gene report's own
-  // search box passes the categories it is reading under.
+  // search box passes the categories it is reading under. Only the categories
+  // change: the individual studies and filters chosen on the report carry over.
   const searchGene = useCallback((gene: string, scope: DatasetCategory[] | null = null) => {
-    setReportGene(gene);
-    setGeneStudySelection((selection) => ({ ...selection, categories: scope?.length ? [...scope] : null }));
-    setView('report');
+    setPage((state) => ({
+      ...state, view: 'report', reportGene: gene,
+      geneStudySelection: { ...state.geneStudySelection, categories: scope?.length ? [...scope] : null },
+    }));
   }, []);
 
   // The pathway analog: a pathway search lands in the FGSEA cross-dataset
-  // report. Pathway-capable datasets only.
+  // report. Pathway-capable datasets only. Its selection carries over.
   const searchPathway = useCallback((pathway: string) => {
-    setReportPathway(pathway);
-    setView('pathway-report');
+    setPage((state) => ({ ...state, view: 'pathway-report', reportPathway: pathway }));
   }, []);
 
   // The unified search: one query, genes and pathways side by side. Trimmed
-  // here as well as in the codec, so the state always equals what the URL can
-  // carry and Back/Forward restores exactly what was on screen.
+  // here as well as in the landing, so the state always equals what the URL
+  // can carry and Back/Forward restores exactly what was on screen.
   const search = useCallback((query: string, filter: SearchFilter = 'all') => {
-    setSearchQuery(query.trim());
-    setSearchFilterState(filter);
-    setView('search');
-  }, []);
+    toPage({ view: 'search', query: query.trim(), filter });
+  }, [toPage]);
 
   // An update from INSIDE the results page, so the query is left alone.
   const setSearchFilter = useCallback((filter: SearchFilter) => {
-    setSearchFilterState(filter);
+    setPage((state) => ({ ...state, searchFilter: filter }));
   }, []);
 
-
-  const openTracker = useCallback((acc: string | null = null) => {
-    setTrackerSelectedAcc(acc);
-    setView('tracker');
+  const setGeneStudySelection = useCallback((action: SetStateAction<StudySelection>) => {
+    setPage((state) => ({
+      ...state, geneStudySelection: typeof action === 'function' ? action(state.geneStudySelection) : action,
+    }));
+  }, []);
+  const setPathwayStudySelection = useCallback((action: SetStateAction<StudySelection>) => {
+    setPage((state) => ({
+      ...state, pathwayStudySelection: typeof action === 'function' ? action(state.pathwayStudySelection) : action,
+    }));
   }, []);
 
-  // Reached from the tracker's dossiers, the cross-dataset report's dataset and
-  // track links, and a `#/dataset/<id>[/<trackId>]` deep link.
+  const openTracker = useCallback((acc: string | null = null) => toPage({ view: 'tracker', acc }), [toPage]);
+
+  // Reached from the tracker's dossiers and the cross-dataset report's dataset
+  // and track links. An in-app command, not a URL: with no track named it
+  // keeps the track already open in that dataset.
   const openInExplorer = useCallback((datasetId: string, trackId?: string) => {
     explorerRef.current.navigate({ type: 'open', datasetId, trackId });
-    setView('explorer');
+    setPage((state) => ({ ...state, view: 'explorer' }));
   }, []);
 
-  const openMethodology = useCallback(() => setView('methodology'), []);
-  const openVerification = useCallback(() => setView('verification'), []);
-  const openNomenclature = useCallback(() => setView('nomenclature'), []);
-  const openExpression = useCallback(() => setView('expression'), []);
+  const openMethodology = useCallback(() => toPage({ view: 'methodology' }), [toPage]);
+  const openVerification = useCallback(() => toPage({ view: 'verification' }), [toPage]);
+  const openNomenclature = useCallback(() => toPage({ view: 'nomenclature' }), [toPage]);
+  const openExpression = useCallback(() => toPage({ view: 'expression' }), [toPage]);
 
   const openLibrary = useCallback(({ datasetId = null, categories = null }: LibraryEntry = {}) => {
-    setLibraryDatasetId(datasetId);
-    setLibraryCategoriesState(categories?.length ? [...categories] : null);
-    setView('library');
+    toPage({ view: 'library', datasetId, categories: categories?.length ? [...categories] : null });
+  }, [toPage]);
+
+  const setLibraryDataset = useCallback((datasetId: string | null) => {
+    setPage((state) => ({ ...state, libraryDatasetId: datasetId }));
   }, []);
 
   // An empty rail is "all categories", which is what a scopeless URL means, so
   // clearing the last checkbox has to shorten the URL rather than write an empty
   // `/in/` segment that would not round-trip.
   const setLibraryCategories = useCallback((categories: DatasetCategory[]) => {
-    setLibraryCategoriesState(categories.length ? categories : null);
+    setPage((state) => ({ ...state, libraryCategories: categories.length ? categories : null }));
   }, []);
 
-  // The compare set as a VIEW. Its columns are the route's, resolved against
-  // the registry here rather than in the codec; fewer than one usable column is
-  // not a comparison, so that lands in the library instead.
+  // The compare set as a VIEW. Its columns are resolved against the registry
+  // the same way a link's are; fewer than one usable column is not a
+  // comparison, so that lands in the library instead.
   const openCompareSet = useCallback((items: readonly CompareSetRouteItem[]) => {
-    const resolved = resolveCompareSetItems(items);
-    if (!resolved.length) { openLibrary(); return; }
-    setCompareSetItemsState(resolved);
-    setView('compare-set');
-  }, [openLibrary]);
+    toPage(compareSetPage(items));
+  }, [toPage]);
 
   // The view reporting a column removed. Same floor: an emptied set leaves.
   const setCompareSetItems = useCallback((items: readonly CompareSetItem[]) => {
-    if (!items.length) { openLibrary(); return; }
-    setCompareSetItemsState([...items]);
-  }, [openLibrary]);
+    if (!items.length) { toPage(PLAIN_LIBRARY); return; }
+    setPage((state) => ({ ...state, compareSetItems: [...items] }));
+  }, [toPage]);
 
   // ── Reading the URL ────────────────────────────────────────────────────────
 
@@ -486,152 +408,63 @@ export function useAppRouter(
   // still be in flight when the next one arrives. Each attempt claims a
   // generation and abandons itself if a newer one has started, so the route that
   // navigates is the one the user asked for LAST, not whichever metadata
-  // happened to resolve last. The counter is bumped before validation, so even a
+  // happened to resolve last. The counter is bumped before landing, so even a
   // route that turns out to be invalid supersedes a pending one rather than
   // landing after the user has moved on.
   const generation = useRef(0);
 
-  /**
-   * Drive the app to a route read out of the URL.
-   *
-   * A hash is UNTRUSTED input, so it is validated before navigating: an unknown
-   * dataset is ignored entirely (stay put), and a track or tab the dataset does
-   * not have degrades to the default rather than landing on a 404'd track behind
-   * an error banner or a tab the study never offers.
-   */
-  const applyRoute = useCallback((route: AppRoute) => {
-    const attempt = ++generation.current;
-    setRouteError(null);
-    if (route.view !== 'explorer') setRoutePending(false);
-    if ('analysis' in route && route.analysis && route.view !== 'explorer') setChartScale(route.analysis.chartScale ?? 'native');
-    switch (route.view) {
-      case 'hub':
-        setView('hub');
-        return;
-      case 'methodology':
-        setView('methodology');
-        return;
-      case 'verification':
-        setView('verification');
-        return;
-      case 'nomenclature':
-        setView('nomenclature');
-        return;
-      case 'expression':
-        setView('expression');
-        return;
-      case 'tracker':
-        openTracker(route.acc);
-        return;
-      case 'search':
-        search(route.query, route.filter);
-        return;
-      case 'library':
-        openLibrary({
-          datasetId: route.datasetId && getDataset(route.datasetId) ? route.datasetId : null,
-          categories: route.categories,
-        });
-        return;
-      case 'report':
-        setReportGene(route.gene);
-        // The same reading as boot: a link's selection lands identically
-        // whether it opened the app or arrived by Back/Forward.
-        setGeneStudySelection(selectionFromLink(route));
-        setView('report');
-        return;
-      case 'pathway-report':
-        setReportPathway(route.pathway);
-        setPathwayStudySelection(selectionFromLink(route));
-        setView('pathway-report');
-        return;
-      case 'compare-set':
-        openCompareSet(route.items);
-        return;
-      case 'explorer': {
-        const ds = getDataset(route.datasetId);
-        if (!ds) {
-          if (route.analysis) setRouteError('The saved dataset is not available in this release. Its settings have not been applied.');
-          setRoutePending(false);
-          return;
-        }
-        // An unknown saved contrast cannot silently become the default result.
-        if (route.analysis?.contrastId && !listContrasts(ds).some((contrast) => contrast.id === route.analysis?.contrastId)) {
-          setRouteError('The saved comparison is not available in this dataset. Its settings have not been applied.');
-          setRoutePending(false);
-          return;
-        }
-        // One atomic intent: the explorer position applies the tab (degrading
-        // one this track does not offer), Compare and the saved contrast
-        // together, so no intermediate position ever renders.
-        const land = (trackId?: string, compare = false, compareView?: CompareViewState) => {
-          explorerRef.current.navigate({
-            type: 'open', datasetId: ds.id, compare,
-            ...(compare ? { compareView: compareView ?? {} } : {}),
-            // A saved default-track analysis must also restore that track when
-            // opened from another population of the same dataset.
-            trackId: compare ? undefined : trackId ?? (route.analysis ? ds.defaultTrack : undefined),
-            // Compare has no tab; a /compare/<tab> link names nothing.
-            tab: compare ? undefined : route.tab,
-            analysis: route.analysis,
-          });
-          setView('explorer');
-        };
-        if (!route.trackId) {
-          land();
-          setRoutePending(false);
-          return;
-        }
-        const wantsCompare = route.trackId === COMPARE_TRACK;
-        setRoutePending(true);
-        loadDatasetMeta(ds)
-          .then((meta) => {
-            if (attempt !== generation.current) return;
-            // Compare needs two populations to compare; anything else must be one of them.
-            const known = wantsCompare
-              ? (meta.populations?.length ?? 0) >= 2
-              : meta.populations?.includes(route.trackId as string);
-            if (route.analysis && !known) {
-              setRouteError(wantsCompare
-                ? 'Compare is not available for this dataset. Its settings have not been applied.'
-                : 'The saved population is not available in this dataset. Its settings have not been applied.');
-              setRoutePending(false);
-              return;
-            }
-            land(
-              known && !wantsCompare ? route.trackId : undefined,
-              Boolean(known && wantsCompare),
-              wantsCompare && known ? compareViewFor(route.compare, meta.populations ?? []) : undefined,
-            );
-            setRoutePending(false);
-          })
-          .catch(() => {
-            if (attempt !== generation.current) return;
-            if (route.analysis) {
-              setRouteError('The saved population could not be verified. Reload this link to retry; its settings have not been applied.');
-              setRoutePending(false);
-              return;
-            }
-            land();
-            setRoutePending(false);
-          });
-        return;
-      }
+  /** Carry out a landing that needs nothing more. */
+  const settle = useCallback((landing: Settled) => {
+    switch (landing.kind) {
+      case 'ignore':
+        break;
+      case 'stay':
+        replaceNextWrite.current = true;
+        setReconcile((n) => n + 1);
+        break;
+      case 'refuse':
+        setRouteError(REFUSAL_MESSAGE[landing.refusal]);
+        break;
+      case 'page':
+        setPage((state) => applyPage(state, landing.page));
+        if (landing.chartScale) setChartScale(landing.chartScale);
+        break;
+      case 'explorer':
+        explorerRef.current.navigate(landing.intent);
+        setPage((state) => ({ ...state, view: 'explorer' }));
+        break;
     }
-  }, [openCompareSet, openLibrary, openTracker, search]);
+    setRoutePending(false);
+  }, []);
 
-  // The boot route's explorer half. The VIEW was already resolved synchronously
-  // in bootState; what is left is telling the shell which dataset/track/tab to
-  // be on, which can only happen once the shell exists.
+  /** Carry out a landing for one attempt, checking a named track first. */
+  const land = useCallback((landing: Landing, attempt: number) => {
+    if (landing.kind !== 'verify') { settle(landing); return; }
+    const { route, dataset } = landing;
+    setRoutePending(true);
+    loadDatasetMeta(dataset).then(
+      (meta) => { if (attempt === generation.current) settle(settleExplorer(route, dataset, meta.populations ?? [])); },
+      () => { if (attempt === generation.current) settle(settleExplorer(route, dataset, null)); },
+    );
+  }, [settle]);
+
+  // The boot route's remainder. The page and any refusal were landed
+  // synchronously in bootFrom; what is left is the chart scale a page link
+  // carries, and telling the shell where to be, which can only happen once it
+  // exists. A refused link applies nothing, its chart scale included.
   // Mount only: re-applying the URL the app was OPENED at would fight every
   // later track and tab click the user makes.
   // biome-ignore lint/correctness/useExhaustiveDependencies: mount only; see above
   useEffect(() => {
-    if (boot.explorer) applyRoute(boot.explorer);
-    else {
-      const initialRoute = typeof window === 'undefined' ? null : parseRoute(window.location.hash);
-      if (initialRoute && 'analysis' in initialRoute && initialRoute.analysis) setChartScale(initialRoute.analysis.chartScale ?? 'native');
+    const attempt = ++generation.current;
+    const landing = boot.landing;
+    if (!landing || landing.kind === 'refuse') { setRoutePending(false); return; }
+    if (landing.kind === 'page') {
+      if (landing.chartScale) setChartScale(landing.chartScale);
       setRoutePending(false);
+      return;
     }
+    land(landing, attempt);
   }, []);
 
   // User-driven URL changes: Back/Forward, an edited address bar, a pasted link
@@ -640,20 +473,15 @@ export function useAppRouter(
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const onNavigate = () => {
-      const route = parseRoute(window.location.hash);
-      // An unrecognized hash means "leave the user alone" — but the pending flag
-      // must still clear, or the address bar would freeze from then on.
-      if (!route) {
-        ++generation.current;
-        if (window.location.hash.includes('?analysis=')) setRouteError('This saved analysis is invalid or uses an unsupported version. Its settings have not been applied.');
-        setRoutePending(false);
-        return;
-      }
+      const attempt = ++generation.current;
+      setRouteError(null);
+      const hash = window.location.hash;
       // A retired search landing (`#/gene`, `#/pathway`) is swapped for the
       // search page's own address in place: no history entry is left naming it,
       // and the address bar is corrected even when search is already showing.
-      if (isRetiredSearchLanding(window.location.hash)) window.history.replaceState(null, '', routeHref(route));
-      applyRoute(route);
+      const route = parseRoute(hash);
+      if (route && isRetiredSearchLanding(hash)) window.history.replaceState(null, '', routeHref(route));
+      land(landHash(hash), attempt);
     };
     window.addEventListener('hashchange', onNavigate);
     window.addEventListener('popstate', onNavigate);
@@ -661,7 +489,7 @@ export function useAppRouter(
       window.removeEventListener('hashchange', onNavigate);
       window.removeEventListener('popstate', onNavigate);
     };
-  }, [applyRoute]);
+  }, [land]);
 
   // ── Writing the URL ────────────────────────────────────────────────────────
 
@@ -740,20 +568,23 @@ export function useAppRouter(
   // leaving it — so the first sync replaces and every later one pushes.
   const hasWritten = useRef(false);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: `reconcile` re-runs the write after a 'stay' landing, which changes no other state
   useEffect(() => {
     if (typeof window === 'undefined' || targetHash === null) return;
     // Never write over a route that is still landing: the shell is reporting its
     // OLD position, and writing it would overwrite the link being followed.
     if (routePending || routeError) return;
+    const replace = replaceNextWrite.current;
+    replaceNextWrite.current = false;
     if (window.location.hash === targetHash) { hasWritten.current = true; return; }
     // A hub URL is the fragment-less root, which pushState can only produce from
     // an explicit path (passing '' or '#' would keep the current fragment).
     const url = targetHash || `${window.location.pathname}${window.location.search}`;
     const settingsOnly = window.location.hash.split('?')[0] === targetHash.split('?')[0];
-    if (hasWritten.current && !settingsOnly) window.history.pushState(null, '', url);
+    if (hasWritten.current && !settingsOnly && !replace) window.history.pushState(null, '', url);
     else window.history.replaceState(null, '', url);
     hasWritten.current = true;
-  }, [targetHash, routePending, routeError]);
+  }, [targetHash, routePending, routeError, reconcile]);
 
   return {
     view, routeError, reportGene, reportPathway, trackerSelectedAcc, libraryDatasetId, libraryCategories,
@@ -761,7 +592,7 @@ export function useAppRouter(
     geneStudySelection, pathwayStudySelection, setGeneStudySelection, setPathwayStudySelection,
     goHome, enterTool, enterExplorer, searchGene, searchPathway, search, setSearchFilter,
     openTracker, openInExplorer, openMethodology, openVerification, openNomenclature, openExpression, openLibrary,
-    setLibraryDataset: setLibraryDatasetId, setLibraryCategories,
+    setLibraryDataset, setLibraryCategories,
     openCompareSet, setCompareSetItems,
   };
 }
