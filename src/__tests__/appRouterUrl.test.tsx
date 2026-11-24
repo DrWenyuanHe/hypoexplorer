@@ -279,8 +279,8 @@ describe('appRouter — the URL is a history stack', () => {
   });
 
   it('does not push a synthetic entry when it normalizes the URL on arrival', async () => {
-    // The first write REPLACES. If it pushed, Back from the landing page would
-    // put the user back on the site instead of leaving it.
+    // A followed URL is written by REPLACE. If it pushed, Back from the
+    // landing page would put the user back on the site instead of leaving it.
     window.history.replaceState(null, '', '/#/dataset/no_such_dataset');
     const before = window.history.length;
     renderRouter();

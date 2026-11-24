@@ -1,10 +1,14 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "f24eadbcc85d0b02efc258692ff24efa40d62805305bf5613e3da0a46e3d0fea",
+  "fingerprint": "bc3860af3587bd7e35ea515f18fbfb8a6b5d7d061d7f8149fe3cda5fa674b8ca",
   "outcome": "updated",
-  "explanation": "The shared evidence label and panel show an author follow-up, the tracker filters on it and the library searches it. Routing, navigation and exports are unchanged.",
+  "explanation": "Merge of two UI changes. From main: the router runs one navigation attempt at a time with its own history write policy; a new shell control that moves the explorer calls supersede() before navigate, and a value a view reports back starts an attempt only when it changes. appRouter.ts gains supersede and a verified openInExplorer(id, track), and App.tsx routes its track, tab, contrast, leave-Compare and send-genes controls through it. From this branch: the shared evidence label and panel show an author follow-up, the tracker filters on it and the library searches it; no routing code is touched.",
   "references": [
+    "docs/agent-context/workflows.md",
+    "src/appRouter.ts",
+    "src/App.tsx",
+    "src/routeLanding.ts",
     "src/common/AuthorValidation.tsx",
     "src/dataset-tracker/TrackerFilters.tsx",
     "src/library/libraryFilters.ts"

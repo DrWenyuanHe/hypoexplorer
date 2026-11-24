@@ -1,10 +1,12 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "0d801dcb19a31d257b9479b57be86c6b8a0c812243ee2731f48d31e2c13db63c",
+  "fingerprint": "2606b3ba036a9381a143b1242337963ce93c1968be76858e58c71585461bfae9",
   "outcome": "updated",
-  "explanation": "App.tsx no longer renders the compact, session-dismissible beta notice under the explorer header; routing, header controls and load-error placement are unchanged.",
+  "explanation": "The router runs one navigation attempt at a time. begin(policy) retires the attempt in flight, clears routePending and routeError and sets the write policy: replace for a followed URL, push for a user action, hold after an ignored fragment until the target hash changes; the write effect consumes it on a write, a matching hash or a refusal. hasWritten, the replaceNextWrite stop-gap and the retired-landing replaceState are gone. Verbs and view-reported setters (on a real change only) start push attempts, openInExplorer(id, track) verifies through landRoute and settleExplorer, and App calls the new stable supersede() before its track, tab, contrast, leave-Compare and send-genes navigate calls.",
   "references": [
-    "src/App.tsx"
+    "src/appRouter.ts",
+    "src/App.tsx",
+    "CONTEXT.md"
   ]
 }

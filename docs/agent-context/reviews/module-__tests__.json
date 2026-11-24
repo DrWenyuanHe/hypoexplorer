@@ -1,10 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "526c0ff247bd7a40e6a535ac48f8481328ad965c11c82d3f1d169ffb2cf77f87",
+  "fingerprint": "08ecba2fbe602d43edbcae42785af1b4d3318301905ecbd8cd4dc1b3cd6af4a7",
   "outcome": "updated",
-  "explanation": "Tests cover the optional author follow-up: assessAuthorVerification passes it through and rejects unknown values, the ledger holds only known values with a question, the evidence label and panel show it, and library search and the tracker filter find it.",
+  "explanation": "Merge of two test changes. From main: navigationAttempts.test.tsx pins that later navigation wins over a cold dataset link still landing (B2), that a followed explicit default-track link is canonicalized in place (B4), that an unrecognized anchor is kept (B8), that a shell tab click supersedes a boot landing, and that settings-only and no-hash initialView writes still replace; appRouter.test.tsx awaits the verified openInExplorer(id, track) and resets history with replaceState. From this branch: tests cover the optional author follow-up, which assessAuthorVerification passes through or rejects, the ledger holds only with known values and a question, the evidence label and panel show, and library search and the tracker filter find.",
   "references": [
+    "src/__tests__/navigationAttempts.test.tsx",
+    "src/__tests__/appRouter.test.tsx",
+    "src/__tests__/appRouterUrl.test.tsx",
     "src/__tests__/authorVerification.test.tsx",
     "src/__tests__/authorValidationPanel.test.tsx",
     "src/__tests__/libraryFilters.test.ts",
