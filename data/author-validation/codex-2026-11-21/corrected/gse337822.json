@@ -1,0 +1,95 @@
+{
+  "datasetId": "gse337822",
+  "accession": "GSE337822",
+  "category": "not_located",
+  "closure": "confirmed_not_located",
+  "summary": "The sources reviewed through 2026-11-22 UTC yielded no author gene-level effects comparable to the registered isoflurane-versus-oxygen contrast in excitatory neurons, inhibitory neurons or non-neuronal cells. GEO provides the count matrices used for the mouse-level analysis. The related GSE243489 supplements cover recovery sleep.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE337822/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "source_unavailable",
+      "comparisonLevel": "processed_source",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "No comparable author effects located for isoflurane versus oxygen in the three registered preoptic populations",
+      "note": "GSE337822 contains 20 mice, with five females and five males per treatment arm. Its 180 sample files comprise 60 feature-by-nucleus count matrices with matching feature and barcode lists. The series matrix contains zero gene rows. The registered edgeR models compare isoflurane with oxygen within each broad population and adjust for sex. GEO describes responses within cell clusters. The accession, publication and repository searches through 2026-11-22 UTC located no author gene-level effects for the registered populations. GSE243489 supplied the cell taxonomy and compares recovery sleep with undisturbed sleep in a separate cohort.",
+      "reviewFlags": [
+        "Author effect sizes, P values and FDR remain unassessed in excitatory neurons, inhibitory neurons and non-neuronal cells."
+      ],
+      "evidenceLinks": [
+        {
+          "kind": "database",
+          "label": "GSE337822 series, platform and sample metadata (GEO text export)",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE337822&targ=all&form=text&view=full"
+        },
+        {
+          "kind": "database",
+          "label": "GEO inventory of the sample archive",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE337nnn/GSE337822/suppl/filelist.txt"
+        },
+        {
+          "kind": "database",
+          "label": "ENA project record linking PRJNA1491233, SRP715920 and GSE337822",
+          "url": "https://www.ebi.ac.uk/ena/browser/api/xml/PRJNA1491233"
+        },
+        {
+          "kind": "database",
+          "label": "GSE243489 recovery-sleep cohort and design (GEO text export)",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE243489&targ=self&form=text&view=full"
+        },
+        {
+          "kind": "paper",
+          "label": "Recovery-sleep article and supplementary inventory (PMC11197849)",
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11197849/fullTextXML"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "GSE337822 contains 20 mice, with five females and five males per treatment arm. Its 180 sample files comprise 60 feature-by-nucleus count matrices with matching feature and barcode lists. The series matrix contains zero gene rows. The registered edgeR models compare isoflurane with oxygen within each broad population and adjust for sex. GEO describes responses within cell clusters. The accession, publication and repository searches through 2026-11-22 UTC located no author gene-level effects for the registered populations. GSE243489 supplied the cell taxonomy and compares recovery sleep with undisturbed sleep in a separate cohort.",
+      "nextStep": "Reopen if an author table, figure or other result is identified for this mouse cohort and treatment contrast. Check the population, direction and gene coverage before comparing any reported effects or inference.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO mice with treatment and sex labels reconciled to each registered samplesheet",
+      "value": "20",
+      "script": "data/author-validation/continued-sources/GSE337822/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "GEO archive members inspected and matched to the sample SOFT inventory and retained input hashes",
+      "value": "180",
+      "script": "data/author-validation/continued-sources/GSE337822/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "GEO archive members by content",
+      "value": "60 matrix / 60 features / 60 barcodes",
+      "script": "data/author-validation/continued-sources/GSE337822/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Feature rows in the GEO series matrix",
+      "value": "0",
+      "script": "data/author-validation/continued-sources/GSE337822/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Registered DE rows by track",
+      "value": "excitatory 15806, inhibitory 18581, nonneu 14180",
+      "script": "data/author-validation/continued-sources/GSE337822/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "ENA read runs, distinct BioSamples and analysis records returned for project PRJNA1491233",
+      "value": "80 runs, 20 samples, 0 analyses",
+      "script": "data/author-validation/continued-sources/GSE337822/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Europe PMC hits in the 2026-11-22 search for GSE337822 OR PRJNA1491233 OR SRP715920",
+      "value": "0",
+      "script": "data/author-validation/continued-sources/GSE337822/codex-2026-11-21/summarize_search.py"
+    }
+  ],
+  "openIssues": [
+    "The reviewed sources provided no comparable author effects, P values or FDR for the three registered populations. Author concordance and tested-gene coverage remain unassessed."
+  ]
+}

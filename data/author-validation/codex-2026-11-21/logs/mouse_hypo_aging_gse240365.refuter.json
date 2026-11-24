@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_hypo_aging_gse240365",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 104 retained files matched their recorded hashes and sizes. Of 171 published genes, 152 had registered coefficients. All 152 agreed in direction, and 133 met both adjusted cutoffs. The registered expression filter accounted for all 19 unpaired genes. Closure as compared is justified for the published list. Its 88.89% coverage falls below the 90% concordance requirement. The corrected proposal clarifies both coverage denominators, uses an exact symbol join, corrects a rounding error and passes the repository proposal checker.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_aging_gse240365.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_aging_gse240365.json",
+    "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/refute/audit.py"
+  ],
+  "openIssues": [
+    "The full author results, original model and q-value procedure remain unavailable. A fresh publisher download returned HTTP 403, so the replay used the hash-verified retained supplement.",
+    "The registered sheet labels all six mice male. GEO and ENA lack per-library sex annotations, leaving the marked group difference in Y-linked expression unexplained."
+  ]
+}

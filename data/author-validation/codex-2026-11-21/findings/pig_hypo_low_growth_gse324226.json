@@ -1,0 +1,219 @@
+{
+  "datasetId": "pig_hypo_low_growth_gse324226",
+  "accession": "GSE324226",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "Figure 7 gives 29 numerical day-39 hypothalamus log2 fold changes for low versus high ADG. Of these, 28 match registered genes and all 28 agree in direction (Pearson 0.9954, Spearman 0.9854). The comparison is restricted to the printed genes and falls below the 30-pair concordance minimum.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "summary": "Original day-39 hypothalamus effects compared on the genes printed in Figure 7",
+      "note": "Ferreres-Serafini et al. link the experiment to GSE324226 in their data availability statement. Figure 7 gives 29 numerical day-39 hypothalamus log2 fold changes for low versus high ADG. Of these, 28 match registered genes and all 28 agree in direction (Pearson 0.9954, Spearman 0.9854). Figure 4B separately yields 41/41 matching directions among 50 transcribed labels. 7 lack a registered effect and 2 converge on the same output key. The authors used DESeq2 median-of-ratios normalization and a Wald test. The displayed formula includes ADG class and sex, and the adjacent text also says RIN was included. The registered edgeR-QL fit uses TMM and ADG class alone. The 28 pairs fall below the author-concordance-v2 minimum of 30. Gene-level author P values, adjusted P values and the full tested-gene table remain unavailable. The GEO raw and normalized workbooks contain sample-level expression. The supplement describes Table S9 but the publisher inventory does not provide a corresponding workbook.",
+      "reviewFlags": [
+        "The original paper supplies selected effects. The full gene-wise author statistics and the exact covariate specification remain unresolved."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Official deposited data",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE324226",
+          "kind": "database"
+        },
+        {
+          "label": "Official deposited data",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM9571535",
+          "kind": "database"
+        },
+        {
+          "label": "Official deposited data",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE324nnn/GSE324226/suppl/GSE324226_Processed_data_normalized.xlsx",
+          "kind": "database"
+        },
+        {
+          "label": "Official deposited data",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE324nnn/GSE324226/suppl/GSE324226_Processed_data_raw.xlsx",
+          "kind": "database"
+        },
+        {
+          "label": "Original Scientific Reports manuscript and supplementary inventory",
+          "url": "https://www.nature.com/articles/s41598-026-71457-7",
+          "kind": "paper"
+        },
+        {
+          "label": "Original day-39 effects, Figure 7 and direction labels in Figure 4B",
+          "url": "https://www.nature.com/articles/s41598-026-71457-7_reference.pdf",
+          "kind": "author_result"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "Figure 7 gives 29 numerical day-39 hypothalamus log2 fold changes for low versus high ADG. Of these, 28 match registered genes and all 28 agree in direction (Pearson 0.9954, Spearman 0.9854). The 28 pairs fall below the author-concordance-v2 minimum of 30. Gene-level author P values, adjusted P values and the full tested-gene table remain unavailable.",
+      "nextStep": "Obtain the authors' day-39 hypothalamus low-minus-high DESeq2 export with stable gene IDs, coefficients, raw P and adjusted P for every tested gene. Request the sample design with sex and RIN, the rule used to select the 80 DEGs, the cited Table S9 workbook and confirmation of the day-39 correlation sheet's tissue headers.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "low_vs_high_growth_day39"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Published Figure 7 day-39 hypothalamic log2 fold changes paired with the registered edgeR-QL DE table. Figure 4B supplies a separate descriptive direction check.",
+      "reference": "Ferreres-Serafini et al., Scientific Reports, 10.1038/s41598-026-71457-7. Accepted article PDF page 12, all hypothalamic labels in Figure 7. Figure 4B is on PDF page 8.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "The paper identifies GSE324226. All twelve GEO day-39 hypothalamus libraries match the registered sample sheet, including six high-ADG controls and six low-ADG cases. The animal was the sampling unit. Table S1 documents the individual final ADG classes and shared pens. GEO library IDs and the animal IDs in S1 use different identifiers. Pen and litter were not independently balanced."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Both compare whole hypothalamus at day 39 using final day-0-to-39 ADG classification. Figures 4B and 7 explicitly use High-ADG as the reference. No sign reversal. Day 7 and ileum are outside scope."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Preserved all 29 Figure 7 hypothalamic labels and required a one-to-one match. The Ensembl labels ending in 35675 and 27491 trace uniquely to the registered METTL7A and COA1 rows across the twelve deposited counts. Pig UniProt entries link RANBP2 to ENSSSCG00000008136, which traces to LOC100511376. CLDN9 occurs in the registered expression matrix and lacks a published DE coefficient. All joins and unmatched rows are retained."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both estimates are signed log2 fold changes for low relative to high ADG. The published values are printed to two decimal places. The authors used DESeq2 median-of-ratios normalization and a Wald test. The displayed formula includes ADG class and sex, and the adjacent text also says RIN was included. The registered edgeR-QL fit uses TMM and ADG class alone. Median absolute difference 0.1289 log2 units, maximum 0.4932."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "The manuscript's gene rule is nominal P < 0.05 and adjusted P < 0.20. The Figure 4B inset labels its count P < 0.01, and the volcano legend marks nominal P < 0.05 and absolute log2FC >= 1. The paper reports 80 day-39 hypothalamic DEGs. The registered output contains 0 genes meeting the manuscript rule and 0 at FDR < 0.05. Figure 7 lacks per-gene P and FDR. Gene-level inference agreement and FDR overlap are unassessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "28/29 printed effects match (96.55% of Figure 7), covering 28/13,700 registered genes (0.204%). Figure 7 selects cross-tissue correlations with |r| > 0.80. Figure 4B separately yields 41/41 matching directions among 50 transcribed labels. 7 lack a registered effect and 2 converge on the same output key. Exact numerical pairs and direction-only labels have distinct denominators."
+        }
+      },
+      "criteria": "Use all printed hypothalamic coefficients and each unambiguous registered join with the published orientation. The v2 policy requires at least 30 paired effects and 90% relevant coverage. Its numerical routes require both correlations >= 0.90 or at least 90% direction agreement among at least 30 nonzero pairs covering 90% of pairs, plus supported cohort, contrast, identifier and effect definitions. Figure 4B signs do not supply coefficients. Missing author P and FDR stay unassessed.",
+      "conclusion": "Figure 7 gives 29 numerical day-39 hypothalamus log2 fold changes for low versus high ADG. Of these, 28 match registered genes and all 28 agree in direction (Pearson 0.9954, Spearman 0.9854). The 28 pairs fall below the author-concordance-v2 minimum of 30. Gene-level author P values, adjusted P values and the full tested-gene table remain unavailable."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "pig_hypo_low_growth_gse324226",
+      "accession": "GSE324226",
+      "contrast": "low_vs_high_growth_day39",
+      "localPath": "geo_replication/datasets/GSE324226_sscr_hypothalamus_adg/processed/GSE324226_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/author-effects.tsv",
+      "sourceUrl": "https://www.nature.com/articles/s41598-026-71457-7_reference.pdf",
+      "sha256": "1a00de550b53fc7a6ac07b4388ad3436a0846957e139e6ebe4f4afaa4b0ad13c",
+      "format": "tsv",
+      "authorKey": "output_id",
+      "authorEffect": "logFC",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL",
+      "authorMethod": "DESeq2 Wald, final ADG class with sex. RIN is reported separately in Methods. Figure 7 displays rounded coefficients.",
+      "orientation": "Day-39 hypothalamus, low minus high ADG in both sources.",
+      "note": "Figure 7 gives 29 numerical day-39 hypothalamus log2 fold changes for low versus high ADG. Of these, 28 match registered genes and all 28 agree in direction (Pearson 0.9954, Spearman 0.9854). The 28 pairs fall below the author-concordance-v2 minimum of 30. Gene-level author P values, adjusted P values and the full tested-gene table remain unavailable.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/reference.pdf",
+          "sourceUrl": "https://www.nature.com/articles/s41598-026-71457-7_reference.pdf",
+          "sha256": "0b1e8c15c159ec78792ba8102905684c7f71c4cd49a80097fabb6628868a85d5",
+          "bytes": 8549541
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/figure7_labels.tsv",
+          "sourceUrl": "Manual transcription of all Figure 7 hypothalamus labels, clockwise from PSMC1",
+          "sha256": "872e6652b231d93cece9c59ee06d3465f98dae72eeff666ea7126fcd7dad5898",
+          "bytes": 378
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/compare.py",
+          "sourceUrl": "Retained source inventory, identifier trace, normalization and comparison script",
+          "sha256": "8030cd71c6678181bf01e28571f3cf410566edbee14a52eddfa2e03cb348b56d",
+          "bytes": 11889
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/geo_raw.xlsx",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE324nnn/GSE324226/suppl/GSE324226_Processed_data_raw.xlsx",
+          "sha256": "921556200606c0d66b7760e8bdadbaaf2584cb69d6e323a0bcc8ed2739022e88",
+          "bytes": 8959180
+        },
+        {
+          "path": "geo_replication/datasets/GSE324226_sscr_hypothalamus_adg/processed/GSE324226_CPM_TMM.tsv.gz",
+          "sourceUrl": "Registered expression data used to trace stable IDs across all twelve libraries",
+          "sha256": "7267d62ee0c5a4d157b3bf675f41054491fcdab91f27b5c4586c1090dcdc85f9",
+          "bytes": 1530273
+        },
+        {
+          "path": "geo_replication/datasets/GSE324226_sscr_hypothalamus_adg/processed/GSE324226_cpm_normalization.tsv",
+          "sourceUrl": "Registered expression data used to trace stable IDs across all twelve libraries",
+          "sha256": "5aa184b1c2c402f7aaec29ef9aa17a637e93d7ae190a2ff39a2fd7c7ec5ed86a",
+          "bytes": 1409
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/uniprot_RANBP2.json",
+          "sourceUrl": "https://rest.uniprot.org/uniprotkb/search?query=organism_id%3A9823%20AND%20gene_exact%3ARANBP2&format=json&fields=accession,gene_names,xref_ensembl,xref_geneid",
+          "sha256": "3e9287b03b04f4fbec6c06c52e1bf63028350723ad51a07f9a8e32e85868112b",
+          "bytes": 3095
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/compare.py",
+      "resultScope": "All hypothalamic labels with printed day-39 log2FC in Figure 7, selected by the authors for strong cross-tissue correlations.",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE324226_sscr_hypothalamus_adg/processed/GSE324226_DE.tsv",
+        "sourceUrl": "Current registered R 4.6.0 day-39 hypothalamus DE output",
+        "sha256": "56588f64c29dfa470dd5b6effd072949b1617ab070d17cbb74d40f7cbff07c55",
+        "bytes": 1356173
+      }
+    }
+  },
+  "computed": [
+    {
+      "claim": "Figure 7 author effects, paired effects, nonzero pairs and same direction",
+      "value": "29, 28, 28, 28",
+      "script": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure 7 coverage of selected author rows and of published local DE rows",
+      "value": "96.551724% and 0.204380%",
+      "script": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure 7 Pearson and Spearman correlations, with average ranks for ties",
+      "value": "0.99535652 and 0.98535258",
+      "script": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure 7 median and maximum absolute log2FC differences, and RMS ratio (local/author)",
+      "value": "0.12891603, 0.49320788, 0.87363394",
+      "script": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Selected Figure 7 matched genes with local nominal P < 0.05 and local FDR < 0.05",
+      "value": "16 and 0",
+      "script": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure 4B direction-only author labels, paired labels and same direction, with ambiguous rows held out",
+      "value": "50, 41, 41",
+      "script": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered rows, local nominal P < 0.05, local P < 0.05 with FDR < 0.20, local FDR < 0.05",
+      "value": "13700, 428, 0, 0",
+      "script": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "GEO family sample records, sample-level file fields marked NONE, and matched day-39 hypothalamus low/high libraries",
+      "value": "48, 48, 6/6",
+      "script": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Raw and normalized GEO workbook data rows and sample columns",
+      "value": "22924 x 48, 22924 x 48",
+      "script": "data/author-validation/continued-sources/GSE324226/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "Figure 7 is selected by cross-tissue correlation. The number of numerical pairs is below the policy minimum. The public full tested-gene universe and gene-level author inference remain unavailable.",
+    "The supplement describes Table S9. Neither publisher inventory lists its workbook. All Figure 7 hypothalamic labels occur in the day-39 biomarker spreadsheet block headed Ileum. Its correlations cannot substitute for DE coefficients or gene-level DE P values.",
+    "The displayed DESeq2 formula includes sex, and the adjacent text also names RIN. The manuscript and Figure 4B use different significance labels. The exact design and author call set require the authors' original export."
+  ]
+}

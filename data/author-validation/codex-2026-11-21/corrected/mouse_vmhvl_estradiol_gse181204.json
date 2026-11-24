@@ -1,0 +1,197 @@
+{
+  "datasetId": "mouse_vmhvl_estradiol_gse181204",
+  "accession": "GSE181204",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "Extended Data Table 1 in the October 2019 bioRxiv supplement reports numerical results for 29 selected VMHvl genes after estradiol benzoate versus vehicle. All 29 agree in direction with registered edgeR-QL effects (Pearson 0.9310, Spearman 0.9138), and 16 of the 29 author discoveries meet registered FDR < 0.05. This reference falls below the 30-pair minimum for author-concordance-v2.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "All 29 genes in the preprint’s selected RNA-seq table agree in direction with the registered VMHvl result.",
+      "note": "The October 10, 2019 supplement prints log2 fold changes and adjusted P values for three overlapping groups. Its 43 rows yield 29 unique exact-symbol matches. All 17 increases and 12 decreases agree. Sixteen genes meet the BH threshold of 0.05 in both analyses. Nature Figure 1d labels four positive RNA-seq effects from the same study, including Pgr and Greb1 outside the table. The seven GEO sample identifiers reconcile to the registered treatment groups. The earlier preprint identifies the tissue, treatment and group sizes.",
+      "reviewFlags": [
+        "The selected numerical reference contains 29 pairs. Author-concordance-v2 requires at least 30.",
+        "The public table contains selected discoveries and rounded adjusted P values. Genome-wide author inference, raw P values and the testing universe remain unassessed.",
+        "The registered provenance fingerprints the staged count matrix and sample sheet. The legacy staging record lacks per-download checksums tying the original seven inputs to the current GEO archive."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "All 29 genes in the preprint’s selected table agree in direction with the registered analysis (Pearson 0.9310, Spearman 0.9138). Thirteen of the 29 author discoveries fall above the registered BH threshold of 0.05. The table falls below the 30-pair policy minimum. The reviewed sources do not provide the full author result or gene-wise raw P values.",
+      "nextStep": "For a genome-wide review, obtain the original GSE181204 DESeq2 results for EB relative to vehicle, including every tested gene, log2 fold change, raw and adjusted P values with missing tests retained, the design and contrast, and filtering and coefficient-shrinkage settings.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "eb_vs_vehicle"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Compare the registered vmhvl edgeR-QL output with every numerical EB versus vehicle row in the preprint’s Extended Data Table 1. Check the four labeled published volcano directions separately.",
+      "reference": "Krause et al., bioRxiv 10.1101/794792, version 2 (October 10, 2019), Extended Data Table 1 on supplement page 7 and Figure 2a in the manuscript. Versions 3 and 4 use Table 1 for brain-region abbreviations. The final Nature article (DOI 10.1038/s41586-021-04010-3) supplies the separate Figure 1d direction check and links the RNA-seq experiment to GSE181204.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "The 2019 preprint and the published methods describe microdissected VMH tissue from four EB-treated and three vehicle-treated ovariectomized females. Both reports identify the profiled region as VMHvl. The final paper links this experiment to GSE181204. GEO specifies one mouse per library, and GSM5492402–GSM5492408 match the registered sample sheet and fitted groups. The earlier preprint predates the deposit and gives no individual GSM identifiers."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "The GEO treatment is 1 µg estradiol benzoate or vehicle, with tissue collected four hours later. Positive author effects denote higher expression after EB, supported by the Mc4r result and the vehicle-to-EB figure panels. The registered coefficient is groupcase with vehicle as baseline. Orientation sign is +1."
+        },
+        "features": {
+          "status": "matched",
+          "note": "All 29 unique printed mouse symbols join exactly once to the registered table. Across the three groups, 14 repeated rows have identical effect and adjusted P values. No aliases or ambiguous assignments were used. The full author testing universe is unknown."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both analyses report log2 fold changes for EB relative to vehicle. All 29 nonzero signs agree. Pearson is 0.9310 and Spearman is 0.9138. The median absolute difference is 0.1122 log2 units, with a maximum of 1.6163 for Npy4r. The paired RMS effect ratio (registered/author) is 1.4886. These are comparisons against the five-decimal printed coefficients."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The 2019 preprint names DESeq2 and specifies BH-adjusted P < 0.05 in Figure 2a. The published methods report DESeq2 v1.14.1. The exact software version and model settings for the earlier table are undocumented. The registered fit uses TMM and an edgeR quasi-likelihood group coefficient. All 29 selected genes have author adjusted P < 0.05 at the printed precision, including eight shown as 0.00000. Sixteen pass registered BH FDR < 0.05 and 13 exceed it. All 29 have registered nominal P < 0.05. The table supplies no gene-wise author raw P values."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The table covers 29/29 selected genes, 29 of the 287 discoveries reported in preprint Figure 2a (10.1%), and 29/18,387 registered genes (0.158%). Of the 157 registered FDR calls, 141 fall outside Table 1. Their table-based author call is unassessed. The full author testing universe and discovery list were not located in the reviewed sources. Pgr and Greb1 add two labeled figure directions only."
+        }
+      },
+      "criteria": "Use every printed Table 1 row. Collapse only exact repeat measurements of the same symbol and join case-sensitively. Preserve EB minus vehicle and printed precision. Count adjusted P < 0.05 on shared genes. The v2 policy requires compatible definitions, at least 30 numerical pairs and at least 90% relevant coverage. It accepts either Pearson and Spearman both ≥ 0.90 or ≥ 90% direction agreement among at least 30 nonzero pairs covering ≥ 90% of the pairs. Unlisted genes and unreported statistics remain unassessed.",
+      "conclusion": "The selected reference shows agreement on direction for every gene and different FDR calls for 13. Its 29 numerical pairs cannot satisfy author-concordance-v2 or support full verification."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "mouse_vmhvl_estradiol_gse181204",
+      "accession": "GSE181204",
+      "contrast": "eb_vs_vehicle",
+      "localPath": "geo_replication/datasets/GSE181204_mmus_vmhvl_estradiol/processed/GSE181204_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/author-effects.tsv",
+      "sourceUrl": "https://www.biorxiv.org/content/biorxiv/early/2019/10/10/794792/DC1/embed/media-1.pdf?download=true",
+      "sha256": "c3c2cb85e2717578bb93479c4466efd906d462375b415fc6ac9749cd63fee45c",
+      "format": "tsv",
+      "authorKey": "symbol",
+      "authorEffect": "logFC",
+      "authorAdjustedP": "padj",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL",
+      "authorMethod": "DESeq2 in the October 2019 preprint. The final published methods specify v1.14.1. The preprint identifies the BH adjustment, and its Table 1 prints effects and adjusted P values to five decimal places.",
+      "orientation": "Estradiol benzoate minus vehicle in ovariectomized female VMHvl, unchanged from the author reference.",
+      "note": "All 29 unique genes in the three printed Table 1 groups are included. All 29 agree in direction and 16 pass registered FDR < 0.05. Printed 0.00000 values retain the authors’ precision and serve only to establish the call. Raw author P is unassessed. The numerical comparison falls below the 30-pair v2 minimum. Figure-only signs are excluded from the spec.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/sources/preprint-v2-supplement.pdf",
+          "sourceUrl": "https://www.biorxiv.org/content/biorxiv/early/2019/10/10/794792/DC1/embed/media-1.pdf?download=true",
+          "sha256": "4c0cd559ab45a972804e929c5e314c6cc2444e85c41ec9b2f5e59c17e660c169",
+          "bytes": 643686
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/sources/preprint-v2.pdf",
+          "sourceUrl": "https://www.biorxiv.org/content/10.1101/794792v2.full.pdf",
+          "sha256": "8ac9e0cbd86d90a8b5b27294a20c9875625b05eb11e7e53016ac07afa2dea516",
+          "bytes": 24179952
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/sources/figure1.png",
+          "sourceUrl": "https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs41586-021-04010-3/MediaObjects/41586_2021_4010_Fig1_HTML.png",
+          "sha256": "93d55c3784b496e151789c9877cc6de56475eb51259b1882e78e65ceea031a19",
+          "bytes": 471237
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/sources/GSE181204_family.soft.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE181nnn/GSE181204/soft/GSE181204_family.soft.gz",
+          "sha256": "83442e8316bddc01c6fe77dd0fb9d2473288ad7779ce7424a4855fb62e0df5d2",
+          "bytes": 2538
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/sources/Methods_Supplemental_Figure_Legends.pdf",
+          "sourceUrl": "https://ftp.ebi.ac.uk/pub/databases/biostudies/S-EPMC/400/S-EPMC9113400/Files/NIHMS1799531-supplement-Methods_Supplemental_Figure_Legends.pdf",
+          "sha256": "1454fdc5126ed19841ac9f7443ed8cc295d79f404b79ad361c05661d6a317e75",
+          "bytes": 307923
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/table1-transcription.tsv",
+          "sourceUrl": "Visual transcription of all three groups on page 7, in printed order",
+          "sha256": "f0c307784b35ff4787bd275917dfacc38a578d85b1400b20a2b9da3b7238d90d",
+          "bytes": 1065
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/compare.py",
+          "sourceUrl": "Reproducible normalization and registered comparison",
+          "sha256": "73a1fb83dcd3b5f750aea2ce89e8550369a456a3c2a247a68c49405dd39c21d4",
+          "bytes": 8515
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/compare.py",
+      "resultScope": "Every gene with a printed effect and adjusted P in preprint v2 supplement Extended Data Table 1. These are selected discoveries in enriched groups.",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE181204_mmus_vmhvl_estradiol/processed/GSE181204_DE.tsv",
+        "sha256": "b4a88fd2b20ecb844af8293932f336309262a94cb5b817824979fa08a5bf7680",
+        "bytes": 1844097,
+        "sourceUrl": "Registered R 4.6.0 edgeR-QL DE output for vmhvl / eb_vs_vehicle"
+      }
+    }
+  },
+  "computed": [
+    {
+      "claim": "Printed rows by group, repeated rows, unique symbols, exact numerical pairs and unmatched symbols",
+      "value": "15 + 11 + 17 = 43 rows, 14 repeats, 29 unique symbols, 29 exact pairs, 0 unmatched",
+      "script": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Directional agreement among nonzero numerical pairs",
+      "value": "29/29 (17 up, 12 down)",
+      "script": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Paired Pearson and Spearman correlations",
+      "value": "0.9310316182 and 0.9137931034",
+      "script": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Median and maximum absolute log2FC differences, paired RMS ratio (registered/author)",
+      "value": "0.1121722583, 1.6162671279 (Npy4r), 1.4885707390",
+      "script": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Coverage of selected author genes and registered effects",
+      "value": "29/29 and 29/18387",
+      "script": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "At BH-adjusted P < 0.05 on the numerical pairs, author / registered / both / author only",
+      "value": "29 / 16 / 16 / 13. Eight genes have adjusted P printed as 0.00000.",
+      "script": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered BH FDR < 0.05 calls, including those with no Table 1 statistic",
+      "value": "157 total, 141 outside Table 1",
+      "script": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Selected genes with registered nominal P < 0.05 and pairs with available author raw P",
+      "value": "29 and 0",
+      "script": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Published Figure 1d labeled directions assessed separately",
+      "value": "4/4 positive in both. Pgr and Greb1 occur only in the figure check. Mc4r and Nmur2 also occur in Table 1.",
+      "script": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "GEO file and cohort audit",
+      "value": "7 sample files (3 vehicle, 4 EB), each with 48321 symbol/count rows and 2 columns. The series matrix has 0 data rows after its header.",
+      "script": "data/author-validation/continued-sources/GSE181204/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "A complete original DESeq2 table would be needed to assess the author testing universe, raw P values, unrounded adjusted P values and whole-list overlap with the 157 registered FDR calls.",
+    "The 29 unique numerical pairs fall one below the v2 minimum. The two additional figure-only directions cannot supply printed effect sizes."
+  ]
+}

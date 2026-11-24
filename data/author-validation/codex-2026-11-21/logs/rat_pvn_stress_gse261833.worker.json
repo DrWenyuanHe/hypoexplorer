@@ -1,0 +1,22 @@
+{
+  "datasetId": "rat_pvn_stress_gse261833",
+  "outcome": "compared",
+  "summary": "All five genes labeled as upregulated in the authors’ stress-versus-control PVN plot have positive registered coefficients. Four meet the paper’s fold-change and nominal-P cutoffs locally. Clec7a falls below the fold-change cutoff. This closes the five-symbol direction comparison without full verification. [Figure 4A and study methods](https://pmc.ncbi.nlm.nih.gov/articles/PMC11808488/)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/rat_pvn_stress_gse261833.json",
+    "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/compared-genes.tsv",
+    "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/comparison.json",
+    "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/compare.py",
+    "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/figure4a.png",
+    "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/crop_figure.py",
+    "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/retrieve.py",
+    "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/retrieval.json",
+    "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/further-routes.json"
+  ],
+  "openIssues": [
+    "The full author edgeR table was unavailable. Exact effect sizes, per-gene P values, FDR and genome-wide overlap remain unassessed. Five published directions fall below the 30-pair concordance minimum.",
+    "Two deposited Ensembl IDs carry the Hmgb2 label. Figure 4A identifies the symbol only, so the underlying author feature remains unresolved."
+  ]
+}

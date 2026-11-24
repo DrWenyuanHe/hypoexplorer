@@ -1,0 +1,146 @@
+{
+  "datasetId": "chicken_poah_ehc_gse298648",
+  "accession": "GSE298648",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "Seven of 18 Table 5 genes have a published local coefficient, and all seven agree in direction but have local FDR above 0.1. Eight other genes were tested under reserved identifiers and three failed local expression filtering. Independent incubation replication and the authors’ gene-selection procedure still require clarification.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE298648/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "summary": "All seven comparable Table 5 effects agree in direction. Their local FDRs range from 0.28608 to 0.69447. Incubator replication and Table 5 selection remain unresolved.",
+      "note": "The 15 pairs in the September review describe the R 4.4.1 result. The current R 4.6.0 DE table contains 7 of the 18 selected genes (38.89%). Pearson r is 0.97991425, Spearman rho is 1, and the median absolute logFC difference is 0.44115638. Eight other genes passed local filtering under reserved identifiers and have no coefficient in the published local DE table. OC3, MGP and ENSGALG00010000651 (local MYO7L2) reached the CPM cutoff in one, two and one of the eight libraries, respectively. Each needed three. OC3 also has a reserved local identifier. All 18 printed FDRs are below 0.1. SOX14 is the only published local gene below 0.1 and has no entry in Table 5. Section 2.8 requires FDR ≤0.1 in both tests and |logFC| >1. Applying the effect condition to the displayed column leaves 17 of 18 rows. BEND3 has logFC −0.67962. The evidence folder contains the full comparison, sample crosswalk and filter replay.",
+      "reviewFlags": [
+        "Section 2.1 assigns the two groups to separate conditioning incubators, one per treatment as described. The eight libraries establish bird-level sampling. The public records do not document independent treatment assignments across setters or runs.",
+        "Section 2.8 gives a joint significance rule, but Table 5 prints one set of statistics per gene. The individual test results, tested populations and basis for selecting BEND3 remain unresolved.",
+        "The seven pairs cover 38.89% of the selected reference. Author-concordance-v2 requires at least 30 pairs and 90% coverage of that reference."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Manuscript methods and Table 5",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12208832/",
+          "kind": "paper"
+        },
+        {
+          "label": "Original selected POAH coefficients, nominal P values and FDRs",
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12208832/fullTextXML",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO count deposit and sample metadata",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE298648",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Frontiers supplementary figures and RT-PCR tables",
+          "url": "https://doi.org/10.3389/fphys.2025.1583958.s001",
+          "kind": "author_result"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "All seven paired effects agree in sign. Their printed author FDRs are below 0.1 and their registered FDRs exceed 0.1. Local filtering and publication rules account for the eleven other rows. The public evidence leaves independent incubator replication, the author fitting and adjustment populations, and BEND3’s inclusion unresolved.",
+      "nextStep": "Ask whether treatment was independently reassigned across setters or runs and request the setter and run for each of the eight target GSMs. Request the samples, tested genes, design and full outputs or code for the reported tests. Ask which test supplied each Table 5 column, how the Wald and likelihood tests entered selection, and which coefficient or exception admitted BEND3.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "ehc_vs_control_poah_hour2_sex_adjusted"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "All 18 original Table 5 rows were checked against the registered R 4.6.0 sex-adjusted edgeR quasi-likelihood result pinned in LOCAL_INPUTS.tsv. The seven records with a published local coefficient enter the paired comparison. Local BH adjustment used all 14,970 tested features, including 3,163 whose coefficients were withheld from the local DE table.",
+      "reference": "Vaughan et al., Table 5. The authors list 18 selected genes for EHC versus conventional incubation in the POAH two hours into the day-four heat challenge. The extraction preserves table order, original Ensembl IDs and names, direction, logFC, nominal P and FDR.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "GEO, ENA, the count columns and the samplesheet identify four POAH libraries per arm at hour two, two female and two male. The paper reports one conditioning incubator per treatment, followed by a common hatcher. In the design described, a treatment effect cannot be separated from a setter effect. Across the deposit, Rep_A–Rep_F identify treatment-by-time groups. Independent assignments across runs and the exact author fitting cohort remain undocumented."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Table 5 compares embryonic heat conditioning minus conventional incubation in the POAH two hours into the shared 36 °C challenge on post-hatch day four. The registered edgeR coefficient is groupcase with an additive sex term. The author direction labels agree with the signs of all 18 printed effects."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "The reconstructed 18-row reference matches the historical SHA-256, including every Ensembl ID and output key. Author FAM46A maps to local TENT5A. Eight selected rows passed the registered filter under reserved identifiers. OC3 (also reserved), MGP and local MYO7L2 failed the filter. The full historical Ensembl map is unavailable in this checkout. The reference digest verifies these 18 mappings."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both sources describe a signed EHC-versus-control log fold change, and the paper and registered design both specify a sex term. The registered value is the edgeR log2 coefficient. Table 5 labels its column logFC and leaves its estimator unspecified. On the reported scales all seven nonzero pairs agree in sign, Pearson r is 0.97991425, Spearman rho is 1, and the median absolute logFC difference is 0.44115638."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Section 2.8 specifies BH FDR ≤0.1 in both tests and |logFC| >1. Table 5’s footnote uses FDR <0.1, and the Figure S2 caption prints FDR >0.1. No printed Table 5 FDR or published local FDR equals 0.1. All 18 printed FDRs meet the table cutoff. BEND3 is the sole exception to the stated effect condition on the printed column. Within the seven pairs, the author has seven FDRs below 0.1 and the registered output has zero. Both published tables have zero FDRs below 0.05. The authors describe a biotype and CPM/FPKM filter, a fixed sex effect, edgeR quasi-likelihood and DESeq2 Wald and likelihood tests. The tested populations, source of each printed column and implementation of the joint rule remain unclear."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Seven pairs cover 38.89% of the 18 selected genes and 0.0593% of the 11,807 published local genes. The selected list is the coverage denominator for v2. The reviewed sources yielded no full author results table for this contrast. The eleven genes without a published local coefficient have no paired effect, P or FDR comparison."
+        }
+      },
+      "criteria": "Retain every Table 5 row and match by the established Ensembl-to-output key. Preserve EHC-minus-control orientation. Both v2 routes require compatible cohort, contrast, identifiers and effects, at least 30 pairs and 90% selected-reference coverage. The correlation route requires Pearson and Spearman ≥0.90. The direction route requires at least 30 nonzero pairs covering ≥90% of all pairs, with ≥90% same-sign agreement. Magnitudes, nominal P and FDR are contextual. Evaluate the Table 5 FDR cutoff and the repository’s 0.05 cutoff separately from the authors’ joint selection rule.",
+      "conclusion": "The seven paired effects agree in direction. Pair count and selected-reference coverage fall below both v2 minima. The registered analysis accounts for all eleven unpaired rows. Incubator-level replication, the authors’ fitting and BH populations, and the selection of BEND3 still require author clarification."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Disposition of all selected author genes against the current registered output",
+      "value": "Of 18 original author rows, 7 have a published local coefficient, 8 passed filtering under reserved IDs and were withheld from the local DE table, and 3 failed the local expression filter.",
+      "script": "data/author-validation/continued-sources/GSE298648/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Current paired effects and coverage",
+      "value": "7/7 nonzero pairs have the same sign. Pearson 0.97991425, Spearman 1, median absolute logFC difference 0.44115638, RMS difference 0.72194197. Reference coverage 7/18 (38.89%). Output coverage 7/11807 (0.0593%).",
+      "script": "data/author-validation/continued-sources/GSE298648/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered filter reproduced from GEO counts, effective library sizes and the feature map",
+      "value": "Raw CPM cutoff 2.480818005, minimum 3 libraries and 15 total counts. All 14,970 passing fit rows include 11,807 published and 3,163 hidden. The exact published row set and each filtered library total match.",
+      "script": "data/author-validation/continued-sources/GSE298648/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Why the three genes failed the registered filter",
+      "value": "OC3 (ENSGALG00010012092) met the CPM cutoff in 1 library (59 total counts), MGP (ENSGALG00010012083) in 2 (602), and MYO7L2 (ENSGALG00010000651) in 1 (46). Each needed 3.",
+      "script": "data/author-validation/continued-sources/GSE298648/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Diagnostic for the unspecified sample population of the author CPM filter",
+      "value": "Using unnormalized deposited column totals, OC3 has raw CPM >1 in 1/8 target and 5/71 deposited libraries, and MYO7L2 in 2/8 and 30/71. This diagnostic does not reproduce the joint author CPM/FPKM filter.",
+      "script": "data/author-validation/continued-sources/GSE298648/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "FDR calls over all published rows and over paired genes",
+      "value": "Printed FDR ranges from 0.06251 to 0.09889. At FDR <0.1 the author list has 18/18 calls versus 1/11807 published local calls (SOX14, 0.0510780774569692). Within pairs the author has 7/7 and the registered output 0/7. At FDR <0.05 both published sets have zero calls.",
+      "script": "data/author-validation/continued-sources/GSE298648/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Exception to applying the manuscript effect cutoff to the printed column",
+      "value": "BEND3 (ENSGALG00010012529) is the sole selected row with absolute logFC ≤1: author −0.67962, nominal P 0.0000873 and FDR 0.09889.",
+      "script": "data/author-validation/continued-sources/GSE298648/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Cohort and deposited sample metadata",
+      "value": "71 GEO libraries and 71 ENA runs. The registered POAH hour-two arm counts are 2F + 2M for both conditions. All four EHC samples carry Rep_C and all four controls carry Rep_D. Across all 71 deposited libraries each of Rep_A–Rep_F marks a single treatment-by-time combination.",
+      "script": "data/author-validation/continued-sources/GSE298648/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Reconstructed selected-reference digest",
+      "value": "The complete original-order 18-row extraction matches SHA-256 d2f33b8b62b575918da7cb4956d22d187a22d0f2f256c311b405ed5ae5db8c0e from the existing comparison spec.",
+      "script": "data/author-validation/continued-sources/GSE298648/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Effect of the manuscript’s strict magnitude cutoff on the printed Table 5 columns",
+      "value": "All 18 printed FDRs are below 0.1. Seventeen of 18 rows and six of seven paired rows also have |logFC| >1. BEND3 is the only exception. No author Table 5 or published local FDR equals 0.1. The reported per-test conjunction cannot be checked from a single FDR column.",
+      "script": "data/author-validation/continued-sources/GSE298648/codex-2026-11-21/refute/check.py"
+    }
+  ],
+  "openIssues": [
+    "Were there independent conditioning runs with treatment reassigned between setters? Which setter and run supplied each of the eight hour-two POAH GSMs?",
+    "Which samples and Ensembl IDs entered the CPM/FPKM filter, model fits and BH adjustments? Which tests produced the printed Table 5 columns, how were the reported tests combined in practice, and what admitted BEND3 under the stated effect-size rule?"
+  ]
+}

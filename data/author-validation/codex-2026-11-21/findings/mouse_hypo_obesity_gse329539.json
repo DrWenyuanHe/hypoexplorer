@@ -1,0 +1,182 @@
+{
+  "datasetId": "mouse_hypo_obesity_gse329539",
+  "accession": "GSE329539",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "The paper’s Table 1 reports obesity-versus-control log2 fold changes for 54 genes also responsive to resveratrol. Of 23 genes with an unambiguous registered effect, 22 agree in direction and M6pr-ps reverses. Coverage of the selected list is 42.59%, below the author-concordance-v2 requirement, and the pair count is below 30.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "Selected obesity effects compared in the six registered hypothalamus libraries",
+      "note": "GEO links this study to PMID 41898832. Raw-read totals from supplementary Table S1 match ENA for C1–C3 and OB1–OB3. The deposited matrix contains integer counts. The manuscript itself gives 54 selected Table 1 obesity-versus-control coefficients. Exact, one-to-one feature joins give 23 paired effects, with 22 matching directions, Pearson 0.912609, Spearman 0.869286 and a median absolute log2FC difference of 0.194968. M6pr-ps is +2.65 in the paper and −0.100759 in the registered output. The paper reports 393 obesity DEGs by its joint adjusted-P and effect-size rule. The registered output has zero genes with FDR < 0.05. Individual author P and FDR values are unavailable. The per-gene audit and the conflicting Ppargc1b entries are retained in data/author-validation/continued-sources/GSE329539/codex-2026-11-21.",
+      "reviewFlags": [
+        "Only 23 of the 54 RSV-responsive genes have a one-to-one registered coefficient. Author-concordance-v2 requires at least 30 pairs and 90% selected-reference coverage.",
+        "Ppargc1b is −1.93 in Table 1 and −1.46 in Table 2 for Ob vs. C. M6pr-ps has opposite author and registered directions.",
+        "The complete author DESeq2 table and model inputs are unavailable. The paper and GEO describe different alignment workflows.",
+        "This legacy source has no committed source-file checksum manifest."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "Compared all published Table 1 Ob vs. C coefficients against the registered edgeR-QL table. One-to-one stable-ID mapping paired 23 of 54 selected genes, with 22 matching directions. M6pr-ps reverses, the two manuscript tables disagree about the magnitude of Ppargc1b, and the difference between the reported and registered significant-gene counts remains unexplained. No per-gene P/FDR values were published in these tables.",
+      "nextStep": "Obtain the full Ob vs. C DESeq2 results, gene IDs and annotation, input count matrix, design and filtering settings. Confirm which Ppargc1b coefficient is intended and use those files to reconcile M6pr-ps and the reported obesity discoveries.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "obesity_vs_control"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered whole-hypothalamus edgeR-QL output compared directly to the signed Table 1 DESeq2 Ob vs. C column. Its 54 RSV-responsive genes define the reference denominator.",
+      "reference": "De la Cruz-Concepción et al., Genes 2026, DOI 10.3390/genes17030297, Tables 1 and 2. Table 1 is primary because it enumerates the entire selected list and its Ensembl IDs. Table S1 and ENA independently establish the sample mapping.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "The publication reports three biological RNA-seq replicates per arm. S1 raw-read totals for each numbered sample match twice the paired ENA spot count for its linked GEO library. C1–C3 and OB1–OB3 are vehicle-treated male C57BL/6 whole hypothalami. Treated arms are excluded from the registered fit."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Untreated HFD-obese minus standard-diet control from the same terminal tissue collection. Table 1 labels the coefficient Ob vs. C. Orientation sign is +1. Response to RSV determines list membership only."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Only exact author Ensembl IDs with a unique deposited source feature per registered symbol enter the paired analysis. This recovers Snail1/Snai1, Olfr543/Or55b3 and Gm47283/Erdr1y. The Ccl27a symbol belongs to different stable IDs in the paper and deposit. Palm2 contributes to a three-feature Pakap aggregate. Both remain unpaired."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both estimates are signed log2 case/control changes in gene expression. The paper attributes its rounded coefficients to DESeq2 and the registered fit uses edgeR-QL. In the 23 pairs, Pearson is 0.912609, Spearman is 0.869286 and 22 directions agree. Median absolute difference is 0.194968 and the paired RMS magnitude ratio (registered/author) is 0.769399. M6pr-ps changes sign. Using the alternative Ppargc1b value from Table 2 leaves the direction count and policy decision unchanged."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "The paper used DESeq2 with BH adjustment and reports 393 Ob vs. C DEGs at adjusted P < 0.05 and |log2FC| ≥ 1. Registered edgeR-QL has 0 of 20,008 published rows at FDR < 0.05, including 0 of 23 paired genes. There are 17 nominal local P < 0.05 among the pairs. Author per-gene raw P and adjusted P are unavailable, so numerical P/FDR comparisons and full-universe call overlap remain unassessed. The paper reports HISAT2 alignment while GEO reports Rsubread."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "23 of 54 selected author genes pair (42.59%), representing 23 of 20,008 registered rows (0.115%). Another 27 map uniquely outside the registered DE table, three published stable IDs are absent from the deposit and one maps to a multi-feature aggregate. The selected list is the obesity/RSV intersection. Table 2 repeats nine Table 1 genes."
+        }
+      },
+      "criteria": "Use the published Ob vs. C column at orientation +1 and all unique one-to-one pairs, without magnitude filtering. Author-concordance-v2 requires compatible cohort, contrast, features and effect definitions, at least 30 pairs and 90% coverage of this selected reference. It also requires either Pearson and Spearman each ≥ 0.90, or ≥ 90% matching directions among ≥ 30 nonzero pairs covering ≥ 90% of the pairs. Magnitude and inference are contextual.",
+      "conclusion": "The selected-gene comparison is complete. With 23 pairs and 42.59% selected-reference coverage, neither v2 route passes. Spearman falls below 0.90. Directional agreement is 95.65% across all 23 pairs, fewer than the required 30. The published significant-gene counts and the Ppargc1b discrepancy remain unreconciled."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "mouse_hypo_obesity_gse329539",
+      "accession": "GSE329539",
+      "contrast": "obesity_vs_control",
+      "localPath": "geo_replication/archive/GSE329539_mmus_hypothalamus_rnaseq/processed/GSE329539_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/selected-effects.tsv",
+      "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13025380/fullTextXML",
+      "sha256": "03fec73f53022eaa7c70c4f265e5ee30798f8e915c61431d98661d8b75248094",
+      "format": "tsv",
+      "authorKey": "comparison_key",
+      "authorEffect": "author_logFC",
+      "orientationSign": 1,
+      "orientation": "Ob vs. C as printed in Table 1, untreated obese minus control in whole hypothalamus.",
+      "localMethod": "edgeR-QL, TMM, six registered libraries",
+      "authorMethod": "DESeq2 1.20.0, rounded Ob vs. C log2FC in manuscript Table 1",
+      "note": "All 54 author-selected rows retained. A key is the registered symbol only for an exact one-to-one source-feature match with a published DE row. Other rows retain the original Ensembl ID and remain outside the join. Compare 23 pairs with no author P/FDR. The two tables give different magnitudes for Ppargc1b. The alternative is recorded separately. M6pr-ps reverses. Coverage and pair count preclude v2 acceptance.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/paper.xml",
+          "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13025380/fullTextXML",
+          "sha256": "d25ff0705815099d6eeeb45806445a1f1539eacd7c3be781a4c6992a0e3841c9",
+          "bytes": 167817
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/publisher.xml",
+          "sourceUrl": "https://mdpi-res.com/d_attachment/genes/genes-17-00297/article_deploy/genes-17-00297.xml",
+          "sha256": "d2b1370e7bb36b88012967586655084a1de49a313a7b259a46ef69595967d722",
+          "bytes": 200958
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/compare.py",
+          "sourceUrl": "Reproducible Table 1 extraction, Table 2 cross-check and stable-ID joins",
+          "sha256": "af52f9dcb103d8c28dba9b2c5a48a8c56753c2a5eb1155495af088fb6a7cc3b5",
+          "bytes": 10884
+        },
+        {
+          "path": "geo_replication/archive/GSE329539_mmus_hypothalamus_rnaseq/processed/GSE329539_feature_map.tsv.gz",
+          "sourceUrl": "Registered input-feature to public-symbol mapping",
+          "sha256": "84775f08c84b5f429f2a02fd2c80028bccb436b3b15dfea40a42df9e8be5e251",
+          "bytes": 587851
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/mdpi-supplement.zip",
+          "sourceUrl": "https://mdpi-res.com/d_attachment/genes/genes-17-00297/article_deploy/genes-17-00297-s001.zip",
+          "sha256": "b11f12f600c8a434f9b1f3bff440289dc3d528fa4b5e23d67a29ca9b2e0ed666",
+          "bytes": 53645
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/family.soft.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE329nnn/GSE329539/soft/GSE329539_family.soft.gz",
+          "sha256": "b127bfd1249d8ba25ff43723c168bbbc71593f3ed688bec0ea92b44fc018afca",
+          "bytes": 3575
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/ena-read-counts.tsv",
+          "sourceUrl": "https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJNA1459453&result=read_run&fields=sample_alias,run_accession,read_count,base_count,library_layout",
+          "sha256": "15abdee1c50427ea05c805b36a0c46fd8d1f4173545f364c046be7c80c1a51f4",
+          "bytes": 664
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/compare.py",
+      "resultScope": "All 54 selected RSV-responsive genes in the Table 1 Ob vs. C column. Comparison is limited to matched effects.",
+      "localSnapshot": {
+        "path": "geo_replication/archive/GSE329539_mmus_hypothalamus_rnaseq/processed/GSE329539_DE.tsv",
+        "sourceUrl": "Registered Explorer DE output",
+        "sha256": "3c81e749c101102b0b5046ddc0136d69be0b8460acb6c7a4f5e35870a339e746",
+        "bytes": 1998509
+      }
+    }
+  },
+  "computed": [
+    {
+      "claim": "Table 1 coverage and pair disposition",
+      "value": "54 author genes, 23 one-to-one pairs (42.592593%), 27 uniquely mapped outside the published DE table, 3 missing stable IDs, 1 multi-feature aggregate. Registered coverage 23/20,008 (0.114954%).",
+      "script": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Ob vs. C effect agreement for the full set of usable Table 1 pairs",
+      "value": "Pearson 0.9126091605, Spearman 0.8692859173, same direction 22/23 (95.652174%), nonzero pairs 23/23, median absolute difference 0.1949678430, RMSE 0.9668370295, RMS magnitude ratio 0.7693989774.",
+      "script": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Opposite-direction pair",
+      "value": "M6pr-ps, ENSMUSG00000080832, author +2.65, registered −0.100759298772298.",
+      "script": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Cross-check of repeated manuscript results",
+      "value": "All 9 unique Table 2 genes are in Table 1. Ppargc1b has Ob vs. C −1.93 in Table 1, −1.46 in Table 2, and −1.26671833164999 locally. Using the Table 2 alternate gives Pearson 0.9129435322, Spearman 0.8692859173 and 22/23 same directions.",
+      "script": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Published calls and available inference",
+      "value": "Paper reports 393 obesity DEGs. Registered FDR < 0.05 in 0/20,008 published rows and 0/23 paired rows. Raw local P < 0.05 in 17/23 pairs. Numeric author P/FDR available for 0 pairs.",
+      "script": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "GEO file contents and sample identity",
+      "value": "78,334 feature rows, 12 count columns, no GSM supplements, zero gene rows in the series matrix. All 9 Table S1 raw-read totals agree with paired ENA run counts, including all 3 control and 3 untreated-obesity libraries.",
+      "script": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Author-concordance-v2 numeric decision",
+      "value": "No acceptance. Both common numerical requirements fail (23 < 30 pairs and 42.59% < 90% selected-reference coverage). Spearman < 0.90. The direction route has fewer than 30 nonzero pairs.",
+      "script": "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "The authors’ full obesity-versus-control DESeq2 results, per-gene P/FDR, original gene annotation and exact model inputs are needed to reconcile the reported 393 DEGs with zero registered FDR discoveries.",
+    "The paper gives two obesity log2 fold changes for Ppargc1b. The source of that discrepancy and the sign reversal for M6pr-ps remain unresolved."
+  ]
+}

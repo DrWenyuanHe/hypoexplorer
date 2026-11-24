@@ -1,0 +1,24 @@
+{
+  "datasetId": "mouse_tanycyte_insulin_gse185074",
+  "outcome": "needs_author_contact",
+  "summary": "GEO and Figure 8 agree on all 7,291 author discoveries. Their marker definitions explain why GEO identifies 4,705 diet discoveries enriched under either diet and Figure 8 labels 2,165 enriched under both. The current Explorer comparison paired 13,408 genes with Pearson r = 0.999961, but covered only 76.63% of registered effects, below the 90% policy threshold. Among 13,406 finite FDR pairs, the authors called 7,236 and Explorer called 5,003, with 4,985 shared. Independent replay verified the counts. Full verification remains unsigned.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/mouse_tanycyte_insulin_gse185074.json",
+    "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/retrieval.json",
+    "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/retrieve.py",
+    "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/compare.py",
+    "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/comparison.json",
+    "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/cohort.tsv",
+    "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/figure8-marker-crosswalk.tsv",
+    "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/unpaired-author.tsv",
+    "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/preaggregation-filtered-author-calls.tsv",
+    "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/validate.py",
+    "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/validation.json"
+  ],
+  "openIssues": [
+    "Which libraries and pool terms entered the DESeq2 fit that produced padj_hfd_ncd_ip? Figure 8 supports a WT diet-by-fraction analysis, but the public files do not establish whether the 14 WT IP/input libraries alone supplied normalization and dispersion estimates, which Salmon inputs or length offsets were used, or when protein-coding and TPM filters were applied.",
+    "The current feature map and expression filter account for all 55 unpaired author discoveries. Of the 32 reported against the superseded Explorer table, 29 fail the historical expression filter. Identifying the remaining three requires the pinned predecessor table or its original exception list."
+  ]
+}

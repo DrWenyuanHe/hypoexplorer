@@ -1,0 +1,13 @@
+{
+  "datasetId": "rat_hypo_ozone_gse133293",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 37 source files matched their recorded hashes and sizes, and all 15 computations reproduced. The `compared` closure holds for Table 1B. All 40 selected genes agreed in direction, while Spearman correlation (0.88509) fell below the 0.90 cutoff. The corrected proposal distinguishes published linear ratios from calculated log2 effects, documents GEO’s low-count filter, and identifies Amer2 and Zbtb16 as the two author discoveries above the registered FDR cutoff of 0.10. The proposal validator passed.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/rat_hypo_ozone_gse133293.json",
+    "data/author-validation/codex-2026-11-21/corrected/rat_hypo_ozone_gse133293.json",
+    "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/refute/check.py"
+  ],
+  "openIssues": [
+    "The reviewed sources lack the complete original DESeq2 results, per-gene P values and final testing universe. Genome-wide concordance and the full overlap of discoveries remain unassessed."
+  ]
+}

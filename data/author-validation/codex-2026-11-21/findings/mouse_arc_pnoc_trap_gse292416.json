@@ -1,0 +1,144 @@
+{
+  "datasetId": "mouse_arc_pnoc_trap_gse292416",
+  "accession": "GSE292416",
+  "category": "unresolved",
+  "closure": "compared",
+  "summary": "The deposited DESeq2 and registered edgeR-QL effects agree closely on 13,946 one-to-one genes in the KO-versus-WT PNOC-IP comparison. These pairs cover 82.85% of the registered output, below the 90% author-concordance-v2 requirement, and the two analyses make different FDR calls. The paper’s selection rule recovers its 236 enriched genotype-DE genes, while GEO’s rule selects 69.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE292416/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "paperAccess": "publisher_full_text",
+      "summary": "KO-versus-WT effects compared by source gene ID. The paper’s 236-gene selection is reproducible.",
+      "note": "The registered R 4.6.0 edgeR-QL comparison and the GEO DESeq2 export use the same four WT and four KO PNOC-IP pools. An exact source-ID join pairs 13,946 of 16,832 registered genes. Pearson is 0.999799, Spearman is 0.999776 and 13,545 nonzero pairs have the same sign. Full-output coverage is 82.85%. At FDR < 0.05, 84 of 1,049 paired author calls pass in Explorer, accounting for every paired registered call. The paper’s IP/input enrichment and genotype thresholds yield 236 joint calls. GEO’s stricter thresholds yield 69. The paper’s 3,550 equals the sum of the two genotype-specific enrichment counts, which cover 2,348 distinct Ensembl IDs. See data/author-validation/continued-sources/GSE292416/codex-2026-11-21/SEARCH_LOG.md and comparison.json.",
+      "reviewFlags": [
+        "The deposited table lacks raw P values. Of 89 registered FDR calls, four have a linked author row with missing genotype FDR and one comes from a multi-ID aggregate. Their one-to-one FDR agreement is unassessed.",
+        "The previous manual review used an older registered table. The current built-in symbol comparator yields 13,116 pairs, including five with a conflicting source ID and 31 with an aggregated local symbol. The proposed primary comparison resolves identity using the deposited count matrix and the current feature map.",
+        "The paper’s Results, Figure 4B, STAR Methods and code-availability text were reviewed through the publisher’s indexed text. The deposited results and stated rules explain the headline counts. Exact plotting membership and the historical DESeq2 invocation remain undocumented in the materials reviewed.",
+        "The historical raw-count DESeq2 reconstruction is a separate fit. Full verification and an author-concordance pass are unsupported."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Solheim et al., Cell — Results, Figure 4B and STAR Methods",
+          "url": "https://www.sciencedirect.com/science/article/pii/S0092867425004039",
+          "kind": "paper"
+        },
+        {
+          "label": "Deposited DESeq2 results for four comparisons",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE292nnn/GSE292416/suppl/GSE292416_deseq2_results.csv.gz",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO family metadata, pool assignments and submitter thresholds",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE292nnn/GSE292416/soft/GSE292416_family.soft.gz",
+          "kind": "database"
+        },
+        {
+          "label": "Salmon counts and deposited Ensembl-to-symbol mapping",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE292nnn/GSE292416/suppl/GSE292416_salmon.merged.gene_counts.tsv.gz",
+          "kind": "processed_data"
+        }
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "On the registered KO-minus-WT IP contrast, source-linked identifiers establish 13,946 pairs with strong correlation and directional agreement. Coverage is 82.85% of the registered table. On comparable tests the author and registered analyses call 1,049 and 84 genes at FDR < 0.05, with 84 in common. Applying the two published selection rules to the same deposit accounts for the 236 versus 69 enriched genotype-DE counts.",
+      "nextStep": "The registered comparison is closed with limited coverage and different inference. For an exact historical replay, request the DESeq2 import, design, filtering, offset and shrinkage code and the Figure 4B Ensembl IDs. To incorporate the source-ID comparison into generated metrics, update the existing GSE292416 comparator.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "lepRko_vs_wt"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Current registered PNOC edgeR-QL table versus the complete deposited DESeq2 KO-versus-WT IP columns. The two enrichment selections are assessed separately and do not restrict the primary gene universe.",
+      "reference": "GSE292416_deseq2_results.csv.gz, SHA-256 17b2368a166397bc6d8ca5271538e518f71d848b8ef87d026dd98b0ee832cfe7. The registered GSE292416_DE.tsv SHA-256 is 121265a524a68984ea7ce426ff8d8774f846e0862eb327fbb4425efe914e9a55. data/author-validation/continued-sources/GSE292416/codex-2026-11-21/comparison.json identifies the mapping inputs and sample sheet by path and SHA-256.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "The GEO sample titles, count columns, local sample sheet and registered model identify the same four pulldown libraries per genotype. Each is a distinct pool of four mice. The KO-versus-WT contrast uses independent pools. Input libraries from the same pools contribute to the separate enrichment comparisons."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Both effects measure KO minus WT within the PNOC immunoprecipitate. The source names the contrast explicitly. Its sign is used as deposited. The registered output covers all tested symbols before any IP/input enrichment selection."
+        },
+        "features": {
+          "status": "limited",
+          "note": "All 13,946 source-linked pairs have compatible identifiers: the deposited gene_id and gene_name plus the registered feature map establish exactly one Ensembl ID per output. This resolves 864 pairs with differing names. The 44 multi-ID registered symbols remain unpaired. Identifier support for the existing structured comparator remains limited because it includes five wrong-ID matches and 31 pairs with aggregated local symbols."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both methods estimate a log2 change for the same genotype comparison. Across 13,946 finite pairs, Pearson is 0.999799, Spearman is 0.999776 and 13,545 of 13,946 nonzero directions agree. Median absolute log2FC difference is 0.011477 and local-to-author RMS effect ratio is 1.001643."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Registered edgeR used filtered fractional Salmon counts, symbol aggregation, TMM and a quasi-likelihood test. The authors used DESeq2 1.38.3. Whole-table FDR < 0.05 calls total 1,052 author and 89 registered. Among paired finite FDRs there are 1,049 author, 84 registered and 84 shared calls (Jaccard 0.080076). Four registered calls lack an author genotype FDR and one is an aggregate. Author raw P values and historical filter/offset/shrinkage choices remain unassessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The four-contrast union has 24,405 Ensembl IDs, of which 13,989 have a finite IP genotype coefficient and FDR. The 13,946 one-to-one pairs cover 99.69% of these and 82.85% of the 16,832 registered effects. Unpaired registered rows include 2,621 with missing author genotype estimates, 221 with no linked author row, and 44 multi-ID aggregates. Missing values are excluded from agreement and disagreement counts."
+        }
+      },
+      "criteria": "Apply author-concordance-v2 to the full registered output: at least 30 pairs and 90% registered coverage, supported cohort, contrast, identifier and effect compatibility, and either both correlations ≥ 0.90 or ≥ 90% directional agreement on at least 30 nonzero pairs covering ≥ 90% of all pairs. Report magnitudes and FDR calls as context. Use < 0.05 for the registered FDR comparison and each source’s stated cutoffs for its enrichment selection.",
+      "conclusion": "The direct comparison meets both numerical agreement routes. Coverage falls short of the shared acceptance requirement even if every finite author effect could be paired. The registered and deposited inferences differ. The paper’s 236 selected genes are reproducible at the level of the reported count, with membership under each documented rule retained in selection.tsv."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Cohort linkage and replication",
+      "value": "All eight registered IP libraries match the GEO samples and count columns, four distinct four-mouse pools per genotype.",
+      "script": "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Whole tables and finite author evidence",
+      "value": "24,405 author IDs across four contrasts, 13,989 finite genotype effects and FDRs, 10,416 missing. The registered output has 16,832 finite effects and FDRs.",
+      "script": "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Source-linked one-to-one coverage",
+      "value": "13,946 paired, 82.854087% of the registered output and 99.692616% of finite author estimates. Even a perfect mapping could cover at most 83.109553% of the registered output.",
+      "script": "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Unpaired registered features",
+      "value": "2,621 linked IDs with missing author genotype results, 221 without an author row and 44 multi-ID registered symbols.",
+      "script": "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Magnitude, correlation and direction",
+      "value": "Pearson 0.99979948, Spearman 0.99977600, same sign in 13,545/13,946 nonzero pairs (97.124624%). All pairs are directionally assessable. Median absolute delta 0.01147748, RMS delta 0.01229714 and RMS effect ratio 1.00164346.",
+      "script": "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "FDR < 0.05, full tables and paired finite statistics",
+      "value": "Whole author / Explorer counts 1,052 / 89. Paired author / Explorer counts 1,049 / 84, overlap 84 and paired Jaccard 0.08007626. Three author and five registered calls are outside paired inference.",
+      "script": "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Declared mapping versus the built-in unique-symbol comparator",
+      "value": "The source-ID join includes 864 renamed pairs. The existing join gives 13,116 pairs (77.923004% local coverage), 993 / 77 paired FDR calls with 77 shared, five wrong-ID matches and 31 pairs with multi-ID registered symbols.",
+      "script": "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Paper enrichment and genotype selection",
+      "value": "2,048 WT plus 1,502 KO enrichment calls sum to 3,550, including 1,202 IDs in both. Their union is 2,348. The paper rule gives 1,052 IP genotype DE genes and 236 in the enriched union. Results and STAR Methods inequalities select identical IDs.",
+      "script": "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "GEO enrichment and genotype selection",
+      "value": "Adjusted P ≤ 0.01 and linear enrichment FC ≥ 1.5 yield 1,506 distinct enriched IDs, 365 genotype DE IDs and 69 in their intersection. All 69 are among the 236 under the paper rule.",
+      "script": "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "Which count matrix or tximport offsets, model design and test, prefilter, independent-filter settings and shrinkage produced the deposited DESeq2 1.38.3 estimates? Which Ensembl IDs were used to plot Figure 4B, and did the legend sum WT and KO enrichment calls before removing duplicate IDs?",
+    "The built-in comparator still uses literal symbols. Its generated metrics differ from this source-ID audit. The existing producer rejects a second comparison specification for the same dataset."
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "datasetId": "rat_hypo_hfd_wtts_gse100349",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 52 source files matched their recorded sizes and SHA-256 hashes. Every one of the 13,266 S2 gene rows repeats six statistics from a uniquely identifiable S1 site with a different label. The original 9,395-pair calculations reproduced. Deposited gene IDs resolve two additional pairs, with the same conclusion. The corrected proposal records partial availability of comparable gene results, limits the zero-FDR claim to the 9,439 published rows, and retains needs_author_contact. It passed the repository proposal validator.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/rat_hypo_hfd_wtts_gse100349.json",
+    "data/author-validation/codex-2026-11-21/corrected/rat_hypo_hfd_wtts_gse100349.json",
+    "data/author-validation/continued-sources/GSE100349/codex-2026-11-21/refute/recheck.py"
+  ],
+  "openIssues": [
+    "The original gene-ID-keyed fit is needed to establish coefficient direction, identify the gene-level P values, and reconcile the paper’s 73 genes at raw P < 0.01 with the 135 printed S2 rows.",
+    "The animal-to-library mapping, pooling, and inclusion of a control technical replicate remain unresolved."
+  ]
+}

@@ -1,0 +1,217 @@
+{
+  "datasetId": "rat_arc_hfd_gse232510",
+  "accession": "GSE232510",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "Four of the six registered count profiles match Table S1 across all 431 listed genes. Two of those matches, GSM7349356 and GSM7349359, carry original FASTQ numbers 16 and 17 while their counts match CS12.1 and HFS9.1. Agreement on 402 of 406 paired directions leaves the animals and the DESeq2 input assignments unresolved.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE232510/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "Four registered count profiles reproduce selected-gene author profiles. Original FASTQ filenames and author column labels disagree for two of them.",
+      "note": "The registered edgeR-QL fit compares three sedentary HFD with three sedentary chow libraries. Table S1 contains three CS, four HFS, three CR and four HFR profiles. Comparing all 18 GEO count files with all 14 columns reproduces four registered profiles (GSM7349354/CS1.1, GSM7349356/CS12.1, GSM7349357/HFS2.1 and GSM7349359/HFS9.1) and all four HFR profiles across all 431 genes after library scaling and rounding. The SRA Original FASTQ names carry CS numbers 12/16 for GSM7349355/356 and HFS numbers 9/17 for GSM7349358/359. GSM7349355 and GSM7349358 match no S1 column. The exact checksum applies to the count TAR. The current family SOFT (4,068 bytes) differs from the registered 4,073-byte pin. The historical mechanical audit recorded matches for both inputs. This review checked the current SOFT sample records and count-file links. The paper reports female Wistar rats and Rnor6 alignment. The registry and registered provenance use Rattus norvegicus, while GEO, SRA and ENA record Rattus rattus (taxon 10117). The S1 library values establish CS over HFS for the printed coefficient. After one sign reversal, 402 of 406 paired directions agree (Pearson 0.89758, Spearman 0.90262). At adjusted P < 0.1, 405 author and zero registered values pass among those pairs.",
+      "reviewFlags": [
+        "The animal-to-library key and DESeq2 inputs are missing. The rats lived in pairs during diet induction and individually in Phase II. The selected animals’ earlier cage assignments remain unresolved. The archive species field also differs from the registered species.",
+        "CS16.1, HFS.1, HFS17.1, CR1.1, CR4.1 and CR5.1 have no matching count profile in the GEO archive. The FASTQ filenames include CS 16 and HFS 17.",
+        "The paper reports pairwise DESeq2 analysis and seven sedentary profiles. The registered edgeR-QL fit uses six. Four registered count profiles match S1 across the selected genes, so the effect comparison partly reuses the same count data.",
+        "S1 lists 431 selected genes. Gpm6a has adjusted P = 0.10010497. Of the 431 rows, 159 have |log2FC| > 1 and 352 have |log2FC| > 0.5. The S1 filter heading and Figure 2A legend differ. Every listed row was eligible for pairing."
+      ],
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Manuscript, Methods and Figure 2",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11241292/",
+          "kind": "paper"
+        },
+        {
+          "label": "Author workbook in the PMC open-data supplement",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC11241292.1/ijms-25-07188-s001.zip",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO archive of per-sample counts",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE232nnn/GSE232510/suppl/GSE232510_RAW.tar",
+          "kind": "processed_data"
+        },
+        {
+          "label": "NCBI SRA experiment packages and original FASTQ filenames",
+          "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=sra&retmode=xml&id=27762304,27762303,27762302,27762301,27762300,27762299,27762298,27762297,27762296,27762295,27762294,27762293,27762292,27762291,27762290,27762289,27762288,27762287",
+          "kind": "database"
+        },
+        {
+          "label": "GEO family SOFT with sample taxonomy, treatment and count-file links",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE232nnn/GSE232510/soft/GSE232510_family.soft.gz",
+          "kind": "database"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "Table S1 provides a selected author reference for hfd_vs_chow. Four registered profiles match S1 on every listed gene, two of them under a different number from their SRA filename. The registered cohort contains three HFS libraries and S1 contains four. On 406 nonzero pairs, 402 directions agree. Pearson 0.897580 and Spearman 0.902621 miss the joint correlation criterion. The numerical direction criterion is met. Animal assignments and the exact DESeq2 inputs and design remain unresolved.",
+      "nextStep": "Can the authors link each of the 14 S1 columns to its animal, Phase I cage, original FASTQ, GEO count file or other source, and DESeq2 input? Please identify HFS.1, reconcile the CS 12/16 and HFS 9/17 filenames and supply the count matrix, inclusion sheet and model design for the reported contrast, including the CR and fourth HFS profiles. Please confirm the species recorded for the Wistar samples.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "hfd_vs_chow"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered arcuate track, sedentary HFD minus sedentary chow in female rat ARC. The registered R 4.6.0 edgeR-QL groupcase coefficient uses GSM7349354–GSM7349356 as controls and GSM7349357–GSM7349359 as cases. The study reports Wistar rats.",
+      "reference": "Author Supplementary Table S1 in ijms-25-07188-s001.zip. All 431 listed CS-versus-HFS DESeq2 rows and all 14 library columns were read from the original workbook.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "GEO has three CS, three HFS, four HFR and eight miR-211 intervention profiles. S1 has three CS, four HFS, three CR and four HFR. Four of the six registered profiles and all four HFR files reproduce S1 profiles on all 431 genes. SRA filename numbers 16 (GSM7349356) and 17 (GSM7349359) differ from the matching column numbers 12 and 9. GSM7349355 and GSM7349358 match no column. The archive labels the samples Rattus rattus (10117). The paper reports female Wistar rats, and the registry uses Rattus norvegicus. Phase I used pair housing, followed by individual Phase II housing. The sample key would resolve which animals and cages contributed to each analysis."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Both comparisons concern sedentary HFD feeding and sedentary chow in female rat ARC. The paper describes changes relative to CS, but the unaltered S1 coefficient has the sign of log2(mean CS / mean HFS) on all 431 rows (Pearson 0.999981). Of the 430 rows with adjusted P < 0.1, the printed coefficient is positive for 165 and negative for 265. A single sign reversal gives the registered HFD-minus-chow orientation."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 431 unique S1 Ensembl IDs occur in the registered feature map. Of these, 406 map one-to-one to published DE symbols, 21 lack a symbol, one maps to the summed symbol Tmt1a, and Ptbp2, Prkcb and Atf3 have no published DE row. The primary pairing uses exact Ensembl IDs throughout."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "S1 reports a DESeq2 log2 fold change and the registered coefficient is an edgeR-QL log2 fold change. The signs and scale are documented. The paper specifies pairwise DESeq2 analysis from a matrix assembled across the four groups, but leaves the precise design and included columns for this coefficient unspecified. For the 406 nonzero pairs, 402 signs agree, Pearson is 0.897580, Spearman is 0.902621 and the registered-on-author OLS slope is 0.446160. Median absolute effects are 0.806 (author) and 0.408 (registered)."
+        },
+        "inference": {
+          "status": "different",
+          "note": "At adjusted P < 0.1, 430 of the 431 S1 rows and zero of 10,539 published registered rows pass. Among the 406 pairs, the counts are 405 and zero, respectively. At adjusted P < 0.05, 204 author and zero registered paired rows pass. All 406 raw P and adjusted P pairs are finite. At raw P < 0.05 the counts are 406 and 86, with 472 further registered positives outside the pairs. The registered FDR family contains 11,541 tested fit rows, including 1,002 unpublished rows. The complete author testing family is unavailable."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Pairs cover 406/431 (94.20%) of the selected S1 reference and 406/10,539 (3.85%) of published registered genes. The author's unlisted P values, FDR and effects remain unassessed."
+        }
+      },
+      "criteria": "author-concordance-v2 requires at least 30 pairs, at least 90% relevant coverage and supported cohort, contrast, identifiers and effect definitions. Correlation requires both Pearson and Spearman ≥ 0.90. Direction requires ≥ 90% agreement among ≥ 30 nonzero pairs covering ≥ 90% of pairs. All 406 pairs are nonzero. The direction route meets its numerical criteria (99.01%) and the correlation route misses on Pearson. Cohort compatibility lacks the required support. The effects dimension also remains limited because the original DESeq2 design and included inputs are unresolved. The observed slope and the P-value differences are contextual.",
+      "conclusion": "The numerical direction criterion is met within S1. Cohort assignment and the precise author fit remain unresolved. A combined correlation pass, full-universe inference and independent replication are unsupported."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "rat_arc_hfd_gse232510",
+      "accession": "GSE232510",
+      "contrast": "hfd_vs_chow",
+      "localPath": "geo_replication/datasets/GSE232510_rnor_arc_hfd/processed/GSE232510_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE232510/codex-2026-11-21/author-effects.tsv",
+      "sourceUrl": "https://pmc-oa-opendata.s3.amazonaws.com/PMC11241292.1/ijms-25-07188-s001.zip",
+      "sha256": "7eb0a8bd8f301739ffe13dad3101e9384ee5dab81e68f99fed43b4086bccda3b",
+      "format": "tsv",
+      "authorKey": "output_id",
+      "authorEffect": "logFC",
+      "authorAdjustedP": "padj",
+      "orientationSign": 1,
+      "localMethod": "edgeR quasi-likelihood on three high-fat and three chow sedentary profiles",
+      "authorMethod": "DESeq2 pairwise CS versus HFS from the diet/exercise experiment. S1 reports log2FoldChange, lfcSE, stat, pvalue and padj for selected genes.",
+      "orientation": "logFC is already HFS minus CS. The extraction negates the original CS-over-HFS log2FoldChange using S1's per-library values to check the direction.",
+      "note": "Replacement for the existing hfd_vs_chow spec. All 431 S1 rows are retained. Each unpaired Ensembl ID keeps its own key. Four registered count profiles match S1 across all 431 genes. The SRA filename numbers for GSM7349356 and GSM7349359 differ from the matching S1 column numbers. The same animals and model inputs cannot be assigned from those numbers. The directional result applies to the selected genes.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE232510/codex-2026-11-21/ijms-25-07188-s001.zip",
+          "sourceUrl": "https://pmc-oa-opendata.s3.amazonaws.com/PMC11241292.1/ijms-25-07188-s001.zip",
+          "sha256": "5c63f7e868043522a755ba284debaa4d697b7dc32ccb55ae350de8aef93d197a",
+          "bytes": 3272142
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE232510/codex-2026-11-21/SRA-experiments.xml",
+          "sourceUrl": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=sra&retmode=xml&id=27762304,27762303,27762302,27762301,27762300,27762299,27762298,27762297,27762296,27762295,27762294,27762293,27762292,27762291,27762290,27762289,27762288,27762287",
+          "sha256": "827b00a60bb23b79f85b029c8ef77001e6324f2251a5480001c5b41b4f29fadf",
+          "bytes": 271527
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE232510/codex-2026-11-21/GSE232510_RAW.tar",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE232nnn/GSE232510/suppl/GSE232510_RAW.tar",
+          "sha256": "5acf8b2d78a2b77796c1d9097bcd8a01d59f50fb9a71742c25fcedcb8d8105ad",
+          "bytes": 2150400
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE232510/codex-2026-11-21/review.py",
+          "sourceUrl": "Offline extraction, profile identification, feature mapping and comparison against the registered output",
+          "sha256": "4f00d7a7b1c6e8d3bff796e71d2f89738be1c6dfbe1178b1a59faf58dc28245b",
+          "bytes": 12421
+        },
+        {
+          "path": "geo_replication/datasets/GSE232510_rnor_arc_hfd/processed/GSE232510_feature_map.tsv.gz",
+          "sourceUrl": "Registered R 4.6.0 feature map used to join S1 Ensembl IDs to published symbols",
+          "sha256": "171b0e1ac9c2c11cb49f7896b7fb7e3dc7ecf8a84cae97c788be0f02db9680f7",
+          "bytes": 187527
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE232510/codex-2026-11-21/PMC11241292.1.xml",
+          "sourceUrl": "https://pmc-oa-opendata.s3.amazonaws.com/PMC11241292.1/PMC11241292.1.xml",
+          "sha256": "1390b598b4c3726b64904359cbe3ce86927bd904a237073a344cd43541b06eaf",
+          "bytes": 158647
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE232510/codex-2026-11-21/GSE232510_family.soft.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE232nnn/GSE232510/soft/GSE232510_family.soft.gz",
+          "sha256": "76d836be9c1669ed6371abc67b829ab2ad2c780c360184d0b8d7533a3dfed1f4",
+          "bytes": 4068
+        }
+      ],
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE232510_rnor_arc_hfd/processed/GSE232510_DE.tsv",
+        "sha256": "2de6397ff76a47a0f3237df23f528fb7fc2c30c5e03eb7e421f26381dd24c8a1",
+        "bytes": 1040744
+      }
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO count archive integrity",
+      "value": "2,150,400 bytes. SHA-256 5acf8b2d78a2b77796c1d9097bcd8a01d59f50fb9a71742c25fcedcb8d8105ad matches the registered pin.",
+      "script": "data/author-validation/continued-sources/GSE232510/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Count-profile tests across the whole deposit",
+      "value": "18 GSM files × 14 S1 columns = 252 comparisons across all 431 genes. Eight pairs recover all integer counts, including four registered profiles. Largest absolute residual among matches at the median scale is 0.000026856 count.",
+      "script": "data/author-validation/continued-sources/GSE232510/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Original FASTQ numbers and count-profile matches",
+      "value": "GSM7349355/356 have CS 12/16 in the original filenames and match no S1 column / CS12.1. GSM7349358/359 have HFS 9/17 in the filenames and match no S1 column / HFS9.1.",
+      "script": "data/author-validation/continued-sources/GSE232510/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Orientation from the author table",
+      "value": "431/431 signs agree with log2(mean CS / mean HFS), Pearson 0.999981. Negate once for registered HFS minus CS.",
+      "script": "data/author-validation/continued-sources/GSE232510/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Exact feature pairing",
+      "value": "406/431 selected author rows (94.20%) and 406/10,539 registered rows (3.85%). 21 missing symbols, one summed symbol, three absent DE rows.",
+      "script": "data/author-validation/continued-sources/GSE232510/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Effect agreement on selected genes",
+      "value": "402/406 same directions, all 406 nonzero. Pearson 0.897580, Spearman 0.902621, OLS slope 0.446160. Numerical direction route met, correlation route missed.",
+      "script": "data/author-validation/continued-sources/GSE232510/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Adjusted P < 0.1",
+      "value": "430/431 author calls overall, 405/406 among paired genes. Registered calls are 0/406 among pairs and 0/10,539 overall. All paired adjusted P values are finite.",
+      "script": "data/author-validation/continued-sources/GSE232510/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Raw P < 0.05",
+      "value": "86/406 registered paired rows and 406/406 author paired rows. Another 472 registered positives lack a paired author statistic.",
+      "script": "data/author-validation/continued-sources/GSE232510/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Published filter labels and S1 membership",
+      "value": "S1 lists 431 rows. Gpm6a is the sole row with adjusted P ≥ 0.1 (0.10010497). There are 159 rows with |log2FC| > 1 and 352 with |log2FC| > 0.5. The original coefficient on the 430 rows below adjusted P 0.1 is positive on 165 and negative on 265.",
+      "script": "data/author-validation/continued-sources/GSE232510/codex-2026-11-21/refute/recheck.py"
+    }
+  ],
+  "openIssues": [
+    "Can the authors link each of the 14 S1 columns to its animal, Phase I cage, original FASTQ, GEO count file or other source, and DESeq2 input? Please identify HFS.1, reconcile the CS 12/16 and HFS 9/17 filenames and supply the count matrix, inclusion sheet and model design for the reported contrast, including the CR and fourth HFS profiles. Please confirm the species recorded for the Wistar samples.",
+    "The public author table omits the rest of the tested universe. The scope of the effect comparison is limited to the supplied S1 genes."
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "datasetId": "gse308884",
+  "accession": "GSE308884",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "All 10 labeled RNA genes agreed in direction with the registered output for each contrast. All 25 genes in the authors’ rescue heatmap had opposite registered effects across the two contrasts. In DIO vehicle versus lean, all 10 labeled genes met the authors’ discovery rule, while none reached 10% FDR in the registered output.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE308884/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "Selected RNA directions agree in both contrasts. Diet-associated FDR calls differ.",
+      "note": "All 10 labeled RNA genes agreed in direction with the registered output for each contrast. All 25 genes in the authors’ rescue heatmap had opposite registered effects across the two contrasts. In DIO vehicle versus lean, all 10 labeled genes met the authors’ discovery rule, while none reached 10% FDR in the registered output. The authors used protein-coding genes and sample-weighted voomLmFit. HypoExplorer used the deposited log2 CPM and limma. The plots support signs and reported discovery classes. Numerical author coefficients and exact P and FDR values remain unavailable.",
+      "reviewFlags": [
+        "The volcano plots label the same 10 genes in each contrast. The rescue heatmap includes these genes in its selected set of 25.",
+        "The obesity contrast differs on discovery calls for the labeled genes. The authors’ weighted model and registered log2-CPM model differ.",
+        "The figures supply fewer than 30 genes per contrast and no numerical author coefficient vector. Full verification remains open."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Guo et al. Figure 4C and 4E, with RNA methods",
+          "url": "https://www.biorxiv.org/content/10.1101/2025.10.06.680810v1.full.pdf",
+          "kind": "paper"
+        },
+        {
+          "label": "Supplemental Figure 6 and caption",
+          "url": "https://www.biorxiv.org/content/biorxiv/early/2025/10/09/2025.10.06.680810/DC1/embed/media-1.pdf?download=true",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO series, sample records and deposited expression workbook",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE308884",
+          "kind": "processed_data"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "Figure 4C and Supplementary Figure 6B report selected gene directions for the two registered contrasts. Every labeled direction matched, and the registered effects reversed for every gene in Figure 4E. The diet comparison differed on FDR calls. A full author coefficient table and exact gene-wise P and FDR values were not located.",
+      "nextStep": "A full numerical comparison would require the original protein-coding voomLmFit outputs for DIO vehicle minus lean and DIO TN-783 minus vehicle, including tested feature IDs, coefficients, P values and adjusted P values.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "dio_vs_lean",
+        "tn783_vs_vehicle"
+      ],
+      "basis": "Direct comparison of the volcano labels with signed registered limma logFCs. A separate check compares the authors’ stated rescue criterion with the signs of the two registered coefficients for every Figure 4E gene.",
+      "reference": "Guo et al., bioRxiv 10.1101/2025.10.06.680810v1. Figure 4C and 4E, Supplementary Figure 6B and its caption, and RNA-seq methods lines 1298–1321. Source bytes and figure crops are retained in the evidence folder.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "The workbook and all 18 GEO library records reconcile with the registered samples. Each contrast compares six male mouse hypothalami per group, with the same DIO vehicle animals in both. The authors down-weighted two vehicle samples for suspected pituitary contamination."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Figure 4C compares DIO vehicle with lean controls. Supplementary Figure 6B compares DIO TN-783 with DIO vehicle. Both use the registered case-minus-baseline direction. Figure 4D compares treated DIO with lean and is outside scope."
+        },
+        "features": {
+          "status": "limited",
+          "note": "All 25 printed mouse symbols have a single deposited feature ID and a unique exact symbol match in both registered tables. The authors filtered to protein-coding genes. Their full tested feature set was unavailable."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "All 10 labeled point directions agree in each contrast. All 25 registered gene pairs meet the authors’ opposite-sign rescue criterion. That second check addresses reversal only. Original fitted coefficient magnitudes and correlations remain unassessed."
+        },
+        "inference": {
+          "status": "different",
+          "note": "All 10 Figure 4C labels meet the authors’ discovery rule including FDR < 0.10. None of these registered rows has adjusted P < 0.10. S6B reports no author discoveries at 10% FDR, and none of the 10 registered treatment labels reaches that threshold. The weighted voom and registered log2-CPM fits differ. Exact author P and FDR values are unassessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Every volcano label and every printed RNA rescue gene is accounted for. The same 10 labeled genes occur in both contrasts and belong to the set of 25. The registered tables contain 34,829 diet and 34,025 treatment rows. Comparable author effects across the full output are unavailable."
+        }
+      },
+      "criteria": "Read every labeled RNA point as up or down using the published contrast and zero axis. Match exact symbols and compare the sign of the registered logFC without a magnitude cutoff. For every printed rescue gene check whether its two registered effects have opposite signs. Use the authors’ 10% FDR threshold solely for the reported inference context.",
+      "conclusion": "The registered effects support the selected directions and the rescue pattern. The obesity discovery calls differ. Neither contrast has enough paired numerical author effects for an author-concordance-v2 comparison spec or full sign-off."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Unique matched volcano labels and matching directions, DIO vehicle versus lean",
+      "value": "10 matched of 10 labeled, 10 same direction",
+      "script": "data/author-validation/continued-sources/GSE308884/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Unique matched volcano labels and matching directions, DIO TN-783 versus vehicle",
+      "value": "10 matched of 10 labeled, 10 same direction",
+      "script": "data/author-validation/continued-sources/GSE308884/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure 4E genes with opposite signs in the two registered contrasts",
+      "value": "25 of 25 unique matched genes",
+      "script": "data/author-validation/continued-sources/GSE308884/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered adjusted P below 0.10 among the volcano labels",
+      "value": "0 of 10 in each contrast",
+      "script": "data/author-validation/continued-sources/GSE308884/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered DE rows",
+      "value": "34,829 for dio_vs_lean and 34,025 for tn783_vs_vehicle",
+      "script": "data/author-validation/continued-sources/GSE308884/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Reconciled libraries",
+      "value": "18, with 6 in each of the vehicle, TN-783 and lean groups",
+      "script": "data/author-validation/continued-sources/GSE308884/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "Original fitted gene-level coefficients and exact P/FDR values for both contrasts remain unavailable. The selected figure comparisons cannot establish full-universe concordance.",
+    "The roles of filtering, sample weighting and model differences in the diet discovery discrepancy have not been quantified."
+  ]
+}

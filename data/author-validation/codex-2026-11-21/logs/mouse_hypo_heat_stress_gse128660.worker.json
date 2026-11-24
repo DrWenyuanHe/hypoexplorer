@@ -1,0 +1,25 @@
+{
+  "datasetId": "mouse_hypo_heat_stress_gse128660",
+  "outcome": "compared",
+  "summary": "All seven hypothalamic heat-shock genes in the recovered author workbook were upregulated in both analyses. Three met the paper’s 1.5-fold and adjusted P < 0.01 cutoffs in the registered output: Dnaja4, Dnajb1 and Hspa1b. Six met registered FDR < 0.05. The proposal records a selected-gene comparison, below the 30-pair minimum for author-concordance-v2. [Author workbook](https://www.ebi.ac.uk/biostudies/files/S-EPMC6902726/fj.201901045R.sd1.xlsx)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/mouse_hypo_heat_stress_gse128660.json",
+    "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/sources/biostudies-workbook.xlsx",
+    "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/retrieve.py",
+    "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/retrieval.json",
+    "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/compare.py",
+    "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/comparison.json",
+    "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/table-s2-hypothalamus.tsv",
+    "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/table-s2-pairs.tsv",
+    "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/enrichment-member-overlap.tsv",
+    "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/figure-directions.tsv",
+    "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/verify.py",
+    "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/verification.json"
+  ],
+  "openIssues": [
+    "The complete author DESeq2 table was unavailable in the reviewed sources. Genome-wide agreement and author raw P values remain unassessed.",
+    "The manuscript specifies eight biological replicates per arm and Table S1 lists all sixteen hypothalami. GEO’s processing note says three per arm. The original DESeq2 sample list is needed to resolve which libraries entered the fit."
+  ]
+}

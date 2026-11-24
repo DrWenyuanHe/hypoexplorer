@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_gnrh_androgen_gse162563",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 82 source files matched their recorded sizes and SHA-256 hashes, and all seven computed claims reproduced. The adult GnRH-depleted POA comparison passes author-concordance-v2 through directional agreement: 14,878 of 15,674 nonzero pairs agree (94.92%). The corrected proposal retains the compared closure and clarifies that the workbook’s abundance means span 23 libraries, the registered FDR calculation includes one unpublished feature, and the authors’ reporting rules include effect-size and abundance criteria. The proposal passed the repository validator.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_gnrh_androgen_gse162563.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_gnrh_androgen_gse162563.json",
+    "data/author-validation/continued-sources/GSE162563/codex-2026-11-21/refute/recheck.py"
+  ],
+  "openIssues": [
+    "The historical DESeq2 input matrix and design formula remain unverified, limiting exact inferential reproduction.",
+    "The registry labels obscure the GnRH-depleted fraction and the untreated-dam pool among the five adult controls."
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_hypo_glylow_gse234483",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 42 source files passed integrity and content checks, and all eight computations reproduced. The 32-gene Table S1 comparison reaches the 30-pair minimum only by combining panels 3A and 3B. Published Figure S4E reports four mice per group, while the registered analysis uses five controls and four treated libraries. The registered expression filter also explains the missing Ghrhr result. The corrected proposal passed validation and retains needs_author_contact.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_glylow_gse234483.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_glylow_gse234483.json",
+    "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/refute/audit.py"
+  ],
+  "openIssues": [
+    "The reviewed sources establish that the reported count changed from 10,359 to 1,407. The complete final gene list, selection criteria and reason for the change remain unknown.",
+    "The Results and RNA-seq Methods give different ages for the acute cohort. The controls used in Figure S4E and the animal-to-library and cage assignments remain unidentified."
+  ]
+}

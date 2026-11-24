@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_hypo_heat_stress_gse128660",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 55 source files matched their recorded hashes and sizes, and all nine computations reproduced. All seven selected genes agreed in direction. Three met the paper’s discovery cutoffs in the registered output. The corrected proposal identifies the GEO landing page as a reCAPTCHA receipt, clarifies that the paper’s 68 discoveries exclude novel genes, and records the strict versus inclusive fold-change wording. Both cutoffs give the same results here. Closure as compared is justified for the seven-gene panel.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_heat_stress_gse128660.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_heat_stress_gse128660.json",
+    "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/refute/audit.py"
+  ],
+  "openIssues": [
+    "The original DESeq2 fit membership remains unresolved. The manuscript reports eight replicates per arm, while the GEO processing records say three.",
+    "The reviewed sources lack the complete author DESeq2 table. Seven paired effects fall below the author-concordance-v2 minimum of 30."
+  ]
+}

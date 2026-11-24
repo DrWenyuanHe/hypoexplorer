@@ -1,0 +1,61 @@
+{
+  "datasetId": "mouse_arc_hfd_gse225038",
+  "accession": "GSE225038",
+  "category": "not_located",
+  "closure": "no_valid_comparison",
+  "summary": "The paper reports Agrp isoform abundance by diet and whole-gene Agrp and Klf4 results for knockout versus littermate controls. The GEO workbook contains per-library counts and RPKM, and the public sources reviewed supply no author gene-level HFD-minus-chow effect for Cre-negative ARC controls.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE225038/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "ARC diet samples mapped to GEO. Published Agrp results address isoforms and genotype.",
+      "note": "The deposited workbook contains sample-level counts and RPKM for all 13 GEO libraries. All four HFD and three chow controls match the registered sample sheet. Figure 1E–F addresses Agrp isoform abundance and describes four animals per diet. Figure 2A and Table 1 compare whole-gene Agrp across genotypes within diet. PMC and Europe PMC record no supplement, and the series, sample and repository searches yielded no control-only diet coefficient. Exact workbook and registered DE hashes, the sample mapping and the search log are retained. See data/author-validation/continued-sources/GSE225038/codex-2026-11-21/SEARCH_LOG.md.",
+      "reviewFlags": [
+        "This legacy source has no committed source-file checksum manifest.",
+        "Figure 1E–F reports two males and two females per diet. GEO and the registered sample sheet contain two male and one female chow control. The additional chow animal has no identified sample in the public deposit."
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "Author results are available for Agrp transcript composition and within-diet genotype effects. The registered edgeR-QL output estimates whole-gene HFD-minus-chow effects in Cre-negative littermates. The GEO workbook supplies expression inputs, and the reviewed sources yield no author estimate or inference for that comparison.",
+      "nextStep": "Reopen if the authors provide gene-level effects for HFD versus chow in Cre-negative ARC littermates with sample IDs, model, tested genes and available P/FDR. Check which chow samples contributed to Figure 1E before attributing the figure to the registered cohort.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO workbook layout across every populated worksheet",
+      "value": "1 sheet, 55,421 data rows, 33 columns: 7 annotation, 13 count and 13 RPKM. No other populated columns.",
+      "script": "data/author-validation/continued-sources/GSE225038/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "GEO series and sample-file inventory",
+      "value": "1 series supplementary workbook. All 13 GSM records declare NONE for sample supplementary files.",
+      "script": "data/author-validation/continued-sources/GSE225038/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Cre-negative controls matched from GSM traits and workbook headers to the registered sample sheet",
+      "value": "HFD 4 (2 male, 2 female), chow 3 (2 male, 1 female). Figure 1E–F reports 2 male and 2 female per diet.",
+      "script": "data/author-validation/continued-sources/GSE225038/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered edgeR-QL HFD-minus-chow output",
+      "value": "22,463 rows and 22,463 distinct gene symbols. SHA-256 eb6ff0f0029b80bbfce885b7597210de55d203ace4fb334357461df445c6d61d.",
+      "script": "data/author-validation/continued-sources/GSE225038/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "ENA inventory for PRJNA933607",
+      "value": "13 read runs matched to the GEO samples, 0 submitted analysis records in the project query.",
+      "script": "data/author-validation/continued-sources/GSE225038/codex-2026-11-21/audit.py"
+    }
+  ],
+  "openIssues": [
+    "The identity of the additional chow animal implied by Figure 1E is unknown. Resolving it would clarify figure membership but would not turn isoform composition into a whole-gene diet effect.",
+    "Agreement in gene effects, raw P values and FDR for the registered control-only diet comparison remains unassessed."
+  ]
+}

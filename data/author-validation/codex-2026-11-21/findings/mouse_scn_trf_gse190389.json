@@ -1,0 +1,141 @@
+{
+  "datasetId": "mouse_scn_trf_gse190389",
+  "accession": "GSE190389",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "The manuscript reports zero SCN discoveries, the Mendeley SCN worksheet yields 22 under the stated rule, and the current ZT-adjusted registered output yields three. Gfap is the only shared discovery. All 37 previously flagged expression profiles match differently labelled GEO rows, but the deposited files do not establish which input features or fit produced the manuscript result.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE190389/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "summary": "SCN source profiles traced to alternate GEO labels. The manuscript and deposited discovery lists need author reconciliation.",
+      "note": "The Mendeley sample inventory, expression columns, GEO records and registered sample sheet agree on 45 SCN libraries (23 ALF and 22 TRF). The current R 4.6.0 / edgeR 4.10.1 output publishes 16,997 gene effects from a 16,999-row fit. On the 16,212 unique exact-symbol pairs with the authors' 18,846-row worksheet, Pearson is 0.6883, Spearman is 0.7867 and 14,215 pairs agree in direction. All 22 author calls agree in sign. Gfap alone meets both discovery rules. The registered output also calls Mylk3 and Cox7a1. The manuscript reports zero SCN discoveries and Figure 2A/B omits SCN. The GEO source and registered expression agree across the published rows. Of 18,289 same-symbol source comparisons, 37 differ beyond the historical export tolerance. All 37 author profiles match other GEO rows across all retained libraries. Current identifier records link candidate labels for 28 rows, including 12 instances of distinct NCBI GeneIDs sharing the author's Ensembl ID. The original features remain ambiguous, and the numerical comparison retains the exact-symbol join. Gfap's reported BH FDR requires a testing family larger than the exported SCN worksheet.",
+      "reviewFlags": [
+        "The manuscript and Mendeley V1 differ about SCN discoveries under the published rule. The source for the manuscript's zero remains unidentified.",
+        "The GEO labels and author Ensembl rows lack the historical input mapping. Multiple distinct GeneIDs share an Ensembl cross-reference for some discrepant profiles.",
+        "The registered model adjusts for ZT. The authors grouped samples across time and reported edgeR 3.26.7 and BH. The feature filtering, fitted model settings and complete BH family require clarification."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Manuscript, methods and availability statement",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10026518/",
+          "kind": "paper"
+        },
+        {
+          "label": "Mendeley V1 full SCN DE worksheet",
+          "url": "https://data.mendeley.com/public-files/datasets/wc5wy48x93/files/9c2be9b9-8713-4c15-beaa-18605da93698/file_downloaded",
+          "kind": "author_result"
+        },
+        {
+          "label": "Mendeley V1 sample list and SCN expression",
+          "url": "https://data.mendeley.com/public-files/datasets/wc5wy48x93/files/ad26994b-63e9-4502-9dac-3ceaedc020ed/file_downloaded",
+          "kind": "author_result"
+        },
+        {
+          "label": "Figure 2 tissue overlap and discovery counts",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S1550413122005435-gr2_lrg.jpg",
+          "kind": "paper"
+        }
+      ],
+      "status": "review_required",
+      "comparisonLevel": "direct"
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "The full SCN worksheet and registered result use the same retained libraries. Neither v2 numerical route passes. The stated author rule yields 22 worksheet discoveries and the paper reports zero. The deposited cross-references and workbook statistics leave the original feature selection and testing family unresolved.",
+      "nextStep": "Ask which SCN analysis supports the zero in the Figure 2 results and how it relates to the 22 Mendeley V1 calls. Request the pre-annotation count rows, versioned input-to-Ensembl mapping and duplicate resolution, full BH testing family, design, filter, normalization/offsets and edgeR dispersion/test settings or saved fit for each result.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "trf_vs_ad_libitum_zt_adjusted"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Current registered R 4.6.0 / edgeR 4.10.1 SCN feeding coefficient adjusted additively for categorical ZT. Historical reruns are separate sensitivities.",
+      "reference": "Mendeley V1 Dataset 2, complete exported SCN DE worksheet. Dataset 1 supplies the paired expression and sample inventory. The manuscript and Figure 2 were checked for the conflicting SCN result.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Three explicit outliers leave the same 23 ALF and 22 TRF biological libraries across 12 collection times. GEO technical resequencing records resolve to the same library IDs."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Both effects compare nine-hour TRF with Western-diet ALF in mouse SCN across the day. The pooled author analysis treats time points as replicates. The registered coefficient conditions on ZT, and the exclusions leave unequal group sizes at some time points."
+        },
+        "features": {
+          "status": "limited",
+          "note": "Unique literal symbols yield 16,212 pairs. Both author workbooks use identical Ensembl/symbol pairs. All 37 flagged same-symbol expression rows match an alternate GEO profile, and 12 involve distinct NCBI GeneIDs referencing one Ensembl ID. The historical count-to-ID mapping is incomplete."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Both coefficients are log2 TRF over ALF. Across all pairs Pearson is 0.6883 and Spearman is 0.7867. Signs agree in 14,215/16,212 nonzero pairs (87.68%). Median absolute log2FC difference is 0.0451. Both numerical routes fall below v2 thresholds."
+        },
+        "inference": {
+          "status": "different",
+          "note": "All 16,212 pairs have finite raw P and adjusted P. The manuscript rule yields 22 author calls, the registered output has three, and Gfap is shared. Every positive call is evaluable on both sides. The exported Gfap FDR and raw P imply at least 19,268 tests under the stated BH procedure. The paper reports zero SCN calls."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Paired effects cover 95.38% of the 16,997 registered rows, satisfying v2 full-table coverage. They cover 86.02% of the 18,846 author rows. There are 785 output-only and 2,634 author-only symbols. Two tested rows withheld from registered display remain in its BH family."
+        }
+      },
+      "criteria": "Use the full deposited worksheet, exact unique symbols and the declared TRF-over-ALF orientation. For v2 require at least 30 pairs, at least 90% registered output coverage, supported scientific compatibility, and either both correlations ≥0.90 or ≥90% direction agreement on at least 30 nonzero pairs covering ≥90% of all pairs. Assess author FDR ≤0.05 with logCPM >0 and local FDR ≤0.05 on the registered filtered universe. Raw P, FDR and effect magnitude are contextual.",
+      "conclusion": "Cohort, orientation and full-table output coverage are supported. Neither v2 effect route passes. The manuscript/worksheet conflict, historical feature identities and incomplete author testing family require clarification."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Biological libraries after author exclusions",
+      "value": "45 retained from 48, with 23 ALF and 22 TRF across 12 ZTs. The 83 SCN GSM records resolve to the same 45 libraries.",
+      "script": "data/author-validation/continued-sources/GSE190389/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered fit and exact-symbol join",
+      "value": "16,999 tested rows, 16,997 published. 16,212 paired to 18,846 author rows. Output-only 785, author-only 2,634. Output coverage 95.3815%, reference coverage 86.0236%.",
+      "script": "data/author-validation/continued-sources/GSE190389/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Effect comparison on all finite pairs",
+      "value": "Pearson 0.68833434, Spearman 0.78668128, 14,215/16,212 nonzero effects concordant (87.68196%). Median absolute log2FC difference 0.04509517. Neither v2 route passes.",
+      "script": "data/author-validation/continued-sources/GSE190389/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Positive-call lists and paired inference",
+      "value": "22 author and 3 registered discoveries, with 1 overlap (Gfap) and Jaccard 1/24. All 22 agree in sign. Paired raw P and FDR available for all 16,212, with zero positive calls missing the other side's statistic. No FDR equals 0.05.",
+      "script": "data/author-validation/continued-sources/GSE190389/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Author BH testing family diagnostic",
+      "value": "Gfap raw P 1.22814364811245e-23 and FDR 2.36638718118307e-19 give FDR/P ≈19,268. BH on the 18,846 exported raw P values gives 2.3145595192327233e-19 for this gene. The reported BH value implies a larger testing family.",
+      "script": "data/author-validation/continued-sources/GSE190389/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "GEO count representation",
+      "value": "24,537 rows, 24,535 symbols after duplicate-label sums. The 24,533 visible registered TMM CPM rows invert to the corresponding GEO counts with maximum absolute count residual 6.76e-9 or less.",
+      "script": "data/author-validation/continued-sources/GSE190389/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Historical source scaling check and differently labelled profiles",
+      "value": "18,252 of 18,289 agree under the original tolerance. All 37 flagged profiles have an alternate GEO match across 45 libraries. None is on either exact-symbol discovery list.",
+      "script": "data/author-validation/continued-sources/GSE190389/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Independent identifier support for candidate GEO labels",
+      "value": "36 of 37 have one numerical candidate and Gpr146 has two. For 28 of 37, a candidate name has a current authority link. For 12, separate NCBI GeneIDs with the two official symbols share the workbook Ensembl ID. Nine have no candidate linked under the stated lookup rule.",
+      "script": "data/author-validation/continued-sources/GSE190389/codex-2026-11-21/annotation.py"
+    },
+    {
+      "claim": "Contents of the paper's supplemental DE and figure-source workbooks",
+      "value": "mmc3.xlsx lists 17 tissues and omits SCN. The mmc4.xlsx up/down lists have 816/1,335 genes recurring in at least 5 tissues and zero SCN tissue entries. Data S1 contains sheets for Figures 5B, 6C and S1.",
+      "script": "data/author-validation/continued-sources/GSE190389/codex-2026-11-21/inspect_sources.py"
+    }
+  ],
+  "openIssues": [
+    "Which SCN fit and selection step gave zero in the manuscript when Mendeley V1 gives 22 under the stated rule?",
+    "Which count features and IDs entered the author fit before annotation, how were ambiguous labels resolved, and which tested rows, normalization, design and dispersion/test settings produced the SCN F and BH FDR columns?"
+  ]
+}

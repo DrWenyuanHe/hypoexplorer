@@ -1,0 +1,15 @@
+{
+  "datasetId": "human_hypo_neuron_mkrn3_gse208722",
+  "outcome": "upheld_with_corrections",
+  "summary": "The selected-direction comparison holds. All 64 source files passed integrity checks, and all 110 matched genes agreed in direction. Two directions came from labeled volcano points and 108 from sample heatmaps. Of those 110 genes, 28 passed registered BH FDR < 0.05. The corrected proposal passed validation and records the inference as unresolved.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/human_hypo_neuron_mkrn3_gse208722.json",
+    "data/author-validation/codex-2026-11-21/corrected/human_hypo_neuron_mkrn3_gse208722.json",
+    "data/author-validation/continued-sources/GSE208722/codex-2026-11-21/refute/audit.py"
+  ],
+  "openIssues": [
+    "All three labeled volcano discoveries plot between 0 and +1 despite the stated log2 fold-change cutoff of 1. The exact discovery rule remains unresolved. [Figure 2](https://insight.jci.org/articles/view/164178/figure/2)",
+    "The registered DE table and browser track each yield 59 FDR discoveries. The local QC summary reports 289.",
+    "Four figure labels lack published registered rows. The complete author DESeq2 table remains unavailable, and two paired volcano effects fall below the 30-pair minimum for author concordance."
+  ]
+}

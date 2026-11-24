@@ -1,0 +1,15 @@
+{
+  "datasetId": "cattle_hypo_diet_restriction_gse49540",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 33 source files matched their recorded SHA-256 and size. All 107 registered pairs agreed in direction, covering 81.06% of the 132 selected S1 effects. The proposal overstated the reconstruction: 13 additional candidate loci could be checked from deposited counts. Eleven matched, while CXCL1 and CXCL3 each yielded the value printed for the other gene. The corrected proposal retains `compared` for the selected effects and keeps the detailed review `unresolved`. It passed the proposal validator.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/cattle_hypo_diet_restriction_gse49540.json",
+    "data/author-validation/codex-2026-11-21/corrected/cattle_hypo_diet_restriction_gse49540.json",
+    "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/refute/recheck.py"
+  ],
+  "openIssues": [
+    "GSM1201496 was the only single-control omission that recovered the published gene count. The paper gives no sample-level exclusion record, and neither Table 1 mean reconciles under that omission.",
+    "The authors’ original stable identifiers for CXCL1 and CXCL3 remain unknown.",
+    "Twenty-five S1 effects lack a supported registered pair. Numeric author P values and adjusted P values remain unavailable."
+  ]
+}

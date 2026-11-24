@@ -1,0 +1,17 @@
+{
+  "datasetId": "human_hypo_neuron_mkrn3_gse208722",
+  "outcome": "compared",
+  "summary": "Of 114 genes labeled in the authors’ [Figure 2](https://insight.jci.org/articles/view/164178/figure/2), 110 had a registered DE result. All 110 agreed in direction for MKRN3 knockout versus wild type, and 28 met registered FDR < 0.05. Two paired directions came from labeled volcano points and 108 from sample heatmaps. The proposal passed the repository’s schema check.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/human_hypo_neuron_mkrn3_gse208722.json",
+    "data/author-validation/continued-sources/GSE208722/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE208722/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE208722/codex-2026-11-21/selected-comparison.tsv",
+    "data/author-validation/continued-sources/GSE208722/codex-2026-11-21/comparison-summary.json",
+    "data/author-validation/continued-sources/GSE208722/codex-2026-11-21/compare.py"
+  ],
+  "openIssues": [
+    "The public sources reviewed did not yield the full author DESeq2 table. Genome-wide concordance, exact effect magnitudes, and per-gene author P values and FDR remain unassessed.",
+    "SLIT1 and three figure-labeled Ensembl IDs lacked registered DE rows. The proposal limits closure to the selected-gene directional comparison."
+  ]
+}

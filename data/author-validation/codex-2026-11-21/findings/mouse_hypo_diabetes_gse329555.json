@@ -1,0 +1,81 @@
+{
+  "datasetId": "mouse_hypo_diabetes_gse329555",
+  "accession": "GSE329555",
+  "category": "not_located",
+  "closure": "confirmed_not_located",
+  "summary": "No public author gene-level result was located for diabetic versus control whole hypothalamus. GEO supplies raw counts for 12 libraries, and the registered analysis uses four diabetic and three control libraries. The related publications report a different RNA-seq cohort or an arcuate protein measurement.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE329555/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "The deposited count matrix matches the registered input checksum. Author differential-expression results were not located.",
+      "note": "All 78,334 deposited feature rows contain only Ensembl IDs and counts for the 12 labeled libraries. The compressed GEO matrix matches the producer's input SHA-256 (0c4aace9f4a58a80d6493df1d5c0750e7901087107a603ab98f6a91194d72931). The registered diabetic_vs_control contrast uses DM1–DM4 relative to C1–C3. The GEO sample records, ENA, publication and preprint indexes, supplements and repository searches are documented in the dated evidence folder.",
+      "reviewFlags": [
+        "Public records do not establish mouse identity, pooling or litter allocation for the registered libraries.",
+        "The curcumin paper reports arcuate Lep-Rb protein. Its listed supplementary PDF was inaccessible, and its relationship to the sequenced libraries is undocumented."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "No full or selected-gene author RNA result was located for DM1–DM4 versus C1–C3. GEO supplies counts, ENA lists read runs, the related RNA-seq article studies diet-induced obesity, and the curcumin study measures arcuate Lep-Rb protein. Author effect concordance, P values and FDR remain unassessed.",
+      "nextStep": "Reopen if the authors identify a public gene-level diabetic-versus-control RNA result for these libraries. Confirm its sample membership, effect definition and contrast direction before comparison.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "SHA-256 of the freshly downloaded GEO count matrix, verified against input_matrix_sha256 in the registered provenance",
+      "value": "0c4aace9f4a58a80d6493df1d5c0750e7901087107a603ab98f6a91194d72931",
+      "script": "data/author-validation/continued-sources/GSE329555/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Unique Ensembl mouse gene IDs in the deposited matrix",
+      "value": "78334",
+      "script": "data/author-validation/continued-sources/GSE329555/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Nonnegative integer count cells across all 12 library columns",
+      "value": "940008",
+      "script": "data/author-validation/continued-sources/GSE329555/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Author contrast-result columns in the deposited matrix",
+      "value": "0",
+      "script": "data/author-validation/continued-sources/GSE329555/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "GEO sample records explicitly listing no supplementary file",
+      "value": "12",
+      "script": "data/author-validation/continued-sources/GSE329555/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Gene rows in the GEO series-matrix export",
+      "value": "0",
+      "script": "data/author-validation/continued-sources/GSE329555/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered whole-hypothalamus libraries matched to the GEO sample descriptions",
+      "value": "4 diabetic (DM1–DM4) and 3 controls (C1–C3)",
+      "script": "data/author-validation/continued-sources/GSE329555/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered DE rows read in place, with SHA-256 verified against output_de_sha256",
+      "value": "20482 rows, SHA-256 29d113995ac8bb3a94769045cd7400cc5d26c28ed142363e51c6edf4422f84b5",
+      "script": "data/author-validation/continued-sources/GSE329555/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "ENA inventory for PRJNA1459494 / SRP696114",
+      "value": "12 unique read runs and 0 analysis records",
+      "script": "data/author-validation/continued-sources/GSE329555/codex-2026-11-21/audit.py"
+    }
+  ],
+  "openIssues": [
+    "Wiley returned HTTP 403 for the related curcumin paper's supporting PDF. Its contents could not be inspected, and no public record linked it to the GSE329555 RNA-seq contrast.",
+    "The public sample metadata do not establish biological independence or litter allocation."
+  ]
+}

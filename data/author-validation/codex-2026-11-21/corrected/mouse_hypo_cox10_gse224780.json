@@ -1,0 +1,109 @@
+{
+  "datasetId": "mouse_hypo_cox10_gse224780",
+  "accession": "GSE224780",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "Both hypothalamic genes in Appendix Figure S7D increased in COX10 KO relative to control. The plotted log2 fold changes were approximately +1.79 for Agrp and +1.13 for Npy, compared with +1.746 and +1.128 in the registered output. The legend reports six per genotype, while GEO and ENA identify four hypothalamic libraries per genotype, leaving the author cohort unresolved.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE224780/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "Both S7D genes increased in the registered contrast. The figure’s n = 6 per genotype remains unreconciled with four deposited libraries per genotype.",
+      "note": "Southwell et al. report increased Agrp and Npy in 200-day KO hypothalamus. Appendix S1 shows the two means and their standard errors on page 16 and defines the log2 scale, genotype comparison and asterisks on page 17. Both symbols match the registered edgeR-QL output. S7D marks each bar P < 0.05. The paper describes an unpaired two-sided Student’s t-test for two-group comparisons. The legend gives no exact P values or adjustment designation for these two genes. The publication files and repositories searched yielded no full hypothalamic DE table. See figure-S7D-pairs.tsv and SEARCH_LOG.md. The sourceComparison field describes the legacy manual review. A separate check in refute/verify.py reconciles the published symbol counts with the deposited libraries.",
+      "reviewFlags": [
+        "The S7D legend reports n = 6 per genotype without identifying the units counted. GEO, ENA and the registered sample sheet identify four hypothalamic libraries per genotype. The mapping from panel observations to libraries and individual mice remains unresolved.",
+        "S7D contains two author-selected genes. The author testing universe, exact gene-wise statistics and genome-wide concordance remain unassessed."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "Both S7D effects agree in direction with the registered output. The paper reports n = 6 per genotype. The deposited and registered hypothalamus data have four libraries per genotype. The reviewed sources provide no panel sample key or definition of n that reconciles them.",
+      "nextStep": "Ask the authors what n counted in S7D and which mice and libraries contributed to each group. Request the unfiltered hypothalamic KO-versus-control table, identifiers, effect calculation, test inputs and any multiple-testing adjustment.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "cox10ko_vs_control"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Compare both published S7D bars with the unchanged registered hypothalamus effect for the same symbol. Estimate the bar heights from the PDF’s vector coordinates and labeled 0–3 log2 fold-change axis. Read the significance marks from the panel and their meaning from the legend.",
+      "reference": "Southwell et al., EMBO Molecular Medicine, DOI 10.15252/emmm.202216951. Appendix S1, Figure S7D, pp. 16–17. The paper describes the mouse model, sequencing methods and general two-group test. The publisher and PMC copies of Appendix S1 are byte-identical. See comparison.json and refute/verify.py for the registered files and independent check.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "S7D and the registry describe 200-day KO and control hypothalami. S7D gives n = 6 per genotype. GSM7032015–GSM7032018 are male control hypothalamic libraries and GSM7032019–GSM7032022 are male KO hypothalamic libraries. All eight join to distinct ENA runs and BioSamples and to the registered sheet. The paper describes tissue collection from the mice but provides no library-to-animal key or S7D sample list."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "The mouse methods identify the skeletal-muscle-specific COX10 knockout. The S7D legend expresses hypothalamic transcript levels in 200-day KO relative to control. The registered edgeR groupcase coefficient has control as its baseline."
+        },
+        "features": {
+          "status": "matched",
+          "note": "All panel symbols join exactly and uniquely. The registered feature map gives ENSMUSG00000005705.10 for Agrp and ENSMUSG00000029819.6 for Npy. No panel identifier is ambiguous or unmatched."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "S7D reports KO relative to control in log2 fold-change units and shows means with standard-error bars. The plotted effects are approximately +1.79 for Agrp and +1.13 for Npy. The registered edgeR-QL coefficients round to +1.74619 and +1.12825, respectively. The orientation and units support a descriptive comparison. The precise calculation of the S7D effects remains undocumented."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "Each S7D bar carries one asterisk for P < 0.05. The article’s Statistical analyses section reports an unpaired two-sided Student’s t-test for two-group comparisons. S7D gives no exact P values, names no multiple-testing adjustment and does not specify the data entered into that test. The sequencing methods describe DESeq2 normalization for liver and muscle. The registered edgeR-QL raw P values are 0.0126023 for Agrp and 0.00104439 for Npy. Both registered BH-adjusted P values are 0.99981039. Author FDR and FDR overlap remain unassessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Both plotted symbols pair uniquely, covering 2/2 of the selected reference and 2/13,447 registered DE rows (0.0149%). The registered model tested 13,496 features, including 49 unmapped features in the BH family. Zero published DE rows have BH FDR < 0.05. The author’s genome-wide testing universe and statistics remain unavailable in the sources reviewed."
+        }
+      },
+      "criteria": "Include every S7D gene in the reported KO-relative-to-control direction. Record the authors’ P < 0.05 marks alongside registered raw P and BH FDR as context. Author-concordance-v2 requires at least 30 pairs, at least 90% relevant coverage and supported cohort, contrast, identifier and effect definitions. It requires either Pearson and Spearman both ≥ 0.90 or ≥ 90% directional agreement among at least 30 nonzero pairs covering ≥ 90% of all pairs.",
+      "conclusion": "Both nonzero pairs agree in direction. The comparison covers the entire selected panel but falls below the 30-pair v2 minimum, and the panel cohort remains unresolved. The shared comparison runner requires three pairs, so the two-gene result is retained in the dataset evidence. No contrast earns full verification."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Figure S7D effects from vector bars and matched registered coefficients, KO relative to control",
+      "value": "Agrp approximately +1.79 versus +1.7461926573253 registered. Npy approximately +1.13 versus +1.1282466221403 registered. Direction agrees for both nonzero pairs.",
+      "script": "data/author-validation/continued-sources/GSE224780/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered inference alongside the two published P < 0.05 annotations",
+      "value": "Registered raw P is 0.0126022692921667 for Agrp and 0.0010443890385153 for Npy. Both local adjusted P values are 0.999810390452875. Zero finite author adjusted-P pairs.",
+      "script": "data/author-validation/continued-sources/GSE224780/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Selected-panel and registered coverage",
+      "value": "2/2 selected symbols, 2/13,447 published DE rows, 13,496 tested features including 49 unmapped, 0 published DE rows with registered FDR < 0.05.",
+      "script": "data/author-validation/continued-sources/GSE224780/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure legend and registered hypothalamus cohort",
+      "value": "S7D reports n = 6 per genotype at 200 days. The registered sample sheet matches four KO and four control GEO/ENA hypothalamic libraries. The units behind the figure’s n remain unresolved.",
+      "script": "data/author-validation/continued-sources/GSE224780/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "GEO supplementary files and ENA inventory",
+      "value": "32 sample count files. Every file has 55,401 rows with a feature and one integer count. ENA lists 32 runs across tissues and 0 submitted analysis records for this project.",
+      "script": "data/author-validation/continued-sources/GSE224780/codex-2026-11-21/inspect_sources.py"
+    },
+    {
+      "claim": "Publication supplement inventory",
+      "value": "10 attachments, including the review file. Across the eight source-data archives, 66 workbooks contain 76 worksheets. No scanned worksheet title or populated cell matched the hypothalamus or orexigenic gene terms used in inspect_sources.py.",
+      "script": "data/author-validation/continued-sources/GSE224780/codex-2026-11-21/inspect_sources.py"
+    },
+    {
+      "claim": "Independent check of deposited input counts against the registered expression table",
+      "value": "The counts recovered from the registered TMM CPM table using its effective library sizes matched the symbol-aggregated GEO counts in all 412,728 cells (51,591 mapped symbols × 8 hypothalamic libraries).",
+      "script": "data/author-validation/continued-sources/GSE224780/codex-2026-11-21/refute/verify.py"
+    }
+  ],
+  "openIssues": [
+    "What did n = 6 count in S7D, which mice and libraries supplied the measurements, and how do they relate to the four deposited libraries per genotype?",
+    "The S7D effect calculation, test inputs, adjustment status and complete hypothalamic gene-level results remain unavailable in the reviewed sources."
+  ]
+}

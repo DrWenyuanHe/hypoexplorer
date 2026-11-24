@@ -1,0 +1,105 @@
+{
+  "datasetId": "mouse_hypo_risperidone_gse158751",
+  "accession": "GSE158751",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "The registered ad-libitum risperidone versus control contrast agrees in direction for 45 of 45 evaluable genes in Li et al. Figure 2, including every gene in the ten-gene intersection shown in panel E. These pairs cover 45 of the 65 ad-libitum DEGs reported by the authors. Exact author coefficients and gene-wise P/FDR values remain unavailable in the reviewed sources.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE158751/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "Registered effect directions agree for 45 evaluable Figure 2 genes, including Mc4r",
+      "note": "For risp_vs_control, the seven RISP_Ad.lib and seven CON_Ad.lib whole-hypothalamus libraries in the registered sample sheet match GEO. The downloaded count matrix matches the producer's recorded SHA-256. All ten selected directions in Figure 2E agree, including lower Mc4r and higher Penk. Across Figures 2A and 2E, 45 of 65 reported ad-libitum DEGs have a readable direction and a registered effect. All 45 signs agree. Of these, three pass registered FDR < 0.05 (Arl4d, Rrad and Sytl4). Complete author DESeq2 effects, P values and adjusted P values were not located. See data/author-validation/continued-sources/GSE158751/codex-2026-11-21/SEARCH_LOG.md and comparison.json.",
+      "reviewFlags": [
+        "This legacy source has no committed source-file checksum manifest.",
+        "The figure supplies selected directions. Coverage of the reported ad-libitum DEG set falls below the author-concordance-v2 threshold.",
+        "Author effect magnitudes and gene-wise P/FDR remain unassessed. Eight named genes have unresolved directions and three named genes lack registered DE rows."
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "The 28-day RNA-seq comparison is direct at the level of selected gene directions. All 45 evaluable registered edgeR-QL signs agree with Figure 2, including all ten genes selected by the authors across both feeding conditions. Only Arl4d, Rrad and Sytl4 pass registered FDR < 0.05. The paper describes DESeq2 with an adjusted-P and fold-change rule. Exact author effects, gene-wise inference and the complete testing universe are unavailable for comparison.",
+      "nextStep": "Retain the selected-direction comparison. A genome-wide assessment requires the original ad-libitum risperidone versus control DESeq2 export with feature identifiers, signed log2 fold changes, P values, adjusted P values, tested features and model settings.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "risp_vs_control"
+      ],
+      "basis": "Direct comparison of published RNA-seq directions with the signs of the registered two-group edgeR-QL groupcase coefficient. Exact symbol matching used every readable Figure 2A label and every row of the Figure 2E ad-libitum log2FC1 strip. Duplicate genes across panels were counted once.",
+      "reference": "Li et al., J Exp Med (2021), doi:10.1084/jem.20202484, Figure 2A/E, page 5. Figure 2A reports 65 ad-libitum DEGs. Figure 2E displays the ten genes regulated in the same direction in the pair-fed and ad-libitum comparisons. Source-only transcription and panel-specific results are retained with the figure.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "All 14 registered libraries reconcile through GEO GSM records, matrix headers and the sample sheet. The study used 28-day whole hypothalami from female C57BL/6 mice, seven per ad-libitum group. The six pair-fed libraries define a separate arm and contribute to the panel E selection."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Registered case minus baseline is risperidone ad libitum minus control ad libitum. Figure 2A colours and the ad-libitum log2FC1 strip in E use that biological direction. The separate pair-fed coefficient and qPCR panels are excluded."
+        },
+        "features": {
+          "status": "limited",
+          "note": "Of 56 distinct readable symbols, 53 occur exactly once in the registered output. Emx1, Lypd2 and Rtn4rl2 occur in the registered input feature map but lack DE rows. Eight of the 53 matched labels lack an unambiguous figure direction across A and E."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "All 45 pairs agree in sign (29 down, 16 up). All ten genes in E agree (nine down and Penk up). Mc4r has registered log2FC −0.482. The plots support signs without exact fitted coefficients. Magnitude, Pearson correlation and Spearman correlation remain unassessed."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "Authors describe DESeq2 with BH adjustment and a fold-change cutoff. Panel A labels the vertical axis −log10(Pvalue). No exact per-gene author P/FDR values were recovered. All 45 paired genes have registered raw P < 0.05, and Arl4d, Rrad and Sytl4 pass registered FDR < 0.05. Individual author significance statistics and full-universe overlap remain unassessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Panel E accounts for 10/10 selected genes. The A/E union covers 45/65 (69.2%) of reported ad-libitum DEGs, with 45 paired directions among 17,202 registered rows. The remaining author DEG names or directions and the full author testing universe are incompletely observed."
+        }
+      },
+      "criteria": "Use the published DEG set and the authors' explicitly defined common-gene subset. Keep unresolved pointers, missing rows and missing statistics unassessed. Author-concordance-v2 requires at least 30 paired genes and 90% relevant coverage. Its direction route also requires at least 30 nonzero pairs covering 90% of pairs with at least 90% sign agreement. Its correlation route requires Pearson and Spearman of at least 0.90. Both routes require compatible cohort, contrast, identifiers and effect definitions.",
+      "conclusion": "The ten-gene intersection falls below the minimum pair count, and 45/65 ad-libitum DEG coverage falls below the coverage threshold. The observed directions support a selected-gene comparison. A numeric comparison spec would require author effect values, which the transcription does not contain."
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO sample reconciliation and deposited matrix contents",
+      "value": "7 ad-libitum control, 7 ad-libitum risperidone and 6 pair-fed libraries. The GEO source contains 55,471 rows and 20 sample-count columns. All 14 registered library assignments match.",
+      "script": "data/author-validation/continued-sources/GSE158751/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Complete Figure 2E common-gene subset",
+      "value": "10/10 nonzero registered pairs agree. Nine are down and Penk is up. Only Arl4d passes registered FDR < 0.05 in this subset.",
+      "script": "data/author-validation/continued-sources/GSE158751/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure 2A label inventory and panel-specific pairing",
+      "value": "56 readable symbols, 53 exact local matches, 44 evaluable directions in A alone and 44 agreeing. Panel E supplies Trp53inp1's direction for the union.",
+      "script": "data/author-validation/continued-sources/GSE158751/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Coverage and signs across Figures 2A and 2E",
+      "value": "45/65 reported DEGs (69.2%) yield a nonzero direction pair. All 45 agree, with 29 down and 16 up. Eight named directions remain unclear and three named genes are absent from the registered DE output.",
+      "script": "data/author-validation/continued-sources/GSE158751/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Inference on the registered side",
+      "value": "All 45 pairs have raw P < 0.05. Arl4d, Rrad and Sytl4 are the only FDR < 0.05 genes among both the paired rows and all 17,202 registered rows. Exact author P/FDR pairs are unavailable.",
+      "script": "data/author-validation/continued-sources/GSE158751/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Mc4r registered effect and inference",
+      "value": "Author direction down. Registered log2FC −0.481651, P 0.000694199, FDR 0.185167.",
+      "script": "data/author-validation/continued-sources/GSE158751/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "No full ad-libitum DESeq2 table with exact author coefficients, P values, adjusted P values or tested-gene universe was located.",
+    "The figure and registered DE table support directional pairing for 45 of the 65 reported ad-libitum DEGs. Full author concordance and inference remain unassessed."
+  ]
+}

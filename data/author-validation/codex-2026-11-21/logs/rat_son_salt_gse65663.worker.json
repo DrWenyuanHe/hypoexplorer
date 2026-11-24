@@ -1,0 +1,28 @@
+{
+  "datasetId": "rat_son_salt_gse65663",
+  "outcome": "compared",
+  "summary": "All 3,564 genes with matching Entrez IDs and complete probe sets agreed in direction between Greenwood et al.’s Table S1 and the registered salt-loading result. They covered 62.32% of the 5,719 identifiable selected genes, below the 90% author-concordance-v2 requirement. The comparison reproduced byte-for-byte, and the proposal passed the repository validator. [Primary workbook](https://www.ebi.ac.uk/biostudies/files/S-EPMC4386000/9016251045f6927940162e8533b81f37_tableS1-S6.xlsx)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/rat_son_salt_gse65663.json",
+    "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/sources/",
+    "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/primary-gene-effects.tsv",
+    "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/primary-probe-audit.tsv",
+    "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/comparison.json",
+    "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/source-inventory.json",
+    "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/verification.json",
+    "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/extra-sources.tsv",
+    "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/retrieval.jsonl",
+    "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/retrieve.py",
+    "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/inspect_sources.py",
+    "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/read_companion.cjs",
+    "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/compare.py",
+    "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/write_review.py",
+    "data/author-validation/continued-sources/GSE65663/codex-2026-11-21/verify.py"
+  ],
+  "openIssues": [
+    "Table S1 contains only BH-selected probes. Full verification would require the unfiltered GeneSpring results.",
+    "Among 3,079 comparable single-probe genes, all passed author BH < 0.05 and 2,997 passed registered BH < 0.05. Author gene-level P and FDR remain unassessed for the 485 matched multi-probe genes."
+  ]
+}

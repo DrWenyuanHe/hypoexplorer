@@ -1,0 +1,13 @@
+{
+  "datasetId": "mouse_hypo_obob_fgf1_gse153551",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 26 source files matched their recorded hashes and sizes, and all nine computations reproduced. Figure 7a shows 319 upregulated and 68 downregulated genes under the adjusted-P rule. The notebook’s nominal-P rule gives 360 and 92. The corrected proposal documents the discrepancies in normalization and P-value adjustment, clarifies the tissue sampled, and distinguishes the Gbp2 count-replacement check from a model refit. The needs_author_contact closure is justified.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_obob_fgf1_gse153551.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_obob_fgf1_gse153551.json",
+    "data/author-validation/continued-sources/GSE153551/codex-2026-11-21/refute/audit.py"
+  ],
+  "openIssues": [
+    "The deposited day-five analysis used 14 vehicle mice, while the paper reports seven. Author confirmation is needed to establish when GSM4646998–GSM4647004 were labelled Non-Diabetic, which met the pretreatment glucose criterion, and which controls Figure 7a was intended to represent."
+  ]
+}

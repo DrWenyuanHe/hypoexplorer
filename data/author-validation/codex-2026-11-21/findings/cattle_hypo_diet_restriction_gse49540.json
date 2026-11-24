@@ -1,0 +1,407 @@
+{
+  "datasetId": "cattle_hypo_diet_restriction_gse49540",
+  "accession": "GSE49540",
+  "category": "unresolved",
+  "closure": "compared",
+  "summary": "The published gene filter uniquely implicates control rep5 (GSM1201496) as the omitted control. With that library omitted, joint DESeq 1.1.11 normalization reproduces 107/107 traceable S1 effects at printed precision. The registered seven-control analysis agrees in direction on 107/107 paired effects, covering 81.06% of the selected reference.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "summary": "Published RA/C cohort reconstructed and selected author effects compared with the registered output",
+      "note": "The published gene filter uniquely implicates control rep5 (GSM1201496) as the omitted control. With that library omitted, joint DESeq 1.1.11 normalization reproduces 107/107 traceable S1 effects at printed precision. The registered seven-control analysis agrees in direction on 107/107 paired effects, covering 81.06% of the selected reference. The paper specifies 7 restricted-anovulatory (RA), 7 restricted-ovulatory (RO) and 6 control heifers. GEO, BioStudies and ENA contain seven of each. Of 15,410 genes reaching five reads in any deposited library, 115 reach five only in control rep5. This uniquely accounts for the paper's 15,295 expressed genes. The corresponding 20-library reconstruction agrees at printed precision on all 107 traced S1 effects. The same calculation with all 21 libraries agrees on two. The registered model remains seven RA versus seven controls. On the 107 matched S1 genes Pearson is 0.978780, Spearman is 0.966815 and the median absolute log2 difference is 0.069664. S1 lists 65 increases and 67 decreases among the 137 calls in the text. Author inference used DESeq 1.1.11 and BH FDR 0.10. Registered edgeR-QL has zero FDR < 0.10 calls. Gene-level author P and FDR remain unassessed. RA/C jointly contrasts feeding level and ovulatory status. Neither cohort equality nor 90% selected-reference coverage is established.",
+      "reviewFlags": [
+        "Registered edgeR-QL includes GSM1201496. Reconstructing the published effects identifies a six-control cohort omitting that library.",
+        "The reference covers selected annotated genes. Only 107 of 132 can be paired to a registered effect.",
+        "Numeric gene-level P and adjusted P are unavailable in S1. A full author-result reproduction cannot be assessed."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "GEO record",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE49540",
+          "kind": "database"
+        },
+        {
+          "label": "Deposited files",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE49nnn/GSE49540/suppl/",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Open full text",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5680758/",
+          "kind": "paper"
+        },
+        {
+          "label": "Publication record",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29121875/",
+          "kind": "paper"
+        },
+        {
+          "label": "Author supplementary evidence",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/instance/5680758/bin/12864_2017_4265_MOESM1_ESM.docx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Author supplementary evidence",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/instance/5680758/bin/12864_2017_4265_MOESM2_ESM.docx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Author supplementary evidence",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/instance/5680758/bin/12864_2017_4265_MOESM3_ESM.docx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Retrieved official supplement archive, S1 DOCX",
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5680758/supplementaryFiles",
+          "kind": "author_result"
+        },
+        {
+          "label": "ArrayExpress sample inventory and SDRF",
+          "url": "https://www.ebi.ac.uk/biostudies/arrayexpress/studies/E-GEOD-49540",
+          "kind": "database"
+        },
+        {
+          "label": "ENA study and sequencing runs",
+          "url": "https://www.ebi.ac.uk/ena/browser/view/SRP028518",
+          "kind": "database"
+        },
+        {
+          "label": "Versioned S1 in the publisher supplement collection",
+          "url": "https://doi.org/10.6084/m9.figshare.5589022.v1",
+          "kind": "author_result"
+        }
+      ],
+      "paperAccess": "pmc_full_text",
+      "pmcUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5680758/",
+      "pmcId": "PMC5680758",
+      "pubmedUrl": "https://pubmed.ncbi.nlm.nih.gov/29121875/",
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "The published gene filter uniquely implicates control rep5 (GSM1201496) as the omitted control. With that library omitted, joint DESeq 1.1.11 normalization reproduces 107/107 traceable S1 effects at printed precision. The registered seven-control analysis agrees in direction on 107/107 paired effects, covering 81.06% of the selected reference. The selected reference has no numeric gene-level P or FDR. Both v2 effect routes meet their numerical thresholds, but the 90% coverage requirement and cohort compatibility are unmet.",
+      "nextStep": "For full inference or a documented exclusion rationale, request the original RA/C DESeq table with Ensembl IDs, raw and adjusted P values, and the sample design identifying why GSM1201496 was omitted.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "restricted_anovulatory_vs_control"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Current R 4.6.0 edgeR-QL case coefficient for restricted-anovulatory versus higher-feed ovulatory heifers, seven per arm. The separate DESeq base-mean reconstruction tests the inferred sample omission.",
+      "reference": "Matthews et al., Table S1, 132 annotated selected RA/C log2 fold changes. The footnote defines RA relative to C.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "different",
+          "note": "Seven RA animals in both analyses. Explorer fits all seven deposited controls. The unique 115-gene filter difference and 107/107 reconstructed S1 values identify GSM1201496 as the control omitted from the author analysis. The source gives no exclusion rationale."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Both effects compare whole hypothalamus from restricted-diet anovulatory heifers with higher-feed ovulatory controls. The contrast combines diet and reproductive status. RO animals are outside these effect groups."
+        },
+        "features": {
+          "status": "limited",
+          "note": "102 exact symbols and five additional identities corroborated by bovine authority records, a unique Ensembl 59 locus and a unique raw-count trace. The 25 unpaired rows retain their labels and disposition in identifier-review.tsv."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both effects are log2(RA/C), orientation +1. Registered comparisons agree in direction for 107/107 pairs. Pearson 0.978780, Spearman 0.966815 and median absolute difference 0.069664 describe the selected pairs."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "The authors used DESeq 1.1.11 with BH FDR 0.10. The paper reports 137 calls. Registered edgeR-QL reports zero below FDR 0.10. S1 contains no numeric P or adjusted P. The reconstruction evaluates effect sizes only."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "107/132 selected S1 effects paired (81.06%), corresponding to 107/11,831 published registered rows. The complete author testing universe is unavailable. The 25 unpaired rows remain in the reference denominator."
+        }
+      },
+      "criteria": "Use all finite S1 effects in their published orientation, unique identifiers and the unchanged registered coefficient. Author-concordance-v2 requires at least 30 pairs, 90% selected-reference coverage and compatible cohort, contrast, identifiers and effects, together with its correlation or nonzero-direction rule.",
+      "conclusion": "Both numerical effect routes pass on paired genes. Selected-reference coverage is below 90% and the registered model contains an additional control. The direct comparison closes at selected-effect scope without a concordance pass or full verification."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "cattle_hypo_diet_restriction_gse49540",
+      "accession": "GSE49540",
+      "contrast": "restricted_anovulatory_vs_control",
+      "localPath": "geo_replication/datasets/GSE49540_btau_hypothalamus_diet_restriction/processed/GSE49540_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/author-effects.tsv",
+      "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5680758/supplementaryFiles",
+      "sha256": "7632fbf9d922a2480057f1d80c1a928bf6c264f74bc15ff0519884a94ff9e233",
+      "format": "tsv",
+      "authorKey": "output_id",
+      "authorEffect": "logFC",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL",
+      "authorMethod": "DESeq 1.1.11",
+      "orientation": "S1 footnote and registered groupcase coefficient both express restricted-anovulatory relative to control.",
+      "note": "Replacement for the existing GSE49540 selected S1 comparison. All 132 effects are retained. The 107 pairs use exact symbols and five independently corroborated identities. Unpaired labels stay in the denominator. The original cohort omitted control rep5 by reconstruction. Numeric author P and adjusted P are unavailable.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/supplements.zip",
+          "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5680758/supplementaryFiles",
+          "sha256": "15236a6efa175c77447bb340bb200d2481f1cd96e0168b30f50b5f5a85ea3e3a",
+          "bytes": 186847
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/fulltext.xml",
+          "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5680758/fullTextXML",
+          "sha256": "eac9ae945202b98acd67b8a40189a4b86699e8200433598b9b797bbe62125347",
+          "bytes": 191479
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/GSE49540_RAW.tar",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE49nnn/GSE49540/suppl/GSE49540_RAW.tar",
+          "sha256": "715bce23c29ecb1a86dcfde45dc3c9d07b1415e5302959491f2ee362cdce5fd4",
+          "bytes": 1966080
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/GSE49540_family.soft.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE49nnn/GSE49540/soft/GSE49540_family.soft.gz",
+          "sha256": "236e2cc47330f6230019f7f6a3082fa0f86916e71e558b1f343f47995a5bd846",
+          "bytes": 4233
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/bos_gene_info.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/gene/DATA/GENE_INFO/Mammalia/Bos_taurus.gene_info.gz",
+          "sha256": "3ca5b571a9f693555e84e363a58b74ad3d6f1c4cf7f270c83c983943dfc5e1be",
+          "bytes": 1667592
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/A6QQP6.json",
+          "sourceUrl": "https://rest.uniprot.org/uniprotkb/A6QQP6.json",
+          "sha256": "494063dd617694c25267237d9d0ef91623fa4f555390c3b021e874172c20bcb6",
+          "bytes": 13523
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/ensembl59.gtf.gz",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-59/gtf/bos_taurus/Bos_taurus.Btau_4.0.59.gtf.gz",
+          "sha256": "4e7afe6eaf15f60046941ce59cc9ecf53f777e7110362b5a4540a6249c98f975",
+          "bytes": 5714711
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/bos_taurus_core_59_4h.sql.gz",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-59/mysql/bos_taurus_core_59_4h/bos_taurus_core_59_4h.sql.gz",
+          "sha256": "de70bbfc08c80615ff7503d194c7a0579da73e598ad3cc8f63fafd35609d24a2",
+          "bytes": 4694
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/gene.txt.gz",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-59/mysql/bos_taurus_core_59_4h/gene.txt.gz",
+          "sha256": "6ca3a25ea1cbdd35c784338fb3878827e321d6dff31bf042e9e0e96bd16063dd",
+          "bytes": 881769
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/gene_stable_id.txt.gz",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-59/mysql/bos_taurus_core_59_4h/gene_stable_id.txt.gz",
+          "sha256": "74742d8c8fe2a25465c6f4c7c6f5cece154d07f4892f2e88b5e7fa10958a6981",
+          "bytes": 166038
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/transcript.txt.gz",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-59/mysql/bos_taurus_core_59_4h/transcript.txt.gz",
+          "sha256": "656e75eafb293bb45ea893a3b6c2da95474d8a0589100cb0e5c0fc54abf546b4",
+          "bytes": 634438
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/translation.txt.gz",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-59/mysql/bos_taurus_core_59_4h/translation.txt.gz",
+          "sha256": "937db710578df038df5936a60433900afa6b7e3a8a5d98b7ccdea91304e0ef3e",
+          "bytes": 330641
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/external_db.txt.gz",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-59/mysql/bos_taurus_core_59_4h/external_db.txt.gz",
+          "sha256": "995320210c1159c87100f2d843352439be60a93de11facb18595ef6ff60e8df7",
+          "bytes": 5733
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/xref.txt.gz",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-59/mysql/bos_taurus_core_59_4h/xref.txt.gz",
+          "sha256": "462ef4b8a592ef44207d71bf3d5c775c196ddd96814f50b59ff12d5a37dcb3d5",
+          "bytes": 6226884
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/object_xref.txt.gz",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-59/mysql/bos_taurus_core_59_4h/object_xref.txt.gz",
+          "sha256": "c923d8a2f4fd4bfaf38ef4d7f53c1a918c290376971599e9742b70f803aa2a23",
+          "bytes": 3976571
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/external_synonym.txt.gz",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-59/mysql/bos_taurus_core_59_4h/external_synonym.txt.gz",
+          "sha256": "4dbcdb5e21c77a96685db003085556039f66adefca4256bf1a930beb468c8a20",
+          "bytes": 79273
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/DESeq-1.1.11.tar.gz",
+          "sourceUrl": "https://codeload.github.com/bioc/DESeq/tar.gz/68bb78dc512537f02deb4036696d24c9c185dac2",
+          "sha256": "b7396e18ac4cd12abd3105ce538dc7e50b848a6a7ce1aa26cfb3b1cdb0fc2566",
+          "bytes": 457055
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/ena.tsv",
+          "sourceUrl": "https://www.ebi.ac.uk/ena/portal/api/filereport?accession=SRP028518&result=read_run&fields=run_accession%2Cstudy_accession%2Cexperiment_accession%2Csample_accession%2Csecondary_sample_accession%2Csample_title%2Cread_count%2Cbase_count&format=tsv",
+          "sha256": "c4b6bd4c114176d6821b7bc2b4a028cd437014e12ec005e63307765e2cd987d8",
+          "bytes": 2171
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/sdrf.txt",
+          "sourceUrl": "https://www.ebi.ac.uk/biostudies/files/E-GEOD-49540/E-GEOD-49540.sdrf.txt",
+          "sha256": "8e18359718c578d5015d6f9e518411aa67017d6b50752d88f02815e488040ec7",
+          "bytes": 16737
+        },
+        {
+          "path": "geo_replication/datasets/GSE49540_btau_hypothalamus_diet_restriction/metadata/GSE49540_samplesheet.tsv",
+          "sourceUrl": "Registered input used for sample membership or identifier tracing",
+          "sha256": "bd48c64251903e972fe2265deedb2f7fe5ac4f2567eb7c0f86cc4aa1495937b1",
+          "bytes": 2946
+        },
+        {
+          "path": "geo_replication/datasets/GSE49540_btau_hypothalamus_diet_restriction/metadata/GSE49540_sample_inventory.tsv",
+          "sourceUrl": "Registered input used for sample membership or identifier tracing",
+          "sha256": "a727a837a699c4485b8d5c3af5ec235b19ef2c531140b5709838b562fc845a97",
+          "bytes": 5620
+        },
+        {
+          "path": "geo_replication/datasets/GSE49540_btau_hypothalamus_diet_restriction/processed/GSE49540_provenance.tsv",
+          "sourceUrl": "Registered input used for sample membership or identifier tracing",
+          "sha256": "e295f737e81a766daa45b05ad8ee89495aa9592696ca81224406db8d3dc30bbf",
+          "bytes": 4812
+        },
+        {
+          "path": "geo_replication/datasets/GSE49540_btau_hypothalamus_diet_restriction/processed/GSE49540_CPM_TMM.tsv.gz",
+          "sourceUrl": "Registered input used for sample membership or identifier tracing",
+          "sha256": "9f7ac5c1c8c626cc6eaf050cff82442fceaa7be36cf3f095867b8998d156a968",
+          "bytes": 1352081
+        },
+        {
+          "path": "geo_replication/datasets/GSE49540_btau_hypothalamus_diet_restriction/processed/GSE49540_cpm_normalization.tsv",
+          "sourceUrl": "Registered input used for sample membership or identifier tracing",
+          "sha256": "9ccb2ff0e8a85709bd9810dd19e4f4bb2161f62b9eb2f80ffba491aed1ddc237",
+          "bytes": 1301
+        },
+        {
+          "path": "geo_replication/datasets/GSE49540_btau_hypothalamus_diet_restriction/processed/GSE49540_feature_map.tsv.gz",
+          "sourceUrl": "Registered input used for sample membership or identifier tracing",
+          "sha256": "c98a6bbe4fee0622f20c1b1721f76b4c677a4d8683243dcb32db4e291d06f8a6",
+          "bytes": 134365
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/audit.py",
+          "sourceUrl": "Reproducible S1 extraction, identifier tracing and registered comparison",
+          "sha256": "0af73013e4f7ac9bc1e6782c040ad25433209605d245f380d38c2dbeff2e8cc2",
+          "bytes": 18350
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/cohort_diagnostic.py",
+          "sourceUrl": "Independent reconstruction of the cohort inferred from the published filter",
+          "sha256": "6f21eac107f53b8f1d1156710393aa9807c73063e44376b92890bbdf9a80a016",
+          "bytes": 4411
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/audit.py",
+      "resultScope": "Selected annotated RA/C effects in Table S1 only.",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE49540_btau_hypothalamus_diet_restriction/processed/GSE49540_DE.tsv",
+        "sourceUrl": "Current registered edgeR-QL result",
+        "sha256": "61f8c8c72887bfa38953b4e536790720b6c4de4ff03a75f5713ef7529bc2c01e",
+        "bytes": 1169242
+      }
+    }
+  },
+  "computed": [
+    {
+      "claim": "Deposited RA, C and RO libraries. Registered RA and C libraries.",
+      "value": "7, 7, 7 deposited. 7, 7 registered.",
+      "script": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Paper RA/C calls and S1 annotated effects by direction",
+      "value": "137 reported (69 up, 68 down). 132 S1 effects (65 up, 67 down).",
+      "script": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Local DE rows, total fitted tests and tests hidden without a published symbol",
+      "value": "11831, 13229, 1398",
+      "script": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Deposited genes with any count at least five and paper expressed-gene count",
+      "value": "15410 and 15295",
+      "script": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Genes reaching five only in each control, in GSM1201492 through GSM1201498 order",
+      "value": "12, 18, 12, 20, 115, 10, 7",
+      "script": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Controls compatible with each Table 1 average, assuming the same measurements and one omitted library",
+      "value": "0 for assigned counts and 0 for sequenced reads",
+      "script": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Control uniquely identified by the 115-gene difference",
+      "value": "GSM1201496",
+      "script": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/cohort_diagnostic.py"
+    },
+    {
+      "claim": "S1 values reproduced at printed precision. Joint normalization, inferred cohort and full deposit.",
+      "value": "107/107 and 2/107",
+      "script": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/cohort_diagnostic.py"
+    },
+    {
+      "claim": "S1 values reproduced with contrast-arm normalization, inferred cohort and full deposit",
+      "value": "98/107 and 2/107",
+      "script": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/cohort_diagnostic.py"
+    },
+    {
+      "claim": "Exact-symbol registered pairs, Pearson and Spearman",
+      "value": "102, 0.97760595, 0.96590981",
+      "script": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Additional source-traced identifiers",
+      "value": "A6QQP6 = GABRG1; CALRL = CALCRL; IFIT1 = LOC100139670; Q1KLR3/DDX58 = RIGI; SDCCAG3 = ENTR1",
+      "script": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered paired effects, nonzero pairs with agreeing directions, and selected rows unpaired",
+      "value": "107 paired, 107/107 agree, 25 unpaired",
+      "script": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Selected-reference coverage and registered published-row coverage",
+      "value": "107/132 = 81.060606%, 107/11831 = 0.904404%",
+      "script": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered Pearson and Spearman on paired effects",
+      "value": "0.97878008, 0.96681495",
+      "script": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Median and maximum absolute registered log2FC difference and local/author RMS scale ratio",
+      "value": "0.06966357, 0.86577593, 0.94926335",
+      "script": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Finite paired numeric author P and FDR. Registered calls below FDR 0.05 and 0.10.",
+      "value": "0 paired P, 0 paired FDR. 0 registered calls at either threshold.",
+      "script": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/audit.py"
+    }
+  ],
+  "openIssues": [
+    "The reason for omitting control rep5 is undocumented. Its identity is inferred from the count filter and independently reproduced S1 effects.",
+    "S1 contains 132 selected annotated genes and omits numeric gene-level P values and adjusted P values. The complete author DESeq result and its stable feature IDs were not located.",
+    "Twenty-five S1 rows lack a supported match to a registered DE effect. Table 1's sequencing averages cannot be reconciled by omitting one deposited control alone."
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "datasetId": "chicken_poah_ehc_gse298648",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 31 archived sources and 19 local inputs matched their recorded sizes and SHA-256 values. All nine computations reproduced. Seven of 18 Table 5 genes have published local coefficients. All seven agree in direction, and none has local FDR below 0.1. The corrected proposal places sampling two hours into the challenge, identifies one reported conditioning incubator per treatment, and distinguishes the Table 5 FDR cutoff from the authors’ joint selection rule. BEND3 alone misses the stated magnitude cutoff on its printed coefficient. The corrected proposal passed validation and retains needs_author_contact.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/chicken_poah_ehc_gse298648.json",
+    "data/author-validation/codex-2026-11-21/corrected/chicken_poah_ehc_gse298648.json",
+    "data/author-validation/continued-sources/GSE298648/codex-2026-11-21/refute/check.py"
+  ],
+  "openIssues": [
+    "Were treatments independently reassigned across incubators or runs, and which setter and run supplied each of the eight target libraries?",
+    "Which samples, genes and tests produced the printed Table 5 statistics, and which coefficient or exception qualified BEND3 for inclusion?"
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "datasetId": "human_htnsc_differentiation_gse214877",
+  "accession": "GSE214877",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "Figure 1D shows bulk expression for 37 selected markers across three PSC and three htNSC columns. Of the 33 markers with a registered effect, 21 separate the two groups under the stated color-reading rule and all 21 agree in direction (56.76% of the panel). The sample-to-column key, author coefficients and author inference remain unresolved.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE214877/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Figure 1D and registered effects agree in direction for 21 selected genes. Two control cell-line annotations conflict.",
+      "note": "Both versions of the Sulistio et al. preprint name GSE214877. Figure 1D labels three PSC columns, three htNSC columns and four adult GTEx regions. All 37 marker symbols occur in the deposited counts and 33 occur in the registered edgeR-QL table. For 21 of those 33 genes, every htNSC tile is higher or every htNSC tile is lower on the plotted z-score scale than every PSC tile across the two PDF renderings. All 21 directions agree with the registered logFC. Twelve joined rows have overlapping color intervals and four panel genes lack a registered row. The legend specifies a z-score scale. The bulk methods name DESeq2. The source gives neither the standardization formula for the panel nor a gene-level coefficient, raw P or FDR for this contrast. The working DE table matches the frozen release. The per-gene results are in round2/panel_comparison.tsv beside SEARCH_LOG.md in data/author-validation/continued-sources/GSE214877/codex-2026-11-21/.",
+      "reviewFlags": [
+        "The GSM6617218 and GSM6617219 titles identify CMC11 hiPSC and AG09908R1 hiPSC, consistent with their count-column labels. The GEO and linked ENA records give h9 hESC for the source and cell line of both controls. The three htNSC libraries carry H9 labels and have distinct batch and DIV labels (batch 11 DIV 34, batch 12 DIV 27 and batch 13 DIV 20). GEO records DIV under “divisions.” Figure 1D gives group labels only. Exact figure membership and donor independence remain unresolved. The registered fit has a group term only."
+      ],
+      "reviewedAt": "2026-11-21",
+      "paperAccess": "publisher_full_text",
+      "evidenceLinks": [
+        {
+          "label": "Sulistio et al., revised bioRxiv preprint",
+          "url": "https://www.biorxiv.org/content/10.1101/2024.05.23.595504v2.full",
+          "kind": "paper"
+        },
+        {
+          "label": "Published Figure 1, including the PSC and htNSC expression heatmap in panel D",
+          "url": "https://www.biorxiv.org/content/biorxiv/early/2025/03/05/2024.05.23.595504/F1.large.jpg",
+          "kind": "author_result"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The selected group-level comparison is complete. All 21 readable htNSC-versus-PSC signs agree with the registered groupcase coefficient. The 33 exact-symbol joins cover 89.19% of all 37 plotted genes. The detailed review retains a cohort warning because two control titles conflict with their deposited cell-line fields and the heatmap columns lack GSMs. Author coefficients, raw P, FDR and full tested-universe coverage remain unassessed.",
+      "nextStep": "Obtain the Figure 1D sample-to-column key and reconcile the two control cell-line annotations. Establish whether the authors fitted an htNSC-versus-PSC contrast on these six libraries. If they did, request its design, coefficient definition, tested genes, raw P and adjusted P. Check the cohort and variables in the cited Supporting Data Values XLS if it becomes available.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "htnsc_vs_hpsc"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered TMM edgeR-QL groupcase logFC on the hypothalamic_nsc track, read in htNSC-minus-hPSC orientation.",
+      "reference": "Sulistio et al., bioRxiv 10.1101/2024.05.23.595504, Figure 1D in both versions. All 37 labeled rows of the bulk expression heatmap, restricted to its three PSC and three htNSC columns.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "The study names GSE214877 and the plotted group sizes and cell types correspond to the registered arms. Figure 1D gives no per-column GSMs. Two control titles/count columns conflict with GEO and ENA cell-line fields. H9-derived htNSCs have distinct batches and DIVs. Donor independence and line-adjusted effects are unresolved."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Figure 1D labels PSC and htNSC columns. The registered contrast supplies the orientation used to compare them, with higher expression in htNSCs corresponding to positive logFC. The four adult GTEx regions are outside this comparison."
+        },
+        "features": {
+          "status": "limited",
+          "note": "All 37 displayed gene symbols occur in the deposited counts. Exact, unique joins recover 33 of them in the registered output. AGRP, TBR1, NEUROD6 and PITX3 have no registered row."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "The color key runs from +1.5 (yellow) to −1.5 (purple). Reading across each gene’s row, we found complete separation between the two culture groups for 21 joined genes in both renderings. The figure and bulk methods leave the exact transformation unspecified. Only ordinal directions were compared. Numerical author coefficients, magnitude agreement and correlations remain unassessed."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "The bulk supplement names DESeq2. Figure 1D supplies no gene-level P, adjusted P or significant calls for the culture contrast, so inference and significant-set overlap remain unassessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The denominator includes all 37 selected markers. At most 33/37 (89.19%) have a registered row. Of these, 21 yield a plotted direction and 12 are indeterminate. The usable direction pairs cover 21/37 (56.76%) of the selected panel. No full author tested-gene table was located."
+        }
+      },
+      "criteria": "Read all 37 figure rows before joining registered effects. Use the registered htNSC-minus-hPSC orientation. Call a sign only when the intervals pooled across the two PDF renderings put every htNSC tile on the same side of every PSC tile. Keep ambiguous and unmatched rows in the panel denominator. Author-concordance-v2 requires at least 30 paired genes, 90% relevant coverage and compatible definitions. Its numerical routes require either Pearson and Spearman correlations of at least 0.90 or at least 90% sign agreement among at least 30 nonzero pairs covering at least 90% of all pairs. The figure supports ordinal comparisons only.",
+      "conclusion": "All 21 readable paired directions agree. Both the 30-pair minimum and 90% selected-reference coverage requirement are unmet. The cell-line conflict limits cohort interpretation. No numerical comparison spec or full verification is supported."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Published panel coverage by exact symbol",
+      "value": "37 distinct labels, 37 present in deposited counts, 33 present in the registered DE table (89.19%). AGRP, TBR1, NEUROD6 and PITX3 lack registered rows.",
+      "script": "data/author-validation/continued-sources/GSE214877/codex-2026-11-21/compare_figure.py"
+    },
+    {
+      "claim": "Figure directions and agreement on joined genes",
+      "value": "21/37 panel rows (56.76%) yield readable paired directions. All 21 agree (15 higher, 6 lower). The other 12 joined rows have indeterminate directions under the same rule.",
+      "script": "data/author-validation/continued-sources/GSE214877/codex-2026-11-21/compare_figure.py"
+    },
+    {
+      "claim": "First two plotted genes in display order",
+      "value": "POU5F1 and NANOG are lower in htNSCs. Registered logFC values are −15.1252307405265 and −9.93814370576075, respectively.",
+      "script": "data/author-validation/continued-sources/GSE214877/codex-2026-11-21/compare_figure.py"
+    },
+    {
+      "claim": "Deposited matrix and GSM supplements",
+      "value": "20,731 unique features, six sample columns, 124,386 nonnegative integer entries. All six GSMs specify NONE for sample supplements, and the series matrix contains zero gene rows.",
+      "script": "data/author-validation/continued-sources/GSE214877/codex-2026-11-21/audit_sources.py"
+    },
+    {
+      "claim": "In-place registered output and release fingerprint",
+      "value": "geo_replication/datasets/GSE214877_hsap_hypothalamic_nsc/processed/GSE214877_DE.tsv has 15,491 distinct symbols, 1,539,118 bytes and SHA-256 bf425b6f816e699d33350e562579ff5c7db36d296af8a802aa711a71997f3e8b. The frozen release entry matches.",
+      "script": "data/author-validation/continued-sources/GSE214877/codex-2026-11-21/audit_sources.py"
+    },
+    {
+      "claim": "Publisher supplements and candidate repository workbook",
+      "value": "One 30-page supplemental PDF per version, each without embedded attachments. The mouse workbook has 372, 81 and 154 selected gene rows on sheets 2mo vs 26mo, 2mo vs 12mo and 12mo vs 26mo.",
+      "script": "data/author-validation/continued-sources/GSE214877/codex-2026-11-21/audit_sources.py"
+    }
+  ],
+  "openIssues": [
+    "Which GSM corresponds to each Figure 1D culture column, and which cell lines supplied GSM6617218 and GSM6617219? The control titles and source fields disagree.",
+    "Both preprints cite a Supporting Data Values XLS. Each version-specific inventory lists one PDF. The workbook contents and whether the authors computed a DESeq2 coefficient for the six registered libraries remain unknown."
+  ]
+}

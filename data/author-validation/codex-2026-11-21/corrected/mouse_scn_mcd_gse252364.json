@@ -1,0 +1,129 @@
+{
+  "datasetId": "mouse_scn_mcd_gse252364",
+  "accession": "GSE252364",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "Supplemental Data 4 confirms 56 SCN discoveries at CT00, including all three registered calls. Of 15,440 paired genes, 14,367 agree in direction. The worksheet confirms the opposite Gstm3 sign and the Rab43 effect and FDR differences, but the public records do not identify the count columns and model settings that produced those estimates.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE252364/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "SCN CT00 worksheet compared. The Gstm3 sign and Rab43 effect and inference remain unresolved.",
+      "note": "The retained GEO family record cites the Saer et al. preprint (10.1101/2024.01.04.574014). Its Methods describe a separate DESeq2 diet comparison at each time point using StringTie gene counts. The registered group-only edgeR-QL model uses the six CT0 libraries from the prefiltered SCN deposit. The deposit matches the raw-input SHA-256 in the registered provenance. In M1, M2, F1 order, Gstm3 has counts of 0, 0, 0 in control and 192, 209, 193 in MCD. The values near 3.7 previously described as counts are TMM CPM. The refuter retrieved Data 4 and confirmed author log2FC −2.334 for the same versioned Gstm3 feature (registered +10.465). For Rab43 the worksheet gives log2FC −5.787 and BH q 2.05e−75 (registered −1.369 and FDR 0.928). The overlapping Gm45140 has its own row in both sources. The fold changes across all paired genes and the full discovery lists are reported in the comparability record.",
+      "reviewFlags": [
+        "The GEO and ENA labels identify two male libraries and one female library per diet. Figures 2B and 4C/D describe the same sex mix. The general animal Methods and GEO growth protocol describe male mice. The intended roster is supported by the sample-specific records. The membership of the fitted job still needs confirmation.",
+        "Data 4 contains fitted statistics and mean normalized expression. It gives neither per-library counts nor the fitted design or factor reference. Counts from the rhythm-filtered GEO table and from DEXSeq exon bins cannot establish the original gene-level DESeq2 inputs.",
+        "The Results cite Data 4 for SCN differential expression, while Figure 4E/F cites Data 3. The CT00 sheet and the CT00 (56) enrichment tab in Data 4 support the Results citation."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "The full CT00 sheet confirms the Gstm3 sign conflict at the same versioned Ensembl ID and the Rab43 magnitude and inference differences. Exact-symbol pairing covers 98.22% of registered rows. The direction criterion is met and the correlation criterion falls short. The underlying CT00 count files, fitted sample assignment and coefficient coding remain unconfirmed.",
+      "nextStep": "Which GSMs, count files and factor levels entered the SCN CT00 DESeq2 fit? Please provide the Galaxy history or the six-column sample map and count rows for Gstm3, Rab43 and Gm45140, with the design, tested coefficient, normalization, outlier treatment and any fold-change shrinkage.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "mcd_vs_control"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Full SCN CT00 worksheet in Supplemental Data 4 versus the complete registered CT0 edgeR-QL table for mcd_vs_control. The replay used the November 15 MCD-minus-control interpretation throughout.",
+      "reference": "Saer et al., bioRxiv v1, DOI 10.1101/2024.01.04.574014, PPR782740. The Results and RNAseq Methods are in data/author-validation/continued-sources/GSE252364/codex-2026-11-21/preprint.xml. The publisher and Europe PMC delivered the same 20,381,122-byte Data 4 workbook, SHA-256 f025539623a0ba19886cba4d81a8bdc1ea47a3ea200e08974e9235af180d8657. The sheet is CT00. Replay with data/author-validation/continued-sources/GSE252364/codex-2026-11-21/refute/compare_ct00.cjs using the publisher URL, Europe PMC URL or a local copy matching that hash. https://www.biorxiv.org/content/biorxiv/early/2024/01/04/2024.01.04.574014/DC4/embed/media-4.xlsx?download=true | https://europepmc.org/api/fulltextRepo?pprId=PPR782740&type=FILE&fileName=EMS193209-supplement-Supplemental_Data_4.xlsx&mimeType=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "The six registered CT0 columns match the SCN GEO and ENA metadata by diet, sex and replicate. The GEO series design and SCN figure legends support two males and one female per diet. The general animal Methods and GEO growth protocol mention male mice. The worksheet supplies summary statistics without the six input IDs."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Both analyses address the SCN diet comparison at CT0. The registered groupcase coefficient is MCD minus control. The preprint describes time-specific diet comparisons. The worksheet header says log2FC and the historical comparison specified MCD minus control. The replay kept that orientation fixed. The original Galaxy reference level is undocumented."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "One-to-one exact symbols with finite effects produced 15,440 pairs. Of 280 unpaired registered symbols, 225 are absent, 39 are ambiguous on the author side and 16 lack a finite author effect. For Gstm3, Rab43 and Gm45140 the versioned Ensembl ID also matches uniquely across the author sheet and registered feature map. The full-table join uses symbols."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Among all 15,440 pairs, Pearson r = 0.663077, Spearman rho = 0.921498 and the median absolute log2FC difference is 0.018473. All pairs are nonzero and 14,367 agree in direction (93.05%). Gstm3 has author/registered log2FC −2.3338/+10.4651. Rab43 has −5.7866/−1.3688. Both sources report log2 fold changes. The Galaxy coefficient and any shrinkage remain undocumented."
+        },
+        "inference": {
+          "status": "different",
+          "note": "At CT00, 26,855 of 56,884 author rows have finite raw P and 23,428 have finite BH q. Exactly 56 have q < 0.05. The registered table has 3 of 15,720 at FDR < 0.05, all shared by exact symbol (Fosl2, Dusp4 and Pcdha7). Every registered call has a usable author q. Among the 15,440 paired effects, 15,419 have paired raw P, 15,418 have paired adjusted P and 39 meet author q < 0.05. Missing statistics remain unassessed. The preprint’s 30,068-gene SCN enrichment background spans all time points."
+        },
+        "coverage": {
+          "status": "compatible",
+          "note": "The complete CT00 worksheet and registered table cover the sole registered contrast. The author sheet contains 56,884 rows, with 26,913 finite log2FCs. Exact unambiguous symbol pairs with finite effects cover 15,440 of 15,720 registered rows (98.22%). On the author side, 297 rows have ambiguous symbols. The pairs cover 15,440 of 26,791 finite effects with unique author symbols (57.63%)."
+        }
+      },
+      "criteria": "Use the declared CT0 diet orientation, unique exact-symbol matches and every finite effect pair. Under author-concordance-v2, a full table requires at least 30 finite pairs, at least 90% registered coverage and compatible cohort, contrast, identifiers and effect definitions. Both correlations must reach 0.90, or at least 90% of at least 30 nonzero pairs must agree in direction with nonzero pairs covering at least 90% of all pairs. Count calls at adjusted P < 0.05 within each full table and within the paired set. No effect-size, abundance or significance filter is applied to the effect comparison.",
+      "conclusion": "Registered coverage and the numerical direction criterion pass. Pearson falls below 0.90. The two tables confirm a Gstm3 sign conflict and different Rab43 estimates and inference. The fitted sample-to-column map and model settings remain unresolved. No contrast receives full sign-off."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Retained GEO SCN count matrix SHA-256 compared with input_matrix_sha256 in the registered provenance",
+      "value": "28790256fb4083b7b4ef9cc716dce0e387a4c8f1de3c48fad9955cd38483a64e",
+      "script": "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/audit_inputs.py"
+    },
+    {
+      "claim": "CT0 SCN registered libraries matched to GEO and ENA, in M1, M2, F1 order",
+      "value": "CTL GSM8000360, GSM8000362, GSM8000364. MCD GSM8000361, GSM8000363, GSM8000365.",
+      "script": "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/audit_inputs.py"
+    },
+    {
+      "claim": "SCN discoveries at CT00, compared as whole-table totals",
+      "value": "56 in the preprint’s SCN Results. The registered table has 3 of 15,720 at FDR < 0.05 (Fosl2, Dusp4, Pcdha7).",
+      "script": "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/audit_inputs.py"
+    },
+    {
+      "claim": "Gstm3 CT0 raw counts and registered statistics",
+      "value": "CTL [0, 0, 0], MCD [192, 209, 193]. Registered log2FC +10.4651111941744, raw P 0.0000136305922974448, FDR 0.0535682277289579.",
+      "script": "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/audit_inputs.py"
+    },
+    {
+      "claim": "Rab43 CT0 raw counts and registered statistics",
+      "value": "CTL [1578, 736, 666], MCD [1177, 25, 230]. Registered log2FC -1.36884992320678, raw P 0.0688429894097746, FDR 0.928270972590781.",
+      "script": "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/audit_inputs.py"
+    },
+    {
+      "claim": "Gm45140, a separate feature at the overlapping Rab43 locus",
+      "value": "ENSMUSG00000107928.2. CTL [0, 8, 0], MCD [0, 1624, 927].",
+      "script": "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/audit_inputs.py"
+    },
+    {
+      "claim": "Deposited and study-wide gene universes",
+      "value": "The GEO SCN count matrix has 15,759 gene rows across 36 libraries. The preprint describes 56,884 features before filtering and 30,068 in the SCN enrichment background across time points.",
+      "script": "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/audit_inputs.py"
+    },
+    {
+      "claim": "Supplemental Data 4 identity and CT00 coverage",
+      "value": "20,381,122 bytes, SHA-256 f025539623a0ba19886cba4d81a8bdc1ea47a3ea200e08974e9235af180d8657. The 56,884 rows have 56,884 unique versioned Ensembl IDs, 26,913 finite effects, 26,855 finite raw P and 23,428 finite BH q.",
+      "script": "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/refute/compare_ct00.cjs"
+    },
+    {
+      "claim": "Full CT00 effect comparison by exact symbol",
+      "value": "15,440/15,720 registered genes (98.2188%). The 280 exclusions comprise 225 absent symbols, 39 ambiguous symbols and 16 nonfinite effects. Pearson 0.663077, Spearman 0.921498, median absolute log2FC difference 0.018473. All pairs have nonzero effects and 14,367/15,440 (93.0505%) agree in direction. The pairs cover 57.6313% of the 26,791 finite author effects with unique symbols.",
+      "script": "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/refute/compare_ct00.cjs"
+    },
+    {
+      "claim": "Full discovery lists and paired inference at adjusted P < 0.05",
+      "value": "56 author calls and 3 registered calls, with 3 shared. Zero registered calls lack a finite author q. Of 15,440 paired effects, 15,419 have paired raw P and 15,418 have paired adjusted P. Among these pairs 39 meet author q < 0.05 and 37 of the 39 agree in direction.",
+      "script": "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/refute/compare_ct00.cjs"
+    },
+    {
+      "claim": "CT00 author worksheet values for the implicated versioned Ensembl IDs",
+      "value": "ENSMUSG00000004038.10|Gstm3 has log2FC −2.33381262641684, SE 2.16670915261657, raw P 0.281425244061082, BH q 0.999815030709046. ENSMUSG00000030055.17|Rab43 has log2FC −5.78663351868238, raw P 8.76405813013395e−80, BH q 2.05324353872778e−75. ENSMUSG00000107928.2|Gm45140 has log2FC +12.4642908527342, raw P 1.97426017858613e−25, BH q 2.3126483731958e−21. Each matches a single registered feature with the same ID and symbol.",
+      "script": "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/refute/compare_ct00.cjs"
+    }
+  ],
+  "openIssues": [
+    "Which GSMs, count files and factor levels entered the SCN CT00 DESeq2 fit? Please provide the Galaxy history or the six-column sample map and count rows for Gstm3, Rab43 and Gm45140, with the design, tested coefficient, normalization, outlier treatment and any fold-change shrinkage."
+  ]
+}

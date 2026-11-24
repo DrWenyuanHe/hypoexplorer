@@ -1,0 +1,42 @@
+{
+  "datasetId": "rat_hypo_exercise_gse242354",
+  "outcome": "compared",
+  "summary": "MoTrPAC excluded sedentary control GSM7759948 as a PC4 outlier. Replaying the published rule reproduced that exclusion. After removing 26 ambiguous gene matches, 16,772 one-to-one pairs covered 79.06% of the registered output. Pearson was 0.3046, Spearman was 0.5672, and 70.91% of nonzero pairs agreed in direction. Omitting the control alone raised direction agreement to 74.41%. The comparison closes with disagreement and no full-verification sign-off.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/rat_hypo_exercise_gse242354.json",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/metrics.json",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/verification.json",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/cohort.tsv",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/author_one_to_one.tsv",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/unpaired_author.tsv",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/retrieve.py",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/review.py",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/verify.py",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/outliers.tsv",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/OUTLIERS.Rd",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/PHENO.rda",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/TRNSCRPT_META.rda",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/TRNSCRPT_DA.Rd",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/TRNSCRPT_HYPOTH_DA.rda",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/TRNSCRPT_HYPOTH_NORM_DATA.rda",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/call_outliers.R",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/fetch_prep_data.R",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/transcript_differential_analysis.R",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/GSE242354_family.soft.gz",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/GSE242354_motrpac_pass1b-06_t54-hypothalamus_transcript-rna-seq_rsem-genes-count.txt.gz",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/Rattus_norvegicus.Rnor_6.0.96.gtf.gz",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/PMC11062907.xml",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/PMC11228891.xml",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/41586_2023_6877_MOESM1_ESM.pdf",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/QC-README.md",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/pass1b_rnaseq.Rmd",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/rdata-1.1.0-py3-none-any.whl",
+    "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/xarray-2026.9.0-py3-none-any.whl"
+  ],
+  "openIssues": [
+    "A future registered fit intended to follow the authors’ RNA-seq QC should exclude GSM7759948 and use five trained males and four controls.",
+    "The exclusion-only sensitivity leaves substantial disagreement. The separate contributions of normalization, covariate adjustment and the DESeq2 versus limma estimators remain unquantified."
+  ]
+}

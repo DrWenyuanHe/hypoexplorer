@@ -1,0 +1,90 @@
+{
+  "datasetId": "emtab15489",
+  "accession": "E-MTAB-15489",
+  "category": "not_located",
+  "closure": "confirmed_not_located",
+  "summary": "The public sources reviewed supplied library counts for E-MTAB-15489. None yielded gene-level author results for day-8 DSS versus control in the registered whole-hypothalamus track. The Aberdeen paper reports results for a separate cohort.",
+  "evidenceFolder": "data/author-validation/continued-sources/E-MTAB-15489/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "source_unavailable",
+      "comparisonLevel": "processed_source",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "The deposited counts identify all eight day-8 hypothalamus libraries. The reviewed sources yielded no matching gene-level author effects or tests.",
+      "note": "The IDF identifies day 8 as the collection time and leaves the publication title, DOI and PubMed ID blank. All 32 measurement columns in raw_counts.tsv match SDRF libraries. Eight are hypothalamus libraries from four DSS mice and four controls. ENA lists the reads. NCBI returned zero GEO links for the BioProject and the eight BioSamples, and the searches located no matching GSE, GSM or sample supplement. D’Alessio et al. report hypothalamic RNA-seq under PRJNA1378229. Its six DSS libraries are labeled day 6, and none of its 12 BioSample accessions occurs in E-MTAB-15489.",
+      "reviewFlags": [
+        "Author effects, tested-gene coverage, P values and FDR for dss_vs_control remain unassessed."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "ArrayExpress study and deposited files",
+          "url": "https://www.ebi.ac.uk/biostudies/arrayexpress/studies/E-MTAB-15489",
+          "kind": "database"
+        },
+        {
+          "label": "ENA project for the registered mice",
+          "url": "https://www.ebi.ac.uk/ena/browser/view/PRJEB95986",
+          "kind": "database"
+        },
+        {
+          "label": "D’Alessio et al., separate hypothalamus RNA-seq cohort",
+          "url": "https://hdl.handle.net/2164/26650",
+          "kind": "paper"
+        },
+        {
+          "label": "ENA run SRR36384519 from the Aberdeen study, linked to experiment SRX31412955",
+          "url": "https://www.ebi.ac.uk/ena/browser/view/SRR36384519",
+          "kind": "database"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "BioStudies lists the IDF, SDRF and one count matrix. The archive links, publication and preprint searches, supplements and public repositories reviewed yielded no author coefficient table, signed gene list or gene-level tests attributable to the eight registered libraries. The Aberdeen hypothalamus results concern a different cohort.",
+      "nextStep": "Reopen if a manuscript, supplement or author result table can be linked to the eight day-8 hypothalamus libraries in PRJEB95986.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered day-8 hypothalamus cohort reconciled across the samplesheet, SDRF and ENA",
+      "value": "4 DSS mice and 4 control mice",
+      "script": "data/author-validation/continued-sources/E-MTAB-15489/codex-2026-11-21/refute/check_evidence.py"
+    },
+    {
+      "claim": "Shape of the original EBI count matrix",
+      "value": "57,010 feature rows and 32 sample measurement columns",
+      "script": "data/author-validation/continued-sources/E-MTAB-15489/codex-2026-11-21/refute/check_evidence.py"
+    },
+    {
+      "claim": "Deposited matrix measurement columns outside the SDRF sample set",
+      "value": "0",
+      "script": "data/author-validation/continued-sources/E-MTAB-15489/codex-2026-11-21/refute/check_evidence.py"
+    },
+    {
+      "claim": "Published gene symbols in the registered edgeR-QL table",
+      "value": "17,938",
+      "script": "data/author-validation/continued-sources/E-MTAB-15489/codex-2026-11-21/refute/check_evidence.py"
+    },
+    {
+      "claim": "Records returned by the ENA analysis search on study_accession PRJEB95986",
+      "value": "0",
+      "script": "data/author-validation/continued-sources/E-MTAB-15489/codex-2026-11-21/refute/check_evidence.py"
+    },
+    {
+      "claim": "GEO records returned by NCBI ELink for BioProject UID 1397850 and the eight registered hypothalamus BioSample UIDs",
+      "value": "0 project links and 0 BioSample links",
+      "script": "data/author-validation/continued-sources/E-MTAB-15489/codex-2026-11-21/refute/check_evidence.py"
+    },
+    {
+      "claim": "BioSample overlap between E-MTAB-15489 and the Aberdeen candidate PRJNA1378229",
+      "value": "0 shared accessions between 32 Erlangen BioSamples and 12 Aberdeen BioSamples. The Aberdeen BioSample disease_stage labels are day 6 for six DSS samples and day 0 for six water controls.",
+      "script": "data/author-validation/continued-sources/E-MTAB-15489/codex-2026-11-21/refute/check_evidence.py"
+    }
+  ],
+  "openIssues": [
+    "Author effect concordance and inference remain unassessed pending a gene-level result linked to the registered mice."
+  ]
+}

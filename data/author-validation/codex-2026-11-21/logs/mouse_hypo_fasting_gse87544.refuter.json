@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_hypo_fasting_gse87544",
+  "outcome": "upheld_with_corrections",
+  "summary": "The no_valid_comparison closure holds. Table S6 reports effects within 34 neuronal subtypes. None covers the registered all-cell, mouse-level contrast. All 50 source files matched their recorded hashes and sizes. I verified that the column labeled log2fold_change contains natural-log effects and traced ten GABA6 discrepancies to a barcode pair whose expression profiles switch labels between GEO files. The corrected proposal passed validation.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_fasting_gse87544.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_fasting_gse87544.json",
+    "data/author-validation/continued-sources/GSE87544/codex-2026-11-21/refute/recheck.py"
+  ],
+  "openIssues": [
+    "Table S6 counts 1,998 results in its summary and lists 1,865 in detail. The workbook does not explain the difference of 133.",
+    "The reviewed sources contain no pooled author estimate for the registered contrast. The historical viewer remains inaccessible, and whole-track concordance remains unassessed."
+  ]
+}

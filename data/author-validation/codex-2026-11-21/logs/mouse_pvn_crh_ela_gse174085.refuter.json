@@ -1,0 +1,15 @@
+{
+  "datasetId": "mouse_pvn_crh_ela_gse174085",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 20 retained files matched their manifest hashes and sizes. Seven of eight calculations reproduced. Batch-28 had five control pups, bringing the total to 50 control and 38 ELA pups, in agreement with the dissection text. [Supplementary Table S1, page 5](https://pmc-oa-opendata.s3.amazonaws.com/PMC9874075.1/mmc1.pdf). The corrected proposal also records the historical GEO metadata checksum difference and two gene-identifier discrepancies. It passes the proposal validator and retains needs_author_contact because the 254 tested neurons cannot be linked individually to the 602 deposited cells.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_pvn_crh_ela_gse174085.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_pvn_crh_ela_gse174085.json",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/refute/recheck.py"
+  ],
+  "openIssues": [
+    "The cell IDs and treatment assignments for the 511-cell QC set and the 254-neuron analysis remain unresolved. The reported control/ELA splits are 101/153 and 102/152.",
+    "Both count-based QC checks yield 514 cells. B19, B21 and L12 each have one more qualifying cell than Table S1 reports.",
+    "The Rpl10 and Hspa8 entries in the indexed dissertation table require identifier reconciliation before gene-level comparison."
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "datasetId": "rat_pvn_sodium_depletion_gse145431",
+  "outcome": "compared",
+  "summary": "Eight of the nine RNA-seq predictions named in the paper have registered coefficients. All eight agree in direction, seven meet registered raw P < 0.05, and none meet registered BH FDR < 0.05. Mis18a has a deposited count row but no registered coefficient. This selected-gene comparison falls below the author-concordance-v2 minimum. The proposal passed validation, and no ledger was edited. [Dutra et al.](https://www.ovid.com/31955161.pmid)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/rat_pvn_sodium_depletion_gse145431.json",
+    "data/author-validation/continued-sources/GSE145431/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE145431/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE145431/codex-2026-11-21/selected-comparison.tsv",
+    "data/author-validation/continued-sources/GSE145431/codex-2026-11-21/comparison-summary.json",
+    "data/author-validation/continued-sources/GSE145431/codex-2026-11-21/compare.py",
+    "data/author-validation/continued-sources/GSE145431/codex-2026-11-21/figure_review.py",
+    "data/author-validation/continued-sources/GSE145431/codex-2026-11-21/validation.json"
+  ],
+  "openIssues": [
+    "The paper reports two rats per library. GEO reports three. Both identify three pooled libraries per arm. The animal-to-library assignments remain unresolved. [GEO GSE145431](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE145431)",
+    "Figure 5 has 100 visible row labels, while its caption reports 94 genes. The row-to-gene key and original edgeR export are still needed to assess genome-wide effect magnitudes, gene-level P values, FDR and discovery overlap."
+  ]
+}

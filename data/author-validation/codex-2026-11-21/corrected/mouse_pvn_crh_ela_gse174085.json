@@ -1,0 +1,99 @@
+{
+  "datasetId": "mouse_pvn_crh_ela_gse174085",
+  "accession": "GSE174085",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "The registered ELA-versus-control contrast pools 602 deposited cells by litter. The authors tested 254 selected neurons. The reviewed sources disagree on the treatment counts and do not link the tested neurons to individual GEO columns.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE174085/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "Table S1 supports the L13 treatment correction and confirms 50 control and 38 ELA pups. The neuronal test still needs a cell-by-cell crosswalk.",
+      "note": "The deposited matrix and supplementary PDF match their historical SHA-256 pins. The fresh compressed SOFT differs from its historical pin. All 602 sample titles and deposited conditions agree with the matrix, and collection ages agree with the samplesheet. Table S1 assigns all 21 L13 cells to LBN/ELA and defines batches as litters. At P10–P12 the registered edgeR model pools 263 control and 339 ELA cells into 14 control and 10 ELA litters and adjusts for age. The litter sums preserve 775,873,967 counts. Of 24,181 tested symbols, 237 have FDR < 0.05 and 687 have FDR < 0.1. Counting positive gene rows gives 514 qualifying cells under both prespecified count-based checks. Relative to the 511 cells in Table S1, B19, B21 and L12 each have a net excess of one. The dissertation describes 81 Pgr15l-based exclusions from the 511, followed by selection of 254 neurons from clusters 2–5 of the remaining 430 cells. Its Table 3.2 gives enriched arms for 46 selected gene symbols. The reviewed sources provide no individual membership list for these cohorts.",
+      "reviewFlags": [
+        "The sequencing Methods give 101 control and 153 ELA cells. The Figure 2A caption gives 102 and 152 for the UMAP. Dissertation section 3.3.2 explicitly gives 101 and 153 for global neuronal DE, while the five subcluster counts in section 3.3.1 sum to 102 and 153 (255 cells). The identities and treatment assignments used for each analysis remain unresolved.",
+        "The Table 3.2 indexed text pairs Rpl10 with a deposited Rpl10-ps3 identifier and gives an Hspa8 identifier with a missing zero relative to the matrix. The 28 control-enriched and 18 ELA-enriched symbols describe the selected neurons. A gene-level comparison would require resolving these identifiers."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Short et al. — Methods, Results and Figure 2",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9874075/",
+          "kind": "paper"
+        },
+        {
+          "label": "Author Supplementary Table S1 and Figures S1–S6",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC9874075.1/mmc1.pdf",
+          "kind": "author_result"
+        },
+        {
+          "label": "C. W. Thai dissertation — chapter 3, cell selection and Table 3.2",
+          "url": "https://escholarship.org/uc/item/65x870zq",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO GSE174085 deposited matrix and sample records",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE174085",
+          "kind": "processed_data"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "Figure 2B plots neuronal log fold changes, with positive values enriched in ELA. The paper describes kallisto quantification, quantile-normalized TPM and Seurat clustering. Its 46 discoveries at FDR < 0.1 are from selected neurons. Dissertation Table 3.2 supplies enriched arms only, without per-gene coefficients or P/FDR. The registered coefficient is an age-adjusted ELA-minus-control log2 fold change across litter pseudobulks of all 602 deposited cells. The reviewed sources provide no author reference for that population or membership map for the neuronal fit. Author concordance for the registered output remains unassessed.",
+      "nextStep": "Request the matrix-column-to-GSM map for the initial 511 cells and for the cells in Figure 2A and Figure 2B DE, with litter, rearing arm, Pgr15l exclusion and cluster. Ask which feature definition, expression cutoff and filter order produced the initial set, and which control/ELA split entered each analysis. Specify whether well labels follow GEO sample titles or attached filenames because 18 pairs exchange labels within B38 and L16. Use a recovered map for a separately scoped neuronal analysis. A direct check of the registered output requires author effects for the all-cell litter contrast.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Deposited cohort and count conservation after the Table S1 L13 override",
+      "value": "602 cells and 775,873,967 counts. The 263 control cells occupy 14 litters and the 339 ELA cells occupy 10 litters. The 21 L13 cells change from deposited CTL to ELA. All 24 litter sums match preprocessing QC.",
+      "script": "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Cells with more than 1,000 positive deposited gene rows versus Table S1",
+      "value": "514 (240 control, 274 ELA) versus 511 (238 control, 273 ELA). B19 has 10 versus 9, B21 has 27 versus 26, and L12 has 28 versus 27. The other 21 litter totals agree. These are net counts and do not identify individual exclusions.",
+      "script": "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Count-based proxy for the dissertation’s four-cells-in-either-arm gene rule followed by at least 1,000 retained positive rows per cell",
+      "value": "514 cells (240 control, 274 ELA), with the same three one-cell excesses. Positive counts proxy for expression. GEO also describes a TPM threshold and biotype restrictions.",
+      "script": "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Treatment counts printed in the published sequencing Methods and Figure 2A caption, in control/ELA order",
+      "value": "Methods 101/153. Figure 2A caption 102/152.",
+      "script": "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Five neuronal subcluster counts in dissertation section 3.3.1, in control/ELA order",
+      "value": "27/53, 25/23, 21/26, 13/32 and 16/19 sum to 102/153 (255 cells). Section 3.3.2 reports 101/153 for the global DE analysis.",
+      "script": "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Directions and identifiers in the indexed dissertation Table 3.2 for the selected neurons",
+      "value": "28 control-enriched and 18 ELA-enriched symbols. All 46 symbols occur in the registered table. Of the 46 versioned ID/symbol combinations, 44 match the deposited matrix exactly. The table labels ENSMUSG00000058443.5 as Rpl10, while the matrix labels it Rpl10-ps3 and lists ENSMUSG00000008682.13 for Rpl10. For Hspa8, the indexed text gives ENSMUSG0000015656.17 and the matrix gives ENSMUSG00000015656.17. No effect or significance pairs were scored.",
+      "script": "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Pups across the 24 litter rows of published Table S1, in control/ELA order",
+      "value": "50/38 (88 total). Batch-28 has five control pups and nine cells. The table agrees with the dissection text and dissertation Table 3.1.",
+      "script": "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Registered ELA-versus-control DE table only",
+      "value": "24,181 tested symbols. The table gives 237 with FDR < 0.05 and 687 with FDR < 0.1. Benjamini–Hochberg adjustment of the registered raw P values reproduces the adjusted values to numerical precision.",
+      "script": "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/refute/recheck.py"
+    }
+  ],
+  "openIssues": [
+    "Which matrix columns and GSMs passed initial QC and which entered the Figure 2 UMAP and DE fit? Which litter, arm, exclusion status and cluster belong to each cell, and which treatment split entered each analysis?",
+    "Which expression measure, feature definition and filter order produced the 511-cell cohort, including the reported totals for B19, B21 and L12?",
+    "Which source features do the Rpl10 and Hspa8 entries represent in the original neuronal result table?"
+  ]
+}

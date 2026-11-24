@@ -1,0 +1,15 @@
+{
+  "datasetId": "mouse_hypo_oxt_trap_gse242245",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 57 source files matched their recorded sizes and SHA-256 hashes. All 17 evaluable Figure 2I genes agreed in direction, as did Trappc9 from the Discussion. The other five plotted genes failed the registered expression filter. This supports a selected comparison covering 18 of 23 named genes, below the concordance-v2 requirements. The corrected proposal retains closure `compared` and marks the discovery-count discrepancy `unresolved`. It passed the repository validators.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_oxt_trap_gse242245.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_oxt_trap_gse242245.json",
+    "data/author-validation/continued-sources/GSE242245/codex-2026-11-21/refute/verify.py"
+  ],
+  "openIssues": [
+    "The archived notebook reports 158 discoveries at adjusted P < 0.05. The registered table has zero. The full author results are unavailable, so the cause of the difference remains unresolved. [Author archive](https://zenodo.org/records/7673205)",
+    "The paper reports two hypothalami per sample and GEO reports two to three. The three CCK and four vehicle libraries are identifiable, but their exact pool sizes remain unknown. [Paper](https://doi.org/10.1016/j.celrep.2023.113305) · [GEO record](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE242245)",
+    "The local QC summary reports 142 discoveries. The public QC summary and both per-gene tracks report zero. The origin of the local value remains unknown."
+  ]
+}

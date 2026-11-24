@@ -1,0 +1,15 @@
+{
+  "datasetId": "mouse_arc_kcnb1_gse246918",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 52 manifest entries matched their hashes and sizes. Both selected genes increased in the author and registered results. Only Lepr had a numerical effect pair (+1.14 versus +1.485), well below the 30-gene concordance minimum. The corrected proposal retains `compared` for the two genes and records the discovery discrepancy as `unresolved`. It passed the repository proposal checker.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_arc_kcnb1_gse246918.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_arc_kcnb1_gse246918.json",
+    "data/author-validation/continued-sources/GSE246918/codex-2026-11-21/refute/recompute.py"
+  ],
+  "openIssues": [
+    "Figure 2A draws fold-change boundaries near ±1, while its caption specifies ±0.5. The authors report discoveries, but none of the 17,136 published registered genes has BH FDR < 0.05. The cause remains unknown.",
+    "The full author DESeq2 table and design formula were unavailable. The Dryad Figure 2 archive could not be inspected.",
+    "The six GEO samples and the RNA extraction method establish bulk hypothalamic tissue. They do not establish the registry’s arcuate-specific label."
+  ]
+}

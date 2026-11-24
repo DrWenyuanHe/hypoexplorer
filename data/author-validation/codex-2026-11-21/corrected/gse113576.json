@@ -1,0 +1,101 @@
+{
+  "datasetId": "gse113576",
+  "accession": "GSE113576",
+  "category": "not_located",
+  "closure": "no_valid_comparison",
+  "summary": "The supplementary tables and figures report neuronal-cluster expression and targeted spatial measurements. The reviewed sources provide no gene-level male-versus-female estimate across all submitted preoptic cells in the six sequencing pools. Table S1 confirms the library assignments, while GEO and the sequencing methods give different descriptions of donor counts and ages.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE113576/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "processed_source",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "The recovered author results cover neuronal clusters and spatial measurements. None supplies the registered all-cell sex effect.",
+      "note": "All nine attachments listed by PMC and BioStudies were recovered, covering Figures S1–S22 and Tables S1–S11. All 31,299 Table S1 barcodes, sex labels and replicate numbers match GEO. The registered analysis sums cells within each of six pools, including 841 cells labeled ambiguous and 88 labeled unstable in Table S1's major cell class. The authors excluded these classes from subsequent cluster analyses. Table S2 summarizes neuronal clusters across sexes. Figure S8 shows selected sections from two male and two female animals for 11 genes with previously reported sex differences. Dryad provides per-cell spatial measurements. The reviewed material supplies no effect, raw P or FDR for the registered contrast.",
+      "reviewFlags": [
+        "GEO and the linked ENA records describe three mice per sequencing pool. GEO lists postnatal days 60–70 for all six libraries. The sequencing methods on supplement p. 2 describe tissue from four to five mice per sex per replicate at approximately seven to eight weeks of age. The registry's stated total of 18 mice comes from GEO. The sources establish six library replicates, while donor counts and ages for the individual pools remain unresolved.",
+        "Author effect concordance and inference for male_vs_female remain unassessed."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Moffitt et al., primary manuscript and supplementary inventory",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6482113/",
+          "kind": "paper"
+        },
+        {
+          "label": "BioStudies copy of the Science supplementary PDF and workbooks",
+          "url": "https://www.ebi.ac.uk/biostudies/studies/S-EPMC6482113",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO library metadata and submitted count matrix",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE113576",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Author MERFISH per-cell dataset",
+          "url": "https://doi.org/10.5061/dryad.8t8s248",
+          "kind": "processed_data"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "Table S2 gives mean expression, 95th percentiles and detection fractions within neuronal clusters pooled across sexes. The MAST tests compare each cluster with other neurons. Figure 6H measures cluster abundance, Figure S8 shows targeted spatial expression, and Dryad supplies per-cell imaging measurements. None provides a gene-level effect comparable to the registered edgeR quasi-likelihood log2 fold change for male relative to female across all submitted cells.",
+      "nextStep": "Reopen the numerical review if an author estimate covering all submitted cell types in the same six libraries becomes available. To resolve the cohort metadata, ask how many mice contributed to each of GSM3109253–GSM3109258 and their ages at tissue collection.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Primary supplementary files recovered and size-checked against the BioStudies inventory, with names matched to PMC XML",
+      "value": "9 of 9 (one PDF and eight workbooks)",
+      "script": "data/author-validation/continued-sources/GSE113576/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Supplementary figures and tables covered",
+      "value": "22 figure captions and 11 table captions. The PDF contains Tables S4, S5 and S9.",
+      "script": "data/author-validation/continued-sources/GSE113576/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered male_vs_female output",
+      "value": "16,145 gene rows. SHA-256 7d369ca05aa51253fcba63a073daa398351f7940c4b86d32ef1d5d942a6084e8 matches the local output provenance.",
+      "script": "data/author-validation/continued-sources/GSE113576/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Table S1 exact barcode join to the full GEO axis",
+      "value": "31,299 shared unique barcodes, 0 GEO-only, 0 S1-only and 0 inconsistent sex or replicate labels.",
+      "script": "data/author-validation/continued-sources/GSE113576/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Cells by sequencing pool in GEO, matched to the registered sample sheet",
+      "value": "Female replicates 1–3: 4,715, 9,845, 451. Male replicates 1–3: 7,385, 6,899, 2,004.",
+      "script": "data/author-validation/continued-sources/GSE113576/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Distinct gene labels in the two neuronal-cluster workbooks",
+      "value": "451 in scRNA-seq Table S2 and 155 in MERFISH Table S8.",
+      "script": "data/author-validation/continued-sources/GSE113576/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Dimensions declared in the GEO matrix header and checked against both complete axis files",
+      "value": "27,998 features by 31,299 barcodes. The retained matrix bytes are a 65,536-byte prefix.",
+      "script": "data/author-validation/continued-sources/GSE113576/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "ENA project records",
+      "value": "6 read runs and 0 rows in the processed-analysis report.",
+      "script": "data/author-validation/continued-sources/GSE113576/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Table S1 major cell classes excluded by the authors from subsequent cluster analyses and included in the registered pool aggregation",
+      "value": "841 ambiguous and 88 unstable cells.",
+      "script": "data/author-validation/continued-sources/GSE113576/codex-2026-11-21/refute/verify.py"
+    }
+  ],
+  "openIssues": [
+    "Each sequencing library has a verified sex and replicate assignment. The number and ages of the mice contributing to each library require author clarification."
+  ]
+}
