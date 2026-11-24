@@ -1,11 +1,15 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "77ea705a48d48068792963ad62035f018186db4f114837b78c20f49b2c98905e",
+  "fingerprint": "f9856893029e7ffa215b47618f54f904a1934cf63e061d6a52db4d817a984ba7",
   "outcome": "updated",
-  "explanation": "New smokeViewLinks.test.ts checks the browser smoke link list (scripts/smoke/viewLinks.ts) against AppRoute views, EXPLORER_TABS and the dataset registry, so a new view or explorer tab fails a unit test and the typecheck until the built-site smoke opens it. The route-landing and navigation-attempt tests from main are unchanged.",
+  "explanation": "Merge of two test changes. From this branch: smokeViewLinks.test.ts checks the browser smoke link list against AppRoute views, EXPLORER_TABS and the dataset registry. From main: tests cover the optional author follow-up, which assessAuthorVerification passes through or rejects, the evidence label and panel show, and library search and the tracker filter find.",
   "references": [
     "src/__tests__/smokeViewLinks.test.ts",
-    "scripts/smoke/viewLinks.ts"
+    "scripts/smoke/viewLinks.ts",
+    "src/__tests__/authorVerification.test.tsx",
+    "src/__tests__/authorValidationPanel.test.tsx",
+    "src/__tests__/libraryFilters.test.ts",
+    "src/__tests__/trackerVerificationClaims.test.tsx"
   ]
 }

@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "9e12c9d286cabb5697d26118f8b6119012e08b025f03729c0a0f6c264c3e0236",
-  "outcome": "no-impact",
-  "explanation": "Only browser smoke specs, one unit test and their documentation changed. QC review, evidence authoring and author-validation commands and records are untouched; the export smoke only reads the evidence that a saved CSV records.",
+  "fingerprint": "1aa83f5b83aa9a2b081d9d71f87a4567ad20abed8a6432cc9925c7ca63eb282d",
+  "outcome": "updated",
+  "explanation": "Merge. From main: the author-validation README documents followUp, which marks a next step the study authors have to answer and changes no state, claim or badge, and the six held datasets are closed in the review ledgers. From this branch: only browser smoke specs and their documentation changed. Verification commands are unchanged.",
   "references": [
-    "scripts/smoke/exports.smoke.spec.ts",
-    "docs/agent-context/workflows.md"
+    "data/author-validation/README.md",
+    "docs/agent-context/workflows.md",
+    "scripts/smoke/exports.smoke.spec.ts"
   ]
 }
