@@ -155,7 +155,11 @@ Read the [refactor checklist](../runbooks/REFACTOR_CHECKLIST.md),
 and [CONTEXT.md](../../CONTEXT.md). Inputs are the requested view/route and its
 dataset, track and contrast state. Routing uses appRouter/appLinks, and what a
 route means (registry checks, refusals, the default track, the page it opens) is
-decided once in `src/routeLanding.ts` for boot and every later URL; every explorer
+decided once in `src/routeLanding.ts` for boot and every later URL. The router
+runs one navigation attempt at a time with its own history write policy, so a
+new shell control that moves the explorer calls the router's `supersede()`
+before `navigate`, and a value a view reports back starts an attempt only when
+it actually changes; every explorer
 move (track, Compare, tab, contrast, an open from another view) is a navigation
 intent applied by src/explorer/explorerPosition.ts, which owns the tab rule and
 the reset/load each move costs, so no caller sets that state directly. A view

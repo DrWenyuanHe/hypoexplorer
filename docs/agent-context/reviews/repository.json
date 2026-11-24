@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "2fcc28d92f26a8d8bc279328c4a649ccbf61938c99f135d75ba37e8da3ee047c",
+  "fingerprint": "ccb96d2869092d8d383a1e58bce62ab937f833d4647eece3b3deb0a215043f17",
   "outcome": "updated",
-  "explanation": "Merges main into the route-landing change. From main: beta testing wording is removed from index.html, the README and the SEO runbook; EDGE_PROTECTION.md says HEAD on the data host is never cached; data-release.json pins data-2026-11-22 with the Codex closure evidence and public-safety.json keeps its reviewed allowances. From this branch: CONTEXT.md gains a Route landing entry (src/routeLanding.ts, its six refusals and the absolute-destination rule) and the App router entry points at it instead of saying an unknown track degrades to the default.",
+  "explanation": "CONTEXT.md sharpens the App router entry with the navigation attempt and the write policy (replace for a followed URL, push for a user action, hold for an unrecognized fragment, settings-only changes replace), the real-change rule for view-reported setters, the stable supersede() the shell calls before navigate, the rule that router-delivered intents never supersede, and the verified openInExplorer(id, track). The ui-change workflow tells a new shell control to call supersede() first.",
   "references": [
     "CONTEXT.md",
-    "src/routeLanding.ts",
-    "docs/runbooks/EDGE_PROTECTION.md",
-    "README.md",
-    "data-release.json"
+    "docs/agent-context/workflows.md",
+    "src/appRouter.ts"
   ]
 }

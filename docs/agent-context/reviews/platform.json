@@ -1,11 +1,10 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "193d0f56b93ebfbfa43497f852fa3f40fce6aa74cc30492ae081976b23e71e7b",
+  "fingerprint": "2606b3ba036a9381a143b1242337963ce93c1968be76858e58c71585461bfae9",
   "outcome": "updated",
-  "explanation": "Merges main into the route-landing change. From main: App.tsx no longer renders the session-dismissible beta notice under the explorer header. From this branch: bootState and applyRoute are replaced by the pure route-landing module, so boot and Back/Forward land through the same landHash/settleExplorer path; a refused boot link no longer saves its chart scale, a trackless or unknown-track URL lands on the default track, a Compare link with a bad analysis in any query position is refused, an unknown dataset pasted mid-session restores the address bar, and App renders the error page ahead of the expression survey.",
+  "explanation": "The router runs one navigation attempt at a time. begin(policy) retires the attempt in flight, clears routePending and routeError and sets the write policy: replace for a followed URL, push for a user action, hold after an ignored fragment until the target hash changes; the write effect consumes it on a write, a matching hash or a refusal. hasWritten, the replaceNextWrite stop-gap and the retired-landing replaceState are gone. Verbs and view-reported setters (on a real change only) start push attempts, openInExplorer(id, track) verifies through landRoute and settleExplorer, and App calls the new stable supersede() before its track, tab, contrast, leave-Compare and send-genes navigate calls.",
   "references": [
-    "src/routeLanding.ts",
     "src/appRouter.ts",
     "src/App.tsx",
     "CONTEXT.md"

@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "1252ccf3b2129dd57885fcd90e3d744684b2868876ea519a77187bc1c8d79940",
+  "fingerprint": "e2e7b6c3391766ec497b9e4b6e087e8c558bb003da2b5c387534dd8b43ba92c0",
   "outcome": "updated",
-  "explanation": "Merges main into the route-landing change. From main: searchVocabulary, unifiedSearchBox and hubUnits tests cover staged vocabulary loads and partial suggestions, and seoPages.test.ts asserts no beta wording and repository footer links. From this branch: routeLanding.test.ts pins the pure landing rules as tables, routeLandingRegressions.test.tsx pins the boot and Back/Forward cases the two old readers got wrong, and appRouter.test.tsx expects a trackless link to open the default track.",
+  "explanation": "Navigation attempts in the router. navigationAttempts.test.tsx pins that a search, Home, openInExplorer, filter, library record or emptied compare set made while a cold #/dataset/<id>/<track> link is landing wins after that metadata resolves or rejects (B2), that a followed explicit default-track link is canonicalized in place so Back leaves it (B4), that an unrecognized anchor is kept at boot and mid-landing (B8), that a shell tab click supersedes a boot landing, and that settings-only and no-hash initialView writes still replace. appRouter.test.tsx now awaits the verified openInExplorer(id, track) and resets history with replaceState so a late hashchange cannot supersede the next test.",
   "references": [
-    "src/__tests__/routeLanding.test.ts",
-    "src/__tests__/routeLandingRegressions.test.tsx",
+    "src/__tests__/navigationAttempts.test.tsx",
     "src/__tests__/appRouter.test.tsx",
-    "src/__tests__/seoPages.test.ts",
-    "src/__tests__/searchVocabulary.test.ts"
+    "src/__tests__/appRouterUrl.test.tsx",
+    "src/appRouter.ts"
   ]
 }

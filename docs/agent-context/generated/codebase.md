@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (254):
+Covered source files (255):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -204,6 +204,7 @@ Covered source files (254):
 - [src/__tests__/matrixShape.test.ts](<../../../src/__tests__/matrixShape.test.ts>)
 - [src/__tests__/methodology.test.tsx](<../../../src/__tests__/methodology.test.tsx>)
 - [src/__tests__/modal.test.tsx](<../../../src/__tests__/modal.test.tsx>)
+- [src/__tests__/navigationAttempts.test.tsx](<../../../src/__tests__/navigationAttempts.test.tsx>)
 - [src/__tests__/neuroseqExpression.test.ts](<../../../src/__tests__/neuroseqExpression.test.ts>)
 - [src/__tests__/nomenclature.test.tsx](<../../../src/__tests__/nomenclature.test.tsx>)
 - [src/__tests__/nomenclatureDatasetNamespace.test.ts](<../../../src/__tests__/nomenclatureDatasetNamespace.test.ts>)
