@@ -94,7 +94,7 @@ export const EXISTING_EXPRESSION_SOURCES: ExpressionSource[] = [
     assay: 'TRAP RNA-seq', rnaFraction: RIBOSOME, identityMethod: 'Genetically targeted TRAP', driverOrMarker: 'LepRb', replicateUnit: MOUSE_LIBRARY,
     conditions: [['control', 3, true, UNKNOWN, 'Stat3-intact study reference.'], ['case', 3, false, UNKNOWN, 'Stat3 knockout.']] }),
   source({ datasetId: 'mouse_gnrh_androgen_gse162563', trackId: 'poa', scope: 'tissue', populationId: 'poa-tissue', populationLabel: 'POA GnRH-depleted supernatant', region: 'POA',
-    assay: 'RNA-seq of TRAP supernatant', rnaFraction: 'Supernatant RNA after anti-GFP pull-down', identityMethod: 'Dissected regional tissue, GnRH-neuron polysomes removed', replicateUnit: 'Pool of POA punches from 2–5 littermates; diestrous adult female',
+    assay: 'RNA-seq of TRAP supernatant', rnaFraction: 'Supernatant RNA after anti-GFP pull-down', identityMethod: 'POA punch supernatant after immunoprecipitation of GFP-tagged polysomes', replicateUnit: 'Pool of POA punches from 2–5 littermates; diestrous adult female',
     conditions: [['control', 5, true, UNKNOWN, 'Four pools from vehicle-treated dams and one from an uninjected dam; GEO labels all five Vehicle.'], ['case', 6, false, UNKNOWN, 'Prenatal DHT exposure.']],
     notes: 'RNA left in the supernatant after the GnRH-neuron pull-down, from the other cells of the punch and GnRH-neuron RNA not on polysomes; it is not a GnRH-neuron expression estimate.' }),
   source({ datasetId: 'mouse_hypo_oxt_trap_gse242245', trackId: 'oxytocin', populationId: 'oxt', populationLabel: 'Hypothalamic OXT', region: 'Hypothalamus',

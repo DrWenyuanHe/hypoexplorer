@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { reviewedMetadata, reviewedTrackLabel } from '../data/reviewedTrackLabels';
-import type { DatasetMeta } from '../types';
+import { buildPopData } from '../data/buildPopData';
+import { getDataset } from '../data/datasets';
+import { getActiveContrast } from '../data/contrasts';
+import { trackSubject } from '../utils/exportProvenance';
+import type { DatasetMeta, RawTrack } from '../types';
 
 const id = 'mouse_pvn_crh_ela_gse174085';
 const legacy = 'PVN CRH neurons (animal pseudobulk)';
@@ -31,5 +35,20 @@ describe('reviewed litter display label', () => {
     expect(reviewedMetadata(dataset, meta)).toBe(reviewedMetadata(dataset, meta));
     expect(meta.labels[track]).toBe(source);
     expect(reviewedTrackLabel('mouse_arc_pyy_glp1_gse160802', track, source)).toBe(source);
+  });
+});
+
+describe('reviewed labels beyond the dataset metadata', () => {
+  it.each([
+    ['mouse_arc_kcnb1_gse246918', 'arcuate', 'Arcuate nucleus (ARC)', 'Whole hypothalamus'],
+    ['mouse_gnrh_androgen_gse162563', 'poa', 'GnRH / preoptic area (TRAP)', 'Preoptic area (GnRH-depleted TRAP supernatant)'],
+    ['mouse_arc_pyy_glp1_gse160802', 'arcuate', 'Arcuate nucleus (ARC)', 'Arcuate nucleus (ARC)'],
+  ])('gives the loaded track and export records of %s the reviewed label', (id, code, source, shown) => {
+    const dataset = getDataset(id)!;
+    const raw = { meta: { code, label: source }, de: [], cpm: {} } as unknown as RawTrack;
+    const popData = buildPopData(raw, dataset, getActiveContrast(dataset))!;
+    expect(popData.meta?.label).toBe(shown);
+    expect(trackSubject(popData).trackLabel).toBe(shown);
+    expect(raw.meta?.label).toBe(source);
   });
 });

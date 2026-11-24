@@ -18,6 +18,13 @@ export function reviewedTrackLabel(datasetId: string, trackId: string, label: st
   return reviewed?.trackId === trackId && reviewed.from === label ? reviewed.to : label;
 }
 
+/** A track bundle's own meta with its reviewed label; the same object when nothing changes. */
+export function reviewedTrackMeta<T extends { code?: string; label?: string }>(datasetId: string, meta: T): T {
+  if (!meta.code || !meta.label) return meta;
+  const label = reviewedTrackLabel(datasetId, meta.code, meta.label);
+  return label === meta.label ? meta : { ...meta, label };
+}
+
 const displayed = new WeakMap<DatasetMeta, DatasetMeta>();
 export function reviewedMetadata(datasetId: string, meta: DatasetMeta): DatasetMeta {
   const trackId = REVIEWED[datasetId]?.trackId;

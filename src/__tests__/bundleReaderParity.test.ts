@@ -42,11 +42,11 @@ describe('Node reader ↔ browser loader label parity', () => {
     expect(trackLabel(node, 'crh_pvn')).toBe(trackLabel(browser, 'crh_pvn'));
   });
 
+  // Holds for the committed label and for a rebuilt bundle that already carries the corrected one.
   it.each([
-    ['mouse_arc_kcnb1_gse246918', 'arcuate', 'Arcuate nucleus (ARC)', 'Whole hypothalamus'],
-    ['mouse_gnrh_androgen_gse162563', 'poa', 'GnRH / preoptic area (TRAP)', 'Preoptic area (GnRH-depleted TRAP supernatant)'],
-  ])('applies the reviewed label of %s in the browser loader', async (id, track, source, corrected) => {
-    expect(readFileSync(datasetBundlePaths(getDataset(id)!).meta.file, 'utf8')).toContain(source);
+    ['mouse_arc_kcnb1_gse246918', 'arcuate', 'Whole hypothalamus'],
+    ['mouse_gnrh_androgen_gse162563', 'poa', 'Preoptic area (GnRH-depleted TRAP supernatant)'],
+  ])('shows the reviewed label of %s in the browser loader', async (id, track, corrected) => {
     expect(trackLabel(await browserMeta(id), track)).toBe(corrected);
   });
 
