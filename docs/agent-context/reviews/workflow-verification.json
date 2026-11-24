@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "bc1bbc8e5841e9dddaf7d03fd91eac804b35dfc53f3f8b88c6de53a022c5e115",
-  "outcome": "no-impact",
-  "explanation": "Merges main into the Codex closure pass. From main: only page shells and release-status prose changed (no beta wording, GitHub links). From this branch: only review ledgers, the dated pass folder and the data-release pin changed. QC review, evidence authoring and verification commands are unchanged.",
+  "fingerprint": "eb40a9f2eb1d6917992b1fb9c00d0c74b5ed704b927964b3e3eb108b9eec8bcc",
+  "outcome": "updated",
+  "explanation": "Verification guidance now separates tracked ledgers and producers from the untracked evidence subtrees and points to the shared files-not-in-this-repository section. The author-validation README names the current concordance ledger audit, states that build:quality needs the maintainer checkout and refuses a downgrade, and the circadian runbook marks its output folders and fixture builder as untracked. No evidence, ledger or check changed.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "scripts/lib/seoPages.mts",
-    "data/author-validation/codex-2026-11-21/README.md"
+    "data/author-validation/README.md",
+    "docs/runbooks/CIRCADIAN_VALIDATION.md",
+    "docs/PROJECT_GUIDANCE.md",
+    "scripts/audit_concordance_review_ledger.mts"
   ]
 }

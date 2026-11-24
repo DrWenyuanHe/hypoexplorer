@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "9330e8e41ccc7998aa1176c499d689d270b5841b9865627c53fa26045652d414",
+  "fingerprint": "f3f2299edf79b74f2b31830e353265fd3a0716886f2f9e85e9a04d585fc67472",
   "outcome": "updated",
-  "explanation": "Merge of two UI changes. From main: the unified search box shows suggestions from partial vocabulary stages and warms the load on pointer enter. From this branch: the beta banner and beta wording are removed from every app header and static page, shared header styles move to src/common/siteChrome.css, and the landing and static footers link the source and data repositories on GitHub.",
+  "explanation": "workflows.md now says the gene report header holds Share analysis and the compare-set button (Compare as bars was removed in 49e764a) and that gene and pathway effect previews load through useTrackColumn, gene previews omitting pathways. REFACTOR_CHECKLIST, PERF_BASELINE, PUBLICATION_RELEASE and DESIGN.md drop the removed bars view and fmtMetaQ and describe the accent strip per shell. No view, route or export code changed.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/search/UnifiedSearchBox.tsx",
-    "src/common/siteChrome.css",
-    "src/hub/LandingHub.tsx",
-    "scripts/lib/seoPages.mts"
+    "src/data/trackColumns.ts",
+    "docs/runbooks/REFACTOR_CHECKLIST.md",
+    "DESIGN.md"
   ]
 }

@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "analysis",
-  "fingerprint": "9bad6b07622be53fda2331c8cd6aabf38055babb384f48df103455a517e0b8d9",
+  "fingerprint": "f5c202a98a8f2724b14ea0603e0cbcb15f4459d7950d1c1caa72fd37e5dd8aa5",
   "outcome": "updated",
-  "explanation": "The Codex closure pass evidence is published as the evidence-codex-2026-11-21 part of hypoexplorer-data release data-2026-11-22. build_release_bundle.mts now packs with the release archives own tarball writer, which fetch:data reads, and the pass README records the release in place of the pending note. Ledgers, pipelines and producers are unchanged.",
+  "explanation": "Documentation-only staleness triage of the analysis area. The GTEx, Allen, HPA, NeuroSeq and phase-0 READMEs stop claiming Git LFS files, committed source archives and a prebuild step; untracked inputs now link to the shared files-not-in-this-repository section. The existing-expression README takes its source and track counts from validation.json. The author-validation README states the maintainer-checkout prerequisite, the downgrade refusal and the current ledger audit, and drops the removed build:tracker script. No producer, evidence or ledger changed.",
   "references": [
-    "data/author-validation/codex-2026-11-21/README.md",
-    "data/author-validation/codex-2026-11-21/build_release_bundle.mts",
-    "data-release.json"
+    "data/expression/gtex/README.md",
+    "data/expression/neuroseq/README.md",
+    "data/author-validation/README.md",
+    "docs/PROJECT_GUIDANCE.md"
   ]
 }

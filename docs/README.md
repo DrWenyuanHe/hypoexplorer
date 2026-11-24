@@ -1,12 +1,16 @@
 # Documentation
 
-Core references stay at this level; procedures live in `runbooks/` and dated
-audits, plans and reviews in `records/`.
+Code, types and tests are the source of truth for what the system does. These
+docs keep what code cannot say: decisions, invariants, provenance and procedures,
+with pointers to the owning code. Core references stay at this level; procedures
+live in `runbooks/`, and dated audits, plans and reviews in `records/`. Records
+are frozen history, not current behaviour.
 
 - [Project guidance](PROJECT_GUIDANCE.md): provenance, architecture and validation commands.
 - [Developer guide](DEVELOPMENT.md): running, checking and changing the app.
 - [Domain vocabulary](../CONTEXT.md): shared concepts and code responsibilities.
-- [Dataset contract](DATASET_CONTRACT.md) and [real shapes](REAL_DATA_SHAPES.md): public data writer/reader rules.
+- [Dataset contract](DATASET_CONTRACT.md): rules for the public bundles and where their shapes are defined.
+- [Upstream analysis tables](REAL_DATA_SHAPES.md): what the R producers emit and the quirks the builders handle.
 - [Agent context](agent-context/README.md): generated maps, task routes and review maintenance.
 
 ## Runbooks

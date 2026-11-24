@@ -6,9 +6,7 @@ and packaging do not publish the website, create a release tag, or register a DO
 ## Verify the candidate
 
 Gene and pathway reports serialize category, individual-study and sample/quality
-filters in a validated version-1 URL payload. The gene report passes its resolved
-cohort into bar comparisons, whose loaders and category controls stay within it.
-Explorer links preserve contrast, selected genes, volcano/pathway settings and
+filters in a validated version-1 URL payload. Explorer links preserve contrast, selected genes, volcano/pathway settings and
 chart scale. Unsupported settings fail visibly instead of broadening the analysis.
 Share analysis explains that links use the recipient's deployed data; a link is
 not a substitute for archived results.

@@ -6,9 +6,9 @@ The primary UI displays **Pipeline QC**, **Experimental design** and **Author co
 
 Pipeline QC checks matrix validity, source integrity, sample assignments, normalization, model evidence and output integrity. Experimental design separately checks independent biological replication and retained sample support. Reviewed species-mapping, input-quality and model-pairing concerns remain required pipeline checks. Neither assessment infers a pass from author agreement, a script exit or audit completion. Missing inputs or stale sidecars cannot supply a green check. `src/data/pipelineQc.ts` separates the recorded checks from `data/internal-qc/assessments.generated.json`; the original combined `internalQc` assessment remains available for historical audits. See [the separation report](../quality/pipeline-separation-2026-09-11/README.md).
 
-Author concordance evaluates paired effects in the registered comparison. Policy `author-concordance-v2` requires at least 30 paired genes and 90% relevant reference/output coverage, plus either Pearson and Spearman at least 0.90 or at least 90% same-gene directional agreement among at least 30 nonzero pairs covering 90% of all pairs. Cohort, contrast, identifier and effect-definition compatibility must be supported whichever route passes. Magnitude differences, P values, FDR and significant-gene counts are contextual and do not gate acceptance. Every metric outcome remains visible, and invalid reported metrics cannot be hidden behind a passing alternative. These are project acceptance defaults, not universal scientific cutoffs. Selected-gene references remain explicitly scoped. The v2 change corrects the earlier requirement to pass correlation, direction and magnitude together; its effect on unchanged evidence is recorded separately in `data/quality/round2-2026-09-05/policy-only-impact.json`.
+Author concordance evaluates paired effects in the registered comparison. Policy `author-concordance-v2` requires at least 30 paired genes and 90% relevant reference/output coverage, plus either Pearson and Spearman at least 0.90 or at least 90% same-gene directional agreement among at least 30 nonzero pairs covering 90% of all pairs. Cohort, contrast, identifier and effect-definition compatibility must be supported whichever route passes. Magnitude differences, P values, FDR and significant-gene counts are contextual and do not gate acceptance. Every metric outcome remains visible, and invalid reported metrics cannot be hidden behind a passing alternative. These are project acceptance defaults, not universal scientific cutoffs. Selected-gene references remain explicitly scoped. The v2 change corrects the earlier requirement to pass correlation, direction and magnitude together; its effect on unchanged evidence is recorded separately in `data/quality/round2-2026-09-05/policy-only-impact.json`, which is [not in this repository](../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
 
-Run `pnpm run build:quality` after updating processing evidence or author comparisons, then `pnpm exec tsx scripts/build_quality_report_r460.mts --check`. The full `check:quality` runs only in the maintainer's checkout. The combined JSON, TSV and coverage report are in `data/quality/`; they include dataset and per-comparison assessments. Production builds check freshness. Missing local audit inputs require restoring those inputs or regenerating an honest reduced-coverage assessment. No saved passing result is silently carried forward.
+After updating processing evidence or author comparisons, the maintainer runs `pnpm run build:quality`, then `pnpm exec tsx scripts/build_quality_report_r460.mts --check`. `build:quality` imports evidence readers under `data/internal-qc/` that are [not in this repository](../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository), so it and the full `check:quality` run only in the maintainer's checkout with the retained audit cache. The combined JSON, TSV and coverage report are in `data/quality/`; they include dataset and per-comparison assessments. The app build (`vite build`) does not check their freshness; the `--check` commands do. Missing local audit inputs are restored, not worked around: `build_internal_qc_r460.mts` refuses to write a ledger that would lose a pass or report more unavailable inputs, and `--accept-downgrade` is only for a reviewed scientific change (see [project guidance](../../docs/PROJECT_GUIDANCE.md)). No saved passing result is silently carried forward.
 
 Expected input fingerprints retained from fixed earlier evidence are recorded
 separately from current availability. The input-availability sidecar marks
@@ -50,7 +50,7 @@ Every record has a detailed scientific review that names the result being assess
 | Statistical model, P values and FDR | Reconcile the replication unit, model, covariates, raw P, multiple-testing correction and calls. Missing author statistics remain unassessed. |
 | Reference coverage | Account for usable gene-level author results across every registered contrast. Selected lists and figure headlines cannot establish full-universe agreement. |
 
-Different defensible methods can answer the same biological question. Full reproduction requires documented reconciliation of effects and inference; the current concordance badge permits different inference and magnitudes when one numerical route and all shared compatibility/coverage checks pass. Different estimators can have compatible biological direction and effect units without producing identical coefficients. Explicit source-bound semantic reviews in `concordance-reviews.json` separate those definitions from legacy numerical limitations, retain the prior review, and expire when the comparison, orientation, method or concern changes. `npx tsx scripts/audit_concordance_reviews.mts` checks every cited source hash before the quality build. Neither workflow requires identical method names. The versioned badge cutoffs are project acceptance defaults, not universal scientific cutoffs. Do not choose a tolerance or threshold merely to force a match.
+Different defensible methods can answer the same biological question. Full reproduction requires documented reconciliation of effects and inference; the current concordance badge permits different inference and magnitudes when one numerical route and all shared compatibility/coverage checks pass. Different estimators can have compatible biological direction and effect units without producing identical coefficients. Explicit source-bound semantic reviews in `concordance-reviews.json` separate those definitions from legacy numerical limitations, retain the prior review, and expire when the comparison, orientation, method or concern changes. `pnpm exec tsx scripts/audit_concordance_review_ledger.mts` checks every cited source hash across the sealed definitions and their R 4.6.0 successor ledger, including expired reviews; run it before the quality build, which does not invoke it. The sealed `audit_concordance_reviews.mts` reads only the original definitions. Neither workflow requires identical method names. The versioned badge cutoffs are project acceptance defaults, not universal scientific cutoffs. Do not choose a tolerance or threshold merely to force a match.
 
 Name the comparison basis explicitly. A registered Explorer result is what users see. A separate author-method reconstruction or sensitivity analysis does not validate that registered result merely because the sensitivity matches the paper. Keep both outputs and their conclusions distinct. Raw-read alignment, laboratory measurements and raw sequencing quality are outside this processed-data verification workflow.
 
@@ -61,16 +61,19 @@ Name the comparison basis explicitly. A registered Explorer result is what users
 3. Compare effects, inference and tested-gene coverage. Record the threshold, orientation and universe. A missing adjusted P is not a negative call; a significant-only list cannot establish full-universe agreement. Keep raw P distinct from adjusted P. Separate whole positive-call-list overlap from comparison on shared genes with finite statistics, and count local calls lacking an author row or usable author statistic.
 4. Investigate differences using documented models, versions and predeclared sensitivity analyses. An author-compatible reconstruction remains separate from the registered standardized result. Do not tune exclusions/thresholds to reproduce a headline count. Conditional fits using the observed author testing universe must be labeled as such, not described as discovery of the original filtering algorithm.
 5. Edit `manual-review.json` for scientific findings, links, status, scope and date. Edit `verification-review.json` for explicit availability, outcome, reason and next step. Record the result basis, six scientific dimensions, criteria and conclusion in `comparability-review.json`. Unfinished work must remain visible. Add numerical comparisons in `scripts/compare_author_results.mts` and/or retained reproducible dataset-specific artifacts.
-6. Regenerate the shared records and tracker, then test:
+6. Regenerate the shared records, then test. These commands read retained author files and evidence, so they run in the maintainer's checkout:
 
 ```text
-npx tsx scripts/compare_author_results.mts
-npx tsx scripts/build_author_validation.mts
-npm run build:tracker
-npm run check:author-validation
-npm run typecheck
-npx vitest run src/__tests__/authorVerification.test.tsx src/__tests__/authorValidationPanel.test.tsx src/__tests__/verificationView.test.tsx
+pnpm exec tsx scripts/compare_author_results.mts
+pnpm exec tsx scripts/build_author_validation.mts
+pnpm run check:author-validation
+pnpm run typecheck
+pnpm exec vitest run src/__tests__/authorVerification.test.tsx src/__tests__/authorValidationPanel.test.tsx src/__tests__/verificationView.test.tsx
 ```
+
+The tracker catalog is built from a survey catalog that is
+[not in this repository](../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository);
+`pnpm run fetch:query` downloads the published one.
 
 `check:author-validation` and `--require-complete` verify recorded audit coverage, integrity and freshness. **They do not assert that every dataset has passed scientific verification.** The builder separately reports incomplete and unresolved scientific reviews. An unresolved scientific review can have a completed audit record.
 
@@ -91,6 +94,10 @@ The state evaluator in `src/data/authorVerification.ts` does not infer a full ba
 Revisit verification whenever source files, cohorts, preprocessing, models, reference annotation or outputs change. Hash-pinned source evidence and old interpretations must not silently be carried into a new numerical result.
 
 ## Evidence retained in this continuation
+
+The reports linked in this section under `../quality/advancement-2026-09-05/` and
+`continued-sources/` are [not in this repository](../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository);
+the links name their paths in the full evidence tree.
 
 The [2026-09-05 verification advancement report](../quality/advancement-2026-09-05/ADVANCEMENT_REPORT.md) covered the then-current 145 datasets. Numerical replay covered all 144 non-atlas datasets and their 147 registered contrasts. Complete internal-QC passes increased from 1 to 23, author-concordance passes from 10 to 19, and structured author comparisons from 28 to 50. The report links every remaining blocker, original source, reproducible extraction and independent review. Those historical combined-QC counts use the earlier definition and cannot be compared directly with the current Pipeline QC badge.
 

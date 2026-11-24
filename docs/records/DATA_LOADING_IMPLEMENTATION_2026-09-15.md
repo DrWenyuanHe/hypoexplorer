@@ -1,7 +1,14 @@
 # Data loading improvements — 2026-09-15
 
-> Note (2026-10): the data gate Worker described here was retired; see
-> [edge protection](../runbooks/EDGE_PROTECTION.md) for the current data-host protection.
+> **Status (checked 2026-11-24): dated record, not maintained.** The lossless
+> existing-source index it describes is what the expression survey reads today
+> (`src/expression-survey/existingExpression.ts`); current source and track counts,
+> loading and checks are in [the expression survey runbook](../runbooks/EXPRESSION_SURVEY.md)
+> and [the index README](../../data/expression/existing/README.md). The pending
+> rollout steps at the end are historical. The data gate Worker described here was
+> retired in 2026-10; see [edge protection](../runbooks/EDGE_PROTECTION.md) for the
+> current data-host protection and [delivery](../agent-context/delivery.md) for
+> current deployment.
 
 ## Implemented behavior
 

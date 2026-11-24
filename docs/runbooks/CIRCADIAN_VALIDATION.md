@@ -71,6 +71,11 @@ null experiment; a generalized floating-mean periodogram is a different method.
 
 ## Validation evidence
 
+The evidence folders, scripts and verifier named in this section are
+[not in this repository](../PROJECT_GUIDANCE.md#files-not-in-this-repository)
+(`output/` is gitignored). The fixture and tests that run here are
+`src/__tests__/fixtures/jtkCanonical.json` and the test command below.
+
 The original audit remains unchanged under
 `output/methods-validation-2026-10-23/circadian/`; it detected the former
 Kendall-template implementation's JTK discrepancy. The repair evidence is under
