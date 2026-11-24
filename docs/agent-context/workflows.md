@@ -153,7 +153,9 @@ checks still require their original source files.
 Read the [refactor checklist](../runbooks/REFACTOR_CHECKLIST.md),
 [code map](generated/codebase.md), [shared contracts](generated/contracts.md)
 and [CONTEXT.md](../../CONTEXT.md). Inputs are the requested view/route and its
-dataset, track and contrast state. Routing uses appRouter/appLinks; every explorer
+dataset, track and contrast state. Routing uses appRouter/appLinks, and what a
+route means (registry checks, refusals, the default track, the page it opens) is
+decided once in `src/routeLanding.ts` for boot and every later URL; every explorer
 move (track, Compare, tab, contrast, an open from another view) is a navigation
 intent applied by src/explorer/explorerPosition.ts, which owns the tab rule and
 the reset/load each move costs, so no caller sets that state directly. A view

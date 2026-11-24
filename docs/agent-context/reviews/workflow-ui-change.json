@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "9330e8e41ccc7998aa1176c499d689d270b5841b9865627c53fa26045652d414",
+  "fingerprint": "911b847cd137a9a1b342415eb0fb40a23720ea9a5124281ea3c98b375aa086ba",
   "outcome": "updated",
-  "explanation": "Merge of two UI changes. From main: the unified search box shows suggestions from partial vocabulary stages and warms the load on pointer enter. From this branch: the beta banner and beta wording are removed from every app header and static page, shared header styles move to src/common/siteChrome.css, and the landing and static footers link the source and data repositories on GitHub.",
+  "explanation": "Merges main into the route-landing change. From main: the unified search box shows suggestions from partial vocabulary stages, the beta banner and wording are gone from every header and static page, shared header styles live in src/common/siteChrome.css and footers link the source and data repositories. From this branch: workflows.md and the catalog name src/routeLanding.ts as the one reader of a route for boot and every later URL (registry checks, refusals, the default track, the page it opens), driven by appRouter.ts.",
   "references": [
     "docs/agent-context/workflows.md",
+    "docs/agent-context/catalog.json",
+    "src/routeLanding.ts",
     "src/search/UnifiedSearchBox.tsx",
-    "src/common/siteChrome.css",
-    "src/hub/LandingHub.tsx",
-    "scripts/lib/seoPages.mts"
+    "src/common/siteChrome.css"
   ]
 }

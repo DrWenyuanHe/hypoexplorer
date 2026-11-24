@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "a04184ff629e1cee24f349c110f9786f9452e72e1373837b240d5f455f23287a",
+  "fingerprint": "1252ccf3b2129dd57885fcd90e3d744684b2868876ea519a77187bc1c8d79940",
   "outcome": "updated",
-  "explanation": "Merge of two test changes. From main: searchVocabulary.test.ts adds the staged-load and name-index reuse tests, and unifiedSearchBox.test.tsx and hubUnits.test.tsx expect the partial suggestion option and the hub vocabulary load on pointer enter. From this branch: seoPages.test.ts asserts that study, guide and About pages contain no 'beta testing' wording and that study page footers link SOURCE_REPO_URL and DATA_REPO_URL on GitHub.",
+  "explanation": "Merges main into the route-landing change. From main: searchVocabulary, unifiedSearchBox and hubUnits tests cover staged vocabulary loads and partial suggestions, and seoPages.test.ts asserts no beta wording and repository footer links. From this branch: routeLanding.test.ts pins the pure landing rules as tables, routeLandingRegressions.test.tsx pins the boot and Back/Forward cases the two old readers got wrong, and appRouter.test.tsx expects a trackless link to open the default track.",
   "references": [
+    "src/__tests__/routeLanding.test.ts",
+    "src/__tests__/routeLandingRegressions.test.tsx",
+    "src/__tests__/appRouter.test.tsx",
     "src/__tests__/seoPages.test.ts",
-    "src/__tests__/searchVocabulary.test.ts",
-    "src/__tests__/unifiedSearchBox.test.tsx",
-    "src/__tests__/hubUnits.test.tsx"
+    "src/__tests__/searchVocabulary.test.ts"
   ]
 }
