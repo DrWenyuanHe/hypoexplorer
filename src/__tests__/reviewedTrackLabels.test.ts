@@ -21,4 +21,15 @@ describe('reviewed litter display label', () => {
     expect(reviewedTrackLabel(id, 'another-track', legacy)).toBe(legacy);
     expect(reviewedTrackLabel(id, 'crh_pvn', 'New source description')).toBe('New source description');
   });
+
+  it.each([
+    ['mouse_arc_kcnb1_gse246918', 'arcuate', 'Arcuate nucleus (ARC)', 'Hypothalamus'],
+    ['mouse_gnrh_androgen_gse162563', 'poa', 'GnRH / preoptic area (TRAP)', 'Preoptic area (GnRH-depleted TRAP supernatant)'],
+  ])('corrects the sampled tissue or fraction of %s', (dataset, track, source, corrected) => {
+    const meta = { labels: { [track]: source } } as unknown as DatasetMeta;
+    expect(reviewedMetadata(dataset, meta).labels[track]).toBe(corrected);
+    expect(reviewedMetadata(dataset, meta)).toBe(reviewedMetadata(dataset, meta));
+    expect(meta.labels[track]).toBe(source);
+    expect(reviewedTrackLabel('mouse_arc_pyy_glp1_gse160802', track, source)).toBe(source);
+  });
 });

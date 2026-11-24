@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "697f0088870cf2d2356c4120c90ad6f5949a94e1c560437c224fdddeaa94d38e",
+  "fingerprint": "a58d07986546cee68d9364887f0041344dd9a46c5fa99ad9da9c85f1256dc6ab",
   "outcome": "updated",
-  "explanation": "siteInfo.ts drops BETA_NOTICE and adds SOURCE_REPO_URL and DATA_REPO_URL, the GitHub repositories for the application source and the processed data release.",
+  "explanation": "datasets.ts corrects text for four studies against their GEO records and papers: GSE248462 time-series design (hepatocyte Nr1d1/Nr1d2, three pools per arm and timepoint), GSE160802 citation (lean mice, IP118 and PY115 coadministered), GSE246918 name and citation (hypothalamus) and GSE162563 name, citation and baseline label (GnRH-depleted supernatant, mixed control group). reviewedTrackLabels.ts becomes a per-dataset table that also corrects the GSE246918 and GSE162563 track labels at display time, and loadDatasetMeta.ts asks that table which datasets need it instead of naming one id; ids, region, preparation, contrasts and bundle bytes are unchanged.",
   "references": [
-    "src/data/siteInfo.ts",
-    "data-release.json"
+    "src/data/datasets.ts",
+    "src/data/reviewedTrackLabels.ts",
+    "src/data/loadDatasetMeta.ts"
   ]
 }

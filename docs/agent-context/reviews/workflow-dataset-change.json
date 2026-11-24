@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "04b15fc73a4ef00db265e2d225c8afe2010123b74a164e11fedd7033c0205d2f",
+  "fingerprint": "fb7c80bcd24a338f7577d2e27a48e280b9a946533d2d9e34f00d1f17957ee661",
   "outcome": "no-impact",
-  "explanation": "Crawlable study pages lose their beta strip and beta sentence and gain GitHub footer links; study content, registry declarations and the dataset intake workflow are unaffected.",
+  "explanation": "Registry text and display labels of four registered studies were corrected; the dataset-change procedure, including the reviewed-reason step in build_registry_edits.mts, is followed as documented and does not change.",
   "references": [
-    "scripts/lib/seoPages.mts",
-    "docs/agent-context/workflows.md"
+    "docs/agent-context/workflows.md",
+    "scripts/regen-r460/build_registry_edits.mts"
   ]
 }

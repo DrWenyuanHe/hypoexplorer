@@ -32,9 +32,9 @@ Declaration: [src/data/datasets.ts](<../../../src/data/datasets.ts>).
 
 ## mouse_gnrh_androgen_gse162563
 
-Mouse GnRH/POA — prenatal androgenization (TRAP-seq) — Mus musculus; TRAP-seq (translatome).
+Mouse POA, GnRH-depleted TRAP supernatant — prenatal androgenization (TRAP-seq) — Mus musculus; TRAP-seq (translatome).
 
-GnRH/preoptic-area TRAP translatome, vehicle vs prenatal DHT — androgenization of GnRH development (GSE162563)
+Adult female preoptic area, GnRH-depleted supernatant of a GnRH-neuron TRAP pull-down, control vs prenatal DHT. Four of the five control pools are from vehicle-treated dams and one is from an uninjected dam; GEO labels all five Vehicle (GSE162563)
 
 Declaration: [src/data/datasets.ts](<../../../src/data/datasets.ts>).
 

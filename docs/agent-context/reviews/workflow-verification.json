@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "bc1bbc8e5841e9dddaf7d03fd91eac804b35dfc53f3f8b88c6de53a022c5e115",
+  "fingerprint": "eda33dd7c411a1ba7b3402d3e4c24ac6720bc5af4b751a795dfab580e5a09084",
   "outcome": "no-impact",
-  "explanation": "Merges main into the Codex closure pass. From main: only page shells and release-status prose changed (no beta wording, GitHub links). From this branch: only review ledgers, the dated pass folder and the data-release pin changed. QC review, evidence authoring and verification commands are unchanged.",
+  "explanation": "Descriptive registry text, two display labels and reviewed reasons changed. No evidence ledger, verification command, quality rule or pinned producer changed, and the author-validation records are untouched.",
   "references": [
     "docs/agent-context/workflows.md",
-    "scripts/lib/seoPages.mts",
-    "data/author-validation/codex-2026-11-21/README.md"
+    "scripts/regen-r460/build_registry_edits.mts"
   ]
 }

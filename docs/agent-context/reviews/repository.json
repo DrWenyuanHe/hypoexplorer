@@ -1,16 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "30e12b96be3a96db5949df1204453c5268bfc0b67275bd631db4a66fde7fecfa",
+  "fingerprint": "0dea6d82dd47478d51bf1eb5a66e3e2db05b2450be97afa94e5d213e7e8912d7",
   "outcome": "updated",
-  "explanation": "Merges main into the Codex closure pass. From main: all beta testing wording is removed from index.html's descriptions and intro, the README and the SEO runbook, which now says siteInfo shares the GitHub repository links; EDGE_PROTECTION.md says HEAD on the data host is never cached and cache checks must use GET; workflows.md says the hub vocabulary loads on first pointer or focus and suggestions follow the partial stages. From this branch: data-release.json pins hypoexplorer-data release data-2026-11-22 with the evidence-codex-2026-11-21 part, the five existing parts stay at data-2026-11-06, and public-safety.json keeps the reviewed writing-rule allowances for the closure pass files.",
+  "explanation": "build_explorer_bundles_batch2.mts uses the corrected GSE246918 and GSE162563 track labels for any later bundle rebuild, and build_registry_edits.mts gains reviewed reasons for the changed registry fields. The registry-edits record itself, the OXT/AVP audit and the internal QC ledger need retained inputs this checkout does not have and were not rebuilt. build_timeseries_bundles.mts keeps its old GSE248462 text because the GSE157077 successor pins its bytes.",
   "references": [
-    "docs/runbooks/SEO.md",
-    "docs/runbooks/EDGE_PROTECTION.md",
-    "docs/agent-context/workflows.md",
-    "README.md",
-    "index.html",
-    "data-release.json",
-    "public-safety.json"
+    "scripts/build_explorer_bundles_batch2.mts",
+    "scripts/regen-r460/build_registry_edits.mts",
+    "scripts/lib/historicalEvidence.mts"
   ]
 }

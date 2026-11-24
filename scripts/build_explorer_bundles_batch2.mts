@@ -149,7 +149,7 @@ const MANIFEST: ManifestEntry[] = [
     color: '#FABFD2', armKeys: ['control', 'case'] as const, },
   // ── Batch-5: GEO-fetched + edgeR-QL processed this session (stress, antipsychotic/MC4R, dopamine-POMC, androgenization, hibernation, FGF1, diabetes, cachexia) ──
   { geoId: 'GSE246918', websiteId: 'mouse_arc_kcnb1_gse246918',
-    trackId: 'arcuate', trackLabel: 'Arcuate nucleus (ARC)',
+    trackId: 'arcuate', trackLabel: 'Hypothalamus',
     color: '#4E79A7', armKeys: ['control', 'case'] as const, },
   { geoId: 'GSE158751', websiteId: 'mouse_hypo_risperidone_gse158751',
     trackId: 'hypothalamus', trackLabel: 'Whole hypothalamus',
@@ -161,7 +161,7 @@ const MANIFEST: ManifestEntry[] = [
     trackId: 'pvn', trackLabel: 'Paraventricular nucleus (PVN)',
     color: '#E15759', armKeys: ['control', 'case'] as const, },
   { geoId: 'GSE162563', websiteId: 'mouse_gnrh_androgen_gse162563',
-    trackId: 'poa', trackLabel: 'GnRH / preoptic area (TRAP)',
+    trackId: 'poa', trackLabel: 'Preoptic area (GnRH-depleted TRAP supernatant)',
     color: '#B07AA1', armKeys: ['control', 'case'] as const, },
   { geoId: 'GSE295250', websiteId: 'mouse_hypo_hibernation_gse295250',
     trackId: 'hypothalamus', trackLabel: 'Whole hypothalamus',

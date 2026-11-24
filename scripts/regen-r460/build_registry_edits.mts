@@ -34,6 +34,15 @@ const GSE87544_REASON = 'Under edgeR 4.10.1 the GSE87544 fit (~ batch + group on
   + 'keeps its effect sizes but not its gene-level significance (224 to 1 gene at FDR < 0.05), so the contrast is shown as exploratory. '
   + 'The design analysis also corrected the unit count in the citation: seven author-defined processed units, 4 fed vs 3 food deprived, '
   + 'not eight mouse pseudobulks with n=5 vs 3. See data/quality/regeneration-r460-2026-09-25/README.md (GSE87544) and notes/GSE87544_design.md.';
+const GSE248462_REASON = 'Text correction (2026-11-24), values unchanged: the GEO samples are floxed Rev-erba/b mice given AAV8-TBG-Cre or AAV8-TBG-EGFP, '
+  + 'and the paper (PMID 39509517) defines HepDKO as hepatocyte REV-ERB (Nr1d1/Nr1d2) deletion. GEO lists three biological replicate pools of arcuate tissue per arm and timepoint. '
+  + 'GEO sample records report three mice per pool; the GEO series and the paper report three to four.';
+const GSE160802_REASON = 'Text correction (2026-11-24), values unchanged: cohort F of the paper (PMID 34781035) was lean C57BL6/J mice sampled 4 h after one injection, '
+  + 'and GEO lists the treatment as IP118/PY115, a GLP-1 receptor agonist and a Y2 receptor agonist given together.';
+const GSE246918_REASON = 'Text correction (2026-11-24), values unchanged: the source name and tissue of all six GEO samples are hypothalamus, '
+  + 'and the paper (PMID 39436109, section 2.4.1) extracted RNA from hypothalami. Neither describes an arcuate dissection.';
+const GSE162563_REASON = 'Text correction (2026-11-24), values unchanged: the 11 fitted GEO libraries are the GnRH-depleted supernatant, not the GnRH immunoprecipitate, '
+  + 'and the paper (PMID 33095238) states that one of the five adult control replicates is from an uninjected dam. GEO labels all five Vehicle.';
 const REASONS: { field: string; datasetId?: string; old?: unknown; new?: unknown; reason: string }[] = [
   { field: 'expressionUnit', old: 'CPM', new: 'CPM (TMM-normalized)',
     reason: 'Rule C2: the browser shows CPM computed with the TMM factors of the DE fit itself (<stem>_CPM_TMM.tsv.gz; the macaque atlas normcpm.csv), so the displayed unit is CPM (TMM-normalized). See data/quality/regeneration-r460-2026-09-25/README.md (Rules applied to every producer).' },
@@ -43,6 +52,13 @@ const REASONS: { field: string; datasetId?: string; old?: unknown; new?: unknown
     reason: 'Unit relabel (2026-10-21), values unchanged: GEO deposits edgeR-normalized CPM and de_gse135639_r460.R displays log2(value + 1) of it after summing duplicate symbols on the linear scale, as GSE243287 is labelled. The label log2-normalized implied the deposited values were shown unchanged. Bundles keep their bytes; the registry unit is authoritative for display (buildPopData).' },
   { field: 'contrasts', datasetId: GSE87544, reason: GSE87544_REASON },
   { field: 'citation', datasetId: GSE87544, reason: GSE87544_REASON },
+  { field: 'timeSeries', datasetId: 'mouse_arc_clock_gse248462', reason: GSE248462_REASON },
+  { field: 'citation', datasetId: 'mouse_arc_pyy_glp1_gse160802', reason: GSE160802_REASON },
+  { field: 'name', datasetId: 'mouse_arc_kcnb1_gse246918', reason: GSE246918_REASON },
+  { field: 'citation', datasetId: 'mouse_arc_kcnb1_gse246918', reason: GSE246918_REASON },
+  { field: 'name', datasetId: 'mouse_gnrh_androgen_gse162563', reason: GSE162563_REASON },
+  { field: 'citation', datasetId: 'mouse_gnrh_androgen_gse162563', reason: GSE162563_REASON },
+  { field: 'groups', datasetId: 'mouse_gnrh_androgen_gse162563', reason: GSE162563_REASON },
 ];
 
 function git(argv: string[], input?: string): Buffer {
