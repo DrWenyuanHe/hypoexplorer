@@ -1,6 +1,7 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'vitest';
-import { assessAuthorVerification, getVerificationClaim, type VerificationReview } from '../data/authorVerification';
+import ledger from '../../data/author-validation/verification-review.json';
+import { assessAuthorVerification, AUTHOR_FOLLOW_UPS, getVerificationClaim, type VerificationReview } from '../data/authorVerification';
 import { COMPARABILITY_DIMENSIONS, unestablishedComparison, validateComparisonReview, type ComparisonReview } from '../data/authorComparability';
 import { AUTHOR_VALIDATION_REPORT, requireAuthorValidation } from '../data/authorValidation';
 import { AuthorReviewBadge as AuthorValidationBadge, AuthorValidationPanel } from '../common/AuthorValidation';
@@ -37,6 +38,20 @@ describe('scientific verification decisions', () => {
     expect(assessAuthorVerification({ ...base, review: reviewed })).toMatchObject({ state: 'partial', comparisonOutcome: 'not_tested', resultAvailability: 'not_located' });
     expect(assessAuthorVerification({ ...base, status: 'review_required', review: reviewed }))
       .toMatchObject({ state: 'unresolved', comparisonOutcome: 'unresolved', resultAvailability: 'not_located' });
+  });
+  it('carries an author follow-up through and rejects an unknown one', () => {
+    expect(assessAuthorVerification({ ...base, review: { ...reviewed, followUp: 'author_contact' } }).followUp).toBe('author_contact');
+    expect(assessAuthorVerification({ ...base, review: reviewed })).not.toHaveProperty('followUp');
+    expect(() => assessAuthorVerification({ ...base, review: { ...reviewed, followUp: 'emailed' as 'author_contact' } }))
+      .toThrow('Invalid verification followUp');
+  });
+  it('records only known follow-ups in the ledger, each with its question', () => {
+    const waiting = Object.values(ledger.records as Record<string, VerificationReview>).filter((review) => review.followUp !== undefined);
+    expect(waiting.length).toBeGreaterThan(0);
+    for (const review of waiting) {
+      expect(Object.keys(AUTHOR_FOLLOW_UPS)).toContain(review.followUp);
+      expect(review.nextStep.trim()).not.toBe('');
+    }
   });
   it('keeps an accessible but not compared result in progress', () => {
     expect(assessAuthorVerification({ ...base, review: { ...reviewed, resultAvailability: 'available' } }).state).toBe('in_progress');

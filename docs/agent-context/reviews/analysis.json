@@ -1,10 +1,11 @@
 {
   "version": 1,
   "area": "analysis",
-  "fingerprint": "22ff99ca5ad500f83ef977e39956647f2c5045d7463a98dcbaf10e54bae55182",
+  "fingerprint": "efbf895bc6be0488fab022b50455ad6b8650ed5fb632d98bef536d5a971369c4",
   "outcome": "updated",
-  "explanation": "The six datasets the Codex closure pass held are adjudicated and merged: GSE49540, GSE179663 and GSE242354 replace their comparison specs; GSE284408, GSE232510 and GSE299412 keep theirs. merge.cjs gains --replace-spec and --keep-effects-dimension; rebuild_gse299412.py and check_torpor_sign.py are new pass scripts. GSE153498's concordance-bound effects text is restored. Generated comparison records are not regenerated.",
+  "explanation": "The six datasets the Codex closure pass held are adjudicated and merged: GSE49540, GSE179663 and GSE242354 replace their comparison specs; GSE284408, GSE232510 and GSE299412 keep theirs. merge.cjs gains --replace-spec and --keep-effects-dimension; rebuild_gse299412.py and check_torpor_sign.py are new pass scripts. GSE153498's concordance-bound effects text is restored. Generated comparison records are not regenerated. The 21 datasets that need author contact carry followUp in verification-review.json, documented in the author-validation README.",
   "references": [
+    "data/author-validation/README.md",
     "data/author-validation/codex-2026-11-21/README.md",
     "data/author-validation/codex-2026-11-21/merge.cjs",
     "data/author-validation/codex-2026-11-21/rebuild_gse299412.py",

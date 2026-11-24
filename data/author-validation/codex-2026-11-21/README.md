@@ -138,6 +138,9 @@ dimension, which an active concordance review binds to. The bound text was resto
 the pass's newer figures remain in that dataset's manual and verification records.
 All eight active concordance reviews now match the ledger text they bind to.
 
+The 21 datasets that need author contact carry `followUp: "author_contact"` in
+`verification-review.json`; their questions are its `nextStep` text.
+
 ## Validation
 
 The repository's ledger builders (`build_author_validation.mts`,

@@ -35,6 +35,8 @@ The detailed author-review labels come from `VERIFICATION_CLAIMS` and `getVerifi
 
 Evidence level (`author_results`, `reconstructed`, `source_only`, `none`) is independent of file availability and comparison outcome. A selected-gene table is direct evidence, but not a full tested-gene universe. `not_located` means not found in the reviewed sources, not globally absent. `located` means retrieval is not confirmed. `access_blocked` records an actual access barrier; an HTML challenge is never treated as downloaded scientific data. Paper access is separately recorded from supplement/result-file access.
 
+An optional `followUp: "author_contact"` on a `verification-review.json` record marks a `nextStep` that the study authors have to answer. It changes no state, claim or badge. The label is searchable in the library and tracker, and the tracker filters on it while any generated record carries it. Remove the field once the question is answered or withdrawn. Keep names, email addresses and correspondence out of the repository.
+
 ## Scientific comparability is not file integrity
 
 A checksum supports a byte-for-byte source match. A semantic or manual structure review supports a different, explicitly recorded claim. An exact output trace establishes that the deployed data matches the registered analysis tables. None proves that sample selection, the statistical model or the analysis is correct, or that the result agrees with author inference.

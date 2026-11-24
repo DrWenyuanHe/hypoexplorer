@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "9330e8e41ccc7998aa1176c499d689d270b5841b9865627c53fa26045652d414",
+  "fingerprint": "f24eadbcc85d0b02efc258692ff24efa40d62805305bf5613e3da0a46e3d0fea",
   "outcome": "updated",
-  "explanation": "Merge of two UI changes. From main: the unified search box shows suggestions from partial vocabulary stages and warms the load on pointer enter. From this branch: the beta banner and beta wording are removed from every app header and static page, shared header styles move to src/common/siteChrome.css, and the landing and static footers link the source and data repositories on GitHub.",
+  "explanation": "The shared evidence label and panel show an author follow-up, the tracker filters on it and the library searches it. Routing, navigation and exports are unchanged.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "src/search/UnifiedSearchBox.tsx",
-    "src/common/siteChrome.css",
-    "src/hub/LandingHub.tsx",
-    "scripts/lib/seoPages.mts"
+    "src/common/AuthorValidation.tsx",
+    "src/dataset-tracker/TrackerFilters.tsx",
+    "src/library/libraryFilters.ts"
   ]
 }

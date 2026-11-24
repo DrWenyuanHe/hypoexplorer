@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "a04184ff629e1cee24f349c110f9786f9452e72e1373837b240d5f455f23287a",
+  "fingerprint": "526c0ff247bd7a40e6a535ac48f8481328ad965c11c82d3f1d169ffb2cf77f87",
   "outcome": "updated",
-  "explanation": "Merge of two test changes. From main: searchVocabulary.test.ts adds the staged-load and name-index reuse tests, and unifiedSearchBox.test.tsx and hubUnits.test.tsx expect the partial suggestion option and the hub vocabulary load on pointer enter. From this branch: seoPages.test.ts asserts that study, guide and About pages contain no 'beta testing' wording and that study page footers link SOURCE_REPO_URL and DATA_REPO_URL on GitHub.",
+  "explanation": "Tests cover the optional author follow-up: assessAuthorVerification passes it through and rejects unknown values, the ledger holds only known values with a question, the evidence label and panel show it, and library search and the tracker filter find it.",
   "references": [
-    "src/__tests__/seoPages.test.ts",
-    "src/__tests__/searchVocabulary.test.ts",
-    "src/__tests__/unifiedSearchBox.test.tsx",
-    "src/__tests__/hubUnits.test.tsx"
+    "src/__tests__/authorVerification.test.tsx",
+    "src/__tests__/authorValidationPanel.test.tsx",
+    "src/__tests__/libraryFilters.test.ts",
+    "src/__tests__/trackerVerificationClaims.test.tsx"
   ]
 }
