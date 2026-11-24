@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "analysis",
-  "fingerprint": "9bad6b07622be53fda2331c8cd6aabf38055babb384f48df103455a517e0b8d9",
+  "fingerprint": "22ff99ca5ad500f83ef977e39956647f2c5045d7463a98dcbaf10e54bae55182",
   "outcome": "updated",
-  "explanation": "The Codex closure pass evidence is published as the evidence-codex-2026-11-21 part of hypoexplorer-data release data-2026-11-22. build_release_bundle.mts now packs with the release archives own tarball writer, which fetch:data reads, and the pass README records the release in place of the pending note. Ledgers, pipelines and producers are unchanged.",
+  "explanation": "The six datasets the Codex closure pass held are adjudicated and merged: GSE49540, GSE179663 and GSE242354 replace their comparison specs; GSE284408, GSE232510 and GSE299412 keep theirs. merge.cjs gains --replace-spec and --keep-effects-dimension; rebuild_gse299412.py and check_torpor_sign.py are new pass scripts. GSE153498's concordance-bound effects text is restored. Generated comparison records are not regenerated.",
   "references": [
     "data/author-validation/codex-2026-11-21/README.md",
-    "data/author-validation/codex-2026-11-21/build_release_bundle.mts",
-    "data-release.json"
+    "data/author-validation/codex-2026-11-21/merge.cjs",
+    "data/author-validation/codex-2026-11-21/rebuild_gse299412.py",
+    "data/author-validation/codex-2026-11-21/check_torpor_sign.py"
   ]
 }

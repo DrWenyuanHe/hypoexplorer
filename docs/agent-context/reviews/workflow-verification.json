@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "bc1bbc8e5841e9dddaf7d03fd91eac804b35dfc53f3f8b88c6de53a022c5e115",
+  "fingerprint": "f9bb422df086d124a17412998bdac98e0201a5ea8cfb2e3faa450b040786ab40",
   "outcome": "no-impact",
-  "explanation": "Merges main into the Codex closure pass. From main: only page shells and release-status prose changed (no beta wording, GitHub links). From this branch: only review ledgers, the dated pass folder and the data-release pin changed. QC review, evidence authoring and verification commands are unchanged.",
+  "explanation": "Review ledgers, comparison specs and the dated pass folder changed to close the six held datasets. QC review, evidence authoring and verification commands are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "scripts/lib/seoPages.mts",
     "data/author-validation/codex-2026-11-21/README.md"
   ]
 }

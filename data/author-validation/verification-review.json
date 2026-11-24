@@ -96,8 +96,8 @@
     "mouse_arc_hfd_gse284408": {
       "resultAvailability": "available",
       "comparisonOutcome": "unresolved",
-      "reason": "2026-09-05 advancement: 14,174 finite matched effects from 22,322 author numeric effects; Pearson 0.92734069, Spearman 0.92168175, nonzero direction agreement 91.490%, median absolute log2FC difference 0.026989, paired RMS effect ratio 0.928157. Full author result table for the registered contrast. Cohort, source and author inference are supported. Published selection inconsistencies and registered effect/inference differences still require review. Missing author adjusted P remains unavailable; full local discovery counts and finite paired tests are reported separately. Numerical values are recalculated from the unchanged current registered DE table. Evidence and reproducible extraction are in continued-sources/advancement-sources-a-2026-09-05/GSE284408/.",
-      "nextStep": "Review the ten Table S1 genes below the published 1.5-fold cutoff and resolve the narrative total. Evaluate the registered edgeR versus author FPKM-ratio effects and discovery sets under an explicit scientific acceptance criterion. Keep the successful DESeq2 sensitivity separate from the registered result.",
+      "reason": "The direct comparison is complete for the sole registered contrast. Both effect criteria pass and all seven registered FDR discoveries overlap the 19 author calls. The authors' stated rule and Figure 3E agree on the counts. The narrative total and the ten extra Table S1 entries remain publication discrepancies. Their cause cannot be attributed to the difference between DESeq2 and edgeR.",
+      "nextStep": "Ask the authors what selection produced Table S1 rows 129–138, for the input gene IDs and commands used for GO and KEGG, and which animals contributed to each ARC library. Table S3's pathway counts already agree with the strict set under the Table S1 annotations.",
       "fullyVerifiedContrasts": []
     },
     "mouse_hypo_pomc_estrogen_gse328990": {
@@ -145,8 +145,9 @@
     "zebrafish_hypo_cyp19a1b_gse299412": {
       "resultAvailability": "partial",
       "comparisonOutcome": "unresolved",
-      "reason": "Author selected results were retrieved and compared. Most directions agree, but specific direction and significance/filter differences remain; limited reference coverage must not conceal the observed disagreement.",
-      "nextStep": "Recover the full author normalized matrix, P/FDR results and exact rlog/limma filtering code. Reconcile the nine opposite directions and 52 author-selected genes outside the local filter before full sign-off."
+      "reason": "All 231 author-flagged genes are accounted for on the local side. The published DE table pairs 157, with eight opposite signs. The paper documents filtering and limma, and the workbook supplies group summaries. The inspected sources do not identify the sample-level transformation, group-summary calculation, or gene-wise limma results that produced the flags.",
+      "nextStep": "For the male-hypothalamus mutant-versus-WT comparison, can you supply the sample-level rlog matrix, normalization cohort and size factors, and the calculation used for the two group columns in Table S4? Please provide the detection and fold-change rules across pools, the limma design and contrast, and the per-gene coefficient, raw P and BH-adjusted P with the testing family. These would let us trace the eight opposite signs and the author-side selection of the 52 genes excluded by the registered filter.",
+      "fullyVerifiedContrasts": []
     },
     "rat_son_aging_gse231617": {
       "resultAvailability": "available",
@@ -200,8 +201,8 @@
     "cattle_hypo_diet_restriction_gse49540": {
       "resultAvailability": "partial",
       "comparisonOutcome": "unresolved",
-      "reason": "2026-09-05 advancement: 102 finite matched effects from 132 author numeric effects; Pearson 0.97760965, Spearman 0.96607381, nonzero direction agreement 100.000%, median absolute log2FC difference 0.069713, paired RMS effect ratio 0.941703. Selected author reference: Supplementary Table 1, annotated RA versus C genes. The unresolved six-versus-seven-control cohort prevents establishing equivalent analysis comparability. Missing author adjusted P remains unavailable; full local discovery counts and finite paired tests are reported separately. Numerical values are recalculated from the unchanged current registered DE table. Evidence and reproducible extraction are in continued-sources/advancement-sources-a-2026-09-05/GSE49540/.",
-      "nextStep": "Establish whether the paper's control count is a reporting error or identify the documented excluded control before any cohort change. Obtain the original complete DESeq result and a supported mapping for the30 unmatched symbols. No full verification until cohort/inference questions are resolved.",
+      "reason": "The selected RA/C comparison is complete for 107 of 132 S1 genes. Both numerical v2 routes meet their cutoffs on those pairs, but coverage is 81.06% and the registered cohort has an additional control. Evidence points to GSM1201496 as the omitted control. Two additional historical loci each give the S1 value printed for the other gene, and the paper supplies no stable IDs for those rows. The detailed review remains open on gene attribution and the Table 1 averages.",
+      "nextStep": "Request the original DESeq table keyed by Ensembl ID, including CXCL1 and CXCL3, raw and adjusted P values, and the design identifying included libraries. Ask which libraries and processing stage contributed to the two Table 1 averages and whether control rep5 was excluded from DESeq.",
       "fullyVerifiedContrasts": []
     },
     "hamster_tanycyte_photoperiod_gse204883": {
@@ -212,10 +213,10 @@
       "fullyVerifiedContrasts": []
     },
     "hamster_hypo_torpor_gse179663": {
-      "resultAvailability": "partial",
-      "comparisonOutcome": "unresolved",
-      "reason": "2026-09-05 advancement: 53 finite matched effects from 61 author numeric effects; Pearson -0.93001810, Spearman -0.91247890, nonzero direction agreement 9.434%, median absolute log2FC difference 0.305445, paired RMS effect ratio 1.028252. Selected 68 predefined indicator-gene reference; missing effect cells are preserved. The table explicitly labels HT-minus-NT but most matched directions oppose the registered result. Original per-sample count estimates support the local orientation for Rbm3-ps, Jun and Avp. The source contrast/direction disagreement remains unresolved; no sign flip is applied to force concordance. Exact-symbol joins only; alternative labels and absent genes are not remapped speculatively. Printed rounded P values remain descriptive; absent/outlier cells are missing. Missing author adjusted P remains unavailable; full local discovery counts and finite paired tests are reported separately. Numerical values are recalculated from the unchanged current registered DE table. Evidence and reproducible extraction are in continued-sources/advancement-sources-a-2026-09-05/GSE179663/.",
-      "nextStep": "Recover the exact original DESeq2 contrast and author sample-label map, and resolve the published HT/NT sign conflict against GEO per-sample counts. Do not negate author effects or reverse production labels without independent source evidence. Retain selected scope and rounded/missing statistics.",
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "The prefilter and normalization reproduced 16,195 author GeneIDs and their workbook base means. The script exports the default SPNT-minus-SPHT coefficient. After aligning to registered SPHT minus SPNT, Pearson is 0.805081, Spearman is 0.829910 and 12,932 of 15,099 directions agree. Neither v2 route passes. At adjusted P < 0.05, 227 genes occur in both discovery lists (759 author, 278 published Explorer). Zfp729b has a registered discovery and missing author adjusted P.",
+      "nextStep": "Use the full-table comparison for the registered contrast and retain Table S3 as a selected historical comparison. The full-table specification has replaced the selected-panel one. Run refute/orient.py --write to materialize its normalized input before regenerating comparison records.",
       "fullyVerifiedContrasts": []
     },
     "zebrafish_hypo_fluoxetine_gse141144": {
@@ -275,14 +276,15 @@
     "rat_hypo_exercise_gse242354": {
       "resultAvailability": "available",
       "comparisonOutcome": "unresolved",
-      "reason": "The official MoTrPAC timewise result table (MotrpacRatTraining6moData TRNSCRPT_HYPOTH_DA, male 8w versus sex-matched sedentary control) was retrieved and hashed. Against the registered output, 16798 paired genes give Pearson 0.3046, Spearman 0.5667 and 70.89% directional agreement. Control sample 90217015402, which the registered cohort retains, is listed in the DA table removed_samples column, and the MoTrPAC timewise limma model includes covariates pct_globin, rin, pct_umi_dup and median_5_3_bias (per DA table). The observed difference is not reconciled.",
-      "nextStep": "Decide whether the registered cohort should follow the exclusion listed in the MoTrPAC DA table removed_samples column, whose reason is not stated in the retained source; any covariate-adjusted reconstruction must remain a separate sensitivity analysis."
+      "reason": "The male eight-week comparison is complete. The final roster and PCA replay explain why MoTrPAC excluded GSM7759948. HypoExplorer includes that control in its two-arm limma fit. MoTrPAC used a sex-specific DESeq2 time-course model with four covariates. Of 16,771 nonzero pairs, 11,892 agree in sign (70.91%). Omitting the control from the registered group means gives 74.41% on the same genes. The residual effect disagreement remains unresolved. The registered comparison falls below both concordance thresholds and the 90% registered-output coverage requirement (79.06% paired).",
+      "nextStep": "For a revision intended to follow the authors’ RNA-seq QC, exclude GSM7759948, retain the five trained males and four controls, and version the resulting fit. Score any revised registered output separately. The current comparison records a disagreement and supports no contrast sign-off.",
+      "fullyVerifiedContrasts": []
     },
     "rat_arc_hfd_gse232510": {
       "resultAvailability": "partial",
       "comparisonOutcome": "unresolved",
-      "reason": "2026-11-16: author Supplementary Table S1 (431 CS-vs-HFS DESeq2 DEGs, padj<=0.1001) retrieved via Europe PMC and compared with the current R 4.6.0 registered output. 406 paired by exact Ensembl feature (coverage 0.9420); nonzero direction agreement 402/406 (0.9901); Pearson 0.8976 (below the 0.90 correlation-route minimum), Spearman 0.9026, OLS slope 0.446. The cohort-identity discrepancy is unresolved: GSM7349355 and GSM7349358 match no author library, author CS16/HFS/HFS17 are not deposited, and the author fit used 3 CS + 4 HFS within 14 libraries. Four registered libraries are shared with the author fit, so the effect agreement is not independent replication. Author 405 versus registered 0 FDR<0.1 calls among paired genes. Evidence is in continued-sources/GSE232510/turbo-2026-11-16-wave2/.",
-      "nextStep": "Obtain author documentation of the deposited GSM7349355/GSM7349358 libraries versus author CS16/HFS/HFS17 (and the undeposited CR and fourth HFS libraries) or the full author count matrix; any same-cohort author-compatible reconstruction must remain separate from the registered 3-versus-3 analysis.",
+      "reason": "Table S1 provides a selected author reference for hfd_vs_chow. Four registered profiles match S1 on every listed gene, two of them under a different number from their SRA filename. The registered cohort contains three HFS libraries and S1 contains four. On 406 nonzero pairs, 402 directions agree. Pearson 0.897580 and Spearman 0.902621 miss the joint correlation criterion. The numerical direction criterion is met. Animal assignments and the exact DESeq2 inputs and design remain unresolved.",
+      "nextStep": "Can the authors link each of the 14 S1 columns to its animal, Phase I cage, original FASTQ, GEO count file or other source, and DESeq2 input? Please identify HFS.1, reconcile the CS 12/16 and HFS 9/17 filenames and supply the count matrix, inclusion sheet and model design for the reported contrast, including the CR and fourth HFS profiles. Please confirm the species recorded for the Wistar samples.",
       "fullyVerifiedContrasts": []
     },
     "mouse_hypo_prenatal_benzene_gse229440": {
