@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor, within } from '@testing-library/rea
 import { DatasetLibrary } from '../library/DatasetLibrary';
 import { loadDatasetCatalog } from '../data/datasetCatalog';
 import { listDatasets } from '../data/datasets';
+import type { DatasetCategory } from '../data/datasetCategories';
 import { _resetBundleCache, _setBundleTransport } from '../data/bundleSource';
 import { seedQueryManifest } from './fixtures';
 
@@ -31,6 +32,18 @@ afterEach(() => {
 });
 
 const countText = (visible: number, total: number) => `${visible} of ${total} studies`;
+
+// What this file pays for is the list: the library renders every study it shows,
+// and every document-wide query then walks all of them. A test about one study's
+// record or table row therefore opens the library on that study's category, the
+// way a hub link does. The tests about the corpus as a whole (the counts, the
+// filters, the degraded catalog) keep every study.
+//
+// The macaque atlas is the only study in its category, and the 7 v 8 HFD study
+// sits among the diet-induced obesity ones.
+const ATLAS: readonly DatasetCategory[] = ['Primate atlas'];
+const DIET: readonly DatasetCategory[] = ['Diet-induced obesity'];
+const ATLAS_AND_DIET: readonly DatasetCategory[] = [...ATLAS, ...DIET];
 
 // Keep role/name assertions inside their actual landmark. A document-wide
 // button query computes names for every study card's styled descendants too;
@@ -79,7 +92,7 @@ describe('DatasetLibrary', () => {
 
   it('shows replicate counts on the card — the thing an <option> could not carry', async () => {
     const unseed = seedQueryManifest();
-    renderLibrary();
+    renderLibrary({ initialCategories: ATLAS_AND_DIET });
     await screen.findByText(/of \d+ studies/);
     // Arm labels come from each dataset's own groups, never from the bundles'
     // nNormal/nObese keys — which on a mouse study mean Chow and HFD.
@@ -192,7 +205,7 @@ describe('DatasetLibrary', () => {
     // question you ask ABOUT a study you have found, not one you browse by. The
     // record is where it has to keep answering it.
     const unseed = seedQueryManifest();
-    renderLibrary();
+    renderLibrary({ initialCategories: ATLAS });
     await screen.findByText(/of \d+ studies/);
 
     expect(filterBar().queryByRole('button', { name: /^Author results untested/ })).toBeNull();
@@ -229,7 +242,7 @@ describe('DatasetLibrary', () => {
 
   it('opens a study record without entering the explorer', async () => {
     const unseed = seedQueryManifest();
-    const props = renderLibrary();
+    const props = renderLibrary({ initialCategories: ATLAS });
     await screen.findByText(/of \d+ studies/);
 
     const label = screen.getAllByText('Macaque hypothalamus (snRNA-seq)')[0];
@@ -248,7 +261,7 @@ describe('DatasetLibrary', () => {
 
   it('opens with a study already showing when given one', async () => {
     const unseed = seedQueryManifest();
-    renderLibrary({ initialSelectedId: 'macaque_snrna' });
+    renderLibrary({ initialSelectedId: 'macaque_snrna', initialCategories: ATLAS });
     const record = await screen.findByRole('article', { name: /Macaque hypothalamus/i });
     expect(within(record).getAllByText(/Macaca fascicularis/).length).toBeGreaterThan(0);
     // A page, not a popup: the list behind it is hidden rather than dimmed, and
@@ -262,7 +275,7 @@ describe('DatasetLibrary', () => {
 
   it('draws the study\'s volcano in the record without entering the explorer', async () => {
     const unseed = seedQueryManifest();
-    const props = renderLibrary({ initialSelectedId: 'mouse_hypo_hfd_gse220533' });
+    const props = renderLibrary({ initialSelectedId: 'mouse_hypo_hfd_gse220533', initialCategories: DIET });
     const record = await screen.findByRole('article', { name: /Mouse whole hypothalamus — HFD vs LFD|Mouse whole hypothalamus/i });
     // The section stands in the Overview from the first frame; its bundle loads
     // behind it (or, in jsdom, never), and either way nothing is opened.
@@ -279,7 +292,7 @@ describe('DatasetLibrary', () => {
 
   it('steps through the current results from the record', async () => {
     const unseed = seedQueryManifest();
-    const props = renderLibrary({ initialSelectedId: 'macaque_snrna', onSelectedIdChange: vi.fn() });
+    const props = renderLibrary({ initialSelectedId: 'macaque_snrna', initialCategories: ATLAS_AND_DIET, onSelectedIdChange: vi.fn() });
     const record = await screen.findByRole('article', { name: /Macaque hypothalamus/i });
     // The macaque atlas sorts first under Category, so there is no previous.
     expect(within(record).getByRole('button', { name: 'Previous study' })).toBeDisabled();
@@ -341,7 +354,7 @@ describe('DatasetLibrary', () => {
     // otherwise a keyboard user who opens a study by accident is stuck behind a
     // focus trap with only the × to find.
     const unseed = seedQueryManifest();
-    renderLibrary({ initialSelectedId: 'macaque_snrna' });
+    renderLibrary({ initialSelectedId: 'macaque_snrna', initialCategories: ATLAS });
     const record = await screen.findByRole('article', { name: /Macaque hypothalamus/i });
 
     fireEvent.keyDown(record, { key: 'Escape' });
@@ -366,7 +379,7 @@ describe('DatasetLibrary', () => {
     // other seeded dataset is 3v3, which is exactly why this survived: with
     // symmetric arms a reversal is invisible.
     const unseed = seedQueryManifest();
-    renderLibrary();
+    renderLibrary({ initialCategories: ATLAS_AND_DIET });
     await screen.findAllByTitle('3 Normal vs 3 Obese');
     showTable();
 
@@ -389,7 +402,7 @@ describe('DatasetLibrary', () => {
     // The macaque's default population finds nothing; the table has to say so
     // rather than leave the cell looking like the index failed to load.
     const unseed = seedQueryManifest();
-    renderLibrary();
+    renderLibrary({ initialCategories: ATLAS });
     await screen.findAllByTitle('3 Normal vs 3 Obese');
     showTable();
     const row = screen.getByRole('button', { name: /^Macaque hypothalamus \(snRNA-seq\)$/ })
@@ -409,7 +422,7 @@ describe('DatasetLibrary', () => {
   it('exposes every table record to the keyboard', async () => {
     // The row's onClick alone left the table view unusable without a pointer.
     const unseed = seedQueryManifest();
-    const props = renderLibrary();
+    const props = renderLibrary({ initialCategories: ATLAS });
     await screen.findAllByTitle('3 Normal vs 3 Obese');
     showTable();
 
