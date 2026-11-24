@@ -45,6 +45,8 @@
     "verify:edge": "tsx scripts/deploy/verify_edge.mts",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:scripts": "tsx --test scripts/lib/bundleEol.test.mts scripts/lib/nomenclatureRetained.test.mts scripts/lib/oxtAvpIntakeEvidence.test.mts scripts/lib/rgdRecords.test.mts scripts/lib/searchNames.test.mts scripts/lib/tmm.test.mts",
+    "test:service": "python -m unittest discover -s services/hypomap -p test_comparison_service.py",
     "test:smoke": "playwright test --config scripts/smoke/playwright.config.ts",
     "lint": "biome lint",
     "lint:fix": "biome lint --write",

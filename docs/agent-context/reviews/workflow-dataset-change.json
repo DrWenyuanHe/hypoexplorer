@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "04b15fc73a4ef00db265e2d225c8afe2010123b74a164e11fedd7033c0205d2f",
+  "fingerprint": "de61585d6df5ac5f36ee3bb16e2364d98b53dd460597cef9b5dd033fa9c42849",
   "outcome": "no-impact",
-  "explanation": "Crawlable study pages lose their beta strip and beta sentence and gain GitHub footer links; study content, registry declarations and the dataset intake workflow are unaffected.",
+  "explanation": "The changes under scripts/ are confined to the context guard (reviewedContent in scripts/agent-context/model.mjs and its test) and a read-only --identity flag on fetch_expression_references.mts that CI uses as its atlas cache key. Dataset builders, registry declarations and the intake steps are unchanged.",
   "references": [
-    "scripts/lib/seoPages.mts",
+    "scripts/agent-context/model.mjs",
+    "scripts/fetch/fetch_expression_references.mts",
     "docs/agent-context/workflows.md"
   ]
 }

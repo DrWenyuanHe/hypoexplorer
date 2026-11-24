@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "90298085c7597c35de5636bb32d3bc5108c629a3954ee63a9e03524528f98655",
-  "outcome": "no-impact",
-  "explanation": "The EDGE_PROTECTION cost model now notes that HEAD is never served from the edge cache: it reports DYNAMIC and costs one R2 Class B HeadObject, the originHealth reachability probe sends one HEAD per check, and cache checks must use GET because curl -I always shows DYNAMIC. verify_edge.mts already checks caching with GET. The cache rule payload, apply_edge_rules.mts and delivery.md steps are unchanged.",
+  "fingerprint": "aa70e1846f270d7bcf3e34d5591b83a6202688b67301277266cc457d306b85f4",
+  "outcome": "updated",
+  "explanation": "delivery.md now says CI also runs test:scripts and test:service and caches the reference atlases under fetch:expression --identity, a digest of each published manifest and validation record. package.json gains those two test scripts. The build, prepare:deploy, verify and deploy command chains are unchanged, and prepare:deploy still fetches any atlas the cache did not restore complete.",
   "references": [
-    "docs/runbooks/EDGE_PROTECTION.md",
     "docs/agent-context/delivery.md",
-    "scripts/deploy/verify_edge.mts",
-    "src/data/originHealth.ts"
+    "package.json",
+    "scripts/fetch/fetch_expression_references.mts",
+    ".github/workflows/application.yml"
   ]
 }

@@ -1,16 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "30e12b96be3a96db5949df1204453c5268bfc0b67275bd631db4a66fde7fecfa",
+  "fingerprint": "b9067829ee3d496c3191f8efc9db69ba2c620d27568b9dd128c5dd6f36f46300",
   "outcome": "updated",
-  "explanation": "Merges main into the Codex closure pass. From main: all beta testing wording is removed from index.html's descriptions and intro, the README and the SEO runbook, which now says siteInfo shares the GitHub repository links; EDGE_PROTECTION.md says HEAD on the data host is never cached and cache checks must use GET; workflows.md says the hub vocabulary loads on first pointer or focus and suggestions follow the partial stages. From this branch: data-release.json pins hypoexplorer-data release data-2026-11-22 with the evidence-codex-2026-11-21 part, the five existing parts stay at data-2026-11-06, and public-safety.json keeps the reviewed writing-rule allowances for the closure pass files.",
+  "explanation": "CI and the context guard change. application.yml now runs pnpm run test:scripts (the six scripts/lib tests that need no retained evidence) and pnpm run test:service (the HypoMap co-detection service's unittest, on Python 3.12 with NumPy) in the Lint and typecheck job, runs Vitest with one worker per runner core, and caches the three reference atlases under the digest that fetch:expression --identity prints. package.json adds the two test scripts. The guard no longer fingerprints routine version bumps: pnpm-lock.yaml is not a source, a package.json contributes dependency names without versions and a workflow contributes each uses: action without its ref (reviewedContent in model.mjs). docs/agent-context/README.md records that boundary and delivery.md the CI steps.",
   "references": [
-    "docs/runbooks/SEO.md",
-    "docs/runbooks/EDGE_PROTECTION.md",
-    "docs/agent-context/workflows.md",
-    "README.md",
-    "index.html",
-    "data-release.json",
-    "public-safety.json"
+    "docs/agent-context/README.md",
+    "docs/agent-context/delivery.md",
+    ".github/workflows/application.yml",
+    "package.json",
+    "scripts/agent-context/model.mjs"
   ]
 }
