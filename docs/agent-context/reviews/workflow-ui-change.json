@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "c86afeae9dae4fac70856bb58723f2a582039dcc6094e012871505349b15b304",
+  "fingerprint": "3c79199ed0098fd8f6bd8500d3a8284f5ec6253cb030f006168535f5066d27bb",
   "outcome": "updated",
-  "explanation": "The ui-change workflow now says the router runs one navigation attempt at a time with its own history write policy: a new shell control that moves the explorer calls supersede() before navigate, and a value a view reports back starts an attempt only when it changes. appRouter.ts gains supersede on AppRouter and a verified openInExplorer(id, track); App.tsx routes its track, tab, contrast, leave-Compare and send-genes controls through it. AppView stays declared in appRouter.ts.",
+  "explanation": "The ui-change route says a cross-study table takes its mode words and nominal caveat from statistics/listingWords.ts and any direction-coloured text from directionTextColor in statistics/direction.ts; the refactor checklist lists both as single sources.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/appRouter.ts",
-    "src/App.tsx",
-    "src/routeLanding.ts"
+    "docs/runbooks/REFACTOR_CHECKLIST.md",
+    "src/statistics/direction.ts",
+    "src/statistics/listingWords.ts"
   ]
 }

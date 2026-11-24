@@ -147,7 +147,7 @@ A restrained neutral field carrying a small set of meaning-bearing accents. Ther
 ### Named Rules
 **The One Voice Rule.** Signal Orange marks at most one active element per view. Its rarity is the signal; a second orange selection in frame means the design is lying about what is active.
 
-**The Meaning-Only Color Rule.** Red is up and Obese. Blue is down and Normal. These bindings are absolute and centralized in one module (`src/styles/constants.js`). Color is never chosen for looks; if you cannot name what a color encodes, it should be a neutral.
+**The Meaning-Only Color Rule.** Red is up and Obese. Blue is down and Normal. These bindings are absolute: the tokens live in `src/styles/constants.ts`, and which tier earns a text colour is decided in `src/statistics/direction.ts` (the darker text tokens for text, the chart fills for marks only). Color is never chosen for looks; if you cannot name what a color encodes, it should be a neutral.
 
 ## 3. Typography
 

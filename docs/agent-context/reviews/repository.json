@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "ccb96d2869092d8d383a1e58bce62ab937f833d4647eece3b3deb0a215043f17",
+  "fingerprint": "64939cc3dc513ae79638d1ef5b275dfd5329174a127b3b9ef789a83795fb649a",
   "outcome": "updated",
-  "explanation": "CONTEXT.md sharpens the App router entry with the navigation attempt and the write policy (replace for a followed URL, push for a user action, hold for an unrecognized fragment, settings-only changes replace), the real-change rule for view-reported setters, the stable supersede() the shell calls before navigate, the rule that router-delivered intents never supersede, and the verified openInExplorer(id, track). The ui-change workflow tells a new shell control to call supersede() first.",
+  "explanation": "CONTEXT.md gains a \"Direction text + listing words\" entry naming statistics/direction.ts and statistics/listingWords.ts and what stays in the views, and the forest-primitives entry names directionFill instead of direction encoding. DESIGN.md says the colour tokens live in constants.ts and the tier rule in direction.ts (text tokens for text, fills for marks).",
   "references": [
     "CONTEXT.md",
-    "docs/agent-context/workflows.md",
-    "src/appRouter.ts"
+    "DESIGN.md",
+    "src/statistics/direction.ts",
+    "src/statistics/listingWords.ts"
   ]
 }

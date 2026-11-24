@@ -8,6 +8,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { DEFAULT_FDR_CUTOFF, NOMINAL_P_CUTOFF } from './policy';
 import { setListingMode, useListingMode, type ListingMode } from './listingModeStore';
+import { nominalCaveat } from './listingWords';
 import './listingMode.css';
 
 /**
@@ -41,7 +42,7 @@ const OPTIONS: ReadonlyArray<{ value: ListingMode; label: string; title: string 
     value: 'nominal',
     label: `p < ${NOMINAL_P_CUTOFF}`,
     title: `Also list tracks with raw p < ${NOMINAL_P_CUTOFF} that miss FDR, labelled "p < ${NOMINAL_P_CUTOFF} only". `
-      + 'They are not corrected for multiple testing, so some are expected by chance. Counts stay on FDR.',
+      + `They are ${nominalCaveat()} Counts stay on FDR.`,
   },
 ];
 

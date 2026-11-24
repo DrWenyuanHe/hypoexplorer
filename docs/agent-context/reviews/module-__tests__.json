@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "e2e7b6c3391766ec497b9e4b6e087e8c558bb003da2b5c387534dd8b43ba92c0",
+  "fingerprint": "d991646697343063d5e85427267942358cd8e565c1f1e24b95019d6a855e6acf",
   "outcome": "updated",
-  "explanation": "Navigation attempts in the router. navigationAttempts.test.tsx pins that a search, Home, openInExplorer, filter, library record or emptied compare set made while a cold #/dataset/<id>/<track> link is landing wins after that metadata resolves or rejects (B2), that a followed explicit default-track link is canonicalized in place so Back leaves it (B4), that an unrecognized anchor is kept at boot and mid-landing (B8), that a shell tab click supersedes a boot landing, and that settings-only and no-hash initialView writes still replace. appRouter.test.tsx now awaits the verified openInExplorer(id, track) and resets history with replaceState so a late hashchange cannot supersede the next test.",
+  "explanation": "direction.test.ts pins dirGlyph and directionTextColor (FDR-only colour, text tokens only); listingWords.test.ts pins the mode words and the per-kind caveat as a table. forestReport.test.tsx now tests directionFill, and pathwayReportResults.test.tsx asserts the NES text is #AD3433 while the dot keeps var(--color-obese).",
   "references": [
-    "src/__tests__/navigationAttempts.test.tsx",
-    "src/__tests__/appRouter.test.tsx",
-    "src/__tests__/appRouterUrl.test.tsx",
-    "src/appRouter.ts"
+    "src/__tests__/direction.test.ts",
+    "src/__tests__/listingWords.test.ts",
+    "src/__tests__/forestReport.test.tsx",
+    "src/__tests__/pathwayReportResults.test.tsx"
   ]
 }

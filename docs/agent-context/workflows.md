@@ -172,7 +172,7 @@ multi-file downloads are stored ZIPs from `src/utils/zip.ts`; every gene picker 
 `GenePicker` over `src/explorer/geneVocabulary.ts`; a table that lists tracks by
 significance reads each row's `tier` (set once by `geneRow` / `pathwayRow` from
 `src/statistics/policy.ts`), takes what leads, the order and the counts from
-`listCrossStudy` in `src/statistics/crossStudyListing.ts` for the mode
+`listCrossStudy` in `src/statistics/crossStudyListing.ts`, its mode words and nominal caveat from `src/statistics/listingWords.ts` and any direction-coloured text from `directionTextColor` in `src/statistics/direction.ts`, for the mode
 `listingModeStore` holds (with its `ListingModeToggle`), and decides only how
 much to show and what starts folded; it labels rows with
 `src/statistics/TierLabel.tsx`, explains q / FDR / padj columns with `QTerm`,
