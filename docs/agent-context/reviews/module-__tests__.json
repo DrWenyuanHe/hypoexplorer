@@ -1,13 +1,16 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "e2e7b6c3391766ec497b9e4b6e087e8c558bb003da2b5c387534dd8b43ba92c0",
+  "fingerprint": "08ecba2fbe602d43edbcae42785af1b4d3318301905ecbd8cd4dc1b3cd6af4a7",
   "outcome": "updated",
-  "explanation": "Navigation attempts in the router. navigationAttempts.test.tsx pins that a search, Home, openInExplorer, filter, library record or emptied compare set made while a cold #/dataset/<id>/<track> link is landing wins after that metadata resolves or rejects (B2), that a followed explicit default-track link is canonicalized in place so Back leaves it (B4), that an unrecognized anchor is kept at boot and mid-landing (B8), that a shell tab click supersedes a boot landing, and that settings-only and no-hash initialView writes still replace. appRouter.test.tsx now awaits the verified openInExplorer(id, track) and resets history with replaceState so a late hashchange cannot supersede the next test.",
+  "explanation": "Merge of two test changes. From main: navigationAttempts.test.tsx pins that later navigation wins over a cold dataset link still landing (B2), that a followed explicit default-track link is canonicalized in place (B4), that an unrecognized anchor is kept (B8), that a shell tab click supersedes a boot landing, and that settings-only and no-hash initialView writes still replace; appRouter.test.tsx awaits the verified openInExplorer(id, track) and resets history with replaceState. From this branch: tests cover the optional author follow-up, which assessAuthorVerification passes through or rejects, the ledger holds only with known values and a question, the evidence label and panel show, and library search and the tracker filter find.",
   "references": [
     "src/__tests__/navigationAttempts.test.tsx",
     "src/__tests__/appRouter.test.tsx",
     "src/__tests__/appRouterUrl.test.tsx",
-    "src/appRouter.ts"
+    "src/__tests__/authorVerification.test.tsx",
+    "src/__tests__/authorValidationPanel.test.tsx",
+    "src/__tests__/libraryFilters.test.ts",
+    "src/__tests__/trackerVerificationClaims.test.tsx"
   ]
 }

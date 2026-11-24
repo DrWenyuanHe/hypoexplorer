@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "bc1bbc8e5841e9dddaf7d03fd91eac804b35dfc53f3f8b88c6de53a022c5e115",
-  "outcome": "no-impact",
-  "explanation": "Merges main into the Codex closure pass. From main: only page shells and release-status prose changed (no beta wording, GitHub links). From this branch: only review ledgers, the dated pass folder and the data-release pin changed. QC review, evidence authoring and verification commands are unchanged.",
+  "fingerprint": "f45e3a07c3b0b2e9a362b563fb537f020658b0709bd9e373580c57e4582dcb45",
+  "outcome": "updated",
+  "explanation": "The author-validation README documents followUp: it marks a next step the study authors have to answer and changes no state, claim or badge. The six held datasets are also closed in the review ledgers. Verification commands are unchanged.",
   "references": [
+    "data/author-validation/README.md",
     "docs/agent-context/workflows.md",
-    "scripts/lib/seoPages.mts",
     "data/author-validation/codex-2026-11-21/README.md"
   ]
 }

@@ -7,21 +7,21 @@
       ],
       "target": "registered_output",
       "resultScope": "full_results",
-      "basis": "Registered edgeR-QL result against the full deposited table. The successful DESeq2 sensitivity is a separate result.",
-      "reference": "Full 22,322-row GEO table plus 299-row manuscript Table S1, both retrieved and hashed on 2026-09-04.",
+      "basis": "Current R 4.6.0 registered edgeR-QL results compared directly with every eligible row of the author's GEO table.",
+      "reference": "The full GEO result and count table provides gene-level effects and statistics. Figure 3E gives directional totals, Table S1 gives selected IDs, Table S2 lists GO contributors, and Table S3 gives KEGG counts by direction.",
       "assessment": "limited",
       "dimensions": {
         "cohort": {
-          "status": "matched",
-          "note": "All six GEO libraries map to count columns and local assignments: three NCD and three HFD male laser-captured ARC regions enriched with Kiss1 neurons. No libraries omitted."
+          "status": "compatible",
+          "note": "Identical male laser-captured ARC libraries enriched for Kiss1 neurons, three per diet. GEO, ENA, count columns, sample sheet and registered model agree on library membership. Biological independence at the mouse or pool level is undocumented."
         },
         "contrast": {
           "status": "matched",
-          "note": "HFD minus NCD in the same ARC cohort. Regional enrichment is not isolated-neuron expression."
+          "note": "The registered coefficient is HFD minus ordinary diet (NCD) after 16 weeks. GEO group labels, per-library FPKM and the ratio of the HFD to NCD group mean establish the author direction."
         },
         "features": {
           "status": "compatible",
-          "note": "All 14,174 local Ensembl IDs join the 22,322-row source; all six count columns are conserved and source bytes match."
+          "note": "Exact Ensembl IDs join through the registered feature map only for symbols with a single contributing ID. The 32 published symbols aggregating several features stay unpaired. The author disposition table accounts for every source ID."
         },
         "effects": {
           "status": "limited",
@@ -29,15 +29,15 @@
         },
         "inference": {
           "status": "different",
-          "note": "Registered FDR calls: 19 author/seven local/seven shared. Separate DESeq2 recovers all 19 author IDs with FDR delta <=2.2e-11 over 18,169 jointly finite tests. Restricting the registered comparison to 14,172 model-inferred evaluable rows gives 241 author/283 local/219 shared paper-rule calls; the literal 1-coded export comparison gives 284 local calls."
+          "note": "The paper names DESeq2. The registered analysis used edgeR-QL and adjusted over 14,172 tested rows, including 21 unpublished rows. At FDR < 0.05 there are 19 author calls and seven published registered calls, with seven shared. All 14,119 effect pairs have literal exported P and FDR. A conservative sensitivity withholds rows with author P = FDR = 1, leaving 14,117 pairs. The deposit does not flag the test status of each such row. The full-list, literal-pair and conservative counts are recorded separately."
         },
         "coverage": {
           "status": "limited",
-          "note": "48 of 289 author paper-rule calls fall outside the registered filter. Table S1 has ten additional below-cutoff rows, and its 299 total differs from the narrative's 389. Author P/FDR=1 corresponds to 4,153 refit-NA rows, including two registered genes. Bpifa1 has local nominal P<.05 but no test in the reconstruction; it is not confirmed author-negative."
+          "note": "The full GEO table contains 22,322 effects. Of 14,151 published registered symbols, 14,119 pair uniquely (99.7739% of output, 63.2515% of author rows). The remaining 8,203 author IDs comprise 7,948 with a single mapped symbol outside the output, 143 without a published symbol and 112 mapping to shared symbols. Table S1 is a selected list."
         }
       },
-      "criteria": "Nominal P<0.05 and abs(log2FC)>log2(1.5) is the manuscript rule; FDR<0.05 is reported separately. Compare finite-statistic pairs, retain original values and distinguish FPKM-ratio effects from model coefficients. Matching a separate DESeq2 result does not sign off registered edgeR.",
-      "conclusion": "Cohort, source and author inference are supported. Published selection inconsistencies and registered effect/inference differences still require review."
+      "criteria": "Author-concordance-v2 requires compatible cohort, contrast, features and effect definitions, at least 30 pairs and at least 90% registered-output coverage for a full reference. Either Pearson and Spearman must both reach 0.90, or sign agreement must reach 90% for at least 30 nonzero pairs covering at least 90% of all pairs. Retain magnitude, nominal P, FDR and call sets as context. For Figure 3E apply nominal P < 0.05 and abs(log2FC) > log2(1.5).",
+      "conclusion": "For hfd_vs_ncd both effect criteria pass on 99.77% of the published registered symbols. The seven registered FDR discoveries form a subset of the 19 author discoveries. The paper rule reproduces the counts in Figure 3E and, using the Table S1 annotations, all directional pathway counts in Table S3. The selection that produced Table S1 and the biological replication units remain unresolved."
     },
     "mouse_hypo_fasting_gse294478": {
       "registeredContrastIds": [
@@ -1793,37 +1793,37 @@
       ],
       "target": "registered_output",
       "resultScope": "selected_results",
-      "basis": "Registered edgeR effect versus selected author rlog means/direction flags; normalization diagnostics are separate.",
-      "reference": "Table S4, male-hypothalamus subset of 231 genes from a 703-gene cross-comparison union.",
+      "basis": "Table S4 mutant-minus-WT group-expression differences and reported flags paired by exact source symbol to published edgeR-QL log2 fold changes. The authors describe rlog processing. The workbook labels the two groups and supplies their values without a formula for the summaries.",
+      "reference": "PMC Table S4, worksheet STRATEGY2.LIMMA_suptable_export, Adult_Hypo_male_ko vs Adult_Hypo_male_wt. All 231 flagged rows retained.",
       "assessment": "limited",
       "dimensions": {
         "cohort": {
           "status": "matched",
-          "note": "Six WT and five mutant biological pools, three fish per pool."
+          "note": "The GEO family and sample sheet identify the same adult male hypothalamus pools, six WT and five mutant, each representing three fish. Each pool is one biological replicate."
         },
         "contrast": {
           "status": "matched",
-          "note": "Male hypothalamus mutant minus WT, not the 12-comparison union."
+          "note": "Mutant minus wild type within male hypothalamus in both sources. The workbook flag agrees with the sign of the group-mean difference for every selected gene."
         },
         "features": {
           "status": "limited",
-          "note": "All 231 source symbols exist; 179 join the local fitted table and 52 are filtered out."
+          "note": "All 231 source symbols are unique in GEO. Of 52 failing the registered CPM support rule, 47 have published-symbol mappings and five have reserved labels. Another 22 pass the filter under reserved labels. Exactly 157 have published effects."
         },
         "effects": {
           "status": "different",
-          "note": "Author rlog-mean differences are not edgeR logFC; 170/179 signs agree, with nine unresolved reversals."
+          "note": "The author-side effect is calculated by subtracting the two published group values. Table S4 contains no fitted limma coefficient column. The registered effect is the edgeR log2 coefficient for groupcase with TMM offsets. Signs agree in 149 of 157 nonzero pairs. Pearson r = 0.882737 and Spearman rho = 0.681191. Eight author-down genes have positive registered coefficients."
         },
         "inference": {
           "status": "not_tested",
-          "note": "Author table has no P/FDR values; 55 local FDR calls among listed genes cannot establish inferential agreement."
+          "note": "Figure 7A gives 7,865 genes after detection screening, 926 after the fold-change screen and 231 final calls under the reported limma/BH procedure. The identities in the BH family and the numerical author P and adjusted P values remain unavailable in the inspected results. The local BH family includes all 5,474 tested features. Of the 89 published local FDR < 0.05 calls, 46 carry this author flag. The eight opposite pairs all have local raw P and adjusted P above 0.05."
         },
         "coverage": {
           "status": "limited",
-          "note": "Selected union/subset lacks all-tested coverage; absent rows are not negatives."
+          "note": "The 157 pairs cover 67.97% of the 231 author-flagged genes and 3.14% of the 5,007 published local DE rows. The 703-gene workbook includes results from 12 contrasts. Of the other 43 local discoveries, three appear with a dash in this column and 40 have no workbook row. Neither observation gives a gene-wise author P value or shows which screen a gene failed."
         }
       },
-      "criteria": "Direction and rlog-mean comparison only. Local FDR<0.05 is descriptive, not comparable author significance; diagnostic 223/231 signs do not replace Explorer results. No full-result acceptance is established.",
-      "conclusion": "Qualified selected effects remain insufficient to resolve direction and inference questions."
+      "criteria": "Use every gene flagged in the prespecified Table S4 contrast and exact identifiers. The 157 pairs exceed the 30-pair minimum. All 157 have nonzero effects and 149 agree, meeting the v2 direction criterion. Pearson and Spearman both fall below the 0.90 correlation thresholds. The shared requirement for 90% coverage of the selected author reference fails at 67.97%. Identifier and effect comparability remain qualified. Magnitudes and numerical P/FDR comparisons are contextual.",
+      "conclusion": "The comparison establishes selected-gene directions and accounts for all unpaired rows. It does not meet v2 acceptance, and the cause of the eight reversals remains open."
     },
     "rat_son_aging_gse231617": {
       "registeredContrastIds": [
@@ -2001,7 +2001,7 @@
         },
         "effects": {
           "status": "different",
-          "note": "The registered coefficient is the difference of group means on log2(abundance + 1). S2 reports signed-linear FCs after an analysis described as edgeR exact testing. The FC export formula is unknown. Of 75 nonzero pairs, 74 agree in sign. Pearson is 0.855154, Spearman 0.768540 and the median absolute log2FC difference 0.340901. AVP reverses sign between the deposited ratio of means and the registered mean-log coefficient. For all nine S5 regulators with a numeric FC, S2 increases |FC| by 0.174 relative to S5."
+          "note": "Registered r=0.853854, 79/80 signs. AVP reversal follows estimator choice; arithmetic ratios retain up to 0.183519 log2 residual."
         },
         "inference": {
           "status": "different",
@@ -2059,37 +2059,37 @@
       ],
       "target": "registered_output",
       "resultScope": "selected_results",
-      "basis": "Registered seven-RA/seven-control edgeR-QL; no cohort change or author refit.",
-      "reference": "S1 DOCX, 132 annotated RA/control genes with log2FC only.",
-      "assessment": "not_established",
+      "basis": "Current R 4.6.0 edgeR-QL case coefficient for restricted-anovulatory versus higher-feed ovulatory heifers, seven per arm. The separate DESeq base-mean reconstruction tests the inferred sample omission.",
+      "reference": "Matthews et al., Table S1, 132 annotated selected RA/C log2 fold changes. The footnote defines RA relative to C.",
+      "assessment": "limited",
       "dimensions": {
         "cohort": {
           "status": "different",
-          "note": "Paper states seven RA/six controls; deposited and registered data have seven controls. Excluded identity is unknown."
+          "note": "The paper describes seven RA and six C, while the registered fit uses seven RA and seven C. Of the seven possible single-control omissions, only GSM1201496 recovers 15,295 expressed genes. Joint normalization then reproduces the 107 registered-pair S1 values at two decimals. Sample membership is inferred and the rationale is undocumented."
         },
         "contrast": {
           "status": "compatible",
-          "note": "RA minus control includes both diet and ovulatory-status differences."
+          "note": "Both effects compare whole hypothalamus from restricted-diet anovulatory heifers with higher-feed ovulatory controls. The contrast combines diet and reproductive status. RO animals are outside these effect groups."
         },
         "features": {
           "status": "limited",
-          "note": "102 exact symbols join; 30 historical/unmatched symbols remain uncomparable."
+          "note": "102 exact symbols and five aliases pair to registered coefficients. Each alias has independent bovine authority support, a single release-59 locus and a unique 14-library count trace. The 25 unpaired labels remain in identifier-review.tsv. An additional raw-count check finds that each CXCL1/CXCL3 candidate gives the value S1 prints for the other gene. Their attribution is unresolved."
         },
         "effects": {
           "status": "compatible",
-          "note": "102/102 directions agree; Pearson 0.977610."
+          "note": "Both effects are log2(RA/C), orientation +1. Registered comparisons agree in direction for 107/107 pairs. Pearson 0.978780, Spearman 0.966815 and median absolute difference 0.069664 describe the selected pairs."
         },
         "inference": {
           "status": "not_tested",
-          "note": "No author numeric P/FDR is supplied; DESeq1 and registered edgeR are different tests."
+          "note": "The paper used DESeq 1.1.11 and BH FDR 0.10. It reports 137 calls. Zero of the 11,831 published edgeR-QL rows meet FDR < 0.10, including zero of the 107 pairs. S1 supplies no numeric P or adjusted P. The reconstruction evaluates normalized base-mean ratios."
         },
         "coverage": {
           "status": "limited",
-          "note": "132 annotated rows are fewer than the 137-gene headline and omit all-tested coverage."
+          "note": "107/132 selected S1 effects paired (81.06%), corresponding to 107/11,831 published registered rows. The complete author testing universe is unavailable. The 25 unpaired rows remain in the reference denominator."
         }
       },
-      "criteria": "Selected log2FC comparison and descriptive local FDR<0.10 only. Missing author P/FDR and unmatched symbols remain unassessed. No full-result acceptance is established.",
-      "conclusion": "The unresolved six-versus-seven-control cohort prevents establishing equivalent analysis comparability."
+      "criteria": "Use all finite S1 effects in their published orientation, unique identifiers and the unchanged registered coefficient. Author-concordance-v2 requires at least 30 pairs, 90% selected-reference coverage and compatible cohort, contrast, identifiers and effects, together with its correlation or nonzero-direction rule.",
+      "conclusion": "The registered comparison closes at selected-effect scope. Both v2 numerical effect criteria pass on the paired rows. The study falls short of v2 because coverage is 107/132 and the cohorts differ. The separate raw-count reconstruction leaves CXCL1/CXCL3 attribution unresolved. No contrast receives full verification."
     },
     "dormouse_hypo_torpor_gse207494": {
       "target": "registered_output",
@@ -2131,41 +2131,41 @@
     },
     "hamster_hypo_torpor_gse179663": {
       "target": "registered_output",
-      "resultScope": "selected_results",
+      "resultScope": "full_results",
       "registeredContrastIds": [
         "spontaneous_torpor_vs_normothermia_author_mouse_projection"
       ],
-      "basis": "Registered HT-minus-NT result versus literal published Table S3 HT-vs-NT effects; no inferred reorientation.",
-      "reference": "FEB4-12-443-s001.docx, Table S3 SP:HTvsNT columns; main Tables 3/4 confirm stated baseline.",
-      "assessment": "not_comparable",
+      "basis": "Compare all published edgeR-QL effects to the corresponding DESeq2 coefficients at the precision stored in the full SP_HTvsNT worksheet, using the authors’ projected mouse GeneIDs. Orient the coefficient once from SPNT minus SPHT to SPHT minus SPNT. results.json records the full literal comparison and the separate Table S3 comparison.",
+      "reference": "Ulm DOI 10.18725/OPARU-45070, File2statistics.R lines 25–49, File3results.xlsx worksheet SP_HTvsNT columns A–J, and ReadMe.pdf. Author S1/S2 animal and accession tables, GEO RSEM/metadata and ENA runs identify the biological groups.",
+      "assessment": "limited",
       "dimensions": {
         "cohort": {
           "status": "matched",
-          "note": "Supplementary Table 1 and Figure 1 identify the same four SP-HT/four SP-NT animals sacrificed near ZT04; LP animals are outside the registered torpor contrast."
+          "note": "Eight individual short-photoperiod hamsters provided whole hypothalamus near ZT04. SPHT02, SPHT10, SPHT26 and SPHT33 were in torpor (one female, three males). SPNT19, SPNT36, SPNT37 and SPNT38 were normothermic (two females, two males). Four long-photoperiod animals fall outside the registered comparison. Table S1 documents sex, state and terminal temperature. Table S2, GEO, ENA and the registered sample sheet link the animals to their libraries. The original statistical input CSV is absent from the archived inventory."
         },
         "contrast": {
-          "status": "different",
-          "note": "Author HT-minus-NT labels conflict with deposited-count and registered directions; no automatic author sign flip."
+          "status": "compatible",
+          "note": "The script names the SPHT and SPNT groups and uses the default factor order. It exports the sorted default DESeq2 result, which gives SPNT relative to SPHT. Count-derived HT/NT ratios from the independently labeled libraries run opposite to the workbook for 16,112 of 16,191 evaluable genes. The aligned author column negates the literal effect exactly once."
         },
         "features": {
-          "status": "limited",
-          "note": "68 predefined indicators; 61 have numeric effects, 53 unique exact-symbol matches. Alternative labels and absent genes stay unjoined."
+          "status": "matched",
+          "note": "The join uses the authors’ mouse GeneIDs and the registered feature map. Each of the 15,099 published symbols maps to a unique GeneID. This recovers 409 pairs with different symbol strings. Of 1,096 author GeneIDs absent from the published output, 1,088 have mapped symbols and eight lack a mapped symbol. All eight unmapped features were tested in the registered fit."
         },
         "effects": {
-          "status": "different",
-          "note": "Pearson -0.930018, only 5/53 same nonzero directions. Original RSEM count cells for Rbm3-ps, Jun, Avp reproduce local source and support registered orientation while published effects oppose them."
+          "status": "compatible",
+          "note": "Both coefficients measure log2 fold change between the same biological states. In the registered direction, Pearson is 0.805081 and Spearman is 0.829910. All 15,099 pairs are nonzero and 12,932 agree in direction (85.65%). Median absolute log2FC difference is 0.041932 and the local-to-author RMS effect ratio is 0.805014. Before alignment the two correlations were negative and 2,167 directions agreed."
         },
         "inference": {
-          "status": "limited",
-          "note": "Selected adjustedP values are rounded to three decimals; printed 0.000 is not an exact zero. Missing/outlier fields remain unavailable."
+          "status": "different",
+          "note": "The authors used a group-only DESeq2 Wald test, rounded RSEM counts, tximport effective-length offsets and a rounded row-sum filter of at least 10. The registered edgeR-QL fit used fractional counts, filterByExpr, TMM and a sex covariate. Its FDR family included 15,107 tested rows, of which 15,099 have published symbols. Among shared genes, 15,088 raw-P pairs and 14,599 adjusted-P pairs are finite. At adjusted P < 0.05, 759 author and 277 registered calls are evaluable in both tables, including 227 shared. One additional registered call, Zfp729b (GeneID 100416706), has missing author adjusted P. Its author call is unassessed."
         },
         "coverage": {
-          "status": "limited",
-          "note": "Selected 68-gene indicator list is not the full 16,195-gene author analysis."
+          "status": "compatible",
+          "note": "The complete torpor worksheet contains 16,195 finite effects. The join covers 15,099/15,099 registered genes and 15,099/16,195 author genes (93.23%). SP_HTvsNT_reg is a significance-filtered tab. The 68 predefined indicator genes in article Table S3 are a separate, selected reference."
         }
       },
-      "criteria": "Preserve literal publication direction, rounded values and missing/outlier fields. Exact-symbol joins; no guessed aliases. Verify illustrative effects against original per-sample RSEM expected counts.",
-      "conclusion": "New numerical evidence exposes an unresolved source-result direction conflict. Production outputs are unchanged; author effects are not negated just to improve agreement."
+      "criteria": "Use all finite effects from the full torpor worksheet, unique GeneIDs, the code-defined sign and the fixed author-concordance-v2 rules. At least 30 pairs and 90% output coverage are required. Both correlations must reach 0.90, or at least 90% of at least 30 nonzero pairs must agree in direction with nonzero pairs covering at least 90% of the join. Require biological and feature compatibility. Treat P, FDR and magnitude differences as context.",
+      "conclusion": "The export code and independently labeled count ratios support the sign correction. Both concordance routes fall below their thresholds on the complete published output. The pipelines differ in normalization, filtering and model design. Their individual contributions to the residual discrepancies were not measured. Full verification remains unsigned."
     },
     "hamster_mbh_photoperiod_gse274003": {
       "target": "registered_output",
@@ -3051,37 +3051,37 @@
       ],
       "target": "registered_output",
       "resultScope": "full_results",
-      "basis": "Registered limma result on log2(CPM + 1) for eight-week endurance training minus sedentary control in male whole hypothalamus, compared with the official MoTrPAC timewise differential-analysis table.",
-      "reference": "MotrpacRatTraining6moData data/TRNSCRPT_HYPOTH_DA.rda (SHA-256 c92379487df7edf00fd23cb433c4d1fcfcfda06fac295e50d0e6245dc2f4ab62), male 8w rows, 16,955 tested genes, retrieved 2026-11-15.",
+      "basis": "The current R 4.6.0 registered male eight-week trained-minus-sedentary limma coefficients on log2(CPM + 1). The single-control omission is a separate effects-only sensitivity on a fixed gene universe.",
+      "reference": "Male 8w rows in the consortium’s full TRNSCRPT_HYPOTH_DA table, using unshrunken logFC, p_value and timewise adj_p_value. SHA-256 c92379487df7edf00fd23cb433c4d1fcfcfda06fac295e50d0e6245dc2f4ab62.",
       "assessment": "not_established",
       "dimensions": {
         "cohort": {
           "status": "different",
-          "note": "MoTrPAC lists removed samples 90252015402, 90406015402 and 90217015402; 90217015402 is the registered Hypoth_Control_M_8w_1. The registered fit keeps all five controls, so control membership differs by one animal."
+          "note": "GEO, PHENO and the RNA-seq metadata identify the same five eight-week trained males. The registered fit has five sedentary males. The deposited removed_samples field lists three tissue exclusions on male and female rows alike. The final roster and animal metadata identify one male control (GSM7759948, vial 90217015402, animal 10023259, PC4) and two females. The male DESeq2 design therefore includes four controls and five animals at each of 1, 2, 4 and 8 weeks."
         },
         "contrast": {
           "status": "compatible",
-          "note": "Both estimate male eight-week trained minus sex-matched sedentary control. The author result is the MoTrPAC timewise limma model with covariates pct_globin, rin, pct_umi_dup, median_5_3_bias (per DA table), with control sample 90217015402 listed in the DA table removed_samples column; the registered model contains only the two eight-week groups without covariates."
+          "note": "Both estimate the eight-week training effect in male whole hypothalamus, with the sedentary males as denominator. The comparison uses the authors’ male 8w timewise coefficient at orientation +1."
         },
         "features": {
           "status": "compatible",
-          "note": "Ensembl IDs mapped with the same pinned Rnor_6.0 Ensembl 96 GTF. 16798 of 16,955 author rows pair by exact symbol; 155 rows sharing 71 symbols are excluded as ambiguous and 2 unambiguous rows have no registered symbol."
+          "note": "The release 96 GTF and the full GEO count matrix identify 181 author rows whose registered symbol pools multiple source IDs. The final local feature map preserves the source symbol keys. The paired effects each represent one Ensembl ID. The other two eligible symbols, AC094348.3 and LOC103694855, have zero counts in every registered sample and fail the registered variance filter."
         },
         "effects": {
           "status": "different",
-          "note": "Pearson 0.3046, Spearman 0.5667, direction agreement 70.89% of 16796 nonzero pairs. The low registered-on-author slope (0.041) is driven largely by extreme author logFCs at low expression (52 rows with |logFC|>5, up to 43.8); excluding them raises Pearson only to 0.48 and direction agreement stays below 90%."
+          "note": "The registered coefficient is a difference of group means on log2(CPM + 1). The deposited logFC is the unshrunken conditional log2 fold change from a DESeq2 count model. Pearson is 0.3046, Spearman 0.5672 and direction agreement 70.91% on the registered comparison. Removing only GSM7759948 gives 0.3390, 0.6522 and 74.41% in a separate sensitivity."
         },
         "inference": {
           "status": "different",
-          "note": "MoTrPAC male 8w has 11 FDR<0.05 genes (10 paired, all same sign locally); the registered result has 0 FDR<0.05 genes. Covariates, weights and the excluded sample differ."
+          "note": "MoTrPAC used a sex-specific DESeq2 negative-binomial model of integer counts across training groups, with pct_globin, rin, pct_umi_dup and median_5_3_bias. Its timewise P values are from Wald tests and adj_p_value uses Benjamini-Yekutieli adjustment across the RNA-seq assay. The registered fit uses limma moderated t tests and Benjamini-Hochberg adjustment across 21,215 genes. All 16,772 pairs have finite raw and adjusted P values. At adjusted P < 0.05, 11 genes pass in the full author reference, ten have pairs, and zero pass locally. The remaining call, ENSRNOG00000047350, maps to the pooled symbol Gns. Repooling all 19 RNA-seq tissue tables reproduced the 16,955 male 8w adjusted P values within 4.45e-16."
         },
         "coverage": {
-          "status": "compatible",
-          "note": "Paired genes cover 99.07% of all author male-8w rows; 79.2% of the 21215 registered rows pair."
+          "status": "limited",
+          "note": "16,772 paired genes cover 98.9207% of all 16,955 author male eight-week rows and 79.0573% of the 21,215 registered effects. The policy uses the registered denominator. The derived TSV supplied to the comparison builder contains the 16,774 rows with unique source identifiers per symbol, giving 99.9881% coverage of that file. The 181 author rows in 97 pooled symbols and two eligible rows without a registered coefficient account for all 183 unpaired author rows. There are 4,443 unpaired registered effects."
         }
       },
-      "criteria": "author-concordance-v2: at least 30 paired genes and 90% coverage, plus Pearson and Spearman at least 0.90 or at least 90% directional agreement. Neither numerical route is met.",
-      "conclusion": "A full author result exists and was compared. The registered output meets neither concordance route; the listed sample exclusion and the covariate model are plausible causes but have not been tested, so the difference remains unresolved and comparability is not established."
+      "criteria": "author-concordance-v2 requires compatible cohort, contrast, identifiers and effect definitions, at least 30 paired genes, and at least 90% registered-output coverage for a full reference. Either Pearson and Spearman must both reach 0.90, or at least 90% of at least 30 nonzero pairs covering 90% of all pairs must agree in sign. Magnitude, P and FDR are contextual.",
+      "conclusion": "The direct comparison is complete. The documented outlier explains the cohort difference. Omitting that control increases directional agreement by 3.51 percentage points on the fixed paired genes. The residual effect disagreement is unresolved. The registered correlations, sign agreement and coverage all fall below policy thresholds."
     },
     "rat_vmh_hfd_gse330152": {
       "registeredContrastIds": [
@@ -3241,37 +3241,37 @@
       ],
       "target": "registered_output",
       "resultScope": "selected_results",
-      "basis": "Registered edgeR-QL HFD-sedentary minus chow-sedentary female ARC, 3 versus 3 deposited libraries GSM7349354-GSM7349359.",
-      "reference": "Author Supplementary Table S1 (ijms-25-07188-s001.zip via Europe PMC): 431 DESeq2 CS-vs-HFS rows at FDR<0.1 (one at 0.1001), log2FoldChange CS over HFS, negated.",
+      "basis": "Registered arcuate track, sedentary HFD minus sedentary chow in female rat ARC. The registered R 4.6.0 edgeR-QL groupcase coefficient uses GSM7349354–GSM7349356 as controls and GSM7349357–GSM7349359 as cases. The study reports Wistar rats.",
+      "reference": "Author Supplementary Table S1 in ijms-25-07188-s001.zip. All 431 listed CS-versus-HFS DESeq2 rows and all 14 library columns were read from the original workbook.",
       "assessment": "limited",
       "dimensions": {
         "cohort": {
           "status": "limited",
-          "note": "Deposited HTSeq counts match author columns exactly for GSM7349354 (CS1), GSM7349356 (CS12), GSM7349357 (HFS2) and GSM7349359 (HFS9); GSM7349355 and GSM7349358 match none of the 14 author libraries (unexplained), and author CS16, HFS and HFS17 are not deposited. Author fit: 3 CS + 4 HFS within 14 libraries. Identity was computed from the pinned GSE232510_RAW.tar, which is not retained in the evidence folder."
+          "note": "GEO has three CS, three HFS, four HFR and eight miR-211 intervention profiles. S1 has three CS, four HFS, three CR and four HFR. Four of the six registered profiles and all four HFR files reproduce S1 profiles on all 431 genes. SRA filename numbers 16 (GSM7349356) and 17 (GSM7349359) differ from the matching column numbers 12 and 9. GSM7349355 and GSM7349358 match no column. The archive labels the samples Rattus rattus (10117). The paper reports female Wistar rats, and the registry uses Rattus norvegicus. Phase I used pair housing, followed by individual Phase II housing. The sample key would resolve which animals and cages contributed to each analysis."
         },
         "contrast": {
           "status": "compatible",
-          "note": "Both HFD-sedentary versus chow-sedentary female ARC. Author orientation CS over HFS is established from the table's own per-library values (Pearson 1.0000 with log2 mean CS/HFS) and the positive correlation with the registered sign, not from the paper's wording; negated to HFS minus CS."
+          "note": "Both comparisons concern sedentary HFD feeding and sedentary chow in female rat ARC. The paper describes changes relative to CS, but the unaltered S1 coefficient has the sign of log2(mean CS / mean HFS) on all 431 rows (Pearson 0.999981). Of the 430 rows with adjusted P < 0.1, the printed coefficient is positive for 165 and negative for 265. A single sign reversal gives the registered HFD-minus-chow orientation."
         },
         "features": {
           "status": "compatible",
-          "note": "406/431 author Ensembl IDs join registered rows through the registered feature map; 21 features without a registered symbol, one summed symbol and three absent rows stay unpaired, none resolved by name."
+          "note": "All 431 unique S1 Ensembl IDs occur in the registered feature map. Of these, 406 map one-to-one to published DE symbols, 21 lack a symbol, one maps to the summed symbol Tmt1a, and Ptbp2, Prkcb and Atf3 have no published DE row. The primary pairing uses exact Ensembl IDs throughout."
         },
         "effects": {
           "status": "limited",
-          "note": "Author unshrunk DESeq2 Wald LFC from a 14-library fit versus registered edgeR-QL logFC from 3 versus 3; both log2 ratios. 402/406 nonzero directions agree, Pearson 0.8976, Spearman 0.9026, OLS slope 0.446 (registered effects about half the author magnitude). Four of six registered libraries are author libraries, so the agreement is not independent replication."
+          "note": "S1 reports a DESeq2 log2 fold change and the registered coefficient is an edgeR-QL log2 fold change. The signs and scale are documented. The paper specifies pairwise DESeq2 analysis from a matrix assembled across the four groups, but leaves the precise design and included columns for this coefficient unspecified. For the 406 nonzero pairs, 402 signs agree, Pearson is 0.897580, Spearman is 0.902621 and the registered-on-author OLS slope is 0.446160. Median absolute effects are 0.806 (author) and 0.408 (registered)."
         },
         "inference": {
           "status": "different",
-          "note": "Author 405 of 406 paired genes at FDR<0.1; registered output has 0 genes at FDR<0.1 (minimum 0.288). Cohorts and models differ."
+          "note": "At adjusted P < 0.1, 430 of the 431 S1 rows and zero of 10,539 published registered rows pass. Among the 406 pairs, the counts are 405 and zero, respectively. At adjusted P < 0.05, 204 author and zero registered paired rows pass. All 406 raw P and adjusted P pairs are finite. At raw P < 0.05 the counts are 406 and 86, with 472 further registered positives outside the pairs. The registered FDR family contains 11,541 tested fit rows, including 1,002 unpublished rows. The complete author testing family is unavailable."
         },
         "coverage": {
           "status": "limited",
-          "note": "Selected FDR<0.1 DEG list only (0.9420 of it paired); the author tested universe and nonsignificant tail are not available."
+          "note": "Pairs cover 406/431 (94.20%) of the selected S1 reference and 406/10,539 (3.85%) of published registered genes. The author's unlisted P values, FDR and effects remain unassessed."
         }
       },
-      "criteria": "author-concordance-v2 on 406 nonzero pairs covering 0.9420 of the selected reference: direction route numerically met (402/406 agree); correlation route not met (Pearson 0.8976 < 0.90; Spearman 0.9026). Not accepted, because cohort compatibility is not supported (2 of 6 registered libraries are not author libraries); a significant-only list also cannot establish full-universe agreement.",
-      "conclusion": "Selected author CS/HFS effects agree in direction (402/406), but the correlation route is not met, part of the agreement reflects 4 shared libraries, and the cohort-identity discrepancy, inference and coverage remain unresolved or qualified."
+      "criteria": "author-concordance-v2 requires at least 30 pairs, at least 90% relevant coverage and supported cohort, contrast, identifiers and effect definitions. Correlation requires both Pearson and Spearman ≥ 0.90. Direction requires ≥ 90% agreement among ≥ 30 nonzero pairs covering ≥ 90% of pairs. All 406 pairs are nonzero. The direction route meets its numerical criteria (99.01%) and the correlation route misses on Pearson. Cohort compatibility lacks the required support. The effects dimension also remains limited because the original DESeq2 design and included inputs are unresolved. The observed slope and the P-value differences are contextual.",
+      "conclusion": "The numerical direction criterion is met within S1. Cohort assignment and the precise author fit remain unresolved. A combined correlation pass, full-universe inference and independent replication are unsupported."
     },
     "hamster_tanycyte_photoperiod_gse204883": {
       "registeredContrastIds": [

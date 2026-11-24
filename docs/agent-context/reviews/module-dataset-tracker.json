@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-dataset-tracker",
-  "fingerprint": "d0d2ae1ba8c5e9c874577ba919b8f77abe0ca6ff5f9d09d91180815a1dd28c10",
+  "fingerprint": "86e7bf04303dd30a968ef5384f1d82943ebcc64565ba87408b5120c364150d4c",
   "outcome": "updated",
-  "explanation": "DatasetTrackerView drops the beta banner from its header and imports the shared siteChrome.css for its header-row styles instead of reaching them through BetaNotice.",
+  "explanation": "The tracker adds an Author follow-up filter, offered only while some generated record carries a follow-up, and its search matches the follow-up label.",
   "references": [
-    "src/dataset-tracker/DatasetTrackerView.tsx",
-    "src/common/siteChrome.css"
+    "src/dataset-tracker/TrackerFilters.tsx",
+    "src/dataset-tracker/trackerLogic.ts"
   ]
 }
