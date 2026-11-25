@@ -38,12 +38,8 @@ function readCanvas(page: Page) {
   }, VOLCANO_SELECTED_COLOR);
 }
 
-test('the volcano paints its points and a click selects the gene under it', async ({
-  page,
-  isMobile,
-}) => {
-  test.slow();
-  const problems = watchForProblems(page);
+/** Open the study's volcano and find its topmost threshold-passing point. */
+async function openVolcano(page: Page) {
   await page.goto(`/#/dataset/${BULK_STUDY}`, { waitUntil: 'domcontentloaded' });
   const plot = volcanoPlot(page);
   await expect(plot).toBeVisible({ timeout: DATA_TIMEOUT });
@@ -51,20 +47,29 @@ test('the volcano paints its points and a click selects the gene under it', asyn
     .poll(async () => (await readCanvas(page)).painted, { message: 'the point cloud is painted' })
     .toBeGreaterThan(1000);
 
-  const before = await readCanvas(page);
-  expect(before.selected).toBe(0);
-  if (!before.point) throw new Error('No threshold-passing point is painted');
-  const chips = page.getByRole('button', { name: /^Remove / });
+  const { selected, point } = await readCanvas(page);
+  expect(selected).toBe(0);
+  if (!point) throw new Error('No threshold-passing point is painted');
+  return { plot, point, chips: page.getByRole('button', { name: /^Remove / }) };
+}
+
+test('the volcano paints its points and a click selects the gene under it', async ({
+  page,
+  isMobile,
+}) => {
+  test.slow();
+  const problems = watchForProblems(page);
+  const { plot, point, chips } = await openVolcano(page);
   if (isMobile) {
-    await plot.tap({ position: before.point });
+    await plot.tap({ position: point });
   } else {
     // Hovering names the gene that a click then selects. The tooltip is read
     // before the click: the first selection adds a row above the plot, which
     // moves the point out from under the pointer.
-    await plot.hover({ position: before.point });
+    await plot.hover({ position: point });
     const tooltip = plot.locator('g').filter({ hasText: 'Click to add' }).last();
     const hovered = await tooltip.locator('text').first().textContent();
-    await plot.click({ position: before.point });
+    await plot.click({ position: point });
     await expect(chips).toHaveAccessibleName(`Remove ${hovered}`);
   }
 
@@ -83,5 +88,53 @@ test('the volcano paints its points and a click selects the gene under it', asyn
   const first = page.getByRole('table', { name: 'Volcano gene results' }).getByRole('row').nth(1);
   await expect(first.getByRole('cell').first()).toHaveText(gene);
   await expect(first.getByRole('button', { name: `${gene} selected`, exact: true })).toBeVisible();
+  await expectHealthy(page, problems);
+});
+
+test('the first gene selected on the volcano keeps its place and its tooltip', async ({
+  page,
+  isMobile,
+}) => {
+  test.slow();
+  const problems = watchForProblems(page);
+  const { plot, point, chips } = await openVolcano(page);
+  await plot.scrollIntoViewIfNeeded();
+  const before = await plot.boundingBox();
+  if (!before) throw new Error('The volcano has no box');
+  const x = before.x + point.x;
+  const y = before.y + point.y;
+  if (isMobile) {
+    // With a mouse parked elsewhere, Chromium re-hovers it after the layout
+    // change and reports the mouse leaving the plot the finger is on.
+    await page.mouse.move(5, 5);
+    await page.touchscreen.tap(x, y);
+  } else {
+    await page.mouse.click(x, y);
+  }
+  await expect(chips).toHaveCount(1);
+
+  // The selection row opens above the plot. A phone's page scrolls by its
+  // height, so the plot holds still; a desktop plot gives up the height.
+  if (isMobile) {
+    const after = await plot.boundingBox();
+    expect(Math.abs((after?.y ?? 0) - before.y), 'the plot moved').toBeLessThanOrEqual(1);
+  }
+
+  // The re-hover follows within a frame or two. A still mouse may also be
+  // reported again at the place it clicked.
+  const tooltip = plot.locator('g').filter({ hasText: '◆ Selected' });
+  const settle = () => page.waitForTimeout(250);
+  await settle();
+  await expect(tooltip).toHaveCount(1);
+  if (!isMobile) {
+    await page.mouse.move(x, y);
+    await settle();
+    await expect(tooltip).toHaveCount(1);
+  }
+
+  // It still closes once the reader really leaves.
+  if (isMobile) await page.locator('.gx-selection').getByText('1 gene selected').tap();
+  else await page.mouse.move(x, 2);
+  await expect(tooltip).toHaveCount(0);
   await expectHealthy(page, problems);
 });

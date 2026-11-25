@@ -1,15 +1,10 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "f9856893029e7ffa215b47618f54f904a1934cf63e061d6a52db4d817a984ba7",
-  "outcome": "updated",
-  "explanation": "Merge of two test changes. From this branch: smokeViewLinks.test.ts checks the browser smoke link list against AppRoute views, EXPLORER_TABS and the dataset registry. From main: tests cover the optional author follow-up, which assessAuthorVerification passes through or rejects, the evidence label and panel show, and library search and the tracker filter find.",
+  "fingerprint": "69a77721608ae4f0482e4637c1ab2ce0e09c8ace2a04c9541d111294e4cd96dd",
+  "outcome": "no-impact",
+  "explanation": "volcanoPlot.test.tsx gains six cases for a clicked point: the page scroll that offsets a moved plot, the tooltip surviving a still-pointer move and a stray leave, closing at a real move or press, following the point through a resize or statistic change, and closing when the data changes. No test helper, fixture or convention changed.",
   "references": [
-    "src/__tests__/smokeViewLinks.test.ts",
-    "scripts/smoke/viewLinks.ts",
-    "src/__tests__/authorVerification.test.tsx",
-    "src/__tests__/authorValidationPanel.test.tsx",
-    "src/__tests__/libraryFilters.test.ts",
-    "src/__tests__/trackerVerificationClaims.test.tsx"
+    "src/__tests__/volcanoPlot.test.tsx"
   ]
 }

@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "1aa83f5b83aa9a2b081d9d71f87a4567ad20abed8a6432cc9925c7ca63eb282d",
-  "outcome": "updated",
-  "explanation": "Merge. From main: the author-validation README documents followUp, which marks a next step the study authors have to answer and changes no state, claim or badge, and the six held datasets are closed in the review ledgers. From this branch: only browser smoke specs and their documentation changed. Verification commands are unchanged.",
+  "fingerprint": "e7e1be23cedacb2e258a7ffa41401f8e3f90676fc6bf2c3a4e0198898257f02a",
+  "outcome": "no-impact",
+  "explanation": "Only the volcano browser smoke spec changed under scripts. QC review, evidence authoring and author-validation commands and records are untouched by the tooltip and scroll behavior it checks.",
   "references": [
-    "data/author-validation/README.md",
-    "docs/agent-context/workflows.md",
-    "scripts/smoke/exports.smoke.spec.ts"
+    "scripts/smoke/volcano.smoke.spec.ts",
+    "docs/agent-context/workflows.md"
   ]
 }

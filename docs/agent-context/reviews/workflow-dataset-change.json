@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "82bf29b34d146863a1778f40599598459b44b47af207bf0e6d973da6c4080f2e",
+  "fingerprint": "0376ee70c1639c111278769bc7a1603ac0d45bd7bcb63d1afa22dd0c4e9bb645",
   "outcome": "no-impact",
-  "explanation": "Merge. From this branch: only browser smoke specs, one unit test and their documentation changed. From main: the verification review model gains an optional followUp field. Dataset intake, registration and build steps are unchanged.",
+  "explanation": "Only the volcano browser smoke spec changed under scripts. Dataset builders, registry declarations, bundles and the intake procedure are unaffected; the spec still reads one existing study from the published data origin.",
   "references": [
-    "scripts/smoke/viewLinks.ts",
-    "src/data/authorVerification.ts",
-    "data/author-validation/README.md"
+    "scripts/smoke/volcano.smoke.spec.ts",
+    "docs/agent-context/workflows.md"
   ]
 }
