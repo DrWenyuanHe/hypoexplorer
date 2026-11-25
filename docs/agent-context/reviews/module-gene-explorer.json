@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "module-gene-explorer",
-  "fingerprint": "fcfd678588693e4e75db346ec61cc6e0cae3fdcf5047cad6ff0c1cef5df1d726",
+  "fingerprint": "5f6cbdf1ae1c4be36e671180d011f896f39fff8adc1ea15831943d3db42ae9a5",
   "outcome": "updated",
-  "explanation": "The ContrastMatrix star legend is built by starLegend() from the shared STAR_THRESHOLDS table, so it now includes **** for p < 0.0001 and cannot disagree with pToStar or the Methods table.",
+  "explanation": "The ContrastMatrix star legend is built by starLegend() from the shared STAR_THRESHOLDS table, so it now includes **** for p < 0.0001 and cannot disagree with pToStar or the Methods table. SummaryTable shows FDR through fmtFDR, the q-column name for fmtP, instead of toFixed(3), so a small q keeps its order of magnitude (2.9e-4 instead of 0.000) and matches the P value column and the other result tables.",
   "references": [
     "src/gene-explorer/ContrastMatrix.tsx",
-    "src/utils/format.ts"
+    "src/utils/format.ts",
+    "src/gene-explorer/SummaryTable.tsx",
+    "src/__tests__/summaryTableFormat.test.tsx"
   ]
 }

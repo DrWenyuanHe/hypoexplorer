@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "ac7ff1356d81d97aac22af75f6af144f522617d4414eceb200173d3cf0ab4835",
+  "fingerprint": "62a3bafc2ce415d42aa04c299729926156deaa948adf0f20b798276139916e7a",
   "outcome": "updated",
-  "explanation": "Merge of main into the staleness pass. From main: The tile layout follows the existing UI rules: the survey workspace loads through lazyView so the search page chunk stays unchanged, exports go through the survey's own export path, and routing is untouched. The ui-change workflow needs no new rule. The rename work changes it: the ui-change workflow now describes renames.js from the names builder, its search alias rules, the gene report and summaries reading studies under rename-group members with storedAs and pickStoredMember, the gene page note and row tag, the preview lookup and compareCell receiving the table. From this branch: User-facing text follows code: the star legend and Methods table come from STAR_THRESHOLDS, cutoffs from policy.ts, the study record pathway row is scoped per dataset, and Methods is corrected on correction families, rounding, species targets, KEGG and report denominators. The workflow now also owns statistics, library, hub, circadian, compare and methodology.",
+  "explanation": "Merge of main into the staleness pass. From main: The tile layout follows the existing UI rules: the survey workspace loads through lazyView so the search page chunk stays unchanged, exports go through the survey's own export path, and routing is untouched. The ui-change workflow needs no new rule. The rename work changes it: the ui-change workflow now describes renames.js from the names builder, its search alias rules, the gene report and summaries reading studies under rename-group members with storedAs and pickStoredMember, the gene page note and row tag, the preview lookup and compareCell receiving the table. From this branch: User-facing text follows code: the star legend and Methods table come from STAR_THRESHOLDS, cutoffs from policy.ts, the study record pathway row is scoped per dataset, and Methods is corrected on correction families, rounding, species targets, KEGG and report denominators. The workflow now also owns statistics, library, hub, circadian, compare and methodology. The gene summary table now formats FDR with the shared fmtFDR rule, so every gene-level q column in the explorer follows one display rule.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/common/lazyView.tsx",
@@ -11,6 +11,7 @@
     "src/data/crossDataset.ts",
     "src/data/symbolRenames.ts",
     "src/methodology/MethodologyView.tsx",
-    "src/utils/format.ts"
+    "src/utils/format.ts",
+    "src/gene-explorer/SummaryTable.tsx"
   ]
 }
