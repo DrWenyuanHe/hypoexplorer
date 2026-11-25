@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "0376ee70c1639c111278769bc7a1603ac0d45bd7bcb63d1afa22dd0c4e9bb645",
+  "fingerprint": "7e43b28344500899d75af4ccfa50c042b85d33757d3f8c1975e378e39e0a87c5",
   "outcome": "no-impact",
-  "explanation": "Only the volcano browser smoke spec changed under scripts. Dataset builders, registry declarations, bundles and the intake procedure are unaffected; the spec still reads one existing study from the published data origin.",
+  "explanation": "The changes under scripts/ are confined to the context guard (reviewedContent in scripts/agent-context/model.mjs and its test) and a read-only --identity flag on fetch_expression_references.mts that CI uses as its atlas cache key. Dataset builders, registry declarations and the intake steps are unchanged.",
   "references": [
-    "scripts/smoke/volcano.smoke.spec.ts",
+    "scripts/agent-context/model.mjs",
+    "scripts/fetch/fetch_expression_references.mts",
     "docs/agent-context/workflows.md"
   ]
 }

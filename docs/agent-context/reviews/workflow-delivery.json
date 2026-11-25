@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "ea2f29f5a7dd33809f69f0abe3f0aa6141150a5df3bb7dbf33df322615402470",
+  "fingerprint": "c8f7f08a93cf73aa130a9bb5fe954dd24e749c1f625ba4d538b78da3fa2fc89e",
   "outcome": "updated",
-  "explanation": "The required Build and browser smoke job keeps its name and commands, but test:smoke now also opens every view and explorer tab, follows search and shared links, reads saved CSV and Excel exports and checks the volcano canvas, with one retry in CI. Build, release verification and deployment steps are unchanged.",
+  "explanation": "delivery.md now says CI, beside the wider browser smoke, also runs test:scripts and test:service and caches the reference atlases under fetch:expression --identity, a digest of each published manifest and validation record. package.json gains those two test scripts. The build, prepare:deploy, verify and deploy command chains are unchanged, and prepare:deploy still fetches any atlas the cache did not restore complete.",
   "references": [
-    "scripts/smoke/playwright.config.ts",
     "docs/agent-context/delivery.md",
-    "docs/DEVELOPMENT.md"
+    "package.json",
+    "scripts/fetch/fetch_expression_references.mts",
+    ".github/workflows/application.yml"
   ]
 }

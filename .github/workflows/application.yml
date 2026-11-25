@@ -45,6 +45,19 @@ jobs:
       - run: pnpm run deadcode
       - name: Test the agent-context tooling
         run: pnpm run test:context
+      # The scripts/lib tests that need no retained evidence. The others read
+      # inputs this repository does not carry; the maintainer runs them.
+      - name: Test the build-script libraries
+        run: pnpm run test:scripts
+      # The service's side of the golden wire contract in
+      # services/hypomap/codetection_wire.json; Unit tests cover the client's.
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Test the HypoMap co-detection service
+        run: |
+          python -m pip install --quiet 'numpy>=2,<3'
+          pnpm run test:service
       # Generated maps, links and review fingerprints must match the committed
       # sources (docs/agent-context/README.md). Reads files only; writes nothing.
       - name: Check the agent context
@@ -64,11 +77,29 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm run fetch:query
       # The GTEx, HPA and Allen atlases (~230 MB) back the Expression survey and its tests.
-      - run: pnpm run fetch:expression
+      # The atlases are about 8,200 files. Cache them under the identity of what
+      # the app host publishes (each atlas's manifest and validation record), so
+      # they are downloaded again only after an atlas is republished.
+      - name: Identify the published reference atlases
+        id: atlases
+        run: |
+          key="$(pnpm --silent run fetch:expression --identity)"
+          echo "key=$key" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v6
+        id: atlas-cache
+        with:
+          path: |
+            public/expression/gtex
+            public/expression/hpa
+            public/expression/allen-human
+          key: expression-atlases-${{ steps.atlases.outputs.key }}
+      - if: steps.atlas-cache.outputs.cache-hit != 'true'
+        run: pnpm run fetch:expression
       - name: Run tests
         # Tests that read retained evidence or pre-publication history are left
         # out of this repository's vite.config.ts; the maintainer runs them.
-        run: pnpm test --maxWorkers=2
+        # One worker per runner core.
+        run: pnpm test --maxWorkers=100%
 
   build:
     name: Build and browser smoke
@@ -82,8 +113,24 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      # The atlases are about 8,200 files. Cache them under the identity of what
+      # the app host publishes (each atlas's manifest and validation record), so
+      # they are downloaded again only after an atlas is republished.
+      - name: Identify the published reference atlases
+        id: atlases
+        run: |
+          key="$(pnpm --silent run fetch:expression --identity)"
+          echo "key=$key" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v6
+        with:
+          path: |
+            public/expression/gtex
+            public/expression/hpa
+            public/expression/allen-human
+          key: expression-atlases-${{ steps.atlases.outputs.key }}
       # The same preparation as deploy:cf: the query catalog from R2, the tracker
       # catalog and the GTEx, HPA and Allen atlases (~230 MB) from the app host.
+      # It keeps an atlas the cache restored complete and fetches any other.
       - run: pnpm run prepare:deploy
       - name: Build production application
         run: pnpm run build

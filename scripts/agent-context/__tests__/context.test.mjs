@@ -159,6 +159,25 @@ test('generated outputs and reviews do not invalidate themselves; agent/config/R
   for (const name of ['.agents/skills/demo/SKILL.md', '.codex/config.toml', '.github/workflows/check.yml', 'scripts/model.R', 'data/quality/audit.py', 'workers/demo/rules.ts']) assert.equal(isSource(name), true, name);
   for (const name of ['public/datasets/a.js', 'data/results.csv', 'data/evidence.json', 'data/archive/author.py', 'src/node_modules/pkg/a.ts']) assert.equal(isSource(name), false, name);
 });
+test('version bumps keep reviews fresh; a new dependency, script, action or step does not', () => {
+  const files = generatedFixture();
+  const manifest = { scripts: { build: 'vite build' }, dependencies: { react: '^19.0.0' }, devDependencies: { vitest: '^5.0.0' } };
+  const workflow = (ref) => `jobs:\n  check:\n    steps:\n      - uses: actions/checkout@${ref}\n      - run: pnpm test\n`;
+  files.set('package.json', JSON.stringify(manifest, null, 2)); files.set('pnpm-lock.yaml', 'lockfileVersion: 9\n'); files.set('.github/workflows/check.yml', workflow('v7'));
+  const print = () => fingerprints(memory(files), model(files)).repository.fingerprint, initial = print();
+  const bumped = { ...manifest, dependencies: { react: '^19.3.1' }, devDependencies: { vitest: '5.1.0' } };
+  files.set('package.json', JSON.stringify(bumped)); files.set('pnpm-lock.yaml', 'lockfileVersion: 10\n'); files.set('.github/workflows/check.yml', workflow('0123abc # v8.0.1'));
+  assert.equal(print(), initial);
+  assert.equal(isSource('pnpm-lock.yaml'), false);
+  for (const [name, text] of [
+    ['package.json', JSON.stringify({ ...bumped, dependencies: { ...bumped.dependencies, xlsx: '1' } })],
+    ['package.json', JSON.stringify({ ...bumped, scripts: { build: 'vite build --debug' } })],
+    ['package.json', '{ not json'],
+    ['.github/workflows/check.yml', `${workflow('v7')}      - uses: actions/cache@v6\n`],
+    ['.github/workflows/check.yml', workflow('v7').replace('actions/checkout', 'actions/setup-node')],
+    ['.github/workflows/check.yml', workflow('v7').replace('pnpm test', 'pnpm lint')],
+  ]) { const before = files.get(name); files.set(name, text); assert.notEqual(print(), initial, text); files.set(name, before); }
+});
 test('review gate rejects missing, stale, invalid and obsolete records', () => {
   const files = generatedFixture(), areas = fingerprints(memory(files), model(files)), name = 'docs/agent-context/reviews/repository.json';
   const record = JSON.parse(files.get(name));

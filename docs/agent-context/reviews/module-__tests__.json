@@ -1,10 +1,11 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "69a77721608ae4f0482e4637c1ab2ce0e09c8ace2a04c9541d111294e4cd96dd",
-  "outcome": "no-impact",
-  "explanation": "volcanoPlot.test.tsx gains six cases for a clicked point: the page scroll that offsets a moved plot, the tooltip surviving a still-pointer move and a stray leave, closing at a real move or press, following the point through a resize or statistic change, and closing when the data changes. No test helper, fixture or convention changed.",
+  "fingerprint": "25c81ebd1565515d2a2aec4b72d1edb1da48daae6d86599919a2e0501963d36e",
+  "outcome": "updated",
+  "explanation": "datasetLibrary.test.tsx now opens the library on one or two categories (Primate atlas, Diet-induced obesity) in the ten tests about a single study's record or table row, so those tests no longer render every registered study. The tests about corpus counts, filters and the degraded catalog still render all of them, and no assertion changed.",
   "references": [
-    "src/__tests__/volcanoPlot.test.tsx"
+    "src/__tests__/datasetLibrary.test.tsx",
+    "src/library/DatasetLibrary.tsx"
   ]
 }
