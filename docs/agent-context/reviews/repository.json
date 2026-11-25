@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "63ea61fe53ff4237acb4c72de535c514fd5e35e8040e8e914ab4e2fe8967049a",
+  "fingerprint": "2d114bb05413e707af634bb88a61dde329bbbb0f0bb643828da4ad66484cf1be",
   "outcome": "updated",
-  "explanation": "EXPRESSION_SURVEY.md records that the GSE162563 source is tissue. build_explorer_bundles_batch2.mts uses the corrected track labels for a later rebuild, and build_registry_edits.mts has reviewed reasons for every changed registry field. The registry-edits record, the OXT/AVP audit, the internal QC ledger and the expression index were not rebuilt because this checkout lacks their inputs. build_timeseries_bundles.mts keeps its old GSE248462 text because the GSE157077 successor pins its bytes.",
+  "explanation": "EXPRESSION_SURVEY.md records that the GSE162563 source is tissue. build_explorer_bundles_batch2.mts uses the corrected track labels for a later rebuild, and build_registry_edits.mts has reviewed reasons for every changed registry field. The expression index was rebuilt from SHA-matched inputs and is not published. The registry-edits record, the OXT/AVP audit and the internal QC ledger were not rebuilt because this checkout lacks their inputs. build_timeseries_bundles.mts keeps its old GSE248462 text because the GSE157077 successor pins its bytes.",
   "references": [
     "docs/runbooks/EXPRESSION_SURVEY.md",
     "scripts/build_explorer_bundles_batch2.mts",
     "scripts/regen-r460/build_registry_edits.mts",
-    "scripts/lib/historicalEvidence.mts"
+    "scripts/lib/historicalEvidence.mts",
+    "data/expression/existing/README.md"
   ]
 }

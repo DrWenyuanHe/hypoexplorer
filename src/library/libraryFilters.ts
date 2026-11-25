@@ -6,7 +6,7 @@
 // a mounted view would mean asserting on rendered numbers in a sidebar.
 
 import { DATASET_CATEGORIES } from './../data/datasetCategories';
-import { VERIFICATION_CLAIMS, getVerificationClaim, RESULT_AVAILABILITY, EVIDENCE_LEVELS } from '../data/authorVerification';
+import { AUTHOR_FOLLOW_UPS, VERIFICATION_CLAIMS, getVerificationClaim, RESULT_AVAILABILITY, EVIDENCE_LEVELS } from '../data/authorVerification';
 import type { DatasetCard } from '../data/datasetCatalog';
 import { datasetQuality, qualitySearchText } from '../data/datasetQualityR460';
 
@@ -69,6 +69,7 @@ export function matchesLibraryQuery(card: DatasetCard, query: string): boolean {
     VERIFICATION_CLAIMS[getVerificationClaim(card.validation.verification)].label,
     RESULT_AVAILABILITY[card.validation.verification.resultAvailability].label,
     EVIDENCE_LEVELS[card.validation.verification.evidenceLevel].label,
+    card.validation.verification.followUp ? AUTHOR_FOLLOW_UPS[card.validation.verification.followUp].label : '',
     card.validation.verification.reason, card.validation.note,
     card.trackLabel ?? '',
     ...d.groups.map((g) => g.label),

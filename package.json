@@ -45,6 +45,8 @@
     "verify:edge": "tsx scripts/deploy/verify_edge.mts",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:scripts": "tsx --test scripts/lib/bundleEol.test.mts scripts/lib/nomenclatureRetained.test.mts scripts/lib/oxtAvpIntakeEvidence.test.mts scripts/lib/rgdRecords.test.mts scripts/lib/searchNames.test.mts scripts/lib/tmm.test.mts",
+    "test:service": "python -m unittest discover -s services/hypomap -p test_comparison_service.py",
     "test:smoke": "playwright test --config scripts/smoke/playwright.config.ts",
     "lint": "biome lint",
     "lint:fix": "biome lint --write",
@@ -76,14 +78,14 @@
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "react-is": "^19.3.1",
-    "recharts": "^3.10.1",
+    "recharts": "^3.11.0",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.6.7",
-    "@playwright/test": "^1.65.0",
+    "@biomejs/biome": "2.6.8",
+    "@playwright/test": "^1.65.1",
     "@testing-library/dom": "^10.4.2",
-    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/jest-dom": "^8.0.0",
     "@testing-library/react": "^16.3.3",
     "@types/node": "^22",
     "@types/react": "^19.3.0",
@@ -92,15 +94,15 @@
     "@vitejs/plugin-react": "^6.3.0",
     "esbuild": "0.28.2",
     "jsdom": "^26.1.0",
-    "knip": "^6.45.1",
+    "knip": "^6.47.0",
     "sharp": "^0.35.5",
     "tsx": "^4.23.15",
     "typescript": "7.1.0-beta",
     "vite": "^8.3.8",
     "vite-plugin-pwa": "^2.0.0",
-    "vitest": "^5.1.0",
+    "vitest": "^5.1.1",
     "workbox-window": "^7.4.1",
-    "wrangler": "^4.162.0"
+    "wrangler": "^4.166.0"
   },
   "engines": {
     "node": ">=22"

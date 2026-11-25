@@ -378,53 +378,196 @@
       "accession": "GSE49540",
       "contrast": "restricted_anovulatory_vs_control",
       "localPath": "geo_replication/datasets/GSE49540_btau_hypothalamus_diet_restriction/processed/GSE49540_DE.tsv",
-      "localKey": "id",
-      "authorPath": "data/author-validation/continued-sources/advancement-sources-a-2026-09-05/GSE49540/author-effects.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/author-effects.tsv",
       "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5680758/supplementaryFiles",
-      "sha256": "764cba5e3066fdbf186c394ebd8058b7e82bc837ccc4f7320505a9136f7eff81",
+      "sha256": "7632fbf9d922a2480057f1d80c1a928bf6c264f74bc15ff0519884a94ff9e233",
       "format": "tsv",
       "authorKey": "output_id",
       "authorEffect": "logFC",
-      "authorAdjustedP": "padj",
       "orientationSign": 1,
       "localMethod": "edgeR-QL",
       "authorMethod": "DESeq 1.1.11",
-      "orientation": "Author and registered directions aligned as documented in the previous source review.",
-      "note": "Selected author reference: Supplementary Table 1, annotated RA versus C genes. The unresolved six-versus-seven-control cohort prevents establishing equivalent analysis comparability. Missing author adjusted P remains unavailable; full local discovery counts and finite paired tests are reported separately. Numerical values are recalculated from the unchanged current registered DE table.",
-      "interpretation": "effect_match_inference_differs",
+      "orientation": "S1 footnote and registered groupcase coefficient both express restricted-anovulatory relative to control.",
+      "note": "Replacement for the existing GSE49540 S1 comparison using all 132 published log2(RA/C) effects. There are 102 exact-symbol and five source-traced pairs. Twenty-five rows remain in the denominator. A separate reconstruction identifies GSM1201496 as the only single-control omission consistent with the expressed-gene count. Outside the registered pairs, the CXCL1 and CXCL3 candidates each give the S1 value for the other gene. Neither is assigned a registered effect. S1 provides no numeric P or adjusted P.",
+      "interpretation": "effects_compared",
       "originalReferences": [
         {
-          "path": "data/author-validation/continued-sources/final-numerical-batch-b/GSE49540/12864_2017_4265_MOESM1_ESM.docx",
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/supplements.zip",
           "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5680758/supplementaryFiles",
-          "sha256": "8f2953bf6d3228a61aa5ef42c7c12ff9c9fa3da2dcaea1fd3ec1c106471783a8",
-          "bytes": 27996
+          "sha256": "15236a6efa175c77447bb340bb200d2481f1cd96e0168b30f50b5f5a85ea3e3a",
+          "bytes": 186847
         },
         {
-          "path": "data/author-validation/continued-sources/final-numerical-batch-b/compare_batch_b.py",
-          "sourceUrl": "Reviewed original-table extraction code",
-          "sha256": "eae341ed3365876fd735179ae14574b2ce09492fb4a265424ed131386c21c32d",
-          "bytes": 18973
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/fulltext.xml",
+          "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5680758/fullTextXML",
+          "sha256": "eac9ae945202b98acd67b8a40189a4b86699e8200433598b9b797bbe62125347",
+          "bytes": 191479
         },
         {
-          "path": "data/author-validation/continued-sources/advancement-sources-a-2026-09-05/prepare_comparisons.py",
-          "sourceUrl": "Reproducible original-table extraction and normalization script",
-          "sha256": "f189e0a58e1c13907e1d81806f4243f6ed1d00dd2ec5a78b6f336c7ab3b9fef0",
-          "bytes": 22388
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/GSE49540_RAW.tar",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE49nnn/GSE49540/suppl/GSE49540_RAW.tar",
+          "sha256": "715bce23c29ecb1a86dcfde45dc3c9d07b1415e5302959491f2ee362cdce5fd4",
+          "bytes": 1966080
         },
         {
-          "path": "data/author-validation/continued-sources/advancement-sources-a-2026-09-05/review-baseline.json",
-          "sourceUrl": "Fixed pre-advancement comparison definitions",
-          "sha256": "8f63c37dafb8be2bf3b07d67013af0792d96545f842c929ef6799f5779a4a8ad",
-          "bytes": 361493
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/GSE49540_family.soft.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE49nnn/GSE49540/soft/GSE49540_family.soft.gz",
+          "sha256": "236e2cc47330f6230019f7f6a3082fa0f86916e71e558b1f343f47995a5bd846",
+          "bytes": 4233
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/bos_gene_info.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/gene/DATA/GENE_INFO/Mammalia/Bos_taurus.gene_info.gz",
+          "sha256": "3ca5b571a9f693555e84e363a58b74ad3d6f1c4cf7f270c83c983943dfc5e1be",
+          "bytes": 1667592
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/A6QQP6.json",
+          "sourceUrl": "https://rest.uniprot.org/uniprotkb/A6QQP6.json",
+          "sha256": "494063dd617694c25267237d9d0ef91623fa4f555390c3b021e874172c20bcb6",
+          "bytes": 13523
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/ensembl59.gtf.gz",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-59/gtf/bos_taurus/Bos_taurus.Btau_4.0.59.gtf.gz",
+          "sha256": "4e7afe6eaf15f60046941ce59cc9ecf53f777e7110362b5a4540a6249c98f975",
+          "bytes": 5714711
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/bos_taurus_core_59_4h.sql.gz",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-59/mysql/bos_taurus_core_59_4h/bos_taurus_core_59_4h.sql.gz",
+          "sha256": "de70bbfc08c80615ff7503d194c7a0579da73e598ad3cc8f63fafd35609d24a2",
+          "bytes": 4694
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/gene.txt.gz",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-59/mysql/bos_taurus_core_59_4h/gene.txt.gz",
+          "sha256": "6ca3a25ea1cbdd35c784338fb3878827e321d6dff31bf042e9e0e96bd16063dd",
+          "bytes": 881769
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/gene_stable_id.txt.gz",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-59/mysql/bos_taurus_core_59_4h/gene_stable_id.txt.gz",
+          "sha256": "74742d8c8fe2a25465c6f4c7c6f5cece154d07f4892f2e88b5e7fa10958a6981",
+          "bytes": 166038
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/transcript.txt.gz",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-59/mysql/bos_taurus_core_59_4h/transcript.txt.gz",
+          "sha256": "656e75eafb293bb45ea893a3b6c2da95474d8a0589100cb0e5c0fc54abf546b4",
+          "bytes": 634438
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/translation.txt.gz",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-59/mysql/bos_taurus_core_59_4h/translation.txt.gz",
+          "sha256": "937db710578df038df5936a60433900afa6b7e3a8a5d98b7ccdea91304e0ef3e",
+          "bytes": 330641
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/external_db.txt.gz",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-59/mysql/bos_taurus_core_59_4h/external_db.txt.gz",
+          "sha256": "995320210c1159c87100f2d843352439be60a93de11facb18595ef6ff60e8df7",
+          "bytes": 5733
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/xref.txt.gz",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-59/mysql/bos_taurus_core_59_4h/xref.txt.gz",
+          "sha256": "462ef4b8a592ef44207d71bf3d5c775c196ddd96814f50b59ff12d5a37dcb3d5",
+          "bytes": 6226884
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/object_xref.txt.gz",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-59/mysql/bos_taurus_core_59_4h/object_xref.txt.gz",
+          "sha256": "c923d8a2f4fd4bfaf38ef4d7f53c1a918c290376971599e9742b70f803aa2a23",
+          "bytes": 3976571
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/external_synonym.txt.gz",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-59/mysql/bos_taurus_core_59_4h/external_synonym.txt.gz",
+          "sha256": "4dbcdb5e21c77a96685db003085556039f66adefca4256bf1a930beb468c8a20",
+          "bytes": 79273
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/DESeq-1.1.11.tar.gz",
+          "sourceUrl": "https://codeload.github.com/bioc/DESeq/tar.gz/68bb78dc512537f02deb4036696d24c9c185dac2",
+          "sha256": "b7396e18ac4cd12abd3105ce538dc7e50b848a6a7ce1aa26cfb3b1cdb0fc2566",
+          "bytes": 457055
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/ena.tsv",
+          "sourceUrl": "https://www.ebi.ac.uk/ena/portal/api/filereport?accession=SRP028518&result=read_run&fields=run_accession%2Cstudy_accession%2Cexperiment_accession%2Csample_accession%2Csecondary_sample_accession%2Csample_title%2Cread_count%2Cbase_count&format=tsv",
+          "sha256": "c4b6bd4c114176d6821b7bc2b4a028cd437014e12ec005e63307765e2cd987d8",
+          "bytes": 2171
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/sdrf.txt",
+          "sourceUrl": "https://www.ebi.ac.uk/biostudies/files/E-GEOD-49540/E-GEOD-49540.sdrf.txt",
+          "sha256": "8e18359718c578d5015d6f9e518411aa67017d6b50752d88f02815e488040ec7",
+          "bytes": 16737
+        },
+        {
+          "path": "geo_replication/datasets/GSE49540_btau_hypothalamus_diet_restriction/metadata/GSE49540_samplesheet.tsv",
+          "sourceUrl": "Registered input used for sample membership or identifier tracing",
+          "sha256": "bd48c64251903e972fe2265deedb2f7fe5ac4f2567eb7c0f86cc4aa1495937b1",
+          "bytes": 2946
+        },
+        {
+          "path": "geo_replication/datasets/GSE49540_btau_hypothalamus_diet_restriction/metadata/GSE49540_sample_inventory.tsv",
+          "sourceUrl": "Registered input used for sample membership or identifier tracing",
+          "sha256": "a727a837a699c4485b8d5c3af5ec235b19ef2c531140b5709838b562fc845a97",
+          "bytes": 5620
+        },
+        {
+          "path": "geo_replication/datasets/GSE49540_btau_hypothalamus_diet_restriction/processed/GSE49540_provenance.tsv",
+          "sourceUrl": "Registered input used for sample membership or identifier tracing",
+          "sha256": "e295f737e81a766daa45b05ad8ee89495aa9592696ca81224406db8d3dc30bbf",
+          "bytes": 4812
+        },
+        {
+          "path": "geo_replication/datasets/GSE49540_btau_hypothalamus_diet_restriction/processed/GSE49540_CPM_TMM.tsv.gz",
+          "sourceUrl": "Registered input used for sample membership or identifier tracing",
+          "sha256": "9f7ac5c1c8c626cc6eaf050cff82442fceaa7be36cf3f095867b8998d156a968",
+          "bytes": 1352081
+        },
+        {
+          "path": "geo_replication/datasets/GSE49540_btau_hypothalamus_diet_restriction/processed/GSE49540_cpm_normalization.tsv",
+          "sourceUrl": "Registered input used for sample membership or identifier tracing",
+          "sha256": "9ccb2ff0e8a85709bd9810dd19e4f4bb2161f62b9eb2f80ffba491aed1ddc237",
+          "bytes": 1301
+        },
+        {
+          "path": "geo_replication/datasets/GSE49540_btau_hypothalamus_diet_restriction/processed/GSE49540_feature_map.tsv.gz",
+          "sourceUrl": "Registered input used for sample membership or identifier tracing",
+          "sha256": "c98a6bbe4fee0622f20c1b1721f76b4c677a4d8683243dcb32db4e291d06f8a6",
+          "bytes": 134365
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/audit.py",
+          "sourceUrl": "Reproducible S1 extraction, identifier tracing and registered comparison",
+          "sha256": "0af73013e4f7ac9bc1e6782c040ad25433209605d245f380d38c2dbeff2e8cc2",
+          "bytes": 18350
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/cohort_diagnostic.py",
+          "sourceUrl": "Independent reconstruction of the cohort inferred from the published filter",
+          "sha256": "6f21eac107f53b8f1d1156710393aa9807c73063e44376b92890bbdf9a80a016",
+          "bytes": 4411
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/refute/recheck.py",
+          "sourceUrl": "Independent replay of registered effects and additional deposited-locus checks",
+          "sha256": "376623f9800ac42f0aa200336d64c2135f166dc6551a7a2cefd989e8ab3f4111",
+          "bytes": 18466
         }
       ],
-      "normalizationScript": "data/author-validation/continued-sources/advancement-sources-a-2026-09-05/prepare_comparisons.py",
-      "resultScope": "Selected author reference: Supplementary Table 1, annotated RA versus C genes.",
+      "normalizationScript": "data/author-validation/continued-sources/GSE49540/codex-2026-11-21/audit.py",
+      "resultScope": "Selected annotated RA/C effects in Table S1 only.",
       "localSnapshot": {
         "path": "geo_replication/datasets/GSE49540_btau_hypothalamus_diet_restriction/processed/GSE49540_DE.tsv",
-        "sourceUrl": "Registered Explorer DE source; no public author-result claim",
-        "sha256": "53e436af67006781ed4be1025315c90443c585d5a12282aec4e7e1e4ca39fde1",
-        "bytes": 1379131
+        "sourceUrl": "Current registered edgeR-QL result",
+        "sha256": "61f8c8c72887bfa38953b4e536790720b6c4de4ff03a75f5713ef7529bc2c01e",
+        "bytes": 1169242
       }
     },
     {
@@ -528,47 +671,131 @@
       "accession": "GSE179663",
       "contrast": "spontaneous_torpor_vs_normothermia_author_mouse_projection",
       "localPath": "geo_replication/datasets/GSE179663_psun_hypothalamus_torpor/processed/GSE179663_DE.tsv",
-      "localKey": "id",
-      "authorPath": "data/author-validation/continued-sources/advancement-sources-a-2026-09-05/GSE179663/author-effects.tsv",
-      "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8804604/supplementaryFiles",
-      "sha256": "98122a4aa63e74dd18b8d296b45172c3409bdfcaf72beb0ac0a9dff10b299546",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/refute/author-torpor-ht-minus-nt.tsv",
+      "sourceUrl": "https://web.archive.org/web/20221110141752id_/https://oparu.uni-ulm.de/xmlui/bitstream/handle/123456789/45146/File3results.xlsx?sequence=4&isAllowed=y",
+      "sha256": "8f3da05751ee11b23ad500c1e5a0726a26888ab5d9676350bbb8aba878a80fab",
       "format": "tsv",
-      "authorKey": "output_id",
-      "authorEffect": "logFC",
-      "authorAdjustedP": "padj",
+      "authorKey": "join_key",
+      "authorEffect": "HT_minus_NT_log2FC",
+      "authorAdjustedP": "author_padj",
       "orientationSign": 1,
-      "localMethod": "edgeR-QL",
-      "authorMethod": "DESeq2; selected indicator-gene table with rounded effects and adjusted P",
-      "orientation": "Short-photoperiod hypothermic minus normothermic.",
-      "note": "Selected 68 predefined indicator-gene reference; missing effect cells are preserved. The table explicitly labels HT-minus-NT but most matched directions oppose the registered result. Original per-sample count estimates support the local orientation for Rbm3-ps, Jun and Avp. The source contrast/direction disagreement remains unresolved; no sign flip is applied to force concordance. Exact-symbol joins only; alternative labels and absent genes are not remapped speculatively. Printed rounded P values remain descriptive; absent/outlier cells are missing. Missing author adjusted P remains unavailable; full local discovery counts and finite paired tests are reported separately. Numerical values are recalculated from the unchanged current registered DE table.",
-      "interpretation": "effect_disagreement_review",
+      "localMethod": "edgeR-QL, sex-adjusted, TMM",
+      "authorMethod": "DESeq2 1.22.2 Wald test, group-only design, tximport 1.10.1 RSEM with length offsets",
+      "orientation": "HT_minus_NT_log2FC contains the negation of the literal SPNT-minus-SPHT workbook coefficient. The comparison uses that already aligned column with multiplier +1. workbook_log2FC preserves the literal effect and author_padj preserves the author’s adjusted P.",
+      "note": "The full SP_HTvsNT worksheet contains all effects after the authors’ count prefilter. review.py extracts the worksheet and maps its mouse GeneIDs to unique registered symbols. refute/orient.py appends the sign-aligned column from that pinned extraction. Both signs and all missing test cells are retained. The adjusted-P lists overlap at 227/810 across complete lists and 227/809 within pairs with finite adjusted P. Eight unmapped fit rows contribute to the registered FDR family and have no published coefficients.",
+      "interpretation": "effect_differences",
       "originalReferences": [
         {
-          "path": "data/author-validation/continued-sources/advancement-sources-a-2026-09-05/GSE179663/FEB4-12-443-s001.docx",
-          "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8804604/supplementaryFiles",
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/archived-File3results.xlsx",
+          "sha256": "555d809ce05e0444c16343156fd83e6dc4e2d7eade90109953118478f25fe555",
+          "bytes": 5634428,
+          "sourceUrl": "https://web.archive.org/web/20221110141752id_/https://oparu.uni-ulm.de/xmlui/bitstream/handle/123456789/45146/File3results.xlsx?sequence=4&isAllowed=y"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/archived-File2statistics.R",
+          "sha256": "ecdf2fa9393e1d4a2d72a203e7c349b37f72f576d349da6e0dbf4085c66938ae",
+          "bytes": 12163,
+          "sourceUrl": "https://web.archive.org/web/20221110141752id_/https://oparu.uni-ulm.de/xmlui/bitstream/handle/123456789/45146/File2statistics.R?sequence=3&isAllowed=y"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/archived-ReadMe.pdf",
+          "sha256": "0225af9c5aabc8eaee1b12c4d5a5ba386888ad018d315e809980c2fcba829123",
+          "bytes": 265550,
+          "sourceUrl": "https://web.archive.org/web/20221110141752id_/https://oparu.uni-ulm.de/xmlui/bitstream/handle/123456789/45146/ReadMe.pdf?sequence=7&isAllowed=y"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/FEB4-12-443-s001.docx",
           "sha256": "aab2cc585fa87e9abad31fa44e8815f6be55f0eb09fb96496857ba1d54875210",
-          "bytes": 314918
+          "bytes": 314918,
+          "sourceUrl": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8804604.1/FEB4-12-443-s001.docx"
         },
         {
-          "path": "data/author-validation/continued-sources/advancement-sources-a-2026-09-05/prepare_comparisons.py",
-          "sourceUrl": "Reproducible original-table extraction and normalization script",
-          "sha256": "f189e0a58e1c13907e1d81806f4243f6ed1d00dd2ec5a78b6f336c7ab3b9fef0",
-          "bytes": 22388
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/GSE179663_RAW.tar",
+          "sha256": "f4fb00cc551f75059b47ebc8748c2e61f779e19838eddc12172809616856dde0",
+          "bytes": 11397120,
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE179nnn/GSE179663/suppl/GSE179663_RAW.tar"
         },
         {
-          "path": "data/author-validation/continued-sources/advancement-sources-a-2026-09-05/review-baseline.json",
-          "sourceUrl": "Fixed pre-advancement comparison definitions",
-          "sha256": "8f63c37dafb8be2bf3b07d67013af0792d96545f842c929ef6799f5779a4a8ad",
-          "bytes": 361493
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/GSE179663_family.soft.gz",
+          "sha256": "f504361210102c64725274bcb4bb8ceaa402ebcda4898bb6bd51fe13e403fc5e",
+          "bytes": 3055,
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE179nnn/GSE179663/soft/GSE179663_family.soft.gz"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/DESeq2_1.22.2.tar.gz",
+          "sha256": "39a4c5d59134bcb7d306fb99587090bfdae905e4c0ffdc0ab907d95e0982aa58",
+          "bytes": 2062838,
+          "sourceUrl": "https://bioconductor.org/packages/3.8/bioc/src/contrib/DESeq2_1.22.2.tar.gz"
+        },
+        {
+          "path": "geo_replication/datasets/GSE179663_psun_hypothalamus_torpor/processed/GSE179663_feature_map.tsv.gz",
+          "sourceUrl": "Registered one-to-one mouse GeneID-to-symbol map",
+          "bytes": 111910,
+          "sha256": "ab39ba4a04ca0c59985c126963b7fc50dbd2adeeb891a1d51aad946e07f73995"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/review.py",
+          "sha256": "48ef72b3addcbb3f3c3d63084a374218b9a4ff491679aab319e26696c3f96815",
+          "bytes": 16764,
+          "sourceUrl": "Reproducible workbook extraction and registered-output comparison"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/author-torpor.tsv",
+          "sha256": "bd0c5d804fd0716eea713e3047a810a276ccea5e7f59f1fe86363e573a221633",
+          "bytes": 1265662,
+          "sourceUrl": "https://web.archive.org/web/20221110141752id_/https://oparu.uni-ulm.de/xmlui/bitstream/handle/123456789/45146/File3results.xlsx?sequence=4&isAllowed=y"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/refute/orient.py",
+          "sha256": "94985c9845e8a0e0774488b2502c501f9c0cf21312d9bfb71f4d761b643d11a3",
+          "bytes": 1976,
+          "sourceUrl": "Reproducible sign alignment of the pinned workbook extraction"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/tximport_1.10.1.tar.gz",
+          "sha256": "9490d6dc5d4ff9ffa4427597a2c8c247b18896a3af5a005825eb32505b02979b",
+          "bytes": 226910,
+          "sourceUrl": "https://bioconductor.org/packages/3.8/bioc/src/contrib/tximport_1.10.1.tar.gz"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/R-3.5.2-factor.R",
+          "sha256": "c54a7adedaf4b31a853809af945fd02f4242719f51dead7d3a56ab97ec7729b6",
+          "bytes": 11946,
+          "sourceUrl": "https://svn.r-project.org/R/tags/R-3-5-2/src/library/base/R/factor.R"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/R-3.5.2-readtable.R",
+          "sha256": "39d5611661424fb704fd2c1d0406571dd3183f28474bbd5b0825ee0674138163",
+          "bytes": 11963,
+          "sourceUrl": "https://svn.r-project.org/R/tags/R-3-5-2/src/library/utils/R/readtable.R"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/ena.tsv",
+          "sha256": "0564cbbe927bd0267ca57490ee65a9fd42955f361708b089fd18bb53bdadb655",
+          "bytes": 752,
+          "sourceUrl": "https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJNA743775&result=read_run&fields=run_accession,sample_accession,secondary_sample_accession,sample_alias,experiment_accession&format=tsv"
+        },
+        {
+          "path": "geo_replication/datasets/GSE179663_psun_hypothalamus_torpor/metadata/GSE179663_samplesheet.tsv",
+          "sha256": "a521867ea450b81d12c64b47a7a8324d65bc71196f4aaba5d75f23771a191174",
+          "bytes": 2599,
+          "sourceUrl": "Registered animal and library assignments"
+        },
+        {
+          "path": "geo_replication/datasets/GSE179663_psun_hypothalamus_torpor/processed/GSE179663_provenance.tsv",
+          "sha256": "bb1d4548d83eab5a234670a43c630f70ed4a3a2aa9e058e1fb7a3e9b5046cbc1",
+          "bytes": 4719,
+          "sourceUrl": "Registered edgeR fit, FDR family and output provenance"
         }
       ],
-      "normalizationScript": "data/author-validation/continued-sources/advancement-sources-a-2026-09-05/prepare_comparisons.py",
-      "resultScope": "Selected 68 predefined indicator-gene reference; missing effect cells are preserved.",
+      "normalizationScript": "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/refute/orient.py",
+      "resultScope": "Full SP_HTvsNT worksheet, including every finite author effect and missing test cells.",
       "localSnapshot": {
         "path": "geo_replication/datasets/GSE179663_psun_hypothalamus_torpor/processed/GSE179663_DE.tsv",
-        "sourceUrl": "Registered Explorer DE source; no public author-result claim",
-        "sha256": "e02cadf494b83d6d21643c279c9507edd0db2170915fa32c25e09c0568611a26",
-        "bytes": 1496062
+        "sourceUrl": "Current registered Explorer DE table",
+        "bytes": 1495395,
+        "sha256": "2cf8652792194c39e51acc774e6d7f26cf44e166a8b21ef85434ab2e9d49cb7a"
       }
     },
     {
@@ -1688,34 +1915,64 @@
       "accession": "GSE242354",
       "contrast": "exercise8w_vs_sedentary",
       "localPath": "geo_replication/datasets/GSE242354_rnor_hypothalamus_exercise/processed/GSE242354_DE.tsv",
-      "localKey": "id",
-      "authorPath": "data/author-validation/continued-sources/GSE242354/turbo-2026-11-15-notloc2/analysis/author_male_8w_unambiguous.tsv",
-      "sourceUrl": "https://raw.githubusercontent.com/MoTrPAC/MotrpacRatTraining6moData/main/data/TRNSCRPT_HYPOTH_DA.rda",
-      "sha256": "3ea571ed9108586671559cc54bf0ab1de14aeffc4f6c06e03b1062526992b53a",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/author_one_to_one.tsv",
+      "sourceUrl": "https://raw.githubusercontent.com/MoTrPAC/MotrpacRatTraining6moData/f831a4fe421ec11687640452484a8247137aa74a/data/TRNSCRPT_HYPOTH_DA.rda",
+      "sha256": "bbd497cb8398cee46afb8a9ee95eb7078642b261fdf87bf2abdc4b989335e082",
       "format": "tsv",
       "authorKey": "symbol",
       "authorEffect": "logFC",
       "authorAdjustedP": "adj_p_value",
       "orientationSign": 1,
-      "orientation": "MoTrPAC logFC is trained 8w minus sex-matched sedentary control; registered is case minus control; no reversal.",
+      "orientation": "Eight-week trained males minus sedentary males in both tables. Use the deposited unshrunken coefficient.",
       "localMethod": "limma",
-      "authorMethod": "MoTrPAC timewise limma model with covariates pct_globin, rin, pct_umi_dup, median_5_3_bias (per DA table); sample 90217015402 listed in the DA table removed_samples column",
-      "note": "Male 8w rows only; 155 rows in 71 ambiguous symbols excluded unresolved. 16798 pairs, Pearson 0.304585, Spearman 0.566689, direction 70.892%. Author FDR<0.05 11 (10 paired), registered 0. The low slope (0.041) is driven largely by 52 extreme author logFCs (|logFC|>5) at low expression. These figures were computed directly on the current R 4.6.0 registered output (SHA-256 a7036f08ed771f64eff68b0902d2a838a0b315834c9d403ded79f1eaea4f84f4); no R 4.4.1 figures are quoted.",
+      "authorMethod": "MoTrPAC sex-specific timewise DESeq2 model with group, pct_globin, rin, pct_umi_dup and median_5_3_bias. Control vial 90217015402 excluded as a PC4 outlier.",
+      "note": "This specification replaces the previous join for exercise8w_vs_sedentary. Its symbol-keyed TSV contains all 16,774 eligible author rows, including two with zero variance in the registered animals. The builder therefore measures 16,772/16,774 (99.9881%) coverage and counts ten adjusted-P discoveries in this TSV. The full deposited male 8w result has 16,955 rows and 11 discoveries, including ENSRNOG00000047350 at the pooled local symbol Gns. Against the original result, 16,772/16,955 author rows (98.9207%) pair. Registered coverage is 16,772/21,215 (79.0573%). The paired analysis excludes 181 author rows on the basis of source-identifier multiplicity alone.",
       "interpretation": "effect_disagreement_review",
       "originalReferences": [
         {
-          "path": "data/author-validation/continued-sources/GSE242354/turbo-2026-11-15-notloc2/source/TRNSCRPT_HYPOTH_DA.rda",
+          "path": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/TRNSCRPT_HYPOTH_DA.rda",
           "bytes": 8407428,
           "sha256": "c92379487df7edf00fd23cb433c4d1fcfcfda06fac295e50d0e6245dc2f4ab62",
-          "sourceUrl": "https://raw.githubusercontent.com/MoTrPAC/MotrpacRatTraining6moData/main/data/TRNSCRPT_HYPOTH_DA.rda"
+          "sourceUrl": "https://raw.githubusercontent.com/MoTrPAC/MotrpacRatTraining6moData/f831a4fe421ec11687640452484a8247137aa74a/data/TRNSCRPT_HYPOTH_DA.rda"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/TRNSCRPT_DA.Rd",
+          "bytes": 5565,
+          "sha256": "0e8bb9f30763a40879a7276bb26ff649362f8b4ea766884de013108e0caf01ce",
+          "sourceUrl": "https://raw.githubusercontent.com/MoTrPAC/MotrpacRatTraining6moData/f831a4fe421ec11687640452484a8247137aa74a/man/TRNSCRPT_DA.Rd"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/outliers.tsv",
+          "bytes": 5197,
+          "sha256": "db66774854486e3c0758f0e5eedc089ec48f42c0ba39b1c48c44a33c8da4c691",
+          "sourceUrl": "https://raw.githubusercontent.com/MoTrPAC/MotrpacRatTraining6moData/f831a4fe421ec11687640452484a8247137aa74a/data-raw/outliers.tsv"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/transcript_differential_analysis.R",
+          "bytes": 22046,
+          "sha256": "17bf9aa25e35ef5075e4bc03cdf93d375aa33cb7bd709b24b46e45be3254ad2b",
+          "sourceUrl": "https://raw.githubusercontent.com/MoTrPAC/MotrpacRatTraining6mo/bea2ab1120c0bc0a4f4aa9602e93ecf5685e54fb/R/transcript_differential_analysis.R"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/Rattus_norvegicus.Rnor_6.0.96.gtf.gz",
+          "bytes": 11796110,
+          "sha256": "3e5f0f10ab29ed2a976ee4d88208d15f4eedbd815dafe3f1a96ba9374783227e",
+          "sourceUrl": "https://ftp.ebi.ac.uk/ensemblorg/pub/release-96/gtf/rattus_norvegicus/Rattus_norvegicus.Rnor_6.0.96.gtf.gz"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/sources/GSE242354_motrpac_pass1b-06_t54-hypothalamus_transcript-rna-seq_rsem-genes-count.txt.gz",
+          "bytes": 2128505,
+          "sha256": "9842c7495cf0335245f7bfa838b71220866ddf9530c7c140aaf4aa0dd98a4b73",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE242nnn/GSE242354/suppl/GSE242354_motrpac_pass1b-06_t54-hypothalamus_transcript-rna-seq_rsem-genes-count.txt.gz"
         }
       ],
-      "normalizationScript": "data/author-validation/continued-sources/GSE242354/turbo-2026-11-15-notloc2/analysis/compare_motrpac_hypoth.R",
+      "normalizationScript": "data/author-validation/continued-sources/GSE242354/codex-2026-11-21/review.py",
       "resultScope": "full_results",
       "localSnapshot": {
         "path": "geo_replication/datasets/GSE242354_rnor_hypothalamus_exercise/processed/GSE242354_DE.tsv",
-        "bytes": 2108470,
-        "sha256": "a7036f08ed771f64eff68b0902d2a838a0b315834c9d403ded79f1eaea4f84f4"
+        "sha256": "a7036f08ed771f64eff68b0902d2a838a0b315834c9d403ded79f1eaea4f84f4",
+        "bytes": 2108470
       }
     },
     {

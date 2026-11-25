@@ -9,13 +9,21 @@ note and [the plan](../../../docs/records/EXTERNAL_REFERENCE_EXPRESSION_PLAN_202
 
 ## Files
 
+In this repository:
+
 | File | What it is |
 | --- | --- |
 | `source-manifest.json` | URL, bytes and SHA-256 of each original, plus the retained file's rule, bytes and SHA-256 |
-| `gene_tpm_v10_brain_hypothalamus.gct.gz` | Original GCT bytes (Git LFS) |
+| `portal-api-medians.json` | GTEx Portal API v2 median TPM for POMC, AGRP, HCRT and NPY, retained as an independent check |
+
+The retained source files are [not in this repository](../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
+`source-manifest.json` pins their bytes:
+
+| File | What it is |
+| --- | --- |
+| `gene_tpm_v10_brain_hypothalamus.gct.gz` | Original GCT bytes |
 | `sample-attributes-hypothalamus.tsv.gz` | Header plus the 257 rows of `GTEx_Analysis_v10_Annotations_SampleAttributesDS.txt` whose `SAMPID` is a GCT column, unmodified, in source order |
 | `subject-phenotypes.tsv.gz` | `GTEx_Analysis_v10_Annotations_SubjectPhenotypesDS.txt` (sex, age decade, Hardy scale), gzipped |
-| `portal-api-medians.json` | GTEx Portal API v2 median TPM for POMC, AGRP, HCRT and NPY, retained as an independent check |
 
 ## Commands
 
@@ -29,11 +37,12 @@ pnpm exec tsx scripts/build_gtex_reference.mts --fetch   # re-download pinned or
 rewrites the retained files and their hashes in `source-manifest.json`. The
 generated products under `public/expression/gtex/` are gitignored build artifacts
 (about 100 MB of JSON in 2,048 value shards and 1,024 lookup shards).
-`pnpm run build:expression-external` builds them. `prebuild` and the CI
-artifact step run it, and a dev server needs it run once.
+`pnpm run build:expression-external` builds them from the retained sources.
+Without the sources, `pnpm run fetch:expression` downloads the published
+products instead; CI and a dev server use that route.
 
-A clean clone needs Git LFS for the GCT. Without it the retained-hash check fails
-closed on the LFS pointer file.
+The build and `--check` read the retained sources. They fail closed when those
+files are absent, so on a checkout without them start with `--fetch`.
 
 ## What the build checks
 
