@@ -537,12 +537,12 @@ describe('GeneExpressionCards', () => {
   beforeEach(() => resetSourceRequests());
   afterEach(() => { vi.unstubAllGlobals(); });
 
-  it('sets a mouse row and a human row of source tiles, each opening its own source under its row', async () => {
+  it('sets an animal row and a human row of source tiles, each opening its own source under its row', async () => {
     productFetch();
     const onOpenExpression = vi.fn();
     render(<GeneExpressionCards symbol="OXT" onOpenExpression={onOpenExpression} />);
     const section = screen.getByRole('region', { name: 'Where OXT is expressed' });
-    const mouse = within(section).getByRole('region', { name: 'Mouse hypothalamus' });
+    const mouse = within(section).getByRole('region', { name: 'Animal hypothalamus' });
     expect(await within(mouse).findByText('PVH oxytocin')).toBeTruthy();
     expect(mouse.querySelector('[data-slot="single-cell-mouse"]')).toBeTruthy();
     // The study library: each population's highest cohort, its study and cohort named, in the shared unit.
@@ -559,7 +559,7 @@ describe('GeneExpressionCards', () => {
     await waitFor(() => expect(human.querySelector('[data-atlas="gtex"] .portal-ref-value')).toBeTruthy(), { timeout: 5000 });
     expect(section.querySelector('[data-section="expression-survey"]')).toBeNull();
 
-    // A mouse tile opens its source alone, under the mouse row.
+    // An animal tile opens its source alone, under the animal row.
     const open = within(mouse).getByRole('button', { name: 'Every source group →' });
     expect(open).toHaveAttribute('aria-expanded', 'false');
     fireEvent.click(open);
@@ -606,7 +606,7 @@ describe('GeneExpressionCards', () => {
       productFetch();
       render(<GeneExpressionCards symbol="OXT" onOpenExpression={vi.fn()} />);
       const section = screen.getByRole('region', { name: 'Where OXT is expressed' });
-      const mouse = within(section).getByRole('region', { name: 'Mouse hypothalamus' });
+      const mouse = within(section).getByRole('region', { name: 'Animal hypothalamus' });
       expect(await within(mouse).findByText('PVH oxytocin')).toBeTruthy();
       expect(mouse.querySelector('[data-slot="single-cell-mouse"]')).toBeNull();
       expect(section.querySelector('[data-section="reference-atlases"]')).toBeTruthy();

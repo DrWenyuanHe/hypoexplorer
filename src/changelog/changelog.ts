@@ -7,22 +7,37 @@ export interface ChangelogEntry {
 export const CHANGELOG: ChangelogEntry[] = [
   {
     date: '2026-11-25',
+    title: 'Expression tiles and renamed genes: fixes from review',
+    items: [
+      'The study-library and tissue tiles no longer report a gene as absent when a source could not be read. When nothing loads, the tile says it could not be loaded and tries again on the next visit; when only some sources load, it says how many could not be read.',
+      'The study-library tile counts populations, not studies: GSE210311 contributes two (POMC and POMC with Drd2).',
+      'Tile bars share one signed scale: a measured zero draws no bar instead of a broken one, and a negative value, as in the median-baselined rat tissue, is drawn left of zero.',
+      'If the NeuroSeq catalog fails, "Use study library" inside a tile\'s panel now opens every study-library source. Before, the tile\'s own source filter stayed on and showed none.',
+      'On the Expression survey page, a population catalog entry shows the values the last survey loaded for it again.',
+      'A gene page opened from the Expression survey page keeps that survey\'s sources and filters for that visit only. Reaching the same gene later from ordinary search opens its page plainly.',
+      'If a renamed symbol\'s data cannot be read, the gene page loads every study directly rather than show a partial list.',
+      'No data, result or analysis changed.',
+    ],
+  },
+  {
+    date: '2026-11-25',
+    title: "A gene's expression survey is on its gene page",
+    items: [
+      'On a gene page, "Where <gene> is expressed" now shows one tile per source: an animal row (NeuroSeq, the study library, tissue, and a slot for single-cell atlases) and a human row (GTEx, Allen, and the Human Protein Atlas subregions and clusters). Each tile\'s "Every …" button opens that source\'s full survey under its row: every cohort, sample, probe and donor, the fed / reference filter, and the exports. Before, "Open expression survey" opened an empty survey and the gene had to be typed again.',
+      'The study library and tissue tiles are new. Each shows the gene\'s highest cohort mean per study, ranked only among studies that share a unit.',
+      'The NeuroSeq tile leaves out the two SFO boundary records, as the survey does by default, so its values match the survey it opens. The GTEx tile also gives the donor mean (52.6 TPM for POMC), the value the survey ranks, beside the median (7.79 TPM).',
+      'On the Expression survey page, surveying one gene symbol now opens that gene\'s page with every source shown, in the sources and filters chosen on the survey page. Several genes, or an Ensembl gene ID, are still compared on the survey page.',
+      'Tissue & bulk is now a choice inside the gene survey, beside Populations, instead of its own section. The survey page keeps Gene survey, Population catalog, and Sources & validation.',
+      'No data, result or analysis changed.',
+    ],
+  },
+  {
+    date: '2026-11-25',
     title: 'A renamed gene is one gene across studies',
     items: [
       "Studies store a gene under whatever symbol their annotation used, so one gene could sit under its current symbol in some studies and a retired one in others. MGI renamed Gm8773 to Fam237b, and 38 mouse studies still store Gm8773. The Fam237b gene page listed only the studies that store Fam237b, and the Gm8773 page only the others. Both pages now list all of them, including the AgRP fed/fast study GSE68177 (log2FC 1.55, FDR 0.0047), which stores Gm8773.",
       'A study is read under another symbol only when its own nomenclature authority (MGI, RGD or HGNC) records that symbol as the same gene: one current symbol, the same authority ID, and never a split gene. Placeholder namings, such as RGD1561149 becoming Nhsl3, count. Aliases that the authority lists without renaming the gene do not. 7,435 genes have such a rename in the collection.',
       'Each row read this way is marked with the symbol the study stores ("as Gm8773"), and the page names how many studies store the gene that way. Expression previews, the search summaries, Compare and the compare set (screen and Excel download) read the same rows.',
-      'In search, a renamed gene finds its other symbol: typing Gm8773 now says it is Fam237b. An alias that its own authority uses as another gene\'s current symbol no longer finds that gene: searching FAM237A no longer offers FAM237B.',
-      'No data, result or analysis changed. A study that stores both symbols keeps the row for the symbol searched.',
-    ],
-  },
-  {
-    date: '2026-11-24',
-    title: 'A renamed gene is one gene across studies',
-    items: [
-      "Studies store a gene under whatever symbol their annotation used, so one gene could sit under its current symbol in some studies and a retired one in others. MGI renamed Gm8773 to Fam237b, and 38 mouse studies still store Gm8773. The Fam237b gene page listed only the studies that store Fam237b, and the Gm8773 page only the others. Both pages now list all of them, including the AgRP fed/fast study GSE68177 (log2FC 1.55, FDR 0.0047), which stores Gm8773.",
-      'A study is read under another symbol only when its own nomenclature authority (MGI, RGD or HGNC) records that symbol as the same gene: one current symbol, the same authority ID, and never a split gene. Placeholder namings, such as RGD1561149 becoming Nhsl3, count. Aliases that the authority lists without renaming the gene do not. 7,435 genes have such a rename in the collection.',
-      'Each row read this way is marked with the symbol the study stores ("as Gm8773"), and the page names how many studies store the gene that way. Expression previews, the search summaries, Compare and the compare set (on screen and in every download) read the same rows. If a renamed symbol\'s data cannot be read, the page loads every study directly rather than show a partial list.',
       'In search, a renamed gene finds its other symbol: typing Gm8773 now says it is Fam237b. An alias that its own authority uses as another gene\'s current symbol no longer finds that gene: searching FAM237A no longer offers FAM237B.',
       'No data, result or analysis changed. A study that stores both symbols keeps the row for the symbol searched.',
     ],
@@ -42,18 +57,6 @@ export const CHANGELOG: ChangelogEntry[] = [
       'On the cross-dataset pathway report, the NES figures, the folded "strongest" score and the headline\'s up and down counts are now drawn in the darker red and blue the rest of the site uses for text. Before, they used the lighter chart colours, which are too faint to read easily. The forest dots keep the chart colours.',
       'The Methods page\'s "red is up / blue is down" sentence uses the same darker colours.',
       'A study block with no significant track now says "No significant track.", as the gene page does.',
-      'No data, result or analysis changed.',
-    ],
-  },
-  {
-    date: '2026-11-23',
-    title: "A gene's expression survey is on its gene page",
-    items: [
-      'On a gene page, "Where <gene> is expressed" now shows one tile per source: a mouse row (NeuroSeq, the study library, tissue, and a slot for single-cell atlases) and a human row (GTEx, Allen, and the Human Protein Atlas subregions and clusters). Each tile\'s "Every …" button opens that source\'s full survey under its row: every cohort, sample, probe and donor, the fed / reference filter, and the exports. Before, "Open expression survey" opened an empty survey and the gene had to be typed again.',
-      'The study library and tissue tiles are new. Each shows the gene\'s highest cohort mean per population or tissue source, ranked only among sources that share a unit; the tissue tile names the species it covers (mouse, rat and pig). When a source cannot be read, the tile says so instead of reporting the gene as absent there.',
-      'The NeuroSeq tile leaves out the two SFO boundary records, as the survey does by default, so its values match the survey it opens. The GTEx tile also gives the donor mean (52.6 TPM for POMC), the value the survey ranks, beside the median (7.79 TPM).',
-      'On the Expression survey page, surveying one gene symbol now opens that gene\'s page with every source shown, in the sources and filters chosen on the survey page. Several genes, or an Ensembl gene ID, are still compared on the survey page.',
-      'Tissue & bulk is now a choice inside the gene survey, beside Populations, instead of its own section. The survey page keeps Gene survey, Population catalog, and Sources & validation.',
       'No data, result or analysis changed.',
     ],
   },

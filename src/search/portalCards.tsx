@@ -304,7 +304,7 @@ export function ConditionPathwaysSection({ symbol, studies, onShowPathway, onOpe
 //
 // Each source shows its headline values in its own unit; its "Every …" button
 // opens that source's full survey (every cohort, sample and export) under its
-// row. Mouse and human sources sit in separate rows and are never pooled.
+// row. Animal and human sources sit in separate rows and are never pooled.
 
 const BASELINE_TOP = 3;
 const FAMILY_TOP = 3;
@@ -426,7 +426,7 @@ export function BaselineSection({ symbol }: { symbol: string }) {
 // tile counts populations, not studies.
 const FAMILY_TEXT: Record<SourceFamily, { name: string; method: string; noun: string }> = {
   studies: { name: 'Study library', method: 'sorted and tagged populations', noun: 'populations' },
-  tissue: { name: 'Tissue & bulk', method: 'non-human tissue', noun: 'sources' },
+  tissue: { name: 'Tissue & bulk', method: 'animal tissue', noun: 'sources' },
 };
 
 const COMMON_NAME: Record<string, string> = { 'Mus musculus': 'mouse', 'Rattus norvegicus': 'rat', 'Sus scrofa': 'pig' };
@@ -437,7 +437,7 @@ export function speciesPhrase(species: readonly string[]): string {
   return names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}` : names[0] ?? '';
 }
 
-/** The study-library populations, or the non-human tissue sources: each source's highest cohort mean. */
+/** The study-library populations, or the animal tissue sources: each source's highest cohort mean. */
 export function FamilySection({ symbol, family }: { symbol: string; family: SourceFamily }) {
   const load = useLoad<FamilyTeaser | null>(symbol, (key) => loadFamilyTeaser(key, family));
   const teaser = load.state === 'done' ? load.value : null;
@@ -671,7 +671,7 @@ const REFERENCES: SurveyScope = { ...POPULATIONS, mode: 'tissue', tissueKind: 'e
 const DRILLS: Record<Exclude<SourceDrillId, 'single-cell'>, { title: string; scope: SurveyScope; focus: SurveyFocus }> = {
   neuroseq: { title: 'NeuroSeq sorted populations', scope: POPULATIONS, focus: {} },
   studies: { title: 'Study library populations', scope: { ...POPULATIONS, collection: 'existing' }, focus: {} },
-  tissue: { title: 'Non-human tissue & bulk', scope: TISSUE, focus: { include: isNonHuman } },
+  tissue: { title: 'Animal tissue', scope: TISSUE, focus: { include: isNonHuman } },
   gtex: { title: 'GTEx v10 hypothalamus', scope: REFERENCES, focus: { include: onlySource(REFERENCE_ATLAS_SOURCES.gtex) } },
   allen: { title: 'Allen Human Brain Atlas', scope: REFERENCES, focus: { include: onlySource(REFERENCE_ATLAS_SOURCES.allen) } },
   subregions: { title: 'Human Protein Atlas subregions', scope: REFERENCES, focus: { include: onlySource(REFERENCE_ATLAS_SOURCES.subregions) } },
@@ -729,7 +729,7 @@ function SourceDrill({ id, drill, symbol, panelId, onClose }: {
 }
 
 /**
- * Where the gene is expressed, as one section: a mouse row and a human row of
+ * Where the gene is expressed, as one section: an animal row and a human row of
  * sources, each tile in its own unit. A tile opens that source's full survey
  * (every cohort, sample and export) under its row. `surveyScope` (set when the
  * survey page hands a gene over) opens the survey at once, in that scope.
@@ -763,7 +763,7 @@ export function GeneExpressionCards({ symbol, surveyScope, onOpenExpression }: {
         )}
       </div>
       <section className="gene-expr-row" data-species="mouse" aria-labelledby="gene-expr-mouse-title">
-        <h3 id="gene-expr-mouse-title" className="gene-expr-lane-title">Mouse hypothalamus</h3>
+        <h3 id="gene-expr-mouse-title" className="gene-expr-lane-title">Animal hypothalamus</h3>
         <div className="gene-expr-tiles">
           <Tile id="neuroseq" label="Every source group" nav={nav}><BaselineSection symbol={symbol} /></Tile>
           <Tile id="studies" label="Every study population" nav={nav}><FamilySection symbol={symbol} family="studies" /></Tile>

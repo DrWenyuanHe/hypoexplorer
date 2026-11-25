@@ -138,12 +138,12 @@ checkpoints. See the [GTEx runbook](../../data/expression/gtex/README.md), the
 
 The gene page's "Where <gene> is expressed" section (`GeneExpressionCards` in
 `src/search/portalCards.tsx`) reads the same products through
-`src/search/searchSummaries.ts`. It is one card with a mouse row and a human row of
+`src/search/searchSummaries.ts`. It is one card with an animal row and a human row of
 source tiles. Each tile's **Every …** button opens that source's survey in a panel
 under its row, held to the source; one panel is open at a time. A link in the
 card's header opens the survey page to compare genes.
 
-The mouse row holds four tiles:
+The animal row, "Animal hypothalamus", holds four tiles:
 
 - NeuroSeq (`loadBaselineTeaser`): each population read through the survey's own
   NeuroSeq reader, the top three of the 15 source groups by the survey's group
@@ -155,9 +155,9 @@ The mouse row holds four tiles:
   cohort mean, read through the survey's loaders. Sources keep their own units,
   so the tile ranks only the sources in the family's most common unit and says
   how many use another. The study library counts populations, not studies (one
-  study can contribute several, as GSE210311 does). Tissue covers non-human
-  tissue and broad neuronal preparations, and the tile names the species its
-  sources come from (mouse, rat and pig today); human atlases are in the human
+  study can contribute several, as GSE210311 does). Tissue covers animal
+  (non-human) tissue and broad neuronal preparations, and the tile names the
+  species its sources come from (mouse, rat and pig today); human atlases are in the human
   row. Bars share one signed axis, so a measured zero draws nothing and a
   negative value (the median-baselined rat tissue) is drawn left of zero. A
   source that cannot be read is counted as unread, never as a source that lacks

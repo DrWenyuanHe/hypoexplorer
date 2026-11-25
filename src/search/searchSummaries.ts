@@ -508,7 +508,7 @@ function familyTeaser(sources: ExpressionSource[], results: Array<ExpressionGene
   return { measured: best.length, total: sources.length, unit, inUnit, levels, unread, species };
 }
 
-/** The family's sources: study-library populations, or non-human tissue and broad neuronal preparations (mouse, rat and pig today). */
+/** The family's sources: study-library populations, or animal (non-human) tissue and broad neuronal preparations (mouse, rat and pig today). */
 async function familySources(family: SourceFamily): Promise<ExpressionSource[]> {
   if (family === 'studies') return EXISTING_EXPRESSION_SOURCES.filter((source) => source.scope === 'population');
   const { sources: external } = await loadExternalSources();
