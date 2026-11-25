@@ -3,8 +3,11 @@ import {
   buildSymbolRenames, pickStoredMember, renameAuthorityOf, renameGroupOf, renameGroupsFor, renamePartners,
 } from '../data/symbolRenames';
 import { compareCell } from '../compare/compareCell';
-import { compareSummaryRows } from '../compare/compareSummary';
+import {
+  compareGenesCsv, compareGenesWorkbook, compareSummaryLongRows, compareSummaryRows, compareValueRows, compareValuesCsv,
+} from '../compare/compareSummary';
 import { resolveGeneCI } from '../compare/resolveGene';
+import { loadExportEvidence } from '../utils/lazyExport';
 import { renamedStudies } from '../crossdataset/GeneReport';
 import { geneRow } from '../data/crossDatasetRows';
 import { BULK_DATASET_FIXTURE, MACAQUE_DATASET, makePopData } from './fixtures';
@@ -97,6 +100,21 @@ describe('Compare columns read renamed symbols', () => {
   it('carries the same reading into the compare-set summary sheet', () => {
     const [row] = compareSummaryRows([column('mouse')], popDataMap, ['Fam237b'], { tally: true, renames });
     expect(row).toMatchObject({ Gene: 'Fam237b', Detected: 1, mouse_logFC: 1.25 });
+  });
+
+  // The Compare tab's downloads read the table the tiles read, so a measured
+  // tile is never a "Detected: no" row or a missing sample in the file.
+  it('carries the same reading into the Compare tab downloads', async () => {
+    await loadExportEvidence();
+    const [summary] = compareSummaryLongRows([column('mouse')], popDataMap, ['Fam237b'], renames);
+    expect(summary).toMatchObject({ Gene: 'Fam237b', Detected: 'yes', logFC: 1.25, PValue: 0.001 });
+    expect(compareValueRows([column('mouse')], popDataMap, ['Fam237b'], renames)).toHaveLength(4);
+    const book = compareGenesWorkbook([column('mouse')], popDataMap, ['Fam237b'], renames);
+    expect(book.sheets.map((sheet) => sheet.rows.length).slice(0, 2)).toEqual([1, 4]);
+    expect(compareGenesCsv([column('mouse')], popDataMap, ['Fam237b'], renames).rows).toHaveLength(1);
+    expect(compareValuesCsv([column('mouse')], popDataMap, ['Fam237b'], renames).rows).toHaveLength(4);
+    // Without the table the column has no row for the queried symbol, as before.
+    expect(compareSummaryLongRows([column('mouse')], popDataMap, ['Fam237b'])[0]).toMatchObject({ Detected: 'no' });
   });
 });
 
