@@ -1,16 +1,15 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "0d7295f18af0c4bde555c643e1962b263af751f5e55309981e91d5158fb2ce4b",
+  "fingerprint": "38d2b5e7fbd5546f1a167a12678f2bb9c64b0fff2bf4f96dfc20486f4c12bcca",
   "outcome": "updated",
-  "explanation": "Merge of main into the staleness pass. From main: Rename groups change which stored symbol a report reads for a study, not QC, author concordance or verification evidence; no verification record, ledger or gate reads the rename table or the search names. From this branch: Dated-record headers separate reading tracked records from replaying them, the OXT/AVP runbook marks both replays as needing retained evidence, the author-validation README notes the generated records lag the ledgers, and the QC label follows NSIG_FDR_CUTOFF. No ledger, generated record or check changed. pnpm run analyze:hfd now runs scripts/analyze_hfd_r460.mts, which refuses any Rscript but R 4.6.0 and runs scripts/regen-r460/run_hfd_r460.R then run_fgsea_r460.R under LC_COLLATE=C for the stems derived from data/intake/hfd-2026-09-12/studies.json, the producers check:hfd-intake audits; it no longer runs the sealed originals, which stay byte-identical. The HFD intake record says so.",
+  "explanation": "Merge of main into the staleness pass. From main: From main: Registry facet values, descriptive text, display labels, a survey source and reviewed reasons changed. No evidence ledger, verification command, quality rule or pinned producer changed, and the author-validation records are untouched. From this branch: Rename groups change which stored symbol a report reads for a study, not QC, author concordance or verification evidence; no verification record, ledger or gate reads the rename table or the search names. Review fixes touch display and loading of expression tiles and rename reading, not QC, author concordance or verification evidence. From this branch: Dated-record headers separate reading tracked records from replaying them, the OXT/AVP runbook marks both replays as needing retained evidence, the author-validation README notes the generated records lag the ledgers, the QC label follows NSIG_FDR_CUTOFF, and the HFD intake record describes analyze:hfd running the audited R 4.6.0 producers. No ledger, generated record or check changed.",
   "references": [
+    "docs/agent-context/workflows.md",
+    "scripts/regen-r460/build_registry_edits.mts",
     "docs/PROJECT_GUIDANCE.md",
     "CONTEXT.md",
     "data/author-validation/README.md",
-    "src/qc/qcTables.ts",
-    "scripts/analyze_hfd_r460.mts",
-    "package.json",
     "data/quality/hfd-intake-2026-09-12/README.md"
   ]
 }

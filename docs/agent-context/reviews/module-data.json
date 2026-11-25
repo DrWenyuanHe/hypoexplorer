@@ -1,15 +1,17 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "d436d1a9ca250e27310b3b3046cd62cc5eff8a7076cb7bbe76dde4cbb2488648",
+  "fingerprint": "f7e607e4a997804e6dfd92978aa48e9c2f15704b22c41a2bb2907ad784e54f47",
   "outcome": "updated",
-  "explanation": "Merge of main into the staleness pass. From main: Adds symbolRenames.ts (React-free client for public/nomenclature/renames.js: rename groups per authority, renameGroupOf, renamePartners, pickStoredMember, renameAuthorityOf) and useSymbolRenames.ts. queryGeneViaIndex reads partner shards beside the queried key and the full-download path checks partners in each DE table, one row per track, marking storedAs; the rename table loads beside the manifest. From this branch: Comment-only corrections in loadTrack.ts (bundle-global producers) and explorerStore.ts (nothing is eager-loaded; the seed path consumes a global already present).",
+  "explanation": "Merge of main into the staleness pass. From main: From main: datasets.ts corrects four studies against their GEO records and papers: GSE248462 time-series design (hepatocyte Nr1d1/Nr1d2, three pools per arm and timepoint), GSE160802 citation (lean mice, IP118 and PY115 coadministered), GSE246918 name, citation and region (Whole hypothalamus) and GSE162563 name, citation, baseline label, modality and preparation (GnRH-depleted supernatant, Bulk tissue). reviewedTrackLabels.ts becomes a per-dataset table that corrects the GSE246918 and GSE162563 track labels at display time, and loadDatasetMeta.ts asks that table which datasets need it. buildPopData.ts applies the same table to a loaded track, so charts and export records carry the reviewed label. explorerStore.ts applies it when the meta global is already set, as after a deep link. Ids, contrasts and bundle bytes are unchanged. From this branch: Adds symbolRenames.ts (React-free client for public/nomenclature/renames.js: rename groups per authority, renameGroupOf, renamePartners, pickStoredMember, renameAuthorityOf) and useSymbolRenames.ts. queryGeneViaIndex reads partner shards beside the queried key and the full-download path checks partners in each DE table, one row per track, marking storedAs; the rename table loads beside the manifest. Review fixes: queryGeneViaIndex returns null when a partner shard cannot be read, so the report falls back instead of answering partly or letting pickStoredMember see too few candidates; buildSymbolRenames drops a row with any non-string or empty member instead of throwing. From this branch: Comment-only corrections in loadTrack.ts (bundle-global producers) and explorerStore.ts (nothing is eager-loaded; the seed path consumes a global already present, such as metadata the router loaded), consistent with main's reviewed-label handling for that case.",
   "references": [
+    "src/data/datasets.ts",
+    "src/data/reviewedTrackLabels.ts",
+    "src/data/loadDatasetMeta.ts",
+    "src/data/buildPopData.ts",
+    "src/data/explorerStore.ts",
     "src/data/symbolRenames.ts",
     "src/data/useSymbolRenames.ts",
-    "src/data/crossDataset.ts",
-    "CONTEXT.md",
-    "src/data/loadTrack.ts",
-    "src/data/explorerStore.ts"
+    "src/data/crossDataset.ts"
   ]
 }

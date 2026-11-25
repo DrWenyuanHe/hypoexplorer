@@ -16,10 +16,15 @@ tissue preparation, and the fed / reference filter. The gene page renders it
 through `GenePageSurvey` in its own chunk, loaded when the reader opens a tile. A
 tile holds the workspace to its source (`SurveyFocus`): the mode and collection are
 fixed and an `include` test narrows the sources, while region, populations and the
-fed / reference filter still apply. **All sources and filters** releases it. On the
-`#/expression` page, one gene symbol opens that gene's page with the page's scope
-(App hands it to the gene page in memory, not in the URL), and the gene page's
-survey opens in that scope. Several genes, or one Ensembl gene ID, are surveyed on
+fed / reference filter still apply. **All sources and filters** releases it, and so
+does **Use study library** after a NeuroSeq catalog failure: the library has none
+of a tile's own sources, so the panel reopens on the library with every source and
+filter. On the `#/expression` page, one gene symbol opens that gene's page with the
+page's scope (`useSurveyHandoff`: App hands it to the gene page in memory, not in
+the URL), and the gene page's survey opens in that scope. The handover lasts for
+that visit only: once the gene page has shown and the reader leaves it, the same
+gene reached by ordinary search opens plainly. The population catalog's source
+details show the values the last survey loaded for that source. Several genes, or one Ensembl gene ID, are surveyed on
 the page itself, because the gene page is keyed on symbols.
 
 The workspace keeps search and source filters in one panel. The population picker
@@ -149,8 +154,15 @@ The animal row, "Animal hypothalamus", holds four tiles:
 - Study library and Tissue & bulk (`loadFamilyTeaser`): each source's highest
   cohort mean, read through the survey's loaders. Sources keep their own units,
   so the tile ranks only the sources in the family's most common unit and says
-  how many use another. Tissue covers animal (mouse, rat and pig) tissue and broad neuronal
-  preparations; human atlases are in the human row.
+  how many use another. The study library counts populations, not studies (one
+  study can contribute several, as GSE210311 does). Tissue covers animal
+  (non-human) tissue and broad neuronal preparations, and the tile names the
+  species its sources come from (mouse, rat and pig today); human atlases are in the human
+  row. Bars share one signed axis, so a measured zero draws nothing and a
+  negative value (the median-baselined rat tissue) is drawn left of zero. A
+  source that cannot be read is counted as unread, never as a source that lacks
+  the gene: when none can be read the tile says it could not be loaded and a
+  later visit retries, and a partial read is stated and not cached.
 - Single-cell atlases: a reserved slot. With `VITE_HYPOMAP_EXPRESSION` the tile
   opens the HypoMap preview. A new mouse single-cell source joins the card here,
   as this tile's teaser and the panel it opens.
