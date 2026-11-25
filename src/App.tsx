@@ -6,6 +6,7 @@ import { popDataFor } from './data/trackData';
 import { useExplorerStore } from './data/explorerStore';
 import { useOriginDiagnosis } from './data/useOriginDiagnosis';
 import { CLOUDFLARE_STATUS_URL, explainOrigin, shouldLinkStatusPage } from './data/originHealth';
+import { useSurveyHandoff } from './expression-survey/useSurveyHandoff';
 import { useAppRouter } from './appRouter';
 import { getDefaultDataset, getDataset, listDatasets } from './data/datasets';
 import { nomenclatureAuthorityForStoredDatasetSymbols } from './data/nomenclature';
@@ -286,12 +287,13 @@ function AppViews({ initialView = 'hub' }: AppProps) {
   }, [compareSetItems, setCompareSetItems]);
   const openLibraryPlain = useCallback(() => openLibrary(), [openLibrary]);
   // A single gene surveyed on the expression survey page opens its gene page,
-  // whose expression card surveys every source in the scope the page had.
-  const [surveyHandoff, setSurveyHandoff] = useState<{ gene: string; scope: SurveyScope } | null>(null);
+  // whose expression card surveys every source in the scope the page had; the
+  // handover lasts only for that visit (useSurveyHandoff).
+  const { handOff: handOffSurvey, scopeFor: handedSurveyScope } = useSurveyHandoff(view, reportGene);
   const openGeneSurvey = useCallback((gene: string, scope: SurveyScope) => {
-    setSurveyHandoff({ gene, scope });
+    handOffSurvey(gene, scope);
     searchGeneFromHub(gene);
-  }, [searchGeneFromHub]);
+  }, [handOffSurvey, searchGeneFromHub]);
 
   // The hub's search box submits to the unified results page.
   const searchFromHub = useCallback((query: string) => search(query), [search]);
@@ -401,7 +403,7 @@ function AppViews({ initialView = 'hub' }: AppProps) {
         onShowPathway={(pathwayId) => search(pathwayId, 'all')}
         onOpenPathway={(pathwayId) => searchPathwayFromHub(pathwayId)}
         onOpenExpression={openExpression}
-        expressionScope={surveyHandoff?.gene === gene ? surveyHandoff.scope : undefined}
+        expressionScope={handedSurveyScope(gene)}
         headerRight={<><ShareAnalysisButton /><CompareSetButton onCompare={openCompareSet} onOpenLibrary={openLibraryPlain} /></>}
       />
     </ErrorBoundary>

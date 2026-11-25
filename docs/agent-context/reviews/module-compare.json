@@ -1,14 +1,15 @@
 {
   "version": 1,
   "area": "module-compare",
-  "fingerprint": "0ba448680329a2cd94407bdafb7e4c3a26441f9cc7db3c83ae47f88af90c34c3",
+  "fingerprint": "cf73aa602bc690b52f41093e8a4ff461c39eb2fb832a83268d5a3e412ba9d355",
   "outcome": "updated",
-  "explanation": "resolveGeneCI and compareCell take an optional rename table: after exact and case matches, a column is read under another member of the gene rename group in its own stored-symbol authority, chosen by pickStoredMember. CompareGenesView reads the table with useSymbolRenames and compareSummaryRows accepts it as an option.",
+  "explanation": "resolveGeneCI and compareCell take an optional rename table: after exact and case matches, a column is read under another member of the gene rename group in its own stored-symbol authority, chosen by pickStoredMember. CompareGenesView reads the table with useSymbolRenames and compareSummaryRows accepts it as an option. Review fixes: the Compare tab passes the rename table to compareGenesWorkbook, compareGenesCsv, compareValuesCsv and its chart ZIP, whose long-format builders take it as a trailing argument, so downloads match the screen.",
   "references": [
     "src/compare/resolveGene.ts",
     "src/compare/compareCell.ts",
     "src/compare/CompareGenesView.tsx",
     "src/compare/compareSummary.ts",
-    "CONTEXT.md"
+    "CONTEXT.md",
+    "src/compare/CompareTab.tsx"
   ]
 }

@@ -69,6 +69,32 @@ describe('study-library and tissue tiles', () => {
     expect(teaser?.total).toBe(tissue.length + 1);
   });
 
+  it('names the species its tissue sources come from, the most sources first', async () => {
+    mocks.loadExpressionGenes.mockImplementation(async (source: ExpressionSource) => result(source, [5], source.unit));
+    const teaser = await loadFamilyTeaser('Pomc', 'tissue');
+    expect(teaser?.species[0]).toBe('Mus musculus');
+    expect(teaser?.species).toEqual(expect.arrayContaining(['Rattus norvegicus', 'Sus scrofa']));
+    expect(teaser?.species).not.toContain('Homo sapiens');
+  });
+
+  it('counts a source that failed to load as unread, never as one that lacks the gene, and reads it again next time', async () => {
+    const [failing] = populations;
+    mocks.loadExpressionGenes.mockImplementation(async (source: ExpressionSource) => {
+      if (source.id === failing.id) throw new Error('offline');
+      return [{ sourceId: source.id, query: 'Pomc', unit: 'CPM', status: 'not-retained', groups: [] }];
+    });
+    expect(await loadFamilyTeaser('Pomc', 'studies')).toMatchObject({ measured: 0, unread: 1, total: populations.length });
+    await loadFamilyTeaser('Pomc', 'studies');
+    expect(mocks.loadExpressionGenes).toHaveBeenCalledTimes(populations.length * 2);
+  });
+
+  it('is unavailable, and retried, when no source could be read', async () => {
+    mocks.loadExpressionGenes.mockRejectedValue(new Error('index unavailable'));
+    expect(await loadFamilyTeaser('Pomc', 'studies')).toBeNull();
+    mocks.loadExpressionGenes.mockResolvedValue([]);
+    expect(await loadFamilyTeaser('Pomc', 'studies')).toMatchObject({ measured: 0, unread: 0 });
+  });
+
   it('says nothing measured when no source retained the gene', async () => {
     mocks.loadExpressionGenes.mockResolvedValue([]);
     expect(await loadFamilyTeaser('NOT_A_GENE', 'studies')).toMatchObject({ measured: 0, levels: [] });

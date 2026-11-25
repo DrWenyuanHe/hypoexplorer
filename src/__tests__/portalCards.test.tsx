@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { afterEach, beforeEach, describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
 
-import { BaselineSection, ConditionPathwaysSection, GeneExpressionCards, ReferenceAtlasSection } from '../search/portalCards';
+import { BaselineSection, ConditionPathwaysSection, FamilySection, GeneExpressionCards, ReferenceAtlasSection, speciesPhrase } from '../search/portalCards';
 import { resetSearchSummaries } from '../search/searchSummaries';
 import { resetSourceRequests } from '../expression-survey/sourceJson';
 import { getDataset } from '../data/datasets';
@@ -135,12 +135,13 @@ beforeEach(() => {
   mocks.loadFamilyTeaser.mockImplementation(async (_symbol: string, family: string) => (family === 'studies'
     ? {
       measured: 3, total: 18, unit: 'CPM (TMM-normalized)', inUnit: 2,
+      unread: 0, species: ['Mus musculus'],
       levels: [
         { sourceId: 'oxt-study', label: 'Hypothalamic OXT', study: 'GSE242245', cohort: 'Vehicle', mean: 812.5, n: 4 },
         { sourceId: 'crh-study', label: 'PVN CRH', study: 'GSE174085', cohort: 'Control rearing', mean: 40, n: 14 },
       ],
     }
-    : { measured: 0, total: 6, unit: '', inUnit: 0, levels: [] }));
+    : { measured: 0, total: 6, unit: '', inUnit: 0, levels: [], unread: 0, species: ['Mus musculus', 'Rattus norvegicus', 'Sus scrofa'] }));
 });
 
 // ── Condition pathways ──────────────────────────────────────────────────────
@@ -544,13 +545,15 @@ describe('GeneExpressionCards', () => {
     const mouse = within(section).getByRole('region', { name: 'Mouse hypothalamus' });
     expect(await within(mouse).findByText('PVH oxytocin')).toBeTruthy();
     expect(mouse.querySelector('[data-slot="single-cell-mouse"]')).toBeTruthy();
-    // The study library: each study's highest cohort, its study and cohort named, in the shared unit.
+    // The study library: each population's highest cohort, its study and cohort named, in the shared unit.
     const studies = mouse.querySelector('[data-section="study-populations"]') as HTMLElement;
     expect(await within(studies).findByText('Hypothalamic OXT')).toBeTruthy();
     expect(within(studies).getByText('GSE242245 · Vehicle')).toBeTruthy();
-    expect(within(studies).getByText(/2 of the 3 studies with OXT use this unit; the rest are listed/)).toBeTruthy();
-    expect(within(mouse.querySelector('[data-section="tissue"]') as HTMLElement)
-      .getByText('OXT is not among the genes these 6 sources retained.')).toBeTruthy();
+    expect(within(studies).getByText(/2 of the 3 populations with OXT use this unit; the rest are listed/)).toBeTruthy();
+    const tissueTile = mouse.querySelector('[data-section="tissue"]') as HTMLElement;
+    expect(within(tissueTile).getByText('OXT is not among the genes these 6 sources retained.')).toBeTruthy();
+    // The tissue tile names the species its sources come from.
+    expect(within(tissueTile).getByText('mouse, rat and pig')).toBeTruthy();
     const human = section.querySelector('[data-section="reference-atlases"]') as HTMLElement;
     expect(human.contains(mouse)).toBe(false);
     await waitFor(() => expect(human.querySelector('[data-atlas="gtex"] .portal-ref-value')).toBeTruthy(), { timeout: 5000 });
@@ -614,5 +617,50 @@ describe('GeneExpressionCards', () => {
     } finally {
       vi.unstubAllEnvs();
     }
+  });
+});
+
+describe('FamilySection', () => {
+  const teaser = (levels: Array<{ id: string; mean: number }>, extra: Record<string, unknown> = {}) => ({
+    measured: levels.length, total: 5, unit: 'log2', inUnit: levels.length, unread: 0, species: ['Mus musculus'],
+    levels: levels.map(({ id, mean }) => ({ sourceId: id, label: id, study: 'GSE1', cohort: 'Control', mean, n: 3 })),
+    ...extra,
+  });
+  const widths = (container: HTMLElement) => [...container.querySelectorAll<HTMLElement>('.portal-bar')]
+    .map((bar) => [bar.style.marginLeft, bar.style.width]);
+
+  it('draws a measured zero with no width and a negative mean left of zero', async () => {
+    mocks.loadFamilyTeaser.mockResolvedValueOnce(teaser([{ id: 'zero', mean: 0 }, { id: 'below', mean: -1.5 }]));
+    const { container } = render(<FamilySection symbol="Pomc" family="tissue" />);
+    expect(await screen.findByText('below')).toBeTruthy();
+    expect(widths(container)).toEqual([['100%', '0%'], ['0%', '100%']]);
+    expect((container.querySelector('.portal-bar-zero') as HTMLElement).style.left).toBe('100%');
+    expect(container.innerHTML).not.toContain('NaN');
+  });
+
+  it('draws nothing, not NaN, when every shown mean is zero', async () => {
+    mocks.loadFamilyTeaser.mockResolvedValueOnce(teaser([{ id: 'a', mean: 0 }, { id: 'b', mean: 0 }]));
+    const { container } = render(<FamilySection symbol="Pomc" family="studies" />);
+    expect(await screen.findByText('b')).toBeTruthy();
+    expect(widths(container)).toEqual([['0%', '0%'], ['0%', '0%']]);
+    expect(container.querySelector('.portal-bar-zero')).toBeNull();
+  });
+
+  it('counts sources it could not read apart from sources that lack the gene', async () => {
+    mocks.loadFamilyTeaser.mockResolvedValueOnce(teaser([], { measured: 0, inUnit: 0, unit: '', unread: 2 }));
+    render(<FamilySection symbol="Pomc" family="studies" />);
+    expect(await screen.findByText(/Pomc is not among the genes the 3 populations that loaded retained\. 2 of the 5 populations could not be read/)).toBeTruthy();
+  });
+
+  it('says the family could not be loaded when nothing was read', async () => {
+    mocks.loadFamilyTeaser.mockResolvedValueOnce(null);
+    render(<FamilySection symbol="Pomc" family="studies" />);
+    expect(await screen.findByText('These populations could not be loaded.')).toBeTruthy();
+  });
+
+  it('names species by common name', () => {
+    expect(speciesPhrase(['Mus musculus', 'Rattus norvegicus', 'Sus scrofa'])).toBe('mouse, rat and pig');
+    expect(speciesPhrase(['Mus musculus'])).toBe('mouse');
+    expect(speciesPhrase(['Gallus gallus', 'Mus musculus'])).toBe('Gallus gallus and mouse');
   });
 });

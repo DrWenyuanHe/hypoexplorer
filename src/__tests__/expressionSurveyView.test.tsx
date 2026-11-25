@@ -239,6 +239,36 @@ describe('expression survey user flows', () => {
     expect(text).not.toContain('fasted-library');
   });
 
+  it("shows the values a survey already loaded in a catalog source's details", async () => {
+    render(surveyPage());
+    await screen.findByText('1 source records selected');
+    submit('Lepr, Agrp');
+    await waitFor(() => expect(loadExpressionGenes).toHaveBeenCalledWith(source, ['Lepr', 'Agrp']));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Export ↓' })).toBeEnabled());
+    fireEvent.click(screen.getByRole('tab', { name: 'Population catalog' }));
+    fireEvent.click(screen.getAllByRole('button', { name: source.populationLabel })[0]);
+    expect((await screen.findAllByText('fed-library')).length).toBeGreaterThan(0);
+    expect(screen.queryByText('Survey this source to load expression values.')).not.toBeInTheDocument();
+  });
+
+  it("hands the study library to the tile's host, which releases the tile's source filter", async () => {
+    vi.mocked(loadExpressionSources).mockRejectedValue(new Error('NeuroSeq unavailable'));
+    const onUseLibrary = vi.fn();
+    render(<GenePageSurvey symbol="Lepr" focus={{ include: (s) => s.id === 'gtex-only' }} onUseLibrary={onUseLibrary} />);
+    await screen.findByText(/NeuroSeq unavailable/);
+    fireEvent.click(screen.getByRole('button', { name: 'Use study library' }));
+    expect(onUseLibrary).toHaveBeenCalledWith(expect.objectContaining({ mode: 'populations', collection: 'existing' }));
+  });
+
+  it('releases the source filter itself when no host takes the study library', async () => {
+    vi.mocked(loadExpressionSources).mockRejectedValue(new Error('NeuroSeq unavailable'));
+    render(<GenePageSurvey symbol="Lepr" focus={{ include: (s) => s.id === 'gtex-only' }} />);
+    await screen.findByText(/NeuroSeq unavailable/);
+    expect(loadExpressionGenes).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole('button', { name: 'Use study library' }));
+    await waitFor(() => expect(loadExpressionGenes).toHaveBeenCalledWith(expect.objectContaining({ collection: 'existing' }), ['Lepr']));
+  });
+
   it('retries the catalog on its own and can recover to existing studies when NeuroSeq metadata is unavailable', async () => {
     vi.mocked(loadExpressionSources).mockRejectedValue(new Error('NeuroSeq unavailable'));
     render(surveyPage());

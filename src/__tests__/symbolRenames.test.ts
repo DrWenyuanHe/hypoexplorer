@@ -3,7 +3,7 @@ import {
   buildSymbolRenames, pickStoredMember, renameAuthorityOf, renameGroupOf, renameGroupsFor, renamePartners,
 } from '../data/symbolRenames';
 import { compareCell } from '../compare/compareCell';
-import { compareSummaryRows } from '../compare/compareSummary';
+import { compareSummaryLongRows, compareSummaryRows, compareValueRows } from '../compare/compareSummary';
 import { resolveGeneCI } from '../compare/resolveGene';
 import { renamedStudies } from '../crossdataset/GeneReport';
 import { geneRow } from '../data/crossDatasetRows';
@@ -34,6 +34,14 @@ describe('the rename table', () => {
     expect(renameGroupOf(renames, 'AARS', 'MGI')).toBeNull();
     expect(renameGroupOf(renames, 'Gm8773', null)).toBeNull();
     expect(renameGroupsFor(renames, 'aars').map((g) => g.authority)).toEqual(['HGNC']);
+  });
+
+  it('drops a row with a malformed member instead of throwing', () => {
+    const table = buildSymbolRenames({ v: 1, authorities: ['MGI'], groups: [[0, 'Fam237b', null], [0, 'Newa', ''], [0, 'Pomc', 'Pomc1']] });
+    expect(renameGroupOf(table, 'Fam237b', 'MGI')).toBeNull();
+    expect(renameGroupOf(table, 'Newa', 'MGI')).toBeNull();
+    expect(renameGroupOf(table, 'Pomc1', 'MGI')?.current).toBe('Pomc');
+    expect(buildSymbolRenames({ v: 1, authorities: ['MGI'], groups: [[0, 'Fam237b', 42]] })).toBeNull();
   });
 
   it('reads a payload it cannot decode as no table at all', () => {
@@ -92,6 +100,13 @@ describe('Compare columns read renamed symbols', () => {
       cpm: { Gm8773: [1, 1, 1, 1], Fam237b: [1, 2, 3, 4] },
     });
     expect(resolveGeneCI(both, 'FAM237B', renames)?.gene).toBe('Fam237b');
+  });
+
+  it("carries the same reading into the Compare tab's long-format downloads", () => {
+    const [summary] = compareSummaryLongRows([column('mouse')], popDataMap, ['Fam237b'], renames);
+    expect(summary).toMatchObject({ Gene: 'Fam237b', Detected: 'yes', logFC: 1.25 });
+    expect(compareValueRows([column('mouse')], popDataMap, ['Fam237b'], renames)).toHaveLength(4);
+    expect(compareSummaryLongRows([column('mouse')], popDataMap, ['Fam237b'])[0]).toMatchObject({ Detected: 'no' });
   });
 
   it('carries the same reading into the compare-set summary sheet', () => {

@@ -466,15 +466,22 @@ export interface FamilyTeaser {
   inUnit: number;
   /** One level per source in `unit`, its highest cohort mean, highest first. */
   levels: FamilyLevel[];
+  /**
+   * Sources whose values could not be read: a failed load, which says nothing
+   * about the gene, so it is counted apart from the sources that lack it.
+   */
+  unread: number;
+  /** The species the family's sources come from, the most sources first. */
+  species: string[];
 }
 
 function studyOf(source: ExpressionSource): string {
   return source.label.split(' · ').slice(1).join(' · ') || source.label;
 }
 
-function familyTeaser(sources: ExpressionSource[], results: ExpressionGeneResult[][]): FamilyTeaser {
+function familyTeaser(sources: ExpressionSource[], results: Array<ExpressionGeneResult[] | null>): FamilyTeaser {
   const best = sources.flatMap((source, i): Array<FamilyLevel & { unit: string }> => {
-    const available = results[i].filter((result) => result.status === 'available');
+    const available = (results[i] ?? []).filter((result) => result.status === 'available');
     const cohorts = available.flatMap((result) => result.groups.flatMap((group) => (group.mean == null ? [] : [{ group, unit: result.unit }])));
     if (!cohorts.length) return [];
     const top = cohorts.reduce((a, b) => (b.group.mean! > a.group.mean! ? b : a));
@@ -494,10 +501,14 @@ function familyTeaser(sources: ExpressionSource[], results: ExpressionGeneResult
   const levels = best.filter((level) => level.unit === unit)
     .map(({ unit: _unit, ...level }) => level)
     .sort((a, b) => b.mean - a.mean);
-  return { measured: best.length, total: sources.length, unit, inUnit, levels };
+  const perSpecies = new Map<string, number>();
+  for (const source of sources) perSpecies.set(source.species, (perSpecies.get(source.species) ?? 0) + 1);
+  const species = [...perSpecies].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map(([name]) => name);
+  const unread = results.filter((result) => result === null).length;
+  return { measured: best.length, total: sources.length, unit, inUnit, levels, unread, species };
 }
 
-/** The family's sources: study-library populations, or non-human tissue and broad neuronal preparations. */
+/** The family's sources: study-library populations, or non-human tissue and broad neuronal preparations (mouse, rat and pig today). */
 async function familySources(family: SourceFamily): Promise<ExpressionSource[]> {
   if (family === 'studies') return EXISTING_EXPRESSION_SOURCES.filter((source) => source.scope === 'population');
   const { sources: external } = await loadExternalSources();
@@ -507,12 +518,25 @@ async function familySources(family: SourceFamily): Promise<ExpressionSource[]> 
 
 const familyCache = new Map<string, Promise<FamilyTeaser | null>>();
 
-/** A gene across one family of survey sources; null when its values could not be read. */
+/**
+ * A gene across one family of survey sources; null when none of their values
+ * could be read. A source that fails to load is counted in `unread`, never as
+ * a source that lacks the gene: a transport failure is retryable, and saying
+ * the gene is absent would be a claim the data never made.
+ */
 export function loadFamilyTeaser(symbol: string, family: SourceFamily): Promise<FamilyTeaser | null> {
-  return cached(familyCache, `${family}:${symbol.trim()}`, async () => {
+  const key = `${family}:${symbol.trim()}`;
+  return cached(familyCache, key, async () => {
     const sources = await familySources(family);
-    const results = await mapLimit(sources, 4, (source) => loadExpressionGenes(source, [symbol]).catch(() => [] as ExpressionGeneResult[]));
-    return familyTeaser(sources, results);
+    const results = await mapLimit(sources, 4, (source) =>
+      loadExpressionGenes(source, [symbol]).catch((): ExpressionGeneResult[] | null => null));
+    // Nothing read is a failure: null is not cached, so a later visit retries.
+    if (sources.length > 0 && results.every((result) => result === null)) return null;
+    const teaser = familyTeaser(sources, results);
+    // A partial answer is shown but not kept, so the next visit reads the
+    // failed sources again instead of repeating a transient gap.
+    if (teaser.unread > 0) familyCache.delete(key);
+    return teaser;
   });
 }
 

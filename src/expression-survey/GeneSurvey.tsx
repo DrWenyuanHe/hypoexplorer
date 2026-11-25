@@ -2,7 +2,7 @@
 // its own unit and cohorts. The gene page shows it for its gene ("Where <gene>
 // is expressed" → every source and sample); the expression survey page shows it
 // for several genes at once. Both read the same catalog, scope and loaders.
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 import { ExportButton } from '../common/ExportButton';
 import { Spinner } from '../common/Spinner';
@@ -425,6 +425,7 @@ export function GeneSurvey({
   empty,
   showGenes = true,
   focus,
+  onResults,
 }: {
   genes: string[];
   catalog: SurveyCatalog;
@@ -437,6 +438,8 @@ export function GeneSurvey({
   showGenes?: boolean;
   /** Hold the survey to one source or family; omitted, every scope control shows. */
   focus?: SurveyFocus;
+  /** Told the loaded results whenever a load settles, so a host can show them elsewhere (the catalog's source details). */
+  onResults?: (results: ExpressionGeneResult[]) => void;
 }) {
   const genesKey = genes.join('\u0000');
   // Several genes open as a matrix, one as ranked bars; the reader's pick holds until the genes change.
@@ -456,6 +459,9 @@ export function GeneSurvey({
   }, [catalog.sources, mode, collection, region, includeSfo, selectedIds, tissueKind, include]);
   const focused = Boolean(focus);
   const currentLoad = useSurveyLoad({ enabled: true, sources: selectedSources, genes });
+  useEffect(() => {
+    if (!currentLoad.loading) onResults?.(currentLoad.results);
+  }, [currentLoad.loading, currentLoad.results, onResults]);
   const groupedPanels = useMemo(() => panelGroups(selectedSources), [selectedSources]);
 
   function toggleSource(id: string) {
@@ -715,19 +721,34 @@ export function GeneSurvey({
  * tile opened (`focus`), or of `initialScope` (the survey page's scope when it
  * handed the gene over).
  */
-export function GenePageSurvey({ symbol, initialScope, focus }: {
+export function GenePageSurvey({ symbol, initialScope, focus, onUseLibrary }: {
   symbol: string;
   initialScope?: SurveyScope;
   /** Hold the survey to the source a tile opened; omitted, every scope control shows. */
   focus?: SurveyFocus;
+  /**
+   * The host's half of "Use study library" while a tile holds the survey to
+   * its source: the library has none of that source's populations, so the host
+   * releases the tile (and its heading) and reopens on this scope.
+   */
+  onUseLibrary?: (scope: SurveyScope) => void;
 }) {
   const catalog = useSurveyCatalog();
   const [scope, setScope] = useState<SurveyScope>(initialScope ?? DEFAULT_SURVEY_SCOPE);
+  // Released here when no host takes the fallback, so the library is never
+  // filtered through another source's predicate.
+  const [released, setReleased] = useState(false);
   const genes = useMemo(() => [symbol], [symbol]);
+  const chooseLibrary = () => {
+    const library = withCollection({ ...scope, mode: 'populations' }, 'existing');
+    if (focus && !released && onUseLibrary) return onUseLibrary(library);
+    setReleased(true);
+    setScope(library);
+  };
   return (
     <div className="expression-survey expression-survey--embedded" style={SURVEY_STYLE}>
-      <CatalogNotices catalog={catalog} onUseLibrary={() => setScope(withCollection({ ...scope, mode: 'populations' }, 'existing'))} />
-      <GeneSurvey genes={genes} catalog={catalog} scope={scope} onScopeChange={setScope} showGenes={false} focus={focus} />
+      <CatalogNotices catalog={catalog} onUseLibrary={chooseLibrary} />
+      <GeneSurvey genes={genes} catalog={catalog} scope={scope} onScopeChange={setScope} showGenes={false} focus={released ? undefined : focus} />
     </div>
   );
 }
