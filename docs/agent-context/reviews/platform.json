@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "2606b3ba036a9381a143b1242337963ce93c1968be76858e58c71585461bfae9",
+  "fingerprint": "7e381ec67031e9a88462c30c35179d282fb4b6383a979abd512e4f16cb7df50d",
   "outcome": "updated",
-  "explanation": "The router runs one navigation attempt at a time. begin(policy) retires the attempt in flight, clears routePending and routeError and sets the write policy: replace for a followed URL, push for a user action, hold after an ignored fragment until the target hash changes; the write effect consumes it on a write, a matching hash or a refusal. hasWritten, the replaceNextWrite stop-gap and the retired-landing replaceState are gone. Verbs and view-reported setters (on a real change only) start push attempts, openInExplorer(id, track) verifies through landRoute and settleExplorer, and App calls the new stable supersede() before its track, tab, contrast, leave-Compare and send-genes navigate calls.",
+  "explanation": "App holds the survey-to-gene-page handoff in memory: ExpressionSurveyView calls onOpenGene(symbol, scope), App stores { gene, scope } and opens the gene report through searchGene, and passes the scope to that gene's report only. Routes and appRouter are unchanged; #/expression and #/gene/<symbol> keep their forms.",
   "references": [
-    "src/appRouter.ts",
     "src/App.tsx",
-    "CONTEXT.md"
+    "src/appRouter.ts",
+    "src/utils/appLinks.ts"
   ]
 }

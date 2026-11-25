@@ -15,7 +15,10 @@ import type { NeuroseqManifest } from './neuroseqExpression';
 import type { ReferenceManifest } from './referenceExpression';
 import type { ExpressionGeneResult, ExpressionSource } from './expressionTypes';
 
-export type SurveySection = 'survey' | 'catalog' | 'tissue' | 'sources';
+/** The expression survey page's sections; a gene's values live on its gene page and in the page's multi-gene survey. */
+export type SurveySection = 'survey' | 'catalog' | 'sources';
+/** Which sources a gene survey reads: defined populations, or tissue and broadly isolated neurons. */
+export type SurveyMode = 'populations' | 'tissue';
 export type Collection = 'neuroseq' | 'existing' | 'reference' | 'external' | 'all' | 'agrp';
 export type TissueKind = 'whole' | 'arc' | 'isolated' | 'external' | 'all';
 type ResultGroup = ExpressionGeneResult['groups'][number];
@@ -100,7 +103,7 @@ function summaryStatus(value: number | null): ValueStatus {
 // ── Source selection ─────────────────────────────────────────────────────────
 
 export interface SourceFilters {
-  section: SurveySection;
+  mode: SurveyMode;
   collection: Collection;
   region: string;
   includeSfo: boolean;
@@ -109,12 +112,32 @@ export interface SourceFilters {
   tissueKind: TissueKind;
 }
 
+/**
+ * Everything that decides which sources a gene survey reads and which cohorts
+ * it shows. The gene page and the survey page each hold one; the survey page
+ * hands its scope to the gene page when a single gene is surveyed.
+ */
+export interface SurveyScope extends SourceFilters {
+  /** Show only cohorts explicitly eligible as fed / reference cohorts. */
+  referenceOnly: boolean;
+}
+
+export const DEFAULT_SURVEY_SCOPE: SurveyScope = {
+  mode: 'populations',
+  collection: 'neuroseq',
+  region: 'all',
+  includeSfo: false,
+  selectedIds: null,
+  tissueKind: 'whole',
+  referenceOnly: false,
+};
+
 export interface SourceSelection {
   /** Regions offered by the region filter for the chosen collection. */
   regions: string[];
   /** Populations offered by the population picker. */
   choices: ExpressionSource[];
-  /** The sources the survey loads: the picked populations, or the tissue sources on the tissue tab. */
+  /** The sources the survey loads: the picked populations, or the tissue sources in tissue mode. */
   selected: ExpressionSource[];
 }
 
@@ -130,7 +153,7 @@ function inTissueKind(source: ExpressionSource, kind: TissueKind): boolean {
 }
 
 export function selectSources(sources: readonly ExpressionSource[], filters: SourceFilters): SourceSelection {
-  const { section, collection, region, includeSfo, selectedIds, tissueKind } = filters;
+  const { mode, collection, region, includeSfo, selectedIds, tissueKind } = filters;
   const inCollection = sources.filter(
     (source) =>
       source.scope === 'population' &&
@@ -141,7 +164,7 @@ export function selectSources(sources: readonly ExpressionSource[], filters: Sou
   const regions = [...new Set(inCollection.map((source) => source.region))].sort();
   const choices = inCollection.filter((source) => region === 'all' || source.region === region);
   const selected =
-    section === 'tissue'
+    mode === 'tissue'
       ? sources.filter((source) => inTissueKind(source, tissueKind))
       : choices.filter((source) => selectedIds == null || selectedIds.includes(source.id));
   return { regions, choices, selected };

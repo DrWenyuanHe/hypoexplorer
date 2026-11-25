@@ -7,6 +7,18 @@ export interface ChangelogEntry {
 export const CHANGELOG: ChangelogEntry[] = [
   {
     date: '2026-11-25',
+    title: "A gene's expression survey is on its gene page",
+    items: [
+      'On a gene page, "Where <gene> is expressed" now shows one tile per source: an animal row (NeuroSeq, the study library, tissue, and a slot for single-cell atlases) and a human row (GTEx, Allen, and the Human Protein Atlas subregions and clusters). Each tile\'s "Every …" button opens that source\'s full survey under its row: every cohort, sample, probe and donor, the fed / reference filter, and the exports. Before, "Open expression survey" opened an empty survey and the gene had to be typed again.',
+      'The study library and tissue tiles are new. Each shows the gene\'s highest cohort mean per study, ranked only among studies that share a unit.',
+      'The NeuroSeq tile leaves out the two SFO boundary records, as the survey does by default, so its values match the survey it opens. The GTEx tile also gives the donor mean (52.6 TPM for POMC), the value the survey ranks, beside the median (7.79 TPM).',
+      'On the Expression survey page, surveying one gene symbol now opens that gene\'s page with every source shown, in the sources and filters chosen on the survey page. Several genes, or an Ensembl gene ID, are still compared on the survey page.',
+      'Tissue & bulk is now a choice inside the gene survey, beside Populations, instead of its own section. The survey page keeps Gene survey, Population catalog, and Sources & validation.',
+      'No data, result or analysis changed.',
+    ],
+  },
+  {
+    date: '2026-11-25',
     title: 'A renamed gene is one gene across studies',
     items: [
       "Studies store a gene under whatever symbol their annotation used, so one gene could sit under its current symbol in some studies and a retired one in others. MGI renamed Gm8773 to Fam237b, and 38 mouse studies still store Gm8773. The Fam237b gene page listed only the studies that store Fam237b, and the Gm8773 page only the others. Both pages now list all of them, including the AgRP fed/fast study GSE68177 (log2FC 1.55, FDR 0.0047), which stores Gm8773.",
