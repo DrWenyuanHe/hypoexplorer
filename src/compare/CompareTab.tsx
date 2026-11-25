@@ -19,6 +19,7 @@ import { columnsForPops } from './compareColumns';
 import { compareGenesCsv, compareGenesWorkbook, compareValuesCsv } from './compareSummary';
 import { chartTileExport, saveChartBlocksPng, saveChartTilesZip, saveElementPng, type ChartTileFile } from './compareFigureExport';
 import { compareCell } from './compareCell';
+import { useSymbolRenames } from '../data/useSymbolRenames';
 import { DownloadIcon, DownloadMenu, type DownloadMenuItem } from './DownloadMenu';
 import type { Dataset, DatasetMeta, PopData, ResolvedContrast } from '../types';
 import type { CompareViewState } from '../utils/analysisState';
@@ -171,6 +172,8 @@ export function CompareTab({ meta, dataset, contrast, defaultPops, initialView, 
   }, [popDataMap, dataset]);
   const selection = useBoundGeneSelection(geneSelection, vocabulary);
   const { genes: selectedGenes, remove: removeGene } = selection;
+  // The table CompareGenesView reads renamed genes with: downloads use it too, so they match the tiles.
+  const renames = useSymbolRenames();
 
   // ── Downloads ─────────────────────────────────────────────────────────────
   // Block every download until every selected pop has loaded: exporting while
@@ -184,15 +187,15 @@ export function CompareTab({ meta, dataset, contrast, defaultPops, initialView, 
   // Data and chart exports record the QC ledger in their provenance; it loads
   // on the first export (withExportEvidence).
   const exportExcel = () => runExport(() => withExportEvidence(() => {
-    const { filename, sheets } = compareGenesWorkbook(columns, popDataMap, selectedGenes);
+    const { filename, sheets } = compareGenesWorkbook(columns, popDataMap, selectedGenes, renames);
     return writeWorkbook(filename, sheets);
   }));
   const exportCsv = () => runExport(() => withExportEvidence(() => {
-    const csv = compareGenesCsv(columns, popDataMap, selectedGenes);
+    const csv = compareGenesCsv(columns, popDataMap, selectedGenes, renames);
     writeCsv(csv.filename, csv.columns, csv.rows, { provenance: csv.provenance, rowProvenance: csv.rowProvenance });
   }));
   const exportValuesCsv = () => runExport(() => withExportEvidence(() => {
-    const csv = compareValuesCsv(columns, popDataMap, selectedGenes);
+    const csv = compareValuesCsv(columns, popDataMap, selectedGenes, renames);
     writeCsv(csv.filename, csv.columns, csv.rows, { provenance: csv.provenance, rowProvenance: csv.rowProvenance });
   }));
   // Every drawn chart tile as its own file, a folder per gene. A tile is only
@@ -205,7 +208,7 @@ export function CompareTab({ meta, dataset, contrast, defaultPops, initialView, 
       if (!gene) continue;
       for (const el of block.querySelectorAll<HTMLElement>(`[${TILE_ATTR}]`)) {
         const col = columns.find((c) => c.key === el.getAttribute(TILE_ATTR));
-        const cell = col ? compareCell(col, popDataMap, gene) : null;
+        const cell = col ? compareCell(col, popDataMap, gene, renames) : null;
         if (!col || cell?.kind !== 'measured') continue;
         const { pd, de } = cell;
         const file = chartTileExport({ pd, gene: de.gene, label: col.chartLabel ?? col.label, pValue: de.PValue, chartScale });

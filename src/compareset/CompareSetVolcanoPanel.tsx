@@ -14,6 +14,7 @@ import { VolcanoPlot } from '../gene-explorer/VolcanoPlot';
 import '../gene-explorer/volcanoToolbar.css';
 import { Spinner } from '../common/Spinner';
 import { resolveGeneCI } from '../compare/resolveGene';
+import { useSymbolRenames } from '../data/useSymbolRenames';
 import type { CompareColumn } from '../compare/compareColumns';
 import type { VolcanoView } from '../explorer/explorerSession';
 import type { BoundGeneSelection } from '../explorer/geneVocabulary';
@@ -35,12 +36,14 @@ export function CompareSetVolcanoPanel({ state, column, geneSelection, volcano }
   const [collapsed, setCollapsed] = useState(false);
   const { popData } = state;
 
-  // The shared selection, as this study spells it and only where it has it.
+  // The shared selection, as this study spells it and only where it has it,
+  // renamed symbols included (Gm8773 here for a selected Fam237b).
+  const renames = useSymbolRenames();
   const ownGenes = useMemo(
     () => geneSelection.genes
-      .map((g) => resolveGeneCI(popData, g)?.gene)
+      .map((g) => resolveGeneCI(popData, g, renames)?.gene)
       .filter((g): g is string => typeof g === 'string'),
-    [geneSelection.genes, popData],
+    [geneSelection.genes, popData, renames],
   );
 
   const title = `Volcano · ${column.label}`;

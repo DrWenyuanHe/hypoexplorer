@@ -22,6 +22,7 @@ import type { CsvCell } from '../utils/csv';
 import type { PopData } from '../types';
 import type { CompareColumn } from './compareColumns';
 import { compareCell, type CompareArm, type CompareCell } from './compareCell';
+import type { SymbolRenames } from '../data/symbolRenames';
 
 /**
  * A COUNT of per-column verdicts for one gene, not a test.
@@ -73,16 +74,18 @@ const fixed4 = (v: number | null | undefined): number | '' => (v == null ? '' : 
  * unit is never mislabelled across columns that measure in different ones.
  * An unavailable column contributes no cells; a column that did not detect the
  * gene contributes blank ones, its group means included. With `tally`, each
- * row leads with the gene's Detected / SigFDR05 / Up / Down counts.
+ * row leads with the gene's Detected / SigFDR05 / Up / Down counts. With
+ * `renames`, a column that stores the gene under a renamed symbol is read
+ * under it, as on screen (compareCell).
  */
 export function compareSummaryRows(
   columns: readonly CompareColumn[],
   popDataMap: Record<string, PopData | null>,
   genes: readonly string[],
-  { tally = false }: { tally?: boolean } = {},
+  { tally = false, renames = null }: { tally?: boolean; renames?: SymbolRenames | null } = {},
 ): WorkbookRow[] {
   return genes.map((gene) => {
-    const cells = columns.map((col) => compareCell(col, popDataMap, gene));
+    const cells = columns.map((col) => compareCell(col, popDataMap, gene, renames));
     const row: WorkbookRow = { Gene: gene };
     if (tally) {
       const t = tallyGene(cells);
@@ -136,11 +139,12 @@ export function compareSummaryLongRows(
   columns: readonly CompareColumn[],
   popDataMap: Record<string, PopData | null>,
   genes: readonly string[],
+  renames: SymbolRenames | null = null,
 ): WorkbookRow[] {
   const rows: WorkbookRow[] = [];
   for (const gene of genes) {
     for (const col of columns) {
-      const cell = compareCell(col, popDataMap, gene);
+      const cell = compareCell(col, popDataMap, gene, renames);
       if (cell.kind === 'unavailable') continue;
       const measured = cell.kind === 'measured' ? cell : null;
       const de = measured?.de;
@@ -180,11 +184,12 @@ export function compareValueRows(
   columns: readonly CompareColumn[],
   popDataMap: Record<string, PopData | null>,
   genes: readonly string[],
+  renames: SymbolRenames | null = null,
 ): WorkbookRow[] {
   const rows: WorkbookRow[] = [];
   for (const gene of genes) {
     for (const col of columns) {
-      const cell = compareCell(col, popDataMap, gene);
+      const cell = compareCell(col, popDataMap, gene, renames);
       if (cell.kind !== 'measured') continue;
       const unit = unitOf(cell.pd);
       for (const arm of cell.arms) {
@@ -223,13 +228,14 @@ export function compareGenesWorkbook(
   columns: readonly CompareColumn[],
   popDataMap: Record<string, PopData | null>,
   genes: readonly string[],
+  renames: SymbolRenames | null = null,
 ): { filename: string; sheets: WorkbookSheet[] } {
   const subject = columnsSubject(columns, popDataMap);
   return {
     filename: exportName(subject, ['compare'], 'xlsx'),
     sheets: [
-      { name: 'Compare', rows: compareSummaryLongRows(columns, popDataMap, genes) },
-      { name: 'Values', rows: compareValueRows(columns, popDataMap, genes) },
+      { name: 'Compare', rows: compareSummaryLongRows(columns, popDataMap, genes, renames) },
+      { name: 'Values', rows: compareValueRows(columns, popDataMap, genes, renames) },
       metadataSheet(exportProvenance('compare', subject, compareSettings(genes))),
     ],
   };
@@ -278,11 +284,12 @@ export function compareGenesCsv(
   columns: readonly CompareColumn[],
   popDataMap: Record<string, PopData | null>,
   genes: readonly string[],
+  renames: SymbolRenames | null = null,
 ): CompareCsv {
   const subject = columnsSubject(columns, popDataMap);
   const settings = compareSettings(genes);
   return toCsv(
-    compareSummaryLongRows(columns, popDataMap, genes),
+    compareSummaryLongRows(columns, popDataMap, genes, renames),
     exportName(subject, ['compare'], 'csv'),
     exportProvenance('compare', subject, settings),
     popDataMap, settings,
@@ -294,11 +301,12 @@ export function compareValuesCsv(
   columns: readonly CompareColumn[],
   popDataMap: Record<string, PopData | null>,
   genes: readonly string[],
+  renames: SymbolRenames | null = null,
 ): CompareCsv {
   const subject = columnsSubject(columns, popDataMap);
   const settings = compareSettings(genes);
   return toCsv(
-    compareValueRows(columns, popDataMap, genes),
+    compareValueRows(columns, popDataMap, genes, renames),
     exportName(subject, ['compare', 'values'], 'csv'),
     exportProvenance('compare', subject, settings),
     popDataMap, settings,

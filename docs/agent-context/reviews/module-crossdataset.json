@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "module-crossdataset",
-  "fingerprint": "cf42610f3b82527049cb2b9e23931dfe3233d3863e43ecc9d569230a9fdbe362",
+  "fingerprint": "b134bea9573cda78e7f919910a36c2d76805b89f51add4b5aefd6da574dcac90",
   "outcome": "updated",
-  "explanation": "GeneReport and PathwayReport colour direction text through directionTextColor and take the mode words and nominal caveat from listingWords.ts. The pathway forest row splits its colour: the dot keeps the chart fill (forestReport.directionColor renamed directionFill, mark use only) and the NES figure, folded strongest score and headline tallies use the AA text tokens. dirGlyph moves to statistics/direction.ts, removing the GeneReport -> search/portalCards colour import.",
+  "explanation": "GeneReport names the studies read under another rename-group member above the differential-expression table (renamedStudies) and tags each such row with its stored symbol; GeneEffectPreview looks the row up under track.storedAs so the preview draws the stored gene.",
   "references": [
     "src/crossdataset/GeneReport.tsx",
-    "src/crossdataset/PathwayReport.tsx",
-    "src/crossdataset/forestReport.tsx",
-    "src/statistics/direction.ts"
+    "src/crossdataset/GeneEffectPreview.tsx",
+    "src/crossdataset/forestReport.css"
   ]
 }

@@ -1,13 +1,11 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "ff3e3879704f5a7cc697dcd5a4025b033808e67033358a27dfabdeeaa24a69c7",
+  "fingerprint": "99cfd1ea97636527c1b8b7315b7d387fafd1f6ea5d0d168f6d456933856d6a20",
   "outcome": "updated",
-  "explanation": "setup.ts unmounts the page before it resets the URL after each test, because unmounting runs the router's pending URL write and Testing Library's own cleanup runs after this hook; testIsolation.test.tsx pins that order. app.dataset.test.tsx unmounts before it removes the mouse study's seeds, so a mounted page cannot start a load that stays cached for the next test. nomenclature.test.tsx checks that Enter selects the gene typed before the list catches up.",
+  "explanation": "symbolRenames.test.ts covers decoding, authority scoping, pickStoredMember, compareCell and the compare-set summary under a renamed symbol, and renamedStudies; queryIndex.test.ts covers both query paths reading a retired member, own-row precedence, several partners, authority scoping and an absent table, and counts the rename table beside the two index requests. symbolRenames.test.ts also checks that the Compare tab's workbook, CSVs and long rows read a renamed column as the tiles do, and stay 'not detected' without the table.",
   "references": [
-    "src/__tests__/setup.ts",
-    "src/__tests__/testIsolation.test.tsx",
-    "src/__tests__/app.dataset.test.tsx",
-    "src/__tests__/nomenclature.test.tsx"
+    "src/__tests__/symbolRenames.test.ts",
+    "src/__tests__/queryIndex.test.ts"
   ]
 }
