@@ -1,15 +1,15 @@
 {
   "version": 1,
   "area": "module-compare",
-  "fingerprint": "79179874d6df074ded279a369157bb173412046f7b329bb396d09db953dc856b",
+  "fingerprint": "fda3d7b7a50f960842cec13293b08a1c9391961fc5f99feb99ad95aa31d96c29",
   "outcome": "updated",
-  "explanation": "Adds compareCell.ts: compareCell(column, popDataMap, gene) returns unavailable, not-detected or measured (own spelling, DE record, per-arm samples with n, mean and SEM via getGroupColumns + valueAt). tallyGene now takes cells; compareSummaryRows, compareSummaryLongRows and compareValueRows, the CompareGenesView tiles and both summary tables, the Compare tab chart ZIP and the pathway view's leading-edge table and export all read cells. compareSummaryRows skips unavailable columns, takes the compare-set tally as an option, and leaves group means blank when a column has no DE row for the gene. A measured cell resolves its arms lazily on first read and keeps them, so DE-only readers (summary tables, tally, pathway view) never walk the sample axis.",
+  "explanation": "resolveGeneCI and compareCell take an optional rename table: after exact and case matches, a column is read under another member of the gene rename group in its own stored-symbol authority, chosen by pickStoredMember. CompareGenesView reads the table with useSymbolRenames and compareSummaryRows accepts it as an option. The Compare tab's downloads take the same table: CompareTab passes useSymbolRenames to compareGenesWorkbook, compareGenesCsv, compareValuesCsv (through compareSummaryLongRows and compareValueRows) and the chart ZIP, so a tile measured under a renamed symbol is never a 'Detected: no' row, a missing sample or a missing chart in the file.",
   "references": [
+    "src/compare/resolveGene.ts",
     "src/compare/compareCell.ts",
-    "src/compare/compareSummary.ts",
     "src/compare/CompareGenesView.tsx",
-    "src/compare/ComparePathwayView.tsx",
-    "src/compare/CompareTab.tsx",
-    "CONTEXT.md"
+    "src/compare/compareSummary.ts",
+    "CONTEXT.md",
+    "src/compare/CompareTab.tsx"
   ]
 }

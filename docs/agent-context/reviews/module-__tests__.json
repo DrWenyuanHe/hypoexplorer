@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "e42352f404630cfb708225810958b0744b416aa5bceafd975f989110f8948b34",
+  "fingerprint": "e33eac547e86ed9256b05a7ec7e1c7faff21bb50c0b3600b609a39cbeb669539",
   "outcome": "updated",
-  "explanation": "lombScargleFloor.test.ts pins the floor formula against the old spelling for n up to 5000, every precondition, a gappy pattern that breaks the cap, the large-time-origin counterexample the observed-p guard catches, the minimum over scored lengths and a 200-design property; it joins the focused validation suite (136 tests). rhythmCall.test.ts is the call and verdict decision table. circadianNotes.test.tsx passes lsFloor objects (null among the unknown floors), and circadianTable.test.tsx drops scoreOf and adds a q: null row that must not be emphasized.",
+  "explanation": "Merges main into the rhythm-scan change. From main: survey view and card tests cover GenePageSurvey, the source tiles and familyTeaser; symbolRenames.test.ts and queryIndex.test.ts cover reading a renamed gene across studies, pickStoredMember, compareCell and the Compare downloads. From this branch: lombScargleFloor.test.ts pins the floor formula, its preconditions, a cap-breaking gappy pattern, the large-time-origin counterexample and a 200-design property (in the focused validation suite, 136 tests); rhythmCall.test.ts is the call and verdict decision table; the notes and results-table tests take lsFloor objects and a q: null row.",
   "references": [
     "src/__tests__/lombScargleFloor.test.ts",
     "src/__tests__/rhythmCall.test.ts",
-    "src/__tests__/circadianNotes.test.tsx",
-    "src/__tests__/circadianTable.test.tsx"
+    "src/__tests__/circadianTable.test.tsx",
+    "src/__tests__/symbolRenames.test.ts",
+    "src/__tests__/queryIndex.test.ts"
   ]
 }

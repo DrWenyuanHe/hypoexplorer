@@ -10,6 +10,15 @@
 .expression-survey * {
   box-sizing: border-box;
 }
+/* Inside a gene page card: the card supplies the width and the outer spacing. */
+.expression-survey.expression-survey--embedded {
+  max-width: none;
+  padding: 0;
+  margin: 0;
+}
+.expression-survey .ex-segment.ex-mode {
+  margin: 0 0 16px;
+}
 .expression-survey h1,
 .expression-survey h2,
 .expression-survey h3,
@@ -184,6 +193,15 @@
   border-top: 1px solid var(--border);
   margin-top: 16px;
   padding-top: 16px;
+}
+/* A survey held to one tissue source has no filters above its cohort filter. */
+.expression-survey .ex-query-panel--slim {
+  padding: 14px 24px;
+}
+.expression-survey .ex-query-panel--slim .ex-scope-footer {
+  border-top: 0;
+  margin-top: 0;
+  padding-top: 0;
 }
 .expression-survey .ex-scope-footer .ex-note {
   margin: 0;

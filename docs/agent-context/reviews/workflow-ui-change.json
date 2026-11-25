@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "a513cb1ff8975d14b349f3669615b4b35205b546b36c0b3cb11a50d5704ef6df",
+  "fingerprint": "026e60f317c4b61b42b90d26c83056e126fececbb09190f8954638c9dd2b3ce2",
   "outcome": "updated",
-  "explanation": "The Circadian paragraph of the ui-change route says Lomb-Scargle floor statements come from armLombScargleFloor in lombScargleFloor.ts, verified for every scored pattern and every scored p with rhythmicity.ts left byte-stable, and that the rhythmic call and per-arm verdict come from rhythmCall.ts.",
+  "explanation": "Merges main into the rhythm-scan change. From main: the ui-change workflow describes renames.js, the search alias rules and reading studies under rename-group members (storedAs, pickStoredMember, compareCell with the table); the survey tiles load through lazyView. From this branch: its Circadian paragraph says Lomb-Scargle floor statements come from armLombScargleFloor in lombScargleFloor.ts with rhythmicity.ts left byte-stable, and the rhythmic call and per-arm verdict from rhythmCall.ts.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/circadian/lombScargleFloor.ts",
