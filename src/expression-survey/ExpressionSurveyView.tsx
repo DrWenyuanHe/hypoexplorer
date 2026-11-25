@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { ExpressionGeneResult } from './expressionTypes';
 import type { FormEvent, KeyboardEvent } from 'react';
 import { PageShell } from '../common/PageShell';
 import { ExportButton } from '../common/ExportButton';
@@ -51,6 +52,9 @@ export function ExpressionSurveyView({ onHome, onOpenGene }: {
   const [queryError, setQueryError] = useState('');
   const [catalogQuery, setCatalogQuery] = useState('');
   const [catalogCollection, setCatalogCollection] = useState('neuroseq');
+  // The last survey's values, kept at page level so a catalog source's details
+  // show what the survey already loaded for it, without starting a new query.
+  const [surveyResults, setSurveyResults] = useState<ExpressionGeneResult[]>([]);
   const [catalogRegion, setCatalogRegion] = useState('all');
   const [detail, setDetail] = useState<ExpressionSource | null>(null);
   const catalogExport = useExportAction();
@@ -188,6 +192,7 @@ export function ExpressionSurveyView({ onHome, onOpenGene }: {
                 onScopeChange={setScope}
                 form={geneForm}
                 empty="Choose your sources, then enter one gene to open its gene page, or several to compare them here."
+                onResults={setSurveyResults}
               />
             </section>
           )}
@@ -657,7 +662,7 @@ export function ExpressionSurveyView({ onHome, onOpenGene }: {
         {detail && (
           <SourceDetail
             source={detail}
-            results={[]}
+            results={surveyResults}
             referenceOnly={scope.referenceOnly}
             onClose={() => setDetail(null)}
           />

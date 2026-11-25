@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (263):
+Covered source files (264):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -291,6 +291,7 @@ Covered source files (263):
 - [src/__tests__/studySelection.test.tsx](<../../../src/__tests__/studySelection.test.tsx>)
 - [src/__tests__/studyTopGenes.test.tsx](<../../../src/__tests__/studyTopGenes.test.tsx>)
 - [src/__tests__/supersededProjection.ts](<../../../src/__tests__/supersededProjection.ts>)
+- [src/__tests__/surveyHandoff.test.ts](<../../../src/__tests__/surveyHandoff.test.ts>)
 - [src/__tests__/swHandover.test.ts](<../../../src/__tests__/swHandover.test.ts>)
 - [src/__tests__/symbolRenames.test.ts](<../../../src/__tests__/symbolRenames.test.ts>)
 - [src/__tests__/testIsolation.test.tsx](<../../../src/__tests__/testIsolation.test.tsx>)
@@ -604,7 +605,7 @@ Start here:
 - [src/expression-survey/referenceExpression.ts](<../../../src/expression-survey/referenceExpression.ts>)
 - [data/expression/oxt-reference/README.md](<../../../data/expression/oxt-reference/README.md>)
 
-Covered source files (18):
+Covered source files (19):
 - [src/expression-survey/ExpressionSurveyView.tsx](<../../../src/expression-survey/ExpressionSurveyView.tsx>)
 - [src/expression-survey/GeneSurvey.tsx](<../../../src/expression-survey/GeneSurvey.tsx>)
 - [src/expression-survey/SourceDetail.tsx](<../../../src/expression-survey/SourceDetail.tsx>)
@@ -622,6 +623,7 @@ Covered source files (18):
 - [src/expression-survey/neuroseqExpression.ts](<../../../src/expression-survey/neuroseqExpression.ts>)
 - [src/expression-survey/referenceExpression.ts](<../../../src/expression-survey/referenceExpression.ts>)
 - [src/expression-survey/sourceJson.ts](<../../../src/expression-survey/sourceJson.ts>)
+- [src/expression-survey/useSurveyHandoff.ts](<../../../src/expression-survey/useSurveyHandoff.ts>)
 - [src/expression-survey/useSurveyLoad.ts](<../../../src/expression-survey/useSurveyLoad.ts>)
 
 ## gene-explorer

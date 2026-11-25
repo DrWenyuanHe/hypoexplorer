@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "026e60f317c4b61b42b90d26c83056e126fececbb09190f8954638c9dd2b3ce2",
+  "fingerprint": "0de215b6ce974c46c7ec44963aaa0f1f5cc2b4e787f598588308225e1c1a10d4",
   "outcome": "updated",
-  "explanation": "Merges main into the rhythm-scan change. From main: the ui-change workflow describes renames.js, the search alias rules and reading studies under rename-group members (storedAs, pickStoredMember, compareCell with the table); the survey tiles load through lazyView. From this branch: its Circadian paragraph says Lomb-Scargle floor statements come from armLombScargleFloor in lombScargleFloor.ts with rhythmicity.ts left byte-stable, and the rhythmic call and per-arm verdict from rhythmCall.ts.",
+  "explanation": "Merges main (PRs #83, #84, #85) into the rhythm-scan change. From main: the ui-change workflow describes renames.js, the search alias rules and reading studies under rename-group members (storedAs, pickStoredMember, compareCell with the table); the survey tiles load through lazyView; the gene search Enter key searches the typed text through the same GenePicker. From this branch: its Circadian paragraph says Lomb-Scargle floor statements come from armLombScargleFloor in lombScargleFloor.ts with rhythmicity.ts left byte-stable, and the rhythmic call and per-arm verdict from rhythmCall.ts.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/circadian/lombScargleFloor.ts",
