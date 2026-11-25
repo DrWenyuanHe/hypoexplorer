@@ -7,6 +7,14 @@ export interface ChangelogEntry {
 export const CHANGELOG: ChangelogEntry[] = [
   {
     date: '2026-11-24',
+    title: 'Enter in the gene search selects the gene typed',
+    items: [
+      'In the Gene Explorer, Compare and compare-set gene search, pressing Enter straight after the last letter could add the top match for the letters typed before it: Por for Pomc, Aga for Agrp. Enter now always searches the text in the box. A gene picked from the list was never affected.',
+      'No data, result or analysis changed.',
+    ],
+  },
+  {
+    date: '2026-11-24',
     title: 'Readable direction colours on the pathway report',
     items: [
       'On the cross-dataset pathway report, the NES figures, the folded "strongest" score and the headline\'s up and down counts are now drawn in the darker red and blue the rest of the site uses for text. Before, they used the lighter chart colours, which are too faint to read easily. The forest dots keep the chart colours.',

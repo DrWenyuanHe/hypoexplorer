@@ -1,14 +1,10 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "b8c5dbca48da91f6d6a2585fb2b619ae1ea531030626e9c33dda8f09a89bb4df",
+  "fingerprint": "3769fc29adf0c5f52567988cc04b0bb65996e392c276c2759bf2521c17453555",
   "outcome": "updated",
-  "explanation": "EXPRESSION_SURVEY.md records that the GSE162563 source is tissue. build_explorer_bundles_batch2.mts uses the corrected track labels for a later rebuild, and build_registry_edits.mts has reviewed reasons for every changed registry field. The expression index was rebuilt from SHA-matched inputs and is not published. The registry-edits record, the OXT/AVP audit and the internal QC ledger were not rebuilt because this checkout lacks their inputs. build_timeseries_bundles.mts keeps its old GSE248462 text because the GSE157077 successor pins its bytes.",
+  "explanation": "CHANGELOG.md's Unreleased section records that Enter in the gene search selects the gene typed. No guidance, command, configuration or workflow changed.",
   "references": [
-    "docs/runbooks/EXPRESSION_SURVEY.md",
-    "scripts/build_explorer_bundles_batch2.mts",
-    "scripts/regen-r460/build_registry_edits.mts",
-    "scripts/lib/historicalEvidence.mts",
-    "data/expression/existing/README.md"
+    "CHANGELOG.md"
   ]
 }

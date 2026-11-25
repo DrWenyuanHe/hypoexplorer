@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "66be2827ed647ff4664367d9e73c49fec72c50df12a7f306b464888c890e645f",
+  "fingerprint": "0f91c9f2b26cc550be594e23064ca6ed9ef10c0eca8b765cabb8601ac462a086",
   "outcome": "no-impact",
-  "explanation": "The survey catalog regroups one existing source, the registry changes two facet values that the Library filters already offer, and the QC table and loaded tracks show reviewed track labels. Navigation, views, filter controls and export formats are unchanged; result membership and exported label text change for the corrected studies.",
+  "explanation": "The gene search's Enter key now searches the text in the box. Every gene picker still goes through GenePicker over geneVocabulary, and no route, view, label, breakpoint or export that the UI-change workflow describes changed.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "src/expression-survey/existingCatalog.ts",
-    "src/qc/qcTables.ts"
+    "src/gene-explorer/GeneSearchBox.tsx",
+    "docs/agent-context/workflows.md"
   ]
 }

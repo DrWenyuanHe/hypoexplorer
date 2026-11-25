@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-gene-explorer",
-  "fingerprint": "91659dd86d037ffa6ab1d89c0be8134c098d129c53bff93f5ec98b5360025b5b",
+  "fingerprint": "49e21039a3d9005234b5205d65e6e31da81f5a5a92bb89d86aa714d23f80cf26",
   "outcome": "no-impact",
-  "explanation": "Selecting a point on the volcano scrolls the page by whatever the selection strip moved the plot, so on a phone the point stays under the finger. The tooltip is anchored to its point, a clicked one ignores the leave Chromium reports after a layout change and closes at the next real move or press, and new data closes it. Props, toolbar slots, thresholds, selection and exports are unchanged, so the mapped responsibilities still hold.",
+  "explanation": "GeneSearchBox's Enter handler searches the current text instead of reusing the debounced suggestion list, which could hold matches for an earlier prefix. Props, ranking, redirects, the suggestion list and its debounce are unchanged, so the mapped responsibilities still hold.",
   "references": [
-    "src/gene-explorer/VolcanoPlot.tsx",
-    "src/gene-explorer/GeneExplorerTab.tsx",
-    "docs/agent-context/workflows.md"
+    "src/gene-explorer/GeneSearchBox.tsx",
+    "src/common/GenePicker.tsx"
   ]
 }

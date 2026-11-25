@@ -198,15 +198,15 @@ export function GeneSearchBox({
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      // Enter takes the top suggestion, which is already the exact match when
-      // there is one. Falling back to the list also makes Enter work for a
-      // redirect — typing AARS1 and pressing Enter selects the stored AARS.
+      // Enter takes the top match for the text in the box, which is the exact
+      // match when there is one; a redirect works too (AARS1 selects the stored
+      // AARS). It searches again because the listed suggestions lag the text by
+      // the debounce: typing Pomc and pressing Enter at once used to take the
+      // top match for "Po", which is another gene.
       clearTimeout(timerRef.current);
-      const ranked = suggestions.length
-        ? suggestions
-        : search(
-          query, geneNamesRef.current, aliasIndexRef.current, knownUpperRef.current, authorityRef.current,
-        );
+      const ranked = search(
+        query, geneNamesRef.current, aliasIndexRef.current, knownUpperRef.current, authorityRef.current,
+      );
       if (ranked.length) handleSelect(ranked[0].gene);
     }
     if (e.key === 'Escape') setOpen(false);

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeAll } from 'vitest';
-import { render, screen, fireEvent, waitFor, act, within } from '@testing-library/react';
+import { cleanup, render, screen, fireEvent, waitFor, act, within } from '@testing-library/react';
 import App from '../App';
 import { preloadAppViews } from '../appViews';
 import { getDefaultDataset } from '../data/datasets';
@@ -259,7 +259,10 @@ function seedMouseDataset() {
     nGenes: { whole: 2 },
   };
   (window as any).HX_MOUSE_HYPO_HFD_GSE220533_WHOLE = BULK_TRACK_FIXTURE;
+  // Unmount first: a page still mounted loads the study again once its seed is
+  // gone, and that load never settles in jsdom but stays cached for the next test.
   return () => {
+    cleanup();
     delete (window as any).HX_MOUSE_HYPO_HFD_GSE220533_META;
     delete (window as any).HX_MOUSE_HYPO_HFD_GSE220533_WHOLE;
     _resetTrackCache();
