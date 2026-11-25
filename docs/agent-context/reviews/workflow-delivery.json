@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "90298085c7597c35de5636bb32d3bc5108c629a3954ee63a9e03524528f98655",
-  "outcome": "no-impact",
-  "explanation": "The EDGE_PROTECTION cost model now notes that HEAD is never served from the edge cache: it reports DYNAMIC and costs one R2 Class B HeadObject, the originHealth reachability probe sends one HEAD per check, and cache checks must use GET because curl -I always shows DYNAMIC. verify_edge.mts already checks caching with GET. The cache rule payload, apply_edge_rules.mts and delivery.md steps are unchanged.",
+  "fingerprint": "c950a330c23ee654c58a99441dee0dd417fe0a07043f08b4177d5b745d69a36a",
+  "outcome": "updated",
+  "explanation": "delivery.md no longer says the path rule blocks /hypomap/; the tracked WAF payload admits the pinned atlas tag and the live zone must be checked directly. evaluation.md drops the nonexistent local-imports route and describes the CI steps that now run test:context and context:check. EDGE_PROTECTION.md marks the 2026-10 cutover as a dated record with its tool versions. The expression survey runbook replaces the nonexistent prebuild with fetch:expression. Rule payloads, Workers and build scripts are unchanged.",
   "references": [
-    "docs/runbooks/EDGE_PROTECTION.md",
     "docs/agent-context/delivery.md",
-    "scripts/deploy/verify_edge.mts",
-    "src/data/originHealth.ts"
+    "docs/agent-context/evaluation.md",
+    "docs/runbooks/EDGE_PROTECTION.md",
+    "cloudflare/http_request_firewall_custom/hypoexplorer_data_paths.json"
   ]
 }

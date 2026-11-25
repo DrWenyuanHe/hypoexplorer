@@ -23,8 +23,26 @@ export function requireReference(snapshot, name) {
   assert(snapshot.has(name.replace(/\/$/, '')), `Unresolved repository reference: ${name}`);
 }
 
+// What a review covers of one source. A routine version bump (Dependabot's npm and
+// github-actions updates) changes no navigation or procedure a review describes,
+// so the versions in a package.json and the ref after `uses:` in a workflow are
+// left out, and the lockfile is not a source. A dependency or action that is
+// added, removed or renamed still changes the fingerprint.
+const VERSIONED_FIELDS = ['dependencies', 'devDependencies', 'optionalDependencies', 'peerDependencies'];
+export function reviewedContent(name, text) {
+  if (name === 'AGENTS.md') return withoutOverview(text);
+  if (/^\.github\/workflows\/[^/]+\.ya?ml$/.test(name)) return text.replace(/^(\s*(?:-\s+)?uses:\s*[^\s@#]+)@\S+(?:[ \t]+#.*)?$/gm, '$1');
+  if (!/(?:^|\/)package\.json$/.test(name)) return text;
+  try {
+    const manifest = JSON.parse(text);
+    if (!object(manifest)) return text;
+    for (const field of VERSIONED_FIELDS) if (object(manifest[field])) manifest[field] = Object.keys(manifest[field]).sort(compare);
+    return JSON.stringify(manifest);
+  } catch { return text; }
+}
+
 export function isSource(name) {
-  if (name.startsWith(`${GENERATED_DIR}/`) || name.startsWith(`${CONTEXT_DIR}/reviews/`)) return false;
+  if (name.startsWith(`${GENERATED_DIR}/`) || name.startsWith(`${CONTEXT_DIR}/reviews/`) || name === 'pnpm-lock.yaml') return false;
   // Data products (CSV/TSV, bundles, archives) have their own scientific checks.
   // Include repository-owned analysis code/docs, excluding downloaded author code.
   if (/(?:^|\/)(?:node_modules|__pycache__|archive|downloads|extracted-source|runtime|region-code|author-code)\//.test(name)) return false;
@@ -79,7 +97,7 @@ export function fingerprints(snapshot, model) {
   snapshot.preload(sources);
   for (const name of sources) {
     const module = name.match(/^src\/([^/]+)\//)?.[1];
-    const content = name === 'AGENTS.md' ? withoutOverview(snapshot.read(name)) : snapshot.read(name);
+    const content = reviewedContent(name, snapshot.read(name));
     const area = module ? `module-${module}` : name.startsWith('src/') ? 'platform' : name.startsWith('workers/') ? 'edge' : /^(?:data|geo_replication|nar-research)\//.test(name) ? 'analysis' : 'repository';
     add(area, name, content);
     for (const [id, flow] of Object.entries(model.catalog.workflows)) {

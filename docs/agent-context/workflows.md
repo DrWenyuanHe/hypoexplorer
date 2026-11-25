@@ -208,7 +208,12 @@ is not loaded. Run every new export entry point inside `withExportEvidence()`
 Expected outputs are the requested behavior and relevant regression coverage.
 Run the app and script TypeScript checks documented in
 [project guidance](../PROJECT_GUIDANCE.md) and focused Vitest tests. Use a browser
-for navigation, loading, accessibility or layout changes.
+for navigation, loading, accessibility or layout changes. The built-site browser
+smoke (`scripts/smoke/`, `pnpm run test:smoke`) opens every view and explorer tab on
+a desktop and a phone and fails on page errors, failed requests or sideways
+overflow. A new view or tab needs an entry in `scripts/smoke/viewLinks.ts` and a
+ready check in `views.smoke.spec.ts`; `smokeViewLinks.test.ts` fails without the
+link. A renamed label or heading those specs query is changed there too.
 
 Circadian changes also follow [the numerical validation runbook](../runbooks/CIRCADIAN_VALIDATION.md).
 Keep effective JTK period families, unsupported-design reasons, missing-value
@@ -348,8 +353,8 @@ carries Info (library record), Open (explorer at that track) and the
 compare-set toggle for that track. Last, the pathways enriched in the tracks where the gene is significant,
 under the same scope, and a reserved co-expression slot. The study filters sit
 inside the differential-expression card, above the table they narrow, and stay
-there while it loads or when the selection is empty. The header keeps Compare
-as bars and Share analysis. The condition-pathways card (`loadConditionPathways` in
+there while it loads or when the selection is empty. The header keeps Share
+analysis and the compare-set button. The condition-pathways card (`loadConditionPathways` in
 `src/search/searchSummaries.ts`) follows at most 12 significant tracks and reads
 one `trackpaths/t<NNN>.js` file per track from the query index's track-pathways
 family (rows copied from the pathway shards at padj < 0.05, checked by
@@ -431,15 +436,15 @@ the dataset's Pathway tab; population links retain the row's population.
 Both reports share forestReport.css and the EffectPreview interaction shell.
 For gene results, hover, keyboard focus or tap on a row's log2FC opens the
 existing expression bar chart for that exact
-population and contrast. Previews load on demand through the explorer store with QC
-and pathway requests disabled, and report unavailable sample values without drawing
-zero bars. The store's pathway policy is fixed for each mounted consumer; full
-explorers retain the default include policy.
+population and contrast. Previews load on demand through the track-column module
+(`useTrackColumn` in `src/data/trackColumns.ts`) with pathways omitted and the
+report's own track id trusted, so neither meta.js nor QC is requested; unavailable
+sample values are reported without drawing zero bars.
 
 Pathway score previews use the existing RunningScorePlot and retain its leading-edge
-approximation label. They reuse useCompareSetColumns for on-demand population loading
-and pathway-sibling settlement, then read popDataFor with the report's exact contrast
-and match the pathway database and name. Missing pathway data or usable ranks remain
+approximation label. They load through `useTrackColumn` with pathways included,
+wait for the pathway sibling to settle, then read popData at the report's exact
+contrast and match the pathway database and name. Missing pathway data or usable ranks remain
 unavailable, with a retry action; no QC bundle is requested. Large studies initially
 show significant populations, with the full list available on request. About enrichment
 scores keeps the ranking explanation in a disclosure beneath the results.

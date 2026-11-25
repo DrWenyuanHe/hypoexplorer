@@ -82,7 +82,8 @@ still describe them as they were at the time.
 `seoGuides.mts` documents source-specific methods and gives real citation examples;
 it does not invent an app publication, DOI, release date or dataset license.
 
-During the initial source check, three registry citation errors were corrected:
+During the initial source check, three registry citation errors were corrected.
+This record names two of them; the third was not recorded here:
 
 - GSE236077: DOI `10.1038/s41597-023-02888-4`, associated with PMID 38184639,
   replaces an unresolvable DOI; the first author is Todorov.

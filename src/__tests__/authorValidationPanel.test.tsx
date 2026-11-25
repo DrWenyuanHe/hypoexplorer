@@ -29,6 +29,19 @@ describe('AuthorValidationPanel', () => {
     } }} />);
     expect(screen.getByText(`Author results compared · ${label}`)).toBeTruthy();
   });
+  it('says in the label and the panel that the study authors are needed', () => {
+    const record = requireAuthorValidation('mouse_hypo_oxaliplatin_gse285906');
+    const waiting = { ...record, verification: { ...record.verification, evidenceLevel: 'author_results' as const,
+      resultAvailability: 'available' as const, followUp: 'author_contact' as const } };
+    render(<AuthorEvidenceLabel record={waiting} />);
+    expect(screen.getByText('Author results compared · needs author clarification')).toBeTruthy();
+    cleanup();
+    render(<AuthorValidationPanel record={waiting} />);
+    expect(screen.getByRole('rowheader', { name: 'Author follow-up' }).closest('tr')).toHaveTextContent('Needs author clarification');
+    cleanup();
+    render(<AuthorValidationPanel record={record} />);
+    expect(screen.queryByRole('rowheader', { name: 'Author follow-up' })).toBeNull();
+  });
   it('separates reported-call overlap from the paper-filtered overlap', () => {
     const record = requireAuthorValidation('mouse_hypo_oxaliplatin_gse285906');
     render(<AuthorValidationPanel record={{ ...record, directComparison: {

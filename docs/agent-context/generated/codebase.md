@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (257):
+Covered source files (258):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -275,6 +275,7 @@ Covered source files (257):
 - [src/__tests__/september5Intake.test.ts](<../../../src/__tests__/september5Intake.test.ts>)
 - [src/__tests__/setup.ts](<../../../src/__tests__/setup.ts>)
 - [src/__tests__/smoke.test.tsx](<../../../src/__tests__/smoke.test.tsx>)
+- [src/__tests__/smokeViewLinks.test.ts](<../../../src/__tests__/smokeViewLinks.test.ts>)
 - [src/__tests__/sortableHeaderA11y.test.tsx](<../../../src/__tests__/sortableHeaderA11y.test.tsx>)
 - [src/__tests__/sortableRows.test.tsx](<../../../src/__tests__/sortableRows.test.tsx>)
 - [src/__tests__/sourceJson.test.ts](<../../../src/__tests__/sourceJson.test.ts>)

@@ -1,6 +1,17 @@
 # External reference expression: implementation plan (2026-10-29)
 
-Status: proposal. Phase 0 measurements are done (see
+> **Status (checked 2026-11-24): dated record, not maintained.** Phases 0–2 are
+> done: GTEx, the Human Protein Atlas and the Allen human microarray shipped in the
+> expression survey and on the gene page with the public release on 2026-11-04
+> (`src/changelog/changelog.ts`). All four decisions were resolved on 2026-10-29, so
+> the "still need confirmation" line under Phase 0 and the "not yet deployed" notes
+> under Phases 1–2 are out of date. There is no `prebuild` script; the public
+> repository fetches the built atlases with `pnpm run fetch:expression`. Phases 3
+> (Allen mouse ISH) and 4 (ABC Atlas) are not built and have no current plan.
+> Current behaviour is in the code under `src/expression-survey/` and in
+> [the expression survey runbook](../runbooks/EXPRESSION_SURVEY.md).
+
+Original status (2026-10-29): proposal. Phase 0 measurements are done (see
 [Phase 0 results](#phase-0-results)); no browser product is built.
 
 This plan covers adding public reference expression from GTEx, the Human Protein

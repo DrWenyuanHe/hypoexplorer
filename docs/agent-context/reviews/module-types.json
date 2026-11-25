@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-types",
-  "fingerprint": "4028f31c65ed00409ad9e5c7e06746ad07b9e8e54ded26440da05b165b8bc958",
+  "fingerprint": "c7bba449f3f784cac2d0d47e75ccb347a54e18abe6017a87fa0fb4e35ab61fd4",
   "outcome": "updated",
-  "explanation": "TrackRow and PathwayTrackRow gain tier: SignificanceTier, documented as set by the row builders, with significant kept as the FDR call. The orphaned GroupSummary interface is removed with its producer, and its contract description leaves the catalog.",
+  "explanation": "Only the header comment of src/types/index.ts changed: the types are now named as authoritative and DATASET_CONTRACT.md as the explanation of their rules, instead of the types being reverse-engineered from the docs. No exported declaration changed, so the contracts map is unchanged.",
   "references": [
     "src/types/index.ts",
-    "docs/agent-context/catalog.json",
+    "docs/DATASET_CONTRACT.md",
     "docs/agent-context/generated/contracts.md"
   ]
 }

@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "697f0088870cf2d2356c4120c90ad6f5949a94e1c560437c224fdddeaa94d38e",
+  "fingerprint": "a5867df5c1fc0b8fd773876e465a528b5434dd96453fc34a144061955acae53b",
   "outcome": "updated",
-  "explanation": "siteInfo.ts drops BETA_NOTICE and adds SOURCE_REPO_URL and DATA_REPO_URL, the GitHub repositories for the application source and the processed data release.",
+  "explanation": "authorVerification.ts adds AUTHOR_FOLLOW_UPS and an optional followUp on verification reviews and records. assessAuthorVerification rejects unknown values and passes the field through; it changes no state, claim or outcome.",
   "references": [
-    "src/data/siteInfo.ts",
-    "data-release.json"
+    "src/data/authorVerification.ts",
+    "data/author-validation/README.md"
   ]
 }

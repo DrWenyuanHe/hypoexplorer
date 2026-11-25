@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "04b15fc73a4ef00db265e2d225c8afe2010123b74a164e11fedd7033c0205d2f",
-  "outcome": "no-impact",
-  "explanation": "Crawlable study pages lose their beta strip and beta sentence and gain GitHub footer links; study content, registry declarations and the dataset intake workflow are unaffected.",
+  "fingerprint": "bb5f7b13baa63c9de24a9b8ea08deccbf1b80d7d2a17af939c5856d04111436b",
+  "outcome": "updated",
+  "explanation": "DATASET_CONTRACT.md and REAL_DATA_SHAPES.md were rewritten around the bundle writer, slimming and readers: pathways ship only in the sibling file, a non-default contrast missing from deByContrast gets an empty table rather than the default numbers, legacy-plain joins the resolutions, featureType is miRNA, and the restored scientific rules cover expression units, SE recovery, the multi-contrast TMM exception, pre-fit aggregation and macaque species versus symbol authority. The add-a-dataset checklist and its commands are unchanged in substance.",
   "references": [
-    "scripts/lib/seoPages.mts",
-    "docs/agent-context/workflows.md"
+    "docs/DATASET_CONTRACT.md",
+    "docs/REAL_DATA_SHAPES.md",
+    "scripts/lib/bundleWriter.mts",
+    "src/data/rawTrack.ts"
   ]
 }

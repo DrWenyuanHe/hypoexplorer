@@ -22,6 +22,7 @@ break the worker's proposal. Workers write only their evidence folder and
 | `logs/` | Final messages, `progress.log` and merge output; the full Codex transcripts (about 136 MB) stay with the evidence, not in git |
 | `scripts/` | `run_one.sh` (worker then refuter, resumable), `run_wave.sh`, `launch.sh` (detached) and dataset lists |
 | `check_specs.mts`, `merge.cjs` | Spec rule check and the ledger merge |
+| `rebuild_gse299412.py`, `check_torpor_sign.py` | Byte-exact rebuild of GSE299412's withheld inputs; GSE179663 sign check from deposited counts |
 | `build_release_bundle.mts` | Builds this pass's data-release part, `sources.json` and `scrubbed.json` |
 | `check_copied_text.py`, `copied-text.json` | Copied-publication-text check and the records it withholds from the release |
 | `round1/`, `interrupted/` | First-round outputs of refuted datasets; partial outputs of jobs killed mid-run |
@@ -77,20 +78,20 @@ Both second-round proposals were `upheld_with_corrections` and closed as
 and GSE214877 (Figure 1D: 21 separating markers, all agree; sample-to-column key
 and author inference unresolved).
 
-## Merged (86 datasets)
+## Merged (92 datasets)
 
-`merge.cjs` merged 86 upheld proposals: 86 manual-review and verification-review
+`merge.cjs` first merged 86 upheld proposals: 86 manual-review and verification-review
 records, 22 updated and 39 new comparability records, and 15 new comparison specs.
 Untouched records keep their original bytes. GSE231769 (below) kept its existing
-spec.
+spec. The six held datasets (below) were merged on 2026-11-24.
 
 | Started as | compared | needs author contact | no valid comparison | confirmed not located | access blocked, documented |
 |---|---:|---:|---:|---:|---:|
-| unresolved (23) | 6 | 16 | 1 | | |
+| unresolved (29) | 10 | 18 | 1 | | |
 | not located (42) | 25 | 2 | 7 | 6 | 2 |
 | partial, untested (7) | 5 | | 2 | | |
 | access blocked (14) | 11 | 1 | 2 | | |
-| **Total (86)** | **47** | **19** | **12** | **6** | **2** |
+| **Total (92)** | **51** | **21** | **12** | **6** | **2** |
 
 ## Held (6 datasets)
 
@@ -113,13 +114,32 @@ spec now validates here and gives the same 14,483 pairs and 14,195 same-directio
 genes as the re-derived one. Its review records were merged with the existing
 spec kept (`--keep-existing-spec`).
 
-The other six stay in `corrected/` for adjudication in the maintainer checkout:
-GSE49540, GSE179663, GSE284408 (extraction script
-`advancement-sources-a-2026-09-05/prepare_comparisons.py` withheld), GSE232510
-(`turbo-2026-11-16-wave2/scripts/compare_table_s1.py` withheld), GSE242354 (turbo
-analysis withheld; reading the `.rda` needs R) and GSE299412 (the extractor needs
-the registered `GSE299412_identifier_mapping.tsv`, absent from the release and
-regenerated only by `prep_GSE299412.R` with a pinned NCBI gene_info).
+The other six were held because their extraction scripts are withheld
+(`advancement-sources-a-2026-09-05/prepare_comparisons.py`, the two Nov 15-16 turbo
+scripts) or, for GSE299412, because the registered
+`GSE299412_identifier_mapping.tsv` is absent from the release. They were adjudicated
+on 2026-11-24:
+
+| Dataset | Spec | Reason |
+|---|---|---|
+| GSE299412 | kept | `rebuild_gse299412.py` reproduces the withheld mapping and author table byte-identical to their pins. The corrected proposal gives the same 157 pairs and 149 same-direction genes. |
+| GSE284408 | kept | The re-derived table gives the recorded 14,119 pairs, Pearson 0.926950, Spearman 0.921351 and 12,891 same directions. Keeping the spec, and the effects dimension its 2026-09-26 concordance review binds to, leaves that review valid. |
+| GSE232510 | kept | The re-derived table gives the existing spec's 406 pairs and 402 same directions, so nothing is gained by changing its bytes. |
+| GSE49540 | replaced | 107 pairs instead of 102: five renamed symbols are traced through Ensembl 59 and NCBI records. Table S1 has no adjusted P, so the interpretation is `effects_compared`. All 107 agree in direction. |
+| GSE179663 | replaced | The authors' full 16,195-gene worksheet replaces the 68-gene panel. Their script exports the default (normothermia minus torpor) coefficient; `check_torpor_sign.py` finds the aligned sign in 13,197 of 16,191 genes on library-size-scaled deposited counts. 12,932 of 15,099 registered directions agree; neither concordance route passes. `refute/orient.py --write` produced the pinned table (SHA-256 `8f3da057…`). |
+| GSE242354 | replaced | The join now also excludes author rows whose local symbol pools several source identifiers: 16,772 pairs, 11,892 of 16,771 nonzero directions agree (was 16,798 and 70.89%). The disagreement finding is unchanged. |
+
+The withheld scripts are still needed to re-derive the author tables that the kept
+GSE284408 and GSE232510 specs pin; those two specs were not re-checked here against
+their pinned bytes.
+
+The same audit found that the 2026-11-22 merge had rewritten GSE153498's effects
+dimension, which an active concordance review binds to. The bound text was restored;
+the pass's newer figures remain in that dataset's manual and verification records.
+All eight active concordance reviews now match the ledger text they bind to.
+
+The 21 datasets that need author contact carry `followUp: "author_contact"` in
+`verification-review.json`; their questions are its `nextStep` text.
 
 ## Validation
 
@@ -127,7 +147,8 @@ The repository's ledger builders (`build_author_validation.mts`,
 `audit_concordance_reviews.mts`) stop on withheld evidence in this checkout, with
 or without the merge. The full test suite has the same 20 failures with and
 without the merge (missing fetched catalogs), so it does not exercise these
-ledgers. `check_proposals.cjs` and `check_specs.mts` are the checks applied here.
+ledgers. `check_proposals.cjs` and `check_specs.mts` are the checks applied here. The
+2026-11-24 merge likewise leaves the suite's 15 failures unchanged.
 
 ## Merge rules
 
@@ -137,7 +158,8 @@ ledgers. `check_proposals.cjs` and `check_specs.mts` are the checks applied here
   author-concordance-v2 minimum, never as passes, even when a comparison spec is
   added.
 - A comparison that changes a reviewed concordance comparison needs a successor
-  concordance review bound to the regenerated comparison (GSE284408 is one).
+  concordance review bound to the regenerated comparison. Keep the bound dimension
+  text (`--keep-effects-dimension`) when the comparison itself does not change.
 
 ## Data release
 

@@ -51,4 +51,6 @@ checks pass because they test internal consistency: the matrix is finite, the sa
 match, and the replay reproduces the published rows. They do not test whether the deposit
 represents the experiment's expressed transcriptome. Until a complete matrix is obtained,
 the displayed DE should be read as an analysis of the deposited low-detection genes, not of
-the POMC translatome the paper reports. The follow-up is tracked in `TODOS.md`.
+the POMC translatome the paper reports. Obtaining the complete matrix is open work; as of
+2026-11-24 no GitHub issue tracks it (open work belongs in the issues that `TODOS.md`
+links).

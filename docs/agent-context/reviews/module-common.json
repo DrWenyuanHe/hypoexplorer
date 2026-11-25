@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-common",
-  "fingerprint": "06fd6d362ce487b2429b48dfc1ca52864f9c5c18d1ae2cb7647669bd3b75e0da",
+  "fingerprint": "73ae2a1661d0be43bf349690da0b970567fad1328367892b528411fa53826156",
   "outcome": "updated",
-  "explanation": "BetaNotice.tsx is deleted. BetaNotice.css is renamed siteChrome.css and keeps only the shared site-header and hub reference-link rules; PageShell imports it directly. prose.css lowers the sticky contents offset from 120px to 88px because the header lost the 33px banner.",
+  "explanation": "authorEvidenceText appends the author follow-up label, and AuthorValidationPanel adds an Author follow-up row when a record carries one. Badges and states are unchanged.",
   "references": [
-    "src/common/siteChrome.css",
-    "src/common/PageShell.tsx",
-    "src/common/prose.css"
+    "src/common/AuthorValidation.tsx",
+    "src/data/authorVerification.ts"
   ]
 }

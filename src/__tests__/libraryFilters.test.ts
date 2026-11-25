@@ -132,6 +132,11 @@ describe('filterCards', () => {
     expect(filterCards([unresolved], withFilters({ validation: ['author_results'] }))).toEqual([]);
     expect(filterCards([unresolved], withFilters({ validation: ['unresolved'] }))).toEqual([unresolved]);
   });
+  it('finds a study by its author follow-up', () => {
+    const waiting = card({ id: 'waiting' }, { validation: { ...MOCK_VALIDATION,
+      verification: { ...MOCK_VALIDATION.verification, followUp: 'author_contact' } } });
+    expect(filterCards([...CARDS, waiting], withFilters({ q: 'needs author clarification' }))).toEqual([waiting]);
+  });
   it('filters missing reference evidence independently from scientific decision', () => {
     const available = card({ id: 'available' }, { validation: { ...MOCK_VALIDATION,
       verification: { ...MOCK_VALIDATION.verification, resultAvailability: 'available' } } });
