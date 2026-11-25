@@ -91,6 +91,9 @@ package.json; they need retained inputs that `pnpm run fetch:data` restores only
 in part. The maintainer's checkout also runs `check:quality`, which is not here;
 `pnpm exec tsx scripts/build_quality_report_r460.mts --check` checks the quality
 report's freshness, given the same restored inputs.
+Commit regenerated author-validation records with any ledger edit:
+`src/__tests__/authorValidationFreshness.test.ts` fails in CI when
+`validation-records.generated.json` disagrees with its ledgers or their recorded hashes.
 Run `pnpm run check:bundle-eol` before an audit records any SHA-256 pin: pin
 writers hash the working file, and a stale copy whose line endings differ from
 the committed blob yields a pin that no clean checkout reproduces.

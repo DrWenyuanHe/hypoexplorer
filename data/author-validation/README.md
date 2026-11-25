@@ -73,6 +73,8 @@ pnpm run typecheck
 pnpm exec vitest run src/__tests__/authorVerification.test.tsx src/__tests__/authorValidationPanel.test.tsx src/__tests__/verificationView.test.tsx
 ```
 
+Commit the regenerated records with the ledger edit. CI cannot rebuild them, so `src/__tests__/authorValidationFreshness.test.ts` compares them with the committed ledgers instead: every `verification-review.json` field the builder copies, every `comparability-review.json` record, and the `inputSha256` the builder records for the four ledgers and `direct-comparisons.generated.json`. A ledger committed without this regeneration fails it.
+
 The tracker catalog is built from a survey catalog that is
 [not in this repository](../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository);
 `pnpm run fetch:query` downloads the published one.
@@ -81,7 +83,7 @@ The tracker catalog is built from a survey catalog that is
 
 ## Data contract and sign-off
 
-`validation-records.generated.json` uses schema 2. Every record contains `verification.state`, `evidenceLevel`, `resultAvailability`, `comparisonOutcome`, `reason`, `nextStep`, `fullyVerifiedContrasts` and `comparability`. The comparability object records `target`, `resultScope`, `registeredContrastIds`, `basis`, `reference`, `assessment`, six `dimensions` with a status and note, `criteria`, and `conclusion`. Reviewed contrast IDs are not successful sign-offs. A requirement can be matched, compatible with recorded justification, limited, different or not established. A comparable assessment requires every dimension to be matched or compatible. JSON, TSV and the generated Markdown report carry the same decisions. Registry closure checks reject missing or extra dataset IDs; numerical comparisons require an explicit comparability profile and cannot silently fall back to an untested template.
+`validation-records.generated.json` uses schema 2. Its `inputSha256` maps each input ledger to the SHA-256 of its LF-normalized text. Every record contains `verification.state`, `evidenceLevel`, `resultAvailability`, `comparisonOutcome`, `reason`, `nextStep`, `fullyVerifiedContrasts` and `comparability`. The comparability object records `target`, `resultScope`, `registeredContrastIds`, `basis`, `reference`, `assessment`, six `dimensions` with a status and note, `criteria`, and `conclusion`. Reviewed contrast IDs are not successful sign-offs. A requirement can be matched, compatible with recorded justification, limited, different or not established. A comparable assessment requires every dimension to be matched or compatible. JSON, TSV and the generated Markdown report carry the same decisions. Registry closure checks reject missing or extra dataset IDs; numerical comparisons require an explicit comparability profile and cannot silently fall back to an untested template.
 
 Pathway validation records distinguish historical regeneration comparisons from
 newly admitted analyses. `rebuilt_provenance_checked` retains a migration baseline

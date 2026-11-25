@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "analysis",
-  "fingerprint": "e34a6cde8800b2cc77bf0b6cf76dad3df5eaffbd8dd1ddf31b36d5d9bc0b74d5",
+  "fingerprint": "dcb8e9e83dd51eaee4d6e43eb861d3da5a6725d491b7e19b4d4aab85b44626a3",
   "outcome": "updated",
-  "explanation": "Documentation-only staleness triage of the analysis area. The GTEx, Allen, HPA, NeuroSeq and phase-0 READMEs stop claiming Git LFS files, committed source archives and a prebuild step; untracked inputs now link to the shared files-not-in-this-repository section. The existing-expression README takes its source and track counts from validation.json. The author-validation README states the maintainer-checkout prerequisite, the downgrade refusal and the current ledger audit, and drops the removed build:tracker script. No producer, evidence or ledger changed.",
+  "explanation": "The author-validation README now says to commit regenerated records with any ledger edit, names the CI freshness test that compares validation-records.generated.json with verification-review.json, comparability-review.json and the recorded inputSha256, and documents the new inputSha256 field in the schema-2 data contract. No ledger, evidence or generated record changed.",
   "references": [
-    "data/expression/gtex/README.md",
-    "data/expression/neuroseq/README.md",
     "data/author-validation/README.md",
-    "docs/PROJECT_GUIDANCE.md"
+    "scripts/build_author_validation.mts",
+    "scripts/lib/authorValidationInputs.mts"
   ]
 }

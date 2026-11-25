@@ -1,16 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "b5bc16ba1625cc657b0d6d180e71390785baf3c27c6e02a8021a3e53b5d6c398",
+  "fingerprint": "287627e2790c024c60c7523a2568eadd657870867dec02c85ff32e957806c6bd",
   "outcome": "updated",
-  "explanation": "Survey view tests run single-gene flows through GenePageSurvey and the survey page through its handoff. Card tests cover the tile rows, each tile opening its own source under its row, releasing the focus, the handed-over scope and the HypoMap tile; familyTeaser.test.ts covers the study-library and tissue summaries, and the NeuroSeq teaser tests now match the survey's default without SFO records. The GSE162563 catalog test merged from main now selects by mode instead of section. symbolRenames.test.ts covers decoding, authority scoping, pickStoredMember, compareCell and the compare-set summary under a renamed symbol, and renamedStudies; queryIndex.test.ts covers both query paths reading a retired member, own-row precedence, several partners, authority scoping and an absent table, and counts the rename table beside the two index requests. symbolRenames.test.ts also checks that the Compare tab's workbook, CSVs and long rows read a renamed column as the tiles do, and stay 'not detected' without the table.",
+  "explanation": "authorValidationFreshness.test.ts checks that validation-records.generated.json carries every verification-review.json field the builder copies (allowing only the builder-forced unresolved outcome), every comparability-review.json record unchanged, and inputSha256 equal to the current hashes of the four ledgers and direct-comparisons.generated.json. It runs without the untracked evidence, so CI catches a ledger committed without regeneration.",
   "references": [
-    "src/__tests__/portalCards.test.tsx",
-    "src/__tests__/familyTeaser.test.ts",
-    "src/__tests__/baselineTeaser.test.ts",
-    "src/__tests__/expressionSurveyView.test.tsx",
-    "src/__tests__/expressionSurvey.test.ts",
-    "src/__tests__/symbolRenames.test.ts",
-    "src/__tests__/queryIndex.test.ts"
+    "src/__tests__/authorValidationFreshness.test.ts",
+    "scripts/lib/authorValidationInputs.mts",
+    "data/author-validation/README.md"
   ]
 }

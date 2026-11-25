@@ -1,14 +1,11 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "c82c2695280ae043e3c61d49601e1aafbf1a4f9b82e205a02b2e87a41ecab7f4",
-  "outcome": "updated",
-  "explanation": "Only the expression survey runbook and project guidance wording changed, describing how the gene page shows and opens each survey source. Adding or changing a dataset, its bundles, the expression catalog entries and their checks follow the same steps and commands as before. The rename work adds one step: a dataset that changes the nomenclature table also needs pnpm run build:search-names, which regenerates the search names and the rename groups from nomenclature.tsv; project guidance states the order, the --check guard and the rule tests.",
+  "fingerprint": "aa8d1f3731b6084d69ef1a0a3dcd59d0801d626b2458116e94c801ce8c3ae02d",
+  "outcome": "no-impact",
+  "explanation": "Adding or changing a dataset follows the same steps. Author-validation ledger edits already required regenerating validation-records.generated.json in the maintainer checkout; the new freshness test only makes CI fail when that step is skipped, as the verification workflow and author-validation README now say.",
   "references": [
-    "docs/runbooks/EXPRESSION_SURVEY.md",
     "docs/agent-context/workflows.md",
-    "docs/PROJECT_GUIDANCE.md",
-    "scripts/build_search_names.mts",
-    "scripts/lib/searchNames.test.mts"
+    "data/author-validation/README.md"
   ]
 }

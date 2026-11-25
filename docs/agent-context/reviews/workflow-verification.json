@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "7d0f30e69f7b8b904130c0484d5a9b049e5c25e9f2a171c66cff1b30906eee94",
-  "outcome": "no-impact",
-  "explanation": "Rename groups change which stored symbol a report reads for a study, not QC, author concordance or verification evidence; no verification record, ledger or gate reads the rename table or the search names.",
+  "fingerprint": "2a89a4e519f776a631e175f1085392f9bc4644da75ba83ecb6555c3f46bdf218",
+  "outcome": "updated",
+  "explanation": "The verification workflow now says to commit regenerated author-validation records with any ledger edit and names src/__tests__/authorValidationFreshness.test.ts, which fails in CI when validation-records.generated.json disagrees with its ledgers or the inputSha256 that build_author_validation.mts records. Evidence, gates and producers are unchanged.",
   "references": [
-    "docs/PROJECT_GUIDANCE.md",
-    "CONTEXT.md"
+    "docs/agent-context/workflows.md",
+    "data/author-validation/README.md",
+    "src/__tests__/authorValidationFreshness.test.ts"
   ]
 }
