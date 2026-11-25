@@ -63,7 +63,10 @@ leave them byte-for-byte unchanged:
       in `src/data/crossDatasetRows.ts`, shared by the index and fallback paths.
 - [ ] What a cross-study view leads with, its order and its counts → `listCrossStudy`
       in `src/statistics/crossStudyListing.ts` (no per-view tier sort or tally); the
-      tier label → `TierLabel` in `src/statistics/TierLabel.tsx`.
+      tier label → `TierLabel` in `src/statistics/TierLabel.tsx`; the listing-mode words and
+      nominal caveat → `src/statistics/listingWords.ts`.
+- [ ] Direction-coloured result TEXT → `directionTextColor` in `src/statistics/direction.ts`
+      (AA text tokens, coloured for the FDR tier only); chart fills are for marks.
 - [ ] Export buttons (disabled-when-busy + spinner wiring) → `ExportButton` in
       `src/common/ExportButton.tsx`; labels stay per-site props.
 - [ ] Sortable table state/comparator (nulls last in BOTH directions) →

@@ -44,6 +44,11 @@ export function fmtSigned(value: number, digits: number): string {
   return (value > 0 ? '+' : '') + value.toFixed(digits);
 }
 
+/** A count with its noun: "1 track", "2 tracks"; pass `many` for an irregular plural. */
+export function plural(n: number, one: string, many = `${one}s`): string {
+  return `${n} ${n === 1 ? one : many}`;
+}
+
 export function fmtCutoff(p: number): string {
   if (p >= 0.01) return p.toFixed(3);
   if (p >= 0.001) return p.toFixed(4);

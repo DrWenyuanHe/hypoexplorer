@@ -1,7 +1,7 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "ff90524cedbc6a168cb512966903949208ad4bb8f49d272087b57c8af8fef6f6",
+  "fingerprint": "abe08b9dd9f3169a0618dd29809f6b1d5fcfe747161d01d1835e67571bca235d",
   "outcome": "updated",
   "explanation": "The registry snapshot changes only for the corrected strings of GSE248462, GSE160802, GSE246918 and GSE162563, including the region, modality and preparation values. reviewedTrackLabels.test.ts and bundleReaderParity.test.ts check the two added display labels, and expressionSurvey.test.ts checks that the GSE162563 supernatant is a tissue source and not a population. reviewedTrackLabels.test.ts and qcTables.test.ts also cover the loaded track, its export record and the QC table, and the parity check no longer depends on the committed legacy label. explorerStore.test.tsx covers a deep link, where the meta global is already set.",
   "references": [

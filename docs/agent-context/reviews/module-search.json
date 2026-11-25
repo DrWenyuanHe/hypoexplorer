@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "0c0023064abf6fb75f5e5744710f666a28f969056a2cfffb9753a99b237cc7f0",
+  "fingerprint": "5f992893b71f20492e7df463054fcc7b9c536ffd65a499779f909732027a797b",
   "outcome": "updated",
-  "explanation": "The search vocabulary now loads in stages: each source that lands publishes a partial vocabulary to subscribeSearchVocabulary listeners, so the box suggests named genes as soon as the same-origin names.js arrives instead of waiting seconds for the data origin gene_names.js. loadSearchVocabulary and peekSearchVocabulary() still mean the full union, which the results page keeps using so its counts never shift. prepared() splits a NameIndex (names, other names, aliases) that nameIndexFor reuses when a later stage only appends unnamed index symbols, and caches pathway rows per pathways array. useSearchVocabulary takes { partial }, and UnifiedSearchBox uses it and also starts the hub load on pointer enter.",
+  "explanation": "portalCards drops dirColor and plural: Effect takes the row tier and colours through directionTextColor, the condition matrix colours its FDR columns the same way, and plural moves to utils/format.ts. SearchPage colours its tallies and strongest track through directionTextColor, words moreNote with leadingTracks and the pathway nominal note with nominalCaveat; every verdict and visible string is unchanged.",
   "references": [
-    "src/search/searchVocabulary.ts",
-    "src/search/useSearchVocabulary.ts",
-    "src/search/UnifiedSearchBox.tsx",
+    "src/search/portalCards.tsx",
     "src/search/SearchPage.tsx",
-    "docs/agent-context/workflows.md"
+    "src/statistics/listingWords.ts"
   ]
 }

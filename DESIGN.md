@@ -148,7 +148,7 @@ A restrained neutral field carrying a small set of meaning-bearing accents. Ther
 ### Named Rules
 **The One Voice Rule.** Signal Orange marks at most one active element per view. Its rarity is the signal; a second orange selection in frame means the design is lying about what is active.
 
-**The Meaning-Only Color Rule.** Red is up. Blue is down. These bindings are absolute and centralized in one module (`DIRECTION_UP_COLOR`/`DIRECTION_DOWN_COLOR` and their hex twins in `src/styles/constants.ts`). Contrast arms are named per study (each contrast's own baseline and case titles) and drawn in their group colors, not in a fixed Obese/Normal pair. Color is never chosen for looks; if you cannot name what a color encodes, it should be a neutral.
+**The Meaning-Only Color Rule.** Red is up. Blue is down. These bindings are absolute: the tokens live in `src/styles/constants.ts` (`DIRECTION_UP_COLOR`/`DIRECTION_DOWN_COLOR` and their hex twins), and which tier earns a text colour is decided in `src/statistics/direction.ts` (the darker text tokens for text, the chart fills for marks only). Contrast arms are named per study (each contrast's own baseline and case titles) and drawn in their group colors, not in a fixed Obese/Normal pair. Color is never chosen for looks; if you cannot name what a color encodes, it should be a neutral.
 
 ## 3. Typography
 
