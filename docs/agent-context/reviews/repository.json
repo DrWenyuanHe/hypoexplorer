@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "a64c95ab55b4d76a6d25aa07720244104883141181a0a1a7b1a553abbd3f3e7a",
+  "fingerprint": "484c06e4e8fb28187ec5c3a626524d07cd4d4ea4ba74508f629f14dfa6911231",
   "outcome": "updated",
-  "explanation": "Project guidance says to run build:search-names after build:nomenclature, that it writes names.js and renames.js, that its --check fails when either is stale, and where its rule tests live. CONTEXT.md defines the rename group, its join rules and pickStoredMember.",
+  "explanation": "Project guidance says to run build:search-names after build:nomenclature, that it writes names.js and renames.js, that its --check fails when either is stale, and where its rule tests live. CONTEXT.md defines the rename group, its join rules and pickStoredMember. The names builder now treats current rows that differ only in case and share one authority ID (MGI Tango2 and TANGO2) as one record, adding 90 rename groups (7,525) such as D16H22S680E to Tango2; its header states the rule and searchNames.test.mts covers it.",
   "references": [
     "docs/PROJECT_GUIDANCE.md",
     "CONTEXT.md",
-    "scripts/build_search_names.mts"
+    "scripts/build_search_names.mts",
+    "scripts/lib/searchNames.test.mts"
   ]
 }

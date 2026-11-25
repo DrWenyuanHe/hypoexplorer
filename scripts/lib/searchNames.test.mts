@@ -95,6 +95,20 @@ test("a retired symbol joins its current symbol only on the authority's own link
   assert.deepEqual(renames, [['MGI', 'Fam237b', 'Gm8773'], ['RGD', 'Nhsl3', 'RGD1561149']]);
 });
 
+test('current rows that differ only in case are one record when they share its ID', () => {
+  const { renames } = buildOutputs([
+    // MGI stores Tango2 twice: one record, so its retired symbol joins, under the spelling it names.
+    row('Tango2', 'MGI', 'current', 'Tango2', 'T10|D16H22S680E', 'D16H22S680E', 'MGI:101825', '111'),
+    row('TANGO2', 'MGI', 'current', 'Tango2', 'T10|D16H22S680E', 'D16H22S680E', 'MGI:101825', '1'),
+    row('D16H22S680E', 'MGI', 'previous', 'Tango2', 'T10|D16H22S680E', 'D16H22S680E', 'MGI:101825', '5'),
+    // Two records that differ only in case are two genes: neither takes the retired symbol.
+    row('Twoa', 'MGI', 'current', 'Twoa', '', 'Oldtwo', 'MGI:7'),
+    row('TWOA', 'MGI', 'current', 'TWOA', '', '', 'MGI:8'),
+    row('Oldtwo', 'MGI', 'previous', 'Twoa', '', 'Oldtwo', 'MGI:7'),
+  ]);
+  assert.deepEqual(renames, [['MGI', 'Tango2', 'D16H22S680E']]);
+});
+
 test("rename partners are always each other's search aliases, placeholders included", () => {
   const { names } = buildOutputs([
     row('Fam237b', 'MGI', 'current', 'Fam237b', 'Gm8773', 'EG667705|Gm8773', 'MGI:3646213', '42'),

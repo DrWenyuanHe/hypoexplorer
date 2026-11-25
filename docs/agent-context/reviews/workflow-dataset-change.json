@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "75fea457fed150cda41466289efb71e519a172879ca01d4dac9409bc177ef216",
+  "fingerprint": "d406a5478608d35557d0e8de71a870ec95dcd585729e0bbb112d37bf01a86c04",
   "outcome": "updated",
-  "explanation": "The rename work adds one step: a dataset that changes the nomenclature table also needs pnpm run build:search-names, which regenerates the search names and the rename groups from nomenclature.tsv; project guidance states the order, the --check guard and the rule tests.",
+  "explanation": "The rename work adds one step: a dataset that changes the nomenclature table also needs pnpm run build:search-names, which regenerates the search names and the rename groups from nomenclature.tsv; project guidance states the order, the --check guard and the rule tests. The rebuilt renames.js and names.js come from the same nomenclature table with the case-duplicate rule; the dataset steps and the --check guard are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
     "docs/PROJECT_GUIDANCE.md",
     "scripts/build_search_names.mts",
-    "scripts/lib/searchNames.test.mts"
+    "scripts/lib/searchNames.test.mts",
+    "public/nomenclature/renames.js"
   ]
 }
