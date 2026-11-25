@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "d0a93f36d724d744369d16e1d4e46ce9581a15be62eaeca3a78e5ac2436bee7b",
-  "outcome": "updated",
-  "explanation": "DEVELOPMENT.md, the delivery runbook and the UI-change runbook describe the wider built-site browser smoke: every view and explorer tab, search to study, shared links and history, saved exports and the volcano canvas, with one CI retry reported as flaky. The UI-change runbook says a new view or tab needs a viewLinks.ts entry and a ready check. The generated code map lists the new test.",
+  "fingerprint": "9d038c3367c3d4975d61ee57275f1e72bb408a7d4fffd7b8b0b3603cb946a461",
+  "outcome": "no-impact",
+  "explanation": "The only repository-area source that changed is volcano.smoke.spec.ts, which shares its opening steps between two tests and adds one that the first gene selected keeps its place and its tooltip. The documented smoke coverage, commands and delivery steps stay accurate.",
   "references": [
-    "docs/DEVELOPMENT.md",
-    "docs/agent-context/delivery.md",
+    "scripts/smoke/volcano.smoke.spec.ts",
     "docs/agent-context/workflows.md"
   ]
 }
