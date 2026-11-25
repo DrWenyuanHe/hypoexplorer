@@ -1,7 +1,7 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "cbe1d8fffcdb57cc9b768ca1c511b92972221b25fe84a6f86ddc5107fc0fe93b",
+  "fingerprint": "ff3e3879704f5a7cc697dcd5a4025b033808e67033358a27dfabdeeaa24a69c7",
   "outcome": "updated",
   "explanation": "setup.ts unmounts the page before it resets the URL after each test, because unmounting runs the router's pending URL write and Testing Library's own cleanup runs after this hook; testIsolation.test.tsx pins that order. app.dataset.test.tsx unmounts before it removes the mouse study's seeds, so a mounted page cannot start a load that stays cached for the next test. nomenclature.test.tsx checks that Enter selects the gene typed before the list catches up.",
   "references": [

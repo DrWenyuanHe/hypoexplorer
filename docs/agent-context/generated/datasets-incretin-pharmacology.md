@@ -18,7 +18,7 @@ Declaration: [src/data/datasets.ts](<../../../src/data/datasets.ts>).
 
 Mouse arcuate nucleus — PYY/GLP-1 co-agonist (bulk RNA-seq) — Mus musculus; bulk RNA-seq.
 
-Arcuate nucleus, vehicle vs PYY/GLP-1 receptor co-agonist (IP118) in obese-diabetic mice (GSE160802)
+Arcuate nucleus of lean mice, vehicle vs a single coadministration of IP118 (GLP-1 receptor agonist) and PY115 (PYY Y2 receptor agonist), 4 h after injection (GSE160802)
 
 Declaration: [src/data/datasets.ts](<../../../src/data/datasets.ts>).
 

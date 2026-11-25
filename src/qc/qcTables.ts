@@ -1,5 +1,6 @@
 import type { SortableColumn } from '../common/SortableTable';
 import { trackColor } from '../data/datasetMeta';
+import { reviewedTrackLabel } from '../data/reviewedTrackLabels';
 import type { Dataset, DatasetMeta, Group, QcGlobal, QCFlags, ResolvedContrast } from '../types';
 import { commonSamplePrefix } from '../utils/sampleIds';
 import { groupLabels } from '../utils/sampleValues';
@@ -226,16 +227,17 @@ export function deTable(
   qc: QcGlobal | null | undefined,
   meta: DatasetMeta | null | undefined,
   v: QcVocabulary,
-  opts: { query: string; showAll: boolean },
+  opts: { query: string; showAll: boolean; datasetId?: string },
 ): QcTableSpec<QcDeRow> & { hasExtraColumns: boolean } {
   const deSummary = (qc?.deSummary ?? []) as QcDeSummaryRecord[];
   const labels = meta?.labels ?? {};
   const allRows: QcDeRow[] = deSummary.map((r) => {
     const cluster = clusterId(r.cluster);
+    const label = r.cluster_label ?? r.clusterLabel ?? labels[cluster];
     return {
       _key: cluster,
       cluster,
-      label: r.cluster_label ?? r.clusterLabel ?? labels[cluster],
+      label: opts.datasetId && label ? reviewedTrackLabel(opts.datasetId, cluster, label) : label,
       nGenes: r.nGenes,
       nSig: r.nSig,
       nDEG_lfc025: r.n_DEG_FDR05_lfc025,

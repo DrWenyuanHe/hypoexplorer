@@ -1,13 +1,11 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "6c328b69948369f2fea793088ff30695b9df1c51ae0b73d9c4523525aeee00ae",
-  "outcome": "updated",
-  "explanation": "Verification guidance now separates tracked ledgers and producers from the untracked evidence subtrees and points to the shared files-not-in-this-repository section. The author-validation README names the current concordance ledger audit, states that build:quality needs the maintainer checkout and refuses a downgrade, and the circadian runbook marks its output folders and fixture builder as untracked. No evidence, ledger or check changed.",
+  "fingerprint": "699cbceb70d2384cf31e0a4149155b04db0ad4743e1b3e966c60b7f6d7f3f412",
+  "outcome": "no-impact",
+  "explanation": "Registry facet values, descriptive text, display labels, a survey source and reviewed reasons changed. No evidence ledger, verification command, quality rule or pinned producer changed, and the author-validation records are untouched.",
   "references": [
-    "data/author-validation/README.md",
-    "docs/runbooks/CIRCADIAN_VALIDATION.md",
-    "docs/PROJECT_GUIDANCE.md",
-    "scripts/audit_concordance_review_ledger.mts"
+    "docs/agent-context/workflows.md",
+    "scripts/regen-r460/build_registry_edits.mts"
   ]
 }

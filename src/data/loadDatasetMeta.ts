@@ -19,7 +19,7 @@
 
 import { loadRequiredBundle, peekBundle, _resetBundleCache } from './bundleSource';
 import type { Dataset, DatasetMeta, QcGlobal } from '../types';
-import { reviewedMetadata } from './reviewedTrackLabels';
+import { hasReviewedTrackLabel, reviewedMetadata } from './reviewedTrackLabels';
 
 const displayedLoads = new WeakMap<Promise<DatasetMeta>, Promise<DatasetMeta>>();
 
@@ -32,7 +32,7 @@ export function loadDatasetMeta(dataset: Dataset): Promise<DatasetMeta> {
     dataset.metaGlobalKey,
     `dataset metadata for ${dataset.id} (${file})`,
   );
-  if (dataset.id !== 'mouse_pvn_crh_ela_gse174085') return loaded;
+  if (!hasReviewedTrackLabel(dataset.id)) return loaded;
   let displayed = displayedLoads.get(loaded);
   if (!displayed) {
     displayed = loaded.then((meta) => reviewedMetadata(dataset.id, meta));
