@@ -14,7 +14,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { lazyView, ViewLoading } from '../common/lazyView';
-import type { SurveyScope } from '../expression-survey/expressionSurvey';
+import { barGeometry, type SurveyScope } from '../expression-survey/expressionSurvey';
 import { dirGlyph, directionTextColor } from '../statistics/direction';
 import { DEFAULT_FDR_CUTOFF, type SignificanceTier } from '../statistics/policy';
 import { DOWN_TEXT_COLOR, UP_TEXT_COLOR } from '../styles/constants';
@@ -422,16 +422,18 @@ export function BaselineSection({ symbol }: { symbol: string }) {
   );
 }
 
+// Each study-library source is one population (GSE210311 has two), so the
+// tile counts populations, not studies.
 const FAMILY_TEXT: Record<SourceFamily, { name: string; method: string; noun: string }> = {
-  studies: { name: 'Study library', method: 'sorted and tagged populations', noun: 'studies' },
+  studies: { name: 'Study library', method: 'sorted and tagged populations', noun: 'populations' },
   tissue: { name: 'Tissue & bulk', method: 'animal tissue', noun: 'sources' },
 };
 
-const COMMON_NAMES: Record<string, string> = { 'Mus musculus': 'mouse', 'Rattus norvegicus': 'rat', 'Sus scrofa': 'pig' };
+const COMMON_NAME: Record<string, string> = { 'Mus musculus': 'mouse', 'Rattus norvegicus': 'rat', 'Sus scrofa': 'pig' };
 
-/** 'mouse, rat and pig': the family's species by common name, most sources first. */
-function speciesList(species: readonly string[]): string {
-  const names = species.map((name) => COMMON_NAMES[name] ?? name);
+/** 'mouse, rat and pig': the species a family covers, by common name where one is set. */
+export function speciesPhrase(species: readonly string[]): string {
+  const names = species.map((name) => COMMON_NAME[name] ?? name);
   return names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}` : names[0] ?? '';
 }
 
@@ -441,34 +443,54 @@ export function FamilySection({ symbol, family }: { symbol: string; family: Sour
   const teaser = load.state === 'done' ? load.value : null;
   const text = FAMILY_TEXT[family];
   const titleId = `portal-family-${family}`;
+  // The tissue tile names the species its sources come from, not a fixed list.
+  const method = family === 'tissue' && teaser?.species.length ? speciesPhrase(teaser.species) : text.method;
+  const read = teaser ? teaser.total - teaser.unread : 0;
+  const unreadNote = teaser && teaser.unread > 0
+    ? ` ${teaser.unread} of the ${teaser.total} ${text.noun} could not be read, so ${symbol} may be measured there.`
+    : '';
+  // One signed axis for the shown bars: a measured zero draws nothing, and a
+  // negative value (the median-baselined rat tissue) is drawn left of zero.
+  const shown = teaser?.levels.slice(0, FAMILY_TOP) ?? [];
+  const maximum = Math.max(0, ...shown.map((level) => level.mean));
+  const minimum = Math.min(0, ...shown.map((level) => level.mean));
+  const axis = { minimum, maximum, range: maximum - minimum || 1 };
   return (
     <section className="portal-source" data-section={family === 'studies' ? 'study-populations' : 'tissue'} aria-labelledby={titleId}>
-      <SourceTitle id={titleId} name={text.name} method={family === 'tissue' && teaser?.species.length ? speciesList(teaser.species) : text.method} />
+      <SourceTitle id={titleId} name={text.name} method={method} />
       {load.state === 'loading' ? (
         <p className="portal-note" role="status">Loading {text.noun}…</p>
       ) : !teaser ? (
         <p className="portal-note">These {text.noun} could not be loaded.</p>
       ) : !teaser.levels.length ? (
-        <p className="portal-note">{symbol} is not among the genes these {teaser.total} {text.noun} retained.</p>
+        <p className="portal-note">
+          {teaser.unread > 0
+            ? <>{symbol} is not among the genes the {read} {text.noun} that loaded retained.{unreadNote}</>
+            : <>{symbol} is not among the genes these {teaser.total} {text.noun} retained.</>}
+        </p>
       ) : (
         <>
           <ul className="portal-bars" aria-label={`Highest cohort mean of ${symbol} per source, ${teaser.unit}`}>
-            {teaser.levels.slice(0, FAMILY_TOP).map((level) => (
+            {shown.map((level) => {
+              const bar = barGeometry(level.mean, axis);
+              return (
               <li key={level.sourceId}>
                 <span className="portal-bar-label" title={`${level.label}, ${level.study}, ${level.cohort}, n = ${level.n}`}>
                   {level.label}
                   <span className="portal-card-sub" style={{ display: 'block', overflow: 'hidden', textOverflow: 'ellipsis' }}>{level.study} · {level.cohort}</span>
                 </span>
-                <span className="portal-bar-track" aria-hidden="true">
-                  <span className="portal-bar" style={{ width: `${Math.max(1, (level.mean / teaser.levels[0].mean) * 100)}%` }} />
+                <span className="portal-bar-track portal-bar-track--signed" aria-hidden="true">
+                  {minimum < 0 && <span className="portal-bar-zero" style={{ left: `${bar.zero}%` }} />}
+                  <span className="portal-bar" style={{ marginLeft: `${bar.left}%`, width: `${bar.width}%` }} />
                 </span>
                 <span className="portal-bar-value">{fmtTpm(level.mean)}</span>
               </li>
-            ))}
+              );
+            })}
           </ul>
           <p className="portal-note">
             Highest cohort mean per source, {teaser.unit}. {teaser.inUnit} of the {teaser.measured} {text.noun} with {symbol} use
-            this unit{teaser.measured > teaser.inUnit ? '; the rest are listed in their own units inside' : ''}.
+            this unit{teaser.measured > teaser.inUnit ? '; the rest are listed in their own units inside' : ''}.{unreadNote}
           </p>
         </>
       )}
@@ -672,6 +694,8 @@ function SourceDrill({ id, drill, symbol, panelId, onClose }: {
   onClose: () => void;
 }) {
   const [wide, setWide] = useState(false);
+  // The scope "Use study library" reopened the survey on, with the tile released.
+  const [libraryScope, setLibraryScope] = useState<SurveyScope | null>(null);
   const ref = useRef<HTMLElement>(null);
   // The panel opens below the tiles: bring it into view, and to the top when the survey page handed the gene over.
   // biome-ignore lint/correctness/useExhaustiveDependencies: scrolls once, when the panel opens.
@@ -688,7 +712,7 @@ function SourceDrill({ id, drill, symbol, panelId, onClose }: {
         </h3>
         <div className="gene-expr-drill-actions">
           {id !== 'single-cell' && drill.focus && (
-            <button type="button" className="portal-secondary" aria-pressed={wide} onClick={() => setWide((value) => !value)}>
+            <button type="button" className="portal-secondary" aria-pressed={wide} onClick={() => { setLibraryScope(null); setWide((value) => !value); }}>
               {wide ? `Only ${drill.title}` : 'All sources and filters'}
             </button>
           )}
@@ -697,7 +721,9 @@ function SourceDrill({ id, drill, symbol, panelId, onClose }: {
       </div>
       {id === 'single-cell'
         ? <HypoMapPreview key={symbol} symbol={symbol} />
-        : <GenePageSurvey key={`${id}:${wide}`} symbol={symbol} initialScope={drill.scope} focus={focused ? drill.focus : undefined} />}
+        : <GenePageSurvey key={`${id}:${wide}`} symbol={symbol} initialScope={wide && libraryScope ? libraryScope : drill.scope}
+            focus={focused ? drill.focus : undefined}
+            onUseLibrary={(scope) => { setLibraryScope(scope); setWide(true); }} />}
     </section>
   );
 }

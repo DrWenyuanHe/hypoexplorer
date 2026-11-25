@@ -4,6 +4,7 @@ import { queryGeneAcrossDatasets, queryPathwayAcrossDatasets, loadPathwayIndex, 
 import { loadDatasetMeta } from '../data/loadDatasetMeta';
 import { _resetTrackCache } from '../data/loadTrack';
 import { _resetSymbolRenames } from '../data/symbolRenames';
+import { geneShard, geneShardFile } from '../data/queryWire';
 import {
   BULK_DATASET_FIXTURE,
   BULK_TRACK_FIXTURE,
@@ -687,7 +688,7 @@ describe('cross-dataset query — renamed symbols', () => {
   const RENAMES = { v: 1, authorities: ['MGI'], groups: [[0, 'Fam237b', 'Gm8773']] };
 
   // Every gene shard carries every key, so the test never recomputes the hash.
-  function stubRenamed(keys: Record<string, unknown[]>, renames: unknown = RENAMES) {
+  function stubRenamed(keys: Record<string, unknown[]>, renames: unknown = RENAMES, missingKey?: string) {
     const orig = document.createElement.bind(document);
     const requested: string[] = [];
     vi.spyOn(document, 'createElement').mockImplementation((tag: any) => {
@@ -699,6 +700,8 @@ describe('cross-dataset query — renamed symbols', () => {
           if (src.includes('/query/tracks.js')) {
             (window as any).HX_QUERY_TRACKS = RENAME_MANIFEST;
             el.onload?.(new Event('load'));
+          } else if (missingKey && src.includes(geneShardFile(geneShard(missingKey)))) {
+            el.onerror?.(new Event('error'));
           } else if (src.includes('/genes/')) {
             const m = src.match(/\/genes\/g(\d{3})\.js/);
             (window as any)[`HX_QUERY_GENES_${m![1]}`] = shard(keys);
@@ -759,6 +762,13 @@ describe('cross-dataset query — renamed symbols', () => {
     // From Newa: track a stores two retired names and not Newa, so it gives no answer.
     const fromNew = await queryGeneAcrossDatasets('Newa', { datasets: [DS] });
     expect(fromNew.groups[0].tracks.map((t) => [t.trackId, t.storedAs])).toEqual([['b', undefined]]);
+  });
+
+  it('falls back to the full download when a partner shard cannot be read, rather than answer partly', async () => {
+    const { requested } = stubRenamed({ FAM237B: [[0, 1.0, 0.01, 0.02, 0.1]], GM8773: [[1, 2.0, 0.001, 0.004, 0.2]] }, RENAMES, 'GM8773');
+    await queryGeneAcrossDatasets('Fam237b', { datasets: [DS] });
+    // The index answer was refused, so the slow path ran: it asks for the dataset's meta.js.
+    expect(requested.some((r) => r.includes('meta.js'))).toBe(true);
   });
 
   it('answers as before when the rename table is unavailable', async () => {

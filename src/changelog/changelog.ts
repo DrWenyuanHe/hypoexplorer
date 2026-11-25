@@ -7,6 +7,20 @@ export interface ChangelogEntry {
 export const CHANGELOG: ChangelogEntry[] = [
   {
     date: '2026-11-25',
+    title: 'Expression tiles and renamed genes: fixes from review',
+    items: [
+      'The study-library and tissue tiles no longer report a gene as absent when a source could not be read. When nothing loads, the tile says it could not be loaded and tries again on the next visit; when only some sources load, it says how many could not be read.',
+      'The study-library tile counts populations, not studies: GSE210311 contributes two (POMC and POMC with Drd2).',
+      'Tile bars share one signed scale: a measured zero draws no bar instead of a broken one, and a negative value, as in the median-baselined rat tissue, is drawn left of zero.',
+      'If the NeuroSeq catalog fails, "Use study library" inside a tile\'s panel now opens every study-library source. Before, the tile\'s own source filter stayed on and showed none.',
+      'On the Expression survey page, a population catalog entry shows the values the last survey loaded for it again.',
+      'A gene page opened from the Expression survey page keeps that survey\'s sources and filters for that visit only. Reaching the same gene later from ordinary search opens its page plainly.',
+      'If a renamed symbol\'s data cannot be read, the gene page loads every study directly rather than show a partial list.',
+      'No data, result or analysis changed.',
+    ],
+  },
+  {
+    date: '2026-11-25',
     title: "A gene's expression survey is on its gene page",
     items: [
       'On a gene page, "Where <gene> is expressed" now shows one tile per source: an animal row (NeuroSeq, the study library, tissue, and a slot for single-cell atlases) and a human row (GTEx, Allen, and the Human Protein Atlas subregions and clusters). Each tile\'s "Every …" button opens that source\'s full survey under its row: every cohort, sample, probe and donor, the fed / reference filter, and the exports. Before, "Open expression survey" opened an empty survey and the gene had to be typed again.',

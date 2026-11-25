@@ -1,14 +1,16 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "23adfba2c391d79b6f5b09fd5d1e66eed69bd7fc8176d43c1404e62dbce70a7c",
+  "fingerprint": "c643f16c3f0a000fe43929c0fd2185d2a619fbf806e8509e0b05fae443201dd3",
   "outcome": "updated",
-  "explanation": "The tile layout follows the existing UI rules: the survey workspace loads through lazyView so the search page chunk stays unchanged, exports go through the survey's own export path, and routing is untouched. The ui-change workflow needs no new rule. The rename work changes it: the ui-change workflow now describes renames.js from the names builder, its search alias rules, the gene report and summaries reading studies under rename-group members with storedAs and pickStoredMember, the gene page note and row tag, the preview lookup and compareCell receiving the table.",
+  "explanation": "From main (PR #84): The tile layout follows the existing UI rules: the survey workspace loads through lazyView so the search page chunk stays unchanged, exports go through the survey's own export path, and routing is untouched. The ui-change workflow needs no new rule. The rename work changes it: the ui-change workflow now describes renames.js from the names builder, its search alias rules, the gene report and summaries reading studies under rename-group members with storedAs and pickStoredMember, the gene page note and row tag, the preview lookup and compareCell receiving the table. From this branch: From main (PR #85): The rename work changes it: the ui-change workflow now describes renames.js from the names builder, its search alias rules, the gene report and summaries reading studies under rename-group members with storedAs and pickStoredMember, the gene page note and row tag, the preview lookup and compareCell receiving the table. From this branch: From main: The gene search's Enter key now searches the text in the box. Every gene picker still goes through GenePicker over geneVocabulary, and no route, view, label, breakpoint or export that the UI-change workflow describes changed. From this branch: The tile layout follows the existing UI rules: the survey workspace loads through lazyView so the search page chunk stays unchanged, exports go through the survey's own export path, and routing is untouched, so it needs no new rule. The rename work does: the ui-change workflow now describes renames.js from the names builder, its search alias rules, the gene report and summaries reading studies under rename-group members with storedAs and pickStoredMember, the gene page note and row tag, the preview lookup and compareCell receiving the table. Review fixes: the expression survey runbook states the tile counts, species naming, signed bars, unread-source handling, the library fallback releasing a tile, the one-visit handover and catalog details; navigation, lazy views and exports follow the existing rules.",
   "references": [
+    "src/gene-explorer/GeneSearchBox.tsx",
     "docs/agent-context/workflows.md",
     "src/common/lazyView.tsx",
     "src/search/portalCards.tsx",
     "src/data/crossDataset.ts",
-    "src/data/symbolRenames.ts"
+    "src/data/symbolRenames.ts",
+    "docs/runbooks/EXPRESSION_SURVEY.md"
   ]
 }
