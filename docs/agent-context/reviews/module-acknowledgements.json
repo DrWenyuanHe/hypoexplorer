@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "module-acknowledgements",
-  "fingerprint": "f7507f5c51ce0447fddc2b12adc95807fa56ee0f22b6642816c83fd15cf1bd92",
+  "fingerprint": "c528a0ca72aae1636ab9ec3f004dd7870952ab432e09d5f6425c22f23583eeab",
   "outcome": "updated",
-  "explanation": "The How to cite acknowledgement now thanks the developers of limma and msigdbr and credits the NeuroSeq and GSE147092 OXT reference sources that the expression survey reads. No software reference entry was added, because their DOIs are not recorded in the repository and each entry must carry a checked DOI.",
+  "explanation": "How to cite gains four references, each verified with a resolvable DOI: limma (Ritchie et al., Nucleic Acids Res 2015, PMID 25605792), the NeuroSeq atlas (Sugino et al., eLife 2019, PMID 30977723), the GSE147092 oxytocin-neuron reference (Lewis et al., Neuron 2020, PMID 33113347), and msigdbr, which has no paper and cites its CRAN DOI. The acknowledgement names limma, msigdbr, NeuroSeq and the Goff Lab, and the header comment says how the msigdbr DOI was checked.",
   "references": [
     "src/acknowledgements/references.ts",
-    "src/__tests__/references.test.tsx"
+    "src/__tests__/references.test.tsx",
+    "data/expression/neuroseq/README.md",
+    "data/expression/oxt-reference/README.md"
   ]
 }
