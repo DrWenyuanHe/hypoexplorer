@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-qc",
-  "fingerprint": "a8595d8540abb65f88734bf2b07b78fb3d8b168ff53dfd4710cfe02c3fa08d66",
+  "fingerprint": "09b69209f24ee8800dc9d5809159a5a55561407430d7d683414064d53e6633ad",
   "outcome": "updated",
-  "explanation": "The QC table's nSig column heading changes from 'Sig (P<0.01)' to 'Sig (FDR<0.05)', the same significance call the rest of the app uses. deSummary[].nSig is now counted by the bundle writer as finite FDR < NSIG_FDR_THRESHOLD in the default-contrast table; qcTables only renders it. The macaque atlas has no nSig and keeps its own FDR/logFC DEG columns.",
+  "explanation": "The DE summary table shows the reviewed track label of its own dataset: QCTab passes the dataset id and deTable applies reviewedTrackLabel to the label stored in qc_global.js. Row keys, counts, columns and the label fallback chain are unchanged.",
   "references": [
     "src/qc/qcTables.ts",
-    "scripts/lib/bundleWriter.mts",
-    "src/__tests__/qcTables.test.ts"
+    "src/qc/QCTab.tsx"
   ]
 }

@@ -177,6 +177,13 @@ describe('deTable', () => {
     }, makeMeta({ labels: { c: 'Meta label' } }), legacyVocabulary, { query: '', showAll: false });
     expect(spec.rows.map((row) => row.label)).toEqual(['', 'Legacy label', 'Meta label']);
   });
+
+  it('shows the reviewed track label of its own dataset only', () => {
+    const qc = { deSummary: [{ cluster: 'arcuate', clusterLabel: 'Arcuate nucleus (ARC)' }] };
+    const label = (datasetId: string) => deTable(qc, makeMeta(), legacyVocabulary, { query: '', showAll: false, datasetId }).rows[0].label;
+    expect(label('mouse_arc_kcnb1_gse246918')).toBe('Whole hypothalamus');
+    expect(label('mouse_arc_pyy_glp1_gse160802')).toBe('Arcuate nucleus (ARC)');
+  });
 });
 
 describe('fgseaTable', () => {

@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-expression-survey",
-  "fingerprint": "1d5c703f8b48dc8dfc87392624ee5b72963737138356d53254323ff01d47ff9f",
-  "outcome": "no-impact",
-  "explanation": "Directory reorganization: loose docs moved to docs/runbooks/ and docs/records/, and deploy, fetch and dev tooling scripts moved to scripts/deploy/, scripts/fetch/ and scripts/dev/. The expression survey runbook moved to docs/runbooks/ with relative links adjusted; survey code and reference data are untouched.",
+  "fingerprint": "15c47c3fb1046a313e657686835084db215802792cb19482dbd1b7fcf76c661c",
+  "outcome": "updated",
+  "explanation": "existingCatalog.ts moves the GSE162563 POA source from the GnRH population to tissue: its 11 libraries are the GnRH-depleted supernatant of a TRAP pull-down. Its identity text describes the supernatant after immunoprecipitation without claiming complete depletion. The source id, track, sample counts and reference eligibility are unchanged. The index compares the whole source record, so the published index must be rebuilt with build:expression-index before this source can load.",
   "references": [
-    "docs/runbooks/EXPRESSION_SURVEY.md",
-    "src/expression-survey/expressionData.ts"
+    "src/expression-survey/existingCatalog.ts",
+    "src/expression-survey/expressionIndex.ts",
+    "docs/runbooks/EXPRESSION_SURVEY.md"
   ]
 }

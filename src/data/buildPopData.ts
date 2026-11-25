@@ -13,6 +13,7 @@
 import { DB_NAMES } from './constants';
 import { resolveExpressionUnit } from './expressionUnits';
 import { deTableFor, strictDeTableFor, groupSamplesOf } from './rawTrack';
+import { reviewedTrackMeta } from './reviewedTrackLabels';
 import type {
   Dataset,
   GeneDERecord,
@@ -147,7 +148,7 @@ export function buildPopData(
       yFdr: d.FDR == null ? 0 : -Math.log10(d.FDR + 1e-300),
     })),
     allPathways,
-    meta: rawTrack.meta,
+    meta: rawTrack.meta && reviewedTrackMeta(dataset.id, rawTrack.meta),
     contrast,
     groups,
     groupSamples,
