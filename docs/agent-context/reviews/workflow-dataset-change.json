@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "20212e2713882542099e039c552a161191f30082597c7ed20d959cd1f3d2c412",
+  "fingerprint": "8d3dc721dab7235d9a8e6ab9c851774493c60f510d34772202458bf804804a6c",
   "outcome": "no-impact",
-  "explanation": "Registry fields, display labels and one survey source of reviewed studies were corrected; the dataset-change procedure, including the reviewed-reason step in build_registry_edits.mts and the expression-index rebuild for survey sources, is unchanged.",
+  "explanation": "Registry fields, display labels and one survey source of reviewed studies were corrected; the dataset-change procedure, including the reviewed-reason step in build_registry_edits.mts and the expression-index rebuild for survey sources, is unchanged. The survey index was rebuilt with that procedure.",
   "references": [
     "docs/agent-context/workflows.md",
-    "scripts/regen-r460/build_registry_edits.mts"
+    "scripts/regen-r460/build_registry_edits.mts",
+    "data/expression/existing/README.md"
   ]
 }

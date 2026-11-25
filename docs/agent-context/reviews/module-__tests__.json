@@ -1,14 +1,15 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "f6ead7b96ad1fc7a801664b9933854af17410fbc67ce4b254ef26bcd96e21fe9",
+  "fingerprint": "28d55d304c9868eed8049b6e99d74aca47535df733e61cfc5230175b6437b5cb",
   "outcome": "updated",
-  "explanation": "The registry snapshot changes only for the corrected strings of GSE248462, GSE160802, GSE246918 and GSE162563, including the region, modality and preparation values. reviewedTrackLabels.test.ts and bundleReaderParity.test.ts check the two added display labels, and expressionSurvey.test.ts checks that the GSE162563 supernatant is a tissue source and not a population. reviewedTrackLabels.test.ts and qcTables.test.ts also cover the loaded track, its export record and the QC table, and the parity check no longer depends on the committed legacy label.",
+  "explanation": "The registry snapshot changes only for the corrected strings of GSE248462, GSE160802, GSE246918 and GSE162563, including the region, modality and preparation values. reviewedTrackLabels.test.ts and bundleReaderParity.test.ts check the two added display labels, and expressionSurvey.test.ts checks that the GSE162563 supernatant is a tissue source and not a population. reviewedTrackLabels.test.ts and qcTables.test.ts also cover the loaded track, its export record and the QC table, and the parity check no longer depends on the committed legacy label. explorerStore.test.tsx covers a deep link, where the meta global is already set.",
   "references": [
     "src/__tests__/__snapshots__/datasetsRegistry.test.ts.snap",
     "src/__tests__/reviewedTrackLabels.test.ts",
     "src/__tests__/bundleReaderParity.test.ts",
     "src/__tests__/expressionSurvey.test.ts",
-    "src/__tests__/qcTables.test.ts"
+    "src/__tests__/qcTables.test.ts",
+    "src/__tests__/explorerStore.test.tsx"
   ]
 }

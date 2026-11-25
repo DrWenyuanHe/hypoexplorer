@@ -4,6 +4,7 @@ import { useExplorerStore } from '../data/explorerStore';
 import { _setBundleTransport, _resetBundleCache, loadRequiredBundle, type BundleOutcome, type BundleTransport } from '../data/bundleSource';
 import { _resetTrackCache } from '../data/loadTrack';
 import { BULK_DATASET_FIXTURE, MIRNA_DATASET_FIXTURE, MULTICONTRAST_DATASET_FIXTURE } from './fixtures';
+import { getDataset } from '../data/datasets';
 
 // The explorer store used to live inline in App.tsx, so every one of these
 // properties could only be exercised by mounting the whole application and
@@ -59,6 +60,29 @@ beforeEach(() => { _resetBundleCache(); _resetTrackCache(); });
 afterEach(() => { _setBundleTransport(null); _resetBundleCache(); _resetTrackCache(); });
 
 describe('explorerStore — dataset metadata', () => {
+  // The router loads meta.js on a deep link, which leaves the bundle's own global
+  // behind; the store then takes that global instead of the loader's answer.
+  it.each([
+    ['mouse_arc_kcnb1_gse246918', 'arcuate', 'Arcuate nucleus (ARC)', 'Whole hypothalamus'],
+    ['mouse_gnrh_androgen_gse162563', 'poa', 'GnRH / preoptic area (TRAP)', 'Preoptic area (GnRH-depleted TRAP supernatant)'],
+    ['mouse_pvn_crh_ela_gse174085', 'crh_pvn', 'PVN CRH neurons (animal pseudobulk)', 'PVN CRH neurons (litter pseudobulk)'],
+  ])('shows the reviewed label of %s when its meta global is already set', (id, track, source, corrected) => {
+    const dataset = getDataset(id)!;
+    const { transport, requests } = mapTransport({});
+    _setBundleTransport(transport);
+    const raw = { populations: [track], labels: { [track]: source } };
+    (window as any)[dataset.metaGlobalKey] = raw;
+    try {
+      const { result } = renderHook(() =>
+        useExplorerStore({ dataset, activeTrackId: track, wantQC: false }));
+      expect(result.current.meta?.labels[track]).toBe(corrected);
+      expect(raw.labels[track]).toBe(source);
+      expect(requests).toEqual([]);
+    } finally {
+      delete (window as any)[dataset.metaGlobalKey];
+    }
+  });
+
   it('loads the active dataset metadata', async () => {
     const { transport } = mapTransport(FILES);
     _setBundleTransport(transport);
