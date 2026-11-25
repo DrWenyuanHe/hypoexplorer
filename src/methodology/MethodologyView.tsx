@@ -20,7 +20,8 @@
 
 import type { ReactNode } from 'react';
 
-import { FONT_HEADING, FONT_MONO, FONT_SANS, DIRECTION_UP_COLOR as UP, DIRECTION_DOWN_COLOR as DOWN } from '../styles/constants';
+import { FONT_HEADING, FONT_MONO, FONT_SANS, DIRECTION_UP_COLOR as UP } from '../styles/constants';
+import { directionTextColor } from '../statistics/direction';
 import { PageShell } from '../common/PageShell';
 import { Mono, P, PROSE_MEASURE, ProsePage, ProseSection, tdStyle, thStyle } from '../common/prose';
 import { DEFAULT_FDR_CUTOFF } from '../statistics/policy';
@@ -331,8 +332,8 @@ export function MethodologyView({ onHome }: { onHome: () => void }) {
           </Callout>
           <H3>Direction and effect size</H3>
           <P>
-            Effect size is the <Mono>log2FC</Mono>. Throughout the explorer, <span style={{ color: UP, fontWeight: 600 }}>red is up in the case / HFD condition</span> and{' '}
-            <span style={{ color: DOWN, fontWeight: 600 }}>blue is down toward the baseline</span>. Colour is
+            Effect size is the <Mono>log2FC</Mono>. Throughout the explorer, <span style={{ color: directionTextColor('up', 'fdr'), fontWeight: 600 }}>red is up in the case / HFD condition</span> and{' '}
+            <span style={{ color: directionTextColor('down', 'fdr'), fontWeight: 600 }}>blue is down toward the baseline</span>. Colour is
             always paired with the sign and a text label, never used alone.
           </P>
         </Section>

@@ -11,10 +11,10 @@
 
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import { dirGlyph } from '../crossdataset/forestReport';
-import { DEFAULT_FDR_CUTOFF } from '../statistics/policy';
-import { DOWN_TEXT_COLOR, NEUTRAL_TEXT_COLOR, UP_TEXT_COLOR } from '../styles/constants';
-import { fmtFDR, fmtP, fmtSigned } from '../utils/format';
+import { dirGlyph, directionTextColor } from '../statistics/direction';
+import { DEFAULT_FDR_CUTOFF, type SignificanceTier } from '../statistics/policy';
+import { DOWN_TEXT_COLOR, UP_TEXT_COLOR } from '../styles/constants';
+import { fmtFDR, fmtP, fmtSigned, plural } from '../utils/format';
 import { DbBadge } from './DbBadge';
 import { describePathway } from './searchVocabulary';
 import {
@@ -45,26 +45,12 @@ export function useLoad<T>(key: string, load: (key: string) => Promise<T>): Load
 
 // ── Formatting ─────────────────────────────────────────────────────────────
 
-export function dirColor(direction: Direction, significant: boolean): string {
-  if (!significant) return NEUTRAL_TEXT_COLOR;
-  return direction === 'up' ? UP_TEXT_COLOR : direction === 'down' ? DOWN_TEXT_COLOR : NEUTRAL_TEXT_COLOR;
-}
-
-export function Effect({ value, direction, significant }: { value: number; direction: Direction; significant: boolean }) {
+export function Effect({ value, direction, tier }: { value: number; direction: Direction; tier: SignificanceTier }) {
   return (
-    <span className="search-effect" style={{ color: dirColor(direction, significant) }}>
+    <span className="search-effect" style={{ color: directionTextColor(direction, tier) }}>
       <span aria-hidden="true">{dirGlyph(direction)} </span>{fmtSigned(value, 2)}
     </span>
   );
-}
-
-/**
- * A row's call: the FDR survivors are labelled; the nominal tier is named as
- * uncorrected. Shared by the search portal and the pathway report, so the same
- * result carries the same words wherever it appears.
- */
-export function plural(n: number, one: string, many = `${one}s`): string {
-  return `${n} ${n === 1 ? one : many}`;
 }
 
 /** A reserved slot for data that is not built yet. Replace by `data-slot`. */
@@ -221,7 +207,8 @@ export function ConditionPathwaysSection({ symbol, studies, onShowPathway, onOpe
                         <th key={index} scope="col" className="cp-cond" data-status={c.status}
                           data-first={first && group === 'up' ? true : undefined} title={conditionTitle(c, symbol)}>
                           <span className="cp-cond-label">{conditionLabel(c)}</span>
-                          <span className="cp-cond-fc" style={{ color: dirColor(c.track.direction, true) }}>
+                          {/* Every condition column is an FDR result (searchSummaries.ts). */}
+                          <span className="cp-cond-fc" style={{ color: directionTextColor(c.track.direction, 'fdr') }}>
                             {fmtSigned(c.track.logFC, 2)}
                           </span>
                         </th>

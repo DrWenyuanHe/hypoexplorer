@@ -6,6 +6,16 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-11-24',
+    title: 'Readable direction colours on the pathway report',
+    items: [
+      'On the cross-dataset pathway report, the NES figures, the folded "strongest" score and the headline\'s up and down counts are now drawn in the darker red and blue the rest of the site uses for text. Before, they used the lighter chart colours, which are too faint to read easily. The forest dots keep the chart colours.',
+      'The Methods page\'s "red is up / blue is down" sentence uses the same darker colours.',
+      'A study block with no significant track now says "No significant track.", as the gene page does.',
+      'No data, result or analysis changed.',
+    ],
+  },
+  {
     date: '2026-11-23',
     title: 'No beta notice; links to the source and data on GitHub',
     items: [

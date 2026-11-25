@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "25c81ebd1565515d2a2aec4b72d1edb1da48daae6d86599919a2e0501963d36e",
+  "fingerprint": "685099942d2167013a594808b651a3615ca5ffab48f5999b9de6448c2cc113c8",
   "outcome": "updated",
-  "explanation": "datasetLibrary.test.tsx now opens the library on one or two categories (Primate atlas, Diet-induced obesity) in the ten tests about a single study's record or table row, so those tests no longer render every registered study. The tests about corpus counts, filters and the degraded catalog still render all of them, and no assertion changed.",
+  "explanation": "direction.test.ts pins dirGlyph and directionTextColor (FDR-only colour, text tokens only); listingWords.test.ts pins the mode words and the per-kind caveat as a table. forestReport.test.tsx now tests directionFill, and pathwayReportResults.test.tsx asserts the NES text is #AD3433 while the dot keeps var(--color-obese).",
   "references": [
-    "src/__tests__/datasetLibrary.test.tsx",
-    "src/library/DatasetLibrary.tsx"
+    "src/__tests__/direction.test.ts",
+    "src/__tests__/listingWords.test.ts",
+    "src/__tests__/forestReport.test.tsx",
+    "src/__tests__/pathwayReportResults.test.tsx"
   ]
 }

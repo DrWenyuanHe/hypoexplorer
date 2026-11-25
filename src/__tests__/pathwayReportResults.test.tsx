@@ -34,6 +34,18 @@ function mount(onCompare = vi.fn()) {
   return render(<PathwayReport pathway={pathway} selection={DEFAULT_STUDY_SELECTION} onSelectionChange={() => {}} onHome={() => {}} onSearchPathway={() => {}} headerRight={<CompareSetButton onCompare={onCompare} />} />);
 }
 
+describe('pathway forest colours', () => {
+  it('draws the NES figure in the AA text token and keeps the chart fill for the dot', async () => {
+    mount();
+    const row = (await screen.findByTitle('Open e9 in the pathway explorer')).closest('.report-forest-row') as HTMLElement;
+    const nes = [...row.querySelectorAll('span')].find((span) => span.textContent === '+2.50');
+    // UP_TEXT_COLOR #AD3433, held to 4.5:1 by resultTextContrast.test.tsx.
+    expect(nes?.style.color).toBe('rgb(173, 52, 51)');
+    const dot = [...row.querySelectorAll('span')].find((span) => span.style.borderRadius === '50%');
+    expect(dot?.style.background).toBe('var(--color-obese)');
+  });
+});
+
 describe('pathway result study cards', () => {
   it('links to the library record and exact pathway tab, with no inline QC or source links', async () => {
     const { container } = mount();

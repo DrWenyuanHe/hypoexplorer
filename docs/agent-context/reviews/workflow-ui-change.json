@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "e9b72e8d9c0b36d4827ca176dce6ce8d3fe8c06a1356b35b105e35b02fe7fb1a",
+  "fingerprint": "4929ac29b5605075a4d8b54052c7adaa5e4393cbff688dc96191642cdbffd69f",
   "outcome": "updated",
-  "explanation": "The ui-change workflow now says the gene report header holds Share analysis and the compare-set button (Compare as bars is gone), and that gene and pathway effect previews load through useTrackColumn. Runbooks drop the removed bars view and fmtMetaQ. No route, view, tab or export changed.",
+  "explanation": "The ui-change route says a cross-study table takes its mode words and nominal caveat from statistics/listingWords.ts and any direction-coloured text from directionTextColor in statistics/direction.ts; the refactor checklist lists both as single sources.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/data/trackColumns.ts",
-    "docs/runbooks/REFACTOR_CHECKLIST.md"
+    "docs/runbooks/REFACTOR_CHECKLIST.md",
+    "src/statistics/direction.ts",
+    "src/statistics/listingWords.ts"
   ]
 }

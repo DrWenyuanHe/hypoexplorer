@@ -16,9 +16,9 @@ export const FONT_MONO = 'Geist Mono, IBM Plex Mono, ui-monospace, monospace';
 export const FONT_SANS = 'var(--font-sans)';
 export const FONT_HEADING = 'var(--font-heading)';
 
-// Semantic DE-direction colors for the cross-dataset report pages (CSS-variable
-// form, theme-aware). Distinct from the hex UP_COLOR/DOWN_COLOR below, which
-// unrelated charts pin to exact hex values.
+// DE-direction chart fills in CSS-variable form, for MARKS (the pathway forest
+// dot, the Methods callout border). Never for text: direction text goes through
+// statistics/direction.ts and the *_TEXT_COLOR tokens below.
 export const DIRECTION_UP_COLOR = 'var(--color-obese)';
 export const DIRECTION_DOWN_COLOR = 'var(--color-normal)';
 

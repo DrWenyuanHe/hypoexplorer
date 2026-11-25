@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-methodology",
-  "fingerprint": "73995ebbb785696c15e950dfb4dcbb07f2a97903bc9a597d3f8f011d7e2c8115",
+  "fingerprint": "8695d400f66ba3357aecfb4dd05b2e2a0de9027df94d7e93c2c3c98d1416dbc8",
   "outcome": "updated",
-  "explanation": "MethodologyView renders through the shared ProsePage and ProseSection from src/common/prose.tsx, replacing its local contents list and link style; the \"On this page\" list becomes a side rail on wide screens. Section text, ids and the tests that read them are unchanged.",
+  "explanation": "The \"red is up / blue is down\" sentence on the Methods page is direction text, so it now uses directionTextColor (the AA text tokens) instead of the chart fills; the warning callout border keeps DIRECTION_UP_COLOR as a mark. The caveat prose is unchanged.",
   "references": [
     "src/methodology/MethodologyView.tsx",
-    "src/common/prose.tsx",
-    "src/common/prose.css"
+    "src/statistics/direction.ts"
   ]
 }

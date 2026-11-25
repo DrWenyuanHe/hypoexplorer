@@ -1,10 +1,12 @@
 {
   "version": 1,
   "area": "module-styles",
-  "fingerprint": "2b012c63e254001b9adde2b02b07df60e222f8cbfcc0a99aebdd231e57fe23ab",
+  "fingerprint": "9cf391db8868dd9a9a59e138cd4d478caffce118908826cb1e669ad8ccd5294d",
   "outcome": "updated",
-  "explanation": "responsive.css removes the two mobile beta-notice rules (compact padding and enlarged link tap area) now that the banner component is gone; other touch-target rules are unchanged.",
+  "explanation": "Only the comment on DIRECTION_UP_COLOR / DIRECTION_DOWN_COLOR changes: they are the chart fills in CSS-variable form for marks, never for text, which goes through statistics/direction.ts and the *_TEXT_COLOR tokens. The unsupported \"theme-aware\" claim is dropped. No token value changes.",
   "references": [
-    "src/styles/responsive.css"
+    "src/styles/constants.ts",
+    "src/statistics/direction.ts",
+    "DESIGN.md"
   ]
 }

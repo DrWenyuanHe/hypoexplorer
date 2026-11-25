@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (256):
+Covered source files (258):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -137,6 +137,7 @@ Covered source files (256):
 - [src/__tests__/dedicatedReplicationEvidence.test.ts](<../../../src/__tests__/dedicatedReplicationEvidence.test.ts>)
 - [src/__tests__/deployGuards.test.ts](<../../../src/__tests__/deployGuards.test.ts>)
 - [src/__tests__/deployedDataVerification.test.ts](<../../../src/__tests__/deployedDataVerification.test.ts>)
+- [src/__tests__/direction.test.ts](<../../../src/__tests__/direction.test.ts>)
 - [src/__tests__/edgePurge.test.ts](<../../../src/__tests__/edgePurge.test.ts>)
 - [src/__tests__/edgeRules.test.ts](<../../../src/__tests__/edgeRules.test.ts>)
 - [src/__tests__/errorBoundary.test.tsx](<../../../src/__tests__/errorBoundary.test.tsx>)
@@ -198,6 +199,7 @@ Covered source files (256):
 - [src/__tests__/libraryExport.test.ts](<../../../src/__tests__/libraryExport.test.ts>)
 - [src/__tests__/libraryFilters.test.ts](<../../../src/__tests__/libraryFilters.test.ts>)
 - [src/__tests__/listingModeToggle.test.tsx](<../../../src/__tests__/listingModeToggle.test.tsx>)
+- [src/__tests__/listingWords.test.ts](<../../../src/__tests__/listingWords.test.ts>)
 - [src/__tests__/loadDatasetMeta.test.ts](<../../../src/__tests__/loadDatasetMeta.test.ts>)
 - [src/__tests__/loadTrack.test.ts](<../../../src/__tests__/loadTrack.test.ts>)
 - [src/__tests__/macaqueQc.test.ts](<../../../src/__tests__/macaqueQc.test.ts>)
@@ -778,12 +780,14 @@ Start here:
 - [src/statistics/crossStudyListing.ts](<../../../src/statistics/crossStudyListing.ts>)
 - [src/statistics/TierLabel.tsx](<../../../src/statistics/TierLabel.tsx>)
 
-Covered source files (6):
+Covered source files (8):
 - [src/statistics/ListingModeToggle.tsx](<../../../src/statistics/ListingModeToggle.tsx>)
 - [src/statistics/TierLabel.tsx](<../../../src/statistics/TierLabel.tsx>)
 - [src/statistics/crossStudyListing.ts](<../../../src/statistics/crossStudyListing.ts>)
+- [src/statistics/direction.ts](<../../../src/statistics/direction.ts>)
 - [src/statistics/listingMode.css](<../../../src/statistics/listingMode.css>)
 - [src/statistics/listingModeStore.ts](<../../../src/statistics/listingModeStore.ts>)
+- [src/statistics/listingWords.ts](<../../../src/statistics/listingWords.ts>)
 - [src/statistics/policy.ts](<../../../src/statistics/policy.ts>)
 
 ## styles
