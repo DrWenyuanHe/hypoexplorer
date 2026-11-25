@@ -223,8 +223,10 @@ decode it before `fetch()` returned. `atlas.ts` would still parse the JSON, but 
 would skip that file's checksum, because it verifies only gzip bytes.
 `manifest.json` follows the uploader's brotli rule for text; it is checked against
 `manifestSha256` after decoding either way. This follows from the uploader and
-`atlas.ts`, not from a live response. The atlas has not been uploaded, and the
-current path rule blocks `/hypomap/`.
+`atlas.ts`, not from a live response. The repository's edge path rule
+(`cloudflare/http_request_firewall_custom/hypoexplorer_data_paths.json`) admits the
+pinned tag's manifest, metadata, search index and `genes-` shards; whether the live
+zone rule and the bucket match it is checked against the zone, not this file.
 
 The spend guard counts Class B operations for the whole bucket, and the shutoff
 rule blocks the whole data host, so atlas reads are covered without a change. A

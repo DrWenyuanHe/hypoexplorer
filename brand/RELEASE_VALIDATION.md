@@ -1,5 +1,14 @@
 # Brand release 0.14.3 — 2026-09-16
 
+> **Status (checked 2026-11-24): dated validation record, not maintained.** It
+> describes the 0.14.3 brand release as checked on 2026-09-16. `build:tracker` and
+> the scientific `prebuild` chain it mentions are not scripts in this repository's
+> `package.json` (`deploy:dist` is now a plain build and precompress), and the data
+> gate Worker it type-checked was retired.
+> Current brand assets and rules are in [the brand guide](README.md) and
+> [DESIGN.md](../DESIGN.md); current build and deployment steps are in
+> [the developer guide](../docs/DEVELOPMENT.md).
+
 Based on fetched `origin/main` at `a0392572`, in the isolated `codex/brand-identity` worktree.
 
 The approved concept A is used by the app and generated public-page headers. The logo returns home, with native modifier-click behavior. Browser and installed-app icons share the brain artwork. Desktop and 360 px mobile layouts were inspected, including home navigation from the library, tracker and public About page.

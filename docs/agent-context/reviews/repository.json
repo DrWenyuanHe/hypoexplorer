@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "7def62fb1773dcd0180ce8bc09d13ca54b6bfddad5650f9d15c982e05f4f6baa",
+  "fingerprint": "0d835ec7295d5bd9c8f63d1950de4a3d9d843a6d99c6d05e3e6619570537a926",
   "outcome": "updated",
-  "explanation": "CI and the context guard change. application.yml now runs pnpm run test:scripts (the six scripts/lib tests that need no retained evidence) and pnpm run test:service (the HypoMap co-detection service's unittest, on Python 3.12 with NumPy) in the Lint and typecheck job, runs Vitest with one worker per runner core, and caches the three reference atlases under the digest that fetch:expression --identity prints. package.json adds the two test scripts. The guard no longer fingerprints routine version bumps: pnpm-lock.yaml is not a source, a package.json contributes dependency names without versions and a workflow contributes each uses: action without its ref (reviewedContent in model.mjs). docs/agent-context/README.md records that boundary; delivery.md records the CI steps beside the wider browser smoke.",
+  "explanation": "Docs keep decisions, invariants, provenance and procedure order and point to code for exact shapes, names and values (docs/README.md). CONTEXT.md entries name the owning file and its invariants; the trimmed form carries the router's navigation-attempt rules and a Route landing entry. PRODUCT, DESIGN, CHANGELOG, runbooks and dated records are as triaged, and PROJECT_GUIDANCE.md gains the files-not-in-this-repository section. evaluation.md names the CI steps that run the context suite.",
   "references": [
-    "docs/agent-context/README.md",
-    "docs/agent-context/delivery.md",
-    ".github/workflows/application.yml",
-    "package.json",
-    "scripts/agent-context/model.mjs"
+    "CONTEXT.md",
+    "docs/README.md",
+    "docs/PROJECT_GUIDANCE.md",
+    "docs/agent-context/workflows.md",
+    "docs/agent-context/evaluation.md"
   ]
 }

@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "090e4213cfd2deecbaec5986ce0797ed6e0d00f70561c984f6c16cc3c8db7633",
-  "outcome": "no-impact",
-  "explanation": "VolcanoPlot now offsets the page scroll when a selection moves the plot and keeps a clicked point's tooltip through that layout change. No route, view, tab, label, breakpoint or export that the UI-change workflow describes changed; the built-site smoke covers the behavior on the desktop and phone projects.",
+  "fingerprint": "e9b72e8d9c0b36d4827ca176dce6ce8d3fe8c06a1356b35b105e35b02fe7fb1a",
+  "outcome": "updated",
+  "explanation": "The ui-change workflow now says the gene report header holds Share analysis and the compare-set button (Compare as bars is gone), and that gene and pathway effect previews load through useTrackColumn. Runbooks drop the removed bars view and fmtMetaQ. No route, view, tab or export changed.",
   "references": [
-    "src/gene-explorer/VolcanoPlot.tsx",
-    "scripts/smoke/volcano.smoke.spec.ts",
-    "docs/agent-context/workflows.md"
+    "docs/agent-context/workflows.md",
+    "src/data/trackColumns.ts",
+    "docs/runbooks/REFACTOR_CHECKLIST.md"
   ]
 }

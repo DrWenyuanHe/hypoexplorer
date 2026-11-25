@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "585f50746be874c80ca02fcc109439c582b5d6f9c55095f538a76a33b48c15bf",
-  "outcome": "no-impact",
-  "explanation": "The changes under scripts/ touch only the context guard's fingerprint projection and the atlas fetcher's --identity flag. QC review, evidence authoring and the verification commands are unchanged, and the scripts/lib evidence tests that read retained inputs still run only in the maintainer's checkout.",
+  "fingerprint": "6c328b69948369f2fea793088ff30695b9df1c51ae0b73d9c4523525aeee00ae",
+  "outcome": "updated",
+  "explanation": "Verification guidance now separates tracked ledgers and producers from the untracked evidence subtrees and points to the shared files-not-in-this-repository section. The author-validation README names the current concordance ledger audit, states that build:quality needs the maintainer checkout and refuses a downgrade, and the circadian runbook marks its output folders and fixture builder as untracked. No evidence, ledger or check changed.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "scripts/agent-context/model.mjs",
-    "package.json"
+    "data/author-validation/README.md",
+    "docs/runbooks/CIRCADIAN_VALIDATION.md",
+    "docs/PROJECT_GUIDANCE.md",
+    "scripts/audit_concordance_review_ledger.mts"
   ]
 }
