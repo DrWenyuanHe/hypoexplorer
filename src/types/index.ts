@@ -316,6 +316,12 @@ export interface TrackRow {
   /** `tier === 'fdr'`: the FDR call. */
   significant: boolean;
   lowPower: boolean;
+  /**
+   * The symbol this track stores the gene under when it is another member of
+   * the queried symbol's rename group (Gm8773 on a Fam237b query), as the
+   * authority spells it. Absent when the track stores the queried symbol.
+   */
+  storedAs?: string;
 }
 
 export interface DatasetGroup {

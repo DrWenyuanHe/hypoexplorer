@@ -86,6 +86,7 @@ const mocks = vi.hoisted(() => ({
   queryGeneAcrossDatasets: vi.fn(),
   queryPathwayAcrossDatasets: vi.fn(),
   loadBaselineTeaser: vi.fn(),
+  loadFamilyTeaser: vi.fn(),
   loadQueryManifest: vi.fn(),
   loadTrackPathways: vi.fn(),
 }));
@@ -110,6 +111,7 @@ vi.mock('../data/queryIndex', async (original) => ({
 vi.mock('../search/searchSummaries', async (original) => ({
   ...await original<typeof import('../search/searchSummaries')>(),
   loadBaselineTeaser: mocks.loadBaselineTeaser,
+  loadFamilyTeaser: mocks.loadFamilyTeaser,
 }));
 // The HypoMap export is not checked in; these tests cover where its preview sits, not its data.
 vi.mock('../search/hypomap/atlas', async (original) => ({
@@ -130,6 +132,15 @@ beforeEach(() => {
       { id: 'AVP.QZ20.Ai_sup', populationId: 'HY.SO_glu_AVP.QZ20', label: 'SO AVP', group: 'AVP.QZ20.Ai_sup', region: 'SO', meanTpm: 1200, libraries: 2 },
     ],
   });
+  mocks.loadFamilyTeaser.mockImplementation(async (_symbol: string, family: string) => (family === 'studies'
+    ? {
+      measured: 3, total: 18, unit: 'CPM (TMM-normalized)', inUnit: 2, species: ['Mus musculus'],
+      levels: [
+        { sourceId: 'oxt-study', label: 'Hypothalamic OXT', study: 'GSE242245', cohort: 'Vehicle', mean: 812.5, n: 4 },
+        { sourceId: 'crh-study', label: 'PVN CRH', study: 'GSE174085', cohort: 'Control rearing', mean: 40, n: 14 },
+      ],
+    }
+    : { measured: 0, total: 6, unit: '', inUnit: 0, levels: [], species: ['Mus musculus', 'Rattus norvegicus', 'Sus scrofa'] }));
 });
 
 // ── Condition pathways ──────────────────────────────────────────────────────
@@ -470,11 +481,15 @@ describe('ReferenceAtlasSection', () => {
     const gtex = card.querySelector('[data-atlas="gtex"]') as HTMLElement;
     expect(within(gtex).getByText('7.79')).toBeTruthy();
     expect(within(gtex).getByText(/Median of 257 donors; interquartile 5\.10–15\.0/)).toBeTruthy();
+    // The donor mean is what the source's full survey ranks; the tile names it so the two agree.
+    expect(within(gtex).getByText(/donor mean,\s+52\.6 TPM/)).toBeTruthy();
     const subregions = card.querySelector('[data-atlas="subregions"]') as HTMLElement;
     expect([...subregions.querySelectorAll('.portal-bar-label')].map((label) => label.textContent))
-      .toEqual(['arcuate nucleus', 'supraoptic nucleus', 'ventromedial nucleus', 'dorsomedial nucleus']);
+      .toEqual(['arcuate nucleus', 'supraoptic nucleus', 'ventromedial nucleus']);
     expect(within(subregions).getByText('68.4')).toBeTruthy();
-    expect(within(subregions).getByText(/top 4 of 8 subregions/)).toBeTruthy();
+    expect(within(subregions).getByText(/top 3 of 8 subregions/)).toBeTruthy();
+    // Without a handler the tiles open nothing.
+    expect(within(card).queryByRole('button', { name: /Every/ })).toBeNull();
     const allen = card.querySelector('[data-atlas="allen"]') as HTMLElement;
     expect([...allen.querySelectorAll('.portal-probe')].map((probe) => probe.textContent).sort())
       .toEqual(['A_23_P5875', 'CUST_15470_PI416261804', 'CUST_15474_PI416261804']);
@@ -513,7 +528,7 @@ describe('ReferenceAtlasSection', () => {
     });
     expect(within(card).getByText('c-1 · splatter')).toBeTruthy();
     expect(within(card).getByText('27.4')).toBeTruthy();
-    expect(within(card).getByText(/top 5 of 26 clusters/)).toBeTruthy();
+    expect(within(card).getByText(/top 3 of 26 clusters/)).toBeTruthy();
   });
 });
 
@@ -521,41 +536,82 @@ describe('GeneExpressionCards', () => {
   beforeEach(() => resetSourceRequests());
   afterEach(() => { vi.unstubAllGlobals(); });
 
-  it('sets the mouse sources beside the human atlases in one section, with one survey link', async () => {
+  it('sets an animal row and a human row of source tiles, each opening its own source under its row', async () => {
     productFetch();
     const onOpenExpression = vi.fn();
     render(<GeneExpressionCards symbol="OXT" onOpenExpression={onOpenExpression} />);
     const section = screen.getByRole('region', { name: 'Where OXT is expressed' });
-    const mouse = within(section).getByRole('region', { name: 'Mouse hypothalamus' });
+    const mouse = within(section).getByRole('region', { name: 'Animal hypothalamus' });
     expect(await within(mouse).findByText('PVH oxytocin')).toBeTruthy();
     expect(mouse.querySelector('[data-slot="single-cell-mouse"]')).toBeTruthy();
+    // The study library: each study's highest cohort, its study and cohort named, in the shared unit.
+    const studies = mouse.querySelector('[data-section="study-populations"]') as HTMLElement;
+    expect(await within(studies).findByText('Hypothalamic OXT')).toBeTruthy();
+    expect(within(studies).getByText('GSE242245 · Vehicle')).toBeTruthy();
+    expect(within(studies).getByText(/2 of the 3 studies with OXT use this unit; the rest are listed/)).toBeTruthy();
+    const tissueTile = mouse.querySelector('[data-section="tissue"]') as HTMLElement;
+    expect(within(tissueTile).getByText('OXT is not among the genes these 6 sources retained.')).toBeTruthy();
+    // The tile names its species from the sources, not a fixed list.
+    expect(within(tissueTile).getByText('mouse, rat and pig')).toBeTruthy();
     const human = section.querySelector('[data-section="reference-atlases"]') as HTMLElement;
     expect(human.contains(mouse)).toBe(false);
-    expect(within(section).getAllByRole('button', { name: 'Open expression survey' })).toHaveLength(1);
-    fireEvent.click(within(section).getByRole('button', { name: 'Open expression survey' }));
+    await waitFor(() => expect(human.querySelector('[data-atlas="gtex"] .portal-ref-value')).toBeTruthy(), { timeout: 5000 });
+    expect(section.querySelector('[data-section="expression-survey"]')).toBeNull();
+
+    // An animal tile opens its source alone, under the animal row.
+    const open = within(mouse).getByRole('button', { name: 'Every source group →' });
+    expect(open).toHaveAttribute('aria-expanded', 'false');
+    fireEvent.click(open);
+    const close = within(mouse).getByRole('button', { name: 'Close' });
+    expect(close).toHaveAttribute('aria-expanded', 'true');
+    const panel = within(mouse).getByRole('region', { name: /^NeuroSeq sorted populations OXT in each cohort/ });
+    expect(close.getAttribute('aria-controls')).toBe(panel.id);
+    expect(mouse.querySelector('.gene-tile--open')?.getAttribute('data-tile')).toBe('neuroseq');
+    expect(await within(panel).findByRole('heading', { name: 'Hypothalamic populations' }, { timeout: 5000 })).toBeTruthy();
+    expect(within(panel).queryByRole('textbox')).toBeNull();
+    // Held to NeuroSeq: no collection choice until the reader releases it.
+    expect(within(panel).queryByRole('combobox', { name: 'Source collection' })).toBeNull();
+    fireEvent.click(within(panel).getByRole('button', { name: 'All sources and filters' }));
+    expect(await within(panel).findByRole('combobox', { name: 'Source collection' }, { timeout: 5000 })).toHaveValue('neuroseq');
+
+    // A human tile replaces it, under the human row.
+    fireEvent.click(within(human).getByRole('button', { name: 'Every donor →' }));
+    expect(mouse.querySelector('[data-drill]')).toBeNull();
+    const gtex = within(section).getByRole('region', { name: /^GTEx v10 hypothalamus OXT in each cohort/ });
+    expect(mouse.contains(gtex)).toBe(false);
+    expect(human.compareDocumentPosition(gtex) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(await within(gtex).findByRole('heading', { name: 'Human hypothalamus · GTEx v10' }, { timeout: 5000 })).toBeTruthy();
+    fireEvent.click(within(gtex).getByRole('button', { name: 'Close GTEx v10 hypothalamus' }));
+    expect(section.querySelector('[data-section="expression-survey"]')).toBeNull();
+
+    fireEvent.click(within(section).getByRole('button', { name: 'Compare with other genes →' }));
     expect(onOpenExpression).toHaveBeenCalledTimes(1);
-    expect(within(section).getByText(/Tissue & bulk → Reference atlases/)).toBeTruthy();
   });
 
-  it('offers no survey link without a handler', async () => {
+  it('opens every source at once in the scope the survey page handed over', async () => {
     productFetch();
-    render(<GeneExpressionCards symbol="OXT" />);
-    expect(await screen.findByText('PVH oxytocin')).toBeTruthy();
-    expect(screen.queryByRole('button', { name: 'Open expression survey' })).toBeNull();
+    render(<GeneExpressionCards symbol="OXT" surveyScope={{
+      mode: 'tissue', collection: 'neuroseq', region: 'all', includeSfo: false, selectedIds: null, tissueKind: 'external', referenceOnly: false,
+    }} />);
+    const survey = await screen.findByRole('region', { name: /Every source and sample/ });
+    expect(survey.getAttribute('data-drill')).toBe('handoff');
+    expect(await within(survey).findByRole('button', { name: /Reference atlases/, pressed: true }, { timeout: 5000 })).toBeTruthy();
+    expect(screen.queryByRole('button', { name: 'Compare with other genes →' })).toBeNull();
   });
 
-  it('adds the HypoMap preview in place of the single-cell placeholder, keeping every other source', async () => {
+  it('puts the HypoMap preview behind the single-cell tile, keeping every other source', async () => {
     vi.stubEnv('VITE_HYPOMAP_EXPRESSION', '1');
     try {
       productFetch();
       render(<GeneExpressionCards symbol="OXT" onOpenExpression={vi.fn()} />);
       const section = screen.getByRole('region', { name: 'Where OXT is expressed' });
-      const mouse = within(section).getByRole('region', { name: 'Mouse hypothalamus' });
+      const mouse = within(section).getByRole('region', { name: 'Animal hypothalamus' });
       expect(await within(mouse).findByText('PVH oxytocin')).toBeTruthy();
       expect(mouse.querySelector('[data-slot="single-cell-mouse"]')).toBeNull();
       expect(section.querySelector('[data-section="reference-atlases"]')).toBeTruthy();
-      const preview = within(section).getByRole('region', { name: 'Mouse single-cell expression in HypoMap' });
-      expect(preview.contains(mouse)).toBe(false);
+      expect(within(section).queryByRole('region', { name: 'Mouse single-cell expression in HypoMap' })).toBeNull();
+      fireEvent.click(within(mouse).getByRole('button', { name: 'Open the atlas →' }));
+      const preview = within(mouse).getByRole('region', { name: 'Mouse single-cell expression in HypoMap' });
       expect(await within(preview).findByText('No HypoMap feature matched OXT.')).toBeTruthy();
     } finally {
       vi.unstubAllEnvs();

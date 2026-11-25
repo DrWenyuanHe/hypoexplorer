@@ -767,7 +767,7 @@ describe('GeneReport — table row actions', () => {
 });
 
 describe('GeneReport — expression and context cards', () => {
-  it('shows baseline expression before the table and opens the expression survey from it', async () => {
+  it('shows baseline expression before the table and opens a source in place', async () => {
     const onOpenExpression = vi.fn();
     const { container } = renderReport(undefined, vi.fn(), { onOpenExpression });
     const table = await findDeCard();
@@ -793,7 +793,10 @@ describe('GeneReport — expression and context cards', () => {
     expect(precedes(baseline, table)).toBe(true);
     expect(precedes(filters, deTables(table)[0])).toBe(true);
 
-    fireEvent.click(within(cards).getByRole('button', { name: 'Open expression survey' }));
+    // A source tile opens that source's survey inside the card; the survey page is one link away.
+    fireEvent.click(within(cards).getByRole('button', { name: 'Every source group →' }));
+    expect(cards.querySelector('[data-drill="neuroseq"]')).toBeTruthy();
+    fireEvent.click(within(cards).getByRole('button', { name: 'Compare with other genes →' }));
     expect(onOpenExpression).toHaveBeenCalledTimes(1);
   });
 

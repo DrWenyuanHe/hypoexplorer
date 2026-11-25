@@ -1,13 +1,16 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "6659cfeb04dd8be733ff526ca373b801da470024d0d97084224a1126f950c71b",
+  "fingerprint": "860adaae2a44dd630fb04c217bb9016bd86726c82f8dee03d4fccfc7df3b2f08",
   "outcome": "updated",
-  "explanation": "Dataset-change sources changed in comments, usage headers and dated-record text only, plus one shared constant: bundleWriter.mts takes NSIG_FDR_THRESHOLD from NSIG_FDR_CUTOFF in policy.ts with the same 0.05 value, so written bundles are unchanged. report_september5_intake.py now emits the dated header, pnpm commands and current-audit note so regenerating REPORT.md keeps them. The add-a-dataset procedure is unchanged.",
+  "explanation": "Merge of main into the staleness pass. From main: Only the expression survey runbook and project guidance wording changed, describing how the gene page shows and opens each survey source. Adding or changing a dataset, its bundles, the expression catalog entries and their checks follow the same steps and commands as before. The rename work adds one step: a dataset that changes the nomenclature table also needs pnpm run build:search-names, which regenerates the search names and the rename groups from nomenclature.tsv; project guidance states the order, the --check guard and the rule tests. From this branch: Text-only changes to usage headers and dated records, plus bundleWriter.mts taking NSIG_FDR_THRESHOLD from the shared NSIG_FDR_CUTOFF (same 0.05, so bundles are unchanged); report_september5_intake.py emits the dated header and current-audit note so regeneration keeps them.",
   "references": [
+    "docs/runbooks/EXPRESSION_SURVEY.md",
+    "docs/agent-context/workflows.md",
+    "docs/PROJECT_GUIDANCE.md",
+    "scripts/build_search_names.mts",
+    "scripts/lib/searchNames.test.mts",
     "scripts/lib/bundleWriter.mts",
-    "src/statistics/policy.ts",
-    "scripts/report_september5_intake.py",
-    "data/intake/september5-2026/REPORT.md"
+    "scripts/report_september5_intake.py"
   ]
 }

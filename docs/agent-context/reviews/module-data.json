@@ -1,12 +1,15 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "2d3aafefbc9d94ecc701d41b54872660f86b7836e6b76afab0371a9b3ed5a3c1",
+  "fingerprint": "d436d1a9ca250e27310b3b3046cd62cc5eff8a7076cb7bbe76dde4cbb2488648",
   "outcome": "updated",
-  "explanation": "Comment-only changes: loadTrack.ts names the macaque migrator and bundleWriter.mts as the producers of bundle globals; explorerStore.ts says index.html eager-loads nothing and the seed path consumes a global already present, such as metadata the router loaded. No behaviour change.",
+  "explanation": "Merge of main into the staleness pass. From main: Adds symbolRenames.ts (React-free client for public/nomenclature/renames.js: rename groups per authority, renameGroupOf, renamePartners, pickStoredMember, renameAuthorityOf) and useSymbolRenames.ts. queryGeneViaIndex reads partner shards beside the queried key and the full-download path checks partners in each DE table, one row per track, marking storedAs; the rename table loads beside the manifest. From this branch: Comment-only corrections in loadTrack.ts (bundle-global producers) and explorerStore.ts (nothing is eager-loaded; the seed path consumes a global already present).",
   "references": [
+    "src/data/symbolRenames.ts",
+    "src/data/useSymbolRenames.ts",
+    "src/data/crossDataset.ts",
+    "CONTEXT.md",
     "src/data/loadTrack.ts",
-    "src/data/explorerStore.ts",
-    "scripts/lib/bundleWriter.mts"
+    "src/data/explorerStore.ts"
   ]
 }

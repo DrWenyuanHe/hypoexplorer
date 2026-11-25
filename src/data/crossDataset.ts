@@ -19,6 +19,9 @@ import {
 import { decodeGeneRow, decodePathwayRow } from './queryWire';
 import { geneRow, pathwayRow } from './crossDatasetRows';
 import { manifestFreshness, REBUILD_HINT } from './indexFreshness';
+import {
+  loadSymbolRenames, pickStoredMember, renameAuthorityOf, renameGroupOf, type RenameGroup, type SymbolRenames,
+} from './symbolRenames';
 import { strictDeTableFor, strictSiblingPathwaysFor } from './rawTrack';
 import { isLowPower } from '../utils/qcFlags';
 import { mapLimit } from '../utils/mapLimit';
@@ -241,6 +244,36 @@ async function runIndexQuery<R extends [number, ...unknown[]], Row>(
   return { total, loaded: total, groups };
 }
 
+// ── Renamed symbols ─────────────────────────────────────────────────────────
+// A study stores a gene under whatever symbol its annotation produced, so the
+// same gene can sit under Fam237b in one study and its retired Gm8773 in
+// another (see ./symbolRenames). Both query paths therefore read each study
+// under every member of the queried symbol's rename group IN THAT STUDY'S
+// AUTHORITY, and mark a row read under another member with `storedAs`.
+//
+// One row per track, decided the same way on both paths: a track that stores
+// the queried symbol itself answers with that row, and any partner row it also
+// stores is ignored; otherwise pickStoredMember decides among the partners.
+
+/** Each study's rename group for the queried symbol, keyed by dataset id. */
+function renameGroupsByDataset(
+  renames: SymbolRenames | null,
+  GENE: string,
+  datasets: readonly Dataset[],
+): Map<string, RenameGroup> {
+  const out = new Map<string, RenameGroup>();
+  for (const ds of datasets) {
+    const group = renameGroupOf(renames, GENE, renameAuthorityOf(ds));
+    if (group) out.set(ds.id, group);
+  }
+  return out;
+}
+
+/** The members of `group` other than the queried symbol. */
+function partnersOf(group: RenameGroup, GENE: string): string[] {
+  return group.members.filter((m) => m.toUpperCase() !== GENE);
+}
+
 /**
  * One gene across every dataset, from the index.
  * Resolves null when the index is unavailable, so the caller can fall back.
@@ -251,9 +284,49 @@ export async function queryGeneViaIndex(
   gene: string,
   datasets: Dataset[],
 ): Promise<CrossDatasetGeneReport | null> {
+  const GENE = gene.toUpperCase();
+  // Requested beside the manifest rather than before it, so the rename table
+  // (one same-origin file, cached for the session) adds no round trip.
+  const renamesLoad = loadSymbolRenames().catch(() => null);
+  // trackIdx -> the member that track stores, for rows read under a partner.
+  const storedAs = new Map<number, string>();
+
   const res = await runIndexQuery<GeneIndexRow, TrackRow>(
     datasets,
-    (manifest) => loadGeneRows(datasets, gene, manifest.buildId),
+    async (manifest) => {
+      const [own, renames] = await Promise.all([loadGeneRows(datasets, gene, manifest.buildId), renamesLoad]);
+      const groups = renameGroupsByDataset(renames, GENE, datasets);
+      // Every partner key any study could store, each shard read once.
+      const partnerKeys = [...new Set([...groups.values()].flatMap((g) => partnersOf(g, GENE).map((m) => m.toUpperCase())))];
+      if (own === null || partnerKeys.length === 0) return own;
+      // A partner shard that cannot be read leaves that partner out: the
+      // report then answers as it did before renames were known, which is
+      // incomplete but never wrong, and the queried symbol's own rows stand.
+      const partnerRows = await Promise.all(partnerKeys.map((key) =>
+        loadGeneRows(datasets, key, manifest.buildId).catch(() => null).then((rows) => ({ key, rows }))));
+      const ownTracks = new Set(own.map((r) => r[0]));
+      const found = new Map<number, Array<{ symbol: string; value: GeneIndexRow }>>();
+      for (const { key, rows } of partnerRows) {
+        for (const row of rows ?? []) {
+          if (ownTracks.has(row[0])) continue;
+          const entry = manifest.tracks[row[0]];
+          const group = entry && groups.get(entry.ds);
+          const symbol = group?.members.find((m) => m.toUpperCase() === key);
+          if (!symbol) continue;   // this study's authority does not link the two
+          const at = found.get(row[0]);
+          if (at) at.push({ symbol, value: row }); else found.set(row[0], [{ symbol, value: row }]);
+        }
+      }
+      const merged = own.slice();
+      for (const [idx, candidates] of found) {
+        const group = groups.get(manifest.tracks[idx].ds)!;
+        const pick = pickStoredMember(candidates, group);
+        if (!pick) continue;
+        storedAs.set(idx, pick.symbol);
+        merged.push(pick.value);
+      }
+      return merged;
+    },
     (row, entry) => {
       const { logFC, pval, fdr, se } = decodeGeneRow(row);
       // A row without an effect size or a p-value is not a usable result; drop
@@ -276,6 +349,7 @@ export async function queryGeneViaIndex(
         // Read off the manifest, not computed: the generator already resolved
         // the QC flag, so this path never loads the meta.js isLowPower needs.
         lowPower: entry.lowPower,
+        ...(storedAs.has(row[0]) ? { storedAs: storedAs.get(row[0]) } : {}),
       });
     },
   );
@@ -328,6 +402,8 @@ export async function queryGeneAcrossDatasets(
   const fromIndex = await queryGeneViaIndex(GENE, datasets).catch(() => null);
   if (fromIndex) return { ...fromIndex, gene };
 
+  const renameGroups = renameGroupsByDataset(await loadSymbolRenames().catch(() => null), GENE, datasets);
+
   // loadTrack resolves the SLIM track bundle — FGSEA pathways live in a sibling
   // — so the gene query never downloads the pathway tax.
   const { total, loaded, groups } = await runTrackQuery<TrackRow>(
@@ -337,7 +413,17 @@ export async function queryGeneAcrossDatasets(
       const raw = await loadTrack(ds, trackId);
       tick();
       const de = strictDeTableFor(raw, contrast?.id, getActiveContrast(ds)?.id);
-      const d = de.find((x) => x.gene && x.gene.toUpperCase() === GENE);
+      let d = de.find((x) => x.gene && x.gene.toUpperCase() === GENE);
+      let storedAs: string | undefined;
+      const group = renameGroups.get(ds.id);
+      if (!d && group) {
+        // The same one-row-per-track rule as the index path (Renamed symbols).
+        const partners = new Map(partnersOf(group, GENE).map((p) => [p.toUpperCase(), p]));
+        const found = de.filter((x) => x.gene && partners.has(x.gene.toUpperCase()))
+          .map((x) => ({ symbol: partners.get(x.gene.toUpperCase())!, value: x }));
+        const pick = pickStoredMember(found, group);
+        if (pick) { d = pick.value; storedAs = pick.symbol; }
+      }
       if (!d) return null;
       return geneRow({
         trackId,
@@ -350,6 +436,7 @@ export async function queryGeneAcrossDatasets(
         // Computed here, unlike the index path: this path has the dataset meta
         // in hand, so it reads the QC flags directly.
         lowPower: isLowPower(m.qcFlags?.[trackId]),
+        ...(storedAs ? { storedAs } : {}),
       });
     },
   );

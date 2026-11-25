@@ -27,6 +27,7 @@ import { useGeneSelection, useVolcanoView } from '../explorer/explorerSession';
 import { geneVocabulary, useBoundGeneSelection } from '../explorer/geneVocabulary';
 import { nomenclatureAuthorityForStoredDatasetSymbols } from '../data/nomenclature';
 import { useBundleBytes } from '../data/useBundleProgress';
+import { useSymbolRenames } from '../data/useSymbolRenames';
 import { contrastArmCounts } from '../data/contrasts';
 import { contrastLabel } from '../crossdataset/forestReport';
 import { useExportAction } from '../utils/exportAction';
@@ -66,6 +67,8 @@ export function CompareSetView({ items, onItemsChange, onHome, onOpenDataset, on
     return map;
   }, [states]);
   const bytes = useBundleBytes(loadingCount > 0);
+  // The Excel summary reads renamed symbols as the on-screen table does.
+  const renames = useSymbolRenames();
 
   const [mode, setMode] = useState<'genes' | 'pathways'>('genes');
   const geneSelection = useGeneSelection();
@@ -130,7 +133,7 @@ export function CompareSetView({ items, onItemsChange, onHome, onOpenDataset, on
 
   // The Metadata sheet records the QC ledger, which loads on the first export.
   const exportExcel = () => runExport(() => withExportEvidence(() => {
-    const summary = compareSummaryRows(columns, popDataMap, selectedGenes, { tally: true });
+    const summary = compareSummaryRows(columns, popDataMap, selectedGenes, { tally: true, renames });
     const legend: WorkbookRow[] = states.map((s) => {
       const counts = contrastArmCounts(s.contrast, s.popData, s.meta, s.item.trackId);
       return {

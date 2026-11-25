@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "5f992893b71f20492e7df463054fcc7b9c536ffd65a499779f909732027a797b",
+  "fingerprint": "c5e4ee582ae47710adf397efec9ebff66be322ff93c3d6311d0dc9e2967ec486",
   "outcome": "updated",
-  "explanation": "portalCards drops dirColor and plural: Effect takes the row tier and colours through directionTextColor, the condition matrix colours its FDR columns the same way, and plural moves to utils/format.ts. SearchPage colours its tallies and strongest track through directionTextColor, words moreNote with leadingTracks and the pathway nominal note with nominalCaveat; every verdict and visible string is unchanged.",
+  "explanation": "GeneExpressionCards is now an animal row and a human row of source tiles (NeuroSeq, study library, tissue named by its species, a single-cell slot; GTEx, Allen, HPA subregions and clusters). Each tile opens its source's survey under its row through a lazyView of GenePageSurvey held to that source; the HypoMap preview sits behind the single-cell tile. searchSummaries adds loadFamilyTeaser (each source's highest cohort mean, ranked within the most common unit), leaves SFO boundary records out of the NeuroSeq teaser and gives GTEx and Allen spreads a mean.",
   "references": [
     "src/search/portalCards.tsx",
-    "src/search/SearchPage.tsx",
-    "src/statistics/listingWords.ts"
+    "src/search/searchSummaries.ts",
+    "src/search/search.css",
+    "docs/runbooks/EXPRESSION_SURVEY.md"
   ]
 }

@@ -31,6 +31,7 @@ import { getGroupColumns, valueAt } from '../utils/sampleValues';
 import type { GeneDERecord, PopData } from '../types';
 import type { CompareColumn } from './compareColumns';
 import { resolveGeneCI } from './resolveGene';
+import type { SymbolRenames } from '../data/symbolRenames';
 
 export type UnavailableStatus = NonNullable<CompareColumn['unavailable']>['status'];
 
@@ -89,18 +90,23 @@ function armsOf(pd: PopData, gene: string): CompareArm[] {
   });
 }
 
-/** What `column` can say about `gene`: unavailable, not detected, or measured. */
+/**
+ * What `column` can say about `gene`: unavailable, not detected, or measured.
+ * With the rename table, a column that stores the gene under another member
+ * of its rename group is measured under that symbol (see resolveGeneCI).
+ */
 export function compareCell(
   column: CompareColumn,
   popDataMap: Record<string, PopData | null | undefined>,
   gene: string,
+  renames?: SymbolRenames | null,
 ): CompareCell {
   const pd = popDataMap[column.key];
   if (column.unavailable || !pd) {
     const { status, message } = column.unavailable ?? NO_DATA;
     return { kind: 'unavailable', column, status, message };
   }
-  const de = resolveGeneCI(pd, gene);
+  const de = resolveGeneCI(pd, gene, renames);
   if (!de) return { kind: 'not-detected', column, pd };
   // The arms are read on first use and kept: most readers (the summary tables,
   // the tally, the pathway view) need only the DE record, and resolving an arm

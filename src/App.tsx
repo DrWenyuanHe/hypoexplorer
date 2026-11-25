@@ -34,6 +34,7 @@ import { CompareSetButton } from './compareset/CompareSetButton';
 import { CompareSetToggle } from './compareset/CompareSetToggle';
 import { compareSetKey, removeItem, toggleItem, useCompareSet, type CompareSetItem } from './compareset/compareSetStore';
 import type { PathwayRecordWithDb, PopData } from './types';
+import type { SurveyScope } from './expression-survey/expressionSurvey';
 import {
   ChangelogTab, CircadianTab, CompareSetView, CompareTab, DatasetInfoPanel, DatasetLibrary, DatasetTrackerView,
   DatasetVerificationContext, GeneExplorerTab, GeneReport, MethodologyView, NomenclatureView, PathwayExplorerTab,
@@ -284,6 +285,13 @@ function AppViews({ initialView = 'hub' }: AppProps) {
     setCompareSetItems(next);
   }, [compareSetItems, setCompareSetItems]);
   const openLibraryPlain = useCallback(() => openLibrary(), [openLibrary]);
+  // A single gene surveyed on the expression survey page opens its gene page,
+  // whose expression card surveys every source in the scope the page had.
+  const [surveyHandoff, setSurveyHandoff] = useState<{ gene: string; scope: SurveyScope } | null>(null);
+  const openGeneSurvey = useCallback((gene: string, scope: SurveyScope) => {
+    setSurveyHandoff({ gene, scope });
+    searchGeneFromHub(gene);
+  }, [searchGeneFromHub]);
 
   // The hub's search box submits to the unified results page.
   const searchFromHub = useCallback((query: string) => search(query), [search]);
@@ -373,7 +381,7 @@ function AppViews({ initialView = 'hub' }: AppProps) {
   );
 
   if (view === 'expression') {
-    return <ErrorBoundary><Suspense fallback={<div role="status" style={{ padding: 32 }}>Opening expression survey…</div>}><ExpressionSurveyView onHome={goHome} /></Suspense></ErrorBoundary>;
+    return <ErrorBoundary><Suspense fallback={<div role="status" style={{ padding: 32 }}>Opening expression survey…</div>}><ExpressionSurveyView onHome={goHome} onOpenGene={openGeneSurvey} /></Suspense></ErrorBoundary>;
   }
 
   // Cross-dataset gene report (#/gene/<symbol>), opened from search results.
@@ -393,6 +401,7 @@ function AppViews({ initialView = 'hub' }: AppProps) {
         onShowPathway={(pathwayId) => search(pathwayId, 'all')}
         onOpenPathway={(pathwayId) => searchPathwayFromHub(pathwayId)}
         onOpenExpression={openExpression}
+        expressionScope={surveyHandoff?.gene === gene ? surveyHandoff.scope : undefined}
         headerRight={<><ShareAnalysisButton /><CompareSetButton onCompare={openCompareSet} onOpenLibrary={openLibraryPlain} /></>}
       />
     </ErrorBoundary>

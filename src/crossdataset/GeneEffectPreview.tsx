@@ -25,7 +25,9 @@ const PREVIEW_POLICY: TrackColumnPolicy = { pathways: 'omit', trackList: 'trust'
 function ExpressionPreview({ gene, dataset, track, contrast }: PreviewProps) {
   const column = useTrackColumn({ dataset, trackId: track.trackId, contrast }, PREVIEW_POLICY);
   const { popData } = column;
-  const record = resolveGeneCI(popData, gene);
+  // A row read under a renamed symbol (Gm8773 on a Fam237b report) is looked
+  // up under the symbol the track stores, or the preview would find nothing.
+  const record = resolveGeneCI(popData, track.storedAs ?? gene);
   const hasValues = popData && record && getGroupedValues(popData, record.gene, contrast).some((group) => group.n > 0);
 
   if (column.status === 'failed' || column.status === 'unknown-track') return <div role="status">Expression could not be loaded. <button type="button" onClick={column.retry}>Retry</button></div>;
@@ -35,9 +37,10 @@ function ExpressionPreview({ gene, dataset, track, contrast }: PreviewProps) {
 }
 
 export function GeneEffectPreview({ children, ...props }: PreviewProps & { children: ReactNode }) {
+  const symbol = props.track.storedAs ?? props.gene;
   return <EffectPreview
-    label={`Preview ${props.gene} expression in ${props.dataset.name}, ${props.track.label}; log2 fold change ${fmtSigned(props.track.logFC, 2)}`}
-    previewLabel={`${props.gene} expression preview`} closeLabel="Close expression preview"
+    label={`Preview ${symbol} expression in ${props.dataset.name}, ${props.track.label}; log2 fold change ${fmtSigned(props.track.logFC, 2)}`}
+    previewLabel={`${symbol} expression preview`} closeLabel="Close expression preview"
     heading={props.dataset.name} subheading={props.track.label}
     content={<ExpressionPreview {...props} />}
     caption="Bars show group means with SEM; dots show individual samples.">

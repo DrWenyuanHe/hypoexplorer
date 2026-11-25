@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "c5aa16ebc6f3c6de78c78415f96f3776444e3b0eb8f4bda6756f6d6187126c94",
+  "fingerprint": "1eede9d7fb58770f826b6f6103afa2354e6ab08a6470362e1e867e7fb6aa25d2",
   "outcome": "updated",
-  "explanation": "Verification records and their readers changed in text only: dated-record headers separate reading tracked records from replaying them, the OXT/AVP runbook marks both quality and advancement replays as needing retained evidence, the author-validation README notes the generated records lag the ledgers, and the QC label follows the shared NSIG_FDR_CUTOFF. No ledger, generated record or check changed.",
+  "explanation": "Merge of main into the staleness pass. From main: Rename groups change which stored symbol a report reads for a study, not QC, author concordance or verification evidence; no verification record, ledger or gate reads the rename table or the search names. From this branch: Dated-record headers separate reading tracked records from replaying them, the OXT/AVP runbook marks both replays as needing retained evidence, the author-validation README notes the generated records lag the ledgers, and the QC label follows NSIG_FDR_CUTOFF. No ledger, generated record or check changed.",
   "references": [
+    "docs/PROJECT_GUIDANCE.md",
+    "CONTEXT.md",
     "data/author-validation/README.md",
-    "data/intake/oxt-avp-2026-10-19/README.md",
-    "src/qc/qcTables.ts",
-    "data/intake/september5-2026/VALIDATION.md"
+    "src/qc/qcTables.ts"
   ]
 }

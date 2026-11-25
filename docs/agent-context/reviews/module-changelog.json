@@ -1,11 +1,10 @@
 {
   "version": 1,
   "area": "module-changelog",
-  "fingerprint": "f7aee57c30d58a752aa8f898cd6083b8941d06605f62eff150cd047e3baaa093",
+  "fingerprint": "84296de6038885f6b4efef5565ee64214a4668f5c32dfdfe5fd9f0d9ac5f612d",
   "outcome": "updated",
-  "explanation": "The QC significant-gene changelog entry no longer claims the volcano uses the FDR < 0.05 call; the volcano opens at raw p < 0.01. The entry keeps its meaning and no release entry was added or removed.",
+  "explanation": "Merge of main into the staleness pass. From main: The 2026-11-25 release note describes the gene page's animal and human rows of source tiles, each opening its source's full survey, the new study-library and tissue tiles, the NeuroSeq tile without SFO records and the GTEx donor mean, the survey page handing one gene to its gene page, and Tissue & bulk as a mode inside the gene survey. The 2026-11-25 release note says a renamed gene is one gene across studies (Fam237b and its retired Gm8773), which rows are read that way and how they are marked, the search alias changes, and that no data, result or analysis changed. From this branch: The QC significant-gene entry no longer claims the volcano uses FDR < 0.05; the volcano opens at raw p < 0.01.",
   "references": [
-    "src/changelog/changelog.ts",
-    "src/explorer/explorerSession.ts"
+    "src/changelog/changelog.ts"
   ]
 }

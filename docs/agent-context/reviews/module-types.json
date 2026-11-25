@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "module-types",
-  "fingerprint": "f3af1d2113ccba3ec6512cc8424f166482ec257322364938033344aa4e4bb7e0",
+  "fingerprint": "114b8a53140ebbef94af1b2b4bd4da8aeb60925fc47c5d503080b3a54c6824d5",
   "outcome": "updated",
-  "explanation": "Comment-only path corrections: src/types/index.ts names src/data/crossDataset.ts and shims.d.ts names src/pwa/registerUpdates.ts instead of their former .js paths. No declaration changed.",
+  "explanation": "Merge of main into the staleness pass. From main: TrackRow gains an optional storedAs: the symbol a track stores the gene under when it is another member of the queried symbol rename group, absent when the track stores the queried symbol. From this branch: Comment-only path corrections in index.ts (crossDataset.ts) and shims.d.ts (registerUpdates.ts).",
   "references": [
     "src/types/index.ts",
     "src/types/shims.d.ts"
