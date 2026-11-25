@@ -1,13 +1,16 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "1eede9d7fb58770f826b6f6103afa2354e6ab08a6470362e1e867e7fb6aa25d2",
+  "fingerprint": "0d7295f18af0c4bde555c643e1962b263af751f5e55309981e91d5158fb2ce4b",
   "outcome": "updated",
-  "explanation": "Merge of main into the staleness pass. From main: Rename groups change which stored symbol a report reads for a study, not QC, author concordance or verification evidence; no verification record, ledger or gate reads the rename table or the search names. From this branch: Dated-record headers separate reading tracked records from replaying them, the OXT/AVP runbook marks both replays as needing retained evidence, the author-validation README notes the generated records lag the ledgers, and the QC label follows NSIG_FDR_CUTOFF. No ledger, generated record or check changed.",
+  "explanation": "Merge of main into the staleness pass. From main: Rename groups change which stored symbol a report reads for a study, not QC, author concordance or verification evidence; no verification record, ledger or gate reads the rename table or the search names. From this branch: Dated-record headers separate reading tracked records from replaying them, the OXT/AVP runbook marks both replays as needing retained evidence, the author-validation README notes the generated records lag the ledgers, and the QC label follows NSIG_FDR_CUTOFF. No ledger, generated record or check changed. pnpm run analyze:hfd now runs scripts/analyze_hfd_r460.mts, which refuses any Rscript but R 4.6.0 and runs scripts/regen-r460/run_hfd_r460.R then run_fgsea_r460.R under LC_COLLATE=C for the stems derived from data/intake/hfd-2026-09-12/studies.json, the producers check:hfd-intake audits; it no longer runs the sealed originals, which stay byte-identical. The HFD intake record says so.",
   "references": [
     "docs/PROJECT_GUIDANCE.md",
     "CONTEXT.md",
     "data/author-validation/README.md",
-    "src/qc/qcTables.ts"
+    "src/qc/qcTables.ts",
+    "scripts/analyze_hfd_r460.mts",
+    "package.json",
+    "data/quality/hfd-intake-2026-09-12/README.md"
   ]
 }

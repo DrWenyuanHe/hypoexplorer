@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "9c2396828caf7674b7e4229aa2aa46ae6fc36b6f9f97f681597ef12c0e5dbcc5",
+  "fingerprint": "f91ade6bdcda9d8b2e979b4958f01fb89d0bb1262b148c9d4be437b9bc7310ee",
   "outcome": "updated",
-  "explanation": "Merge of main into the staleness pass. From main: Project guidance says a gene's survey lives on its gene page as one tile per source, each opening that source's survey, and that #/expression keeps multi-gene comparison, the catalog and validation, naming GeneSurvey.tsx as the shared workspace; the expression-survey catalog summary and the regenerated startup map agree. Project guidance says to run build:search-names after build:nomenclature, that it writes names.js and renames.js, that its --check fails when either is stale, and where its rule tests live. CONTEXT.md defines the rename group, its join rules and pickStoredMember. From this branch: catalog.json corrects the geo_replication summary and gives the ui-change workflow the six modules workflows.md already rules on; the context README drops the pnpm -- argument and the LFS and separate-CI claims; script headers stop citing build:tracker, prebuild and .mjs names and document behaviour-changing flags and env vars; seoPages pluralises one study and seoGuides keeps the software citation apart from the data-export DOI. Sealed and hash-pinned files are unchanged.",
+  "explanation": "Merge of main into the staleness pass. From main: Project guidance says a gene's survey lives on its gene page as one tile per source, each opening that source's survey, and that #/expression keeps multi-gene comparison, the catalog and validation, naming GeneSurvey.tsx as the shared workspace; the expression-survey catalog summary and the regenerated startup map agree. Project guidance says to run build:search-names after build:nomenclature, that it writes names.js and renames.js, that its --check fails when either is stale, and where its rule tests live. CONTEXT.md defines the rename group, its join rules and pickStoredMember. From this branch: catalog.json corrects the geo_replication summary and gives the ui-change workflow the six modules workflows.md already rules on; the context README drops the pnpm -- argument and the LFS and separate-CI claims; script headers stop citing build:tracker, prebuild and .mjs names and document behaviour-changing flags and env vars; seoPages pluralises one study and seoGuides keeps the software citation apart from the data-export DOI. Sealed and hash-pinned files are unchanged. pnpm run analyze:hfd now runs scripts/analyze_hfd_r460.mts, which refuses any Rscript but R 4.6.0 and runs scripts/regen-r460/run_hfd_r460.R then run_fgsea_r460.R under LC_COLLATE=C for the stems derived from data/intake/hfd-2026-09-12/studies.json, the producers check:hfd-intake audits; it no longer runs the sealed originals, which stay byte-identical. The HFD intake record says so.",
   "references": [
     "docs/PROJECT_GUIDANCE.md",
     "docs/agent-context/catalog.json",
@@ -11,6 +11,7 @@
     "CONTEXT.md",
     "scripts/build_search_names.mts",
     "docs/agent-context/README.md",
-    "scripts/lib/seoGuides.mts"
+    "scripts/lib/seoGuides.mts",
+    "scripts/analyze_hfd_r460.mts"
   ]
 }
