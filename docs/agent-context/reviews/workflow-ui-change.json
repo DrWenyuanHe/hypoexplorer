@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "0f91c9f2b26cc550be594e23064ca6ed9ef10c0eca8b765cabb8601ac462a086",
-  "outcome": "no-impact",
-  "explanation": "The gene search's Enter key now searches the text in the box. Every gene picker still goes through GenePicker over geneVocabulary, and no route, view, label, breakpoint or export that the UI-change workflow describes changed.",
+  "fingerprint": "a513cb1ff8975d14b349f3669615b4b35205b546b36c0b3cb11a50d5704ef6df",
+  "outcome": "updated",
+  "explanation": "The Circadian paragraph of the ui-change route says Lomb-Scargle floor statements come from armLombScargleFloor in lombScargleFloor.ts, verified for every scored pattern and every scored p with rhythmicity.ts left byte-stable, and that the rhythmic call and per-arm verdict come from rhythmCall.ts.",
   "references": [
-    "src/gene-explorer/GeneSearchBox.tsx",
-    "docs/agent-context/workflows.md"
+    "docs/agent-context/workflows.md",
+    "src/circadian/lombScargleFloor.ts",
+    "src/circadian/rhythmCall.ts"
   ]
 }

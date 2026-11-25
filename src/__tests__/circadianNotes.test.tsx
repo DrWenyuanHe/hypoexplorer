@@ -108,7 +108,7 @@ describe('thresholdReachability', () => {
 });
 
 const base: DesignCaveatsProps = {
-  method: 'ls', adjust: 'bh', threshold: 0.05, nPerArm: 18, lsCeiling: 3e-3,
+  method: 'ls', adjust: 'bh', threshold: 0.05, lsFloor: { n: 18, floor: 3e-3 },
   jtkDesign: null, tested: 14644, rhythmicCount: 0, running: false,
 };
 
@@ -134,7 +134,7 @@ describe('DesignCaveats', () => {
   });
 
   it('compares an uncorrected floor with the threshold directly', () => {
-    const { container } = render(<DesignCaveats {...base} adjust="none" lsCeiling={0.06} nPerArm={5} />);
+    const { container } = render(<DesignCaveats {...base} adjust="none" lsFloor={{ n: 5, floor: 0.06 }} />);
     expect(container.textContent).toContain('The smallest p any gene in this arm can reach is 6.0e-2, which is not below 0.05.');
   });
 
@@ -240,11 +240,11 @@ describe('DesignCaveats', () => {
     });
 
     it('Lomb–Scargle: the floor, plus the frequency-count heuristic only when scanning', () => {
-      const scan = chance({ method: 'ls', periodMode: 'scan', threshold: 0.01, lsCeiling: 0.003048 });
+      const scan = chance({ method: 'ls', periodMode: 'scan', threshold: 0.01, lsFloor: { n: 18, floor: 0.003048 } });
       expect(scan).toContain('Horne–Baliunas count of independent frequencies (a heuristic)');
       expect(scan).toContain('cannot fall below a floor set by the series length');
       expect(scan).toContain('nominal figure');
-      const fixed = chance({ method: 'ls', periodMode: 'fixed24', threshold: 0.01, lsCeiling: 0.003048 });
+      const fixed = chance({ method: 'ls', periodMode: 'fixed24', threshold: 0.01, lsFloor: { n: 18, floor: 0.003048 } });
       expect(fixed).toContain('approximation at the single 24 h period');
       expect(fixed).toContain('cannot fall below a floor set by the series length');
       expect(fixed).not.toContain('Horne–Baliunas');
@@ -252,14 +252,14 @@ describe('DesignCaveats', () => {
   });
 
   describe('a non-finite Lomb–Scargle floor states no floor or impossibility', () => {
-    const unknown = [Number.NaN, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, 0, -1];
+    const unknown = [null, ...[Number.NaN, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, 0, -1].map((floor) => ({ n: 18, floor }))];
 
     it.each(['none', 'bh', 'by', 'holm', 'bonferroni'] as const)('under %s', (adjust) => {
-      for (const lsCeiling of unknown) {
+      for (const lsFloor of unknown) {
         for (const threshold of [0.001, 0.05]) {
           for (const running of [false, true]) {
             const { container, unmount } = render(
-              <DesignCaveats {...base} adjust={adjust} lsCeiling={lsCeiling} threshold={threshold}
+              <DesignCaveats {...base} adjust={adjust} lsFloor={lsFloor} threshold={threshold}
                 running={running} periodMode="scan" onSwitchMethod={vi.fn()} />,
             );
             const text = container.textContent ?? '';
@@ -294,7 +294,7 @@ describe('DesignCaveats', () => {
 
   it('never pairs an impossibility caveat with a chance figure (LS, n = 18, p < 0.001)', () => {
     const { container } = render(
-      <DesignCaveats {...base} adjust="none" threshold={0.001} lsCeiling={0.003048} nPerArm={18} />,
+      <DesignCaveats {...base} adjust="none" threshold={0.001} lsFloor={{ n: 18, floor: 0.003048 }} />,
     );
     const text = container.textContent ?? '';
     expect(text).toContain('No gene can reach p < 0.001 with Lomb–Scargle in this arm (n = 18 libraries).');
@@ -310,7 +310,7 @@ describe('DesignCaveats', () => {
   });
 
   it('keeps the nominal benchmark for Lomb–Scargle when the threshold is reachable', () => {
-    const { container } = render(<DesignCaveats {...base} adjust="none" threshold={0.01} lsCeiling={0.003048} />);
+    const { container } = render(<DesignCaveats {...base} adjust="none" threshold={0.01} lsFloor={{ n: 18, floor: 0.003048 }} />);
     const note = container.querySelector(`#${CHANCE_EXPECTATION_ID}`);
     expect(note?.textContent).toContain('≈ 146 of 14,644 tested genes would fall below p < 0.01');
     expect(note?.textContent).toContain('Lomb–Scargle false-alarm value is an approximation');

@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "ff3e3879704f5a7cc697dcd5a4025b033808e67033358a27dfabdeeaa24a69c7",
+  "fingerprint": "e42352f404630cfb708225810958b0744b416aa5bceafd975f989110f8948b34",
   "outcome": "updated",
-  "explanation": "setup.ts unmounts the page before it resets the URL after each test, because unmounting runs the router's pending URL write and Testing Library's own cleanup runs after this hook; testIsolation.test.tsx pins that order. app.dataset.test.tsx unmounts before it removes the mouse study's seeds, so a mounted page cannot start a load that stays cached for the next test. nomenclature.test.tsx checks that Enter selects the gene typed before the list catches up.",
+  "explanation": "lombScargleFloor.test.ts pins the floor formula against the old spelling for n up to 5000, every precondition, a gappy pattern that breaks the cap, the large-time-origin counterexample the observed-p guard catches, the minimum over scored lengths and a 200-design property; it joins the focused validation suite (136 tests). rhythmCall.test.ts is the call and verdict decision table. circadianNotes.test.tsx passes lsFloor objects (null among the unknown floors), and circadianTable.test.tsx drops scoreOf and adds a q: null row that must not be emphasized.",
   "references": [
-    "src/__tests__/setup.ts",
-    "src/__tests__/testIsolation.test.tsx",
-    "src/__tests__/app.dataset.test.tsx",
-    "src/__tests__/nomenclature.test.tsx"
+    "src/__tests__/lombScargleFloor.test.ts",
+    "src/__tests__/rhythmCall.test.ts",
+    "src/__tests__/circadianNotes.test.tsx",
+    "src/__tests__/circadianTable.test.tsx"
   ]
 }

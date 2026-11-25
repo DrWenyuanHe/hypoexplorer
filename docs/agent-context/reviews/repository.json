@@ -1,10 +1,13 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "3769fc29adf0c5f52567988cc04b0bb65996e392c276c2759bf2521c17453555",
+  "fingerprint": "42d29764d23b0ab71aa42882135ffd4bd646c7f743821350978ca8ac76badc6b",
   "outcome": "updated",
-  "explanation": "CHANGELOG.md's Unreleased section records that Enter in the gene search selects the gene typed. No guidance, command, configuration or workflow changed.",
+  "explanation": "CONTEXT.md gains a Rhythmic call domain entry (the call and the arm verdict precedence, in rhythmCall.ts) and a Lomb-Scargle floor architecture entry (armLombScargleFloor, its preconditions, the cap check plus observed-p guard, and why rhythmicity.ts stays byte-pinned). The circadian validation runbook names both modules and its focused-suite command and count (136) include lombScargleFloor.test.ts.",
   "references": [
-    "CHANGELOG.md"
+    "CONTEXT.md",
+    "docs/runbooks/CIRCADIAN_VALIDATION.md",
+    "src/circadian/lombScargleFloor.ts",
+    "src/circadian/rhythmCall.ts"
   ]
 }

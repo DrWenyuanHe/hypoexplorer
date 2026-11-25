@@ -225,8 +225,10 @@ controls, notes, the results table and the per-arm statistics strip are their
 own components. Any display, plot, sort or announcement of a peak time uses
 `hasEstimablePeak` in `src/circadian/peak.ts`; p, q, period and amplitude keep
 their own field rules. Statements about attainable p-values (the Lomb–Scargle
-floor) appear only when the code can verify them for every scored sampling
-pattern. Raw-value exports cover every listed gene; the workbook is built and
+floor) appear only when `armLombScargleFloor` (`src/circadian/lombScargleFloor.ts`)
+verifies them for every scored sampling pattern and every scored p; it leaves
+`rhythmicity.ts` byte-stable. Whether a gene is rhythmic, and its per-arm verdict,
+come from `src/circadian/rhythmCall.ts`. Raw-value exports cover every listed gene; the workbook is built and
 serialised in `circadianWorkbook.worker.ts` (ES-module worker, `worker.format`
 in vite.config.ts), with the same builder as an in-thread fallback.
 

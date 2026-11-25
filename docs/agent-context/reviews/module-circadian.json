@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "module-circadian",
-  "fingerprint": "916d93d7d1213540f55d503cc900ab7ea3308ec0f6a97930d198027a51f20c71",
-  "outcome": "no-impact",
-  "explanation": "The circadian validation runbook moved to docs/runbooks/ with relative links adjusted. The workbook session now copies a pooled Node Buffer with new Uint8Array(bytes) instead of Buffer.slice, which returned a view of the whole pool and produced an unreadable file; the workbook protocol, sheets and browser path are unchanged.",
+  "fingerprint": "7a6b6144cfbcfc4b89777fa8bf63da780194643e3df6b319d9c298e5662fde42",
+  "outcome": "updated",
+  "explanation": "The Lomb-Scargle floor leaves CircadianTab for lombScargleFloor.ts: armLombScargleFloor owns its preconditions (method, finished scan of the arm, scored rows), the per-pattern cap check and the observed-p guard, and returns LombScargleBound or null, which CircadianNotes now takes instead of the nPerArm / NaN lsCeiling pair. rhythmCall.ts holds the rhythmic call (rhythmScore, isRhythmic) and the per-arm verdict (armVerdict), read by the tab, the results table (its scoreOf prop is gone) and ArmStatsStrip. rhythmicity.ts, jtkCycle.ts and distributions.ts are byte-unchanged and still match the retained validation hashes; scan.ts is untouched.",
   "references": [
-    "docs/runbooks/CIRCADIAN_VALIDATION.md",
-    "src/circadian/circadianWorkbook.ts",
-    "src/__tests__/circadianWorkbook.test.ts"
+    "src/circadian/lombScargleFloor.ts",
+    "src/circadian/rhythmCall.ts",
+    "src/circadian/CircadianTab.tsx",
+    "src/circadian/CircadianNotes.tsx",
+    "docs/runbooks/CIRCADIAN_VALIDATION.md"
   ]
 }

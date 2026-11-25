@@ -16,6 +16,7 @@ import type { ReactNode } from 'react';
 import { COLOR_WARNING_FG, FONT_MONO, FONT_SANS } from '../styles/constants';
 import { type PeriodMode, SIG_LEVELS } from './CircadianControls';
 import type { JtkSupport } from './jtkCycle';
+import type { LombScargleBound } from './lombScargleFloor';
 import {
   ADJUSTMENT_SHORT_LABELS, type AdjustMethod, adjustedColumnLabel, thresholdReachability,
 } from './multipleTesting';
@@ -115,14 +116,13 @@ export interface DesignCaveatsProps {
   method: RhythmMethod;
   adjust: AdjustMethod;
   threshold: number;
-  /** Libraries in the tested arm (all libraries when arms are pooled). */
-  nPerArm: number;
   /**
-   * Smallest p-value Lomb–Scargle can report for this series length. NaN (or
-   * any non-finite value) means the floor is not known yet (scan running,
-   * degenerate design): no floor, impossibility or "0 expected" text is shown.
+   * The Lomb–Scargle floor the arm may state (armLombScargleFloor): the
+   * smallest p any scored gene can reach and the series length that sets it.
+   * Null when no floor may be stated (scan running, degenerate design): no
+   * floor, impossibility or "0 expected" text is shown then.
    */
-  lsCeiling: number;
+  lsFloor: LombScargleBound | null;
   jtkDesign: JtkSupport | null;
   tested: number;
   rhythmicCount: number;
@@ -138,20 +138,21 @@ export interface DesignCaveatsProps {
   onSwitchMethod?: (method: RhythmMethod) => void;
 }
 
-/** A Lomb–Scargle floor the copy may state: finite and positive. */
-function knownFloor(lsCeiling: number): boolean {
-  return Number.isFinite(lsCeiling) && lsCeiling > 0;
+/** A Lomb–Scargle floor the copy may state: present, finite and positive; else null. */
+function statedFloor(lsFloor: LombScargleBound | null): LombScargleBound | null {
+  return lsFloor && Number.isFinite(lsFloor.floor) && lsFloor.floor > 0 ? lsFloor : null;
 }
 
 /** What the design supports, and what an uncorrected threshold lets through. */
 export function DesignCaveats({
-  method, adjust, threshold, nPerArm, lsCeiling, jtkDesign, tested, running, periodMode, onSwitchMethod,
+  method, adjust, threshold, lsFloor, jtkDesign, tested, running, periodMode, onSwitchMethod,
 }: DesignCaveatsProps) {
+  const floor = statedFloor(lsFloor);
   return (
     <>
       {method === 'ls' && (
         <LombScargleFloor
-          adjust={adjust} threshold={threshold} nPerArm={nPerArm} lsCeiling={lsCeiling}
+          adjust={adjust} threshold={threshold} lsFloor={floor}
           tested={running ? 0 : tested} onSwitchMethod={onSwitchMethod}
         />
       )}
@@ -169,7 +170,7 @@ export function DesignCaveats({
       )}
       {adjust === 'none' && !running && tested > 0 && (
         <ChanceExpectation
-          method={method} threshold={threshold} tested={tested} lsCeiling={lsCeiling} periodMode={periodMode}
+          method={method} threshold={threshold} tested={tested} lsFloor={floor} periodMode={periodMode}
         />
       )}
     </>
@@ -244,7 +245,8 @@ interface ChanceExpectationProps {
   method: RhythmMethod;
   threshold: number;
   tested: number;
-  lsCeiling: number;
+  /** A stated floor (statedFloor), or null. */
+  lsFloor: LombScargleBound | null;
   periodMode?: PeriodMode;
 }
 
@@ -260,15 +262,15 @@ interface ChanceExpectationProps {
  * has finished and tested > 0, because the rhythmic count's aria-describedby
  * points at it under exactly that condition.
  */
-function ChanceExpectation({ method, threshold, tested, lsCeiling, periodMode }: ChanceExpectationProps) {
+function ChanceExpectation({ method, threshold, tested, lsFloor, periodMode }: ChanceExpectationProps) {
   const testedText = <Num>{tested.toLocaleString()}</Num>;
   const cut = <Num>p &lt; {threshold}</Num>;
-  const floorKnown = knownFloor(lsCeiling);
-  if (method === 'ls' && floorKnown && !thresholdReachability(lsCeiling, tested, 'none', threshold).reachable) {
+  const floorKnown = lsFloor != null;
+  if (method === 'ls' && lsFloor && !thresholdReachability(lsFloor.floor, tested, 'none', threshold).reachable) {
     return (
       <Note id={CHANCE_EXPECTATION_ID}>
         Expected by chance: <Num>0</Num> of {testedText} tested genes, because the smallest p any
-        gene in this arm can reach with Lomb–Scargle (<Num>{lsCeiling.toExponential(1)}</Num>) is not
+        gene in this arm can reach with Lomb–Scargle (<Num>{lsFloor.floor.toExponential(1)}</Num>) is not
         below the <Num>{threshold}</Num> threshold.
       </Note>
     );
@@ -286,8 +288,8 @@ function ChanceExpectation({ method, threshold, tested, lsCeiling, periodMode }:
 interface LombScargleFloorProps {
   adjust: AdjustMethod;
   threshold: number;
-  nPerArm: number;
-  lsCeiling: number;
+  /** A stated floor (statedFloor), or null. */
+  lsFloor: LombScargleBound | null;
   /** Genes in the correction family; 0 while the scan has not finished. */
   tested: number;
   onSwitchMethod?: (method: RhythmMethod) => void;
@@ -298,17 +300,18 @@ interface LombScargleFloorProps {
  * plainly when that floor, after the chosen correction, makes the threshold
  * unreachable or reachable only by many genes at once.
  *
- * `lsCeiling` is a common LOWER bound: the smallest floor over the per-gene
+ * `lsFloor.floor` is a common LOWER bound: the smallest floor over the per-gene
  * series lengths in this arm (genes with missing values have shorter series
  * and can have a higher floor). The copy therefore names it "the smallest p
  * any gene in this arm can reach", and claims impossibility only when even
  * that p cannot pass after the gene-wise correction across `tested` genes.
  */
-function LombScargleFloor({ adjust, threshold, nPerArm, lsCeiling, tested, onSwitchMethod }: LombScargleFloorProps) {
-  if (!knownFloor(lsCeiling)) return null;
+function LombScargleFloor({ adjust, threshold, lsFloor, tested, onSwitchMethod }: LombScargleFloorProps) {
+  if (!lsFloor) return null;
+  const lsCeiling = lsFloor.floor;
   const label = adjustedColumnLabel(adjust);
   const floor = <Num>{lsCeiling.toExponential(1)}</Num>;
-  const arm = <>in this arm (<Num>n = {nPerArm}</Num> libraries)</>;
+  const arm = <>in this arm (<Num>n = {lsFloor.n}</Num> libraries)</>;
   const switchButton = onSwitchMethod && (
     <button type="button" style={textButton} onClick={() => onSwitchMethod('cosinor')}>
       Switch to {RHYTHM_METHOD_LABELS.cosinor}

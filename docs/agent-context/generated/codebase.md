@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (259):
+Covered source files (261):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -202,6 +202,7 @@ Covered source files (259):
 - [src/__tests__/listingWords.test.ts](<../../../src/__tests__/listingWords.test.ts>)
 - [src/__tests__/loadDatasetMeta.test.ts](<../../../src/__tests__/loadDatasetMeta.test.ts>)
 - [src/__tests__/loadTrack.test.ts](<../../../src/__tests__/loadTrack.test.ts>)
+- [src/__tests__/lombScargleFloor.test.ts](<../../../src/__tests__/lombScargleFloor.test.ts>)
 - [src/__tests__/macaqueQc.test.ts](<../../../src/__tests__/macaqueQc.test.ts>)
 - [src/__tests__/matrixShape.test.ts](<../../../src/__tests__/matrixShape.test.ts>)
 - [src/__tests__/methodology.test.tsx](<../../../src/__tests__/methodology.test.tsx>)
@@ -258,6 +259,7 @@ Covered source files (259):
 - [src/__tests__/reviewedStudyMetadata.test.ts](<../../../src/__tests__/reviewedStudyMetadata.test.ts>)
 - [src/__tests__/reviewedTextEvidence.test.ts](<../../../src/__tests__/reviewedTextEvidence.test.ts>)
 - [src/__tests__/reviewedTrackLabels.test.ts](<../../../src/__tests__/reviewedTrackLabels.test.ts>)
+- [src/__tests__/rhythmCall.test.ts](<../../../src/__tests__/rhythmCall.test.ts>)
 - [src/__tests__/rhythmScanIdentity.test.tsx](<../../../src/__tests__/rhythmScanIdentity.test.tsx>)
 - [src/__tests__/rhythmTrace.test.tsx](<../../../src/__tests__/rhythmTrace.test.tsx>)
 - [src/__tests__/rhythmicity.test.ts](<../../../src/__tests__/rhythmicity.test.ts>)
@@ -339,7 +341,7 @@ Start here:
 - [src/circadian/jtkCycle.ts](<../../../src/circadian/jtkCycle.ts>)
 - [docs/runbooks/CIRCADIAN_VALIDATION.md](<../../runbooks/CIRCADIAN_VALIDATION.md>)
 
-Covered source files (17):
+Covered source files (19):
 - [src/circadian/ArmStatsStrip.tsx](<../../../src/circadian/ArmStatsStrip.tsx>)
 - [src/circadian/CircadianControls.tsx](<../../../src/circadian/CircadianControls.tsx>)
 - [src/circadian/CircadianNotes.tsx](<../../../src/circadian/CircadianNotes.tsx>)
@@ -352,8 +354,10 @@ Covered source files (17):
 - [src/circadian/circadianWorkbook.worker.ts](<../../../src/circadian/circadianWorkbook.worker.ts>)
 - [src/circadian/distributions.ts](<../../../src/circadian/distributions.ts>)
 - [src/circadian/jtkCycle.ts](<../../../src/circadian/jtkCycle.ts>)
+- [src/circadian/lombScargleFloor.ts](<../../../src/circadian/lombScargleFloor.ts>)
 - [src/circadian/multipleTesting.ts](<../../../src/circadian/multipleTesting.ts>)
 - [src/circadian/peak.ts](<../../../src/circadian/peak.ts>)
+- [src/circadian/rhythmCall.ts](<../../../src/circadian/rhythmCall.ts>)
 - [src/circadian/rhythmicity.ts](<../../../src/circadian/rhythmicity.ts>)
 - [src/circadian/scan.ts](<../../../src/circadian/scan.ts>)
 - [src/circadian/timeSeriesSource.ts](<../../../src/circadian/timeSeriesSource.ts>)
