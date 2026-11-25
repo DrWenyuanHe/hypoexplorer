@@ -3,6 +3,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { queryGeneAcrossDatasets, queryPathwayAcrossDatasets, loadPathwayIndex, loadGeneIndex } from '../data/crossDataset';
 import { loadDatasetMeta } from '../data/loadDatasetMeta';
 import { _resetTrackCache } from '../data/loadTrack';
+import { _resetSymbolRenames } from '../data/symbolRenames';
 import {
   BULK_DATASET_FIXTURE,
   BULK_TRACK_FIXTURE,
@@ -191,8 +192,10 @@ describe('cross-dataset query — index fast path', () => {
         lowPower: false,
       },
     ]);
-    // Exactly two requests, and NOT the track bundle.
-    expect(requested).toHaveLength(2);
+    // Exactly two index requests, and NOT the track bundle. The only other
+    // request is the same-origin rename table (absent here), read beside them.
+    expect(requested.filter((r) => r.includes('/query/'))).toHaveLength(2);
+    expect(requested.filter((r) => !r.includes('/query/'))).toEqual([expect.stringContaining('/nomenclature/renames.js')]);
     expect(requested.some((r) => r.includes('track_whole.js'))).toBe(false);
   });
 
@@ -663,6 +666,117 @@ describe('cross-dataset query — flattened multi-dataset fan-out', () => {
     const report = await queryGeneAcrossDatasets('POMC', { datasets: [DS, DS2] });
     expect(report.groups[0].tracks.map((t) => t.trackId)).toEqual(['a', 'c']);
     expect(report.groups[1].tracks).toEqual([]);
+  });
+});
+
+describe('cross-dataset query — renamed symbols', () => {
+  // One gene stored under its current symbol in some studies and a retired one
+  // in others (MGI's Fam237b, formerly Gm8773) must read as one gene, in the
+  // study's own authority only. The macaque dataset here is HGNC: an MGI group
+  // says nothing about it.
+  const MACAQUE = { ...DS, id: 'ds_macaque', name: 'Macaque', organism: 'Macaca mulatta' } as typeof DS;
+  const RENAME_MANIFEST = {
+    ...MANIFEST,
+    tracks: [
+      { ds: DS.id, trackId: 'a', label: 'A', type: 'Tissue', lowPower: false },
+      { ds: DS.id, trackId: 'b', label: 'B', type: 'Tissue', lowPower: false },
+      { ds: MACAQUE.id, trackId: 'x', label: 'X', type: 'Tissue', lowPower: false },
+    ],
+    datasets: [{ ...MANIFEST.datasets[0], trackCount: 2 }, { ...MANIFEST.datasets[0], ds: MACAQUE.id }],
+  };
+  const RENAMES = { v: 1, authorities: ['MGI'], groups: [[0, 'Fam237b', 'Gm8773']] };
+
+  // Every gene shard carries every key, so the test never recomputes the hash.
+  function stubRenamed(keys: Record<string, unknown[]>, renames: unknown = RENAMES) {
+    const orig = document.createElement.bind(document);
+    const requested: string[] = [];
+    vi.spyOn(document, 'createElement').mockImplementation((tag: any) => {
+      const el = orig(tag);
+      if (tag === 'script') {
+        setTimeout(() => {
+          const src: string = el.src || '';
+          requested.push(src);
+          if (src.includes('/query/tracks.js')) {
+            (window as any).HX_QUERY_TRACKS = RENAME_MANIFEST;
+            el.onload?.(new Event('load'));
+          } else if (src.includes('/genes/')) {
+            const m = src.match(/\/genes\/g(\d{3})\.js/);
+            (window as any)[`HX_QUERY_GENES_${m![1]}`] = shard(keys);
+            el.onload?.(new Event('load'));
+          } else if (src.includes('/nomenclature/renames.js') && renames) {
+            (window as any).HX_SYMBOL_RENAMES = renames;
+            el.onload?.(new Event('load'));
+          } else el.onerror?.(new Event('error'));
+        }, 0);
+      }
+      return el;
+    });
+    return { requested };
+  }
+
+  beforeEach(() => { _resetSymbolRenames(); });
+  afterEach(() => { delete (window as any).HX_SYMBOL_RENAMES; _resetSymbolRenames(); });
+
+  it('reads a track that stores only the retired symbol under it, and marks the row', async () => {
+    stubRenamed({ FAM237B: [[0, 1.0, 0.01, 0.02, 0.1]], GM8773: [[1, 2.0, 0.001, 0.004, 0.2]] });
+    const report = await queryGeneAcrossDatasets('Fam237b', { datasets: [DS, MACAQUE] });
+    expect(report.groups[0].tracks.map((t) => [t.trackId, t.logFC, t.storedAs])).toEqual([
+      ['a', 1.0, undefined],
+      ['b', 2.0, 'Gm8773'],
+    ]);
+  });
+
+  it('answers the same way from either member of the group', async () => {
+    stubRenamed({ FAM237B: [[0, 1.0, 0.01, 0.02, 0.1]], GM8773: [[1, 2.0, 0.001, 0.004, 0.2]] });
+    const report = await queryGeneAcrossDatasets('Gm8773', { datasets: [DS, MACAQUE] });
+    expect(report.groups[0].tracks.map((t) => [t.trackId, t.storedAs])).toEqual([['a', 'Fam237b'], ['b', undefined]]);
+  });
+
+  it('keeps the queried symbol\'s own row when a track stores both members', async () => {
+    stubRenamed({ FAM237B: [[0, 1.0, 0.01, 0.02, 0.1]], GM8773: [[0, 9.0, 0.001, 0.004, 0.2]] });
+    const report = await queryGeneAcrossDatasets('Fam237b', { datasets: [DS] });
+    expect(report.groups[0].tracks.map((t) => [t.trackId, t.logFC, t.storedAs])).toEqual([['a', 1.0, undefined]]);
+  });
+
+  it('never applies a group outside its authority', async () => {
+    // Track 2 belongs to the HGNC macaque study: its GM8773 row is not read.
+    stubRenamed({ FAM237B: [], GM8773: [[2, 2.0, 0.001, 0.004, 0.2]] });
+    const report = await queryGeneAcrossDatasets('Fam237b', { datasets: [DS, MACAQUE] });
+    expect(report.groups.flatMap((g) => g.tracks)).toEqual([]);
+  });
+
+  it('chooses the current symbol when a track stores several partners, and none when it is absent', async () => {
+    const renames = { v: 1, authorities: ['MGI'], groups: [[0, 'Newa', 'Olda', 'Oldb']] };
+    // Track a stores Olda and Oldb; track b stores Newa and Oldb.
+    stubRenamed({
+      OLDA: [[0, 1.0, 0.01, 0.02, 0.1]],
+      OLDB: [[0, 3.0, 0.01, 0.02, 0.1], [1, 4.0, 0.01, 0.02, 0.1]],
+      NEWA: [[1, 5.0, 0.01, 0.02, 0.1]],
+    }, renames);
+    // From Olda: track a answers with its own row; track b with Newa, the current symbol.
+    const fromOld = await queryGeneAcrossDatasets('Olda', { datasets: [DS] });
+    expect(fromOld.groups[0].tracks.map((t) => [t.trackId, t.logFC, t.storedAs])).toEqual([['a', 1.0, undefined], ['b', 5.0, 'Newa']]);
+    // From Newa: track a stores two retired names and not Newa, so it gives no answer.
+    const fromNew = await queryGeneAcrossDatasets('Newa', { datasets: [DS] });
+    expect(fromNew.groups[0].tracks.map((t) => [t.trackId, t.storedAs])).toEqual([['b', undefined]]);
+  });
+
+  it('answers as before when the rename table is unavailable', async () => {
+    stubRenamed({ FAM237B: [[0, 1.0, 0.01, 0.02, 0.1]], GM8773: [[1, 2.0, 0.001, 0.004, 0.2]] }, null);
+    const report = await queryGeneAcrossDatasets('Fam237b', { datasets: [DS] });
+    expect(report.groups[0].tracks.map((t) => t.trackId)).toEqual(['a']);
+  });
+
+  it('reads the renamed symbol on the full-download path too', async () => {
+    const { requested } = stubQueryFiles({
+      '/nomenclature/renames.js': { global: 'HX_SYMBOL_RENAMES', value: { v: 1, authorities: ['MGI'], groups: [[0, 'Pomc2', 'Lep']] } },
+      'meta.js': { global: 'HX_MOUSE_BULK_HFD_META', value: { populations: ['whole'], labels: { whole: 'Whole' }, types: {}, qcFlags: {} } },
+      'track_whole.js': { global: 'HX_MOUSE_BULK_HFD_WHOLE', value: BULK_TRACK_FIXTURE },
+    });
+    // The fixture stores LEP and no POMC2: a Pomc2 query reads the LEP row.
+    const report = await queryGeneAcrossDatasets('Pomc2', { datasets: [DS] });
+    expect(requested.some((r) => r.includes('track_whole.js'))).toBe(true);
+    expect(report.groups[0].tracks.map((t) => [t.logFC, t.storedAs])).toEqual([[1.5, 'Lep']]);
   });
 });
 

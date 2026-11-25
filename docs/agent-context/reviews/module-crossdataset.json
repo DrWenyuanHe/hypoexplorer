@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "module-crossdataset",
-  "fingerprint": "8a5ce5d8a8f4726265725471907b757951b757d480c5654f9a2bbcdaaef3a518",
+  "fingerprint": "c722c31ec0ead50090302ec6136c10ea9a941d23070d1671d13cc9b17a32b07d",
   "outcome": "updated",
-  "explanation": "GeneReport takes an optional expressionScope (the survey page's scope for a gene it handed over) and passes it to GeneExpressionCards as surveyScope; onOpenExpression now names the survey page for multi-gene comparison and the catalog rather than the only route to a gene's survey.",
+  "explanation": "GeneReport takes an optional expressionScope (the survey page's scope for a gene it handed over) and passes it to GeneExpressionCards as surveyScope; onOpenExpression now names the survey page for multi-gene comparison and the catalog rather than the only route to a gene's survey. GeneReport names the studies read under another rename-group member above the differential-expression table (renamedStudies) and tags each such row with its stored symbol; GeneEffectPreview looks the row up under track.storedAs so the preview draws the stored gene.",
   "references": [
     "src/crossdataset/GeneReport.tsx",
-    "src/search/portalCards.tsx"
+    "src/search/portalCards.tsx",
+    "src/crossdataset/GeneEffectPreview.tsx",
+    "src/crossdataset/forestReport.css"
   ]
 }
