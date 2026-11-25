@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (258):
+Covered source files (259):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -289,6 +289,7 @@ Covered source files (258):
 - [src/__tests__/studyTopGenes.test.tsx](<../../../src/__tests__/studyTopGenes.test.tsx>)
 - [src/__tests__/supersededProjection.ts](<../../../src/__tests__/supersededProjection.ts>)
 - [src/__tests__/swHandover.test.ts](<../../../src/__tests__/swHandover.test.ts>)
+- [src/__tests__/testIsolation.test.tsx](<../../../src/__tests__/testIsolation.test.tsx>)
 - [src/__tests__/trackColumns.test.tsx](<../../../src/__tests__/trackColumns.test.tsx>)
 - [src/__tests__/trackData.test.ts](<../../../src/__tests__/trackData.test.ts>)
 - [src/__tests__/trackPathwaysIndex.test.ts](<../../../src/__tests__/trackPathwaysIndex.test.ts>)

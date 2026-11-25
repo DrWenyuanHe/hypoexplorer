@@ -6,6 +6,7 @@ Format: [version] - YYYY-MM-DD
 
 ## Unreleased
 
+- **Enter in the gene search selects the gene typed (2026-11-24).** Pressing Enter straight after the last letter could add the top match for the letters typed before it (Por for Pomc). Enter now always searches the text in the box.
 - **Study filters on the gene page update in place (2026-11-22).** Choosing a study category no longer reloads the gene page; the gene page and the pathway report share one Study filters control, and shared links keep their setting order. The compare-set Excel download leaves group means blank for a study with no result for a gene, matching its blank logFC and P.
 - **Study pages and the data download name the same paper (2026-11-22).** One rule picks a dataset's paper for study pages, How to cite and the agent-ready download, which now lists papers for GSE235792, GSE212491, GSE174753 and GSE330152. Each study page's population table shows that track's own sample counts, and GSE174085's static page uses the reviewed "litter pseudobulk" track label. No data or result changed.
 - **Quieter explorer, volcano and reference pages (2026-11-21).** The explorer drops its breadcrumb row (the study name opens the library); the volcano controls fit one row under Gene list, cutoff and "pass" menus; bar charts and tables appear once a gene is selected; the home page lists its three entry points in one list; Methods & statistics and the verification guide share one layout; form controls are graphite.

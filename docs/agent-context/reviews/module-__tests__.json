@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "685099942d2167013a594808b651a3615ca5ffab48f5999b9de6448c2cc113c8",
+  "fingerprint": "cbe1d8fffcdb57cc9b768ca1c511b92972221b25fe84a6f86ddc5107fc0fe93b",
   "outcome": "updated",
-  "explanation": "direction.test.ts pins dirGlyph and directionTextColor (FDR-only colour, text tokens only); listingWords.test.ts pins the mode words and the per-kind caveat as a table. forestReport.test.tsx now tests directionFill, and pathwayReportResults.test.tsx asserts the NES text is #AD3433 while the dot keeps var(--color-obese).",
+  "explanation": "setup.ts unmounts the page before it resets the URL after each test, because unmounting runs the router's pending URL write and Testing Library's own cleanup runs after this hook; testIsolation.test.tsx pins that order. app.dataset.test.tsx unmounts before it removes the mouse study's seeds, so a mounted page cannot start a load that stays cached for the next test. nomenclature.test.tsx checks that Enter selects the gene typed before the list catches up.",
   "references": [
-    "src/__tests__/direction.test.ts",
-    "src/__tests__/listingWords.test.ts",
-    "src/__tests__/forestReport.test.tsx",
-    "src/__tests__/pathwayReportResults.test.tsx"
+    "src/__tests__/setup.ts",
+    "src/__tests__/testIsolation.test.tsx",
+    "src/__tests__/app.dataset.test.tsx",
+    "src/__tests__/nomenclature.test.tsx"
   ]
 }
