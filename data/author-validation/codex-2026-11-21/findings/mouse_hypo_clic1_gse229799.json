@@ -1,0 +1,141 @@
+{
+  "datasetId": "mouse_hypo_clic1_gse229799",
+  "accession": "GSE229799",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "The original FASTQ names link K10_S88 to SRR24182099, whose sample record labels the animal WT10 and its treatment WT. W15_S83 appears in the published and GEO matrices, but none of the nine project runs carries that library name. The authors’ five-per-group comparison and the registered four-per-group comparison share 14,269 unambiguous gene pairs and meet neither numerical route for author concordance.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "K10_S88 maps to a public raw run with a conflicting genotype label. W15_S83 lacks a project run mapping.",
+      "note": "The SRA experiment package for SRX19979621 lists both original K10_S88 FASTQs under SRR24182099. GEO describes this library as K10_S88, while GSM7178034 and BioSample SAMN34203541 label it WT10 with treatment WT. Each of the other eight project runs maps to one of the registered columns. W15_S83 appears only on the processed side of this crosswalk. Figure 7B and Supplemental Table 1 support five KO and five WT columns in the author analysis. Table 2 agrees with the deposited gene-level result to floating-point precision. Expression differences between K10_S88 and W15_S83 support the processed labels but cannot identify the animals. The current four-KO/four-WT registered table yields 14,269 one-to-one pairs, Pearson 0.746223, Spearman 0.572998 and 9,836 agreeing directions. Of 38 author and 43 registered full-table FDR calls, 29 overlap on exact one-to-one features. The author used filtered counts, TMM and limma-voom. The registered fit uses limma on log2(normalized expression + 1). Alternative cohort fits are sensitivities.",
+      "reviewFlags": [
+        "The animal genotype underlying K10_S88 conflicts across the processed grouping and controlled metadata. The original FASTQ names establish the run accession.",
+        "An author or sequencing-core sample sheet is needed to identify the animal and raw library behind W15_S83. The registered analysis excludes both disputed columns."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Disputed GEO sample with WT treatment and K10_S88 description",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM7178034",
+          "kind": "database"
+        },
+        {
+          "label": "NCBI BioSample SAMN34203541",
+          "url": "https://www.ncbi.nlm.nih.gov/biosample/SAMN34203541",
+          "kind": "database"
+        },
+        {
+          "label": "SRA project packages with original FASTQ filenames",
+          "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=sra&id=27369496,27369497,27369498,27369499,27369500,27369501,27369502,27369503,27369504&retmode=xml",
+          "kind": "database"
+        },
+        {
+          "label": "GEO series with normalized expression and all-gene KO versus WT results",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE229799",
+          "kind": "database"
+        },
+        {
+          "label": "Figure 7 and Supplemental Tables 1–2",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10480059/",
+          "kind": "paper"
+        }
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "The author result is available and was compared with the registered cohort. SRA identifies the run behind K10_S88, while its genotype is disputed. W15_S83 has no sample or run identifiable in PRJNA956069. The public records cannot reconcile the two additional author samples.",
+      "nextStep": "Which genotyped mouse supplied K10_S88 (GSM7178034, SAMN34203541, SRR24182099), and was it assigned KO or WT in the published analysis? Which mouse, genotype and original FASTQ pair supplied W15_S83, and what GSM, BioSample and run accessions identify it, or was it omitted from the public deposit? Request the corresponding rows of the genotyping and library sample sheet.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "clic1_ko_vs_wild_type"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Current four-KO/four-WT hypothalamus limma table. Compare all unambiguous one-to-one mapped effects with their published KO-minus-WT coefficients. The five-per-group reference uses an expanded cohort.",
+      "reference": "GSE229799 all-gene KO versus WT table, confirmed against Supplemental Table 2 of PMID 37604246. Supplemental Table 1 and the GEO matrix identify the processed libraries. Figure 7B supports the group sizes.",
+      "assessment": "not_established",
+      "dimensions": {
+        "cohort": {
+          "status": "different",
+          "note": "The registered track includes the eight libraries with consistent GEO descriptions, treatment and original SRA filenames, four per arm. The author comparison uses ten columns, five per arm. The K10_S88 run is identified, its genotype is disputed, and W15_S83 lacks a project run mapping."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Both comparisons estimate Clic1 knockout minus wild type in mouse hypothalamus. The manuscript identifies the normal-chow condition and the GEO samples are male."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Exact unversioned Ensembl IDs identify 14,269 one-to-one pairs through the registered feature map. Of 82 remaining author IDs, 44 lack a published symbol and 38 map into 18 registered multi-feature coefficients. These coefficients remain unpaired."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both coefficients measure KO-minus-WT log2 expression differences. Voom estimates a precision-weighted log-CPM difference, while the registered model contrasts log2(normalized expression + 1). Median absolute log2FC difference is 0.090795, Pearson 0.746223 and Spearman 0.572998. All 14,269 pairs have nonzero effects, with 9,836 (68.93%) agreeing in direction."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The authors used RSEM counts, CPM ≥ 1 in at least five samples, TMM, voom weights and empirical Bayes moderation. The registered limma fit uses eight normalized columns and its tested family includes unpublished unmapped rows. Both tables have finite raw and adjusted P on every pair. At adjusted P < 0.05, 29 calls overlap among 37 author and 42 registered calls with pairs. The full lists contain 38 and 43 calls. The additional author call contributes to the additional registered multi-feature symbol Vmn2r29."
+        },
+        "coverage": {
+          "status": "compatible",
+          "note": "14,269 pairs cover 99.874% of the 14,287 published registered symbols and 99.429% of the 14,351 author IDs for the sole registered contrast. The reference is the complete deposited DE table."
+        }
+      },
+      "criteria": "Under author-concordance-v2, require at least 30 pairs, at least 90% registered-output coverage and compatible cohort, contrast, identifiers and effect definitions. Require either Pearson and Spearman each ≥ 0.90, or ≥ 90% same direction among at least 30 nonzero pairs covering ≥ 90% of all pairs. Use the deposited orientation across all eligible pairs. Magnitude, raw P, FDR and call overlap are contextual.",
+      "conclusion": "The pair count and coverage meet policy requirements. Neither numerical route meets its thresholds, and the cohorts differ. The direct comparison is informative within the recorded scope. Animal provenance requires author confirmation."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Project accession crosswalk and registered groups",
+      "value": "10 processed columns (5 K and 5 W), 9 GEO samples, 9 project-linked BioSamples, 9 SRA experiments and runs, 9 original FASTQ pairs. Registered groups are 4 KO and 4 WT. W15_S83 is the sole column without a matching project run.",
+      "script": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Raw library for disputed GEO genotype",
+      "value": "K10_S88_L001_R1_001.fastq.gz and K10_S88_L001_R2_001.fastq.gz map to SRR24182099 / SRX19979621 / SAMN34203541 / GSM7178034. The BioSample title is WT10 and treatment is WT.",
+      "script": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Deposited Clic1 normalized expression in the two disputed columns",
+      "value": "K10_S88 = 1.43432229000634, W15_S83 = 6.27492003921635. Expression gives no genotype sign-off.",
+      "script": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Unique feature overlap",
+      "value": "14,269 pairs from 14,351 author IDs and 14,287 registered symbols. The 82 unpaired author IDs consist of 44 lacking a published symbol and 38 inputs to 18 aggregate symbols.",
+      "script": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Author and registered effect coverage",
+      "value": "0.9942861124660303 of the reference and 0.998740113389795 of the registered output.",
+      "script": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "All-pair effects and v2 numerical routes",
+      "value": "Pearson 0.7462234043855867, Spearman 0.572997948573123, median absolute logFC difference 0.090794617549678. Direction agrees in 9,836 of 14,269 nonzero pairs (0.6893265120190623), covering all pairs. Neither route passes.",
+      "script": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Adjusted P < 0.05 in complete lists and among finite one-to-one pairs",
+      "value": "38 author and 43 registered calls in the complete lists. Among paired rows, 37 author and 42 registered calls, with 29 shared, 8 author-only and 13 registered-only. Paired Jaccard is 0.58. The unpaired positive calls are ENSMUSG00000110105 and its registered aggregate Vmn2r29.",
+      "script": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Publication workbook versus GEO",
+      "value": "Both sheets have 14,351 unique Ensembl rows. Across the ten normalized columns the largest absolute difference from GEO is 5.684341886080802e-14. Maximum absolute logFC difference is 5.551115123125783e-17 and all adjusted P values match.",
+      "script": "data/author-validation/continued-sources/GSE229799/codex-2026-11-21/publication.py"
+    }
+  ],
+  "openIssues": [
+    "Which genotyped mouse supplied K10_S88 (GSM7178034, SAMN34203541, SRR24182099), and was it assigned KO or WT in the published analysis?",
+    "Which mouse, genotype and original FASTQ pair supplied W15_S83, and what GSM, BioSample and run accessions identify it, or was it omitted from the public deposit?"
+  ]
+}

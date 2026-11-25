@@ -1,0 +1,15 @@
+{
+  "datasetId": "mouse_hypo_obesity_gse329539",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 40 source files matched their recorded SHA-256 and size, and all seven computations reproduced. Closure as compared is justified for the selected genes. Of 54 author genes, 23 paired and 22 agreed in direction. The 42.59% coverage and 23 pairs fall below both v2 minimums. The main correction is that zero registered FDR discoveries establish zero shared positive calls. The corrected proposal passed the ledger validator.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_obesity_gse329539.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_obesity_gse329539.json",
+    "data/author-validation/continued-sources/GSE329539/codex-2026-11-21/refute/recheck.py"
+  ],
+  "openIssues": [
+    "The reviewed sources lack the complete author DESeq2 results and exact model inputs needed to explain 393 reported obesity discoveries versus zero registered FDR calls. The paper gives conflicting descriptions of its fold-change cutoff.",
+    "M6pr-ps reverses direction. Tables 1 and 2 give different obesity coefficients for Ppargc1b.",
+    "The diet and dosing timelines conflict across sources. Table S1 also lists more clean than raw reads for OB3, although its raw-read total matches ENA."
+  ]
+}

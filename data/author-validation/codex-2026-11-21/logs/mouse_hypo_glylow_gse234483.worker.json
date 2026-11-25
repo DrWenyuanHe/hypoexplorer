@@ -1,0 +1,27 @@
+{
+  "datasetId": "mouse_hypo_glylow_gse234483",
+  "outcome": "needs_author_contact",
+  "summary": "The first preprint reports 10,359 genes at adjusted P < 0.05. The publication reports 1,407 without identifying the genes or explaining the revised selection rule. The current Explorer table has 10,146 FDR < 0.05 calls, and all 113 named Gly-Low effects in the recovered Table S2 comparison agree in direction. [First preprint](https://www.biorxiv.org/content/10.1101/2022.08.10.503411v1.full) · [Publication](https://ars.els-cdn.com/content/image/1-s2.0-S2211124725011933-mmc5.pdf) · [Table S2](https://ars.els-cdn.com/content/image/1-s2.0-S2211124725011933-mmc4.xlsx)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/mouse_hypo_glylow_gse234483.json",
+    "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/sources/",
+    "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/collect.py",
+    "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/retrieval.json",
+    "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/inspect_sources.py",
+    "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/inventory.json",
+    "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/preprint-v1-figure3.png",
+    "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/compare.py",
+    "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/gene-comparisons.tsv",
+    "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/sample-ratios.tsv",
+    "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/metrics.json",
+    "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/repository-inputs.tsv",
+    "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/validate.py",
+    "data/author-validation/continued-sources/GSE234483/codex-2026-11-21/validation.json"
+  ],
+  "openIssues": [
+    "Which GEO libraries, tested gene IDs, DESeq2 design, filtering steps and statistical cutoffs produced the final 1,407 genes? The authors’ per-gene results or generating code would establish how that selection changed after preprint version 1.",
+    "GEO and the RNA-seq Methods support the registered four-month cohort, while the Results text says three months. Individual animal and cage assignments remain unspecified."
+  ]
+}

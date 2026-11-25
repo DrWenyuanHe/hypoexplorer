@@ -1,0 +1,136 @@
+{
+  "datasetId": "mouse_hypo_crd_gse264350",
+  "accession": "GSE264350",
+  "category": "access_blocked",
+  "closure": "compared",
+  "summary": "Springer Figure S2 identifies Ifi27l2a, B2m and Ifi27 among seven reported DEGs in 8-week-old mouse hypothalamus. All three have lower expression in CRD in the registered analysis, with raw P < 0.05 and BH-adjusted P = 1 for each. The figure gives DEG membership without signed effects or per-gene P values, so author effect concordance remains unassessed.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE264350/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "Three named young-hypothalamus DEGs compared with the registered CRD result",
+      "note": "The journal supplement and Research Square preprint are public. Figure S2C identifies Ifi27l2a, B2m and Ifi27 in the young-hypothalamus DEG set. S2G names Ifi27l2a again. Both Venn panels sum to seven young-hypothalamus genes. The three named genes join uniquely and have negative registered limma effects, nominal raw P < 0.05 and BH-adjusted P = 1. GEO supplies per-sample FPKM, and the deposited values reproduce the registered CRD-minus-control effects for all three. The workbook, family SOFT and Series Matrix match the retained source hashes.",
+      "reviewFlags": [
+        "Four young-hypothalamus DEG identities, the full tested universe, signed author effects and per-gene author P and FDR remain unavailable. Figure S2A lists aggregate counts and multiple selection rules.",
+        "The preprint describes high Ifi27l2a expression in young CRD brain. Figure S2G gives membership only. Young hypothalamus mean FPKM is 14.934 in deposited controls and 5.142 in CRD. The authors' intended comparison for the wording remains unclear."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Published Figure S2 with young-hypothalamus DEG intersections",
+          "url": "https://static-content.springer.com/esm/art%3A10.1007%2Fs12264-025-01552-8/MediaObjects/12264_2025_1552_MOESM1_ESM.pdf",
+          "kind": "author_result"
+        },
+        {
+          "label": "Journal article preview, data availability and supplementary inventory",
+          "url": "https://link.springer.com/article/10.1007/s12264-025-01552-8",
+          "kind": "paper"
+        },
+        {
+          "label": "Research Square manuscript and attachments",
+          "url": "https://www.researchsquare.com/article/rs-4388330/v1",
+          "kind": "paper"
+        },
+        {
+          "label": "GEO series, sample records and deposited FPKM workbook",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE264350",
+          "kind": "database"
+        },
+        {
+          "label": "PMC release status",
+          "url": "https://pmc.ncbi.nlm.nih.gov/tools/idconv/api/v1/articles/?ids=41350794&format=json&versions=yes",
+          "kind": "paper"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The public Venn diagrams permit a direct comparison of three named DEG selections for the registered contrast. All three local coefficients are negative, all three raw P values are nominal, and none meets the registered BH cutoff. The authors' exact coefficients, test statistics and selection rule for these intersections remain unknown.",
+      "nextStep": "Obtain the signed 8-week hypothalamus CRD-versus-control export underlying Figure S2C/G, with the sample IDs, reference group, model, selection rule, raw P and adjusted P. Use it to identify the remaining four genes and resolve which group the preprint's Ifi27l2a expression statement refers to.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "crd_vs_control_8week"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Direct comparison of published DEG-list membership with exact-symbol rows of the registered hypothalamus limma result. The GEO FPKM group means provide a separate check of the local group encoding.",
+      "reference": "Huo et al., Neuroscience Bulletin, DOI 10.1007/s12264-025-01552-8, supplementary PDF pp. 4–5, Figure S2C/G. The public Research Square v1 supplement shows the same named intersections.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "Both panels explicitly identify 8-week mouse hypothalamus. Five CRD and five control libraries match GEO treatment, FPKM headers and ten distinct BioSamples. The figure gives no per-library inclusion or animal/pool list for the author fit."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Both sources compare young CRD and control within hypothalamus. S2C names control first and S2G writes CRD/control. Venn membership is invariant to group order. The registered sign is CRD minus control."
+        },
+        "features": {
+          "status": "matched",
+          "note": "All three named reference symbols join uniquely to deposited FPKM rows and registered DE rows. Repeated labeling of Ifi27l2a counts once. The other four young-hypothalamus identities cannot be matched."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "The Venn sets give no per-gene author sign or magnitude. Local log2(FPKM + 1) effects agree with the differences of group means on that scale for all three genes. Neither these derived differences nor the preprint's high-expression wording supplies a signed author coefficient."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "The authors label the three genes as DEGs. Panel A lists |log2FC| ≥ 1 with PoissonDis FDR ≤ 0.001 or DESeq2 Q ≤ 0.05. The precise rule for panels C/G and the per-gene author P and adjusted P are unreported there. All three registered limma raw P values are < 0.05 and all three BH-adjusted P values equal 1."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Three named genes join out of seven entries counted in each young-hypothalamus Venn set. No full author DE table was located. The registered result has 19,186 rows. No signed author pairs support either v2 concordance route."
+        }
+      },
+      "criteria": "Include every named intersection within the labeled young-hypothalamus set, deduplicate across panels and join exact symbols. Report deposited and registered CRD-minus-control values, nominal raw P < 0.05 and BH FDR < 0.05. Leave missing author statistics unassessed and apply the author-concordance-v2 minimum of 30 paired genes.",
+      "conclusion": "The three selected author DEGs are nominal-only in the registered output. Signed author effect agreement, model-level inference and genome-wide concordance remain unassessed. The selected-result review supports no full verification."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Young-hypothalamus DEG totals from the printed intersection sizes",
+      "value": "S2C = 7 and S2G = 7. Three distinct genes are named, four remain unnamed.",
+      "script": "data/author-validation/continued-sources/GSE264350/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Exact-symbol coverage and registered inference for the named set",
+      "value": "3/3 matched, 3/3 negative registered effects, 3/3 raw P < 0.05 and 0/3 BH FDR < 0.05. Each adjusted P equals 1.",
+      "script": "data/author-validation/continued-sources/GSE264350/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered CRD-minus-control limma coefficients",
+      "value": "Ifi27l2a −1.427838, B2m −0.506854, Ifi27 −1.019979. The unrounded effects and raw P values are in compared-genes.tsv.",
+      "script": "data/author-validation/continued-sources/GSE264350/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Available numerical author comparisons",
+      "value": "0 paired author coefficients and 0 paired numeric author adjusted P values among the three named genes.",
+      "script": "data/author-validation/continued-sources/GSE264350/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered results at BH FDR < 0.05",
+      "value": "0 of 19,186 genes.",
+      "script": "data/author-validation/continued-sources/GSE264350/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Source cohort and deposited matrix",
+      "value": "5 control and 5 CRD libraries from 10 BioSamples. The single expression worksheet has 20,673 rows, 3 identifier columns and 78 FPKM columns. All 78 GSM records lack supplementary files.",
+      "script": "data/author-validation/continued-sources/GSE264350/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Mean deposited Ifi27l2a FPKM by arm",
+      "value": "14.934 control and 5.142 CRD. The difference of mean log2(FPKM + 1), CRD minus control, is −1.427838.",
+      "script": "data/author-validation/continued-sources/GSE264350/codex-2026-11-21/inspect_workbook.cjs"
+    }
+  ],
+  "openIssues": [
+    "The complete signed author export, four unnamed DEG identities, fit-level sample list and per-gene P/FDR are unavailable in the reviewed public material.",
+    "The preprint describes high Ifi27l2a expression in young CRD brain. Its comparator and the selection rule used for the Figure S2 Venn sets remain unclear."
+  ]
+}

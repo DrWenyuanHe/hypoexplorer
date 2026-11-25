@@ -1,0 +1,161 @@
+{
+  "datasetId": "mouse_hypo_obob_fgf1_gse153551",
+  "accession": "GSE153551",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "Figure 7a reports 319 upregulated and 68 downregulated genes at day five under the adjusted-P rule, and the notebook's nominal-P rule gives 360 up and 92 down. The deposited comparison uses 9 FGF1 and 14 vehicle mice, while the paper reports seven vehicle mice. The reviewed sources do not link the seven controls labelled Non-Diabetic to pretreatment eligibility records.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE153551/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "Published day-five DEG counts are reconciled. Eligibility of seven vehicle mice needs author confirmation.",
+      "note": "Figure 7a and Supplementary Data 11 agree at adjusted P < 0.05 and absolute log2 fold change > 0.5. The rendered notebook uses nominal P for its own plot. The GEO sample records, group metadata, count columns and registered samplesheet identify the same 9 FGF1 and 14 pair-fed vehicle libraries at day five. The author notebook fits six groups across 47 libraries. Its default DESeq2 median-ratio size factors applied to the deposited counts reproduce the reported base means after the Gbp2 count replacement. The bulk Methods and GEO processing text describe quantile normalization. The additional-files guide describes Bonferroni adjustment, whereas the day-five padj column reproduces Benjamini-Hochberg. The registered day-five edgeR quasi-likelihood analysis calls 4,980 genes at FDR < 0.05, including 1,763 shared with Data 11 and five without a published day-five row. The prior ledger records a separate author-method fit. Independent checks for this review are in data/author-validation/continued-sources/GSE153551/codex-2026-11-21/refute/audit.py.",
+      "reviewFlags": [
+        "Figure 7a and the bulk Methods report seven vehicle mice at day five. GEO labels seven of the 14 deposited controls Non-Diabetic. The reporting summary records no data exclusions. The reviewed sources do not link pretreatment glucose or screening decisions to those seven libraries.",
+        "The two fits share a day-five treatment contrast and differ in normalization, dispersion fitting and inference. Missing author rows have unassessed author P and FDR."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Supplementary Data 11, day-five sheet b.d5_deg",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC7477234.1/41467_2020_17720_MOESM13_ESM.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Published study, Figure 7a and bulk RNA-seq Methods",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7477234/",
+          "kind": "paper"
+        },
+        {
+          "label": "Commit-pinned Figure 7 analysis notebook",
+          "url": "https://github.com/perslab/bentsen-rausch-2020/blob/52d88678668db304f946a6a33e34a56f22ddea6a/analysis/figure_7.Rmd",
+          "kind": "author_result"
+        },
+        {
+          "label": "Bulk sample-level GEO characteristics",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE153nnn/GSE153549/soft/GSE153549_family.soft.gz",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Deposited bulk sample groups",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE153nnn/GSE153549/suppl/GSE153549_bulk_meta_counts.csv.gz",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Publisher Reporting Summary",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC7477234.1/41467_2020_17720_MOESM15_ESM.pdf",
+          "kind": "paper"
+        },
+        {
+          "label": "Additional-files guide, description of Supplementary Data 11",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC7477234.1/41467_2020_17720_MOESM2_ESM.docx",
+          "kind": "paper"
+        },
+        {
+          "label": "Deposited bulk count matrix",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE153nnn/GSE153549/suppl/GSE153549_bulk_raw_counts.csv.gz",
+          "kind": "processed_data"
+        }
+      ],
+      "reviewedAt": "2026-11-21",
+      "paperAccess": "pmc_full_text"
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "Data 11 and the current registered table were compared across all 14,193 published day-five genes. Published Figure 7a follows the adjusted-P rule, and the author notebook’s nominal-P plot accounts for the alternate counts. The deposit and code establish which libraries entered the fit. Animal-level baseline eligibility remains unresolved because the manuscript specifies diabetic mice and seven controls, while the analysis includes fourteen day-five controls, seven labelled Non-Diabetic.",
+      "nextStep": "Which day-five vehicle mice met the pretreatment diabetes criterion, when was the GEO diabetes label assigned, and which control GSMs did the authors intend Figure 7a and Data 11 to represent? Retain the standardized day-five-only edgeR-QL result for Explorer and describe the joint-timepoint DESeq2 result as the author reference. Revisit the cohort interpretation when an animal-to-library eligibility key or a correction becomes available.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "fgf1_vs_vehicle"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Current registered day-five-only bulk edgeR-QL FGF1-minus-vehicle table, SHA-256 1e1c274bc4cb6f817b5f0657f4860ff8c28c38368a202aef1fcffd086b2ec00e.",
+      "reference": "Supplementary Data 11, sheet b.d5_deg. Published Figure 7a, author notebook, GSE153549 bulk counts, metadata and GSM records support interpretation. See data/author-validation/continued-sources/GSE153551/codex-2026-11-21/SOURCES.tsv.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Each day-five GSM records one male ob/ob mouse. Counts, group metadata, GEO titles and the registered samplesheet identify 9 treated and 14 vehicle libraries. The caption and bulk Methods report 9 versus 7. The seven Non-Diabetic labels have no recorded classification time or GSM-linked screening glucose. The registry labels the region Whole hypothalamus. The bulk Methods refer to the single-nucleus dissection, which describes a 2-mm punch from a 1.5-mm coronal block."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Both coefficients estimate day-five FGF1 minus pair-fed vehicle in bulk ob/ob mouse hypothalamus. The author coefficient is a day-specific contrast in a six-group model fitted across time points."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 14,193 published day-five symbols join uniquely by exact case-sensitive ID. Of 28 additional registered genes, 25 fail the author's count filter. F5, Parpbp and Sostdc1 pass it and each has a Cook's distance lower bound above the default cutoff in a group too small for automatic replacement. This corroborates the prior Cook-filtering attribution. The notebook drops incomplete rows before export, and the workbook supplies no P or adjusted P for these omissions."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both models estimate a day-five log2 FGF1-to-vehicle effect. On all 14,193 pairs, Pearson is 0.99525826 and Spearman is 0.99539372. Signs agree for 13,499 pairs (95.1103%) and the median absolute log2 effect difference is 0.0141811. For Gbp2 the published and registered coefficients are +0.756880 and -0.290217. Replacing the vehicle count of 793 with 64 reproduces the published baseMean and moves the log2 ratio of the day-five normalized group means from -0.331464 to +0.754098. This arithmetic check supports the earlier refit's explanation of the sign change."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The author notebook uses a DESeq2 1.22.2 Wald contrast in a six-group fit with 47 libraries. Explorer uses TMM and edgeR quasi-likelihood on the 23 day-five libraries. The deposited counts reproduce the author base means with DESeq2 median-ratio size factors, although the paper and GEO describe quantile normalization. The guide calls the correction Bonferroni. Benjamini-Hochberg reproduces the day-five adjusted P values within 2.89e-15. On the published raw P values, Bonferroni gives 365 calls. At FDR < 0.05 the 14,193 shared tests yield 1,766 author calls and 4,975 registered calls with 1,763 in common. Five further registered calls lack author inference. Figure 7a counts genes passing both the FDR and effect thresholds."
+        },
+        "coverage": {
+          "status": "compatible",
+          "note": "The comparison covers all 14,193 exported day-five rows with finite effects and adjusted P values, or 99.8031% of the 14,221 registered rows. The six-group model's count filter retained 14,196 genes. The three filter-passing omissions have no published day-five statistics."
+        }
+      },
+      "criteria": "Use the prespecified day-five sheet, exact unique IDs, original coefficient direction and all finite effect pairs. Apply author-concordance-v2 sample-size, coverage and alternative correlation/direction criteria. Compare whole-list and paired-test FDR < 0.05 calls separately. Evaluate each documented Figure 7a threshold with the same strict |log2FC| > 0.5 cutoff.",
+      "conclusion": "Both numerical author-concordance-v2 routes pass on the full published day-five sheet, as does registered-output coverage. Cohort compatibility remains limited because pretreatment eligibility is unknown for seven controls. The registered result remains the day-five-only analysis. The all-timepoint DESeq2 result supplies the author reference. Full sign-off remains open."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Day-five sample membership, matched by library and arm",
+      "value": "9 FGF1, 14 vehicle. GEO labels 7 vehicle mice Diabetic and 7 Non-Diabetic, with one mouse per GSM.",
+      "script": "data/author-validation/continued-sources/GSE153551/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Published Figure 7a and notebook day-five bars at |log2FC| > 0.5",
+      "value": "BH-adjusted P < 0.05 gives 319 up + 68 down = 387. Raw P < 0.05 gives 360 up + 92 down = 452.",
+      "script": "data/author-validation/continued-sources/GSE153551/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Adjustment implied by Data 11 day-five raw P values",
+      "value": "Maximum absolute difference from reported padj is 2.89e-15 for BH and 0.998373 for Bonferroni. The guide specifies Bonferroni, which gives 365 calls at 0.05 on these raw P values. The workbook gives 1,766.",
+      "script": "data/author-validation/continued-sources/GSE153551/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "All-timepoint normalization and Gbp2 count replacement on the deposited counts",
+      "value": "14,192/14,193 within relative 1e-8 before replacement. Gbp2 in US-1642300 changes from 793 to 64 by the documented replacement formula, yielding baseMean 149.496660371284. Excluding the seven day-five Non-Diabetic labels gives 0/14,044 comparable means within relative 1e-8. These are across-library means. The group assignments come from sample metadata and the notebook. The Gbp2 day-five log2 ratio of normalized group means is -0.331464 before replacement and +0.754098 afterward.",
+      "script": "data/author-validation/continued-sources/GSE153551/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Full-reference effect comparison with current registered output",
+      "value": "14,193/14,193 author rows and 14,193/14,221 registered rows paired. Pearson 0.99525826, Spearman 0.99539372, same nonzero sign 13,499/14,193. Median absolute log2FC difference 0.0141811.",
+      "script": "data/author-validation/continued-sources/GSE153551/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "FDR < 0.05 on full lists and finite shared tests",
+      "value": "Author 1,766, registered 4,980, shared 1,763. On paired tests registered 4,975. Five other registered discoveries have no author row.",
+      "script": "data/author-validation/continued-sources/GSE153551/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Registered rows without an author result",
+      "value": "25 fail the author count filter. F5, Parpbp and Sostdc1 pass it but have no day-five author row. All 28 have unassessed author inference.",
+      "script": "data/author-validation/continued-sources/GSE153551/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Exact bulk identifiers in the publisher Source Data workbook",
+      "value": "0 cells contain an exact bulk sample title or GSM ID. Its Figure 7 sheet covers panels e and g. The Figure 1a glucose table has 15 vehicle and 17 FGF1 columns identified by arm, with rows labelled Pre and 0 before days 1 through 5. It does not supply the three screening measurements linked to each bulk GSM.",
+      "script": "data/author-validation/continued-sources/GSE153551/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Independent check of the three Cook-filtered omissions against the published six-group model",
+      "value": "Default cutoff 3.27807. Lower bounds in groups ineligible for automatic count replacement are 6.57228 for F5 (Sample_11), 7.45445 for Parpbp (Sample_16) and 4.78449 for Sostdc1 (Sample_11). These bounds are diagnostic. A full DESeq2 model was not refitted in this review.",
+      "script": "data/author-validation/continued-sources/GSE153551/codex-2026-11-21/review.py"
+    }
+  ],
+  "openIssues": [
+    "For the seven day-five vehicle libraries GSM4646998–GSM4647004, what time point does the GEO Non-Diabetic label describe, did each mouse meet the pretreatment glucose criterion, and which vehicle GSMs were intended for Figure 7a and Supplementary Data 11? Please reconcile the caption’s seven controls with the fourteen assigned by the deposited analysis."
+  ]
+}

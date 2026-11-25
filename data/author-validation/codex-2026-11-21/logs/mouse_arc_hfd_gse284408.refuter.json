@@ -1,0 +1,15 @@
+{
+  "datasetId": "mouse_arc_hfd_gse284408",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 21 source files matched their recorded hashes and sizes, and all 13 numerical claims reproduced. The 14,119 paired genes pass both effect-concordance criteria. The corrected proposal keeps the comparison closed as `compared` and the detailed review `unresolved`. The published rule yields 289 genes, matching Figure 3E and all 229 KEGG pathway counts in Table S3. Table S1 contains ten additional genes, and the Results text reports 389.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_arc_hfd_gse284408.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_arc_hfd_gse284408.json",
+    "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/refute/audit.py"
+  ],
+  "openIssues": [
+    "The selection rule for the ten extra Table S1 genes and the exact gene lists supplied to enrichment remain undocumented.",
+    "The six libraries are identified, but their mouse or pool assignments remain unknown.",
+    "Applying the proposal requires binding a successor concordance review to the regenerated comparison."
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "datasetId": "mouse_scn_exercise_gse207992",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 36 source files matched their recorded hashes and sizes. All 28 selected genes agreed in direction with the registered result, and five passed BH FDR < 0.05. The corrected proposal distinguishes the 10 plotted DESeq2 fold-change signs from the 18 additional directions read from expression heatmaps or group means. Closure is justified for these selected results.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_scn_exercise_gse207992.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_scn_exercise_gse207992.json",
+    "data/author-validation/continued-sources/GSE207992/codex-2026-11-21/refute/recheck.py"
+  ],
+  "openIssues": [
+    "The complete author DESeq2 table and design remain unavailable. Genome-wide concordance and discovery overlap remain unassessed.",
+    "The registered DE table and local per-gene browser bundle each yield 81 FDR discoveries. The local QC summary reports 1,180.",
+    "The paper labels the same scheduled group CT22 and CT24 at ZT14. The paper and GEO series design also name GRCm38, while all 14 GEO sample records name GRCm39. All 28 selected identifier joins were unique."
+  ]
+}

@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import { afterEach } from 'vitest';
 import {
-  axisPct, dirGlyph, directionColor, contrastLabel, groupForestCategories, FilterChip,
+  axisPct, directionFill, contrastLabel, groupForestCategories, FilterChip,
 } from '../crossdataset/forestReport';
 import { listDatasets } from '../data/datasets';
 import { listContrasts } from '../data/contrasts';
@@ -23,16 +23,11 @@ describe('axisPct (shared zero-centered axis)', () => {
   });
 });
 
-describe('direction encoding (sign + arrow + text, never color alone)', () => {
-  it('glyphs match direction', () => {
-    expect(dirGlyph('up')).toBe('▲');
-    expect(dirGlyph('down')).toBe('▼');
-    expect(dirGlyph('flat')).toBe('–');
-  });
-  it('non-significant rows are muted regardless of direction', () => {
-    expect(directionColor('up', false)).toBe('var(--text-muted)');
-    expect(directionColor('up', true)).toBe('var(--color-obese)');
-    expect(directionColor('down', true)).toBe('var(--color-normal)');
+describe('the forest dot fill (a mark, so the chart palette)', () => {
+  it('fills only a significant dot, by direction', () => {
+    expect(directionFill('up', false)).toBe('var(--text-muted)');
+    expect(directionFill('up', true)).toBe('var(--color-obese)');
+    expect(directionFill('down', true)).toBe('var(--color-normal)');
   });
 });
 

@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_arc_corticosterone_gse128148",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 12 source files matched their recorded sizes and SHA-256 hashes. Independent recomputation confirmed that 10,722 of 11,173 paired effects agree in direction (95.96%). The direction criterion passes. Pearson falls below 0.90. At the paper’s adjusted P < 0.1 cutoff, six genes appear in both the 43-gene author list and the seven-gene registered list. The corrected proposal preserves the active effects review, clarifies which libraries had zero counts, and passes the proposal and source-bound review checks. Closure is compared for the four-week contrast, with limited comparability and no full sign-off.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_arc_corticosterone_gse128148.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_arc_corticosterone_gse128148.json",
+    "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/refute/recheck.py"
+  ],
+  "openIssues": [
+    "The original DESeq2 version and fitting, filtering and outlier settings remain unknown. The September sensitivity result was verified against its historical record. Its per-gene refit output was unavailable for replay.",
+    "The restored local ARC QC summary reports 240 genes at FDR < 0.05. The registered DE table, gene-level track and live QC summary all give five."
+  ]
+}

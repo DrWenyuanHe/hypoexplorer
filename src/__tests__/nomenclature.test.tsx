@@ -227,6 +227,16 @@ describe('GeneSearchBox — searching by another name', () => {
     expect(hit.textContent).toContain('now AARS1');
   });
 
+  it('selects the gene typed when Enter comes before the list catches up', async () => {
+    const { input, onAdd } = await box();
+    // The list holds the matches for "AG"; the last keystrokes are not searched yet.
+    await type(input, 'AG');
+    expect(screen.getByRole('button', { name: /AGRN/ })).toBeTruthy();
+    fireEvent.change(input, { target: { value: 'POMC' } });
+    fireEvent.keyDown(input, { key: 'Enter' });
+    expect(onAdd.mock.calls).toEqual([['POMC']]);
+  });
+
   it('finds a gene by an alias', async () => {
     const { input, onAdd } = await box();
     await type(input, 'ASIP2');

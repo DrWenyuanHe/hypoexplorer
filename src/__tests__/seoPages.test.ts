@@ -7,7 +7,7 @@ import {
   generateSeoPages, renderAboutPage, renderSeoRoute, renderStudiesPage, renderStudyPage, studyPath,
 } from '../../scripts/lib/seoPages.mjs';
 import { listDatasets } from '../data/datasets';
-import { AUTHOR_EMAIL, AUTHOR_NAME, BETA_NOTICE, SITE_URL } from '../data/siteInfo';
+import { AUTHOR_EMAIL, AUTHOR_NAME, DATA_REPO_URL, SITE_URL, SOURCE_REPO_URL } from '../data/siteInfo';
 import type { Dataset, DatasetMeta } from '../types';
 import { getGuideDocuments } from '../../scripts/lib/seoGuides.mjs';
 import { studyRecord, type StudySource } from '../../scripts/lib/studyRecord.mjs';
@@ -40,7 +40,9 @@ describe('crawlable study build', () => {
       expect(document.querySelector('h1')?.textContent, dataset.id).toBe(dataset.name);
       expect(document.querySelector('link[rel="canonical"]')?.getAttribute('href')).toBe(SITE_URL + studyPath(dataset));
       expect(document.querySelector('meta[name="robots"]')?.getAttribute('content')).toContain('index,follow');
-      expect(document.querySelector('header')?.textContent).toContain(BETA_NOTICE);
+      expect(document.body.textContent).not.toMatch(/beta testing|; beta\]/i);
+      expect(document.querySelector(`footer a[href="${SOURCE_REPO_URL}"]`)).not.toBeNull();
+      expect(document.querySelector(`footer a[href="${DATA_REPO_URL}"]`)).not.toBeNull();
       expect(document.querySelector('header .site-brand')?.getAttribute('href')).toBe('/#/');
       expect(document.querySelector('header .site-brand img')?.getAttribute('src')).toBe('/brand/v1/hypoexplorer-logo.png');
       expect(document.querySelector('link[rel="icon"][type="image/png"]')?.getAttribute('href')).toBe('/brand/v1/favicon-32.png');
@@ -96,7 +98,7 @@ describe('crawlable study build', () => {
       expect(renderSeoRoute(`${expected.path}index.html`)?.body).toBe(html);
       expect(document.querySelectorAll('h1')).toHaveLength(1);
       expect(document.querySelector('link[rel="canonical"]')?.getAttribute('href')).toBe(SITE_URL + expected.path);
-      expect(document.querySelector('header')?.textContent).toContain(BETA_NOTICE);
+      expect(document.body.textContent).not.toMatch(/beta testing|; beta\]/i);
       const graph = JSON.parse(document.querySelector('script[type="application/ld+json"]')!.textContent!)['@graph'];
       expect(graph.some((node: { '@type': string }) => node['@type'] === 'BreadcrumbList')).toBe(true);
       expect(document.querySelectorAll('script:not([type="application/ld+json"])')).toHaveLength(0);
@@ -230,7 +232,7 @@ describe('study provenance and safe rendering', () => {
     expect(document.body.textContent).toContain(AUTHOR_NAME);
     expect(document.body.textContent).toContain('PhD from the University of Toronto');
     expect(document.querySelector(`a[href="mailto:${AUTHOR_EMAIL}"]`)).not.toBeNull();
-    expect(document.querySelector('header')?.textContent).toContain(BETA_NOTICE);
+    expect(document.body.textContent).not.toMatch(/beta testing|; beta\]/i);
     const graph = JSON.parse(document.querySelector('script')!.textContent!)['@graph'];
     expect(graph.find((node: { '@type': string }) => node['@type'] === 'Person')).toMatchObject({ name: AUTHOR_NAME, email: AUTHOR_EMAIL });
   });

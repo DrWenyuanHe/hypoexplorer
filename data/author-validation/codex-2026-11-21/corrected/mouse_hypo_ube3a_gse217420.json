@@ -1,0 +1,91 @@
+{
+  "datasetId": "mouse_hypo_ube3a_gse217420",
+  "accession": "GSE217420",
+  "category": "partial_untested",
+  "closure": "no_valid_comparison",
+  "summary": "The released analysis defines the hypothalamic genotype contrast as WT minus Ube3a 2x at the female reference level. HypoExplorer estimates a common Ube3a 2x minus WT effect across both sexes. Journal Table S3 covers prefrontal cortex, leaving no eligible gene-level pairs for the registered hypothalamus contrast in the reviewed sources.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE217420/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "All 18 deposited hypothalamus samples match the registered cohort. The authors’ genotype coefficient estimates the effect within females.",
+      "note": "GEO, the deposited count matrix and QC table, and the registered sample sheet agree on the 18 hypothalamus samples. The authors fit both sexes with limma-voom, genotype by sex, RIN and two surrogate variables. The released contrast selects groupWT alone, which gives WT minus Ube3a 2x within females. Figure S4F shows a negative Ube3a effect, and the paper names Ube3a as the sole hypothalamic genotype discovery. The registered edgeR-QL model adjusts for sex and estimates a common duplication-minus-WT effect. Table S3 shares all 12,284 of its distinct Ensembl IDs with prefrontal Table S1. All pass the prefrontal filter, and 400 fail the hypothalamic filter.",
+      "reviewFlags": [
+        "The same gene is a discovery in each analysis, but the two coefficients answer different questions. Agreement in direction, magnitude and inference for the registered contrast remains unassessed."
+      ],
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Montani et al. manuscript",
+          "url": "https://europepmc.org/articles/PMC11244557",
+          "kind": "paper"
+        },
+        {
+          "label": "Journal supplementary Figure S4 and Tables S1–S6",
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11244557/supplementaryFiles",
+          "kind": "author_result"
+        },
+        {
+          "label": "Published RNA-seq analysis, archived version",
+          "url": "https://doi.org/10.5281/zenodo.10218162",
+          "kind": "author_result"
+        },
+        {
+          "label": "Authors’ genotype and interaction contrast definitions",
+          "url": "https://github.com/IIT-LAND/ube3a_rnaseq/blob/7d0173696f9c0def81886d67a4ed59d620c1e398/utils_final.R#L109-L156",
+          "kind": "author_result"
+        },
+        {
+          "label": "GSE217420 sample records, featureCounts matrix and QC metadata",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE217420",
+          "kind": "processed_data"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "In the authors’ interaction model, groupWT is WT minus Ube3a 2x within females. Reversing its sign preserves that sex restriction. The registered groupcase coefficient estimates Ube3a 2x minus WT across both sexes under a common-effect model. Journal Tables S1–S3 cover prefrontal cortex. The reviewed hypothalamic figure, notebook, supplements and GEO deposit supply zero eligible effect pairs for the registered contrast.",
+      "nextStep": "Reopen if author-reported gene-level hypothalamic effects across both sexes become available. Use the sample IDs and model or contrast weights to assess compatibility. Assess raw P values and adjusted statistics wherever the authors report them.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered hypothalamus cohort reconciled to the GEO sample records, counts and QC metadata",
+      "value": "18 distinct mice. WT has 4 females and 4 males. Ube3a 2x has 5 females and 5 males.",
+      "script": "data/author-validation/continued-sources/GSE217420/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Deposited featureCounts matrix and sample-level supplementary inventory",
+      "value": "54,165 gene rows and 38 sample columns plus 3 annotation fields. All 38 GSM supplementary-file entries are NONE.",
+      "script": "data/author-validation/continued-sources/GSE217420/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Tissue-specific gene counts after replay of the authors’ expression and dispersion filters",
+      "value": "Keeping genes with more than 100 counts in at least two samples per tissue left 14,506 prefrontal and 16,155 hypothalamic IDs. The published row-IQR filter retained 12,294 and 13,727, respectively, using strict cutoffs of 67 and 75 at the 15th percentile.",
+      "script": "data/author-validation/continued-sources/GSE217420/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Tissue attribution of each journal DE table (S1, S2 and S3)",
+      "value": "Each has 12,315 rows and the same 12,284 distinct Ensembl IDs. All 12,284 pass the prefrontal filter, and 400 fail the hypothalamic filter. Ten filtered prefrontal IDs have no row in each exported table.",
+      "script": "data/author-validation/continued-sources/GSE217420/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Hypothalamic annotation rows meeting Storey q ≤ 0.05 in the rendered author notebook",
+      "value": "The notebook prints 1 row for groupWT, 0 for groupWT:sexM and 723 for sexM. It sums rows after merging gene annotations. The number of distinct Ensembl IDs among the 723 sex-test rows is unverified.",
+      "script": "data/author-validation/continued-sources/GSE217420/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered edgeR-QL output and FDR adjustment family",
+      "value": "Of 20,689 tested features, 20,348 had published symbols and 341 were unmapped. Ube3a is the sole published discovery at FDR < 0.05. Its duplication-minus-WT log2FC is 2.17972725094453, raw P is 2.10137121659142e-09 and BH-adjusted P is 4.34752691000598e-05.",
+      "script": "data/author-validation/continued-sources/GSE217420/codex-2026-11-21/refute/check_sources.py"
+    }
+  ],
+  "openIssues": [
+    "The reviewed public material supplies no gene-level hypothalamic genotype effect with a documented across-sex contrast compatible with the registered model. Author effect concordance and corresponding P values and FDR remain unassessed."
+  ]
+}

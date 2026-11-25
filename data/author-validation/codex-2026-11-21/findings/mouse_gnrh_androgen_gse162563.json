@@ -1,0 +1,171 @@
+{
+  "datasetId": "mouse_gnrh_androgen_gse162563",
+  "accession": "GSE162563",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "The authors’ full adult GnRH-depleted POA treatment worksheet pairs with 15,677 registered genes. Direction agrees in 94.92% of nonzero pairs, meeting author-concordance-v2 through its direction criterion. The five control pools include one from an untreated dam, and both analyses report zero discoveries at FDR < 0.05.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE162563/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Adult GnRH-depleted POA treatment effects agree in direction across the registered output.",
+      "note": "Burger et al. deposited the DESeq2 treatment result in Deep Blue Data 5, sheet “5. Adult PNA vs Adult CON”. All 11 registered libraries match the adult depleted-fraction samples. The downloaded GSE155314 count matrix has the SHA-256 recorded in the registered fit provenance. Source-symbol matching pairs 15,677 of 15,713 registered genes. Of 15,674 nonzero pairs, 14,878 agree in direction. Pearson is 0.854311 and Spearman is 0.963713. The direction criterion passes. Both finite FDR lists are empty, as reported for this fraction in the manuscript. The search, source hashes, cohort and offline comparison are in data/author-validation/continued-sources/GSE162563/codex-2026-11-21/SEARCH_LOG.md and comparison.json.",
+      "reviewFlags": [
+        "The registered POA track measures GnRH-depleted supernatant. The workbook identifies Sample_95732 (GSM4698980) as coming from an untreated dam. The published control group therefore comprises four vehicle pools and one untreated pool.",
+        "Effect sizes and nominal inference differ between DESeq2 and edgeR quasi-likelihood. The complete author worksheet includes 271 rows without raw or adjusted P, five of which have a registered counterpart. These tests remain unassessed."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "The directly deposited adult PNA-minus-control DESeq2 estimates and the registered edgeR-QL effects have compatible cohort, contrast, feature identifiers and log2 units. The join covers 99.77% of the registered output. Directional agreement passes at 94.92%. Pearson falls below 0.90. Both analyses have zero FDR discoveries, while effect magnitudes and nominal P values differ.",
+      "nextStep": "Close the author comparison for the adult depleted fraction. Clarify the track’s fraction and mixed control group in the dataset description. Exact historical inference would require the authors’ DESeq2 design and filtering settings.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "dht_vs_vehicle"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Current registered R 4.6.0 edgeR quasi-likelihood coefficient for the adult POA track compared with every finite DESeq2 effect on the authors’ adult treatment worksheet. No significance, abundance, cell-color or effect-size selection was applied.",
+      "reference": "Burger et al., Deep Blue Data (10.7302/7ybd-c428), Burger_TRAPSeq_Data_5.xlsx, sheet “5. Adult PNA vs Adult CON”. The Documentation and depth_normalized_counts sheets specify pool identity, control treatment and direction. GSE155314 SOFT records identify sample fractions.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "All 11 registered ID/group pairs are exactly the adult columns of the workbook’s normalized-count sheet and match GSE155314. The biological replicates are POA pools of 2–5 female littermates, collected in adult diestrus. Each analysis uses six prenatal DHT pools and five control pools, including the same untreated-dam pool Sample_95732."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Both fits compare adult PNA/DHT with the authors’ control group in GnRH-depleted POA supernatant. The sheet explicitly identifies Condition as Adult.PNA.Depleted and Control as Adult.CON.Depleted. The orientation multiplier is +1. The registered labels obscure the depleted fraction and the untreated control."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 19,755 original workbook symbols identify unique source-matrix rows, with no duplicate keys on either side. Exact matching to the registered symbol yields 15,677 pairs. Of 4,078 author-only features, 4,077 map to a symbol but are absent from the published DE table and one is dropped for lack of a symbol. The worksheet lacks 36 registered genes. The unpaired IDs are listed in unpaired.tsv."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both coefficients estimate an adult PNA-to-control expression ratio in log2 units. Across all pairs Pearson is 0.854311 and Spearman is 0.963713. Of 15,674 nonzero pairs, 14,878 agree and 796 are opposite. Three paired author effects are zero. Median absolute log2FC difference is 0.013863, RMS difference is 0.127030 and the registered-to-author RMS magnitude ratio is 1.866884."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The author DESeq2 output and the registered TMM edgeR-QL group-only fit have no FDR < 0.05 discoveries on their finite tests. Both workbook call columns contain zero positive calls. At raw P < 0.05, there are 389 author and 500 registered nominal calls overall. On 15,672 jointly finite tests, 350 author and 498 registered nominal calls include 277 shared. Of the remaining two registered nominal calls, one lacks an author row and one lacks author P. Five paired author rows have missing P and FDR."
+        },
+        "coverage": {
+          "status": "compatible",
+          "note": "This is the complete deposited adult treatment worksheet with 19,755 finite effects. The 15,677 pairs cover 99.7709% of the 15,713 registered effects and 79.3571% of author effects. The full-table v2 criterion uses registered coverage. The 15,674 nonzero pairs cover 99.9809% of all pairs. Both raw P and FDR are available for 15,672 pairs."
+        }
+      },
+      "criteria": "Apply author-concordance-v2 to all finite paired effects. Require compatible cohort, contrast, IDs and effect definition, at least 30 pairs and at least 90% coverage of registered effects for a full-table reference. Require either Pearson and Spearman both ≥0.90, or at least 90% same-sign among at least 30 nonzero pairs covering at least 90% of pairs. Compare raw P and FDR separately at <0.05 where available. Report magnitude differences as context.",
+      "conclusion": "The registered adult depleted-POA comparison meets author-concordance-v2 through directional agreement. Pearson falls below the correlation-route threshold. The analyses agree on the absence of FDR discoveries and produce different nominal P values and effect magnitudes. The detailed review remains limited."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "mouse_gnrh_androgen_gse162563",
+      "accession": "GSE162563",
+      "contrast": "dht_vs_vehicle",
+      "localPath": "geo_replication/datasets/GSE162563_mmus_gnrh_androgen/processed/GSE162563_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE162563/codex-2026-11-21/sources/Burger_TRAPSeq_Data_5.xlsx",
+      "sourceUrl": "https://web.archive.org/web/20240613230604id_/https://deepblue.lib.umich.edu/data/downloads/hm50ts005",
+      "sha256": "6202ab2708e4d4d87da8131059f67f1236675fa9b06f1342bb73e149afb33cb5",
+      "format": "xlsx",
+      "sheetName": "5. Adult PNA vs Adult CON",
+      "headerRow": 1,
+      "authorKey": "gene_symbol",
+      "authorEffect": "log2FoldChange",
+      "authorAdjustedP": "padj",
+      "orientationSign": 1,
+      "localMethod": "edgeR 4.10.1 quasi-likelihood, TMM, groupcase in adult depleted RNA",
+      "authorMethod": "DESeq2, adult GnRH-depleted PNA/control. GSE155314 reports DESeq2 1.14.1.",
+      "orientation": "Condition Adult.PNA.Depleted divided by Control Adult.CON.Depleted, with the original sign. Both groups are the registered pools, including the untreated adult control.",
+      "note": "Use all finite effects and original GEO symbols from the adult treatment sheet. Same-direction agreement satisfies v2. Pearson is below the correlation cutoff. Raw-P and finite-FDR comparisons, source checks and the mixed control baseline are detailed in the retained offline review.",
+      "interpretation": "effect_match_inference_differs",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE162563/codex-2026-11-21/sources/GSE155314-family.soft.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE155nnn/GSE155314/soft/GSE155314_family.soft.gz",
+          "sha256": "9834be5e63602782128418c4973022c8019aa6385472b37089aa3c5eda234561",
+          "bytes": 6400
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE162563/codex-2026-11-21/sources/geo-counts.txt.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE155nnn/GSE155314/suppl/GSE155314_raw_counts.txt.gz",
+          "sha256": "cd9d5f05a3bcd039e62a106e2c80a7099101b197ca59b88a6d25037b28af7e87",
+          "bytes": 1692285
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE162563/codex-2026-11-21/sources/pmc-reader.html",
+          "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7583650/",
+          "sha256": "c6b7a1d49cb1c15539247a8e7118df9760d43c8a5b6fec9056cb647a44a35d71",
+          "bytes": 279964
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE162563/codex-2026-11-21/sources/archived-work.html",
+          "sourceUrl": "https://web.archive.org/web/20240613222144id_/https://deepblue.lib.umich.edu/data/concern/data_sets/p5547r65p",
+          "sha256": "f4091a3f55f1ae70fc68e2bb7cb3cfb945459e2b664b285676c26551fc73411e",
+          "bytes": 56630
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE162563/codex-2026-11-21/sources/cdx-5.json",
+          "sourceUrl": "https://web.archive.org/cdx/search/cdx?url=deepblue.lib.umich.edu/data/downloads/hm50ts005*&output=json&filter=statuscode:200&fl=timestamp,original,mimetype,statuscode,digest,length&collapse=digest",
+          "sha256": "55540c9ee511ce017c685f35f5369ec7632c50c64e129d5c2d5bacfe7de52e32",
+          "bytes": 421
+        }
+      ],
+      "resultScope": "Full DESeq2 worksheet for the registered adult GnRH-depleted POA treatment contrast.",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE162563_mmus_gnrh_androgen/processed/GSE162563_DE.tsv",
+        "sha256": "27a1b0b8d12082f52fc29de1735414b16f92b58fe82151d08b58513cca9730d7",
+        "bytes": 1561421
+      }
+    }
+  },
+  "computed": [
+    {
+      "claim": "Adult cohort matched to GEO and author normalized-count columns",
+      "value": "11/11 libraries. Six DHT, four vehicle-treated controls and one untreated control (Sample_95732).",
+      "script": "data/author-validation/continued-sources/GSE162563/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Coverage and feature mapping",
+      "value": "15,677/15,713 registered effects (99.7709%) and 15,677/19,755 author effects (79.3571%). 36 registered-only and 4,078 author-only IDs. All 19,755 author keys identify unique source rows.",
+      "script": "data/author-validation/continued-sources/GSE162563/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Correlation and direction",
+      "value": "Pearson 0.85431073, Spearman 0.96371252. Same sign 14,878/15,674 nonzero pairs (94.9215%), covering 99.9809% of pairs. 796 opposite and 3 paired author zeros.",
+      "script": "data/author-validation/continued-sources/GSE162563/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Effect magnitude",
+      "value": "Median absolute log2FC difference 0.01386273, RMS difference 0.12703048, registered-to-author RMS ratio 1.86688368.",
+      "script": "data/author-validation/continued-sources/GSE162563/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "FDR and published calls",
+      "value": "Zero FDR < 0.05 on either side, zero positive workbook calls. Both author P fields are missing for 271 author rows, including 5 paired rows. 15,672 pairs have both finite tests.",
+      "script": "data/author-validation/continued-sources/GSE162563/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Raw P < 0.05",
+      "value": "389 author and 500 registered nominal calls overall. On comparable finite tests, 350 author and 498 registered, with 277 in common. One registered nominal call has no author row and one has a missing author test. 39 author nominal calls have no registered row.",
+      "script": "data/author-validation/continued-sources/GSE162563/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered and author source integrity",
+      "value": "Public GSE155314 input matches the registered provenance checksum. The registered DE SHA-256 is 27a1b0b8d12082f52fc29de1735414b16f92b58fe82151d08b58513cca9730d7. The workbook SHA-256 is 6202ab2708e4d4d87da8131059f67f1236675fa9b06f1342bb73e149afb33cb5 and its archive payload digest matches the CDX index.",
+      "script": "data/author-validation/continued-sources/GSE162563/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "The registry’s GnRH/TRAP and Vehicle labels obscure the depleted POA fraction and the untreated-dam control. The comparison uses the actual sample membership.",
+    "The deposited result supports effect concordance. Exact reproduction of the historical DESeq2 inference remains unverified.",
+    "Deep Blue workbooks 6 and 7 are documented as gene-ontology outputs. Their bytes were unavailable from the live and archive download routes. Workbook 5 contains the complete gene-level reference used here."
+  ]
+}
+

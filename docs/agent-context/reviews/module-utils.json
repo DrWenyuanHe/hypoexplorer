@@ -1,14 +1,11 @@
 {
   "version": 1,
   "area": "module-utils",
-  "fingerprint": "3ce4b352b88b9535013622bffec30f3b1d4fa0780b88b31794cdc0ca5115768c",
+  "fingerprint": "e5402addc4bc612da83d3233d43b1ba744020d6eb6e19dde9ba53dffb4264901",
   "outcome": "updated",
-  "explanation": "Combined result of two independent utils changes. analysisState.ts types the study snapshot's filters as StudyFilters from crossdataset/studySelectionLink.ts (a type-only import) and drops hasStudyAnalysis, whose rule moved into selectionLink; parseStudyAnalysis and the version-1 field set are unchanged, so existing analysis= links parse as before. exportProvenance.ts gains AtlasSubject, AtlasExportKind and atlasExportProvenance for HypoMap atlas files (release tag, manifest SHA-256, cohort and gene, with explicit absences); exportName accepts the atlas subject, provenanceColumns writes AtlasRelease, AtlasManifestSHA256, ExpressionUnit and ExportMetadataJSON for it, and csv.ts accepts that snapshot.",
+  "explanation": "format.ts gains plural(n, one, many?), moved unchanged from search/portalCards.tsx so statistics/listingWords.ts can use it without importing search/. GeneListTools keeps its own locale-formatting pluralizer.",
   "references": [
-    "src/utils/analysisState.ts",
-    "src/crossdataset/studySelectionLink.ts",
-    "src/utils/exportProvenance.ts",
-    "src/utils/exportProvenanceFormat.ts",
-    "src/utils/csv.ts"
+    "src/utils/format.ts",
+    "src/statistics/listingWords.ts"
   ]
 }

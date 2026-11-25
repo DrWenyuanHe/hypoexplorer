@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "a250c450b7ecfd1e7f6aaf4a6115cdd069a94c0a3ebaad9c3e329e4af389e345",
+  "fingerprint": "8ee5d00f35d3a10f93677e149864cfb71c45e58a4b976abdcbce57d27026a948",
   "outcome": "updated",
-  "explanation": "GeneExpressionCards is now a mouse row and a human row of source tiles (NeuroSeq, study library, tissue, a single-cell slot; GTEx, Allen, HPA subregions and clusters). Each tile opens its source's survey under its row through a lazyView of GenePageSurvey held to that source; the HypoMap preview sits behind the single-cell tile. searchSummaries adds loadFamilyTeaser (each source's highest cohort mean, ranked within the most common unit), leaves SFO boundary records out of the NeuroSeq teaser and gives GTEx and Allen spreads a mean.",
+  "explanation": "From main: portalCards drops dirColor and plural: Effect takes the row tier and colours through directionTextColor, the condition matrix colours its FDR columns the same way, and plural moves to utils/format.ts. SearchPage colours its tallies and strongest track through directionTextColor, words moreNote with leadingTracks and the pathway nominal note with nominalCaveat; every verdict and visible string is unchanged. From this branch: GeneExpressionCards is now a mouse row and a human row of source tiles (NeuroSeq, study library, tissue, a single-cell slot; GTEx, Allen, HPA subregions and clusters). Each tile opens its source's survey under its row through a lazyView of GenePageSurvey held to that source; the HypoMap preview sits behind the single-cell tile. searchSummaries adds loadFamilyTeaser (each source's highest cohort mean, ranked within the most common unit), leaves SFO boundary records out of the NeuroSeq teaser and gives GTEx and Allen spreads a mean.",
   "references": [
     "src/search/portalCards.tsx",
+    "src/search/SearchPage.tsx",
+    "src/statistics/listingWords.ts",
     "src/search/searchSummaries.ts",
     "src/search/search.css",
     "docs/runbooks/EXPRESSION_SURVEY.md"

@@ -46,7 +46,13 @@ testingLibrary?.configure({ asyncUtilTimeout: 5000 });
 // replaceState rather than `location.hash = ''`: assigning the hash fires a
 // `hashchange` on the NEXT tick, which lands in whichever test is running by
 // then. This fires nothing.
+//
+// Unmounted first: unmounting runs the effects React still had pending, and the
+// router's URL write is one. Testing Library's own cleanup runs after this hook
+// (afterEach hooks run last-registered first), so the write would land after the
+// reset and the next test would boot from it.
 afterEach(() => {
+  testingLibrary?.cleanup();
   if (hasDom) window.history.replaceState(null, '', '/');
   // The listing-mode pick is module state persisted to localStorage; reset it
   // so a test that switched to FDR-only cannot change what the next one lists.

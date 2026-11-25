@@ -1,0 +1,205 @@
+{
+  "datasetId": "mouse_hypo_fedfast_gse254155",
+  "accession": "GSE254155",
+  "category": "access_blocked",
+  "closure": "compared",
+  "summary": "For wild-type mouse hypothalamus at ZT16, the bioRxiv Table S1 fasting effects meet both author-concordance-v2 criteria on 16,906 of 16,909 registered genes. At FDR < 0.05, the preprint calls 929 genes and the registered analysis calls 793, with 789 shared. Rounding ten paired effects to zero in the browser bundle preserves both concordance results and all significance calls.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "Wild-type fasting effects pass both concordance criteria on 16,906 paired genes",
+      "note": "The full preprint FastingInWT worksheet gives DESeq2 effects and gene-wise statistics for the registered 16-hour fasted versus fed contrast. In GSE254155_DE.tsv, Pearson r is 0.991693 and Spearman rho is 0.999371. Signs agree for 16,575 of 16,906 nonzero pairs. The browser bundle rounds ten of those effects to zero, giving 16,570 agreements among 16,896 nonzero pairs. Both routes also pass using literal text identifiers alone. Of 929 author FDR < 0.05 calls, 907 pair with registered rows and 789 are significant in both fits. All 793 registered discoveries have finite author adjusted P values.",
+      "reviewFlags": [
+        "Four Excel date cells have competing March/Marc gene identifiers. Three registered symbols remain unpaired.",
+        "The source records identify libraries and feeding groups. They do not link each RNA library to an identified individual animal or specify pooling.",
+        "The numerical reference is the preprint workbook. The published manuscript confirms the contrast and 929 discoveries, but byte identity with the journal workbook remains unverified.",
+        "Default median-ratio normalization on the 20 GEO wild-type libraries does not reproduce all workbook baseMean values. The authors’ input to the fit, normalization, filtering and handling of outliers remain incompletely documented."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "The preprint supplies paired effects for 99.9823% of registered genes. Both numerical concordance routes pass with the full-precision analysis coefficients and with the rounded browser coefficients. The tested universes and FDR calls differ between DESeq2 and edgeR-QL. The Science manuscript independently reports 929 wild-type discoveries.",
+      "nextStep": "To assess exact reproduction, compare the journal FastingInWT results with the preprint, using a checksum if the files are byte-identical. Obtain the four original March identifiers, the library-to-animal mapping and the original DESeq2 inputs and settings, including normalization, filtering and outlier handling.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "fast16h_vs_fed"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Direct comparison of every uniquely identified shared finite effect in the preprint FastingInWT worksheet with the full-precision registered edgeR-QL table GSE254155_DE.tsv. A separate check applies the same join and author orientation to the rounded coefficients and probabilities in track_hypothalamus.js.",
+      "reference": "Levine et al., bioRxiv 10.1101/2024.01.29.577255v1, Supplemental Table 1 (DC2, media-2.xlsx), FastingInWT. The Science author manuscript, Figure 3D–F and the RNA sequencing methods confirm the contrast, test and discovery count.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "The 20 control-genotype GEO libraries match every registered sample and both model arms. Each arm has ten male B6/J hypothalamus libraries at ZT16. The paper describes the same wild-type feeding groups. The author sheet contains summary statistics without library IDs, and the public RNA methods leave individual animal identity and pooling unspecified. Reversing the registered TMM CPM scaling recovered all 991,360 deposited integer counts by gene and WT library."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Wild-type whole hypothalamus at ZT16 after a 16-hour fast versus ad libitum feeding. The selected companion sheet explicitly labels its WT coefficient log2 fasting/AL. The registered groupcase coefficient uses fed as baseline. Orientation sign is +1."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "16,886 literal, case-sensitive symbols pair directly. A further 20 date cells have a unique month/day-to-symbol match in the entire 49,568-feature GEO annotation. Four cells labeled March 1 or March 2 have competing Marc and March symbols. Their worksheet row IDs keep them unpaired. Marc2, March1 and March2 are the three unpaired registered symbols. No effect, P value or FDR entered these assignments."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both methods estimate log2 expression fold change for fasted relative to fed. On the full-precision registered table, Pearson r is 0.99169311 and Spearman rho is 0.99937145. All 16,906 paired effects are nonzero and 16,575 agree in sign (98.0421%). The median absolute difference is 0.00349127 log2 units and the registered-to-author RMS effect ratio is 0.98069750. Ttr has the largest absolute difference of 2.19371646, with author log2FC 3.63265547 and registered log2FC 1.43893901. The literal-text-only join gives Pearson 0.99169007 and Spearman 0.99937069. In the rounded browser bundle, Pearson is 0.99169277, Spearman is 0.99937142 and 16,570 of 16,896 nonzero pairs agree (98.0705%)."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The full tables give 929 DESeq2 and 793 edgeR-QL FDR < 0.05 calls, with 789 shared. Of 16,906 jointly finite adjusted-P pairs, 907 are author-positive and 793 are registered-positive. There are 118 author-only and four registered-only calls on those pairs. Another 22 author calls have no registered row. The 1,188 missing author adjusted P values occur outside the paired set. For raw P < 0.05, 2,511 author and 2,500 registered calls occur among paired genes, with 2,398 shared. Ttr has adjusted P 0.00785755 in the workbook and 0.59326669 in the registered fit. The rounded browser probabilities preserve every raw-P and FDR call at 0.05."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "One registered contrast, full preprint results. The 16,906 pairs cover 99.9823% of 16,909 registered effects and 82.7792% of 20,423 source rows. A further 3,513 intact source symbols lie outside the registered table and four source identifiers remain ambiguous. Every paired gene has both raw P and adjusted P in both tables."
+        }
+      },
+      "criteria": "For a full reference, author-concordance-v2 requires at least 30 pairs and coverage of at least 90% of registered genes. Effects pass when Pearson and Spearman both reach 0.90, or when signs agree for at least 90% of at least 30 nonzero pairs covering at least 90% of all pairs. Cohort, contrast, identifiers and effect definitions must be compatible. The paper uses FDR < 0.05. Raw P and magnitude differences are reported separately.",
+      "conclusion": "Both effect-concordance routes pass for the single registered contrast. Exact reproduction remains limited by the different discovery sets, the incomplete baseMean replay, four ambiguous identifiers, incomplete animal mapping and unconfirmed journal worksheet values."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "mouse_hypo_fedfast_gse254155",
+      "accession": "GSE254155",
+      "contrast": "fast16h_vs_fed",
+      "localPath": "geo_replication/datasets/GSE254155_mmus_hypothalamus_fedfast/processed/GSE254155_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/author-effects.tsv",
+      "sourceUrl": "https://www.biorxiv.org/content/biorxiv/early/2024/01/30/2024.01.29.577255/DC2/embed/media-2.xlsx?download=true",
+      "sha256": "baeec7f947c10baa4a58ff044b61b4f45eb42716850c52a462f55429a135eace",
+      "format": "tsv",
+      "authorKey": "key",
+      "authorEffect": "log2FoldChange",
+      "authorAdjustedP": "padj",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL",
+      "authorMethod": "DESeq2, full preprint FastingInWT worksheet",
+      "orientation": "16-hour fasted minus ad libitum fed male wild-type hypothalamus at ZT16 in both fits. The author coefficient retains its original sign.",
+      "note": "Uses all 20,423 rows of the preprint FastingInWT sheet, including four unjoinable date cells with worksheet-row identifiers. Source-only, one-to-one reconciliation recovers 20 other date labels. The 16,906 shared pairs have finite coefficients and adjusted P. Both effect routes pass. FDR < 0.05 yields 929 author and 793 local calls overall, with 789 shared. Missing author adjusted P remains unassessed. The reported primary metrics use the full-precision DE TSV. The companion browser check preserves the pass with 16,896 nonzero pairs. The specification SHA-256 identifies the extracted TSV. The separate originalReferences entry identifies the downloaded XLSX.",
+      "interpretation": "effect_match_inference_differs",
+      "normalizationScript": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/compare.py",
+      "resultScope": "Full preprint result table for the registered wild-type ZT16 fasting contrast.",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/sources/preprint-media-2.xlsx",
+          "sourceUrl": "https://www.biorxiv.org/content/biorxiv/early/2024/01/30/2024.01.29.577255/DC2/embed/media-2.xlsx?download=true",
+          "sha256": "202a01424bbab1dca22ebddc3befdced9fedaa51bfab32a5d4cfc99d9fd39592",
+          "bytes": 3755270
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/sources/GSE254155_RAW.tar",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE254nnn/GSE254155/suppl/GSE254155_RAW.tar",
+          "sha256": "cede787409871958c96151f01abf6f1d41fb903b488a1977d191ec07535003ac",
+          "bytes": 125583360
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/sources/geo.soft.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE254nnn/GSE254155/soft/GSE254155_family.soft.gz",
+          "sha256": "d2647c09d9855a1ebbf4b1fd064c2a498dcb2888bb5fc99aa3a5019a1eeae3c9",
+          "bytes": 4026
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/sources/article.xml",
+          "sourceUrl": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=13035106&rettype=full&retmode=xml",
+          "sha256": "9965fa193a3da940aa092410c5d78a200059f5f0d51307dc139800c6af2c29a7",
+          "bytes": 98196
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/inventory.py",
+          "sourceUrl": "Retained extraction and comparison",
+          "sha256": "419556590bf2c1c7d0d9deb3079050c86eb4c12e739890928a67ef6c988e5e85",
+          "bytes": 2139
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/check_counts.py",
+          "sourceUrl": "Retained extraction and comparison",
+          "sha256": "1076616300f01d77844c466726d9cbfe9e0dfb9a610962dd4377e922f97f86eb",
+          "bytes": 5870
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/compare.py",
+          "sourceUrl": "Retained extraction and comparison",
+          "sha256": "6f90b1b7591433e62e7d02b2cdfe58a12d5cf1af537d09d7d372878ec021dc58",
+          "bytes": 9392
+        }
+      ],
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE254155_mmus_hypothalamus_fedfast/processed/GSE254155_DE.tsv",
+        "sha256": "01a02ad30354eabde9539ed889acfab6baa03a993b51154a98794b3e5d1a1791",
+        "bytes": 1698338,
+        "sourceUrl": "Registered Explorer DE output pinned against its R 4.6.0 provenance"
+      }
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO samples and registered WT group membership",
+      "value": "35 featureCounts libraries, 10 fed and 10 fasted WT libraries in the registered design. Each library contains 49,568 gene rows.",
+      "script": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/check_counts.py"
+    },
+    {
+      "claim": "Workbook identifier reconciliation",
+      "value": "20,423 effect rows, 20,399 intact text symbols, 24 date cells of which 20 map one-to-one and four remain ambiguous. 3,513 intact symbols fall outside the registered table.",
+      "script": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Effect pairing and coverage",
+      "value": "16,906 of 16,909 genes in the full-precision registered DE TSV (99.9823%), covering 82.7792% of the 20,423 author rows.",
+      "script": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Full-precision DE table correlations, magnitudes and nonzero signs",
+      "value": "Pearson 0.99169311, Spearman 0.99937145, median absolute difference 0.00349127, RMS difference 0.02214455, RMS effect ratio 0.98069750. Signs agree in 16,575 of 16,906 nonzero pairs (98.0421%).",
+      "script": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Literal-text-symbol sensitivity",
+      "value": "16,886 pairs, Pearson 0.99169007, Spearman 0.99937069, signs agree in 16,555 of 16,886 nonzero pairs.",
+      "script": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "FDR < 0.05 on whole lists and on jointly finite pairs",
+      "value": "Whole lists 929 author, 793 registered, 789 shared. On 16,906 finite pairs 907 author, 793 registered, 789 shared. 22 author calls have no registered row. No registered discovery lacks a matched finite author FDR.",
+      "script": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Missing author inference",
+      "value": "20,423 raw P and 19,235 adjusted P values are finite across the full author table. All 1,188 missing author adjusted P values occur outside the paired set.",
+      "script": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Raw P < 0.05",
+      "value": "Whole lists 2,706 author, 2,500 registered and 2,398 shared. On finite pairs 2,511 author, 2,500 registered and 2,398 shared.",
+      "script": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Rounding in the checked-in browser track",
+      "value": "All 16,909 registered keys and all raw-P and FDR calls at 0.05 are preserved. Ten paired coefficients round to zero. For the 16,906 paired effects, Pearson is 0.99169277 and Spearman is 0.99937142. Signs agree for 16,570 of 16,896 nonzero pairs (98.0705%), which cover 99.9408% of paired effects.",
+      "script": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Deposited WT counts versus registered expression",
+      "value": "The registered TMM CPM and effective library sizes recover all 49,568 × 20 = 991,360 GEO integer counts by gene and library. Maximum absolute error before rounding is 1.52e-9 counts or less.",
+      "script": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Author baseMean diagnostic",
+      "value": "A default median-ratio calculation used 18,799 genes positive in every WT library. Across 20,399 literal identifiers, median absolute relative error was 0.0000148956. Bpifa1 had the largest error (2.76838 relative), with reconstructed mean 11.91491588 versus workbook 3.16181409. This diagnostic was excluded from identifier assignment and effect pairing.",
+      "script": "data/author-validation/continued-sources/GSE254155/codex-2026-11-21/refute/recheck.py"
+    }
+  ],
+  "openIssues": [
+    "Four Excel date cells have competing March/Marc gene identifiers. Three registered symbols remain unpaired.",
+    "The source records identify libraries and feeding groups. They do not link each RNA library to an identified individual animal or specify pooling.",
+    "The numerical reference is the preprint workbook. The published manuscript confirms the contrast and 929 discoveries, but byte identity with the journal workbook remains unverified.",
+    "Default median-ratio normalization on the 20 GEO wild-type libraries does not reproduce all workbook baseMean values. The authors’ input to the fit, normalization, filtering and handling of outliers remain incompletely documented."
+  ]
+}

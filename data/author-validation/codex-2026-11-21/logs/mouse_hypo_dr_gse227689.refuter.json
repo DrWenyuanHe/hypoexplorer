@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_hypo_dr_gse227689",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 53 files matched their recorded SHA-256 and size. All 23 hypothalamus directions in Figure 6J agreed with the registered contrast. Figure 6B shows author discoveries, while the registered analysis had zero BH discoveries among 13,804 genes. The corrected proposal retains `compared` for the selected results, identifies the saved GEO page as a CAPTCHA, and documents conflicting region labels within the publisher’s Table S1. It passed the proposal validator.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_dr_gse227689.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_dr_gse227689.json",
+    "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/refute/audit.py"
+  ],
+  "openIssues": [
+    "The 23 plotted genes fall below the 30-pair concordance minimum. The complete author DESeq2 table remains unavailable for checking effect sizes and gene-level statistics.",
+    "The 566 rows repeated across treatment sheets leave 22 of 27 hypothalamus-specific labels uncertain. Figure 6J and the workbook signature also differ on two genes each."
+  ]
+}

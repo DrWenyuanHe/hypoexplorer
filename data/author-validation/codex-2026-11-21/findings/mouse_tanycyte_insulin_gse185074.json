@@ -1,0 +1,143 @@
+{
+  "datasetId": "mouse_tanycyte_insulin_gse185074",
+  "accession": "GSE185074",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "GEO and Figure 8 give the same WT HFD-versus-NCD IP discovery set. GEO includes enrichment under either diet, while Figure 8 colours diet discoveries enriched under both. The current comparison establishes close paired effects and different FDR calls, but the public records do not identify the original dispersion fit or filtering sequence.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE185074/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "Figure 8 clarifies marker selection and the WT diet effect. The original DESeq2 dispersion fit remains unidentified.",
+      "note": "Four HFD and three NCD WT tanycyte IP pools supply the registered contrast. Figure 8's IP diet coefficient agrees with the GEO effect and adjusted P to workbook precision. Its input and interaction columns establish a diet-by-fraction comparison. The common WT NCD IP/input effect differs across the genotype and diet sheets. On 13,408 unique author/Explorer pairs, Pearson is 0.999961 and Spearman is 0.999978. Coverage of registered effects is 76.63%. Among 13,406 finite FDR pairs, the author called 7,236, Explorer called 5,003 and 4,985 were shared. GEO flags enrichment in either diet. Figure 8 labels diet discoveries enriched in both. The current feature map and expression-filter replay account for all 55 unpaired author discoveries. See comparison.json and SEARCH_LOG.md in data/author-validation/continued-sources/GSE185074/codex-2026-11-21.",
+      "reviewFlags": [
+        "The public figure tables identify the reported effects. Dispersion-cohort membership, pool terms, Salmon import or length offsets, and the historical TPM/filter order remain uncertain.",
+        "Full-table coverage falls below the 90% registered-output threshold. Summed features and unmapped IDs have no individual published effect. Missing author P or FDR remains unassessed.",
+        "GEO marker status and the Figure 8 colour describe different subsets. Their comparisons apply only to the stated scope."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "GEO WT IP diet effects and adjusted P values",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE185nnn/GSE185074/suppl/GSE185074_wt_hfd_ncd.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Published Figure 8 diet, genotype and interaction results",
+          "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs42255-021-00499-0/MediaObjects/42255_2021_499_MOESM11_ESM.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Original article and supplementary inventory",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8688146/",
+          "kind": "paper"
+        },
+        {
+          "label": "GEO Salmon gene counts",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE185nnn/GSE185074/suppl/GSE185074_counts.xlsx",
+          "kind": "processed_data"
+        }
+      ],
+      "reviewedAt": "2026-11-21",
+      "paperAccess": "pmc_full_text"
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "The WT IP author discovery set is explicit and independently confirmed in Figure 8. Its diet-by-fraction effects explain the figure's two-diet marker selection. With the current edgeR output, matched effects are close, registered coverage is limited and the finite-pair FDR calls differ. The public exports omit the fitted DESeq2 object and input/filter provenance needed to explain the residual inference difference.",
+      "nextStep": "Which libraries and pool terms entered the DESeq2 1.30.0 fit that produced padj_hfd_ncd_ip? Were normalization and dispersion estimated from the 14 WT IP/input libraries alone, and which Salmon inputs or length offsets, coding annotation, TPM eligibility rule and filtering order preceded fitting and FDR adjustment? Request the analysis script, sample design and original quantifications, or the fitted DESeqDataSet and results call. Keep any resulting reproduction separate from the registered edgeR result.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "hfd_vs_ncd"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Compare the entire deposited WT diet IP result with the current R 4.6.0 edgeR-QL table. Re-key a public symbol to its Ensembl ID only when one input feature maps to it. The publisher's WT IP column independently identifies the reference. Both marker analyses are secondary.",
+      "reference": "GSE185074_wt_hfd_ncd.xlsx and Figure 8 WT HFD vs NCD in 42255_2021_499_MOESM11_ESM.xlsx, with family SOFT, counts and manuscript PMC8688146. The source bytes, hashes, comparison, scopes and exclusions are recorded in data/author-validation/continued-sources/GSE185074/codex-2026-11-21.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "GEO and the registered sheet identify the three NCD and four HFD WT pooled IP libraries. Inputs and knockout libraries are outside the registered contrast. Animal rosters are unavailable. Libraries used by the author for dispersion remain unresolved."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "HFD minus NCD within WT tanycyte IP. GEO hfd_ncd_ip and the Figure 8 log2FoldChange_hfd_ncd_ip column identify the direction directly. Input-only, interaction and KO coefficients answer other questions."
+        },
+        "features": {
+          "status": "limited",
+          "note": "13,408 exact one-to-one Ensembl pairs. Of 313 unpaired author rows, 243 mapped genes fall below the expression filter, 15 unmapped genes fall below it, 33 unmapped genes enter the fit without publication and 22 contribute to a published aggregate. Another 4,089 published rows lack an individual author counterpart."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both estimates measure log2 HFD-relative-to-NCD change for the same WT IP fraction. On 13,408 finite pairs Pearson is 0.999961, Spearman is 0.999978, the median absolute difference is 0.02664 and 13,141 of 13,408 nonzero signs agree."
+        },
+        "inference": {
+          "status": "different",
+          "note": "At FDR < 0.05 the whole author and registered lists contain 7,291 and 5,794 calls, with 4,985 shared. Restricting to 13,406 finite pairs gives 7,236 and 5,003 calls, again with 4,985 shared. Two paired author FDRs are missing and 791 registered calls have no paired author row. The author reports adjusted P only. DESeq2 Wald and registered edgeR quasi-likelihood inference use different methods. The historical import, fit and testing sequence remain unresolved."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The full comparison covers 97.72% of author and 76.63% of registered effects. The latter falls below the v2 90% requirement. GEO-marker finite pairs give 4,687 author and 3,375 registered calls with 3,364 shared. Within genes enriched in both diets the corresponding counts are 2,160, 1,409 and 1,402. These subsets retain their own denominators."
+        }
+      },
+      "criteria": "Use the full author file, unique feature-map joins and deposited orientation. Author-concordance-v2 requires at least 30 pairs, at least 90% relevant coverage, compatible cohort/contrast/identifiers/effects and either Pearson and Spearman both ≥0.90 or ≥90% same-sign agreement on ≥30 nonzero pairs covering ≥90% of pairs. Report magnitude and finite-pair FDR <0.05 separately. The paper's positive IP/input log2 fold change and adjusted P ≤0.05 define enrichment in each diet.",
+      "conclusion": "Both numerical effect routes pass on the pairs. Genome-wide acceptance fails the registered-output coverage requirement, and the author discovery calls remain only partly reproduced. The published interaction narrows the reconstruction question to the original model, normalization and filtering inputs. Full verification remains unsigned."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered cohort and full comparison coverage",
+      "value": "3 NCD and 4 HFD WT IP pools. 13,408 of 13,721 author genes and 17,497 registered genes paired (97.7188% author, 76.6303% registered).",
+      "script": "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Paired log2 diet effects",
+      "value": "Pearson 0.99996096, Spearman 0.99997836, median absolute delta 0.02663874, RMS local/author 1.00028867. 13,141/13,408 nonzero pairs agree in sign.",
+      "script": "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Whole positive lists and finite-pair FDR <0.05",
+      "value": "All calls: 7,291 author, 5,794 registered, 4,985 shared. Of 13,406 finite pairs: 7,236 author, 5,003 registered, 4,985 shared, Jaccard 0.687207. Two shared author FDRs are missing, neither local row is called. 791 local calls lack a paired author row.",
+      "script": "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure 8 and GEO WT IP comparison",
+      "value": "13,721 identical IDs, maximum absolute log2FC difference 5.56e-17 or less, maximum finite adjusted-P difference 1.12e-16 or less, identical missingness and zero call changes.",
+      "script": "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure 8 interaction and shared WT control estimate",
+      "value": "For 13,721 diet genes the largest absolute deviation between the reported interaction and either difference of simple effects was 1.07e-14 or less. All 13,544 shared NCD WT IP/input effects differ between the genotype and diet sheets (median absolute delta 0.02259254).",
+      "script": "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Source-defined marker rules",
+      "value": "GEO either-diet enrichment matches 13,714/13,714 assessable flags (7 unknown enrichment tests). Figure 8's both-diets-plus-diet-discovery rule matches 13,713/13,713 reported labels (8 missing labels). The numbers of author diet discoveries are 4,705 and 2,165, respectively.",
+      "script": "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Selected-gene FDR comparisons",
+      "value": "Among 7,859 paired GEO markers, 4,687 author and 3,375 registered calls, 3,364 shared. Among 4,267 paired genes enriched in both diets, 2,160 author and 1,409 registered calls, 1,402 shared.",
+      "script": "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Current unpaired author discoveries",
+      "value": "55 total: 27 mapped below the expression filter, 2 unmapped below the filter, 13 unmapped tested but hidden, 13 represented only in a summed public symbol.",
+      "script": "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Superseded count and feature-level expression filter",
+      "value": "The prior ledger records 32 absent discoveries for the predecessor. 29 author discoveries fail the preaggregation filter on the deposited WT IP counts. The other three historical identities remain unverified.",
+      "script": "data/author-validation/continued-sources/GSE185074/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "Which libraries and pool terms entered the DESeq2 1.30.0 fit that produced padj_hfd_ncd_ip? Were normalization and dispersion estimated from the 14 WT IP/input libraries alone, and which Salmon inputs or length offsets, coding annotation, TPM eligibility rule and filtering order preceded fitting and FDR adjustment?",
+    "Of the 32 historical absent author discoveries recorded before regeneration, 29 fail the feature-level expression filter. The exact identities of the remaining three require the pinned predecessor table or its original exception list. All 55 unpaired current author discoveries have row-level dispositions."
+  ]
+}

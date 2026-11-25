@@ -1,0 +1,15 @@
+{
+  "datasetId": "mouse_hypo_akkermansia_gse212491",
+  "outcome": "upheld_with_corrections",
+  "summary": "The `no_valid_comparison` closure is justified. The authors report effects within cell populations, while HypoExplorer combines all deposited cells within each of six fructose-arm libraries. All five computations reproduced, and all 58 files matched their recorded hashes and sizes. The corrected proposal identifies `geo.html` as a reCAPTCHA page, records access to the preprint and qualifies the cell counts and gene identifiers. It passed the repository proposal validator.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_akkermansia_gse212491.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_akkermansia_gse212491.json",
+    "data/author-validation/continued-sources/GSE212491/codex-2026-11-21/refute/independent_audit.py"
+  ],
+  "openIssues": [
+    "The reviewed sources provide no author gene-level effect for the registered all-cell comparison.",
+    "The revised Results report 7,244 fructose-arm cells and 13,597 cells across all four arms. Figure S2A labels 19,111 cells. Post-QC barcode membership and library-to-mouse and cage assignments remain unresolved.",
+    "Ten neuronal-subtype rows in Table S1 contain unresolved numeric gene identifiers, including six fructose rows."
+  ]
+}

@@ -1,0 +1,240 @@
+{
+  "datasetId": "rat_hypo_ozone_gse133293",
+  "accession": "GSE133293",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "All 40 author-selected Table 1B genes have a registered SHAM hypothalamus ozone-versus-air effect with the same sign. The directional criterion passes for this panel. Pearson is 0.97595 and Spearman is 0.88509, below the 0.90 Spearman requirement for the correlation criterion. The reviewed sources provide neither the full original DESeq2 result nor numeric gene-level P values for this contrast.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "All 40 published hypothalamus Table 1B genes agree in direction",
+      "note": "The GEO matrix and family SOFT match the registered source hashes. Four ozone and four filtered-air SHAM hypothalamus samples match the registered sample sheet. Table 1B reports rounded linear ozone/air ratios for the 20 largest increases and 20 largest decreases among the authors’ significant genes. We converted each ratio to log2 and compared it with the registered difference of mean log2(DESeq2-normalized count + 1). All 40 signs agree. Pearson is 0.97595 and Spearman is 0.88509. Only the directional criterion passes for this panel. Table 1B establishes author significance at FDR ≤ 0.10 for these genes and supplies no individual raw or adjusted P values.",
+      "reviewFlags": [
+        "Table 1B contains a selected, rounded effect list. Gene-level numerical inference and the complete tested universe remain unassessed."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "The original authors’ Table 1B supplies 40 rounded fold-change ratios for the registered contrast. Every sign agrees, and the Spearman correlation of 0.88509 falls below 0.90. At FDR ≤ 0.10, the authors report 568 discoveries and the registered limma fit yields 170. The reviewed sources give a complete list of neither the authors’ 568 discoveries nor their tested genes. The effect estimators and inference procedures differ, and the available evidence cannot apportion the discovery-count difference to a particular analysis choice.",
+      "nextStep": "Obtain the original SHAM hypothalamus ozone-versus-air DESeq2 result, including tested gene identifiers, unrounded effects, raw and adjusted P values, the fitted design and coefficient settings. Clarify any contrast-specific or independent filtering and how the Table 1B ratios were calculated.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "ozone_vs_air"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "We took log2 of each published linear SHAM ozone/air fold-change ratio in Table 1B and compared it with the corresponding registered limma groupcase coefficient. Every row in the hypothalamus panel entered the comparison.",
+      "reference": "Henriquez et al., Toxicological Sciences (DOI 10.1093/toxsci/kfz182), Table 1B and supplementary methods. The EPA workbook (DOI 10.23719/1503697, worksheet “Table 1 No data”, embedded image28.emf) independently corroborates the publisher’s 40 symbols and rounded ratios, including Slco1c1 at 0.53. GSE133293 and ENA PRJNA551004 supply the matrix, sample metadata and run identities.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "The original study sampled whole hypothalamus from male Wistar-Kyoto rats. The four air and four ozone SHAM samples (GSM3905188–GSM3905195) each have a distinct BioSample, registered expression column and matching ENA run. The reported tissue comparison excludes brainstem and AD arms."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Table 1B labels SH O3 / SH air. Ozone exposure was 0.8 ppm for four hours, with filtered air as the baseline. The registered groupcase coefficient has the same numerator and denominator."
+        },
+        "features": {
+          "status": "matched",
+          "note": "The 40 Table 1B symbols match unique registered rows exactly, including case, with zero ambiguous or missing keys. GEO documents removal of genes with fewer than two counts across all samples. The deposited matrix contains 22,587 distinct gene labels. Applying the registered variance filter (>1×10⁻⁸ on the eight log-expression values) recovered exactly the 20,845 published identifiers. The original authors’ contrast-specific tested and adjusted-P universes remain unknown."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Table 1B presents SHAM ozone/air ratios rounded to two decimal places. The paper specifies DESeq2 on rounded counts. It does not describe exactly how the published ratios were obtained from the fit. Log2 of each reported ratio and the registered ozone-minus-air mean log2(normalized count + 1) both describe the direction of change on a log2 scale. The maximum difference between the GEO-derived mean difference and the registered coefficient on this panel is 1.02×10⁻¹⁴. Against the published effects, the median absolute log2 difference is 0.24700, the maximum is 1.86760 (Hif3a), and the registered-to-author RMS ratio is 1.39909."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "The authors used DESeq2 1.10.1 and report 311 increases and 257 decreases in SHAM hypothalamus at FDR ≤ 0.10. Table 1B establishes that all 40 selected genes met that threshold. Registered limma calls 170 genes at the same cutoff, including 38 of the 40. Local adjusted P is 0.30869 for Amer2 and 0.10390 for Zbtb16. Author call status for the 132 local discoveries outside this panel cannot be inferred from their omission. At local FDR < 0.05, 26 panel genes and 40 other genes pass. All 66 lack numeric author adjusted P values in the reviewed material. The full positive-list intersection and the authors’ calls at 0.05 remain unknown."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The comparison covers 40/40 published panel entries, 40/568 reported author discoveries (7.04%) and 40/20,845 registered effects (0.192%). Table 1B gives no effect for the other 528 author discoveries or the other 20,805 registered genes."
+        }
+      },
+      "criteria": "Use every Table 1B gene. The selected reference is the coverage denominator. Author-concordance-v2 requires compatible cohort, contrast, identifiers and effect definitions, ≥30 paired genes and ≥90% coverage, plus either Pearson and Spearman both ≥0.90, or ≥90% same-gene sign agreement among ≥30 nonzero pairs covering ≥90% of pairs. Magnitude and inference are contextual.",
+      "conclusion": "40 of 40 nonzero pairs agree in direction. Pearson is 0.97595 and Spearman is 0.88509. The directional route of author-concordance-v2 passes for the selected genes. The correlation route falls below its Spearman cutoff. The table provides selected-gene effect evidence only. Whole-universe inference and full verification remain open."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "rat_hypo_ozone_gse133293",
+      "accession": "GSE133293",
+      "contrast": "ozone_vs_air",
+      "localPath": "geo_replication/datasets/GSE133293_rnor_hypothalamus_ozone/processed/GSE133293_DE.tsv",
+      "localKey": "symbol",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE133293_rnor_hypothalamus_ozone/processed/GSE133293_DE.tsv",
+        "sha256": "1426784b158eefb078cef959cdba0450288a5b55825e5785daa963153a69dc74",
+        "bytes": 2050464,
+        "sourceUrl": "Registered Explorer DE table"
+      },
+      "localMethod": "limma on log2(DESeq2-normalized count + 1)",
+      "authorMethod": "DESeq2 1.10.1, published rounded SH O3 / SH air fold changes",
+      "orientation": "log2 of the positive linear ozone/air ratio in Table 1B, in the published direction.",
+      "orientationSign": 1,
+      "note": "Table 1B contains the 20 most increased and 20 most decreased genes among the authors’ SHAM hypothalamus discoveries at FDR ≤ 0.10. All 40 published ratios entered the comparison. The table provides no per-gene numeric raw or adjusted P values. Pearson is 0.97595 and Spearman is 0.88509. Only the directional route of author-concordance-v2 passes on these selected genes.",
+      "interpretation": "effects_compared",
+      "resultScope": "selected_results",
+      "format": "tsv",
+      "authorKey": "symbol",
+      "authorEffect": "author_log2FC",
+      "authorPath": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/author-table1b.tsv",
+      "sha256": "aef87f5b8883d3f3ecf3740a24692b9798109d7a4e334d852894417730ce3fc7",
+      "sourceUrl": "https://oup.silverchair-cdn.com/article-minimal/5545529",
+      "normalizationScript": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/compare.py",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/publisher-mirror.html",
+          "sourceUrl": "https://oup.silverchair-cdn.com/article-minimal/5545529",
+          "sha256": "bf9daf6942529136384a1e3991170be27f0cdddc155c26c222fccd61192d5cfa",
+          "bytes": 336211
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/original-pmc.xml",
+          "sourceUrl": "https://pmc-oa-opendata.s3.amazonaws.com/PMC9344225.1/PMC9344225.1.xml",
+          "sha256": "3ebd69b07008cac48570154e63313735f36333e74fbd461bab2ecbf7fdc3ebda",
+          "bytes": 161274
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/original-kfz182_supplementary_data.docx",
+          "sourceUrl": "https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/toxsci/172/1/10.1093_toxsci_kfz182/2/kfz182_supplementary_data.docx?Expires=2147483647&Signature=InvCbGYzgbcYaN9Gj4fuxTdSw2kr2xjfk-PerdstHvecUkQQBHOjXZwQSThGmWluFkhJkB24yOdcTg308Gr7HasV~ORGbgklMikLOamgtqcXUuC98DkLd8ghkHzrmWmzGBDlNaWWETFs8C-ctdKXa0WCvJhTzob3MZd7DwHJLGU7yY7f5506lk3sBVRDJgAa0waHZHDVo8wrszXmTVCiwQYVQB~LcVNoax21MUZbYEy3gDbKQm102V7S1ueNF2CpJXYpwaCIC~JLPB7nULcz4UKA6SwkGjfCw-L4oXf5TBl7ZBCUdTfB8SQgaHXskMqykDLKargrBqmNsh0Cf8IbQA__&Key-Pair-Id=APKAIE5G5CRDK6RD3PGA",
+          "sha256": "2f326da5489f77cd9b93273cca792ef4e7257725e084094c81678ce44b969ba6",
+          "bytes": 997423
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/geo-family.soft.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE133nnn/GSE133293/soft/GSE133293_family.soft.gz",
+          "sha256": "19938069a0ab5b94ca8821d4469c7ef3a51282a1982aaf2f7d0e0fb51a85d492",
+          "bytes": 4294
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/geo-normalized.csv.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE133nnn/GSE133293/suppl/GSE133293_GRC341_GEO_Brain.Hypo.NormCounts.csv.gz",
+          "sha256": "c99af5e85c9c5e2bde3a1026743a14b6d12979bad0ec948aa990baf24b126c2f",
+          "bytes": 4134177
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/compare.py",
+          "sourceUrl": "Offline Table 1B extraction and comparison",
+          "sha256": "a8919e0becaef4ce6b962a15ea284f334b755cc0a245a134c2f28b8bca391cd6",
+          "bytes": 11750
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/ena-runs.tsv",
+          "sourceUrl": "https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJNA551004&result=read_run&fields=study_accession%2Csample_accession%2Crun_accession%2Cexperiment_title%2Cfastq_ftp&format=tsv",
+          "sha256": "7def14f326a91c6d10eac28105799832478c582e9c239fea89fb8d37811d3f75",
+          "bytes": 6146
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/epa.xlsx",
+          "sourceUrl": "https://pasteur.epa.gov/uploads/10.23719/1503697/Henriquez%202019%20Manuscript%20for%20Tox%20Sci%20-%20Data%20for%20Science%20Hub%20-%20Kodavanti%203%2028%2019%20%281%29.xlsx",
+          "sha256": "249aae8518f5868e9431010e39412104cb365332fd011945d0ec8337a47dec59",
+          "bytes": 3328799
+        }
+      ]
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered animals per arm",
+      "value": "4 ozone, 4 air",
+      "script": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered rows with matched Table 1B effects",
+      "value": "40/20845",
+      "script": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Selected author reference coverage",
+      "value": "40/40",
+      "script": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Same direction among nonzero pairs",
+      "value": "40/40",
+      "script": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Nonzero coverage among effect pairs",
+      "value": "40/40",
+      "script": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Pearson correlation",
+      "value": "0.9759496540327864",
+      "script": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Spearman correlation with average tied ranks",
+      "value": "0.8850910067407161",
+      "script": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Median absolute log2FC difference",
+      "value": "0.24700249947481434",
+      "script": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Maximum absolute log2FC difference",
+      "value": "1.8676042237958284 (Hif3a)",
+      "script": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered-to-author RMS effect ratio",
+      "value": "1.3990895139658677",
+      "script": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Maximum absolute difference between the registered coefficient and the GEO group mean log-expression difference on Table 1B",
+      "value": "1.021405182655144e-14",
+      "script": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Paper-reported calls at FDR ≤ 0.10",
+      "value": "311 up + 257 down = 568",
+      "script": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered calls at FDR ≤ 0.10",
+      "value": "38 on Table 1B, 132 outside, 170 total",
+      "script": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered calls at FDR < 0.05",
+      "value": "26 on Table 1B, 40 outside, 66 total",
+      "script": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Pairs with numeric author raw P or adjusted P",
+      "value": "0 raw P, 0 adjusted P",
+      "script": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Distinct genes in the GEO normalized matrix and registered variance-filtered set",
+      "value": "22,587 deposited, 20,845 retained, exact registered identifier set",
+      "script": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/refute/check.py"
+    },
+    {
+      "claim": "Table 1B genes above registered FDR 0.10",
+      "value": "Amer2 0.308689291143914 and Zbtb16 0.103900266944827",
+      "script": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/refute/check.py"
+    },
+    {
+      "claim": "Agreement of the EPA Table 1B drawing with the publisher",
+      "value": "40/40 symbols and rounded linear ratios",
+      "script": "data/author-validation/continued-sources/GSE133293/codex-2026-11-21/refute/check.py"
+    }
+  ],
+  "openIssues": [
+    "The reviewed material does not contain the complete original-author DESeq2 result, exact coefficient and ratio settings, or the final contrast-specific testing and adjustment universes beyond GEO’s documented upstream low-count filter.",
+    "The rounded Table 1B effects and FDR ≤ 0.10 membership support a selected-gene comparison. Exact gene-level P/FDR agreement, the complete overlap of discoveries and authors’ calls at 0.05 remain unassessed."
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "datasetId": "mouse_hypo_pomc_estrogen_gse328990",
+  "accession": "GSE328990",
+  "category": "unresolved",
+  "closure": "compared",
+  "summary": "The deposited DESeq2 and registered edgeR-QL tables compare the same four POMC-C451A pools with the same four control pools. GEO and the registry label the controls WT, while the manuscript identifies them as homozygous C451A floxed littermates. Across 18,383 paired effects, neither concordance route passes. The registered filter accounts for two paper hits, and the cause of the Cenpf effect difference remains open.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE328990/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "Both analyses compare the same eight hypothalamic RNA pools. Across 18,383 effects neither concordance route passes. The registered filter explains two missing paper hits. The control genotype labels and the cause of the Cenpf effect difference require qualification.",
+      "note": "GEO Library names and Supplementary Figure 3A place pools 1, 3, 5 and 7 in the POMC-C451A arm and pools 2, 4, 6 and 8 in the control arm. The RNA came from whole hypothalamus of 16-week-old gonadal-intact females, with two animals per pool. GEO calls the controls wildtype and the registry uses WT. The manuscript’s Animals section identifies the controls as homozygous C451A floxed littermates. The count matrix matches the registered input SHA-256, and the deposited DESeq2 table matches the original-source SHA-256 in the comparison spec. Of 18,480 registered symbols, 18,383 have one-to-one effects. Pearson is 0.8955, Spearman is 0.8630, and 16,085 of 18,383 nonzero pairs agree in direction. Among 18,377 pairs with finite FDR, the authors have 28 discoveries and the registered analysis has four, all shared. All 18 effect and raw-P pairs in Supplementary Table 4 identify unique deposited rows at printed precision. Gm49510 has a small printed FDR discrepancy. All 15 individually comparable paper hits agree in direction. Fam205a3 (Spata31f1d in the pre-fit map) and Gm8116 fall below the required number of expressing pools. The registered Nlrp5-ps coefficient combines two input features. Cenpf is lower in the mutant pools in both analyses, with deposited log2FC −2.2713 and registered log2FC −0.1348. The public files do not identify the cause. See continued-sources/GSE328990/codex-2026-11-21/refute/verify.py for the independent replay.",
+      "reviewFlags": [
+        "Both numerical concordance routes fall below the project thresholds despite 99.48% registered coverage.",
+        "The public gene estimates, deposited coefficients and published methods do not identify which normalization factors, offsets or fit choices account for the Cenpf magnitude and inference.",
+        "The paper identifies C451A floxed littermates as controls. GEO calls the four control pools wildtype. Pool membership and the direction of the coefficient agree across sources."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Deposited KO versus WT DESeq2 result",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE328nnn/GSE328990/suppl/GSE328990_DESeq2_KO_vs_WT.csv.gz",
+          "kind": "author_result"
+        },
+        {
+          "label": "Manuscript, pooled-replicate methods and data availability",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13192689/",
+          "kind": "paper"
+        },
+        {
+          "label": "Supplementary Table 4, page 10 of the PDF in the Europe PMC archive",
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13192689/supplementaryFiles",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO family SOFT with GSM accessions, Library names and genotype labels",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE328nnn/GSE328990/soft/GSE328990_family.soft.gz",
+          "kind": "database"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "The full deposited DESeq2 result and the registered edgeR-QL output use the same case and control pools. Neither numerical concordance route passes despite 99.48% registered coverage. The manuscript and GEO use different genotype descriptions for the control pools. The registered filter explains the absence of Fam205a3 and Gm8116. Cenpf has a single matched feature expressed above the cutoff in all eight pools, and the cause of its coefficient difference remains unresolved.",
+      "nextStep": "Which exact per-pool tximport input and DESeq2 fit produced the deposited Cenpf log2FC of −2.2713? Please provide the saved tximport and DESeqDataSet objects or the original Salmon quant.sf files, transcript-to-gene mapping and analysis code, including countsFromAbundance, normalization factors or offsets, design and contrast, expression and independent filtering, Cook’s handling and any coefficient shrinkage. Can the authors confirm that the pools labeled wildtype in GEO (2, 4, 6 and 8) contained the homozygous C451A floxed littermate controls described in the manuscript?",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "ko_vs_wt"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Current registered R 4.6.0 edgeR-QL symbol-level table against the complete deposited DESeq2 gene table. Versioned Ensembl IDs are paired through the registered pre-fit feature map. The expression-filter replay uses the downloaded counts. The earlier rounded-count DESeq2 run is a separate diagnostic.",
+      "reference": "GSE328990_DESeq2_KO_vs_WT.csv.gz supplies the full deposited numerical reference. Supplementary Table 4 supplies the paper-selected hits. The GEO family SOFT, registered sample sheet and Supplementary Figure 3A identify the same eight pools and arms. The manuscript’s Animals section gives the control genotype, which differs in wording from the GEO sample annotations.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "All eight GEO Library names match the registered sample sheet and the arm labels in Supplementary Figure 3A. The RNA came from bulk hypothalamus of 16-week-old gonadal-intact females. Eight animals per arm were pooled in pairs, giving four independent RNA pools per arm. The manuscript calls the controls homozygous C451A floxed littermates, while GEO calls the control samples wildtype."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Both coefficients are mutant minus control for the same libraries. Positive values indicate higher expression in POMC-C451A pools. The KO/WT labels in the deposited filename and registered ko_vs_wt contrast preserve the orientation. The biological comparison in the manuscript is POMC-C451A offspring versus homozygous C451A floxed littermate controls. The manipulation targets POMC neurons and the assay used whole hypothalamus."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Each of 18,383 pairs has one exact versioned Ensembl ID per registered symbol. All 97 unpaired registered symbols aggregate multiple source IDs. Of the 5,567 unpaired author rows, 250 lack a public symbol, 5,155 map to symbols outside the expression filter and 162 map to retained aggregates."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "The effect in each table is the gene-level mutant relative to control log2 fold change. The models estimate it differently. Pearson is 0.8955, Spearman 0.8630 and 16,085/18,383 nonzero pairs agree in direction. Median absolute difference is 0.01579 log2 units. Cenpf is −2.2713 in DESeq2 and −0.1348 in edgeR-QL."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The deposit gives DESeq2 P and BH-adjusted P. The registered analysis uses edgeR quasi-likelihood tests and BH across 18,593 fit rows. The full tables have 31 author and four registered FDR < 0.05 calls. Among 18,377 pairs with both FDRs, 28 author calls include all four registered calls. Six paired author rows lack both P and FDR. At raw P < 0.05, 978 author and 939 registered calls on finite pairs share 508 genes. The six other registered nominal calls comprise five multi-feature coefficients and one unique pair, Tuba1c, with missing author P."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Paired effects cover 18,383/18,480 registered symbols (99.48%) and 18,383/23,950 author genes (76.76%). All 18 paper effect/P pairs resolve to the deposit. Fifteen have one-to-one registered effects, two fail the registered expression filter and Nlrp5-ps has a multi-feature registered coefficient."
+        }
+      },
+      "criteria": "Use all uniquely pairable finite effects for ko_vs_wt. Author-concordance-v2 requires at least 30 pairs and 90% registered coverage for a full reference, plus both correlations ≥0.90 or ≥90% sign agreement among at least 30 nonzero pairs covering ≥90% of pairs. Report gene-wise P and FDR on finite pairs, and compare the separate paper rule of FDR ≤0.05 and |log2FC| >0.5 as a selected list.",
+      "conclusion": "All eight pool assignments and the mutant-minus-control orientation agree. The manuscript and GEO describe the control genotype differently. The full-table comparison is complete. All 18,383 paired effects are nonzero and both numerical routes fall below threshold. Reproducing the author coefficient for Cenpf requires additional fit information."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Unique finite effects from the full author table and the current registered table",
+      "value": "18,383 pairs / 18,480 registered symbols (99.4751%) / 23,950 author IDs (76.7557%). The 97 remaining registered symbols are aggregates.",
+      "script": "data/author-validation/continued-sources/GSE328990/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Author-concordance-v2, ko_vs_wt",
+      "value": "Pearson 0.89551383, Spearman 0.86296705, 16,085/18,383 same-direction nonzero pairs (87.4993%), 100% nonzero coverage. Neither route passes.",
+      "script": "data/author-validation/continued-sources/GSE328990/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Effect magnitude on the same pairs",
+      "value": "Median absolute log2FC difference 0.01579456, RMS difference 0.10121274, registered/author RMS effect ratio 0.89613690.",
+      "script": "data/author-validation/continued-sources/GSE328990/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "FDR < 0.05",
+      "value": "31 author and 4 registered discoveries over the full lists, with 4 shared. Among 18,377 pairs with finite FDR, 28 author and 4 registered, with 4 shared. Six paired rows lack author FDR. Zero registered discoveries lack an assessable author result.",
+      "script": "data/author-validation/continued-sources/GSE328990/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Raw P < 0.05",
+      "value": "1,114 author and 945 registered calls over the full lists. Among 18,377 finite pairs, 978 author and 939 registered calls share 508 genes. Five registered nominal calls (Gm20257, Gm3636, Kiss1, Nlrp5-ps and Pde2a) are multi-feature coefficients without a unique author counterpart. Tuba1c is the one registered nominal call with a unique author row and missing P.",
+      "script": "data/author-validation/continued-sources/GSE328990/codex-2026-11-21/refute/verify.py"
+    },
+    {
+      "claim": "Supplementary Table 4 and its selection rule",
+      "value": "18/18 printed effect and raw-P pairs match unique deposited rows. The paper rule yields 18 author and 4 registered hits, with 4 shared. All 15 one-to-one paper hits have matching directions. Gm49510 FDR is printed as 0.0267 and deposited as 0.0265844084.",
+      "script": "data/author-validation/continued-sources/GSE328990/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Replay of the registered expression filter",
+      "value": "At 0.2579524192 CPM in ≥4 pools and ≥15 total counts, the replay retained 18,593 fit rows and exactly reproduced the set of 18,480 published symbols. Fam205a3/Spata31f1d cleared the CPM cutoff in 2 pools and Gm8116 in 3. Nlrp5-ps has 2 input features.",
+      "script": "data/author-validation/continued-sources/GSE328990/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Cenpf effect and inference on the matched versioned feature",
+      "value": "ENSMUSG00000026605.15 clears the filter in 8/8 pools. Author log2FC −2.27126333, FDR 0.01757220. Registered log2FC −0.13475436, FDR 0.93131861. The descriptive log2 ratio of mean registered TMM CPM is −0.15847503.",
+      "script": "data/author-validation/continued-sources/GSE328990/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "Which exact per-pool tximport input and DESeq2 fit produced the deposited Cenpf log2FC of −2.2713? Please provide the saved tximport and DESeqDataSet objects or the original Salmon quant.sf files, transcript-to-gene mapping and analysis code, including countsFromAbundance, normalization factors or offsets, design and contrast, expression and independent filtering, Cook’s handling and any coefficient shrinkage.",
+    "Can the authors confirm that the pools labeled wildtype in GEO (2, 4, 6 and 8) contained the homozygous C451A floxed littermate controls described in the manuscript?"
+  ]
+}

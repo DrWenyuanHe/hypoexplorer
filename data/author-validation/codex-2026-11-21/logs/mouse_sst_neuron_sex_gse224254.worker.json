@@ -1,0 +1,19 @@
+{
+  "datasetId": "mouse_sst_neuron_sex_gse224254",
+  "outcome": "compared",
+  "summary": "The registered edgeR result shared 23 of its 25 FDR calls with the authors. Across 15,075 paired genes, directional agreement was 87.66%, and neither author-concordance-v2 route passed. A separate DESeq2 replay using Ensembl release-104 gene assignments recovered all 505 author calls and all 24,909 normalized means at published precision, resolving the five disputed calls.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/mouse_sst_neuron_sex_gse224254.json",
+    "data/author-validation/continued-sources/GSE224254/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE224254/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE224254/codex-2026-11-21/ARTIFACTS.tsv",
+    "data/author-validation/continued-sources/GSE224254/codex-2026-11-21/comparison.json",
+    "data/author-validation/continued-sources/GSE224254/codex-2026-11-21/replay.json",
+    "data/author-validation/continued-sources/GSE224254/codex-2026-11-21/replay_check.json",
+    "data/author-validation/continued-sources/GSE224254/codex-2026-11-21/verification.json"
+  ],
+  "openIssues": [
+    "The original Galaxy job and annotation-file checksum remain unavailable. The replay used archived patch releases whose source changes were confined to package metadata.",
+    "Raw P-value availability differs for Cd22, Gm3298 and Gm10045. Adjusted-P availability differs for Cd22. The proposal leaves fullyVerifiedContrasts empty."
+  ]
+}

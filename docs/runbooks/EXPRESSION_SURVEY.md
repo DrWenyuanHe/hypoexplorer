@@ -117,9 +117,12 @@ in the format of `src/expression-survey/externalReferenceFormat.ts`: a manifest,
 2,048 value files each and HPA 1,024. One gene costs one lookup request per provider
 and one value request per feature (one per Allen probe), about 10–20 KB compressed.
 These directories are gitignored build artifacts (about 230 MB in 8,200 files).
-`pnpm run build:expression-external` regenerates them from `data/expression/gtex/`,
-`data/expression/hpa/` and `data/expression/allen-human/`; `prebuild` and the CI
-artifact step run it. A missing or inconsistent provider is reported on the page,
+`pnpm run build:expression-external` regenerates them from the retained sources
+pinned in `data/expression/gtex/`, `data/expression/hpa/` and
+`data/expression/allen-human/`. Those sources are
+[not in this repository](../PROJECT_GUIDANCE.md#files-not-in-this-repository), so CI
+and a fresh checkout run `pnpm run fetch:expression`, which downloads the published
+products. A missing or inconsistent provider is reported on the page,
 and other sources keep working. The builders verify each retained hash, replay every
 emitted value against its source, and check each provider's API against retained
 checkpoints. See the [GTEx runbook](../../data/expression/gtex/README.md), the
@@ -205,6 +208,8 @@ The Henry GSE68177 sources are labeled manual fluorescent neuron sorting, correc
 the expression view's description without changing historical DE evidence records.
 The GSE65663 SON source retains deposited median-baselined log2 RMA values from
 five independent five-rat RNA pools per arm; it represents bulk tissue.
+The GSE162563 POA source is the GnRH-depleted supernatant of a TRAP pull-down, so it is
+cataloged as tissue, never as a GnRH-neuron population.
 
 ## Data delivery and validation
 

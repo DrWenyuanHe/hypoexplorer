@@ -1,0 +1,127 @@
+{
+  "datasetId": "mouse_hypo_hfd_tc_gse305719",
+  "accession": "GSE305719",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "Figure 13A of Oku et al. supports a reconstructed week-12 versus day-0 direction for 156 registered hypothalamic genes. Of these, 147 agree with the registered edgeR direction and nine are opposite. The comparison covers one author-selected cluster and leaves fold-change magnitude and gene-level inference unassessed.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE305719/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "reconstructed",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "paperAccess": "publisher_full_text",
+      "summary": "Figure 13A supports a directional comparison for 156 registered genes in the selected hypothalamic cluster.",
+      "note": "GEO links the Oku et al. paper. Its count archive matches the registered input SHA-256. All six day-0 and six week-12 libraries match the GEO metadata and registered sample sheet. Profiles from the 72 intermediate libraries identify all 179 unlabeled heatmap rows without reference to endpoint colors or registered effects. Independent split-library matches recover the same genes. Of 170 exact symbol pairs, 156 have a determinate sign when the full range of compatible figure colors is retained. Direction agrees for 147 and is opposite for nine. Row assignments, endpoint bounds, registered log2 fold changes and all exceptions are in data/author-validation/continued-sources/GSE305719/codex-2026-11-21/figure13_comparison.tsv.",
+      "reviewFlags": [
+        "Row identities and endpoint directions were reconstructed from a selected figure. Fourteen paired rows have indeterminate directions and nine panel genes lack a registered result.",
+        "The figure reports within-gene standardized expression. Comparable author endpoint log2 fold changes, raw P values and FDR were unavailable."
+      ],
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Oku et al., publisher full text and Figure 13A",
+          "url": "https://doi.org/10.1587/nolta.17.186",
+          "kind": "paper"
+        },
+        {
+          "label": "Authors’ analysis and heatmap code, reviewed commit",
+          "url": "https://github.com/okumakito/nolta2025b/tree/f2315fabd6a932a689001655ee4e18243d98a147",
+          "kind": "author_result"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "The published sample-level heatmap permits a selected-gene comparison of endpoint directions. Its reconstructed mean z-score differences agree in sign with the registered log2 fold changes for 147 of 156 determinate pairs (94.23%). Nine pairs are opposite, 14 further paired intervals include zero, and nine figure genes have no registered DE row. The authors' normalization and effect scale differ from the registered model. The cause of any individual sign reversal is undetermined.",
+      "nextStep": "Retain the bounded row-level comparison. To assess endpoint magnitudes and inference, obtain an author-fitted whole-hypothalamus week-12 versus day-0 table with sample assignments, signed effects, raw P, FDR and the tested gene universe.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "hfd12w_vs_0d"
+      ],
+      "target": "derived_author_effect",
+      "resultScope": "selected_results",
+      "basis": "Compare the registered edgeR-QL groupcase direction with the sign of the difference between the two endpoint means read from the published figure. Both the heatmap row labels and the endpoint contrasts are reconstructed. The deposited counts identify rows using only intermediate libraries.",
+      "reference": "Oku et al., DOI 10.1587/nolta.17.186, Figure 13A (printed p. 204), Table I and Table II. Biological replicate order and gene identifiers come from GSE305719 and the paper-linked plotting and clustering code. Reproducible inputs, SHA-256 values, every figure row and its interval are in data/author-validation/continued-sources/GSE305719/codex-2026-11-21.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Terminal whole hypothalamus from separate male mice at each time. All six day-0 baseline libraries (GSM9182784–GSM9182789) and six week-12 libraries (GSM9182862–GSM9182867) match the registered sheet. The paper lists no hypothalamus exclusions."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Mean at HFD week 12 minus mean at day 0, when high-fat feeding began after chow acclimatization. Positive means higher at week 12. Age and duration of feeding vary together. The study lacks an age-matched chow arm."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Both disjoint intermediate-library partitions recovered all 179 distinct symbols. The order agrees with the authors' alphabetical cluster order and includes all ten hypothalamic Table II genes. The registered feature map maps every symbol to itself. Exactly 170 occur in the registered DE table."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "The figure reports within-gene z-scores of log2 trimmed-TPM expression across the time course. The difference of endpoint means is in gene-specific SD units. The registered effect is an edgeR coefficient on the log2 fold-change scale. Only direction was compared. Among 156 determinate pairs, 147 agree and nine are opposite. Fourteen additional paired intervals contain zero."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "Public materials supply no gene-level author P or FDR for this endpoint. Network intervention scores and gene-set enrichment address different quantities. All 617 registered BH discoveries lack an author endpoint statistic for comparison."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The entire 179-gene Figure 13A cluster was retained. The 170 symbol pairs cover 94.97% of the selected panel and 1.18% of the 14,376 registered genes. Among those pairs, 156/170 (91.76%) have a determinate direction. Nine panel genes have no registered DE row. A further 14,206 registered genes have no panel row."
+        }
+      },
+      "criteria": "Use the published cluster as selected. Identify rows without the endpoints, join by exact symbol and apply no significance or effect-size filter. Subtract day-0 from week-12 means. A positive lower bound or negative upper bound establishes sign under the published color bins with a one-RGB-level allowance. Keep zero-touching intervals indeterminate and report all denominators.",
+      "conclusion": "Within this cluster, 147/156 determinate directions agree (94.23%). The selected-panel numerical fractions meet the v2 directional cutoffs descriptively. The identities and endpoint effects are reconstructed and the gene-specific SD unit is incompatible with a direct log2 fold-change comparison. A direct-effect comparison spec, an author-concordance pass and full contrast sign-off are unsupported."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Agreement with the registered sign among determinate selected-gene pairs",
+      "value": "147/156 (94.23%) same, 9/156 opposite",
+      "script": "data/author-validation/continued-sources/GSE305719/codex-2026-11-21/compare_heatmap.py"
+    },
+    {
+      "claim": "Coverage and unresolved figure directions",
+      "value": "179 plotted, 170 paired, 14 paired indeterminate, 9 without a registered row. The pairs cover 94.97% of the panel and 1.18% of 14,376 registered genes. Of paired rows, 91.76% have a determinate direction.",
+      "script": "data/author-validation/continued-sources/GSE305719/codex-2026-11-21/compare_heatmap.py"
+    },
+    {
+      "claim": "Independent row identification without either endpoint",
+      "value": "All 179 identities recovered from 72 intermediate libraries, and independently from each disjoint 36-library odd/even replicate partition. Full search examined 14,757 eligible symbols, minimum best-match r 0.996275 and minimum lead over runner-up 0.010049. All 10 Table II hypothalamic genes occur in the panel.",
+      "script": "data/author-validation/continued-sources/GSE305719/codex-2026-11-21/compare_heatmap.py"
+    },
+    {
+      "claim": "Numerical cross-check against the refuter's independently normalized row matches",
+      "value": "All 179 row identities, interval endpoints (within 1e-14 SD) and sign classifications reproduced.",
+      "script": "data/author-validation/continued-sources/GSE305719/codex-2026-11-21/verify_round2.py"
+    },
+    {
+      "claim": "Examples in native units, week 12 minus day 0",
+      "value": "Adora2a (row 8) has a figure interval of −0.69792 to −0.61979 SD and registered log2FC −0.97025. 2010300C02Rik (row 2) has +0.08333 to +0.17708 SD and registered log2FC −0.03036.",
+      "script": "data/author-validation/continued-sources/GSE305719/codex-2026-11-21/compare_heatmap.py"
+    },
+    {
+      "claim": "GEO sample and file contents, and registered model",
+      "value": "20,646 distinct gene symbols × 1,104 count libraries. All 1,104 GSMs have zero sample-level supplementary files and zero embedded rows. Six day-0 and six week-12 hypothalamus libraries match the sheet. The registered model tested 14,376 genes, with 617 BH-adjusted P < 0.05.",
+      "script": "data/author-validation/continued-sources/GSE305719/codex-2026-11-21/verify_round2.py"
+    },
+    {
+      "claim": "Paper and code supporting the panel interpretation",
+      "value": "J-STAGE lists 0 supplements. Table I gives 179, 146 and 103 hypothalamus genes peaking at 1d, 2w and 3w, respectively. The archived commit contains 90 verified blobs including 87 Python scripts.",
+      "script": "data/author-validation/continued-sources/GSE305719/codex-2026-11-21/verify_round2.py"
+    },
+    {
+      "claim": "Public GEO count archive compared with the registered provenance",
+      "value": "ee72455b5c1dec8d52e14ecaa025f6e70dea9cec435f2aed87a962d4643051f5",
+      "script": "data/author-validation/continued-sources/GSE305719/codex-2026-11-21/compare_heatmap.py"
+    }
+  ],
+  "openIssues": [
+    "Author-fitted gene-level endpoint effects, raw P values and FDR across the tested universe remain unavailable. Fourteen paired figure directions remain indeterminate, and nine plotted genes have no registered DE row.",
+    "The linked GakuNin RDM project requires institutional sign-in. Its file inventory remains unknown."
+  ]
+}

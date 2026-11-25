@@ -1,0 +1,111 @@
+{
+  "datasetId": "mouse_hypo_hypoxia_gse162673",
+  "accession": "GSE162673",
+  "category": "partial_untested",
+  "closure": "compared",
+  "summary": "Figure 5A gives an upward direction for 80 labeled genes. In the registered four-versus-four fit, 78 have positive coefficients (97.5%) and Bcl11a and Egr4 have negative coefficients. The manuscript links the panel to a promoter-motif subset, and the Crh RNA-seq plot in the peer-review response points to a smaller author cohort.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE162673/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "Registered hypoxia effects agree in direction for 78 of 80 genes labeled in Figure 5A",
+      "note": "All 80 labels appear in the same order in the published and archived manuscript figures. Of these, 79 join by exact symbol and Fam214a joins to Atosa through mouse Gene 235493. The redownloaded GEO count file matches the registered input SHA-256 in GSE162673_provenance.tsv. The producer’s original raw path is absent from this checkout. Figure 5A supplies directions. The authors’ fitted coefficients and individual DESeq2 P values and FDRs remain unavailable in the reviewed sources.",
+      "reviewFlags": [
+        "The published results link the 80 Figure 5A genes to a HIF1β motif in their promoters among 313 reported upregulated genes. The peer-review response describes the heatmap as exhaustive under the LFC and P cutoffs.",
+        "The Crh RNA-seq plot in the response has three normoxia points and four hypoxia points. Their values support omission of normoxia library N-2 (GSM4956661) from that plot. Figure 5A’s fitted GSM list remains undocumented. The paper also differs from the run records on sequencing instrument and layout.",
+        "Bcl11a and Egr4 have opposite registered signs. Author effect magnitudes, the test universe and gene-by-gene inference remain unresolved."
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "All 80 Figure 5A genes pair to registered coefficients and 78 agree in sign. The results text identifies a motif-selected panel, while the peer-review response says all qualifying upregulated genes are shown. The deposited and registered design has four mice per arm. The response plots Crh for three normoxia and four hypoxia observations, and the authors do not identify the libraries fitted for Figure 5A.",
+      "nextStep": "Confirm whether N-2 (GSM4956661) was excluded from the Figure 5A DESeq2 fit, reconcile the sequencing metadata and obtain the complete author results with identifiers, effects, testing eligibility, raw P and adjusted P. Confirm how the HIF1β promoter-motif criterion and the reported P cutoff selected the panel.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "hypoxia_vs_normoxia"
+      ],
+      "basis": "Use each labeled Figure 5A row and the upward direction assigned by the caption. Compare it with the sign of the registered hypothalamic edgeR-QL groupcase coefficient across all eight libraries. The comparison includes every panel row before examining local effects or significance.",
+      "reference": "Vanderhaeghen et al., doi:10.15252/embr.202153083, published PDF pp. 10–12 (motif subset, Figure 5A and caption). The archived manuscript repeats the panel on PDF p. 58. Review process file MOESM7.pdf p. 16 gives the authors’ account of panel selection and plots Crh RNA-seq observations.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "GEO lists four C57BL/6J hypothalamic biological replicates per arm. The eight GSM aliases match the input columns, sample sheet and fit provenance. Figure 5A specifies female mice and N = 3–4 per group. The response plots three normoxia and four hypoxia Crh observations. Their values closely match DESeq2 median-ratio normalized counts when N-2 (GSM4956661) is omitted. This identifies a likely omission for that graph. The Figure 5A fit lacks an explicit GSM list. The hypothalamic methods report paired-end NextSeq 500, while ENA lists all eight runs as single-end NovaSeq 6000."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Both analyses compare two hours of hypoxia against normoxia in mouse hypothalamus. Positive is higher under hypoxia. Liver, DEX, qPCR, ChIP and protein experiments are outside this comparison."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 80 distinct labels join one-to-one. Seventy-nine match the registered symbol exactly. Mouse Gene 235493 and MGI:2387648 identify Fam214a as Atosa, and the registered feature map assigns ENSMUSG00000034858 to Atosa. No ambiguous, duplicated or unmatched row remains."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "The caption assigns every displayed gene an upward author direction. Registered coefficients are nonzero for all 80. Seventy-eight agree. Bcl11a (−0.1816) and Egr4 (−0.0112) are negative locally. Author log2 fold changes, correlations and magnitude differences are unavailable."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "The caption gives LFC > 0.3 and P ≤ 0.05. The body uses P < 0.05, and the hypothalamic methods specify DESeq2 with 5% FDR. The paper does not identify the P column used for the figure. Of the 80 panel genes, 66 have registered raw P < 0.05 and 33 have registered FDR < 0.05. The response describes Crh as significantly increased. Its registered log2FC is +0.31638, raw P is 0.21230 and FDR is 0.49633. Exact author P values and FDRs are unavailable for paired comparisons."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All 80 labeled rows pair. Both manuscript versions link Figure 5A to 80 genes with a HIF1β promoter motif and report 313 upregulated hypothalamic genes. The peer-review response describes the panel as all genes passing the LFC and P cutoffs. The ratio 80/313 (25.56%) compares published counts. Exact membership of the 313 could not be checked. Of the 16,942 published registered rows, 16,862 lack a figure row, including 361 registered FDR calls. The local testing family includes another 94 unmapped rows (17,036 tested in total)."
+        }
+      },
+      "criteria": "Use every labeled row, its caption-defined sign and the original registered coefficient. The figure has 80/80 paired rows, 80/80 nonzero pairs and 78/80 same-sign pairs. These meet the v2 numerical direction thresholds for the selected panel. Cohort compatibility remains unresolved, and the figure provides no signed quantitative author estimates for a comparison spec.",
+      "conclusion": "Direction agrees for 78 of the 80 author-selected genes. Bcl11a and Egr4 have negative registered coefficients. The selected direction comparison supports the compared closure. Whole-contrast concordance, effect magnitudes and agreement on author significance calls remain unassessed."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Unique labeled Figure 5A genes and paired registered symbols",
+      "value": "80/80. The published and accepted PDF labels agree row for row. There were 79 exact joins and one documented mouse synonym (Fam214a → Atosa).",
+      "script": "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/compare_figure5a.py"
+    },
+    {
+      "claim": "Same direction among nonzero pairs",
+      "value": "78/80 (97.5%). Bcl11a = −0.181580685379098 and Egr4 = −0.011171819841222 registered log2FC.",
+      "script": "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/compare_figure5a.py"
+    },
+    {
+      "claim": "Coverage of the stated author upregulated count",
+      "value": "80/313 (25.56%) by count. The Results link those 80 genes to the HIF1β promoter motif. The response says all qualifying genes are shown. The identities of all 313 were unavailable for a membership check.",
+      "script": "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/refute/check_review.py"
+    },
+    {
+      "claim": "Registered inference within and outside the panel",
+      "value": "66/80 raw P < 0.05 and 33/80 FDR < 0.05. Of 394 registered FDR calls, 361 have no Figure 5A row. Paired author P/FDR counts are unassessed.",
+      "script": "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/compare_figure5a.py"
+    },
+    {
+      "claim": "Contents of the GEO processed deposit",
+      "value": "55,487 distinct feature IDs and eight integer-count columns. All eight GSM records declare no sample supplement. The series matrix contains zero gene rows.",
+      "script": "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/inspect_sources.py"
+    },
+    {
+      "claim": "Cohort evidence in the Crh RNA-seq plot (review process file, PDF p. 16)",
+      "value": "Three normoxia markers and four hypoxia markers. Among all four possible one-control omissions, omitting N-2 (GSM4956661) reproduces all seven plotted Crh values within 0.13 normalized count using default DESeq2 median-ratio normalization. The maximum absolute differences when omitting N-1, N-3 and N-4 are 62.72, 67.54 and 61.97 counts, respectively. This check concerns the unlabeled Crh plot. The registered eight-sample DE coefficients supply all 80 sign comparisons.",
+      "script": "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/refute/check_review.py"
+    },
+    {
+      "claim": "Sequencing metadata for the linked ENA runs",
+      "value": "All 8 runs in PRJNA682598 are annotated SINGLE on Illumina NovaSeq 6000. The published hypothalamic methods describe paired-end sequencing on NextSeq 500. The public ENA run report is queried with --live-ena.",
+      "script": "data/author-validation/continued-sources/GSE162673/codex-2026-11-21/refute/check_review.py"
+    }
+  ],
+  "openIssues": [
+    "Was normoxia library N-2 (GSM4956661), whose omission reproduces the Crh plot, also excluded from the Figure 5A DESeq2 fit? Which libraries and sequencing instrument/layout were used for that fit?",
+    "Did the 80 Figure 5A genes come from the HIF1β promoter-motif subset of the 313 upregulated genes as described in Results? Reconcile the peer-review response and specify whether the selection cutoff used raw or adjusted P.",
+    "The complete hypothalamic author DESeq2 table with identifiers, signed log2 fold changes, raw and adjusted P values and testing eligibility was not located in the reviewed sources."
+  ]
+}

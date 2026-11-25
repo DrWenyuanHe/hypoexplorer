@@ -6,8 +6,12 @@ Nothing here is a browser product, and no app code reads these files.
 
 Source downloads are not committed. Each measurement file records the URL, byte
 count, SHA-256 and UTC retrieval time of every input, so a builder can pin and
-re-fetch the same bytes. The builders that later ship values must retain their
-own source archives (Git LFS for files over a few MB) as the plan describes.
+re-fetch the same bytes. The builders that later ship values pin and retain what
+they read: GTEx and HPA keep the source files or hypothalamic subsets they read, while the Allen builder verifies
+each donor zip and keeps only the hypothalamic sample and expression extracts plus
+the shared probe and ontology tables (`scripts/build_allen_human_reference.mts`).
+Those retained files are
+[not in this repository](../../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
 
 ## Contents
 
@@ -19,7 +23,10 @@ own source archives (Git LFS for files over a few MB) as the plan describes.
 | `allen/h_hy_samples_<donor>.json` | Raw RMA responses listing each donor's hypothalamic microarray samples (wells), with structure and slide |
 | `allen/h_hy_root.json`, `allen/h_hy_desc.json` | Hypothalamus (`Hy`, id 4540, graph 10) and its 176 descendant structures |
 | `allen/_derived_*.json` | Summaries computed from the retained or logged responses |
-| `scripts/` | The GTEx and HPA measurement scripts (Python stdlib; run with `python -I`) |
+
+The GTEx and HPA measurement scripts (`scripts/`, including `measure_hpa.py`;
+Python stdlib, run with `python -I`) are
+[not in this repository](../../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
 
 The Allen counts came from ad hoc RMA queries. The queries that worked are recorded
 verbatim in `allen/measurements.json` (`working_sample_query` and the `requests`

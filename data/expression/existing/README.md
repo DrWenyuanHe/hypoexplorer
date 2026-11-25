@@ -1,21 +1,24 @@
 # Lossless existing-source expression index
 
-The expression survey indexes the original per-sample measurements for all 31
-curated sources in 29 registered tracks. This index is separate from the rounded,
-default-track-only expression family used by the older cross-dataset comparison.
-It introduces no statistical transformation or gene-symbol merging.
+The expression survey indexes the original per-sample measurements for every
+curated source in `src/expression-survey/existingCatalog.ts` (32 sources in 30
+registered tracks at the last build; [validation.json](validation.json) records
+the current totals). This index is separate from the rounded,
+default-track-only expression family in the query index, which the removed
+cross-dataset bars view read. It introduces no statistical transformation or
+gene-symbol merging.
 
 ## Build and verify
 
 From the repository root:
 
 ```powershell
-npm run build:expression-index
-npm run check:expression-index
+pnpm run build:expression-index
+pnpm run check:expression-index
 ```
 
-The equivalent commands are `npx tsx scripts/build_expression_index.mts` and the
-same command with `--check`. Both read local source bundles only. The check mode
+The equivalent commands are `pnpm exec tsx scripts/build_expression_index.mts`
+and the same command with `--check`. Both read local source bundles only. The check mode
 rebuilds the expected representation in memory, compares every expected file and
 the retained evidence, and writes nothing. Missing source files, changed catalog
 sample counts or units, fidelity failures and stale products fail the command.
@@ -64,7 +67,7 @@ Ambiguous features remain unreported by that adapter; their individual stored va
 are independently aligned to the raw arrays and checked for lossless serialization.
 No cross-study averaging, normalization or RNA-fraction pooling occurs.
 
-The initial build verifies 534,346 feature rows, 534,332 normalized source queries,
+The initial build (before later sources were added) verified 534,346 feature rows, 534,332 normalized source queries,
 5,785,609 sample values and 14 ambiguous source keys. It includes nondefault tracks,
 the four disjoint maternal POMC conditions, separate broad/Drd2 POMC sources and
 separate PNOC immunoprecipitated/input sources.

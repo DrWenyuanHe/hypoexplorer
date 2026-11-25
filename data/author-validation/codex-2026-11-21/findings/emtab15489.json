@@ -1,0 +1,85 @@
+{
+  "datasetId": "emtab15489",
+  "accession": "E-MTAB-15489",
+  "category": "not_located",
+  "closure": "confirmed_not_located",
+  "summary": "No public gene-level author result was located for the day-8 whole-hypothalamus DSS versus control comparison in E-MTAB-15489. The deposited matrix contains only sample counts, and the closest published whole-hypothalamus comparison uses a separate day-6 DSS cohort.",
+  "evidenceFolder": "data/author-validation/continued-sources/E-MTAB-15489/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "source_unavailable",
+      "comparisonLevel": "processed_source",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "Public-source review located the day-8 hypothalamus counts but no author gene-level result for DSS versus control.",
+      "note": "All 32 measurement columns in raw_counts.tsv match deposited libraries. The eight hypothalamus libraries map to four DSS-treated mice and four controls. The deposit lists no publication, ENA lists reads and GEO has no linked series or sample supplement for this cohort. Literature, preprint, supplement and repository searches found a separate Aberdeen hypothalamus study (PRJNA1378229) with day-6 DSS samples and different BioSample identifiers.",
+      "reviewFlags": [
+        "Author effects, tested-gene coverage, P values and FDR for dss_vs_control remain unassessed."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "ArrayExpress study and deposited files",
+          "url": "https://www.ebi.ac.uk/biostudies/arrayexpress/studies/E-MTAB-15489",
+          "kind": "database"
+        },
+        {
+          "label": "ENA project for the registered mice",
+          "url": "https://www.ebi.ac.uk/ena/browser/view/PRJEB95986",
+          "kind": "database"
+        },
+        {
+          "label": "Independent day-6 hypothalamus study, excluded by cohort",
+          "url": "https://hdl.handle.net/2164/26650",
+          "kind": "paper"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The deposited gene matrix contains library counts only. The study metadata, literature and preprint indexes, GEO series and sample searches, data repositories and author code did not yield gene-level author results for dss_vs_control. The closest whole-hypothalamus RNA-seq publication used a different BioProject, collection time and set of mice.",
+      "nextStep": "Reopen if a manuscript, supplement or author result table can be linked to the eight day-8 hypothalamus libraries in PRJEB95986.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered day-8 hypothalamus cohort reconciled across the samplesheet, SDRF and ENA",
+      "value": "4 DSS mice and 4 control mice",
+      "script": "data/author-validation/continued-sources/E-MTAB-15489/codex-2026-11-21/audit_review.py"
+    },
+    {
+      "claim": "Shape of the original EBI count matrix",
+      "value": "57,010 feature rows and 32 sample measurement columns",
+      "script": "data/author-validation/continued-sources/E-MTAB-15489/codex-2026-11-21/audit_review.py"
+    },
+    {
+      "claim": "Deposited matrix measurement columns outside the SDRF sample set",
+      "value": "0",
+      "script": "data/author-validation/continued-sources/E-MTAB-15489/codex-2026-11-21/audit_review.py"
+    },
+    {
+      "claim": "Published gene symbols in the registered edgeR-QL table",
+      "value": "17,938",
+      "script": "data/author-validation/continued-sources/E-MTAB-15489/codex-2026-11-21/audit_review.py"
+    },
+    {
+      "claim": "ENA analysis records for PRJEB95986",
+      "value": "0",
+      "script": "data/author-validation/continued-sources/E-MTAB-15489/codex-2026-11-21/audit_review.py"
+    },
+    {
+      "claim": "Linked GEO records returned for the project and for the eight hypothalamus BioSamples",
+      "value": "0 project links and 0 BioSample links",
+      "script": "data/author-validation/continued-sources/E-MTAB-15489/codex-2026-11-21/audit_review.py"
+    },
+    {
+      "claim": "BioSample overlap between E-MTAB-15489 and the Aberdeen candidate PRJNA1378229",
+      "value": "0 shared BioSamples among 12 Aberdeen libraries, including 6 day-6 DSS libraries",
+      "script": "data/author-validation/continued-sources/E-MTAB-15489/codex-2026-11-21/audit_review.py"
+    }
+  ],
+  "openIssues": [
+    "Author effect concordance and inference remain unassessed pending a gene-level result linked to the registered mice."
+  ]
+}

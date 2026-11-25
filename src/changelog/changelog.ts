@@ -17,6 +17,24 @@ export const CHANGELOG: ChangelogEntry[] = [
     ],
   },
   {
+    date: '2026-11-24',
+    title: 'Enter in the gene search selects the gene typed',
+    items: [
+      'In the Gene Explorer, Compare and compare-set gene search, pressing Enter straight after the last letter could add the top match for the letters typed before it: Por for Pomc, Aga for Agrp. Enter now always searches the text in the box. A gene picked from the list was never affected.',
+      'No data, result or analysis changed.',
+    ],
+  },
+  {
+    date: '2026-11-24',
+    title: 'Readable direction colours on the pathway report',
+    items: [
+      'On the cross-dataset pathway report, the NES figures, the folded "strongest" score and the headline\'s up and down counts are now drawn in the darker red and blue the rest of the site uses for text. Before, they used the lighter chart colours, which are too faint to read easily. The forest dots keep the chart colours.',
+      'The Methods page\'s "red is up / blue is down" sentence uses the same darker colours.',
+      'A study block with no significant track now says "No significant track.", as the gene page does.',
+      'No data, result or analysis changed.',
+    ],
+  },
+  {
     date: '2026-11-23',
     title: "A gene's expression survey is on its gene page",
     items: [
@@ -25,6 +43,15 @@ export const CHANGELOG: ChangelogEntry[] = [
       'The NeuroSeq tile leaves out the two SFO boundary records, as the survey does by default, so its values match the survey it opens. The GTEx tile also gives the donor mean (52.6 TPM for POMC), the value the survey ranks, beside the median (7.79 TPM).',
       'On the Expression survey page, surveying one gene symbol now opens that gene\'s page with every source shown, in the sources and filters chosen on the survey page. Several genes, or an Ensembl gene ID, are still compared on the survey page.',
       'Tissue & bulk is now a choice inside the gene survey, beside Populations, instead of its own section. The survey page keeps Gene survey, Population catalog, and Sources & validation.',
+      'No data, result or analysis changed.',
+    ],
+  },
+  {
+    date: '2026-11-23',
+    title: 'No beta notice; links to the source and data on GitHub',
+    items: [
+      'The beta testing notice is gone from every page header, the study and guide pages and the link previews.',
+      'The home page footer and the study, guide and About pages link the source code and the processed data releases on GitHub.',
       'No data, result or analysis changed.',
     ],
   },

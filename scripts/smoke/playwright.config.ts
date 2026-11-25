@@ -8,11 +8,14 @@ export default defineConfig({
   outputDir: '../../.tmp/browser-smoke/results',
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
-  retries: 0,
+  // One retry absorbs a dropped fetch from the data origin. The list, the HTML
+  // report and the run annotations name a test that needed it as flaky.
+  retries: process.env.CI ? 1 : 0,
   workers: 1,
   timeout: 30_000,
   reporter: [
     ['list'],
+    ...(process.env.CI ? ([['github']] as const) : []),
     ['html', { outputFolder: resolve(process.cwd(), '.tmp/browser-smoke/report'), open: 'never' }],
   ],
   use: {
@@ -33,6 +36,8 @@ export default defineConfig({
     { name: 'desktop', use: { viewport: { width: 1280, height: 900 } } },
     {
       name: 'phone',
+      // A saved file does not depend on the viewport.
+      testIgnore: 'exports.smoke.spec.ts',
       use: { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true },
     },
   ],

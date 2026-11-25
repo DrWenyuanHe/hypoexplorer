@@ -153,7 +153,13 @@ checks still require their original source files.
 Read the [refactor checklist](../runbooks/REFACTOR_CHECKLIST.md),
 [code map](generated/codebase.md), [shared contracts](generated/contracts.md)
 and [CONTEXT.md](../../CONTEXT.md). Inputs are the requested view/route and its
-dataset, track and contrast state. Routing uses appRouter/appLinks; every explorer
+dataset, track and contrast state. Routing uses appRouter/appLinks, and what a
+route means (registry checks, refusals, the default track, the page it opens) is
+decided once in `src/routeLanding.ts` for boot and every later URL. The router
+runs one navigation attempt at a time with its own history write policy, so a
+new shell control that moves the explorer calls the router's `supersede()`
+before `navigate`, and a value a view reports back starts an attempt only when
+it actually changes; every explorer
 move (track, Compare, tab, contrast, an open from another view) is a navigation
 intent applied by src/explorer/explorerPosition.ts, which owns the tab rule and
 the reset/load each move costs, so no caller sets that state directly. A view
@@ -166,7 +172,7 @@ multi-file downloads are stored ZIPs from `src/utils/zip.ts`; every gene picker 
 `GenePicker` over `src/explorer/geneVocabulary.ts`; a table that lists tracks by
 significance reads each row's `tier` (set once by `geneRow` / `pathwayRow` from
 `src/statistics/policy.ts`), takes what leads, the order and the counts from
-`listCrossStudy` in `src/statistics/crossStudyListing.ts` for the mode
+`listCrossStudy` in `src/statistics/crossStudyListing.ts`, its mode words and nominal caveat from `src/statistics/listingWords.ts` and any direction-coloured text from `directionTextColor` in `src/statistics/direction.ts`, for the mode
 `listingModeStore` holds (with its `ListingModeToggle`), and decides only how
 much to show and what starts folded; it labels rows with
 `src/statistics/TierLabel.tsx`, explains q / FDR / padj columns with `QTerm`,
@@ -202,7 +208,12 @@ is not loaded. Run every new export entry point inside `withExportEvidence()`
 Expected outputs are the requested behavior and relevant regression coverage.
 Run the app and script TypeScript checks documented in
 [project guidance](../PROJECT_GUIDANCE.md) and focused Vitest tests. Use a browser
-for navigation, loading, accessibility or layout changes.
+for navigation, loading, accessibility or layout changes. The built-site browser
+smoke (`scripts/smoke/`, `pnpm run test:smoke`) opens every view and explorer tab on
+a desktop and a phone and fails on page errors, failed requests or sideways
+overflow. A new view or tab needs an entry in `scripts/smoke/viewLinks.ts` and a
+ready check in `views.smoke.spec.ts`; `smokeViewLinks.test.ts` fails without the
+link. A renamed label or heading those specs query is changed there too.
 
 Circadian changes also follow [the numerical validation runbook](../runbooks/CIRCADIAN_VALIDATION.md).
 Keep effective JTK period families, unsupported-design reasons, missing-value
@@ -304,7 +315,14 @@ OXT; pathway ids are matched word by word against readable titles. The
 names builder excludes unresolved `ambiguous` authority rows before grouping:
 candidate diagnostics, aliases and dataset reach from those rows are not search
 names. Valid records from other authorities can still supply names for the same
-uppercase symbol; gene-index symbol search remains available. The same builder
+uppercase symbol; gene-index symbol search remains available.
+vocabulary loads when a pointer first reaches the box or it is first focused, so
+the hub fetches no query data until a visitor reaches for the search. The box's
+suggestions follow `subscribeSearchVocabulary`: named genes show as soon as the
+same-origin `names.js` lands, and the data origin's symbol and pathway indexes
+fold in when they arrive. The results page waits for the full vocabulary
+(`loadSearchVocabulary`), so its counts never shift under the reader.
+The same builder
 writes `public/nomenclature/renames.js`, the rename groups (`src/data/symbolRenames.ts`,
 CONTEXT.md): members of a group are always each other's search aliases, a
 retired placeholder member gets its own row, and an alias its own authority
@@ -315,8 +333,7 @@ path in `src/data/crossDataset.ts`, one row per track by `pickStoredMember`),
 mark such rows `storedAs`, and the gene page names those studies above the
 table and tags each row; the expression preview looks the row up under its
 stored symbol. Compare and the compare set pass the table to `compareCell`.
-vocabulary loads on the box's first focus, so the hub fetches no query data
-until a visitor searches. A direct gene match leads the page as one featured
+A direct gene match leads the page as one featured
 row, followed by "Also matching": the other genes the query matched (POMCA and
 POMCB for POMC), eight under All and every one on the Genes breakdown. Every
 gene row reads an index-only summary (significant datasets, tracks up and down,
@@ -348,8 +365,8 @@ carries Info (library record), Open (explorer at that track) and the
 compare-set toggle for that track. Last, the pathways enriched in the tracks where the gene is significant,
 under the same scope, and a reserved co-expression slot. The study filters sit
 inside the differential-expression card, above the table they narrow, and stay
-there while it loads or when the selection is empty. The header keeps Compare
-as bars and Share analysis. The condition-pathways card (`loadConditionPathways` in
+there while it loads or when the selection is empty. The header keeps Share
+analysis and the compare-set button. The condition-pathways card (`loadConditionPathways` in
 `src/search/searchSummaries.ts`) follows at most 12 significant tracks and reads
 one `trackpaths/t<NNN>.js` file per track from the query index's track-pathways
 family (rows copied from the pathway shards at padj < 0.05, checked by
@@ -431,15 +448,15 @@ the dataset's Pathway tab; population links retain the row's population.
 Both reports share forestReport.css and the EffectPreview interaction shell.
 For gene results, hover, keyboard focus or tap on a row's log2FC opens the
 existing expression bar chart for that exact
-population and contrast. Previews load on demand through the explorer store with QC
-and pathway requests disabled, and report unavailable sample values without drawing
-zero bars. The store's pathway policy is fixed for each mounted consumer; full
-explorers retain the default include policy.
+population and contrast. Previews load on demand through the track-column module
+(`useTrackColumn` in `src/data/trackColumns.ts`) with pathways omitted and the
+report's own track id trusted, so neither meta.js nor QC is requested; unavailable
+sample values are reported without drawing zero bars.
 
 Pathway score previews use the existing RunningScorePlot and retain its leading-edge
-approximation label. They reuse useCompareSetColumns for on-demand population loading
-and pathway-sibling settlement, then read popDataFor with the report's exact contrast
-and match the pathway database and name. Missing pathway data or usable ranks remain
+approximation label. They load through `useTrackColumn` with pathways included,
+wait for the pathway sibling to settle, then read popData at the report's exact
+contrast and match the pathway database and name. Missing pathway data or usable ranks remain
 unavailable, with a retry action; no QC bundle is requested. Large studies initially
 show significant populations, with the full list available on request. About enrichment
 scores keeps the ranking explanation in a disclosure beneath the results.

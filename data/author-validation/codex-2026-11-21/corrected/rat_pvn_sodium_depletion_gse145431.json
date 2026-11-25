@@ -1,0 +1,101 @@
+{
+  "datasetId": "rat_pvn_sodium_depletion_gse145431",
+  "accession": "GSE145431",
+  "category": "access_blocked",
+  "closure": "compared",
+  "summary": "Eight of the nine genes selected for qPCR have registered RNA-seq coefficients, and all eight signs agree. The Discussion also reports lower Creb3l1 expression in the PVN. Including that result, nine of ten directions stated in the paper can be compared and all nine agree. The conflicting pool sizes and missing gene-level author estimates limit verification.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE145431/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Nine paired PVN RNA-seq directions agree across the follow-up panel and the additional Creb3l1 result",
+      "note": "Experiment 3 compared Furo10 with vehicle control at 24 hours. The Results identify six increases and three decreases in the panel selected for qPCR. Mis18a is present in the deposited counts and feature map but falls below the registered expression filter. The Discussion separately reports a Creb3l1 decrease that agrees with the registered log2 fold change of −0.62675. The count file and family SOFT match the intake hashes. The saved geo.html contains a reCAPTCHA response. The SOFT supplies the GEO design and sample records.",
+      "reviewFlags": [
+        "The paper reports six rats per arm and two per library. GEO reports nine per arm and three per library. Both describe three independent pools per arm.",
+        "Figure 5 contains 100 labeled heatmap rows. The Results and caption report 94 genes. The retained sources do not reconcile those rows with the 94 genes.",
+        "Nine of ten directions stated in the article can be paired. The reviewed sources supply no fitted author log2 fold changes or exact RNA-seq P or adjusted P values for these genes."
+      ],
+      "reviewedAt": "2026-11-21",
+      "paperAccess": "publisher_full_text"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "Nine registered signs agree with the author-stated directions. Eight of the nine paired genes meet registered raw P < 0.05 and none meet registered BH FDR < 0.05. The animal counts conflict, and the available author statistics do not support a gene-level comparison of inference or the full discovery list.",
+      "nextStep": "Ask which animals contributed to each of GSM4318357–GSM4318362, whether each pool contained two or three rats, and how Figure 5 rows map to the 94 reported genes. Request the original Furo10-versus-control edgeR export with feature IDs, fitted effects, raw P, adjusted P where computed, filtering and the test used.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "sodium_depleted_vs_control"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Compare the RNA-seq directions explicitly attributed to this study’s PVN transcriptome in the Results and Discussion with the sign of the registered Furo10-minus-control log2 fold change. Retain the complete nine-gene follow-up panel as a distinct denominator and add Creb3l1, which the Discussion names separately. The paper describes read counts above 30 and biological considerations for selecting the follow-up panel. The comparison applies no further count or significance cutoff.",
+      "reference": "Dutra et al., Neuroendocrinology 111, 70–86, DOI 10.1159/000505997. See Experiment 3 and the RNA-seq methods (p. 72), the named panel and Figure 5 caption (p. 78), Figure 5 (p. 79), and the Discussion’s Creb3l1 statement (p. 83). The retained Ovid full text supplies the directions. The GEO family SOFT, count matrix, registered feature map and rat NCBI Gene record 288272 establish deposit and identifier provenance.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "The paper identifies bilateral PVN micropunches from male Holtzman rats. All six GEO records identify male Holtzman PVN libraries. Figure 5, GEO and the registered design agree on three libraries per arm. The paper reports 12 rats total with two per pool. GEO reports 18 total with three per pool, as used in the registered samplesheet. Individual membership remains unresolved."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Experiment 3 compared 10 mg/kg furosemide with low-sodium food and distilled water for 24 hours against vehicle control. Registered groupcase is Furo1–3 minus Control1–3. The Wistar qPCR experiment, the 30 mg/kg arm and SON measurements do not supply the compared RNA-seq signs."
+        },
+        "features": {
+          "status": "limited",
+          "note": "Each of the ten text-named genes resolves to a single deposited Ensembl feature. The Results spelling Miss18a resolves to Mis18a through the protein name, the qPCR text and rat GeneID 288272. ENSRNOG00000021555 meets the registered expression cutoff in only one of the three libraries required and has no DE row. Creb3l1 maps to ENSRNOG00000005413. The other nine genes, including Creb3l1, have unique registered coefficients."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "The registered edgeR-QL coefficient is a case-minus-control log2 fold change. Six increases and two decreases pair in the nine-gene panel. Adding Creb3l1 gives six increases and three decreases, all concordant. Figure 5 shows row-standardized per-library pseudocounts. The named directions support a sign comparison only."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "The authors report an edgeR P < 0.05 and a ranking by P value. The exact test, gene-specific P values and any adjustment are unspecified. Seven of the eight paired follow-up genes, plus Creb3l1, meet registered raw P < 0.05. Ephx2 agrees in sign at registered P = 0.10413. None of the nine paired genes meets registered BH FDR < 0.05. The registered BH family includes all 16,340 tested rows."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The follow-up panel contributes eight of nine directions (88.89%). Adding the Discussion result gives nine of ten text-named directions (90.0%) and nine of 13,619 published registered rows (0.0661%). The 100 labeled heatmap rows have no verified crosswalk to the 94 reported genes. The six GEO count columns supply expression inputs only. Overlap with the complete author discovery list and tested universe remains unknown."
+        }
+      },
+      "criteria": "Retain every explicit text direction for Experiment 3, including genes with absent coefficients or registered P ≥ 0.05. Use the paper’s biological orientation and compare nonzero signs. The nine-gene panel has 88.89% reference coverage. The expanded text selection reaches 90% reference coverage, but its nine pairs fall below the author-concordance-v2 minimum of 30. The paper supplies insufficient data for coefficient correlations, magnitude agreement or a numerical comparison spec.",
+      "conclusion": "The nine available signs agree within the ten text-named PVN genes. Pool composition, gene-level author inference and the mapping from Figure 5 to the discovery list remain unresolved. No registered contrast earns full verification."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Directions in the Results follow-up panel and the additional Discussion result",
+      "value": "The nine-gene panel has six increases and three decreases. Eight genes pair (six up, two down), and 8/8 signs agree. Creb3l1 is a separate author-reported decrease, with registered log2FC −0.626750919721882, raw P 0.00193557128394988, BH FDR 0.419274823913791. Across both sources within the article, 9/10 genes pair and 9/9 signs agree. Mis18a is the only unpaired direction.",
+      "script": "data/author-validation/continued-sources/GSE145431/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Registered inference, output coverage and filtering",
+      "value": "Seven of eight paired follow-up genes meet raw P < 0.05, or eight of nine with Creb3l1. None meets BH FDR < 0.05. Of 13,619 published genes, 1,137 meet raw P < 0.05 and zero meet BH FDR < 0.05. Of the 1,137 nominal calls, 1,130 lie outside the follow-up panel and 1,129 outside the expanded selection. The registered expression filter retains 16,340 rows, including 2,721 unmapped rows. Mis18a meets the CPM cutoff in one library, below the required three.",
+      "script": "data/author-validation/continued-sources/GSE145431/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "GEO deposits, ENA inventory and biological replication",
+      "value": "32,402 deposited Ensembl count rows and six library columns. The family SOFT lists one series count supplement and six GSM records, each with no sample supplement. ENA lists six runs and no analysis rows. The paper reports three two-rat pools per arm. GEO describes three three-rat pools per arm.",
+      "script": "data/author-validation/continued-sources/GSE145431/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Publication headline under the reported edgeR P < 0.05 rule",
+      "value": "94 genes, 31 up and 63 down. The paper gives directions for selected genes and omits the gene-level test results needed to reproduce the full list.",
+      "script": "data/author-validation/continued-sources/GSE145431/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Visible Figure 5 row labels",
+      "value": "100 labeled raster rows in the 1,200 × 1,490 image, confirmed by counting separate text bands at four grayscale cutoffs. The number of unique genes and their correspondence to the reported 94 remain unresolved.",
+      "script": "data/author-validation/continued-sources/GSE145431/codex-2026-11-21/refute/audit.py"
+    }
+  ],
+  "openIssues": [
+    "How many rats contributed to each of GSM4318357–GSM4318362, and which animals were pooled together?",
+    "Which feature IDs and filtering steps connect Figure 5’s 100 rows to the 94 reported genes? The original edgeR export, test details and any adjustment are needed to assess fitted magnitudes, gene-level inference and discovery-list overlap."
+  ]
+}

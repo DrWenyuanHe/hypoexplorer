@@ -1,0 +1,188 @@
+{
+  "datasetId": "mouse_hypo_hibernation_gse295250",
+  "accession": "GSE295250",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "Table S5 and GEO give 255 fed E3 QValue discoveries. The registered analysis closely matches the effects for 14,560 uniquely paired genes, including 184 author discoveries, and calls none significant by BH. Figure 2C reports the opposite Fto direction from the deposited tables, and the original likelihood-ratio fit remains unresolved.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE295250/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "Fed E3 effects agree between the deposited table and the registered analysis. Author clarification is needed for Figure 2C and the gene-level likelihood-ratio fit.",
+      "note": "Published supplementary methods p. 10 describes Ensembl GRCm38 release 102, protein-coding genes, edgeR and qvalue. Table S5 and GEO have the same 18,055 IDs and all 255 QValue < 0.05 calls, also the fed E3 total in Figure 2G. These IDs exhaust the positive-total rows of the deposited count matrix. All 129,612 mapped symbol-by-library counts reconcile after reversing the registered CPM scaling and rounding. Among 14,560 pairs, KO-minus-WT effects have Pearson 0.999775 and Spearman 0.999767, and 14,516 signs agree. The pairs cover 99.82% of published effects. At < 0.05, the full and paired call counts are 255 and 184 for author QValue, 247 and 181 for BH on author P, 39 and 37 for deposited Holm PAdjust, and zero and zero for registered BH. The LR-to-P and P-to-Q numerical relationships reproduce. Figure 2C and the main text report increased Fto in fed KO. GEO and S5 have lower KO mean CPM (279.43 versus 317.03 WT), with oriented GEO log2FC −0.181974 and registered log2FC −0.182688. The figure uses a targeted two-tailed test for Fto. The author tables support the registered cohort and direction for the genome-wide comparison. The independent recalculation and per-gene exceptions are in data/author-validation/continued-sources/GSE295250/codex-2026-11-21/.",
+      "reviewFlags": [
+        "Figure 2C shows higher Fto in fed E3 KO (P = 0.008). The Figure 2A–E caption gives n=4 mice. S5 and GEO have three fed E3 libraries per genotype and lower Fto in KO. The figure’s sample identities and expression values need reconciliation.",
+        "The bulk RNA-seq methods on p. 10 name edgeR and qvalue. The explicit QL functions on p. 9 concern CUT&RUN peaks. The fed E3 fit, offsets, dispersion estimation cohort and qvalue options remain undocumented in the located materials.",
+        "At the stated 0.05 cutoff, 71 current author QValue discoveries lack a unique published counterpart. Two contribute to summed symbols. The 185 retained and 70 excluded by the raw-feature sensitivity check do not establish the identities of the historical 70.",
+        "The earlier ledger records 131 BH calls in a separate default LRT refit on the author-retained genes, including 119 author QValue calls, and zero in its QL refit. These are historical diagnostics. All 14,560 current pairs have finite statistics."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "GEO record",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE295250",
+          "kind": "database"
+        },
+        {
+          "label": "Deposited files",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE295nnn/GSE295250/suppl/",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Open full text",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12403242/",
+          "kind": "paper"
+        },
+        {
+          "label": "Author fed CNE-knockout edgeR result",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE295nnn/GSE295250/suppl/GSE295250_FtoE3KO_Fed_edgeR_Ens_Feb2023.txt.gz",
+          "kind": "author_result"
+        },
+        {
+          "label": "Published supplementary methods, bulk RNA-seq section on p. 10",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/biostudies/S-EPMC/242/S-EPMC12403242/Files/NIHMS2105653-supplement-supplementary_material.pdf",
+          "kind": "paper"
+        },
+        {
+          "label": "Published Table S5, fed E3 member",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/biostudies/S-EPMC/242/S-EPMC12403242/Files/NIHMS2105653-supplement-Table_S5.zip",
+          "kind": "author_result"
+        },
+        {
+          "label": "Matching fed E3 count deposit",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE295nnn/GSE295250/suppl/GSE295250_FtoE3KO_Fed_Adult_CountsEns_Fed2023.txt.gz",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Published Figure 2, targeted Fto measurement in C and fed E3 discovery count in G",
+          "url": "https://cdn.ncbi.nlm.nih.gov/pmc/blobs/a2e5/12403242/fe2f4e7b8947/nihms-2105653-f0002.jpg",
+          "kind": "paper"
+        }
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "For the deposited fed E3 results, both v2 effect routes pass. BH on full-table author P still gives 181 paired discoveries versus zero registered. The methods do not identify how the deposited LR was fitted. Figure 2G agrees with the 255 author QValue calls. Figure 2C and the main text report higher Fto in fed KO, opposite to S5, GEO and the registered result, and the A–E legend gives n=4 mice. The cohort match covers the six libraries in the direct comparison.",
+      "nextStep": "Which animals, genotype labels, expression values and normalization underlie the fed E3 bars in Figure 2C? Please reconcile its higher Fto in KO and the Figure 2A–E legend’s n=4 mice with the three KO and three WT libraries in Table S5 and GEO, where mean Fto is lower in KO. Where in the cited repositories is the code for the fed E3 Table S5 analysis? Please provide the edgeR version, sample/design matrix, tested coefficient, expression filter, fitted offsets, dispersion estimates and estimation cohort, and the qvalue call or fitted objects.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "ko_vs_wt"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Current R 4.6.0 KO-minus-WT whole-hypothalamus edgeR-QL/BH output. The unique Ensembl-to-published-symbol join was rebuilt from the full fed E3 author table. Its effects and discovery counts reproduce the existing generated comparison for this contrast. The raw-feature filter and conditional dispersion calculations are separate diagnostics.",
+      "reference": "Published Table S5, E3_Fed_KOvsWT.txt, the higher-precision GEO fed E3 result, its counts and family SOFT, and the bulk RNA-seq methods on p. 10. Figure 2C is a separate targeted expression analysis. Figure 2G gives the genome-wide DEG count.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "The registered samples, fed E3 count matrix and S5 expression columns resolve the same three KO and three WT libraries from adult female mouse hypothalamus. GEO WT replicates 1–3 are GSM8944231, GSM8944235 and GSM8944238. KO replicates 1–3 are GSM8944236, GSM8944237 and GSM8944239. All six raw library totals and 129,612 published symbol-by-library counts reconcile. Individual GEO characteristics and library names specify fed despite a generic fasting protocol. The A–E figure caption’s n=4 mice is unresolved for panel C. The cohort rating applies to the deposited table."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Fed germline E3 KO relative to WT littermates. WT-minus-KO mean CPM differences have the sign of deposited logFC for 17,830/18,055 evaluable genes. Flt1 means are 54.66 WT and 25.79 KO, with GEO logFC +1.083700. Apply one sign reversal for KO-minus-WT. This direction also gives a decrease for Irx5 as reported in the paper, while the Figure 2C Fto increase conflicts with both deposited and registered effects."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 18,055 author Ensembl IDs are unique, protein-coding and positive-total in the fed source count matrix. Use the current feature map and all input features to identify summed symbols. Of 3,495 unpaired author IDs, 3,422 map to a symbol absent from published DE, 33 have no mapped symbol and 40 contribute to published sums. All 26 unpaired output symbols aggregate multiple features."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both tables report genotype log2 fold changes. For 14,560 nonzero pairs, Pearson is 0.999775, Spearman 0.999767, and 14,516 signs agree (99.70%). Median absolute difference is 0.000755 log2 units and the registered-to-author RMS ratio is 1.001608."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Published RNA-seq methods name edgeR and qvalue. A one-df chi-square tail of LR gives author P. Full-table BH times 0.912651570356 gives QValue, and Holm gives PAdjust. At < 0.05, QValue, BH on author P, and Holm give 255, 247 and 39 full calls and 184, 181 and 37 paired calls. The registered QL fit uses a BH family of 14,592 tested rows, including six unpublished rows. Its 14,586 published rows and the 14,560 finite pairs each have zero BH calls. Figure 2C’s targeted Fto P = 0.008 uses the caption’s two-tailed test. The six-library gene table reports Fto LR P = 0.15447 and QValue = 0.57022."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Table S5 and GEO cover the full author table for the one registered contrast. Unique pairs cover 14,560/14,586 registered effects (99.82%) and 14,560/18,055 author effects (80.64%). Of 71 unpaired author QValue calls, 68 have no published DE symbol row, one lacks a mapped symbol and two contribute to multi-feature output symbols. Each is identified in unpaired-author-calls.tsv."
+        }
+      },
+      "criteria": "Use all finite one-to-one pairs. For full results the v2 coverage denominator is registered output. Require at least 30 pairs and 90% output coverage with compatible cohort, contrast, features and effects, plus Pearson and Spearman both at least 0.90 or at least 90% direction agreement across at least 30 nonzero pairs covering 90% of all pairs. Report raw P, QValue, BH on author P and Holm separately. Compare full and shared calls at the stated 0.05 cutoff.",
+      "conclusion": "Fed E3 Table S5 and the current registered output meet both v2 effect routes. Inference differs, including after applying BH to the author P values. The original LR fit and the observations behind the opposite Fto direction in Figure 2C require author clarification."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Current registered DE SHA-256",
+      "value": "2185fcb6bda60716d6359d553b30630d8decacfb4d7268e3f21b9e555fae2b8e",
+      "script": "data/author-validation/continued-sources/GSE295250/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "GEO versus Table S5, Ensembl ID sets and QValue < 0.05 calls",
+      "value": "18,055 identical IDs, zero differences in discovery membership. Max absolute logFC difference 2.821e-08",
+      "script": "data/author-validation/continued-sources/GSE295250/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "GEO count rows and observed author testing universe",
+      "value": "21,749 source rows, 3,694 all-zero, all 18,055 positive-total rows tested and annotated protein_coding",
+      "script": "data/author-validation/continued-sources/GSE295250/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Fed cohort and source count checks",
+      "value": "Three KO and three WT libraries. Each of the six raw library totals matches its registered counterpart. All 129,612 mapped symbol-by-library integer counts agree after reversing the registered CPM-TMM scaling and rounding.",
+      "script": "data/author-validation/continued-sources/GSE295250/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Matched author and registered effects",
+      "value": "14,560 unique pairs out of 14,586 published and 18,055 author genes. All have finite raw P and adjusted statistics.",
+      "script": "data/author-validation/continued-sources/GSE295250/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Author-concordance-v2 coverage, correlation and direction",
+      "value": "Output coverage 0.99821747, author coverage 0.80642481, Pearson 0.99977518, Spearman 0.99976724, same direction 14516/14560, nonzero coverage 1.000",
+      "script": "data/author-validation/continued-sources/GSE295250/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Effect magnitude context",
+      "value": "Median absolute logFC difference 0.000755415, paired RMS ratio 1.00160758",
+      "script": "data/author-validation/continued-sources/GSE295250/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Reconstructed deposited probability transformations",
+      "value": "Maximum absolute errors: LR to chi-square(1) P 3.22e-15, PAdjust to Holm 1.05e-15, QValue to 0.912651570356255 times full BH 2.83e-15",
+      "script": "data/author-validation/continued-sources/GSE295250/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Discoveries below 0.05, full and shared",
+      "value": "Author QValue 255/184, BH on unchanged author P 247/181, author Holm PAdjust 39/37, registered BH 0/0. Overlap 0. No registered discoveries lack an evaluable author test.",
+      "script": "data/author-validation/continued-sources/GSE295250/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Unpaired author QValue discoveries",
+      "value": "71 total: 68 mapped symbols absent from published DE, 1 unmapped, 2 contributing to summed published symbols (Amy2a1 and Pakap)",
+      "script": "data/author-validation/continued-sources/GSE295250/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Raw-feature filter sensitivity at default count thresholds",
+      "value": "185 author QValue calls retained and 70 outside. The sole retained call lacking a current one-to-one pair is ENSMUSG00000090053 (Pakap), whose registered symbol sums multiple features.",
+      "script": "data/author-validation/continued-sources/GSE295250/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Conditional group-only NB dispersion check",
+      "value": "First two GEO rows imply different dispersions using the CPM-derived offsets: Flt1 0.016697330 and Adgrl4 0.018820417. Transferring the Flt1 value gives Adgrl4 LR 44.689530 versus deposited 40.399950.",
+      "script": "data/author-validation/continued-sources/GSE295250/codex-2026-11-21/dispersion.py"
+    },
+    {
+      "claim": "Fed E3 Fto measurements (ENSMUSG00000055932)",
+      "value": "Mean GEO CPM 279.432122 KO and 317.030144 WT. KO-minus-WT log2FC −0.1819741842 in GEO and −0.1826881511 in the registered output. GEO LR P 0.15447157 and QValue 0.57021589. Table S5 has the same direction. Figure 2C shows higher Fto in KO.",
+      "script": "data/author-validation/continued-sources/GSE295250/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Fed WT and KO sample columns in the five Table S5 members",
+      "value": "E3 has three WT and three KO columns. E1, E2, E4 and E5 each have four per genotype. The Figure 2A–E legend reports n=4 mice.",
+      "script": "data/author-validation/continued-sources/GSE295250/codex-2026-11-21/refute/recheck.py"
+    }
+  ],
+  "openIssues": [
+    "Which animals, genotype labels, expression values and normalization underlie the fed E3 bars in Figure 2C? Please reconcile its higher Fto in KO and the Figure 2A–E legend’s n=4 mice with the three KO and three WT libraries in Table S5 and GEO, where mean Fto is lower in KO.",
+    "Where in the cited repositories is the code for the fed E3 Table S5 analysis? Please provide the edgeR version, sample/design matrix, tested coefficient, expression filter, fitted offsets, dispersion estimates and estimation cohort, and the qvalue call or fitted objects."
+  ]
+}

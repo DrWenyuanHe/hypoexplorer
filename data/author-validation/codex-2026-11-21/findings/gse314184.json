@@ -1,0 +1,83 @@
+{
+  "datasetId": "gse314184",
+  "accession": "GSE314184",
+  "category": "not_located",
+  "closure": "no_valid_comparison",
+  "summary": "The authors deposited 17,808 gene-level effects for infanticidal versus allopaternal males in neuronal pseudobulk. HypoExplorer uses all retained MPOA nuclei, and none of its four contrasts compares those two groups. The other public materials provide per-animal counts, neuronal subsets, cluster markers or measurements from separate experiments.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE314184/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Published manuscript and extended-data figures",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13019464/",
+          "kind": "paper"
+        },
+        {
+          "label": "Published supplementary methods, figures and tables",
+          "url": "https://media.springernature.com/full/springer-static/esm/art%3A10.1038%2Fs41586-026-10123-4/MediaObjects/41586_2026_10123_MOESM1_ESM.pdf",
+          "kind": "paper"
+        },
+        {
+          "label": "Versioned Figshare deposit with neuronal pseudobulk results and figure data",
+          "url": "https://doi.org/10.6084/m9.figshare.28635458.v1",
+          "kind": "author_result"
+        },
+        {
+          "label": "Neuronal infanticidal-versus-allopaternal results CSV",
+          "url": "https://ndownloader.figshare.com/files/60462836",
+          "kind": "author_result"
+        },
+        {
+          "label": "Pinned author code identifying the population, comparison and CSV export",
+          "url": "https://github.com/fdrogers/stripedmouse_parental_2025/blob/521ac9ae008b6448debaeb394879c3648e18dd14/Neurons_Pseudobulk_REV25.R#L71-L102",
+          "kind": "database"
+        },
+        {
+          "label": "GEO series and deposited single-animal Seurat objects",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE314184",
+          "kind": "database"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The Figshare file neurons_bulk_deseq2.csv contains 17,808 finite neuronal effects. The pinned author script aggregates neurons by group and animal, runs DESeq2 with RInfa relative to RAllo and exports that result. The registered all-nuclei MPOA tables compare alloparental, infanticidal or sire animals with naive controls, and dams with sires. None uses the author group pair in either direction. Control contrasts in the code are restricted to neuronal subsets. The per-animal Agouti file measures neurons, the qPCR validation uses an independent cohort, and the GEO sample objects supply RNA counts and QC. The checked sources do not support a paired gene-effect or inference assessment for any registered contrast.",
+      "nextStep": "Reopen if an author table becomes available for all retained MPOA nuclei in a registered case and baseline, with the animal assignments, feature definitions and effect direction. Species mapping and the dam–sire pairing remain separate processing and design questions.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Content of the Figshare neuronal result",
+      "value": "17,808 rows, 17,808 distinct nonblank feature labels and 17,808 finite avg_log2FC values. Both p_val and p_val_adj have 17,675 finite entries.",
+      "script": "data/author-validation/continued-sources/GSE314184/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Author export and registered group pairs",
+      "value": "Neurons_Pseudobulk_REV25.R lines 82–85 compare RInfa relative to RAllo. Line 99 exports bulk.de to neurons_bulk_deseq2.csv. Zero of four registered contrasts uses that pair in either orientation.",
+      "script": "data/author-validation/continued-sources/GSE314184/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered edgeR output rows, verified against the per-contrast provenance hashes",
+      "value": "16,441 alloparental versus control, 16,336 infanticidal versus control, 16,523 sire versus control and 15,478 dam versus sire. Paths and SHA-256 values appear in audit.json and SEARCH_LOG.md.",
+      "script": "data/author-validation/continued-sources/GSE314184/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Scope of the single-gene Figshare table",
+      "value": "ASIP_Behavior_Connection.csv has 17 rows across the five groups: three infa, three ambicon, three allo, four sire and four dam. The table includes nNeurons and AvgASIP.",
+      "script": "data/author-validation/continued-sources/GSE314184/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "GEO deposit structure",
+      "value": "All 17 single-animal objects have one RNA counts layer and zero feature-metadata columns. Their names, byte sizes and hashes reconcile to the series archive listing and retained source manifest. The series matrix has zero feature rows.",
+      "script": "data/author-validation/continued-sources/GSE314184/codex-2026-11-21/audit.py"
+    }
+  ],
+  "openIssues": [
+    "A gene-level author result for any of the four registered whole-MPOA contrasts remains unavailable in the reviewed public sources. Author concordance and full verification remain unassessed.",
+    "Striped-mouse feature mapping to mouse annotation and the omitted mating-pair term in the dam-versus-sire model remain open under their existing reviews."
+  ]
+}

@@ -1,7 +1,7 @@
 // Shared domain model for HypoExplorer — the single source of truth for the
 // shapes that flow through the data layer, the buildPopData transform, and every
-// tab. Reverse-engineered from src/data/*, docs/DATASET_CONTRACT.md, and
-// docs/REAL_DATA_SHAPES.md. Keep this in sync with the bundle generators.
+// tab. These types are authoritative; docs/DATASET_CONTRACT.md explains the
+// rules behind them. Keep this in sync with the bundle generators.
 
 // ── Registry / manifest (src/data/datasets.ts) ──────────────────────────────
 

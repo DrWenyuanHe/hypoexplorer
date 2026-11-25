@@ -57,7 +57,6 @@ rounded:
   sm: "3px"
   md: "4px"
   lg: "6px"
-  xl: "12px"
 spacing:
   "1": "4px"
   "2": "8px"
@@ -69,8 +68,8 @@ components:
   button-primary:
     backgroundColor: "{colors.signal-orange}"
     textColor: "#ffffff"
-    rounded: "{rounded.lg}"
-    padding: "8px 12px"
+    rounded: "{rounded.md}"
+    padding: "4px 12px"
   button-primary-hover:
     backgroundColor: "#e07a1e"
   button-default:
@@ -99,13 +98,15 @@ components:
 
 # Design System: HypoExplorer
 
+This file states the design rules. The token values themselves live in the `:root` block and utility classes of `index.html`, in `public/fonts/typography.css` and in `src/styles/constants.ts`; the values quoted here are a snapshot, and where they disagree the code wins.
+
 ## 1. Overview
 
 **Creative North Star: "The Lab Notebook"**
 
 HypoExplorer reads like ink on paper. Near-white surfaces (`#faf8f5` page, `#ffffff` panels), warm hairline rules, and prose set in Hanken Grotesk. The data is the ink: every number, gene id, count, and p-value is set in Geist Mono so figures line up in columns and never hide inside running text. Color is rationed. It stays out of the chrome and appears only when it carries a result, a red point is up-regulated, a blue point is down-regulated, a single orange element is the thing you have selected right now.
 
-The system is dense without being loud. It frames live scientific output (volcano plots, enrichment tables, QC panels) in the quietest possible chrome: a 44px topbar, a 232px navigator, a 4px accent strip that takes on the active population's color, and 1px borders doing the structural work that shadows would do in a flashier product. Nothing competes with the plot. The interface is a notebook margin, not a poster.
+The system is dense without being loud. It frames live scientific output (volcano plots, enrichment tables, QC panels) in the quietest possible chrome: a 44px topbar, a 232px navigator, a 4px accent strip (the active population's color in the explorer, the brand gradient on full-page views), and 1px borders doing the structural work that shadows would do in a flashier product. Nothing competes with the plot. The interface is a notebook margin, not a poster.
 
 It explicitly rejects the dashboard-SaaS reflexes that scientific tools tend to drift into: gradient hero metrics, purple-to-blue washes, glassmorphism, identical icon-and-heading card grids, and color used for decoration. If an element is colored here, a reader should be able to say what that color means.
 
@@ -124,8 +125,8 @@ A restrained neutral field carrying a small set of meaning-bearing accents. Ther
 - **Signal Orange** (`#F28E2B`): The one voice. Marks the single active or selected element in any view, the chosen population, the active tab underline, the primary action button, the input focus ring. It never decorates and never appears twice as a selection in the same frame.
 
 ### Secondary (the direction pair)
-- **Up Red** (`#E45756`): Up-regulated genes, positive logFC and NES, and the Obese arm of every contrast. Appears on volcano points, summary tables, pathway NES cells, and group dots.
-- **Down Blue** (`#4C78A8`): Down-regulated genes, the Normal baseline arm, and the calm structural accent (selectors, links, neutral emphasis). The same blue doubles as the GO:BP pathway-database hue.
+- **Up Red** (`#E45756`): Up-regulated genes and positive logFC and NES. Appears on volcano points, summary tables and pathway NES cells. Its CSS token is still named `--color-obese`, from when every study was obese versus normal.
+- **Down Blue** (`#4C78A8`): Down-regulated genes (token `--color-normal`) and the calm structural accent (selectors, links, neutral emphasis). The same blue doubles as the GO:BP pathway-database hue.
 
 ### Tertiary (the categorical and pathway palette)
 - **Hallmark Purple** (`#B07AA1`), **KEGG Green** (`#59A14F`): Pathway-database identity colors, alongside GO:BP blue (`#4C78A8`) and Reactome red (`#E45756`). This four-color set tags where an enrichment result came from.
@@ -147,7 +148,7 @@ A restrained neutral field carrying a small set of meaning-bearing accents. Ther
 ### Named Rules
 **The One Voice Rule.** Signal Orange marks at most one active element per view. Its rarity is the signal; a second orange selection in frame means the design is lying about what is active.
 
-**The Meaning-Only Color Rule.** Red is up and Obese. Blue is down and Normal. These bindings are absolute and centralized in one module (`src/styles/constants.js`). Color is never chosen for looks; if you cannot name what a color encodes, it should be a neutral.
+**The Meaning-Only Color Rule.** Red is up. Blue is down. These bindings are absolute: the tokens live in `src/styles/constants.ts` (`DIRECTION_UP_COLOR`/`DIRECTION_DOWN_COLOR` and their hex twins), and which tier earns a text colour is decided in `src/statistics/direction.ts` (the darker text tokens for text, the chart fills for marks only). Contrast arms are named per study (each contrast's own baseline and case titles) and drawn in their group colors, not in a fixed Obese/Normal pair. Color is never chosen for looks; if you cannot name what a color encodes, it should be a neutral.
 
 ## 3. Typography
 
@@ -158,7 +159,7 @@ A restrained neutral field carrying a small set of meaning-bearing accents. Ther
 **Character:** One grotesk carries headings, prose, navigation, controls and compact table labels, so the interface reads as a quiet instrument rather than a publication; headings separate by weight and size, not by a second family. Hanken Grotesk was chosen as the closest open-licence match to the calm grotesk used by search tools such as Perplexity. It has no Greek or Cyrillic and lacks a few symbols such as some arrows, so Source Sans 3 follows it in the stack and supplies those characters, such as the α in TNF-α. Geist Mono, the monospace companion to that grotesk, keeps gene symbols and numerical readouts legible and aligned; IBM Plex Mono stays second in its stack for any glyph it lacks. Shared CSS stacks live in `public/fonts/typography.css`; inline React styles use `FONT_HEADING`, `FONT_SANS` and `FONT_MONO` from `src/styles/constants.ts`. Body text sits at 13px, smaller than consumer defaults, because the reader is scanning tables and plots, not reading paragraphs.
 
 ### Hierarchy
-- **Display** (Mono, 28px, 700, line-height 1, tracking -0.02em): The hero readout, the active population id or metric at the top of the main column. The one place a number gets large.
+- **Display** (Mono, 700, tracking -0.02em): The hero readout. 28px for the gene name on a gene page and the headline figures on the QC tab; 20px for the active population id in the explorer hero, which shares its line with the arm pills and contrast selector. The one place a number gets large.
 - **Headline** (Sans, weight 600, tracking -0.01em): Page and prose section headings, using each view's existing size and spacing. The approved logo remains raster artwork.
 - **Title** (Sans, 13px, 600): Tab labels, compact card labels, table headers and active navigator rows. Prose headings and study-card titles use the heading stack; gene and accession headings retain Mono where already explicit.
 - **Body** (Sans, 13px, 400, line-height 1.5): Default running text and descriptions. Cap measure at 65 to 75ch for any long-form prose (methodology, acknowledgements).
@@ -183,24 +184,24 @@ The system is flat by default. Surfaces are defined by 1px borders and the two-t
 ### Named Rules
 **The Flat-By-Default Rule.** Surfaces are flat at rest with a hairline border and at most the resting lift. Shadows deepen only in response to hover, selection, or an overlay taking the screen. If a static surface needs a heavy shadow to read, the border or the spacing is wrong.
 
-**The Thick Edge Means State Rule.** The only edges thicker than 1px encode state, never decoration: the 4px top accent strip carries the active population's color, and the 3px left border on the active navigator row carries the selection. There are no decorative side stripes anywhere else.
+**The Thick Edge Means State Rule.** The only edges thicker than 1px encode state, never decoration: the 4px top accent strip carries the active population's color (or, on full-page views, the brand gradient), and the 3px left border on the active navigator row carries the selection. There are no decorative side stripes anywhere else. One known exception breaks this rule: the Methodology page's `Callout` (`src/methodology/MethodologyView.tsx`) uses a 3px left border; treat it as design debt, not precedent.
 
 ## 5. Components
 
 Quiet chrome around live data. Controls are small, bordered, and rectangular with gently rounded corners; states are conveyed by tint and a single accent rather than by heavy fills.
 
 ### Buttons
-- **Shape:** Gently rounded (`6px` primary, `4px` default).
-- **Primary:** Signal Orange fill (`#F28E2B`), white text, `8px 12px` padding, with the orange accent glow. Used once per view for the dominant action (Compare, Retry).
+- **Shape:** Gently rounded (`4px`, `--r-md`) for both. `.btn--primary` extends `.btn` in `index.html`, so it differs only in fill, border and glow.
+- **Primary:** Signal Orange fill (`#F28E2B`), white text, `4px 12px` padding, with the orange accent glow. Used once per view for the dominant action (Compare, Retry).
 - **Default / Ghost:** White or transparent fill, `#27251e` text, 1px `#d4cfc8` edge, `4px 12px` padding. The everyday control (Changelog, table toggles).
 - **Hover / Focus:** Default buttons warm to Row Hover (`#f4f1ed`); primary darkens to `#e07a1e`. Focus is always a 2px Signal Orange outline at `-2px`/`1px` offset, never removed.
 
 ### Chips
 - **Gene chip:** Row Selected background (`#ede8e2`), down-blue text, `4px` radius, `3px 9px` padding, mono. Selected genes carry the warm Chip Cream (`#FFF8F0`) variant.
-- **Group / contrast pill:** A small colored dot (Normal blue or Obese red) plus a mono count, in a faint tinted pill with a 12px radius. The hero's "3 Normal vs 3 Obese" readout.
+- **Group / contrast pill:** A small dot in the arm's group color plus a mono count, in a faint tinted pill with a 12px radius (`ArmPills` in `src/common/StudyMetadata.tsx`). The hero's arm readout, labelled with the active contrast's own arm names.
 
 ### Cards / Containers
-- **Corner Style:** `6px` (lg) for cards, up to `12px` (xl) for hero containers.
+- **Corner Style:** `6px` (`--r-lg`) for cards. There is no larger radius token; the few 12px radii (arm pills, the confirm dialog) are set inline.
 - **Background:** Panel white (`#ffffff`) on the page (`#faf8f5`).
 - **Shadow Strategy:** Resting lift at rest, hover lift plus a 2px translate on interactive cards (see Elevation).
 - **Border:** 1px Hairline (`#e7e3de`), darkening to Edge (`#d4cfc8`) on hover.
@@ -217,12 +218,12 @@ Quiet chrome around live data. Controls are small, bordered, and rectangular wit
 - **Sidebar navigator:** A scrollable list of population rows, each a colored dot, a mono id, and a truncated marker label. The active row carries Row Selected fill and a 3px Signal Orange left border.
 
 ### Signature: The Accent Strip
-A 4px horizontal bar at the top of the main column that takes on the active population's color, or a five-stop gradient (`#4C78A8` to `#59A14F` to `#E45756` to `#B07AA1` to `#9C755F`) in Compare mode. It is the app's one piece of pure color-as-identity and its strongest brand signal.
+A 4px horizontal bar. In the explorer it sits at the top of the main column and takes on the active population's color; Compare mode has no single population, so it has no strip (`src/App.tsx`). Full-page views built on `src/common/PageShell.tsx` render a five-stop brand gradient (blue, green, red, purple, brown: `PAGE_ACCENT_GRADIENT` in `src/styles/constants.ts`) above their header; the hub draws the same gradient through its own CSS (`.hub-ribbon` in `index.html`), and the tracker has no strip. It is the app's one piece of pure color-as-identity and its strongest brand signal.
 
 ## 6. Do's and Don'ts
 
 ### Do:
-- **Do** bind color to meaning: Up Red (`#E45756`) for up-regulated and Obese, Down Blue (`#4C78A8`) for down-regulated and Normal, the four database hues for pathway source.
+- **Do** bind color to meaning: Up Red (`#E45756`) for up-regulated, Down Blue (`#4C78A8`) for down-regulated, the four database hues for pathway source.
 - **Do** reserve Signal Orange (`#F28E2B`) for exactly one active or selected element per view.
 - **Do** set every number, id, and statistic in Geist Mono so figures align in columns.
 - **Do** define surfaces with 1px hairline borders and keep them flat at rest; let shadows deepen only on hover, selection, and overlays.

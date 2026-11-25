@@ -1,0 +1,98 @@
+{
+  "datasetId": "mouse_lha_hfd_gse130597",
+  "accession": "GSE130597",
+  "category": "unresolved",
+  "closure": "no_valid_comparison",
+  "summary": "The deposited counts and the authors’ QC rules reproduce the published 10,086 chow and 10,108 HFD cells. The published diet effects are specific to cell clusters. HypoExplorer estimates one pool-adjusted HFD-minus-chow effect across all captured LHA cells summed by mouse.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE130597/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "The published QC totals match in both diets. The registered mixed-cell LHA diet effect has no comparable result in the reviewed author material.",
+      "note": "The GEO TAR and family SOFT match the registered source hashes. Each diet contributed seven mice, four from sequencing pool 1 and three from pool 2. The count-based replay removes 8,216 barcodes and reproduces the notebook medians of 619 detected genes and 961 UMIs. The notebook counts 20,194 cells across 15 clusters. The authors initially test HFD versus chow in all 15, then select clusters 1–8 and 10–15 for the Figure 2 cluster summaries. Those 14 clusters contain 19,891 cells. Cluster 9 contains 303. The supplement describes Data S1 as reporting within-cluster asinh differences, single-cell likelihood-ratio P values and detection fractions. Data S2 covers functional annotation and late versus early pseudotime in HFD glutamatergic cells. The registered edgeR quasi-likelihood analysis sums all 28,410 captured cells by mouse and estimates the HFD-minus-chow log2 fold change with sequencing pool in the design.",
+      "reviewFlags": [
+        "QC membership is reconstructed. The count-based rule excludes GSM3744484 / CATAAGGAAAGG at exactly 26/260 mitochondrial UMIs. The normalized branch of the author code uses inverse-transformed values. Published totals and notebook medians corroborate the reconstruction. A complete author-labelled barcode-to-cluster table was unavailable for row-by-row confirmation in the reviewed sources.",
+        "The September manual review records inspection of both workbooks. Both publisher URLs returned HTTP 403 on the November recheck. Current evidence for their scope comes from the supplementary methods, Figure 2 and the executed notebook."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Rossi et al. manuscript and Figure 1 cohort",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7318865/",
+          "kind": "paper"
+        },
+        {
+          "label": "Executed Stuber lab single-cell analysis notebook",
+          "url": "https://github.com/stuberlab/Rossi-Basiri-et-al-2019/blob/f120a39c3f1bbe987b34ab47e09bc49557d27df6/scRNAseq_analysis/scRNAseq_analysis.ipynb",
+          "kind": "author_result"
+        },
+        {
+          "label": "Supplementary methods and descriptions of Data S1/S2",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/biostudies/S-EPMC/865/S-EPMC7318865/Files/NIHMS1595746-supplement-Supplementary_Material.pdf",
+          "kind": "paper"
+        },
+        {
+          "label": "GEO counts and per-mouse metadata",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE130597",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Author Data S1 cluster-level results",
+          "url": "https://www.science.org/doi/suppl/10.1126/science.aax1184/suppl_file/aax1184_data_s1.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Author Data S2 enrichment and pseudotime results",
+          "url": "https://www.science.org/doi/suppl/10.1126/science.aax1184/suppl_file/aax1184_data_s2.xlsx",
+          "kind": "author_result"
+        }
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "Both analyses orient the diet effect as HFD minus chow. The authors compare QC-retained cells within each cluster using a difference in asinh-transformed group expression and a cell-level likelihood-ratio test. The registered edgeR coefficient compares all captured cells summed by mouse, with sequencing pool adjustment. Of 13,007 author candidate genes and 12,471 registered symbols, 12,130 share an exact name. None supplies comparable paired effects for this track. Effect concordance, P-value agreement and FDR agreement remain unassessed.",
+      "nextStep": "Reopen the registered comparison if the authors provide a mouse-level mixed-LHA diet result with documented cell inclusion, effect definition and orientation. The original fitted object or a mouse/library-qualified barcode-to-cluster table would allow a separate check of cluster membership.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Reconstructed QC membership from all GEO matrices using the author cutoffs and exact mitochondrial count ratios",
+      "value": "28,410 deposited, 20,194 retained, 8,216 excluded",
+      "script": "data/author-validation/continued-sources/GSE130597/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Deposited and reconstructed counts by diet, checked against the published retained counts",
+      "value": "Chow 14,430 to 10,086. HFD 13,980 to 10,108. Both retained totals match Figure 1.",
+      "script": "data/author-validation/continued-sources/GSE130597/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Medians among reconstructed QC-retained cells, checked against the executed notebook",
+      "value": "619 detected genes and 961 UMIs per cell",
+      "script": "data/author-validation/continued-sources/GSE130597/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Sizes of the notebook clusters and the 14 clusters selected for the Figure 2 summaries",
+      "value": "15 clusters total 20,194 cells. The 14 displayed clusters total 19,891. Cluster 9 contains 303.",
+      "script": "data/author-validation/continued-sources/GSE130597/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "Registered biological replication, tested symbols and author candidate-gene scope",
+      "value": "Seven chow and seven HFD mice. The registered table has 12,471 distinct symbols. The author candidate universe contains 13,007 genes, of which 12,130 share an exact name with a registered symbol. That leaves 877 author candidates and 341 registered symbols without an exact-name counterpart. There are zero comparable effect pairs for lha / hfd_vs_control.",
+      "script": "data/author-validation/continued-sources/GSE130597/codex-2026-11-21/refute/recheck.py"
+    },
+    {
+      "claim": "SHA-256 of geo_replication/datasets/GSE130597_mmus_lha_scrna_hfd/processed/GSE130597_DE.tsv, checked against its registered provenance",
+      "value": "06064f79d4bc9ccf572c72dd545f987bbe44abebaade2f0b3b4d11fdcaac4dcd",
+      "script": "data/author-validation/continued-sources/GSE130597/codex-2026-11-21/refute/recheck.py"
+    }
+  ],
+  "openIssues": [
+    "The full author-fitted cluster identities could not be checked for individual barcodes. The QC roster is a reconstruction.",
+    "Neither Excel workbook could be reopened on this pass. The earlier review records direct inspection, and the authors’ methods and code document the scope of the analyses."
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "datasetId": "mouse_hypo_fasting_gse87544",
+  "accession": "GSE87544",
+  "category": "access_blocked",
+  "closure": "no_valid_comparison",
+  "summary": "Chen et al.’s Table S6 is accessible and lists 1,865 selected gene-by-subtype results across 34 neuronal subtypes. HypoExplorer estimates one food-deprived versus fed effect per gene across all hypothalamic cells pooled by mouse. The published subtype effects cannot validate that whole-hypothalamus contrast.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE87544/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "Table S6 reports fasting responses within neuronal subtypes. The registered track pools all hypothalamic cells by mouse.",
+      "note": "The deposited merged matrix and cluster assignments cover the same 14,437 cells. Their seven processed units correspond to the four fed and three food-deprived mice described in the supplemental procedures. The registered exploratory edgeR quasi-likelihood fit adjusts for batch and has one residual degree of freedom. Table S6 reports selected within-subtype MAST hurdle tests with mean expression by feeding condition, log2 fold change and raw P. Its 1,865 listed rows each name a neuronal subtype. The authors provide neither a pooled effect for this track nor a gene-level adjusted P column in Table S6. Whole-track effect concordance and inferential agreement remain unassessed.",
+      "reviewFlags": [
+        "Averaging the selected subtype effects or treating the same gene in different subtypes as replicates would change the biological comparison."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Table S6. Food-deprivation responses within neuronal subtypes",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124717303212-mmc7.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Supplemental procedures, figures and table descriptions",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124717303212-mmc1.pdf",
+          "kind": "paper"
+        },
+        {
+          "label": "Official merged 14,437-cell count matrix",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE87nnn/GSE87544/suppl/GSE87544_Merged_17samples_14437cells_count.txt.gz",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Official 47-cluster cell identities",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE87nnn/GSE87544/suppl/GSE87544_1443737Cells.SVM.cluster.identity.renamed.csv.gz",
+          "kind": "author_result"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The publisher supplies the neuronal subtype DE list in Table S6. It covers the same feeding intervention but supplies no gene-level effect for the all-cell, mouse-level deprived_vs_fed contrast. The GEO files contain counts, normalized expression and cell assignments. An effect comparison or an inference comparison would require a pooled author result.",
+      "nextStep": "Reopen if the authors release gene-level food-deprived versus fed estimates covering all hypothalamic cells from the study mice, with the aggregation unit and model documented.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Table S6 selected results and scope",
+      "value": "1,865 gene-by-subtype rows across 34 neuronal subtypes. All rows have a subtype label. Zero pooled rows.",
+      "script": "data/author-validation/continued-sources/GSE87544/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Cells in the Table S6 subtype summary",
+      "value": "2,315 cells across the listed subtypes (1,064 fed and 1,251 food-deprived).",
+      "script": "data/author-validation/continued-sources/GSE87544/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "GEO merged matrix and normalized expression workspace",
+      "value": "23,284 gene rows and 14,437 cell columns in each. The cell ID sets agree with the cluster-assignment file, which contains 47 unique labels.",
+      "script": "data/author-validation/continued-sources/GSE87544/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "GEO sample supplements represented in the RAW archive",
+      "value": "17 sample files with gene-by-cell count headers.",
+      "script": "data/author-validation/continued-sources/GSE87544/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Registered cohort and model",
+      "value": "14,437 cells in 4 fed and 3 food-deprived units. The batch-adjusted edgeR-QL fit has 1 residual degree of freedom.",
+      "script": "data/author-validation/continued-sources/GSE87544/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Registered DE output",
+      "value": "14,881 unique symbols with finite logFC. The file SHA-256 equals the DE provenance pin bc0cc9e562a5966dff21b54de900d8df3c2aa5b2fc50da2d88bd1cd1bef50c61.",
+      "script": "data/author-validation/continued-sources/GSE87544/codex-2026-11-21/inspect_evidence.py"
+    }
+  ],
+  "openIssues": [
+    "A gene-level author estimate for the registered whole-hypothalamus contrast was not identified in the reviewed material. The historical viewer linked by the authors could not be reached. Whole-track effect and inference concordance remain unassessed."
+  ]
+}

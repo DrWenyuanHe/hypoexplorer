@@ -1,0 +1,96 @@
+{
+  "datasetId": "gse113576",
+  "accession": "GSE113576",
+  "category": "not_located",
+  "closure": "no_valid_comparison",
+  "summary": "The complete Science supplement contains scRNA-seq expression summaries by neuronal cluster and MERFISH images of selected sex-related genes. None reports a gene-level male-versus-female effect across all submitted preoptic cells in the six registered scRNA-seq pools. Table S1 confirms the library assignments, although GEO and the supplementary methods disagree on the number of mice per pool.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE113576/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "processed_source",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "Author cluster and spatial results recovered. The aggregate preoptic sex contrast has no comparable author estimate.",
+      "note": "All nine attachments listed by PMC and BioStudies were recovered and inspected, covering Tables S1–S11 and Figures S1–S22. All 31,299 Table S1 barcodes match GEO, and their sex and replicate assignments reconcile to the six registered pools. Table S2 summarizes expression within neuronal clusters. Figure S8 shows MERFISH images of 11 selected genes from two male and two female animals. The Dryad deposit contains per-cell MERFISH measurements. The reviewed sources provide no author effect, raw P or FDR for the registered all-cell sex contrast.",
+      "reviewFlags": [
+        "GEO and ENA describe three mice per sequencing pool. The scRNA-seq methods on supplement p. 2 report four to five per sex per replicate. The exact donor count for each library remains unresolved.",
+        "Author effect concordance and inference for male_vs_female remain unassessed."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Moffitt et al., primary manuscript and supplementary inventory",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6482113/",
+          "kind": "paper"
+        },
+        {
+          "label": "BioStudies copy of the Science supplementary PDF and workbooks",
+          "url": "https://www.ebi.ac.uk/biostudies/studies/S-EPMC6482113",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO library metadata and submitted count matrix",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE113576",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Author MERFISH per-cell dataset",
+          "url": "https://doi.org/10.5061/dryad.8t8s248",
+          "kind": "processed_data"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "Table S2 reports gene means, 95th percentiles and detection fractions by neuronal cluster. The paper's cluster abundance, targeted MERFISH sex images and Dryad spatial expression data also concern different outcomes or animals. None supplies a full or selected gene-level author effect for the six-pool, all-cell male-versus-female scRNA-seq contrast.",
+      "nextStep": "Reopen the numerical review if an author gene-level estimate for these same libraries and all preoptic cell types becomes available. To reconcile the donor metadata, ask how many mice contributed cells to each of GSM3109253–GSM3109258.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Primary supplementary files recovered and size-checked against the BioStudies inventory, with names matched to PMC XML",
+      "value": "9 of 9 (one PDF and eight workbooks)",
+      "script": "data/author-validation/continued-sources/GSE113576/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Supplementary figures and tables covered",
+      "value": "22 figure captions and 11 table captions. The PDF contains Tables S4, S5 and S9.",
+      "script": "data/author-validation/continued-sources/GSE113576/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered male_vs_female output",
+      "value": "16,145 gene rows. SHA-256 7d369ca05aa51253fcba63a073daa398351f7940c4b86d32ef1d5d942a6084e8 matches the local output provenance.",
+      "script": "data/author-validation/continued-sources/GSE113576/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Table S1 exact barcode join to the full GEO axis",
+      "value": "31,299 shared unique barcodes, 0 GEO-only, 0 S1-only and 0 inconsistent sex or replicate labels.",
+      "script": "data/author-validation/continued-sources/GSE113576/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Cells by sequencing pool in GEO, matched to the registered sample sheet",
+      "value": "Female replicates 1–3: 4,715, 9,845, 451. Male replicates 1–3: 7,385, 6,899, 2,004.",
+      "script": "data/author-validation/continued-sources/GSE113576/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Distinct gene labels in the two neuronal-cluster workbooks",
+      "value": "451 in scRNA-seq Table S2 and 155 in MERFISH Table S8.",
+      "script": "data/author-validation/continued-sources/GSE113576/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Deposited GEO matrix dimensions, verified against both full axis files",
+      "value": "27,998 features by 31,299 barcodes.",
+      "script": "data/author-validation/continued-sources/GSE113576/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "ENA project records",
+      "value": "6 read runs and 0 rows in the processed-analysis report.",
+      "script": "data/author-validation/continued-sources/GSE113576/codex-2026-11-21/audit.py"
+    }
+  ],
+  "openIssues": [
+    "The sources disagree on the number of mice per scRNA-seq pool. Table S1 resolves sex and replicate at the library level, but the individual donor counts require author clarification."
+  ]
+}

@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-styles",
-  "fingerprint": "f35954d1cb0fa200d52667268500cd9f44f1312104e28852bcd9a5b2d574923c",
+  "fingerprint": "9cf391db8868dd9a9a59e138cd4d478caffce118908826cb1e669ad8ccd5294d",
   "outcome": "updated",
-  "explanation": "responsive.css: the library table rules become a fixed layout with per-column widths and a library-only phone min-width; the explorer breadcrumb rules (the 1499px and 1500px blocks and the phone crumb-trail rules) are removed with the breadcrumb, and .explorer-study-dataset and .explorer-hero-link are added; the .volcano-controls and .responsive-details rules go with ResponsiveDetails. The 900px breakpoint and the 3 x 2 phone header grid are unchanged.",
+  "explanation": "Only the comment on DIRECTION_UP_COLOR / DIRECTION_DOWN_COLOR changes: they are the chart fills in CSS-variable form for marks, never for text, which goes through statistics/direction.ts and the *_TEXT_COLOR tokens. The unsupported \"theme-aware\" claim is dropped. No token value changes.",
   "references": [
-    "src/styles/responsive.css",
-    "docs/agent-context/workflows.md",
-    "src/App.tsx"
+    "src/styles/constants.ts",
+    "src/statistics/direction.ts",
+    "DESIGN.md"
   ]
 }

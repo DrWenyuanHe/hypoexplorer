@@ -1,0 +1,15 @@
+{
+  "datasetId": "mouse_hypo_obob_gse167264",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 75 source files matched their recorded hashes and sizes. Figure 5b supports the four-gene comparison: Lepr and Agrp agree with the registered direction, Npy disagrees, and Ghsr has crossing ranks. The corrected proposal records publication access, distinguishes the heatmap from fitted effects, and clarifies gene coverage. It passed the proposal validator.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_obob_gse167264.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_obob_gse167264.json",
+    "data/author-validation/continued-sources/GSE167264/codex-2026-11-21/refute/verify.py"
+  ],
+  "openIssues": [
+    "The Figshare workbook reports the genotype-by-diet interaction. The normal-diet genotype coefficients, P values and FDR remain unavailable for concordance testing.",
+    "The Npy reversal and the discrepancy between the paper’s Lepr description and the labeled figure remain unresolved.",
+    "The registered DE table and local per-gene track each yield 52 genes at BH FDR < 0.05. The local QC summary reports 910. The live data origin returned HTTP 403, so the discrepancy is confirmed only for this checkout."
+  ]
+}

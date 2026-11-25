@@ -1,0 +1,105 @@
+{
+  "datasetId": "mouse_hypo_dr_gse227689",
+  "accession": "GSE227689",
+  "category": "access_blocked",
+  "closure": "compared",
+  "summary": "All 23 genes labeled in the hypothalamus column of Figure 6J agree in direction with the registered acute dietary restriction versus ad libitum result. The registered analysis has no BH FDR discoveries. Table S1 repeats 566 rows across the dietary-restriction and young-plasma sheets, leaving the treatment attribution of 22 hypothalamus-specific labels uncertain.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE227689/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "All 23 Figure 6J hypothalamus directions agree. Table S1 has conflicting treatment labels.",
+      "note": "The GEO count file and family SOFT match their deposited-file pins. The authors’ sample metadata, GEO records and registered fit identify the same four female mice per arm. Figure 6J shows 19 increases and four decreases under acute dietary restriction, all in the registered direction. The accessible BioStudies Table S1 and preprint Table S10 supply selected discovery labels. Neither supplies numeric hypothalamus coefficients or gene-level P and adjusted P for this contrast.",
+      "reviewFlags": [
+        "Table S1 rows 697–1262 agree across all four populated fields in the aDR and YMP sheets. Of 27 rows labeled hypothalamus-specific in the aDR sheet, 22 fall in this block. The other five all have registered nominal P < 0.05 and none has BH FDR < 0.05.",
+        "Figure 6J labels 23 genes. Its Gjb6 and Sgk1 are absent from the workbook’s 23-gene aDR signature class, which lists Gjc2 and Mthfd1l instead. The Figure 6J legend describes 24 genes.",
+        "The public figure supports selected directions. Whole-contrast effect magnitudes, author P/FDR and concordance-v2 acceptance remain unassessed."
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "Every labeled Figure 6J hypothalamus direction agrees with the registered edgeR-QL coefficient (23/23). Table S1 identifies hypothalamus discoveries, yet registered BH FDR < 0.05 calls total zero. The repeated rows across treatments and the figure/workbook signature labels leave the author discovery list unresolved.",
+      "nextStep": "Obtain the authors’ female hy aDR_vs_AL DESeq2 resOrdered or resall export with sample IDs, gene symbols, log2FoldChange, pvalue and padj including NAs. Ask which Table S1 rows 697–1262 belong to aDR and which gene list was used for Figure 6J.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "dietary_restriction_vs_ad_libitum"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Compare the sign for every labeled row in Figure 6J’s Hypoth. column against registered edgeR-QL logFC. Separately compare the aDR sheet’s explicit hypothalamus-specific discovery labels with registered BH calls and flag rows duplicated in YMP. Count Cirbp’s presence in all eligible regions as an inferred discovery.",
+      "reference": "Hahn et al., Cell 186 (2023), Fig. 6J and Table S1, sheet ‘aDR-induced DEGs’. BioStudies S-EPMC10528304 provides the author manuscript workbook. Preprint v3 Fig. 7J and Table S10 reproduce the panel directions and intervention table fields. Author repository scripts 19–21 and its rejuvenation metadata establish the cohort, model and selection.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Both analyses use the same female 19-month C57BL/6JN whole-hypothalamus libraries. Dietary-restriction mouse IDs are 62, 64, 65 and 67. Controls are 63, 66, 68 and 69. Each ID occurs once in this contrast and maps to the same count column, GSM, ENA run and author treatment. Mice were group housed and the tables identify individual animals."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Author DR script 20 fits by region and script 21 reads female hy, aDR_vs_AL. Positive values in the heatmap and registered groupcase coefficient indicate higher expression under dietary restriction. Figure 6A’s legend gives five weeks overall, the Results describe four weeks, and STAR Methods specify seven days at 10% restriction before increasing to 25%. All sources identify the same collection endpoint."
+        },
+        "features": {
+          "status": "matched",
+          "note": "All 23 figure symbols and all 27 explicitly labeled hypothalamus-specific symbols match unique registered rows and one-to-one source features exactly. The workbook and figure name different genes in two signature positions. Each source retains its own labels."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "DESeq2 and edgeR-QL estimate within-hypothalamus log2 treatment effects in the same direction. For the selected panel, 19 positive and four negative author signs agree with the registered coefficients. The color bins do not supply exact author effects for magnitude differences, Pearson or Spearman."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Script 20 uses tissue-specific DESeq2 (~treatment, fitType='local', Cook’s cutoff) and Wald/BH inference. The registered edgeR quasi-likelihood fit uses groupcase and BH. Of 27 aDR-sheet hypothalamus-specific labels, five precede the identical YMP block: Fam13b, Fkbp9, Gpt2, Mapk4 and Trim2. All five have local nominal P < 0.05, none passes local BH FDR < 0.05. The other 22 have ambiguous treatment attribution. Cirbp’s 14/14 regions imply an additional author-positive call in hypothalamus. Exact author P/FDR values are unavailable."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Figure coverage is 23/23 listed symbols and 23/13,804 registered genes. The panel selects genes by cross-region discovery. Complete hypothalamus discovery membership and author test coverage remain unknown. None of the 13,804 registered genes passes BH FDR < 0.05."
+        }
+      },
+      "criteria": "Use every printed gene row in the labeled hypothalamus column, the authors’ cyan-to-yellow log2FC scale, exact symbols and the unchanged aDR-minus-AL orientation. Evaluate author labels using the published BH < 0.05 rule. Missing author statistics remain unassessed. Under author-concordance-v2, selected-reference coverage is 100%, but 23 directional pairs fall below the common 30-pair minimum. Numeric correlations and magnitude metrics are unavailable.",
+      "conclusion": "The selected figure directions agree. The workbook supports a limited discovery comparison and documents a treatment-attribution conflict. The evidence does not support full verification or a comparison spec requiring numeric author effects."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Matched author metadata, GEO titles/characteristics, count columns, ENA runs and registered group assignments",
+      "value": "Four case mice (62, 64, 65, 67) and four control mice (63, 66, 68, 69). The GEO count matrix contains 21,076 gene rows and 238 sample columns. All 238 GSM records list no sample supplement.",
+      "script": "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "All Figure 6J hypothalamus rows compared by exact symbol with the registered coefficient",
+      "value": "23/23 directions agree, 19 up and 4 down. Coverage is 23/23 figure genes and 23/13,804 registered genes. Registered raw P < 0.05 for 17/23, BH FDR < 0.05 for 0/23. Exact author P/FDR is unassessed.",
+      "script": "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Rows identical in the aDR and YMP sheets and their relationship to explicitly hypothalamus-specific aDR labels",
+      "value": "Rows 697–1262 inclusive are identical across the four populated fields (566 rows), in both manuscript Table S1 and preprint Table S10. Of 27 hypothalamus-specific labels on the aDR sheet, 22 occur in this block. All 27 map to registered genes. Five pass registered nominal P < 0.05, all outside the repeated block. None passes registered BH FDR < 0.05.",
+      "script": "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Additional discovery inferred from the number of eligible regions",
+      "value": "Cirbp is listed in 14/14 brain regions after the authors’ posterior hippocampus exclusion. This implies an author-positive call in hypothalamus. The numeric author P and FDR are missing.",
+      "script": "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure versus workbook signature membership",
+      "value": "The figure labels 23 genes and the workbook labels 23 signature genes. Gjb6 and Sgk1 are figure-only. Gjc2 and Mthfd1l are workbook-only in that comparison.",
+      "script": "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered table identity and full registered discovery count",
+      "value": "geo_replication/datasets/GSE227689_mmus_hypothalamus_rejuvenation_dr/processed/GSE227689_DE.tsv, SHA-256 b75b15a5a34e5ec1a9f699289ca32bd3f0b86fc441d096a5f8d24fc8cdb32175. Zero of 13,804 registered genes have BH FDR < 0.05.",
+      "script": "data/author-validation/continued-sources/GSE227689/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "The complete female hypothalamus DESeq2 result, including numeric effects, raw P, adjusted P and missing values, was unavailable in the sources reviewed. The selected panel is below the 30-pair concordance minimum.",
+    "Which rows in the repeated Table S1 block belong to dietary restriction, and which signature list produced Figure 6J? The manuscript workbook and the preprint repeat the same intervention-sheet contents."
+  ]
+}

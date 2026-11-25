@@ -22,14 +22,16 @@ import { DEFAULT_FDR_CUTOFF, NOMINAL_P_CUTOFF, type SignificanceTier } from '../
 import { GENE_KEYS, PATHWAY_KEYS, listCrossStudy, type Listed } from '../statistics/crossStudyListing';
 import { useListingMode } from '../statistics/listingModeStore';
 import { ListingModeToggle, QTerm } from '../statistics/ListingModeToggle';
-import { DOWN_TEXT_COLOR, UP_TEXT_COLOR } from '../styles/constants';
-import { fmtFDR, fmtP, fmtSigned } from '../utils/format';
+import { directionTextColor } from '../statistics/direction';
+import { leadingTracks, nominalCaveat } from '../statistics/listingWords';
+import type { ListingMode } from '../statistics/listingModeStore';
+import { fmtFDR, fmtP, fmtSigned, plural } from '../utils/format';
 import { tabKeyTarget } from '../utils/tabKeys';
 import { DbBadge } from './DbBadge';
 import { searchAll, describePathway } from './searchVocabulary';
 import { useSearchVocabulary } from './useSearchVocabulary';
 import { UnifiedSearchBox } from './UnifiedSearchBox';
-import { Effect, PlaceholderSlot, dirColor, plural, useLoad } from './portalCards';
+import { Effect, PlaceholderSlot, useLoad } from './portalCards';
 import { TierLabel } from '../statistics/TierLabel';
 import { SUMMARY_TOP, loadGeneSummary, loadPathwaySummary, type GeneSummary } from './searchSummaries';
 import type { GeneHit, PathwayHit, SearchFilter, SearchResults } from './searchTypes';
@@ -381,8 +383,8 @@ function GeneRowSummary({ summary }: { summary: GeneSummary }) {
       {tracksSignificant > 0 ? (
         <span className="search-row-verdict">
           Significant in <b>{studiesSignificant}</b> of <b>{studiesMeasured}</b> datasets
-          {' · '}<span style={{ color: UP_TEXT_COLOR }}><b>{up}</b> {up === 1 ? 'track' : 'tracks'} up</span>
-          {' · '}<span style={{ color: DOWN_TEXT_COLOR }}><b>{down}</b> down</span>
+          {' · '}<span style={{ color: directionTextColor('up', 'fdr') }}><b>{up}</b> {up === 1 ? 'track' : 'tracks'} up</span>
+          {' · '}<span style={{ color: directionTextColor('down', 'fdr') }}><b>{down}</b> down</span>
           {tracksNominal > 0 && (
             <span className="portal-cutoff"> · {plural(tracksNominal, 'more track')} at p &lt; {NOMINAL_P_CUTOFF} only</span>
           )}
@@ -400,7 +402,7 @@ function GeneRowSummary({ summary }: { summary: GeneSummary }) {
         <span className="search-row-strongest-label">{passes ? 'Strongest' : 'Closest'}</span>
         {strongest.group.dataset.name} · {strongest.track.label || strongest.track.trackId}
         {/* The sign carries the direction, so the colour is not its only cue. */}
-        {' '}<span className="mono" style={{ color: dirColor(strongest.track.direction, passes) }}>log2FC {fmtSigned(strongest.track.logFC, 2)}</span>
+        {' '}<span className="mono" style={{ color: directionTextColor(strongest.track.direction, strongest.track.tier) }}>log2FC {fmtSigned(strongest.track.logFC, 2)}</span>
         {!passes && <>{' '}<span className="mono">p {fmtP(strongest.track.pval)}</span></>}
         {' '}<span className="mono"><QTerm focusable={false} /> {fmtFDR(strongest.track.fdr)}</span>
       </span>
@@ -529,17 +531,14 @@ function IndexUnavailable({ what }: { what: string }) {
 }
 
 /** How many leading rows the table leaves to the full report, in the mode's words. */
-function moreNote(hidden: number, nominalMode: boolean): string | null {
+function moreNote(hidden: number, mode: ListingMode): string | null {
   if (hidden <= 0) return null;
-  return nominalMode
-    ? `${plural(hidden, 'more track')} at p < ${NOMINAL_P_CUTOFF} in the full report.`
-    : `${plural(hidden, 'more significant track')} in the full report.`;
+  return `${leadingTracks(mode, hidden, { more: true })} in the full report.`;
 }
 
 function PathwaySection({ pathwayId, onOpenPathway }: { pathwayId: string; onOpenPathway: (id: string) => void }) {
   const load = useLoad(pathwayId, loadPathwaySummary);
   const mode = useListingMode();
-  const nominalMode = mode === 'nominal';
   const summary = load.state === 'done' ? load.value : null;
   const listing = useMemo(
     () => (summary ? listCrossStudy(summary.groups, mode, PATHWAY_KEYS, 'significance') : null),
@@ -547,7 +546,7 @@ function PathwaySection({ pathwayId, onOpenPathway }: { pathwayId: string; onOpe
   );
   // What leads, or, when nothing does, where the pathway came closest.
   const rows = listing ? (listing.lead.length > 0 ? listing.lead : listing.rest).slice(0, SUMMARY_TOP) : [];
-  const more = listing && listing.lead.length > 0 ? moreNote(listing.lead.length - rows.length, nominalMode) : null;
+  const more = listing && listing.lead.length > 0 ? moreNote(listing.lead.length - rows.length, mode) : null;
   return (
     <section className="portal-card portal-card--wide" data-section="enrichment" aria-labelledby="portal-enrichment-title">
       <h3 id="portal-enrichment-title" className="portal-card-title">Enrichment across studies</h3>
@@ -564,8 +563,8 @@ function PathwaySection({ pathwayId, onOpenPathway }: { pathwayId: string; onOpe
             across <b>{listing.datasets.fdr}</b> {listing.datasets.fdr === 1 ? 'study' : 'studies'}
             {listing.tracks.fdr > 0 && (
               <>
-                {' · '}<span style={{ color: UP_TEXT_COLOR }}><b>{listing.tracks.up}</b> up</span>
-                {' · '}<span style={{ color: DOWN_TEXT_COLOR }}><b>{listing.tracks.down}</b> down</span>
+                {' · '}<span style={{ color: directionTextColor('up', 'fdr') }}><b>{listing.tracks.up}</b> up</span>
+                {' · '}<span style={{ color: directionTextColor('down', 'fdr') }}><b>{listing.tracks.down}</b> down</span>
               </>
             )}
           </p>
@@ -577,8 +576,8 @@ function PathwaySection({ pathwayId, onOpenPathway }: { pathwayId: string; onOpe
             <p className="portal-note">
               {listing.tracks.fdr > 0 ? 'A further' : 'None passes FDR; '} <b>{listing.nominal.tracks}</b>
               {' '}{listing.nominal.tracks === 1 ? 'track reaches' : 'tracks reach'} p &lt; {NOMINAL_P_CUTOFF} without
-              passing FDR ({listing.nominal.up} up · {listing.nominal.down} down). These are nominal: not corrected for
-              testing many pathways and tracks, so some are expected by chance.
+              passing FDR ({listing.nominal.up} up · {listing.nominal.down} down). These are nominal:{' '}
+              {nominalCaveat('pathway')}
             </p>
           ) : listing.tracks.fdr === 0 && (
             <p className="portal-note">No track reaches p &lt; {NOMINAL_P_CUTOFF}. The lowest p-values are listed.</p>
@@ -586,7 +585,7 @@ function PathwaySection({ pathwayId, onOpenPathway }: { pathwayId: string; onOpe
           <SummaryTable<PathwayTrackRow>
             rows={rows}
             effectHeader="NES"
-            effect={(t) => <Effect value={t.NES} direction={t.direction} significant={t.significant} />}
+            effect={(t) => <Effect value={t.NES} direction={t.direction} tier={t.tier} />}
             p={(t) => t.pval}
             q={(t) => t.padj}
             qHeader="padj"

@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_arc_hfd_gse225038",
+  "outcome": "upheld_with_corrections",
+  "summary": "The `no_valid_comparison` closure stands. All 46 source files matched their recorded sizes and SHA-256 hashes, and all five computations reproduced. The proposal overlooked the isoform abundance bars in Figure 1E–F. Summing them could approximate total Agrp for the plotted mice, but the caption reports four chow mice and GEO identifies three chow-control libraries. The corrected proposal leaves figure membership unresolved and passes the repository validator. [Figure 1](https://pmc.ncbi.nlm.nih.gov/articles/PMC10866620/figure/F0001/)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_arc_hfd_gse225038.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_arc_hfd_gse225038.json",
+    "data/author-validation/continued-sources/GSE225038/codex-2026-11-21/refute/recheck.py"
+  ],
+  "openIssues": [
+    "The public records do not identify the samples plotted in Figure 1E–F or explain the chow group-size discrepancy.",
+    "Agreement with author whole-gene effects, raw P values and FDR remains unassessed for the registered HFD-minus-chow contrast."
+  ]
+}

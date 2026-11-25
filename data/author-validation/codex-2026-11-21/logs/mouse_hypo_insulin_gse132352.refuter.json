@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_hypo_insulin_gse132352",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 32 source files matched their recorded hashes and sizes. The saved comparison reproduced all seven computed claims, but its gene join incorrectly excluded Oaz2. Including it gives 2,123 paired genes, all agreeing in direction, and raises the paired author FDR calls from 1,220 to 1,221. Fourteen calls are shared. Both concordance criteria pass for the author-selected list, and the corrected proposal passed the repository validator.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_insulin_gse132352.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_insulin_gse132352.json",
+    "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/refute/audit.py"
+  ],
+  "openIssues": [
+    "The retained TSV reproduces 2,122 pairs. The independent audit reproduces all 2,123, including Oaz2.",
+    "Full-universe concordance remains unassessed. The unfiltered author results and exact fitted sample roster were unavailable, and GEO and the paper report different genome patch versions."
+  ]
+}

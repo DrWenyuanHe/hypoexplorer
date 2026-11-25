@@ -18,7 +18,6 @@ import { VersionBadge } from './pwa/VersionBadge';
 import { LoadingOverlay } from './common/LoadingOverlay';
 import { Spinner } from './common/Spinner';
 import { Skeleton } from './common/Skeleton';
-import { BetaNotice } from './common/BetaNotice';
 import { BrandLink } from './common/BrandLink';
 import { LandingHub } from './hub/LandingHub';
 import { CellNavigator } from './explorer/CellNavigator';
@@ -204,19 +203,6 @@ function AppViews({ initialView = 'hub' }: AppProps) {
       ? prev : { datasetId: activeDatasetId, view, epoch: prev.epoch }));
   }, [activeDatasetId]);
   const compareViewHere = compareView.datasetId === activeDatasetId ? compareView.view : undefined;
-  const selectTrack = useCallback((trackId: string) => navigate({ type: 'track', trackId }), [navigate]);
-  const selectTab = useCallback((tab: string) => navigate({ type: 'tab', tab }), [navigate]);
-
-  // Cross-tab action: merge a list of genes into the Gene Explorer selection
-  // and switch to the Gene Explorer tab. Used by Pathway Explorer's
-  // "Send leading-edge genes →" button.
-  const { addMany: addGenes } = geneSelection;
-  const sendGenesToGeneExplorer = useCallback((genes: string[]) => {
-    if (!genes?.length) return;
-    addGenes(genes);
-    navigate({ type: 'tab', tab: 'gene' });
-  }, [addGenes, navigate]);
-
 
   // ── Navigation ──────────────────────────────────────────────────────
   // Where the user is lives in the router; how an explorer route lands is the
@@ -255,8 +241,30 @@ function AppViews({ initialView = 'hub' }: AppProps) {
     openLibrary, setLibraryDataset, setLibraryCategories, libraryDatasetId, libraryCategories,
     compareSetItems, openCompareSet, setCompareSetItems,
     geneStudySelection, pathwayStudySelection, setGeneStudySelection, setPathwayStudySelection,
-    searchQuery, searchFilter, search, setSearchFilter,
+    searchQuery, searchFilter, search, setSearchFilter, supersede,
   } = useAppRouter(initialView, explorerNav, explorerAt);
+
+  // The shell's own controls are user-originated changes the router does not
+  // make itself, so each retires any link still landing before it moves the
+  // explorer; otherwise that link's metadata check could resolve afterwards
+  // and drag the shell back. Intents the router delivers go through
+  // `explorerNav` untouched: a landing must not cancel itself.
+  const navigateByUser = useCallback((intent: NavigationIntent) => {
+    supersede();
+    navigate(intent);
+  }, [supersede, navigate]);
+  const selectTrack = useCallback((trackId: string) => navigateByUser({ type: 'track', trackId }), [navigateByUser]);
+  const selectTab = useCallback((tab: string) => navigateByUser({ type: 'tab', tab }), [navigateByUser]);
+
+  // Cross-tab action: merge a list of genes into the Gene Explorer selection
+  // and switch to the Gene Explorer tab. Used by Pathway Explorer's
+  // "Send leading-edge genes →" button.
+  const { addMany: addGenes } = geneSelection;
+  const sendGenesToGeneExplorer = useCallback((genes: string[]) => {
+    if (!genes?.length) return;
+    addGenes(genes);
+    navigateByUser({ type: 'tab', tab: 'gene' });
+  }, [addGenes, navigateByUser]);
 
   // The compare set, for the explorer topbar's toggle — subscribed here so the
   // toggle follows a change made from any other surface. The toggle names the
@@ -362,6 +370,16 @@ function AppViews({ initialView = 'hub' }: AppProps) {
   const primaryLink = datasetLinks.find((l) => l.kind === 'repository') ?? datasetLinks[0] ?? null;
 
   // ── Full-page views outside the explorer shell ──
+  // A refused link applies nothing, so the view it was followed from is still
+  // set; the error page goes ahead of every view, or that view would hide it.
+  if (routeError) return (
+    <main style={{ maxWidth: 640, margin: '64px auto', padding: 24 }}>
+      <h1>Analysis link unavailable</h1>
+      <p role="alert">{routeError}</p>
+      <button type="button" onClick={goHome}>Return home</button>
+    </main>
+  );
+
   if (view === 'expression') {
     return <ErrorBoundary><Suspense fallback={<div role="status" style={{ padding: 32 }}>Opening expression survey…</div>}><ExpressionSurveyView onHome={goHome} onOpenGene={openGeneSurvey} /></Suspense></ErrorBoundary>;
   }
@@ -399,14 +417,6 @@ function AppViews({ initialView = 'hub' }: AppProps) {
         headerRight={<><ShareAnalysisButton /><CompareSetButton onCompare={openCompareSet} onOpenLibrary={openLibraryPlain} /></>}
       />
     </ErrorBoundary>
-  );
-
-  if (routeError) return (
-    <main style={{ maxWidth: 640, margin: '64px auto', padding: 24 }}>
-      <h1>Analysis link unavailable</h1>
-      <p role="alert">{routeError}</p>
-      <button type="button" onClick={goHome}>Return home</button>
-    </main>
   );
 
   // A report always names its term. The router never opens one without it; a
@@ -573,7 +583,6 @@ function AppViews({ initialView = 'hub' }: AppProps) {
             </button>
           </div>
         </div>
-        <BetaNotice compact />
       </header>
 
       {/* Load error (pinned above body-row so it appears even on initial load failure) */}
@@ -756,7 +765,7 @@ function AppViews({ initialView = 'hub' }: AppProps) {
           search={cellSearch}
           onSearchChange={setCellSearch}
           onSelectTrack={selectTrack}
-          onLeaveCompare={() => navigate({ type: 'leaveCompare' })}
+          onLeaveCompare={() => navigateByUser({ type: 'leaveCompare' })}
         />
 
         {/* Main column */}
@@ -840,7 +849,7 @@ function AppViews({ initialView = 'hub' }: AppProps) {
                     <select
                       aria-label="Active contrast"
                       value={contrast?.id ?? ''}
-                      onChange={(e) => navigate({ type: 'contrast', contrastId: e.target.value })}
+                      onChange={(e) => navigateByUser({ type: 'contrast', contrastId: e.target.value })}
                       style={{
                         fontSize: 12, fontFamily: FONT_MONO,
                         color: 'var(--text-primary)', background: 'var(--bg-panel)',

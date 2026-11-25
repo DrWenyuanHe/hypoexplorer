@@ -1,0 +1,53 @@
+{
+  "datasetId": "mouse_gt17_alisolb_gse253875",
+  "accession": "GSE253875",
+  "category": "not_located",
+  "closure": "confirmed_not_located",
+  "summary": "The GEO deposit supplies per-sample counts and FPKM for the registered Alisol B versus control experiment. A search of publications, preprints, supplements and public repositories located no author gene-level effects or tests for that contrast. Author concordance remains unassessed.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE253875/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "GT1-7 expression inputs verified, author contrast results not located",
+      "note": "The freshly retrieved GEO count matrix and family SOFT match the registered intake checksums. Counts and FPKM each contain 54,532 genes, sample expression and annotation. The six sample records have no separate supplements. Related GT1-7 papers used other interventions, and the documented public search found no same-contrast author effects or inference. The sample labels establish group membership but leave culture independence undocumented.",
+      "reviewFlags": [],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "GEO provides expression per sample and ENA indexes sequencing reads. The checked publications, preprints, supplement indexes and repositories did not yield gene-level author results for alisol_b_vs_control.",
+      "nextStep": "Reopen if a manuscript, supplement or depositor table supplies gene-level results for the 24-hour 0.125 µM Alisol B versus control GT1-7 experiment. Confirm sample membership, direction and tested-gene coverage before comparing.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Unique Ensembl gene IDs in each GEO expression matrix",
+      "value": "54,532 in counts and 54,532 in FPKM, with identical ID sets",
+      "script": "data/author-validation/continued-sources/GSE253875/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "GEO profile assignments and sample supplements",
+      "value": "3 Alisol B and 3 control profiles. All 6 report NONE for sample supplements and zero sample data rows.",
+      "script": "data/author-validation/continued-sources/GSE253875/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered edgeR-QL DE table",
+      "value": "15,245 rows. SHA-256 bcbc9afa29bd84976291ad677edefd667a67b0e11597dd576a5e46fb53e0de48",
+      "script": "data/author-validation/continued-sources/GSE253875/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "ENA records for PRJNA1067600",
+      "value": "6 sequencing runs and 0 analysis records",
+      "script": "data/author-validation/continued-sources/GSE253875/codex-2026-11-21/audit.py"
+    }
+  ],
+  "openIssues": [
+    "The authors' effect estimates, tested-gene universe, P values and FDR remain unavailable for this contrast.",
+    "The depositor's replicate labels do not establish whether libraries came from independent culture preparations."
+  ]
+}

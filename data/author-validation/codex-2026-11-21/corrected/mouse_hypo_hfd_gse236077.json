@@ -1,0 +1,72 @@
+{
+  "datasetId": "mouse_hypo_hfd_gse236077",
+  "accession": "GSE236077",
+  "category": "not_located",
+  "closure": "confirmed_not_located",
+  "summary": "For 16-hour hypothalamus HFD versus chow, the authors reported two discoveries. The public sources reviewed yielded an aggregate count without gene-level results. The registered edgeR-QL table has zero discoveries among 21,906 published symbols and includes one HFD library excluded from the author fit.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE236077/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "The authors report two 16-hour hypothalamic HFD discoveries without naming the genes",
+      "note": "All 57,010 Ensembl IDs and all 185 count columns agree in order between GEO and the specimen-named author matrix. The 12 registered columns resolve to six chow and six HFD hypothalamus libraries. The author DESeq2 model fitted diet jointly across six chow, five HFD and five fasted libraries. Both analyses estimate log2 expression change for HFD relative to chow. Table 1 gives two discoveries. The archived notebook applies adjusted P < 0.05 and exports the same count. The registered edgeR-QL table has zero of 21,906 published symbols below that cutoff. Gene-level effect and inference concordance remain unassessed.",
+      "reviewFlags": [
+        "The 16-hour study randomized three cages per diet, with two mice per cage. Both fits use diet without a cage term. The registered two-arm fit also retains S0010_13_HFD_HY (GSM7517859, count-column label GSM7517883), which the authors excluded after all-region PCA.",
+        "The archived DESeq2 code keeps genes with at least 10 reads summed across its 16 libraries. The paper's Methods describe discarding genes with 10 or fewer. The two rules differ for 402 Ensembl IDs.",
+        "The retained GEO count file matches the committed input SHA-256 in data/internal-qc/assessments.generated.json. That record and the registered provenance also give the derived matrix hash. The derived gzip was absent from this checkout. All 12 selected column totals match the registered normalization table.",
+        "The saved author results identify neither discovery and supply no per-gene effects, P values or adjusted P values."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "Table 1, the archived DE notebook display and its CSV all report the same count. The searched publication assets, GEO deposits and author archives yielded no original gene-level HFD-versus-chow results. The public counts and code allow reconstruction of the input feature set. There are zero paired author and registered effects on which to assess concordance.",
+      "nextStep": "Obtain the authors' original run-0010 HY DESeq2 results for HFD relative to chow, including Ensembl IDs, log2 fold changes, raw and adjusted P values, and missing values. Confirm the count cutoff and account for the cage randomization, excluded HFD library and joint three-diet fit when interpreting a comparison.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Published HY HFD-versus-chow discoveries at author adjusted P < 0.05",
+      "value": "Table 1 reports 2. The archived DESeq2 notebook applies padj < 0.05 to HFD relative to chow. Its saved output and 06_degs/deg_summary.csv both report 2 for run 0010, HY.",
+      "script": "data/author-validation/continued-sources/GSE236077/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Registered HY hfd_vs_chow output",
+      "value": "21,906 unique published symbols, all with finite adjusted P values. None is below 0.05. The minimum is 0.78618863583372. Registered provenance records 22,058 tested rows including 152 unmapped rows.",
+      "script": "data/author-validation/continued-sources/GSE236077/codex-2026-11-21/refute/check_evidence.py"
+    },
+    {
+      "claim": "GEO sample supplement inventory",
+      "value": "185 of 185 GSM records declare NONE. Both series-level supplementary files were opened. The series matrix has 0 feature rows.",
+      "script": "data/author-validation/continued-sources/GSE236077/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Counts and specimen identity",
+      "value": "57,010 gene rows and 185 sample columns. All feature IDs and count values agree in order with the specimen-named Zenodo matrix. GEO repeats 37 distinct GSM headers across the sample columns.",
+      "script": "data/author-validation/continued-sources/GSE236077/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Registered and author model membership",
+      "value": "The registered fit used 6 chow and 6 HFD libraries. The authors used 6 chow, 5 HFD and 5 fasted libraries. S0010_13_HFD_HY failed all-region PCA QC. S0010_12_fast_HY failed STAR QC. Three cages supplied each diet group.",
+      "script": "data/author-validation/continued-sources/GSE236077/codex-2026-11-21/refute/check_evidence.py"
+    },
+    {
+      "claim": "Archived publication and study code coverage",
+      "value": "The Europe PMC export contains 8 images of 4 main figures. The 8 Zenodo version records describe 5 distinct ZIP checksums. The full cited ZIP and the 4 historical central directories list only the DE notebook and count-summary CSV under 06_degs/.",
+      "script": "data/author-validation/continued-sources/GSE236077/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Reconstructed author model input under the two documented count rules",
+      "value": "Across the 16 retained run-0010 HY libraries, 34,777 unique Ensembl IDs sum to at least 10 reads and 34,375 sum to more than 10. Exactly 402 sum to 10. The first count follows the notebook, the second the Methods. Neither supplies the genes with finite original adjusted P values.",
+      "script": "data/author-validation/continued-sources/GSE236077/codex-2026-11-21/refute/check_evidence.py"
+    }
+  ],
+  "openIssues": [
+    "The reviewed public sources yielded no original contrast table or fitted DESeq2 object. The identities of the two discoveries, their effects and statistics, and the set with finite original P or adjusted P values remain unverified."
+  ]
+}

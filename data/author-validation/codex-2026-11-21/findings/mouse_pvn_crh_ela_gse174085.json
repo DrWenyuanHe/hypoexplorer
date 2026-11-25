@@ -1,0 +1,99 @@
+{
+  "datasetId": "mouse_pvn_crh_ela_gse174085",
+  "accession": "GSE174085",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "The registered contrast uses 602 deposited cells from 24 litters. The published neuronal result uses 254 selected cells whose individual identities are missing, and its Methods and Figure 2 caption disagree on the treatment counts. Recounting the public matrix against Table S1 localizes the initial QC discrepancy to B19, B21 and L12.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE174085/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "L13 is LBN/ELA. Initial QC and final neuronal membership still need the authors’ cell IDs.",
+      "note": "The public count matrix and author supplement match the historical SHA-256 pins. The fresh SOFT gzip differs from its older compressed-file pin, although its GSM titles, ages and deposited conditions reconcile with the matrix and samplesheet. Table S1 supports assigning all 21 L13 cells to ELA and identifies batches as litters. The registered age-adjusted edgeR result uses all 602 cells, summed across 14 control and 10 ELA litters, conserves 775,873,967 counts, and has 237 FDR < 0.05 calls and 687 FDR < 0.1 calls. Counting more than 1,000 positive gene rows gives 514 cells against 511 in Table S1, with one excess each in B19, B21 and L12. The study analyst’s dissertation traces selection from 511 to 430 after Pgr15l exclusion and then to 254 neurons from clusters 2–5. Its Table 3.2 gives directions for 46 selected genes from those neurons. The tested cells cannot be linked individually to the deposited columns using the reviewed records.",
+      "reviewFlags": [
+        "The published Methods give 101 control and 153 ELA neurons, while the Figure 2 caption gives 102 and 152. Exact membership and treatment assignments for the neuronal DE fit remain unresolved.",
+        "Table S1 sums to 47 control and 38 ELA pups. The supplement’s dissection text gives 50 and 38. Both sources support 14 control and 10 ELA litters, the registered units of replication."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Short et al. — Methods, Results and Figure 2",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9874075/",
+          "kind": "paper"
+        },
+        {
+          "label": "Author Supplementary Table S1 and Figures S1–S6",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC9874075.1/mmc1.pdf",
+          "kind": "author_result"
+        },
+        {
+          "label": "C. W. Thai dissertation — chapter 3, cell selection and Table 3.2",
+          "url": "https://escholarship.org/uc/item/65x870zq",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO GSE174085 deposited matrix and sample records",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE174085",
+          "kind": "processed_data"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The available treatment directions and figures refer to a selected 254-neuron cohort. The registered output uses all deposited cell types pooled by litter. Table S1 gives litter totals only, and the two published arm counts for the final neuronal test conflict. Author-concordance-v2 cohort compatibility cannot be established for the registered output.",
+      "nextStep": "Ask for the GEO matrix-column IDs or GSMs for the initial 511 cells and the 254 cells used in Figure 2 DE, including each cell’s litter, rearing arm, Pgr15l exclusion and cluster. Ask which feature definition and filter order reconcile B19, B21 and L12 and which control/ELA split entered the fit. Use that map for a separately scoped author-cohort analysis. A direct registered-output comparison requires an author reference for the all-cell litter contrast.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Deposited matrix columns, total counts and litter assignment after the L13 override",
+      "value": "602 cells, 775873967 counts, 263 cells in 14 control litters and 339 cells in 10 ELA litters",
+      "script": "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Initial QC from positive count rows > 1000 versus Supplementary Table S1",
+      "value": "514 versus 511. B19 10 versus 9, B21 27 versus 26, L12 28 versus 27. All other litter totals agree.",
+      "script": "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Separate count-based proxy for the dissertation’s four-cells-in-either-arm gene rule followed by at least 1000 expressed rows",
+      "value": "514 cells, with the same three one-cell excesses",
+      "script": "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Published neuronal totals, in control/ELA order, extracted from the article XML",
+      "value": "Methods 101/153. Figure 2 caption 102/152.",
+      "script": "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Sum of the five control/ELA cluster counts stated in dissertation section 3.3.1",
+      "value": "102/153",
+      "script": "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Directions in dissertation Table 3.2 for the selected neurons",
+      "value": "28 control-enriched and 18 ELA-enriched gene symbols",
+      "script": "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Pups summed across Table S1 litter rows in control/ELA order",
+      "value": "47/38",
+      "script": "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered DE table only",
+      "value": "24181 tested symbols, 237 at FDR < 0.05 and 687 at FDR < 0.1",
+      "script": "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/audit.py"
+    }
+  ],
+  "openIssues": [
+    "Which deposited cell IDs, litter and treatment labels, and cluster assignments define the initial QC set and the neurons used for Figure 2 DE? The public sources disagree on the final arm counts.",
+    "Which feature definition and filtering order account for the excess qualifying cell in each of B19, B21 and L12? The count-based checks do not identify an author exclusion.",
+    "How many control pups contributed across the Table S1 litters, given the difference between the table and the dissection text?"
+  ]
+}

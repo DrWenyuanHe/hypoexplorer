@@ -1,0 +1,15 @@
+{
+  "datasetId": "mouse_hypothalamic_cells_mogroside_gse275887",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 42 source hashes and sizes matched, and all 10 proposed computations reproduced. All six libraries registered as normal glucose match the published high-glucose sheet. Their actual glucose exposure remains unresolved, so `needs_author_contact` is justified. The corrected proposal passed the ledger validator. Fresh publisher downloads returned HTTP 403, so I verified the retained XML and supplement. [GEO record](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE275887) · [Published study](https://www.mdpi.com/2076-3417/15/23/12391)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypothalamic_cells_mogroside_gse275887.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypothalamic_cells_mogroside_gse275887.json",
+    "data/author-validation/continued-sources/GSE275887/codex-2026-11-21/refute/check.py"
+  ],
+  "openIssues": [
+    "A plate-to-library key is needed to establish glucose exposure and identify the original N3_2 file. Its 3,636,609 assigned gene counts are recoverable, while both MO21 and MO23 deposited files match N2_3.",
+    "Figure 2 and Supplementary File S1 agree on 17 normal-glucose and 16 high-glucose calls. Figure 5 and the discussion report 18 in each group.",
+    "Independent culture replication remains undocumented, and GEO and the paper name different RNA library-preparation kits."
+  ]
+}

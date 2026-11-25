@@ -1,0 +1,124 @@
+{
+  "datasetId": "mouse_arc_pyy_glp1_gse160802",
+  "accession": "GSE160802",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "Supplementary Figure 8D shows both ARC treatment arms for 21 named genes. Of the 19 genes with a registered coefficient, 12 agree with the plotted expression direction and seven differ. Figure 8B reports 48 upregulated and 126 downregulated ARC genes, while the registered table has zero discoveries at the paper’s stated FDR < 0.01.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE160802/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "Published ARC heatmap directions compared for 19 genes, with an unresolved discovery-count discrepancy",
+      "note": "Boland et al., Supplementary Figure 8D includes 21 pathway-selected genes with separate ARC vehicle and Fc-PYY3–36 plus Fc-GLP-1 colors. Twelve of 19 available edgeR-QL coefficients have the displayed direction and seven differ. Hs3st2 and Lyve1 have deposited Ensembl IDs but no registered DE row. Figure 8B’s embedded data give 48 up and 126 down in ARC. The registered table has no BH-adjusted P below 0.01. The ARC sample sheet agrees with the GEO records and Figure 8A arm sizes. The sequencing experiment used lean mice four hours after coadministration.",
+      "reviewFlags": [
+        "The registry citation describes obese-diabetic mice and mentions IP118 alone. Cohort F was lean, and GEO identifies the treatment as IP118 plus PY115. The registry file and contrast have been reviewed in place.",
+        "Neither the figure nor the deposited counts supply ARC DESeq2 coefficients, gene-wise P values, FDR, or the identities of the 174 Figure 8B discoveries. The 21 displayed genes were selected across pathways and regions.",
+        "The prior ledger flags the absence of a committed legacy source checksum manifest. The downloaded GEO count file is hashed in the dated evidence folder."
+      ],
+      "reviewedAt": "2026-11-21",
+      "paperAccess": "pmc_full_text",
+      "evidenceLinks": [
+        {
+          "kind": "paper",
+          "label": "Boland et al., cohort F and RNA-seq methods",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8717237/"
+        },
+        {
+          "kind": "author_result",
+          "label": "Publisher supplement, Figure 8 and embedded Prism data",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2212877821002477-mmc2.pptx"
+        },
+        {
+          "kind": "database",
+          "label": "GEO series and source count matrix",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE160802"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "Figure 8D permits a directional comparison for 19 selected genes. Twelve agree and seven differ between the plotted ARC arm ordering and registered edgeR logFC. Figure 8B gives 174 ARC discoveries, whereas none of the 13,452 registered rows meets the stated FDR < 0.01. The published materials do not establish which genes account for the discovery-count difference.",
+      "nextStep": "Obtain the per-gene ARC DESeq2 output used for Figure 8B, including all tested IDs, coefficients, P and adjusted P values, retained libraries, filtering, design and contrast. Confirm the selection rule behind the bar counts and how the two ARC z-scores per row in Figure 8D were summarized.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "agonist_vs_vehicle"
+      ],
+      "basis": "Compare the within-gene ordering of the two ARC colors in Supplementary Figure 8D with the sign of the registered edgeR-QL coefficient. Include every labeled row in source order. Separately compare the ARC total in the embedded Figure 8B data with the number of published registered rows below the paper’s stated FDR cutoff.",
+      "reference": "Boland et al., Molecular Metabolism 55, 101392, Supplementary Figure 8A–D. The publisher’s mmc2.pptx matches the PMC and Europe PMC supplements byte for byte. Figure 8B contains a Prism bar dataset and Figure 8D contains editable gene labels and cell colors.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "The paper identifies eight-week-old lean male C57BL6/J mice in cohort F. All 19 deposited ARC library IDs and treatments agree with the registered sample sheet. Figure 8A’s PCA object contains nine ARC vehicle and ten ARC coadministration observations. An author DESeq2 design with per-library inclusion and covariates was unavailable."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "The registered arcuate coefficient is IP118 plus PY115 minus vehicle, four hours after injection. GEO and panels 8A–D identify ARC. The cohort description in Methods and the opening supplement legend use AP in a region list, while the Results, panel labels and deposit identify the ARC tissue used here."
+        },
+        "features": {
+          "status": "limited",
+          "note": "Each of the 21 figure symbols has a unique deposited Ensembl ID in the registered feature map. Nineteen have a published coefficient. Hs3st2 and Lyve1 are mapped in the input and have no registered DE row. The author’s all-tested feature list was unavailable."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "The printed color scale orders relative expression from blue (low) to red (high). The ARC coadministration versus vehicle ordering agrees for 12 of 19 paired genes and is opposite for Slc2a1, St3gal1, Adpgk, Gns, Socs3, Plk2 and Foxo6. Some color differences are slight. Exact fills and shape IDs are retained. Numeric author log2 effects, magnitudes and Pearson/Spearman correlations remain unassessed."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The paper describes DESeq2 and FDR < 0.01. Figure 8B’s source gives 48 up and 126 down in ARC. The registered group-only edgeR-QL table has zero published rows with BH-adjusted P < 0.01 or < 0.05. Figure 8D supplies no per-gene ARC significance calls or P/FDR values. Gene-wise author inference and the cause of the count discrepancy remain unassessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The comparison includes every one of the 21 pathway-selected Figure 8D rows. Nineteen pair with the 13,452-row registered table (19/21 of this reference and 19/13,452 of the output). The two missing coefficients are recorded separately. Figure 8B does not name the discoveries. The paper provides no whole-universe effect table in the reviewed sources."
+        }
+      },
+      "criteria": "Use the specified ARC arm order and every displayed gene, joining only unique identifiers. Figure colors support direction only. Author-concordance-v2 requires at least 30 paired genes and 90% relevant coverage, plus its correlation or direction criterion. Nineteen descriptive direction pairs fall below the minimum, and 12/19 is below the direction threshold. Missing P/FDR remains unassessed.",
+      "conclusion": "The selected ARC directions show partial agreement and the aggregate discovery counts differ. The comparison closes the source review within that scope. Genome-wide concordance and full verification remain unresolved."
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO count-matrix dimensions after checking every input row",
+      "value": "21,935 distinct Ensembl rows × 59 GSM-linked sample columns, all nonnegative integer counts",
+      "script": "data/author-validation/continued-sources/GSE160802/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "ARC replication in the registered sample sheet and published PCA object",
+      "value": "9 vehicle, 10 coadministration",
+      "script": "data/author-validation/continued-sources/GSE160802/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure 8D coverage",
+      "value": "21 labeled, 19 paired (90.48% of the selected reference, 19/13,452 of the registered output). Hs3st2 and Lyve1 lack registered coefficients.",
+      "script": "data/author-validation/continued-sources/GSE160802/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Direction agreement among paired ARC genes",
+      "value": "12/19 (63.16%) agree and 7/19 differ",
+      "script": "data/author-validation/continued-sources/GSE160802/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure 8B ARC discovery counts from the embedded Prism data",
+      "value": "48 up, 126 down, 174 total",
+      "script": "data/author-validation/continued-sources/GSE160802/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered discoveries counted from the DE table",
+      "value": "0 of 13,452 at BH < 0.01 and 0 at BH < 0.05",
+      "script": "data/author-validation/continued-sources/GSE160802/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "The discrepancy between 174 published ARC discoveries and zero registered discoveries remains unexplained. The full Figure 8B DESeq2 result table, design and selection rule would permit gene-wise reconciliation.",
+    "The ARC heatmap gives expression ordering only. Its z-score calculation, exact arm values and per-gene ARC inference were unavailable. The selected comparison cannot yield a v2 pass or a numeric comparison spec.",
+    "The registry citation’s cohort and drug description differs from cohort F and the GEO treatment metadata."
+  ]
+}

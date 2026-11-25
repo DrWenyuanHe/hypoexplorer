@@ -1,0 +1,53 @@
+{
+  "datasetId": "mouse_gt17_alisolb_gse253875",
+  "accession": "GSE253875",
+  "category": "not_located",
+  "closure": "confirmed_not_located",
+  "summary": "GEO supplies per-sample counts and FPKM for six GT1-7 profiles. The reviewed public sources yielded no author gene-level results for the registered 24-hour Alisol B versus control contrast. Author concordance remains unassessed.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE253875/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "GEO counts and sample metadata verified for the Alisol B contrast",
+      "note": "The count matrix used for the registered fit and the family SOFT match the intake checksums. The separate FPKM supplement contains the same 54,532 Ensembl gene IDs. Both matrices contain six sample columns and gene annotation. Each of the six SOFT profiles reports zero data rows and no sample supplement. GEO reports three profiles per arm after 24 hours with or without 0.125 µM Alisol B. The solvent and the independence of culture preparations are undocumented. The publisher issue page serves as navigation. The separate candidate article reports BPA and herbal-formula serum in GT1-7 cells.",
+      "reviewFlags": [],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "GEO describes differential-expression analysis. Its two supplements contain individual sample measurements, and ENA lists six sequencing runs. The reviewed literature and repository records yielded no gene-level author effects or tests for alisol_b_vs_control. Europe PMC found zero records for GSE253875 or PRJNA1067600. The PubMed and PMC text-search counts apply to the biological terms retained by Entrez.",
+      "nextStep": "Reopen if a manuscript, supplement or depositor table reports gene-level results for these six profiles. Check the treatment and baseline, identifiers, effect definition and tested-gene coverage before comparing.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Unique Ensembl gene IDs in the GEO count and FPKM matrices",
+      "value": "54,532 in each matrix, with identical ID sets. Each has 16 columns, including six sample measurements.",
+      "script": "data/author-validation/continued-sources/GSE253875/codex-2026-11-21/refute/check.py"
+    },
+    {
+      "claim": "GEO profile assignments and sample supplements",
+      "value": "GSM8029699–GSM8029701 are Alisol B profiles A1–A3. GSM8029702–GSM8029704 are control profiles C1–C3. All six report NONE for sample supplements and zero sample data rows. The series matrix has zero gene rows.",
+      "script": "data/author-validation/continued-sources/GSE253875/codex-2026-11-21/refute/check.py"
+    },
+    {
+      "claim": "Registered edgeR-QL contrast and published DE table",
+      "value": "The groupcase coefficient measures Alisol B relative to control. The registered fit tested 15,411 rows, including 166 unmapped rows. The 15,245 published symbols in geo_replication/datasets/GSE253875_mmus_gt17_alisolb/processed/GSE253875_DE.tsv include zero with FDR < 0.05. The file is 1,522,163 bytes with SHA-256 bcbc9afa29bd84976291ad677edefd667a67b0e11597dd576a5e46fb53e0de48.",
+      "script": "data/author-validation/continued-sources/GSE253875/codex-2026-11-21/refute/check.py"
+    },
+    {
+      "claim": "ENA records for PRJNA1067600",
+      "value": "Six RNA-seq runs match the six GEO BioSamples. The ENA analysis report contains only its header.",
+      "script": "data/author-validation/continued-sources/GSE253875/codex-2026-11-21/refute/check.py"
+    }
+  ],
+  "openIssues": [
+    "The reviewed sources did not supply the authors' tested genes, effects, P values or FDR for this contrast.",
+    "The six library labels leave independent culture preparations and experiment batches undocumented."
+  ]
+}

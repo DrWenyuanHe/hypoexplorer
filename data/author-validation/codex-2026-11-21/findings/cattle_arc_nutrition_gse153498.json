@@ -1,0 +1,165 @@
+{
+  "datasetId": "cattle_arc_nutrition_gse153498",
+  "accession": "GSE153498",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "All 80 selected ARC genes satisfy the 10% FDR and fold-change rule stated in Methods and GEO. Only 57 satisfy the published 5% heading. Of the 75 genes present in the current registered output, 74 agree in direction, but the deposited data and published methods do not identify the count-model inputs that produced the authors’ effect sizes.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "summary": "The S2 threshold can be reconciled from public data. Reproducing the reported ARC fold changes requires the authors’ fitted count model.",
+      "note": "The same 29 heifers contribute to the high-versus-moderate ARC comparison. The current R 4.6.0 DE table publishes 75 of 80 S2 genes. Five source Ensembl IDs are explicitly hidden for lack of a registered symbol. All 75 pairs have nonzero effects and 74 agree in direction. Pearson is 0.855154 and Spearman is 0.768540. AVP has author log2FC +0.935083, a deposited arithmetic-mean ratio on the log2 scale of +0.784144, and a registered mean-log effect of −0.696924. All 80 S2 genes satisfy |FC| > 1.5 and q < 0.10, while 57 meet q < 0.05. Registered limma reports zero BH discoveries at either cutoff. A candidate count matrix inferred from the deposit recovers most S2 group means. Under the effective library sizes implied by the deposit and the published edgeR version’s default prior, 78 of 80 reported effects fall outside the possible range for any nonnegative dispersion. The full edgeR output and reporting commands are unavailable.",
+      "reviewFlags": [
+        "The Results and S2 heading attribute 80 genes to q < 0.05. S2 contains 57 such genes. The 10% rule in the Methods and GEO covers all 80.",
+        "The authors’ signed FCs and registered mean-log effects use different estimators. The original count-model inputs and the S2 reporting calculation remain unresolved.",
+        "The full set of 14,417 reported ARC tests, the author raw P values and the results outside S2 remain unassessed. Five S2 IDs have no published registered effect."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "GEO series and sample metadata",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE153498",
+          "kind": "database"
+        },
+        {
+          "label": "Deposited ARC expression matrix",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE153nnn/GSE153498/suppl/GSE153498_Arcuate_merged_counts.txt.gz",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Publisher Methods and Results",
+          "url": "https://www.nature.com/articles/s41598-021-93080-4",
+          "kind": "paper"
+        },
+        {
+          "label": "Original supplemental workbook, S1A and S2",
+          "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41598-021-93080-4/MediaObjects/41598_2021_93080_MOESM1_ESM.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Published Table 1, selected ARC genes",
+          "url": "https://www.nature.com/articles/s41598-021-93080-4/tables/1",
+          "kind": "author_result"
+        }
+      ],
+      "paperAccess": "pmc_full_text",
+      "pmcUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8263617/",
+      "pmcId": "PMC8263617",
+      "pubmedUrl": "https://pubmed.ncbi.nlm.nih.gov/34234169/",
+      "status": "review_required",
+      "comparisonLevel": "direct"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "All 80 S2 rows satisfy the rule in Methods and GEO. The current registered DE table covers 75, of which 74 agree in direction. The authors’ 5% statement, count-model coefficients and complete tested-gene results cannot be reconciled with the public materials. The remaining model question persists even when dispersion is allowed to vary under the candidate library sizes.",
+      "nextStep": "Which ARC count matrix, retained Ensembl IDs, effective library sizes, dispersions and reporting commands produced the S2 fold changes and q values? Please supply the fitted edgeR DGEList or equivalent inputs and script, the unselected high-versus-moderate exactTest table, and the conversion to signed fold change. Was S2 selected at BH FDR < 0.10 and |FC| > 1.5, and should the 5% label in the Results and S2 heading be corrected?",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "high_vs_moderate_plane_nutrition"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Direct comparison of the signed high/moderate FCs in S2, converted to signed log2FC, with the current registered ARC limma coefficients. Arithmetic-mean ratios and count-model bounds are separate diagnostic calculations.",
+      "reference": "Sánchez et al., Scientific Reports, Supplemental Table S2, all 80 selected ARC Ensembl IDs. S1A, GEO family metadata and the deposited ARC matrix identify the cohort. Publisher Table 1 lists a subset of S2.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "One ARC library per heifer at 21 weeks, 14 high-plane and 15 moderate-plane. The 29 S1A subject IDs, GEO GSMs, sample-sheet assignments and matrix columns reconcile. The unique ARC column 981_F corresponds to subject 981, whose S1A filename uses 981_A."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "The sole registered coefficient and S2 describe high relative to moderate early-life nutrition in heifer ARC. Positive values indicate higher expression in the high-plane group."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 80 S2 Ensembl IDs occur in the deposit. The documented transform gives unique 29-library expression profiles for the 75 joins to current registered rows. The feature map marks the five remaining IDs dropped_no_symbol. Their registered effects and statistics are unavailable."
+        },
+        "effects": {
+          "status": "different",
+          "note": "The registered coefficient is a group difference of means on log2(abundance+1). S2 reports signed fold changes from a count-model analysis. Direction agrees for 74/75 nonzero pairs. Pearson is 0.855154, Spearman 0.768540 and the median absolute log2FC difference is 0.340901. The AVP sign changes between the deposited arithmetic-ratio and mean-log estimators. The original count-model coefficient definition and offsets remain unresolved."
+        },
+        "inference": {
+          "status": "different",
+          "note": "S2 contains finite BH q values for all 80 selected genes and supplies no raw P values. At 5% there are 57 author calls, 54 among the pairs. At 10% there are 80 author calls, 75 among the pairs. Registered limma has zero BH calls at either cutoff across 15,708 published genes. The full author test family and raw-P agreement remain unassessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The paired genes cover 75/80 (93.75%) of the selected reference. The paper reports 14,417 ARC tests. Only the selected list has gene-level author effects and q values. The registered BH family includes 19,923 tested features, of which 15,708 have published rows."
+        }
+      },
+      "criteria": "Apply author-concordance-v2 to all finite pairs in S2. The selected-reference coverage, pair count and nonzero-direction criteria are met. Pearson and Spearman both fall below 0.90. Retain the different estimator assessment and evaluate FDR separately using both thresholds actually printed by the authors.",
+      "conclusion": "The current data establish directional agreement for most selected genes and identify the 10% rule as consistent with S2. The public evidence leaves the original fitted effects, inference and full gene universe unresolved."
+    }
+  },
+  "computed": [
+    {
+      "claim": "S1A/GEO ARC cohort, reconciled by subject",
+      "value": "29 heifers, 14 high and 15 moderate",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Full S2 selection under the two published q thresholds with |FC| > 1.5",
+      "value": "At 0.10, 80 (54 up, 26 down). At 0.05, 57 (43 up, 14 down). Minimum |FC| 1.52 and maximum q 0.0991.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Publisher Table 1 checked by exact S2 Ensembl ID",
+      "value": "18 listed, 16 with S2 q < 0.05. LHX6 q = 0.0548 and HBD q = 0.0927.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Current registered coverage and same-gene direction",
+      "value": "75/80 (93.75%) selected genes paired. All 75 pairs are nonzero. 74/75 (98.6667%) agree in sign.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Direct effects across all current pairs",
+      "value": "Pearson 0.85515404, Spearman 0.76854032, median absolute log2FC difference 0.34090063, registered/author paired RMS ratio 0.53942673.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Current registered coefficient replay from the registered expression matrix",
+      "value": "15,708 published DE rows, maximum absolute difference 5.024e-15. The fit tested 19,923 features including hidden rows.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Author and registered calls on matched rows and publication-wide registered counts",
+      "value": "75 finite q pairs. At 5%, 54 paired author calls and 3 S2 calls without a published registered row. At 10%, 75 and 5. Zero local calls and zero overlap at either threshold.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Arithmetic-mean diagnostic on all 80 deposited S2 features",
+      "value": "80/80 matching directions, Pearson 0.99545367, median absolute log2FC difference 0.15272890 and maximum 0.18351919.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "AVP high/moderate log2 effects",
+      "value": "Author +0.935083, deposited arithmetic ratio +0.784144, registered mean-log difference −0.696924.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Candidate count reconstruction and S2 group means/SDs",
+      "value": "Maximum initial integer distance 0.00640020. At three displayed decimals, high means match 74/80 and moderate means 77/80. Neither arm’s sample SDs match any S2 row.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Candidate ≥1 raw CPM in ≥14 libraries filter",
+      "value": "14,189 retained, including 74 S2 genes. Literally excluding genes below 1 CPM in at least 14 libraries retains 14,086 genes, including 71 S2 genes. The manuscript reports 14,417 ARC tests.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Conditional bounds for the edgeR 3.20.9 default-prior effect across nonnegative dispersions",
+      "value": "With deposit-implied effective sizes, 78/80 S2 effects are outside the bounds. With TMM after the stated candidate filter, 73/74 eligible effects lie outside for either original or reset totals. AVP upper bounds are +0.79652 with deposit-implied sizes and +0.80028 with reset-size TMM.",
+      "script": "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "Which ARC count matrix, retained Ensembl IDs, effective library sizes, dispersions and reporting commands produced the S2 fold changes and q values? Please supply the fitted edgeR DGEList or equivalent inputs and script, the unselected high-versus-moderate exactTest table, and the conversion to signed fold change.",
+    "Was S2 selected at BH FDR < 0.10 and |FC| > 1.5, and should the 5% label in the Results and S2 heading be corrected?"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_hypo_spatial_aging_gse270383",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 97 source files matched their recorded sizes and SHA-256 hashes, and all six computations reproduced. All 33 selected effects agreed in direction, and 10 passed animal-level FDR < 0.05. The corrected proposal records that both publications specify a 600-UMI minimum, that 72 registered hypothalamic profiles from young mouse FY1 fall below it, and that the author fold changes include a 0.01 TPM offset. The proposal passed validation and retains needs_author_contact.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_spatial_aging_gse270383.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_spatial_aging_gse270383.json",
+    "data/author-validation/continued-sources/GSE270383/codex-2026-11-21/refute/verify.py"
+  ],
+  "openIssues": [
+    "The final Table S5 cohort still requires author confirmation of the UMI counts used for filtering and a barcode-level map of retained profiles and their regional assignments.",
+    "The published spatial-profile statistics do not establish animal-level P-value or FDR agreement."
+  ]
+}

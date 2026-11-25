@@ -1,10 +1,12 @@
 {
   "version": 1,
   "area": "module-types",
-  "fingerprint": "b43516af448ac5990013cb5a8af6bac669cf4b8ba88941988ac0fd02bbd2ca64",
+  "fingerprint": "58d8b95902c3774225e3d8d482208e63a88f81a8c0e2c7ad3bf33cdbc8e6a00a",
   "outcome": "updated",
-  "explanation": "TrackRow gains an optional storedAs: the symbol a track stores the gene under when it is another member of the queried symbol rename group, absent when the track stores the queried symbol.",
+  "explanation": "From main: Only the header comment of src/types/index.ts changed: the types are now named as authoritative and DATASET_CONTRACT.md as the explanation of their rules, instead of the types being reverse-engineered from the docs. No exported declaration changed, so the contracts map is unchanged. From this branch: TrackRow gains an optional storedAs: the symbol a track stores the gene under when it is another member of the queried symbol rename group, absent when the track stores the queried symbol.",
   "references": [
-    "src/types/index.ts"
+    "src/types/index.ts",
+    "docs/DATASET_CONTRACT.md",
+    "docs/agent-context/generated/contracts.md"
   ]
 }

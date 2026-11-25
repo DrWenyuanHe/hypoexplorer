@@ -1,15 +1,20 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "f9e73822f46d2df31ae3b3ac3b3480e91c93fcaa8ec9f6e77131eead80770449",
+  "fingerprint": "e0c192db9bd1813f76408ac34377757245014a380732bf33e3a81b0ed3201b10",
   "outcome": "updated",
-  "explanation": "Survey view tests run single-gene flows through GenePageSurvey and the survey page through its handoff. Card tests cover the tile rows, each tile opening its own source under its row, releasing the focus, the handed-over scope and the HypoMap tile; familyTeaser.test.ts covers the study-library and tissue summaries, and the NeuroSeq teaser tests now match the survey's default without SFO records. Rename coverage: symbolRenames.test.ts covers decoding, authority scoping, pickStoredMember, compareCell and the compare-set summary under a renamed symbol, and renamedStudies; queryIndex.test.ts covers both query paths reading a retired member, own-row precedence, several partners, authority scoping and an absent table, and counts the rename table beside the two index requests.",
+  "explanation": "From main: setup.ts unmounts the page before it resets the URL after each test, because unmounting runs the router's pending URL write and Testing Library's own cleanup runs after this hook; testIsolation.test.tsx pins that order. app.dataset.test.tsx unmounts before it removes the mouse study's seeds, so a mounted page cannot start a load that stays cached for the next test. nomenclature.test.tsx checks that Enter selects the gene typed before the list catches up. From this branch: Survey view tests run single-gene flows through GenePageSurvey and the survey page through its handoff. Card tests cover the tile rows, each tile opening its own source under its row, releasing the focus, the handed-over scope and the HypoMap tile; familyTeaser.test.ts covers the study-library and tissue summaries, and the NeuroSeq teaser tests now match the survey's default without SFO records. Rename coverage: symbolRenames.test.ts covers decoding, authority scoping, pickStoredMember, compareCell and the compare-set summary under a renamed symbol, and renamedStudies; queryIndex.test.ts covers both query paths reading a retired member, own-row precedence, several partners, authority scoping and an absent table, and counts the rename table beside the two index requests. In the merge, main's GSE162563 catalog test selects sources by the gene survey's mode ('populations' or 'tissue'), the field that replaced section on this branch.",
   "references": [
+    "src/__tests__/setup.ts",
+    "src/__tests__/testIsolation.test.tsx",
+    "src/__tests__/app.dataset.test.tsx",
+    "src/__tests__/nomenclature.test.tsx",
     "src/__tests__/portalCards.test.tsx",
     "src/__tests__/familyTeaser.test.ts",
     "src/__tests__/baselineTeaser.test.ts",
     "src/__tests__/expressionSurveyView.test.tsx",
     "src/__tests__/symbolRenames.test.ts",
-    "src/__tests__/queryIndex.test.ts"
+    "src/__tests__/queryIndex.test.ts",
+    "src/__tests__/expressionSurvey.test.ts"
   ]
 }

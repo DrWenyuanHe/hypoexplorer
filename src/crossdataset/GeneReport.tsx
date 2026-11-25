@@ -5,7 +5,9 @@ import { datasetCategory, DATASET_CATEGORIES } from '../data/datasets';
 import type { DatasetCategory } from '../data/datasets';
 import { datasetHref, libraryHref, isPlainLeftClick } from '../utils/appLinks';
 import { fmtFDR, fmtP, fmtSigned } from '../utils/format';
-import { FONT_MONO, UP_TEXT_COLOR as UP, DOWN_TEXT_COLOR as DOWN } from '../styles/constants';
+import { FONT_MONO } from '../styles/constants';
+import { directionTextColor } from '../statistics/direction';
+import { nominalCaveat, noneLeads, leadingTracks } from '../statistics/listingWords';
 import { useReportQuery, ReportLoading } from './forestReport';
 import { categoryColor } from '../library/LibraryToolbar';
 import { useStudySelection, type StudyQuery } from './studySelection';
@@ -15,7 +17,6 @@ import { PageShell } from '../common/PageShell';
 import { EmptyState } from '../common/EmptyState';
 import { DEFAULT_FDR_CUTOFF, NOMINAL_P_CUTOFF } from '../statistics/policy';
 import { GENE_KEYS, listCrossStudy, type Listed } from '../statistics/crossStudyListing';
-import { dirColor } from '../search/portalCards';
 import { TierLabel } from '../statistics/TierLabel';
 import { useListingMode, type ListingMode } from '../statistics/listingModeStore';
 import { ListingModeToggle, QTerm } from '../statistics/ListingModeToggle';
@@ -241,8 +242,8 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
         {significantCount > 0 && (
           <>
             , across <b>{areasSignificant}</b> research {areasSignificant === 1 ? 'area' : 'areas'}
-            {' · '}<span style={{ color: UP }}><b>{up}</b> {up === 1 ? 'track' : 'tracks'} up</span>
-            {' · '}<span style={{ color: DOWN }}><b>{down}</b> down</span>
+            {' · '}<span style={{ color: directionTextColor('up', 'fdr') }}><b>{up}</b> {up === 1 ? 'track' : 'tracks'} up</span>
+            {' · '}<span style={{ color: directionTextColor('down', 'fdr') }}><b>{down}</b> down</span>
           </>
         )}
         <span className="portal-cutoff"> (FDR &lt; {DEFAULT_FDR_CUTOFF})</span>
@@ -254,8 +255,7 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
         <p className="portal-note">
           {significantCount === 0 ? `No track reaches FDR < ${DEFAULT_FDR_CUTOFF}. ` : ''}
           Tracks at p &lt; {NOMINAL_P_CUTOFF} that do not pass FDR are listed after the FDR results and marked{' '}
-          <i>p &lt; {NOMINAL_P_CUTOFF} only</i>: they are not corrected for the genes each study tested or the
-          tracks searched here, so some are expected by chance.
+          <i>p &lt; {NOMINAL_P_CUTOFF} only</i>: they are {nominalCaveat('gene')}
         </p>
       ) : significantCount === 0 && (
         nominalMode
@@ -268,9 +268,9 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
           {' '}<QTerm /> is the FDR-adjusted p-value.
         </span>
         <span className="report-de-legend-dirs">
-          <span style={{ color: DOWN }}>◀ lower in the first group</span>
+          <span style={{ color: directionTextColor('down', 'fdr') }}>◀ lower in the first group</span>
           <span aria-hidden="true" className="report-de-legend-rule" />
-          <span style={{ color: UP }}>higher in the first group ▶</span>
+          <span style={{ color: directionTextColor('up', 'fdr') }}>higher in the first group ▶</span>
         </span>
       </div>
 
@@ -296,12 +296,12 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
                   {/* Closed, the area still says what leads it. */}
                   {!open && lead && (
                     <span className="report-de-area-lead">
-                      Top: <span style={{ color: dirColor(lead.track.direction, lead.track.significant) }}>{foldPhrase(lead.track, lead.group.contrast)}</span>
+                      Top: <span style={{ color: directionTextColor(lead.track.direction, lead.track.tier) }}>{foldPhrase(lead.track, lead.group.contrast)}</span>
                     </span>
                   )}
                   {area.significant > 0 && (
                     <span className="report-de-area-dirs">
-                      <span style={{ color: UP }}>{area.up} up</span> · <span style={{ color: DOWN }}>{area.down} down</span>
+                      <span style={{ color: directionTextColor('up', 'fdr') }}>{area.up} up</span> · <span style={{ color: directionTextColor('down', 'fdr') }}>{area.down} down</span>
                     </span>
                   )}
                 </button>
@@ -329,7 +329,7 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
                   const { dataset, contrast } = group;
                   const item = { datasetId: dataset.id, trackId: track.trackId };
                   const inSet = compareSet.some((entry) => entry.datasetId === item.datasetId && entry.trackId === item.trackId);
-                  const color = dirColor(track.direction, track.significant);
+                  const color = directionTextColor(track.direction, track.tier);
                   const half = (Math.min(Math.abs(track.logFC), bound) / bound) * 50;
                   const { tier } = track;
                   return (
@@ -401,18 +401,14 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
         <div className="report-de-quiet">
           {quietAreas.length > 0 && (
             <>
-              <span className="report-de-quiet-label">{nominalMode ? <>No track at p &lt; {NOMINAL_P_CUTOFF}</> : 'No significant track'}</span>
+              <span className="report-de-quiet-label">{noneLeads(mode)}</span>
               <span>{quietAreas.join(' · ')}</span>
             </>
           )}
           <span className="report-de-quiet-gap" />
           {lead.length > 0 && tracks.measured > lead.length && (
             <button type="button" className="search-more" aria-expanded={showAll} onClick={() => setShowAll((s) => !s)}>
-              {showAll
-                ? nominalMode
-                  ? `Show only the ${lead.length} ${lead.length === 1 ? 'track' : 'tracks'} at p < ${NOMINAL_P_CUTOFF}`
-                  : `Show only the ${lead.length} significant ${lead.length === 1 ? 'track' : 'tracks'}`
-                : `Show all ${tracks.measured} measured tracks`}
+              {showAll ? `Show only the ${leadingTracks(mode, lead.length)}` : `Show all ${tracks.measured} measured tracks`}
             </button>
           )}
         </div>

@@ -48,9 +48,9 @@ Declaration: [src/data/datasets.ts](<../../../src/data/datasets.ts>).
 
 ## mouse_arc_kcnb1_gse246918
 
-Mouse arcuate nucleus — Kcnb1 KO (bulk RNA-seq) — Mus musculus; bulk RNA-seq.
+Mouse hypothalamus — Kcnb1 KO (bulk RNA-seq) — Mus musculus; bulk RNA-seq.
 
-Arcuate POMC region, WT vs Kcnb1-null — KCNB1-leptin-receptor coupling (GSE246918)
+Hypothalamus, WT vs Kcnb1-null — KCNB1-leptin-receptor coupling (GSE246918)
 
 Declaration: [src/data/datasets.ts](<../../../src/data/datasets.ts>).
 

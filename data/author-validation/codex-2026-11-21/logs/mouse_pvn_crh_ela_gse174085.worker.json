@@ -1,0 +1,43 @@
+{
+  "datasetId": "mouse_pvn_crh_ela_gse174085",
+  "outcome": "needs_author_contact",
+  "summary": "The registered contrast uses all 602 deposited cells across 24 litters. Recounting the matrix identified 514 cells above the published QC cutoff, one more than Table S1 in each of B19, B21 and L12. The authors then selected 254 neurons, but the public records do not identify those cells, and the Methods and Figure 2 caption disagree on their treatment assignments. The proposal passed schema validation. [Published study](https://pmc.ncbi.nlm.nih.gov/articles/PMC9874075/)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/mouse_pvn_crh_ela_gse174085.json",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/audit.py",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/audit.json",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/retrieve.py",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/retrieval.log",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/render.ps1",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/paper.xml",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/oa-list.xml",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/figure-2.jpg",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/supplement.pdf",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/supplement.xlsx",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/table-s1.png",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/figure-s3.png",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/allcells.matrix.txt.gz",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/family.soft.gz",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/filelist.txt",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/gsm5286548.tsv.gz",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/ena.tsv",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/biostudies.json",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/github.json",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/lab-members.html",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/lab-repositories.json",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/preprint.pdf",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/preprint-crossref.json",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/preprint-epmc.json",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/thesis-metadata.json",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/thesis-attachments.json",
+    "data/author-validation/continued-sources/GSE174085/codex-2026-11-21/thesis-indexed-excerpts.txt"
+  ],
+  "openIssues": [
+    "Which GEO cell IDs passed initial QC and entered the Figure 2 test, and what litter, rearing arm and cluster belonged to each? The Methods give 101 control and 153 ELA neurons. The caption gives 102 and 152.",
+    "Which feature definition and filter order explain the extra qualifying cell in B19, B21 and L12? The audit used positive deposited gene counts as a proxy for expression.",
+    "Table S1 sums to 47 control pups, while the dissection text reports 50. Both support 14 control litters.",
+    "The dissertation PDF download returned HTTP 403. The retained evidence includes its public indexed chapter text and the university’s attachment inventory."
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "datasetId": "cattle_arc_nutrition_gse153498",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 24 source files matched their recorded hashes and sizes, and all 12 computations reproduced. Of 75 paired genes, 74 agreed in direction. The proposal missed two discrepancies: S2 reports fold-change magnitudes 0.174 larger than S5 for all nine shared regulators, and Figure 1a reverses the tissue totals given in the Results. The corrected proposal passed validation and retains needs_author_contact.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/cattle_arc_nutrition_gse153498.json",
+    "data/author-validation/codex-2026-11-21/corrected/cattle_arc_nutrition_gse153498.json",
+    "data/author-validation/continued-sources/GSE153498/codex-2026-11-21/refute/audit.py"
+  ],
+  "openIssues": [
+    "Which fold changes and selection rule produced S2? KMT2A crosses the 1.5-fold cutoff between S5 and S2. All 80 S2 genes meet the 10% FDR cutoff, but only 57 meet the 5% heading.",
+    "Which genes did the authors test in ARC? The Results give 14,417, while the ARC circle in Figure 1a totals 14,021. The filtered IDs and complete edgeR output would resolve this. [Published Figure 1](https://pmc-oa-opendata.s3.amazonaws.com/PMC8263617.1/41598_2021_93080_Fig1_HTML.jpg)",
+    "Merging the corrected effects note requires updating the concordance review that references its previous wording."
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "datasetId": "rat_pvn_stress_gse261833",
+  "accession": "GSE261833",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "All five symbols labeled as upregulated in Figure 4A have positive stress-minus-control coefficients in the registered PVN output. Four labels have a unique deposited feature with that name. The two features labeled Hmgb2 have opposite registered signs. Four of the five exact-symbol rows meet the paper’s combined screen, and Clec7a falls below its fold-change cutoff.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE261833/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "All five Figure 4A symbols agree in direction. The Clec7a screen discrepancy and the Hmgb2 feature identity remain unresolved.",
+      "note": "Figure 4A compares immobilization stress with untreated control in rat PVN. Its five highlighted symbols have positive registered limma coefficients and raw P < 0.05. Clec7a is in the paper’s upregulated set and has a registered logFC of 0.300234, below the 0.5 cutoff. GEO’s FPKM matrix and family SOFT match their registered hashes. The reviewed sources supply the author’s direction and screen membership for each label. Exact author logFC, P and FDR are unavailable.",
+      "reviewFlags": [
+        "Clec7a misses the registered fold-change screen. The authors report 211 up and 292 down, while the same screen on published registered symbols gives 70 up and 123 down. The available data do not establish the cause.",
+        "GEO assigns the name Hmgb2 to two features. The registered coefficients are +0.694923 for Hmgb2 and −0.048282 for Hmgb2l1. Figure 4A supplies no stable identifier or aggregation rule for the labeled point.",
+        "Only five author-selected directions are available. Genome-wide overlap and the authors’ tested-feature universe remain unknown."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "All five highlighted symbols agree in direction. Clec7a clears the author’s nominal-P and fold-change screen in Figure 4A and misses the registered fold-change cutoff. Applying the same rule to the 16,117 published registered symbols gives 70 up and 123 down, compared with the paper’s 211 up and 292 down. The paper used edgeR and the registered analysis used limma on log2(FPKM + 1). The author’s full results and tested identifiers are needed to explain the discrepancy.",
+      "nextStep": "Obtain the stress-versus-untreated PVN edgeR output for every tested feature, including stable IDs, log2FC, raw P and FDR, plus the input, design and filtering settings. Confirm the feature or aggregation plotted for Hmgb2 and reconcile Clec7a and the two screen totals on shared identifiers.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "stress_vs_control"
+      ],
+      "basis": "The five labels in Figure 4A define the comparison set. Read their direction and screen membership from the model-versus-control plot and compare with the same symbols in the registered pvn DE table. The restored track’s rounded rows give the same signs and cutoff counts.",
+      "reference": "Lin et al., DOI 10.26599/1671-5411.2024.12.002, Figure 4A, RNA sequencing Methods and Results. The journal image has SHA-256 99e9f60117d40bd2f0503fb928489278b6ad1693d31553998c47bb167641a5a9. The full-precision table is geo_replication/datasets/GSE261833_rnor_pvn_stress/processed/GSE261833_DE.tsv (SHA-256 b509ce630d7182ee38ce3c8b39ade30e4b103cca5a8aef84bed85cbdd7803434). The evidence folder’s comparison.json identifies the sample sheet, feature map and source manifest.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "The paper reports five male rat PVN RNA samples per arm and names GSE261833. The five model libraries (GSM8152695–GSM8152699) and five untreated libraries (GSM8152685–GSM8152689) match the registered sheet by accession, sample label and treatment. The five minocycline-plus-stress libraries are excluded. The match establishes the sequenced groups. Individual animal identifiers are unavailable for an independent animal-to-library check."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Figure 4A shows model minus untreated control after six hours of immobilization daily for seven days. The registered groupcase coefficient has this orientation. Figure 4B uses minocycline versus model."
+        },
+        "features": {
+          "status": "limited",
+          "note": "Each Figure 4A label matches one registered symbol, using Hif3a as printed on the plot for the caption’s Hif3α. Four labels each occur on one deposited feature. GEO calls both ENSRNOG00000013167 and ENSRNOG00000033321 Hmgb2. They map to registered Hmgb2 (+0.694923) and Hmgb2l1 (−0.048282), respectively. The plotted Hmgb2 feature or aggregation is unknown."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "All five markers lie on the positive side of Figure 4A and all five same-symbol registered coefficients are positive. The four labels with a unique deposited feature also agree in sign. Author edgeR log2 fold changes and registered differences in mean log2(FPKM + 1) estimate the stress effect differently. The plot supplies no exact author coefficients for magnitude or correlation checks."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "Methods define the edgeR 3.42.4 screen as raw P < 0.05 and absolute log2FC ≥ 0.5. Results use > 0.5. Both boundaries give the same registered calls. All five same-symbol rows have raw P < 0.05, four meet the combined rule and none have BH FDR < 0.05. Clec7a is a known screen disagreement. Exact author P and FDR values are unavailable. The cause of the aggregate count difference remains unresolved."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Figure 4A names 5 of the 503 reported DEGs. All 5 labels match registered symbols, representing 5 of the 16,117 published genes. The registered fit also tested 6,238 unpublished unmapped rows, for a total of 22,355. The authors’ tested universe and full screen membership are unavailable."
+        }
+      },
+      "criteria": "Include every Figure 4A label, orient model minus untreated control and use each published fold-change boundary with raw P < 0.05. Both author-concordance-v2 routes require at least 30 paired genes, at least 90% relevant reference/output coverage and compatible definitions. Five named directions fall below the minimum.",
+      "conclusion": "The selected comparison establishes five matching symbol-level directions. Clec7a’s screen membership differs, and Hmgb2’s feature-level direction is unresolved. The aggregate totals remain unreconciled. This comparison supports neither a numerical magnitude assessment nor author-concordance-v2 or full contrast sign-off."
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO SOFT groups and registered sample-sheet match",
+      "value": "5 stress, 5 untreated, 5 excluded minocycline",
+      "script": "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "GEO processed matrix and sample supplements",
+      "value": "24,160 rows, 15 sample columns and 3 annotation columns. No sample-level supplementary files.",
+      "script": "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure 4A directions compared by registered gene symbol",
+      "value": "5/5 labels matched, 5/5 same-symbol coefficients positive, zero unmatched labels. Four labels have a unique deposited feature.",
+      "script": "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Selected genes meeting raw P < 0.05, the combined paper rule, and FDR < 0.05 locally",
+      "value": "5/5, 4/5 and 0/5, respectively",
+      "script": "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered full-precision Clec7a coefficient, raw P and BH FDR",
+      "value": "0.30023372056396, 0.0207417795996929 and 0.337781286455566",
+      "script": "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Published and registered counts at the paper’s screen",
+      "value": "Paper reports 211 up and 292 down. Registered published symbols give 70 up and 123 down.",
+      "script": "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Reference and published output coverage",
+      "value": "5/5 Figure 4A labels, 5/503 reported DEGs labeled in panel A, 5/16,117 published registered symbols represented. The registered fit tested 22,355 rows, including 6,238 unpublished unmapped rows.",
+      "script": "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Registered FDR < 0.05 (all published symbols)",
+      "value": "8/16,117",
+      "script": "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "GEO feature ambiguity at Hmgb2",
+      "value": "ENSRNOG00000013167 maps to registered Hmgb2 (logFC +0.6949232668578). ENSRNOG00000033321 maps to Hmgb2l1 (logFC −0.0482823555242494). Both are called Hmgb2 in GEO.",
+      "script": "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Exact author logFC, raw-P and adjusted-P pairs available from the reviewed sources",
+      "value": "0, 0 and 0. Figure 4A supplies direction and cutoff membership for the five labels.",
+      "script": "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "FDR count from the restored local track and its QC summary",
+      "value": "The 16,117 DE rows in public/datasets/rat_pvn_stress_gse261833/track_pvn.js yield 8 at FDR < 0.05. The adjacent qc_global.js stores nSig = 674. The registered TSV also yields 8.",
+      "script": "data/author-validation/continued-sources/GSE261833/codex-2026-11-21/refute/audit.py"
+    }
+  ],
+  "openIssues": [
+    "The author’s full edgeR output, tested-feature universe and filtering settings are unavailable. The Clec7a screen disagreement and the difference in aggregate totals remain unexplained.",
+    "The two deposited Hmgb2 features have opposite registered signs. Figure 4A does not identify which feature or aggregation produced its point.",
+    "In this checkout, the QC summary stores nSig = 674 while both the restored track and the registered DE table yield 8 at FDR < 0.05. The comparison uses the gene-level rows. The deployed QC count was not verified."
+  ]
+}

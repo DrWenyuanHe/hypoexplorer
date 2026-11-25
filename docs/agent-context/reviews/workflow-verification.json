@@ -1,10 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "64096f0dc2436959d989040f9788f31b2bd71a3cd594a03d7bea9c80dd236c81",
+  "fingerprint": "7d0f30e69f7b8b904130c0484d5a9b049e5c25e9f2a171c66cff1b30906eee94",
   "outcome": "no-impact",
-  "explanation": "Rename groups change which stored symbol a report reads for a study, not QC, author concordance or verification evidence; no verification record, ledger or gate reads the rename table or the search names.",
+  "explanation": "From main: Registry facet values, descriptive text, display labels, a survey source and reviewed reasons changed. No evidence ledger, verification command, quality rule or pinned producer changed, and the author-validation records are untouched. From this branch: Rename groups change which stored symbol a report reads for a study, not QC, author concordance or verification evidence; no verification record, ledger or gate reads the rename table or the search names.",
   "references": [
+    "docs/agent-context/workflows.md",
+    "scripts/regen-r460/build_registry_edits.mts",
     "docs/PROJECT_GUIDANCE.md",
     "CONTEXT.md"
   ]

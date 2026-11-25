@@ -9,7 +9,7 @@ import {
   type AuthorValidationEvidenceLink,
 } from '../data/authorValidation';
 import { FONT_MONO } from '../styles/constants';
-import { COMPARISON_OUTCOMES, EVIDENCE_LEVELS, RESULT_AVAILABILITY, VERIFICATION_CLAIMS, getVerificationClaim, type VerificationClaim, type VerificationState } from '../data/authorVerification';
+import { AUTHOR_FOLLOW_UPS, COMPARISON_OUTCOMES, EVIDENCE_LEVELS, RESULT_AVAILABILITY, VERIFICATION_CLAIMS, getVerificationClaim, type VerificationClaim, type VerificationState } from '../data/authorVerification';
 import { COMPARABILITY_ASSESSMENTS, COMPARABILITY_DIMENSIONS, COMPARABILITY_STATUS, COMPARISON_TARGETS, COMPARISON_SCOPES, type ComparisonReview } from '../data/authorComparability';
 
 /** Shape and text carry the status independently of color. */
@@ -65,14 +65,15 @@ export const AuthorValidationBadge = DatasetQualityBadges;
 
 /** Evidence level plus the reference-availability caveat, as one line of text. */
 export function authorEvidenceText(record: AuthorValidationRecord): string {
-  const { evidenceLevel, resultAvailability, comparisonOutcome } = record.verification;
+  const { evidenceLevel, resultAvailability, comparisonOutcome, followUp } = record.verification;
   const caveat = resultAvailability === 'not_located' ? ' · reference not found'
     : resultAvailability === 'access_blocked' ? ' · access limited'
       : resultAvailability === 'partial'
         ? comparisonOutcome === 'not_comparable' ? ' · different contrast' : ' · limited reference scope'
         : resultAvailability === 'not_assessed' ? ' · review pending'
           : resultAvailability === 'located' ? ' · retrieval pending' : '';
-  return `${EVIDENCE_LEVELS[evidenceLevel].label}${caveat}`;
+  const waiting = followUp ? ` · ${AUTHOR_FOLLOW_UPS[followUp].label.toLowerCase()}` : '';
+  return `${EVIDENCE_LEVELS[evidenceLevel].label}${caveat}${waiting}`;
 }
 
 export function AuthorEvidenceLabel({ record }: { record: AuthorValidationRecord }) {
@@ -291,6 +292,12 @@ export function AuthorValidationPanel({ record, contrastId, summaryShownAbove = 
             <th scope="row" style={labelStyle}>Comparison outcome</th>
             <td style={valueStyle}>{COMPARISON_OUTCOMES[verification.comparisonOutcome].label}</td>
           </tr>
+          {verification.followUp && (
+            <tr>
+              <th scope="row" style={labelStyle}>Author follow-up</th>
+              <td style={valueStyle}>{AUTHOR_FOLLOW_UPS[verification.followUp].label}</td>
+            </tr>
+          )}
           <tr>
             <th scope="row" style={labelStyle}>Exact author-reproduction sign-off</th>
             <td style={valueStyle}>{verification.state === 'excluded' ? 'Outside scope'

@@ -1,0 +1,18 @@
+{
+  "datasetId": "gse262407",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 48 source files matched their recorded sizes and SHA-256 hashes, and all 42 refit comparisons reproduced. Including Arc15 recovered all 5,350 Figure 2g effects, covering 54.28% of registered genes. The corrected proposal limits direct comparison to 12 of 28 population–contrast pairs across three contrasts. The two published astrocyte glucose tables differ in magnitude on all 510 shared genes, agree in direction on all 510, and differ in FDR call on five. The proposal validator passed.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/gse262407.json",
+    "data/author-validation/codex-2026-11-21/corrected/gse262407.json",
+    "data/author-validation/continued-sources/GSE262407/codex-2026-11-21/refute/check_sources.py",
+    "data/author-validation/continued-sources/GSE262407/codex-2026-11-21/refute/check_counts.py",
+    "data/author-validation/continued-sources/GSE262407/codex-2026-11-21/refute/check_comparisons.py",
+    "data/author-validation/continued-sources/GSE262407/codex-2026-11-21/refute/replay_fits.py"
+  ],
+  "openIssues": [
+    "The donor lists, gene filters and fitted results behind the two control-diet astrocyte glucose tables remain unreconciled.",
+    "The original OPC donor exclusions remain unknown. Sixteen registered population–contrast pairs lack a matching author coefficient in the reviewed sources.",
+    "The 75-nucleus discrepancy localizes to DVC neurons. The manuscript reports 16,577, while GEO and Supplementary Data 3 contain 16,652. The reason remains unknown."
+  ]
+}

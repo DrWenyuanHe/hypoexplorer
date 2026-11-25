@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "module-hub",
-  "fingerprint": "415b708c1b3768d1eb8e17ca33c2e1c1c04fc6b70b3e70fe7406af1d74e5b2f1",
+  "fingerprint": "bd5c1cf9e4f15c8473871f78d2aba93c9823347e7163beef83234c24dd42acd7",
   "outcome": "updated",
-  "explanation": "The hub's Expression survey card now describes the page as it is after the merge: comparing genes across populations, isolated neurons and bulk tissue, and browsing the population catalog. A single gene's survey lives on its gene page.",
+  "explanation": "From main: LandingHub drops the beta banner above its bar and adds 'Source code on GitHub' and 'Data repository on GitHub' links, opening in a new tab, to the footer's Reference row. index.html's pre-mount header loses its beta line. From this branch: The hub's Expression survey card now describes the page as it is after the merge: comparing genes across populations, isolated neurons and bulk tissue, and browsing the population catalog. A single gene's survey lives on its gene page.",
   "references": [
     "src/hub/LandingHub.tsx",
+    "src/data/siteInfo.ts",
+    "index.html",
     "docs/runbooks/EXPRESSION_SURVEY.md"
   ]
 }

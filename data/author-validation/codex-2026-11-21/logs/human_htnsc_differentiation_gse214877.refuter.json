@@ -1,0 +1,13 @@
+{
+  "datasetId": "human_htnsc_differentiation_gse214877",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 75 source files matched their recorded sizes and SHA-256 hashes, and all six computed claims reproduced. Of 37 plotted genes, 33 had registered effects and 21 had readable directions. All 21 agreed, covering 56.76% of the panel. This supports closure as compared for the selected markers. The corrected proposal preserves GEO’s DIV labels, identifies the registry as the source of contrast orientation, and qualifies claims about heatmap scaling and the existence of a six-library DESeq2 fit. It passed the ledger schema and enum checks.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/human_htnsc_differentiation_gse214877.json",
+    "data/author-validation/codex-2026-11-21/corrected/human_htnsc_differentiation_gse214877.json"
+  ],
+  "openIssues": [
+    "Figure 1D lacks a sample-to-column key, and two control titles conflict with their deposited cell-line annotations.",
+    "The cited Supporting Data Values workbook and a DESeq2 result for these six libraries remain unlocated. Author coefficients, P values, FDR and full tested-gene coverage remain unassessed."
+  ]
+}

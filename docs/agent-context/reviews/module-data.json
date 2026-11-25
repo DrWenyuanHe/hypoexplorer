@@ -1,10 +1,15 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "ee52fc68436370823ad1c00f32f73d52e6dd0130617942da7d604fa5d2784bc7",
+  "fingerprint": "f771bfd15b7e30098458678a33dbe8be9095d580c3fb4ba6d127c423b08f1e3b",
   "outcome": "updated",
-  "explanation": "Adds symbolRenames.ts (React-free client for public/nomenclature/renames.js: rename groups per authority, renameGroupOf, renamePartners, pickStoredMember, renameAuthorityOf) and useSymbolRenames.ts. queryGeneViaIndex reads partner shards beside the queried key and the full-download path checks partners in each DE table, one row per track, marking storedAs; the rename table loads beside the manifest.",
+  "explanation": "From main: datasets.ts corrects four studies against their GEO records and papers: GSE248462 time-series design (hepatocyte Nr1d1/Nr1d2, three pools per arm and timepoint), GSE160802 citation (lean mice, IP118 and PY115 coadministered), GSE246918 name, citation and region (Whole hypothalamus) and GSE162563 name, citation, baseline label, modality and preparation (GnRH-depleted supernatant, Bulk tissue). reviewedTrackLabels.ts becomes a per-dataset table that corrects the GSE246918 and GSE162563 track labels at display time, and loadDatasetMeta.ts asks that table which datasets need it. buildPopData.ts applies the same table to a loaded track, so charts and export records carry the reviewed label. explorerStore.ts applies it when the meta global is already set, as after a deep link. Ids, contrasts and bundle bytes are unchanged. From this branch: Adds symbolRenames.ts (React-free client for public/nomenclature/renames.js: rename groups per authority, renameGroupOf, renamePartners, pickStoredMember, renameAuthorityOf) and useSymbolRenames.ts. queryGeneViaIndex reads partner shards beside the queried key and the full-download path checks partners in each DE table, one row per track, marking storedAs; the rename table loads beside the manifest.",
   "references": [
+    "src/data/datasets.ts",
+    "src/data/reviewedTrackLabels.ts",
+    "src/data/loadDatasetMeta.ts",
+    "src/data/buildPopData.ts",
+    "src/data/explorerStore.ts",
     "src/data/symbolRenames.ts",
     "src/data/useSymbolRenames.ts",
     "src/data/crossDataset.ts",

@@ -14,9 +14,12 @@
 // list; clicking back into the field reopens it.
 //
 // The vocabulary (gene symbols, names and aliases plus pathway ids) is fetched
-// the first time the hub's field is focused, never on mount, so the homepage
-// requests no data until a visitor starts a search. The results page wants it
-// at once and loads it immediately.
+// the first time a pointer reaches the hub's box or its field is focused, never
+// on mount, so the homepage requests no data until a visitor reaches for the
+// search; the hover gives the load a head start on the first keystroke. The
+// results page wants it at once and loads it immediately. Suggestions follow
+// the vocabulary's partial stages, so named genes show as soon as the
+// same-origin names file lands, without waiting for the data origin's indexes.
 
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import type { FormEvent, KeyboardEvent, MouseEvent } from 'react';
@@ -73,7 +76,7 @@ export function UnifiedSearchBox({ initialQuery = '', onSearch, autoLoad, varian
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(-1);
   const [wanted, setWanted] = useState(autoLoad ?? variant === 'page');
-  const vocab = useSearchVocabulary(wanted);
+  const vocab = useSearchVocabulary(wanted, { partial: true });
   const input = useRef<HTMLInputElement>(null);
   const listId = useId();
 
@@ -200,7 +203,7 @@ export function UnifiedSearchBox({ initialQuery = '', onSearch, autoLoad, varian
     // biome-ignore lint/a11y/useSemanticElements: <search> cannot submit; the form's role gives the same landmark
     <form className={`hub-search usearch usearch--${variant}`} role="search" aria-label="Search genes and pathways" onSubmit={onSubmit}>
       {/* biome-ignore lint/a11y/noStaticElementInteractions: the press only keeps focus in the field; the field and buttons carry the interaction */}
-      <div className={`hub-search-box${showList ? ' is-open' : ''}`} onMouseDown={onSurfaceMouseDown}>
+      <div className={`hub-search-box${showList ? ' is-open' : ''}`} onMouseDown={onSurfaceMouseDown} onPointerEnter={() => setWanted(true)}>
         <div className="hub-search-bar">
           <span className="hub-search-icon">{MAGNIFIER}</span>
           <input
