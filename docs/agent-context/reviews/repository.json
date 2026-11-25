@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "f082c9671f5b4b31cba4fd33e652025cdd2f192ae0d85289d4fdb6f6c9ba4f79",
+  "fingerprint": "0d835ec7295d5bd9c8f63d1950de4a3d9d843a6d99c6d05e3e6619570537a926",
   "outcome": "updated",
-  "explanation": "Merge of main into the documentation triage. From main: the App router uses navigation attempts with a replace/push/hold write policy, view setters start an attempt only on a real change, shell controls call supersede() before navigate, and the new route-landing module decides what a URL means. From this branch: docs keep decisions, invariants, provenance and procedure order and point to code; CONTEXT.md entries name the owner and its invariants. The merged CONTEXT.md keeps the trimmed form and carries main's router rules plus a new Route landing entry. PRODUCT, DESIGN, CHANGELOG, runbooks and records are as triaged.",
+  "explanation": "Docs keep decisions, invariants, provenance and procedure order and point to code for exact shapes, names and values (docs/README.md). CONTEXT.md entries name the owning file and its invariants; the trimmed form carries the router's navigation-attempt rules and a Route landing entry. PRODUCT, DESIGN, CHANGELOG, runbooks and dated records are as triaged, and PROJECT_GUIDANCE.md gains the files-not-in-this-repository section. evaluation.md names the CI steps that run the context suite.",
   "references": [
     "CONTEXT.md",
+    "docs/README.md",
+    "docs/PROJECT_GUIDANCE.md",
     "docs/agent-context/workflows.md",
-    "src/appRouter.ts",
-    "src/routeLanding.ts",
-    "docs/README.md"
+    "docs/agent-context/evaluation.md"
   ]
 }

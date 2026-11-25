@@ -1,13 +1,11 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "e2e7b6c3391766ec497b9e4b6e087e8c558bb003da2b5c387534dd8b43ba92c0",
+  "fingerprint": "25c81ebd1565515d2a2aec4b72d1edb1da48daae6d86599919a2e0501963d36e",
   "outcome": "updated",
-  "explanation": "Navigation attempts in the router. navigationAttempts.test.tsx pins that a search, Home, openInExplorer, filter, library record or emptied compare set made while a cold #/dataset/<id>/<track> link is landing wins after that metadata resolves or rejects (B2), that a followed explicit default-track link is canonicalized in place so Back leaves it (B4), that an unrecognized anchor is kept at boot and mid-landing (B8), that a shell tab click supersedes a boot landing, and that settings-only and no-hash initialView writes still replace. appRouter.test.tsx now awaits the verified openInExplorer(id, track) and resets history with replaceState so a late hashchange cannot supersede the next test.",
+  "explanation": "datasetLibrary.test.tsx now opens the library on one or two categories (Primate atlas, Diet-induced obesity) in the ten tests about a single study's record or table row, so those tests no longer render every registered study. The tests about corpus counts, filters and the degraded catalog still render all of them, and no assertion changed.",
   "references": [
-    "src/__tests__/navigationAttempts.test.tsx",
-    "src/__tests__/appRouter.test.tsx",
-    "src/__tests__/appRouterUrl.test.tsx",
-    "src/appRouter.ts"
+    "src/__tests__/datasetLibrary.test.tsx",
+    "src/library/DatasetLibrary.tsx"
   ]
 }

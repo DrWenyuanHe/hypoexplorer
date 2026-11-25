@@ -2,7 +2,8 @@ import { useId, useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import { SPECIES_GROUPS, MOD_GROUPS, MODEL_GROUPS, DEFAULT_TRACKER_FILTERS } from './trackerLogic';
 import type { TrackerFilterState } from './trackerLogic';
-import { VERIFICATION_CLAIMS, RESULT_AVAILABILITY } from '../data/authorVerification';
+import { AUTHOR_VALIDATION_REPORT } from '../data/authorValidation';
+import { AUTHOR_FOLLOW_UPS, VERIFICATION_CLAIMS, RESULT_AVAILABILITY } from '../data/authorVerification';
 import { QUALITY_BADGES, QUALITY_STATUS } from '../data/datasetQualityR460';
 
 type FilterKey = Exclude<keyof TrackerFilterState, 'q' | 'status'>;
@@ -61,6 +62,12 @@ function trackerFilterDefs(tags: string[], f: TrackerFilterState): FilterDef[] {
         all('Any availability'), ...Object.entries(RESULT_AVAILABILITY).map(([k, meta]): [string, string] => [k, meta.label]),
       ],
     },
+    // Offered only while some record carries a follow-up, so it never filters to nothing.
+    ...(AUTHOR_VALIDATION_REPORT.records.some((record) => record.verification.followUp) ? [{
+      key: 'followUp', label: 'Author follow-up', options: [
+        all('Any follow-up'), ...Object.entries(AUTHOR_FOLLOW_UPS).map(([k, meta]): [string, string] => [k, meta.label]),
+      ],
+    } satisfies FilterDef] : []),
   ];
 }
 

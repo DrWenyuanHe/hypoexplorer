@@ -11,10 +11,12 @@
 //   pnpm run fetch:expression
 //   pnpm run fetch:expression gtex          # only the named atlases
 //   HYPOEXPLORER_APP_ORIGIN=https://... pnpm run fetch:expression
+//   pnpm run fetch:expression --identity    # print what the host publishes, fetch nothing else
 //
 // `pnpm run deploy:cf` runs this (through prepare:deploy) for any atlas that is
 // missing or incomplete, because a deploy without them removes them from the site.
 
+import { createHash } from 'node:crypto';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -22,7 +24,9 @@ import { ATLAS_DIRS, atlasFiles } from '../lib/deployInputs.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const app = (process.env.HYPOEXPLORER_APP_ORIGIN || 'https://hypoexplorer.com').replace(/\/+$/, '');
-const requested = process.argv.slice(2).filter((arg) => arg !== '--');
+const args = process.argv.slice(2).filter((arg) => arg !== '--');
+const identityOnly = args.includes('--identity');
+const requested = args.filter((arg) => arg !== '--identity');
 const unknown = requested.filter((dir) => !ATLAS_DIRS.includes(dir));
 if (unknown.length) throw new Error(`Unknown atlas ${unknown.join(', ')}; choose from ${ATLAS_DIRS.join(', ')}`);
 const PROVIDERS = requested.length ? requested : [...ATLAS_DIRS];
@@ -57,6 +61,21 @@ function save(relative: string, bytes: Buffer): void {
   const target = path.join(ROOT, 'public/expression', relative);
   mkdirSync(path.dirname(target), { recursive: true });
   writeFileSync(target, bytes);
+}
+
+// CI caches the atlases under this digest of each atlas's manifest and validation
+// record. Those name the source release, the shard counts and the hashes of the
+// source downloads, so a republished atlas changes it. An atlas rebuilt from the
+// same sources with nothing else in those two files changed would not.
+if (identityOnly) {
+  const identity = createHash('sha256');
+  for (const provider of PROVIDERS) {
+    const manifestBytes = await fetchBytes(`${provider}/manifest.json`);
+    const validation = JSON.parse(manifestBytes.toString('utf8')).validationPath || 'validation.json';
+    identity.update(`${provider}\n`).update(manifestBytes).update(await fetchBytes(`${provider}/${validation}`));
+  }
+  console.log(identity.digest('hex'));
+  process.exit(0);
 }
 
 for (const provider of PROVIDERS) {

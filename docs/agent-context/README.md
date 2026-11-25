@@ -79,6 +79,13 @@ modules and exact files or prefixes ending in `/`. Catalog fragments additionall
 invalidate their relevant areas. Paths and normalized LF content participate in
 SHA-256 fingerprints, detecting additions, removals, renames and comment changes.
 
+Routine version bumps are outside the guard, so a Dependabot pull request needs
+no review record: `pnpm-lock.yaml` is not a source, a `package.json` contributes
+its dependency names without their versions, and a workflow contributes each
+`uses:` action without its ref (`reviewedContent` in the same module). Adding,
+removing or renaming a dependency or an action still invalidates the review, as
+does any other change to those files.
+
 ## Startup and enforcement
 
 `CLAUDE.md` imports `@AGENTS.md` on its own line. Authored policy lives in

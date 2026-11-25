@@ -7,10 +7,16 @@ retained inputs that are not here. The build needs the gitignored query catalog 
 `public/query/` (`pnpm run fetch:query` or `pnpm run prepare:deploy`).
 `pnpm run deploy:dist` builds and writes brotli/gzip sidecars for an Apache
 upload; the Cloudflare deploy does not use it (see below).
-The app CI workflow runs type checks, lint, `deadcode` (knip), `context:check`, tests and a
-built-site Chromium smoke check. It fetches the query catalog and the reference
-atlases from the live origins instead of building them, so it checks the app
-against the published data, not the data itself. The [publication release procedure](../runbooks/PUBLICATION_RELEASE.md)
+The app CI workflow runs type checks, lint, `deadcode` (knip), `context:check`, tests and the
+built-site Chromium smoke (views, tabs, links, exports and the volcano canvas, with
+one retry). Beside the Vitest suite it runs `test:scripts`
+(the `scripts/lib` tests that need no retained evidence) and `test:service` (the
+HypoMap co-detection service against its golden wire contract). It fetches the
+query catalog and the reference atlases from the live origins instead of
+building them, so it checks the app against the published data, not the data
+itself. The atlases are cached under `fetch:expression --identity`, a digest of
+each published manifest and validation record, and downloaded again when that
+changes. The [publication release procedure](../runbooks/PUBLICATION_RELEASE.md)
 documents citation, licensing, exact release identity and local archive packaging.
 `verify:release` rejects an app built from different source or data, even if its
 version is unchanged. `verify:deploy` compares that identity with `/release.json`
