@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "module-gene-explorer",
-  "fingerprint": "5b306497e3cb8d152758b49d514b7c8d5822bff3b2d26095468efaf86cea710d",
-  "outcome": "updated",
-  "explanation": "The controls above the volcano are one row: the picker search and Gene list menu, Plot/Table, P value/FDR, a thresholds summary button that opens both cutoff inputs, and an \"N pass\" menu holding Show list, Add all and the downloads. VolcanoPlot draws its counts and key as one line in the plot top margin, labels its threshold lines, and takes toolbarLead and toolbarBelow slots. GeneExplorerTab shows Bar charts, Summary table and Across comparisons only once a gene is selected. GeneSearchBox takes showAliases as a prop in place of its own Aliases button. Thresholds, selection and exports behave as before.",
+  "fingerprint": "91659dd86d037ffa6ab1d89c0be8134c098d129c53bff93f5ec98b5360025b5b",
+  "outcome": "no-impact",
+  "explanation": "Selecting a point on the volcano scrolls the page by whatever the selection strip moved the plot, so on a phone the point stays under the finger. The tooltip is anchored to its point, a clicked one ignores the leave Chromium reports after a layout change and closes at the next real move or press, and new data closes it. Props, toolbar slots, thresholds, selection and exports are unchanged, so the mapped responsibilities still hold.",
   "references": [
     "src/gene-explorer/VolcanoPlot.tsx",
     "src/gene-explorer/GeneExplorerTab.tsx",
-    "src/gene-explorer/GeneSearchBox.tsx",
-    "src/gene-explorer/volcanoToolbar.css",
     "docs/agent-context/workflows.md"
   ]
 }

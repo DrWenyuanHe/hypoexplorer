@@ -1,7 +1,7 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "74154034f377984e027e36e9ff7420ea953e56b22272c455ffc94466fbdaa2f9",
+  "fingerprint": "585f50746be874c80ca02fcc109439c582b5d6f9c55095f538a76a33b48c15bf",
   "outcome": "no-impact",
   "explanation": "The changes under scripts/ touch only the context guard's fingerprint projection and the atlas fetcher's --identity flag. QC review, evidence authoring and the verification commands are unchanged, and the scripts/lib evidence tests that read retained inputs still run only in the maintainer's checkout.",
   "references": [

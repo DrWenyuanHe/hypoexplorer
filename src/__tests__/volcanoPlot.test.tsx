@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { describe, it, expect, vi } from 'vitest';
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { afterEach, describe, it, expect, vi } from 'vitest';
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import { VolcanoPlot } from '../gene-explorer/VolcanoPlot';
 import { stubVolcanoView } from './fixtures';
 import type { PopData, VolcanoPoint } from '../types';
@@ -204,5 +204,119 @@ describe('VolcanoPlot — selected markers', () => {
       expect(screen.getByRole('button', { name: 'Pomc ✓' })).toBeTruthy();
       expect(screen.getByText('↑ Up in Case (1)')).toBeTruthy();
     } finally { spy.mockRestore(); }
+  });
+});
+
+// Selecting a gene changes the layout above the plot, so the plot can move out
+// from under a pointer that has not moved.
+describe('VolcanoPlot — the clicked point', () => {
+  // The single point sits at (319, 45) of the SVG's initial 600×360 view, and
+  // the SVG's own top-left is (0, 0) in jsdom.
+  const AT = { clientX: 319, clientY: 45 };
+  const POMC = [point('Pomc', 0, 0.001, 0.01)];
+  const plot = () => screen.getByRole('img', { name: /Volcano plot/ });
+  const tooltipBox = () => plot().querySelector('g > rect');
+  const tooltipTop = () => Number(tooltipBox()?.getAttribute('y'));
+  // jsdom has no PointerEvent, and Testing Library's fallback carries no coordinates.
+  const pointer = (type: 'pointermove' | 'pointerdown', target: Element, at: typeof AT) =>
+    fireEvent(target, new MouseEvent(type, { bubbles: true, ...at }));
+
+  afterEach(() => vi.restoreAllMocks());
+
+  function Host({ popData = dataFor(POMC), volcano = stubVolcanoView() }: { popData?: PopData; volcano?: ReturnType<typeof stubVolcanoView> }) {
+    const [selected, setSelected] = useState<string[]>([]);
+    return <VolcanoPlot selectedGenes={selected} volcano={volcano} popData={popData}
+      onAddGene={(gene) => setSelected((genes) => (genes.includes(gene) ? genes : [...genes, gene]))}
+      toolbarBelow={selected.length > 0 && <div data-testid="strip">{selected.length}</div>} />;
+  }
+
+  /** The strip pushes the plot down by `by` px; where the page scrolled comes back. */
+  function shiftPlotBy(by: number) {
+    vi.spyOn(SVGElement.prototype, 'getBoundingClientRect').mockImplementation(
+      () => new DOMRect(0, screen.queryByTestId('strip') ? by : 0, 600, 360),
+    );
+    return vi.spyOn(window, 'scrollBy').mockImplementation(() => {});
+  }
+
+  it('scrolls the page by as much as the selection moved the plot, and only then', () => {
+    const scrollBy = shiftPlotBy(104);
+    render(<Host />);
+    fireEvent.click(plot(), { clientX: 319, clientY: 280 });
+    expect(scrollBy).not.toHaveBeenCalled();
+    fireEvent.click(plot(), AT);
+    expect(scrollBy.mock.calls).toEqual([[{ top: 104, behavior: 'instant' }]]);
+    // Selecting the same gene again moves nothing.
+    fireEvent.click(plot(), { clientX: 319, clientY: 149 });
+    expect(scrollBy).toHaveBeenCalledTimes(1);
+  });
+
+  it('keeps its tooltip when the plot moves under a pointer that has not', () => {
+    render(<Host />);
+    fireEvent.click(plot(), AT);
+    expect(tooltipBox()).not.toBeNull();
+    expect(plot()).toHaveTextContent('◆ Selected');
+    // What the browser may report once the layout has changed: a move at the
+    // click's own place, now over another part of the plot, and a leave at
+    // wherever its mouse last was.
+    vi.spyOn(SVGElement.prototype, 'getBoundingClientRect').mockReturnValue(new DOMRect(0, 104, 600, 360));
+    fireEvent.mouseMove(plot(), AT);
+    pointer('pointermove', document.body, AT);
+    fireEvent.mouseLeave(plot(), { clientX: 5, clientY: 5 });
+    expect(tooltipBox()).not.toBeNull();
+  });
+
+  it('closes its tooltip at the next real move or press outside the plot', () => {
+    render(<Host />);
+    fireEvent.click(plot(), AT);
+    pointer('pointermove', document.body, { clientX: 319, clientY: 20 });
+    expect(tooltipBox()).toBeNull();
+
+    fireEvent.click(plot(), AT);
+    pointer('pointerdown', screen.getByTestId('strip'), AT);
+    expect(tooltipBox()).toBeNull();
+  });
+
+  it('follows the pointer again once it moves inside the plot', () => {
+    render(<Host />);
+    fireEvent.click(plot(), AT);
+    // Still on the point, so the tooltip stays, and a leave closes it as on hover.
+    fireEvent.mouseMove(plot(), { clientX: 321, clientY: 45 });
+    expect(tooltipBox()).not.toBeNull();
+    fireEvent.mouseLeave(plot(), { clientX: 319, clientY: -5 });
+    expect(tooltipBox()).toBeNull();
+  });
+
+  it('moves its tooltip with the point when the plot resizes or changes statistic', () => {
+    const observers: Array<{ target: Element; notify: ResizeObserverCallback }> = [];
+    vi.stubGlobal('ResizeObserver', class {
+      constructor(private readonly notify: ResizeObserverCallback) {}
+      observe(target: Element) { observers.push({ target, notify: this.notify }); }
+      unobserve() {}
+      disconnect() {}
+    });
+    try {
+      const points = [...POMC, point('Agrp', -3, 1e-6, 1e-4)];
+      const view = render(<Host popData={dataFor(points)} />);
+      // Pomc, at half of Agrp's height.
+      fireEvent.click(plot(), { clientX: 319, clientY: 178 });
+      expect(plot()).toHaveTextContent('Pomc');
+      const top = tooltipTop();
+      const resize = observers.find(({ target }) => target.classList.contains('volcano-canvas'));
+      act(() => resize?.notify([{ contentRect: { width: 600, height: 260 } } as ResizeObserverEntry], {} as ResizeObserver));
+      // The 100px come off the plot's height, and the point sits 54% of the way down it.
+      expect(tooltipTop()).toBeCloseTo(top - 100 * (1 - 0.5 / 1.08), 5);
+      view.rerender(<Host popData={dataFor(points)} volcano={stubVolcanoView({ metric: 'fdr' })} />);
+      expect(tooltipBox()).not.toBeNull();
+      expect(tooltipTop()).not.toBeCloseTo(top, 0);
+    } finally { vi.unstubAllGlobals(); }
+  });
+
+  it('closes its tooltip when the data changes, not when the same points are rebuilt', () => {
+    const view = render(<Host popData={dataFor(POMC)} />);
+    fireEvent.click(plot(), AT);
+    view.rerender(<Host popData={dataFor([{ ...POMC[0] }])} />);
+    expect(tooltipBox()).not.toBeNull();
+    view.rerender(<Host popData={dataFor([point('Pomc', 0, 0.002, 0.01)])} />);
+    expect(tooltipBox()).toBeNull();
   });
 });

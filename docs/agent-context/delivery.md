@@ -7,8 +7,9 @@ retained inputs that are not here. The build needs the gitignored query catalog 
 `public/query/` (`pnpm run fetch:query` or `pnpm run prepare:deploy`).
 `pnpm run deploy:dist` builds and writes brotli/gzip sidecars for an Apache
 upload; the Cloudflare deploy does not use it (see below).
-The app CI workflow runs type checks, lint, `deadcode` (knip), `context:check`, tests and a
-built-site Chromium smoke check. Beside the Vitest suite it runs `test:scripts`
+The app CI workflow runs type checks, lint, `deadcode` (knip), `context:check`, tests and the
+built-site Chromium smoke (views, tabs, links, exports and the volcano canvas, with
+one retry). Beside the Vitest suite it runs `test:scripts`
 (the `scripts/lib` tests that need no retained evidence) and `test:service` (the
 HypoMap co-detection service against its golden wire contract). It fetches the
 query catalog and the reference atlases from the live origins instead of

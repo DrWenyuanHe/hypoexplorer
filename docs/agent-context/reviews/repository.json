@@ -1,13 +1,10 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "68e9de2a54b342f872543ec1bc62b07f05e614eb3846f8d37b6d7f7a5fe87c0f",
+  "fingerprint": "7def62fb1773dcd0180ce8bc09d13ca54b6bfddad5650f9d15c982e05f4f6baa",
   "outcome": "updated",
-  "explanation": "Merges main into the CI quick-wins branch. From main: CONTEXT.md sharpens the App router entry with the navigation attempt and the write policy (replace for a followed URL, push for a user action, hold for an unrecognized fragment, settings-only changes replace), the real-change rule for view-reported setters, the stable supersede() the shell calls before navigate, the rule that router-delivered intents never supersede, and the verified openInExplorer(id, track). The ui-change workflow tells a new shell control to call supersede() first. From this branch: CI and the context guard change. application.yml now runs pnpm run test:scripts (the six scripts/lib tests that need no retained evidence) and pnpm run test:service (the HypoMap co-detection service's unittest, on Python 3.12 with NumPy) in the Lint and typecheck job, runs Vitest with one worker per runner core, and caches the three reference atlases under the digest that fetch:expression --identity prints. package.json adds the two test scripts. The guard no longer fingerprints routine version bumps: pnpm-lock.yaml is not a source, a package.json contributes dependency names without versions and a workflow contributes each uses: action without its ref (reviewedContent in model.mjs). docs/agent-context/README.md records that boundary and delivery.md the CI steps.",
+  "explanation": "CI and the context guard change. application.yml now runs pnpm run test:scripts (the six scripts/lib tests that need no retained evidence) and pnpm run test:service (the HypoMap co-detection service's unittest, on Python 3.12 with NumPy) in the Lint and typecheck job, runs Vitest with one worker per runner core, and caches the three reference atlases under the digest that fetch:expression --identity prints. package.json adds the two test scripts. The guard no longer fingerprints routine version bumps: pnpm-lock.yaml is not a source, a package.json contributes dependency names without versions and a workflow contributes each uses: action without its ref (reviewedContent in model.mjs). docs/agent-context/README.md records that boundary; delivery.md records the CI steps beside the wider browser smoke.",
   "references": [
-    "CONTEXT.md",
-    "docs/agent-context/workflows.md",
-    "src/appRouter.ts",
     "docs/agent-context/README.md",
     "docs/agent-context/delivery.md",
     ".github/workflows/application.yml",

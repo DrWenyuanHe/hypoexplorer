@@ -208,7 +208,12 @@ is not loaded. Run every new export entry point inside `withExportEvidence()`
 Expected outputs are the requested behavior and relevant regression coverage.
 Run the app and script TypeScript checks documented in
 [project guidance](../PROJECT_GUIDANCE.md) and focused Vitest tests. Use a browser
-for navigation, loading, accessibility or layout changes.
+for navigation, loading, accessibility or layout changes. The built-site browser
+smoke (`scripts/smoke/`, `pnpm run test:smoke`) opens every view and explorer tab on
+a desktop and a phone and fails on page errors, failed requests or sideways
+overflow. A new view or tab needs an entry in `scripts/smoke/viewLinks.ts` and a
+ready check in `views.smoke.spec.ts`; `smokeViewLinks.test.ts` fails without the
+link. A renamed label or heading those specs query is changed there too.
 
 Circadian changes also follow [the numerical validation runbook](../runbooks/CIRCADIAN_VALIDATION.md).
 Keep effective JTK period families, unsupported-design reasons, missing-value
