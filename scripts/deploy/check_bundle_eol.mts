@@ -1,4 +1,6 @@
-// Prebuild gate: every tracked -text or eol=lf file (dataset bundles, retained
+// Line-ending gate (`pnpm run check:bundle-eol`; `restore:bundle-eol` runs
+// `--fix`). Run it before hashing; nothing wires it into the build. Every tracked
+// -text or eol=lf file (dataset bundles, retained
 // sources, replay tables, DE results and evidence ledgers) must carry its
 // committed line endings before anything hashes it. lib/bundleEol.mts explains
 // how a stale copy sits behind a clean `git status`. `--fix` restores copies

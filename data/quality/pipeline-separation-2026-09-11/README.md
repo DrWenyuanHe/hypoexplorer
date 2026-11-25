@@ -1,5 +1,7 @@
 # Pipeline QC, experimental design and author concordance
 
+> Dated record (2026-09-11). The three-badge split it introduced is current; the counts below are that day's. Current assessments: [the verification guide](../../author-validation/README.md) and `src/data/datasetQualityR460.ts`. Its commands and linked evidence need the maintainer checkout; see [Files not in this repository](../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
+
 The library, tracker, Explorer, verification guide and public study pages now show three separate assessments. Each badge opens its own checklist, including passed checks, review reasons and missing evidence. Filters and exported reports use the same assessments.
 
 | Assessment | Passed | Review needed | Not assessed | Not applicable |

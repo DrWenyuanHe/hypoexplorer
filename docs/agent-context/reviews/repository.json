@@ -1,10 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "3769fc29adf0c5f52567988cc04b0bb65996e392c276c2759bf2521c17453555",
+  "fingerprint": "3f6fde9f510c6c2c1d83ac742577caf063283322602ae164a12a665a6c7622ed",
   "outcome": "updated",
-  "explanation": "CHANGELOG.md's Unreleased section records that Enter in the gene search selects the gene typed. No guidance, command, configuration or workflow changed.",
+  "explanation": "Agent maps and usage text corrected. catalog.json describes geo_replication as pipeline scripts and config with study data restored by fetch:data, and the ui-change workflow now owns statistics, library, hub, circadian, compare and methodology. The context README drops the pnpm -- argument, the Git LFS claim and the separate CI workflow. Script headers stop citing build:tracker, prebuild and .mjs names, mark maintainer-only inputs, and document --check, --out, --all-tracks, --no-zip and env vars. seoPages pluralises one study; seoGuides keeps the software citation apart from the data-export DOI. Sealed or hash-pinned scripts were left unchanged.",
   "references": [
-    "CHANGELOG.md"
+    "docs/agent-context/catalog.json",
+    "docs/agent-context/README.md",
+    "scripts/build_tracker_catalog.mts",
+    "scripts/lib/seoGuides.mts",
+    "AGENTS.md"
   ]
 }

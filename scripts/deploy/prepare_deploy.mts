@@ -4,6 +4,9 @@
 //   pnpm run prepare:deploy                   # fetch what is missing, refuse on a mismatch
 //   pnpm run prepare:deploy --refresh-query   # replace a local query catalog with the origin's
 //
+// HYPOEXPLORER_APP_ORIGIN overrides the app host the tracker catalog and atlases
+// are fetched from (default https://hypoexplorer.com).
+//
 // A fresh clone has none of these inputs, and a build without them either fails
 // (no public/query/tracks.js) or succeeds without the reference atlases and the
 // tracker catalog, which a deploy would then remove from the live site. See

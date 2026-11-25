@@ -3,7 +3,7 @@
 // This verified the pop_*.js → datasets/macaque_snrna/ relocation was verbatim.
 // Two later, deliberate changes mean it no longer passes against current
 // bundles: the pathway split (split_macaque_pathways.mts moved `pathways` into
-// sibling files) and the wire-size optimization (scripts/optimize_bundles.mts
+// sibling files) and the wire-size optimization (scripts/deploy/optimize_bundles.mts
 // rounds P/FDR under a threshold guard and drops rankPos/ens/null-logCPM; see
 // scripts/lib/bundleSlim.mts). The optimizer's equivalent gate is the semantic
 // diff run at optimization time: order/count identical, zero classification

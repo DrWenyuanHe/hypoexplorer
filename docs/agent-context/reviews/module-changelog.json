@@ -1,10 +1,11 @@
 {
   "version": 1,
   "area": "module-changelog",
-  "fingerprint": "dc8e197a9bbd43b1cf08cbb7f48b82e02d225038d8c05d303ab4d370c5fa14c9",
+  "fingerprint": "f7aee57c30d58a752aa8f898cd6083b8941d06605f62eff150cd047e3baaa093",
   "outcome": "updated",
-  "explanation": "Adds a second 2026-11-24 entry: Enter in the gene search searches the text in the box, where it could add the top match for the letters typed before it; no data, result or analysis changed.",
+  "explanation": "The QC significant-gene changelog entry no longer claims the volcano uses the FDR < 0.05 call; the volcano opens at raw p < 0.01. The entry keeps its meaning and no release entry was added or removed.",
   "references": [
-    "src/changelog/changelog.ts"
+    "src/changelog/changelog.ts",
+    "src/explorer/explorerSession.ts"
   ]
 }

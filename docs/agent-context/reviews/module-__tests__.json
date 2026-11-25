@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "ff3e3879704f5a7cc697dcd5a4025b033808e67033358a27dfabdeeaa24a69c7",
+  "fingerprint": "da316f173bbe0144f96c192df1f3c23a05d963a525593362f27af16407a8b884",
   "outcome": "updated",
-  "explanation": "setup.ts unmounts the page before it resets the URL after each test, because unmounting runs the router's pending URL write and Testing Library's own cleanup runs after this hook; testIsolation.test.tsx pins that order. app.dataset.test.tsx unmounts before it removes the mouse study's seeds, so a mounted page cannot start a load that stays cached for the next test. nomenclature.test.tsx checks that Enter selects the gene typed before the list catches up.",
+  "explanation": "Test comments in explorerStore.test.tsx and setup.ts now say index.html eager-loads nothing and the store seeds only from a global already present. studyFactTable.test.tsx follows the study record's new pathway-row wording. No assertion was weakened.",
   "references": [
-    "src/__tests__/setup.ts",
-    "src/__tests__/testIsolation.test.tsx",
-    "src/__tests__/app.dataset.test.tsx",
-    "src/__tests__/nomenclature.test.tsx"
+    "src/__tests__/studyFactTable.test.tsx",
+    "src/__tests__/explorerStore.test.tsx",
+    "src/common/StudyMetadata.tsx"
   ]
 }

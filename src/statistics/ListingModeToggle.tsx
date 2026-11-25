@@ -16,10 +16,10 @@ import './listingMode.css';
  * explanation cannot drift between views.
  */
 export const Q_EXPLANATION =
-  'q is the FDR-adjusted p-value: each study\'s p-values after Benjamini–Hochberg correction across '
-  + 'everything that study tested (its genes, or the pathways tested in a track). It is the lowest '
+  'q is the FDR-adjusted p-value: p-values after Benjamini–Hochberg correction within one comparison '
+  + '(across its genes, or across the gene sets of one pathway collection). It is the lowest '
   + 'false-discovery rate at which this result would count as a hit, so q < '
-  + `${DEFAULT_FDR_CUTOFF} keeps the expected share of false hits below 5%. HypoExplorer shows the value `
+  + `${DEFAULT_FDR_CUTOFF} keeps the expected share of false hits below ${+(DEFAULT_FDR_CUTOFF * 100).toFixed(2)}%. HypoExplorer shows the value `
   + 'each study\'s own analysis produced; it computes no q of its own.';
 
 /**

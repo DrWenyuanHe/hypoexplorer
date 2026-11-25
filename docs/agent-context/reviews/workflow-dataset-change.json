@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "41e568198ad8718fe40d05b9b619a1e95fc8f423268b6d8268f468fba47bd98f",
-  "outcome": "no-impact",
-  "explanation": "Registry fields, display labels and one survey source of reviewed studies were corrected; the dataset-change procedure, including the reviewed-reason step in build_registry_edits.mts and the expression-index rebuild for survey sources, is unchanged. The survey index was rebuilt with that procedure.",
+  "fingerprint": "6659cfeb04dd8be733ff526ca373b801da470024d0d97084224a1126f950c71b",
+  "outcome": "updated",
+  "explanation": "Dataset-change sources changed in comments, usage headers and dated-record text only, plus one shared constant: bundleWriter.mts takes NSIG_FDR_THRESHOLD from NSIG_FDR_CUTOFF in policy.ts with the same 0.05 value, so written bundles are unchanged. report_september5_intake.py now emits the dated header, pnpm commands and current-audit note so regenerating REPORT.md keeps them. The add-a-dataset procedure is unchanged.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "scripts/regen-r460/build_registry_edits.mts",
-    "data/expression/existing/README.md"
+    "scripts/lib/bundleWriter.mts",
+    "src/statistics/policy.ts",
+    "scripts/report_september5_intake.py",
+    "data/intake/september5-2026/REPORT.md"
   ]
 }

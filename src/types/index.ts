@@ -297,7 +297,7 @@ export interface PopData {
   expressionUnit: string;
 }
 
-// ── Cross-dataset gene report (src/data/crossDataset.js) ─────────────────────
+// ── Cross-dataset gene report (src/data/crossDataset.ts) ─────────────────────
 
 export type Direction = 'up' | 'down' | 'flat';
 

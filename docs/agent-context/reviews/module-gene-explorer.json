@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-gene-explorer",
-  "fingerprint": "49e21039a3d9005234b5205d65e6e31da81f5a5a92bb89d86aa714d23f80cf26",
-  "outcome": "no-impact",
-  "explanation": "GeneSearchBox's Enter handler searches the current text instead of reusing the debounced suggestion list, which could hold matches for an earlier prefix. Props, ranking, redirects, the suggestion list and its debounce are unchanged, so the mapped responsibilities still hold.",
+  "fingerprint": "fcfd678588693e4e75db346ec61cc6e0cae3fdcf5047cad6ff0c1cef5df1d726",
+  "outcome": "updated",
+  "explanation": "The ContrastMatrix star legend is built by starLegend() from the shared STAR_THRESHOLDS table, so it now includes **** for p < 0.0001 and cannot disagree with pToStar or the Methods table.",
   "references": [
-    "src/gene-explorer/GeneSearchBox.tsx",
-    "src/common/GenePicker.tsx"
+    "src/gene-explorer/ContrastMatrix.tsx",
+    "src/utils/format.ts"
   ]
 }

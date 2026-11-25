@@ -98,5 +98,5 @@ export const SOFTWARE_REFERENCES: readonly SoftwareReference[] = [
 /** Acknowledgement paragraphs, as plain sentences. */
 export const ACKNOWLEDGEMENTS: readonly string[] = [
   'We thank Lei et al. (Cell Metab, 2024) for generating and openly publishing the macaque hypothalamus single-nucleus dataset that HypoExplorer re-analyzes, and every group whose deposited data appear in the collection.',
-  'We also thank the teams behind MSigDB (Broad Institute), Reactome, KEGG, the Gene Ontology Consortium, GTEx, the Human Protein Atlas, the Allen Institute for Brain Science, and the Bioconductor developers of edgeR and fgsea for the annotations, reference data and analysis software used here.',
+  'We also thank the teams behind MSigDB (Broad Institute) and msigdbr, Reactome, KEGG, the Gene Ontology Consortium, GTEx, the Human Protein Atlas, the Allen Institute for Brain Science, Janelia\'s NeuroSeq, and the Goff Lab (GSE147092 oxytocin-neuron reference), and the Bioconductor developers of edgeR, limma and fgsea, for the annotations, reference data and analysis software used here.',
 ];

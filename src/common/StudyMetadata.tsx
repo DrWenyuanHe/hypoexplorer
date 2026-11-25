@@ -470,7 +470,9 @@ export function StudyFactTable({
           </Row>
         )}
         <Row field="Pathway enrichment">
-          {dataset.supportsPathways ? 'GO · Hallmark · KEGG · Reactome' : 'Not available for this dataset'}
+          {dataset.supportsPathways
+            ? 'Available from GO:BP, Hallmark, KEGG and Reactome; the collections present vary by dataset'
+            : 'Not available for this dataset'}
         </Row>
       </Band>
 

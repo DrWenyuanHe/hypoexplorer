@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-types",
-  "fingerprint": "c7bba449f3f784cac2d0d47e75ccb347a54e18abe6017a87fa0fb4e35ab61fd4",
+  "fingerprint": "f3af1d2113ccba3ec6512cc8424f166482ec257322364938033344aa4e4bb7e0",
   "outcome": "updated",
-  "explanation": "Only the header comment of src/types/index.ts changed: the types are now named as authoritative and DATASET_CONTRACT.md as the explanation of their rules, instead of the types being reverse-engineered from the docs. No exported declaration changed, so the contracts map is unchanged.",
+  "explanation": "Comment-only path corrections: src/types/index.ts names src/data/crossDataset.ts and shims.d.ts names src/pwa/registerUpdates.ts instead of their former .js paths. No declaration changed.",
   "references": [
     "src/types/index.ts",
-    "docs/DATASET_CONTRACT.md",
-    "docs/agent-context/generated/contracts.md"
+    "src/types/shims.d.ts"
   ]
 }

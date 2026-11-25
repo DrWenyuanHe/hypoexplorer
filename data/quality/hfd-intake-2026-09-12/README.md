@@ -1,5 +1,7 @@
 # High-fat diet intake, September 12, 2026
 
+> Dated record (2026-09-12). Current check: `pnpm run check:hfd-intake`; current assessments: [the verification guide](../../author-validation/README.md). Its commands and linked evidence need the maintainer checkout; see [Files not in this repository](../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
+
 Two additional studies provide three analysis tracks. The registry increases from 159 to 161 studies. Existing study entries and scientific review decisions are preserved.
 
 | Study | Track and comparison | Replication | Analysis | Public genes |
@@ -27,16 +29,18 @@ Run from the repository root with the installed Python, R and Node dependencies:
 ```powershell
 python scripts/prepare_hfd_104709.py --offline
 python scripts/prepare_hfd_maternal.py
-npm run analyze:hfd
-npm run build:hfd-bundles
+pnpm run analyze:hfd
+pnpm run build:hfd-bundles
 Rscript scripts/verify_hfd_104709.R
 python scripts/verify_hfd_107324_source.py
 Rscript scripts/verify_hfd_107324.R
 python scripts/compare_hfd_authors.py --check
-npm run check:hfd-intake
+pnpm run check:hfd-intake
 ```
 
-Preparation scripts document download options for a fresh machine. Source files are pinned by URL, byte count and SHA-256. The independent replay commands and measured tolerances are described in `data/internal-qc/hfd-intake-2026-09-12/INDEPENDENT_REPLAYS.md`. The HFD audit is included in `prebuild` and refuses stale source, analysis or public-bundle evidence.
+This block mixes two generations of the analysis. `pnpm run analyze:hfd` still runs the sealed originals (`scripts/run_hfd_pipeline.R` and `scripts/run_mouse_fgsea.R`), while `build:hfd-bundles` and `check:hfd-intake` use the R 4.6.0 outputs: the audit requires each DE table's provenance to name `scripts/regen-r460/run_hfd_r460.R` with its current hash. To reproduce the audited result, regenerate the HFD analyses with that producer and `scripts/regen-r460/run_fgsea_r460.R`, run through `scripts/regenerate_bulk_de_current.R` (jobs `hfd_<accession>`; see its usage header), instead of `analyze:hfd`.
+
+Preparation scripts document download options for a fresh machine. Source files are pinned by URL, byte count and SHA-256. The independent replay commands and measured tolerances are described in `data/internal-qc/hfd-intake-2026-09-12/INDEPENDENT_REPLAYS.md`. The HFD audit (`pnpm run check:hfd-intake`) refuses stale source, analysis or public-bundle evidence. It ran in the maintainer checkout's `prebuild`; this repository has no `prebuild` script, so run it directly.
 
 The initial working tree already contained publication-review changes. `working-tree.before.txt` records that state. Historical verification inputs are preserved by exact checksum under `preserved-inputs/`; their checks continue to require equality for the original studies while allowing new registry rows. The registry golden was refreshed for these additions and the prior reviewed metadata corrections, whose pre-intake snapshot failure is retained in `registry-before.log`.
 

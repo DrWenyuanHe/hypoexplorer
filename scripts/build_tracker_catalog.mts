@@ -1,6 +1,6 @@
 // Build-time generator for the dataset tracker.
 //
-// Reads the (git-tracked) survey catalog + the explorer's dataset registry,
+// Reads the survey catalog + the explorer's dataset registry,
 // precomputes each candidate's integration status against the explorer, and bakes
 // two artifacts that ship in the build:
 //
@@ -11,8 +11,10 @@
 //                                             map (explorer datasetId -> candidate
 //                                             accession) for explorer->tracker links.
 //
-// Run via `npm run build:tracker`; also runs automatically as `prebuild`.
-// Deterministic from committed sources, so any clone/CI regenerates identically.
+// Run with `pnpm exec tsx scripts/build_tracker_catalog.mts`. Maintainer only: the
+// survey catalog under nar-research/ is not in this repository, so a public clone
+// gets public/tracker/catalog.js from the live site through `pnpm run fetch:query`
+// instead. Deterministic from its inputs.
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import path from 'node:path';

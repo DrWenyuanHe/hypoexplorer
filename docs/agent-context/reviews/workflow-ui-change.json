@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "0f91c9f2b26cc550be594e23064ca6ed9ef10c0eca8b765cabb8601ac462a086",
-  "outcome": "no-impact",
-  "explanation": "The gene search's Enter key now searches the text in the box. Every gene picker still goes through GenePicker over geneVocabulary, and no route, view, label, breakpoint or export that the UI-change workflow describes changed.",
+  "fingerprint": "243311c93f3296c12a5f21e59b9b81f99fda8773cb983027200326881aaf4beb",
+  "outcome": "updated",
+  "explanation": "User-facing text now follows code: star legend and Methods star table from STAR_THRESHOLDS, cutoffs from policy.ts, the study record pathway row scoped per dataset, and the Methods page corrected on correction families, rounding, species targets, KEGG and report denominators. The workflow now covers statistics, library, hub, circadian, compare and methodology, whose rules workflows.md already gave.",
   "references": [
-    "src/gene-explorer/GeneSearchBox.tsx",
-    "docs/agent-context/workflows.md"
+    "src/methodology/MethodologyView.tsx",
+    "src/utils/format.ts",
+    "src/statistics/policy.ts",
+    "docs/agent-context/catalog.json"
   ]
 }

@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-acknowledgements",
-  "fingerprint": "560414ba3e913becd79cf1aeefc168b9f989e900d3b8fbc7248662ed599f03a5",
+  "fingerprint": "f7507f5c51ce0447fddc2b12adc95807fa56ee0f22b6642816c83fd15cf1bd92",
   "outcome": "updated",
-  "explanation": "DataSourcesTab is deleted. references.ts keeps its PubMed-verified software, gene-set and reference-atlas citations (SOFTWARE_REFERENCES) plus ACKNOWLEDGEMENTS as plain data, which the static /how-to-cite/ page renders. The per-study cards and macaque sections were dropped as duplicates of the library and study records.",
+  "explanation": "The How to cite acknowledgement now thanks the developers of limma and msigdbr and credits the NeuroSeq and GSE147092 OXT reference sources that the expression survey reads. No software reference entry was added, because their DOIs are not recorded in the repository and each entry must carry a checked DOI.",
   "references": [
     "src/acknowledgements/references.ts",
-    "scripts/lib/seoGuides.mts",
     "src/__tests__/references.test.tsx"
   ]
 }
