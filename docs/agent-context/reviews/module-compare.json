@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "module-compare",
-  "fingerprint": "cf73aa602bc690b52f41093e8a4ff461c39eb2fb832a83268d5a3e412ba9d355",
+  "fingerprint": "fda3d7b7a50f960842cec13293b08a1c9391961fc5f99feb99ad95aa31d96c29",
   "outcome": "updated",
-  "explanation": "resolveGeneCI and compareCell take an optional rename table: after exact and case matches, a column is read under another member of the gene rename group in its own stored-symbol authority, chosen by pickStoredMember. CompareGenesView reads the table with useSymbolRenames and compareSummaryRows accepts it as an option. Review fixes: the Compare tab passes the rename table to compareGenesWorkbook, compareGenesCsv, compareValuesCsv and its chart ZIP, whose long-format builders take it as a trailing argument, so downloads match the screen.",
+  "explanation": "From main (PR #85): resolveGeneCI and compareCell take an optional rename table: after exact and case matches, a column is read under another member of the gene rename group in its own stored-symbol authority, chosen by pickStoredMember. CompareGenesView reads the table with useSymbolRenames and compareSummaryRows accepts it as an option. The Compare tab's downloads take the same table: CompareTab passes useSymbolRenames to compareGenesWorkbook, compareGenesCsv, compareValuesCsv (through compareSummaryLongRows and compareValueRows) and the chart ZIP, so a tile measured under a renamed symbol is never a 'Detected: no' row, a missing sample or a missing chart in the file. From this branch: resolveGeneCI and compareCell take an optional rename table: after exact and case matches, a column is read under another member of the gene rename group in its own stored-symbol authority, chosen by pickStoredMember. CompareGenesView reads the table with useSymbolRenames and compareSummaryRows accepts it as an option. Review fixes: the Compare tab passes the rename table to compareGenesWorkbook, compareGenesCsv, compareValuesCsv and its chart ZIP, whose long-format builders take it as a trailing argument, so downloads match the screen. In the merge with main, the Compare tab keeps main's single rename-table read for its downloads (PR #85's version), which this branch's duplicate declaration repeated.",
   "references": [
     "src/compare/resolveGene.ts",
     "src/compare/compareCell.ts",

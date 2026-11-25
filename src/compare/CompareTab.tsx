@@ -172,6 +172,8 @@ export function CompareTab({ meta, dataset, contrast, defaultPops, initialView, 
   }, [popDataMap, dataset]);
   const selection = useBoundGeneSelection(geneSelection, vocabulary);
   const { genes: selectedGenes, remove: removeGene } = selection;
+  // The table CompareGenesView reads renamed genes with: downloads use it too, so they match the tiles.
+  const renames = useSymbolRenames();
 
   // ── Downloads ─────────────────────────────────────────────────────────────
   // Block every download until every selected pop has loaded: exporting while
@@ -183,10 +185,7 @@ export function CompareTab({ meta, dataset, contrast, defaultPops, initialView, 
     : !hasGenes ? 'Add a gene above to download its data and charts.' : undefined;
 
   // Data and chart exports record the QC ledger in their provenance; it loads
-  // on the first export (withExportEvidence). They read renamed symbols as the
-  // screen does (CompareGenesView), so a download never says "not detected"
-  // for a chart it draws.
-  const renames = useSymbolRenames();
+  // on the first export (withExportEvidence).
   const exportExcel = () => runExport(() => withExportEvidence(() => {
     const { filename, sheets } = compareGenesWorkbook(columns, popDataMap, selectedGenes, renames);
     return writeWorkbook(filename, sheets);
