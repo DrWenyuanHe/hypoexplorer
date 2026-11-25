@@ -1550,7 +1550,7 @@ exports[`DATASETS registry golden > resolves every field of every entry to the p
     "supportsPathways": true,
     "timeSeries": {
       "cycleHours": 24,
-      "design": "Arcuate nucleus sampled at ZT4/10/16/22 over one 24 h light–dark cycle, control vs hepatocyte Bmal1/Clock double-knockout, 3 mice per arm per timepoint. 24 libraries.",
+      "design": "Arcuate nucleus sampled at ZT4/10/16/22 over one 24 h light–dark cycle, control vs hepatocyte Nr1d1/Nr1d2 (REV-ERBα/β) double-knockout, three biological replicate pools of arcuate tissue per arm per timepoint. 24 libraries. GEO sample records report three mice per pool; the GEO series and the paper report three to four.",
       "timeUnit": "ZT",
       "tracks": [
         "arcuate",
@@ -1616,7 +1616,7 @@ exports[`DATASETS registry golden > resolves every field of every entry to the p
     "bundleBaseUrl": "",
     "bundleFileTemplate": "/datasets/mouse_arc_pyy_glp1_gse160802/track_{trackId}.js",
     "category": "Incretin & pharmacology",
-    "citation": "Arcuate nucleus, vehicle vs PYY/GLP-1 receptor co-agonist (IP118) in obese-diabetic mice (GSE160802)",
+    "citation": "Arcuate nucleus of lean mice, vehicle vs a single coadministration of IP118 (GLP-1 receptor agonist) and PY115 (PYY Y2 receptor agonist), 4 h after injection (GSE160802)",
     "contrasts": [
       {
         "baseline": "control",
@@ -1769,7 +1769,7 @@ exports[`DATASETS registry golden > resolves every field of every entry to the p
     "bundleBaseUrl": "",
     "bundleFileTemplate": "/datasets/mouse_arc_kcnb1_gse246918/track_{trackId}.js",
     "category": "Leptin, insulin & energy signaling",
-    "citation": "Arcuate POMC region, WT vs Kcnb1-null — KCNB1-leptin-receptor coupling (GSE246918)",
+    "citation": "Hypothalamus, WT vs Kcnb1-null — KCNB1-leptin-receptor coupling (GSE246918)",
     "contrasts": [
       {
         "baseline": "control",
@@ -1802,14 +1802,14 @@ exports[`DATASETS registry golden > resolves every field of every entry to the p
     "metaFile": "/datasets/mouse_arc_kcnb1_gse246918/meta.js",
     "metaGlobalKey": "HX_MOUSE_ARC_KCNB1_GSE246918_META",
     "modality": "bulk RNA-seq",
-    "name": "Mouse arcuate nucleus — Kcnb1 KO (bulk RNA-seq)",
+    "name": "Mouse hypothalamus — Kcnb1 KO (bulk RNA-seq)",
     "organism": "Mus musculus",
     "perturbation": "Genetic",
     "pmid": "39436109",
     "preparation": "Bulk tissue",
     "qcFile": "/datasets/mouse_arc_kcnb1_gse246918/qc_global.js",
     "qcGlobalKey": "HX_MOUSE_ARC_KCNB1_GSE246918_QC",
-    "region": "Arcuate nucleus",
+    "region": "Whole hypothalamus",
     "supportsPathways": true,
     "trackCategoryOrder": [
       "Tissue",
@@ -1973,7 +1973,7 @@ exports[`DATASETS registry golden > resolves every field of every entry to the p
     "bundleBaseUrl": "",
     "bundleFileTemplate": "/datasets/mouse_gnrh_androgen_gse162563/track_{trackId}.js",
     "category": "Reproduction & development",
-    "citation": "GnRH/preoptic-area TRAP translatome, vehicle vs prenatal DHT — androgenization of GnRH development (GSE162563)",
+    "citation": "Adult female preoptic area, GnRH-depleted supernatant of a GnRH-neuron TRAP pull-down, control vs prenatal DHT. Four of the five control pools are from vehicle-treated dams and one is from an uninjected dam; GEO labels all five Vehicle (GSE162563)",
     "contrasts": [
       {
         "baseline": "control",
@@ -1993,7 +1993,7 @@ exports[`DATASETS registry golden > resolves every field of every entry to the p
       {
         "color": "#3775BA",
         "key": "control",
-        "label": "Vehicle",
+        "label": "Control",
       },
       {
         "color": "#B64342",
@@ -2005,12 +2005,12 @@ exports[`DATASETS registry golden > resolves every field of every entry to the p
     "isDefault": false,
     "metaFile": "/datasets/mouse_gnrh_androgen_gse162563/meta.js",
     "metaGlobalKey": "HX_MOUSE_GNRH_ANDROGEN_GSE162563_META",
-    "modality": "TRAP-seq (translatome)",
-    "name": "Mouse GnRH/POA — prenatal androgenization (TRAP-seq)",
+    "modality": "bulk RNA-seq (GnRH-depleted TRAP supernatant)",
+    "name": "Mouse POA, GnRH-depleted TRAP supernatant — prenatal androgenization (TRAP-seq)",
     "organism": "Mus musculus",
     "perturbation": "Drug & hormone",
     "pmid": "33095238",
-    "preparation": "Translatome",
+    "preparation": "Bulk tissue",
     "qcFile": "/datasets/mouse_gnrh_androgen_gse162563/qc_global.js",
     "qcGlobalKey": "HX_MOUSE_GNRH_ANDROGEN_GSE162563_QC",
     "region": "Preoptic area",

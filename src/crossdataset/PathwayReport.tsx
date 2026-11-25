@@ -17,9 +17,11 @@ import { PathwayEffectPreview } from './PathwayEffectPreview';
 import './forestReport.css';
 import type { DatasetCategory } from '../data/datasets';
 import { fmtP, fmtFDR, fmtSigned } from '../utils/format';
-import { FONT_MONO, DIRECTION_UP_COLOR as UP, DIRECTION_DOWN_COLOR as DOWN } from '../styles/constants';
+import { FONT_MONO } from '../styles/constants';
+import { directionTextColor } from '../statistics/direction';
+import { leadingTracks, nominalCaveat, noneLeads, notLeading } from '../statistics/listingWords';
 import {
-  FOREST_GRID, axisPct, directionColor, contrastLabel, groupForestCategories, useReportQuery,
+  FOREST_GRID, axisPct, directionFill, contrastLabel, groupForestCategories, useReportQuery,
   ReportLoading,
 } from './forestReport';
 import { useSearchIndex } from './searchLanding';
@@ -44,7 +46,9 @@ function fmtNes(nes: number): string {
 // stands alone rather than implying an interval we don't have.
 function ForestRow({ track, bound, group, pathway }: { track: PathwayTrackRow; bound: number; group: PathwayDatasetGroup; pathway: string }) {
   const pct = axisPct(track.NES, bound);
-  const color = directionColor(track.direction, track.significant);
+  // The dot is a mark and keeps the chart fill; the NES figure is text.
+  const fill = directionFill(track.direction, track.significant);
+  const textColor = directionTextColor(track.direction, track.tier);
   return (
     <div className="report-forest-row" data-tier={track.tier} style={{ display: 'grid', gridTemplateColumns: FOREST_GRID, alignItems: 'center', gap: 12, padding: '5px 8px', borderBottom: '1px solid var(--border)', fontSize: 12 }}>
       <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, minWidth: 0 }}>
@@ -57,9 +61,9 @@ function ForestRow({ track, bound, group, pathway }: { track: PathwayTrackRow; b
       <PathwayEffectPreview pathway={pathway} dataset={group.dataset} track={track} contrast={group.contrast}>
       <div style={{ position: 'relative', height: 18 }}>
         <div style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: 1, background: 'var(--border-dark)' }} />
-        <span style={{ position: 'absolute', top: '50%', left: `${pct}%`, transform: 'translate(-50%, -50%)', width: 11, height: 11, borderRadius: '50%', background: track.significant ? color : 'var(--bg-panel)', border: `2px solid ${color}` }} />
+        <span style={{ position: 'absolute', top: '50%', left: `${pct}%`, transform: 'translate(-50%, -50%)', width: 11, height: 11, borderRadius: '50%', background: track.significant ? fill : 'var(--bg-panel)', border: `2px solid ${fill}` }} />
       </div>
-      <span style={{ fontFamily: FONT_MONO, textAlign: 'right', color }}>{fmtNes(track.NES)}</span>
+      <span style={{ fontFamily: FONT_MONO, textAlign: 'right', color: textColor }}>{fmtNes(track.NES)}</span>
       </PathwayEffectPreview>
       <span style={{ fontFamily: FONT_MONO, textAlign: 'right', color: 'var(--text-muted)' }}>{fmtP(track.pval)}</span>
       <span style={{ fontFamily: FONT_MONO, textAlign: 'right', color: 'var(--text-mono)' }}>{fmtFDR(track.padj)}</span>
@@ -90,7 +94,6 @@ function AxisHeader({ bound }: { bound: number }) {
 
 function DatasetBlock({ group, bound, pathway }: { group: PathwayDatasetGroup; bound: number; pathway: string }) {
   const mode = useListingMode();
-  const nominalMode = mode === 'nominal';
   // The forest's order, by |NES| within each tier band. What the block leads
   // with: the FDR survivors and, in the p < 0.05 listing, the nominal tracks
   // after them, labelled.
@@ -125,7 +128,7 @@ function DatasetBlock({ group, bound, pathway }: { group: PathwayDatasetGroup; b
           <span className="report-dataset-summary">
             {measured} track{measured === 1 ? '' : 's'} · {significant} significant
             {nominal > 0 && <> · {nominal} at p &lt; {NOMINAL_P_CUTOFF} only</>}
-            {!open && strongest && <span style={{ color: directionColor(strongest.direction, strongest.significant) }}> · strongest {fmtNes(strongest.NES)}</span>}
+            {!open && strongest && <span style={{ color: directionTextColor(strongest.direction, strongest.tier) }}> · strongest {fmtNes(strongest.NES)}</span>}
           </span>
         </span>
       </button>
@@ -142,16 +145,12 @@ function DatasetBlock({ group, bound, pathway }: { group: PathwayDatasetGroup; b
         {shown.length === 0 && !showAll && <div style={{ padding: '6px 8px', fontSize: 12, color: 'var(--text-muted)' }}>
           {group.error ? 'Could not load this dataset.'
             : measured === 0 ? 'Pathway not present in any track.'
-              : nominalMode ? `No track at p < ${NOMINAL_P_CUTOFF}. Show the full list below.` : 'No significant tracks. Show the full list below.'}
+              : `${noneLeads(mode)}. Show the full list below.`}
         </div>}
         {hidden > 0 && <button type="button" className="report-show-tracks" aria-expanded={showAll} onClick={() => setShowAll((value) => !value)}>
           <span aria-hidden="true">{showAll ? '▾' : '▸'} </span>
-          {showAll
-            ? nominalMode
-              ? `Show only the ${lead.length} track${lead.length === 1 ? '' : 's'} at p < ${NOMINAL_P_CUTOFF}`
-              : `Show only the ${lead.length} significant track${lead.length === 1 ? '' : 's'}`
-            : `Show all ${measured} tracks`}
-          {!showAll && <span style={{ color: 'var(--text-muted)' }}> ({hidden} {nominalMode ? <>not at p &lt; {NOMINAL_P_CUTOFF}</> : 'not significant'})</span>}
+          {showAll ? `Show only the ${leadingTracks(mode, lead.length)}` : `Show all ${measured} tracks`}
+          {!showAll && <span style={{ color: 'var(--text-muted)' }}> ({hidden} {notLeading(mode)})</span>}
         </button>}
       </div>
     </div>}
@@ -312,7 +311,7 @@ export function PathwayReport({
                   <div style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--text-primary)', maxWidth: '72ch' }}>
                     Enriched (FDR &lt; {DEFAULT_FDR_CUTOFF}) in <span style={{ fontWeight: 700 }}>{summary.sigTracks}</span> of {summary.nTracks} tracks
                     {summary.sigTracks > 0 ? (
-                      <>. <span style={{ color: UP, fontWeight: 600 }}>{summary.up} up</span> · <span style={{ color: DOWN, fontWeight: 600 }}>{summary.down} down</span>.</>
+                      <>. <span style={{ color: directionTextColor('up', 'fdr'), fontWeight: 600 }}>{summary.up} up</span> · <span style={{ color: directionTextColor('down', 'fdr'), fontWeight: 600 }}>{summary.down} down</span>.</>
                     ) : '.'}
                     {summary.nominalTracks > 0 && (
                       <span className="portal-cutoff"> {summary.nominalTracks} more {summary.nominalTracks === 1 ? 'track reaches' : 'tracks reach'} p &lt; {NOMINAL_P_CUTOFF} only.</span>
@@ -322,8 +321,7 @@ export function PathwayReport({
                 </div>
                 {summary.nominalTracks > 0 && (
                   <p className="portal-note" style={{ maxWidth: '72ch', margin: '0 0 8px' }}>
-                    Tracks marked <i>p &lt; {NOMINAL_P_CUTOFF} only</i> do not pass FDR. They are not corrected for testing many
-                    pathways and tracks, so some are expected by chance.
+                    Tracks marked <i>p &lt; {NOMINAL_P_CUTOFF} only</i> do not pass FDR. They are {nominalCaveat('pathway')}
                   </p>
                 )}
                 <div style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: FONT_MONO, marginBottom: 14 }}>

@@ -1,0 +1,14 @@
+{
+  "datasetId": "gse135007",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 146 manifest entries matched their recorded sizes and SHA-256 hashes, and all 12 computed claims reproduced. Of 490 selected author genes, 431 paired with Explorer results and 429 agreed in direction. The corrected proposal identifies 120 genes sourced exclusively from the PMC supplement and distinguishes Explorer’s 15,568 published rows from the paper’s 4,039 hypothalamus discoveries. The proposal validator passed.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/gse135007.json",
+    "data/author-validation/codex-2026-11-21/corrected/gse135007.json",
+    "data/author-validation/continued-sources/GSE135007/codex-2026-11-21/refute/replay.py"
+  ],
+  "openIssues": [
+    "Selected-reference coverage was 87.96%, below the 90% author-concordance-v2 requirement.",
+    "Sixty paired author discoveries had registered FDR ≥ 0.05. The complete author gene list and numeric gene-level P and FDR values remain unavailable in the reviewed sources, so full-list overlap remains unknown."
+  ]
+}

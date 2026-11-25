@@ -61,12 +61,15 @@ describe('study-library and tissue tiles', () => {
     expect(teaser?.levels[0].study).toBe(b.label.split(' · ').slice(1).join(' · '));
   });
 
-  it('reads mouse and pig tissue, never a human atlas or a population source', async () => {
+  it('reads animal tissue, never a human atlas or a population source, and names its species', async () => {
     mocks.loadExpressionGenes.mockImplementation(async (source: ExpressionSource) => result(source, [5], source.unit));
     const teaser = await loadFamilyTeaser('Pomc', 'tissue');
     const read = mocks.loadExpressionGenes.mock.calls.map(([source]) => (source as ExpressionSource).id);
     expect(read).toEqual([...tissue.map((source) => source.id), PIG.id]);
     expect(teaser?.total).toBe(tissue.length + 1);
+    expect(teaser?.species[0]).toBe('Mus musculus');
+    expect(teaser?.species).toContain('Sus scrofa');
+    expect(teaser?.species).not.toContain('Homo sapiens');
   });
 
   it('says nothing measured when no source retained the gene', async () => {

@@ -1,0 +1,32 @@
+{
+  "datasetId": "mouse_arc_pnoc_trap_gse292416",
+  "outcome": "compared",
+  "summary": "Proposed closure with method differences. Matching by deposited Ensembl ID paired 13,946 genes. Effect direction agreed for 97.12% of pairs, but coverage reached 82.85% of the registered output, below the 90% requirement. Among paired tests, the authors called 1,049 genes at FDR < 0.05 and Explorer called 84, all shared. The paper’s selection rule reproduced its 236 enriched genotype-DE genes. GEO’s stricter rule selected 69. The offline replay, source hashes and proposal validation passed. [Publication](https://www.sciencedirect.com/science/article/pii/S0092867425004039) · [GEO deposit](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE292416)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/mouse_arc_pnoc_trap_gse292416.json",
+    "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/compare.py",
+    "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/comparison.json",
+    "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/selection.tsv",
+    "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/verify.py",
+    "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/verification.json",
+    "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/fetch_sources.py",
+    "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/retrieval.json",
+    "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/GSE292416_deseq2_results.csv.gz",
+    "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/GSE292416_family.soft.gz",
+    "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/GSE292416_salmon.merged.gene_counts.tsv.gz",
+    "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/publisher-indexed.txt",
+    "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/crossref.json",
+    "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/datacite.json",
+    "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/europepmc.json",
+    "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/github.json",
+    "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/medwiss-news.pdf",
+    "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/mpg.json",
+    "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/openalex.json"
+  ],
+  "openIssues": [
+    "Exact historical DESeq2 settings and Figure 4B plotting IDs require author confirmation. The paper’s 3,550 equals the sum of WT and KO enrichment calls across 2,348 distinct genes. Publisher methods were reviewed through indexed text.",
+    "The existing symbol-only comparator includes five wrong-ID matches and 31 pairs involving aggregated local symbols. The proposal documents the source-ID comparison separately because the producer rejects a duplicate specification."
+  ]
+}

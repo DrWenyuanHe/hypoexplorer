@@ -1,0 +1,86 @@
+{
+  "datasetId": "mouse_hypo_diabetes_gse329555",
+  "accession": "GSE329555",
+  "category": "not_located",
+  "closure": "confirmed_not_located",
+  "summary": "No author gene-level RNA result for DM1–DM4 versus C1–C3 in whole hypothalamus was located in the sources reviewed. The three control count profiles also appear in GSE329539, whose paper compares diet-induced obesity and resveratrol treatment. The related curcumin study reports arcuate Lep-Rb protein.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE329555/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "The GEO count matrix matches the registered input checksum. The search located no author gene-level RNA effects for the registered diabetic-versus-control contrast.",
+      "note": "GSE329555_HP_DM.csv.gz contains 78,334 distinct mouse Ensembl gene IDs and raw counts for 12 libraries (SHA-256 0c4aace9f4a58a80d6493df1d5c0750e7901087107a603ab98f6a91194d72931). The registered groupcase coefficient compares four vehicle-treated neonatal-STZ/high-fat-diet libraries (DM1–DM4) with three vehicle-treated standard-diet libraries (C1–C3). Positive logFC means higher expression in the diabetic group. The fit excludes the three curcumin and two aged-garlic libraries. Across all 78,334 IDs, GSE329539 has identical counts for C1, C2 and C3 respectively. None of its columns matches DM1–DM4. Its obesity and resveratrol results cannot supply a diabetic-versus-control effect.",
+      "reviewFlags": [
+        "The shared control counts identify matching expression profiles across the deposits. Individual mouse IDs, pooling and litter allocation for the seven-library contrast remain undocumented. The GEO series and sample protocols also disagree on when treatment began.",
+        "The curcumin article (PMID 42144939) reports arcuate Lep-Rb expression. The corresponding meeting report describes immunofluorescence. Wiley returned HTTP 403 for the supporting PDF, and its connection to the seven sequenced libraries remains unknown."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "No full or selected-gene author RNA result for DM1–DM4 relative to C1–C3 was located. GSE329539 shares the three control count profiles and reports obesity contrasts. The curcumin paper reports arcuate Lep-Rb protein. A related 2023 meeting abstract (proceedings p. 26) mentions hypothalamic RNA-seq at pathway level and gives no gene-specific RNA effect tied to these mouse libraries. Author effect concordance, reference coverage, P values and FDR remain unassessed.",
+      "nextStep": "Reopen when a gene-level author result becomes available. Check the diabetic and control library identities, effect definition and orientation before pairing effects.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "SHA-256 of the freshly downloaded GEO count matrix, verified against input_matrix_sha256 in the registered provenance",
+      "value": "0c4aace9f4a58a80d6493df1d5c0750e7901087107a603ab98f6a91194d72931",
+      "script": "data/author-validation/continued-sources/GSE329555/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Unique Ensembl mouse gene IDs in the deposited matrix",
+      "value": "78334",
+      "script": "data/author-validation/continued-sources/GSE329555/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Nonnegative integer count cells across all 12 library columns",
+      "value": "940008",
+      "script": "data/author-validation/continued-sources/GSE329555/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Author contrast-result columns in the deposited matrix",
+      "value": "0",
+      "script": "data/author-validation/continued-sources/GSE329555/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "GEO sample records explicitly listing no supplementary file",
+      "value": "12",
+      "script": "data/author-validation/continued-sources/GSE329555/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Gene rows in the GEO series-matrix export",
+      "value": "0",
+      "script": "data/author-validation/continued-sources/GSE329555/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered whole-hypothalamus libraries matched to the GEO sample descriptions",
+      "value": "4 diabetic (DM1–DM4) and 3 controls (C1–C3)",
+      "script": "data/author-validation/continued-sources/GSE329555/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered DE rows read in place, with SHA-256 verified against output_de_sha256",
+      "value": "20482 rows, SHA-256 29d113995ac8bb3a94769045cd7400cc5d26c28ed142363e51c6edf4422f84b5",
+      "script": "data/author-validation/continued-sources/GSE329555/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "ENA inventory for PRJNA1459494 / SRP696114",
+      "value": "12 unique read runs and 0 analysis records",
+      "script": "data/author-validation/continued-sources/GSE329555/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Exact library count-profile matches between GSE329555 and the GEO matrix GSE329539_HP_OB.csv.gz after joining every deposited Ensembl ID and checking all pairs of columns",
+      "value": "78,334 shared IDs. Only C1–C1, C2–C2 and C3–C3 match. GSE329539 matrix SHA-256 8a249a5a14b4195e5363d76c03858edfd2b881d1d8ed94b01f5576aaa3b1568b.",
+      "script": "data/author-validation/continued-sources/GSE329555/codex-2026-11-21/refute/check_evidence.py"
+    }
+  ],
+  "openIssues": [
+    "Wiley returned HTTP 403 for mnfr70499-sup-0001-SupMat.pdf. Its contents and any connection to GSE329555 remain unknown.",
+    "The seven-library contrast lacks animal-level pooling and litter records. The identical control profiles do not resolve the animal provenance or collection ages. The series design places treatment after 11 weeks on diet, while the sample protocol places its start in week 7 of the high-fat diet."
+  ]
+}

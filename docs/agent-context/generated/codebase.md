@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (253):
+Covered source files (260):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -137,6 +137,7 @@ Covered source files (253):
 - [src/__tests__/dedicatedReplicationEvidence.test.ts](<../../../src/__tests__/dedicatedReplicationEvidence.test.ts>)
 - [src/__tests__/deployGuards.test.ts](<../../../src/__tests__/deployGuards.test.ts>)
 - [src/__tests__/deployedDataVerification.test.ts](<../../../src/__tests__/deployedDataVerification.test.ts>)
+- [src/__tests__/direction.test.ts](<../../../src/__tests__/direction.test.ts>)
 - [src/__tests__/edgePurge.test.ts](<../../../src/__tests__/edgePurge.test.ts>)
 - [src/__tests__/edgeRules.test.ts](<../../../src/__tests__/edgeRules.test.ts>)
 - [src/__tests__/errorBoundary.test.tsx](<../../../src/__tests__/errorBoundary.test.tsx>)
@@ -199,12 +200,14 @@ Covered source files (253):
 - [src/__tests__/libraryExport.test.ts](<../../../src/__tests__/libraryExport.test.ts>)
 - [src/__tests__/libraryFilters.test.ts](<../../../src/__tests__/libraryFilters.test.ts>)
 - [src/__tests__/listingModeToggle.test.tsx](<../../../src/__tests__/listingModeToggle.test.tsx>)
+- [src/__tests__/listingWords.test.ts](<../../../src/__tests__/listingWords.test.ts>)
 - [src/__tests__/loadDatasetMeta.test.ts](<../../../src/__tests__/loadDatasetMeta.test.ts>)
 - [src/__tests__/loadTrack.test.ts](<../../../src/__tests__/loadTrack.test.ts>)
 - [src/__tests__/macaqueQc.test.ts](<../../../src/__tests__/macaqueQc.test.ts>)
 - [src/__tests__/matrixShape.test.ts](<../../../src/__tests__/matrixShape.test.ts>)
 - [src/__tests__/methodology.test.tsx](<../../../src/__tests__/methodology.test.tsx>)
 - [src/__tests__/modal.test.tsx](<../../../src/__tests__/modal.test.tsx>)
+- [src/__tests__/navigationAttempts.test.tsx](<../../../src/__tests__/navigationAttempts.test.tsx>)
 - [src/__tests__/neuroseqExpression.test.ts](<../../../src/__tests__/neuroseqExpression.test.ts>)
 - [src/__tests__/nomenclature.test.tsx](<../../../src/__tests__/nomenclature.test.tsx>)
 - [src/__tests__/nomenclatureDatasetNamespace.test.ts](<../../../src/__tests__/nomenclatureDatasetNamespace.test.ts>)
@@ -259,6 +262,8 @@ Covered source files (253):
 - [src/__tests__/rhythmScanIdentity.test.tsx](<../../../src/__tests__/rhythmScanIdentity.test.tsx>)
 - [src/__tests__/rhythmTrace.test.tsx](<../../../src/__tests__/rhythmTrace.test.tsx>)
 - [src/__tests__/rhythmicity.test.ts](<../../../src/__tests__/rhythmicity.test.ts>)
+- [src/__tests__/routeLanding.test.ts](<../../../src/__tests__/routeLanding.test.ts>)
+- [src/__tests__/routeLandingRegressions.test.tsx](<../../../src/__tests__/routeLandingRegressions.test.tsx>)
 - [src/__tests__/sampleValues.test.ts](<../../../src/__tests__/sampleValues.test.ts>)
 - [src/__tests__/seRecovery.test.ts](<../../../src/__tests__/seRecovery.test.ts>)
 - [src/__tests__/sealedEvidenceProjection.test.ts](<../../../src/__tests__/sealedEvidenceProjection.test.ts>)
@@ -271,6 +276,7 @@ Covered source files (253):
 - [src/__tests__/september5Intake.test.ts](<../../../src/__tests__/september5Intake.test.ts>)
 - [src/__tests__/setup.ts](<../../../src/__tests__/setup.ts>)
 - [src/__tests__/smoke.test.tsx](<../../../src/__tests__/smoke.test.tsx>)
+- [src/__tests__/smokeViewLinks.test.ts](<../../../src/__tests__/smokeViewLinks.test.ts>)
 - [src/__tests__/sortableHeaderA11y.test.tsx](<../../../src/__tests__/sortableHeaderA11y.test.tsx>)
 - [src/__tests__/sortableRows.test.tsx](<../../../src/__tests__/sortableRows.test.tsx>)
 - [src/__tests__/sourceJson.test.ts](<../../../src/__tests__/sourceJson.test.ts>)
@@ -284,6 +290,7 @@ Covered source files (253):
 - [src/__tests__/studyTopGenes.test.tsx](<../../../src/__tests__/studyTopGenes.test.tsx>)
 - [src/__tests__/supersededProjection.ts](<../../../src/__tests__/supersededProjection.ts>)
 - [src/__tests__/swHandover.test.ts](<../../../src/__tests__/swHandover.test.ts>)
+- [src/__tests__/testIsolation.test.tsx](<../../../src/__tests__/testIsolation.test.tsx>)
 - [src/__tests__/trackColumns.test.tsx](<../../../src/__tests__/trackColumns.test.tsx>)
 - [src/__tests__/trackData.test.ts](<../../../src/__tests__/trackData.test.ts>)
 - [src/__tests__/trackPathwaysIndex.test.ts](<../../../src/__tests__/trackPathwaysIndex.test.ts>)
@@ -364,10 +371,8 @@ Start here:
 - [src/common/BrandLink.tsx](<../../../src/common/BrandLink.tsx>)
 - [brand/README.md](<../../../brand/README.md>)
 
-Covered source files (37):
+Covered source files (36):
 - [src/common/AuthorValidation.tsx](<../../../src/common/AuthorValidation.tsx>)
-- [src/common/BetaNotice.css](<../../../src/common/BetaNotice.css>)
-- [src/common/BetaNotice.tsx](<../../../src/common/BetaNotice.tsx>)
 - [src/common/BrandLink.tsx](<../../../src/common/BrandLink.tsx>)
 - [src/common/CellSelectorPopup.tsx](<../../../src/common/CellSelectorPopup.tsx>)
 - [src/common/ChartScaleToggle.tsx](<../../../src/common/ChartScaleToggle.tsx>)
@@ -399,6 +404,7 @@ Covered source files (37):
 - [src/common/lazyView.tsx](<../../../src/common/lazyView.tsx>)
 - [src/common/prose.css](<../../../src/common/prose.css>)
 - [src/common/prose.tsx](<../../../src/common/prose.tsx>)
+- [src/common/siteChrome.css](<../../../src/common/siteChrome.css>)
 - [src/common/toolIcons.tsx](<../../../src/common/toolIcons.tsx>)
 - [src/common/useCompactLayout.ts](<../../../src/common/useCompactLayout.ts>)
 - [src/common/useSortedRows.ts](<../../../src/common/useSortedRows.ts>)
@@ -779,12 +785,14 @@ Start here:
 - [src/statistics/crossStudyListing.ts](<../../../src/statistics/crossStudyListing.ts>)
 - [src/statistics/TierLabel.tsx](<../../../src/statistics/TierLabel.tsx>)
 
-Covered source files (6):
+Covered source files (8):
 - [src/statistics/ListingModeToggle.tsx](<../../../src/statistics/ListingModeToggle.tsx>)
 - [src/statistics/TierLabel.tsx](<../../../src/statistics/TierLabel.tsx>)
 - [src/statistics/crossStudyListing.ts](<../../../src/statistics/crossStudyListing.ts>)
+- [src/statistics/direction.ts](<../../../src/statistics/direction.ts>)
 - [src/statistics/listingMode.css](<../../../src/statistics/listingMode.css>)
 - [src/statistics/listingModeStore.ts](<../../../src/statistics/listingModeStore.ts>)
+- [src/statistics/listingWords.ts](<../../../src/statistics/listingWords.ts>)
 - [src/statistics/policy.ts](<../../../src/statistics/policy.ts>)
 
 ## styles

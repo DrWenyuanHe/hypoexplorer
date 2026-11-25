@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-dataset-tracker",
-  "fingerprint": "6a18e7844c4441073e967d10e08eecb593b640ae2394c0f14e29877558f5d3b0",
-  "outcome": "no-impact",
-  "explanation": "Layout-only rework of the tracker view: three primary filters plus a More filters panel declared once in trackerFilterDefs, removable active-filter chips with Clear all, empty status chips hidden, and one-line table rows with merged species/region and n columns and icon-only quality badges. DEFAULT_TRACKER_FILTERS moves into trackerLogic; firstN no longer keeps a list comma. Filtering, sorting, review state and routes are unchanged, so the module description stays accurate.",
+  "fingerprint": "86e7bf04303dd30a968ef5384f1d82943ebcc64565ba87408b5120c364150d4c",
+  "outcome": "updated",
+  "explanation": "The tracker adds an Author follow-up filter, offered only while some generated record carries a follow-up, and its search matches the follow-up label.",
   "references": [
     "src/dataset-tracker/TrackerFilters.tsx",
-    "src/dataset-tracker/TrackerTable.tsx",
     "src/dataset-tracker/trackerLogic.ts"
   ]
 }

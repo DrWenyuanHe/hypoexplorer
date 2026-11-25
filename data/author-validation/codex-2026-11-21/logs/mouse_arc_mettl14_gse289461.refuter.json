@@ -1,0 +1,16 @@
+{
+  "datasetId": "mouse_arc_mettl14_gse289461",
+  "outcome": "upheld_with_corrections",
+  "summary": "The `needs_author_contact` closure is justified. All 31 source hashes and sizes matched, and all five computations reproduced. The two published cutoffs retained 36,342 deposited barcodes, 17,322 more than the 19,020 cells the authors classified. The corrected proposal documents conflicting accession, genotype and replicate labels. The published cluster-specific effects cannot verify the registered tissue-wide contrast. The proposal passed the repository validator.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_arc_mettl14_gse289461.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_arc_mettl14_gse289461.json",
+    "data/author-validation/continued-sources/GSE289461/codex-2026-11-21/refute/recount.py",
+    "data/author-validation/continued-sources/GSE289461/codex-2026-11-21/refute/verify_sources.py"
+  ],
+  "openIssues": [
+    "The authors’ retained barcode list, library mapping, litter pairs and final cluster assignments remain unresolved.",
+    "Whether the authors calculated a tissue-wide, mouse-level knockout-minus-control result remains unknown.",
+    "The registry credits Liu et al. and calls all 208,711 barcode columns cells. The first author is Yachen Shen, and the paper reports 19,020 classified cells."
+  ]
+}

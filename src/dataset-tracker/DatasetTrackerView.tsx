@@ -10,7 +10,7 @@ import { TrackerBoard } from './TrackerBoard';
 import { TrackerDetail } from './TrackerDetail';
 import { AuthorValidationBadge } from '../common/AuthorValidation';
 import { requireAuthorValidation } from '../data/authorValidation';
-import { BetaNotice } from '../common/BetaNotice';
+import '../common/siteChrome.css';
 import { BrandLink } from '../common/BrandLink';
 
 interface DatasetTrackerViewProps {
@@ -82,7 +82,6 @@ export function DatasetTrackerView({ onHome, onOpenInExplorer, initialSelectedAc
             {canEdit ? 'dev · editable' : 'read-only'}
           </span>
         </div>
-        <BetaNotice />
       </header>
 
       <div className="tk-body">

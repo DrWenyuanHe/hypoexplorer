@@ -1,0 +1,69 @@
+{
+  "datasetId": "mouse_hypo_abi3_gse212299",
+  "accession": "GSE212299",
+  "category": "not_located",
+  "closure": "no_valid_comparison",
+  "summary": "Smith et al. report 31 hypothalamic genes with a KO-minus-WT effect after adjustment for body weight. HypoExplorer estimates the genotype difference across the four KO and four WT libraries without that adjustment. The reviewed sources yielded no author effects for the registered genotype-only comparison.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE212299/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "Published hypothalamic effects adjust for body weight",
+      "note": "The GEO family SOFT records and sample archive identify four WT and four KO male hypothalamus libraries. Their genotype assignments and count totals match the registered sample sheet and raw library sizes. Figure 3A labels ten genes from the weight-adjusted analysis. Supplementary Table 1 lists enrichment P values and contributing objects for ten process networks and ten pathway maps. The registered edgeR model includes genotype alone.",
+      "reviewFlags": [
+        "The retained GEO series HTML is a reCAPTCHA challenge. Cohort and count evidence comes from the family SOFT, series matrix and sample archive. The historical input match remains structural."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The author DESeq2 coefficient estimates KO minus WT at a fixed modeled body weight. The registered edgeR coefficient estimates KO minus WT across the observed groups. Figure 3A gives selected gene labels for the adjusted effect. Supplementary Table 1 gives enrichment statistics. The public sources reviewed yielded no author reference for the genotype-only effect.",
+      "nextStep": "Obtain identifiable author KO-minus-WT effects or directions from a genotype-only hypothalamus analysis of GSM6523623–GSM6523630, with the model and scope documented. For an inference and coverage review, also obtain the full tested list, filtering details, raw P values and adjusted P values.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered hypothalamus libraries matched by tissue, genotype and replicate to GEO and checked against raw library totals",
+      "value": "4 WT (GSM6523623–GSM6523626) and 4 Abi3 KO (GSM6523627–GSM6523630). All eight library totals match.",
+      "script": "data/author-validation/continued-sources/GSE212299/codex-2026-11-21/refute/check.py"
+    },
+    {
+      "claim": "Contents of all GEO sample files",
+      "value": "16 two-column files, each with 53,700 distinct Ensembl mouse gene IDs and 5 HTSeq summary rows. The second column contains nonnegative integer counts.",
+      "script": "data/author-validation/continued-sources/GSE212299/codex-2026-11-21/refute/check.py"
+    },
+    {
+      "claim": "Symbols and FDR calls in the registered genotype-only table",
+      "value": "13,040 unique published symbols, 0 with FDR < 0.05, minimum FDR 0.981921530167303. Provenance records 13,070 tested rows, including 30 unpublished unmapped rows.",
+      "script": "data/author-validation/continued-sources/GSE212299/codex-2026-11-21/refute/check.py"
+    },
+    {
+      "claim": "Hypothalamic DEGs reported in section 3.4 of the article",
+      "value": "31 after adjustment for body weight. This is the published count at adjusted P < 0.05.",
+      "script": "data/author-validation/continued-sources/GSE212299/codex-2026-11-21/refute/check.py"
+    },
+    {
+      "claim": "Identity and contents of the Figshare presentation and the PPTX inside the Europe PMC ZIP",
+      "value": "Byte-identical PPTX files, each 1,536,115 bytes, SHA-256 255b6f59b238a5cfb5b10fe1db628739f89f3e69161241ab4b7795a069624d24. The six slides include ten process networks and ten pathway maps on slide 6. The embedded RNA-seq plot on slide 4 concerns brown adipose tissue.",
+      "script": "data/author-validation/continued-sources/GSE212299/codex-2026-11-21/refute/check.py"
+    },
+    {
+      "claim": "Integrity and identity of the retained responses",
+      "value": "All 42 files match the manifest SHA-256 and size (16,159,999 bytes total). The 21,479-byte geo_series.html is a browser challenge. The other 41 files contain the stated documents, data or search responses.",
+      "script": "data/author-validation/continued-sources/GSE212299/codex-2026-11-21/refute/check.py"
+    },
+    {
+      "claim": "SHA-256 of the prior search record referenced in SEARCH_LOG.md",
+      "value": "data/author-validation/turbo-2026-11-15/notloc2.json has SHA-256 e5c79c965732403562f9b2a298b1a0c8d1a2e60d9c93a342ea9a8b2116f71332.",
+      "script": "data/author-validation/continued-sources/GSE212299/codex-2026-11-21/refute/check.py"
+    }
+  ],
+  "openIssues": [
+    "Author concordance for the registered genotype-only effect remains unassessed. A matching author reference would allow comparison within its documented gene coverage."
+  ]
+}

@@ -27,12 +27,10 @@ export function axisPct(value: number, bound: number): number {
   return Math.max(0, Math.min(100, 50 + (value / bound) * 50));
 }
 
-// Direction is encoded by sign + arrow + text, never color alone (DESIGN.md).
-export function dirGlyph(dir: Direction): string {
-  return dir === 'up' ? '▲' : dir === 'down' ? '▼' : '–';
-}
-
-export function directionColor(dir: Direction, significant: boolean): string {
+// The forest dot's fill and border: a plot MARK, so it keeps the chart palette.
+// Direction TEXT goes through statistics/direction.ts, whose tokens are held
+// to 4.5:1; these fills are not.
+export function directionFill(dir: Direction, significant: boolean): string {
   if (!significant) return 'var(--text-muted)';
   return dir === 'up' ? DIRECTION_UP_COLOR : dir === 'down' ? DIRECTION_DOWN_COLOR : 'var(--text-muted)';
 }

@@ -1,0 +1,18 @@
+{
+  "datasetId": "zebrafish_hypo_cyp19a1b_gse299412",
+  "outcome": "needs_author_contact",
+  "summary": "Of 231 genes selected in Table S4, 157 have published Explorer effects. Directions agree for 149 and reverse for eight. The registered expression filter accounts for 52 unpaired genes, and 22 more passed the filter under unpublished identifiers, including tnc. Coverage is 67.97%, below the 90% requirement. Gene-level author P values and FDR remain unassessed.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/zebrafish_hypo_cyp19a1b_gse299412.json",
+    "data/author-validation/continued-sources/GSE299412/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE299412/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE299412/codex-2026-11-21/registered-inputs.tsv",
+    "data/author-validation/continued-sources/GSE299412/codex-2026-11-21/author-effects.tsv",
+    "data/author-validation/continued-sources/GSE299412/codex-2026-11-21/selected-gene-review.tsv",
+    "data/author-validation/continued-sources/GSE299412/codex-2026-11-21/metrics.json",
+    "data/author-validation/continued-sources/GSE299412/codex-2026-11-21/compare.py"
+  ],
+  "openIssues": [
+    "Which sample-level rlog matrix, normalization cohort, filtering rules and limma contrast generated the male hypothalamus column of Table S4? The authors’ preselection coefficients, raw P values, adjusted P values and BH testing family are needed to trace the eight reversals and assess inference."
+  ]
+}

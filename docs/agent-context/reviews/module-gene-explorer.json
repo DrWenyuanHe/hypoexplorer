@@ -1,14 +1,11 @@
 {
   "version": 1,
   "area": "module-gene-explorer",
-  "fingerprint": "5b306497e3cb8d152758b49d514b7c8d5822bff3b2d26095468efaf86cea710d",
-  "outcome": "updated",
-  "explanation": "The controls above the volcano are one row: the picker search and Gene list menu, Plot/Table, P value/FDR, a thresholds summary button that opens both cutoff inputs, and an \"N pass\" menu holding Show list, Add all and the downloads. VolcanoPlot draws its counts and key as one line in the plot top margin, labels its threshold lines, and takes toolbarLead and toolbarBelow slots. GeneExplorerTab shows Bar charts, Summary table and Across comparisons only once a gene is selected. GeneSearchBox takes showAliases as a prop in place of its own Aliases button. Thresholds, selection and exports behave as before.",
+  "fingerprint": "49e21039a3d9005234b5205d65e6e31da81f5a5a92bb89d86aa714d23f80cf26",
+  "outcome": "no-impact",
+  "explanation": "GeneSearchBox's Enter handler searches the current text instead of reusing the debounced suggestion list, which could hold matches for an earlier prefix. Props, ranking, redirects, the suggestion list and its debounce are unchanged, so the mapped responsibilities still hold.",
   "references": [
-    "src/gene-explorer/VolcanoPlot.tsx",
-    "src/gene-explorer/GeneExplorerTab.tsx",
     "src/gene-explorer/GeneSearchBox.tsx",
-    "src/gene-explorer/volcanoToolbar.css",
-    "docs/agent-context/workflows.md"
+    "src/common/GenePicker.tsx"
   ]
 }

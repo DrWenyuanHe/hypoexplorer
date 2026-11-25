@@ -1,15 +1,11 @@
 {
   "version": 1,
   "area": "module-common",
-  "fingerprint": "689ebd711a6798c8c8f5277d5c21446ba328448abc41a9413a5cc5be3841a33c",
+  "fingerprint": "73ae2a1661d0be43bf349690da0b970567fad1328367892b528411fa53826156",
   "outcome": "updated",
-  "explanation": "Adds ToolbarPopover.tsx (ToolbarPopover, MenuGroup, MenuItem), the shared menu and popover behind the Gene list, thresholds and pass menus, and headerControl.css, the one 28px treatment for header utilities. prose.tsx gains ProsePage, ProseSection and the \"On this page\" contents with prose.css, used by Methods & statistics and the data verification page. GenePicker splits into GenePickerSearch (search plus the Gene list menu) and GeneSelectionBar; LoadGeneListButton becomes the controlled LoadGeneListDialog. ResponsiveDetails.tsx is deleted and BetaNotice.css drops --site-crumb-offset, both used only by removed explorer markup.",
+  "explanation": "authorEvidenceText appends the author follow-up label, and AuthorValidationPanel adds an Author follow-up row when a record carries one. Badges and states are unchanged.",
   "references": [
-    "src/common/ToolbarPopover.tsx",
-    "src/common/GenePicker.tsx",
-    "src/common/GeneListTools.tsx",
-    "src/common/prose.tsx",
-    "src/common/headerControl.css",
-    "docs/agent-context/workflows.md"
+    "src/common/AuthorValidation.tsx",
+    "src/data/authorVerification.ts"
   ]
 }

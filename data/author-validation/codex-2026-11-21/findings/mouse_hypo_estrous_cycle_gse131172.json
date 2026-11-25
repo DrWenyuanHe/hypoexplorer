@@ -1,0 +1,227 @@
+{
+  "datasetId": "mouse_hypo_estrous_cycle_gse131172",
+  "accession": "GSE131172",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "Four of the eight hypothalamus transcription factors in Zhou et al. could be assigned uniquely to expression fold changes in Figure 3A. Evx1, Foxa2, Tfap2c and Gata3 were lower in diestrus in both the figure and the registered limma output. The comparison falls below the author-concordance-v2 minimum and leaves genome-wide effects and expression inference unassessed.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE131172/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "summary": "Four hypothalamus Figure 3A expression effects compared for diestrus versus estrus",
+      "note": "The six author libraries match the registered whole-hypothalamus cohort. Figure 3A gives tissue-colored expression fold changes without printed gene labels. Table 1 identifies eight hypothalamus regulators. The original GEO FPKMs, mouse ortholog IDs and plot coordinates uniquely resolve four of them. All four signs agree after orienting the figure to diestrus minus estrus. Pearson is 0.480 and Spearman is 0.400. The published CIE P and adjusted P values test regulator activity. Gene-wise expression P and FDR remain unassessed.",
+      "reviewFlags": [
+        "The figure covers selected regulators. Four of eight have uniquely readable plotted effects. Ehf and Elf3 can share a marker, and Grhl2 and Zeb1 have no locatable marker core. No full hypothalamus DEGSeq table was located.",
+        "Figure-derived x values are approximate. Their assignment uses the deposited linear FPKM group ratios independently of the registered fit. Registered limma estimates a difference of means on log2(FPKM + 1).",
+        "Four pairs and 50% coverage of the selected reference fall below both author-concordance-v2 routes."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Published article and Figure 3A expression axis",
+          "url": "https://doi.org/10.3389/fcell.2022.983712",
+          "kind": "paper"
+        },
+        {
+          "label": "Publisher Table 1, hypothalamus regulator identities and CIE tests",
+          "url": "https://doi.org/10.3389/fcell.2022.983712.s002",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO phase-specific FPKMs and sample metadata",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE131172",
+          "kind": "database"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "Four unique hypothalamus expression effects recovered from Figure 3A agree in direction with registered limma. The median absolute difference is 1.675 log2 units. Only four of the eight selected regulators can be paired. The gene-wise expression P values, adjusted P values and DEG calls could not be compared.",
+      "nextStep": "For full-universe review, obtain the original per-gene hypothalamus DEGSeq export with mouse IDs, phase orientation, fold changes, raw P, q values, test/filter status and the mouse-to-human mapping. The labeled Figure 3A plotting data would resolve the four remaining selected factors.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "diestrus_vs_estrus"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Read the expression x coordinate from the publisher's Figure 3A raster. Link tissue-colored markers using only the eight Table 1 factors, NCBI mouse orthologs and the GEO FPKMs. Require identity in every feasible one-to-one assignment before opening the registered DE table. Negate the published estrus-over-diestrus x estimate for comparison with the registered diestrus-minus-estrus logFC.",
+      "reference": "Zhou et al., Frontiers in Cell and Developmental Biology (2022), Figure 3A and Supplementary Table 1, Hypothalamus and Summary sheets. Include the full set of eight named hypothalamus regulators. Recover only unambiguous plotted expression fold changes.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "The GEO SOFT records, ENA experiment and BioSample IDs, registered sample sheet and model provenance trace three estrus libraries (hypo_A1–A3) and three diestrus libraries (hypo_B1–B3) from the six female mice. Only whole hypothalamus enters the registered comparison."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Figure 3 compares estrus with diestrus. HypoExplorer registers Estrus as baseline and Diestrus as case. A single sign reversal was specified from those group labels. The four plotted x values were positive in the paper's direction."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Each Table 1 human Entrez ID has one mouse ortholog in the retained NCBI response and one GEO feature ID and registered feature-map row for its mouse symbol. Four Figure 3A marker identities persist in every feasible assignment, including when the activity coordinate is omitted. Individual effect readings remain unavailable for the other four."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "The recoverable x coordinates are approximate to about one point radius (0.087 log2 units). They are consistent with ratios of arithmetic mean FPKM. Registered limma compares means of log2(FPKM + 1). All four oriented signs agree. Pearson is 0.480, Spearman is 0.400, median absolute difference is 1.675 and maximum is 3.783 log2 units."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "The authors used DEGSeq with |log2FC| ≥ 1 and q ≤ 0.05, then human ortholog mapping for downstream analysis. Table 1 gives CIE quaternary-test P and adjusted P for regulator activity. The four plotted genes have no available expression P or FDR in this review. Registered limma has zero BH FDR < 0.05 discoveries across its 18,735 published rows. Author expression significance and overlap remain unassessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Five locatable hypothalamus marker cores yield four unique gene assignments across the two possible matchings. The fifth can represent Ehf or Elf3. Grhl2 and Zeb1 have no locatable core. Four of eight selected factors (50%) and four of 18,735 registered rows (0.0214%) have paired effect estimates."
+        }
+      },
+      "criteria": "Use all eight author-selected hypothalamus regulators and every identifiable plotted expression estimate. Under author-concordance-v2, ≥30 pairs and ≥90% relevant coverage are required along with compatible cohort, contrast, identifiers and effect definitions. Both correlations must reach 0.90, or ≥90% direction agreement must hold across ≥30 nonzero pairs covering ≥90% of all pairs. Report magnitudes and inference as context.",
+      "conclusion": "Four of four nonzero pairs agree in direction. The set has four pairs, 50% selected-reference coverage and correlations below 0.90. Neither v2 route passes. Full verification and genome-wide inference remain open."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "mouse_hypo_estrous_cycle_gse131172",
+      "accession": "GSE131172",
+      "contrast": "diestrus_vs_estrus",
+      "localPath": "geo_replication/datasets/GSE131172_mmus_hypothalamus_estrous/processed/GSE131172_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/author-effects.tsv",
+      "sourceUrl": "https://public-pages-files-2025.frontiersin.org/journals/cell-and-developmental-biology/articles/10.3389/fcell.2022.983712/pdf",
+      "sha256": "1cccfaf0a2cd60bae70cc139b665751b03593f6ca895a62073af9149ab999b31",
+      "format": "tsv",
+      "authorKey": "output_id",
+      "authorEffect": "fig3a_estrus_over_diestrus",
+      "orientationSign": -1,
+      "localMethod": "limma on log2(FPKM + 1)",
+      "authorMethod": "Approximate Figure 3A expression log2 fold changes. Gene assignment uses the Table 1 regulator list and deposited group FPKMs. DEGSeq expression P and q were unavailable.",
+      "orientation": "Negate the plotted estrus-over-diestrus x coordinate to match registered diestrus minus estrus.",
+      "note": "Eight author-selected regulators, four uniquely linked expression readings, four NA. Four of four agree in direction, Pearson 0.480 and Spearman 0.400. The finite-effect denominator is four, while the selected-reference denominator is eight (50% coverage). CIE activity P and q are outside the expression comparison. The v2 minimum of 30 pairs is unmet.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/sources/publisher.pdf",
+          "sourceUrl": "https://public-pages-files-2025.frontiersin.org/journals/cell-and-developmental-biology/articles/10.3389/fcell.2022.983712/pdf",
+          "sha256": "27e09c9b8cdf1d856d38f959a80d4dbdc41a0ca77af24e5e150d01cbadb3e453",
+          "bytes": 3063253
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/sources/Table1.xlsx",
+          "sourceUrl": "https://ndownloader.figshare.com/files/38567783",
+          "sha256": "087a6e0929b8acdfb0cd5174f146d81aeceffcc1045048bbb024ce5e95e32b46",
+          "bytes": 104221
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/sources/GSE131172_ExpressionMatrix.txt.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE131nnn/GSE131172/suppl/GSE131172_ExpressionMatrix.txt.gz",
+          "sha256": "042cb554016941777523c676b07011a606b14e78e44a5f3e1176f6e7a3a6f4b3",
+          "bytes": 3118510
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/sources/GSE131172_family.soft.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE131nnn/GSE131172/soft/GSE131172_family.soft.gz",
+          "sha256": "597adc3568a7a094415162f688681e9c0a011b2f1f3d64a5a943551b8e2906fc",
+          "bytes": 8007
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/sources/ortholog-1999.json",
+          "sourceUrl": "https://api.ncbi.nlm.nih.gov/datasets/v2/gene/id/1999/orthologs?taxon_filter=10090",
+          "sha256": "2c7c0091470a070d2aedefbfec9098333b1487390901260c99e559b6fb440ef5",
+          "bytes": 8185
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/sources/ortholog-2128.json",
+          "sourceUrl": "https://api.ncbi.nlm.nih.gov/datasets/v2/gene/id/2128/orthologs?taxon_filter=10090",
+          "sha256": "4917dc3035bc24593fbc326db6c0f3b0d1011f0bec810e30b90f8b12f60cdbd8",
+          "bytes": 4417
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/sources/ortholog-2625.json",
+          "sourceUrl": "https://api.ncbi.nlm.nih.gov/datasets/v2/gene/id/2625/orthologs?taxon_filter=10090",
+          "sha256": "9e88cb81b4b9d71d2b4e7912cff41071607fa74538cc8c19dfb42fc32f561078",
+          "bytes": 35197
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/sources/ortholog-26298.json",
+          "sourceUrl": "https://api.ncbi.nlm.nih.gov/datasets/v2/gene/id/26298/orthologs?taxon_filter=10090",
+          "sha256": "6c5871f3f90777571589a9a769120d8e0e5cfcd6a93b2abcdfa6b8adda301928",
+          "bytes": 5794
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/sources/ortholog-3170.json",
+          "sourceUrl": "https://api.ncbi.nlm.nih.gov/datasets/v2/gene/id/3170/orthologs?taxon_filter=10090",
+          "sha256": "31ae101a2bf53875348d612e27b4d4302af9406de0671cd4c2a94c5b6f2dad91",
+          "bytes": 18269
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/sources/ortholog-6935.json",
+          "sourceUrl": "https://api.ncbi.nlm.nih.gov/datasets/v2/gene/id/6935/orthologs?taxon_filter=10090",
+          "sha256": "2827ce69901d08fd8155f373cf56b02563255d353e87484535848f914abde30b",
+          "bytes": 10308
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/sources/ortholog-7022.json",
+          "sourceUrl": "https://api.ncbi.nlm.nih.gov/datasets/v2/gene/id/7022/orthologs?taxon_filter=10090",
+          "sha256": "1ebcef62262f6617f3aa95a56d6d8afde466aa1aba26bbabc6f4af8f9be21e38",
+          "bytes": 10685
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/sources/ortholog-79977.json",
+          "sourceUrl": "https://api.ncbi.nlm.nih.gov/datasets/v2/gene/id/79977/orthologs?taxon_filter=10090",
+          "sha256": "5d9debe3c3a44273f38d397b8ed4309055c253ed0cf430cb0e272db153029383",
+          "bytes": 13526
+        },
+        {
+          "path": "geo_replication/datasets/GSE131172_mmus_hypothalamus_estrous/processed/GSE131172_feature_map.tsv.gz",
+          "sha256": "eea75d22a37c7c807c724cd75a8d14ada574377e1d3b7253d6a1a93c6404cecd",
+          "bytes": 161827,
+          "sourceUrl": "Registered analysis file"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/compare.py",
+          "sourceUrl": "Retained figure extraction and comparison script",
+          "sha256": "273e126dd9457c52f731cea16d69557c3cc6e628d0a79d78fe27777fc529811c",
+          "bytes": 9937
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/compare.py",
+      "resultScope": "All eight Fig. 3 / Table 1 hypothalamus regulators, with four measurable same-gene expression effects. The other four have explicit NA readings.",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE131172_mmus_hypothalamus_estrous/processed/GSE131172_DE.tsv",
+        "sha256": "81924dedc5aff7dbd6b39b7bcfcdf6bfd7bf3e831f3010c77162b1fb96804074",
+        "bytes": 1794049,
+        "sourceUrl": "Registered analysis file"
+      }
+    }
+  },
+  "computed": [
+    {
+      "claim": "Complete GEO matrix and sample supplement inventory",
+      "value": "20,414 gene IDs and 90 sample FPKM columns. All 90 GSM records explicitly declare no individual supplement. The generated series matrix has 0 feature rows. ENA returns 90 read runs and 0 registered analyses for this project.",
+      "script": "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/inventory.py"
+    },
+    {
+      "claim": "Official supplement inventory",
+      "value": "Three publisher files match PMC object lengths and ETags. Table 1 has eight hypothalamus regulator rows. Table 2 catalogs 1,263 signatures and has 32 rows with hypothalamus in the tissue field. The supplementary PDF contains 14 pages and Figures S1 through S12.",
+      "script": "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/inventory.py"
+    },
+    {
+      "claim": "Figure-only expression readings and gene attribution",
+      "value": "Five locatable hypothalamus-colored marker cores. Both feasible one-to-one assignments, with or without using the activity axis, identify the same four genes. Figure 3A estrus-over-diestrus log2FC estimates are Evx1 3.90, Foxa2 0.97, Tfap2c 0.67 and Gata3 3.35. One marker radius is 0.087 log2 units.",
+      "script": "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Direction, correlation, magnitude and coverage after phase orientation",
+      "value": "4/4 nonzero signs agree. Pearson 0.480083, Spearman 0.400000, median absolute difference 1.674853, maximum 3.783353. Paired coverage is 4/8 selected factors (50%) and 4/18,735 registered genes (0.0214%).",
+      "script": "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Gene-wise expression inference",
+      "value": "0 paired author P values and 0 paired author FDR values. Registered BH FDR < 0.05 gives 0 discoveries. No author-expression call overlap is assessable.",
+      "script": "data/author-validation/continued-sources/GSE131172/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "The figure gives unlabeled raster points. Gene assignments rely on the deposited group FPKMs and Table 1, and plotted effects carry reading uncertainty. Four of eight selected gene effects remain unresolved.",
+    "The full hypothalamus DEGSeq output, gene-wise expression inference, tested universe and original ortholog map were unavailable from the reviewed sources."
+  ]
+}

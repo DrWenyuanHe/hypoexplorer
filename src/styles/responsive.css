@@ -368,7 +368,6 @@
   .site-header-controls { gap: 4px !important; width: 100%; }
   .site-header-breadcrumbs { flex-basis: 100%; }
   .page-shell .site-header-breadcrumbs { order: 3; }
-  .beta-notice { padding: 6px 12px; font-size: 11px; gap: 2px 10px; }
   /* 16px text prevents mobile Safari's focus zoom on form controls. */
   input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), select, textarea { font-size: 16px !important; }
   input:not([type="checkbox"]):not([type="radio"]), select { min-height: 44px; }
@@ -391,8 +390,6 @@
   .report-dataset-actions > a { display: inline-flex; align-items: center; }
   .report-dataset-name, .report-preview-heading strong { overflow-wrap: anywhere; }
   .pager-step { min-width: 44px; }
-  /* A taller tap area for the notice's link without making the line taller. */
-  .beta-notice a { display: inline-block; padding-block: 12px; margin-block: -12px; }
   /* The explorer's six header controls sit in an even 3 × 2 grid of 44px
      targets instead of three ragged wrapped rows of mixed heights. */
   .explorer-shell .site-header-controls { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px !important; }

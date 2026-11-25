@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_hypo_pomc_estrogen_gse328990",
+  "outcome": "upheld_with_corrections",
+  "summary": "Verified all 13 source files and independently reproduced all eight computations. Closure as compared is justified. Across 18,383 paired genes, Pearson was 0.8955, Spearman was 0.8630, and 87.50% agreed in direction. Neither concordance route passed. Two corrections were needed. GEO labels the controls WT, while the manuscript identifies them as homozygous C451A floxed littermates. Of six registered nominal calls without a comparable author P value, five combine multiple features and only Tuba1c has a unique author row with missing P. The corrected proposal passed validation. [Manuscript methods](https://pmc.ncbi.nlm.nih.gov/articles/PMC13192689/)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_pomc_estrogen_gse328990.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_pomc_estrogen_gse328990.json",
+    "data/author-validation/continued-sources/GSE328990/codex-2026-11-21/refute/verify.py"
+  ],
+  "openIssues": [
+    "The cause of the Cenpf log2 fold-change difference remains unresolved: −2.2713 in the deposit and −0.1348 in the registered output. The original quantification and fit settings are needed to explain it.",
+    "Author confirmation would reconcile the genotype descriptions for control pools 2, 4, 6 and 8. Their membership and the direction of the comparison are established."
+  ]
+}

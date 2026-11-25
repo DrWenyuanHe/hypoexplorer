@@ -7,7 +7,7 @@ import {
   getAuthorValidation,
   type AuthorValidationRecord,
 } from '../data/authorValidation';
-import { VERIFICATION_CLAIMS, getVerificationClaim, RESULT_AVAILABILITY, EVIDENCE_LEVELS } from '../data/authorVerification';
+import { AUTHOR_FOLLOW_UPS, VERIFICATION_CLAIMS, getVerificationClaim, RESULT_AVAILABILITY, EVIDENCE_LEVELS } from '../data/authorVerification';
 import { datasetQuality, qualitySearchText } from '../data/datasetQualityR460';
 
 export interface StatusDef {
@@ -47,6 +47,7 @@ export interface TrackerFilterState {
   experimentalDesign?: string;
   authorConcordance?: string;
   availability?: string;
+  followUp?: string;
 }
 
 // The filter state a fresh tracker opens with. n≥3 is on by default, so it shows
@@ -65,6 +66,7 @@ export const DEFAULT_TRACKER_FILTERS: TrackerFilterState = {
   experimentalDesign: 'all',
   authorConcordance: 'all',
   availability: 'all',
+  followUp: 'all',
   q: '',
 };
 
@@ -225,6 +227,8 @@ export function filterAndSort(
     }
     if (f.availability && f.availability !== 'all'
       && validationForTrackerRow(r)?.verification.resultAvailability !== f.availability) return false;
+    if (f.followUp && f.followUp !== 'all'
+      && validationForTrackerRow(r)?.verification.followUp !== f.followUp) return false;
     if (
       q &&
       !(
@@ -282,5 +286,6 @@ function trackerVerificationSearch(r: TrackerRow): string {
     qualitySearchText(record),
     VERIFICATION_CLAIMS[getVerificationClaim(record.verification)].label,
     RESULT_AVAILABILITY[record.verification.resultAvailability].label,
-    EVIDENCE_LEVELS[record.verification.evidenceLevel].label].join(' ');
+    EVIDENCE_LEVELS[record.verification.evidenceLevel].label,
+    record.verification.followUp ? AUTHOR_FOLLOW_UPS[record.verification.followUp].label : ''].join(' ');
 }

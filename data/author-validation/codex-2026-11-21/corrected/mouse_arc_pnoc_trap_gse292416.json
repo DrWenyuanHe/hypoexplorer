@@ -1,0 +1,146 @@
+{
+  "datasetId": "mouse_arc_pnoc_trap_gse292416",
+  "accession": "GSE292416",
+  "category": "unresolved",
+  "closure": "compared",
+  "summary": "The deposited DESeq2 and registered edgeR-QL effects agree closely for 13,946 of 16,832 registered genes (82.85%) in hypothalamic PNOC pulldowns from LepR KO and control mice. Full-output coverage falls below the 90% author-concordance-v2 threshold. The paper and GEO rules respectively select 236 and 69 enriched genotype-DE genes. The paper’s stated 3,550 enriched genes remain unexplained as a count of distinct genes.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE292416/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "The source-ID comparison covers 82.85% of the registered genes. The published count of 236 enriched genotype-DE genes is reproducible. Figure 4B’s enriched-gene count remains unresolved.",
+      "note": "WT and KO each contribute four hypothalamic PNOC-IP pools to the genotype comparison. The 13,946 one-to-one Ensembl pairs have Pearson 0.999799 and Spearman 0.999776. Of 13,946 nonzero pairs, 13,545 agree in sign. At FDR < 0.05, DESeq2 calls 1,049 paired genes and edgeR-QL calls 84. All 84 are shared. Applying the paper and GEO rules to the full deposit gives 236 and 69 joint calls. Under the paper rule, 2,048 WT and 1,502 KO enrichment calls include 1,202 IDs in both groups. The union contains 2,348 IDs, of which 2,197 have finite genotype results for both volcano axes. The paper reports 3,550 enriched genes. Summing the arm counts gives that number, but the authors’ plotting IDs and counting procedure remain unknown. The selection.tsv file records rule-derived joint calls.",
+      "reviewFlags": [
+        "The 16 GEO records describe hypothalamic tissue. The eight registered IP libraries match by title and genotype. The source identifies four-mouse pools by replicate label. Individual mouse identifiers and an ARC-only dissection are undocumented.",
+        "Of 89 registered FDR calls, four have a linked author row with missing genotype FDR and one is a multi-ID aggregate. The deposited author table provides adjusted P values only.",
+        "The previous manual review describes an earlier registered table. The current built-in symbol comparison pairs 13,116 genes, including five conflicting source-ID matches and 31 registered aggregates. The source-ID comparison uses the deposited count matrix and the registered feature map.",
+        "Index excerpts of the publisher’s Results, Figure 4B, STAR Methods and code-availability statement support the reported thresholds and counts. Direct requests for the publisher article and PDF returned HTTP 403. The paper-access designation falls back to the existing source inventory when this manual record replaces the previous one.",
+        "The paper’s 236 is reproduced as a count. Figure 4B reports 3,550 enriched genes, while the deposit supports 2,348 distinct enriched IDs. The historical DESeq2 fit and figure membership remain open. The separate raw-count reconstruction provides no registered-output sign-off."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Solheim et al., Cell. Indexed Results, Figure 4B and STAR Methods",
+          "url": "https://www.sciencedirect.com/science/article/pii/S0092867425004039",
+          "kind": "paper"
+        },
+        {
+          "label": "Deposited DESeq2 results for four comparisons",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE292nnn/GSE292416/suppl/GSE292416_deseq2_results.csv.gz",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO family metadata, pool assignments and submitter thresholds",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE292nnn/GSE292416/soft/GSE292416_family.soft.gz",
+          "kind": "database"
+        },
+        {
+          "label": "Salmon counts and deposited Ensembl-to-symbol mapping",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE292nnn/GSE292416/suppl/GSE292416_salmon.merged.gene_counts.tsv.gz",
+          "kind": "processed_data"
+        }
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "Direct comparison of the registered PNOC-IP KO-minus-control contrast is complete. Agreement in direction is 97.12% with 82.85% registered coverage. At FDR < 0.05 the paired tables have 1,049 author calls, 84 registered calls and 84 shared calls. The paper and GEO thresholds yield different selections. The paper’s distinct enriched-gene count in Figure 4B cannot be reconciled with the deposited table.",
+      "nextStep": "Obtain the Figure 4B plotting IDs or code to resolve the 3,550-gene claim. An exact DESeq2 replay also requires the authors’ input, design, offset, filtering and shrinkage settings. The built-in comparator would need a source-ID join to publish the independently computed paired metrics.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "lepRko_vs_wt"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "The full registered edgeR-QL table and the deposited DESeq2 KO-versus-WT IP columns are the comparison inputs. All registered genes contribute to the coverage denominator. IP/input enrichment is a separate paper analysis.",
+      "reference": "GSE292416_deseq2_results.csv.gz, SHA-256 17b2368a166397bc6d8ca5271538e518f71d848b8ef87d026dd98b0ee832cfe7. The registered GSE292416_DE.tsv SHA-256 is 121265a524a68984ea7ce426ff8d8774f846e0862eb327fbb4425efe914e9a55. data/author-validation/continued-sources/GSE292416/codex-2026-11-21/comparison.json identifies the mapping inputs and sample sheet by path and SHA-256.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "GEO sample titles, genotype annotations, count columns and the registered design match four pulldowns per genotype. Each corresponds to a pool of four mice. Input and IP come from the same homogenate within a pool. KO and WT pools form separate groups. The biological material is PNOC-tagged ribosomes from hypothalamic dissections. The registry’s ARC label describes the study focus. The sources do not establish ARC-only sampling."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Both tables report KO minus control within PNOC immunoprecipitates. Positive values indicate higher abundance in KO. The control arm in the sample metadata is Lepr-flox. The registered fit uses the eight IP libraries. The deposit identifies the author contrast and leaves the other libraries’ possible contribution to its model unspecified."
+        },
+        "features": {
+          "status": "limited",
+          "note": "For 13,946 pairs the Salmon gene_id, gene_name and registered feature map link a single Ensembl ID to a single tested symbol. Display names differ for 864 pairs. The 44 tested symbols with multiple source IDs lack one-to-one coefficients. The generated literal-symbol comparator includes five conflicting IDs and 31 aggregate features."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both methods estimate a log2 change for the same genotype comparison. Across 13,946 finite pairs, Pearson is 0.999799, Spearman is 0.999776 and 13,545 of 13,946 nonzero directions agree. Median absolute log2FC difference is 0.011477 and local-to-author RMS effect ratio is 1.001643."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Registered edgeR-QL uses unrounded counts, aggregation by symbol, expression filtering and TMM. The authors report DESeq2 1.38.3. At FDR < 0.05, the whole tables have 1,052 author and 89 registered calls. The corresponding paired counts are 1,049 and 84, with 84 shared (Jaccard 0.080076). Four registered calls lack a finite author genotype FDR and one is an aggregate. The export omits raw P values. Several historical fitting choices remain unknown."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The four-contrast union has 24,405 Ensembl IDs, of which 13,989 have a finite IP genotype coefficient and FDR. The 13,946 one-to-one pairs cover 99.69% of these and 82.85% of the 16,832 registered effects. Unpaired registered rows include 2,621 with missing author genotype estimates, 221 with no linked author row, and 44 multi-ID aggregates. Missing values are excluded from agreement and disagreement counts."
+        }
+      },
+      "criteria": "For a full-results comparison, author-concordance-v2 requires at least 30 pairs, 90% coverage of the registered table and supported cohort, contrast, identifiers and effect definitions. Either both correlations must reach 0.90, or signs must agree for at least 90% of at least 30 nonzero pairs covering at least 90% of all pairs. Magnitudes and FDR calls provide context. Test FDR < 0.05 on both complete tables and again on shared finite tests. For paper and GEO selections, apply each source’s own thresholds to the deposited Ensembl rows.",
+      "conclusion": "Both numerical agreement routes pass on the one-to-one pairs. Full-output coverage fails even at the theoretical maximum of 83.11%. The enriched genotype-DE count of 236 is reproducible under the paper rule. Among 2,348 distinct enriched IDs, 151 lack the genotype statistics to place them on the Figure 4B volcano and 2,197 have both coordinates. The figure’s reported count of 3,550 remains unresolved. The retained selection.tsv lists inferred joint-call membership."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Cohort linkage and replication",
+      "value": "All eight registered pulldowns match the GEO sample titles, genotypes and deposited count columns. Four numbered four-mouse pools per genotype contribute hypothalamic PNOC-IP libraries.",
+      "script": "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/refute/check.py"
+    },
+    {
+      "claim": "Whole tables and finite author evidence",
+      "value": "24,405 author IDs across four contrasts, 13,989 finite genotype effects and FDRs, 10,416 missing. The registered output has 16,832 finite effects and FDRs.",
+      "script": "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/refute/check.py"
+    },
+    {
+      "claim": "Source-linked one-to-one coverage",
+      "value": "13,946 paired, 82.854087% of the registered output and 99.692616% of finite author estimates. Even a perfect mapping could cover at most 83.109553% of the registered output.",
+      "script": "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/refute/check.py"
+    },
+    {
+      "claim": "Unpaired registered features",
+      "value": "2,621 linked IDs with missing author genotype results, 221 without an author row and 44 multi-ID registered symbols.",
+      "script": "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/refute/check.py"
+    },
+    {
+      "claim": "Magnitude, correlation and direction",
+      "value": "Pearson 0.99979948, Spearman 0.99977600, same sign in 13,545/13,946 nonzero pairs (97.124624%). All pairs are directionally assessable. Median absolute delta 0.01147748, RMS delta 0.01229714 and RMS effect ratio 1.00164346.",
+      "script": "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/refute/check.py"
+    },
+    {
+      "claim": "FDR < 0.05, full tables and paired finite statistics",
+      "value": "Whole author / Explorer counts 1,052 / 89. Paired author / Explorer counts 1,049 / 84, overlap 84 and paired Jaccard 0.08007626. Three author and five registered calls are outside paired inference.",
+      "script": "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/refute/check.py"
+    },
+    {
+      "claim": "Declared mapping versus the built-in unique-symbol comparator",
+      "value": "The source-ID join includes 864 renamed pairs. The existing join gives 13,116 pairs (77.923004% local coverage), 993 / 77 paired FDR calls with 77 shared, five wrong-ID matches and 31 pairs with multi-ID registered symbols.",
+      "script": "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/refute/check.py"
+    },
+    {
+      "claim": "Paper enrichment and genotype selection",
+      "value": "2,048 WT plus 1,502 KO enrichment calls sum to 3,550, including 1,202 IDs in both. Their union is 2,348. The paper rule gives 1,052 IP genotype DE genes and 236 in the enriched union. Results and STAR Methods inequalities select identical IDs. Of the 2,348 enriched IDs, 2,197 have finite IP genotype effects and adjusted P values, and 151 lack both. The caption does not supply the IDs used for the published plot.",
+      "script": "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/refute/check.py"
+    },
+    {
+      "claim": "GEO enrichment and genotype selection",
+      "value": "Adjusted P ≤ 0.01 and linear enrichment FC ≥ 1.5 yield 1,506 distinct enriched IDs, 365 genotype DE IDs and 69 in their intersection. All 69 are among the 236 under the paper rule.",
+      "script": "data/author-validation/continued-sources/GSE292416/codex-2026-11-21/refute/check.py"
+    }
+  ],
+  "openIssues": [
+    "Which Ensembl IDs and counting procedure were used for Figure 4B? The union under the published rule contains 2,348 IDs and only 2,197 have finite genotype results.",
+    "Which input, design, offsets, independent filtering and shrinkage settings produced the deposited DESeq2 results? The registered edgeR comparison and the separate raw-count reconstruction cannot identify all historical choices.",
+    "The built-in comparator still matches literal symbols. Its generated metrics describe 13,116 pairs. Incorporating the 13,946 source-ID pairs would require updating the existing comparator.",
+    "The registry describes the region as arcuate nucleus and cites Jais et al. The source describes hypothalamic dissections and PMID 40273910 identifies Solheim et al."
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "datasetId": "mouse_hypo_insulin_gse132352",
+  "accession": "GSE132352",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "Table S1 supports a direct comparison of high-dose insulin with basal saline in whole hypothalamus. The saved join pairs 2,122 of 2,301 selected rows, and independent review resolves Oaz2 as one additional pair. All 2,123 effects agree in direction, and 14 genes pass printed FDR < 0.05 in both analyses.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "High-dose hypothalamus effects compared with the authors’ Table S1",
+      "note": "The GEO count matrix matches the registered input checksum. GEO and ENA link all five deposited high-dose and five basal hypothalamus libraries to the registered fit. HTM_High contains 2,301 effects at nominal P < 0.01. The saved join pairs 2,122 rows. Resolving Oaz2 brings coverage to 92.26% of the selected list and 15.49% of registered genes. All 2,123 signs agree, with Pearson 0.97255 and Spearman 0.97403. Fourteen of the 15 assessable registered FDR calls pass in S1. The sixteenth, Stxbp5l, lacks a paired author statistic.",
+      "reviewFlags": [
+        "The authors selected genes at nominal P < 0.01. Full-universe effects, inference and some unrounded threshold decisions remain open.",
+        "The clamp data and reported high-dose exclusion support cohort compatibility. The exact fitted limma roster and design remain unverified. GEO names GRCm38.p4 and the article names GRCm38.p6."
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "Both v2 effect routes pass on the 2,122 saved join keys and with Oaz2 independently paired. Across the 2,123 reviewed pairs, 1,221 author and 15 registered FDR values are below 0.05, with 14 shared. The two available tables contain 1,323 and 16 calls overall. The authors used voom/limma and the registered fit used edgeR quasi-likelihood. The public evidence does not isolate the cause of the difference in calls.",
+      "nextStep": "For full reproduction, obtain unrounded, unfiltered limma results with stable IDs, the fitted library roster and design, and the annotation release. Reconcile the five deposited basal hypothalami with the author fit and establish both testing families.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "insulin_vs_saline"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Direct comparison of the publisher’s HTM_High worksheet with the registered R 4.6.0 edgeR-QL groupcase coefficient. The normalized TSV accounts for every source row. A separate check against the original workbook, MGI report and registered feature map adds Oaz2 to the saved pairs.",
+      "reference": "Cai et al., Diabetes, DOI 10.2337/db20-1119. Publisher figshare record 14568204, file 27952974, Table_S1_Significant_gene_lists.xlsx, HTM_High!A1:I2302. The published logFC, raw P and FDR are columns G, E and F.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "The registered fit, sample sheet, count columns, GEO and ENA agree on five high-dose and five basal hypothalamus libraries from 3-month-old male C57BL/6J mice. Six low-dose hypothalamus libraries belong to the other dose arm. Supplementary Figure 1 reports N = 6 for clamp physiology. The authors explicitly excluded low-quality high-dose HTM library TRA00038406, which is absent from the deposit. The exact author fit roster and the reason for five deposited basal hypothalami remain unverified."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "The registry names saline as baseline and insulin as case. Each case library has the GEO High dose label. The GEO series and the paper identify that dose as 12 mU/kg/min for 3 h. S1 identifies both group means as basal and high at 3 h. The high-minus-basal mean difference and t statistic have the reported logFC direction in all 2,301 rows."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "The saved join pairs 2,122 rows, including 135 with source labels different from the join keys. These include the date-formatted Septin9 cell A1811, resolved by MGI:1858222. In row 1243 the symbol Oaz2 and MGI:109492 both identify ENSMUSG00000040652, permitting one additional pair. Oaz2-ps contributed a historical synonym but has its own marker MGI:3644634 and stable ID ENSMUSG00000083610. Of the 178 remaining rows, 142 map to a feature without a published coefficient, 34 lack a usable join under the retained crosswalks, and Lmbr1 and Pms2 each map to an aggregate of two registered input features. Four of the 34 have MGI-linked Ensembl IDs outside the deposited matrix."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both coefficients measure high-dose insulin relative to basal saline on a log2 scale. In S1, conversion of the signed linear folds differs from reported logFC by at most 0.00736. All 2,123 reviewed pairs agree in direction. The median absolute log2 difference is 0.06780, the maximum is 2.92329 for Snord82, and the registered-to-author RMS effect ratio is 0.91853."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The paper describes a filter of at least one CPM in at least three samples, TMM, voom observation and sample-quality weights, and limma. The registered group-only edgeR-QL fit uses filterByExpr, TMM and BH across 13,834 tested features, including 125 without published symbols. Printed FDR < 0.05 gives 1,323 calls in S1 and 16 in the registered table. The saved join gives 1,220 author, 15 registered and 14 shared calls. Including Oaz2 gives 1,221, 15 and 14. Eight author FDR values equal 0.05 at published precision. Stxbp5l has no paired author FDR. Zfp871 has author FDR 0.0657."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All 2,301 HTM_High rows have finite effects and nominal P < 0.01. The saved join covers 2,122/2,301 selected rows (92.22%) and 2,122/13,709 registered rows (15.48%). Including Oaz2 brings coverage to 2,123/2,301 (92.26%) and 2,123/13,709 (15.49%). Genes outside the worksheet have unassessed author effects and inference."
+        }
+      },
+      "criteria": "Use the entire HTM_High list, the reported high-minus-basal logFC and unambiguous one-to-one gene pairs. The v2 minimum is 30 pairs, 90% relevant coverage and compatible cohort, contrast, features and effects. Pearson and Spearman must both reach 0.90, or at least 90% of at least 30 nonzero pairs must agree in sign with nonzero pairs covering at least 90% of all pairs. Use printed FDR < 0.05 for contextual calls and keep missing tests unassessed.",
+      "conclusion": "The 2,122-pair saved comparison meets both v2 routes for selected effects, with Pearson 0.97254, Spearman 0.97402 and agreement in all signs. Including Oaz2 gives 2,123 concordant signs, Pearson 0.97255 and Spearman 0.97403. Different FDR call sets and incomplete reference coverage limit the review to the selected effects."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "mouse_hypo_insulin_gse132352",
+      "accession": "GSE132352",
+      "contrast": "insulin_vs_saline",
+      "localPath": "geo_replication/datasets/GSE132352_mmus_hypo_insulin/processed/GSE132352_DE.tsv",
+      "localKey": "symbol",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE132352_mmus_hypo_insulin/processed/GSE132352_DE.tsv",
+        "sha256": "df0584d7d04d853457968b37d852c1919a728ee504792f9ce63c6c961df144b2",
+        "bytes": 1357157
+      },
+      "authorPath": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/HTM_High.tsv",
+      "sourceUrl": "https://ndownloader.figshare.com/files/27952974",
+      "sha256": "7706f0c032e979b142718fcb47d8f40223fe3701b7012d4b028bc3b85fc4183c",
+      "format": "tsv",
+      "authorKey": "join_key",
+      "authorEffect": "author_logFC",
+      "authorAdjustedP": "author_FDR",
+      "orientationSign": 1,
+      "localMethod": "edgeR quasi-likelihood on TMM-normalized counts, groupcase coefficient",
+      "authorMethod": "limma on voom-weighted TMM log2 CPM, selected HTM_High rows of Supplementary Table S1",
+      "orientation": "High-dose insulin (12 mU/kg/min) relative to basal saline after 3 h in hypothalamus. Use the sheet's reported logFC unchanged.",
+      "resultScope": "selected_results",
+      "interpretation": "effect_match_inference_differs",
+      "note": "This specification replays 2,122 pairs from the original HTM_High.tsv, with all 2,301 source rows in the denominator. Row 1243 carries the stored key UNPAIRED:HTM_High:row1243. The independent accession audit resolves it as Oaz2, giving the 2,123-pair results reported separately in the scientific review. Both sets meet the same selected-list criteria. Author statistics outside S1 remain unassessed.",
+      "normalizationScript": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/compare.py",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/public/Table_S1_Significant_gene_lists.xlsx",
+          "sha256": "ddf2a00b30a94cba044bc6ca03b212c94284af1692a4ce8646bc06b1bfbf7035",
+          "bytes": 527633,
+          "sourceUrl": "https://ndownloader.figshare.com/files/27952974"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/public/series_family.soft.gz",
+          "sha256": "eb5dfb2cf3e1f11f92d46845860b31a500d6361f5b5a75014394850dc6775461",
+          "bytes": 4756,
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE132nnn/GSE132352/soft/GSE132352_family.soft.gz"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/public/mgi_ensembl.rpt",
+          "sha256": "39c260219e43c9016bd5d958eca9fab8461dce68657d821dc1037254bf0c0d67",
+          "bytes": 16192673,
+          "sourceUrl": "https://www.informatics.jax.org/downloads/reports/MRK_ENSEMBL.rpt"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/public/GSE132352_count_table.csv.gz",
+          "sha256": "aaec13c0525760c3e3d4163207809892c9557a9c41292bbc1bb5a6d73691e8f9",
+          "bytes": 1719169,
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE132nnn/GSE132352/suppl/GSE132352_count_table.csv.gz"
+        },
+        {
+          "path": "geo_replication/datasets/GSE132352_mmus_hypo_insulin/processed/GSE132352_feature_map.tsv.gz",
+          "sha256": "c5a7ce3ee32606a64285078f1d288ff9a03f1672f05bf245cfe164fb9b8affc1",
+          "bytes": 347133,
+          "sourceUrl": "Registered per-feature identifier map for this analysis"
+        },
+        {
+          "path": "data/nomenclature/nomenclature.tsv",
+          "sha256": "e93dd96852f0ce87365ca44c3566b03d774fcf062a8a8be8f1fe37d444c8f5ee",
+          "bytes": 20974092,
+          "sourceUrl": "Repository mouse nomenclature snapshot used to check MGI identifiers"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/compare.py",
+          "sha256": "bf95a60b24d1e63f7a00e6978714b0308bede34486849d359934fce6c14dc713",
+          "bytes": 14260,
+          "sourceUrl": "Offline extraction and gene comparison for GSE132352"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/refute/audit.py",
+          "sha256": "1470fa56dad4dbb57f32ddf43fc8791cc74d71981eb247148a13daa1a64a3dc5",
+          "bytes": 16762,
+          "sourceUrl": ""
+        }
+      ]
+    }
+  },
+  "computed": [
+    {
+      "claim": "Deposited counts and registered arms",
+      "value": "46,071 Ensembl features and 52 library columns. Hypothalamus has five basal, six low-dose and five high-dose libraries. The registered fit uses all five basal and all five high-dose libraries.",
+      "script": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "One-to-one gene coverage",
+      "value": "The saved join pairs 2,122/2,301 source rows (92.22%) and 2,122/13,709 registered genes (15.48%). Including Oaz2 gives 2,123/2,301 (92.26%) and 2,123/13,709 (15.49%). The author worksheet contains 1,191 positive and 1,110 negative effects.",
+      "script": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Selected rows outside the reviewed one-to-one pairs",
+      "value": "After resolving Oaz2, 178 rows remain. Of these, 142 have a mapped feature without a published coefficient, 34 lack a usable join, and two (Lmbr1 and Pms2) each map to a registered aggregate. Among the 34, three lack a source marker ID and four have a current MGI-linked Ensembl ID absent from the counts. The original join classified Oaz2 and Lmbr1 as ambiguous and Pms2 as an aggregate.",
+      "script": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Effect size and direction",
+      "value": "Across the 2,123 reviewed pairs, Pearson 0.972545918, Spearman 0.974034145, 2,123/2,123 concordant nonzero signs, median absolute log2 difference 0.067800173, maximum 2.923290301 (Snord82), and registered-to-author RMS ratio 0.918527044. The saved 2,122-pair join gives 0.972543803, 0.974016533, 2,122/2,122, 0.067786124, 2.923290301 and 0.918547311 respectively.",
+      "script": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "FDR < 0.05 on the reported values",
+      "value": "Printed FDR < 0.05 gives 1,323 author and 16 registered calls overall. Among the 2,123 reviewed pairs, 1,221 author and 15 registered calls pass, with 14 shared, 102 author calls outside the pairs, and one registered call lacking a paired author FDR. Oaz2 has author FDR 0.0483 and registered FDR 0.212700701. The saved join gives 1,220 author, 15 registered and 14 shared. Eight worksheet values equal 0.05.",
+      "script": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Nominal P < 0.01",
+      "value": "All 2,301 author rows pass (P range 9.31e-8 to 0.00999). In the registered output 648 pass overall and 545 pass within either set of pairs.",
+      "script": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Figure 1B cutoff applied to the rounded worksheet",
+      "value": "Nominal P < 0.01 and printed |FC| > 1.5 give 1,106 author rows and 474 registered calls overall. Within either set of pairs the counts are 934 author, 407 registered and 377 shared. Among the 51 worksheet fold magnitudes printed as 1.5, 20 have logFC magnitudes above log2(1.5) and 25 below it even after allowing ±0.0005. If logFC near the cutoff was rounded to the nearest 0.001, six remain uncertain and 1,126 to 1,132 source rows could have passed on unrounded values. Figure 1B plots bars without exact high-dose counts.",
+      "script": "data/author-validation/continued-sources/GSE132352/codex-2026-11-21/refute/audit.py"
+    }
+  ],
+  "openIssues": [
+    "The reviewed public sources lack the unfiltered, unrounded author table, fitted limma design and exact library roster. GEO and the paper report different GRCm38 patch versions. Full-universe concordance and the exact author basal cohort remain open.",
+    "Unrounded calls remain uncertain for eight printed FDR values and six fold-change boundary rows. The retained TSV reproduces 2,122 pairs. The independent audit reproduces the 2,123-pair comparison that includes Oaz2."
+  ]
+}

@@ -29,10 +29,12 @@ Generated JSON uses LF and follows the repository's `*.json eol=lf` rule.
 
 `source/portal-export.zip` contains the original bytes of all 354 API page
 responses, a separate three-gene/two-sample query, the viewer HTML, the public
-client JavaScript and help pages. `source/portal-source-manifest.json` pins the
-archive and each uncompressed response by SHA-256, byte count, source URL,
-retrieval date, and exact filter. The archive uses fixed ZIP timestamps; it is a
-compact container for source bytes, not a replacement matrix or recomputation.
+client JavaScript and help pages. The archive is
+[not in this repository](../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
+`source/portal-source-manifest.json`, which is here, pins the archive and each
+uncompressed response by SHA-256, byte count, source URL, retrieval date, and
+exact filter. The archive uses fixed ZIP timestamps; it is a compact container
+for source bytes, not a replacement matrix or recomputation.
 
 ## Reproduction and validation
 
@@ -43,8 +45,9 @@ python scripts/build_neuroseq_expression.py
 python scripts/build_neuroseq_expression.py --check
 ```
 
-Build and check are offline. `--fetch` explicitly refreshes all public source
-pages and their evidence, with at most three concurrent requests. A changed
+Build and check run offline from `source/portal-export.zip`, and both fail when
+the archive is absent. `--fetch` explicitly refreshes all public source pages and
+their evidence, with at most three concurrent requests. A changed
 source gene count or processing label requires review rather than silently
 changing scope.
 

@@ -1,0 +1,66 @@
+{
+  "datasetId": "mouse_hypo_hfd_gse236077",
+  "accession": "GSE236077",
+  "category": "not_located",
+  "closure": "confirmed_not_located",
+  "summary": "Table 1 and the archived DESeq2 notebook report two discoveries for 16-hour hypothalamic HFD versus chow, but neither the genes nor their statistics were located in the public sources searched. The registered edgeR-QL result has zero FDR discoveries and includes an HFD library the authors excluded. Gene-level agreement remains unassessed.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE236077/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "The public hypothalamus result gives a discovery count without gene identities",
+      "note": "The deposited count matrix matches the authors' specimen-named matrix across 57,010 gene rows. The 12 registered count columns resolve to six chow and six HFD hypothalamus libraries despite repeated GEO headers. The authors' run-0010 HY DESeq2 fit used six chow, five HFD and five fasted libraries. It excluded HFD specimen S0010_13_HFD_HY, retained by the registered analysis. Table 1 and the Zenodo notebook report two genes at adjusted P < 0.05. The saved summary gives no gene IDs, effects or per-gene statistics. The registered edgeR-QL table has zero FDR discoveries among 21,906 published symbols. See data/author-validation/continued-sources/GSE236077/codex-2026-11-21/SEARCH_LOG.md and review.json.",
+      "reviewFlags": [
+        "This legacy source has no committed source-file checksum manifest.",
+        "The registered two-arm fit retains S0010_13_HFD_HY (true HY accession GSM7517859, registered count label GSM7517883). The authors excluded it for PCA and fitted fasting jointly with the diet arms.",
+        "The public discovery count supplies no gene-level reference for effect or inference concordance."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The article, figure assets, all GEO sample supplement records and both series files, the archived author notebooks, repository histories and public repository searches yielded only a discovery count for this contrast. The count cannot establish gene identity, direction, effect size or P/FDR agreement.",
+      "nextStep": "Obtain the authors' original run-0010 HY HFD-versus-chow DESeq2 table with Ensembl IDs, log2 fold changes, P values and adjusted P values. Use the recorded specimen crosswalk and account for the excluded HFD library and joint three-diet fit before interpreting a comparison.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Published HY HFD-versus-chow discoveries at author adjusted P < 0.05",
+      "value": "2 in Table 1, the archived DE notebook display and 06_degs/deg_summary.csv.",
+      "script": "data/author-validation/continued-sources/GSE236077/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Registered HY hfd_vs_chow output",
+      "value": "21,906 unique published symbols, 0 with padj < 0.05. The provenance records 22,058 fitted test rows including unpublished features.",
+      "script": "data/author-validation/continued-sources/GSE236077/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "GEO sample supplement inventory",
+      "value": "185 of 185 GSM records declare NONE. Both series-level supplementary files were opened. The series matrix has 0 feature rows.",
+      "script": "data/author-validation/continued-sources/GSE236077/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Counts and specimen identity",
+      "value": "57,010 gene rows and 185 sample columns. All feature IDs and count values agree in order with the specimen-named Zenodo matrix. GEO repeats 37 distinct GSM headers across the sample columns.",
+      "script": "data/author-validation/continued-sources/GSE236077/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Registered and author model membership",
+      "value": "Registered: 6 chow and 6 HFD. Author: 6 chow, 5 HFD and 5 fasted. S0010_13_HFD_HY is the PCA-excluded HFD specimen. S0010_12_fast_HY failed STAR QC.",
+      "script": "data/author-validation/continued-sources/GSE236077/codex-2026-11-21/review.py"
+    },
+    {
+      "claim": "Archived publication and study code coverage",
+      "value": "Europe PMC returned 8 figure images representing 4 main figures. Eight Zenodo version records were inspected. The DE notebook and count-summary CSV are the only files in the cited archive's 06_degs directory.",
+      "script": "data/author-validation/continued-sources/GSE236077/codex-2026-11-21/review.py"
+    }
+  ],
+  "openIssues": [
+    "The gene identities, effect estimates, tested-gene list and per-gene P/FDR values from the authors' original fit remain unavailable. Gene-level concordance cannot be assessed."
+  ]
+}

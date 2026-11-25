@@ -1,0 +1,13 @@
+{
+  "datasetId": "mouse_hypo_aging_gse240365",
+  "outcome": "compared",
+  "summary": "The publisher reported 171 selected genes for 22-month versus 12-week mouse hypothalamus. All 152 genes with registered results agreed in direction, and 133 met both the author q-value and registered FDR cutoffs of 0.05. Coverage was 88.89%, below the 90% required for author-concordance-v2. The proposal passed validation, and no ledger was edited. [Publisher supplement](https://ars.els-cdn.com/content/image/1-s2.0-S0166432824000998-mmc3.xls)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/mouse_hypo_aging_gse240365.json",
+    "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/"
+  ],
+  "openIssues": [
+    "The 19 unpaired author genes map to the deposited counts but have no registered DE row. The selected supplement provides no author statistics for 854 other registered FDR discoveries.",
+    "Full-universe inference requires the complete author result table. The original model code or saved fit is needed to reconcile GEO’s legacy DESeq description with the supplement’s Wald-style statistics and confirm how q values were calculated."
+  ]
+}

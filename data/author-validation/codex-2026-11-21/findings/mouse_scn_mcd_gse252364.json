@@ -1,0 +1,110 @@
+{
+  "datasetId": "mouse_scn_mcd_gse252364",
+  "accession": "GSE252364",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "The recovered preprint confirms a separate SCN diet comparison at CT00 and reports 56 significant genes there. The registered analysis has three FDR calls, and its deposited Gstm3 counts are zero in all controls and positive in all MCD libraries. The original DESeq2 input and Galaxy settings are needed to explain the opposite Gstm3 sign reported in the earlier worksheet review and the Rab43 discrepancy.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE252364/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "Preprint confirms separate CT00 diet comparison. Gstm3 and Rab43 still require the original analysis inputs.",
+      "note": "Saer et al. (bioRxiv 10.1101/2024.01.04.574014) is explicitly cited in the GEO family record. The archived full text describes pairwise DESeq2 on StringTie counts at each time point. Figure 2B and Figure 4C/D describe SCN profiles from three animals (2 male, 1 female). GEO and ENA identify all six expected CT0 libraries in the registered sample sheet. The preprint reports 56 significant genes at CT00. The registered edgeR-QL analysis has three at FDR < 0.05. The deposited SCN gene-count file matches the registered input hash. For Gstm3 the raw CTL counts are 0, 0, 0 and MCD counts are 192, 209, 193. The older review's values near 3.7 are TMM CPM. Its quoted negative author effect conflicts with the direction implied by those counts in a simple diet comparison. For Rab43 the registered counts vary widely within MCD, and the manuscript identifies an overlapping gene, Gm45140. They map to separate registered features. The November 15 comparison and verifier describe the author CT00 worksheet. Its original bytes could not be recovered in this pass. The prior correlations, author cell values and paired calls remain historical. See data/author-validation/continued-sources/GSE252364/codex-2026-11-21/SEARCH_LOG.md and audit_inputs.json.",
+      "reviewFlags": [
+        "The preprint identifies the time-specific comparison and expected biological replicates. It does not identify the actual count files, Galaxy sample-to-factor assignment, coefficient or shrinkage setting used to produce the worksheet.",
+        "The GEO matrix is prefiltered for the rhythm analysis. The author's unfiltered gene-level CT00 inputs and model settings are needed to reconcile the reported Gstm3 sign and Rab43 effect and inference. Exon-bin counts cannot replace those inputs.",
+        "The currently available evidence supports the manuscript's CT00 discovery total and the local gene values. The original Data 4 workbook is absent from this checkout and its download routes failed during this pass."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "The November 15 review obtained the author worksheet. The recovered manuscript and GEO record now establish a pairwise diet comparison at CT00 and support the intended six-animal cohort. The registered Gstm3 control counts are all zero and its MCD counts are positive, yet the earlier worksheet review reported a negative author estimate. The manuscript identifies Rab43 and overlapping Gm45140 as responsive across multiple time points, without supplying their CT00 input counts or fitted statistics. The exact Galaxy fit remains unidentified.",
+      "nextStep": "Which GSMs and count columns entered the SCN CT00 comparison in Supplemental Data 4? Please supply the Galaxy history, or the input rows for Gstm3, Rab43 and overlapping Gm45140 with the sample map, DESeq2 design, coefficient orientation, outlier handling and log-fold-change shrinkage settings. Do those Gstm3 counts match the deposited control zeros and positive MCD counts?",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "mcd_vs_control"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Registered group-only CT0 edgeR-QL versus the Data 4 CT00 DESeq2 comparison recorded on November 15. This pass compared the full manuscript's CT00 discovery total with the registered total and audited the registered samples and counts.",
+      "reference": "Saer et al., bioRxiv 10.1101/2024.01.04.574014 v1, PPR782740. See the SCN Results, RNAseq Methods and Figure 4 in data/author-validation/continued-sources/GSE252364/codex-2026-11-21/preprint.xml. The historical full-worksheet comparison is described in data/author-validation/turbo-2026-11-15/VERIFY_VERDICTS.json. The worksheet could not be independently retrieved in this pass.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "GEO and ENA match the six expected SCN CT0 samples to the registered sample sheet, including the two males and one female per diet shown in the SCN expression figure legends. The public records do not bind those six inputs to the original CT00 Galaxy job."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Both sources describe the SCN diet comparison at CT0. The preprint specifies separate time-point comparisons. The registered coefficient is MCD minus control. The historical Data 4 review used that orientation. The actual Galaxy factor and coefficient metadata are unavailable."
+        },
+        "features": {
+          "status": "limited",
+          "note": "The registered Gstm3 and Rab43 symbols each trace to one versioned Ensembl input. The overlapping Gm45140 maps separately. The prior full-table join used exact symbols and excluded ambiguous matches. The original author workbook was unavailable for a fresh Ensembl-level join."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Both comparisons report a log2 diet fold change. For Gstm3 the raw counts imply a positive simple diet effect, and registered log2FC is +10.465. The corrected November 15 review quotes author log2FC -2.33 for Gstm3 and -5.79 for Rab43. Registered Rab43 log2FC is -1.369 with heterogeneous MCD counts. This pass could not re-read those worksheet cells. The exact DESeq2 input and any shrinkage remain unknown."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The preprint reports 56 SCN discoveries at CT00. The registered table has three at FDR < 0.05. The methods use DESeq2 filters versus edgeR-QL on the prefiltered GEO matrix. The 30,068-gene SCN background spans all time points. Whole-list overlap and finite paired P/FDR were not recomputed. Missing author statistics remain unassessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The earlier comparison used the complete CT00 worksheet for the one registered contrast. This pass checked the published total against all 15,720 registered rows and audited the two flagged genes. It did not recompute either side's paired-effect coverage."
+        }
+      },
+      "criteria": "Count all registered FDR < 0.05 calls against the published CT00 total. For a full-results effect comparison, author-concordance-v2 requires at least 30 finite pairs and 90% registered coverage, compatible cohort, contrast, identifiers and effect definitions, and either Pearson and Spearman both at least 0.90 or at least 90% direction agreement among at least 30 nonzero pairs covering at least 90% of pairs. The previous orientation is MCD minus control. The headline totals cannot test either route.",
+      "conclusion": "The biological comparison and intended sample roster are supported. The absolute discovery totals differ, and the original gene-count inputs or model coding remain necessary to explain the flagged rows. The earlier numerical direction result supplies no new sign-off."
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO versus registered input SHA-256",
+      "value": "28790256fb4083b7b4ef9cc716dce0e387a4c8f1de3c48fad9955cd38483a64e",
+      "script": "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/audit_inputs.py"
+    },
+    {
+      "claim": "CT0 SCN registered libraries matched to GEO and ENA, in M1, M2, F1 order",
+      "value": "CTL GSM8000360, GSM8000362, GSM8000364. MCD GSM8000361, GSM8000363, GSM8000365.",
+      "script": "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/audit_inputs.py"
+    },
+    {
+      "claim": "SCN discoveries at CT00, compared as whole-table totals",
+      "value": "56 reported by the authors. Registered FDR < 0.05 yields 3 of 15,720 rows (Fosl2, Dusp4, Pcdha7).",
+      "script": "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/audit_inputs.py"
+    },
+    {
+      "claim": "Gstm3 CT0 raw counts and registered statistics",
+      "value": "CTL [0, 0, 0], MCD [192, 209, 193]. Registered log2FC +10.4651111941744, raw P 0.0000136305922974448, FDR 0.0535682277289579.",
+      "script": "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/audit_inputs.py"
+    },
+    {
+      "claim": "Rab43 CT0 raw counts and registered statistics",
+      "value": "CTL [1578, 736, 666], MCD [1177, 25, 230]. Registered log2FC -1.36884992320678, raw P 0.0688429894097746, FDR 0.928270972590781.",
+      "script": "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/audit_inputs.py"
+    },
+    {
+      "claim": "Gm45140, a separate feature at the overlapping Rab43 locus",
+      "value": "ENSMUSG00000107928.2. CTL [0, 8, 0], MCD [0, 1624, 927].",
+      "script": "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/audit_inputs.py"
+    },
+    {
+      "claim": "Deposited and study-wide gene universes",
+      "value": "The GEO SCN count matrix has 15,759 gene rows across 36 libraries. The preprint describes 56,884 features before filtering and 30,068 in the SCN enrichment background across time points.",
+      "script": "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/audit_inputs.py"
+    }
+  ],
+  "openIssues": [
+    "Which GSMs and count columns entered the SCN CT00 comparison in Supplemental Data 4? Please supply the Galaxy history, or the input rows for Gstm3, Rab43 and overlapping Gm45140 with the sample map, DESeq2 design, coefficient orientation, outlier handling and log-fold-change shrinkage settings. Do those Gstm3 counts match the deposited control zeros and positive MCD counts?",
+    "The original Data 4 workbook and former evidence directory were unavailable for a fresh gene-level comparison. Author P/FDR for individual genes, matched-list overlap and whole-table concordance were not reassessed."
+  ]
+}

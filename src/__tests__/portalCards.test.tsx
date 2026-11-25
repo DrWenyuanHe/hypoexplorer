@@ -134,13 +134,13 @@ beforeEach(() => {
   });
   mocks.loadFamilyTeaser.mockImplementation(async (_symbol: string, family: string) => (family === 'studies'
     ? {
-      measured: 3, total: 18, unit: 'CPM (TMM-normalized)', inUnit: 2,
+      measured: 3, total: 18, unit: 'CPM (TMM-normalized)', inUnit: 2, species: ['Mus musculus'],
       levels: [
         { sourceId: 'oxt-study', label: 'Hypothalamic OXT', study: 'GSE242245', cohort: 'Vehicle', mean: 812.5, n: 4 },
         { sourceId: 'crh-study', label: 'PVN CRH', study: 'GSE174085', cohort: 'Control rearing', mean: 40, n: 14 },
       ],
     }
-    : { measured: 0, total: 6, unit: '', inUnit: 0, levels: [] }));
+    : { measured: 0, total: 6, unit: '', inUnit: 0, levels: [], species: ['Mus musculus', 'Rattus norvegicus', 'Sus scrofa'] }));
 });
 
 // ── Condition pathways ──────────────────────────────────────────────────────
@@ -536,12 +536,12 @@ describe('GeneExpressionCards', () => {
   beforeEach(() => resetSourceRequests());
   afterEach(() => { vi.unstubAllGlobals(); });
 
-  it('sets a mouse row and a human row of source tiles, each opening its own source under its row', async () => {
+  it('sets an animal row and a human row of source tiles, each opening its own source under its row', async () => {
     productFetch();
     const onOpenExpression = vi.fn();
     render(<GeneExpressionCards symbol="OXT" onOpenExpression={onOpenExpression} />);
     const section = screen.getByRole('region', { name: 'Where OXT is expressed' });
-    const mouse = within(section).getByRole('region', { name: 'Mouse hypothalamus' });
+    const mouse = within(section).getByRole('region', { name: 'Animal hypothalamus' });
     expect(await within(mouse).findByText('PVH oxytocin')).toBeTruthy();
     expect(mouse.querySelector('[data-slot="single-cell-mouse"]')).toBeTruthy();
     // The study library: each study's highest cohort, its study and cohort named, in the shared unit.
@@ -549,14 +549,16 @@ describe('GeneExpressionCards', () => {
     expect(await within(studies).findByText('Hypothalamic OXT')).toBeTruthy();
     expect(within(studies).getByText('GSE242245 · Vehicle')).toBeTruthy();
     expect(within(studies).getByText(/2 of the 3 studies with OXT use this unit; the rest are listed/)).toBeTruthy();
-    expect(within(mouse.querySelector('[data-section="tissue"]') as HTMLElement)
-      .getByText('OXT is not among the genes these 6 sources retained.')).toBeTruthy();
+    const tissueTile = mouse.querySelector('[data-section="tissue"]') as HTMLElement;
+    expect(within(tissueTile).getByText('OXT is not among the genes these 6 sources retained.')).toBeTruthy();
+    // The tile names its species from the sources, not a fixed list.
+    expect(within(tissueTile).getByText('mouse, rat and pig')).toBeTruthy();
     const human = section.querySelector('[data-section="reference-atlases"]') as HTMLElement;
     expect(human.contains(mouse)).toBe(false);
     await waitFor(() => expect(human.querySelector('[data-atlas="gtex"] .portal-ref-value')).toBeTruthy(), { timeout: 5000 });
     expect(section.querySelector('[data-section="expression-survey"]')).toBeNull();
 
-    // A mouse tile opens its source alone, under the mouse row.
+    // An animal tile opens its source alone, under the animal row.
     const open = within(mouse).getByRole('button', { name: 'Every source group →' });
     expect(open).toHaveAttribute('aria-expanded', 'false');
     fireEvent.click(open);
@@ -603,7 +605,7 @@ describe('GeneExpressionCards', () => {
       productFetch();
       render(<GeneExpressionCards symbol="OXT" onOpenExpression={vi.fn()} />);
       const section = screen.getByRole('region', { name: 'Where OXT is expressed' });
-      const mouse = within(section).getByRole('region', { name: 'Mouse hypothalamus' });
+      const mouse = within(section).getByRole('region', { name: 'Animal hypothalamus' });
       expect(await within(mouse).findByText('PVH oxytocin')).toBeTruthy();
       expect(mouse.querySelector('[data-slot="single-cell-mouse"]')).toBeNull();
       expect(section.querySelector('[data-section="reference-atlases"]')).toBeTruthy();

@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "b21e8eab216fd4a4d975e4fd4ed4d3ffef057b1905a401afbea41878a6648822",
+  "fingerprint": "79b025d317adcc593399b07bf0632347a1624f0293121feca7979ca851d3952a",
   "outcome": "updated",
-  "explanation": "Survey view tests run single-gene flows through GenePageSurvey and the survey page through its handoff. Card tests cover the tile rows, each tile opening its own source under its row, releasing the focus, the handed-over scope and the HypoMap tile; familyTeaser.test.ts covers the study-library and tissue summaries, and the NeuroSeq teaser tests now match the survey's default without SFO records.",
+  "explanation": "Survey view tests run single-gene flows through GenePageSurvey and the survey page through its handoff. Card tests cover the tile rows, each tile opening its own source under its row, releasing the focus, the handed-over scope and the HypoMap tile; familyTeaser.test.ts covers the study-library and tissue summaries, and the NeuroSeq teaser tests now match the survey's default without SFO records. The GSE162563 catalog test merged from main now selects by mode instead of section.",
   "references": [
     "src/__tests__/portalCards.test.tsx",
     "src/__tests__/familyTeaser.test.ts",
     "src/__tests__/baselineTeaser.test.ts",
-    "src/__tests__/expressionSurveyView.test.tsx"
+    "src/__tests__/expressionSurveyView.test.tsx",
+    "src/__tests__/expressionSurvey.test.ts"
   ]
 }

@@ -1,0 +1,151 @@
+{
+  "datasetId": "mouse_arc_corticosterone_gse128148",
+  "accession": "GSE128148",
+  "category": "unresolved",
+  "closure": "compared",
+  "summary": "The full GEO four-week result pairs with 11,173 of 11,182 registered effects. The direction criterion passes, and six genes meet the paper’s adjusted P < 0.1 rule in both analyses. The first author’s thesis and the deposited Wald statistics establish that the Npy value labelled adjusted P in the Figure 2C caption is its raw P.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE128148/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "summary": "Four-week ARC effects agree in direction for 10,722 of 11,173 pairs. The Npy caption gives raw P.",
+      "note": "The PCA supplement identifies excluded libraries C01, C05 and C06. The raw and prepared matrices agree at all 154,336 counts in the three vehicle and four corticosterone libraries. The current edgeR-QL table contains 11,182 symbols. Nine summarize multiple Ensembl features and have no single-feature counterpart. Among 11,173 one-to-one pairs, Pearson is 0.89957771, Spearman is 0.96577937 and sign agreement is 95.96%. At the paper’s adjusted P < 0.1, GEO has 43 calls (21 up, 22 down), the registered fit has seven and six overlap. All 42 paired author calls agree in sign. Ccdc106 has no published registered row, and mt-Nd2 is the sole registered call above the cutoff in GEO. On the 9,082 genes with deposited adjusted P, two-sided normal P values from the deposited Wald statistics and Benjamini–Hochberg adjustment recover all 43 author calls, with a maximum adjusted-P difference of 1.38e-9. For Npy, the deposit reports raw P 1.75e-7 and adjusted P 0.00046317. Wray’s thesis Tables 8.2 and 8.4 distinguish the same two values at printed precision. The earlier DESeq2 betaPrior=TRUE sensitivity recovered the 43 IDs when conditioned on the observed author adjustment universe. The commands used to produce the original GEO fit remain undocumented.",
+      "reviewFlags": [
+        "Registered and author inference differ in gene filtering, normalization, model and adjustment family. Missing author P and adjusted P are unassessed.",
+        "The Figure 2C caption labels the Npy raw P as adjusted. The GEO result and thesis distinguish the columns.",
+        "The historical DESeq2 version, coefficient-prior setting, filter selection and Cook’s handling lack a source-bound command or session record."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Wray et al., methods and Figure 2 caption",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6667392/",
+          "kind": "paper"
+        },
+        {
+          "label": "Supplementary Table 1, library barcodes and treatment groups",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC6667392.1/mmc1.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Supplementary Figure 1, four-week PCA exclusions",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC6667392.1/mmc2.pptx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Full GEO four-week DESeq2 results and normalized counts",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE128nnn/GSE128148/suppl/GSE128148_2019_Wray_4week_normalised_outliers_excluded.txt.gz",
+          "kind": "author_result"
+        },
+        {
+          "label": "Wray doctoral thesis, methods 5.2.3 and appendix Tables 8.2 and 8.4",
+          "url": "https://research.manchester.ac.uk/files/83388204/FULL_TEXT.PDF",
+          "kind": "paper"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "The full deposit and current registered output cover the same four-week treatment contrast. Direction meets author-concordance-v2. The full reported call lists overlap at six of 43 author calls and seven registered calls. The adjusted-P values can be reconstructed from the deposited Wald statistics on the observed adjustment universe, including Npy. The historical fitting and filtering commands remain undocumented.",
+      "nextStep": "Which DESeq2 and Bioconductor versions and exact DESeq() and results() calls produced dds_SLX_9735_qc, including the coefficient prior or shrinkage, independent-filter settings and Cook’s cutoff or outlier handling? The original script and sessionInfo(), or the saved fit and results metadata, would settle this.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "corticosterone_4week_vs_vehicle"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Direct comparison of the current symbol-keyed edgeR-QL output against four-week GEO DESeq2 results. The earlier DESeq2 refit is a separate conditional sensitivity analysis.",
+      "reference": "GSE128148_2019_Wray_4week_normalised_outliers_excluded.txt.gz, SHA-256 4cab6f64c93427b71fee49a00c821c01fbb1019dcf9d075018fec6fcecb9cfab. Use the deposited gene_id, log2FoldChange, pvalue and padj. Figure 2 and the thesis supply reporting context.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Supplementary Table 1 and Figure S1, the GEO raw and normalized count columns, and the registered sample sheet and model agree. Male mouse ARC libraries C02–04 are vehicle and C07–10 are corticosterone. Each library represents a biological replicate. All 22,048 × 7 retained integer counts match."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Laser-captured ARC after four weeks of oral corticosterone relative to vehicle. The four-week mice underwent the same overnight fast and refeeding protocol in both groups. Positive coefficients denote higher expression with corticosterone."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "The one-to-one Ensembl feature map yields 11,173 exact pairs. Nine registered symbols sum multiple source IDs. These stay in the registered denominator. Of 15,430 finite author effects, 4,257 have no paired registered effect."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "DESeq2 log2FoldChange and edgeR-QL logFC estimate the same signed log2 treatment effect. Across all 11,173 pairs, Pearson is 0.89957771, Spearman is 0.96577937 and 10,722 nonzero signs agree. Median absolute difference is 0.171514 log2 units. The local-to-author RMS effect ratio is 2.131852."
+        },
+        "inference": {
+          "status": "different",
+          "note": "DESeq2 Wald statistics and edgeR quasi-likelihood tests use different models. At adjusted P < 0.1 the complete lists contain 43 author and seven registered calls, with six shared. Among 9,052 pairs with adjusted P on both sides, 42 author and seven registered calls yield the same six shared. All seven local calls have assessable author inference. Original DESeq2 fit settings remain undocumented."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The full four-week deposit covers the sole registered contrast. Paired effects cover 99.92% of registered rows and 72.41% of finite author effects. The deposit has 22,048 rows, 14,207 finite raw P and 9,082 finite adjusted P. Of the 11,173 paired effects, 246 lack author raw P and 2,121 lack author adjusted P. These tests remain unassessed."
+        }
+      },
+      "criteria": "Use all unique same-feature pairs in the registered case-minus-vehicle orientation. For full results, author-concordance-v2 requires at least 30 pairs and 90% of registered effects covered. Both correlations must reach 0.90, or at least 90% of nonzero pairs must agree in sign with at least 30 nonzero pairs covering 90% of all pairs. Assess the paper’s strict adjusted P < 0.1 rule separately on complete call lists and shared finite tests.",
+      "conclusion": "The direction route passes with all paired effects nonzero. Pearson falls below 0.90, so the correlation route falls short. The thesis and the GEO statistics resolve the Npy caption discrepancy. Effect magnitudes and gene-level inference differ, and exact historical reproduction remains open."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Raw count identity and exclusions",
+      "value": "All 154,336 prepared cells equal the GEO raw counts. Three vehicle and four corticosterone libraries were retained after C01, C05 and C06 were excluded.",
+      "script": "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "All effects and one-to-one coverage",
+      "value": "22,048 author rows, 15,430 finite author effects, 11,182 published registered rows, 11,173 pairs, nine aggregate symbols. Paired coverage is 99.919514% of the registered output and 72.410888% of finite author effects.",
+      "script": "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Effect concordance on every paired gene",
+      "value": "Pearson 0.8995777062, Spearman 0.9657793679. All 11,173 pairs are nonzero and 10,722 agree in sign (95.963483%). Median absolute difference 0.17151405 log2 units, local/author RMS ratio 2.13185179.",
+      "script": "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Available inference",
+      "value": "Author finite raw P 14,207, finite adjusted P 9,082. Within pairs, 10,927 and 9,052 respectively. In the full reference 6,618 all-zero rows lack effects, 1,223 rows have effects without raw P, and 5,125 finite raw P values lack adjusted P.",
+      "script": "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Paper rule, adjusted P < 0.1",
+      "value": "Full author/registered/shared 43/7/6. Shared finite universe 42/7/6. The 43 author calls split 21 up and 22 down. All 42 matched author calls agree in sign. Ccdc106 has no registered row and mt-Nd2 is the only registered-only call.",
+      "script": "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Secondary project cutoff, adjusted P < 0.05",
+      "value": "Full and shared-finite author/registered/shared counts both 14/5/5.",
+      "script": "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Observed author adjustment mask",
+      "value": "Among finite raw P rows the maximum baseMean without adjusted P is 29.18488465 and the minimum with adjusted P is 29.18664038. These are observed endpoints.",
+      "script": "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Conditional Benjamini–Hochberg check using the deposited statistics",
+      "value": "All 43 significant IDs are recovered using the observed 9,082-row adjustment mask. Maximum adjusted-P difference is 0.000044553 using printed raw P and 1.3791e-9 using two-sided P from printed Wald statistics.",
+      "script": "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Npy in the Figure 2C caption, thesis and deposit",
+      "value": "Caption adjusted P 1.75e-7. GEO raw P 1.75e-7, adjusted P 0.00046317. Thesis Table 8.4 raw P 1.75e-7, adjusted P 4.63e-4. Conditional BH from deposited Wald statistics gives 0.0004631700327.",
+      "script": "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Previously recorded DESeq2 sensitivity, read from the 2026-09-04 review",
+      "value": "Conditioning the betaPrior=TRUE refit on the observed author adjustment universe recovered all 43 original IDs. This historical sensitivity was not rerun during this review.",
+      "script": "data/author-validation/continued-sources/GSE128148/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "Which DESeq2 and Bioconductor versions and exact DESeq() and results() calls produced dds_SLX_9735_qc, including the coefficient prior or shrinkage, independent-filter settings and Cook’s cutoff or outlier handling? The original script and sessionInfo(), or the saved fit and results metadata, would settle this.",
+    "The September 26 source-bound effects review pins the wording of the former effects dimension. Adoption of the corrected dimension requires updating its active review chain against the current comparison before the concordance audit. The existing direct-comparison producer already covers this contrast."
+  ]
+}

@@ -29,6 +29,7 @@ import { peekBundle, peekGlobalBundle } from './bundleSource';
 import { resolveTrackGlobalKey, resolvePathwayGlobalKey, resolveTrackUrl } from './bundleLocators';
 import { COMPARE_TRACK } from '../explorer/explorerPosition';
 import { loadDatasetMeta, loadDatasetQC } from './loadDatasetMeta';
+import { reviewedMetadata } from './reviewedTrackLabels';
 import { loadTrackData, type PathwayPolicy } from './trackData';
 import { siblingDefaultPathways, siblingPathwaysByContrast } from './rawTrack';
 import { useBundleProgress, type LoadProgress } from './useBundleProgress';
@@ -41,9 +42,14 @@ import type { Dataset, DatasetMeta, PathwaySibling, QcGlobal, RawTrack } from '.
 // bundle-source seam's `peekGlobalBundle`. Absent in tests and for every
 // non-default dataset, where the loaders take over.
 
-/** The eager-loaded dataset-meta global (e.g. HX_MACAQUE_SNRNA_META). */
+/**
+ * The dataset-meta global (e.g. HX_MACAQUE_SNRNA_META): eager-loaded, or left by
+ * an earlier load such as the router's on a deep link. It holds the bundle's own
+ * labels, so the reviewed ones are applied here as loadDatasetMeta does.
+ */
 function readEagerMeta(dataset: Dataset): DatasetMeta | undefined {
-  return peekGlobalBundle<DatasetMeta>(dataset.metaGlobalKey);
+  const meta = peekGlobalBundle<DatasetMeta>(dataset.metaGlobalKey);
+  return meta && reviewedMetadata(dataset.id, meta);
 }
 
 /**

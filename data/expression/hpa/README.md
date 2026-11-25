@@ -16,21 +16,25 @@ values for every gene. The build verifies this and does not ship the region valu
 
 ## Files
 
-The `.hypothalamus.tsv.gz` files hold the header plus every unmodified row of the
-original zip member that passes the filter recorded in `source-manifest.json`, in
-source order, gzip level 9. Small tables (`rna_brain_hpa_subregions`,
+This repository holds `source-manifest.json` and `hpa-api-checkpoints.json`. The
+retained `.hypothalamus.tsv.gz` source files are
+[not in this repository](../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository);
+`source-manifest.json` pins their bytes. Each holds the header plus every
+unmodified row of the original zip member that passes the filter recorded in the
+manifest, in source order, gzip level 9. Small tables (`rna_brain_hpa_subregions`,
 `rna_single_nuclei_brain_datasets`) are retained whole.
 `hpa-api-checkpoints.json` holds the HPA search API's hypothalamus nTPM for POMC,
 HCRT, AGRP and OXT. The v25 host redirects that API to the current site, which
 served version 25 at retrieval.
 
 Symbols for the per-animal sources are not in HPA's files, which give Ensembl IDs
-only. They come from two committed tables, each pinned by hash:
+only. They come from two tables, each pinned by hash:
 
 - Mouse: `scripts/lib/mmus_ens2sym.json`, the repository's MGI MRK_ENSEMBL table.
   It covers 22,106 of 22,246 genes.
-- Pig: `Sus_scrofa.gene_info.gz` retained for GSE281726. Only unique Ensembl
-  cross-references are used, covering 17,084 of 22,063 genes.
+- Pig: `Sus_scrofa.gene_info.gz` retained for GSE281726 under
+  `geo_replication/datasets/`, which is not in this repository. Only unique
+  Ensembl cross-references are used, covering 17,084 of 22,063 genes.
 
 Unmapped genes stay searchable by Ensembl ID. HPA 25 uses its own Ensembl
 release, while these tables are current at their retrieval. The Ensembl ID is
@@ -46,7 +50,8 @@ pnpm exec tsx scripts/build_hpa_reference.mts --fetch   # re-download pinned ori
 
 `--fetch --record` deliberately re-acquires and rehashes. Products under
 `public/expression/hpa/` (about 21 MB) are gitignored build artifacts written by
-`pnpm run build:expression-external`.
+`pnpm run build:expression-external` from the retained sources. Without the
+sources, `pnpm run fetch:expression` downloads the published products instead.
 
 ## What the build checks
 

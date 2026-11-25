@@ -1,0 +1,251 @@
+{
+  "datasetId": "mouse_arc_hfd_gse284408",
+  "accession": "GSE284408",
+  "category": "unresolved",
+  "closure": "compared",
+  "summary": "For hfd_vs_ncd, 14,119 uniquely mapped genes cover 99.77% of the registered output and meet both author-concordance-v2 effect criteria. The published rule reproduces Figure 3E's 164 upregulated and 125 downregulated genes (289 total). The Results text reports 389, and Table S1 contains all 289 qualifying genes plus ten below the fold cutoff.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "HFD versus NCD effects meet both concordance criteria. Figure 3E supports 289 DEGs.",
+      "note": "The GEO file matches the input SHA-256 in the registered provenance. Three NCD and three HFD male ARC libraries match across GEO, ENA, the sample sheet and the edgeR design. The deposit reports log2 ratios of group-mean FPKM, while the registered edgeR-QL coefficients use normalized counts. Pearson is 0.92695 and Spearman is 0.92135. Of 14,093 paired genes with nonzero effects in both analyses, 12,891 agree in sign. At FDR < 0.05 all seven registered discoveries are among the 19 author discoveries. The historical DESeq2 refit assessed the author method separately. Applying nominal P < 0.05 and a fold change greater than 1.5 in either direction reproduces the plotted count of 289. All ten additional Table S1 rows satisfy nominal P < 0.05, with unsigned fold changes from 1.46554 to 1.49931 in GEO. All 230 distinct symbols in the Table S2 geneID column occur among the qualifying Table S1 genes. The upstream selection command is unavailable. The new evidence and row-level results are in data/author-validation/continued-sources/GSE284408/codex-2026-11-21.",
+      "reviewFlags": [
+        "Figure 3E and the deposited values support 289 for the reported rule. The narrative total is inconsistent and the authors' reason for the ten extra Table S1 rows remains unknown.",
+        "The gene-level comparison covers the same six libraries. Mouse-to-library and pooling assignments remain undocumented.",
+        "Per-feature author tests cannot be assigned to the 32 published symbols formed by summing multiple source features, including Kiss1. Statistical discoveries depend on the model and tested family."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "GEO series and sample records",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE284408",
+          "kind": "database"
+        },
+        {
+          "label": "Full GEO author results, counts and FPKM",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE284nnn/GSE284408/suppl/GSE284408_NCD-Arc-vs-HFD-Arc.all.txt.gz",
+          "kind": "author_result"
+        },
+        {
+          "label": "Published methods and Results",
+          "url": "https://doi.org/10.1016/j.isci.2025.112110",
+          "kind": "paper"
+        },
+        {
+          "label": "Figure 3 including panel E",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC11951025.1/gr3.jpg",
+          "kind": "author_result"
+        },
+        {
+          "label": "Table S1 workbook",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC11951025.1/mmc2.xlsx",
+          "kind": "author_result"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "The complete deposited comparison supports HFD-minus-NCD effect concordance with the current edgeR output. All seven registered FDR discoveries overlap the 19 author discoveries. Figure 3E and the deposited rule resolve the reported count as 289. Table S1's ten additional genes are individually accounted for. The workbook gives no reason to include them under this rule.",
+      "nextStep": "For the provenance of Table S1, ask which selection admitted rows 129–138 and which list fed enrichment. For design sign-off, request the mouse or pool assignment for each ARC library.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "hfd_vs_ncd"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Current R 4.6.0 registered edgeR-QL results compared directly with every eligible row of the author's GEO table.",
+      "reference": "Full GEO result and count table. Table S1 and Figure 3E adjudicate the published selection. Tables S2–S3 provide enrichment context.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "Identical male laser-captured ARC libraries enriched for Kiss1 neurons, three per diet. GEO, ENA, count columns, sample sheet and registered model agree on library membership. Biological independence at the mouse or pool level is undocumented."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "The registered coefficient is HFD minus ordinary diet (NCD) after 16 weeks. GEO group labels, per-library FPKM and the ratio of the HFD to NCD group mean establish the author direction."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Exact Ensembl IDs join through the registered feature map only for symbols with a single contributing ID. The 32 published symbols aggregating several features stay unpaired. The author disposition table accounts for every source ID."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both estimates measure HFD versus NCD in log2 units. The author's reported log2 fold changes equal the log2 ratio of deposited FPKM group means to within 5.2e-14. The registered effect is the fitted edgeR coefficient. Median absolute difference is 0.026915, maximum 2.010802, and registered-to-author RMS ratio 0.928398."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Author DESeq2 and registered edgeR-QL yield 19 and seven FDR < 0.05 calls, with seven shared, across the full lists and the 14,117 assessable pairs. The author file exports P = FDR = 1 on 4,153 rows. The comparison withholds inference on these rows and also reports the literal-export counts. The historical DESeq2 sensitivity is a separate fit."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The full GEO table contains 22,322 effects. Of 14,151 published registered symbols, 14,119 pair uniquely (99.7739% of output, 63.2515% of author rows). The remaining 8,203 author IDs comprise 7,948 with a single mapped symbol outside the output, 143 without a published symbol and 112 mapping to shared symbols. Table S1 is a selected list."
+        }
+      },
+      "criteria": "Author-concordance-v2 requires compatible cohort, contrast, features and effect definitions, at least 30 pairs and at least 90% registered-output coverage for a full reference. Either Pearson and Spearman must both reach 0.90, or sign agreement must reach 90% for at least 30 nonzero pairs covering at least 90% of all pairs. Retain magnitude, nominal P, FDR and call sets as context. For Figure 3E apply nominal P < 0.05 and abs(log2FC) > log2(1.5).",
+      "conclusion": "Both effect routes pass on the uniquely paired current output. Inferential discovery sets differ. The 289 qualifying deposited genes explain Figure 3E. The extra ten Table S1 rows and lack of documented biological units limit full reproduction."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "mouse_arc_hfd_gse284408",
+      "accession": "GSE284408",
+      "contrast": "hfd_vs_ncd",
+      "localPath": "geo_replication/datasets/GSE284408_mmus_arc_hfd/processed/GSE284408_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/author-effects.tsv",
+      "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE284nnn/GSE284408/suppl/GSE284408_NCD-Arc-vs-HFD-Arc.all.txt.gz",
+      "sha256": "dae1333e62dd025fbff7cc1f0f20323920c46729bc2130c91e76a37fb64980c8",
+      "format": "tsv",
+      "authorKey": "comparison_key",
+      "authorEffect": "log2(fc)",
+      "authorAdjustedP": "assessable_FDR",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL",
+      "authorMethod": "Author FPKM group-mean log2 ratios with DESeq2 P/FDR",
+      "orientation": "HFD minus NCD in both sources. Zero arithmetic FPKM group means are exported as 0.001.",
+      "note": "Use the full author reference. Source IDs mapping to a unique registered symbol use that symbol as key. Other source IDs retain distinct feature-prefixed keys and cannot pair to a published symbol. Source PValue and FDR remain available verbatim in GEO. The derived assessable_FDR withholds P = FDR = 1 rows. The companion report includes the literal-export comparison.",
+      "interpretation": "effect_match_inference_differs",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/GSE284408_NCD-Arc-vs-HFD-Arc.all.txt.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE284nnn/GSE284408/suppl/GSE284408_NCD-Arc-vs-HFD-Arc.all.txt.gz",
+          "sha256": "dbb72325fc435ae45943688ee6342b2e8395b13c084918ca907faf8fef4e0ef1",
+          "bytes": 942831
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/GSE284408_family.soft.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE284nnn/GSE284408/soft/GSE284408_family.soft.gz",
+          "sha256": "6b2816ad9e9c30fecbebb63b9a7c40519a63ad471105d9581fed5156dc439f71",
+          "bytes": 2803
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/PMC11951025.xml",
+          "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11951025/fullTextXML",
+          "sha256": "0dd1b800b9830ab3b08440f3912ad70b9b3291d5f4b6d35b779525dc2425611a",
+          "bytes": 196339
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/gr3.jpg",
+          "sourceUrl": "https://pmc-oa-opendata.s3.amazonaws.com/PMC11951025.1/gr3.jpg",
+          "sha256": "60b2f30a4130e5f3d68c6c55ced6c0bf17db5cb50c18049e1ec7940902a1ad5f",
+          "bytes": 672685
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/mmc2.xlsx",
+          "sourceUrl": "https://pmc-oa-opendata.s3.amazonaws.com/PMC11951025.1/mmc2.xlsx",
+          "sha256": "92c1fc3ad57a68421d77cb5a75c9da11f2af1d4bfa3580fc38e85c8cbbc7ab11",
+          "bytes": 346831
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/registered/GSE284408_feature_map.tsv.gz",
+          "sourceUrl": "repo:///geo_replication/datasets/GSE284408_mmus_arc_hfd/processed/GSE284408_feature_map.tsv.gz",
+          "sha256": "358f1135d314809752a0885f1512a3115eecc3088f536c8e8b1400b5bb7cc9ac",
+          "bytes": 178196
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/registered/GSE284408_provenance.tsv",
+          "sourceUrl": "repo:///geo_replication/datasets/GSE284408_mmus_arc_hfd/processed/GSE284408_provenance.tsv",
+          "sha256": "aab673cc4163276dec17b68ec08989177facd16974b984e5a7417fc58881d00c",
+          "bytes": 4812
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/registered/GSE284408_samplesheet.tsv",
+          "sourceUrl": "repo:///geo_replication/datasets/GSE284408_mmus_arc_hfd/metadata/GSE284408_samplesheet.tsv",
+          "sha256": "52f605070eaadd0df2f4896cb4e012d42a0832ad872acf5d9d4e7b6a7e80aa6c",
+          "bytes": 137
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/compare.py",
+          "sourceUrl": "Extraction, feature-map pairing and assessment script in the retained evidence folder",
+          "sha256": "704f9367102922874046c51b625e2f1a09e38bc7288ed382573eeabb81673488",
+          "bytes": 14930
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/compare.py",
+      "resultScope": "Full author result table for the registered contrast.",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE284408_mmus_arc_hfd/processed/GSE284408_DE.tsv",
+        "sourceUrl": "Current registered Explorer DE table",
+        "sha256": "d73620f6a91622d4c03a7c044b3fe10a7cf4bc18d9d2f845749853e4272b7282",
+        "bytes": 1401242
+      }
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered and author effect coverage",
+      "value": "14119/14151 registered (99.77387%), 14119/22322 author (63.25150%)",
+      "script": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Pearson and Spearman correlation, all paired effects",
+      "value": "0.92695010, 0.92135090",
+      "script": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Direction agreement and nonzero coverage",
+      "value": "12891/14093 (91.47094%), 99.81585% of pairs nonzero",
+      "script": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Maximum deviation from log2 of deposited HFD/NCD group means",
+      "value": "5.1514348342607263e-14",
+      "script": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Median and maximum absolute log2-effect differences and RMS ratio",
+      "value": "0.02691499, 2.01080207, 0.92839791",
+      "script": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Manuscript narrative, directional components and strict GEO calls",
+      "value": "389 stated, 164 + 125 = 289. GEO yields 164 up and 125 down.",
+      "script": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Table S1 unique IDs, missing qualifying IDs and ten below-cutoff rows",
+      "value": "299 IDs (170 up, 129 down), 0 strict IDs missing, 10 additional. Extra unsigned fold-change range 1.465540 to 1.499314.",
+      "script": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Exact Table S2 listed symbols outside the qualifying Table S1 labels",
+      "value": "0 of 230",
+      "script": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "FDR calls in author/registered/shared order",
+      "value": "full_list 19/7/7, paired_literal 19/7/7, paired_assessable 19/7/7",
+      "script": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "paper_rule calls in author/registered/shared order",
+      "value": "full_list 289/282/217, paired_literal 239/281/217, paired_assessable 239/280/217",
+      "script": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "nominal_p calls in author/registered/shared order",
+      "value": "full_list 350/336/275, paired_literal 300/335/275, paired_assessable 300/334/275",
+      "script": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Exported one-coded rows and sensitivity to treating them as unavailable",
+      "value": "4153 P=FDR=1, 4145 all-zero counts. Paired: Bpifa1, Iqschfp. 14117 inference pairs remain.",
+      "script": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Benjamini–Hochberg adjustment computed on the remaining GEO P values",
+      "value": "18169 values, maximum difference from exported FDR 2.78e-15",
+      "script": "data/author-validation/continued-sources/GSE284408/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "Which input list and selection rule produced the ten additional genes in Table S1 rows 129–138, and which list was used for the downstream analyses?",
+    "Which mouse or pool of mice contributed to each of the six ARC libraries, and did any libraries share animals?"
+  ]
+}

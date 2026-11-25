@@ -1,7 +1,7 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "78b7dba05e60801e011a372a8348c5c4d6029c0936bbf4ed77352d549015088d",
+  "fingerprint": "7e381ec67031e9a88462c30c35179d282fb4b6383a979abd512e4f16cb7df50d",
   "outcome": "updated",
   "explanation": "App holds the survey-to-gene-page handoff in memory: ExpressionSurveyView calls onOpenGene(symbol, scope), App stores { gene, scope } and opens the gene report through searchGene, and passes the scope to that gene's report only. Routes and appRouter are unchanged; #/expression and #/gene/<symbol> keep their forms.",
   "references": [

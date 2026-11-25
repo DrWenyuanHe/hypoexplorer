@@ -1,0 +1,16 @@
+{
+  "datasetId": "mouse_hypo_aging_glp1r_gse280382",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 62 source files matched their recorded SHA-256 and size, and all nine computations reproduced. Figure 3 meets the numerical direction criteria for its 90 selected genes: 89 agree with edgeR, with Atp4a the sole reversal. Figure 2A adds 48 distinct genes whose displayed expression directions agree. The corrected proposal retains the selected-results closure and passed the repository proposal checker.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_aging_glp1r_gse280382.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_aging_glp1r_gse280382.json",
+    "data/author-validation/continued-sources/GSE280382/codex-2026-11-21/refute/check_figures.py",
+    "data/author-validation/continued-sources/GSE280382/codex-2026-11-21/refute/check_sources.py"
+  ],
+  "openIssues": [
+    "Data S1 reports 1,954 treatment-significant genes in aggregate. Exact author coefficients, gene-level statistics and discovery overlap with the 989 edgeR calls remain unverified.",
+    "The cause of the Atp4a sign reversal remains unknown.",
+    "The paper specifies RNA integrity number > 4 and the archived code uses ≥ 4. The deposited metadata omit the values needed to resolve that boundary."
+  ]
+}

@@ -326,3 +326,16 @@ it('labels the first bundled study source in TMM-normalized CPM', () => {
   // data/quality/regeneration-r460-2026-09-25/README.md); bars carry the source unit.
   expect(EXISTING_EXPRESSION_SOURCES[0].unit).toBe('CPM (TMM-normalized)');
 });
+
+describe('existing catalog', () => {
+  it('catalogs the GSE162563 GnRH-depleted supernatant as tissue, not as a GnRH population', () => {
+    const source = EXISTING_EXPRESSION_SOURCES.find((entry) => entry.id === 'mouse_gnrh_androgen_gse162563:poa')!;
+    expect(source).toMatchObject({ scope: 'tissue', populationId: 'poa-tissue', sampleCount: 11 });
+    expect(source.driverOrMarker).toBeUndefined();
+    expect(source.rnaFraction).not.toMatch(/ribosome/i);
+    const all = { collection: 'all', region: 'all', includeSfo: true, selectedIds: null, tissueKind: 'all' } as const;
+    const ids = (mode: 'populations' | 'tissue') => selectSources(EXISTING_EXPRESSION_SOURCES, { ...all, mode }).selected.map((entry) => entry.id);
+    expect(ids('populations')).not.toContain(source.id);
+    expect(ids('tissue')).toContain(source.id);
+  });
+});

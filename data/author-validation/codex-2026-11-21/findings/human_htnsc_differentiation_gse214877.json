@@ -1,0 +1,116 @@
+{
+  "datasetId": "human_htnsc_differentiation_gse214877",
+  "accession": "GSE214877",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "Figure 1D shows PSC and htNSC bulk expression for 37 selected genes. Of 33 genes with a registered effect, 21 have an unambiguous plotted direction under the all-cultures separation rule, and all 21 agree with the registered sign. Selected-reference coverage falls below the concordance threshold, and the author coefficients, inference and individual column identities remain unassessed.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE214877/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Figure 1D and registered effects agree in direction for 21 selected genes. Two control cell-line annotations conflict.",
+      "note": "The publisher-hosted preprint names GSE214877. Its Figure 1D shows three PSC and three htNSC columns alongside adult GTEx regions. The 37 plotted genes define the selected reference. Exact symbols join 33 registered effects. For 21, every htNSC tile is higher or every htNSC tile is lower than every PSC tile in the two published renderings. All 21 signs agree. Twelve other joined rows are indeterminate, and four displayed genes lack a registered row. The heatmap supplies within-gene z-scores without author DESeq2 coefficients, raw P or FDR for this contrast. The working edgeR-QL table matches the frozen release. See data/author-validation/continued-sources/GSE214877/codex-2026-11-21/SEARCH_LOG.md and round2/panel_comparison.tsv in the same evidence folder.",
+      "reviewFlags": [
+        "GSM6617218 and GSM6617219 have CMC11 hiPSC and AG09908R1 hiPSC titles and corresponding count-column labels. Both GEO and ENA record h9 hESC for source name and cell line. The three htNSC cultures carry H9 labels and distinct batches and harvest days. Figure 1D lacks GSM labels. Exact figure membership, independent donors and a line-adjusted differentiation effect remain unconfirmed."
+      ],
+      "reviewedAt": "2026-11-21",
+      "paperAccess": "publisher_full_text",
+      "evidenceLinks": [
+        {
+          "label": "Sulistio et al., revised bioRxiv preprint",
+          "url": "https://www.biorxiv.org/content/10.1101/2024.05.23.595504v2.full",
+          "kind": "paper"
+        },
+        {
+          "label": "Published Figure 1, including the PSC and htNSC expression heatmap in panel D",
+          "url": "https://www.biorxiv.org/content/biorxiv/early/2025/03/05/2024.05.23.595504/F1.large.jpg",
+          "kind": "author_result"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The selected group-level comparison is complete. All 21 readable htNSC-versus-PSC signs agree with the registered groupcase coefficient. The 33 exact-symbol joins cover 89.19% of all 37 plotted genes. The detailed review retains a cohort warning because two control titles conflict with their deposited cell-line fields and the heatmap columns lack GSMs. Author coefficients, raw P, FDR and full tested-universe coverage remain unassessed.",
+      "nextStep": "To extend this comparison, obtain the sample-to-column key for Figure 1D, reconcile the two control cell-line fields, and locate the authors’ six-library DESeq2 result with its coefficient definition, tested genes, raw P and adjusted P. The named Supporting Data Values XLS would need a content and cohort check.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "htnsc_vs_hpsc"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered TMM edgeR-QL groupcase logFC on the hypothalamic_nsc track, read in htNSC-minus-hPSC orientation.",
+      "reference": "Sulistio et al., bioRxiv 10.1101/2024.05.23.595504, Figure 1D in both versions. All 37 labeled rows of the bulk expression heatmap, restricted to its three PSC and three htNSC columns.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "The study names GSE214877 and the plotted group sizes and cell types correspond to the registered arms. Figure 1D gives no per-column GSMs. Two control titles/count columns conflict with GEO and ENA cell-line fields. H9-derived htNSCs have distinct batches and DIVs. Donor independence and line-adjusted effects are unresolved."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "The panel legend identifies both culture groups. The registered contrast fixes the orientation as htNSC relative to PSC. The GTEx tissue columns do not enter the comparison."
+        },
+        "features": {
+          "status": "limited",
+          "note": "All 37 displayed gene symbols occur in the deposited counts. Exact, unique joins recover 33 of them in the registered output. AGRP, TBR1, NEUROD6 and PITX3 have no registered row."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Relative ordering of within-gene z-score colors supports an ordinal comparison with the sign of registered logFC. Twenty-one joined genes separate across all culture tiles in both renderings. Numerical author coefficients, magnitude agreement and correlations remain unassessed."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "The bulk supplement names DESeq2. Figure 1D supplies no gene-level P, adjusted P or significant calls for the culture contrast, so inference and significant-set overlap remain unassessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The denominator includes all 37 selected markers. At most 33/37 (89.19%) have a registered row. Of these, 21 yield a plotted direction and 12 are indeterminate. The usable direction pairs cover 21/37 (56.76%) of the selected panel. No full author tested-gene table was located."
+        }
+      },
+      "criteria": "Read every row in the printed htNSC-minus-PSC direction before joining registered values. Call a sign only when every htNSC tile separates from every PSC tile after accounting for color ranges in both versions. Retain ambiguous and unmatched rows. Author-concordance-v2 requires 30 paired genes and 90% relevant coverage, compatible definitions, and either its correlation or direction route. The figure offers ordinal directions only.",
+      "conclusion": "All 21 readable paired directions agree. Both the 30-pair minimum and 90% selected-reference coverage requirement are unmet. The cell-line conflict limits cohort interpretation. No numerical comparison spec or full verification is supported."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Published panel coverage by exact symbol",
+      "value": "37 distinct labels, 37 present in deposited counts, 33 present in the registered DE table (89.19%). AGRP, TBR1, NEUROD6 and PITX3 lack registered rows.",
+      "script": "data/author-validation/continued-sources/GSE214877/codex-2026-11-21/compare_figure.py"
+    },
+    {
+      "claim": "Figure directions and agreement on joined genes",
+      "value": "21/37 panel rows (56.76%) yield readable paired directions. All 21 agree (15 higher, 6 lower). The other 12 joined rows have indeterminate directions under the same rule.",
+      "script": "data/author-validation/continued-sources/GSE214877/codex-2026-11-21/compare_figure.py"
+    },
+    {
+      "claim": "First two plotted genes in display order",
+      "value": "POU5F1 and NANOG are lower in htNSCs. Registered logFC values are −15.1252307405265 and −9.93814370576075, respectively.",
+      "script": "data/author-validation/continued-sources/GSE214877/codex-2026-11-21/compare_figure.py"
+    },
+    {
+      "claim": "Deposited matrix and GSM supplements",
+      "value": "20,731 unique features, six sample columns, 124,386 nonnegative integer entries. All six GSMs specify NONE for sample supplements, and the series matrix contains zero gene rows.",
+      "script": "data/author-validation/continued-sources/GSE214877/codex-2026-11-21/audit_sources.py"
+    },
+    {
+      "claim": "In-place registered output and release fingerprint",
+      "value": "geo_replication/datasets/GSE214877_hsap_hypothalamic_nsc/processed/GSE214877_DE.tsv has 15,491 distinct symbols, 1,539,118 bytes and SHA-256 bf425b6f816e699d33350e562579ff5c7db36d296af8a802aa711a71997f3e8b. The frozen release entry matches.",
+      "script": "data/author-validation/continued-sources/GSE214877/codex-2026-11-21/audit_sources.py"
+    },
+    {
+      "claim": "Publisher supplements and candidate repository workbook",
+      "value": "One 30-page supplemental PDF per version, each without embedded attachments. The mouse workbook has 372, 81 and 154 selected gene rows on sheets 2mo vs 26mo, 2mo vs 12mo and 12mo vs 26mo.",
+      "script": "data/author-validation/continued-sources/GSE214877/codex-2026-11-21/audit_sources.py"
+    }
+  ],
+  "openIssues": [
+    "Which GSM corresponds to each Figure 1D culture column, and which cell lines supplied GSM6617218 and GSM6617219? The control titles and source fields disagree.",
+    "Neither publisher supplement inventory exposes the named Supporting Data Values XLS. Its contents and the full six-library DESeq2 export remain unknown."
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "datasetId": "rat_rph_noise_stress_gse229159",
+  "outcome": "compared",
+  "summary": "All 358 paired effects agreed in direction for seven daily noise exposures versus control. They cover 88.40% of the 405 discoveries in the authors’ [Supplementary Table S1](https://doi.org/10.3389/fnins.2023.1173699.s001), below the 90% concordance requirement. Of the paired discoveries, 49 also passed registered FDR < 0.05. The proposal passed validation, and no ledger was edited.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/rat_rph_noise_stress_gse229159.json",
+    "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/author-rs7-vs-control.tsv",
+    "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/pairs.tsv",
+    "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/baseMean-cohort.tsv",
+    "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/metrics.json",
+    "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/retrieve.py",
+    "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/pdf_audit.py",
+    "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/compare.py",
+    "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/validate.py",
+    "data/author-validation/continued-sources/GSE229159/codex-2026-11-21/validation-output.txt"
+  ],
+  "openIssues": [
+    "The published table contains significant genes only. Forty-seven author Ensembl IDs lack a registered symbol. Author raw P values and full-universe inference remain unassessed.",
+    "The authors analyzed five rats per arm and the registered fit used six. Published normalized means identify PH01 and PH20 as the additional registered animals. The separate effects of cohort and model differences on FDR calls remain unquantified.",
+    "The downloaded GEO count matrix matches its historical checksum. The current family SOFT archive has a different checksum, although its registered sample identities and assignments agree."
+  ]
+}

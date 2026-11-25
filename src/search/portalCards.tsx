@@ -14,11 +14,11 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { lazyView, ViewLoading } from '../common/lazyView';
-import { dirGlyph } from '../crossdataset/forestReport';
 import type { SurveyScope } from '../expression-survey/expressionSurvey';
-import { DEFAULT_FDR_CUTOFF } from '../statistics/policy';
-import { DOWN_TEXT_COLOR, NEUTRAL_TEXT_COLOR, UP_TEXT_COLOR } from '../styles/constants';
-import { fmtFDR, fmtP, fmtSigned } from '../utils/format';
+import { dirGlyph, directionTextColor } from '../statistics/direction';
+import { DEFAULT_FDR_CUTOFF, type SignificanceTier } from '../statistics/policy';
+import { DOWN_TEXT_COLOR, UP_TEXT_COLOR } from '../styles/constants';
+import { fmtFDR, fmtP, fmtSigned, plural } from '../utils/format';
 import { DbBadge } from './DbBadge';
 import { describePathway } from './searchVocabulary';
 import {
@@ -51,26 +51,12 @@ export function useLoad<T>(key: string, load: (key: string) => Promise<T>): Load
 
 // ── Formatting ─────────────────────────────────────────────────────────────
 
-export function dirColor(direction: Direction, significant: boolean): string {
-  if (!significant) return NEUTRAL_TEXT_COLOR;
-  return direction === 'up' ? UP_TEXT_COLOR : direction === 'down' ? DOWN_TEXT_COLOR : NEUTRAL_TEXT_COLOR;
-}
-
-export function Effect({ value, direction, significant }: { value: number; direction: Direction; significant: boolean }) {
+export function Effect({ value, direction, tier }: { value: number; direction: Direction; tier: SignificanceTier }) {
   return (
-    <span className="search-effect" style={{ color: dirColor(direction, significant) }}>
+    <span className="search-effect" style={{ color: directionTextColor(direction, tier) }}>
       <span aria-hidden="true">{dirGlyph(direction)} </span>{fmtSigned(value, 2)}
     </span>
   );
-}
-
-/**
- * A row's call: the FDR survivors are labelled; the nominal tier is named as
- * uncorrected. Shared by the search portal and the pathway report, so the same
- * result carries the same words wherever it appears.
- */
-export function plural(n: number, one: string, many = `${one}s`): string {
-  return `${n} ${n === 1 ? one : many}`;
 }
 
 /** A reserved slot for data that is not built yet. Replace by `data-slot`. */
@@ -227,7 +213,8 @@ export function ConditionPathwaysSection({ symbol, studies, onShowPathway, onOpe
                         <th key={index} scope="col" className="cp-cond" data-status={c.status}
                           data-first={first && group === 'up' ? true : undefined} title={conditionTitle(c, symbol)}>
                           <span className="cp-cond-label">{conditionLabel(c)}</span>
-                          <span className="cp-cond-fc" style={{ color: dirColor(c.track.direction, true) }}>
+                          {/* Every condition column is an FDR result (searchSummaries.ts). */}
+                          <span className="cp-cond-fc" style={{ color: directionTextColor(c.track.direction, 'fdr') }}>
                             {fmtSigned(c.track.logFC, 2)}
                           </span>
                         </th>
@@ -317,7 +304,7 @@ export function ConditionPathwaysSection({ symbol, studies, onShowPathway, onOpe
 //
 // Each source shows its headline values in its own unit; its "Every …" button
 // opens that source's full survey (every cohort, sample and export) under its
-// row. Mouse and human sources sit in separate rows and are never pooled.
+// row. Animal and human sources sit in separate rows and are never pooled.
 
 const BASELINE_TOP = 3;
 const FAMILY_TOP = 3;
@@ -437,10 +424,18 @@ export function BaselineSection({ symbol }: { symbol: string }) {
 
 const FAMILY_TEXT: Record<SourceFamily, { name: string; method: string; noun: string }> = {
   studies: { name: 'Study library', method: 'sorted and tagged populations', noun: 'studies' },
-  tissue: { name: 'Tissue & bulk', method: 'mouse and pig', noun: 'sources' },
+  tissue: { name: 'Tissue & bulk', method: 'animal tissue', noun: 'sources' },
 };
 
-/** The study-library populations, or the mouse and pig tissue sources: each source's highest cohort mean. */
+const COMMON_NAMES: Record<string, string> = { 'Mus musculus': 'mouse', 'Rattus norvegicus': 'rat', 'Sus scrofa': 'pig' };
+
+/** 'mouse, rat and pig': the family's species by common name, most sources first. */
+function speciesList(species: readonly string[]): string {
+  const names = species.map((name) => COMMON_NAMES[name] ?? name);
+  return names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}` : names[0] ?? '';
+}
+
+/** The study-library populations, or the animal tissue sources: each source's highest cohort mean. */
 export function FamilySection({ symbol, family }: { symbol: string; family: SourceFamily }) {
   const load = useLoad<FamilyTeaser | null>(symbol, (key) => loadFamilyTeaser(key, family));
   const teaser = load.state === 'done' ? load.value : null;
@@ -448,7 +443,7 @@ export function FamilySection({ symbol, family }: { symbol: string; family: Sour
   const titleId = `portal-family-${family}`;
   return (
     <section className="portal-source" data-section={family === 'studies' ? 'study-populations' : 'tissue'} aria-labelledby={titleId}>
-      <SourceTitle id={titleId} name={text.name} method={text.method} />
+      <SourceTitle id={titleId} name={text.name} method={family === 'tissue' && teaser?.species.length ? speciesList(teaser.species) : text.method} />
       {load.state === 'loading' ? (
         <p className="portal-note" role="status">Loading {text.noun}…</p>
       ) : !teaser ? (
@@ -654,7 +649,7 @@ const REFERENCES: SurveyScope = { ...POPULATIONS, mode: 'tissue', tissueKind: 'e
 const DRILLS: Record<Exclude<SourceDrillId, 'single-cell'>, { title: string; scope: SurveyScope; focus: SurveyFocus }> = {
   neuroseq: { title: 'NeuroSeq sorted populations', scope: POPULATIONS, focus: {} },
   studies: { title: 'Study library populations', scope: { ...POPULATIONS, collection: 'existing' }, focus: {} },
-  tissue: { title: 'Mouse and pig tissue', scope: TISSUE, focus: { include: isNonHuman } },
+  tissue: { title: 'Animal tissue', scope: TISSUE, focus: { include: isNonHuman } },
   gtex: { title: 'GTEx v10 hypothalamus', scope: REFERENCES, focus: { include: onlySource(REFERENCE_ATLAS_SOURCES.gtex) } },
   allen: { title: 'Allen Human Brain Atlas', scope: REFERENCES, focus: { include: onlySource(REFERENCE_ATLAS_SOURCES.allen) } },
   subregions: { title: 'Human Protein Atlas subregions', scope: REFERENCES, focus: { include: onlySource(REFERENCE_ATLAS_SOURCES.subregions) } },
@@ -708,7 +703,7 @@ function SourceDrill({ id, drill, symbol, panelId, onClose }: {
 }
 
 /**
- * Where the gene is expressed, as one section: a mouse row and a human row of
+ * Where the gene is expressed, as one section: an animal row and a human row of
  * sources, each tile in its own unit. A tile opens that source's full survey
  * (every cohort, sample and export) under its row. `surveyScope` (set when the
  * survey page hands a gene over) opens the survey at once, in that scope.
@@ -742,7 +737,7 @@ export function GeneExpressionCards({ symbol, surveyScope, onOpenExpression }: {
         )}
       </div>
       <section className="gene-expr-row" data-species="mouse" aria-labelledby="gene-expr-mouse-title">
-        <h3 id="gene-expr-mouse-title" className="gene-expr-lane-title">Mouse hypothalamus</h3>
+        <h3 id="gene-expr-mouse-title" className="gene-expr-lane-title">Animal hypothalamus</h3>
         <div className="gene-expr-tiles">
           <Tile id="neuroseq" label="Every source group" nav={nav}><BaselineSection symbol={symbol} /></Tile>
           <Tile id="studies" label="Every study population" nav={nav}><FamilySection symbol={symbol} family="studies" /></Tile>

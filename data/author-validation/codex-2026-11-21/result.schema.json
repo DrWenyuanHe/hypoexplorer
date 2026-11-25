@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["datasetId", "outcome", "summary", "filesWritten", "openIssues"],
+  "properties": {
+    "datasetId": { "type": "string" },
+    "outcome": {
+      "type": "string",
+      "enum": ["compared", "no_valid_comparison", "confirmed_not_located", "access_blocked_documented", "needs_author_contact", "not_closed", "upheld", "upheld_with_corrections", "refuted"]
+    },
+    "summary": { "type": "string" },
+    "filesWritten": { "type": "array", "items": { "type": "string" } },
+    "openIssues": { "type": "array", "items": { "type": "string" } }
+  }
+}

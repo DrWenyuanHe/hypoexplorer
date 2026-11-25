@@ -1,0 +1,130 @@
+{
+  "datasetId": "mouse_arc_fasting_gse96627",
+  "accession": "GSE96627",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "In wild-type mouse ARC, 13 of 15 selected genes have readable fasted-versus-fed directions across the two publications, and all 13 agree with the registered signs. Only Pomc has a reported fitted log2 fold change. At FDR < 0.05 the authors report positive results for Agrp, Lepr and Npy, and the registered analysis calls none of the three. The reason for this difference remains unresolved.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE96627/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "Selected fasting directions agree for 13 genes. The adjusted-P discrepancies for Agrp, Lepr and Npy remain unresolved.",
+      "note": "PNAS appendix Figs. S2–S4 show 12 wild-type ARC bar pairs, of which 10 have readable differences in mean FPKM. JCI Fig. 2B and its accompanying text give four WT effect directions. The WT log2-CPM boxplot medians in Fig. 2C–D also rise for Pcsk1 and fall for Nhlh2, although the authors report no significant nutritional-state difference for either gene. Counting each gene once gives 13 matching signs. The two papers cite the same WT deposit. JCI reports a rounded Pomc coefficient of −0.52 versus −0.513274 in the registered fast24h_vs_fed result. Agrp, Lepr and Npy have author FDR < 0.03. All three have registered nominal P < 0.05 and registered FDR > 0.05. The deposited RPKM matrix and GEO SOFT match the registered source hashes.",
+      "reviewFlags": [
+        "Only one of 29,865 published registered rows has a fitted author coefficient in the reviewed sources. Plot directions describe group summaries and provide no additional fitted effects.",
+        "The original author model inputs, fitted WT table and testing family are needed to reconcile the three adjusted-P discrepancies."
+      ],
+      "paperAccess": "pmc_full_text",
+      "pmcId": "PMC5824864",
+      "pmcUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5824864/",
+      "pubmedUrl": "https://pubmed.ncbi.nlm.nih.gov/29376887/",
+      "evidenceLinks": [
+        {
+          "label": "Polex-Wolf et al., Figure 2 and legend",
+          "url": "https://www.jci.org/articles/view/97007/figure/2",
+          "kind": "author_result"
+        },
+        {
+          "label": "Larder et al., wild-type fasting RNA-seq",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5584443/",
+          "kind": "paper"
+        },
+        {
+          "label": "Larder et al., SI appendix, Figures S2–S4",
+          "url": "https://www.ebi.ac.uk/biostudies/files/S-EPMC5584443/pnas.1707310114.sapp.pdf",
+          "kind": "author_result"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "unresolved",
+      "reason": "Both papers identify GSE96627. In JCI the rounded WT Pomc log2FC is −0.52 (P < 0.03, FDR 0.53). Agrp, Lepr and Npy increase with author FDR < 0.03. PNAS reports fasting FDRs of 0.001 for Agrp and 0.017 for Npy in the same WT material. All four JCI directions agree with the registered fit, which has zero published calls at FDR < 0.05. The source documents different analyses. Their contributions to the discrepancies remain undetermined.",
+      "nextStep": "Obtain the WT ARC author count inputs, retained sample IDs, design and contrasts, tested-feature list and unrounded edgeR results. Reconcile the three adjusted-P discrepancies by tracing each gene’s raw P and BH adjustment under the published and registered fits.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "fast24h_vs_fed"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Compare the four WT directions reported in the JCI Results, the WT ARC medians in Fig. 2C–D and the PNAS ARC means in appendix Figs. S2–S4 with fast24h_vs_fed. Pair a numerical fitted effect only when the author reports the coefficient.",
+      "reference": "Polex-Wolf et al., DOI 10.1172/JCI97007, Results and Fig. 2B–D. Larder et al., DOI 10.1073/pnas.1707310114, SI appendix pp. 7–9. Both papers identify GSE96627 for the wild-type material.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "The registered case and baseline each contain five distinct WT male ARC BioSamples. GEO sample titles, ENA experiments and registered group assignments agree. JCI reports excluding 8 of 93 libraries across nuclei and genotypes. The 42 WT libraries in GSE96627 and 43 mutant libraries in GSE102992 sum to the reported 85 retained. That total supports cohort compatibility. The original design and library-level inclusion and exclusion lists were unavailable for an ID-by-ID comparison with the author fit."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Wild-type male laser-captured ARC after 24 hours without food relative to ad libitum feeding. PNAS plots fed in white and fasted in black. JCI uses the first two boxes within the ARC group (WT fed in turquoise, WT fasted in gray). The separate genotype, nucleus-enrichment, AAV, 48-hour fasting and refeeding contrasts are outside this scope."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 15 distinct figure/text genes map to unique deposited Ensembl IDs and registered symbols, with zero unmatched or ambiguous joins in this selected set. PNAS S4 resolves Sntg2 from its figure label and caption. The S2 caption identifies Hcrt. Published identifier mapping across all tested genes remains unknown."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "JCI’s fitted WT Pomc log2FC is −0.52 as printed, against −0.513274152838144 for the registered difference of group means on the log2(RPKM + 1) scale. The absolute difference from the rounded author value is 0.0067258472. All four JCI textual directions agree. At the ARC position in Fig. 2C–D, median log2 CPM rises for Pcsk1 and falls for Nhlh2. Ten of 12 PNAS linear FPKM means have readable fasting directions. Trh and Crh differ by only a few pixels. Nr5a1 and Hcrt are indistinguishable at the plotting resolution. These descriptive signs contribute no fitted effect sizes."
+        },
+        "inference": {
+          "status": "different",
+          "note": "At FDR < 0.05, three of the four JCI WT genes with an exact FDR or decisive bound are positive. The registered fit calls zero of the four and has zero other published positives. All four have registered nominal P < 0.05. Pomc has author P < 0.03 and FDR 0.53 versus registered P 0.00967658 and FDR 0.772798. PNAS reports Agrp FDR 0.001 and Npy FDR 0.017 versus registered 0.222958 and 0.436839. The JCI paper gives a general FDR < 0.10 and/or P < 0.05 convention. Using FDR < 0.10 alone gives the same 3 versus 0 for these four. Pcsk1 and Nhlh2 have a qualitative null statement. The genotype interaction and regional enrichment tests address other contrasts. The authors describe edgeR and BH, while the registered limma BH family has 32,626 rows. The available evidence does not identify the cause of the FDR differences."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Fifteen distinct selected genes map uniquely. Ten PNAS mean directions and four JCI textual directions cover 11 distinct genes. Two additional JCI median directions bring the descriptive total to 13. Exactly one of 29,865 published registered rows pairs with a fitted author coefficient. The other 29,864 lack that comparison in these sources. JCI Supplemental Table 2 covers adult AAV-Cre versus GFP contrasts. A complete WT ARC fasting table was not located in the reviewed material."
+        }
+      },
+      "criteria": "Include every gene in the cited WT ARC panels. Read the fed and fasted groups from each legend and count each gene once across papers. Score visible changes in group summaries separately from author-reported fitted coefficients. Compare exact FDRs and decisive bounds at the common FDR < 0.05 cutoff. Keep qualitative statements and nominal P distinct. Author-concordance-v2 requires compatible cohort, contrast, identifiers and effect definitions, ≥30 paired effects and ≥90% relevant reference/output coverage. Either both Pearson and Spearman must reach 0.90 or ≥90% of ≥30 nonzero pairs must agree in sign, with nonzero pairs covering ≥90% of all pairs. FDR and magnitude are contextual.",
+      "conclusion": "All 13 readable selected directions agree, including the two additional JCI median directions. The sole fitted pair is Pomc. Correlations are undefined and paired-effect support falls below the policy minimum. The comparison is complete for the stated evidence. The adjusted-P discrepancy remains unresolved."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered cohort and GEO inventory",
+      "value": "5 fasted and 5 fed WT ARC samples, all matched to distinct BioSamples. GEO has 42 GSMs with no sample supplementary files. Its RPKM table has 37,907 Ensembl rows and 42 sample columns.",
+      "script": "data/author-validation/continued-sources/GSE96627/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Matched selected features and directions",
+      "value": "15 unique one-to-one joins. PNAS mean directions agree for 10/10 readable bar pairs, with Nr5a1 and Hcrt unresolved. All 4/4 JCI text directions agree. Their 11-gene union omits the WT ARC medians in JCI 2C–D. Pcsk1 (fed y 377.5, fasted y 372) rises and Nhlh2 (427.5, 435.5) falls on the image’s downward-positive pixel axis. Both agree, for 13/13 distinct readable directions among 15 selected genes.",
+      "script": "data/author-validation/continued-sources/GSE96627/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Paired fitted WT effects",
+      "value": "1 pair. JCI Pomc −0.52 (rounded), registered −0.513274152838144, absolute difference 0.0067258472. There are 29,864 other published registered rows without a numeric author coefficient.",
+      "script": "data/author-validation/continued-sources/GSE96627/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Inference restricted to the reported JCI WT genes",
+      "value": "At FDR < 0.05 JCI gives three positives among four decidable genes (Agrp, Lepr and Npy). Registered positives on the four, shared positives and registered positives among all other published rows are each zero. All four registered nominal P values are below 0.05. The same three versus zero result holds for the four at FDR < 0.10.",
+      "script": "data/author-validation/continued-sources/GSE96627/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "PNAS fasting FDRs from the same WT deposit",
+      "value": "Agrp 0.001 versus registered 0.222957657163584. Npy 0.017 versus registered 0.436839292043231.",
+      "script": "data/author-validation/continued-sources/GSE96627/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Registered test family and published rows",
+      "value": "Reapplying the registered symbol aggregation and variance filter to the ten deposited ARC columns gives 32,626 tested rows, including 2,761 without published symbols. All 29,865 published logFCs reproduce within 1.23 × 10⁻¹⁴.",
+      "script": "data/author-validation/continued-sources/GSE96627/codex-2026-11-21/refute/audit.py"
+    },
+    {
+      "claim": "Contents of JCI Supplemental Table 2",
+      "value": "13,588 nonempty data rows on each of CreObeseminusGFP, CreNonObeseminusGFP and CreAllminusGFP. None estimates WT ARC fasting.",
+      "script": "data/author-validation/continued-sources/GSE96627/codex-2026-11-21/refute/audit.py"
+    }
+  ],
+  "openIssues": [
+    "A genome-wide fitted WT ARC fasting table, its testing family and full P/FDR values were not located in the reviewed sources. One fitted pair is available for author-concordance-v2, which requires at least 30.",
+    "The authors’ sample-ID-level design and exclusions are unavailable. Establishing why the three adjusted-P calls differ requires the original test inputs and unrounded results."
+  ]
+}

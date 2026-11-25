@@ -1,0 +1,101 @@
+{
+  "datasetId": "rat_pvn_sodium_depletion_gse145431",
+  "accession": "GSE145431",
+  "category": "access_blocked",
+  "closure": "compared",
+  "summary": "Eight of the nine RNA-seq predictions named by Dutra et al. have registered coefficients, and all eight agree in direction. Mis18a has a deposited count row but no registered coefficient. The paper and GEO disagree on animals per library, and the published material does not establish genome-wide effects or inference.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE145431/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Eight named PVN RNA-seq directions agree with the registered contrast",
+      "note": "The public Ovid article names nine RNA-seq predictions for Furo10 versus control at 24 hours. Six upregulated and two downregulated genes have registered coefficients with matching signs. Mis18a maps to ENSRNOG00000021555 in the deposited counts and registered feature map and has no registered DE row. The GEO count matrix and family SOFT still match their pinned source hashes.",
+      "reviewFlags": [
+        "The RNA-seq methods specify two rats per library and six per arm. GEO specifies three rats per library and nine per arm. Both sources identify three pooled libraries per arm.",
+        "Figure 5 contains 100 visible row labels. The Results and caption report 94 genes. The plotted pseudocounts and incomplete row identities cannot establish the author coefficient and test for every gene.",
+        "Eight of nine selected genes could be paired. Author effect magnitudes, gene-specific raw P and FDR are unavailable for this comparison."
+      ],
+      "reviewedAt": "2026-11-21",
+      "paperAccess": "publisher_full_text"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The eight paired RNA-seq directions agree with registered edgeR-QL. Seven meet registered raw P < 0.05 and none meet registered BH FDR < 0.05. The pool-size conflict and lack of a complete keyed RNA-seq result leave the detailed review unresolved.",
+      "nextStep": "Ask which animals contributed to each of GSM4318357–GSM4318362, whether each pool contained two or three rats, and how Figure 5 rows map to the 94 reported genes. Request the original Furo10-versus-control edgeR export with feature IDs, fitted effects, raw P, adjusted P where computed, filtering and the test used.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "sodium_depleted_vs_control"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Compare every RNA-seq direction explicitly named in the article's PVN Results with the sign of the registered case-minus-control edgeR-QL coefficient, using the reported follow-up panel before joining to the registered output.",
+      "reference": "Dutra et al., Neuroendocrinology, DOI 10.1159/000505997. Ovid full text, section “Transcriptome Changes in the PVN of Sodium-Depleted Rats”, and Figure 5. The retained Ovid HTML is the extraction source. GEO family SOFT, counts, the registered feature map and NCBI Gene check sample and identifier provenance.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Experiment 3 and the six GEO libraries align on male Holtzman bilateral PVN, three control and three depleted library pools. The paper describes 12 rats total and two per pool. GEO and the registered samplesheet specify three per pool. Individual-animal membership is unresolved."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Furosemide 10 mg/kg with low-sodium diet and distilled water for 24 hours versus control, in PVN. The qPCR cohorts, 30 mg/kg arm and SON measurements are outside the registered RNA-seq contrast."
+        },
+        "features": {
+          "status": "limited",
+          "note": "All nine named genes resolve to one deposited Ensembl feature each. Eight join unique registered symbols. The Results spelling Miss18a is reconciled to rat Mis18a by the protein name, the paper's qPCR spelling and NCBI Gene 288272. Its count feature ENSRNOG00000021555 is present, but the registered DE table has no matching row."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "All eight paired signs agree, including all six paired upregulated genes and both paired downregulated genes. The named author results give directions only. No author coefficient, effect-size correlation or magnitude difference can be assessed."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "The manuscript describes edgeR predictions at raw P < 0.05. It supplies no exact gene-specific RNA-seq raw P or FDR for these pairs. Seven paired genes meet registered raw P < 0.05, and none pass registered BH FDR < 0.05. Ephx2 agrees in direction with registered raw P 0.10413. Author FDR and missing author tests remain unassessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Eight of nine named predictions pair (88.89%), covering eight of 13,619 published registered rows. The caption reports 94 genes and the raster has 100 visible labels, with no complete row-to-gene key. Six count columns in GEO have no author DE statistics. Full tested-universe and discovery-list overlap are unassessed."
+        }
+      },
+      "criteria": "Preserve the author's Furo10-minus-control orientation and every member of the named panel. Compare signs only for matching, nonzero registered coefficients. Record missing effects and author tests explicitly. Author-concordance-v2 requires at least 30 paired genes and 90% relevant coverage. The available directions meet neither requirement, and no numerical author coefficients are available for a comparison spec.",
+      "conclusion": "The tested directions agree within the named panel. Pool membership, the figure-to-discovery-list mapping, and gene-level author estimates and inference remain open. No contrast earns full verification."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Selected RNA-seq directions extracted from the Ovid article and joined via the registered feature map",
+      "value": "9 named (6 up, 3 down), 8 paired (6 up, 2 down), 8/8 agree and 8/9 reference coverage. Mis18a has one deposited feature and no registered DE row.",
+      "script": "data/author-validation/continued-sources/GSE145431/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered inference in the paired panel and published output",
+      "value": "7/8 paired raw P < 0.05, 0/8 paired BH FDR < 0.05. Across 13,619 published rows there are 1,137 nominal calls and 0 BH FDR calls. 1,130 nominal calls lie outside the named panel. The producer tested 16,340 rows, including 2,721 unmapped rows.",
+      "script": "data/author-validation/continued-sources/GSE145431/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "GEO source and pooled-library inventory",
+      "value": "32,402 count rows, 6 sample columns, 1 series count supplement, 6 GSM records with no sample supplement, 6 ENA runs and 0 ENA analyses. The paper describes 3 libraries per arm with 2 rats per library. Each GEO sample records a pool of 3.",
+      "script": "data/author-validation/continued-sources/GSE145431/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Publication headline under the reported nominal edgeR rule",
+      "value": "94 genes, 31 up and 63 down.",
+      "script": "data/author-validation/continued-sources/GSE145431/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Visible Figure 5 row labels in the downloaded per-library pseudocount heatmap",
+      "value": "100 labeled raster rows. This counts plotted rows only. A row-to-gene key is unavailable.",
+      "script": "data/author-validation/continued-sources/GSE145431/codex-2026-11-21/figure_review.py"
+    }
+  ],
+  "openIssues": [
+    "Which individual rats contributed to each library, and were there two or three per pool?",
+    "How do the 100 Figure 5 rows map to the 94 reported genes? The complete edgeR export and feature key are needed to compare gene-level effect magnitudes, inference and full discovery overlap."
+  ]
+}

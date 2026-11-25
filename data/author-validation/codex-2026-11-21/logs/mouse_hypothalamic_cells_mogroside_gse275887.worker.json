@@ -1,0 +1,20 @@
+{
+  "datasetId": "mouse_hypothalamic_cells_mogroside_gse275887",
+  "outcome": "needs_author_contact",
+  "summary": "All six libraries registered as normal glucose match the high-glucose sheet in the [publisher’s supplement](https://www.mdpi.com/article/10.3390/app152312391/s1). Across 11,703 paired genes, 98.83% agree in direction with that sheet and 45.43% with the published normal-glucose sheet. The glucose assignment remains unresolved, so the proposal includes no automated comparison spec or full-verification sign-off.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/mouse_hypothalamic_cells_mogroside_gse275887.json",
+    "data/author-validation/continued-sources/GSE275887/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE275887/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE275887/codex-2026-11-21/results.json",
+    "data/author-validation/continued-sources/GSE275887/codex-2026-11-21/sample-id-crosswalk.tsv",
+    "data/author-validation/continued-sources/GSE275887/codex-2026-11-21/compare.py",
+    "data/author-validation/continued-sources/GSE275887/codex-2026-11-21/verification.txt"
+  ],
+  "openIssues": [
+    "Which GSM and MO library IDs came from the 5.5 mM and 25 mM glucose wells? The authors’ plate-to-library key would resolve the conflicting labels.",
+    "Which count file produced S1 column N3_2? It matches none of the deposited profiles, and the count file for GSM8487287 duplicates GSM8487285.",
+    "The paper reports 18 genes for each high-dose comparison. Applying its stated adjusted-P cutoff to S1 yields 17 for normal glucose and 16 for high glucose.",
+    "The methods do not establish whether the three RNA profiles per arm came from independent culture preparations."
+  ]
+}

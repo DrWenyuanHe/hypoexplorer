@@ -1,0 +1,19 @@
+{
+  "datasetId": "hamster_tanycyte_photoperiod_gse204883",
+  "outcome": "compared",
+  "summary": "Recovered the publisher’s Data S1D workbook and compared 13,311 uniquely paired genes. Pearson was 0.95202, Spearman was 0.89977, and 11,520 pairs (86.54%) agreed in direction. Neither author-concordance-v2 numerical route passed. The proposal passed validation, and no ledger was edited.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/hamster_tanycyte_photoperiod_gse204883.json",
+    "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/comparison.json",
+    "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/compare.py",
+    "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/author-effects.tsv",
+    "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/registered-unpaired.tsv",
+    "data/author-validation/continued-sources/GSE204883/codex-2026-11-21/validation.json"
+  ],
+  "openIssues": [
+    "The registered fit retains SPIP19, which the authors excluded. It also uses two groups where the author model uses four. The comparison cannot attribute individual gene differences to either change.",
+    "The paper reports five LP and six LPIP animals. The archived code and GEO labels indicate six LP and five LPIP. The authors’ sample-to-design map would settle which assignments produced Data S1D."
+  ]
+}

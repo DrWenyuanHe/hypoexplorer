@@ -54,6 +54,12 @@ export const COMPARISON_OUTCOMES = {
   excluded: { label: 'Outside scope' },
 } as const;
 
+/** What a review is waiting for from the study authors. Recorded in verification-review.json. */
+export const AUTHOR_FOLLOW_UPS = {
+  author_contact: { label: 'Needs author clarification' },
+} as const;
+
+export type AuthorFollowUp = keyof typeof AUTHOR_FOLLOW_UPS;
 export type VerificationState = keyof typeof VERIFICATION_STATES;
 export interface AuthorVerification {
   state: VerificationState;
@@ -62,12 +68,14 @@ export interface AuthorVerification {
   comparisonOutcome: keyof typeof COMPARISON_OUTCOMES;
   reason: string;
   nextStep: string;
+  /** Set only when nextStep is a question the study authors have to answer. */
+  followUp?: AuthorFollowUp;
   /** Explicit sign-off, never inferred from correlations, filenames, or audit completion. */
   fullyVerifiedContrasts: string[];
   comparability: ComparisonReview;
 }
 
-export type VerificationReview = Pick<AuthorVerification, 'resultAvailability' | 'comparisonOutcome' | 'reason' | 'nextStep'> & {
+export type VerificationReview = Pick<AuthorVerification, 'resultAvailability' | 'comparisonOutcome' | 'reason' | 'nextStep' | 'followUp'> & {
   fullyVerifiedContrasts?: string[];
 };
 
@@ -108,6 +116,9 @@ export function assessAuthorVerification(input: VerificationInput): AuthorVerifi
     ['resultAvailability', RESULT_AVAILABILITY], ['comparisonOutcome', COMPARISON_OUTCOMES],
   ] as const) {
     if (!(review[key] in values)) throw new Error(`Invalid verification ${key}: ${review[key]}`);
+  }
+  if (review.followUp !== undefined && !(review.followUp in AUTHOR_FOLLOW_UPS)) {
+    throw new Error(`Invalid verification followUp: ${review.followUp}`);
   }
   if (!review.reason.trim() || !review.nextStep.trim()) throw new Error('Verification review needs a reason and next step');
   const comparability = input.comparability ?? unestablishedComparison(review.reason, review.comparisonOutcome === 'not_comparable');

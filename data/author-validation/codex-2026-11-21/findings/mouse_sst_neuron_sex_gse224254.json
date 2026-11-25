@@ -1,0 +1,154 @@
+{
+  "datasetId": "mouse_sst_neuron_sex_gse224254",
+  "accession": "GSE224254",
+  "category": "unresolved",
+  "closure": "compared",
+  "summary": "The 505 published FDR calls, all 24,909 reported normalized means, and the five previously disputed call outcomes are reproduced by a separate DESeq2 analysis using the deposited Kallisto rows and Ensembl release-104 gene assignments. The current registered edgeR result shares 23 of its 25 FDR calls with the authors and falls below both author-concordance-v2 effect thresholds.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE224254/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "summary": "SST neuron sex comparison completed. The author-method replay recovers all 505 calls. Registered edgeR shares 23.",
+      "note": "The FoverM CSV has 24,909 distinct Ensembl gene IDs. Negating its effects puts them in registered male-minus-female orientation. The current edgeR table publishes 15,110 symbols. Its feature map gives 15,075 exact one-to-one pairs, 34 pooled symbols and one single-ID row absent from the author CSV. Of the paired effects, 13,215 agree in direction (87.6617%). Pearson is 0.873473 and Spearman is 0.892613. At adjusted P < 0.05 with no effect cutoff, the complete lists contain 505 author and 25 registered calls. Among 14,335 finite-FDR pairs there are 499 author calls, 25 registered calls and 23 shared calls. The remaining 740 paired genes lack author FDR. The eight GSMs comprise four mice per sex with two technical runs per mouse. All 118,489 ordered Kallisto targets match the Ensembl-96 cDNA reference in version and length. The release-97 map used for the registered preparation lacks 156 target IDs. Ensembl-104 gene assignments applied to the deposited rows explain all 87 previously absent author IDs and all 82 large normalized-mean residuals. A full-input tximport/DESeq2 replay recovers the observed IDs with positive mean counts, every author mean to its printed precision and all 505 positive calls with their directions. Elk3, Mical3, Moxd1 and Il1rl2 pass the published cutoff. AC149222.1 falls just above it. The paper's Galaxy wrapper enables the beta prior and uses the DESeq2 default filter-optimization alpha of 0.1. The replay used archived patch releases whose source diffs affect only DESCRIPTION. Three raw-P availability differences and one adjusted-P availability difference persist, along with numerical effect and P discrepancies. See continued-sources/GSE224254/codex-2026-11-21/SEARCH_LOG.md, comparison.json, replay.json and replay_check.json.",
+      "reviewFlags": [
+        "Both registered effect agreement routes fall short of the v2 cutoffs. Aggregated local symbols and missing author statistics limit per-gene comparisons.",
+        "The replay establishes the published means and calls. The original Galaxy job and annotation-file checksum are unavailable in the reviewed sources. Cd22, Gm3298 and Gm10045 retain raw-P availability differences."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Reviewed full manuscript",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10561062/",
+          "kind": "paper"
+        },
+        {
+          "label": "Publication record",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/37817932/",
+          "kind": "paper"
+        },
+        {
+          "label": "Author repository linking mouse results",
+          "url": "https://github.com/Leandromvelez/sex-specific-endocrine-signals",
+          "kind": "author_result"
+        },
+        {
+          "label": "Author repository's linked Drive folder",
+          "url": "https://drive.google.com/drive/folders/1FldQDp-I9NGqgBo0cW9WS3KuYCSeHDM7?usp=sharing",
+          "kind": "author_result"
+        },
+        {
+          "label": "Author datasets-used folder",
+          "url": "https://drive.google.com/drive/folders/1FtjDbjrlzpuEUmTjvpeN-PK2mWunz8jH",
+          "kind": "author_result"
+        },
+        {
+          "label": "Downloaded full author female/male CSV",
+          "url": "https://drive.google.com/uc?export=download&id=19wI0sPFuFvj0yurcH_Cz2exf57fBj8cd",
+          "kind": "author_result"
+        }
+      ],
+      "paperAccess": "pmc_full_text",
+      "pmcUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10561062/",
+      "pmcId": "PMC10561062",
+      "pubmedUrl": "https://pubmed.ncbi.nlm.nih.gov/37817932/",
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct"
+    },
+    "verificationReview": {
+      "resultAvailability": "available",
+      "comparisonOutcome": "method_differences",
+      "reason": "A direct comparison of the complete author CSV to the current register shows different effects and inference. The separate full-input DESeq2 replay reproduces all reported means at printed precision and the same 505 FDR-positive IDs. The five earlier call discrepancies are resolved.",
+      "nextStep": "Retain the direct edgeR comparison and the separate DESeq2 replay. For exact per-gene inference provenance, obtain the original Galaxy job, annotation file checksum and outlier diagnostics for Cd22, Gm3298 and Gm10045.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "male_vs_female"
+      ],
+      "target": "registered_output",
+      "resultScope": "full_results",
+      "basis": "Current registered edgeR-QL output joined through its one-to-one feature map. The Ensembl-104 tximport/DESeq2 reconstruction is a separate analysis.",
+      "reference": "Author hypothalamus DEGs FoverM.csv linked by the paper's repository, SHA-256 022cdf99360b2b9b98fd7ae04d44ccf28a25e6028b87d8439a0eaf25795f6ed8.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "All eight deposited GSMs match the registered samples, BioSamples and experiments. Four female and four male mice each have two ENA runs, represented by two transcript blocks in the same GSM."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "FoverM is female relative to male in the author repository. Negate the author log2 fold change for the registered male-relative-to-female comparison. Figure 4B and Esr1 support the direction."
+        },
+        "features": {
+          "status": "limited",
+          "note": "Exact Ensembl IDs pair 15,075 published single-feature rows. For 34 published symbols several stable IDs were aggregated before testing, and the single-feature H2bc24 ID is absent from the CSV. The files unpaired_author.tsv and unpaired_registered.tsv give the reason for each unpaired row."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both coefficients express a sex difference in log2 expression. The author estimator uses transcript-length offsets and a beta prior. Registered edgeR uses TMM and a quasi-likelihood model on gene counts. Across all 15,075 pairs Pearson is 0.873473, Spearman is 0.892613 and median absolute log2FC difference is 0.086035. All pairs are nonzero, with 13,215 signs agreeing."
+        },
+        "inference": {
+          "status": "different",
+          "note": "The author Wald and registered edgeR-QL tests have different filters, models and BH families. At adjusted P < 0.05 both finite-FDR lists have 23 common calls, giving Jaccard 23/501. Whole positive-call lists give 23/507. Of the 740 pairs missing author FDR, 35 also lack author raw P. No registered FDR call lacks an evaluable author FDR."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "The full author CSV covers 15,075 of 15,110 registered effects (99.7684%, above the v2 coverage minimum). The reverse coverage is 15,075 of 24,909 (60.5203%). Six author-positive IDs lack a one-to-one registered result. The other unpaired author rows and missing statistics remain unassessed."
+        }
+      },
+      "criteria": "Author-concordance-v2 on unselected, finite paired effects. The pair count, full-reference registered-output coverage and nonzero-pair coverage pass. Both correlations and the direction fraction are below 0.90. FDR calls use the original adjusted P < 0.05 without an effect cutoff and are contextual.",
+      "conclusion": "The registered comparison fails both numerical agreement routes. Historical-method reproduction explains the published call list and supports the identified annotation and import while some per-gene inference differences remain."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered rows, author rows and exact finite effect pairs",
+      "value": "15,110 / 24,909 / 15,075. Paired coverage is 99.7684% of registered and 60.5203% of author rows.",
+      "script": "data/author-validation/continued-sources/GSE224254/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered author-concordance-v2 effects",
+      "value": "Pearson 0.87347260, Spearman 0.89261263, 13,215/15,075 same-direction nonzero pairs (87.6617%), median absolute log2FC difference 0.08603482.",
+      "script": "data/author-validation/continued-sources/GSE224254/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Adjusted P < 0.05, whole lists and finite pairs",
+      "value": "505 author, 25 registered and 23 common overall. On 14,335 finite-FDR pairs, 499 author, 25 registered and 23 common. Whole-list Jaccard 0.04536489, finite-pair Jaccard 0.04590818.",
+      "script": "data/author-validation/continued-sources/GSE224254/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered rows without a supported join",
+      "value": "34 aggregated symbols and 1 single-ID row (H2bc24). Six author-positive IDs have no one-to-one registered result. 740 paired author FDRs are missing.",
+      "script": "data/author-validation/continued-sources/GSE224254/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Independent BH check on the author's observed adjustment family",
+      "value": "Wald-derived two-sided P values and BH on the 14,478 author rows with FDR give the same 505 positive IDs. AC149222.1 has recomputed FDR 0.050005749.",
+      "script": "data/author-validation/continued-sources/GSE224254/codex-2026-11-21/author_inference.py"
+    },
+    {
+      "claim": "Deposited cohort and quantification targets",
+      "value": "4 female and 4 male BioSamples, 16 runs. All 118,489 deposited targets match Ensembl 96 by version, length and order. Release 97 maps 118,333 canonical targets and omits 87 author gene IDs. Its conditional reconstruction has 82 means outside the prior ratio band.",
+      "script": "data/author-validation/continued-sources/GSE224254/codex-2026-11-21/annotation.py"
+    },
+    {
+      "claim": "Independent transcript-to-gene map test",
+      "value": "Among Ensembl core releases 103 through 108, release 104 gives exactly the positive-count set of 24,909 author IDs, without conditioning on those IDs. No mean lies outside the prior ratio band. The numerical import check is completed with native tximport.",
+      "script": "data/author-validation/continued-sources/GSE224254/codex-2026-11-21/map_releases.py"
+    },
+    {
+      "claim": "Native full-input Wald replay on release-104 gene assignments",
+      "value": "35,939 input genes, 24,909 positive-mean genes, 505 author and 505 replay calls, 505 shared, all agreeing in direction. The four previously author-only genes pass and AC149222.1 stays above 0.05.",
+      "script": "data/author-validation/continued-sources/GSE224254/codex-2026-11-21/replay.R"
+    },
+    {
+      "claim": "Residuals after native replay",
+      "value": "All 24,909 normalized means reproduce within the author's printed precision. Raw P availability differs for Cd22, Gm3298 and Gm10045, adjusted P availability only for Cd22.",
+      "script": "data/author-validation/continued-sources/GSE224254/codex-2026-11-21/check_replay.py"
+    }
+  ],
+  "openIssues": [
+    "The exact Galaxy job and original annotation-file checksum are absent from the reviewed public sources. Release-104 assignment is supported by reproducing the complete exported positive-mean ID set and normalized means.",
+    "The replay retains gene-level coefficient and P-value differences. Cd22 has an author adjusted P and lacks a replay adjusted P. Gm3298 and Gm10045 lack author raw P and have finite replay raw P. Full verification of the registered comparison is unsupported."
+  ]
+}

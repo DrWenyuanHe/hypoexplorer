@@ -39,14 +39,16 @@ leave them byte-for-byte unchanged:
       hand-spelled `?? 'Normal'` / `?? 'Obese'` at a view site).
 - [ ] Export sheet rows → `rawValueRows` / `leadingEdgeSummaryRows` in
       `src/utils/excelExport.ts` (preserve object **key order** — it sets XLSX columns).
-- [ ] Writing an `.xlsx` → `writeWorkbook` in `src/utils/workbook.ts` (the single XLSX
-      write path; no component touches `XLSX.utils` directly).
+- [ ] Writing an `.xlsx` → `writeWorkbook` in `src/utils/workbook.ts` (no component
+      touches `XLSX.utils` directly). The one exception is the circadian worker,
+      `src/circadian/circadianWorkbook.ts`, which assembles its workbook in a Web
+      Worker (with an in-thread fallback).
 - [ ] Low-power / under-powered flag → `isLowPower` in `src/utils/qcFlags.ts`.
-- [ ] Number formatting → `fmtP` / `fmtFDR` / `fmtCutoff` / `pToStar` / `fmtSigned` /
-      `fmtMetaQ` in `src/utils/format.ts`. Display policy (decided 2026-08-19,
-      research-backed): p and q share one rule — exponential at 2 sig figs below
-      0.001, `toFixed(3)` above, `< 1e-300` underflow sentinel; only the pooled
-      meta-analysis q floors (`fmtMetaQ`, `< 1e-10`). Exports keep full precision.
+- [ ] Number formatting → `fmtP` / `fmtFDR` / `fmtCutoff` / `pToStar` / `fmtSigned`
+      in `src/utils/format.ts`. Display policy (decided 2026-08-19): p and q share
+      one rule, two significant figures in exponential form below 0.001,
+      `toFixed(3)` at or above it, and `< 1e-300` for underflow. Exports keep full
+      precision.
 - [ ] Export click mechanics → `useExportAction` (busy state) / `exportFilename`
       (sanitizer) / `downloadFile` (anchor transport) in `src/utils/exportAction.ts`.
 - [ ] Dialog chrome (backdrop, Escape, focus trap) → `src/common/Modal.tsx` — no
@@ -61,7 +63,10 @@ leave them byte-for-byte unchanged:
       in `src/data/crossDatasetRows.ts`, shared by the index and fallback paths.
 - [ ] What a cross-study view leads with, its order and its counts → `listCrossStudy`
       in `src/statistics/crossStudyListing.ts` (no per-view tier sort or tally); the
-      tier label → `TierLabel` in `src/statistics/TierLabel.tsx`.
+      tier label → `TierLabel` in `src/statistics/TierLabel.tsx`; the listing-mode words and
+      nominal caveat → `src/statistics/listingWords.ts`.
+- [ ] Direction-coloured result TEXT → `directionTextColor` in `src/statistics/direction.ts`
+      (AA text tokens, coloured for the FDR tier only); chart fills are for marks.
 - [ ] Export buttons (disabled-when-busy + spinner wiring) → `ExportButton` in
       `src/common/ExportButton.tsx`; labels stay per-site props.
 - [ ] Sortable table state/comparator (nulls last in BOTH directions) →
@@ -86,11 +91,12 @@ leave them byte-for-byte unchanged:
 - [ ] Track loading → `loadTrackData` in `src/data/trackData.ts` (owns the whole load
       protocol; `loadTrack` / `popCache` are its implementation, and `bundleSource.ts`
       is the sole script-injection transport). It guarantees the "raw track never
-      replaced" invariant that the popData memoization keys on. React components go
-      through `useExplorerStore` (`src/data/explorerStore.ts`); cross-study columns
-      and pathway report previews reuse `useCompareSetColumns`, which also tracks
-      pathway-sibling settlement. Read the report's contrast with `popDataFor`
-      after settlement rather than using that hook's default-contrast view.
+      replaced" invariant that the popData memoization keys on. The explorer goes
+      through `useExplorerStore` (`src/data/explorerStore.ts`). Any view that shows
+      loaded tracks side by side (the Compare tab, the compare set, the gene and
+      pathway effect previews) goes through `useTrackColumns` / `useTrackColumn`
+      in `src/data/trackColumns.ts`, which owns the load lifecycle and its failure
+      state.
 - [ ] Arm counts (active contrast) → `contrastArmCounts` / `defaultArmCounts` in
       `src/data/contrasts.ts`; arm pills + n-varies badge → `ArmPills` /
       `ArmVariesBadge` in `src/common/StudyMetadata.tsx` (no hand-rolled pills).

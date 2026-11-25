@@ -1,0 +1,94 @@
+{
+  "datasetId": "mouse_arc_mettl14_gse289461",
+  "accession": "GSE289461",
+  "category": "unresolved",
+  "closure": "needs_author_contact",
+  "summary": "Shen et al. report 19,020 P0 arcuate cells. Applying their two stated cell-quality cutoffs to GSE289461 retains 36,342 barcodes, and the public deposit does not identify the retained cells or their litter pairs. The published gene effects are cluster-specific, so they cannot establish concordance for the registered whole-ARC mouse pseudobulk.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE289461/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "The published P0 arcuate cell cohort cannot be identified in GSE289461",
+      "note": "GSE289461 cites PMID 40112816. The published paper still names GSE267200 for single-cell RNA-seq, and its GEO deletion notice gives no successor or sample crosswalk. The downloaded GSE289461 count archive matches the recorded SHA-256. The current family SOFT has a different digest from the historical receipt and includes the publication link. HypoExplorer sums all 208,711 deposited barcode columns into four control and four knockout pseudobulks. Applying the reported >500 detected genes and <5% mitochondrial counts to those columns retains 18,457 control and 17,885 knockout barcodes, whereas the paper reports 9,111 and 9,909 cells, respectively. The public metadata do not identify the retained barcodes, their assigned cell types or the four littermate pairs. Table S1 gives selected non-neuronal within-cluster FindMarkers effects and P values. Figure S2 also shows neuronal within-cluster results. Neither supplies a whole-ARC coefficient or corresponding inference.",
+      "reviewFlags": [
+        "The link between the paper and the current series is established. The correspondence between libraries under the two accessions and the membership of the final cell cohort remain unresolved.",
+        "The paper describes four littermate pairs. GEO replicate numbers do not identify the pairs, and the registered edgeR model includes genotype alone."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Published paper, Results, Data and code availability, and STAR Methods",
+          "url": "https://www.med.upenn.edu/songlab/assets/user-content/documents/shen-et-al-cell-stem-cell-2025.pdf",
+          "kind": "paper"
+        },
+        {
+          "label": "GEO deletion notice for the manuscript accession",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE267200&targ=self&form=text&view=full",
+          "kind": "database"
+        },
+        {
+          "label": "Current GEO series, sample records and linked publication",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE289nnn/GSE289461/soft/GSE289461_family.soft.gz",
+          "kind": "database"
+        },
+        {
+          "label": "Deposited Drop-seq matrices used for the barcode count and QC replay",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE289nnn/GSE289461/suppl/GSE289461_RAW.tar",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Table S1, selected gene effects and GO terms by non-neuronal cluster",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S1934590925000797-mmc2.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Supplemental Figure S2, cluster composition and neuronal cluster effects",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S1934590925000797-mmc1.pdf",
+          "kind": "author_result"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The two stated QC cutoffs leave 17,322 more barcodes than the reported cohort. Series and run records identify the current libraries, but do not give the final barcode assignments or litter-pair IDs. A genotype effect within a cell cluster and a genotype effect on whole-ARC expression across mice answer different questions.",
+      "nextStep": "Ask the authors which GSE289461 GSMs correspond to the libraries reported under GSE267200 and for the Figure 3/S2 retained-cell metadata keyed by GSM and barcode, with mouse, litter pair and final cluster. Ask which cell-calling or filtering steps produced that set and whether they calculated an all-cell, mouse-level knockout-minus-control result. Use the mapping to reconcile the cohort before evaluating any such result.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Barcode columns in the eight deposited matrices, verified against the registered per-sample QC",
+      "value": "108,574 control and 100,137 knockout, totaling 208,711.",
+      "script": "data/author-validation/continued-sources/GSE289461/codex-2026-11-21/cohort_qc.py"
+    },
+    {
+      "claim": "Barcodes passing both published inequalities on the deposited gene-symbol matrices",
+      "value": "18,457 control and 17,885 knockout, totaling 36,342. Detected rows have a positive count. Mitochondrial UMIs are counts on case-insensitive mt- gene symbols.",
+      "script": "data/author-validation/continued-sources/GSE289461/codex-2026-11-21/cohort_qc.py"
+    },
+    {
+      "claim": "Published cohort and excess barcodes after the two-cutoff replay",
+      "value": "The manuscript reports 9,111 control and 9,909 knockout cells, totaling 19,020. The replay exceeds those counts by 9,346 control and 7,976 knockout barcodes, totaling 17,322. These counts do not establish cell identities or the cause of the difference.",
+      "script": "data/author-validation/continued-sources/GSE289461/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Scope of the registered knockout-minus-control output",
+      "value": "17,515 distinct published gene symbols from 17,517 fitted test rows. The registered edgeR-QL design uses four GSMs per genotype and no litter-pair term.",
+      "script": "data/author-validation/continued-sources/GSE289461/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Coverage of the two Table S1 differential-expression worksheets",
+      "value": "90 downregulated and 136 upregulated gene-by-cluster rows across nine named non-neuronal clusters on each worksheet. The remaining worksheets report GO terms. The gene-by-cluster row counts are not unique-gene counts.",
+      "script": "data/author-validation/continued-sources/GSE289461/codex-2026-11-21/inspect_evidence.py"
+    }
+  ],
+  "openIssues": [
+    "Which GSE289461 GSM and barcode correspond to each of the 19,020 cells used for Figure 3 and Figure S2, and what are its original GSE267200 library or equivalent sample ID, mouse, litter pair and final cluster? Which cell-calling or filtering steps produced that set?",
+    "Did the authors calculate whole-ARC knockout-minus-control gene effects with mice as the replication unit? If so, which cell cohort and model did they use, and where are the gene-level results?",
+    "The registry citation names Liu et al. The manuscript, published article and Crossref list Yachen Shen as first author for the registered DOI and PMID."
+  ]
+}

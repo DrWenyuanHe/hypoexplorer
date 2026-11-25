@@ -1,0 +1,20 @@
+{
+  "datasetId": "mouse_scn_mcd_gse252364",
+  "outcome": "needs_author_contact",
+  "summary": "The preprint confirms separate SCN diet comparisons at each time point and reports 56 significant genes at CT00. The registered analysis has three FDR calls. Deposited Gstm3 counts were 0, 0, 0 in controls and 192, 209, 193 in MCD, leaving the negative author estimate reported in the prior review unexplained. The proposal passed validation. No ledger was edited.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/findings/mouse_scn_mcd_gse252364.json",
+    "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/preprint.xml",
+    "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/audit_inputs.py",
+    "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/audit_inputs.json",
+    "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/extract_manuscript.py",
+    "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/retrieve.py",
+    "data/author-validation/continued-sources/GSE252364/codex-2026-11-21/retrieval_issues.json"
+  ],
+  "openIssues": [
+    "Which sample columns, count values and DESeq2 settings produced the CT00 estimates for Gstm3 and Rab43 in Supplemental Data 4? The Galaxy history would establish the inputs, diet coefficient, outlier handling and shrinkage setting.",
+    "The original worksheet could not be retrieved for this pass. Its gene-level statistics and prior concordance metrics were not independently recomputed, and no full-results comparison specification is proposed."
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "datasetId": "mouse_hypo_plx3397_gse243697",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 41 source files matched their recorded sizes and SHA-256 hashes. Of 65 genes printed in Figure 3A–B, 64 matched individual registered coefficients. All 64 agreed in direction, and 44 met registered FDR < 0.05. The corrected proposal records a direct comparison so the Explorer no longer classifies the evidence as untested. It also clarifies the cohort evidence and documents a QC count discrepancy. The proposal passed validation.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_plx3397_gse243697.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_plx3397_gse243697.json",
+    "data/author-validation/continued-sources/GSE243697/codex-2026-11-21/refute/recheck.py"
+  ],
+  "openIssues": [
+    "Fam205a2 shares a registered coefficient with Fam205a4 and remains unpaired.",
+    "Author effect sizes, gene-level RNA-seq P values and FDR, the exact model, and litter assignments remain unavailable in the reviewed sources. Genome-wide concordance remains unassessed.",
+    "The registered DE table and restored Explorer track both yield 478 discoveries at FDR < 0.05. The restored Explorer QC summary reports 1,344, and the separate analysis QC file reports 479."
+  ]
+}

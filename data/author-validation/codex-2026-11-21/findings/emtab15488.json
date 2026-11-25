@@ -1,0 +1,85 @@
+{
+  "datasetId": "emtab15488",
+  "accession": "E-MTAB-15488",
+  "category": "not_located",
+  "closure": "confirmed_not_located",
+  "summary": "The public E-MTAB-15488 deposit contains a gene-by-sample count matrix for the chronic DSS and intestinal Opa1 mouse cohorts. No manuscript, supplement or public repository searched supplied a gene-level author result for either registered hypothalamus contrast, so concordance remains untested.",
+  "evidenceFolder": "data/author-validation/continued-sources/E-MTAB-15488/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "source_unavailable",
+      "comparisonLevel": "processed_source",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "No public author gene-level result located for either registered hypothalamus contrast",
+      "note": "The BioStudies file inventory, SDRF and matrix contents identify raw_counts.tsv as the sole processed deposit. All 86 measurement columns are annotated samples. ENA supplies sequencing reads, and none of the 23 hypothalamus BioSamples links to GEO. Searches by study and sample identifiers, investigators and experimental design found no corresponding manuscript, supplement, preprint or public results repository. The Bao Opa1 RNA-seq deposits cover distal colon and intestinal organoids. The SEPIA chronic-DSS cohort used colonic tissue. The public search and sources were recorded on 2026-11-22 in continued-sources/E-MTAB-15488/codex-2026-11-21/SEARCH_LOG.md.",
+      "reviewFlags": [
+        "Author effects, the author-tested gene universe, raw P values and FDR remain unassessed for dss_vs_control and opa1_vs_flox."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "ArrayExpress study and file inventory",
+          "url": "https://www.ebi.ac.uk/biostudies/arrayexpress/studies/E-MTAB-15488",
+          "kind": "database"
+        },
+        {
+          "label": "Deposited IDF, SDRF and count matrix",
+          "url": "https://ftp.ebi.ac.uk/biostudies/fire/E-MTAB-/488/E-MTAB-15488/Files/",
+          "kind": "database"
+        },
+        {
+          "label": "Linked ENA project PRJEB95985",
+          "url": "https://www.ebi.ac.uk/ena/browser/view/PRJEB95985",
+          "kind": "database"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The deposited matrix contains only sample counts. The public study, sample archives, publication and preprint indexes, investigators’ repositories and data-sharing platforms yielded no author gene-level effects for chronic DSS versus water or intestinal Opa1 deletion versus floxed control in these hypothalamus libraries.",
+      "nextStep": "Reopen either contrast if the authors identify a gene-level table or figure for these hypothalamus samples. Confirm its sample membership and case direction before comparing the reported effects and available statistics.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Distinct mouse Ensembl gene IDs × sample columns in the deposited raw_counts.tsv",
+      "value": "57,010 × 86",
+      "script": "data/author-validation/continued-sources/E-MTAB-15488/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Columns after Geneid that fail to match a deposited SDRF sample name",
+      "value": "0",
+      "script": "data/author-validation/continued-sources/E-MTAB-15488/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Hypothalamus samples represented in the matrix out of those annotated in the SDRF",
+      "value": "21 of 23. D09Hy and Op57Hy are absent from the matrix.",
+      "script": "data/author-validation/continued-sources/E-MTAB-15488/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Hypothalamus mice in registered case versus baseline order",
+      "value": "dss_vs_control 6 versus 7. opa1_vs_flox 5 versus 3.",
+      "script": "data/author-validation/continued-sources/E-MTAB-15488/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Gene rows in the current registered edgeR-QL tables, each checked against its model provenance hash",
+      "value": "dss_vs_control 18,327. opa1_vs_flox 19,268.",
+      "script": "data/author-validation/continued-sources/E-MTAB-15488/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "ENA runs across all regions and deposited analysis records returned by the ENA project query",
+      "value": "94 runs, 0 analysis records.",
+      "script": "data/author-validation/continued-sources/E-MTAB-15488/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Direct GEO DataSets links from NCBI for the deposited hypothalamus BioSamples",
+      "value": "0 across 23 BioSamples.",
+      "script": "data/author-validation/continued-sources/E-MTAB-15488/codex-2026-11-21/audit.py"
+    }
+  ],
+  "openIssues": [
+    "Author effect sizes, tested genes, raw P values and FDR remain unknown for both contrasts. A release of matched author results would permit a numerical comparison."
+  ]
+}

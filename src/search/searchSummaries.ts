@@ -466,6 +466,8 @@ export interface FamilyTeaser {
   inUnit: number;
   /** One level per source in `unit`, its highest cohort mean, highest first. */
   levels: FamilyLevel[];
+  /** The species of the family's sources, most sources first. */
+  species: string[];
 }
 
 function studyOf(source: ExpressionSource): string {
@@ -494,10 +496,13 @@ function familyTeaser(sources: ExpressionSource[], results: ExpressionGeneResult
   const levels = best.filter((level) => level.unit === unit)
     .map(({ unit: _unit, ...level }) => level)
     .sort((a, b) => b.mean - a.mean);
-  return { measured: best.length, total: sources.length, unit, inUnit, levels };
+  const bySpecies = new Map<string, number>();
+  for (const source of sources) bySpecies.set(source.species, (bySpecies.get(source.species) ?? 0) + 1);
+  const species = [...bySpecies].sort((a, b) => b[1] - a[1]).map(([name]) => name);
+  return { measured: best.length, total: sources.length, unit, inUnit, levels, species };
 }
 
-/** The family's sources: study-library populations, or non-human tissue and broad neuronal preparations. */
+/** The family's sources: study-library populations, or animal (non-human) tissue and broad neuronal preparations. */
 async function familySources(family: SourceFamily): Promise<ExpressionSource[]> {
   if (family === 'studies') return EXISTING_EXPRESSION_SOURCES.filter((source) => source.scope === 'population');
   const { sources: external } = await loadExternalSources();

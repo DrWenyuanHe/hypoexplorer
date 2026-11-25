@@ -55,6 +55,40 @@ describe('tracker verification evidence claims', () => {
     expect(filterAndSort(rows, {}, { ...filters, q: 'Author results compared, limits remain' }, sort).map((r) => r.acc)).toEqual(['direct']);
   });
 
+  it('filters and searches by author follow-up', () => {
+    const rows = evidenceRows();
+    const lookup = validationData.getAuthorValidation;
+    const direct = lookup('direct')!;
+    vi.spyOn(validationData, 'getAuthorValidation').mockImplementation((id) => id === 'direct'
+      ? { ...direct, verification: { ...direct.verification, followUp: 'author_contact' } }
+      : { ...direct, datasetId: id });
+    expect(filterAndSort(rows, {}, { ...filters, followUp: 'author_contact' }, sort).map((r) => r.acc)).toEqual(['direct']);
+    expect(filterAndSort(rows, {}, { ...filters, q: 'needs author clarification' }, sort).map((r) => r.acc)).toEqual(['direct']);
+    expect(filterAndSort(rows, {}, { ...filters, followUp: 'all' }, sort)).toHaveLength(rows.length);
+  });
+
+  it('offers the follow-up filter only while some record carries one', () => {
+    const { verification } = validationData.AUTHOR_VALIDATION_REPORT.records[0];
+    const saved = validationData.AUTHOR_VALIDATION_REPORT.records.map((record) => record.verification.followUp);
+    const open = () => {
+      render(<TrackerFilters f={filters} setF={vi.fn()} tags={[]} view="table" setView={vi.fn()} canEdit={false} save="" />);
+      fireEvent.click(screen.getByRole('button', { name: /More filters/ }));
+      return screen.queryByRole('combobox', { name: 'Author follow-up' });
+    };
+    try {
+      for (const record of validationData.AUTHOR_VALIDATION_REPORT.records) delete record.verification.followUp;
+      expect(open()).toBeNull();
+      cleanup();
+      verification.followUp = 'author_contact';
+      expect(within(open()!).getByRole('option', { name: 'Needs author clarification' })).toHaveAttribute('value', 'author_contact');
+    } finally {
+      validationData.AUTHOR_VALIDATION_REPORT.records.forEach((record, i) => {
+        if (saved[i]) record.verification.followUp = saved[i];
+        else delete record.verification.followUp;
+      });
+    }
+  });
+
   it('retains a saved legacy filter without treating it as a new evidence claim', () => {
     const rows = evidenceRows();
     expect(filterAndSort(rows, {}, { ...filters, validation: 'partial' }, sort).map((r) => r.acc))

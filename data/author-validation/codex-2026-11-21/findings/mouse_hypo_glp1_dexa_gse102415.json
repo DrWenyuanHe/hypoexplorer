@@ -1,0 +1,61 @@
+{
+  "datasetId": "mouse_hypo_glp1_dexa_gse102415",
+  "accession": "GSE102415",
+  "category": "access_blocked",
+  "closure": "no_valid_comparison",
+  "summary": "The published five-day hypothalamic RNA-seq result reports pathway enrichment and counts of regulated genes without identifying the genes or their effects. The publisher’s supplement contains a four-day glial-marker assay and a primer table, and all 30 GEO sample files contain read counts. Figure 5A and the GEO overview report five mice per group, while the registered analysis uses six deposited samples per arm.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE102415/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Published RNA-seq figure and supplement reviewed. No gene-level reference located for the five-day contrast.",
+      "note": "The full Quarta et al. article, its supplemental PDF and Figure360 presentation were retrieved. Figure 5A gives KEGG enrichment and anonymous Venn counts, including 126 genes unique to the conjugate. Figure 1C measures transcripts after 14 days and Figure S6E measures Aif1 and Gfap after four days. Table S1 lists PCR reagents. The GEO family record and count archive match the registered source hashes. The 30 individual count files contain no DE statistics. For glp1_dexa_vs_vehicle, the checked registered table contains 17,174 gene symbols from six vehicle and six conjugate samples. The figure caption and GEO series design specify five mice per arm without a GSM inclusion list. Evidence, source URLs, hashes and cohort inventory are in continued-sources/GSE102415/codex-2026-11-21/.",
+      "reviewFlags": [
+        "The membership of the reported five-mouse groups within the six deposited samples per registered arm is unresolved.",
+        "Gene-level author effects, raw P values, FDR and tested-gene coverage remain unassessed."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The manuscript and publisher supplements were recovered. The five-day conjugate-versus-vehicle RNA-seq figure reports aggregate counts and pathway statistics. The public GEO files supply count inputs, and the named transcript panels use different treatment durations. No independent gene-level author result for the registered contrast was located.",
+      "nextStep": "To reopen, obtain the tested-gene table for day-five GLP-1/dexamethasone versus vehicle with IDs, effect definition, raw P and adjusted P where computed. Ask which vehicle and conjugate GSMs entered Figure 5A, whether any were excluded, and whether the stated n=5 is correct.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Published rows and unique symbols in the registered edgeR-QL DE table",
+      "value": "17,174 rows and 17,174 distinct symbols",
+      "script": "data/author-validation/continued-sources/GSE102415/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Cohort size in registered samplesheet and model provenance, matched to GEO files",
+      "value": "6 GLP1/Dexa and 6 vehicle",
+      "script": "data/author-validation/continued-sources/GSE102415/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Contents of every GEO sample supplement listed in SOFT and present in the archive",
+      "value": "30 files across 5 arms. Each has 37,310 Ensembl gene rows, 5 HTSeq summary rows and one integer count per row.",
+      "script": "data/author-validation/continued-sources/GSE102415/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Other records in the sequencing deposit",
+      "value": "0 gene rows in the GEO series matrix. ENA lists 30 sequencing runs and 0 submitted analysis records for PRJNA397715.",
+      "script": "data/author-validation/continued-sources/GSE102415/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Sample size printed in the Figure 5A caption and GEO design",
+      "value": "5 per group",
+      "script": "data/author-validation/continued-sources/GSE102415/codex-2026-11-21/audit.py"
+    }
+  ],
+  "openIssues": [
+    "Which GSMs entered Figure 5A, and does n=5 reflect exclusions or a reporting error? The deposited files identify six samples per registered arm.",
+    "The authors’ five-day gene identifiers, effects and gene-level inference are needed to assess concordance. The identity of a separate zero-byte PDF link labelled research data at Helmholtz remains unknown."
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "datasetId": "human_htnsc_differentiation_gse214877",
+  "accession": "GSE214877",
+  "category": "not_located",
+  "closure": "no_valid_comparison",
+  "summary": "Sulistio et al. identify GSE214877 in their preprint. Figure 1B compares selected markers by qRT-PCR in H9-derived cultures, Figure 1D compares htNSCs with adult GTEx brain regions, and the public bulk_DEG.xlsx reports mouse age contrasts. None supplies author effects for the registered human htNSC versus mixed-hPSC bulk RNA-seq comparison.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE214877/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Deposited human counts verified. available author results address other cohorts or contrasts",
+      "note": "GSE214877 supplies StringTie sample counts. Both versions of bioRxiv 10.1101/2024.05.23.595504 name this accession. The H9 qRT-PCR panel lacks the registered mixed hPSC baseline, and the bulk transcriptome figure uses adult GTEx brain regions as comparators. The author repository’s bulk_DEG.xlsx and generating R code describe mouse aging. The preprint mentions a Supporting Data Values XLS whose contents remain unknown. See data/author-validation/continued-sources/GSE214877/codex-2026-11-21/SEARCH_LOG.md.",
+      "reviewFlags": [],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "not_located",
+      "comparisonOutcome": "not_tested",
+      "reason": "The deposited matrix contains sample counts only. The preprint, its supplements and the authors’ repositories do not supply a gene-level author result for htnsc_vs_hpsc. Same-cohort effects, P values and FDR remain unassessed.",
+      "nextStep": "Reopen if the authors release or identify the original bulk DESeq2 result for GSM6617220–GSM6617222 against GSM6617217–GSM6617219, with its feature identifiers, coefficient orientation and tested genes. The figure-data workbook would require the same cohort check.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Deposited human matrix",
+      "value": "20,731 distinct gene identifiers and six nonnegative integer sample-count columns",
+      "script": "data/author-validation/continued-sources/GSE214877/codex-2026-11-21/inspect_sources.py"
+    },
+    {
+      "claim": "Individual GEO sample supplements",
+      "value": "All six GSM records specify NONE",
+      "script": "data/author-validation/continued-sources/GSE214877/codex-2026-11-21/inspect_sources.py"
+    },
+    {
+      "claim": "Registered edgeR-QL result",
+      "value": "15,491 rows. SHA-256 bf425b6f816e699d33350e562579ff5c7db36d296af8a802aa711a71997f3e8b matches the frozen release",
+      "script": "data/author-validation/continued-sources/GSE214877/codex-2026-11-21/inspect_sources.py"
+    },
+    {
+      "claim": "Publisher supplement inventory",
+      "value": "One PDF listed per preprint version, each 30 pages",
+      "script": "data/author-validation/continued-sources/GSE214877/codex-2026-11-21/inspect_sources.py"
+    },
+    {
+      "claim": "Aging repository bulk_DEG.xlsx worksheet names",
+      "value": "2mo vs 26mo | 2mo vs 12mo | 12mo vs 26mo",
+      "script": "data/author-validation/continued-sources/GSE214877/codex-2026-11-21/inspect_sources.py"
+    }
+  ],
+  "openIssues": [
+    "The Supporting Data Values XLS named in the preprint was not located. Its contents and the availability of a six-sample author DESeq2 export remain unknown."
+  ]
+}

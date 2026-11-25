@@ -16,6 +16,18 @@ million ([R2 pricing](https://developers.cloudflare.com/r2/pricing/)). A miss is
 cheap to force in two ways: a unique `?v=` value (cache busting) and a random
 path that R2 must look up before answering 404.
 
+HEAD requests are not served from the edge cache. Every HEAD reports
+`cf-cache-status: DYNAMIC` and reaches R2 as a `HeadObject` (Class B), even
+when GET on the same URL is a cache HIT. The reachability probe in
+[originHealth.ts](../../src/data/originHealth.ts) sends one HEAD per check.
+
+**Checking the cache:** use GET, for example
+`curl -s -o /dev/null -D - -H 'Accept-Encoding: br' <url>`, and read
+`cf-cache-status` and `Age`. `curl -I` sends HEAD, so it always shows `DYNAMIC`
+and says nothing about whether the cache rule works. Verified on 2026-11-23:
+`/query/<build>/gene_names.js` returned DYNAMIC to HEAD and HIT (`Age` about
+6 days) to GET, with and without `?v=`.
+
 ## What each piece does
 
 | Piece | Where | Effect |
@@ -184,6 +196,9 @@ addresses are not fixed.
 
 ## Cutover
 
+This cutover ran in 2026-10, when the data gate Worker was retired. The table is
+kept as the record and for rollback. Tool versions in it are the ones in use then.
+
 Run each step from the repository root. Do not start a step until the previous
 step's check passes.
 
@@ -192,7 +207,7 @@ step's check passes.
 | 1 | Create both tokens. Add `CLOUDFLARE_EDGE_TOKEN=...` to `.env.local`. | `pnpm run edge:apply` prints a plan instead of a token error. | Delete the tokens. |
 | 2 | `pnpm run edge:apply` (dry run). Review it: 5 rules created, or updates for `hypoexplorer_data_methods` and `hypoexplorer_data_burst` if the retired gate's payloads were ever published, and no `!` lines. Then run `pnpm run edge:apply --apply`. It writes the firewall and rate-limit rules first and the cache rule last, re-reads all three phases, and purges `data.hypoexplorer.com` because the cache key changed. | The last line says `Applied.` and the process exits 0. | In the dashboard, under **Security > Security rules** and **Caching > Cache Rules**, disable or delete the rule by name (`hypoexplorer_data_*`). Then run `pnpm run edge:apply --purge-host`. |
 | 3 | `pnpm run verify:edge --allow-gate` (the gate is still routed). | Every check passes. The WAF answers 403 before the gate does. | Same as step 2. |
-| 4 | Delete the gate Worker. Dry run first: `pnpm exec wrangler delete hypoexplorer-data-gate --env-file .env.cfdeploy --dry-run`, then run it without `--dry-run` and confirm the prompt. **Always pass the name.** Without it, Wrangler reads the root `wrangler.jsonc` and targets the site Worker `hypoexplorer`. Wrangler 4.86 takes the name as a positional argument (`wrangler delete [name]`); the [docs](https://developers.cloudflare.com/workers/wrangler/commands/workers/#delete) also list `--name`. Deleting a Worker removes "all associated Cloudflare developer platform resources": its `data.hypoexplorer.com/*` route and its Durable Object counter. | **Websites > hypoexplorer.com > Workers Routes** lists no route for `data.hypoexplorer.com`. Delete any leftover route there. | Restore the gate from git (`workers/data-gate/` at the commit before its removal) and deploy it with `pnpm exec wrangler deploy --config workers/data-gate/wrangler.jsonc --env-file .env.cfdeploy`. |
+| 4 | Delete the gate Worker. Dry run first: `pnpm exec wrangler delete hypoexplorer-data-gate --env-file .env.cfdeploy --dry-run`, then run it without `--dry-run` and confirm the prompt. **Always pass the name.** Without it, Wrangler reads the root `wrangler.jsonc` and targets the site Worker `hypoexplorer`. Wrangler 4.86, in use at the cutover, took the name as a positional argument (`wrangler delete [name]`); the [docs](https://developers.cloudflare.com/workers/wrangler/commands/workers/#delete) also list `--name`. Deleting a Worker removes "all associated Cloudflare developer platform resources": its `data.hypoexplorer.com/*` route and its Durable Object counter. | **Websites > hypoexplorer.com > Workers Routes** lists no route for `data.hypoexplorer.com`. Delete any leftover route there. | Restore the gate from git (`workers/data-gate/` at the commit before its removal) and deploy it with `pnpm exec wrangler deploy --config workers/data-gate/wrangler.jsonc --env-file .env.cfdeploy`. |
 | 5 | `pnpm run verify:edge`, then `pnpm run verify:deploy`. | Every check passes, and no response carries `x-hypoexplorer-gate`. | Step 4 rollback. |
 | 6 | Deploy the guard in observe mode: `pnpm run guard:deploy --var GUARD_MODE:observe`. Set its secret: `pnpm exec wrangler secret put CF_GUARD_TOKEN --config workers/spend-guard/wrangler.jsonc --env-file .env.cfdeploy`. Watch the next run (on every tenth minute): `pnpm exec wrangler tail hypoexplorer-spend-guard --env-file .env.cfdeploy`, or open **Workers & Pages > hypoexplorer-spend-guard > Logs**. When a run logs `classB` as a number and `shutoffEnabled: false`, run `pnpm run guard:deploy` to switch to enforce. | One `spend-guard` log line per run with `decision: "unchanged"` and no `error`. | `pnpm exec wrangler delete hypoexplorer-spend-guard --env-file .env.cfdeploy`. The shutoff rule keeps its current state, so check that it is disabled. |
 | 7 | Dashboard only: **Manage Account > Billing > Billable Usage > Set Budget Alert**, at $1. | An email address is listed for the alert. | Remove the alert. |

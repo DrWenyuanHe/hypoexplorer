@@ -1,0 +1,61 @@
+{
+  "datasetId": "mouse_hypo_akkermansia_gse212491",
+  "accession": "GSE212491",
+  "category": "not_located",
+  "closure": "no_valid_comparison",
+  "summary": "Ha et al. report Akkermansia versus PBS effects in fructose-fed mice for individual hypothalamic cell types and neuronal subtypes. HypoExplorer estimates one effect across all captured cells per library, and the reviewed public sources provide no author estimate at that scope.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE212491/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Public author DE tables cover individual hypothalamic cell populations. The registered result covers all captured cells.",
+      "note": "The public GEO archive and SOFT record match the registered source checksums. The revised preprint (10.1101/2022.09.06.506855v2) identifies GSE212491, reports three mice per group, and gives separate results by cell type and neuronal subtype in Table S1. The registered analysis sums 47,492 deposited cells within six fructose-arm libraries before fitting the treatment effect. The preprint reports 7,244 post-QC cells in those arms. The public material supports the treatment direction and group sizes. A library-to-mouse and cage key was not located.",
+      "reviewFlags": [
+        "The author DEG workbooks provide cell-population-specific estimates only. Concordance and inference for the registered whole-hypothalamus track remain unassessed.",
+        "Sample-level cage assignments and the barcode membership of the author post-QC populations remain unresolved."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "Both preprint versions provide selected gene effects within hypothalamic cell types for Akkermansia versus PBS under fructose feeding. The revised Table S1 and Figure S2C retain cell identity for each effect. The registered edgeR result models count sums across all cell types in each source library. GEO supplies count matrices and the other inspected materials supply no gene-level author result for that mixed population.",
+      "nextStep": "Reopen if the authors release an all-cell AkkF-versus-PBSF result for the fructose libraries with documented cell inclusion, library membership, effect definition and gene-level statistics.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered whole-hypothalamus pseudobulk",
+      "value": "47,492 deposited cells across 3 AkkF and 3 control libraries",
+      "script": "data/author-validation/continued-sources/GSE212491/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Distinct symbols in the registered edgeR-QL table",
+      "value": "15,564",
+      "script": "data/author-validation/continued-sources/GSE212491/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Fructose-arm cell counts reported after author QC",
+      "value": "4,198 AkkF + 3,046 PBSF = 7,244",
+      "script": "data/author-validation/continued-sources/GSE212491/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "Revised Table S1 scope",
+      "value": "23 worksheets, 13,819 listed gene-by-population rows across both diets, including 7,347 fructose rows",
+      "script": "data/author-validation/continued-sources/GSE212491/codex-2026-11-21/inspect_evidence.py"
+    },
+    {
+      "claim": "GEO sample supplements inventoried",
+      "value": "12 nested archives, each containing a count matrix, gene list and barcode list",
+      "script": "data/author-validation/continued-sources/GSE212491/codex-2026-11-21/inspect_evidence.py"
+    }
+  ],
+  "openIssues": [
+    "A public author result estimating the treatment effect across all captured cells per fructose-arm library was not located.",
+    "The paper reports independent mouse samples at group level. The per-library mouse and cage key and the post-QC barcode memberships were not located."
+  ]
+}

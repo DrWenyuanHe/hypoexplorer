@@ -1,0 +1,138 @@
+{
+  "datasetId": "mouse_arc_pyy_glp1_gse160802",
+  "accession": "GSE160802",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "Of 21 genes in Supplementary Figure 8D, 19 have a registered ARC coefficient. Twelve match the direction of the plotted treatment-minus-vehicle expression difference and seven have the opposite sign. Figure 8B reports 174 ARC discoveries. The registered gene table has zero at the paper’s stated FDR < 0.01.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE160802/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "ARC heatmap directions agree for 12 of 19 genes with coefficients. The discovery counts remain unresolved.",
+      "note": "Boland et al. studied lean cohort F four hours after combined Fc-GLP-1 and Fc-PYY3–36 or vehicle. All 19 ARC libraries in the registered sample sheet match GEO. Figure 8A has the same arm sizes. Figure 8D displays relative expression for genes in four Reactome pathways. Its two ARC colors give a within-gene ordering for every row. Of 21 unique symbols, 19 have a registered edgeR-QL coefficient, and 12 agree in direction. Figure 8B gives 48 upregulated and 126 downregulated ARC genes. No published registered row has BH-adjusted P < 0.01.",
+      "reviewFlags": [
+        "The registry citation describes obese-diabetic mice and names IP118 as the co-agonist. The acute sequencing cohort was lean, and GEO identifies coadministration of IP118 and PY115.",
+        "Figure 8D gives group-level z-score colors for selected genes. No reviewed primary source gives fitted ARC gene effects, individual ARC P or adjusted P values, or the list behind Figure 8B.",
+        "The local QC bundle records 305 ARC genes in its FDR < 0.05 summary. Counting every gene in the registered TSV and in the local track bundle gives zero at that cutoff.",
+        "The paper names PicoPure for RNA extraction. All 19 ARC GEO sample records name NucleoSpin Plus. The published and deposited descriptions agree on the treatment, collection time, and laser-captured tissue.",
+        "The prior manual review records the absence of a committed legacy source checksum manifest. The dated manifest pins the downloaded GEO count matrix."
+      ],
+      "reviewedAt": "2026-11-21",
+      "paperAccess": "pmc_full_text",
+      "evidenceLinks": [
+        {
+          "kind": "paper",
+          "label": "Boland et al., cohort F and RNA-seq methods",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8717237/"
+        },
+        {
+          "kind": "author_result",
+          "label": "Publisher supplement, Figure 8 and embedded Prism data",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2212877821002477-mmc2.pptx"
+        },
+        {
+          "kind": "database",
+          "label": "GEO family SOFT record with individual ARC samples and treatments",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE160nnn/GSE160802/soft/GSE160802_family.soft.gz"
+        },
+        {
+          "kind": "author_result",
+          "label": "PMC archived copy of the Figure 8 slide deck",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8717237.1/mmc2.pptx"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "Twelve of 19 registered coefficient signs agree with the ARC group ordering in Figure 8D. Figure 8B gives 174 ARC discoveries. Among 13,452 published registered genes, zero pass the paper’s stated FDR < 0.01. The figure and deposit do not identify the 174 genes. The local QC summary also conflicts with the gene-level rows at FDR < 0.05.",
+      "nextStep": "Obtain the ARC DESeq2 table used for Figure 8B, with retained libraries, tested IDs, design, filtering and call rule. Confirm how the Figure 8D z-scores were summarized. Trace the local QC summary of 305 to its generating table and reconcile it with the released gene-level rows.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "agonist_vs_vehicle"
+      ],
+      "basis": "Compare the within-gene ordering of the two ARC colors in Supplementary Figure 8D with the sign of the registered edgeR-QL coefficient. Include every labeled row in source order. Separately compare the ARC total in the embedded Figure 8B data with the number of published registered rows below the paper’s stated FDR cutoff.",
+      "reference": "Boland et al., Molecular Metabolism 55, 101392, Supplementary Figure 8A–D and its legend. The publisher CDN, PMC OA bucket and Europe PMC supplementary ZIP contain byte-identical copies of the slide deck and legend document. The separate BioStudies files with the same names contain unrelated clinical material.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "Methods identify eight-week-old lean male C57BL6/J mice in cohort F. The registered ARC sheet and GEO agree on every library and arm, with nine vehicle and ten treated. The PCA series in Figure 8A have those arm sizes. The identities and covariates included in the author’s DESeq2 fit are undocumented. The paper names PicoPure for RNA extraction and all 19 ARC GSM records name NucleoSpin Plus."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "The registered arcuate coefficient is IP118 plus PY115 minus vehicle, four hours after injection. GEO and panels 8A–D identify ARC. The cohort description in Methods and the opening supplement legend use AP in a region list, while the Results, panel labels and deposit identify the ARC tissue used here."
+        },
+        "features": {
+          "status": "limited",
+          "note": "Each of the 21 figure symbols has a unique deposited Ensembl ID in the registered feature map. Nineteen have a published coefficient. Hs3st2 and Lyve1 are mapped in the input and have no registered DE row. The author’s all-tested feature list was unavailable."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Read both ARC cells in each row against the printed scale, from blue (low) to red (high). The treatment-minus-vehicle color order agrees with 12 registered coefficient signs. Slc2a1, St3gal1, Adpgk, Gns, Socs3, Plk2 and Foxo6 have the opposite sign. The smallest differences are retained. The figure provides neither fitted ARC log2 fold changes nor the numeric values used to generate the colors. Effect magnitudes and correlations remain unassessed."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Methods specify DESeq2 and gene-level FDR < 0.01. Figure 8B’s ARC bar has 48 up and 126 down. The registered group-only edgeR-QL fit adjusted across 13,479 tested features, including 27 unmapped features omitted from the public table. All 13,452 published rows have finite BH values. Zero fall below 0.01 or 0.05. The per-gene browser bundle gives the same counts. Its separate local QC summary records nSig = 305 at FDR < 0.05. The authors report no significant ARC gene sets in Figure 8C. Neither panel C nor D assigns ARC gene-wise significance to an individual displayed gene."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All 21 named Figure 8D genes were retained. Nineteen pair with a registered coefficient, covering 90.48% of the displayed reference and 0.14124% of the 13,452 published genes. Hs3st2 and Lyve1 each map uniquely in the input and lack a registered DE row. The 174 Figure 8B genes are unnamed, so their overlap with panel D and coverage of the author’s tested universe are unknown."
+        }
+      },
+      "criteria": "Fix ARC treatment minus vehicle from the labels and rank every within-row color pair on the printed scale. Use the gene-level FDR < 0.01 stated in Methods for the aggregate comparison. Author-concordance-v2 requires compatible cohort, contrast, identifiers and effects, at least 30 paired genes and at least 90% relevant coverage. It also requires Pearson and Spearman both ≥ 0.90, or at least 90% directional agreement among at least 30 nonzero pairs covering at least 90% of the pairs. The 19 descriptive pairs and 12 agreements do not qualify. Discovery totals are contextual and missing author statistics remain unassessed.",
+      "conclusion": "The selected-result comparison supports closure as compared. Seven of the 19 paired signs differ, and the published discovery totals differ. Genome-wide effect concordance, discovery identities and the discrepancy within the local QC data remain unresolved."
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO count-matrix dimensions after checking every input row",
+      "value": "21,935 distinct Ensembl rows × 59 GSM-linked sample columns, all nonnegative integer counts",
+      "script": "data/author-validation/continued-sources/GSE160802/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "ARC replication in the registered sample sheet and published PCA object",
+      "value": "9 vehicle, 10 coadministration",
+      "script": "data/author-validation/continued-sources/GSE160802/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure 8D coverage",
+      "value": "21 labeled, 19 paired (90.48% of the selected reference, 19/13,452 of the registered output). Hs3st2 and Lyve1 lack registered coefficients.",
+      "script": "data/author-validation/continued-sources/GSE160802/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Direction agreement among paired ARC genes",
+      "value": "12/19 (63.16%) agree and 7/19 differ",
+      "script": "data/author-validation/continued-sources/GSE160802/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure 8B ARC discovery counts from the embedded Prism data",
+      "value": "48 up, 126 down, 174 total",
+      "script": "data/author-validation/continued-sources/GSE160802/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered discoveries counted from the DE table",
+      "value": "0 of 13,452 at BH < 0.01 and 0 at BH < 0.05",
+      "script": "data/author-validation/continued-sources/GSE160802/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "ARC gene-level recount and separate local QC summary",
+      "value": "The 13,452 registered rows have minimum BH 0.0910986645908113. The 13,452 rows in public/datasets/mouse_arc_pyy_glp1_gse160802/track_arcuate.js (SHA-256 78b1f712a2f4ca252624b48eb59df89c2f5dc4ef643f291353ebfb802ec72b93) have minimum FDR 0.0910987. Both counts are zero below 0.01 and 0.05. The local public/datasets/mouse_arc_pyy_glp1_gse160802/qc_global.js (SHA-256 60311f2d548d2bd2e596eeb09e8466e4234309432c18448896a5bd9f915742c4) records nGenes = 13,452 and nSig = 305.",
+      "script": "data/author-validation/continued-sources/GSE160802/codex-2026-11-21/refute/check.py"
+    }
+  ],
+  "openIssues": [
+    "The 174 Figure 8B ARC discoveries remain unidentified. The registered published table has zero discoveries at FDR < 0.01. The author’s ARC DESeq2 design, inclusion, tested universe and gene-wise output are needed to reconcile the counts.",
+    "The ARC heatmap gives expression ordering only. Its z-score calculation, exact arm values and per-gene ARC inference were unavailable. The selected comparison cannot yield a v2 pass or a numeric comparison spec.",
+    "The registry citation’s cohort and drug description differs from cohort F and the GEO treatment metadata.",
+    "The local QC summary reports 305 at FDR < 0.05. Both gene-level files give zero. The origin of the local QC count is unresolved.",
+    "The RNA extraction kit for the sequenced ARC tissue is described differently in the manuscript and GEO."
+  ]
+}

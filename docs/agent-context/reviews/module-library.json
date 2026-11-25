@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-library",
-  "fingerprint": "94082c5960d1596d59d3285d17cf5b533b2e93010ddbcd03391d587dd84b2653",
+  "fingerprint": "b9d98f391eaa4b90d235fda517fab6c211ffada046c37db406bea58d0aec72d0",
   "outcome": "updated",
-  "explanation": "LibraryTable uses a fixed table layout with a colgroup, so all ten columns fit from 1280px wide; long cells wrap to two lines before truncating with a title, the footer is one full-width row, and headers carry scope=\"col\" without decorative icons. Filtering, sorting, the cards layout and the study record are unchanged.",
+  "explanation": "Library search matches the author follow-up label. No facet is added: review state stays in the study record, the Validation column and search.",
   "references": [
-    "src/library/DatasetLibrary.tsx",
-    "src/styles/responsive.css"
+    "src/library/libraryFilters.ts",
+    "src/library/LibraryToolbar.tsx"
   ]
 }

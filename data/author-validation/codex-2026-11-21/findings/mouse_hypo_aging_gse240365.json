@@ -1,0 +1,175 @@
+{
+  "datasetId": "mouse_hypo_aging_gse240365",
+  "accession": "GSE240365",
+  "category": "access_blocked",
+  "closure": "compared",
+  "summary": "The publisher’s selected DEG table reports 171 genes for 22-month versus 12-week mouse hypothalamus. All 152 genes with a registered edgeR result agree in direction, and 133 meet both the author q-value and registered FDR cutoffs of 0.05. Selected-reference coverage is 88.89%, below the 90% requirement for author-concordance-v2.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "summary": "Aged versus young hypothalamus effects agree in direction for all 152 matched genes from the publisher’s 171-gene DEG list.",
+      "note": "The GEO count download matches the registered input SHA-256. GEO and the publisher’s sample columns identify three 22-month mice and three 12-week mice. The direct comparison uses every row of the publisher’s third supplement. The 19 unpaired symbols are present in the count input and feature map but fall outside the registered tested output. On the 152 pairs, Pearson is 0.999607, Spearman is 0.999887 and 133 meet both adjusted-value cutoffs. The selected list covers 88.89% in the registered comparison.",
+      "reviewFlags": [
+        "The selected list omits the full author testing universe. Reference coverage falls below the 90% policy minimum. Full verification remains open.",
+        "GEO names the legacy DESeq nbinomTest. The exported statistic, coefficient, SE and P values have a Wald-style relationship. The original fit and q-value procedure are unconfirmed."
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "The public publisher supplement supports a direct comparison of the selected age DEGs. All 152 paired effects agree in sign. Of these, 152 have author q < 0.05 and 133 have registered FDR < 0.05. The 19 other author genes lack a registered test. This leaves 152/171 reference coverage, below the v2 minimum.",
+      "nextStep": "For a full-universe inference review, obtain the unfiltered author result table and the model code or saved fit, including the contrast, filtering and q-value calculation. The selected-gene comparison is complete.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "aged_vs_young"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Direct comparison of the unmodified, publisher-reported log2FoldChange for every row of the selected DEG list against the registered aged_vs_young edgeR-QL logFC. Expression means were used to confirm orientation only.",
+      "reference": "Tian et al., Behavioural Brain Research, DOI 10.1016/j.bbr.2024.114943, publisher supplement mmc3.xls. The original bytes are tab-delimited text. The GEO family record and publisher QC supplements mmc1.docx and mmc2.docx identify the samples.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "The GEO design selects three mice for sequencing from each age group. Each of AMHT1–3 and YMHT1–3 maps to the same GEO and registered age group and appears in the publisher’s QC and DEG tables."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Whole hypothalamus at 22 months minus 12 weeks. For all 171 author genes the reported direction agrees with aged versus young mean expression in the six labeled columns. The orientation sign is +1 throughout."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "The 171 author symbols and 14,702 registered symbols are unique within their tables. Exact symbol matching yields 152 pairs. All 19 others map unchanged in the deposited input and registered feature map and have no row in the filtered registered output. The individual symbols are in paired.tsv."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "The reported signed log2FoldChange corresponds to the log2 of the author’s FoldChange and uses the same age direction and log2 ratio units as registered logFC. All 152 nonzero pairs agree in sign. Pearson is 0.999607, Spearman is 0.999887 and median absolute log2FC difference is 0.009705. The largest absolute difference is 0.599887."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Author q < 0.05 for all 171 selected rows. On the 152 pairs with finite raw and adjusted values in both tables, all 152 have raw P < 0.05 in both and 133 also meet both adjusted cutoffs. Of the 987 registered FDR discoveries, 854 lack an author row. Author statistics for those genes remain unassessed. The author export has Wald-style statistics, GEO names legacy DESeq, and the registered fit uses edgeR-QL."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "152/171 selected author genes have registered coefficients (88.89%). Of 14,702 registered genes, 14,550 have no row in this selected reference. The full set of author tests and its size are unknown."
+        }
+      },
+      "criteria": "Use all exact unique symbols in the published table, the registered orientation and finite pairs. For selected results, author-concordance-v2 requires at least 30 pairs and 90% reference coverage, plus Pearson and Spearman each at least 0.90 or at least 90% direction agreement in at least 30 nonzero pairs covering at least 90% of all pairs. Compare raw and adjusted P values separately at 0.05 for context.",
+      "conclusion": "Both correlation and direction meet the numerical cutoffs on paired genes. The independent selected-reference coverage requirement is unmet. The review closes for the published list, with full-universe inference and full verification unassessed."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "mouse_hypo_aging_gse240365",
+      "accession": "GSE240365",
+      "contrast": "aged_vs_young",
+      "localPath": "geo_replication/datasets/GSE240365_mmus_hypothalamus_aging/processed/GSE240365_DE.tsv",
+      "localKey": "id",
+      "authorPath": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/responses/mmc3_xls.txt",
+      "sourceUrl": "https://ars.els-cdn.com/content/image/1-s2.0-S0166432824000998-mmc3.xls",
+      "sha256": "997ceace70235e899b3ac07d5c4cc7a6d7adc2ed33242089bf9155d7d1486985",
+      "format": "tsv",
+      "authorKey": "gene_id",
+      "authorEffect": "log2FoldChange",
+      "authorAdjustedP": "q-value",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL on counts, TMM normalization and groupcase coefficient",
+      "authorMethod": "Published log2 fold-change estimates with SE, Wald-style statistic, raw P and q-value. GEO documents DESeq (2012) nbinomTest. The exact generating code and adjustment procedure are unavailable.",
+      "orientation": "Aged (AMHT, 22 months) minus young (YMHT, 12 weeks), with direction confirmed from the author expression columns.",
+      "note": "Selected author result list. Compare every published row and retain absent registered rows in the coverage denominator. The q-value column is the author adjusted statistic. Pairs support both effect routes, with 152/171 selected genes covered, below the 90% gate. Author values outside this list remain unassessed.",
+      "interpretation": "effect_match_inference_differs",
+      "resultScope": "Selected author DEGs for aged versus young hypothalamus.",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/responses/family.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE240nnn/GSE240365/soft/GSE240365_family.soft.gz",
+          "sha256": "7b47bfd57ed93a73243af01209e87f89c2474dc7102cfa5344362d2c9b7b9a70",
+          "bytes": 2537
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/responses/GSE240365_counts_anno.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE240nnn/GSE240365/suppl/GSE240365_counts_anno.txt.gz",
+          "sha256": "b2b19b772a73951e05fb4e2916780305eba9ff29fc691efb2ff3533a4e6e3a30",
+          "bytes": 233497
+        }
+      ],
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE240365_mmus_hypothalamus_aging/processed/GSE240365_DE.tsv",
+        "sha256": "377a5b813f2d86ccca93eb0e9e2ba74e3f5c4a429bdaba8aeaf859fb71ec1afe",
+        "bytes": 1459021,
+        "sourceUrl": "Registered Explorer DE output"
+      }
+    }
+  },
+  "computed": [
+    {
+      "claim": "Publisher DEG list and reported regulation",
+      "value": "171 unique symbols, 127 up and 44 down",
+      "script": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Exact matches and selected-reference coverage",
+      "value": "152/171 (88.888889%); all 19 unpaired IDs are mapped input genes",
+      "script": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered output coverage",
+      "value": "152/14,702 (1.033873%); 14,550 have no author row",
+      "script": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Nonzero pairs and same-gene directional agreement",
+      "value": "152 nonzero of 152 paired effects; 152/152 agree",
+      "script": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Pearson and Spearman correlations of paired log2 fold changes",
+      "value": "0.9996068604593165 and 0.999887232690218",
+      "script": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Absolute log2 fold-change differences",
+      "value": "Median 0.00970518704254, maximum 0.599886906052, RMS 0.052667982882, registered/author RMS effect ratio 0.998186713483",
+      "script": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Finite paired raw and adjusted results",
+      "value": "152 pairs for each; raw P < 0.05 in both for 152, adjusted < 0.05 in both for 133, author-only adjusted calls within pairs 19",
+      "script": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Whole-list adjusted calls",
+      "value": "171 author q < 0.05, 987 registered FDR < 0.05, 133 shared; 19 author calls lack a registered row, 854 registered calls lack an author row",
+      "script": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Orientation check across the full selected table",
+      "value": "All 171 signs agree with aged minus young group-mean expression and the published regulation label",
+      "script": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Input identity",
+      "value": "Downloaded counts SHA-256 b2b19b772a73951e05fb4e2916780305eba9ff29fc691efb2ff3533a4e6e3a30 matches registered provenance",
+      "script": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Exported statistic and raw P",
+      "value": "Maximum |stat − log2FoldChange/lfcSE| 9.95e-14; maximum difference from the two-sided standard normal P value 5.21e-17",
+      "script": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "author-concordance-v2",
+      "value": "Paired-gene minimum and both numerical routes met. Selected-reference coverage gate unmet.",
+      "script": "data/author-validation/continued-sources/GSE240365/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "The public DEG supplement contains selected rows. A complete author result with all tested genes, including nonselected genes, is needed to assess full-universe inference.",
+    "The original model code or saved fit is needed to reconcile GEO’s legacy DESeq method description with the exported Wald-style statistics and to establish how the reported q values were calculated."
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_hypo_risperidone_gse158751",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 25 source files matched their recorded sizes and SHA-256 hashes. I reproduced all 45 paired gene directions, including all ten in Figure 2E. These cover 45 of 65 reported genes (69.2%), below the 90% concordance threshold. The corrected proposal retains the selected-results comparison, qualifies the tissue description and documents the ambiguity in the authors’ significance cutoff. It passed the repository proposal validator.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_risperidone_gse158751.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_risperidone_gse158751.json",
+    "data/author-validation/continued-sources/GSE158751/codex-2026-11-21/refute/audit.py"
+  ],
+  "openIssues": [
+    "The registry says whole hypothalamus. GEO describes hypothalamus slices. The exact dissection extent remains unspecified. [GEO sample record](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM4809664)",
+    "Figure 2A labels its axis as P value, while the methods specify BH-adjusted P. The original DESeq2 table and selection code were not located, so the gene-wise author FDR calls and exact rule behind the 65 reported genes remain unresolved. [Li et al.](https://pmc.ncbi.nlm.nih.gov/articles/PMC8126977/)"
+  ]
+}

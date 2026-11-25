@@ -1,0 +1,15 @@
+{
+  "datasetId": "hamster_hypo_torpor_gse179663",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 38 source hashes and sizes matched, and all seven calculations reproduced. The author script and GEO counts support reversing the exported coefficient. After alignment, 12,932 of 15,099 published genes agree in direction (85.65%). Neither concordance route passes, so the justified closure is compared without full verification. The corrected proposal uses the ledger’s existing +1 multiplier on an already aligned column and distinguishes the 15,099 published genes from all 15,107 tested rows.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/hamster_hypo_torpor_gse179663.json",
+    "data/author-validation/codex-2026-11-21/corrected/hamster_hypo_torpor_gse179663.json",
+    "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/refute/check.py",
+    "data/author-validation/continued-sources/GSE179663/codex-2026-11-21/refute/orient.py"
+  ],
+  "openIssues": [
+    "The corrected proposal passed validation. Its aligned TSV was verified in memory. Before merging, the file-based comparison builder requires the TSV produced by refute/orient.py --write.",
+    "The archived deposit omits the original sample-assignment CSV. The animal records, accession links and labeled count ratios independently support the reported orientation."
+  ]
+}

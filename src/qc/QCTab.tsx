@@ -271,8 +271,8 @@ export function QCTab({ onSelectTrack, qcData, meta, dataset, contrast, getTrack
 
   // ── DE summary ────────────────────────────────────────────────────
   const de = useMemo(
-    () => deTable(qcData, meta, v, { query: deQuery, showAll: deShowAll }),
-    [qcData, meta, v, deQuery, deShowAll],
+    () => deTable(qcData, meta, v, { query: deQuery, showAll: deShowAll, datasetId: dataset?.id }),
+    [qcData, meta, v, deQuery, deShowAll, dataset?.id],
   );
   const deCols = withRenderers<QcDeRow>(de.columns, {
     top5_up: (r) => <span style={{ color: UP_TEXT_COLOR }}>{r.top5_up}</span>,

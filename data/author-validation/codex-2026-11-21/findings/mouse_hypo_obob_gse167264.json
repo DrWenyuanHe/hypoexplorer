@@ -1,0 +1,96 @@
+{
+  "datasetId": "mouse_hypo_obob_gse167264",
+  "accession": "GSE167264",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "Ahmed et al.’s Figure 5b supports a direction-only comparison for four selected hypothalamic genes in normal-diet ob/ob and WT mice. Lepr and Agrp rank higher in ob/ob in both the figure and the registered output, Npy ranks lower in the figure and higher in the registered output, and Ghsr has crossing sample ranks. The deposited Figshare workbook reports a genotype-by-diet interaction, leaving the normal-diet author coefficients, P values and FDR unassessed.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE167264/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "Normal-diet Figure 5b compared for four genes, with a direction disagreement for Npy",
+      "note": "The GEO family SOFT links the original paper by Ahmed et al. (doi:10.1080/26895293.2022.2078896). All six registered libraries match the GEO normal-diet hypothalamus samples and the ENA runs. Figure 5b orders batch- and tissue-adjusted, variance-stabilized sample expression by color. Across all three corresponding normal-diet sample ranks, Lepr and Agrp are higher in ob/ob and Npy is lower. Registered edgeR-QL gives positive coefficients for all four genes. Ghsr’s displayed median is higher in ob/ob, but its ranks cross. The authors’ text describes Lepr as suppressed, which also conflicts with the labeled normal-diet panel. The Figshare Hy worksheet contains the genotype-by-diet interaction only. Source files, sample crosswalk, figure cells, rank differences and registered values are retained in data/author-validation/continued-sources/GSE167264/codex-2026-11-21/.",
+      "reviewFlags": [
+        "Npy has opposite directions in the displayed samples and the registered coefficient. Each batch label used in the display adjustment belongs to a single genotype/diet group. The plot cannot isolate the cause of the difference.",
+        "The paper’s Lepr narrative conflicts with the normal-diet sample colors. Ghsr’s rank crossing leaves the direction of its displayed group-mean difference indeterminate.",
+        "Four figure-selected genes have no published normal-diet coefficient magnitudes, P values or FDR. The Figshare interaction answers a different question.",
+        "The legacy source has no committed source-file checksum manifest. This review pins the fresh public downloads and verifies the registered table against its recorded output SHA-256."
+      ],
+      "reviewedAt": "2026-11-21"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "unresolved",
+      "reason": "The four published Figure 5b rows were compared in the registered ob/ob-minus-WT direction on normal diet. Two rank-stable directions agree, Npy disagrees, and Ghsr has crossing ranks. Adjusted display values and registered edgeR-QL coefficients quantify different things. The downloadable DE table estimates an interaction.",
+      "nextStep": "For a quantitative comparison, obtain the hypothalamic DESeq2 ob/ob-minus-WT coefficient at the ND reference level with per-gene P and adjusted P. To reconcile Npy and the Lepr narrative, obtain the Figure 5b numeric matrix with library IDs and confirmation of the batch adjustment and genotype labels.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "obob_vs_wt"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Compare all four authors’ Figure 5b rows using its printed genotype and diet labels and caption’s blue-low to red-high order. Compare the within-gene ordering of normal-diet animal values with the sign of the registered whole-hypothalamus edgeR-QL logFC.",
+      "reference": "Ahmed et al., All Life 15, 555–561, Figure 5b (printed p. 560), doi:10.1080/26895293.2022.2078896. The authors’ manuscript.Rmd identifies the four Ensembl features. Their Figshare v1 README and differential_expression.R establish that Hy in doi:10.6084/m9.figshare.18666452.v1 contains the interaction.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "GEO’s six ND/Hy GSMs match the registered sample names, genotype, tissue, count columns and ENA BioSamples/runs. Figure 5b shows all three ND animals per genotype. Diet and genotype are labeled on the panel. The within-arm comparison needs no assignment of animal IDs to individual pixels."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "For the figure only, take the ob/ob block relative to WT and use only columns labeled ND. Figshare exports (ob/ob − WT on HFD) − (ob/ob − WT on ND), which cannot supply the ND genotype effect on its own."
+        },
+        "features": {
+          "status": "matched",
+          "note": "All four printed row labels map one-to-one from the authors’ explicit Ensembl IDs to the registered feature map and DE symbols. No identifier substitution or filtering by registered significance was used."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "Lepr and Agrp rank higher in ob/ob at all corresponding ranks, matching registered log2FC +0.0780 and +1.2417. Npy ranks lower at all corresponding ranks, opposite registered +0.8472. Ghsr’s median is higher with crossing ranks, and its registered log2FC is +0.2859. Batch- and tissue-adjusted VST display values have no numerical axis. The rank comparison supplies no author log2FC magnitude or valid correlation."
+        },
+        "inference": {
+          "status": "not_tested",
+          "note": "Figure 5b supplies no ND genotype P or adjusted P. Registered raw P is below 0.05 for Npy and Agrp. None of the four has registered BH FDR below 0.05. Author calls and call overlap remain unknown. Figshare P and padj concern the interaction."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All four plotted genes are accounted for. Three have a rank-stable display direction and one has crossing ranks. The registered output contains 15,859 gene rows from a fit with 16,005 tested rows. The author’s full ND genotype results and tested universe are unavailable."
+        }
+      },
+      "criteria": "Include every Figure 5b row. Order the three displayed values within each normal-diet group. Assign a direction robust to the unknown color calibration when every corresponding ob/ob rank is strictly higher or every rank is strictly lower than WT. Record the median and any crossing separately. Compare with the unmodified registered logFC sign. Four selected rows fall below the author-concordance-v2 minimum of 30 paired genes, and the display supplies no paired numerical effects.",
+      "conclusion": "The selected display supports two directional matches and one disagreement. Ghsr’s median agrees, but its rank crossing prevents a calibration-independent conclusion about the group means. The full registered genotype effect and its inference have no matching author table in the reviewed sources."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Normal-diet whole-hypothalamus cohort and GEO deposit",
+      "value": "3 WT and 3 ob/ob libraries join the local sample sheet, count header, GEO GSM metadata and ENA run records. The count matrix has 49,671 features, 6 annotation columns and 84 library columns. All 84 GSMs lack an individual supplement and embedded data rows.",
+      "script": "data/author-validation/continued-sources/GSE167264/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Author-selected Figure 5b directions versus registered logFC",
+      "value": "2 rank-stable matches (Lepr and Agrp), 1 rank-stable disagreement (Npy), 1 indeterminate (Ghsr). Comparing only medians gives 3/4 matching directions. All four printed genes join uniquely.",
+      "script": "data/author-validation/continued-sources/GSE167264/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Registered raw P and FDR context for Figure 5b",
+      "value": "2/4 have raw P < 0.05 (Npy and Agrp), 0/4 have BH FDR < 0.05. Across 15,859 published gene rows, 52 have BH FDR < 0.05. Author ND genotype P and FDR are unavailable for the four, including both nominal registered genes.",
+      "script": "data/author-validation/continued-sources/GSE167264/codex-2026-11-21/audit.py"
+    },
+    {
+      "claim": "Workbook scope and plotted-expression adjustment",
+      "value": "7 tissue worksheets. Hy has 17,762 unique Ensembl gene rows and one log2FoldChange column. The writer exports the fourth coefficient of the per-tissue genotype-by-diet model. All 24 batch labels derived by the authors’ figure-preparation code each occur in just one genotype/diet group across the GEO count columns.",
+      "script": "data/author-validation/continued-sources/GSE167264/codex-2026-11-21/audit.py"
+    }
+  ],
+  "openIssues": [
+    "The authors’ full normal-diet hypothalamic genotype coefficient and its P/FDR remain unavailable. No author-concordance-v2 pass or full-verification sign-off is supported.",
+    "The public figure shows Npy in the opposite direction to registered edgeR-QL and its Lepr color ordering conflicts with the paper’s prose. The figure matrix and per-column animal IDs would help reconcile these differences."
+  ]
+}

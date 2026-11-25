@@ -9,17 +9,25 @@ It is an expression-only reference and not a registered dataset (see
 
 ## Files
 
+In this repository:
+
 | File | What it is |
 | --- | --- |
-| `source-manifest.json` | URL, bytes and SHA-256 of each donor zip (not committed), plus each retained file's bytes and SHA-256 |
-| `donorN.hypothalamus-samples.csv.gz` | Header plus the hypothalamic rows of that donor's `SampleAnnot.csv`, unmodified, in source order |
-| `donorN.hypothalamus-expression.csv.gz` | `probe_id` plus the matching columns of `MicroarrayExpression.csv`, with values kept as their source text (Git LFS) |
-| `probes.csv.gz` | `Probes.csv`, identical in all six zips (the build checks this) |
-| `ontology.csv.gz` | `Ontology.csv`, identical in all six zips |
+| `source-manifest.json` | URL, bytes and SHA-256 of each donor zip, plus each retained file's bytes and SHA-256 |
 | `allen-api-checkpoints.json` | Allen API donor list (sex, age) and each donor's hypothalamic sample structures, retained as an independent check |
 
+The retained extracts are [not in this repository](../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
+`source-manifest.json` pins their bytes:
+
+| File | What it is |
+| --- | --- |
+| `donorN.hypothalamus-samples.csv.gz` | Header plus the hypothalamic rows of that donor's `SampleAnnot.csv`, unmodified, in source order |
+| `donorN.hypothalamus-expression.csv.gz` | `probe_id` plus the matching columns of `MicroarrayExpression.csv`, with values kept as their source text |
+| `probes.csv.gz` | `Probes.csv`, identical in all six zips (the build checks this) |
+| `ontology.csv.gz` | `Ontology.csv`, identical in all six zips |
+
 The six donor zips total 1.68 GB, with each expression member up to 966 MB
-uncompressed. Only the hypothalamic extracts (47 MB) are committed.
+uncompressed. The hypothalamic extracts total 47 MB.
 
 ## Commands
 
@@ -38,7 +46,9 @@ answer must match the retained one, apart from its retrieval time.
 
 The generated products under `public/expression/allen-human/` are gitignored
 build artifacts: about 114 MB of JSON in 2,048 value shards and 1,024 lookup
-shards. `pnpm run build:expression-external` builds them.
+shards. `pnpm run build:expression-external` builds them from the retained
+extracts. Without the extracts, `pnpm run fetch:expression` downloads the
+published products instead.
 
 ## What the build checks
 

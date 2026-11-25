@@ -1,0 +1,198 @@
+{
+  "datasetId": "mouse_hypo_heat_stress_gse128660",
+  "accession": "GSE128660",
+  "category": "access_blocked",
+  "closure": "compared",
+  "summary": "All seven genes in the hypothalamic heat-shock panel of Table S2 had positive effects in both analyses. Three met the paper’s discovery cutoffs in the registered output. The paper reports 68 known hypothalamic DEGs after excluding novel genes, and the seven numerical pairs fall below the author-concordance-v2 minimum of 30.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE128660/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "summary": "Seven hypothalamic heat-shock genes compared from the recovered workbook",
+      "note": "The BioStudies workbook lists seven hypothalamic heat-shock genes in Table S2, rows 4–10, with log2 fold changes and adjusted P values. All seven match registered symbols exactly and have positive effects in both analyses. Six pass registered FDR < 0.05. Dnaja4, Dnajb1 and Hspa1b also pass adjusted P < 0.01 and a fold-change magnitude > 1.5 locally. The paper’s 68 known hypothalamic DEGs comprise 55 upregulated and 13 downregulated genes after novel genes were excluded. Table S2 gives no gene-level raw P values. Table S1, GEO family SOFT, the ENA run report and the registered sample sheet identify eight sequenced libraries per arm. The saved GEO landing page (sources/geo.html) is a reCAPTCHA response. The GEO family SOFT and FTP file list supply the series metadata and file inventory. The membership of the original DESeq2 fit remains unresolved. See data/author-validation/continued-sources/GSE128660/codex-2026-11-21/table-s2-pairs.tsv for the paired values.",
+      "reviewFlags": [
+        "The manuscript reports eight biological replicates per group for DESeq2. All 16 hypothalamic GEO family SOFT records say three per group. Table S1 confirms which libraries were sequenced."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Readable full manuscript",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6902726/",
+          "kind": "paper"
+        },
+        {
+          "label": "Publication record",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31480864/",
+          "kind": "paper"
+        },
+        {
+          "label": "Official supplemental workbook archived by BioStudies",
+          "url": "https://www.ebi.ac.uk/biostudies/files/S-EPMC6902726/fj.201901045R.sd1.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "BioStudies file inventory and manuscript association",
+          "url": "https://www.ebi.ac.uk/biostudies/studies/S-EPMC6902726",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO family SOFT with study design, sample identities and processing notes",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE128nnn/GSE128660/soft/GSE128660_family.soft.gz",
+          "kind": "database"
+        },
+        {
+          "label": "GEO archive file list",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE128nnn/GSE128660/suppl/filelist.txt",
+          "kind": "database"
+        }
+      ],
+      "paperAccess": "pmc_full_text",
+      "pmcUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6902726/",
+      "pmcId": "PMC6902726",
+      "pubmedUrl": "https://pubmed.ncbi.nlm.nih.gov/31480864/"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "The official workbook is accessible. All seven selected hypothalamic HSP effects have matching directions. Only three of the seven meet the authors’ discovery rule in the registered output. The authors used DESeq2 on counts, and the registered result uses limma on log2(FPKM + 1). The selected panel and unresolved author fit membership limit the comparison.",
+      "nextStep": "For full-universe review, obtain the authors’ unfiltered hypothalamic DESeq2 result with gene identifiers, log2 effects, raw P and adjusted P, plus the library identifiers actually included in that fit.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "heat_stress_36c_vs_control_25c"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Direct comparison of the unchanged registered limma coefficients with every gene in the hypothalamus section of Table S2. Other tissues, enrichment statistics and plotted bar heights are outside this numerical reference.",
+      "reference": "Han et al., DOI 10.1096/fj.201901045R, Table S2 B4:D10 in fj.201901045R.sd1.xlsx from BioStudies S-EPMC6902726. Table S1 supports sample identity. Figures 4C, 6B and S1 and Tables S3–S4 provide separate direction or membership checks.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Table S1, the GEO family SOFT and the registered sample sheet identify the same eight heat-stressed and eight control hypothalamic libraries from lactating ICR dams. ENA confirms each experiment and BioSample. The manuscript reports eight replicates per group for DESeq2. Each of the 16 GEO sample processing records says three per group. The original fitted sample list remains unknown."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Whole hypothalamus on postpartum day 13, after the final daily two-hour exposure. The paper reports heat-stressed over control expression. The registered coefficient is the mean log2(FPKM + 1) at 36 °C minus the mean at 25 °C. Both signs are oriented toward heat stress."
+        },
+        "features": {
+          "status": "matched",
+          "note": "All seven author gene symbols have a unique, exact, case-sensitive match to the registered symbol. There are no ambiguous or unmatched rows in this section. The complete author-side testing universe is unavailable."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Positive values mean higher expression under heat stress. The paper describes a log2 ratio from DESeq2-standardized counts. Limma estimates differences of group means on log2(FPKM + 1). All seven paired effects are positive. Pearson r = 0.953409 and Spearman rho = 0.928571. The median absolute log2 difference is 0.194034 and the maximum is 1.292263 for Hspa1a."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Author DESeq2 1.16.1 on counts and registered limma on log2(FPKM + 1) yield different adjusted P values. All seven pass the manuscript rule in Table S2 and three pass locally. At FDR < 0.05 the counts are seven author, six local and six shared within S2. Sixty-six of 72 local FDR calls and two of five local paper-rule calls have no S2 row. Author raw P and all missing author statistics remain unassessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All seven author-selected HSP genes pair with the registered table of 33,714 published genes. The local BH correction covered 35,402 fitted rows. The paper’s 68 known hypothalamic DEGs exclude novel genes. Tables S3 and S4 identify 47 distinct Ensembl IDs among the enriched terms. Their P values apply to the terms. The reviewed sources lack the complete gene-level author result."
+        }
+      },
+      "criteria": "Use all seven rows of the source-defined hypothalamus section, their original signs and exact symbol matches. Apply BH-adjusted P < 0.01 and absolute log2 fold change > log2(1.5), using the Methods and Results and the reported upregulated and downregulated discoveries. The Figure 3D legend uses an inclusive 1.5-fold boundary. No hypothalamic S2 or registered effect is on that boundary, so either convention gives the same calls here. Also report FDR < 0.05 on finite pairs. Author-concordance-v2 requires at least 30 effect pairs, at least 90% relevant coverage and compatible cohort, contrast, identifiers and effect definitions. The correlation route requires both Pearson and Spearman ≥ 0.90. The direction route requires ≥ 90% agreement among at least 30 nonzero pairs covering ≥ 90% of all pairs.",
+      "conclusion": "The seven selected genes agree in direction and differ in inference. Seven pairs fall below the v2 minimum, and full-universe effects and inference remain unassessed."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "mouse_hypo_heat_stress_gse128660",
+      "accession": "GSE128660",
+      "contrast": "heat_stress_36c_vs_control_25c",
+      "localPath": "geo_replication/datasets/GSE128660_mmus_hypothalamus_heat/processed/GSE128660_DE.tsv",
+      "localKey": "id",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE128660_mmus_hypothalamus_heat/processed/GSE128660_DE.tsv",
+        "sha256": "4f80fffbfdb2a5e9aaeed6a3370f6405c51ebd0b4395036d09094b59b3e85638",
+        "bytes": 3328600
+      },
+      "authorPath": "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/table-s2-hypothalamus.tsv",
+      "sourceUrl": "https://www.ebi.ac.uk/biostudies/files/S-EPMC6902726/fj.201901045R.sd1.xlsx",
+      "sha256": "56d47df31e81e77d76e79fb639b5951970f31c70a945db4b555760466753d9ac",
+      "format": "tsv",
+      "authorKey": "symbol",
+      "authorEffect": "author_log2FC",
+      "authorAdjustedP": "author_padj",
+      "orientationSign": 1,
+      "localMethod": "limma on log2(FPKM + 1)",
+      "authorMethod": "DESeq2 1.16.1 on counts, Table S2 selected HSP genes",
+      "orientation": "Heat-stressed hypothalamus relative to control in both sources, with the original Table S2 signs.",
+      "resultScope": "selected_results",
+      "interpretation": "effects_compared",
+      "note": "Every hypothalamic row of Table S2 is included. The seven matched pairs fall below the v2 minimum. Among these seven, three satisfy the paper’s rule locally and six satisfy local FDR < 0.05. Author raw P is unavailable. The registered analysis and the source panel have different scopes.",
+      "normalizationScript": "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/compare.py",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/sources/biostudies-workbook.xlsx",
+          "sha256": "59988caa3099ac417931eb47ed467795cef084c0b46fe604534c36b027b784d4",
+          "bytes": 198460,
+          "sourceUrl": "https://www.ebi.ac.uk/biostudies/files/S-EPMC6902726/fj.201901045R.sd1.xlsx"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/sources/pmc.html",
+          "sha256": "7b95ddbfcdaca8aae24330196e84818980395bd5442cbd93cab22ea45d95e48f",
+          "bytes": 240130,
+          "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6902726/"
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/compare.py",
+          "sha256": "7c6fa9ea23ce1a1af41ec964fc70afcdc75d8b65521592f44c36a52691181735",
+          "bytes": 12852,
+          "sourceUrl": "Reproducible complete Table S2 tissue-block extraction and registered-output comparison"
+        }
+      ]
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered cohort matched to Table S1, GEO family SOFT and ENA",
+      "value": "8 heat-stressed and 8 control hypothalami",
+      "script": "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Table S2 exact pairing and directional agreement",
+      "value": "7/7 paired, 7/7 nonzero and up in both analyses, 0 unmatched",
+      "script": "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Table S2 effect correlations",
+      "value": "Pearson 0.9534085968, Spearman 0.9285714286",
+      "script": "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Absolute log2 effect differences",
+      "value": "Median 0.1940343549, maximum 1.2922633120 (Hspa1a)",
+      "script": "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Paper-rule calls in S2 at adjusted P < 0.01 and fold-change magnitude > 1.5",
+      "value": "7 author, 3 local, 3 shared (Dnaja4, Dnajb1, Hspa1b)",
+      "script": "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "FDR < 0.05 within seven finite adjusted-P pairs",
+      "value": "7 author, 6 local, 6 shared. Ahsa2 is the exception locally. No paired author raw P.",
+      "script": "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Output coverage and local calls without an S2 row",
+      "value": "7/33,714 published genes paired. Of 72 local FDR calls, 66 lack an S2 row. Of 5 local paper-rule calls, 2 lack an S2 row.",
+      "script": "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Distinct hypothalamic DEG identifiers in GO/KEGG term memberships",
+      "value": "47 Ensembl IDs, 47 matched symbols, 3 local paper-rule calls",
+      "script": "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Agreement in plotted RNA-seq direction by hypothalamic panel",
+      "value": "Figure 4C 3/4 (Ghrh differs near zero), Figure 6B 9/9, Figure S1 10/10. Panels overlap.",
+      "script": "data/author-validation/continued-sources/GSE128660/codex-2026-11-21/compare.py"
+    }
+  ],
+  "openIssues": [
+    "The complete, unfiltered author DESeq2 table with per-gene raw P and adjusted P was unavailable in the sources reviewed. The selected HSP reference has seven numerical effect pairs, below the 30 required for v2 acceptance.",
+    "Which hypothalamic libraries entered the original DESeq2 fit? Table S1 lists sixteen and the manuscript says eight per group, while the GEO processing note says three per group."
+  ]
+}

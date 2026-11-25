@@ -1,0 +1,129 @@
+{
+  "datasetId": "human_hypo_neuron_mkrn3_gse208722",
+  "accession": "GSE208722",
+  "category": "not_located",
+  "closure": "compared",
+  "summary": "Figure 2 identifies 114 distinct genes for the day-30 MKRN3-KO 1 versus WT 1 RNA-seq contrast. All 110 with a registered DE row agree in direction, and 28 meet registered BH FDR < 0.05. Two paired directions come from labeled volcano points and 108 from sample heatmaps alone.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE208722/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "summary": "Registered MKRN3-deficient versus wild-type directions agree for 110 figure-selected genes",
+      "note": "Naulé et al., Figure 2A, B and D–G, supply gene-level evidence for the registered human day-30 RNA-seq contrast. All 110 paired directions agree. NRCAM and SLIT2 have labeled volcano points. The other 108 paired directions come from expression differences between the three knockout and three wild-type differentiations in the heatmaps. Of 114 distinct labels, four lack a registered DE row. Twenty-eight paired genes meet registered BH FDR < 0.05. GEO provides the six sample count files. The three official supplements concern clone or animal experiments, proteomics, protein interactions or laboratory methods. The sources reviewed did not yield the all-gene DESeq2 table.",
+      "reviewFlags": [
+        "The figure selects DE genes. Sample-level heatmap colors cannot establish fitted effect magnitudes or per-gene RNA-seq P and adjusted P values. The full tested universe and discovery overlap remain unassessed.",
+        "SLIT1 maps in the registered feature map but lacks a published DE row. ENSG00000167383, ENSG00000227120 and ENSG00000254818 lack registered symbols. These four author labels are unpaired."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-21",
+      "evidenceLinks": [
+        {
+          "label": "Figure 2, labeled RNA-seq volcano points and sample heatmaps",
+          "url": "https://insight.jci.org/articles/view/164178/figure/2",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO series and sample metadata",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE208722",
+          "kind": "database"
+        },
+        {
+          "label": "Deposited counts for the six differentiations",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE208nnn/GSE208722/suppl/",
+          "kind": "processed_data"
+        },
+        {
+          "label": "PMC full text and RNA-seq methods",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10243807/",
+          "kind": "paper"
+        },
+        {
+          "label": "Complete Europe PMC supplement archive",
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10243807/supplementaryFiles",
+          "kind": "paper"
+        },
+        {
+          "label": "Publisher manuscript, Figure 2 and official supplements",
+          "url": "https://insight.jci.org/articles/view/164178",
+          "kind": "paper"
+        }
+      ],
+      "paperAccess": "publisher_full_text"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "All 110 paired genes in the selected figure panels show the same knockout-minus-wild-type direction as the registered edgeR-QL coefficient. Two have labeled fitted-effect directions. The other 108 were read from the displayed sample groups. The authors designate these genes as DE in their DESeq2 analysis. Twenty-eight meet the registered BH cutoff. A numerical comparison of gene-level author inference or coefficient magnitudes requires the original results.",
+      "nextStep": "For a genome-wide review, obtain the complete DESeq2 results for day-30 MKRN3-KO 1 versus WT 1 with stable gene IDs, log2 fold changes, raw and adjusted P values including missing values, the model design and contrast call, and the filtering and fold-change rule used for Figure 2.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "mkrn3_deficient_vs_wild_type"
+      ],
+      "basis": "Compare all labeled RNA-seq volcano points and all rows in the Figure 2 RNA-seq heatmaps with the sign of the registered edgeR-QL coefficient. Read heatmap directions by comparing mean positions on the panel color key across the labeled KO and WT columns. Count repeated genes once. Read registered BH-adjusted P values directly from GSE208722_DE.tsv.",
+      "reference": "Naulé et al., JCI Insight (PMID 37092553), Figure 2A, B, D, E, F and G. Panel C reports GO enrichment. Panel H measures expression by RT-qPCR across additional clones. The directional RNA-seq comparison uses the published image and RNA-seq legend.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "RNA-seq Methods specify three separate day-30 hiPSC-derived hypothalamic ARC neuron differentiations of each clone, WT 1 and KO 1. The registered samplesheet, GEO family records, count archive and ENA experiment IDs reconcile all six libraries. Replication here is by differentiation within clone."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "The registered case coefficient is MKRN3 deficient minus wild type. The Figure 2A caption establishes higher expression in KO for the labeled points. The condition labels establish direction separately in every heatmap, including the interleaved columns in F."
+        },
+        "features": {
+          "status": "limited",
+          "note": "110 of 114 distinct author labels match unique registered symbols. SLIT1 maps to ENSG00000187122 and has deposited counts but lacks a registered DE row. The feature map marks ENSG00000167383, ENSG00000227120 and ENSG00000254818 as dropped without a symbol. All four remain unpaired."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "All 110 paired directions agree. NRCAM and SLIT2 have labeled author volcano directions. For the other 108 paired genes, the figure supports a difference in the displayed group means. Those heatmap values do not supply fitted DESeq2 coefficients. Magnitudes and coefficient correlations remain unassessed."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "Authors report DESeq2 Wald tests with BH correction and a log2 fold-change cutoff of 1. The registered model uses edgeR-QL with a group coefficient. Of 110 paired author-selected genes, 28 have registered BH FDR < 0.05 and 27 also have absolute registered log2 fold change > 1. Numerical author P values and FDR are unassessed for all 110. The 31 registered discoveries outside the figure have unknown author status."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Figure 2 contains 114 distinct labeled RNA-seq discoveries from the reported 404. Of those labels, 110 pair to the 16,774 published registered rows. Repeated panels add no independent genes. Neither the complete author discovery list nor the tested-gene table was located in the public sources reviewed."
+        }
+      },
+      "criteria": "Use the published panel selections, the fixed KO-minus-WT orientation and every identifiable labeled row. Count unpaired labels separately. Author-concordance-v2 requires at least 30 compatible paired effects, sufficient relevant coverage, and a passing correlation or direction criterion. Heatmap directions lack paired fitted-effect definitions. Only two paired labels give the sign of a fitted author effect.",
+      "conclusion": "The registered directions agree throughout the paired selected reference. The differing inference and absence of full author results limit the conclusion to those directions. This evidence supports a scoped comparison and leaves genome-wide concordance and full verification unassessed."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Distinct author labels and sign agreement with registered output",
+      "value": "114 labels, 110 paired (96.49% of selected labels), 110 agreeing, 4 unpaired. Two paired labeled volcano directions and 108 additional heatmap directions.",
+      "script": "data/author-validation/continued-sources/GSE208722/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Figure panels before deduplication, expressed as agree / paired / labeled",
+      "value": "A 2/2/3, B 47/47/50, D 25/25/25, E 24/24/25, F 15/15/16, G 13/13/13.",
+      "script": "data/author-validation/continued-sources/GSE208722/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Registered inference among figure-selected genes",
+      "value": "28 of 110 paired genes have BH FDR < 0.05, and 27 also have absolute log2 fold change > 1. There are 59 registered discoveries across 16,774 published rows, including 31 discoveries outside the selected reference.",
+      "script": "data/author-validation/continued-sources/GSE208722/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Disposition of unmatched author labels",
+      "value": "SLIT1 has a mapped source feature and no registered DE row. ENSG00000167383, ENSG00000227120 and ENSG00000254818 are marked dropped_no_symbol in the registered feature map.",
+      "script": "data/author-validation/continued-sources/GSE208722/codex-2026-11-21/compare.py"
+    },
+    {
+      "claim": "Deposited sources and paper discovery count",
+      "value": "GEO contains six two-column sample count files of 57,373 rows each and zero series-matrix feature rows. ENA has six read runs and zero study analyses. All three official supplemental objects match byte for byte across JCI, PMC and Europe PMC. The article reports 404 DEGs, 176 higher and 228 lower in KO.",
+      "script": "data/author-validation/continued-sources/GSE208722/codex-2026-11-21/inspect_sources.py"
+    }
+  ],
+  "openIssues": [
+    "The complete day-30 KO 1 versus WT 1 DESeq2 export, tested-gene list, exact per-gene P and adjusted P values, and analysis design and filtering code were unavailable in the reviewed sources.",
+    "Four figure labels have no registered DE row. The heatmaps support expression direction only, so genome-wide effect agreement, discovery overlap and full verification remain unassessed."
+  ]
+}

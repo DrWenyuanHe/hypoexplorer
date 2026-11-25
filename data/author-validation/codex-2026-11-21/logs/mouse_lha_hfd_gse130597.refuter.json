@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_lha_hfd_gse130597",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 21 source files matched their recorded sizes and SHA-256 hashes. All six computations reproduced, including 10,086 chow and 10,108 HFD cells after QC. The no_valid_comparison closure stands: the authors estimated diet effects within cell clusters, while HypoExplorer estimates one mixed-cell effect across mice. The corrected proposal passed validation.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_lha_hfd_gse130597.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_lha_hfd_gse130597.json",
+    "data/author-validation/continued-sources/GSE130597/codex-2026-11-21/refute/recheck.py"
+  ],
+  "openIssues": [
+    "The QC roster is reconstructed. One barcode falls exactly at the 10% mitochondrial cutoff, and a complete author-labelled barcode-to-cluster table was unavailable for direct confirmation.",
+    "Both workbook URLs returned HTTP 403. The earlier ledger records direct inspection. This review confirmed their scope from the authors’ supplementary methods and executed notebook."
+  ]
+}

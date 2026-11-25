@@ -1,0 +1,85 @@
+{
+  "datasetId": "mouse_hypo_akkermansia_gse212491",
+  "accession": "GSE212491",
+  "category": "not_located",
+  "closure": "no_valid_comparison",
+  "summary": "Ha et al. report Akkermansia versus PBS effects within hypothalamic cell types and neuronal subtypes in fructose-fed mice. HypoExplorer estimates the treatment effect after summing all deposited barcodes within each library. The reviewed author results supply no gene-level estimate for that population.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE212491/codex-2026-11-21",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "The GEO input files match the source manifest. The author DE tables cover individual populations, while the registered track combines all deposited cells within each library.",
+      "note": "The retained GEO sample archive and family SOFT match the registered SHA-256 and byte counts. The SOFT record identifies the libraries. The saved GEO landing page is a reCAPTCHA response. Ha et al. link GSE212491 to 12 independent hypothalamus scRNA-seq samples from three mice per arm. The registered fructose comparison uses 25,071 Akkermansia and 22,421 control barcodes across three libraries each. The revised Results report 4,198 AkkF and 3,046 PBSF cells after QC. The four reported arms sum to 13,597, while Figure S2A labels the four-arm UMAP with 19,111 cells. The sample titles establish library identity. The reviewed sources provide no explicit mouse and cage key or barcode list for the author’s post-QC populations.",
+      "reviewFlags": [
+        "The authors estimate treatment effects within each cell population. Concordance and inference for the registered all-cell effect are unassessed.",
+        "The cell totals in the revised Results and Figure S2A require reconciliation. Author post-QC barcode membership and library-to-mouse and cage assignments remain unresolved."
+      ],
+      "reviewedAt": "2026-11-21",
+      "paperAccess": "publisher_full_text",
+      "evidenceLinks": [
+        {
+          "label": "Ha et al., revised bioRxiv preprint",
+          "url": "https://www.biorxiv.org/content/10.1101/2022.09.06.506855v2.full",
+          "kind": "paper"
+        },
+        {
+          "label": "Revised Table S1, cell-type and neuronal-subtype DE",
+          "url": "https://www.biorxiv.org/content/biorxiv/early/2026/05/11/2022.09.06.506855/DC2/embed/media-2.xlsx?download=true",
+          "kind": "author_result"
+        },
+        {
+          "label": "Revised supplementary figures, including Figure S2",
+          "url": "https://www.biorxiv.org/content/biorxiv/early/2026/05/11/2022.09.06.506855/DC1/embed/media-1.pdf?download=true",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO family SOFT, series and sample metadata",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE212nnn/GSE212491/soft/GSE212491_family.soft.gz",
+          "kind": "processed_data"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "Both preprint versions compare AkkF with PBSF within cell populations. Revised Table S1 lists avg_log2FC, raw P and Bonferroni-adjusted P for selected genes. The authors used Wilcoxon tests for major cell types and Poisson regression for neuronal subtypes. Figure S2C also shows effects by cell type. The registered edgeR quasi-likelihood coefficient measures the treatment effect across library-level sums of all deposited cell counts. The reviewed materials supply no author coefficient at that scope. Averaging the cell-type log fold changes would estimate a different quantity.",
+      "nextStep": "Reopen if the authors provide gene-level AkkF versus PBSF effects across the fructose libraries with documented cell inclusion, library membership, identifiers and effect definition. Raw and adjusted P values would also permit an inference comparison.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Deposited barcodes in the registered fructose-arm pseudobulk",
+      "value": "25,071 across 3 AkkF libraries and 22,421 across 3 control libraries, totaling 47,492.",
+      "script": "data/author-validation/continued-sources/GSE212491/codex-2026-11-21/refute/independent_audit.py"
+    },
+    {
+      "claim": "Distinct symbols in the registered edgeR-QL table",
+      "value": "15,564 distinct symbols in 15,564 rows.",
+      "script": "data/author-validation/continued-sources/GSE212491/codex-2026-11-21/refute/independent_audit.py"
+    },
+    {
+      "claim": "Fructose-arm cells reported after QC in the revised Results",
+      "value": "4,198 AkkF + 3,046 PBSF = 7,244. The reported four-arm sum is 13,597. Barcode membership was unavailable for verification.",
+      "script": "data/author-validation/continued-sources/GSE212491/codex-2026-11-21/refute/independent_audit.py"
+    },
+    {
+      "claim": "Revised Table S1 scope",
+      "value": "23 worksheets and 13,819 listed population-specific effects, including 7,347 fructose rows (3,129 major cell-type and 4,218 neuronal-subtype rows). Ten subtype rows, six from the fructose comparison, contain numeric gene identifiers of unresolved identity. All listed rows contributed to the counts.",
+      "script": "data/author-validation/continued-sources/GSE212491/codex-2026-11-21/refute/independent_audit.py"
+    },
+    {
+      "claim": "GEO sample supplements inventoried",
+      "value": "12 nested archives, each containing a count matrix, a gene-symbol list and a barcode list. All 12 matrices contain the declared number of coordinate records.",
+      "script": "data/author-validation/continued-sources/GSE212491/codex-2026-11-21/refute/independent_audit.py"
+    }
+  ],
+  "openIssues": [
+    "A gene-level author estimate across all deposited cells in the fructose libraries was not found in the reviewed sources.",
+    "The RNA-seq libraries lack an explicit public mouse and cage key. The barcode membership underlying the revised Results and Figure S2A is unresolved.",
+    "Ten numeric entries in the neuronal-subtype gene field lack verified symbol assignments."
+  ]
+}

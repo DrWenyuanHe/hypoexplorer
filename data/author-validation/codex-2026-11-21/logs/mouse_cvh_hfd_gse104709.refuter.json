@@ -1,0 +1,16 @@
+{
+  "datasetId": "mouse_cvh_hfd_gse104709",
+  "outcome": "upheld_with_corrections",
+  "summary": "The selected-results comparison holds. All 14 plotted genes agree in direction, and only Trh and Npy among the eight genes with published chronic-diet q-values pass registered BH FDR < 0.05. The proposal overstated a contradiction: the high-filter methods share five chronic discoveries and six genes across all tests, consistent with the paper’s summary. All 50 source hashes and sizes matched. One saved GEO page was a reCAPTCHA challenge, and the three authenticated GEO downloads supported the analysis. The corrected proposal passed validation. [Published Table 2](https://doi.org/10.1371/journal.pone.0196743.t002)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_cvh_hfd_gse104709.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_cvh_hfd_gse104709.json",
+    "data/author-validation/continued-sources/GSE104709/codex-2026-11-21/refute/audit.py"
+  ],
+  "openIssues": [
+    "The local QC summary reports 278 discoveries. The registered DE table and gene-level bundle agree on 13.",
+    "Eight supplemental panel assignments are inferred. All 12 chronic Tukey comparisons reproduce, but the Tk1 omnibus statistic and two comparisons involving switch arms differ.",
+    "Genome-wide author coefficients and inference remain unavailable in the reviewed sources. The 14 selected directions fall below the 30-pair concordance minimum.",
+    "Dryad identifies all 20 mice in the ten registered pools. The registry and sample sheet still describe individual pool membership as unavailable."
+  ]
+}

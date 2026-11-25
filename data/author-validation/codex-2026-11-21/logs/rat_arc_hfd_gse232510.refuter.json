@@ -1,0 +1,14 @@
+{
+  "datasetId": "rat_arc_hfd_gse232510",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 24 source files matched their recorded hashes and sizes, and all eight computations reproduced. Directions agreed for 402 of 406 paired genes. Four of six registered count profiles matched Table S1, but two matches carried conflicting FASTQ numbers. The needs_author_contact closure stands. The corrected proposal passed validation and documents the checksum scope, species discrepancy, cage history, and limits of the author comparison.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/rat_arc_hfd_gse232510.json",
+    "data/author-validation/codex-2026-11-21/corrected/rat_arc_hfd_gse232510.json",
+    "data/author-validation/continued-sources/GSE232510/codex-2026-11-21/refute/recheck.py"
+  ],
+  "openIssues": [
+    "The authors’ sample key and DESeq2 inputs are needed to reconcile the FASTQ numbers, Table S1 columns, animal and cage assignments, and deposited species label.",
+    "Table S1 contains 431 selected genes. The remaining author effects and significance calls are unavailable for comparison."
+  ]
+}

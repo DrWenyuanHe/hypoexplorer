@@ -1,0 +1,16 @@
+{
+  "datasetId": "mouse_sst_neuron_sex_gse224254",
+  "outcome": "upheld_with_corrections",
+  "summary": "The `compared` closure is justified. All 147 source files matched their recorded sizes and SHA-256 hashes. A fresh DESeq2 replay reproduced all 505 positive gene IDs, their directions and all 24,909 reported means at printed precision. Registered edgeR shared 23 of its 25 calls with the authors and failed both concordance thresholds. The corrected proposal documents the 2,127 unmapped transcript targets and the Washc3 effect that rounds to zero in the explorer. It passed the proposal validator.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_sst_neuron_sex_gse224254.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_sst_neuron_sex_gse224254.json",
+    "data/author-validation/continued-sources/GSE224254/codex-2026-11-21/refute/check_sources.py",
+    "data/author-validation/continued-sources/GSE224254/codex-2026-11-21/refute/check_comparison.py",
+    "data/author-validation/continued-sources/GSE224254/codex-2026-11-21/refute/rerun.py"
+  ],
+  "openIssues": [
+    "Release 104 reproduces the reported means and calls. The original Galaxy job and annotation checksum remain unidentified.",
+    "Raw-P availability differs for Cd22, Gm3298 and Gm10045. Adjusted-P availability differs for Cd22, and some finite coefficients and P values also differ."
+  ]
+}

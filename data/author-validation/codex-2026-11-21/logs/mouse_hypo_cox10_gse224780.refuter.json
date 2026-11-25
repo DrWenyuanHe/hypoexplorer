@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_hypo_cox10_gse224780",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 50 manifest entries matched their recorded SHA-256 and size, and all six computed claims reproduced. Figure S7D shows increases for Agrp and Npy of approximately +1.79 and +1.13 log2 fold change, compared with +1.746 and +1.128 in the registered output. The corrected proposal records the paper’s general two-sided, unpaired t-test and limits agreement to those two genes. It passed the ledger validator. [Published study](https://link.springer.com/article/10.15252/emmm.202216951)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-21/verdicts/mouse_hypo_cox10_gse224780.json",
+    "data/author-validation/codex-2026-11-21/corrected/mouse_hypo_cox10_gse224780.json",
+    "data/author-validation/continued-sources/GSE224780/codex-2026-11-21/refute/verify.py"
+  ],
+  "openIssues": [
+    "The S7D legend reports six per genotype. GEO and ENA identify four hypothalamic libraries per genotype. The reviewed sources do not explain what the six observations counted or map them to individual mice.",
+    "The exact S7D P values, adjustment status, and full hypothalamic author results remain unavailable in the reviewed sources. Two paired genes fall below the 30-pair concordance minimum."
+  ]
+}

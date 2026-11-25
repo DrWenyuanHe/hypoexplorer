@@ -1,5 +1,6 @@
 import { useState, useRef, useMemo, useCallback, useEffect, useId } from 'react';
 import type { MouseEvent, ReactNode } from 'react';
+import { flushSync } from 'react-dom';
 import { fmtCutoff, fmtP, fmtFDR } from '../utils/format';
 import { groupLabels } from '../utils/sampleValues';
 import { niceTicks } from '../utils/axes';
@@ -30,8 +31,17 @@ const NARROW_PLOT = 600;
 const GRID_CELL = 40; // spatial index cell size in SVG px
 const HIT_RADIUS_SQ = 28 * 28;
 
-type Tooltip = (VolcanoPoint & { mx: number; my: number }) | null;
+// `dx`/`dy` is the pointer's offset from the point, so the tooltip moves with
+// the point when the plot resizes. `source` is the point list it was read from.
+// `held` is where a click left the pointer.
+interface PointerAt { clientX: number; clientY: number }
+type Tooltip = (VolcanoPoint & { dx: number; dy: number; source: VolcanoPoint[]; held?: PointerAt }) | null;
 interface PlacedPoint { pt: VolcanoPoint; px: number; py: number }
+
+// Whether the pointer is still where a click left it, to the pixel: a click
+// reports whole pixels, a pointer move may report fractions.
+const isHeld = (tooltip: Tooltip, at: PointerAt): boolean => !!tooltip?.held
+  && Math.abs(tooltip.held.clientX - at.clientX) < 1 && Math.abs(tooltip.held.clientY - at.clientY) < 1;
 
 interface VolcanoPlotProps {
   selectedGenes: string[];
@@ -272,33 +282,73 @@ export function VolcanoPlot({
     // Spatial-index hit test: inspect only the 9 grid cells around the mouse.
     const gx = Math.floor(mx / GRID_CELL);
     const gy = Math.floor(my / GRID_CELL);
-    let best: VolcanoPoint | null = null, bestD = HIT_RADIUS_SQ;
+    let best: PlacedPoint | null = null, bestD = HIT_RADIUS_SQ;
     for (let dx = -1; dx <= 1; dx++) {
       for (let dy = -1; dy <= 1; dy++) {
         const cell = grid.get(`${gx + dx}:${gy + dy}`);
         if (!cell) continue;
-        for (const { pt, px, py } of cell) {
-          const d = (mx - px) ** 2 + (my - py) ** 2;
-          if (d < bestD) { bestD = d; best = pt; }
+        for (const placed of cell) {
+          const d = (mx - placed.px) ** 2 + (my - placed.py) ** 2;
+          if (d < bestD) { bestD = d; best = placed; }
         }
       }
     }
-    return best ? { mx, my, ...best } : null;
-  }, [M, chartW, chartH, grid]);
+    return best ? { ...best.pt, dx: mx - best.px, dy: my - best.py, source: popData.volcanoPts } : null;
+  }, [M, chartW, chartH, grid, popData.volcanoPts]);
 
   const handleMouseMove = useCallback((e: MouseEvent<SVGSVGElement>) => {
+    if (isHeld(tooltip, e)) return;
     const now = Date.now();
     if (now - lastMove.current < 30) return;
     lastMove.current = now;
     setTooltip(pointAt(e));
-  }, [pointAt]);
+  }, [pointAt, tooltip]);
 
   // Touch clicks have no preceding hover; always hit-test the actual tap.
+  // Selecting a gene can add or grow a row above the plot (the host's selection
+  // strip). Where the page scrolls, it scrolls by as much, so the plot stays
+  // where the reader tapped it; a desktop plot fills a fixed-height view and
+  // gives up the height instead, which no scroll can undo.
   const handleClick = useCallback((e: MouseEvent<SVGSVGElement>) => {
     const point = pointAt(e);
-    setTooltip(point);
-    if (point) onAddGene(point.gene);
+    const svg = e.currentTarget;
+    const top = svg.getBoundingClientRect().top;
+    flushSync(() => {
+      setTooltip(point && { ...point, held: { clientX: e.clientX, clientY: e.clientY } });
+      if (point) onAddGene(point.gene);
+    });
+    const shift = svg.getBoundingClientRect().top - top;
+    if (shift !== 0) window.scrollBy({ top: shift, behavior: 'instant' });
   }, [pointAt, onAddGene]);
+
+  // A layout change makes the browser work out again what its mouse is over. It
+  // can then report a move at the click's own place, or a leave at wherever the
+  // mouse last was, which after a tap is not where the finger was. Neither is
+  // the reader leaving, so a clicked point's tooltip ignores both. It closes at
+  // the next real move or press elsewhere on the page; a move inside the plot
+  // returns it to following the pointer.
+  useEffect(() => {
+    if (!tooltip?.held) return;
+    const onPointer = (e: PointerEvent) => {
+      if (containerRef.current?.contains(e.target as Node)) return;
+      if (e.type === 'pointerdown' || !isHeld(tooltip, e)) setTooltip(null);
+    };
+    document.addEventListener('pointermove', onPointer);
+    document.addEventListener('pointerdown', onPointer);
+    return () => {
+      document.removeEventListener('pointermove', onPointer);
+      document.removeEventListener('pointerdown', onPointer);
+    };
+  }, [tooltip]);
+
+  // A new track or contrast replaces the points, and the old tooltip would state
+  // another comparison's figures. Compared by value, because a track's
+  // late-loading pathways rebuild the same points.
+  if (tooltip && tooltip.source !== popData.volcanoPts) {
+    const unchanged = popData.volcanoPts.some((pt) => pt.gene === tooltip.gene
+      && pt.logfc === tooltip.logfc && pt.pval === tooltip.pval && pt.fdr === tooltip.fdr);
+    setTooltip(unchanged ? { ...tooltip, source: popData.volcanoPts } : null);
+  }
 
   const xTicks = niceTicks(xMin, xMax, 8);
   const yTicks = niceTicks(0, yDomMax, 5);
@@ -496,7 +546,7 @@ export function VolcanoPlot({
           aria-label="Volcano plot of differential expression"
           aria-description="Selected genes are purple diamonds with white outlines; upregulated genes are red circles and downregulated genes are blue circles."
           onMouseMove={handleMouseMove}
-          onMouseLeave={() => setTooltip(null)}
+          onMouseLeave={() => { if (!tooltip?.held) setTooltip(null); }}
           onClick={handleClick}
           style={{ position: 'absolute', top: 0, left: 0, cursor: tooltip ? 'pointer' : 'crosshair', display: 'block' }}
         >
@@ -561,8 +611,10 @@ export function VolcanoPlot({
 
           {/* Tooltip */}
           {tooltip && (() => {
-            const tx = tooltip.mx > svgSize.w * 0.6 ? tooltip.mx - 210 : tooltip.mx + 12;
-            const ty = Math.max(M.top, Math.min(tooltip.my - 40, svgSize.h - 90));
+            const mx = toSvgX(tooltip.logfc) + tooltip.dx;
+            const my = toSvgY(volcanoMetric === 'pval' ? tooltip.yPval : tooltip.yFdr) + tooltip.dy;
+            const tx = mx > svgSize.w * 0.6 ? mx - 210 : mx + 12;
+            const ty = Math.max(M.top, Math.min(my - 40, svgSize.h - 90));
             return (
               <g>
                 <rect x={tx} y={ty} width={200} height={80} fill="white" stroke="var(--border-dark)" strokeWidth={1} rx={3} />
