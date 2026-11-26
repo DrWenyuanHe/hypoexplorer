@@ -14,6 +14,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { lazyView, ViewLoading } from '../common/lazyView';
+import { useLoad } from '../common/useLoad';
 import { barGeometry, type SurveyScope } from '../expression-survey/expressionSurvey';
 import { dirGlyph, directionTextColor } from '../statistics/direction';
 import { DEFAULT_FDR_CUTOFF, type SignificanceTier } from '../statistics/policy';
@@ -31,23 +32,6 @@ import type { Dataset, Direction, ExpressionSource } from '../types';
 import './search.css';
 import { Coexpression } from './hypomap/Coexpression';
 import { HypoMapPreview } from './hypomap/HypoMapPreview';
-
-// ── Small async helper ──────────────────────────────────────────────────────
-
-type Load<T> = { state: 'loading' } | { state: 'done'; value: T };
-
-/** Run `load` whenever `key` changes; stale answers for an older key are dropped. */
-export function useLoad<T>(key: string, load: (key: string) => Promise<T>): Load<T> {
-  const [result, setResult] = useState<{ key: string; value: T } | null>(null);
-  const loadRef = useRef(load);
-  loadRef.current = load;
-  useEffect(() => {
-    let live = true;
-    loadRef.current(key).then((value) => { if (live) setResult({ key, value }); });
-    return () => { live = false; };
-  }, [key]);
-  return result && result.key === key ? { state: 'done', value: result.value } : { state: 'loading' };
-}
 
 // ── Formatting ─────────────────────────────────────────────────────────────
 
@@ -124,9 +108,6 @@ function cellFill(nes: number): { background: string; color: string } {
   };
 }
 
-/** Never settles: a card whose study selection is not decided yet stays loading. */
-const PENDING = new Promise<never>(() => {});
-
 export function ConditionPathwaysSection({ symbol, studies, onShowPathway, onOpenPathway }: {
   symbol: string;
   /** Follow only these studies' conditions; omitted, every indexed study. null while still being decided. */
@@ -134,14 +115,16 @@ export function ConditionPathwaysSection({ symbol, studies, onShowPathway, onOpe
   onShowPathway: (pathwayId: string) => void;
   onOpenPathway: (pathwayId: string) => void;
 }) {
-  const key = studies === null ? '' : `${symbol}\u0000${studies ? studies.map((d) => d.id).sort().join(',') : '*'}`;
-  const load = useLoad(key, (k) => (k ? loadConditionPathways(symbol, studies ?? undefined) : PENDING));
+  // A study selection still being decided loads nothing yet (idle) and shows as loading.
+  const key = studies === null ? null : `${symbol}\u0000${studies ? studies.map((d) => d.id).sort().join(',') : '*'}`;
+  const load = useLoad(key, () => loadConditionPathways(symbol, studies ?? undefined));
   const [expanded, setExpanded] = useState(false);
-  const data = load.state === 'done' ? load.value : null;
+  const data = load.state === 'loaded' ? load.value : null;
 
   // An index without the track-pathways family (or one that cannot answer for
-  // these studies) keeps the reserved slot, so the layout does not change.
-  if (load.state === 'done' && !data) {
+  // these studies, or a load that failed) keeps the reserved slot, so the
+  // layout does not change.
+  if ((load.state === 'loaded' && !data) || load.state === 'failed') {
     return (
       <PlaceholderSlot slot="condition-pathways" title={PLACEHOLDER_TITLE} wide>
         The pathways enriched in the studies and conditions where {symbol} changes.
@@ -382,8 +365,8 @@ function LevelBars({ levels, top, unit, gene }: { levels: ReferenceLevel[]; top:
 }
 
 export function BaselineSection({ symbol }: { symbol: string }) {
-  const load = useLoad<BaselineTeaser | null>(symbol, loadBaselineTeaser);
-  const teaser = load.state === 'done' ? load.value : null;
+  const load = useLoad<BaselineTeaser | null>(symbol, () => loadBaselineTeaser(symbol));
+  const teaser = load.state === 'loaded' ? load.value : null;
   return (
     <section className="portal-source" data-section="baseline-expression" aria-labelledby="portal-baseline-title">
       <SourceTitle id="portal-baseline-title" name="NeuroSeq" method="sorted populations · TPM" />
@@ -439,8 +422,8 @@ export function speciesPhrase(species: readonly string[]): string {
 
 /** The study-library populations, or the animal tissue sources: each source's highest cohort mean. */
 export function FamilySection({ symbol, family }: { symbol: string; family: SourceFamily }) {
-  const load = useLoad<FamilyTeaser | null>(symbol, (key) => loadFamilyTeaser(key, family));
-  const teaser = load.state === 'done' ? load.value : null;
+  const load = useLoad<FamilyTeaser | null>(`${family}:${symbol}`, () => loadFamilyTeaser(symbol, family));
+  const teaser = load.state === 'loaded' ? load.value : null;
   const text = FAMILY_TEXT[family];
   const titleId = `portal-family-${family}`;
   // The tissue tile names the species its sources come from, not a fixed list.
@@ -619,8 +602,8 @@ function matchedGene(atlases: ReferenceAtlases | null, symbol: string): string |
  * load serves every atlas; a provider that fails leaves only its own tile empty.
  */
 export function ReferenceAtlasSection({ symbol, nav }: { symbol: string; nav?: TileOpen }) {
-  const load = useLoad<ReferenceAtlases | null>(symbol, loadReferenceAtlases);
-  const atlases = load.state === 'done' ? load.value : null;
+  const load = useLoad<ReferenceAtlases | null>(symbol, () => loadReferenceAtlases(symbol));
+  const atlases = load.state === 'loaded' ? load.value : null;
   const human = matchedGene(atlases, symbol);
   return (
     <section className="gene-expr-row" data-section="reference-atlases" aria-labelledby="portal-ref-title">
