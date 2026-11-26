@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "80883d0147a407fe5d33318d642a843b3accd66df7cf70cf9c660cf160a87e1d",
+  "fingerprint": "656b34e3edbc92d1774fa8d92d98f9ff28d995bb1818616a0f023e83370142a3",
   "outcome": "updated",
-  "explanation": "forestReport.test.tsx imports contrastLabel from data/contrasts, where it now lives; the test itself is unchanged. contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. The gene and pathway report tests and the listing toggle test now open the (?) help beside the listing toggle to find the FDR, q and p < 0.05 only explanation, instead of reading it from a paragraph or a focusable legend abbr; row q cells keep their hover title.",
+  "explanation": "Merges main (#97, #98) into the changelog fix. From main: forestReport.test.tsx imports contrastLabel from data/contrasts, where it now lives; the gene and pathway report tests and the listing toggle test open the (?) help beside the listing toggle to find the FDR, q and p < 0.05 only explanation, and row q cells keep their hover title. From this branch: changelogVisit.test.tsx opens the changelog in the explorer, goes Home and enters through the hub's Quality control link, and requires the QC tab with no release notes; a second case follows a refused saved-analysis link and then a valid QC link; a third pins the hub's Changelog link still opening it. The first two failed before their fixes.",
   "references": [
+    "src/__tests__/changelogVisit.test.tsx",
     "src/__tests__/forestReport.test.tsx",
-    "src/data/contrasts.ts",
     "src/__tests__/geneReport.test.tsx",
     "src/__tests__/pathwayReportResults.test.tsx",
     "src/__tests__/listingModeToggle.test.tsx"
