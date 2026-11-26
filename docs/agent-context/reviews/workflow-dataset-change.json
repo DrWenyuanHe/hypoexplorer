@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "4b838bf259e682bac81aae35f17739a9af2bb8d7a3d2044b2f9cf46e56708838",
+  "fingerprint": "4ad384bbec855e110980f6237074d8765543518ea87bba7a8a5ecc7e2ee18a49",
   "outcome": "no-impact",
-  "explanation": "No dataset workflow change. From main, explorerStore.ts changes only its header comment (the active dataset and track are the explorer position held by useExplorer.ts). From this branch, the HypoMap atlas adds no registry entry, bundle or query index; its build is documented in data/hypomap/README.md.",
+  "explanation": "Merges main: contrastLabel moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts. No dataset workflow change. From main, explorerStore.ts changes only its header comment (the active dataset and track are the explorer position held by useExplorer.ts). From this branch, the HypoMap atlas adds no registry entry, bundle or query index; its build is documented in data/hypomap/README.md.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/data/explorerStore.ts",
-    "data/hypomap/README.md"
+    "data/hypomap/README.md",
+    "src/data/contrasts.ts"
   ]
 }

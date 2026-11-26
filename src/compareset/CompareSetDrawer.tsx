@@ -12,7 +12,7 @@ import { Modal } from '../common/Modal';
 import { DATASET_CATEGORIES } from '../data/datasetCategories';
 import { getDataset } from '../data/datasets';
 import { getActiveContrast } from '../data/contrasts';
-import { contrastLabel } from '../crossdataset/forestReport';
+import { contrastLabel } from '../data/contrasts';
 import { FONT_MONO } from '../styles/constants';
 import { COMPARE_SET_MAX, clear, removeItem, type CompareSetItem } from './compareSetStore';
 import type { Dataset } from '../types';

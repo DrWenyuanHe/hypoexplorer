@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (270):
+Covered source files (273):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -74,6 +74,7 @@ Covered source files (270):
 - [src/__tests__/authorValidationAudit.test.ts](<../../../src/__tests__/authorValidationAudit.test.ts>)
 - [src/__tests__/authorValidationBuilderSourceGate.test.ts](<../../../src/__tests__/authorValidationBuilderSourceGate.test.ts>)
 - [src/__tests__/authorValidationFollowups.test.ts](<../../../src/__tests__/authorValidationFollowups.test.ts>)
+- [src/__tests__/authorValidationFreshness.test.ts](<../../../src/__tests__/authorValidationFreshness.test.ts>)
 - [src/__tests__/authorValidationPanel.test.tsx](<../../../src/__tests__/authorValidationPanel.test.tsx>)
 - [src/__tests__/authorValidationSummary.test.tsx](<../../../src/__tests__/authorValidationSummary.test.tsx>)
 - [src/__tests__/authorVerification.test.tsx](<../../../src/__tests__/authorVerification.test.tsx>)
@@ -81,6 +82,7 @@ Covered source files (270):
 - [src/__tests__/barSEMChart.test.tsx](<../../../src/__tests__/barSEMChart.test.tsx>)
 - [src/__tests__/barSEMChartScale.test.tsx](<../../../src/__tests__/barSEMChartScale.test.tsx>)
 - [src/__tests__/baselineTeaser.test.ts](<../../../src/__tests__/baselineTeaser.test.ts>)
+- [src/__tests__/bootLinkLoads.test.tsx](<../../../src/__tests__/bootLinkLoads.test.tsx>)
 - [src/__tests__/brand.test.tsx](<../../../src/__tests__/brand.test.tsx>)
 - [src/__tests__/browseArmCounts.test.ts](<../../../src/__tests__/browseArmCounts.test.ts>)
 - [src/__tests__/buildPopData.test.ts](<../../../src/__tests__/buildPopData.test.ts>)
@@ -268,6 +270,7 @@ Covered source files (270):
 - [src/__tests__/rhythmicity.test.ts](<../../../src/__tests__/rhythmicity.test.ts>)
 - [src/__tests__/routeLanding.test.ts](<../../../src/__tests__/routeLanding.test.ts>)
 - [src/__tests__/routeLandingRegressions.test.tsx](<../../../src/__tests__/routeLandingRegressions.test.tsx>)
+- [src/__tests__/routeRoundTrip.test.ts](<../../../src/__tests__/routeRoundTrip.test.ts>)
 - [src/__tests__/sampleValues.test.ts](<../../../src/__tests__/sampleValues.test.ts>)
 - [src/__tests__/seRecovery.test.ts](<../../../src/__tests__/seRecovery.test.ts>)
 - [src/__tests__/sealedEvidenceProjection.test.ts](<../../../src/__tests__/sealedEvidenceProjection.test.ts>)
@@ -383,7 +386,7 @@ Start here:
 - [src/common/BrandLink.tsx](<../../../src/common/BrandLink.tsx>)
 - [brand/README.md](<../../../brand/README.md>)
 
-Covered source files (37):
+Covered source files (39):
 - [src/common/AuthorValidation.tsx](<../../../src/common/AuthorValidation.tsx>)
 - [src/common/BrandLink.tsx](<../../../src/common/BrandLink.tsx>)
 - [src/common/CellSelectorPopup.tsx](<../../../src/common/CellSelectorPopup.tsx>)
@@ -395,6 +398,7 @@ Covered source files (37):
 - [src/common/ExportButton.tsx](<../../../src/common/ExportButton.tsx>)
 - [src/common/GeneListTools.tsx](<../../../src/common/GeneListTools.tsx>)
 - [src/common/GenePicker.tsx](<../../../src/common/GenePicker.tsx>)
+- [src/common/HelpTip.tsx](<../../../src/common/HelpTip.tsx>)
 - [src/common/LoadingOverlay.tsx](<../../../src/common/LoadingOverlay.tsx>)
 - [src/common/Modal.tsx](<../../../src/common/Modal.tsx>)
 - [src/common/PageShell.tsx](<../../../src/common/PageShell.tsx>)
@@ -413,6 +417,7 @@ Covered source files (37):
 - [src/common/brand.ts](<../../../src/common/brand.ts>)
 - [src/common/chartScaleStore.ts](<../../../src/common/chartScaleStore.ts>)
 - [src/common/headerControl.css](<../../../src/common/headerControl.css>)
+- [src/common/helpTip.css](<../../../src/common/helpTip.css>)
 - [src/common/lazyView.tsx](<../../../src/common/lazyView.tsx>)
 - [src/common/prose.css](<../../../src/common/prose.css>)
 - [src/common/prose.tsx](<../../../src/common/prose.tsx>)

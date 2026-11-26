@@ -9,6 +9,7 @@ import type { CSSProperties, ReactNode } from 'react';
 import { DEFAULT_FDR_CUTOFF, NOMINAL_P_CUTOFF } from './policy';
 import { setListingMode, useListingMode, type ListingMode } from './listingModeStore';
 import { nominalCaveat } from './listingWords';
+import { HelpTip } from '../common/HelpTip';
 import './listingMode.css';
 
 /**
@@ -46,7 +47,28 @@ const OPTIONS: ReadonlyArray<{ value: ListingMode; label: string; title: string 
   },
 ];
 
-export function ListingModeToggle({ style }: { style?: CSSProperties }) {
+/**
+ * What the two listings mean, behind the toggle's (?) so the reports need no
+ * paragraph about it. `kind` names what a nominal result is not corrected for.
+ */
+export function SignificanceHelp({ kind }: { kind?: 'gene' | 'pathway' }) {
+  return (
+    <>
+      <p>
+        <b>FDR (q &lt; {DEFAULT_FDR_CUTOFF})</b> lists only the tracks that pass the false-discovery-rate cutoff.
+        {' '}{Q_EXPLANATION}
+      </p>
+      <p>
+        <b>p &lt; {NOMINAL_P_CUTOFF}</b> also lists tracks whose raw p-value is below {NOMINAL_P_CUTOFF} but
+        that do not pass FDR. They follow the FDR results, marked <i>p &lt; {NOMINAL_P_CUTOFF} only</i>, and
+        are {nominalCaveat(kind)}
+      </p>
+      <p>Counts of significant tracks always use FDR, whichever listing is shown.</p>
+    </>
+  );
+}
+
+export function ListingModeToggle({ style, kind }: { style?: CSSProperties; kind?: 'gene' | 'pathway' }) {
   const mode = useListingMode();
   return (
     <div className="listing-mode" style={style}>
@@ -69,6 +91,9 @@ export function ListingModeToggle({ style }: { style?: CSSProperties }) {
           </button>
         ))}
       </fieldset>
+      <HelpTip label={`About FDR and p < ${NOMINAL_P_CUTOFF}`}>
+        <SignificanceHelp kind={kind} />
+      </HelpTip>
     </div>
   );
 }

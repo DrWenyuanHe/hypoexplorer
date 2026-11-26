@@ -70,7 +70,7 @@ function AppViews({ initialView = 'hub' }: AppProps) {
     openLibrary, setLibraryDataset, setLibraryCategories, libraryDatasetId, libraryCategories,
     compareSetItems, openCompareSet, setCompareSetItems,
     geneStudySelection, pathwayStudySelection, setGeneStudySelection, setPathwayStudySelection,
-    searchQuery, searchFilter, search, setSearchFilter, supersede,
+    searchQuery, searchFilter, search, setSearchFilter, supersede, routePending,
   } = useAppRouter(initialView, explorer.nav, explorer.at);
 
   // The explorer screen's own controls are user-originated changes the router
@@ -125,8 +125,19 @@ function AppViews({ initialView = 'hub' }: AppProps) {
   // depends on which load is started last). Skipped on the hub so the landing
   // page still touches no bundle; `showActiveTrack` skips Compare, which has no
   // bundle of its own (CompareTab lazy-loads the populations the user selects).
+  //
+  // Held while a route is still landing (`routePending`): the explorer is not
+  // where the link puts it yet. It starts on the default dataset, so loading
+  // its active track meanwhile fetched the macaque default track (409 KB
+  // compressed, plus its 192 KB pathway sibling) on every cold link to another
+  // study, or to another macaque track, and never showed it. When the landing
+  // settles, the landing's own intent loads its track and this runs again; a
+  // refused link moves nothing, so the explorer it leaves behind is the one
+  // the app started with. A link refused only after its check leaves the view
+  // on the explorer behind the error page (`routeError`); nothing is shown
+  // there, so nothing loads until the user leaves the error page.
   useEffect(() => {
-    if (view !== 'explorer') return;
+    if (view !== 'explorer' || routePending || routeError) return;
     // Warm the recharts chunk alongside the track. Both are needed to draw a
     // gene's bars, and neither is needed on the hub — starting the download here
     // overlaps it with the user picking a gene instead of stalling once they
@@ -138,7 +149,7 @@ function AppViews({ initialView = 'hub' }: AppProps) {
     // failure when one actually mounts.
     preloadBarSEMChart().catch(() => { /* chart chunk warms on demand instead */ });
     showActiveTrack();
-  }, [view, showActiveTrack]);
+  }, [view, routePending, routeError, showActiveTrack]);
 
   // Warm the view a visitor most likely opens next, once the current one has
   // painted and the main thread is idle: the hub's search box submits to the

@@ -84,7 +84,9 @@ describe('pathway result study cards', () => {
     await screen.findByText(macaque.name);
     // The headline count stays FDR; the nominal track is counted beside it.
     expect(container.textContent).toMatch(/Enriched \(FDR < 0\.05\) in 2 of 6 tracks\. .* 1 more track reaches p < 0\.05 only\./);
-    expect(container.textContent).toMatch(/Tracks marked p < 0\.05 only do not pass FDR/);
+    expect(container.textContent).not.toMatch(/do not pass FDR/);
+    fireEvent.click(screen.getByRole('button', { name: 'About FDR and p < 0.05' }));
+    expect(screen.getByRole('tooltip')).toHaveTextContent(/not corrected for testing many pathways and tracks/);
     expect(container.textContent).toContain('5 tracks · 1 significant · 1 at p < 0.05 only');
     const rows = [...container.querySelectorAll<HTMLElement>('.report-forest-row')];
     const macaqueRows = rows.filter((r) => r.closest('.report-dataset')?.textContent?.includes(macaque.name));
@@ -113,9 +115,8 @@ describe('pathway result study cards', () => {
     expect(screen.queryByTitle('Open e1 in the pathway explorer')).toBeNull();
     expect(container.textContent).not.toMatch(/p < 0\.05 only/);
     expect(screen.getByRole('button', { name: /Show all 5 tracks \(4 not significant\)/ })).toBeTruthy();
-    const legend = [...container.querySelectorAll('abbr')].find((a) => a.getAttribute('tabindex') === '0') as HTMLElement;
-    expect(legend.textContent).toBe('FDR');
-    expect(legend.title).toMatch(/FDR-adjusted p-value/);
+    fireEvent.focus(screen.getByRole('button', { name: 'About FDR and p < 0.05' }));
+    expect(screen.getByRole('tooltip')).toHaveTextContent(/FDR-adjusted p-value/);
   });
 
   it('lists the FDR survivors first in FDR mode, even under "Show all" beside a larger non-significant score', async () => {

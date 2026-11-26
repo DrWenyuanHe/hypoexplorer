@@ -10,6 +10,7 @@ import { useState, useMemo } from 'react';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
 import { queryPathwayAcrossDatasets, loadPathwayIndex } from '../data/crossDataset';
 import { datasetCategory, DATASET_CATEGORIES } from '../data/datasets';
+import { contrastLabel } from '../data/contrasts';
 import { datasetHref, libraryHref } from '../utils/appLinks';
 import { CompareSetToggle } from '../compareset/CompareSetToggle';
 import { toggleItem, useCompareSet } from '../compareset/compareSetStore';
@@ -19,9 +20,9 @@ import type { DatasetCategory } from '../data/datasets';
 import { fmtP, fmtFDR, fmtSigned } from '../utils/format';
 import { FONT_MONO } from '../styles/constants';
 import { directionTextColor } from '../statistics/direction';
-import { leadingTracks, nominalCaveat, noneLeads, notLeading } from '../statistics/listingWords';
+import { leadingTracks, noneLeads, notLeading } from '../statistics/listingWords';
 import {
-  FOREST_GRID, axisPct, directionFill, contrastLabel, groupForestCategories, useReportQuery,
+  FOREST_GRID, axisPct, directionFill, groupForestCategories, useReportQuery,
   ReportLoading,
 } from './forestReport';
 import { useSearchIndex } from './searchLanding';
@@ -317,15 +318,10 @@ export function PathwayReport({
                       <span className="portal-cutoff"> {summary.nominalTracks} more {summary.nominalTracks === 1 ? 'track reaches' : 'tracks reach'} p &lt; {NOMINAL_P_CUTOFF} only.</span>
                     )}
                   </div>
-                  <ListingModeToggle />
+                  <ListingModeToggle kind="pathway" />
                 </div>
-                {summary.nominalTracks > 0 && (
-                  <p className="portal-note" style={{ maxWidth: '72ch', margin: '0 0 8px' }}>
-                    Tracks marked <i>p &lt; {NOMINAL_P_CUTOFF} only</i> do not pass FDR. They are {nominalCaveat('pathway')}
-                  </p>
-                )}
                 <div style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: FONT_MONO, marginBottom: 14 }}>
-                  Hover or focus a score to preview enrichment · red = up in case, blue = down · <QTerm>FDR</QTerm> is the q-value, the adjusted p-value
+                  Hover or focus a score to preview enrichment · red = up in case, blue = down
                 </div>
 
                 {visibleCategorized.map(({ category, groups }) => (

@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "93e1041a5eb0e8e28ec1d4ceb2f7f401ec4a820d88973419eb52a6023abf86d6",
+  "fingerprint": "80883d0147a407fe5d33318d642a843b3accd66df7cf70cf9c660cf160a87e1d",
   "outcome": "updated",
-  "explanation": "useExplorer.test.tsx pins the move order without mounting App (a dataset move with a saved analysis ends on the shared genes, a plain one clears them), a Compare link landing on a new epoch and riding in at only while in Compare, a report keeping the epoch, and stable nav and showActiveTrack. explorerTrackLoad.test.tsx removes the setup's seeded default-track global and counts loadTrackData calls: none on the hub, the active track once the explorer opens, none for Compare; it also pins the study-details disclosure staying open and the dataset-info panel closing across a trip home. Four router tests import ExplorerNavigation and ExplorerAt from explorer/useExplorer.",
+  "explanation": "forestReport.test.tsx imports contrastLabel from data/contrasts, where it now lives; the test itself is unchanged. contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. The gene and pathway report tests and the listing toggle test now open the (?) help beside the listing toggle to find the FDR, q and p < 0.05 only explanation, instead of reading it from a paragraph or a focusable legend abbr; row q cells keep their hover title.",
   "references": [
-    "src/__tests__/useExplorer.test.tsx",
-    "src/__tests__/explorerTrackLoad.test.tsx",
-    "src/__tests__/appRouter.test.tsx",
-    "src/__tests__/navigationAttempts.test.tsx"
+    "src/__tests__/forestReport.test.tsx",
+    "src/data/contrasts.ts",
+    "src/__tests__/geneReport.test.tsx",
+    "src/__tests__/pathwayReportResults.test.tsx",
+    "src/__tests__/listingModeToggle.test.tsx"
   ]
 }

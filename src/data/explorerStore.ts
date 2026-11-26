@@ -175,7 +175,14 @@ export function useExplorerStore({ dataset, activeTrackId, wantQC, pathways = 'i
   // than in the shell keeps the file-layout convention inside the data layer —
   // the shell is handed bytes, not a path.
   const [loadingState, setLoadingState] = useState<{ key: string; trackId: string; url: string } | null>(null);
-  const [loadError, setLoadError] = useState<string | null>(null);
+  // Two halves of the one banner. A track load clears only a TRACK failure when
+  // it starts: clearing a metadata or QC failure there would retire its banner,
+  // and with it the Retry that is the only way back from a silently empty
+  // sidebar, just because some track began loading (the fallback track of a
+  // link whose metadata check failed, for one).
+  const [resourceError, setResourceError] = useState<string | null>(null);
+  const [trackError, setTrackError] = useState<string | null>(null);
+  const loadError = resourceError ?? trackError;
   const loadingTrack = loadingState ? loadingState.trackId : null;
   const loadingProgress = useBundleProgress(loadingState ? loadingState.url : null);
 
@@ -223,7 +230,8 @@ export function useExplorerStore({ dataset, activeTrackId, wantQC, pathways = 'i
     // runs for a new selection the banner describes something no longer on
     // screen — and a switch onto already-cached data triggers no load that
     // could clear it.
-    setLoadError(null);
+    setResourceError(null);
+    setTrackError(null);
   }, [activeKey]);
 
   // In-flight loads by cache key, mirroring loadTrack's module-level dedup at the
@@ -251,7 +259,7 @@ export function useExplorerStore({ dataset, activeTrackId, wantQC, pathways = 'i
       // load whose success would have been discarded anyway.
       .catch(() => {
         if (metaFetchRef.current !== ds.id) return;
-        setLoadError(`Failed to load ${ds.name} metadata.`);
+        setResourceError(`Failed to load ${ds.name} metadata.`);
       });
   }, []);
 
@@ -264,7 +272,7 @@ export function useExplorerStore({ dataset, activeTrackId, wantQC, pathways = 'i
       })
       .catch(() => {
         if (qcFetchRef.current !== ds.id) return;
-        setLoadError(`Failed to load ${ds.name} QC.`);
+        setResourceError(`Failed to load ${ds.name} QC.`);
       });
   }, []);
 
@@ -323,7 +331,7 @@ export function useExplorerStore({ dataset, activeTrackId, wantQC, pathways = 'i
     const url = resolveTrackUrl(ds, trackId);
     if (!quiet) {
       if (peekBundle(url) === undefined) setLoadingState({ key, trackId, url });
-      setLoadError(null);
+      setTrackError(null);
     }
     const promise = loadTrackData(ds, trackId, { pathways })
       .then(({ raw, pathwaysReady }) => {
@@ -345,7 +353,7 @@ export function useExplorerStore({ dataset, activeTrackId, wantQC, pathways = 'i
       .catch(() => {
         if (!quiet && activeKeyRef.current === key) {
           setLoadingState(null);
-          setLoadError(`Failed to load ${trackId} data.`);
+          setTrackError(`Failed to load ${trackId} data.`);
         }
         return undefined;
       })
@@ -363,7 +371,8 @@ export function useExplorerStore({ dataset, activeTrackId, wantQC, pathways = 'i
   // failure is recoverable in place: a meta 404 otherwise leaves a silently
   // empty sidebar with no way back.
   const retry = useCallback(() => {
-    setLoadError(null);
+    setResourceError(null);
+    setTrackError(null);
     if (!meta) fetchMeta(dataset);
     if (wantQC && !qc) fetchQC(dataset);
     if (activeTrackId !== COMPARE_TRACK) ensureTrack(activeTrackId);

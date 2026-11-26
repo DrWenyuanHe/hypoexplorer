@@ -26,6 +26,28 @@ describe('ListingModeToggle', () => {
     expect(localStorage.getItem(LISTING_MODE_STORAGE_KEY)).toBe('fdr');
   });
 
+  it('explains both listings behind a (?) that opens on hover or focus and pins on click', () => {
+    render(<ListingModeToggle kind="gene" />);
+    const help = screen.getByRole('button', { name: 'About FDR and p < 0.05' });
+    expect(screen.queryByRole('tooltip')).toBeNull();
+    fireEvent.mouseEnter(help);
+    const tip = screen.getByRole('tooltip');
+    expect(tip).toHaveTextContent(Q_EXPLANATION);
+    expect(tip).toHaveTextContent(/not corrected for the genes each study tested/);
+    expect(tip).toHaveTextContent(/Counts of significant tracks always use FDR/);
+    expect(help).toHaveAttribute('aria-describedby', tip.id);
+    fireEvent.click(help);
+    fireEvent.mouseLeave(help);
+    fireEvent.blur(help);
+    expect(screen.getByRole('tooltip')).toBeTruthy();
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(screen.queryByRole('tooltip')).toBeNull();
+    fireEvent.focus(help);
+    expect(screen.getByRole('tooltip')).toBeTruthy();
+    fireEvent.pointerDown(document.body);
+    expect(screen.queryByRole('tooltip')).toBeNull();
+  });
+
   it('explains each option on hover', () => {
     render(<ListingModeToggle />);
     expect(screen.getByRole('button', { name: 'FDR (q < 0.05)' }).title).toMatch(/only the tracks that pass FDR/);

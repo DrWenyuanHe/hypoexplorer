@@ -1,11 +1,10 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "548779939e290e7424b62b94948d31179eea632938cfd14c787b1961199cac05",
+  "fingerprint": "9f2767780379d0d9182daca1410da44427665590bf26ab6666e13f55fd793250",
   "outcome": "updated",
-  "explanation": "explorerStore.ts changes only its header comment: which dataset and track are active is the explorer position held by explorer/useExplorer.ts. No load, guard or cache rule changed.",
+  "explanation": "contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. No load, guard, cache or contrast rule changed.",
   "references": [
-    "src/data/explorerStore.ts",
-    "src/explorer/useExplorer.ts"
+    "src/data/contrasts.ts"
   ]
 }

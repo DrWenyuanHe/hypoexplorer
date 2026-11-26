@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "2e27fe30b029210be8b17bd745fa9e0de2b33d2ad261d7431b67fffd1922510f",
+  "fingerprint": "bd6f20d1ad22546c26a549b36f64b131b360ffe45a459bd061838d0b72919c48",
   "outcome": "updated",
-  "explanation": "No workflow rule changes. A change to the explorer screen now lands in src/explorer/ExplorerShell.tsx and a change to how a move is carried out in src/explorer/useExplorer.ts; the catalog lists both as ui-change sources and CONTEXT.md names them. App.tsx keeps the view switch. Routes, link format and the visible explorer are unchanged; the dataset-info panel now starts closed on each visit.",
+  "explanation": "No workflow rule changes. contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. The search area no longer imports the crossdataset area. The significance explanations also move from report paragraphs into a (?) help beside the listing toggle; the listing itself is unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "docs/agent-context/catalog.json",
-    "src/explorer/ExplorerShell.tsx",
-    "src/explorer/useExplorer.ts",
-    "CONTEXT.md"
+    "src/data/contrasts.ts",
+    "src/search/SearchPage.tsx",
+    "src/statistics/ListingModeToggle.tsx"
   ]
 }

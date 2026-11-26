@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-statistics",
-  "fingerprint": "75a7351236444a136c895d235cabe91b908a3a1ad3bcb2489f75301dd44a0da5",
+  "fingerprint": "2174b2940541c42a5fb147816a72e4abdfd29b1274aaa218d928cb2f5226d0db",
   "outcome": "updated",
-  "explanation": "policy.ts adds NSIG_FDR_CUTOFF (0.05), shared by the bundle writer and the QC label, and its comments point at the star table. ListingModeToggle derives its q explanation from DEFAULT_FDR_CUTOFF and states the correction family per comparison and per collection. Values are unchanged.",
+  "explanation": "ListingModeToggle gains a (?) HelpTip rendering SignificanceHelp: what each listing means, the shared q explanation, the nominal caveat for the given kind, and that counts always use FDR. Cutoffs still come from policy.ts.",
   "references": [
-    "src/statistics/policy.ts",
     "src/statistics/ListingModeToggle.tsx",
-    "scripts/lib/bundleWriter.mts"
+    "src/statistics/policy.ts",
+    "src/statistics/listingWords.ts"
   ]
 }
