@@ -4,14 +4,16 @@ Reads the CELLxGENE mouse HypoMap H5AD (raw counts in raw/X) and writes the brow
 export src/search/hypomap/atlas.ts reads plus the comparison index services/hypomap
 serves. Inputs and their pins: data/hypomap/provenance.json; runbook: data/hypomap/README.md.
 
-Written by Helene Li (DrWenyuanHe/hypoexplorer-data#1, 51755a3); the export logic is
-unchanged so that the pinned release can be reproduced byte for byte.
+Written by Helene Li (DrWenyuanHe/hypoexplorer-data#1, 51755a3). Changed since for
+hypomap-atlas-2026-11-26: an official MGI symbol never resolves to another gene through
+an alias, and output bytes no longer depend on the build platform (gzip header, LF).
 """
 from __future__ import annotations
 
 import argparse
 import gzip
 import hashlib
+import io
 from collections import defaultdict
 from datetime import datetime, timezone
 import json
@@ -49,9 +51,26 @@ def digest(path):
     return h.hexdigest()
 
 
+def gzip_bytes(payload: bytes, compresslevel: int) -> bytes:
+    """Gzip with a fixed header (no name, mtime 0, OS 255) on every platform.
+
+    gzip.compress(mtime=0) delegates to zlib on Python 3.11-3.12, which writes the build
+    platform's OS byte (0x0a on Windows, 0x03 on Linux) and so changes every checksum.
+    """
+    buffer = io.BytesIO()
+    with gzip.GzipFile(filename='', mode='wb', fileobj=buffer, compresslevel=compresslevel, mtime=0) as stream:
+        stream.write(payload)
+    return buffer.getvalue()
+
+
+def write_text(path, text):
+    """UTF-8 with LF line endings; Path.write_text would write CRLF on Windows."""
+    path.write_bytes(text.encode('utf-8'))
+
+
 def write_json(root, name, value, compresslevel=9):
     payload = json.dumps(value, separators=(',', ':'), ensure_ascii=False, allow_nan=False).encode()
-    compressed = gzip.compress(payload, compresslevel=compresslevel, mtime=0)
+    compressed = gzip_bytes(payload, compresslevel)
     (root / name).write_bytes(compressed)
     return {'path': name, 'bytes': len(compressed), 'uncompressed_bytes': len(payload),
             'sha256': hashlib.sha256(compressed).hexdigest()}
@@ -89,6 +108,16 @@ def gene_index(var, mgi_source):
     alias_lookup = {}
     outside = {}
     for key, candidates in aliases.items():
+        official = current.get(key)
+        if official:
+            # The key is an official MGI symbol, so it names that gene and never another
+            # gene through an alias (Cldn25 is a gene outside the atlas and an alias of
+            # Cldnd1). An official gene outside the atlas is listed so the client reports
+            # it as missing, or as ambiguous when several share the symbol.
+            absent = sorted(i for i in official if i not in lookup)
+            if absent and key not in symbols:
+                outside[key] = [source[i].as_candidate() for i in absent]
+            continue
         positions = sorted(lookup[i] for i in candidates if i in lookup)
         if positions:
             alias_lookup[key] = positions
@@ -196,7 +225,7 @@ def build(atlas, out, pair_out, shard_size, cards_path, mgi_source, generated_at
             all_counts.append(counts)
             all_sums.append(sums)
             meta_path = pair_out / f'{file_key}.json'
-            meta_path.write_text(json.dumps({'states': None,
+            write_text(meta_path, json.dumps({'states': None,
                                              'regions': masks(local_regions), 'c7': masks(local_c7)}))
             pair_datasets.append({'id': ds, 'file_key': file_key, 'n_cells': n, 'source_sha256': {},
                                   'bits_sha256': digest(bits_path), 'metadata_sha256': digest(meta_path),
@@ -224,8 +253,8 @@ def build(atlas, out, pair_out, shard_size, cards_path, mgi_source, generated_at
                                     'feature_scope': 'shared atlas feature axis'},
                 'source_sha256': {'hypomap_h5ad': source_hash, 'study_card': digest(cards_path)}}
     path = out / 'manifest.json'
-    path.write_text(json.dumps(manifest, indent=2) + '\n')
-    (pair_out / 'manifest.json').write_text(json.dumps({
+    write_text(path, json.dumps(manifest, indent=2) + '\n')
+    write_text(pair_out / 'manifest.json', json.dumps({
         'schema_version': 1, 'genes': search['genes'], 'datasets': pair_datasets,
         'source_export_manifest_sha256': digest(path), 'cohort': metadata['cohort'],
         'positivity': 'raw_count >= 1', 'bitorder': 'little'}))

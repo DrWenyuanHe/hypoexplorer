@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "analysis",
-  "fingerprint": "f57af9756e4322c83beb1a9f9f3024fbf05286fb20dc26b5fc8dc387316a57fb",
+  "fingerprint": "e3f7d15db0f77ae83fcd5f9ebea25634e12c94fc813fb14b803898afa454c912",
   "outcome": "updated",
-  "explanation": "data/hypomap/ is new analysis input: provenance.json pins the CELLxGENE mouse HypoMap H5AD (dataset version 2408fb24, SHA-256 1771194977...), the study card and two MGI reports, and records the new release hypomap-atlas-2026-11-26 with the never-published 2026-11-05 release it supersedes. The README documents the metric definitions (raw/X count >= 1; ln(1 + 10,000 x count / cell raw/X total)) and why the 21,421 non-primary Mousebrainorg10x cells are not double-counted. No existing evidence ledger changed.",
+  "explanation": "data/hypomap/ is new analysis input: provenance.json pins the CELLxGENE mouse HypoMap H5AD (dataset version 2408fb24, SHA-256 1771194977...), the study card and two MGI reports, and records the new release hypomap-atlas-2026-11-26 with the never-published 2026-11-05 release it supersedes. The README documents the metric definitions (raw/X count >= 1; ln(1 + 10,000 x count / cell raw/X total)) and why the 21,421 non-primary Mousebrainorg10x cells are not double-counted. No existing evidence ledger changed. Review fixes (Codex): the study-card pin is now the LF bytes git checks out (21d389...), withdrawn MGI rows sharing the NULL accession all resolve to their current gene, an official MGI symbol outside the atlas (Cldn25) no longer resolves to another gene through an alias, output bytes no longer depend on the OS (fixed gzip header, LF JSON), and release.runtime records the build runtime. The release was rebuilt and re-pinned; counts still match the independent build exactly.",
   "references": [
     "data/hypomap/README.md",
     "data/hypomap/provenance.json",
-    "scripts/hypomap/export_atlas.py"
+    "scripts/hypomap/export_atlas.py",
+    "scripts/hypomap/gene_sources.py"
   ]
 }

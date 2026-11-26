@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "acb6e6b64a86b67f0ed9c493d5b1b9f95cd42c04a8220887ce26604348e7cfc0",
+  "fingerprint": "2a0a088781fb9983c57d471bfeff528b2c01be7f1bf3e365c4c17b0ec673d55c",
   "outcome": "updated",
-  "explanation": "Merges main (#92, #93) into the HypoMap atlas build. From main: pnpm-workspace.yaml overrides workbox-build>glob to 14.0.6 for the patched minimatch, and CONTEXT.md, the catalog and the AGENTS.md startup line describe the explorer screen (useExplorer.ts, ExplorerShell.tsx). From this branch: package.json adds build:hypomap and test:hypomap-build, .gitignore excludes data/hypomap/source/ and data/hypomap/build/, hypomap-release.json pins the reproducible hypomap-atlas-2026-11-26, the Application workflow runs the synthetic-H5AD exporter test, and PROJECT_GUIDANCE lists the HypoMap sources among files not in the repository.",
+  "explanation": "Merges main (#92, #93) into the HypoMap atlas build. From main: pnpm-workspace.yaml overrides workbox-build>glob to 14.0.6 for the patched minimatch, and CONTEXT.md, the catalog and the AGENTS.md startup line describe the explorer screen (useExplorer.ts, ExplorerShell.tsx). From this branch: package.json adds build:hypomap and test:hypomap-build, .gitignore excludes data/hypomap/source/ and data/hypomap/build/, hypomap-release.json pins the reproducible hypomap-atlas-2026-11-26, the Application workflow runs the synthetic-H5AD exporter test, and PROJECT_GUIDANCE lists the HypoMap sources among files not in the repository. Review fixes: hypomap-release.json is re-pinned to the rebuilt archive (manifest b8bc4809..., archive e2e6aa47...), and test:hypomap-build now also checks the tracked study card against its pin, fixed gzip bytes and LF-only JSON.",
   "references": [
     "package.json",
     ".gitignore",

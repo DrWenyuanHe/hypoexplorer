@@ -1,6 +1,7 @@
 """MGI report readers used by the HypoMap export.
 
-Written by Helene Li (DrWenyuanHe/hypoexplorer-data#1, 51755a3).
+Written by Helene Li (DrWenyuanHe/hypoexplorer-data#1, 51755a3); withdrawn rows that
+share the "NULL" accession are kept individually since hypomap-atlas-2026-11-26.
 """
 
 import csv
@@ -47,8 +48,12 @@ def read_mgi_markers(marker_path: Path) -> tuple[dict[str, CanonicalGene], dict[
 
     `current_index` maps current official symbols to MGI IDs.
     `alias_index` maps synonyms and withdrawn symbols to current MGI IDs.
+
+    Withdrawn rows carry the placeholder accession "NULL" (62,109 of them in the
+    2026-07-20 report), so rows are kept individually rather than keyed by their own
+    accession: a withdrawn row is resolved through its current accession.
     """
-    raw_rows: dict[str, dict] = {}
+    rows: list[dict] = []
     current_index: dict[str, set[str]] = defaultdict(set)
     alias_index: dict[str, set[str]] = defaultdict(set)
 
@@ -61,13 +66,13 @@ def read_mgi_markers(marker_path: Path) -> tuple[dict[str, CanonicalGene], dict[
             symbol = norm_symbol(row.get("Marker Symbol", ""))
             if not mgi_id or not symbol:
                 continue
-            raw_rows[mgi_id] = row
+            rows.append(row)
 
     canonical_by_id: dict[str, CanonicalGene] = {}
-    for mgi_id, row in raw_rows.items():
+    for row in rows:
+        mgi_id = norm_symbol(row.get("MGI Accession ID", ""))
         current_id = norm_symbol(row.get("Current MGI Accession ID (if withdrawn)", ""))
-        current_symbol = norm_symbol(row.get("Current Marker Symbol (if withdrawn)", ""))
-        if row.get("Status") == "W" and current_id:
+        if mgi_id == "NULL" or (row.get("Status") == "W" and current_id):
             continue
         canonical_by_id[mgi_id] = CanonicalGene(
             canonical_gene_id=mgi_id,
@@ -75,7 +80,8 @@ def read_mgi_markers(marker_path: Path) -> tuple[dict[str, CanonicalGene], dict[
             marker_name=norm_symbol(row.get("Marker Name", "")),
         )
 
-    for mgi_id, row in raw_rows.items():
+    for row in rows:
+        mgi_id = norm_symbol(row.get("MGI Accession ID", ""))
         symbol = norm_symbol(row.get("Marker Symbol", ""))
         status = row.get("Status")
         current_id = norm_symbol(row.get("Current MGI Accession ID (if withdrawn)", ""))

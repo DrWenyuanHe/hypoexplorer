@@ -18,9 +18,9 @@
   },
   "studyCard": {
     "file": "HypoMap_study_display_card.csv",
-    "bytes": 6235,
-    "sha256": "30f86c4a15704ec6121782fd9e1488721cb1e68a45b6db812c09538271530196",
-    "origin": "Curated by Helene Li against the HypoMap paper's Supplementary Table 1 (Helenel430/hypoexplorer-mini b9e407d)."
+    "bytes": 6216,
+    "sha256": "21d389b118f171ccfe9e03281d9a4fdb2e5ddb7ac50198656dbd0c746dc81203",
+    "origin": "Curated by Helene Li against the HypoMap paper's Supplementary Table 1 (Helenel430/hypoexplorer-mini b9e407d). Pinned as tracked here, with LF line endings (.gitattributes); her CRLF copy is SHA-256 30f86c4a15704ec6121782fd9e1488721cb1e68a45b6db812c09538271530196 with the same values."
   },
   "mgiReports": [
     {
@@ -39,8 +39,8 @@
   "release": {
     "tag": "hypomap-atlas-2026-11-26",
     "archive": "hypomap-atlas.tar.gz",
-    "archiveSha256": "4ff82e3865b7baba939b29fa4a0aaf4332c77f32677a198ed5cdd86e8820db14",
-    "manifestSha256": "2c2f4a35aec6ac617afe44cac644848a233c10462cd81c20068f0e393318579a",
+    "archiveSha256": "e2e6aa477f04cec2d06341bf53456f9895ffe78f5b2d80c8277cea65228ca3d2",
+    "manifestSha256": "b8bc4809453448086d2beb9f20a07854930bd8bcacab8874eee86b8dc22c8cb3",
     "generatedAt": "2026-11-26T00:00:00+00:00",
     "shardSize": 256,
     "recipe": "scripts/hypomap/export_atlas.py (Helene Li, DrWenyuanHe/hypoexplorer-data#1, 51755a3)",
@@ -49,6 +49,14 @@
       "archiveSha256": "569d55ede8cfa18b3f638cf6a703e2c06babb81a298cad866e5678d0b52903d0",
       "manifestSha256": "6753d5718ada0672f975e137cfd09c4368f45a82ac86e799b3874f66906f0a00",
       "reason": "Never published, and built from an H5AD (SHA-256 1d6b7f2e7bb297aa5b20f5a0da6ef27b9361544e5a30b46e96bba4bd82df487d) that is not the pinned CELLxGENE file, so it cannot be reproduced."
+    },
+    "runtime": {
+      "python": "3.12.10",
+      "zlib": "1.3.1",
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "pandas": "3.0.5",
+      "h5py": "3.16.0"
     }
   }
 }

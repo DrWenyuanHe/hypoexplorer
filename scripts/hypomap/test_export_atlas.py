@@ -19,8 +19,10 @@ import unittest
 import h5py
 import numpy as np
 
-from export_atlas import NO_C7, NO_REGION, WHOLE, build
+from export_atlas import NO_C7, NO_REGION, WHOLE, build, gzip_bytes
 from package_release import package
+
+DATA = Path(__file__).resolve().parents[2] / 'data' / 'hypomap'
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'services' / 'hypomap'))
 from comparison_service import ComparisonIndex  # noqa: E402
@@ -46,7 +48,17 @@ MRK_ROWS = [
     {'MGI Accession ID': 'MGI:97606', 'Marker Symbol': 'Pomc', 'Status': 'O', 'Marker Name': 'pro-opiomelanocortin-alpha',
      'Marker Type': 'Gene', 'Marker Synonyms (pipe-separated)': 'Pomc1|Pomc-1'},
     {'MGI Accession ID': 'MGI:892013', 'Marker Symbol': 'Agrp', 'Status': 'O', 'Marker Name': 'agouti related neuropeptide',
-     'Marker Type': 'Gene', 'Marker Synonyms (pipe-separated)': 'Agrt|Art'},
+     'Marker Type': 'Gene', 'Marker Synonyms (pipe-separated)': 'Agrt|Art|Agrpx'},
+    # An official gene outside the atlas whose symbol is also an alias of Agrp (as Cldn25 is of Cldnd1).
+    {'MGI Accession ID': 'MGI:1000002', 'Marker Symbol': 'Agrpx', 'Status': 'O', 'Marker Name': 'fixture official gene',
+     'Marker Type': 'Gene'},
+    # Withdrawn rows share the placeholder accession "NULL", as in the MGI report.
+    {'MGI Accession ID': 'NULL', 'Marker Symbol': 'Pomc-w1', 'Status': 'W', 'Marker Name': 'withdrawn, = Pomc',
+     'Marker Type': 'Gene', 'Current MGI Accession ID (if withdrawn)': 'MGI:97606', 'Current Marker Symbol (if withdrawn)': 'Pomc'},
+    {'MGI Accession ID': 'NULL', 'Marker Symbol': 'Pomc-w2', 'Status': 'W', 'Marker Name': 'withdrawn, = Pomc',
+     'Marker Type': 'Gene', 'Current MGI Accession ID (if withdrawn)': 'MGI:97606', 'Current Marker Symbol (if withdrawn)': 'Pomc'},
+    {'MGI Accession ID': 'NULL', 'Marker Symbol': 'Gone1', 'Status': 'W', 'Marker Name': 'withdrawn without successor',
+     'Marker Type': 'Gene'},
     # A second current gene sharing the synonym "Art": the alias must stay ambiguous.
     {'MGI Accession ID': 'MGI:1000001', 'Marker Symbol': 'Artx', 'Status': 'O', 'Marker Name': 'fixture gene outside the atlas',
      'Marker Type': 'Gene', 'Marker Synonyms (pipe-separated)': 'Art'},
@@ -165,6 +177,34 @@ class ExportAtlasTest(unittest.TestCase):
         # "Art" names Agrp in the atlas and Artx outside it, so it stays ambiguous for the client.
         self.assertEqual(self.search['aliases']['art'], [self.position('Agrp')])
         self.assertEqual([c['canonical_symbol'] for c in self.search['outside_export_candidates']['art']], ['Artx'])
+
+    def test_official_symbol_never_resolves_to_another_gene(self):
+        # "Agrpx" is an official gene outside the atlas, and an alias of Agrp: it must not return Agrp.
+        self.assertNotIn('agrpx', self.search['aliases'])
+        self.assertNotIn('agrpx', self.search['current_symbols'])
+        self.assertEqual([c['canonical_symbol'] for c in self.search['outside_export_candidates']['agrpx']], ['Agrpx'])
+
+    def test_withdrawn_rows_sharing_the_null_accession_all_resolve(self):
+        for key in ('pomc-w1', 'pomc-w2'):
+            self.assertEqual(self.search['aliases'][key], [self.position('Pomc')])
+        everything = json.dumps(self.search).lower()
+        self.assertNotIn('"null"', everything)
+        self.assertNotIn('gone1', self.search['current_symbols'])
+
+    def test_output_bytes_do_not_depend_on_the_platform(self):
+        # Fixed gzip header (no name, mtime 0, OS 255) and fixed bytes for a known payload.
+        self.assertEqual(gzip_bytes(b'{"a":1}', 9).hex(), '1f8b08000000000002ffab564a54b232ac0500afac1b5607000000')
+        self.assertEqual(gzip_bytes(b'{"a":1}', 4).hex()[:20], '1f8b08000000000000ff')
+        for entry in self.manifest['files']:
+            header = (self.out / entry['path']).read_bytes()[:10]
+            self.assertEqual((header[:4], header[4:8], header[9]), (b'\x1f\x8b\x08\x00', b'\x00' * 4, 0xff), entry['path'])
+        for path in (self.out / 'manifest.json', self.pairs / 'manifest.json', *self.pairs.glob('*.json')):
+            self.assertNotIn(b'\r', path.read_bytes(), path.name)
+
+    def test_tracked_study_card_matches_its_pin(self):
+        pin = json.loads((DATA / 'provenance.json').read_text(encoding='utf-8'))['studyCard']
+        data = (DATA / pin['file']).read_bytes()
+        self.assertEqual((len(data), hashlib.sha256(data).hexdigest()), (pin['bytes'], pin['sha256']))
 
     def test_manifest_lists_every_file_with_its_bytes(self):
         names = {entry['path'] for entry in self.manifest['files']}

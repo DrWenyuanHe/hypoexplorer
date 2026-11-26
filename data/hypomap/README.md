@@ -43,7 +43,10 @@ memory) and writes `build/<tag>/` (gitignored):
   never published).
 
 The release's pinned timestamp and shard size are passed through, so a matching
-input reproduces the manifest and archive byte for byte. The script compares both
+input reproduces the manifest and archive byte for byte. Output bytes do not depend
+on the operating system (fixed gzip headers, LF line endings), but compressed bytes
+depend on the zlib version; `release.runtime` in `provenance.json` records the one
+used. The script compares both
 hashes with the pins and exits non-zero if either differs.
 
 To use a local build in the app:

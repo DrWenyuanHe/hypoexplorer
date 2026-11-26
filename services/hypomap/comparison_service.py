@@ -51,6 +51,10 @@ class ComparisonIndex:
                 if digest(root / filename) != checksum:
                     raise ValueError(f'Index checksum mismatch: {filename}')
             if processed_dir:
+                # An atlas index records no processed files; accepting the option would
+                # report a successful source check that verified nothing.
+                if not ds['source_sha256']:
+                    raise ValueError(f'{name}: this index records no processed source files to verify; omit --processed-dir')
                 for filename, checksum in ds['source_sha256'].items():
                     if digest(processed_dir / name / filename) != checksum:
                         raise ValueError(f'Source changed: {name}/{filename}; rebuild index')
