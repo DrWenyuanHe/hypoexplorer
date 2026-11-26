@@ -197,7 +197,9 @@ describe('StudyFactTable — table semantics', () => {
     );
     expect(populations).toBe('60 populations · 5 below n=3');
     expect(within(screen.getByText('Pathway enrichment').closest('tr')!).getByText(
-      dataset.supportsPathways ? 'GO · Hallmark · KEGG · Reactome' : 'Not available for this dataset',
+      dataset.supportsPathways
+        ? 'Available from GO:BP, Hallmark, KEGG and Reactome; the collections present vary by dataset'
+        : 'Not available for this dataset',
     )).toBeTruthy();
   });
 });

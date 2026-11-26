@@ -1,5 +1,7 @@
 # CNP0003785 upstream review
 
+> Dated record (2026-09-27). The current upstream-processing table is `geo_replication/config/upstream_processing.tsv`, checked by `pnpm run check:upstream`. The review records in this folder are tracked and can be read in any checkout; replaying the source audit needs downloads that are not, see [Files not in this repository](../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
+
 The [retained review](CNP0003785-review.json) records the macaque snRNA-seq
 methods from the coauthor-uploaded full text of
 [Lei et al. 2024](https://doi.org/10.1016/j.cmet.2024.01.003).
@@ -17,8 +19,8 @@ The upstream table hashes the retained review, not the inaccessible publisher
 download. Regenerate through the normal producer:
 
 ```powershell
-npx tsx scripts/build_upstream_processing.mts --mark-reviewed=CNP0003785
-npm run check:upstream
+pnpm exec tsx scripts/build_upstream_processing.mts --mark-reviewed=CNP0003785
+pnpm run check:upstream
 ```
 
 The displayed review note preserves the remaining source limitations.

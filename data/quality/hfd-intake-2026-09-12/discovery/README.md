@@ -1,5 +1,7 @@
 # High-fat-diet discovery review, 2026-09-12
 
+> Dated record (2026-09-12). The current registry is `src/data/datasets.ts`. Its commands and linked evidence need the maintainer checkout; see [Files not in this repository](../../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
+
 Discovery was compared with `src/data/datasets.ts`, `geo_replication/config/datasets.tsv`, the September 5 intake, the tracker reviews, and earlier survey recipes. The candidates below were absent from the active registry when reviewed. Several had appeared in earlier surveys; they are additional pipeline candidates, not newly discovered accessions.
 
 | Accession | Eligible comparison and input | Decision |

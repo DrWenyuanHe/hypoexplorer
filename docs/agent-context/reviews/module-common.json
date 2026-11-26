@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-common",
-  "fingerprint": "73ae2a1661d0be43bf349690da0b970567fad1328367892b528411fa53826156",
+  "fingerprint": "1293b68a531ef6d81eb8bb734593ab5dccb187759c3558a8661146648607c5ad",
   "outcome": "updated",
-  "explanation": "authorEvidenceText appends the author follow-up label, and AuthorValidationPanel adds an Author follow-up row when a record carries one. Badges and states are unchanged.",
+  "explanation": "The study record's pathway row says the collections come from GO:BP, Hallmark, KEGG and Reactome and vary by dataset, instead of listing all four for every dataset; per-dataset coverage lives in the bundles. No layout or data change.",
   "references": [
-    "src/common/AuthorValidation.tsx",
-    "src/data/authorVerification.ts"
+    "src/common/StudyMetadata.tsx",
+    "src/__tests__/studyFactTable.test.tsx"
   ]
 }

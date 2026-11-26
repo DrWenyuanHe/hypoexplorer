@@ -24,6 +24,7 @@ import {
   sameOriginDataset,
 } from '../../src/data/bundleLocators';
 import { getDataset } from '../../src/data/datasets';
+import { NSIG_FDR_CUTOFF } from '../../src/statistics/policy';
 import type {
   CpmMatrix,
   Dataset,
@@ -80,7 +81,7 @@ export function defaultContrastBinding(
  * A null FDR (R's NA on small-n designs) is not significant. The writer counts
  * it; builders never do.
  */
-export const NSIG_FDR_THRESHOLD = 0.05;
+export const NSIG_FDR_THRESHOLD = NSIG_FDR_CUTOFF;
 
 /** `deSummary[].nSig` for one default-contrast table. */
 export function countFdrSignificant(de: readonly Pick<GeneDERecord, 'FDR'>[]): number {

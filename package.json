@@ -58,7 +58,7 @@
     "build:nomenclature": "node --max-old-space-size=6144 ./node_modules/tsx/dist/cli.mjs scripts/build_nomenclature.mts",
     "build:search-names": "tsx scripts/build_search_names.mts",
     "check:hfd-intake": "python scripts/compare_hfd_authors.py --check && tsx scripts/audit_hfd_intake_r460.mts --check && tsx --test scripts/lib/historicalEvidence.test.mts scripts/lib/hfdReplayValidation.test.mts",
-    "analyze:hfd": "Rscript scripts/run_hfd_pipeline.R && Rscript scripts/run_mouse_fgsea.R GSE104709 GSE107324_male GSE107324_female",
+    "analyze:hfd": "tsx scripts/analyze_hfd_r460.mts",
     "build:hfd-bundles": "tsx scripts/build_hfd_bundles_r460.mts",
     "build:expression-index": "tsx scripts/build_expression_index.mts",
     "check:expression-index": "tsx scripts/build_expression_index.mts --check",

@@ -112,9 +112,17 @@ concordance. GSE30733 remains held because array acquisition is confounded with
 the lactation comparison. The separate
 [GSE147092 OXT cell reference](../expression/oxt-reference/README.md) preserves
 descriptive single-cell expression without adding a DE registry record.
-[The current quality report](../quality/QUALITY_REPORT.generated.md) records
+[The quality report](../quality/QUALITY_REPORT.generated.md) records
 Pipeline QC, Experimental design and Author concordance counts independently;
 each count applies only to that assessment and its recorded scope.
+
+The generated validation records (`validation-records.generated.json`, which the
+explorer reads, built 2026-10-25), `VALIDATION_REPORT.generated.md` and the quality
+assessments behind the quality report predate the review-ledger changes of 2026-11-16
+to 2026-11-24, so they lag the ledgers until they are regenerated in the maintainer
+checkout. The ledgers (`verification-review.json`, `manual-review.json`,
+`comparability-review.json`, `additional-comparison-specs.json`) hold the current
+review decisions.
 
 The [ten additional reviews](continued-sources/ten-dataset-followup-2026-09-04/README.md) extend source-cohort and statistical checks to tanycyte insulin, POMC Drd2, FGF1, Lef1, MKRN3, CBD, orexin, maternal HCD, hibernation and AgRP fasting. Recovered code explains joint-group and batch-model differences in several studies. The records distinguish successful separate reconstructions from unchanged Explorer outputs, recover damaged identifiers using source evidence, and keep missing tests separate from observed disagreements.
 

@@ -1,15 +1,17 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "a149e309188f7e653c95defd0ce167403df912b66b6732753ca780e1c36395db",
+  "fingerprint": "7a2b0ec53b99e91f1d964e7d7b332728c49378ff3d77ec744223f9112f79cac4",
   "outcome": "updated",
-  "explanation": "From main: CHANGELOG.md's Unreleased section records that Enter in the gene search selects the gene typed. No guidance, command, configuration or workflow changed. From this branch: Project guidance says a gene's survey lives on its gene page as one tile per source, each opening that source's survey, and that #/expression keeps multi-gene comparison, the catalog and validation, naming GeneSurvey.tsx as the shared workspace; the expression-survey catalog summary and the regenerated startup map agree. Project guidance says to run build:search-names after build:nomenclature, that it writes names.js and renames.js, that its --check fails when either is stale, and where its rule tests live. CONTEXT.md defines the rename group, its join rules and pickStoredMember. Review fixes: CONTEXT.md says every Compare and compare-set download passes the rename table, that an unreadable partner shard refuses the index answer, and that malformed rows are dropped.",
+  "explanation": "Merge of main into the staleness pass. From main: From main: CHANGELOG.md's Unreleased section records that Enter in the gene search selects the gene typed. No guidance, command, configuration or workflow changed. From this branch: Project guidance says a gene's survey lives on its gene page as one tile per source, each opening that source's survey, and that #/expression keeps multi-gene comparison, the catalog and validation, naming GeneSurvey.tsx as the shared workspace; the expression-survey catalog summary and the regenerated startup map agree. Project guidance says to run build:search-names after build:nomenclature, that it writes names.js and renames.js, that its --check fails when either is stale, and where its rule tests live. CONTEXT.md defines the rename group, its join rules and pickStoredMember. Review fixes: CONTEXT.md says every Compare and compare-set download passes the rename table, that an unreadable partner shard refuses the index answer, and that malformed rows are dropped. From this branch: catalog.json corrects the geo_replication summary and gives the ui-change workflow the six modules workflows.md already rules on; the context README drops the pnpm -- argument and the LFS and separate-CI claims; script headers stop citing build:tracker, prebuild and .mjs names and document behaviour-changing flags and env vars; seoPages pluralises one study and seoGuides keeps the software citation apart from the data-export DOI. analyze:hfd runs scripts/analyze_hfd_r460.mts, which refuses any Rscript but R 4.6.0 and runs the regen-r460 HFD and FGSEA producers. Sealed and hash-pinned files are unchanged.",
   "references": [
     "CHANGELOG.md",
     "docs/PROJECT_GUIDANCE.md",
     "docs/agent-context/catalog.json",
     "AGENTS.md",
     "CONTEXT.md",
-    "scripts/build_search_names.mts"
+    "scripts/build_search_names.mts",
+    "scripts/analyze_hfd_r460.mts",
+    "package.json"
   ]
 }

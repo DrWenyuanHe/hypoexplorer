@@ -1,6 +1,7 @@
 import { resolve } from 'node:path';
 import { preview } from 'vite';
 
+// Serves SMOKE_DIST_DIR (default dist) for the smoke run.
 // A programmatic option avoids shell interpolation for paths with spaces.
 await preview({
   // Smoke the existing artifact without rerunning source fingerprinting or build plugins.
