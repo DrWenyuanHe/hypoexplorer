@@ -77,11 +77,13 @@ function AppViews({ initialView = 'hub' }: AppProps) {
   // The changelog replaces the explorer's content, and it belongs to one
   // visit: leaving the explorer closes it, so entering again (a hub tool link,
   // a report row, Back) shows the explorer rather than release notes opened on
-  // an earlier visit. The hub's Changelog link sets it in the same update that
-  // enters, so it is never cleared on its way in.
+  // an earlier visit. A refused link ends a visit too: its error page replaces
+  // the explorer while the view stays on it, so `routeError` closes it as well.
+  // The hub's Changelog link sets it in the same update that enters, so it is
+  // never cleared on its way in.
   useEffect(() => {
-    if (view !== 'explorer') setShowChangelog(false);
-  }, [view]);
+    if (view !== 'explorer' || routeError) setShowChangelog(false);
+  }, [view, routeError]);
 
   // The explorer screen's own controls are user-originated changes the router
   // does not make itself, so each retires any link still landing before it

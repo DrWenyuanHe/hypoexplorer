@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "eb0e6b15032f3266b2a83d060b86e9efd0ab8fc4c2147a1d79bd295d9433c8a8",
+  "fingerprint": "1885f116260ffb26d8da0e2bb939c73f98057afd03646a0fe54bca86c72ac342",
   "outcome": "updated",
-  "explanation": "No workflow rule changes. App closes the changelog whenever the view leaves the explorer. Before, nothing cleared it, so opening the changelog, going Home and entering again through a hub tool link (or a report row, or Back) showed the release notes over the explorer instead of the tab asked for. The hub's Changelog link sets the flag in the same update that enters the explorer, so it still opens. CONTEXT.md's explorer entry says which shell state outlives a visit.",
+  "explanation": "No workflow rule changes. App closes the changelog whenever a visit ends: the view leaves the explorer, or a refused link's error page replaces it while the view stays on the explorer. Before, nothing cleared it, so opening the changelog, going Home and entering again through a hub tool link (or a report row, or Back) showed the release notes over the explorer instead of the tab asked for. The hub's Changelog link sets the flag in the same update that enters the explorer, so it still opens. CONTEXT.md's explorer entry says which shell state outlives a visit.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/App.tsx",

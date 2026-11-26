@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "23534feced0fd64bc89a5cc05ac3d079d28a144922ad6d7b3aa7c8c0688a99fd",
+  "fingerprint": "d0f775d6a4182945671df6498ec8574d30a38801366f38c8a6ba1e7a46c84e39",
   "outcome": "updated",
-  "explanation": "changelogVisit.test.tsx opens the changelog in the explorer, goes Home and enters through the hub's Quality control link, and requires the QC tab with no release notes; it failed before the fix. It also pins the hub's Changelog link still opening the changelog.",
+  "explanation": "changelogVisit.test.tsx opens the changelog in the explorer, goes Home and enters through the hub's Quality control link, and requires the QC tab with no release notes; it failed before the fix. A second case opens the changelog, follows a refused saved-analysis link (error page, view still explorer) and then a valid QC link, and requires the QC tab; it failed until routeError also closed the changelog. It also pins the hub's Changelog link still opening the changelog.",
   "references": [
     "src/__tests__/changelogVisit.test.tsx",
     "src/__tests__/hubUnits.test.tsx"
