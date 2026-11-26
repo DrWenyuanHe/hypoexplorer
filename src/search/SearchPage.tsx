@@ -17,7 +17,7 @@ import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import type { KeyboardEvent, ReactNode } from 'react';
 import { PageShell } from '../common/PageShell';
 import { listDatasets } from '../data/datasets';
-import { contrastLabel } from '../crossdataset/forestReport';
+import { contrastLabel } from '../data/contrasts';
 import { DEFAULT_FDR_CUTOFF, NOMINAL_P_CUTOFF, type SignificanceTier } from '../statistics/policy';
 import { GENE_KEYS, PATHWAY_KEYS, listCrossStudy, type Listed } from '../statistics/crossStudyListing';
 import { useListingMode } from '../statistics/listingModeStore';

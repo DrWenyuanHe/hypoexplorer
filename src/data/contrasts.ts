@@ -218,3 +218,10 @@ export function listContrasts(dataset: Dataset | null | undefined): ResolvedCont
   }
   return out;
 }
+
+// A contrast's display label, as group headers and columns show it. Reads the RESOLVED label rather
+// than recomputing "<case> vs <baseline>" — resolveContrast already applied the
+// authored-label-wins rule, and recomputing here silently discarded it.
+export function contrastLabel(contrast: ResolvedContrast | null | undefined): string {
+  return contrast?.label ?? '';
+}

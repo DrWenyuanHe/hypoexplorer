@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "module-compareset",
-  "fingerprint": "b70b1a6d1dbca96e5478dcddaac63d2241523ba9cb0dec98e3f5d8a26881d6a6",
+  "fingerprint": "dfcc1479da6ee59488f21463b8aaa8d4f3c697aa1f6105ed76f4bd843dc00b25",
   "outcome": "updated",
-  "explanation": "CompareSetView passes the rename table to compareSummaryRows so the Excel summary reads renamed symbols as the on-screen table does, and CompareSetVolcanoPanel highlights a selected gene under the symbol the study stores.",
+  "explanation": "contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. compareSetColumns.ts, CompareSetDrawer.tsx and CompareSetView.tsx import it from data/contrasts instead of the forest-report component module. No visible change.",
   "references": [
+    "src/compareset/compareSetColumns.ts",
+    "src/compareset/CompareSetDrawer.tsx",
     "src/compareset/CompareSetView.tsx",
-    "src/compareset/CompareSetVolcanoPanel.tsx",
-    "src/compare/compareSummary.ts"
+    "src/data/contrasts.ts"
   ]
 }

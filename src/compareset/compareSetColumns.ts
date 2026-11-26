@@ -3,7 +3,7 @@
 // matrix can honestly include, and which columns are populations of one study.
 
 import { columnColorAt, type CompareColumn } from '../compare/compareColumns';
-import { contrastLabel } from '../crossdataset/forestReport';
+import { contrastLabel } from '../data/contrasts';
 import { trackLabel } from '../data/datasetMeta';
 import type { Dataset } from '../types';
 import type { CompareSetColumnState } from './useCompareSetColumns';
