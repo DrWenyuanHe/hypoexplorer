@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "dacd8b09974ab937cc4ba1fc06fced20ed288f66639d6968a0ae0a413d71e17a",
+  "fingerprint": "1ff671befed4403fe0fe8f6f22b8abab4884e5e84017f7ef0fd0bfa2f5f06db6",
   "outcome": "updated",
-  "explanation": "No verification workflow change. explorerStore.ts changes only its header comment: which dataset and track are active is the explorer position held by explorer/useExplorer.ts. No load, guard or cache rule changed.",
+  "explanation": "No verification workflow change. explorerStore.ts splits its one error banner into a resource half (metadata, QC) and a track half: a track load clears only a track failure when it starts, so a metadata or QC failure keeps its banner and Retry until a dataset/track switch or Retry retires it. Before, starting any track load cleared a metadata failure, which App's held load could now do just after a failed metadata check.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/data/explorerStore.ts"

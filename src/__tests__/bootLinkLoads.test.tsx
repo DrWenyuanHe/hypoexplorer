@@ -6,6 +6,15 @@ import { _resetTrackCache } from '../data/loadTrack';
 import { _resetDatasetMetaCache, loadDatasetMeta } from '../data/loadDatasetMeta';
 import { loadTrackData } from '../data/trackData';
 import { POP_META_FIXTURE } from './fixtures';
+import { routeHref } from '../utils/appLinks';
+import { DB_NAMES } from '../data/constants';
+import type { ExplorerAnalysisState } from '../utils/analysisState';
+
+const ANALYSIS: ExplorerAnalysisState = {
+  version: 1, contrastId: null, genes: ['POMC'],
+  volcano: { metric: 'fdr', logFCThresh: 0.5, sigThresh: 0.05 },
+  pathway: { search: '', dbFilter: Object.fromEntries(DB_NAMES.map((db) => [db, true])), fdrThresh: 0.05, sortKey: 'pval' },
+};
 
 // What a cold link costs: the bundles and metadata the app asks for when it is
 // OPENED at a link, before the user does anything.
@@ -87,6 +96,19 @@ describe('App — what a cold link loads', () => {
     await waitFor(() => expect(tracks()).toContain('macaque_snrna/i23'));
     await settle();
     expect(tracks()).toEqual(['macaque_snrna/i23']);
+  });
+
+  it('a link refused only after its check loads no track behind the error page', async () => {
+    // A saved analysis asking for Compare on a one-population study passes
+    // the registry checks, then refuses once the populations are known.
+    const link = routeHref({
+      view: 'explorer', datasetId: 'mouse_hypo_hfd_gse220533', trackId: 'compare', analysis: ANALYSIS,
+    });
+    window.history.replaceState(null, '', `/${link}`);
+    render(<App />);
+    await screen.findByRole('heading', { name: /Analysis link unavailable/i });
+    await settle();
+    expect(tracks()).toEqual([]);
   });
 
   it('the hub loads no track', async () => {

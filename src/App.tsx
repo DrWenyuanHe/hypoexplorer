@@ -133,9 +133,11 @@ function AppViews({ initialView = 'hub' }: AppProps) {
   // study, or to another macaque track, and never showed it. When the landing
   // settles, the landing's own intent loads its track and this runs again; a
   // refused link moves nothing, so the explorer it leaves behind is the one
-  // the app started with.
+  // the app started with. A link refused only after its check leaves the view
+  // on the explorer behind the error page (`routeError`); nothing is shown
+  // there, so nothing loads until the user leaves the error page.
   useEffect(() => {
-    if (view !== 'explorer' || routePending) return;
+    if (view !== 'explorer' || routePending || routeError) return;
     // Warm the recharts chunk alongside the track. Both are needed to draw a
     // gene's bars, and neither is needed on the hub — starting the download here
     // overlaps it with the user picking a gene instead of stalling once they
@@ -147,7 +149,7 @@ function AppViews({ initialView = 'hub' }: AppProps) {
     // failure when one actually mounts.
     preloadBarSEMChart().catch(() => { /* chart chunk warms on demand instead */ });
     showActiveTrack();
-  }, [view, routePending, showActiveTrack]);
+  }, [view, routePending, routeError, showActiveTrack]);
 
   // Warm the view a visitor most likely opens next, once the current one has
   // painted and the main thread is idle: the hub's search box submits to the

@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "931211e88b22eb710f2cd845b4ce126f77e05af06fcd2e3f60e72e180631d059",
+  "fingerprint": "d8f2dbfd8c0a84164af58aa8beb9352215ff35c882e9872ccf16268b01637c7c",
   "outcome": "updated",
-  "explanation": "The router exposes routePending (true for the boot route until its mount effect delivers it, and while a named track is being checked), and App holds its explorer-on-screen active-track load until it clears. The explorer still starts on the default dataset and a link moves it, but the default track is no longer loaded before the link lands, so a cold link to another study or another macaque track no longer fetches the macaque default track (409 KB compressed, plus its 192 KB pathway sibling). A refused link moves nothing. The 2.2 KB macaque metadata still loads, as on every view.",
+  "explanation": "The router exposes routePending (true for the boot route until its mount effect delivers it, and while a named track is being checked), and App holds its explorer-on-screen active-track load until it clears and while a refusal is on screen (routeError). The explorer still starts on the default dataset and a link moves it, but the default track is no longer loaded before the link lands, so a cold link to another study or another macaque track no longer fetches the macaque default track (409 KB compressed, plus its 192 KB pathway sibling), and a link refused after its check loads nothing behind the error page. The 2.2 KB macaque metadata still loads, as on every view.",
   "references": [
     "src/App.tsx",
     "src/appRouter.ts",
-    "src/explorer/useExplorer.ts"
+    "src/data/explorerStore.ts"
   ]
 }

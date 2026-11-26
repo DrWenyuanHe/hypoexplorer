@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "3d9d6d5216494d6e2f6180fce2da84121f56b686446313ff3999bf8740f87476",
+  "fingerprint": "7ce275ab5d5ddcaf07a9d3de7659c8adbd587a7f3c54e0addbaf844efa926d06",
   "outcome": "updated",
-  "explanation": "CONTEXT.md's explorer entry says showActiveTrack is held while the router's routePending is set, so a cold link never loads the default study's track before the link moves the explorer. No guidance, command or configuration changed.",
+  "explanation": "CONTEXT.md's explorer entry says showActiveTrack is held while the router's routePending is set and while a refusal is on screen, and its explorer store entry says the error banner has a resource half and a track half, so a track load never retires a metadata or QC failure. No guidance, command or configuration changed.",
   "references": [
     "CONTEXT.md",
     "src/App.tsx",
-    "src/appRouter.ts"
+    "src/data/explorerStore.ts"
   ]
 }

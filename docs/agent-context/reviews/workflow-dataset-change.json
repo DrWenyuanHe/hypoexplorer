@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "809db7928ecfccf36cd0b17dfea82b4ac86e400c32c1f683560881138a545b8a",
+  "fingerprint": "958ca9ac0579e55b420d543fe434660c17f0f4a2caebe2f79d3b7342e86fd56f",
   "outcome": "updated",
-  "explanation": "No dataset workflow change. explorerStore.ts changes only its header comment: which dataset and track are active is the explorer position held by explorer/useExplorer.ts. No load, guard or cache rule changed.",
+  "explanation": "No dataset workflow change. explorerStore.ts splits its one error banner into a resource half (metadata, QC) and a track half: a track load clears only a track failure when it starts, so a metadata or QC failure keeps its banner and Retry until a dataset/track switch or Retry retires it. Before, starting any track load cleared a metadata failure, which App's held load could now do just after a failed metadata check.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/data/explorerStore.ts"

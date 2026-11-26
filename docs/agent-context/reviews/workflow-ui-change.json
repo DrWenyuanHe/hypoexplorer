@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "67941842f2a539852744c8768e849115b29cd6a6a6c2d3d9cfdaee8847e114a6",
+  "fingerprint": "bfd0fee0bfd2ba0fb80f55e0d8dd975284d9ec164b35b5a3b42a17568baa26a6",
   "outcome": "updated",
-  "explanation": "No workflow rule changes. App's active-track load waits for a landing to settle (the router's routePending), which CONTEXT.md names in the explorer entry. Routes, link format and the visible explorer are unchanged.",
+  "explanation": "No workflow rule changes. App's active-track load waits for a landing to settle (the router's routePending) and skips a refusal, and the store keeps a metadata failure across a track load; CONTEXT.md names both. Routes, link format and the visible explorer are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/App.tsx",
-    "src/appRouter.ts",
+    "src/data/explorerStore.ts",
     "CONTEXT.md"
   ]
 }

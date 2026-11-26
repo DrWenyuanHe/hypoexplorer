@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "bc42b05bd8955e7e58e9bd8eee90382096eec760dc1ac7a9034582dbcd52cbb8",
+  "fingerprint": "6a9a48ad2779cc7d0ba1bdaf7c59efe07221da93be2a4b77ef4213e427a26576",
   "outcome": "updated",
-  "explanation": "bootLinkLoads.test.tsx removes the setup's seeded macaque globals and counts loadTrackData calls for cold links: a link to another study, and one naming its track, load only that study's track; a link naming a non-default macaque track loads only that track; the hub loads no track. Without the hold the first three each also load macaque/e9. It states that the macaque metadata still loads and does not pin it.",
+  "explanation": "bootLinkLoads.test.tsx removes the setup's seeded macaque globals and counts loadTrackData calls for cold links: a link to another study, and one naming its track, load only that study's track; a link naming a non-default macaque track loads only that track; a saved Compare analysis on a one-population study, refused after its check, loads no track; the hub loads no track. Without the hold the first three each also load macaque/e9. explorerStore.test.tsx pins a metadata failure keeping its banner while a track load starts and succeeds. Each new case fails with its fix removed.",
   "references": [
     "src/__tests__/bootLinkLoads.test.tsx",
-    "src/__tests__/explorerTrackLoad.test.tsx",
-    "src/__tests__/navigationAttempts.test.tsx"
+    "src/__tests__/explorerStore.test.tsx",
+    "src/__tests__/explorerTrackLoad.test.tsx"
   ]
 }
