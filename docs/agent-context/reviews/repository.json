@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "0cdf35e1386548db1cae3693dd3d05354191b44ac47deb74945010927fbed7d3",
+  "fingerprint": "c663a6d2754900740183002a7f4ab3175a87a7c4318c5dc7ee3a2ffb5dde01e6",
   "outcome": "updated",
   "explanation": "Merges main (PRs #83 to #87) into the rhythm-scan change. From main: PR #87 fixes stale in-app text, agent maps, script headers and dated records without touching sealed or hash-pinned files;project guidance and CONTEXT.md describe the gene page survey tiles and #/expression, the search-names builder writing names.js and renames.js, the rename group with pickStoredMember, every Compare and compare-set download passing the rename table, and CHANGELOG.md records Enter in the gene search selecting the typed gene. From this branch: CONTEXT.md gains the Rhythmic call domain entry and the Lomb-Scargle floor architecture entry (armLombScargleFloor, its preconditions, the cap check plus observed-p guard, rhythmicity.ts byte-pinned), and the circadian validation runbook names both modules with the 136-test focused suite. The names builder now treats current rows that differ only in case and share one authority ID (MGI Tango2 and TANGO2) as one record, adding 90 rename groups (7,525) such as D16H22S680E to Tango2; its header states the rule and searchNames.test.mts covers it.",
   "references": [
     "CONTEXT.md",
     "docs/runbooks/CIRCADIAN_VALIDATION.md",
+    "src/circadian/lombScargleFloor.ts",
+    "src/circadian/rhythmCall.ts",
     "docs/PROJECT_GUIDANCE.md",
     "scripts/build_search_names.mts",
     "scripts/lib/searchNames.test.mts"

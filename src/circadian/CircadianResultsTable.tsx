@@ -15,6 +15,7 @@ import type { PeriodMode } from './CircadianControls';
 import { type ExportContext, exportRawCSV, exportResultsCSV, exportWorkbook } from './circadianExport';
 import type { AdjustMethod } from './multipleTesting';
 import { hasEstimablePeak } from './peak';
+import { isRhythmic } from './rhythmCall';
 import type { RhythmResult } from './rhythmicity';
 import type { RhythmRow } from './scan';
 
@@ -31,8 +32,7 @@ export interface CircadianResultsTableProps {
   total: number;
   selected: string | null;
   onSelect: (gene: string) => void;
-  /** The value a row is judged on: adjusted q, or raw p when correction is off. */
-  scoreOf: (row: RhythmRow) => number;
+  /** With `adjust`, decides each row's emphasis through isRhythmic (rhythmCall.ts). */
   threshold: number;
   adjust: AdjustMethod;
   qLabel: string;
@@ -144,7 +144,7 @@ export function rhythmSortValue(row: RhythmRow, key: SortKey): string | number |
 
 export function CircadianResultsTable({
   bundle, dataset: _dataset, rows, running, total, selected, onSelect,
-  scoreOf, threshold, adjust, qLabel, periodMode, statLabel, unit, exportCtx,
+  threshold, adjust, qLabel, periodMode, statLabel, unit, exportCtx,
 }: CircadianResultsTableProps) {
   const [search, setSearch] = useState('');
   const countId = useId();
@@ -296,7 +296,7 @@ export function CircadianResultsTable({
             <tbody ref={tbodyRef}>
               {visible.map((r, i) => {
                 const isSel = r.gene === selected;
-                const sig = scoreOf(r) < threshold;
+                const sig = isRhythmic(r, { adjust, threshold });
                 const peak = hasPeakTime(r);
                 const period = hasReportedPeriod(r);
                 const fallback = isFallbackAmplitude(r);

@@ -52,7 +52,7 @@ function Harness({ rows, onSelect, periodMode = 'fixed24' }: {
     <CircadianResultsTable
       bundle={bundle} dataset={dataset} rows={rows} running={false} total={rows.length}
       selected={selected} onSelect={(g) => { setSelected(g); onSelect?.(g); }}
-      scoreOf={(r) => r.q ?? r.p} threshold={0.05} adjust="bh" qLabel="q" periodMode={periodMode}
+      threshold={0.05} adjust="bh" qLabel="q" periodMode={periodMode}
       statLabel="F" unit="CT" exportCtx={{ bundle, dataset } as ExportContext}
     />
   );
@@ -196,6 +196,18 @@ describe('CircadianResultsTable values and exports', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Results CSV' }));
     expect(vi.mocked(exportResultsCSV).mock.calls[0][0]).toHaveLength(VISIBLE_ROW_CAP + 5);
+  });
+
+  it('emphasizes a row on its adjusted value, never on a raw p standing in for a missing q', () => {
+    const [called, base] = makeRows(2);
+    const rows = [{ ...called, p: 0.001, q: 0.01 }, { ...base, p: 0.002, q: null }];
+    render(<Harness rows={rows} />);
+    const emphasized = (row: HTMLElement) => within(row).getAllByRole('cell').some((c) => c.style.fontWeight === '600');
+    const [first, second] = bodyRows();
+    expect(geneOf(first)).toBe(called.gene);
+    expect(emphasized(first)).toBe(true);
+    // Under BH a row not yet adjusted counts as q = 1, though its raw p is 0.002.
+    expect(emphasized(second)).toBe(false);
   });
 
   it('shows amplitude and mesor to three significant figures and the peak to one decimal', () => {
