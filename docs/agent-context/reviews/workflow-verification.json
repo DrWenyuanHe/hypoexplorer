@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "1ff671befed4403fe0fe8f6f22b8abab4884e5e84017f7ef0fd0bfa2f5f06db6",
+  "fingerprint": "ebd3aff25fe70ea765d805698281bc1966e55ba8cc4b5559d7326ff114bd75c0",
   "outcome": "updated",
-  "explanation": "No verification workflow change. explorerStore.ts splits its one error banner into a resource half (metadata, QC) and a track half: a track load clears only a track failure when it starts, so a metadata or QC failure keeps its banner and Retry until a dataset/track switch or Retry retires it. Before, starting any track load cleared a metadata failure, which App's held load could now do just after a failed metadata check.",
+  "explanation": "From main: the verification workflow says to commit regenerated author-validation records with any ledger edit and names the freshness test. authorValidationFreshness.test.ts fails in CI when validation-records.generated.json disagrees with its ledgers or the inputSha256 the builder records; its three checks are marked it.fails until the 2026-10-25 records are regenerated, and the regenerating commit must change them back to it. The README and verification workflow say so. From this branch: explorerStore.ts splits its one error banner into a resource half (metadata, QC) and a track half, so a track load clears only a track failure when it starts and a metadata or QC failure keeps its Retry. Evidence, gates and producers are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
+    "data/author-validation/README.md",
+    "src/__tests__/authorValidationFreshness.test.ts",
     "src/data/explorerStore.ts"
   ]
 }

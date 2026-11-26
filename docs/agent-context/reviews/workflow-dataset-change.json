@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "958ca9ac0579e55b420d543fe434660c17f0f4a2caebe2f79d3b7342e86fd56f",
+  "fingerprint": "74e47a7d9aa05739f2748224fa57625947c47cfaf22a834965f2504ec5406629",
   "outcome": "updated",
-  "explanation": "No dataset workflow change. explorerStore.ts splits its one error banner into a resource half (metadata, QC) and a track half: a track load clears only a track failure when it starts, so a metadata or QC failure keeps its banner and Retry until a dataset/track switch or Retry retires it. Before, starting any track load cleared a metadata failure, which App's held load could now do just after a failed metadata check.",
+  "explanation": "Adding or changing a dataset follows the same steps. From main: a CI test fails when author-validation ledgers are committed without regenerating validation-records.generated.json, a step the workflow already required in the maintainer checkout. From this branch: explorerStore.ts splits its one error banner into a resource half (metadata, QC) and a track half, so a track load clears only a track failure when it starts and a metadata or QC failure keeps its Retry.",
   "references": [
     "docs/agent-context/workflows.md",
+    "data/author-validation/README.md",
     "src/data/explorerStore.ts"
   ]
 }

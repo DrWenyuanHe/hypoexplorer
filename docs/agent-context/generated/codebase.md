@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (271):
+Covered source files (272):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -74,6 +74,7 @@ Covered source files (271):
 - [src/__tests__/authorValidationAudit.test.ts](<../../../src/__tests__/authorValidationAudit.test.ts>)
 - [src/__tests__/authorValidationBuilderSourceGate.test.ts](<../../../src/__tests__/authorValidationBuilderSourceGate.test.ts>)
 - [src/__tests__/authorValidationFollowups.test.ts](<../../../src/__tests__/authorValidationFollowups.test.ts>)
+- [src/__tests__/authorValidationFreshness.test.ts](<../../../src/__tests__/authorValidationFreshness.test.ts>)
 - [src/__tests__/authorValidationPanel.test.tsx](<../../../src/__tests__/authorValidationPanel.test.tsx>)
 - [src/__tests__/authorValidationSummary.test.tsx](<../../../src/__tests__/authorValidationSummary.test.tsx>)
 - [src/__tests__/authorVerification.test.tsx](<../../../src/__tests__/authorVerification.test.tsx>)

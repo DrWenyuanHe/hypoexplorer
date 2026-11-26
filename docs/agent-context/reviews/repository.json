@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "7ce275ab5d5ddcaf07a9d3de7659c8adbd587a7f3c54e0addbaf844efa926d06",
+  "fingerprint": "237bcadf59de573781352938b66efdcbaf843fbf37b2c99a8ae2624aebf6f707",
   "outcome": "updated",
-  "explanation": "CONTEXT.md's explorer entry says showActiveTrack is held while the router's routePending is set and while a refusal is on screen, and its explorer store entry says the error banner has a resource half and a track half, so a track load never retires a metadata or QC failure. No guidance, command or configuration changed.",
+  "explanation": "Merges main (PR #88) into the cold-link change. From main: a scripts/lib helper hashes the author-validation ledgers for the builder and the freshness test, and the regenerated codebase map lists it. From this branch: CONTEXT.md's explorer entry says showActiveTrack is held while the router's routePending is set and while a refusal is on screen, and its explorer store entry says the error banner has a resource half and a track half. No guidance, command or context-map rule changed.",
   "references": [
     "CONTEXT.md",
+    "docs/agent-context/generated/codebase.md",
+    "scripts/lib/authorValidationInputs.mts",
     "src/App.tsx",
     "src/data/explorerStore.ts"
   ]
