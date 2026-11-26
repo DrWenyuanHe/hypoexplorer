@@ -1,15 +1,18 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "25af210d6dab22b6da40635d3ce983f49305878938a8daefb242b28dd3db8898",
+  "fingerprint": "acb6e6b64a86b67f0ed9c493d5b1b9f95cd42c04a8220887ce26604348e7cfc0",
   "outcome": "updated",
-  "explanation": "Root configuration changes for the HypoMap atlas build: package.json adds build:hypomap and test:hypomap-build, .gitignore excludes data/hypomap/source/ and data/hypomap/build/, hypomap-release.json pins the reproducible hypomap-atlas-2026-11-26 archive and manifest, and the Application workflow installs h5py, pandas and SciPy to run the synthetic-H5AD exporter test beside the service test. PROJECT_GUIDANCE lists the HypoMap source files among those not in the repository.",
+  "explanation": "Merges main (#92, #93) into the HypoMap atlas build. From main: pnpm-workspace.yaml overrides workbox-build>glob to 14.0.6 for the patched minimatch, and CONTEXT.md, the catalog and the AGENTS.md startup line describe the explorer screen (useExplorer.ts, ExplorerShell.tsx). From this branch: package.json adds build:hypomap and test:hypomap-build, .gitignore excludes data/hypomap/source/ and data/hypomap/build/, hypomap-release.json pins the reproducible hypomap-atlas-2026-11-26, the Application workflow runs the synthetic-H5AD exporter test, and PROJECT_GUIDANCE lists the HypoMap sources among files not in the repository.",
   "references": [
     "package.json",
     ".gitignore",
     "hypomap-release.json",
     ".github/workflows/application.yml",
     "docs/PROJECT_GUIDANCE.md",
-    "scripts/hypomap/test_export_atlas.py"
+    "scripts/hypomap/test_export_atlas.py",
+    "pnpm-workspace.yaml",
+    "CONTEXT.md",
+    "src/explorer/useExplorer.ts"
   ]
 }

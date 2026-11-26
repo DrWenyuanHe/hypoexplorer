@@ -38,7 +38,7 @@ Source areas:
 - `crossdataset`: Gene, pathway and expression reports across studies.
 - `data`: Registry, bundle loading, query indexes and evidence state.
 - `dataset-tracker`: Integrated dataset intake and evidence board.
-- `explorer`: Explorer position, track navigation, tab declarations and session state.
+- `explorer`: Explorer position, session state, the explorer screen, track navigation and tab declarations.
 - `expression-survey`: Gene survey workspace shown on gene pages, multi-gene survey, population catalog and source validation.
 - `gene-explorer`: Gene search, volcano plots and expression displays.
 - `hub`: Search-first landing page and study entry points.

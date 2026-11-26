@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "489a46597cf71a3574ff4597387ff7eb738b0731d3c1e5ba24c2ff16177eaac1",
+  "fingerprint": "d22da50da2de3f75ca28e674d99994f54037d86d8d19db415f09f89fcc9d1f25",
   "outcome": "no-impact",
-  "explanation": "No author-validation, QC or evidence-ledger process changed. The new data/hypomap inputs and the exporter test check an aggregated atlas export, not study verification; the verification workflow and its records are unaffected.",
+  "explanation": "No verification workflow change. From main, explorerStore.ts changes only its header comment. From this branch, the data/hypomap inputs and the exporter test check an aggregated atlas export, not study verification or evidence ledgers.",
   "references": [
-    "data/hypomap/README.md",
-    "docs/agent-context/workflows.md"
+    "docs/agent-context/workflows.md",
+    "src/data/explorerStore.ts",
+    "data/hypomap/README.md"
   ]
 }

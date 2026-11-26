@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "013fe7ff003fb28ee1b2cfb9f68065b6150de04ed71f43aa2a8a0aa1fca4cf54",
+  "fingerprint": "919dd894ce42a777b8564ad355cc2155fbd1a13a5f08f56bf5d36cbb4d0f75ae",
   "outcome": "no-impact",
-  "explanation": "The HypoMap atlas is not a registered dataset: it adds no registry entry, bundle or query index, and the dataset-change workflow is unchanged. Its inputs, build and pins are documented separately in data/hypomap/README.md and are reached from the UI-change and delivery workflows.",
+  "explanation": "No dataset workflow change. From main, explorerStore.ts changes only its header comment (the active dataset and track are the explorer position held by useExplorer.ts). From this branch, the HypoMap atlas adds no registry entry, bundle or query index; its build is documented in data/hypomap/README.md.",
   "references": [
-    "data/hypomap/README.md",
-    "docs/agent-context/workflows.md"
+    "docs/agent-context/workflows.md",
+    "src/data/explorerStore.ts",
+    "data/hypomap/README.md"
   ]
 }

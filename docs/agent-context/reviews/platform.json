@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "a056fdebce1d8d0d9b1d337877b2e5296a5ade45c41bdfde648f060657105578",
+  "fingerprint": "084b5587d8a5c24a5458f005632d79ce426f8720fce9b917f7ccf44ff718b889",
   "outcome": "updated",
-  "explanation": "App holds Compare's view through useCompareView instead of its own state, JSON.stringify equality and epoch bookkeeping, and passes comparePair(dataset, populations) as CompareTab's default pair; the curated pair is now checked against the dataset's own populations. routeLanding lands a Compare link through landCompareLink from compare/compareView.ts, a type-only-import leaf, so the entry bundle gains no runtime dependency.",
+  "explanation": "App.tsx is now the view switch (about 350 lines): it calls useExplorer once above it, hands explorer.nav and explorer.at to useAppRouter, composes the one user-move callback (supersede then navigate) and renders <ErrorBoundary key=\"explorer\"><ExplorerShell/></ErrorBoundary>, so a throw in the explorer screen no longer blanks the page. The explorer-on-screen effect stays in App after the router so it still runs after a boot landing. App keeps the changelog and study-details flags, which outlive a visit to the explorer. appRouter.ts imports ExplorerNavigation and ExplorerAt as types from explorer/useExplorer.ts instead of declaring them; the entry bundle gains no runtime import.",
   "references": [
     "src/App.tsx",
-    "src/routeLanding.ts",
-    "src/compare/compareView.ts",
-    "src/compare/useCompareView.ts"
+    "src/appRouter.ts",
+    "src/explorer/useExplorer.ts",
+    "src/explorer/ExplorerShell.tsx"
   ]
 }
