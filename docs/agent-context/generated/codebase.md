@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (265):
+Covered source files (267):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -110,6 +110,7 @@ Covered source files (265):
 - [src/__tests__/compareTabContrast.test.tsx](<../../../src/__tests__/compareTabContrast.test.tsx>)
 - [src/__tests__/compareTabLoading.test.tsx](<../../../src/__tests__/compareTabLoading.test.tsx>)
 - [src/__tests__/compareTabToolbar.test.tsx](<../../../src/__tests__/compareTabToolbar.test.tsx>)
+- [src/__tests__/compareView.test.ts](<../../../src/__tests__/compareView.test.ts>)
 - [src/__tests__/concordanceReviewEvidence.test.ts](<../../../src/__tests__/concordanceReviewEvidence.test.ts>)
 - [src/__tests__/confirmDialog.test.tsx](<../../../src/__tests__/confirmDialog.test.tsx>)
 - [src/__tests__/contrastMatrix.test.tsx](<../../../src/__tests__/contrastMatrix.test.tsx>)
@@ -304,6 +305,7 @@ Covered source files (265):
 - [src/__tests__/uploadPublication.test.ts](<../../../src/__tests__/uploadPublication.test.ts>)
 - [src/__tests__/upstreamProcessing.test.ts](<../../../src/__tests__/upstreamProcessing.test.ts>)
 - [src/__tests__/useBundleProgress.test.tsx](<../../../src/__tests__/useBundleProgress.test.tsx>)
+- [src/__tests__/useCompareView.test.tsx](<../../../src/__tests__/useCompareView.test.tsx>)
 - [src/__tests__/verificationAdvancement.test.ts](<../../../src/__tests__/verificationAdvancement.test.ts>)
 - [src/__tests__/verificationView.test.tsx](<../../../src/__tests__/verificationView.test.tsx>)
 - [src/__tests__/versionBadge.test.tsx](<../../../src/__tests__/versionBadge.test.tsx>)
@@ -425,7 +427,7 @@ Start here:
 - [src/compare/CompareGenesView.tsx](<../../../src/compare/CompareGenesView.tsx>)
 - [src/compare/compareCell.ts](<../../../src/compare/compareCell.ts>)
 
-Covered source files (9):
+Covered source files (11):
 - [src/compare/CompareGenesView.tsx](<../../../src/compare/CompareGenesView.tsx>)
 - [src/compare/ComparePathwayView.tsx](<../../../src/compare/ComparePathwayView.tsx>)
 - [src/compare/CompareTab.tsx](<../../../src/compare/CompareTab.tsx>)
@@ -434,7 +436,9 @@ Covered source files (9):
 - [src/compare/compareColumns.ts](<../../../src/compare/compareColumns.ts>)
 - [src/compare/compareFigureExport.ts](<../../../src/compare/compareFigureExport.ts>)
 - [src/compare/compareSummary.ts](<../../../src/compare/compareSummary.ts>)
+- [src/compare/compareView.ts](<../../../src/compare/compareView.ts>)
 - [src/compare/resolveGene.ts](<../../../src/compare/resolveGene.ts>)
+- [src/compare/useCompareView.ts](<../../../src/compare/useCompareView.ts>)
 
 ## compareset
 

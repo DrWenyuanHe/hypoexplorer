@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "0d72ec54e64b90164a8a267cfb6271b6d742bbfe20cde199dfc3f7a7f116dfe5",
+  "fingerprint": "a056fdebce1d8d0d9b1d337877b2e5296a5ade45c41bdfde648f060657105578",
   "outcome": "updated",
-  "explanation": "From main: The router runs one navigation attempt at a time. begin(policy) retires the attempt in flight, clears routePending and routeError and sets the write policy: replace for a followed URL, push for a user action, hold after an ignored fragment until the target hash changes; the write effect consumes it on a write, a matching hash or a refusal. hasWritten, the replaceNextWrite stop-gap and the retired-landing replaceState are gone. Verbs and view-reported setters (on a real change only) start push attempts, openInExplorer(id, track) verifies through landRoute and settleExplorer, and App calls the new stable supersede() before its track, tab, contrast, leave-Compare and send-genes navigate calls. From this branch: App holds the survey-to-gene-page handoff in memory: ExpressionSurveyView calls onOpenGene(symbol, scope), App stores { gene, scope } and opens the gene report through searchGene, and passes the scope to that gene's report only. Routes and appRouter are unchanged; #/expression and #/gene/<symbol> keep their forms. Review fixes: App takes the survey handover from useSurveyHandoff, which drops it once the handed gene page has shown and the reader leaves, instead of keeping it until another handover.",
+  "explanation": "App holds Compare's view through useCompareView instead of its own state, JSON.stringify equality and epoch bookkeeping, and passes comparePair(dataset, populations) as CompareTab's default pair; the curated pair is now checked against the dataset's own populations. routeLanding lands a Compare link through landCompareLink from compare/compareView.ts, a type-only-import leaf, so the entry bundle gains no runtime dependency.",
   "references": [
-    "src/appRouter.ts",
     "src/App.tsx",
-    "CONTEXT.md",
-    "src/utils/appLinks.ts",
-    "src/expression-survey/useSurveyHandoff.ts"
+    "src/routeLanding.ts",
+    "src/compare/compareView.ts",
+    "src/compare/useCompareView.ts"
   ]
 }

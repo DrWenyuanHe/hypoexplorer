@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "99379dd31f8ec9d1603e5c462bedf8afb045e765eca60ad2ae0132297ef334ff",
+  "fingerprint": "8b172c3c8d18873f045010ba39ebabccfa4e981872100c3b6a39411f6f997910",
   "outcome": "updated",
-  "explanation": "Merges main (PRs #83 to #87) into the rhythm-scan change. From main: PR #87 fixes stale in-app text, agent maps, script headers and dated records without touching sealed or hash-pinned files;project guidance and CONTEXT.md describe the gene page survey tiles and #/expression, the search-names builder writing names.js and renames.js, the rename group with pickStoredMember, every Compare and compare-set download passing the rename table, and CHANGELOG.md records Enter in the gene search selecting the typed gene. From this branch: CONTEXT.md gains the Rhythmic call domain entry and the Lomb-Scargle floor architecture entry (armLombScargleFloor, its preconditions, the cap check plus observed-p guard, rhythmicity.ts byte-pinned), and the circadian validation runbook names both modules with the 136-test focused suite.",
+  "explanation": "CONTEXT.md gains a Compare view entry: comparePair, landCompareLink (read by routeLanding, type-only imports for the entry bundle), openCompareView, compareLink, sameCompareLink, and useCompareView with its land-versus-report epoch rule. No guidance, command or configuration changed.",
   "references": [
     "CONTEXT.md",
-    "docs/runbooks/CIRCADIAN_VALIDATION.md",
-    "src/circadian/lombScargleFloor.ts",
-    "src/circadian/rhythmCall.ts"
+    "src/compare/compareView.ts",
+    "src/compare/useCompareView.ts"
   ]
 }
