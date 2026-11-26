@@ -1,11 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "d0f775d6a4182945671df6498ec8574d30a38801366f38c8a6ba1e7a46c84e39",
+  "fingerprint": "656b34e3edbc92d1774fa8d92d98f9ff28d995bb1818616a0f023e83370142a3",
   "outcome": "updated",
-  "explanation": "changelogVisit.test.tsx opens the changelog in the explorer, goes Home and enters through the hub's Quality control link, and requires the QC tab with no release notes; it failed before the fix. A second case opens the changelog, follows a refused saved-analysis link (error page, view still explorer) and then a valid QC link, and requires the QC tab; it failed until routeError also closed the changelog. It also pins the hub's Changelog link still opening the changelog.",
+  "explanation": "Merges main (#97, #98) into the changelog fix. From main: forestReport.test.tsx imports contrastLabel from data/contrasts, where it now lives; the gene and pathway report tests and the listing toggle test open the (?) help beside the listing toggle to find the FDR, q and p < 0.05 only explanation, and row q cells keep their hover title. From this branch: changelogVisit.test.tsx opens the changelog in the explorer, goes Home and enters through the hub's Quality control link, and requires the QC tab with no release notes; a second case follows a refused saved-analysis link and then a valid QC link; a third pins the hub's Changelog link still opening it. The first two failed before their fixes.",
   "references": [
     "src/__tests__/changelogVisit.test.tsx",
-    "src/__tests__/hubUnits.test.tsx"
+    "src/__tests__/forestReport.test.tsx",
+    "src/__tests__/geneReport.test.tsx",
+    "src/__tests__/pathwayReportResults.test.tsx",
+    "src/__tests__/listingModeToggle.test.tsx"
   ]
 }

@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "ae167489bfdba3ab09acef81120544d6756014fb9268469d7c98d11631181ea6",
+  "fingerprint": "ad6ff8563b5a4d0f62eaf59f035a954f388892b02b63f065c16946f81db61753",
   "outcome": "updated",
-  "explanation": "contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. SearchPage.tsx imports it from data/contrasts, so nothing under src/search imports src/crossdataset any more and the search ↔ crossdataset directory cycle (crossdataset/GeneReport.tsx still imports search/portalCards) is gone. No visible change.",
+  "explanation": "contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. SearchPage.tsx imports it from data/contrasts, so nothing under src/search imports src/crossdataset any more and the search ↔ crossdataset directory cycle (crossdataset/GeneReport.tsx still imports search/portalCards) is gone. No visible change. The pathway portal note also keeps its nominal track counts but drops the not-corrected caveat clause, which the listing toggle (?) help beside the results title now carries.",
   "references": [
     "src/search/SearchPage.tsx",
     "src/data/contrasts.ts"

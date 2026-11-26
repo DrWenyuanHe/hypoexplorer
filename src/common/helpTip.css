@@ -1,0 +1,22 @@
+/* HelpTip: a (?) button with an explanation panel behind it. */
+.help-tip {
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  width: 18px; height: 18px; padding: 0;
+  font-family: inherit; font-size: 11px; font-weight: 700; line-height: 1;
+  color: var(--text-muted); background: var(--bg-panel);
+  border: 1px solid var(--border-dark); border-radius: 50%;
+  cursor: help;
+}
+.help-tip:hover, .help-tip[aria-expanded="true"] { color: var(--accent); border-color: currentColor; }
+.help-tip[data-pinned] { color: #fff; background: var(--accent); border-color: var(--accent); }
+.help-tip:focus-visible { outline: 2px solid var(--color-selected); outline-offset: 1px; }
+
+.help-tip-panel {
+  position: fixed; z-index: 9000; box-sizing: border-box;
+  padding: 10px 12px;
+  font-size: 12.5px; line-height: 1.5; text-align: left; color: var(--text-primary);
+  background: var(--bg-panel); border: 1px solid var(--border-dark); border-radius: 6px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
+}
+.help-tip-panel p { margin: 0; }
+.help-tip-panel p + p { margin-top: 8px; }
