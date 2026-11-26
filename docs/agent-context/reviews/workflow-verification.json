@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "d4523603ea6c7b12cd9043c4faf706221d6c57ee6bd02e30e33488e7484095a9",
-  "outcome": "updated",
-  "explanation": "No verification workflow change. contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts.",
+  "fingerprint": "d3510f7bb63fa9b346ed67b73ec79966a79e461951edd3b5c8014d2141a8ba42",
+  "outcome": "no-impact",
+  "explanation": "Merges main: contrastLabel moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts. No verification workflow change. From main, explorerStore.ts changes only its header comment. From this branch, the data/hypomap inputs and the exporter test check an aggregated atlas export, not study verification or evidence ledgers.",
   "references": [
     "docs/agent-context/workflows.md",
+    "src/data/explorerStore.ts",
+    "data/hypomap/README.md",
     "src/data/contrasts.ts"
   ]
 }

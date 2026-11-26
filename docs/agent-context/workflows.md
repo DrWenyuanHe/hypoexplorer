@@ -240,7 +240,10 @@ HypoMap views in `src/search/hypomap/` sit behind two build flags that stay off 
 hosted builds: `VITE_HYPOMAP_EXPRESSION` adds the atlas preview under the gene
 report's expression lanes, and `VITE_HYPOMAP_COEXPRESSION` replaces the
 co-expression placeholder. The preview reads the export pinned in
-`hypomap-release.json` (installed by `pnpm run fetch:hypomap`); co-expression needs
+`hypomap-release.json` (installed by `pnpm run fetch:hypomap`). `pnpm run build:hypomap`
+rebuilds that release and the service's comparison index from the CELLxGENE atlas
+pinned in `data/hypomap/provenance.json` (`scripts/hypomap/`, runbook
+`data/hypomap/README.md`). Co-expression needs
 the loopback service in `services/hypomap/`, reached only through the offline dev
 server's proxy and only via the client `src/search/hypomap/codetection.ts`, which
 fails closed when the service's export hash disagrees with the pin and keeps

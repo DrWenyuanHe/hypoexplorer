@@ -1,15 +1,13 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "cd956e66a0d6ccc9215d857ea3d6aa8ca070a5bf864b49f94fd05e3a3c722906",
+  "fingerprint": "49bbd8a0ee22086a9b97d793d260d6017b505e5fa4c0e5d76aefbae9ca7df663",
   "outcome": "updated",
-  "explanation": "Delivery scripts gained accurate usage text only: build_expression_index.mts has a header covering --check, --out and --evidence; prepare_deploy.mts and fetch_query_catalog.mts document HYPOEXPLORER_APP_ORIGIN; upload_bundles_r2.mts uses pnpm usage, documents R2_CONCURRENCY and describes cache keys and headers as dataOriginLayout.ts defines them. No delivery behaviour changed. pnpm run analyze:hfd now runs scripts/analyze_hfd_r460.mts, which refuses any Rscript but R 4.6.0 and runs scripts/regen-r460/run_hfd_r460.R then run_fgsea_r460.R under LC_COLLATE=C for the stems derived from data/intake/hfd-2026-09-12/studies.json, the producers check:hfd-intake audits; it no longer runs the sealed originals, which stay byte-identical. The HFD intake record says so.",
+  "explanation": "The HypoMap atlas section now says how the pinned archive is produced: pnpm run build:hypomap (scripts/hypomap/build_release.py) verifies the pinned inputs, runs the exporter, packages the archive and compares both hashes with the pins; fetch:hypomap installs it from the release asset or a local archive path. The new tag changes the rendered edge rule payloads (re-rendered with edge:apply --write-payloads, no remote request). The release asset is still unpublished.",
   "references": [
-    "scripts/deploy/upload_bundles_r2.mts",
-    "scripts/build_expression_index.mts",
-    "src/data/dataOriginLayout.ts",
-    "scripts/analyze_hfd_r460.mts",
-    "package.json",
-    "data/quality/hfd-intake-2026-09-12/README.md"
+    "docs/agent-context/delivery.md",
+    "scripts/hypomap/build_release.py",
+    "scripts/fetch/fetch_hypomap.mts",
+    "hypomap-release.json"
   ]
 }

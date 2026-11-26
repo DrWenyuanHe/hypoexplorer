@@ -58,6 +58,12 @@ jobs:
         run: |
           python -m pip install --quiet 'numpy>=2,<3'
           pnpm run test:service
+      # The atlas exporter (scripts/hypomap) on a synthetic H5AD: exported counts,
+      # the comparison index the service reads, and the release archive.
+      - name: Test the HypoMap atlas exporter
+        run: |
+          python -m pip install --quiet 'h5py>=3.10,<4' 'pandas>=2,<4' 'scipy>=1.11,<2'
+          pnpm run test:hypomap-build
       # Generated maps, links and review fingerprints must match the committed
       # sources (docs/agent-context/README.md). Reads files only; writes nothing.
       - name: Check the agent context

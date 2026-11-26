@@ -151,3 +151,9 @@ geo_replication/**/*_CPM_raw.tsv.gz
 data/raw/results/*/de/rawcpm.csv
 
 /public/hypomap/
+
+# HypoMap atlas build inputs and outputs (data/hypomap/README.md). The CELLxGENE H5AD
+# (3.8 GB) and the MGI reports are pinned by SHA-256 in data/hypomap/provenance.json;
+# the builder writes the browser export, its release archive and the comparison index.
+data/hypomap/source/
+data/hypomap/build/

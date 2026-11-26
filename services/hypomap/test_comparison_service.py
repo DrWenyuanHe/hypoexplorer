@@ -144,6 +144,11 @@ class ComparisonTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'checksum'):
             ComparisonIndex(self.root)
 
+    def test_source_check_is_refused_when_the_index_records_no_sources(self):
+        # The atlas exporter records no processed files, so --processed-dir must not pass silently.
+        with self.assertRaisesRegex(ValueError, 'no processed source files'):
+            ComparisonIndex(self.root, processed_dir=self.root / 'does-not-exist')
+
 
 if __name__ == '__main__':
     unittest.main()

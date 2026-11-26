@@ -1,6 +1,9 @@
 # HypoMap co-detection service
 
-Generate the comparison index using the matching HypoMap exporter in the data repository. The service requires Python 3.11+ and NumPy. Keep the index on the service host.
+`pnpm run build:hypomap` writes the comparison index next to the browser export it
+matches (`data/hypomap/build/<tag>/comparison-index/`; see
+[the atlas runbook](../../data/hypomap/README.md)). The service requires Python 3.11+
+and NumPy. Keep the index on the service host.
 
 ```sh
 python3 services/hypomap/comparison_service.py \
@@ -8,8 +11,10 @@ python3 services/hypomap/comparison_service.py \
   --export-dir /path/to/atlas-export
 ```
 
-Add `--processed-dir /path/to/processed` to also re-verify the index against
-the processed source files it was built from.
+Add `--processed-dir /path/to/processed` to also re-verify an index against
+the processed source files it was built from. Indexes built from the atlas record
+none (their source is the H5AD the build verified), so the service refuses the
+option for them instead of reporting a check that verified nothing.
 
 For the local app, start offline Vite with `VITE_HYPOMAP_COEXPRESSION=1`.
 Vite proxies the card's requests to the loopback service. The independent
