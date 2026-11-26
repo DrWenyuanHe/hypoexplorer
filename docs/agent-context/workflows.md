@@ -93,7 +93,8 @@ in part. The maintainer's checkout also runs `check:quality`, which is not here;
 report's freshness, given the same restored inputs.
 Commit regenerated author-validation records with any ledger edit:
 `src/__tests__/authorValidationFreshness.test.ts` fails in CI when
-`validation-records.generated.json` disagrees with its ledgers or their recorded hashes.
+`validation-records.generated.json` disagrees with its ledgers or their recorded hashes
+(marked `it.fails` until the 2026-10-25 records are regenerated).
 Run `pnpm run check:bundle-eol` before an audit records any SHA-256 pin: pin
 writers hash the working file, and a stale copy whose line endings differ from
 the committed blob yields a pin that no clean checkout reproduces.

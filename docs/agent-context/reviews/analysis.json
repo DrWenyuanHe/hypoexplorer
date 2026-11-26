@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "analysis",
-  "fingerprint": "54728a440402b5a6fc1b949050fa4feae7eaf22d1fe7d3aeb3f0ef5ca66a6f4c",
+  "fingerprint": "26ac24734e1c4c0dce61e2d660734bcfb967dc64bf0c536eeaee9a30cc98e073",
   "outcome": "updated",
-  "explanation": "Merges main into the author-validation freshness guard. From main: dated evidence records gain their maintainer-checkout header and analyze:hfd runs the R 4.6.0 HFD producers, as the HFD intake record says. From this branch: the author-validation README says to commit regenerated records with any ledger edit, names the CI freshness test and documents the inputSha256 field that build_author_validation.mts now writes. No ledger, evidence or generated record changed.",
+  "explanation": "Merges main into the author-validation freshness guard. From main: dated evidence records gain their maintainer-checkout header and analyze:hfd runs the R 4.6.0 HFD producers, as the HFD intake record says. From this branch: the author-validation README says to commit regenerated records with any ledger edit, names the CI freshness test and documents the inputSha256 field that build_author_validation.mts now writes. No ledger, evidence or generated record changed. The three freshness checks are marked it.fails until the 2026-10-25 records are regenerated, and the regenerating commit must change them back to it; the README and verification workflow say so.",
   "references": [
     "data/author-validation/README.md",
     "data/quality/hfd-intake-2026-09-12/README.md",

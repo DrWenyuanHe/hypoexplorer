@@ -73,7 +73,7 @@ pnpm run typecheck
 pnpm exec vitest run src/__tests__/authorVerification.test.tsx src/__tests__/authorValidationPanel.test.tsx src/__tests__/verificationView.test.tsx
 ```
 
-Commit the regenerated records with the ledger edit. CI cannot rebuild them, so `src/__tests__/authorValidationFreshness.test.ts` compares them with the committed ledgers instead: every `verification-review.json` field the builder copies, every `comparability-review.json` record, and the `inputSha256` the builder records for the four ledgers and `direct-comparisons.generated.json`. A ledger committed without this regeneration fails it.
+Commit the regenerated records with the ledger edit. CI cannot rebuild them, so `src/__tests__/authorValidationFreshness.test.ts` compares them with the committed ledgers instead: every `verification-review.json` field the builder copies, every `comparability-review.json` record, and the `inputSha256` the builder records for the four ledgers and `direct-comparisons.generated.json`. A ledger committed without this regeneration fails it. The records committed on 2026-10-25 predate the Nov 15-24 ledger merges, so its checks are marked `it.fails` until they are regenerated; the regenerating commit must change them back to `it`.
 
 The tracker catalog is built from a survey catalog that is
 [not in this repository](../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository);

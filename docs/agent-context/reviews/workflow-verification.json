@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "bf8891dd6f90ec190901ff26027b1471686ea376348e6b59b560034961a3eff1",
+  "fingerprint": "a7f801df59f6a0b5dfc461b9fb95ac5379442020be03d9c19383ab986850891c",
   "outcome": "updated",
-  "explanation": "The verification workflow now says to commit regenerated author-validation records with any ledger edit and names src/__tests__/authorValidationFreshness.test.ts, which fails in CI when validation-records.generated.json disagrees with its ledgers or the inputSha256 the builder records. From main, explorerStore.ts changes only its header comment. Evidence, gates and producers are unchanged.",
+  "explanation": "The verification workflow now says to commit regenerated author-validation records with any ledger edit and names src/__tests__/authorValidationFreshness.test.ts, which fails in CI when validation-records.generated.json disagrees with its ledgers or the inputSha256 the builder records. From main, explorerStore.ts changes only its header comment. Evidence, gates and producers are unchanged. The three freshness checks are marked it.fails until the 2026-10-25 records are regenerated, and the regenerating commit must change them back to it; the README and verification workflow say so.",
   "references": [
     "docs/agent-context/workflows.md",
     "data/author-validation/README.md",
