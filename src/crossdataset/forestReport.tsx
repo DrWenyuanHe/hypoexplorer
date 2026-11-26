@@ -16,7 +16,7 @@ import { Spinner } from '../common/Spinner';
 import { useBundleBytes } from '../data/useBundleProgress';
 import { DIRECTION_UP_COLOR, DIRECTION_DOWN_COLOR, FONT_MONO } from '../styles/constants';
 import { fmtBytes } from '../utils/format';
-import type { Direction, ResolvedContrast } from '../types';
+import type { Direction } from '../types';
 
 // One grid template for every row of a forest (axis header, track rows) so the
 // dots, the axis ticks and the numeric columns stay registered.
@@ -33,13 +33,6 @@ export function axisPct(value: number, bound: number): number {
 export function directionFill(dir: Direction, significant: boolean): string {
   if (!significant) return 'var(--text-muted)';
   return dir === 'up' ? DIRECTION_UP_COLOR : dir === 'down' ? DIRECTION_DOWN_COLOR : 'var(--text-muted)';
-}
-
-// The dataset group header's contrast label. Reads the RESOLVED label rather
-// than recomputing "<case> vs <baseline>" — resolveContrast already applied the
-// authored-label-wins rule, and recomputing here silently discarded it.
-export function contrastLabel(contrast: ResolvedContrast | null | undefined): string {
-  return contrast?.label ?? '';
 }
 
 // A pill that toggles whether one category is shown in a cross-dataset view.

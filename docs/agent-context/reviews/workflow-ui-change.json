@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "762f9112c20badba5f6233cef9c6364697efabb8a68f52da79689cffea18250d",
+  "fingerprint": "e4b68e8c5a52e68cd2864629e34f72b41918173708056714c9d42bde4aaa46da",
   "outcome": "updated",
-  "explanation": "No workflow rule changes. A link's written form now lives in routeLanding.routeOf beside its reader, and routeRoundTrip.test.ts fails if a change to either side makes an address land somewhere other than where it was written; CONTEXT.md names both. Routes and link format are unchanged.",
+  "explanation": "No workflow rule changes. contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. The search area no longer imports the crossdataset area.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/routeLanding.ts",
-    "CONTEXT.md"
+    "src/data/contrasts.ts",
+    "src/search/SearchPage.tsx"
   ]
 }

@@ -29,7 +29,7 @@ import { nomenclatureAuthorityForStoredDatasetSymbols } from '../data/nomenclatu
 import { useBundleBytes } from '../data/useBundleProgress';
 import { useSymbolRenames } from '../data/useSymbolRenames';
 import { contrastArmCounts } from '../data/contrasts';
-import { contrastLabel } from '../crossdataset/forestReport';
+import { contrastLabel } from '../data/contrasts';
 import { useExportAction } from '../utils/exportAction';
 import { withExportEvidence } from '../utils/lazyExport';
 import { columnsSubject, exportName, exportProvenance, metadataSheet } from '../utils/exportProvenance';

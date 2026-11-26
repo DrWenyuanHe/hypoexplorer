@@ -2,10 +2,10 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import { afterEach } from 'vitest';
 import {
-  axisPct, directionFill, contrastLabel, groupForestCategories, FilterChip,
+  axisPct, directionFill, groupForestCategories, FilterChip,
 } from '../crossdataset/forestReport';
 import { listDatasets } from '../data/datasets';
-import { listContrasts } from '../data/contrasts';
+import { contrastLabel, listContrasts } from '../data/contrasts';
 import { PageShell } from '../common/PageShell';
 import type { ResolvedContrast } from '../types';
 
