@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-common",
-  "fingerprint": "6429e23bc88b101967819210430509b788394ed8f00a64fc2adfb47ab58d04b2",
+  "fingerprint": "306ab047ba943bf474d292dcfe4809dfbbe3fd5c159f074081e6966efcd9a71e",
   "outcome": "updated",
-  "explanation": "Adds useLoad.ts, moved from search/hypomap: the one keyed load-and-retry lifecycle (idle without a key, loading for a new key or a Retry, failed with a Retry when a load rejects, loaded; a stale answer is dropped and the signal aborts on a key change or unmount). The search rows, the gene-page and search cards and the HypoMap views all use it.",
+  "explanation": "Adds HelpTip, a (?) button whose explanation panel opens on hover or focus, pins on click for touch, and closes on Escape or an outside click. The panel is a fixed-position portal clamped to the viewport.",
   "references": [
-    "src/common/useLoad.ts",
-    "CONTEXT.md"
+    "src/common/HelpTip.tsx",
+    "src/common/helpTip.css"
   ]
 }

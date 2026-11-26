@@ -1,13 +1,11 @@
 {
   "version": 1,
   "area": "module-crossdataset",
-  "fingerprint": "c722c31ec0ead50090302ec6136c10ea9a941d23070d1671d13cc9b17a32b07d",
+  "fingerprint": "edcdea91b0635d33f2aad45a6d89e76a0bb918e92cabfb235e8d7fceced97cb4",
   "outcome": "updated",
-  "explanation": "GeneReport takes an optional expressionScope (the survey page's scope for a gene it handed over) and passes it to GeneExpressionCards as surveyScope; onOpenExpression now names the survey page for multi-gene comparison and the catalog rather than the only route to a gene's survey. GeneReport names the studies read under another rename-group member above the differential-expression table (renamedStudies) and tags each such row with its stored symbol; GeneEffectPreview looks the row up under track.storedAs so the preview draws the stored gene.",
+  "explanation": "The gene and pathway reports drop the paragraph explaining p < 0.05 only tracks and the legend sentence defining q; both now sit behind the listing toggle (?) help, which names the gene or pathway correction family. Counts, ordering and empty-listing notes are unchanged.",
   "references": [
     "src/crossdataset/GeneReport.tsx",
-    "src/search/portalCards.tsx",
-    "src/crossdataset/GeneEffectPreview.tsx",
-    "src/crossdataset/forestReport.css"
+    "src/crossdataset/PathwayReport.tsx"
   ]
 }

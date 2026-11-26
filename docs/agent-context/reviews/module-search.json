@@ -1,14 +1,10 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "25411a21d925155e34db8dd38fc93e10e8b78bda298496a308a846b7395f8530",
+  "fingerprint": "5d0c8ecfdbc2595baf96fddf3561a11bc9e178c9c277c1e2fae6ba2ad4c0bc34",
   "outcome": "updated",
-  "explanation": "portalCards.tsx drops its own useLoad (no failure state, so a rejecting loader stayed loading) and its never-settling PENDING promise; it and SearchPage.tsx use common/useLoad, with a null key for an undecided study selection or an off-screen row in place of the empty-string key and loadRowSummary shim. Cards read failed like null (the portal loaders already map failures to null through searchSummaries.cached), so what they show is unchanged. The HypoMap views import the hook from common/useLoad.",
+  "explanation": "The pathway portal note keeps its nominal track counts but drops the not-corrected caveat clause, which the listing toggle (?) help beside the results title now carries.",
   "references": [
-    "src/search/portalCards.tsx",
-    "src/search/SearchPage.tsx",
-    "src/search/hypomap/Coexpression.tsx",
-    "src/search/hypomap/HypoMapPreview.tsx",
-    "src/common/useLoad.ts"
+    "src/search/SearchPage.tsx"
   ]
 }

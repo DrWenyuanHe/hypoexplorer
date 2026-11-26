@@ -1,13 +1,11 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "bfd0fee0bfd2ba0fb80f55e0d8dd975284d9ec164b35b5a3b42a17568baa26a6",
+  "fingerprint": "400bcfa9eae477be32e864ef7f668567dc5be5897f46614c1724a2d8b7f21453",
   "outcome": "updated",
-  "explanation": "No workflow rule changes. App's active-track load waits for a landing to settle (the router's routePending) and skips a refusal, and the store keeps a metadata failure across a track load; CONTEXT.md names both. Routes, link format and the visible explorer are unchanged.",
+  "explanation": "No workflow rule changes. The significance explanations move from report paragraphs into a (?) help beside the listing toggle; routes, links, exports and the listing itself are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/App.tsx",
-    "src/data/explorerStore.ts",
-    "CONTEXT.md"
+    "src/statistics/ListingModeToggle.tsx"
   ]
 }

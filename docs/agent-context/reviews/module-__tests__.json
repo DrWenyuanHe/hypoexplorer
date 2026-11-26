@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "868da172ddee34a45a80eed5830b01c05bf4d2bab0d43c12f347adc5812bf61c",
+  "fingerprint": "ba52900109de7ef64633861590e6a5fb7902f8ed076df3b1bb3660725bb4f53e",
   "outcome": "updated",
-  "explanation": "Merges main (PR #88) into the cold-link change. From main: authorValidationFreshness.test.ts fails in CI when validation-records.generated.json disagrees with its ledgers or the inputSha256 the builder records; its three checks are marked it.fails until the 2026-10-25 records are regenerated, and the regenerating commit must change them back to it. The builder source-gate fixture supplies additional-comparison-specs.json and checks the five recorded input hashes. From this branch: bootLinkLoads.test.tsx removes the setup's seeded macaque globals and counts loadTrackData calls for cold links (each loads only its own track; a link refused after its check and the hub load none), and explorerStore.test.tsx pins a metadata failure keeping its banner while a track load starts and succeeds. Each new case fails with its fix removed.",
+  "explanation": "The gene and pathway report tests and the listing toggle test now open the (?) help beside the listing toggle to find the FDR, q and p < 0.05 only explanation, instead of reading it from a paragraph or a focusable legend abbr. Row q cells keep their hover title.",
   "references": [
-    "src/__tests__/bootLinkLoads.test.tsx",
-    "src/__tests__/explorerStore.test.tsx",
-    "src/__tests__/authorValidationFreshness.test.ts",
-    "src/__tests__/authorValidationBuilderSourceGate.test.ts"
+    "src/__tests__/geneReport.test.tsx",
+    "src/__tests__/pathwayReportResults.test.tsx",
+    "src/__tests__/listingModeToggle.test.tsx"
   ]
 }
