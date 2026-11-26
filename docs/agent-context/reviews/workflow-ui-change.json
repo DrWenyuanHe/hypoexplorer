@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "81ada172293cd0ee81de2790efc7fcac2ca1a66874746d328cee40b68ba8db5e",
+  "fingerprint": "2e27fe30b029210be8b17bd745fa9e0de2b33d2ad261d7431b67fffd1922510f",
   "outcome": "updated",
-  "explanation": "No workflow rule changes. A view that loads by key uses common/useLoad.ts, which CONTEXT.md names as the keyed load lifecycle; the search, gene-page and HypoMap cards show the same text as before.",
+  "explanation": "No workflow rule changes. A change to the explorer screen now lands in src/explorer/ExplorerShell.tsx and a change to how a move is carried out in src/explorer/useExplorer.ts; the catalog lists both as ui-change sources and CONTEXT.md names them. App.tsx keeps the view switch. Routes, link format and the visible explorer are unchanged; the dataset-info panel now starts closed on each visit.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/common/useLoad.ts",
+    "docs/agent-context/catalog.json",
+    "src/explorer/ExplorerShell.tsx",
+    "src/explorer/useExplorer.ts",
     "CONTEXT.md"
   ]
 }

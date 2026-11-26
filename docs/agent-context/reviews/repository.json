@@ -1,11 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "a5d227b19d2051a82cfc9ba5d317333a53b90d4a732ae25a260db48b1addeefd",
+  "fingerprint": "f146f9e6fb4f2bcba1386732c29b2dae39ff6b109cd12cb9abffd9b72adc3105",
   "outcome": "updated",
-  "explanation": "CONTEXT.md gains a Keyed load entry for common/useLoad.ts: the null-key idle rule, loading for a new key or Retry, stale answers dropped, failed with a Retry, and the portal cards reading failed like null. No guidance, command or configuration changed.",
+  "explanation": "CONTEXT.md gains an \"Explorer + explorer screen\" entry for useExplorer.ts (the order a move is carried out in, the nav, at, showActiveTrack and screen it gives out, why App calls it above the view switch and keeps the load effect after the router) and ExplorerShell.tsx (onNavigate only, which state outlives a visit). The catalog's explorer summary and AGENTS.md's generated startup line name the explorer screen. No guidance, command or configuration changed.",
   "references": [
     "CONTEXT.md",
-    "src/common/useLoad.ts"
+    "AGENTS.md",
+    "docs/agent-context/catalog.json",
+    "src/explorer/useExplorer.ts",
+    "src/explorer/ExplorerShell.tsx"
   ]
 }

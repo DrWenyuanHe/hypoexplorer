@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { renderHook, act, waitFor } from '@testing-library/react';
-import { useAppRouter, type ExplorerNavigation } from '../appRouter';
+import { useAppRouter } from '../appRouter';
+import type { ExplorerNavigation } from '../explorer/useExplorer';
 import type { NavigationIntent } from '../explorer/explorerPosition';
 import { _resetDatasetMetaCache } from '../data/loadDatasetMeta';
 

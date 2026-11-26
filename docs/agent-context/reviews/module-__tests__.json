@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "aaf07f09168afef325298fcff27f0227bdba48c78e9785f6bb7315e346a96e0d",
+  "fingerprint": "93e1041a5eb0e8e28ec1d4ceb2f7f401ec4a820d88973419eb52a6023abf86d6",
   "outcome": "updated",
-  "explanation": "useLoad.test.tsx pins the shared lifecycle: idle without a key, loading then loaded, a new key shown as loading with the superseded answer dropped, a rejected load failing with a Retry that loads again, abort on key change and unmount, and idle when the key is withdrawn. The portal-card, search-page and HypoMap tests pass unchanged.",
+  "explanation": "useExplorer.test.tsx pins the move order without mounting App (a dataset move with a saved analysis ends on the shared genes, a plain one clears them), a Compare link landing on a new epoch and riding in at only while in Compare, a report keeping the epoch, and stable nav and showActiveTrack. explorerTrackLoad.test.tsx removes the setup's seeded default-track global and counts loadTrackData calls: none on the hub, the active track once the explorer opens, none for Compare; it also pins the study-details disclosure staying open and the dataset-info panel closing across a trip home. Four router tests import ExplorerNavigation and ExplorerAt from explorer/useExplorer.",
   "references": [
-    "src/__tests__/useLoad.test.tsx",
-    "src/__tests__/portalCards.test.tsx",
-    "src/__tests__/searchPage.test.tsx",
-    "src/__tests__/hypomapCoexpression.test.tsx"
+    "src/__tests__/useExplorer.test.tsx",
+    "src/__tests__/explorerTrackLoad.test.tsx",
+    "src/__tests__/appRouter.test.tsx",
+    "src/__tests__/navigationAttempts.test.tsx"
   ]
 }
