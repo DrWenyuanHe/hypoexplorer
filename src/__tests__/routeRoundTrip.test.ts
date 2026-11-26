@@ -16,7 +16,7 @@ import {
 import { DEFAULT_STUDY_SELECTION, type StudySelection } from '../crossdataset/studySelectionLink';
 import type { ExplorerAt } from '../explorer/useExplorer';
 import { sameCompareLink } from '../compare/compareView';
-import type { ChartScale } from '../utils/chartScale';
+import { CHART_SCALES, type ChartScale } from '../utils/chartScale';
 import type { CompareViewState, ExplorerAnalysisState } from '../utils/analysisState';
 import type { Dataset } from '../types';
 
@@ -28,7 +28,7 @@ import type { Dataset } from '../types';
 // tabs and Compare, and strings chosen to stress the codec.
 
 const HOME = initialPage('hub');
-const SCALES: ChartScale[] = ['native', 'log2'];
+const SCALES = CHART_SCALES;
 
 /** Free text a user can type or a link can carry: the codec's hard cases. */
 const TEXTS = [
@@ -146,15 +146,16 @@ describe('routeOf → landHash: full pages', () => {
 // ── The explorer ──────────────────────────────────────────────────────────
 
 /**
- * A dataset's real tracks, from its committed metadata (public/datasets/<id>/meta.js),
- * plus the default, its time-course tracks and one synthetic name, so every
- * dataset has a non-default track to write even when it ships a single one.
+ * A dataset's real populations, from its committed metadata
+ * (public/datasets/<id>/meta.js): exactly what the router checks a named
+ * track against. Only these are places the app can be, so only these are
+ * written. Falls back to the default track when the file names none.
  */
-function tracksOf(dataset: Dataset): string[] {
+function populationsOf(dataset: Dataset): string[] {
   const file = join(process.cwd(), 'public', 'datasets', dataset.id, 'meta.js');
   const match = existsSync(file) ? readFileSync(file, 'utf8').match(/"populations"\s*:\s*(\[[^\]]*\])/) : null;
   const real: string[] = match ? JSON.parse(match[1]) : [];
-  return [...new Set([dataset.defaultTrack, ...real, ...(dataset.timeSeries?.tracks ?? []), 'other_track'])];
+  return real.length ? real : [dataset.defaultTrack];
 }
 
 function analysisFor(genes: string[], contrastId: string | null): ExplorerAnalysisState {
@@ -194,10 +195,13 @@ function expectExplorerRoundTrip(at: ExplorerAt, populations: string[]) {
 
 describe('routeOf → landHash: the explorer, on every registered dataset', () => {
   const datasets = listDatasets();
+  // Compare needs two populations; most studies have one.
+  const comparable = datasets.filter((d) => populationsOf(d).length >= 2);
+  const single = datasets.filter((d) => populationsOf(d).length < 2);
 
-  it('every track and every tab it offers, plain', () => {
+  it('every real track and every tab it offers, plain', () => {
     for (const dataset of datasets) {
-      const populations = tracksOf(dataset);
+      const populations = populationsOf(dataset);
       for (const trackId of populations) {
         for (const [tab] of EXPLORER_TABS) {
           if (!explorerTabAvailable(dataset, trackId, tab)) continue;
@@ -207,12 +211,13 @@ describe('routeOf → landHash: the explorer, on every registered dataset', () =
     }
   });
 
-  it('a saved analysis, on the default and a non-default contrast', () => {
+  it('a saved analysis, on the default and the last contrast, the default and another real track', () => {
     for (const dataset of datasets) {
-      const populations = tracksOf(dataset);
+      const populations = populationsOf(dataset);
       const contrasts = listContrasts(dataset).map((c) => c.id);
+      const tracks = [...new Set([dataset.defaultTrack, populations[populations.length - 1]])];
       for (const contrastId of [null, ...contrasts.slice(-1)]) {
-        for (const trackId of [dataset.defaultTrack, 'other_track']) {
+        for (const trackId of tracks) {
           expectExplorerRoundTrip(
             { datasetId: dataset.id, trackId, tab: DEFAULT_EXPLORER_TAB, analysis: analysisFor(TEXTS.slice(0, 8), contrastId) },
             populations,
@@ -222,18 +227,32 @@ describe('routeOf → landHash: the explorer, on every registered dataset', () =
     }
   });
 
-  it('Compare, untouched and with a view', () => {
-    const views: Array<CompareViewState | undefined> = [
-      undefined,
-      { genes: ['POMC', 'Nkx2-1'] },
-      { pops: ['other_track', 'third_track'], mode: 'pathways' },
-      { pops: ['third_track', 'other_track', 'fourth'], genes: ['HLA-A'], mode: 'genes' },
-    ];
-    for (const dataset of datasets) {
-      const populations = [...tracksOf(dataset), 'third_track', 'fourth'];
+  it('Compare, untouched and with a view of real populations, on every dataset that can compare', () => {
+    expect(comparable.length).toBeGreaterThan(0);
+    for (const dataset of comparable) {
+      const populations = populationsOf(dataset);
+      const [a, b, c] = populations;
+      const views: Array<CompareViewState | undefined> = [
+        undefined,
+        { genes: ['POMC', 'Nkx2-1'] },
+        { pops: [b, a], mode: 'pathways' },
+        { pops: c ? [c, a, b] : [b, a], genes: ['HLA-A'] },
+      ];
       for (const compare of views) {
         expectExplorerRoundTrip({ datasetId: dataset.id, trackId: COMPARE_TRACK, tab: DEFAULT_EXPLORER_TAB, compare }, populations);
       }
+    }
+  });
+
+  it('a Compare link to a study with one population lands on its default track', () => {
+    // Not a round trip: the app never shows Compare there, so it never writes
+    // this address. A shared or hand-typed one degrades as the router says.
+    expect(single.length).toBeGreaterThan(0);
+    for (const dataset of single) {
+      const hash = routeOf({ ...HOME, view: 'explorer' }, 'native', { datasetId: dataset.id, trackId: COMPARE_TRACK, tab: DEFAULT_EXPLORER_TAB }) as string;
+      const { position } = landExplorer(hash, populationsOf(dataset));
+      expect(position.datasetId, hash).toBe(dataset.id);
+      expect(activeTrackOf(position), hash).toBe(dataset.defaultTrack);
     }
   });
 });
