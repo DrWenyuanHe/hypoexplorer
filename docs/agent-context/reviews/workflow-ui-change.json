@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "bd6f20d1ad22546c26a549b36f64b131b360ffe45a459bd061838d0b72919c48",
+  "fingerprint": "9aa81ffc74e30145691e4cdaee9a9bb4c1e99b9fc9bb781ebf0fcb933aca0b58",
   "outcome": "updated",
-  "explanation": "No workflow rule changes. contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. The search area no longer imports the crossdataset area. The significance explanations also move from report paragraphs into a (?) help beside the listing toggle; the listing itself is unchanged.",
+  "explanation": "No workflow rule changes. From main: contrastLabel moves unchanged to data/contrasts.ts, so the search area no longer imports the crossdataset area, and the significance explanations move from report paragraphs into a (?) help beside the listing toggle; the listing itself is unchanged. From this branch: App closes the changelog whenever a visit to the explorer ends (the view leaves it, or a refused link's error page replaces it), so entering again shows the explorer instead of earlier release notes; the hub's Changelog link still opens it. CONTEXT.md's explorer entry says which shell state outlives a visit.",
   "references": [
     "docs/agent-context/workflows.md",
+    "src/App.tsx",
     "src/data/contrasts.ts",
-    "src/search/SearchPage.tsx",
-    "src/statistics/ListingModeToggle.tsx"
+    "src/statistics/ListingModeToggle.tsx",
+    "CONTEXT.md"
   ]
 }
