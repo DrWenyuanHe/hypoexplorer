@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "b5b7b0b2c73f622d5105d1d56fb99bd23284812619258b2ee1f3174b009ee41e",
+  "fingerprint": "aaf07f09168afef325298fcff27f0227bdba48c78e9785f6bb7315e346a96e0d",
   "outcome": "updated",
-  "explanation": "compareView.test.ts pins the default pair (curated, fallback, curated ids the data lacks), landCompareLink, the open and link round trip and value equality; useCompareView.test.tsx pins land bumping the epoch per dataset, reports never remounting, equal reports ignored and stable callbacks. The existing Compare, link and routing tests pass unchanged.",
+  "explanation": "useLoad.test.tsx pins the shared lifecycle: idle without a key, loading then loaded, a new key shown as loading with the superseded answer dropped, a rejected load failing with a Retry that loads again, abort on key change and unmount, and idle when the key is withdrawn. The portal-card, search-page and HypoMap tests pass unchanged.",
   "references": [
-    "src/__tests__/compareView.test.ts",
-    "src/__tests__/useCompareView.test.tsx",
-    "src/__tests__/compareLinks.test.tsx"
+    "src/__tests__/useLoad.test.tsx",
+    "src/__tests__/portalCards.test.tsx",
+    "src/__tests__/searchPage.test.tsx",
+    "src/__tests__/hypomapCoexpression.test.tsx"
   ]
 }

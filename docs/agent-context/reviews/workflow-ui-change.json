@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "7c2b044e78b113846a3e5854b6922667ac9b495e5996a9835871473747548167",
+  "fingerprint": "81ada172293cd0ee81de2790efc7fcac2ca1a66874746d328cee40b68ba8db5e",
   "outcome": "updated",
-  "explanation": "No workflow rule changes. Compare routing still lands through routeLanding and the explorer position; what Compare shows by default and how its link is written now come from compare/compareView.ts, which CONTEXT.md names, and the shell holds the last view through compare/useCompareView.ts. Routes, link format and the visible Compare view are unchanged.",
+  "explanation": "No workflow rule changes. A view that loads by key uses common/useLoad.ts, which CONTEXT.md names as the keyed load lifecycle; the search, gene-page and HypoMap cards show the same text as before.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/routeLanding.ts",
-    "src/compare/compareView.ts",
+    "src/common/useLoad.ts",
     "CONTEXT.md"
   ]
 }

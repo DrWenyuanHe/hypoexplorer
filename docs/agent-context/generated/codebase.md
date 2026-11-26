@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (267):
+Covered source files (268):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -306,6 +306,7 @@ Covered source files (267):
 - [src/__tests__/upstreamProcessing.test.ts](<../../../src/__tests__/upstreamProcessing.test.ts>)
 - [src/__tests__/useBundleProgress.test.tsx](<../../../src/__tests__/useBundleProgress.test.tsx>)
 - [src/__tests__/useCompareView.test.tsx](<../../../src/__tests__/useCompareView.test.tsx>)
+- [src/__tests__/useLoad.test.tsx](<../../../src/__tests__/useLoad.test.tsx>)
 - [src/__tests__/verificationAdvancement.test.ts](<../../../src/__tests__/verificationAdvancement.test.ts>)
 - [src/__tests__/verificationView.test.tsx](<../../../src/__tests__/verificationView.test.tsx>)
 - [src/__tests__/versionBadge.test.tsx](<../../../src/__tests__/versionBadge.test.tsx>)
@@ -380,7 +381,7 @@ Start here:
 - [src/common/BrandLink.tsx](<../../../src/common/BrandLink.tsx>)
 - [brand/README.md](<../../../brand/README.md>)
 
-Covered source files (36):
+Covered source files (37):
 - [src/common/AuthorValidation.tsx](<../../../src/common/AuthorValidation.tsx>)
 - [src/common/BrandLink.tsx](<../../../src/common/BrandLink.tsx>)
 - [src/common/CellSelectorPopup.tsx](<../../../src/common/CellSelectorPopup.tsx>)
@@ -416,6 +417,7 @@ Covered source files (36):
 - [src/common/siteChrome.css](<../../../src/common/siteChrome.css>)
 - [src/common/toolIcons.tsx](<../../../src/common/toolIcons.tsx>)
 - [src/common/useCompactLayout.ts](<../../../src/common/useCompactLayout.ts>)
+- [src/common/useLoad.ts](<../../../src/common/useLoad.ts>)
 - [src/common/useSortedRows.ts](<../../../src/common/useSortedRows.ts>)
 
 ## compare
@@ -767,7 +769,7 @@ Start here:
 - [src/search/SearchPage.tsx](<../../../src/search/SearchPage.tsx>)
 - [src/search/hypomap/atlas.ts](<../../../src/search/hypomap/atlas.ts>)
 
-Covered source files (20):
+Covered source files (19):
 - [src/search/DbBadge.tsx](<../../../src/search/DbBadge.tsx>)
 - [src/search/SearchPage.tsx](<../../../src/search/SearchPage.tsx>)
 - [src/search/UnifiedSearchBox.tsx](<../../../src/search/UnifiedSearchBox.tsx>)
@@ -779,7 +781,6 @@ Covered source files (20):
 - [src/search/hypomap/codetection.ts](<../../../src/search/hypomap/codetection.ts>)
 - [src/search/hypomap/coexpression.css](<../../../src/search/hypomap/coexpression.css>)
 - [src/search/hypomap/preview.css](<../../../src/search/hypomap/preview.css>)
-- [src/search/hypomap/useLoad.ts](<../../../src/search/hypomap/useLoad.ts>)
 - [src/search/pathwaySpecificity.ts](<../../../src/search/pathwaySpecificity.ts>)
 - [src/search/portalCards.tsx](<../../../src/search/portalCards.tsx>)
 - [src/search/search.css](<../../../src/search/search.css>)

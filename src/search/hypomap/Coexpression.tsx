@@ -4,7 +4,7 @@ import {
   CATEGORIES, type Category, categoryLabels, comparisonCsv, type DatasetOutcome, loadComparison, loadRanking, unsupportedReason,
 } from './codetection';
 import { CsvDialog } from './CsvDialog';
-import { useLoad } from './useLoad';
+import { useLoad } from '../../common/useLoad';
 import './preview.css';
 import './coexpression.css';
 

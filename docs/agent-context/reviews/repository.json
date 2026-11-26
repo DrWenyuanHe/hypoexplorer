@@ -1,14 +1,11 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "23f58672a76976af7ae3d1ba19b4bde6a1ee82e0ded8c95471064a1e0bbad5fb",
+  "fingerprint": "a5d227b19d2051a82cfc9ba5d317333a53b90d4a732ae25a260db48b1addeefd",
   "outcome": "updated",
-  "explanation": "Merges main (PR #86) into the Compare view change. From main: the names builder treats current rows that differ only in case and share one authority ID (MGI Tango2 and TANGO2) as one record, adding 90 rename groups (7,525) such as D16H22S680E to Tango2; its header states the rule and searchNames.test.mts covers it. From this branch: CONTEXT.md gains a Compare view entry: comparePair, landCompareLink (read by routeLanding, type-only imports for the entry bundle), openCompareView, compareLink, sameCompareLink, and useCompareView with its land-versus-report epoch rule. No guidance, command or configuration changed.",
+  "explanation": "CONTEXT.md gains a Keyed load entry for common/useLoad.ts: the null-key idle rule, loading for a new key or Retry, stale answers dropped, failed with a Retry, and the portal cards reading failed like null. No guidance, command or configuration changed.",
   "references": [
     "CONTEXT.md",
-    "src/compare/compareView.ts",
-    "src/compare/useCompareView.ts",
-    "scripts/build_search_names.mts",
-    "scripts/lib/searchNames.test.mts"
+    "src/common/useLoad.ts"
   ]
 }
