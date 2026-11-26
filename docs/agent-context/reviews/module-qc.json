@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-qc",
-  "fingerprint": "09b69209f24ee8800dc9d5809159a5a55561407430d7d683414064d53e6633ad",
+  "fingerprint": "c2209c08527c763f7125a0b560fe54b01ece6874373ec0b47a48513e9c16555e",
   "outcome": "updated",
-  "explanation": "The DE summary table shows the reviewed track label of its own dataset: QCTab passes the dataset id and deTable applies reviewedTrackLabel to the label stored in qc_global.js. Row keys, counts, columns and the label fallback chain are unchanged.",
+  "explanation": "The QC significant-gene column label is built from NSIG_FDR_CUTOFF, the same shared constant the bundle writer uses to count nSig, so the heading follows the stored count rather than the app default. The value stays 0.05.",
   "references": [
     "src/qc/qcTables.ts",
-    "src/qc/QCTab.tsx"
+    "src/statistics/policy.ts",
+    "scripts/lib/bundleWriter.mts"
   ]
 }

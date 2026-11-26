@@ -1,5 +1,7 @@
 # Parallel author-validation pass, 2026-11-15
 
+> Dated record (2026-11-15). Current review decisions are the ledgers described in [the verification guide](../README.md). The verdicts and corrected records in this folder are tracked and can be read in any checkout; rerunning the comparisons needs the author source files, which are not, see [Files not in this repository](../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
+
 Nine agents re-examined 106 dataset slots: 2 with accessible but unassessed author
 results, 39 with partial author results, 48 with author results not located, and
 17 with experimental design not assessed. Access-blocked datasets and datasets

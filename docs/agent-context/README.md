@@ -23,8 +23,9 @@ It does not run factories, interpret scientific results or inventory live data.
 
 ## Change procedure
 
-1. Run `pnpm run context:review` (optionally `-- --base origin/main` after obtaining
-   that base through the normal Git workflow). Inspect each affected area's
+1. Run `pnpm run context:review` (optionally `pnpm run context:review --base origin/main`
+   after obtaining that base through the normal Git workflow; pnpm passes a literal
+   `--` through to the script, so do not add one). Inspect each affected area's
    source list, canonical references and operational implications.
 2. Update catalog meanings and authored runbooks where needed. Run
    `pnpm run context:generate` to derive the maps. Generation never writes reviews
@@ -95,12 +96,14 @@ The overview is limited to 6 KiB and root AGENTS to 16 KiB of normalized UTF-8.
 
 Run `pnpm run context:install-hook` once per clone. The installer wraps the existing
 pre-push hook, preserves its input and arguments, and runs the context check before
-the original hook (including this checkout's redaction and Git LFS checks).
-It refuses unknown existing wrapper/backup states. Pushed tips are checked once
-each; deletions are skipped. A branch lacking the baseline fails the check.
+any original pre-push hook. It refuses unknown existing wrapper/backup states.
+Pushed tips are checked once each; deletions are skipped. A branch lacking the
+baseline fails the check. The public-safety redaction check is a separate
+pre-commit hook (`pnpm run hooks:install`, `scripts/install_safety_hook.mjs`).
 
-The context CI workflow runs tests and checks the candidate commit/PR merge ref
-with read-only repository permissions. It does not generate or approve reviews.
+The Application workflow (`.github/workflows/application.yml`) runs
+`test:context` and `context:check` on pull requests and pushes to main, with
+read-only repository permissions. It does not generate or approve reviews.
 Local hooks can be bypassed; required-check settings on the hosting service must
 be configured separately. Installing this feature does not configure that setting.
 

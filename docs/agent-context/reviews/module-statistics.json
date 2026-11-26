@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "module-statistics",
-  "fingerprint": "2100d188c97b524b15c6daf80198f164fab113ba09b15b8e7479a9b21379c7f4",
+  "fingerprint": "75a7351236444a136c895d235cabe91b908a3a1ad3bcb2489f75301dd44a0da5",
   "outcome": "updated",
-  "explanation": "Adds two leaf modules. direction.ts owns dirGlyph and directionTextColor(direction, tier), the only colour for result text that states a direction (the AA text tokens, coloured for the fdr tier only). listingWords.ts owns the listing-mode words (leadingTracks, notLeading, noneLeads) and nominalCaveat(kind?). ListingModeToggle takes its tooltip clause from nominalCaveat with unchanged words; crossStudyListing.ts is untouched.",
+  "explanation": "policy.ts adds NSIG_FDR_CUTOFF (0.05), shared by the bundle writer and the QC label, and its comments point at the star table. ListingModeToggle derives its q explanation from DEFAULT_FDR_CUTOFF and states the correction family per comparison and per collection. Values are unchanged.",
   "references": [
-    "src/statistics/direction.ts",
-    "src/statistics/listingWords.ts",
+    "src/statistics/policy.ts",
     "src/statistics/ListingModeToggle.tsx",
-    "CONTEXT.md"
+    "scripts/lib/bundleWriter.mts"
   ]
 }

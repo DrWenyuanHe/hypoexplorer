@@ -1,5 +1,7 @@
 # Historical final source-unit integration (September 5)
 
+> Dated record (2026-09-05). Current assessments: [the verification guide](../../author-validation/README.md) and `src/data/datasetQualityR460.ts`. Its commands and linked evidence need the maintainer checkout; see [Files not in this repository](../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
+
 This continuation completes the primary-source review of the original 145 datasets. It adds 16 reviewed mapping records, covering 229 selected profiles, to the unchanged 126 earlier records. The resulting evidence covers 142 datasets and 2,033 profiles. The macaque atlas, GSE305688 and GSE242187 retain explicit source-identity or upstream-input gaps.
 
 The [historical report](ADVANCEMENT_REPORT.md) and [machine-readable per-dataset record](remaining-report.json) include every changed check, then-current contrast assessment and unresolved required check. At closure, original-corpus internal QC was 75 pass, 47 review and 23 not assessed. Author concordance was 27 pass, 26 review, 91 not assessed and one not applicable. The 14 concurrent intake datasets receive no progress credit.

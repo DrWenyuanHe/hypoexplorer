@@ -23,7 +23,7 @@ declare module 'html2canvas' {
   ): Promise<HTMLCanvasElement>;
 }
 
-// vite-plugin-pwa's virtual module (see src/pwa/registerUpdates.js). Shimmed
+// vite-plugin-pwa's virtual module (see src/pwa/registerUpdates.ts). Shimmed
 // locally so type-checking never depends on the plugin's bundled client types.
 declare module 'virtual:pwa-register' {
   export interface RegisterSWOptions {

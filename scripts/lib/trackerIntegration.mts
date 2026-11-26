@@ -1,7 +1,7 @@
 // Shared, pure integration-matching logic for the dataset tracker.
 //
 // Decides, for each survey candidate, whether it is the SAME study already
-// integrated into HypoExplorer (src/data/datasets.js). Ported verbatim (logic
+// integrated into HypoExplorer (src/data/datasets.ts). Ported verbatim (logic
 // unchanged) from the standalone tracker's dev-server, then made pure: the
 // functions here take already-loaded data (the DATASETS array, the provenance
 // sidecar object, a catalog record) and never touch the filesystem — so the same
@@ -38,7 +38,7 @@ export function accSet(...texts: unknown[]) {
 }
 
 // Build the matchable identity index for the explorer's registry.
-//   datasets — the DATASETS array from src/data/datasets.js
+//   datasets — the DATASETS array from src/data/datasets.ts
 //   sidecar  — provenance accessions keyed by dataset id (explorerAccessions.json)
 // Returns one entry per dataset: { id, name, organism, modality, geo, doi,
 // accessions[], dois[], pmids[] }.

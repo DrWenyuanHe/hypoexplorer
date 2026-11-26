@@ -14,17 +14,19 @@
 // repository's wrangler.jsonc. S3 access keys are a different credential type.
 //
 // Usage:
-//   npm run upload:bundles                      # upload public/{datasets,query,qc}
-//   npm run upload:bundles -- --dry-run         # list keys, upload nothing
-//   npm run upload:bundles -- --remote-dry-run  # compare origin metadata, 0 PUTs
-//   npm run upload:bundles -- --expression-only # new expression index + pointer
-//   npm run upload:bundles -- --env-file .env.cfdeploy # explicit Wrangler env
-//   npm run upload:bundles -- --only macaque_snrna   # one dataset subtree
-//   npm run upload:bundles -- --skip-index-check    # skip the index/corpus verify
-//   R2_BUCKET=other-bucket npm run upload:bundles    # override bucket name
-//   npm run upload:bundles -- --no-purge        # skip the post-upload edge purge (see below)
-//   npm run upload:bundles -- --allow-reduced-bundles  # publish bundles that look like the public release
-//   npm run upload:bundles -- --hypomap-only    # the pinned HypoMap atlas alone
+//   pnpm run upload:bundles                      # upload public/{datasets,query,qc}
+//   pnpm run upload:bundles --dry-run            # list keys, upload nothing
+//   pnpm run upload:bundles --remote-dry-run     # compare origin metadata, 0 PUTs
+//   pnpm run upload:bundles --expression-only    # new expression index + pointer
+//   pnpm run upload:bundles --env-file .env.cfdeploy # explicit Wrangler env
+//   pnpm run upload:bundles --only macaque_snrna # one dataset subtree
+//   pnpm run upload:bundles --skip-index-check   # skip the index/corpus verify
+//   R2_BUCKET=other-bucket pnpm run upload:bundles   # override bucket name
+//   R2_CONCURRENCY=4 pnpm run upload:bundles     # parallel uploads (default 8)
+//   pnpm run upload:bundles --no-purge           # skip the post-upload edge purge (see below)
+//   pnpm run upload:bundles --allow-reduced-bundles  # publish bundles that look like the public release
+//   pnpm run upload:bundles --hypomap-only       # the pinned HypoMap atlas alone
+// (pnpm passes a literal `--` through to the script, so do not add one.)
 //
 // HypoMap atlas: when public/hypomap/<tag>/ is installed (pnpm run fetch:hypomap,
 // tag pinned in hypomap-release.json), a full upload also publishes it under
@@ -105,14 +107,17 @@ if (!Number.isInteger(CONCURRENCY) || CONCURRENCY < 1) {
   throw new Error('R2_CONCURRENCY must be a positive integer.');
 }
 
-// The immutable contract for the data bundles. Since the R2 cutover this is its
-// only live definition — public/datasets/.htaccess states the same policy but is
-// dormant, because nothing Apache serves those paths any more.
-// Every bundle URL carries ?v=<app version>, so a given URL never changes content.
-// The two MUST agree, or every PoP revalidates on a one-day clock URLs the service
-// worker already treats as permanent. Safe ONLY as long as data redeploys bump the
-// app version, which the ?v= scheme already requires; uploading changed bundles
-// without a bump is a stale-data bug.
+// The immutable contract for the data bundles. The cache headers themselves are
+// defined per key in src/data/dataOriginLayout.ts (IMMUTABLE_CACHE_CONTROL /
+// POINTER_CACHE_CONTROL) and set by this uploader; the edge cache rule ignores the
+// query string. (An Apache .htaccess once stated the same policy; nothing Apache
+// serves these paths any more.) Clients version each bundle URL with ?v=<first 32
+// hex of the release ID, else the app version> (bundleSource.ts), while immutable
+// query shards carry no ?v= because their path already names the build. The edge
+// policy MUST stay immutable, or every PoP revalidates on a one-day clock URLs the
+// opt-in service worker treats as permanent. Safe ONLY as long as changed bundle
+// bytes reach clients under a new release identity; uploading changed bundles
+// under the same one is a stale-data bug.
 
 // The one exception: query/tracks.js is the mutable POINTER naming the current
 // index build. Its content changes on every index rebuild under the same key,

@@ -1,13 +1,15 @@
 {
   "version": 1,
   "area": "analysis",
-  "fingerprint": "e34a6cde8800b2cc77bf0b6cf76dad3df5eaffbd8dd1ddf31b36d5d9bc0b74d5",
+  "fingerprint": "111631ca15650be7dfa6385d466d083ce7e9324b0407d877f8cb70c3b1aa1e2c",
   "outcome": "updated",
-  "explanation": "Documentation-only staleness triage of the analysis area. The GTEx, Allen, HPA, NeuroSeq and phase-0 READMEs stop claiming Git LFS files, committed source archives and a prebuild step; untracked inputs now link to the shared files-not-in-this-repository section. The existing-expression README takes its source and track counts from validation.json. The author-validation README states the maintainer-checkout prerequisite, the downgrade refusal and the current ledger audit, and drops the removed build:tracker script. No producer, evidence or ledger changed.",
+  "explanation": "Dated evidence records under data/ gain a one-line header naming the date, where current behaviour is documented, and that replaying them needs the maintainer checkout while tracked records can be read here. Direct fixes: the HFD intake no longer claims a prebuild and explains that analyze:hfd runs the sealed originals while the audit needs the R 4.6.0 producer; the regeneration record says its tag and commit are not in the public history; the GSE224274 slice notes its untracked measurement files; runnable npm commands become pnpm; the author-validation README notes the generated records lag the ledgers until regenerated. No evidence, ledger or producer changed. pnpm run analyze:hfd now runs scripts/analyze_hfd_r460.mts, which refuses any Rscript but R 4.6.0 and runs scripts/regen-r460/run_hfd_r460.R then run_fgsea_r460.R under LC_COLLATE=C for the stems derived from data/intake/hfd-2026-09-12/studies.json, the producers check:hfd-intake audits; it no longer runs the sealed originals, which stay byte-identical. The HFD intake record says so.",
   "references": [
-    "data/expression/gtex/README.md",
-    "data/expression/neuroseq/README.md",
     "data/author-validation/README.md",
-    "docs/PROJECT_GUIDANCE.md"
+    "data/quality/hfd-intake-2026-09-12/README.md",
+    "data/quality/regeneration-r460-2026-09-25/README.md",
+    "docs/PROJECT_GUIDANCE.md",
+    "scripts/analyze_hfd_r460.mts",
+    "package.json"
   ]
 }

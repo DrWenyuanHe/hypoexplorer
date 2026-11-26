@@ -1,5 +1,12 @@
 // Lossless baseline-expression point lookups, including every curated track.
 // No network access, statistical refit, feature rounding, or old-build deletion.
+//
+//   pnpm run build:expression-index    # write public/query/ shards and the pointer
+//   pnpm run check:expression-index    # --check: compare instead of writing
+//
+// Options: --out <dir> (default public/query), --evidence <dir> (where
+// validation.json goes; default data/expression/existing). Reads the dataset
+// bundles under public/datasets/, which `pnpm run fetch:data` restores.
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';

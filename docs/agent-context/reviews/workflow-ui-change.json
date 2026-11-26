@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "0de215b6ce974c46c7ec44963aaa0f1f5cc2b4e787f598588308225e1c1a10d4",
+  "fingerprint": "44518db5803725cd1d69cd48461193467f309535a455c5cb3ec494c8de499568",
   "outcome": "updated",
-  "explanation": "Merges main (PRs #83, #84, #85) into the rhythm-scan change. From main: the ui-change workflow describes renames.js, the search alias rules and reading studies under rename-group members (storedAs, pickStoredMember, compareCell with the table); the survey tiles load through lazyView; the gene search Enter key searches the typed text through the same GenePicker. From this branch: its Circadian paragraph says Lomb-Scargle floor statements come from armLombScargleFloor in lombScargleFloor.ts with rhythmicity.ts left byte-stable, and the rhythmic call and per-arm verdict from rhythmCall.ts.",
+  "explanation": "Merges main (PRs #83 to #87) into the rhythm-scan change. From main: PR #87 fixes stale in-app text, agent maps, script headers and dated records without touching sealed or hash-pinned files;the ui-change workflow describes renames.js, the search alias rules and reading studies under rename-group members (storedAs, pickStoredMember, compareCell with the table); the survey tiles load through lazyView; the gene search Enter key searches the typed text through the same GenePicker. From this branch: its Circadian paragraph says Lomb-Scargle floor statements come from armLombScargleFloor in lombScargleFloor.ts with rhythmicity.ts left byte-stable, and the rhythmic call and per-arm verdict from rhythmCall.ts.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/circadian/lombScargleFloor.ts",

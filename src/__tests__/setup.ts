@@ -66,10 +66,10 @@ installRetainedCacheGate();
 // Stub the globals that index.html <script> tags normally set in the real app.
 // Must run BEFORE any test imports a component that reads these at module scope.
 //
-// The app is multi-dataset: index.html eager-loads the dataset-namespaced
-// globals (HX_MACAQUE_SNRNA_META + HX_MACAQUE_SNRNA_E9), and per-dataset QC is
-// loaded lazily (HX_MACAQUE_SNRNA_QC). We seed those here so loaders resolve
-// synchronously. These namespaced globals are the bundle-source seam's
+// The app is multi-dataset: bundles set dataset-namespaced globals
+// (HX_MACAQUE_SNRNA_META, HX_MACAQUE_SNRNA_E9, HX_MACAQUE_SNRNA_QC). index.html no
+// longer eager-loads any of them; we seed them here so loaders resolve
+// synchronously in tests. These namespaced globals are the bundle-source seam's
 // transport — components themselves take metadata as props, never from globals.
 
 // Test-only global seeding goes through a permissive view of globalThis — these

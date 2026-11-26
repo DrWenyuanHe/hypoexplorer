@@ -1,10 +1,11 @@
 {
   "version": 1,
   "area": "module-types",
-  "fingerprint": "58d8b95902c3774225e3d8d482208e63a88f81a8c0e2c7ad3bf33cdbc8e6a00a",
+  "fingerprint": "114b8a53140ebbef94af1b2b4bd4da8aeb60925fc47c5d503080b3a54c6824d5",
   "outcome": "updated",
-  "explanation": "TrackRow gains an optional storedAs: the symbol a track stores the gene under when it is another member of the queried symbol rename group, absent when the track stores the queried symbol.",
+  "explanation": "Merge of main into the staleness pass. From main: TrackRow gains an optional storedAs: the symbol a track stores the gene under when it is another member of the queried symbol rename group, absent when the track stores the queried symbol. From this branch: Comment-only path corrections in index.ts (crossDataset.ts) and shims.d.ts (registerUpdates.ts).",
   "references": [
-    "src/types/index.ts"
+    "src/types/index.ts",
+    "src/types/shims.d.ts"
   ]
 }

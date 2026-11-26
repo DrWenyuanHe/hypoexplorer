@@ -1,5 +1,7 @@
 # Dataset validation continuation, September 11 — second round
 
+> Dated record (2026-09-11). Current assessments: [the verification guide](../../author-validation/README.md) and `src/data/datasetQualityR460.ts`. Its commands and linked evidence need the maintainer checkout; see [Files not in this repository](../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
+
 The subsequent [QC separation](../pipeline-separation-2026-09-11/README.md) introduces separate Pipeline QC and Experimental design badges. All `internalQc` counts in this continuation report retain the original combined definition; author-concordance counts are unchanged by the separation.
 
 This round starts from 159 datasets, 81 internal QC passes and 26 author-concordance passes. The fixed baseline is `baseline.json.gz`; its SHA-256 is `adff8b60109b17831139bca86910b7ab0733befd497765c813e5f3f3dd0441aa`. It retains parsed JSON and the original files' byte-hash references. It is not a byte-for-byte archive of those files.

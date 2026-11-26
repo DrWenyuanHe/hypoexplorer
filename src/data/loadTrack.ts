@@ -1,6 +1,7 @@
 // Lazy-load a track's data bundle. The bundle is a classic script that sets a
-// dataset-namespaced window global (e.g. HX_MACAQUE_SNRNA_E9) as a side effect
-// (see scripts/migrate_macaque_bundles.mjs output). HOW those bytes arrive —
+// dataset-namespaced window global (e.g. HX_MACAQUE_SNRNA_E9, emitted by the macaque
+// migrator scripts/migrate_macaque_bundles.mts; other datasets' bundles come from
+// scripts/lib/bundleWriter.mts) as a side effect. HOW those bytes arrive —
 // streamed with fetch and counted for the loading bar, or injected as a
 // <script src> — is the bundle-source seam's business, not this module's.
 //

@@ -1,5 +1,7 @@
 # Verification chain after later intake — September 24, 2026
 
+> Dated record (2026-09-24). Current assessments: [the verification guide](../../author-validation/README.md). Its commands and linked evidence need the maintainer checkout; see [Files not in this repository](../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
+
 `npm run check:verification-advancement` had failed on every checkout since the September 12 HFD intake. This record classifies each dated report the chain checks as live or sealed, and states how each is now checked. No scientific input, fitted result, acceptance policy, sealed producer or recorded pin was changed.
 
 ## Live: the two September 5 cumulative reports

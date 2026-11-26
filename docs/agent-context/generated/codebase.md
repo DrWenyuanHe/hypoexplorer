@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (264):
+Covered source files (265):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -290,6 +290,7 @@ Covered source files (264):
 - [src/__tests__/studyRecordDisclosure.test.tsx](<../../../src/__tests__/studyRecordDisclosure.test.tsx>)
 - [src/__tests__/studySelection.test.tsx](<../../../src/__tests__/studySelection.test.tsx>)
 - [src/__tests__/studyTopGenes.test.tsx](<../../../src/__tests__/studyTopGenes.test.tsx>)
+- [src/__tests__/summaryTableFormat.test.tsx](<../../../src/__tests__/summaryTableFormat.test.tsx>)
 - [src/__tests__/supersededProjection.ts](<../../../src/__tests__/supersededProjection.ts>)
 - [src/__tests__/surveyHandoff.test.ts](<../../../src/__tests__/surveyHandoff.test.ts>)
 - [src/__tests__/swHandover.test.ts](<../../../src/__tests__/swHandover.test.ts>)
