@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { existsSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { datasetBundlePaths, readJsonp } from '../../scripts/lib/bundleReader.mjs';
 import {
   applyPage, initialPage, landHash, routeOf, settleExplorer, type Landing, type PageState,
 } from '../routeLanding';
@@ -146,16 +145,20 @@ describe('routeOf → landHash: full pages', () => {
 // ── The explorer ──────────────────────────────────────────────────────────
 
 /**
- * A dataset's real populations, from its committed metadata
- * (public/datasets/<id>/meta.js): exactly what the router checks a named
- * track against. Only these are places the app can be, so only these are
- * written. Falls back to the default track when the file names none.
+ * A dataset's real populations, from its committed metadata: exactly what the
+ * router checks a named track against. Only these are places the app can be,
+ * so only these are written. Read through the shared bundle reader (the
+ * locator-named file, parsed not evaluated, under its expected global); a
+ * missing file or population list fails the test rather than shrinking what
+ * it covers.
  */
 function populationsOf(dataset: Dataset): string[] {
-  const file = join(process.cwd(), 'public', 'datasets', dataset.id, 'meta.js');
-  const match = existsSync(file) ? readFileSync(file, 'utf8').match(/"populations"\s*:\s*(\[[^\]]*\])/) : null;
-  const real: string[] = match ? JSON.parse(match[1]) : [];
-  return real.length ? real : [dataset.defaultTrack];
+  const { meta } = datasetBundlePaths(dataset);
+  const populations = readJsonp<{ populations?: unknown }>(meta.file, meta.global).populations;
+  if (!Array.isArray(populations) || populations.length === 0 || !populations.every((p) => typeof p === 'string')) {
+    throw new Error(`${dataset.id}: ${meta.file} names no populations`);
+  }
+  return populations as string[];
 }
 
 function analysisFor(genes: string[], contrastId: string | null): ExplorerAnalysisState {
@@ -240,6 +243,15 @@ describe('routeOf → landHash: the explorer, on every registered dataset', () =
       ];
       for (const compare of views) {
         expectExplorerRoundTrip({ datasetId: dataset.id, trackId: COMPARE_TRACK, tab: DEFAULT_EXPLORER_TAB, compare }, populations);
+      }
+      // Compare has its own writer branch; a saved analysis must ride along
+      // with a Compare view there too, on the default and the last contrast.
+      const contrasts = listContrasts(dataset).map((x) => x.id);
+      for (const contrastId of [null, ...contrasts.slice(-1)]) {
+        expectExplorerRoundTrip({
+          datasetId: dataset.id, trackId: COMPARE_TRACK, tab: DEFAULT_EXPLORER_TAB,
+          compare: { pops: [b, a], genes: ['POMC'], mode: 'pathways' }, analysis: analysisFor(TEXTS.slice(0, 8), contrastId),
+        }, populations);
       }
     }
   });
