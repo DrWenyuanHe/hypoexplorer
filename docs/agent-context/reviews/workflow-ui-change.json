@@ -1,17 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "367d552080200f550e19a8bc23a5f8839a584ab5a931be08a97863cfc4cc9c07",
+  "fingerprint": "44518db5803725cd1d69cd48461193467f309535a455c5cb3ec494c8de499568",
   "outcome": "updated",
-  "explanation": "Merge of main into the staleness pass. From main: From main (PR #84): The tile layout follows the existing UI rules: the survey workspace loads through lazyView so the search page chunk stays unchanged, exports go through the survey's own export path, and routing is untouched. The ui-change workflow needs no new rule. The rename work changes it: the ui-change workflow now describes renames.js from the names builder, its search alias rules, the gene report and summaries reading studies under rename-group members with storedAs and pickStoredMember, the gene page note and row tag, the preview lookup and compareCell receiving the table. From this branch: From main (PR #85): The rename work changes it: the ui-change workflow now describes renames.js from the names builder, its search alias rules, the gene report and summaries reading studies under rename-group members with storedAs and pickStoredMember, the gene page note and row tag, the preview lookup and compareCell receiving the table. From this branch: From main: The gene search's Enter key now searches the text in the box. Every gene picker still goes through GenePicker over geneVocabulary, and no route, view, label, breakpoint or export that the UI-change workflow describes changed. From this branch: The tile layout follows the existing UI rules: the survey workspace loads through lazyView so the search page chunk stays unchanged, exports go through the survey's own export path, and routing is untouched, so it needs no new rule. The rename work does: the ui-change workflow now describes renames.js from the names builder, its search alias rules, the gene report and summaries reading studies under rename-group members with storedAs and pickStoredMember, the gene page note and row tag, the preview lookup and compareCell receiving the table. Review fixes: the expression survey runbook states the tile counts, species naming, signed bars, unread-source handling, the library fallback releasing a tile, the one-visit handover and catalog details; navigation, lazy views and exports follow the existing rules. From this branch: User-facing text follows code: the star legend and Methods table come from STAR_THRESHOLDS, cutoffs from policy.ts, the gene summary FDR column uses fmtFDR, the study record pathway row is scoped per dataset, and Methods is corrected on correction families, rounding, species targets, KEGG and report denominators. The workflow now also owns statistics, library, hub, circadian, compare and methodology.",
+  "explanation": "Merges main (PRs #83 to #87) into the rhythm-scan change. From main: PR #87 fixes stale in-app text, agent maps, script headers and dated records without touching sealed or hash-pinned files;the ui-change workflow describes renames.js, the search alias rules and reading studies under rename-group members (storedAs, pickStoredMember, compareCell with the table); the survey tiles load through lazyView; the gene search Enter key searches the typed text through the same GenePicker. From this branch: its Circadian paragraph says Lomb-Scargle floor statements come from armLombScargleFloor in lombScargleFloor.ts with rhythmicity.ts left byte-stable, and the rhythmic call and per-arm verdict from rhythmCall.ts.",
   "references": [
-    "src/gene-explorer/GeneSearchBox.tsx",
     "docs/agent-context/workflows.md",
-    "src/common/lazyView.tsx",
-    "src/search/portalCards.tsx",
-    "src/data/crossDataset.ts",
-    "src/data/symbolRenames.ts",
-    "docs/runbooks/EXPRESSION_SURVEY.md",
-    "src/methodology/MethodologyView.tsx"
+    "src/circadian/lombScargleFloor.ts",
+    "src/circadian/rhythmCall.ts"
   ]
 }

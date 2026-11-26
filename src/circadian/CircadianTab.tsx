@@ -53,6 +53,8 @@ import { type RhythmRow, type ScanProgressStore, type ScanState, useArmScans, us
 import { ALL_ARMS, armChoices, loadTimeSeries, seriesFor } from './timeSeriesSource';
 import type { ExportContext } from './circadianExport';
 import { type JtkSupport, jtkSupport } from './jtkCycle';
+import { armLombScargleFloor } from './lombScargleFloor';
+import { isRhythmic } from './rhythmCall';
 
 export interface CircadianTabProps {
   dataset: Dataset;
@@ -80,123 +82,6 @@ const NO_ROWS: RhythmRow[] = [];
 /** Sampling times of one arm, or of every library for the pooled pseudo-arm. */
 function armTimes(bundle: TimeSeriesBundle, arm: string): number[] {
   return bundle.meta.samples.filter((s) => arm === ALL_ARMS || s.arm === arm).map((s) => s.time);
-}
-
-/**
- * Smallest p Lomb–Scargle can report for a series of `n` observations over a
- * grid of `nPeriods` periods, given that the normalized power is at most
- * (n − 1)/2 (true only when lsProjectionHolds for the gene's observed times).
- * Both that cap and the Horne–Baliunas frequency count depend on n.
- */
-function lombScargleFloor(n: number, nPeriods: number): number {
-  return 1 - (1 - Math.exp(-(n - 1) / 2)) ** Math.max(1, Math.min(nPeriods, Math.round(-6.362 + 1.193 * n + 0.00098 * n ** 2)));
-}
-
-/** No Lomb–Scargle floor is stated: the notes treat a non-finite floor as "no bound". */
-const NO_LS_BOUND = { n: 0, floor: Number.NaN } as const;
-
-/**
- * Smallest share of the series' squared length (cos² + sin² sums to n) either
- * time-shifted column must keep to count as non-degenerate. A column that
- * vanishes in exact arithmetic keeps about 1e-32 of it after rounding; at this
- * tolerance a genuine column's projection is still accurate to ~1e-12.
- */
-const LS_COLUMN_TOL = 1e-6;
-/** Largest |cosine| of the angle between the two shifted columns (they should be orthogonal). */
-const LS_ORTHOGONALITY_TOL = 1e-8;
-
-/**
- * Whether Lomb–Scargle's (n − 1)/2 power cap provably holds for a series
- * observed at `times`, at every period in `periods`.
- *
- * The cap is a projection argument. After Scargle's shift τ the cosine and sine
- * columns are orthogonal, so the periodogram's two terms add up to the squared
- * length of the centred data's projection onto their span, which cannot exceed
- * the total sum of squares. That needs both columns to be non-degenerate and
- * the pair orthogonal to working precision. When the observed times fall on
- * phases where one column vanishes (0, 12 and 24 h at 24 h, say) the computed
- * term is a ratio of rounding errors and the power can exceed the cap. The
- * arithmetic here mirrors lombScargle in rhythmicity.ts step for step.
- */
-function lsProjectionHolds(times: readonly number[], periods: readonly number[]): boolean {
-  const n = times.length;
-  for (const period of periods) {
-    const w = (2 * Math.PI) / period;
-    let sin2 = 0, cos2 = 0;
-    for (const t of times) {
-      sin2 += Math.sin(2 * w * t);
-      cos2 += Math.cos(2 * w * t);
-    }
-    const tau = Math.atan2(sin2, cos2) / (2 * w);
-    let cc = 0, ss = 0, cs = 0;
-    for (const t of times) {
-      const arg = w * (t - tau);
-      const c = Math.cos(arg);
-      const s = Math.sin(arg);
-      cc += c * c;
-      ss += s * s;
-      cs += c * s;
-    }
-    if (!(cc > LS_COLUMN_TOL * n) || !(ss > LS_COLUMN_TOL * n)) return false;
-    // Orthogonal to working precision, hence also of full rank.
-    if (!(cs * cs <= LS_ORTHOGONALITY_TOL ** 2 * cc * ss)) return false;
-  }
-  return true;
-}
-
-/**
- * The Lomb–Scargle p floor a FINISHED scan of one arm can state, with the
- * series length that sets it, or NO_LS_BOUND when no floor should be stated.
- *
- * The floor is the smallest lombScargleFloor over the observed series lengths
- * (`n`) of the genes the scan scored: a gene missing a library is tested at a
- * smaller n, and over a period scan the floor is not monotone in n. The
- * scheduled library count is not used; no gene need have been tested at it.
- *
- * The floor rests on the (n − 1)/2 power cap, which holds for a gene only when
- * its OWN observed times give both shifted columns at every tested period
- * (lsProjectionHolds). A complete schedule can pass while a gene missing one
- * library fails, so every distinct observed sampling pattern among the scored
- * genes is checked (cached by its missingness mask). If any pattern fails, no
- * floor is stated for the arm: that gene's null can reach below the formula,
- * whatever p its own data happened to give. A scored p below the floor for its
- * n is also treated as a failure, as a guard against rounding at the cap.
- */
-function lombScargleBound(
-  rows: readonly RhythmRow[], bundle: TimeSeriesBundle, arm: string, periods: readonly number[],
-): { n: number; floor: number } {
-  if (!rows.length) return NO_LS_BOUND;
-  // Sample indices of this arm, in bundle order (the order seriesFor reads them in).
-  const indices: number[] = [];
-  bundle.meta.samples.forEach((s, i) => { if (arm === ALL_ARMS || s.arm === arm) indices.push(i); });
-  const patternHolds = new Map<string, boolean>();
-  const floorOf = new Map<number, number>();
-  let best: { n: number; floor: number } = NO_LS_BOUND;
-  for (const r of rows) {
-    const values = bundle.values[r.gene];
-    if (!values) return NO_LS_BOUND;
-    let key = '';
-    for (const i of indices) {
-      const v = values[i];
-      key += v != null && Number.isFinite(v) ? '1' : '0';
-    }
-    let holds = patternHolds.get(key);
-    if (holds == null) {
-      const times = indices.filter((_, k) => key[k] === '1').map((i) => bundle.meta.samples[i].time);
-      holds = lsProjectionHolds(times, periods);
-      patternHolds.set(key, holds);
-    }
-    if (!holds) return NO_LS_BOUND;
-    let floor = floorOf.get(r.n);
-    if (floor == null) {
-      floor = lombScargleFloor(r.n, periods.length);
-      floorOf.set(r.n, floor);
-      if (!(best.floor <= floor)) best = { n: r.n, floor };
-    }
-    // A relative tolerance absorbs rounding for a gene exactly at the cap.
-    if (!Number.isFinite(r.p) || r.p < floor * (1 - 1e-9)) return NO_LS_BOUND;
-  }
-  return Number.isFinite(best.floor) ? best : NO_LS_BOUND;
 }
 
 /**
@@ -318,16 +203,11 @@ export function CircadianTab({ dataset, trackId, initialGene }: CircadianTabProp
       : selected;
 
   // ── derived ───────────────────────────────────────────────────────────────
-  // The number a row is judged on: the adjusted value, or the raw p when the
-  // user has turned the correction off. One definition, used by the phase map,
-  // the significance counts, the per-arm verdicts and the table's emphasis.
-  const scoreOf = useCallback(
-    (r: RhythmRow) => (adjust === 'none' ? r.p : (r.q ?? 1)),
-    [adjust],
-  );
+  // Whether a row is rhythmic is rhythmCall.ts's rule, shared with the table's
+  // emphasis and the per-arm verdicts.
   const rhythmic = useMemo(
-    () => rows.filter((r) => scoreOf(r) < threshold),
-    [rows, threshold, scoreOf],
+    () => rows.filter((r) => isRhythmic(r, { adjust, threshold })),
+    [rows, adjust, threshold],
   );
   // A gene can pass with no estimable peak (canonical JTK_CYCLE reports period 0
   // and peak 0 when every candidate's amplitude is zero). It counts as rhythmic
@@ -379,8 +259,10 @@ export function CircadianTab({ dataset, trackId, initialGene }: CircadianTabProp
 
   // Rhythmic counts per arm, cached per finished arm's rows: an arm finishing
   // (or the progress of another) does not recount the arms already done.
-  // biome-ignore lint/correctness/useExhaustiveDependencies: a new score or threshold must start a new cache.
-  const rhythmicCache = useMemo(() => new WeakMap<RhythmRow[], number>(), [scoreOf, threshold]);
+  // Keyed on the primitives: rows keep their identity when only the correction
+  // or the threshold changes, so either must start a new cache.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: a new correction or threshold must start a new cache.
+  const rhythmicCache = useMemo(() => new WeakMap<RhythmRow[], number>(), [adjust, threshold]);
   const armCounts: ArmCount[] = useMemo(() => countArms.map((a) => {
     const state = scans.states[a];
     const done = !!state && !state.running;
@@ -388,7 +270,7 @@ export function CircadianTab({ dataset, trackId, initialGene }: CircadianTabProp
     if (state && done) {
       count = rhythmicCache.get(state.rows) ?? null;
       if (count == null) {
-        count = state.rows.reduce((n, r) => n + (scoreOf(r) < threshold ? 1 : 0), 0);
+        count = state.rows.reduce((n, r) => n + (isRhythmic(r, { adjust, threshold }) ? 1 : 0), 0);
         rhythmicCache.set(state.rows, count);
       }
     }
@@ -397,16 +279,14 @@ export function CircadianTab({ dataset, trackId, initialGene }: CircadianTabProp
       arm: a, label: info?.label ?? a, color: info?.color,
       rhythmic: count, tested: done ? state.tested : null, running: !!state?.running,
     };
-  }), [countArms, scans.states, rhythmicCache, scoreOf, threshold, arms]);
+  }), [countArms, scans.states, rhythmicCache, adjust, threshold, arms]);
 
-  // Lomb–Scargle's floor, stated only for a finished scan, only from the series
-  // lengths the scored genes were actually tested at, and only when every
-  // observed sampling pattern supports the power cap (lombScargleBound). While
-  // the selected arm is scanning those are unknown, so no floor is stated.
-  const lsBound = useMemo(() => {
-    if (method !== 'ls' || !bundle || !arm || !activeState || activeState.running) return NO_LS_BOUND;
-    return lombScargleBound(activeState.rows, bundle, arm, periods);
-  }, [method, bundle, arm, activeState, periods]);
+  // Lomb–Scargle's floor for the selected arm, or null to state none. When one
+  // may be stated is armLombScargleFloor's decision, not this view's.
+  const lsFloor = useMemo(
+    () => (bundle ? armLombScargleFloor({ method, state: activeState, bundle, arm, periods }) : null),
+    [method, bundle, arm, activeState, periods],
+  );
 
   const exportCtx: ExportContext | null = useMemo(() => (bundle ? {
     bundle, dataset, method, adjust, armLabel, periods,
@@ -480,7 +360,7 @@ export function CircadianTab({ dataset, trackId, initialGene }: CircadianTabProp
 
       <DesignCaveats
         method={method} adjust={adjust} threshold={threshold} periodMode={periodMode}
-        nPerArm={lsBound.n} lsCeiling={lsBound.floor} jtkDesign={jtkDesign}
+        lsFloor={lsFloor} jtkDesign={jtkDesign}
         tested={tested} rhythmicCount={rhythmic.length} running={running}
         armCounts={armCounts} onSwitchMethod={setMethod}
       />
@@ -611,7 +491,7 @@ export function CircadianTab({ dataset, trackId, initialGene }: CircadianTabProp
           bundle={bundle} dataset={dataset} rows={rows}
           running={running} total={total}
           selected={shown} onSelect={selectGene}
-          scoreOf={scoreOf} threshold={threshold} adjust={adjust} qLabel={qLabel}
+          threshold={threshold} adjust={adjust} qLabel={qLabel}
           periodMode={periodMode} statLabel={statLabel} unit={unit} exportCtx={exportCtx}
         />
       </div>
