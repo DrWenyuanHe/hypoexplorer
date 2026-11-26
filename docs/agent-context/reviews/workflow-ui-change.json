@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "bd6f20d1ad22546c26a549b36f64b131b360ffe45a459bd061838d0b72919c48",
-  "outcome": "updated",
-  "explanation": "No workflow rule changes. contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. The search area no longer imports the crossdataset area. The significance explanations also move from report paragraphs into a (?) help beside the listing toggle; the listing itself is unchanged.",
+  "fingerprint": "41b855d21c68ee9091cef903ed63312711c89dc81205cf367430fa14ef30d50f",
+  "outcome": "no-impact",
+  "explanation": "No workflow rule changes. The gated HypoMap By dataset view gains study-card details read through atlas.ts, so views still never read the export wire, and its CSV still goes through the export-provenance and CSV seams with two added columns.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/data/contrasts.ts",
-    "src/search/SearchPage.tsx",
-    "src/statistics/ListingModeToggle.tsx"
+    "src/search/hypomap/atlas.ts",
+    "src/search/hypomap/HypoMapPreview.tsx"
   ]
 }

@@ -9,7 +9,7 @@ import type { Csv } from './CsvDialog';
  *
  * The single place the export becomes values: transport, SHA-256 verification against the
  * pinned manifest, gzip, the cohort check, symbol resolution, named gene records, the
- * region vocabulary and expression unit, per-scope metrics, the dataset mean and SEM, and
+ * contributing studies' card fields, the region vocabulary and expression unit, per-scope metrics, the dataset mean and SEM, and
  * the CSV tables the cards preview and download. Views never read the wire.
  *
  * `loadAtlasGene` keeps one load per symbol, so the gene report's two HypoMap cards resolve
@@ -37,12 +37,16 @@ type MetricPair = [positive: number[], logSum: number[]];
 /** [position, per-dataset annotations, per-dataset [positive cells, log sum] by context, null when the dataset lacks the feature]. */
 type GeneRecord = [number, (unknown[] | null)[], (MetricPair | null)[]];
 type WireGene = [id: string, symbol: string, name: string];
+/** The study-card columns the client reads; the exporter writes every column of the curated CSV as text, blank as ''. */
+type CardColumn = 'Publication' | 'Publication_link' | 'Technology' | 'Cells_or_nuclei' | 'Region' | 'Sex' | 'Age_stage'
+  | 'Condition' | 'N_cells_in_HypoMap';
+type StudyCard = { HypoMap_label: string } & Partial<Record<CardColumn, string>>;
 type Metadata = {
   cohort: string;
   contexts: string[];
   datasets: string[];
   eligible_cells: Record<string, number[]>;
-  study_cards: { HypoMap_label: string }[];
+  study_cards: StudyCard[];
 };
 type SearchIndex<G> = {
   genes: G[];
@@ -187,7 +191,46 @@ function metrics(eligible: number, positive: number | null, logSum: number | nul
 export type Metrics = ReturnType<typeof metrics>;
 export type DatasetMetrics = Metrics & { id: string; label: string };
 export type MetricField = 'detection' | 'mean';
-export type AtlasDataset = { id: string; label: string };
+/**
+ * One contributing study as its curated study card describes it. A blank card field is
+ * null; values are the curators' wording (e.g. sex "M & F", age "adult (6+ wk)").
+ */
+export type AtlasDataset = {
+  id: string;
+  label: string;
+  /** Citation, e.g. "Kim et al. 2019, Cell", and its link when that is an http(s) URL. */
+  publication: string | null;
+  publicationUrl: string | null;
+  technology: string | null;
+  cellsOrNuclei: string | null;
+  /** The region the study dissected, not a HypoMap region scope. */
+  sampledRegion: string | null;
+  sex: string | null;
+  ageStage: string | null;
+  condition: string | null;
+  /** Cells the study contributes to HypoMap. */
+  cellsInHypoMap: number | null;
+};
+
+const cardText = (value: string | undefined) => value?.trim() || null;
+
+function studyOf(id: string, card: StudyCard): AtlasDataset {
+  const link = cardText(card.Publication_link);
+  const cells = cardText(card.N_cells_in_HypoMap);
+  return {
+    id,
+    label: card.HypoMap_label,
+    publication: cardText(card.Publication),
+    publicationUrl: link && /^https?:\/\//i.test(link) ? link : null,
+    technology: cardText(card.Technology),
+    cellsOrNuclei: cardText(card.Cells_or_nuclei),
+    sampledRegion: cardText(card.Region),
+    sex: cardText(card.Sex),
+    ageStage: cardText(card.Age_stage),
+    condition: cardText(card.Condition),
+    cellsInHypoMap: cells && /^\d+$/.test(cells) ? Number(cells) : null,
+  };
+}
 
 /** Pools cells over the datasets that measured the gene; an absent feature is left out, not counted as zero. */
 function pool(rows: readonly Metrics[]): Metrics {
@@ -233,12 +276,12 @@ export interface ReadyAtlas {
 export type AtlasResult = ReadyAtlas | AtlasMiss;
 
 function readyAtlas(metadata: Metadata, index: SearchIndex<Gene>, record: GeneRecord): ReadyAtlas {
-  const datasets = metadata.datasets.map((id, i) => ({ id, label: metadata.study_cards[i].HypoMap_label }));
+  const datasets = metadata.datasets.map((id, i) => studyOf(id, metadata.study_cards[i]));
   const byDataset = (region: string) => {
     const context = metadata.contexts.indexOf(region);
-    return datasets.map((dataset, i) => ({
-      ...dataset,
-      ...metrics(metadata.eligible_cells[dataset.id][context], record[2][i]?.[0][context] ?? null, record[2][i]?.[1][context] ?? null),
+    return datasets.map(({ id, label }, i) => ({
+      id, label,
+      ...metrics(metadata.eligible_cells[id][context], record[2][i]?.[0][context] ?? null, record[2][i]?.[1][context] ?? null),
     }));
   };
   return {
@@ -324,7 +367,11 @@ export function spatialTable(atlas: ReadyAtlas): AtlasTable {
 export function datasetTable(atlas: ReadyAtlas, region: string, field: MetricField, ids: readonly string[]): AtlasTable {
   return table(atlas, 'hypomap_datasets', {
     title: `${atlas.gene.symbol} · ${region} · ${field === 'detection' ? 'Detection' : 'Mean expression'} by dataset`,
-    headers: ['Dataset', 'Accession', 'Region', metricHeader(field)],
-    rows: atlas.byDataset(region).filter(row => ids.includes(row.id)).map(row => [row.label, row.id, region, row[field]]),
+    headers: ['Dataset', 'Accession', 'Region', metricHeader(field), 'Publication', 'Technology'],
+    rows: atlas.byDataset(region).flatMap((row, i) => {
+      if (!ids.includes(row.id)) return [];
+      const study = atlas.datasets[i];
+      return [[row.label, row.id, region, row[field], study.publication, study.technology]];
+    }),
   }, field === 'detection' ? NO_EXPRESSION.detection : EXPRESSION_UNIT, { region, metric: field, datasets: [...ids] });
 }

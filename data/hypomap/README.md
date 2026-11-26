@@ -16,7 +16,7 @@ They live in `scripts/hypomap/` with the export logic unchanged.
 | Input | Where it comes from | Tracked |
 | --- | --- | --- |
 | `source/<datasetVersion>.h5ad` (3.8 GB) | The CELLxGENE dataset version pinned in `provenance.json` (`atlas.url`) | No |
-| `HypoMap_study_display_card.csv` | One row per study, curated by Helene Li against the paper's Supplementary Table 1. Its `GEO_Acc` column names the datasets, and `N_cells_in_HypoMap` must match the atlas | Yes |
+| `HypoMap_study_display_card.csv` | One row per study, curated by Helene Li against the paper's Supplementary Table 1. Its `GEO_Acc` column names the datasets, and `N_cells_in_HypoMap` must match the atlas. The HypoMap By dataset view shows the label, publication and link, technology, cells or nuclei, region, sex, age stage, condition and `N_cells_in_HypoMap`; its CSV adds publication and technology | Yes |
 | `source/mgi/MRK_List1.rpt.gz`, `source/mgi/MGI_Gene_Model_Coord.rpt` | MGI reports downloaded 2026-07-20, used for symbols, names and aliases. MGI publishes only the current reports, so these exact bytes come from Helenel430/hypoexplorer-mini | No |
 
 `source/` is gitignored. `build_release.py` checks each file's size and SHA-256

@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "ad6ff8563b5a4d0f62eaf59f035a954f388892b02b63f065c16946f81db61753",
+  "fingerprint": "0d369fa7a2c17f781e6c1ef1c78eae3b57e52ee9ab7624ea265d85c048bf6c98",
   "outcome": "updated",
-  "explanation": "contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. SearchPage.tsx imports it from data/contrasts, so nothing under src/search imports src/crossdataset any more and the search ↔ crossdataset directory cycle (crossdataset/GeneReport.tsx still imports search/portalCards) is gone. No visible change. The pathway portal note also keeps its nominal track counts but drops the not-corrected caveat clause, which the listing toggle (?) help beside the results title now carries.",
+  "explanation": "atlas.ts reads each contributing study card into named AtlasDataset fields (publication and an http(s)-only link, technology, cells or nuclei, sampled region, sex, age stage, condition, cells in HypoMap), blank as null; byDataset rows still carry only id, label and metrics. The gated By dataset view shows those fields on each checked dataset card, and the by-dataset CSV appends Publication and Technology columns. Co-detection still reads only the wire labels.",
   "references": [
-    "src/search/SearchPage.tsx",
-    "src/data/contrasts.ts"
+    "src/search/hypomap/atlas.ts",
+    "src/search/hypomap/HypoMapPreview.tsx",
+    "src/search/hypomap/preview.css",
+    "src/search/hypomap/codetection.ts"
   ]
 }

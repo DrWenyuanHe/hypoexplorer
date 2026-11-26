@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "80883d0147a407fe5d33318d642a843b3accd66df7cf70cf9c660cf160a87e1d",
+  "fingerprint": "d10405902f4ca43df35044e98705c8970a029d9d42e9d2ac55fcd02c7c27cdd4",
   "outcome": "updated",
-  "explanation": "forestReport.test.tsx imports contrastLabel from data/contrasts, where it now lives; the test itself is unchanged. contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. The gene and pathway report tests and the listing toggle test now open the (?) help beside the listing toggle to find the FDR, q and p < 0.05 only explanation, instead of reading it from a paragraph or a focusable legend abbr; row q cells keep their hover title.",
+  "explanation": "The HypoMap fixture writes every study-card column the exporter writes (blank as an empty string), with filled fixtureCard values by default. The atlas client tests cover the named study fields, a partial card whose non-http link and non-numeric cell count read as null, a blank card, and the publication and technology CSV columns. The preview tests check a dataset and read its linked publication and study facts, and a blank card shows no details.",
   "references": [
-    "src/__tests__/forestReport.test.tsx",
-    "src/data/contrasts.ts",
-    "src/__tests__/geneReport.test.tsx",
-    "src/__tests__/pathwayReportResults.test.tsx",
-    "src/__tests__/listingModeToggle.test.tsx"
+    "src/__tests__/hypomapFixture.ts",
+    "src/__tests__/hypomapAtlasClient.test.ts",
+    "src/__tests__/hypomapPreview.test.tsx"
   ]
 }
