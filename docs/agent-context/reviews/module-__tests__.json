@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "d10405902f4ca43df35044e98705c8970a029d9d42e9d2ac55fcd02c7c27cdd4",
+  "fingerprint": "9afb02b96bccb1f4bb187316f4b89582318e8cd71c7e188aaf3bb3db012a1b31",
   "outcome": "updated",
-  "explanation": "The HypoMap fixture writes every study-card column the exporter writes (blank as an empty string), with filled fixtureCard values by default. The atlas client tests cover the named study fields, a partial card whose non-http link and non-numeric cell count read as null, a blank card, and the publication and technology CSV columns. The preview tests check a dataset and read its linked publication and study facts, and a blank card shows no details.",
+  "explanation": "Merges the HypoMap atlas build (with main #99) into the study-card branch. From the base: changelogVisit.test.tsx pins the changelog closing when an explorer visit ends, and the report tests read the significance help beside the listing toggle. From this branch: the HypoMap fixture writes every study-card column (blank as an empty string, filled fixtureCard values by default); the atlas client tests cover named study fields, a partial card whose non-http link and non-numeric cell count read as null, a blank card and the Publication and Technology CSV columns; the preview tests read a checked dataset's linked publication and facts, and a blank card shows no details.",
   "references": [
     "src/__tests__/hypomapFixture.ts",
     "src/__tests__/hypomapAtlasClient.test.ts",
-    "src/__tests__/hypomapPreview.test.tsx"
+    "src/__tests__/hypomapPreview.test.tsx",
+    "src/__tests__/changelogVisit.test.tsx",
+    "src/__tests__/listingModeToggle.test.tsx"
   ]
 }

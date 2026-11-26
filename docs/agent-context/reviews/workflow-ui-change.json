@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "41b855d21c68ee9091cef903ed63312711c89dc81205cf367430fa14ef30d50f",
-  "outcome": "no-impact",
-  "explanation": "No workflow rule changes. The gated HypoMap By dataset view gains study-card details read through atlas.ts, so views still never read the export wire, and its CSV still goes through the export-provenance and CSV seams with two added columns.",
+  "fingerprint": "80f83a21cc6118582a4e709412ca9d76bc0ed6f0ad198e4b1e00eac6f32eb171",
+  "outcome": "updated",
+  "explanation": "No workflow rule changes. From the base: contrastLabel lives in data/contrasts.ts, significance explanations sit in a (?) help beside the listing toggle, and App closes the changelog whenever an explorer visit ends (CONTEXT.md says which shell state outlives a visit). From this branch: the gated HypoMap By dataset view shows study-card details read through atlas.ts, so views still never read the export wire, and its CSV still goes through the export-provenance and CSV seams with two added columns.",
   "references": [
     "docs/agent-context/workflows.md",
+    "src/App.tsx",
+    "CONTEXT.md",
     "src/search/hypomap/atlas.ts",
     "src/search/hypomap/HypoMapPreview.tsx"
   ]
