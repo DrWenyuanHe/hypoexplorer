@@ -18,7 +18,7 @@ See `.gitignore` for exact patterns. Keep `geo_replication/` out of the website 
 This public repository tracks code, configuration, intake specifications and the top-level evidence ledgers (for example `data/internal-qc/assessments.generated.json` and the producers in `data/raw/scripts/`). It does not track:
 - data inputs and analysis outputs (`data/raw/results/`, `data/raw/pseudobulk/`, `geo_replication/datasets/`) and the full dataset bundles;
 - evidence subtrees (the folders under `data/internal-qc/`, and the source files behind dated `data/quality/` and `data/author-validation/` records);
-- source downloads for the reference atlases under `data/expression/` (GTEx, HPA, Allen, NeuroSeq);
+- source downloads for the reference atlases under `data/expression/` (GTEx, HPA, Allen, NeuroSeq), and the HypoMap atlas H5AD and MGI reports under `data/hypomap/source/` (pinned in `data/hypomap/provenance.json`);
 - the retained audit cache used to rebuild the evidence ledgers.
 
 `pnpm run fetch:data` restores what the pinned hypoexplorer-data release holds. `data-release.json` names that release and lists its archives; one release can combine parts first published under different tags, so check that file rather than assuming a tag. `pnpm run fetch:query` and `pnpm run fetch:expression` fetch the query catalog and the built reference atlases from the live origins. Anything in none of those is held by the maintainer. A doc that cites such a path describes where the file lives in a full checkout, not a file you should expect here.

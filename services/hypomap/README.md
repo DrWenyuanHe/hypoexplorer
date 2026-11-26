@@ -1,6 +1,9 @@
 # HypoMap co-detection service
 
-Generate the comparison index using the matching HypoMap exporter in the data repository. The service requires Python 3.11+ and NumPy. Keep the index on the service host.
+`pnpm run build:hypomap` writes the comparison index next to the browser export it
+matches (`data/hypomap/build/<tag>/comparison-index/`; see
+[the atlas runbook](../../data/hypomap/README.md)). The service requires Python 3.11+
+and NumPy. Keep the index on the service host.
 
 ```sh
 python3 services/hypomap/comparison_service.py \

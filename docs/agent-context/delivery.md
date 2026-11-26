@@ -201,7 +201,9 @@ The HypoMap views are build-flagged and off: `VITE_HYPOMAP_EXPRESSION` and
 [hypomap-release.json](../../hypomap-release.json) from
 `${VITE_BUNDLE_BASE_URL}/hypomap/<tag>/` ([atlas.ts](../../src/search/hypomap/atlas.ts)).
 Hosted builds are off-origin, so the atlas lives in R2. `pnpm run fetch:hypomap`
-installs it in the ignored `public/hypomap/<tag>/`. A full `upload:bundles`
+installs it in the ignored `public/hypomap/<tag>/`, from the release asset or from a
+local archive path. `pnpm run build:hypomap` produces that archive from the pinned
+CELLxGENE atlas and compares it with the pins ([runbook](../../data/hypomap/README.md)). A full `upload:bundles`
 publishes it when that directory exists. `--hypomap-only` publishes only the atlas
 and skips the dataset, query and QC trees and their checks. The uploader reads only
 the pinned tag. Before any remote request it checks `manifest.json` against

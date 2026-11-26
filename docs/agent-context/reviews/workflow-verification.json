@@ -1,15 +1,11 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "e729f173978b9510a8bba6e3b2aed97b302e3baebc32cb5f4ec9cf35c5d76ce6",
-  "outcome": "updated",
-  "explanation": "Merge of main into the staleness pass. From main: From main: Registry facet values, descriptive text, display labels, a survey source and reviewed reasons changed. No evidence ledger, verification command, quality rule or pinned producer changed, and the author-validation records are untouched. From this branch: Rename groups change which stored symbol a report reads for a study, not QC, author concordance or verification evidence; no verification record, ledger or gate reads the rename table or the search names. Review fixes touch display and loading of expression tiles and rename reading, not QC, author concordance or verification evidence. From this branch: Dated-record headers separate reading tracked records from replaying them, the OXT/AVP runbook marks both replays as needing retained evidence, the author-validation README notes the generated records lag the ledgers, the QC label follows NSIG_FDR_CUTOFF, and the HFD intake record describes analyze:hfd running the audited R 4.6.0 producers. No ledger, generated record or check changed. The case-duplicate grouping rule changes which retired symbols join a rename group, not QC or verification evidence.",
+  "fingerprint": "489a46597cf71a3574ff4597387ff7eb738b0731d3c1e5ba24c2ff16177eaac1",
+  "outcome": "no-impact",
+  "explanation": "No author-validation, QC or evidence-ledger process changed. The new data/hypomap inputs and the exporter test check an aggregated atlas export, not study verification; the verification workflow and its records are unaffected.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "scripts/regen-r460/build_registry_edits.mts",
-    "docs/PROJECT_GUIDANCE.md",
-    "CONTEXT.md",
-    "data/author-validation/README.md",
-    "data/quality/hfd-intake-2026-09-12/README.md"
+    "data/hypomap/README.md",
+    "docs/agent-context/workflows.md"
   ]
 }
