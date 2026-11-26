@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "0495245b3e84b4945eab32e2189e853c9480116bd44edd3cd8f38cb7b1ed6c4f",
+  "fingerprint": "23534feced0fd64bc89a5cc05ac3d079d28a144922ad6d7b3aa7c8c0688a99fd",
   "outcome": "updated",
-  "explanation": "forestReport.test.tsx imports contrastLabel from data/contrasts, where it now lives; the test itself is unchanged. contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts.",
+  "explanation": "changelogVisit.test.tsx opens the changelog in the explorer, goes Home and enters through the hub's Quality control link, and requires the QC tab with no release notes; it failed before the fix. It also pins the hub's Changelog link still opening the changelog.",
   "references": [
-    "src/__tests__/forestReport.test.tsx",
-    "src/data/contrasts.ts"
+    "src/__tests__/changelogVisit.test.tsx",
+    "src/__tests__/hubUnits.test.tsx"
   ]
 }

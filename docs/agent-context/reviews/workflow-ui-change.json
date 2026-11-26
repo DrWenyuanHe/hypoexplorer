@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "e4b68e8c5a52e68cd2864629e34f72b41918173708056714c9d42bde4aaa46da",
+  "fingerprint": "eb0e6b15032f3266b2a83d060b86e9efd0ab8fc4c2147a1d79bd295d9433c8a8",
   "outcome": "updated",
-  "explanation": "No workflow rule changes. contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. The search area no longer imports the crossdataset area.",
+  "explanation": "No workflow rule changes. App closes the changelog whenever the view leaves the explorer. Before, nothing cleared it, so opening the changelog, going Home and entering again through a hub tool link (or a report row, or Back) showed the release notes over the explorer instead of the tab asked for. The hub's Changelog link sets the flag in the same update that enters the explorer, so it still opens. CONTEXT.md's explorer entry says which shell state outlives a visit.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/data/contrasts.ts",
-    "src/search/SearchPage.tsx"
+    "src/App.tsx",
+    "CONTEXT.md"
   ]
 }

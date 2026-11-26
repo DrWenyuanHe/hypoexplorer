@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "ba22ed7be34d847d892818edafbdba57f7282ee730ddd0c80df6a95272c7a324",
+  "fingerprint": "5b20c5ed91351c5da83ad56420e679073d2820f90bb7f31c72b4d9bc48ec1943",
   "outcome": "updated",
-  "explanation": "The router's targetHash switch moves unchanged into routeLanding.routeOf(page, chartScale, explorerAt), a pure function beside landHash, so one module both reads and writes a route; the router computes targetHash = routeOf(page, chartScale, explorerAt) and drops the imports only the switch used. routeOf imports ExplorerAt as a type and DEFAULT_EXPLORER_TAB, routeHref and selectionLink, all already in the entry bundle through the router. No link changes.",
+  "explanation": "App closes the changelog whenever the view leaves the explorer. Before, nothing cleared it, so opening the changelog, going Home and entering again through a hub tool link (or a report row, or Back) showed the release notes over the explorer instead of the tab asked for. The hub's Changelog link sets the flag in the same update that enters the explorer, so it still opens. The study-details disclosure still outlives a visit.",
   "references": [
-    "src/routeLanding.ts",
-    "src/appRouter.ts"
+    "src/App.tsx",
+    "src/explorer/ExplorerShell.tsx"
   ]
 }
