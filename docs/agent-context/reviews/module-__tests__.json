@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "93e1041a5eb0e8e28ec1d4ceb2f7f401ec4a820d88973419eb52a6023abf86d6",
+  "fingerprint": "0eb251758011e22e962b3d0c0aba35be282449e94e73c48f4cbff1e96d4f9521",
   "outcome": "updated",
-  "explanation": "useExplorer.test.tsx pins the move order without mounting App (a dataset move with a saved analysis ends on the shared genes, a plain one clears them), a Compare link landing on a new epoch and riding in at only while in Compare, a report keeping the epoch, and stable nav and showActiveTrack. explorerTrackLoad.test.tsx removes the setup's seeded default-track global and counts loadTrackData calls: none on the hub, the active track once the explorer opens, none for Compare; it also pins the study-details disclosure staying open and the dataset-info panel closing across a trip home. Four router tests import ExplorerNavigation and ExplorerAt from explorer/useExplorer.",
+  "explanation": "bootLinkLoads.test.tsx removes the setup's seeded macaque globals and counts loadTrackData and loadDatasetMeta calls for cold links: a link to another study, and one naming its track, load that study and nothing of macaque; a link naming a non-default macaque track loads only that track; the hub loads no track. Before the change the first three each loaded macaque/e9 and the macaque metadata. routeLanding.test.ts pins bootDataset for explorer, Compare, page, unknown and non-route hashes. navigationAttempts.test.tsx's App-level supersession case now follows the cold link from inside an open explorer: a link the app is opened at starts in its own dataset and draws no tabs until its check settles, so the tab click that must win is made while a followed link is landing.",
   "references": [
-    "src/__tests__/useExplorer.test.tsx",
-    "src/__tests__/explorerTrackLoad.test.tsx",
-    "src/__tests__/appRouter.test.tsx",
-    "src/__tests__/navigationAttempts.test.tsx"
+    "src/__tests__/bootLinkLoads.test.tsx",
+    "src/__tests__/routeLanding.test.ts",
+    "src/__tests__/navigationAttempts.test.tsx",
+    "src/__tests__/explorerTrackLoad.test.tsx"
   ]
 }

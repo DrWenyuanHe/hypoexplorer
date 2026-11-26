@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "2e27fe30b029210be8b17bd745fa9e0de2b33d2ad261d7431b67fffd1922510f",
+  "fingerprint": "2cf319e7cf43ce06a19d08d09623ba6fc33974e7db5196b360967dd73d5ce062",
   "outcome": "updated",
-  "explanation": "No workflow rule changes. A change to the explorer screen now lands in src/explorer/ExplorerShell.tsx and a change to how a move is carried out in src/explorer/useExplorer.ts; the catalog lists both as ui-change sources and CONTEXT.md names them. App.tsx keeps the view switch. Routes, link format and the visible explorer are unchanged; the dataset-info panel now starts closed on each visit.",
+  "explanation": "No workflow rule changes. A deep link now starts the explorer in its own dataset (routeLanding.bootDataset), and the active-track load waits for a landing to settle (the router's routePending); CONTEXT.md names both. Routes, link format and the visible explorer are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "docs/agent-context/catalog.json",
-    "src/explorer/ExplorerShell.tsx",
-    "src/explorer/useExplorer.ts",
+    "src/routeLanding.ts",
+    "src/App.tsx",
     "CONTEXT.md"
   ]
 }

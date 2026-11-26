@@ -1,16 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "ba88d1f14c05ea31229701eda01705d11db598ddeda02c5a61a5ed2a9414e1ca",
+  "fingerprint": "e6a9aa5e17bfa24996165c2b58294c7aff85b2827fc359ea1b47ba246e94f649",
   "outcome": "updated",
-  "explanation": "Merges main (PR #92) into the explorer split. From main: pnpm-workspace.yaml overrides workbox-build>glob to 14.0.6 so the build-time PWA globbing uses the patched minimatch 11 (GHSA-g3hv-75wg-m249) instead of minimatch 10.2.6; the lockfile changes only in that subtree and the full-worker build precaches the same 91 entries. From this branch: CONTEXT.md gains an \"Explorer + explorer screen\" entry for useExplorer.ts (the order a move is carried out in, the nav, at, showActiveTrack and screen it gives out, why App calls it above the view switch and keeps the load effect after the router) and ExplorerShell.tsx (onNavigate only, which state outlives a visit); the catalog's explorer summary and AGENTS.md's generated startup line name the explorer screen. No guidance, command or context-map rule changed.",
+  "explanation": "CONTEXT.md's Route landing entry names bootDataset (the dataset a link opens the explorer in, so a cold link never fetches the default study first), and its Explorer entry says showActiveTrack is held while the router's routePending is set. No guidance, command or configuration changed.",
   "references": [
     "CONTEXT.md",
-    "AGENTS.md",
-    "docs/agent-context/catalog.json",
-    "src/explorer/useExplorer.ts",
-    "src/explorer/ExplorerShell.tsx",
-    "pnpm-workspace.yaml",
-    "pnpm-lock.yaml"
+    "src/routeLanding.ts",
+    "src/App.tsx"
   ]
 }

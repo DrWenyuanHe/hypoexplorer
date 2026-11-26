@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect, lazy, Suspense } from 'react';
 import { useSurveyHandoff } from './expression-survey/useSurveyHandoff';
 import { useAppRouter } from './appRouter';
+import { bootDataset } from './routeLanding';
 import { getDefaultDataset, getDataset, listDatasets } from './data/datasets';
 import { ErrorBoundary } from './ErrorBoundary';
 import { UpdateModal } from './pwa/UpdateModal';
@@ -47,7 +48,15 @@ function AppViews({ initialView = 'hub' }: AppProps) {
   // explorer is off screen and its position and session survive a trip to a
   // report and back. App reads none of it: `nav` and `at` go to the router,
   // `screen` to ExplorerShell.
-  const explorer = useExplorer(DEFAULT_DATASET);
+  //
+  // It starts in the dataset the app was opened at (routeLanding's
+  // `bootDataset`), not the default one: starting on the default and letting
+  // the link move it fetched the macaque default track (about 600 KB
+  // compressed with its pathways) and metadata on every cold link to another
+  // study. The router still lands the link itself, track, tab and analysis.
+  const [startDataset] = useState(() => (typeof window !== 'undefined' && window.location.hash
+    ? bootDataset(window.location.hash) : null) ?? DEFAULT_DATASET);
+  const explorer = useExplorer(startDataset);
   const { showActiveTrack } = explorer;
 
   // The changelog and the study-details disclosure outlive a visit to the
@@ -70,7 +79,7 @@ function AppViews({ initialView = 'hub' }: AppProps) {
     openLibrary, setLibraryDataset, setLibraryCategories, libraryDatasetId, libraryCategories,
     compareSetItems, openCompareSet, setCompareSetItems,
     geneStudySelection, pathwayStudySelection, setGeneStudySelection, setPathwayStudySelection,
-    searchQuery, searchFilter, search, setSearchFilter, supersede,
+    searchQuery, searchFilter, search, setSearchFilter, supersede, routePending,
   } = useAppRouter(initialView, explorer.nav, explorer.at);
 
   // The explorer screen's own controls are user-originated changes the router
@@ -125,8 +134,14 @@ function AppViews({ initialView = 'hub' }: AppProps) {
   // depends on which load is started last). Skipped on the hub so the landing
   // page still touches no bundle; `showActiveTrack` skips Compare, which has no
   // bundle of its own (CompareTab lazy-loads the populations the user selects).
+  //
+  // Held while a route is still landing (`routePending`): the explorer may not
+  // be where the link puts it yet. A link naming a track starts on its dataset's
+  // default track until the check settles, and loading that meanwhile would
+  // trade one unwanted bundle for another. When the landing settles, the
+  // landing's own intent loads its track, and this runs again.
   useEffect(() => {
-    if (view !== 'explorer') return;
+    if (view !== 'explorer' || routePending) return;
     // Warm the recharts chunk alongside the track. Both are needed to draw a
     // gene's bars, and neither is needed on the hub — starting the download here
     // overlaps it with the user picking a gene instead of stalling once they
@@ -138,7 +153,7 @@ function AppViews({ initialView = 'hub' }: AppProps) {
     // failure when one actually mounts.
     preloadBarSEMChart().catch(() => { /* chart chunk warms on demand instead */ });
     showActiveTrack();
-  }, [view, showActiveTrack]);
+  }, [view, routePending, showActiveTrack]);
 
   // Warm the view a visitor most likely opens next, once the current one has
   // painted and the main thread is idle: the hub's search box submits to the

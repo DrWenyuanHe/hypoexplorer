@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "084b5587d8a5c24a5458f005632d79ce426f8720fce9b917f7ccf44ff718b889",
+  "fingerprint": "f9257f53937685bfe5f7e7e27f55e81eb13642771f9584c1a43abc9aa6ff135f",
   "outcome": "updated",
-  "explanation": "App.tsx is now the view switch (about 350 lines): it calls useExplorer once above it, hands explorer.nav and explorer.at to useAppRouter, composes the one user-move callback (supersede then navigate) and renders <ErrorBoundary key=\"explorer\"><ExplorerShell/></ErrorBoundary>, so a throw in the explorer screen no longer blanks the page. The explorer-on-screen effect stays in App after the router so it still runs after a boot landing. App keeps the changelog and study-details flags, which outlive a visit to the explorer. appRouter.ts imports ExplorerNavigation and ExplorerAt as types from explorer/useExplorer.ts instead of declaring them; the entry bundle gains no runtime import.",
+  "explanation": "App starts the explorer in the dataset the app was opened at (routeLanding.bootDataset, read once in a useState initializer) instead of the default dataset, so a cold link to another study no longer fetches the macaque default track (409 KB compressed, plus its 192 KB pathway sibling) and macaque metadata before the link moves it. The router still lands the link itself. The router exposes routePending (true for the boot route until its mount effect delivers it, and while a named track is being checked), and App holds its explorer-on-screen load until it clears, so a link naming a track never loads that dataset's default track first. routeLanding.ts gains bootDataset, pure and built on landHash.",
   "references": [
     "src/App.tsx",
     "src/appRouter.ts",
-    "src/explorer/useExplorer.ts",
-    "src/explorer/ExplorerShell.tsx"
+    "src/routeLanding.ts",
+    "src/explorer/useExplorer.ts"
   ]
 }

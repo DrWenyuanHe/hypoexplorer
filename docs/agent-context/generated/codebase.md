@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (270):
+Covered source files (271):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -81,6 +81,7 @@ Covered source files (270):
 - [src/__tests__/barSEMChart.test.tsx](<../../../src/__tests__/barSEMChart.test.tsx>)
 - [src/__tests__/barSEMChartScale.test.tsx](<../../../src/__tests__/barSEMChartScale.test.tsx>)
 - [src/__tests__/baselineTeaser.test.ts](<../../../src/__tests__/baselineTeaser.test.ts>)
+- [src/__tests__/bootLinkLoads.test.tsx](<../../../src/__tests__/bootLinkLoads.test.tsx>)
 - [src/__tests__/brand.test.tsx](<../../../src/__tests__/brand.test.tsx>)
 - [src/__tests__/browseArmCounts.test.ts](<../../../src/__tests__/browseArmCounts.test.ts>)
 - [src/__tests__/buildPopData.test.ts](<../../../src/__tests__/buildPopData.test.ts>)
