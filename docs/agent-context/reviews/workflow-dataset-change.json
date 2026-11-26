@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "a708580e82c35c60ea7f08687486236e47851df0acd9672210daeb440b02fedb",
-  "outcome": "no-impact",
-  "explanation": "Adding or changing a dataset follows the same steps. main only rewords the explorerStore.ts header; this branch adds a CI test that fails when author-validation ledgers are committed without regenerating validation-records.generated.json, a step the workflow already required in the maintainer checkout.",
+  "fingerprint": "74e47a7d9aa05739f2748224fa57625947c47cfaf22a834965f2504ec5406629",
+  "outcome": "updated",
+  "explanation": "Adding or changing a dataset follows the same steps. From main: a CI test fails when author-validation ledgers are committed without regenerating validation-records.generated.json, a step the workflow already required in the maintainer checkout. From this branch: explorerStore.ts splits its one error banner into a resource half (metadata, QC) and a track half, so a track load clears only a track failure when it starts and a metadata or QC failure keeps its Retry.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/data/explorerStore.ts",
-    "data/author-validation/README.md"
+    "data/author-validation/README.md",
+    "src/data/explorerStore.ts"
   ]
 }

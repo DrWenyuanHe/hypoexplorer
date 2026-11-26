@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "2e27fe30b029210be8b17bd745fa9e0de2b33d2ad261d7431b67fffd1922510f",
+  "fingerprint": "bfd0fee0bfd2ba0fb80f55e0d8dd975284d9ec164b35b5a3b42a17568baa26a6",
   "outcome": "updated",
-  "explanation": "No workflow rule changes. A change to the explorer screen now lands in src/explorer/ExplorerShell.tsx and a change to how a move is carried out in src/explorer/useExplorer.ts; the catalog lists both as ui-change sources and CONTEXT.md names them. App.tsx keeps the view switch. Routes, link format and the visible explorer are unchanged; the dataset-info panel now starts closed on each visit.",
+  "explanation": "No workflow rule changes. App's active-track load waits for a landing to settle (the router's routePending) and skips a refusal, and the store keeps a metadata failure across a track load; CONTEXT.md names both. Routes, link format and the visible explorer are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "docs/agent-context/catalog.json",
-    "src/explorer/ExplorerShell.tsx",
-    "src/explorer/useExplorer.ts",
+    "src/App.tsx",
+    "src/data/explorerStore.ts",
     "CONTEXT.md"
   ]
 }

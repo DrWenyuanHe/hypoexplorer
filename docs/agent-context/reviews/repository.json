@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "adf925ca43a3099818a52c01fdfee28961749e95ab25851070554c585066b1e5",
+  "fingerprint": "237bcadf59de573781352938b66efdcbaf843fbf37b2c99a8ae2624aebf6f707",
   "outcome": "updated",
-  "explanation": "From main: the workbox-build glob override and the explorer-screen entries in CONTEXT.md, the catalog and the startup map. From this branch: a scripts/lib helper that hashes the author-validation ledgers for the builder and the freshness test; project guidance and context-map rules are unchanged and the regenerated codebase map lists the helper.",
+  "explanation": "Merges main (PR #88) into the cold-link change. From main: a scripts/lib helper hashes the author-validation ledgers for the builder and the freshness test, and the regenerated codebase map lists it. From this branch: CONTEXT.md's explorer entry says showActiveTrack is held while the router's routePending is set and while a refusal is on screen, and its explorer store entry says the error banner has a resource half and a track half. No guidance, command or context-map rule changed.",
   "references": [
     "CONTEXT.md",
-    "docs/agent-context/catalog.json",
     "docs/agent-context/generated/codebase.md",
     "scripts/lib/authorValidationInputs.mts",
-    "pnpm-workspace.yaml"
+    "src/App.tsx",
+    "src/data/explorerStore.ts"
   ]
 }

@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "548779939e290e7424b62b94948d31179eea632938cfd14c787b1961199cac05",
+  "fingerprint": "42c106d569c60e23432fd89e1a24645c8cbd519da040d5f6757ab241607fe186",
   "outcome": "updated",
-  "explanation": "explorerStore.ts changes only its header comment: which dataset and track are active is the explorer position held by explorer/useExplorer.ts. No load, guard or cache rule changed.",
+  "explanation": "explorerStore.ts splits its one error banner into a resource half (metadata, QC) and a track half: a track load clears only a track failure when it starts, so a metadata or QC failure keeps its banner and Retry until a dataset/track switch or Retry retires it. Before, starting any track load cleared a metadata failure, which App's held load could now do just after a failed metadata check.",
   "references": [
     "src/data/explorerStore.ts",
-    "src/explorer/useExplorer.ts"
+    "CONTEXT.md"
   ]
 }

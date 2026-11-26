@@ -296,6 +296,22 @@ describe('explorerStore — ensureTrack', () => {
     expect(result.current.loadError).toBeNull();
   });
 
+  it('keeps a metadata failure, and its Retry, when a track load starts and succeeds', async () => {
+    // The fallback track of a link whose metadata check failed loads after the
+    // failure; starting it must not retire the metadata banner, or the sidebar
+    // stays empty with no way back.
+    const { transport } = mapTransport({ '/datasets/mouse_bulk_hfd/track_whole.js': TRACK_A });
+    _setBundleTransport(transport);
+    const { result } = renderHook(() =>
+      useExplorerStore({ dataset: DS_A, activeTrackId: 'whole', wantQC: false }));
+    await waitFor(() => expect(result.current.loadError).toMatch(/metadata/));
+
+    await act(async () => { await result.current.ensureTrack('whole'); });
+    expect(result.current.getTrack('whole')).toBeTruthy();
+    expect(result.current.meta).toBeNull();
+    expect(result.current.loadError).toMatch(/metadata/);
+  });
+
   it('retires the overlay when the user leaves a track whose load is still running', async () => {
     // Regression: the completion handler is guarded to the ACTIVE track, so a
     // load for the track the user left can never clear the overlay it set. If the

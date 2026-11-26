@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "084b5587d8a5c24a5458f005632d79ce426f8720fce9b917f7ccf44ff718b889",
+  "fingerprint": "d8f2dbfd8c0a84164af58aa8beb9352215ff35c882e9872ccf16268b01637c7c",
   "outcome": "updated",
-  "explanation": "App.tsx is now the view switch (about 350 lines): it calls useExplorer once above it, hands explorer.nav and explorer.at to useAppRouter, composes the one user-move callback (supersede then navigate) and renders <ErrorBoundary key=\"explorer\"><ExplorerShell/></ErrorBoundary>, so a throw in the explorer screen no longer blanks the page. The explorer-on-screen effect stays in App after the router so it still runs after a boot landing. App keeps the changelog and study-details flags, which outlive a visit to the explorer. appRouter.ts imports ExplorerNavigation and ExplorerAt as types from explorer/useExplorer.ts instead of declaring them; the entry bundle gains no runtime import.",
+  "explanation": "The router exposes routePending (true for the boot route until its mount effect delivers it, and while a named track is being checked), and App holds its explorer-on-screen active-track load until it clears and while a refusal is on screen (routeError). The explorer still starts on the default dataset and a link moves it, but the default track is no longer loaded before the link lands, so a cold link to another study or another macaque track no longer fetches the macaque default track (409 KB compressed, plus its 192 KB pathway sibling), and a link refused after its check loads nothing behind the error page. The 2.2 KB macaque metadata still loads, as on every view.",
   "references": [
     "src/App.tsx",
     "src/appRouter.ts",
-    "src/explorer/useExplorer.ts",
-    "src/explorer/ExplorerShell.tsx"
+    "src/data/explorerStore.ts"
   ]
 }

@@ -217,6 +217,13 @@ export interface AppRouter {
    * intent the router delivers would cancel its own landing.
    */
   supersede: () => void;
+  /**
+   * True while a route read from the URL has not finished landing: the boot
+   * route until the mount effect has delivered it, and a link naming a track
+   * until that track's check settles. Where the explorer is may still change,
+   * so App holds its active-track load until this clears.
+   */
+  routePending: boolean;
 }
 
 /**
@@ -659,6 +666,6 @@ export function useAppRouter(
     goHome, enterTool, enterExplorer, searchGene, searchPathway, search, setSearchFilter,
     openTracker, openInExplorer, openMethodology, openVerification, openNomenclature, openExpression, openLibrary,
     setLibraryDataset, setLibraryCategories,
-    openCompareSet, setCompareSetItems, supersede,
+    openCompareSet, setCompareSetItems, supersede, routePending,
   };
 }
