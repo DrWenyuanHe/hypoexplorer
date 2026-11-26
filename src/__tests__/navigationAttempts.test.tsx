@@ -363,16 +363,11 @@ describe('write policy', () => {
 });
 
 describe('the shell supersedes a pending landing', () => {
-  it('lets a tab click win over a link still landing', async () => {
-    // Followed from inside the open explorer, so its tabs are on screen while
-    // the link's track is being checked. (A link the app is OPENED at starts
-    // the explorer in its own dataset and draws no tabs until the check
-    // settles; bootLinkLoads.test.tsx covers that.)
-    render(<App initialView="explorer" />);
-    const qcTab = await screen.findByRole('button', { name: 'Quality Control' });
+  it('lets a tab click win over a cold link the app was opened at', async () => {
     const meta = holdMouseMeta();
-    await follow(COLD_LINK);
-    fireEvent.click(qcTab);
+    window.history.replaceState(null, '', COLD_LINK);
+    render(<App />);
+    fireEvent.click(await screen.findByRole('button', { name: 'Quality Control' }));
     const qc = `#/dataset/${MACAQUE.id}/${MACAQUE.defaultTrack}/qc`;
     await waitFor(() => expect(hash()).toBe(qc));
 

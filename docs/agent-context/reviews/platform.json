@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "f9257f53937685bfe5f7e7e27f55e81eb13642771f9584c1a43abc9aa6ff135f",
+  "fingerprint": "931211e88b22eb710f2cd845b4ce126f77e05af06fcd2e3f60e72e180631d059",
   "outcome": "updated",
-  "explanation": "App starts the explorer in the dataset the app was opened at (routeLanding.bootDataset, read once in a useState initializer) instead of the default dataset, so a cold link to another study no longer fetches the macaque default track (409 KB compressed, plus its 192 KB pathway sibling) and macaque metadata before the link moves it. The router still lands the link itself. The router exposes routePending (true for the boot route until its mount effect delivers it, and while a named track is being checked), and App holds its explorer-on-screen load until it clears, so a link naming a track never loads that dataset's default track first. routeLanding.ts gains bootDataset, pure and built on landHash.",
+  "explanation": "The router exposes routePending (true for the boot route until its mount effect delivers it, and while a named track is being checked), and App holds its explorer-on-screen active-track load until it clears. The explorer still starts on the default dataset and a link moves it, but the default track is no longer loaded before the link lands, so a cold link to another study or another macaque track no longer fetches the macaque default track (409 KB compressed, plus its 192 KB pathway sibling). A refused link moves nothing. The 2.2 KB macaque metadata still loads, as on every view.",
   "references": [
     "src/App.tsx",
     "src/appRouter.ts",
-    "src/routeLanding.ts",
     "src/explorer/useExplorer.ts"
   ]
 }

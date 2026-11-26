@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "2cf319e7cf43ce06a19d08d09623ba6fc33974e7db5196b360967dd73d5ce062",
+  "fingerprint": "67941842f2a539852744c8768e849115b29cd6a6a6c2d3d9cfdaee8847e114a6",
   "outcome": "updated",
-  "explanation": "No workflow rule changes. A deep link now starts the explorer in its own dataset (routeLanding.bootDataset), and the active-track load waits for a landing to settle (the router's routePending); CONTEXT.md names both. Routes, link format and the visible explorer are unchanged.",
+  "explanation": "No workflow rule changes. App's active-track load waits for a landing to settle (the router's routePending), which CONTEXT.md names in the explorer entry. Routes, link format and the visible explorer are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/routeLanding.ts",
     "src/App.tsx",
+    "src/appRouter.ts",
     "CONTEXT.md"
   ]
 }

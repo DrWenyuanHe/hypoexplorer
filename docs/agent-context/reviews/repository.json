@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "e6a9aa5e17bfa24996165c2b58294c7aff85b2827fc359ea1b47ba246e94f649",
+  "fingerprint": "3d9d6d5216494d6e2f6180fce2da84121f56b686446313ff3999bf8740f87476",
   "outcome": "updated",
-  "explanation": "CONTEXT.md's Route landing entry names bootDataset (the dataset a link opens the explorer in, so a cold link never fetches the default study first), and its Explorer entry says showActiveTrack is held while the router's routePending is set. No guidance, command or configuration changed.",
+  "explanation": "CONTEXT.md's explorer entry says showActiveTrack is held while the router's routePending is set, so a cold link never loads the default study's track before the link moves the explorer. No guidance, command or configuration changed.",
   "references": [
     "CONTEXT.md",
-    "src/routeLanding.ts",
-    "src/App.tsx"
+    "src/App.tsx",
+    "src/appRouter.ts"
   ]
 }

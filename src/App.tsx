@@ -1,7 +1,6 @@
 import { useState, useCallback, useEffect, lazy, Suspense } from 'react';
 import { useSurveyHandoff } from './expression-survey/useSurveyHandoff';
 import { useAppRouter } from './appRouter';
-import { bootDataset } from './routeLanding';
 import { getDefaultDataset, getDataset, listDatasets } from './data/datasets';
 import { ErrorBoundary } from './ErrorBoundary';
 import { UpdateModal } from './pwa/UpdateModal';
@@ -48,15 +47,7 @@ function AppViews({ initialView = 'hub' }: AppProps) {
   // explorer is off screen and its position and session survive a trip to a
   // report and back. App reads none of it: `nav` and `at` go to the router,
   // `screen` to ExplorerShell.
-  //
-  // It starts in the dataset the app was opened at (routeLanding's
-  // `bootDataset`), not the default one: starting on the default and letting
-  // the link move it fetched the macaque default track (about 600 KB
-  // compressed with its pathways) and metadata on every cold link to another
-  // study. The router still lands the link itself, track, tab and analysis.
-  const [startDataset] = useState(() => (typeof window !== 'undefined' && window.location.hash
-    ? bootDataset(window.location.hash) : null) ?? DEFAULT_DATASET);
-  const explorer = useExplorer(startDataset);
+  const explorer = useExplorer(DEFAULT_DATASET);
   const { showActiveTrack } = explorer;
 
   // The changelog and the study-details disclosure outlive a visit to the
@@ -135,11 +126,14 @@ function AppViews({ initialView = 'hub' }: AppProps) {
   // page still touches no bundle; `showActiveTrack` skips Compare, which has no
   // bundle of its own (CompareTab lazy-loads the populations the user selects).
   //
-  // Held while a route is still landing (`routePending`): the explorer may not
-  // be where the link puts it yet. A link naming a track starts on its dataset's
-  // default track until the check settles, and loading that meanwhile would
-  // trade one unwanted bundle for another. When the landing settles, the
-  // landing's own intent loads its track, and this runs again.
+  // Held while a route is still landing (`routePending`): the explorer is not
+  // where the link puts it yet. It starts on the default dataset, so loading
+  // its active track meanwhile fetched the macaque default track (409 KB
+  // compressed, plus its 192 KB pathway sibling) on every cold link to another
+  // study, or to another macaque track, and never showed it. When the landing
+  // settles, the landing's own intent loads its track and this runs again; a
+  // refused link moves nothing, so the explorer it leaves behind is the one
+  // the app started with.
   useEffect(() => {
     if (view !== 'explorer' || routePending) return;
     // Warm the recharts chunk alongside the track. Both are needed to draw a

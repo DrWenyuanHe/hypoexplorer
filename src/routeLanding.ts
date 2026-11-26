@@ -253,20 +253,6 @@ export function landRoute(route: AppRoute): Landing {
 }
 
 /**
- * The dataset a URL opens the explorer in, or null when it opens no dataset
- * (a page, the hub, a refusal, not a route). App reads the URL the app was
- * opened at through this to START the explorer there, so a link to another
- * study never loads the default study's track and metadata first. The router
- * reads the same URL through `landHash`; both are pure, so they agree.
- */
-export function bootDataset(hash: string): Dataset | null {
-  const landing = landHash(hash);
-  if (landing.kind === 'verify') return landing.dataset;
-  if (landing.kind === 'explorer') return getDataset(landing.intent.datasetId) ?? null;
-  return null;
-}
-
-/**
  * The explorer decision once the dataset's populations are known; `null`
  * means its metadata could not be loaded. A saved analysis refuses rather than
  * landing somewhere it did not name; a plain link degrades to the default track.

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
-  applyPage, bootDataset, initialPage, landHash, landRoute, REFUSAL_MESSAGE, settleExplorer, type Landing,
+  applyPage, initialPage, landHash, landRoute, REFUSAL_MESSAGE, settleExplorer, type Landing,
 } from '../routeLanding';
 import { getDataset, getDefaultDataset } from '../data/datasets';
 import { DB_NAMES } from '../data/constants';
@@ -152,19 +152,4 @@ describe('applyPage', () => {
 
 it('has a message for every refusal', () => {
   for (const message of Object.values(REFUSAL_MESSAGE)) expect(message).toMatch(/not been applied/);
-});
-
-describe('bootDataset', () => {
-  it('is the dataset an explorer link opens, whether or not it names a track', () => {
-    expect(bootDataset('#/dataset/mouse_hypo_hfd_gse220533')?.id).toBe('mouse_hypo_hfd_gse220533');
-    expect(bootDataset('#/dataset/mouse_hypo_hfd_gse220533/whole')?.id).toBe('mouse_hypo_hfd_gse220533');
-    expect(bootDataset('#/dataset/macaque_snrna/compare')?.id).toBe('macaque_snrna');
-  });
-
-  it('is null for a link that opens no dataset', () => {
-    expect(bootDataset('#/dataset/no_such_dataset')).toBeNull();
-    expect(bootDataset('#/methodology')).toBeNull();
-    expect(bootDataset('#/gene/POMC')).toBeNull();
-    expect(bootDataset('#section-anchor')).toBeNull();
-  });
 });
