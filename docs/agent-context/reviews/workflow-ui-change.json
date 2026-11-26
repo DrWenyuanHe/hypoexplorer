@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "e4b68e8c5a52e68cd2864629e34f72b41918173708056714c9d42bde4aaa46da",
+  "fingerprint": "bd6f20d1ad22546c26a549b36f64b131b360ffe45a459bd061838d0b72919c48",
   "outcome": "updated",
-  "explanation": "No workflow rule changes. contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. The search area no longer imports the crossdataset area.",
+  "explanation": "No workflow rule changes. contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. The search area no longer imports the crossdataset area. The significance explanations also move from report paragraphs into a (?) help beside the listing toggle; the listing itself is unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
     "src/data/contrasts.ts",
-    "src/search/SearchPage.tsx"
+    "src/search/SearchPage.tsx",
+    "src/statistics/ListingModeToggle.tsx"
   ]
 }

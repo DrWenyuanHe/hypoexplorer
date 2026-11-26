@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "module-crossdataset",
-  "fingerprint": "3a1ce30dd567cff1c7125437cb87abf501433c22ec1f4c410cc4c38bbbe74c84",
+  "fingerprint": "6a63345ab98bab6a233065243ee325637078a7b6f1b40288026834daa39e1017",
   "outcome": "updated",
-  "explanation": "contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. forestReport.tsx keeps only the forest plot's own helpers; PathwayReport.tsx imports the label from data/contrasts. No visible change.",
+  "explanation": "contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. forestReport.tsx keeps only the forest plot's own helpers; PathwayReport.tsx imports the label from data/contrasts. No visible change. The gene and pathway reports also drop the paragraph explaining p < 0.05 only tracks and the legend sentence defining q; both now sit behind the listing toggle (?) help, which names the gene or pathway correction family. Counts, ordering and empty-listing notes are unchanged.",
   "references": [
     "src/crossdataset/forestReport.tsx",
     "src/crossdataset/PathwayReport.tsx",
-    "src/data/contrasts.ts"
+    "src/data/contrasts.ts",
+    "src/crossdataset/GeneReport.tsx"
   ]
 }

@@ -386,7 +386,7 @@ Start here:
 - [src/common/BrandLink.tsx](<../../../src/common/BrandLink.tsx>)
 - [brand/README.md](<../../../brand/README.md>)
 
-Covered source files (37):
+Covered source files (39):
 - [src/common/AuthorValidation.tsx](<../../../src/common/AuthorValidation.tsx>)
 - [src/common/BrandLink.tsx](<../../../src/common/BrandLink.tsx>)
 - [src/common/CellSelectorPopup.tsx](<../../../src/common/CellSelectorPopup.tsx>)
@@ -398,6 +398,7 @@ Covered source files (37):
 - [src/common/ExportButton.tsx](<../../../src/common/ExportButton.tsx>)
 - [src/common/GeneListTools.tsx](<../../../src/common/GeneListTools.tsx>)
 - [src/common/GenePicker.tsx](<../../../src/common/GenePicker.tsx>)
+- [src/common/HelpTip.tsx](<../../../src/common/HelpTip.tsx>)
 - [src/common/LoadingOverlay.tsx](<../../../src/common/LoadingOverlay.tsx>)
 - [src/common/Modal.tsx](<../../../src/common/Modal.tsx>)
 - [src/common/PageShell.tsx](<../../../src/common/PageShell.tsx>)
@@ -416,6 +417,7 @@ Covered source files (37):
 - [src/common/brand.ts](<../../../src/common/brand.ts>)
 - [src/common/chartScaleStore.ts](<../../../src/common/chartScaleStore.ts>)
 - [src/common/headerControl.css](<../../../src/common/headerControl.css>)
+- [src/common/helpTip.css](<../../../src/common/helpTip.css>)
 - [src/common/lazyView.tsx](<../../../src/common/lazyView.tsx>)
 - [src/common/prose.css](<../../../src/common/prose.css>)
 - [src/common/prose.tsx](<../../../src/common/prose.tsx>)

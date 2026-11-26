@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
 import { getDataset } from '../data/datasets';
+import { Q_EXPLANATION } from '../statistics/ListingModeToggle';
 import { getActiveContrast } from '../data/contrasts';
 import { geneRow, type GeneRowInput } from '../data/crossDatasetRows';
 import { _resetCompareSetStore, getSnapshot } from '../compareset/compareSetStore';
@@ -425,7 +426,10 @@ describe('GeneReport — differential expression table', () => {
     const verdict = card.querySelector('.portal-verdict');
     expect(verdict).toHaveTextContent('Significant in 2 of 2 datasets');
     expect(verdict).toHaveTextContent('(FDR < 0.05) · 2 more tracks at p < 0.05 only');
-    expect(card.textContent).toMatch(/Tracks at p < 0\.05 that do not pass FDR are listed after the FDR results/);
+    // The explanation sits behind the toggle's (?), not in the reading flow.
+    expect(card.textContent).not.toMatch(/do not pass FDR/);
+    fireEvent.click(within(card).getByRole('button', { name: 'About FDR and p < 0.05' }));
+    expect(screen.getByRole('tooltip')).toHaveTextContent(/marked p < 0\.05 only, and are not corrected for the genes each study tested/);
     // Listed by default: the FDR survivor by q, then the nominal tracks by p.
     expect(trackLabels(areaTable(card, 'Primate atlas'))).toEqual(['e9 population', 'e2 population', 'e1 population']);
     expect(captionOf(areaTable(card, 'Primate atlas'))).toEqual({
@@ -476,14 +480,15 @@ describe('GeneReport — differential expression table', () => {
     expect(rowFor(card, 'e2 population').querySelector('.report-de-tier')).toHaveTextContent('p < 0.05 only');
   });
 
-  it('explains q in the legend for keyboard users and on every row on hover', async () => {
+  it('explains q behind the (?) for keyboard users and on every row on hover', async () => {
     renderReport();
     const card = await findDeCard();
-    const legendQ = card.querySelector('.report-de-legend abbr') as HTMLElement;
-    expect(legendQ).toHaveAttribute('tabindex', '0');
-    expect(legendQ.title).toMatch(/FDR-adjusted p-value/);
+    expect(card.querySelector('.report-de-legend abbr')).toBeNull();
+    const help = within(card).getByRole('button', { name: 'About FDR and p < 0.05' });
+    fireEvent.focus(help);
+    expect(screen.getByRole('tooltip')).toHaveTextContent(Q_EXPLANATION);
     const rowQ = rowFor(card, 'e9 population').cells[4].querySelector('abbr') as HTMLElement;
-    expect(rowQ.title).toBe(legendQ.title);
+    expect(rowQ.title).toBe(Q_EXPLANATION);
     expect(rowQ).not.toHaveAttribute('tabindex');
   });
 
@@ -496,7 +501,6 @@ describe('GeneReport — differential expression table', () => {
     renderReport();
     const card = await findDeCard();
     expect(card.querySelector('.portal-verdict')).toHaveTextContent('Significant in 0 of 2 datasets (FDR < 0.05) · 1 more track at p < 0.05 only');
-    expect(card.textContent).toMatch(/No track reaches FDR < 0\.05\. Tracks at p < 0\.05 that do not pass FDR/);
     expect(trackLabels(card)).toEqual(['e9 population']);
     expect(captionOf(areaTable(card, 'Primate atlas'))).toEqual({ name: 'Primate atlas', count: 'none significant · 1 at p < 0.05 only', dirs: null });
     const quiet = card.querySelector('.report-de-quiet') as HTMLElement;

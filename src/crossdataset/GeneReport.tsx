@@ -7,7 +7,7 @@ import { datasetHref, libraryHref, isPlainLeftClick } from '../utils/appLinks';
 import { fmtFDR, fmtP, fmtSigned } from '../utils/format';
 import { FONT_MONO } from '../styles/constants';
 import { directionTextColor } from '../statistics/direction';
-import { nominalCaveat, noneLeads, leadingTracks } from '../statistics/listingWords';
+import { noneLeads, leadingTracks } from '../statistics/listingWords';
 import { useReportQuery, ReportLoading } from './forestReport';
 import { categoryColor } from '../library/LibraryToolbar';
 import { useStudySelection, type StudyQuery } from './studySelection';
@@ -236,7 +236,7 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
           {' '}Their results are listed here and marked with the symbol they store.
         </p>
       )}
-      <div className="report-de-mode"><ListingModeToggle /></div>
+      <div className="report-de-mode"><ListingModeToggle kind="gene" /></div>
       <p className="portal-verdict">
         Significant in <b>{studiesSignificant}</b> of <b>{measured.length}</b> datasets
         {significantCount > 0 && (
@@ -251,13 +251,7 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
           <span className="portal-cutoff"> · {nominal} more {nominal === 1 ? 'track' : 'tracks'} at p &lt; {NOMINAL_P_CUTOFF} only</span>
         )}
       </p>
-      {nominal > 0 ? (
-        <p className="portal-note">
-          {significantCount === 0 ? `No track reaches FDR < ${DEFAULT_FDR_CUTOFF}. ` : ''}
-          Tracks at p &lt; {NOMINAL_P_CUTOFF} that do not pass FDR are listed after the FDR results and marked{' '}
-          <i>p &lt; {NOMINAL_P_CUTOFF} only</i>: they are {nominalCaveat('gene')}
-        </p>
-      ) : significantCount === 0 && (
+      {nominal === 0 && significantCount === 0 && (
         nominalMode
           ? <p className="portal-note">No track reaches p &lt; {NOMINAL_P_CUTOFF}. Every measured track is listed, lowest p first.</p>
           : <p className="portal-note">No track reaches FDR &lt; {DEFAULT_FDR_CUTOFF}. Every measured track is listed, lowest q first.</p>
@@ -265,7 +259,6 @@ function GeneStudyTable({ gene, groups, onOpenDataset }: {
       <div className="report-de-legend">
         <span>
           Each change is {gene} in the <b>first group</b> of the comparison, relative to the second.
-          {' '}<QTerm /> is the FDR-adjusted p-value.
         </span>
         <span className="report-de-legend-dirs">
           <span style={{ color: directionTextColor('down', 'fdr') }}>◀ lower in the first group</span>
