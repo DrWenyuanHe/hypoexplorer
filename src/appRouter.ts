@@ -63,19 +63,17 @@
 // dataset's metadata when a named track has to be checked, and writes history.
 
 import { useCallback, useEffect, useMemo, useRef, useState, type Dispatch, type SetStateAction } from 'react';
-import { getDataset, type DatasetCategory } from './data/datasets';
-import { DEFAULT_EXPLORER_TAB } from './explorer/explorerTabs';
-import { COMPARE_TRACK } from './explorer/explorerPosition';
+import type { DatasetCategory } from './data/datasets';
 // The explorer's side of the seam: the router states intents through one and reads the other.
 import type { ExplorerAt, ExplorerNavigation } from './explorer/useExplorer';
 import { loadDatasetMeta } from './data/loadDatasetMeta';
-import { type CompareSetRouteItem, routeHref } from './utils/appLinks';
+import type { CompareSetRouteItem } from './utils/appLinks';
 import type { CompareSetItem } from './compareset/compareSetStore';
-import { selectionLink, type StudySelection } from './crossdataset/studySelectionLink';
+import type { StudySelection } from './crossdataset/studySelectionLink';
 import { setChartScale, useChartScale } from './common/chartScaleStore';
 import type { SearchFilter } from './search/searchTypes';
 import {
-  applyPage, compareSetPage, initialPage, landHash, landRoute, REFUSAL_MESSAGE, settleExplorer,
+  applyPage, compareSetPage, initialPage, landHash, landRoute, REFUSAL_MESSAGE, routeOf, settleExplorer,
   type Landing, type PageLanding, type PageState, type Settled,
 } from './routeLanding';
 
@@ -562,75 +560,9 @@ export function useAppRouter(
 
   // ── Writing the URL ────────────────────────────────────────────────────────
 
-  /**
-   * The hash that names where the app currently is, or null when it cannot be
-   * named yet (the explorer before the shell has reported a position).
-   *
-   * The hub is the empty string, not '#/': it is the bare site root, and landing
-   * there should leave `hypoexplorer.com` looking like `hypoexplorer.com`.
-   */
-  const targetHash = useMemo<string | null>(() => {
-    switch (view) {
-      case 'hub':
-        return '';
-      case 'methodology':
-        return routeHref({ view: 'methodology' });
-      case 'verification':
-        return routeHref({ view: 'verification' });
-      case 'nomenclature':
-        return routeHref({ view: 'nomenclature' });
-      case 'expression':
-        return routeHref({ view: 'expression' });
-      case 'tracker':
-        return routeHref({ view: 'tracker', acc: trackerSelectedAcc });
-      case 'search':
-        return routeHref({ view: 'search', query: searchQuery, filter: searchFilter });
-      case 'library':
-        return routeHref({ view: 'library', datasetId: libraryDatasetId, categories: libraryCategories });
-      // A report always names its term; the guards narrow the shared state to
-      // `string`. A term-less report is never entered, so it never writes.
-      case 'report':
-        // The selection's link form supplies the path scope and the snapshot.
-        return reportGene ? routeHref({ view: 'report', gene: reportGene, scope: null,
-          ...selectionLink('gene', geneStudySelection, chartScale) }) : null;
-      case 'pathway-report':
-        return reportPathway ? routeHref({ view: 'pathway-report', pathway: reportPathway,
-          ...selectionLink('pathway', pathwayStudySelection, chartScale) }) : null;
-      case 'compare-set':
-        // Shortest URL that round-trips, as the explorer arm does: a dataset's
-        // default track is implied by the dataset, so it stays out of the link.
-        return compareSetItems.length
-          ? routeHref({
-              view: 'compare-set',
-              items: compareSetItems.map((item) => {
-                const ds = getDataset(item.datasetId);
-                return ds && item.trackId === ds.defaultTrack
-                  ? { datasetId: item.datasetId }
-                  : { datasetId: item.datasetId, trackId: item.trackId };
-              }),
-            })
-          : null;
-      case 'explorer': {
-        if (!explorerAt) return null;
-        // Compare is its own segment and carries no tab, so it always names itself.
-        if (explorerAt.trackId === COMPARE_TRACK) {
-          return routeHref({ view: 'explorer', datasetId: explorerAt.datasetId, trackId: COMPARE_TRACK,
-            ...(explorerAt.compare ? { compare: explorerAt.compare } : {}),
-            ...(explorerAt.analysis ? { analysis: explorerAt.analysis } : {}) });
-        }
-        const ds = getDataset(explorerAt.datasetId);
-        const tab = explorerAt.tab !== DEFAULT_EXPLORER_TAB ? explorerAt.tab : undefined;
-        // Shortest URL that still round-trips. The default track is implied by
-        // the dataset, so it is left out — which keeps the address bar agreeing
-        // with the `#/dataset/<id>` links the report already emits. A non-default
-        // tab has to sit behind a track segment, so naming one forces the track
-        // back in even when it is the default.
-        const trackId = !tab && ds && explorerAt.trackId === ds.defaultTrack ? undefined : explorerAt.trackId;
-        return routeHref({ view: 'explorer', datasetId: explorerAt.datasetId, trackId, tab,
-          ...(explorerAt.analysis ? { analysis: explorerAt.analysis } : {}) });
-      }
-    }
-  }, [view, reportGene, reportPathway, trackerSelectedAcc, libraryDatasetId, libraryCategories, compareSetItems, searchQuery, searchFilter, explorerAt, geneStudySelection, pathwayStudySelection, chartScale]);
+  // The hash that names where the app currently is (routeLanding's routeOf,
+  // the write side of the same module that reads a route).
+  const targetHash = useMemo(() => routeOf(page, chartScale, explorerAt), [page, chartScale, explorerAt]);
 
   targetHashRef.current = targetHash;
 

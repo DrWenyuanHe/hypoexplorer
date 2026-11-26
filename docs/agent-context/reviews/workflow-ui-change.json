@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "400bcfa9eae477be32e864ef7f668567dc5be5897f46614c1724a2d8b7f21453",
+  "fingerprint": "82f0882a7eaa17f5b8aeb0aa33712b8149c4e778e172367178f54455c8f6303f",
   "outcome": "updated",
-  "explanation": "No workflow rule changes. The significance explanations move from report paragraphs into a (?) help beside the listing toggle; routes, links, exports and the listing itself are unchanged.",
+  "explanation": "No workflow rule changes. A link's written form now lives in routeLanding.routeOf beside its reader, and routeRoundTrip.test.ts fails if a change to either side makes an address land somewhere other than where it was written; CONTEXT.md names both. Routes and link format are unchanged. The significance explanations also move from report paragraphs into a (?) help beside the listing toggle; the listing itself is unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
+    "src/routeLanding.ts",
+    "CONTEXT.md",
     "src/statistics/ListingModeToggle.tsx"
   ]
 }
