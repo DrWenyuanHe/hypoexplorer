@@ -39,7 +39,7 @@ import { listContrasts } from './data/contrasts';
 import { COMPARE_TRACK, type NavigationIntent } from './explorer/explorerPosition';
 import { type AppRoute, type CompareSetRouteItem, parseRoute } from './utils/appLinks';
 import { COMPARE_SET_MAX, compareSetKey, type CompareSetItem } from './compareset/compareSetStore';
-import type { CompareViewState } from './utils/analysisState';
+import { landCompareLink } from './compare/compareView';
 import type { ChartScale } from './utils/chartScale';
 import { DEFAULT_STUDY_SELECTION, selectionFromLink, type StudySelection } from './crossdataset/studySelectionLink';
 import type { SearchFilter } from './search/searchTypes';
@@ -276,7 +276,7 @@ export function settleExplorer(route: ExplorerRoute, dataset: Dataset, populatio
       kind: 'explorer',
       intent: {
         type: 'open', datasetId: dataset.id, compare: true,
-        compareView: compareViewFor(route.compare, populations), analysis: route.analysis,
+        compareView: landCompareLink(route.compare, populations), analysis: route.analysis,
       },
     };
   }
@@ -290,17 +290,4 @@ export function settleExplorer(route: ExplorerRoute, dataset: Dataset, populatio
  */
 function openTrack(route: ExplorerRoute, dataset: Dataset, trackId: string): OpenIntent {
   return { type: 'open', datasetId: dataset.id, compare: false, trackId, tab: route.tab, analysis: route.analysis };
-}
-
-/**
- * A Compare link's view, checked against the dataset's real populations: an id
- * the dataset no longer has is dropped, and fewer than two left means the
- * dataset's default pair (a comparison of one is not a comparison). Genes and
- * the sub-tab need no check here; a gene a population lacks shows as such.
- */
-function compareViewFor(view: CompareViewState | undefined, populations: readonly string[]): CompareViewState {
-  if (!view) return {};
-  const { pops, ...rest } = view;
-  const known = pops?.filter((id) => populations.includes(id));
-  return known && known.length >= 2 ? { ...rest, pops: known } : rest;
 }

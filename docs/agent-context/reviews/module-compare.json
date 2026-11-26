@@ -1,15 +1,13 @@
 {
   "version": 1,
   "area": "module-compare",
-  "fingerprint": "fda3d7b7a50f960842cec13293b08a1c9391961fc5f99feb99ad95aa31d96c29",
+  "fingerprint": "9fc220bc790a80f019a220350b58bf9f7fd8285a7cfea85abc6dd15b7e5b0fef",
   "outcome": "updated",
-  "explanation": "From main (PR #85): resolveGeneCI and compareCell take an optional rename table: after exact and case matches, a column is read under another member of the gene rename group in its own stored-symbol authority, chosen by pickStoredMember. CompareGenesView reads the table with useSymbolRenames and compareSummaryRows accepts it as an option. The Compare tab's downloads take the same table: CompareTab passes useSymbolRenames to compareGenesWorkbook, compareGenesCsv, compareValuesCsv (through compareSummaryLongRows and compareValueRows) and the chart ZIP, so a tile measured under a renamed symbol is never a 'Detected: no' row, a missing sample or a missing chart in the file. From this branch: resolveGeneCI and compareCell take an optional rename table: after exact and case matches, a column is read under another member of the gene rename group in its own stored-symbol authority, chosen by pickStoredMember. CompareGenesView reads the table with useSymbolRenames and compareSummaryRows accepts it as an option. Review fixes: the Compare tab passes the rename table to compareGenesWorkbook, compareGenesCsv, compareValuesCsv and its chart ZIP, whose long-format builders take it as a trailing argument, so downloads match the screen. In the merge with main, the Compare tab keeps main's single rename-table read for its downloads (PR #85's version), which this branch's duplicate declaration repeated.",
+  "explanation": "Adds compareView.ts (comparePair, landCompareLink, openCompareView, compareLink, sameCompareLink: Compare's default pair, the known-population rule a link lands through, and the link form that leaves defaults out) and useCompareView.ts (the shell's per-dataset hold, whose epoch remounts CompareTab only when a link lands). CompareTab requires defaultPops, drops its macaque e9 / i23 fallback and viewToRecord, opens through openCompareView and reports by value instead of a JSON string round trip.",
   "references": [
-    "src/compare/resolveGene.ts",
-    "src/compare/compareCell.ts",
-    "src/compare/CompareGenesView.tsx",
-    "src/compare/compareSummary.ts",
-    "CONTEXT.md",
-    "src/compare/CompareTab.tsx"
+    "src/compare/compareView.ts",
+    "src/compare/useCompareView.ts",
+    "src/compare/CompareTab.tsx",
+    "CONTEXT.md"
   ]
 }

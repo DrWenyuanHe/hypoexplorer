@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "39953518d23812686d70363e0dfbbc8073dc08edaf5c53beb569b5bf5ca8ab40",
+  "fingerprint": "b5b7b0b2c73f622d5105d1d56fb99bd23284812619258b2ee1f3174b009ee41e",
   "outcome": "updated",
-  "explanation": "Merges main (PRs #83 to #87) into the rhythm-scan change. From main: PR #87 fixes stale in-app text, agent maps, script headers and dated records without touching sealed or hash-pinned files;survey view and card tests cover GenePageSurvey, the source tiles and familyTeaser; symbolRenames.test.ts and queryIndex.test.ts cover reading a renamed gene across studies, pickStoredMember, compareCell and the Compare and compare-set downloads under the rename table, and the gene search tests cover Enter selecting the typed gene. From this branch: lombScargleFloor.test.ts pins the floor formula, its preconditions, a cap-breaking gappy pattern, the large-time-origin counterexample and a 200-design property (in the focused validation suite, 136 tests); rhythmCall.test.ts is the call and verdict decision table; the notes and results-table tests take lsFloor objects and a q: null row.",
+  "explanation": "compareView.test.ts pins the default pair (curated, fallback, curated ids the data lacks), landCompareLink, the open and link round trip and value equality; useCompareView.test.tsx pins land bumping the epoch per dataset, reports never remounting, equal reports ignored and stable callbacks. The existing Compare, link and routing tests pass unchanged.",
   "references": [
-    "src/__tests__/lombScargleFloor.test.ts",
-    "src/__tests__/rhythmCall.test.ts",
-    "src/__tests__/circadianTable.test.tsx",
-    "src/__tests__/symbolRenames.test.ts",
-    "src/__tests__/queryIndex.test.ts"
+    "src/__tests__/compareView.test.ts",
+    "src/__tests__/useCompareView.test.tsx",
+    "src/__tests__/compareLinks.test.tsx"
   ]
 }

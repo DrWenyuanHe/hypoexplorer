@@ -24,7 +24,8 @@ import { LandingHub } from './hub/LandingHub';
 import { CellNavigator } from './explorer/CellNavigator';
 import { EXPLORER_TABS, DEFAULT_EXPLORER_TAB, explorerTabAvailable } from './explorer/explorerTabs';
 import { COMPARE_TRACK, activeTabOf, activeTrackOf, initialPosition, useExplorerPosition, type NavigationIntent } from './explorer/explorerPosition';
-import type { CompareViewState } from './utils/analysisState';
+import { comparePair } from './compare/compareView';
+import { useCompareView } from './compare/useCompareView';
 import { useExplorerSession } from './explorer/explorerSession';
 import { preloadBarSEMChart } from './gene-explorer/BarSEMChart';
 import { ArmPills, ArmVariesBadge, factsFromMeta } from './common/StudyMetadata';
@@ -127,9 +128,8 @@ function AppViews({ initialView = 'hub' }: AppProps) {
   // Which track-level tab is showing. Compare has none; the tab bar and the
   // breadcrumb are not rendered there, so they read the Gene Explorer default.
   const isCompare = position.focus.kind === 'compare';
-  const [compareView, setCompareView] = useState<{ datasetId: string; view: CompareViewState; epoch: number }>(
-    { datasetId: '', view: {}, epoch: 0 },
-  );
+  const compareView = useCompareView(activeDatasetId);
+  const landCompareView = compareView.land;
   const activeTab = activeTabOf(position) ?? DEFAULT_EXPLORER_TAB;
   const isQC = activeTabOf(position) === 'qc';
 
@@ -189,21 +189,14 @@ function AppViews({ initialView = 'hub' }: AppProps) {
       session.restoreAnalysis(intent.analysis);
     }
     // A Compare link (or Back/Forward onto one) restarts Compare on its view.
-    if (intent.type === 'open' && intent.compareView) {
-      const view = intent.compareView;
-      setCompareView((prev) => ({ datasetId: intent.datasetId, view, epoch: prev.epoch + 1 }));
-    }
+    if (intent.type === 'open' && intent.compareView) landCompareView(intent.datasetId, intent.compareView);
     if (load) ensureTrack(load.trackId, load.dataset);
-  }, [applyIntent, resetFor, session.restoreAnalysis, ensureTrack]);
+  }, [applyIntent, resetFor, session.restoreAnalysis, ensureTrack, landCompareView]);
 
   // Compare's view lives in CompareTab, which reports each change here so it
-  // can ride in the URL and survive leaving Compare and coming back. `epoch`
-  // remounts CompareTab when a link lands, since it reads its view only once.
-  const onCompareViewChange = useCallback((view: CompareViewState) => {
-    setCompareView((prev) => (prev.datasetId === activeDatasetId && JSON.stringify(prev.view) === JSON.stringify(view)
-      ? prev : { datasetId: activeDatasetId, view, epoch: prev.epoch }));
-  }, [activeDatasetId]);
-  const compareViewHere = compareView.datasetId === activeDatasetId ? compareView.view : undefined;
+  // can ride in the URL and survive leaving Compare and coming back
+  // (compare/useCompareView.ts).
+  const compareViewHere = compareView.link;
 
   // ── Navigation ──────────────────────────────────────────────────────
   // Where the user is lives in the router; how an explorer route lands is the
@@ -345,6 +338,11 @@ function AppViews({ initialView = 'hub' }: AppProps) {
   const currentQC   = isCompare ? null : popData?.qc;
 
   const populations = datasetMeta?.populations || [];
+  // The pair Compare opens on, from this dataset's own populations.
+  const comparePops = useMemo(
+    () => comparePair(dataset, datasetMeta?.populations ?? []),
+    [dataset, datasetMeta],
+  );
   // Guard: getActiveContrast returns null for a (hypothetical) dataset authored
   // with no contrasts. Every registered dataset has one, so this never fires
   // today — but degrade gracefully (skip the hero chips) instead of crashing.
@@ -919,8 +917,8 @@ function AppViews({ initialView = 'hub' }: AppProps) {
                     once — mounting early chose populations the dataset lacks. */}
                 {datasetMeta ? (
                   <CompareTab key={compareView.epoch} meta={datasetMeta} dataset={dataset} contrast={contrast}
-                    defaultPops={dataset.defaultCompareTracks || populations.slice(0, 2)}
-                    initialView={compareViewHere} onViewChange={onCompareViewChange} />
+                    defaultPops={comparePops}
+                    initialView={compareViewHere} onViewChange={compareView.report} />
                 ) : (
                   <div role="status" style={{ padding: 24 }}><Spinner size={14} label="Loading populations…" /></div>
                 )}
