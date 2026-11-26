@@ -4,6 +4,7 @@
 //   pnpm run build:agent-export                     # every registered dataset
 //   pnpm run build:agent-export --datasets a,b      # a subset (tests, previews)
 //   pnpm run build:agent-export --out <dir> --unpacked --kegg full|stats|omit
+//   pnpm run build:agent-export --unpacked --no-zip  # folder only, no archive
 //
 // Source of truth is the published browser bundles under public/datasets/, read
 // through the bundle reader (scripts/lib/bundleReader.mts) as the browser sees

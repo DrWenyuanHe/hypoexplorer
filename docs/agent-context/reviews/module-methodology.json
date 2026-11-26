@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-methodology",
-  "fingerprint": "8695d400f66ba3357aecfb4dd05b2e2a0de9027df94d7e93c2c3c98d1416dbc8",
+  "fingerprint": "5020cb478b80ec8174db06a40ea1b6f27a29d75e725852450ce243ba51ee473b",
   "outcome": "updated",
-  "explanation": "The \"red is up / blue is down\" sentence on the Methods page is direction text, so it now uses directionTextColor (the AA text tokens) instead of the chart fills; the warning callout border keeps DIRECTION_UP_COLOR as a mark. The caveat prose is unchanged.",
+  "explanation": "The Methods page states what the code does: BH families are per fitted comparison for genes and per collection for pathways; rounding follows fmtP; gene sets map to the target recorded in FGSEA provenance; a missing pathway may have been dropped or, in a release-built copy, be KEGG; report denominators are the studies that measured the gene; cutoffs and the star table come from policy.ts and format.ts; the dataset count comes from the registry. The gene-count range is no longer hard-coded.",
   "references": [
     "src/methodology/MethodologyView.tsx",
-    "src/statistics/direction.ts"
+    "src/statistics/policy.ts",
+    "src/utils/format.ts"
   ]
 }

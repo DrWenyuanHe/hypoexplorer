@@ -39,6 +39,7 @@ for r in records:
 (OUT/'ledger.json').write_text(json.dumps({'batch':'2026-09-05','records':records},indent=2)+'\n',encoding='utf-8')
 
 lines=['# September 5 discovery intake','',
+ '> Dated record (2026-09-05). The current audit of this intake is `pnpm run check:intake` (`scripts/audit_september5_intake_current.mts`). Its commands and linked evidence need the maintainer checkout; see [Files not in this repository](../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).','',
  f"{len(studies)} new studies, {sum(len(s['tracks']) for s in studies)} tracks and {len(analyses)} fitted comparisons. {sum(s['id'] in registered for s in studies)} new studies are registered in the explorer.",'',
  'The original discovery files are preserved. Download manifests record source URLs, file sizes and SHA-256 checksums. Animal or independent pool identifiers define replication; cells and technical runs are never promoted to independent animals.','',
  'Count analyses use edgeR quasi-likelihood with TMM normalization; deposited normalized matrices use limma. RSEM imports use lengthScaledTPM. Each comparison has an explicit direction, sample sheet, design, DE table, standard errors and input/output checksums. Pathways use the repository’s schema-3 FGSEA workflow and four MSigDB collections.','',
@@ -56,8 +57,9 @@ lines+=['','GSE214683 was already integrated and was not duplicated. Initial dis
  'Run the source fetcher and accession-specific preparers, then:',
  '```powershell','Rscript scripts/run_september5_pipeline.R',
  '$ids = (Get-Content data/intake/september5-2026/analyses.json -Raw | ConvertFrom-Json).analysisId',
- 'Rscript scripts/run_mouse_fgsea.R @ids --force','npx tsx scripts/build_september5_bundles.mts',
- 'npx tsx scripts/audit_september5_intake.mts','python scripts/report_september5_intake.py','```','',
+ 'Rscript scripts/run_mouse_fgsea.R @ids --force','pnpm exec tsx scripts/build_september5_bundles.mts',
+ 'pnpm exec tsx scripts/audit_september5_intake.mts','python scripts/report_september5_intake.py','```','',
+ '`audit_september5_intake.mts` traces the replaced R 4.4.1 outputs. The current audit is `scripts/audit_september5_intake_current.mts`, run by `pnpm run check:intake`.','',
  'The prepared study manifest and per-study source notes specify the importer and analysis lane. Downloading and preparing raw-read-only or unsupported-species candidates requires the additional work listed above.','']
 (OUT/'REPORT.md').write_text('\n'.join(lines),encoding='utf-8')
 

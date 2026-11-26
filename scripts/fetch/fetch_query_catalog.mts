@@ -14,6 +14,7 @@
 //
 //   pnpm run fetch:query            # from https://data.hypoexplorer.com
 //   VITE_BUNDLE_BASE_URL=... pnpm run fetch:query
+//   HYPOEXPLORER_APP_ORIGIN=... pnpm run fetch:query   # tracker catalog from another app host
 
 import { mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';

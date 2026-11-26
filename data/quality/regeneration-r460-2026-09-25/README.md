@@ -1,5 +1,7 @@
 # R 4.6.0 regeneration — September 25–26, 2026
 
+> Dated record (2026-09-25 to 26). Current producers and the analysis environment: [project guidance](../../../docs/PROJECT_GUIDANCE.md). Its commands and linked evidence need the maintainer checkout; see [Files not in this repository](../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
+
 Every differential-expression (DE), standard-error (SE), CPM and gene-set enrichment (FGSEA) table was recomputed under one R environment, R 4.6.0, and every browser bundle was rebuilt from the new tables. The run started on September 25; the final tables come from one clean run of the final code on September 26 (bulk tree `bulk-final3`, macaque tree `macaque-final`). This record covers why, what changed, how the old and new results compare, which evidence was re-derived, and how sealed evidence still verifies against the replaced bytes.
 
 ## Why
@@ -330,7 +332,7 @@ The comparison files are copied unchanged from the staging trees, so their relat
 
 Every analysis output was regenerated under R 4.6.0: bulk DE, SE, CPM and FGSEA tables under `geo_replication/datasets/*/processed/`, the macaque atlas under `data/raw/results/<population>/`, and then every bundle under `public/datasets/`. The R 4.4.1 bytes they replace are pinned by SHA-256, as exact bytes or as their CRLF rendering, in retained evidence, sealed reports and ledgers. Repository rule: a pin and a sealed producer are never edited. This record adds one more verified projection to the historical adapter instead: a sealed check may read the old bytes of a file only when the change is proven to be this regeneration.
 
-The old bytes are not copied. They remain committed blobs at the pre-swap commit `83acab3059fdd8cc024702ec7c9cf7f3d6d14c3e` (main before the swap). The tag `superseded/r441-2026-09-25` names that commit so the blobs stay reachable.
+The old bytes are not copied. They remain committed blobs at the pre-swap commit `83acab3059fdd8cc024702ec7c9cf7f3d6d14c3e` (main before the swap). The tag `superseded/r441-2026-09-25` named that commit so the blobs stayed reachable. Neither the commit nor the tag is in this public repository's history, which starts on 2026-11-04; sealed checks that read the old bytes need the maintainer's repository.
 
 ### Files
 
@@ -420,7 +422,7 @@ The first `--finalize` refused 12 pinned outputs under `geo_replication/archive/
 | `geo_replication/archive/*/processed/` | 17 | 12 |
 | Nomenclature and `pop_meta.js` | 5 | 0 |
 
-The tag `superseded/r441-2026-09-25` exists in the local repository; it has to be pushed with the branch for other clones to keep the pre-swap blobs reachable by name.
+At the time, the tag `superseded/r441-2026-09-25` existed in the maintainer's local repository and had to be pushed with the branch for other clones to keep the pre-swap blobs reachable by name. It is not present in this public repository.
 
 The readers accept current bytes that are either the recorded regeneration or a checkout's CRLF rendering of recorded LF bytes, as the `text=auto` files become on a Windows checkout with `core.autocrlf`.
 

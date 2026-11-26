@@ -1,14 +1,18 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "d406a5478608d35557d0e8de71a870ec95dcd585729e0bbb112d37bf01a86c04",
+  "fingerprint": "8dfa2cb625d6ee1e1e8303a64f29017c9a14e41cd241c1c6932fc8a05c02fcfe",
   "outcome": "updated",
-  "explanation": "The rename work adds one step: a dataset that changes the nomenclature table also needs pnpm run build:search-names, which regenerates the search names and the rename groups from nomenclature.tsv; project guidance states the order, the --check guard and the rule tests. The rebuilt renames.js and names.js come from the same nomenclature table with the case-duplicate rule; the dataset steps and the --check guard are unchanged.",
+  "explanation": "Merge of main into the staleness pass. From main: From main (PR #84): Only the expression survey runbook and project guidance wording changed, describing how the gene page shows and opens each survey source. Adding or changing a dataset, its bundles, the expression catalog entries and their checks follow the same steps and commands as before. The rename work adds one step: a dataset that changes the nomenclature table also needs pnpm run build:search-names, which regenerates the search names and the rename groups from nomenclature.tsv; project guidance states the order, the --check guard and the rule tests. From this branch: From main: Registry fields, display labels and one survey source of reviewed studies were corrected; the dataset-change procedure, including the reviewed-reason step in build_registry_edits.mts and the expression-index rebuild for survey sources, is unchanged. The survey index was rebuilt with that procedure. From this branch: The expression survey wording leaves the dataset steps unchanged. The rename work adds one step: a dataset that changes the nomenclature table also needs pnpm run build:search-names, which regenerates the search names and the rename groups from nomenclature.tsv; project guidance states the order, the --check guard and the rule tests. Review fixes change survey tiles, handover and rename reading only; the dataset steps, bundles, catalog entries and their checks are unchanged. From this branch: Usage headers and dated records changed in text; bundleWriter.mts takes NSIG_FDR_THRESHOLD from the shared NSIG_FDR_CUTOFF (same 0.05, so bundles are unchanged); report_september5_intake.py emits the dated header and current-audit note; analyze:hfd now runs the R 4.6.0 HFD and FGSEA producers that check:hfd-intake audits. The rebuilt renames.js and names.js come from the same nomenclature table with the case-duplicate rule; the dataset steps and the --check guard are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
+    "scripts/regen-r460/build_registry_edits.mts",
+    "data/expression/existing/README.md",
+    "docs/runbooks/EXPRESSION_SURVEY.md",
     "docs/PROJECT_GUIDANCE.md",
     "scripts/build_search_names.mts",
     "scripts/lib/searchNames.test.mts",
+    "scripts/lib/bundleWriter.mts",
     "public/nomenclature/renames.js"
   ]
 }

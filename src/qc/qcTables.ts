@@ -5,6 +5,7 @@ import type { Dataset, DatasetMeta, Group, QcGlobal, QCFlags, ResolvedContrast }
 import { commonSamplePrefix } from '../utils/sampleIds';
 import { groupLabels } from '../utils/sampleValues';
 import { isLowPower } from '../utils/qcFlags';
+import { NSIG_FDR_CUTOFF } from '../statistics/policy';
 import { aggregateFgseaSummary } from './fgseaSummary';
 import type { FgseaAggregateRow, FgseaSummaryRecord } from './fgseaSummary';
 
@@ -253,7 +254,7 @@ export function deTable(
     { key: 'label', label: 'Label', align: 'left' },
     deHas('nGenes') && { key: 'nGenes', label: 'Genes tested', align: 'right' },
     deHas('nDEG_lfc025') && { key: 'nDEG_lfc025', label: 'DEG (FDR<.05, lfc≥.25)', align: 'right' },
-    deHas('nSig') && { key: 'nSig', label: 'Sig (FDR<0.05)', align: 'right' },
+    deHas('nSig') && { key: 'nSig', label: `Sig (FDR<${NSIG_FDR_CUTOFF})`, align: 'right' },
     deHas('nDEG_fragile') && { key: 'nDEG_fragile', label: 'Fragile LOO', align: 'right' },
     deHas('top5_up') && { key: 'top5_up', label: 'Top 5 ↑', align: 'left', sortable: false },
     deHas('top5_down') && { key: 'top5_down', label: 'Top 5 ↓', align: 'left', sortable: false },

@@ -14,14 +14,17 @@
 // the workflow, so ingestion only normalizes it to the catalog schema and dedups
 // it against what is already catalogued (by accession / parent BioProject).
 //
+// Maintainer only: nar-research/ is not in this repository.
+//
 // Usage:
-//   node scripts/ingest_survey_pass.mjs <pass-result.json> [--replace-pass] [--dry]
+//   pnpm exec tsx scripts/ingest_survey_pass.mts <pass-result.json> [--replace-pass] [--dry]
 //     --replace-pass  drop existing catalog rows whose `pass` matches an incoming
 //                     pass before adding (clean re-ingest); default is skip-existing
 //                     (idempotent: re-running the same input is a no-op).
 //     --dry           print what would change without writing.
 //
-// After ingest, regenerate the shipped tracker blob: `npm run build:tracker`.
+// After ingest, regenerate the shipped tracker blob:
+// `pnpm exec tsx scripts/build_tracker_catalog.mts`.
 
 import { readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
@@ -38,7 +41,7 @@ const inputPath = argv.find((a) => !a.startsWith('--'));
 const DRY = flags.has('--dry');
 const REPLACE = flags.has('--replace-pass');
 if (!inputPath) {
-  console.error('usage: node scripts/ingest_survey_pass.mjs <pass-result.json> [--replace-pass] [--dry]');
+  console.error('usage: pnpm exec tsx scripts/ingest_survey_pass.mts <pass-result.json> [--replace-pass] [--dry]');
   process.exit(2);
 }
 
@@ -220,4 +223,4 @@ for (const [file, csv, n] of csvFiles) {
   writeFileSync(file, csv);
   console.log('wrote', path.relative(ROOT, file), `(${n} rows)`);
 }
-console.log('done. Next: npm run build:tracker');
+console.log('done. Next: pnpm exec tsx scripts/build_tracker_catalog.mts');

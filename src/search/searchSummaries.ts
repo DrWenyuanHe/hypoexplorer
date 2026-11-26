@@ -32,6 +32,9 @@ import { GENE_KEYS, listCrossStudy } from '../statistics/crossStudyListing';
 import { mapLimit } from '../utils/mapLimit';
 import { pathwaySpecificity, type CorpusRate, type Specificity } from './pathwaySpecificity';
 import { loadNeuroseqExpression, loadNeuroseqManifest, neuroseqSources } from '../expression-survey/neuroseqExpression';
+import { EXISTING_EXPRESSION_SOURCES } from '../expression-survey/existingCatalog';
+import { loadExpressionGenes } from '../expression-survey/expressionData';
+import { isBoundary } from '../expression-survey/expressionSurvey';
 import { loadExternalExpression, loadExternalSources } from '../expression-survey/externalReference';
 import type {
   Dataset, DatasetGroup, Direction, ExpressionGeneResult, ExpressionGroupResult, ExpressionSource,
@@ -269,7 +272,8 @@ export function loadConditionPathways(symbol: string, studies?: readonly Dataset
 // survey's group mean. Source groups stay separate, as the survey keeps them:
 // within one population they can differ several-fold (Agrp in the AgRP
 // population's fed and feeding-unreported groups), so a pooled mean would be a
-// value no group measured.
+// value no group measured. SFO boundary records are left out, as the survey
+// leaves them out by default: the SFO lies outside the hypothalamus proper.
 
 export interface SourceGroupLevel {
   /** The source group's key in the survey; unique across NeuroSeq. */
@@ -317,7 +321,7 @@ const baselineCache = new Map<string, Promise<BaselineTeaser | null>>();
 export function loadBaselineTeaser(symbol: string): Promise<BaselineTeaser | null> {
   // Keyed exactly as typed: NeuroSeq prefers an exact spelling before a case-insensitive match.
   return cached(baselineCache, symbol.trim(), async () => {
-    const sources = neuroseqSources(await loadNeuroseqManifest());
+    const sources = neuroseqSources(await loadNeuroseqManifest()).filter((source) => !isBoundary(source));
     const results = await Promise.all(sources.map(async (source) => (await loadNeuroseqExpression(source.id, [symbol]))[0]));
     return baselineTeaser(sources, results);
   });
@@ -342,7 +346,11 @@ export type ReferenceAtlasKey = keyof typeof REFERENCE_ATLAS_SOURCES;
 export interface ReferenceLevel { key: string; label: string; value: number }
 
 /** Middle and spread of a sample source's values, over donors (never over pooled tissue samples). */
-export interface ReferenceSpread { median: number; low: number; high: number; donors: number; samples: number }
+export interface ReferenceSpread {
+  median: number; low: number; high: number; donors: number; samples: number;
+  /** Mean over the same values (donors, or donor means): the value the survey's bars rank. */
+  mean: number;
+}
 
 export interface ReferenceRow {
   /** The probe behind the row, for a probe-level source; one row per probe. */
@@ -372,16 +380,20 @@ function quantile(sorted: number[], q: number): number {
   return below + 1 < sorted.length ? sorted[below] + (sorted[below + 1] - sorted[below]) * (at - below) : sorted[below];
 }
 
+function meanOf(values: number[]): number {
+  return values.reduce((sum, value) => sum + value, 0) / values.length;
+}
+
 function spreadOf(groups: ExpressionGroupResult[]): ReferenceSpread | null {
   const samples = groups.reduce((sum, group) => sum + group.n, 0);
   if (groups.length === 1) {
     const sorted = groups[0].samples.flatMap((sample) => (sample.value == null ? [] : [sample.value])).sort((a, b) => a - b);
     if (!sorted.length) return null;
-    return { median: quantile(sorted, 0.5), low: quantile(sorted, 0.25), high: quantile(sorted, 0.75), donors: sorted.length, samples };
+    return { median: quantile(sorted, 0.5), low: quantile(sorted, 0.25), high: quantile(sorted, 0.75), donors: sorted.length, samples, mean: meanOf(sorted) };
   }
   const means = groups.flatMap((group) => (group.mean == null ? [] : [group.mean])).sort((a, b) => a - b);
   if (!means.length) return null;
-  return { median: quantile(means, 0.5), low: means[0], high: means[means.length - 1], donors: means.length, samples };
+  return { median: quantile(means, 0.5), low: means[0], high: means[means.length - 1], donors: means.length, samples, mean: meanOf(means) };
 }
 
 function referenceRow(result: ExpressionGeneResult, source: ExpressionSource): ReferenceRow {
@@ -423,6 +435,111 @@ export function loadReferenceAtlases(symbol: string): Promise<ReferenceAtlases |
   });
 }
 
+// ── Study populations and tissue (the survey's own sources) ───────────────
+//
+// The gene page's study-library and tissue tiles: each source's highest cohort
+// mean, read through the survey's loaders (one expression-index shard serves
+// every study-library source). Sources keep their own units, so the tile ranks
+// only the sources in the family's most common unit and counts the others.
+
+export type SourceFamily = 'studies' | 'tissue';
+
+export interface FamilyLevel {
+  sourceId: string;
+  /** The population or tissue: 'ARC POMC'. */
+  label: string;
+  /** The study it comes from: 'GSE68177', or the atlas. */
+  study: string;
+  /** The cohort whose mean this is. */
+  cohort: string;
+  mean: number;
+  n: number;
+}
+
+export interface FamilyTeaser {
+  /** Sources in the family that measured the gene. */
+  measured: number;
+  /** Sources in the family. */
+  total: number;
+  /** The unit the levels share, and how many measured sources use it. */
+  unit: string;
+  inUnit: number;
+  /** One level per source in `unit`, its highest cohort mean, highest first. */
+  levels: FamilyLevel[];
+  /**
+   * Sources whose values could not be read: a failed load, which says nothing
+   * about the gene, so it is counted apart from the sources that lack it.
+   */
+  unread: number;
+  /** The species the family's sources come from, the most sources first. */
+  species: string[];
+}
+
+function studyOf(source: ExpressionSource): string {
+  return source.label.split(' · ').slice(1).join(' · ') || source.label;
+}
+
+function familyTeaser(sources: ExpressionSource[], results: Array<ExpressionGeneResult[] | null>): FamilyTeaser {
+  const best = sources.flatMap((source, i): Array<FamilyLevel & { unit: string }> => {
+    const available = (results[i] ?? []).filter((result) => result.status === 'available');
+    const cohorts = available.flatMap((result) => result.groups.flatMap((group) => (group.mean == null ? [] : [{ group, unit: result.unit }])));
+    if (!cohorts.length) return [];
+    const top = cohorts.reduce((a, b) => (b.group.mean! > a.group.mean! ? b : a));
+    return [{
+      sourceId: source.id,
+      label: source.populationLabel,
+      study: studyOf(source),
+      cohort: top.group.label,
+      mean: top.group.mean!,
+      n: top.group.n,
+      unit: top.unit,
+    }];
+  });
+  const counts = new Map<string, number>();
+  for (const level of best) counts.set(level.unit, (counts.get(level.unit) ?? 0) + 1);
+  const [unit = '', inUnit = 0] = [...counts].sort((a, b) => b[1] - a[1])[0] ?? [];
+  const levels = best.filter((level) => level.unit === unit)
+    .map(({ unit: _unit, ...level }) => level)
+    .sort((a, b) => b.mean - a.mean);
+  const perSpecies = new Map<string, number>();
+  for (const source of sources) perSpecies.set(source.species, (perSpecies.get(source.species) ?? 0) + 1);
+  const species = [...perSpecies].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map(([name]) => name);
+  const unread = results.filter((result) => result === null).length;
+  return { measured: best.length, total: sources.length, unit, inUnit, levels, unread, species };
+}
+
+/** The family's sources: study-library populations, or animal (non-human) tissue and broad neuronal preparations (mouse, rat and pig today). */
+async function familySources(family: SourceFamily): Promise<ExpressionSource[]> {
+  if (family === 'studies') return EXISTING_EXPRESSION_SOURCES.filter((source) => source.scope === 'population');
+  const { sources: external } = await loadExternalSources();
+  return [...EXISTING_EXPRESSION_SOURCES, ...external]
+    .filter((source) => source.scope !== 'population' && source.species !== 'Homo sapiens');
+}
+
+const familyCache = new Map<string, Promise<FamilyTeaser | null>>();
+
+/**
+ * A gene across one family of survey sources; null when none of their values
+ * could be read. A source that fails to load is counted in `unread`, never as
+ * a source that lacks the gene: a transport failure is retryable, and saying
+ * the gene is absent would be a claim the data never made.
+ */
+export function loadFamilyTeaser(symbol: string, family: SourceFamily): Promise<FamilyTeaser | null> {
+  const key = `${family}:${symbol.trim()}`;
+  return cached(familyCache, key, async () => {
+    const sources = await familySources(family);
+    const results = await mapLimit(sources, 4, (source) =>
+      loadExpressionGenes(source, [symbol]).catch((): ExpressionGeneResult[] | null => null));
+    // Nothing read is a failure: null is not cached, so a later visit retries.
+    if (sources.length > 0 && results.every((result) => result === null)) return null;
+    const teaser = familyTeaser(sources, results);
+    // A partial answer is shown but not kept, so the next visit reads the
+    // failed sources again instead of repeating a transient gap.
+    if (teaser.unread > 0) familyCache.delete(key);
+    return teaser;
+  });
+}
+
 /** Test seam: forget every cached summary. */
 export function resetSearchSummaries(): void {
   geneCache.clear();
@@ -430,4 +547,5 @@ export function resetSearchSummaries(): void {
   conditionCache.clear();
   baselineCache.clear();
   referenceCache.clear();
+  familyCache.clear();
 }

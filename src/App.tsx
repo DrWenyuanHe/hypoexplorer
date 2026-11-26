@@ -6,6 +6,7 @@ import { popDataFor } from './data/trackData';
 import { useExplorerStore } from './data/explorerStore';
 import { useOriginDiagnosis } from './data/useOriginDiagnosis';
 import { CLOUDFLARE_STATUS_URL, explainOrigin, shouldLinkStatusPage } from './data/originHealth';
+import { useSurveyHandoff } from './expression-survey/useSurveyHandoff';
 import { useAppRouter } from './appRouter';
 import { getDefaultDataset, getDataset, listDatasets } from './data/datasets';
 import { nomenclatureAuthorityForStoredDatasetSymbols } from './data/nomenclature';
@@ -34,6 +35,7 @@ import { CompareSetButton } from './compareset/CompareSetButton';
 import { CompareSetToggle } from './compareset/CompareSetToggle';
 import { compareSetKey, removeItem, toggleItem, useCompareSet, type CompareSetItem } from './compareset/compareSetStore';
 import type { PathwayRecordWithDb, PopData } from './types';
+import type { SurveyScope } from './expression-survey/expressionSurvey';
 import {
   ChangelogTab, CircadianTab, CompareSetView, CompareTab, DatasetInfoPanel, DatasetLibrary, DatasetTrackerView,
   DatasetVerificationContext, GeneExplorerTab, GeneReport, MethodologyView, NomenclatureView, PathwayExplorerTab,
@@ -284,6 +286,14 @@ function AppViews({ initialView = 'hub' }: AppProps) {
     setCompareSetItems(next);
   }, [compareSetItems, setCompareSetItems]);
   const openLibraryPlain = useCallback(() => openLibrary(), [openLibrary]);
+  // A single gene surveyed on the expression survey page opens its gene page,
+  // whose expression card surveys every source in the scope the page had; the
+  // handover lasts only for that visit (useSurveyHandoff).
+  const { handOff: handOffSurvey, scopeFor: handedSurveyScope } = useSurveyHandoff(view, reportGene);
+  const openGeneSurvey = useCallback((gene: string, scope: SurveyScope) => {
+    handOffSurvey(gene, scope);
+    searchGeneFromHub(gene);
+  }, [handOffSurvey, searchGeneFromHub]);
 
   // The hub's search box submits to the unified results page.
   const searchFromHub = useCallback((query: string) => search(query), [search]);
@@ -373,7 +383,7 @@ function AppViews({ initialView = 'hub' }: AppProps) {
   );
 
   if (view === 'expression') {
-    return <ErrorBoundary><Suspense fallback={<div role="status" style={{ padding: 32 }}>Opening expression survey…</div>}><ExpressionSurveyView onHome={goHome} /></Suspense></ErrorBoundary>;
+    return <ErrorBoundary><Suspense fallback={<div role="status" style={{ padding: 32 }}>Opening expression survey…</div>}><ExpressionSurveyView onHome={goHome} onOpenGene={openGeneSurvey} /></Suspense></ErrorBoundary>;
   }
 
   // Cross-dataset gene report (#/gene/<symbol>), opened from search results.
@@ -393,6 +403,7 @@ function AppViews({ initialView = 'hub' }: AppProps) {
         onShowPathway={(pathwayId) => search(pathwayId, 'all')}
         onOpenPathway={(pathwayId) => searchPathwayFromHub(pathwayId)}
         onOpenExpression={openExpression}
+        expressionScope={handedSurveyScope(gene)}
         headerRight={<><ShareAnalysisButton /><CompareSetButton onCompare={openCompareSet} onOpenLibrary={openLibraryPlain} /></>}
       />
     </ErrorBoundary>

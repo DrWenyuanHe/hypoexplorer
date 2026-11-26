@@ -1,7 +1,11 @@
 /**
  * Run a sealed TypeScript producer in --check mode against the bytes it pins.
  *
- *   npx tsx scripts/run_sealed_ts_check.mts <producer.mts> --check
+ *   pnpm exec tsx scripts/run_sealed_ts_check.mts <producer.mts> --check
+ *
+ * Maintainer only: the pinned pre-regeneration bytes, and
+ * scripts/run_historical_check.py for sealed Python children, are not in this
+ * repository (docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
  *
  * The TypeScript counterpart of scripts/run_historical_check.py. The producer
  * must be listed below with its SHA-256, so it stays byte-identical. The R 4.6.0

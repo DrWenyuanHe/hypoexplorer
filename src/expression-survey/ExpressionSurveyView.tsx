@@ -1,710 +1,68 @@
-import { useMemo, useState } from 'react';
-import type { CSSProperties, FormEvent, KeyboardEvent } from 'react';
+import { useState } from 'react';
+import type { ExpressionGeneResult } from './expressionTypes';
+import type { FormEvent, KeyboardEvent } from 'react';
 import { PageShell } from '../common/PageShell';
-import { Modal } from '../common/Modal';
 import { ExportButton } from '../common/ExportButton';
 import { Spinner } from '../common/Spinner';
-import { FONT_MONO, FONT_SANS } from '../styles/constants';
-import { downloadFile, useExportAction } from '../utils/exportAction';
+import { useExportAction } from '../utils/exportAction';
 import { tabKeyTarget } from '../utils/tabKeys';
-import { EXISTING_EXPRESSION_SOURCES } from './existingCatalog';
-import {
-  loadExpressionSources,
-  loadExpressionValidation,
-  loadExternalManifest,
-  loadExternalSourceErrors,
-} from './expressionData';
-import { loadNeuroseqManifest } from './neuroseqExpression';
-import { loadReferenceManifest } from './referenceExpression';
+import { loadExpressionValidation } from './expressionData';
 import { providerOf } from './externalReference';
 import { EXTERNAL_PROVIDERS, EXTERNAL_REFERENCE_ROOTS } from './externalReferenceFormat';
-import type { ExpressionGeneResult, ExpressionSource } from './expressionTypes';
+import type { ExpressionSource } from './expressionTypes';
 import {
-  barGeometry,
   catalogEntries as filterCatalog,
   catalogRegions,
-  exportManifestNeeds,
+  DEFAULT_SURVEY_SCOPE,
   formatValue,
-  groupValue,
-  inReferenceScope,
   isBoundary,
   isSummary,
-  missingLabel,
-  panelGroups,
   sampleCount,
-  sampleStatus,
-  selectSources,
   sourceCollection,
-  surveyExport,
-  surveyPanel,
-  VALUE_STATUS_LABEL,
 } from './expressionSurvey';
-import type { Collection, ExportFormat, ExportManifests, SurveySection, TissueKind } from './expressionSurvey';
-import { useExternalValidation, useKeyedLoad, useSurveyLoad } from './useSurveyLoad';
+import type { Collection, SurveyScope, SurveySection } from './expressionSurvey';
+import { CatalogNotices, GeneSurvey, SURVEY_STYLE, useSurveyCatalog, withCollection } from './GeneSurvey';
+import { SourceDetail, saveText } from './SourceDetail';
+import { useExternalValidation, useKeyedLoad } from './useSurveyLoad';
 import './expressionSurvey.css';
+
+// The expression survey page: several genes compared across the survey's
+// sources, the population catalog, and the sources with their validation. One
+// gene is not surveyed here: it opens on its gene page, where "Where <gene> is
+// expressed" carries every source and sample, starting from this page's scope.
 
 const SECTIONS: { id: SurveySection; label: string }[] = [
   { id: 'survey', label: 'Gene survey' },
   { id: 'catalog', label: 'Population catalog' },
-  { id: 'tissue', label: 'Tissue & bulk' },
   { id: 'sources', label: 'Sources & validation' },
 ];
-const TISSUE_CHOICES: { id: TissueKind; label: string; note: string }[] = [
-  { id: 'whole', label: 'Whole hypothalamus', note: 'Bulk tissue' },
-  { id: 'arc', label: 'Arcuate nucleus', note: 'Regional dissection' },
-  {
-    id: 'isolated',
-    label: 'Broad neuronal isolation',
-    note: 'Sorted neurons / nuclei',
-  },
-  {
-    id: 'external',
-    label: 'Reference atlases',
-    note: 'GTEx, HPA, Allen · human, mouse, pig',
-  },
-  {
-    id: 'all',
-    label: 'All tissue sources',
-    note: 'Includes other hypothalamic regions',
-  },
-];
-/** The study-library sources ship with the app, so the survey works before (or without) the catalog. */
-const BUNDLED_SOURCES: ExpressionSource[] = [...EXISTING_EXPRESSION_SOURCES];
-const MONO_STYLE = { '--ex-font-mono': FONT_MONO, fontFamily: FONT_SANS } as CSSProperties;
+const MAX_GENES = 12;
+/** A stable Ensembl gene ID; the gene page is keyed on symbols, so an ID is surveyed here. */
+const STABLE_ID = /^ENS[A-Z]*G\d{6,}(\.\d+)?$/i;
 
-function ProviderCredit({ source }: { source: ExpressionSource }) {
-  if (!source.provider) return null;
-  return (
-    <p className="ex-caption">
-      {source.provider.attribution}{' '}
-      <a href={source.provider.licenseUrl} target="_blank" rel="noreferrer">
-        {source.provider.license} ↗
-      </a>
-    </p>
-  );
-}
-
-function saveText(filename: string, content: string, type: string): void {
-  const url = URL.createObjectURL(new Blob([content], { type }));
-  downloadFile(filename, url);
-  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
-function ExportControls({
-  sources,
-  results,
-  genes,
-  referenceOnly,
-  disabled = false,
-  disabledReason,
-}: {
-  sources: ExpressionSource[];
-  results: ExpressionGeneResult[];
-  genes: string[];
-  referenceOnly: boolean;
-  disabled?: boolean;
-  disabledReason?: string;
+export function ExpressionSurveyView({ onHome, onOpenGene }: {
+  onHome: () => void;
+  /** Opens a gene's page with this survey's scope; a single symbol is surveyed there. */
+  onOpenGene: (symbol: string, scope: SurveyScope) => void;
 }) {
-  const { busy, run } = useExportAction();
-  const [format, setFormat] = useState<ExportFormat>('samples');
-  const [error, setError] = useState('');
-  const exportData = async () => {
-    const exportedAt = new Date().toISOString();
-    let manifests: ExportManifests | undefined;
-    if (format === 'metadata') {
-      const needs = exportManifestNeeds(sources);
-      const [neuroseq, reference, external] = await Promise.all([
-        needs.neuroseq ? loadNeuroseqManifest() : null,
-        needs.reference ? loadReferenceManifest() : null,
-        Promise.all(needs.providers.map((provider) => loadExternalManifest(provider))),
-      ]);
-      manifests = { neuroseq, reference, external };
-    }
-    const file = surveyExport(format, { sources, results, genes, referenceOnly, exportedAt, manifests });
-    saveText(file.filename, file.content, file.type);
-  };
-  return (
-    <div className="ex-export-controls">
-      <label className="ex-sr-only" htmlFor="expression-export-format">
-        Export format
-      </label>
-      <select
-        id="expression-export-format"
-        value={format}
-        onChange={(e) => setFormat(e.target.value as ExportFormat)}
-      >
-        <option value="samples">Sample values · CSV</option>
-        <option value="summary">Cohort means · CSV</option>
-        <option value="metadata">Values + metadata · JSON</option>
-      </select>
-      <ExportButton
-        onClick={() =>
-          run(async () => {
-            setError('');
-            try {
-              await exportData();
-            } catch (cause: unknown) {
-              setError(
-                cause instanceof Error
-                  ? cause.message
-                  : 'Export could not be created. Please retry.',
-              );
-            }
-          })
-        }
-        busy={busy}
-        busyLabel="Exporting…"
-        disabled={disabled || !results.length}
-        title={disabledReason}
-      >
-        Export ↓
-      </ExportButton>
-      {disabledReason && <span className="ex-note">{disabledReason}</span>}
-      {error && (
-        <span role="alert" className="ex-error">
-          {error}
-        </span>
-      )}
-    </div>
-  );
-}
-
-function SourceDetail({
-  source,
-  results,
-  referenceOnly,
-  onClose,
-}: {
-  source: ExpressionSource;
-  results: ExpressionGeneResult[];
-  referenceOnly: boolean;
-  onClose: () => void;
-}) {
-  const sourceResults = results.filter((result) => result.sourceId === source.id);
-  const libraries = useKeyedLoad(
-    source.collection === 'neuroseq' ? source.id : null,
-    () => loadNeuroseqManifest().then((manifest) => manifest.samples.filter((sample) => sample.populationId === source.id)),
-    'Sample metadata unavailable.',
-  );
-  const atlasSamples = useKeyedLoad(
-    source.collection === 'external' && !isSummary(source) ? source.id : null,
-    () => loadExternalManifest(providerOf(source)).then((manifest) => manifest.samples.filter((sample) => sample.sourceId === source.id)),
-    'Sample metadata unavailable.',
-  );
-  const metadata = libraries.value;
-  const externalSamples = atlasSamples.value;
-  return (
-    <Modal
-      title={`${source.populationLabel} · source record`}
-      onClose={onClose}
-      width="960px"
-      height="82vh"
-    >
-      <div className="ex-detail">
-        <div className="ex-eyebrow">{sourceCollection(source)}</div>
-        <h2>{source.label}</h2>
-        <p className="ex-source-id">{source.id}</p>
-        <dl className="ex-facts">
-          <div>
-            <dt>Region / species</dt>
-            <dd>
-              {source.region} · {source.species}
-            </dd>
-          </div>
-          <div>
-            <dt>Population definition</dt>
-            <dd>
-              {source.identityMethod}
-              {source.driverOrMarker ? ` · ${source.driverOrMarker}` : ''}
-            </dd>
-          </div>
-          <div>
-            <dt>Assay / RNA fraction</dt>
-            <dd>
-              {source.assay} · {source.rnaFraction}
-            </dd>
-          </div>
-          <div>
-            <dt>Measurement</dt>
-            <dd>{source.unit}</dd>
-          </div>
-          <div>
-            <dt>Normalization</dt>
-            <dd>{source.normalization}</dd>
-          </div>
-          <div>
-            <dt>Replicate unit</dt>
-            <dd>{source.replicateUnit}</dd>
-          </div>
-        </dl>
-        <a href={source.sourceUrl} target="_blank" rel="noreferrer">
-          Original source ↗
-        </a>
-        <p className="ex-note">{source.citation}</p>
-        <p className="ex-note">{source.notes}</p>
-        {source.collection === 'reference' && (
-          <p className="ex-note">
-            <a href="/expression/oxt-reference/manifest.json" target="_blank" rel="noreferrer">
-              Original cell, animal/pool, plate and labeling metadata ↗
-            </a>
-          </p>
-        )}
-        {source.collection === 'external' && (
-          <>
-            <ProviderCredit source={source} />
-            <p className="ex-note">
-              {source.provider?.release} ·{' '}
-              <a
-                href={`${EXTERNAL_REFERENCE_ROOTS[providerOf(source)]}/manifest.json`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Source, sample and column metadata · JSON ↗
-              </a>
-            </p>
-          </>
-        )}
-        {source.sharedSampleNote && <p className="ex-notice">{source.sharedSampleNote}</p>}
-        <h3>Reported cohorts</h3>
-        <div className="ex-table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>Source group / cohort</th>
-                <th>Feeding state</th>
-                <th>Reference eligibility</th>
-                <th>Context</th>
-              </tr>
-            </thead>
-            <tbody>
-              {source.conditions.map((condition) => (
-                <tr key={condition.key}>
-                  <td>
-                    {condition.label}
-                    <span className="ex-subline ex-mono">
-                      {condition.key} ·{' '}
-                      {isSummary(source)
-                        ? 'published summary'
-                        : `${condition.sampleCount ?? 'unknown'} samples`}
-                    </span>
-                  </td>
-                  <td>{condition.feedingState}</td>
-                  <td>
-                    {condition.referenceEligible
-                      ? 'Eligible reference'
-                      : 'Excluded from reference filter'}
-                  </td>
-                  <td>
-                    {condition.notes}
-                    <span className="ex-subline">
-                      {[
-                        condition.age,
-                        condition.sex,
-                        condition.timeOfDay,
-                        condition.genotype,
-                        condition.treatment,
-                      ]
-                        .filter(Boolean)
-                        .join(' · ')}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        {source.collection === 'neuroseq' && (
-          <>
-            <h3>Original library metadata</h3>
-            {libraries.error ? (
-              <p role="alert">{libraries.error}</p>
-            ) : !metadata ? (
-              <p role="status">Loading library metadata…</p>
-            ) : (
-              <div className="ex-table-scroll">
-                <table className="ex-sample-table">
-                  <thead>
-                    <tr>
-                      <th>Library / GEO accession</th>
-                      <th>Sex / age</th>
-                      <th>Sorted cells</th>
-                      <th>Feeding state</th>
-                      <th>Shared-sample candidate</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {metadata.map((sample) => (
-                      <tr key={sample.id}>
-                        <td>
-                          <span className="ex-mono">{sample.id}</span>
-                          <span className="ex-subline">{sample.label}</span>
-                          <a
-                            href={`https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=${encodeURIComponent(sample.geo)}`}
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            {sample.geo} ↗
-                          </a>
-                        </td>
-                        <td>
-                          {sample.sex} ·{' '}
-                          {sample.ageDays == null ? 'Age unknown' : `${sample.ageDays} days`}
-                        </td>
-                        <td className="ex-number">{sample.pooledCellCount ?? '—'}</td>
-                        <td>{sample.feedingState}</td>
-                        <td>
-                          {sample.henryOverlapCandidate
-                            ? `${sample.henryOverlapCandidate.henryColumn} · ${sample.henryOverlapCandidate.henryGeo}`
-                            : 'None cataloged'}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-            <p className="ex-note">
-              <a href="/expression/neuroseq/manifest.json" target="_blank" rel="noreferrer">
-                Full source and sample metadata · JSON ↗
-              </a>
-            </p>
-          </>
-        )}
-        {source.collection === 'external' && !isSummary(source) && (
-          <>
-            <h3>Original sample metadata</h3>
-            {atlasSamples.error ? (
-              <p role="alert">{atlasSamples.error}</p>
-            ) : !externalSamples ? (
-              <p role="status">Loading sample metadata…</p>
-            ) : (
-              <div className="ex-table-scroll">
-                <table className="ex-sample-table">
-                  <thead>
-                    <tr>
-                      <th>Sample</th>
-                      {Object.keys(externalSamples[0]?.metadata ?? {}).map((field) => (
-                        <th key={field}>
-                          {field === 'rin'
-                            ? 'RIN'
-                            : field.replace(/([A-Z])/g, ' $1').replace(/^./, (c) => c.toUpperCase())}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {externalSamples.map((sample) => (
-                      <tr key={sample.id}>
-                        <td className="ex-mono">{sample.label}</td>
-                        {Object.entries(sample.metadata).map(([field, value]) => (
-                          <td key={field}>{value}</td>
-                        ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </>
-        )}
-        <h3>{isSummary(source) ? 'Published values' : 'Individual sample values'}</h3>
-        <p className="ex-note">
-          {isSummary(source)
-            ? `${source.summaryStatistic ?? 'Published summary'}: one value per ${source.scope === 'population' ? 'cluster' : 'subregion'}, as stated by the provider. No sample values are distributed and no mean is computed.`
-            : 'Original sample identifiers and stored values.'}{' '}
-          A missing value is displayed as —.{' '}
-          {referenceOnly
-            ? 'Only explicitly eligible reference cohorts are shown.'
-            : 'All reported cohorts are shown.'}
-        </p>
-        {!sourceResults.length ? (
-          <p className="ex-empty">Survey this source to load expression values.</p>
-        ) : (
-          sourceResults.map((result) => (
-            <section key={`${result.query}:${result.probe ?? ''}`} className="ex-detail-gene">
-              <h4 className="ex-mono">
-                {result.gene ?? result.query}
-                {result.probe ? ` · probe ${result.probe}` : ''}{' '}
-                <span className="ex-muted">· {result.unit}</span>
-              </h4>
-              {result.status !== 'available' ? (
-                <p className="ex-empty">{missingLabel(result)}</p>
-              ) : isSummary(source) ? (
-                <div className="ex-table-scroll">
-                  <table className="ex-sample-table">
-                    <thead>
-                      <tr>
-                        <th>{source.scope === 'population' ? 'Cluster' : 'Subregion'}</th>
-                        <th className="ex-number">Published value</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {result.groups
-                        .filter((group) => inReferenceScope(group, referenceOnly))
-                        .map((group) => (
-                          <tr key={group.key}>
-                            <td>{group.label}</td>
-                            <td className="ex-number">{formatValue(group.summary)}</td>
-                          </tr>
-                        ))}
-                    </tbody>
-                  </table>
-                </div>
-              ) : (
-                <div className="ex-table-scroll">
-                  <table className="ex-sample-table">
-                    <thead>
-                      <tr>
-                        <th>Sample ID</th>
-                        <th>Source cohort</th>
-                        <th className="ex-number">Stored value</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {result.groups
-                        .filter((group) => inReferenceScope(group, referenceOnly))
-                        .flatMap((group) =>
-                          group.samples.map((sample) => (
-                            <tr key={`${group.key}:${sample.id}`}>
-                              <td className="ex-mono">{sample.id}</td>
-                              <td>{group.label}</td>
-                              <td className="ex-number">{formatValue(sample.value)}</td>
-                              <td>{VALUE_STATUS_LABEL[sampleStatus(sample.value)]}</td>
-                            </tr>
-                          )),
-                        )}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </section>
-          ))
-        )}
-      </div>
-    </Modal>
-  );
-}
-
-function ResultPanel({
-  sources,
-  results,
-  genes,
-  referenceOnly,
-  matrix,
-  onDetail,
-}: {
-  sources: ExpressionSource[];
-  results: ExpressionGeneResult[];
-  genes: string[];
-  referenceOnly: boolean;
-  matrix: boolean;
-  onDetail: (source: ExpressionSource) => void;
-}) {
-  const [first] = sources;
-  const primary = genes[0];
-  const summary = isSummary(first);
-  const panel = surveyPanel(sources, results, genes, { referenceOnly, matrix });
-  const { rows, axis } = panel;
-  const populationLabel = (id: string) => sources.find((source) => source.id === id)?.populationLabel;
-  return (
-    <section className="ex-result-panel">
-      <header className="ex-panel-head">
-        <div>
-          <div className="ex-eyebrow">
-            {first.collection === 'neuroseq'
-              ? 'NeuroSeq · manually isolated neurons'
-              : `${first.populationLabel} · ${first.region}`}
-          </div>
-          <h3>{first.collection === 'neuroseq' ? 'Hypothalamic populations' : first.label}</h3>
-          <p className="ex-note">
-            {first.collection === 'neuroseq'
-              ? first.unit
-              : `${first.assay} · ${first.rnaFraction} · ${first.species}`}
-          </p>
-        </div>
-        <a href={first.sourceUrl} target="_blank" rel="noreferrer">
-          Source ↗
-        </a>
-      </header>
-      {panel.matched && (
-        <p className="ex-note">
-          Matched {panel.matched} in {first.species}.
-        </p>
-      )}
-      <div className="ex-axis-note">
-        <span>
-          {summary ? 'Published value' : 'Mean stored value'} · <strong>{first.unit}</strong>
-        </span>
-        <span>
-          {matrix
-            ? 'Values retain source units'
-            : `Axis ${formatValue(axis.minimum)}–${formatValue(axis.maximum)}`}
-        </span>
-      </div>
-      {matrix ? (
-        <div className="ex-table-scroll">
-          <table className="ex-matrix">
-            <thead>
-              <tr>
-                <th>Population / cohort</th>
-                {genes.map((gene) => (
-                  <th className="ex-number" key={gene}>
-                    {gene}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {panel.matrix.map(({ source, group, cells }) => (
-                <tr key={`${source.id}:${group.key}`}>
-                  <td>
-                    <button
-                      type="button"
-                      className="ex-text-button"
-                      onClick={() => onDetail(source)}
-                    >
-                      {source.populationLabel}
-                    </button>
-                    <span className="ex-subline">{group.label}</span>
-                  </td>
-                  {cells.map((cell) => (
-                    <td className="ex-number" key={cell.gene} title={cell.title}>
-                      {cell.text}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ) : (
-        rows.length > 0 && (
-          <div className="ex-table-scroll">
-            <table className="ex-rank-table">
-              <thead>
-                <tr>
-                  <th>Population / cohort</th>
-                  <th className="ex-number">n</th>
-                  <th>
-                    {primary} · {summary ? 'published value' : 'mean'}
-                  </th>
-                  <th className="ex-number">{first.unit}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map(({ source, group, result }) => {
-                  const bar = barGeometry(groupValue(group), axis);
-                  return (
-                  <tr key={`${source.id}:${result.probe ?? ''}:${group.key}`}>
-                    <td>
-                      <button
-                        type="button"
-                        className="ex-text-button"
-                        onClick={() => onDetail(source)}
-                      >
-                        {source.populationLabel}
-                      </button>
-                      <span className="ex-subline">
-                        {group.label}
-                        {result.probe ? ` · probe ${result.probe}` : ''}
-                      </span>
-                    </td>
-                    {group.summary !== undefined ? (
-                      <td className="ex-number" title="Published summary; no sample values">
-                        —
-                      </td>
-                    ) : (
-                      <td
-                        className="ex-number"
-                        title={`${group.n} measured / ${group.totalSamples} selected samples`}
-                      >
-                        {group.n}
-                        {group.n !== group.totalSamples ? `/${group.totalSamples}` : ''}
-                      </td>
-                    )}
-                    <td>
-                      <div
-                        className="ex-bar-track"
-                        aria-label={`${formatValue(groupValue(group))} ${first.unit}`}
-                        role="img"
-                      >
-                        <span className="ex-zero" style={{ left: `${bar.zero}%` }} />
-                        <span className="ex-bar" style={{ left: `${bar.left}%`, width: `${bar.width}%` }} />
-                      </div>
-                    </td>
-                    <td className="ex-number">{formatValue(groupValue(group))}</td>
-                  </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        )
-      )}
-      {panel.empty && <p className="ex-empty">{panel.empty}</p>}
-      {panel.unavailable.length > 0 && (
-        <details className="ex-unavailable">
-          <summary>
-            {panel.unavailable.length} gene / source {panel.unavailable.length === 1 ? 'lookup' : 'lookups'}{' '}
-            unavailable
-          </summary>
-          {panel.unavailable.map((result) => (
-            <p key={`${result.sourceId}:${result.query}`}>
-              <span className="ex-mono">{result.query}</span> ·{' '}
-              {populationLabel(result.sourceId)}: {missingLabel(result)}.
-            </p>
-          ))}
-        </details>
-      )}
-      <p className="ex-caption">
-        {summary
-          ? `${first.summaryStatistic ?? 'Published summary'} as stated by the provider; no mean is computed.`
-          : 'Arithmetic mean of available profile values within each source cohort.'}{' '}
-        {/\.\s*$/.test(first.normalization) ? first.normalization : `${first.normalization}.`}{' '}
-        {first.collection !== 'neuroseq'
-          ? `Replicate unit: ${first.replicateUnit}.`
-          : 'Original source groups remain separate.'}
-      </p>
-      <ProviderCredit source={first} />
-      {sources.some((source) => source.sharedSampleNote) && (
-        <p className="ex-caption">
-          <strong>Shared sample provenance:</strong>{' '}
-          {sources.find((source) => source.sharedSampleNote)?.sharedSampleNote}
-        </p>
-      )}
-    </section>
-  );
-}
-
-export function ExpressionSurveyView({ onHome }: { onHome: () => void }) {
   const [section, setSection] = useState<SurveySection>('survey');
-  const [collection, setCollection] = useState<Collection>('neuroseq');
-  const [region, setRegion] = useState('all');
-  const [selectedIds, setSelectedIds] = useState<string[] | null>(null);
-  const [includeSfo, setIncludeSfo] = useState(false);
-  const [referenceOnly, setReferenceOnly] = useState(false);
+  const [scope, setScope] = useState<SurveyScope>(DEFAULT_SURVEY_SCOPE);
   const [input, setInput] = useState('');
   const [genes, setGenes] = useState<string[]>([]);
   const [queryError, setQueryError] = useState('');
-  const [matrix, setMatrix] = useState(false);
-  const [tissueKind, setTissueKind] = useState<TissueKind>('whole');
   const [catalogQuery, setCatalogQuery] = useState('');
   const [catalogCollection, setCatalogCollection] = useState('neuroseq');
+  // The last survey's values, kept at page level so a catalog source's details
+  // show what the survey already loaded for it, without starting a new query.
+  const [surveyResults, setSurveyResults] = useState<ExpressionGeneResult[]>([]);
   const [catalogRegion, setCatalogRegion] = useState('all');
   const [detail, setDetail] = useState<ExpressionSource | null>(null);
   const catalogExport = useExportAction();
 
   // Each request retries on its own: the catalog (with the atlas errors it
   // reports), the validation reports, and each source's survey values.
-  const catalog = useKeyedLoad('catalog', loadExpressionSources, 'Source catalog could not be loaded.');
-  const atlasErrors = useKeyedLoad('atlas-errors', loadExternalSourceErrors, 'Reference atlas status could not be loaded.');
-  const retryCatalog = () => {
-    catalog.retry();
-    atlasErrors.retry();
-  };
-  const sources = catalog.value ?? BUNDLED_SOURCES;
-  const externalErrors = atlasErrors.value ?? {};
+  const catalog = useSurveyCatalog();
+  const { sources } = catalog;
   const validationReport = useKeyedLoad(
     section === 'sources' ? 'validation' : null,
     loadExpressionValidation,
@@ -717,18 +75,7 @@ export function ExpressionSurveyView({ onHome }: { onHome: () => void }) {
     validationReport.retry();
     externalValidation.retry();
   };
-
-  const { regions, choices, selected: selectedSources } = useMemo(
-    () => selectSources(sources, { section, collection, region, includeSfo, selectedIds, tissueKind }),
-    [sources, section, collection, region, includeSfo, selectedIds, tissueKind],
-  );
-  const isSurvey = section === 'survey' || section === 'tissue';
-  const currentLoad = useSurveyLoad({ enabled: isSurvey, sources: selectedSources, genes });
-  const groupedPanels = useMemo(() => panelGroups(selectedSources), [selectedSources]);
-  const catalogEntries = useMemo(
-    () => filterCatalog(sources, { collection: catalogCollection, region: catalogRegion, query: catalogQuery }),
-    [sources, catalogCollection, catalogRegion, catalogQuery],
-  );
+  const catalogEntries = filterCatalog(sources, { collection: catalogCollection, region: catalogRegion, query: catalogQuery });
 
   function search(event?: FormEvent) {
     event?.preventDefault();
@@ -744,34 +91,30 @@ export function ExpressionSurveyView({ onHome }: { onHome: () => void }) {
       setQueryError('Enter at least one gene symbol or Ensembl gene ID.');
       return;
     }
-    if (next.length > 12) {
-      setQueryError('Survey up to 12 genes at a time.');
+    if (next.length > MAX_GENES) {
+      setQueryError(`Survey up to ${MAX_GENES} genes at a time.`);
       return;
     }
     setQueryError('');
+    if (next.length === 1 && !STABLE_ID.test(next[0])) {
+      onOpenGene(next[0], scope);
+      return;
+    }
     setGenes(next);
-    setMatrix(next.length > 1);
   }
 
-  function changeCollection(next: Collection) {
-    setCollection(next);
-    setRegion('all');
-    setSelectedIds(null);
-  }
-
-  function toggleSource(id: string) {
-    const selected = new Set(selectedIds ?? choices.map((source) => source.id));
-    if (selected.has(id)) selected.delete(id);
-    else selected.add(id);
-    setSelectedIds([...selected]);
+  function surveyCollection(collection: Collection) {
+    setScope((current) => withCollection({ ...current, mode: 'populations' }, collection));
+    setSection('survey');
   }
 
   function surveySource(source: ExpressionSource) {
+    setScope((current) => ({
+      ...withCollection({ ...current, mode: 'populations' }, source.collection),
+      selectedIds: [source.id],
+      includeSfo: current.includeSfo || isBoundary(source),
+    }));
     setSection('survey');
-    setCollection(source.collection);
-    setRegion('all');
-    setSelectedIds([source.id]);
-    if (isBoundary(source)) setIncludeSfo(true);
   }
 
   function tabKey(event: KeyboardEvent<HTMLButtonElement>, current: SurveySection) {
@@ -800,7 +143,8 @@ export function ExpressionSurveyView({ onHome }: { onHome: () => void }) {
         </button>
       </div>
       <p className="ex-note">
-        One gene, or up to 12 separated by commas. Stored identifiers are preserved.
+        One gene opens its gene page, which surveys every source and sample. Compare up to{' '}
+        {MAX_GENES} here, separated by commas. Stored identifiers are preserved.
       </p>
       {queryError && (
         <p role="alert" className="ex-error">
@@ -816,7 +160,7 @@ export function ExpressionSurveyView({ onHome }: { onHome: () => void }) {
       breadcrumbs={[{ label: 'Expression survey', current: true }]}
       mainStyle={{ minWidth: 0 }}
     >
-      <div className="expression-survey" style={MONO_STYLE}>
+      <div className="expression-survey" style={SURVEY_STYLE}>
         <header className="ex-page-heading">
           <h1>Expression survey</h1>
         </header>
@@ -838,269 +182,18 @@ export function ExpressionSurveyView({ onHome }: { onHome: () => void }) {
           ))}
         </div>
         <div className="ex-content">
-          {catalog.error && (
-            <div className="ex-notice" role="alert">
-              <strong>NeuroSeq catalog could not be loaded.</strong> {catalog.error} Existing study
-              sources remain available.{' '}
-              <button type="button" onClick={retryCatalog}>
-                Retry
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  changeCollection('existing');
-                  setSection('survey');
-                }}
-              >
-                Use study library
-              </button>
-            </div>
-          )}
-          {Object.keys(externalErrors).length > 0 && (
-            <div className="ex-notice" role="alert">
-              <strong>Reference atlas data could not be loaded.</strong>{' '}
-              {Object.entries(externalErrors)
-                .map(([provider, error]) => `${provider.toUpperCase()}: ${error}`)
-                .join(' ')}{' '}
-              Other sources remain available.{' '}
-              <button type="button" onClick={retryCatalog}>
-                Retry
-              </button>
-            </div>
-          )}
-          {isSurvey && (
-            <section
-              role="tabpanel"
-              id={`ex-panel-${section}`}
-              aria-labelledby={`ex-tab-${section}`}
-              className="ex-survey-layout"
-            >
-              <div className="ex-query-panel">
-                {geneForm}
-                <aside className="ex-sidebar" aria-label="Survey filters">
-                  {section === 'survey' ? (
-                    <>
-                      <label className="ex-field">
-                        <span>Source collection</span>
-                        <select
-                          value={collection}
-                          onChange={(event) => changeCollection(event.target.value as Collection)}
-                        >
-                          <option value="neuroseq">NeuroSeq</option>
-                          <option value="reference">OXT cell reference</option>
-                          <option value="existing">Existing study library</option>
-                          <option value="external">Reference atlases (HPA)</option>
-                          <option value="agrp">AgRP across studies</option>
-                          <option value="all">All population sources</option>
-                        </select>
-                      </label>
-                      <label className="ex-field">
-                        <span>Anatomical region</span>
-                        <select value={region} onChange={(event) => setRegion(event.target.value)}>
-                          <option value="all">All regions</option>
-                          {regions.map((value) => (
-                            <option key={value}>{value}</option>
-                          ))}
-                        </select>
-                      </label>
-                      <label className="ex-checkbox">
-                        <input
-                          type="checkbox"
-                          checked={includeSfo}
-                          onChange={(event) => setIncludeSfo(event.target.checked)}
-                        />
-                        <span>Include SFO boundary records</span>
-                      </label>
-                      <details className="ex-population-picker">
-                        <summary>
-                          Populations{' '}
-                          <span className="ex-mono">
-                            {selectedSources.length}/{choices.length}
-                          </span>
-                        </summary>
-                        <div className="ex-picker-actions">
-                          <button
-                            type="button"
-                            className="ex-text-button"
-                            onClick={() => setSelectedIds(null)}
-                          >
-                            Select all
-                          </button>
-                          <button
-                            type="button"
-                            className="ex-text-button"
-                            onClick={() => setSelectedIds([])}
-                          >
-                            Clear
-                          </button>
-                        </div>
-                        <div className="ex-population-options">
-                          {choices.map((source) => (
-                            <label className="ex-population-option" key={source.id}>
-                              <input
-                                type="checkbox"
-                                checked={selectedIds == null || selectedIds.includes(source.id)}
-                                onChange={() => toggleSource(source.id)}
-                              />
-                              <span>
-                                <strong>{source.populationLabel}</strong>
-                                <small>
-                                  {source.region} · {sourceCollection(source)}
-                                </small>
-                              </span>
-                            </label>
-                          ))}
-                        </div>
-                      </details>
-                    </>
-                  ) : (
-                    <>
-                      <div className="ex-eyebrow">Tissue preparation</div>
-                      <div className="ex-tissue-choices">
-                        {TISSUE_CHOICES.map((item) => (
-                          <button
-                            type="button"
-                            key={item.id}
-                            aria-pressed={tissueKind === item.id}
-                            onClick={() => setTissueKind(item.id)}
-                          >
-                            <strong>{item.label}</strong>
-                            <span>{item.note}</span>
-                          </button>
-                        ))}
-                      </div>
-                      <p className="ex-sidebar-note">
-                        Bulk values include the sampled cell mixture. A broad neuronal isolation is
-                        distinct from a genetically defined population.
-                      </p>
-                    </>
-                  )}
-                </aside>
-                <div className="ex-scope-footer">
-                  <label className="ex-checkbox">
-                    <input type="checkbox" checked={referenceOnly}
-                      onChange={(event) => setReferenceOnly(event.target.checked)} />
-                    <span>Fed / reference cohorts only</span>
-                  </label>
-                  <span className="ex-note" role="status">{selectedSources.length} source records selected</span>
-                </div>
-              </div>
-              <div className="ex-results">
-                {genes.length > 0 && (
-                  <>
-                    <div className="ex-results-heading">
-                      <div>
-                        <div className="ex-eyebrow">
-                          {section === 'tissue'
-                            ? 'Tissue & broadly isolated neurons'
-                            : 'Population expression'}
-                        </div>
-                        <h2 className="ex-mono">{genes.join(' · ')}</h2>
-                        <p className="ex-note">
-                          {selectedSources.length} selected source records ·{' '}
-                          {referenceOnly
-                            ? 'Explicitly eligible reference cohorts'
-                            : 'All reported states'}
-                        </p>
-                      </div>
-                      <ExportControls
-                        sources={selectedSources}
-                        results={currentLoad.results}
-                        genes={genes}
-                        referenceOnly={referenceOnly}
-                        disabled={currentLoad.loading || Object.keys(currentLoad.errors).length > 0}
-                        disabledReason={
-                          Object.keys(currentLoad.errors).length > 0
-                            ? 'Export unavailable until the failed sources are retried or removed from the selection.'
-                            : undefined
-                        }
-                      />
-                    </div>
-                    <div className="ex-controls">
-                      <fieldset className="ex-segment">
-                        <legend className="ex-sr-only">Result display</legend>
-                        <button type="button" aria-pressed={!matrix} onClick={() => setMatrix(false)}>
-                          Ranked bars
-                        </button>
-                        <button type="button" aria-pressed={matrix} onClick={() => setMatrix(true)}>
-                          Gene matrix
-                        </button>
-                      </fieldset>
-                    </div>
-                  </>
-                )}
-                {!matrix && genes.length > 1 && (
-                  <p className="ex-note">
-                    Bars display {genes[0]}. Open the gene matrix to view all {genes.length} genes.
-                  </p>
-                )}
-                <div aria-live="polite" aria-atomic="true">
-                  {genes.length === 0 ? (
-                    <p className="ex-empty">
-                      Choose your sources, enter a gene, then select Survey to load expression values.
-                    </p>
-                  ) : currentLoad.loading ||
-                  (catalog.loading && collection === 'neuroseq' && section === 'survey') ? (
-                    <div className="ex-loading">
-                      <Spinner size={18} /> Loading source expression…
-                    </div>
-                  ) : selectedSources.length === 0 ? (
-                    <p className="ex-empty">
-                      Select a population or another source collection to begin.
-                    </p>
-                  ) : (
-                    <span className="ex-sr-only">
-                      Expression survey loaded for {genes.join(', ')}.
-                    </span>
-                  )}
-                </div>
-                {Object.entries(currentLoad.errors).map(([id, error]) => (
-                  <div className="ex-notice" role="alert" key={id}>
-                    <strong>{selectedSources.find((source) => source.id === id)?.label}</strong>
-                    <p>{error}</p>
-                    <button type="button" onClick={() => currentLoad.retry(id)}>
-                      Retry source data
-                    </button>
-                  </div>
-                ))}
-                {!currentLoad.loading &&
-                  groupedPanels.map(
-                    ([id, panelSources]) =>
-                      currentLoad.results.some((result) =>
-                        panelSources.some((source) => source.id === result.sourceId),
-                      ) && (
-                        <ResultPanel
-                          key={id}
-                          sources={panelSources}
-                          results={currentLoad.results}
-                          genes={genes}
-                          referenceOnly={referenceOnly}
-                          matrix={matrix}
-                          onDetail={setDetail}
-                        />
-                      ),
-                  )}
-                <details className="ex-interpretation">
-                  <summary>How to read expression values</summary>
-                  <p className="ex-reading-note">
-                    {referenceOnly
-                      ? 'NeuroSeq excludes libraries with unreported feeding state. Existing studies use their curated control cohorts; reference eligibility does not imply a shared physiological state.'
-                      : 'Fed, fasted and other reported conditions stay separate. A source control is not a universal physiological baseline.'}
-                  </p>
-                  <p className="ex-caption">
-                    Each study retains its own units and scale. Transformed values are averaged on
-                    their stored scale. Missing or filtered genes are never replaced with zero.
-                    Library counts do not imply independent animals.
-                  </p>
-                  <p className="ex-caption">
-                    Reference atlases (GTEx, HPA, Allen) are human, mouse or pig tissue references, not
-                    controls for any study here. A rodent symbol can match its human counterpart; the
-                    matched gene and species are named on each panel, and rows are never merged.
-                    Published summaries are shown as stated, with no computed mean. Allen microarray
-                    values are log2 intensities, one row per probe.
-                  </p>
-                </details>
-              </div>
+          <CatalogNotices catalog={catalog} onUseLibrary={() => surveyCollection('existing')} />
+          {section === 'survey' && (
+            <section role="tabpanel" id="ex-panel-survey" aria-labelledby="ex-tab-survey">
+              <GeneSurvey
+                genes={genes}
+                catalog={catalog}
+                scope={scope}
+                onScopeChange={setScope}
+                form={geneForm}
+                empty="Choose your sources, then enter one gene to open its gene page, or several to compare them here."
+                onResults={setSurveyResults}
+              />
             </section>
           )}
 
@@ -1255,10 +348,7 @@ export function ExpressionSurveyView({ onHome }: { onHome: () => void }) {
                 </div>
                 <button
                   type="button"
-                  onClick={() => {
-                    changeCollection('agrp');
-                    setSection('survey');
-                  }}
+                  onClick={() => surveyCollection('agrp')}
                 >
                   Survey AgRP →
                 </button>
@@ -1572,8 +662,8 @@ export function ExpressionSurveyView({ onHome }: { onHome: () => void }) {
         {detail && (
           <SourceDetail
             source={detail}
-            results={currentLoad.results}
-            referenceOnly={referenceOnly}
+            results={surveyResults}
+            referenceOnly={scope.referenceOnly}
             onClose={() => setDetail(null)}
           />
         )}

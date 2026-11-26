@@ -1,5 +1,7 @@
 # OXT/AVP intake — October 19, 2026
 
+> Dated record (2026-10-19), and still the runbook for this intake: `pnpm run check:oxt-avp` checks its public products. Its source inputs, `qc-input-baseline.json.gz` (read by `scripts/lib/qcInputAvailability.mts`) and several linked evidence files are not tracked here; see [Files not in this repository](../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
+
 This intake admits **GSE65663**, a bulk rat supraoptic-nucleus salt-loading
 microarray study. The manifest is the admission boundary: only source-reviewed
 studies with resolved independent replication belong in `studies.json`.
@@ -104,12 +106,12 @@ Then:
 ```powershell
 $env:LC_ALL = 'C'
 & $oxtR scripts/regen-r460/run_fgsea_r460.R GSE65663 --force
-npx tsx scripts/build_oxt_avp_bundles_r460.mts
-npx tsx scripts/check_datasets.mts --all-tracks
-npm run check:bundle-eol
-npx tsx scripts/audit_oxt_avp_intake_r460.mts
+pnpm exec tsx scripts/build_oxt_avp_bundles_r460.mts
+pnpm exec tsx scripts/check_datasets.mts --all-tracks
+pnpm run check:bundle-eol
+pnpm exec tsx scripts/audit_oxt_avp_intake_r460.mts
 & $oxtR scripts/regen-r460/run_oxt_avp_r460.R --check
-npm run check:oxt-avp
+pnpm run check:oxt-avp
 ```
 
 The R producer supports `HYPO_OUT_ROOT` for staging. It writes staged
@@ -128,48 +130,50 @@ Close the shared evidence in this dependency order, after the new numerical
 outputs are final:
 
 1. Add the source inventory row with
-   `npx tsx scripts/refresh_author_source_inventory.mts --dataset=rat_son_salt_gse65663`.
+   `pnpm exec tsx scripts/refresh_author_source_inventory.mts --dataset=rat_son_salt_gse65663`.
    This contacts only the selected study's repository/publication sources and
    preserves unrelated rows and top-level report metadata. Its `--check`
    checks offline full-registry coverage. An unscoped refresh contacts the
    entire corpus and requires review of every changed existing row.
-2. Run `npx tsx scripts/audit_author_validation.mts` for the explicit DE/source
-   mechanical trace, then `npx tsx scripts/compare_author_results.mts` for the
+2. Run `pnpm exec tsx scripts/audit_author_validation.mts` for the explicit DE/source
+   mechanical trace, then `pnpm exec tsx scripts/compare_author_results.mts` for the
    existing direct comparisons. This intake has no direct comparison to add.
-3. Run `npx tsx scripts/audit_fgsea_migration.mts`, then
-   `npx tsx scripts/build_author_validation.mts --require-complete`. The first
+3. Run `pnpm exec tsx scripts/audit_fgsea_migration.mts`, then
+   `pnpm exec tsx scripts/build_author_validation.mts --require-complete`. The first
    retains original migration scope; the second joins the new current-output
    pathway evidence and the honest author review.
 4. Refresh the live HFD successor audit with
-   `npx tsx scripts/audit_hfd_intake_r460.mts`: it pins the shared configuration
+   `pnpm exec tsx scripts/audit_hfd_intake_r460.mts`: it pins the shared configuration
    and must revalidate its original analyses after the append. For this intake,
    only its configuration fingerprint changes. Then run
-   `npx tsx scripts/build_internal_qc_r460.mts`.
+   `pnpm exec tsx scripts/build_internal_qc_r460.mts`.
    The live R4.6 QC reader requires the current dedicated intake audit. Review
    all statuses and limitations; do not infer a pass from command success.
 5. Finalize the successor fingerprint inventory with
-   `npx tsx scripts/regen-r460/build_successor_inventory.mts --finalize`, review
+   `pnpm exec tsx scripts/regen-r460/build_successor_inventory.mts --finalize`, review
    its reported changes, then run the same script with `--check`. Use
    `--ledger=<path>` only when intentionally changing its existing ledger scope.
    The default preserves the already declared scope.
-   Finally run `npx tsx scripts/build_quality_report_r460.mts`. A changed QC
+   Finally run `pnpm exec tsx scripts/build_quality_report_r460.mts`. A changed QC
    input inventory must be declared before this report can read its historical
-   pipeline review; the combined `npm run build:quality` is appropriate once
+   pipeline review; the combined `pnpm run build:quality` is appropriate once
    that declaration is current.
 6. Refresh the two live cumulative reports with
-   `npx tsx scripts/build_verification_advancement.mts` and
-   `npx tsx scripts/build_verification_continuation.mts`. They summarize the
+   `pnpm exec tsx scripts/build_verification_advancement.mts` and
+   `pnpm exec tsx scripts/build_verification_continuation.mts`. They summarize the
    original baseline corpus; new intake changes their dependency hashes, not
    their original-corpus interpretation. Do not regenerate sealed reports.
 7. Rebuild upstream processing and its reviewed record, query and expression
    indexes, nomenclature and tracker through their existing builders. Run
-   `npm run check:upstream`, `npm run check:query-index`,
-   `npm run check:expression-index`, `npm run check:oxt-avp`,
-   `npm run check:author-validation`, `npm run check:quality` and
-   `npm run check:verification-advancement`. The last two exist only in the
-   maintainer's checkout; elsewhere run
-   `npx tsx scripts/build_quality_report_r460.mts --check` and record the
-   advancement replay as pending in a GitHub issue.
+   `pnpm run check:upstream`, `pnpm run check:query-index`,
+   `pnpm run check:expression-index`, `pnpm run check:oxt-avp`,
+   `pnpm run check:author-validation`, `pnpm run check:quality` and
+   `pnpm run check:verification-advancement`. The last two exist only in the
+   maintainer's checkout. `scripts/build_quality_report_r460.mts --check` is not
+   a substitute elsewhere: its evidence gate reads retained review inputs (such as
+   `review/source-model-proposal.json`) and stops when they are absent. On a
+   checkout without the retained evidence, record both the quality-report and
+   advancement replays as pending in a GitHub issue.
 8. Complete TypeScript, lint, relevant tests, application build and the context
    maintenance procedure in `docs/agent-context/README.md`. Validate the final
    combined checkout after all registry, evidence and documentation edits.
@@ -186,9 +190,9 @@ Focused regression commands:
 ```text
 python scripts/test_historical_check.py
 python scripts/test_sealed_report_check.py
-npx tsx --test scripts/lib/historicalEvidence.test.mts scripts/lib/oxtAvpIntakeEvidence.test.mts
-npx vitest run src/__tests__/authorPathwayValidation.test.ts src/__tests__/currentIntakePathwayEvidence.test.ts src/__tests__/authorValidationPanel.test.tsx src/__tests__/authorValidationBuilderSourceGate.test.ts src/__tests__/authorValidation.test.ts
-npm run typecheck
+pnpm exec tsx --test scripts/lib/historicalEvidence.test.mts scripts/lib/oxtAvpIntakeEvidence.test.mts
+pnpm exec vitest run src/__tests__/authorPathwayValidation.test.ts src/__tests__/currentIntakePathwayEvidence.test.ts src/__tests__/authorValidationPanel.test.tsx src/__tests__/authorValidationBuilderSourceGate.test.ts src/__tests__/authorValidation.test.ts
+pnpm run typecheck
 ```
 
 These are reproduction instructions. Generated audit files and current check
@@ -202,9 +206,9 @@ only RGD while retaining the reviewed classifications and source metadata for
 all other authorities:
 
 ```text
-npm run build:nomenclature -- --refresh-authority=RGD --fetch
-npm run build:nomenclature -- --refresh-authority=RGD --check
-npx tsx --test scripts/lib/nomenclatureRetained.test.mts scripts/lib/rgdRecords.test.mts
+pnpm run build:nomenclature --refresh-authority=RGD --fetch
+pnpm run build:nomenclature --refresh-authority=RGD --check
+pnpm exec tsx --test scripts/lib/nomenclatureRetained.test.mts scripts/lib/rgdRecords.test.mts
 ```
 
 The fetch downloads only RGD's official `GENES_RAT.txt` and
@@ -216,7 +220,7 @@ decision stops the rebuild and requires the normal full authority rebuild.
 The bounded command writes the same retained TSV, source inventory and public
 search/reference bundles as the full builder. Its `--check` uses local inputs
 without fetching unless `--fetch` is explicitly supplied. The normal full
-`npm run build:nomenclature` and `--fetch` behavior remain available.
+`pnpm run build:nomenclature` and `--fetch` behavior remain available.
 
 The current RGD export includes multiple active IDs sharing some symbols.
 The parser distinguishes `NOMENCLATURE_STATUS` from NCBI RefSeq status: one
@@ -253,7 +257,7 @@ Available retired inputs must still match their expected fingerprints; a newly
 retired missing input is rejected. This metadata preserves the old declaration
 without changing historical producer behavior: an attempted read of an absent
 source file still fails. Run the focused availability tests with
-`npx tsx --test scripts/lib/qcInputAvailability.test.mts`.
+`pnpm exec tsx --test scripts/lib/qcInputAvailability.test.mts`.
 
 An already declared successor addition may remain unavailable only when its
 path and expected fingerprint match both the previous sealed addition set and
@@ -345,7 +349,7 @@ The audits also pin the original `*.download.json` retrieval logs, including
 their timestamps. Fresh downloads cannot replace those sealed log bytes. Restore
 an exact original cache backup to reproduce these historical checks; do not
 recreate old timestamps or rewrite seals. Current OXT/AVP intake validation is
-reported separately by `npm run check:oxt-avp` and the exact R producer's
+reported separately by `pnpm run check:oxt-avp` and the exact R producer's
 `--check`; these historical cache failures do not establish their outcome.
 
 The durable [cache recovery handoff](../../quality/cache-recovery-2026-10-20/README.md)

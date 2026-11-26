@@ -1,6 +1,8 @@
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import type { ReactElement } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ExpressionSurveyView } from '../expression-survey/ExpressionSurveyView';
+import { GenePageSurvey } from '../expression-survey/GeneSurvey';
 import { EXISTING_EXPRESSION_SOURCES } from '../expression-survey/existingCatalog';
 import {
   loadExpressionGenes, loadExpressionSources, loadExternalSourceErrors, loadExternalValidation,
@@ -37,6 +39,11 @@ beforeEach(() => {
 });
 afterEach(() => { cleanup(); vi.resetAllMocks(); vi.unstubAllGlobals(); });
 
+/** The survey page; a single symbol surveyed there opens its gene page through `onOpenGene`. */
+function surveyPage(onOpenGene = vi.fn()): ReactElement {
+  return <ExpressionSurveyView onHome={() => {}} onOpenGene={onOpenGene} />;
+}
+
 function submit(gene?: string) {
   const input = screen.getByRole('textbox', { name: 'Gene symbol or Ensembl ID' });
   if (gene !== undefined || !(input as HTMLInputElement).value) {
@@ -58,10 +65,9 @@ describe('expression survey user flows', () => {
       groups: [{ key: 'M3', label: 'M3 cells', referenceEligible: false,
         samples: [{ id: 'cell-1', value: 11 }], mean: 11, n: 1, totalSamples: 1 }],
     })));
-    render(<ExpressionSurveyView onHome={() => {}} />);
+    render(<GenePageSurvey symbol="Oxt" />);
     await screen.findByText('1 source records selected');
     fireEvent.change(screen.getByRole('combobox', { name: 'Source collection' }), { target: { value: 'reference' } });
-    submit('Oxt');
     await screen.findByRole('img', { name: '11 estimated mRNA molecules per cell' });
     expect(loadExpressionGenes).toHaveBeenCalledWith(reference, ['Oxt']);
     expect(screen.getByText(/Individual cells, not independent animal replicates/)).toBeInTheDocument();
@@ -84,10 +90,9 @@ describe('expression survey user flows', () => {
         { key: 'c-2', label: 'c-2 · mammillary body', referenceEligible: false, samples: [], mean: null, n: 0, totalSamples: 0, summary: 4.1 },
       ],
     })));
-    render(<ExpressionSurveyView onHome={() => {}} />);
+    render(<GenePageSurvey symbol="Pomc" />);
     await screen.findByText('1 source records selected');
     fireEvent.change(screen.getByRole('combobox', { name: 'Source collection' }), { target: { value: 'external' } });
-    submit('Pomc');
     await screen.findByRole('img', { name: '27.4 nCPM' });
     const panel = screen.getByRole('img', { name: '27.4 nCPM' }).closest('section')!;
     expect(panel).toHaveTextContent('Published value · nCPM');
@@ -109,10 +114,9 @@ describe('expression survey user flows', () => {
         unit: selected.unit, groups: [{ key: 'donor-1', label: 'H0351.2001', referenceEligible: false,
           samples: [{ id: 'well', value: Number(value) }], mean: Number(value), n: 1, totalSamples: 1 }],
       }))));
-    render(<ExpressionSurveyView onHome={() => {}} />);
+    render(<GenePageSurvey symbol="Pomc" />);
     await screen.findByText('1 source records selected');
     fireEvent.change(screen.getByRole('combobox', { name: 'Source collection' }), { target: { value: 'external' } });
-    submit('Pomc');
     await screen.findByRole('img', { name: '9.5 log2 normalized intensity' });
     const panel = screen.getByRole('img', { name: '9.5 log2 normalized intensity' }).closest('section')!;
     expect(panel).toHaveTextContent('H0351.2001 · probe A_23_P1');
@@ -122,34 +126,58 @@ describe('expression survey user flows', () => {
     expect(await screen.findByText('9.5 · 4.25')).toBeInTheDocument();
   });
 
-  it('keeps the landing bounded and loads values only after the user submits', async () => {
-    render(<ExpressionSurveyView onHome={() => {}} />);
+  it('keeps the landing bounded and hands a single gene to its gene page with the chosen scope', async () => {
+    const onOpenGene = vi.fn();
+    render(surveyPage(onOpenGene));
     await screen.findByText('1 source records selected');
     expect(screen.getByRole('textbox', { name: 'Gene symbol or Ensembl ID' })).toHaveValue('');
-    expect(screen.getByText('Populations').closest('details')).not.toHaveAttribute('open');
+    expect(screen.getByText('Populations', { selector: 'summary' }).closest('details')).not.toHaveAttribute('open');
     expect(screen.queryByRole('button', { name: 'Agrp' })).not.toBeInTheDocument();
     expect(screen.queryByRole('group', { name: 'Result display' })).not.toBeInTheDocument();
-    expect(screen.getByText(/Choose your sources, enter a gene/)).toBeInTheDocument();
+    expect(screen.getByText(/Choose your sources, then enter one gene/)).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Export ↓' })).not.toBeInTheDocument();
-    expect(loadExpressionGenes).not.toHaveBeenCalled();
+    expect(screen.queryByRole('tab', { name: 'Tissue & bulk' })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('tab', { name: 'Population catalog' }));
-    fireEvent.click(screen.getByRole('tab', { name: 'Tissue & bulk' }));
-    fireEvent.click(screen.getByRole('button', { name: /Arcuate nucleus/ }));
     fireEvent.click(screen.getByRole('tab', { name: 'Gene survey' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Tissue & bulk' }));
+    fireEvent.click(screen.getByRole('button', { name: /Arcuate nucleus/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'Populations' }));
     fireEvent.change(screen.getByRole('combobox', { name: 'Source collection' }), { target: { value: 'existing' } });
-    expect(loadExpressionGenes).not.toHaveBeenCalled();
     submit('Agrp');
+    expect(onOpenGene).toHaveBeenCalledWith('Agrp', expect.objectContaining({
+      mode: 'populations', collection: 'existing', tissueKind: 'arc', referenceOnly: false,
+    }));
+    expect(loadExpressionGenes).not.toHaveBeenCalled();
+  });
+
+  it('surveys an Ensembl gene ID in place, since the gene page is keyed on symbols', async () => {
+    const onOpenGene = vi.fn();
+    render(surveyPage(onOpenGene));
+    await screen.findByText('1 source records selected');
+    submit('ENSMUSG00000057722');
+    await screen.findByRole('columnheader', { name: 'ENSMUSG00000057722 · mean' });
+    expect(onOpenGene).not.toHaveBeenCalled();
+    expect(loadExpressionGenes).toHaveBeenCalledWith(source, ['ENSMUSG00000057722']);
+  });
+
+  it('opens a handed-over scope on the gene page', async () => {
+    render(<GenePageSurvey symbol="Agrp" initialScope={{
+      mode: 'populations', collection: 'existing', region: 'all', includeSfo: false, selectedIds: null, tissueKind: 'whole', referenceOnly: true,
+    }} />);
     await screen.findByRole('columnheader', { name: 'Agrp · mean' });
     expect(loadExpressionGenes).toHaveBeenCalledWith(existing, ['Agrp']);
+    expect(screen.getByRole('combobox', { name: 'Source collection' })).toHaveValue('existing');
+    expect(screen.getByRole('checkbox', { name: 'Fed / reference cohorts only' })).toBeChecked();
+    expect(screen.queryByRole('textbox', { name: 'Gene symbol or Ensembl ID' })).not.toBeInTheDocument();
   });
 
   it('requires input and retains population selection when opening a multi-gene survey', async () => {
-    render(<ExpressionSurveyView onHome={() => {}} />);
+    render(surveyPage());
     await screen.findByText('1 source records selected');
     fireEvent.click(screen.getByRole('button', { name: 'Survey →' }));
     expect(screen.getByRole('alert')).toHaveTextContent('Enter at least one gene');
     expect(loadExpressionGenes).not.toHaveBeenCalled();
-    fireEvent.click(screen.getByText('Populations'));
+    fireEvent.click(screen.getByText('Populations', { selector: 'summary' }));
     fireEvent.click(screen.getByRole('button', { name: 'Clear' }));
     submit('Lepr, Agrp');
     expect(await screen.findByText('Select a population or another source collection to begin.')).toBeInTheDocument();
@@ -161,12 +189,10 @@ describe('expression survey user flows', () => {
   });
 
   it('keeps unknown genes distinct from measured zero and removes old bars', async () => {
-    render(<ExpressionSurveyView onHome={() => {}} />);
-    submit();
+    const { rerender } = render(<GenePageSurvey symbol="Lepr" />);
     await screen.findByRole('img', { name: `11 ${UNIT}` });
     vi.mocked(loadExpressionGenes).mockResolvedValue([{ sourceId: source.id, query: 'unknown', status: 'not-retained', unit: UNIT, groups: [] }]);
-    fireEvent.change(screen.getByRole('textbox', { name: 'Gene symbol or Ensembl ID' }), { target: { value: 'unknown' } });
-    submit();
+    rerender(<GenePageSurvey symbol="unknown" />);
     await screen.findByText(/Not retained in this source/);
     expect(screen.queryByRole('img', { name: `11 ${UNIT}` })).not.toBeInTheDocument();
   });
@@ -178,8 +204,7 @@ describe('expression survey user flows', () => {
       if (selected.id === 'failed-source' && unavailable) throw new Error('Source unavailable');
       return genes.map((gene) => result(gene, selected.id));
     });
-    render(<ExpressionSurveyView onHome={() => {}} />);
-    submit();
+    render(<GenePageSurvey symbol="Lepr" />);
     await screen.findByText(/Source unavailable/);
     expect(screen.getByRole('button', { name: 'Export ↓' })).toBeDisabled();
     expect(downloadFile).not.toHaveBeenCalled();
@@ -198,8 +223,7 @@ describe('expression survey user flows', () => {
   it('exports only eligible selected cohorts and retains stable gene and cohort IDs', async () => {
     let exported: Blob | null = null;
     vi.stubGlobal('URL', { createObjectURL: (blob: Blob) => { exported = blob; return 'blob:test'; }, revokeObjectURL: vi.fn() });
-    render(<ExpressionSurveyView onHome={() => {}} />);
-    submit();
+    render(<GenePageSurvey symbol="Lepr" />);
     await screen.findByRole('img', { name: `11 ${UNIT}` });
     fireEvent.click(screen.getByRole('checkbox', { name: 'Fed / reference cohorts only' }));
     expect(screen.queryByRole('img', { name: `99 ${UNIT}` })).not.toBeInTheDocument();
@@ -215,9 +239,39 @@ describe('expression survey user flows', () => {
     expect(text).not.toContain('fasted-library');
   });
 
+  it("shows the values a survey already loaded in a catalog source's details", async () => {
+    render(surveyPage());
+    await screen.findByText('1 source records selected');
+    submit('Lepr, Agrp');
+    await waitFor(() => expect(loadExpressionGenes).toHaveBeenCalledWith(source, ['Lepr', 'Agrp']));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Export ↓' })).toBeEnabled());
+    fireEvent.click(screen.getByRole('tab', { name: 'Population catalog' }));
+    fireEvent.click(screen.getAllByRole('button', { name: source.populationLabel })[0]);
+    expect((await screen.findAllByText('fed-library')).length).toBeGreaterThan(0);
+    expect(screen.queryByText('Survey this source to load expression values.')).not.toBeInTheDocument();
+  });
+
+  it("hands the study library to the tile's host, which releases the tile's source filter", async () => {
+    vi.mocked(loadExpressionSources).mockRejectedValue(new Error('NeuroSeq unavailable'));
+    const onUseLibrary = vi.fn();
+    render(<GenePageSurvey symbol="Lepr" focus={{ include: (s) => s.id === 'gtex-only' }} onUseLibrary={onUseLibrary} />);
+    await screen.findByText(/NeuroSeq unavailable/);
+    fireEvent.click(screen.getByRole('button', { name: 'Use study library' }));
+    expect(onUseLibrary).toHaveBeenCalledWith(expect.objectContaining({ mode: 'populations', collection: 'existing' }));
+  });
+
+  it('releases the source filter itself when no host takes the study library', async () => {
+    vi.mocked(loadExpressionSources).mockRejectedValue(new Error('NeuroSeq unavailable'));
+    render(<GenePageSurvey symbol="Lepr" focus={{ include: (s) => s.id === 'gtex-only' }} />);
+    await screen.findByText(/NeuroSeq unavailable/);
+    expect(loadExpressionGenes).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole('button', { name: 'Use study library' }));
+    await waitFor(() => expect(loadExpressionGenes).toHaveBeenCalledWith(expect.objectContaining({ collection: 'existing' }), ['Lepr']));
+  });
+
   it('retries the catalog on its own and can recover to existing studies when NeuroSeq metadata is unavailable', async () => {
     vi.mocked(loadExpressionSources).mockRejectedValue(new Error('NeuroSeq unavailable'));
-    render(<ExpressionSurveyView onHome={() => {}} />);
+    render(surveyPage());
     await screen.findByText(/NeuroSeq unavailable/);
     fireEvent.click(screen.getByRole('button', { name: 'Retry' }));
     await waitFor(() => expect(loadExpressionSources).toHaveBeenCalledTimes(2));

@@ -405,9 +405,9 @@ describe('explorerStore — ensureTrack', () => {
 });
 
 // ── Eager seed: pathway sibling shapes ──────────────────────────────────────
-// index.html eager-loads the default track and its pathway sibling as window
-// globals, and the store seeds its cache from them without going through the
-// transport. That seed does its own unwrap, so it is a SECOND place the
+// When index.html eager-loads a track and its pathway sibling as window globals
+// (it currently loads none; vite.config.ts keeps the eager set empty), the store
+// seeds its cache from them without going through the transport. That seed does its own unwrap, so it is a SECOND place the
 // sibling shape is handled — and the one with no network step to notice a
 // mistake. A wrapper landing verbatim on raw.pathways would make every
 // contrast render `{default, byContrast}` as if it were a pathway database.

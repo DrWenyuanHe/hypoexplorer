@@ -67,7 +67,10 @@ export function buildSymbolRenames(payload: unknown): SymbolRenames | null {
     // An authority this build does not know is dropped, as the alias index
     // drops out-of-range codes: no group is better than one read in the wrong
     // namespace.
-    if (!authority || !KNOWN_AUTHORITIES.has(authority) || typeof current !== 'string') continue;
+    if (!authority || !KNOWN_AUTHORITIES.has(authority)) continue;
+    // Every member must be a non-empty symbol: one malformed row is dropped,
+    // never allowed to throw, so a bad table still degrades to "no renames".
+    if (![current, ...retired].every((m) => typeof m === 'string' && m.trim() !== '')) continue;
     const group: RenameGroup = {
       authority: authority as NomenclatureAuthority,
       current,

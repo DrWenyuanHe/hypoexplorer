@@ -2,7 +2,7 @@
 // in one dependency-free place.
 //
 // Deliberately free of imports so every consumer can take it: the cross-dataset
-// row builder, the QC fold, the report views and the Statistics glossary all
+// row builder, the QC fold, the report views and the Methods page all
 // need the cutoff, and none of them should acquire a runtime link to the
 // cross-dataset row machinery to get it.
 //
@@ -12,8 +12,8 @@
 // not be swept over every `0.05` in the tree. These are DIFFERENT policies that
 // happen to share a digit:
 //
-//   - `pToStar` / the star ladder (src/utils/format.ts) cuts RAW p at
-//     0.05/0.01/0.001. Stars are a raw-p shorthand, not an FDR call.
+//   - `pToStar` / the star ladder (`STAR_THRESHOLDS` in src/utils/format.ts)
+//     cuts RAW p. Stars are a raw-p shorthand, not an FDR call.
 //   - The FGSEA QC fold (src/qc/fgseaSummary.ts) counts pathways in PAIRED bins
 //     at 0.05 and 0.25, and the bin edges are baked into its field names
 //     (`hallmark_005` / `hallmark_025`). A cutoff change must not silently
@@ -38,6 +38,14 @@ import type { Direction } from '../types';
  * and the number it documents cannot drift apart.
  */
 export const DEFAULT_FDR_CUTOFF = 0.05;
+
+/**
+ * The FDR threshold baked into built bundles: `deSummary[].nSig` counts rows below
+ * it (scripts/lib/bundleWriter.mts), and the QC tab's "Sig (FDR<…)" heading states
+ * it. It is a property of the stored count, so it is kept apart from the app's
+ * display default: changing DEFAULT_FDR_CUTOFF must not relabel counts already built.
+ */
+export const NSIG_FDR_CUTOFF = 0.05;
 
 /**
  * The FDR call. A null/undefined or non-finite q is NOT significant — an

@@ -3,6 +3,7 @@
 import { readFileSync } from 'node:fs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { loadNeuroseqExpression, loadNeuroseqManifest, neuroseqSources } from '../expression-survey/neuroseqExpression';
+import { isBoundary } from '../expression-survey/expressionSurvey';
 import { resetSourceRequests } from '../expression-survey/sourceJson';
 import { loadBaselineTeaser, resetSearchSummaries } from '../search/searchSummaries';
 
@@ -18,8 +19,9 @@ function productFetch(edit?: (url: string, body: any) => unknown) {
 beforeEach(() => { resetSourceRequests(); resetSearchSummaries(); });
 afterEach(() => { vi.unstubAllGlobals(); });
 
+/** The survey's default NeuroSeq selection: every population but the SFO boundary records. */
 async function surveyResults(query: string) {
-  const sources = neuroseqSources(await loadNeuroseqManifest());
+  const sources = neuroseqSources(await loadNeuroseqManifest()).filter((source) => !isBoundary(source));
   return Promise.all(sources.map(async (source) => ({ source, result: (await loadNeuroseqExpression(source.id, [query]))[0] })));
 }
 
@@ -35,8 +37,8 @@ describe('NeuroSeq baseline teaser', () => {
     })));
     expect(teaser.groups.map(({ id, populationId, meanTpm, libraries, group }) => ({ id, populationId, meanTpm, libraries, group })))
       .toEqual(expect.arrayContaining(expected));
-    expect(teaser.groups).toHaveLength(17);
-    expect(teaser.populationCount).toBe(15);
+    expect(teaser.groups).toHaveLength(15);
+    expect(teaser.populationCount).toBe(13);
     expect(teaser.gene).toBe(survey[0].result.gene);
     expect(teaser.groups.map((g) => g.meanTpm)).toEqual([...teaser.groups.map((g) => g.meanTpm)].sort((a, b) => b - a));
     expect(teaser.max).toBe(teaser.groups[0].meanTpm);
@@ -52,10 +54,21 @@ describe('NeuroSeq baseline teaser', () => {
     expect(unreported / fed).toBeGreaterThan(5);
     const pooled = (unreported * 2 + fed * 5) / 7;
     expect(teaser.groups.some((g) => Math.abs(g.meanTpm - pooled) < 1)).toBe(false);
-    expect(teaser.groups.filter((g) => g.group === null)).toHaveLength(13);
+    expect(teaser.groups.filter((g) => g.group === null)).toHaveLength(11);
   });
 
-  it('reads the gene index and its shard once for all fifteen populations', async () => {
+  it('leaves out the SFO boundary records, as the survey does by default', async () => {
+    productFetch();
+    const teaser = await loadBaselineTeaser('Pomc');
+    if (teaser?.status !== 'available') throw new Error('expected Pomc values');
+    const all = neuroseqSources(await loadNeuroseqManifest());
+    const boundary = all.filter(isBoundary).map((source) => source.id);
+    expect(boundary).toHaveLength(2);
+    expect(teaser.groups.some((g) => boundary.includes(g.populationId))).toBe(false);
+    expect(teaser.groups.some((g) => /SFO/.test(g.label))).toBe(false);
+  });
+
+  it('reads the gene index and its shard once for all thirteen populations', async () => {
     const fetcher = productFetch();
     await loadBaselineTeaser('Pomc');
     const urls = fetcher.mock.calls.map(([url]) => String(url).split('?')[0]);

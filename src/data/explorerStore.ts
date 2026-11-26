@@ -36,8 +36,11 @@ import { useBundleProgress, type LoadProgress } from './useBundleProgress';
 import type { Dataset, DatasetMeta, PathwaySibling, QcGlobal, RawTrack } from '../types';
 
 // ── Eager globals ───────────────────────────────────────────────────────────
-// index.html can eager-load the default dataset's meta + default track so the
-// first paint needs no round trip. WHICH globals get seeded, and the pathway
+// index.html could eager-load the default dataset's meta + default track so the
+// first paint needs no round trip; it currently loads none (the eager set in
+// vite.config.ts is deliberately empty). The seed path still runs: a global that is
+// already on the window, for example the metadata the router loaded to check a deep
+// link, is consumed here instead of fetched again. WHICH globals get seeded, and the pathway
 // sibling attach below, are this module's policy; the window read itself is the
 // bundle-source seam's `peekGlobalBundle`. Absent in tests and for every
 // non-default dataset, where the loaders take over.
@@ -272,7 +275,7 @@ export function useExplorerStore({ dataset, activeTrackId, wantQC, pathways = 'i
     if (metaFetchRef.current === dataset.id) return;  // already in flight for it
     const eager = readEagerMeta(dataset);
     if (eager) {
-      // index.html's eager default-dataset seed needs no request at all.
+      // A metadata global already on the window (for example from route landing) needs no request.
       metaFetchRef.current = dataset.id;
       setMetaState({ datasetId: dataset.id, value: eager });
       return;

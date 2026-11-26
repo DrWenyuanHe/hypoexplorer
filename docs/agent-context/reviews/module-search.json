@@ -1,12 +1,15 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "5f992893b71f20492e7df463054fcc7b9c536ffd65a499779f909732027a797b",
+  "fingerprint": "7ca506a407dba1bb0a98481d452b056f75d796e26222599de316aa7403e45fe5",
   "outcome": "updated",
-  "explanation": "portalCards drops dirColor and plural: Effect takes the row tier and colours through directionTextColor, the condition matrix colours its FDR columns the same way, and plural moves to utils/format.ts. SearchPage colours its tallies and strongest track through directionTextColor, words moreNote with leadingTracks and the pathway nominal note with nominalCaveat; every verdict and visible string is unchanged.",
+  "explanation": "From main (PR #84): GeneExpressionCards is now an animal row and a human row of source tiles (NeuroSeq, study library, tissue named by its species, a single-cell slot; GTEx, Allen, HPA subregions and clusters). Each tile opens its source's survey under its row through a lazyView of GenePageSurvey held to that source; the HypoMap preview sits behind the single-cell tile. searchSummaries adds loadFamilyTeaser (each source's highest cohort mean, ranked within the most common unit), leaves SFO boundary records out of the NeuroSeq teaser and gives GTEx and Allen spreads a mean. From this branch: From main: portalCards drops dirColor and plural: Effect takes the row tier and colours through directionTextColor, the condition matrix colours its FDR columns the same way, and plural moves to utils/format.ts. SearchPage colours its tallies and strongest track through directionTextColor, words moreNote with leadingTracks and the pathway nominal note with nominalCaveat; every verdict and visible string is unchanged. From this branch: GeneExpressionCards is now a mouse row and a human row of source tiles (NeuroSeq, study library, tissue, a single-cell slot; GTEx, Allen, HPA subregions and clusters). Each tile opens its source's survey under its row through a lazyView of GenePageSurvey held to that source; the HypoMap preview sits behind the single-cell tile. searchSummaries adds loadFamilyTeaser (each source's highest cohort mean, ranked within the most common unit), leaves SFO boundary records out of the NeuroSeq teaser and gives GTEx and Allen spreads a mean. Review fixes: loadFamilyTeaser counts unreadable sources as unread (null when none read, partial reads not cached) and reports the species covered; FamilySection counts populations, names species via speciesPhrase, draws bars on a signed barGeometry axis and states unread sources; the tissue drill is titled Non-human tissue & bulk and the drill reopens on the library scope when the catalog fails.",
   "references": [
     "src/search/portalCards.tsx",
     "src/search/SearchPage.tsx",
-    "src/statistics/listingWords.ts"
+    "src/statistics/listingWords.ts",
+    "src/search/searchSummaries.ts",
+    "src/search/search.css",
+    "docs/runbooks/EXPRESSION_SURVEY.md"
   ]
 }

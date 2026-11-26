@@ -24,24 +24,24 @@ import { FONT_HEADING, FONT_MONO, FONT_SANS, DIRECTION_UP_COLOR as UP } from '..
 import { directionTextColor } from '../statistics/direction';
 import { PageShell } from '../common/PageShell';
 import { Mono, P, PROSE_MEASURE, ProsePage, ProseSection, tdStyle, thStyle } from '../common/prose';
-import { DEFAULT_FDR_CUTOFF } from '../statistics/policy';
+import { DEFAULT_FDR_CUTOFF, NOMINAL_P_CUTOFF } from '../statistics/policy';
 import { METRIC_DEFAULT_SIG_THRESH } from '../explorer/explorerSession';
+import { STAR_THRESHOLDS } from '../utils/format';
+import { DATASETS } from '../data/datasets';
 
-// The significance-star scheme, sourced from utils/format.ts pToStar thresholds.
+// The significance-star scheme, read from the table pToStar itself uses.
 const STAR_ROWS: Array<{ star: string; cond: string }> = [
-  { star: '****', cond: 'p < 0.0001' },
-  { star: '***', cond: 'p < 0.001' },
-  { star: '**', cond: 'p < 0.01' },
-  { star: '*', cond: 'p < 0.05' },
-  { star: 'ns', cond: 'p ≥ 0.05' },
+  ...STAR_THRESHOLDS.map((t) => ({ star: t.star, cond: `p < ${t.below}` })),
+  { star: 'ns', cond: `p ≥ ${STAR_THRESHOLDS[STAR_THRESHOLDS.length - 1].below}` },
 ];
+const FDR = DEFAULT_FDR_CUTOFF;
 
 // Glossary: the exact fields/terms shown across the explorer.
 const GLOSSARY: Array<{ term: string; field: string; meaning: ReactNode }> = [
   { term: 'log2FC', field: 'logFC', meaning: 'The log2 fold-change of the case group over the baseline. +1 = doubled, −1 = halved.' },
   { term: 'Raw p-value', field: 'PValue / pval', meaning: 'The test p-value for a gene or pathway within one dataset, before adjustment for testing many features.' },
   { term: 'FDR', field: 'FDR / padj', meaning: 'The Benjamini–Hochberg adjusted p-value across all genes or all gene sets tested within one dataset. The threshold describes the expected false-discovery rate.' },
-  { term: 'Significance stars', field: '★', meaning: 'Shorthand for the raw p-value, using the thresholds above. Stars and FDR can disagree.' },
+  { term: 'Significance stars', field: '* to ****', meaning: 'Shorthand for the raw p-value, using the thresholds above. Stars and FDR can disagree.' },
   { term: 'NES', field: 'NES', meaning: "Normalized enrichment score. It describes the direction and strength of a gene set's coordinated shift. Its sign follows the log2FC convention." },
   { term: 'CPM (TMM-normalized)', field: 'cpm', meaning: "Counts per million after TMM normalization, using the normalization factors of that dataset's own edgeR fit. Shown for count data; datasets analysed from a deposited normalized matrix keep that matrix's unit." },
   { term: '95% CI', field: 'se', meaning: "The approximate interval through a forest-plot dot, log2FC ± 1.96 × SE. It uses the standard error from that dataset's model and describes uncertainty for that dataset only." },
@@ -204,14 +204,26 @@ export function MethodologyView({ onHome }: { onHome: () => void }) {
           <P>
             Gene-set enrichment uses <Mono>fgsea</Mono> on the full ranked gene list of each comparison:
             the signed QL F-statistic (<Mono>sign(logFC) × F</Mono>) for edgeR fits and the moderated
-            t-statistic for limma fits. Gene sets come from MSigDB Hallmark, KEGG (legacy), GO:BP and
-            Reactome, mapped from human to the study species&apos; orthologs.
+            t-statistic for limma fits. Gene sets come from MSigDB&apos;s human Hallmark, KEGG (legacy),
+            GO:BP and Reactome collections. Human studies use them directly; for other studies msigdbr
+            maps them to orthologs of the target species recorded in each analysis&apos;s FGSEA
+            provenance. That target is usually the study species, but it can differ from the genome the
+            reads were annotated against: GSE314184 was annotated on the <em>Rhabdomys pumilio</em>{' '}
+            reference, yet its retained pathway analyses target mouse, and the macaque atlas uses{' '}
+            <em>Macaca mulatta</em>.
+          </P>
+          <P>
+            KEGG results are shown on hypoexplorer.com. The downloadable data release leaves out
+            KEGG-derived content under its licensing policy, so a copy of the explorer built from that
+            release shows no KEGG pathways, even though they were tested.
           </P>
           <P>
             A gene set is tested only when <Mono>minSize = 15</Mono> to <Mono>maxSize = 500</Mono> of its
             genes are present in that comparison&apos;s ranked list. These limits exclude very small and
-            very broad overlaps. A pathway missing from a result table was not tested; its absence does
-            not show that it is biologically absent or inactive.
+            very broad overlaps. A pathway missing from a result table was usually not tested; it may
+            also have been dropped for a non-finite statistic, or, in a copy built from the data
+            release, be a KEGG pathway. Its absence does not show that it is biologically absent or
+            inactive.
           </P>
         </Section>
 
@@ -284,13 +296,18 @@ export function MethodologyView({ onHome }: { onHome: () => void }) {
           <H3>FDR (Benjamini–Hochberg)</H3>
           <P>
             The adjusted p-value, <Mono>FDR</Mono> for genes or <Mono>padj</Mono> for pathways, accounts
-            for testing many features within one dataset, roughly 12,000–19,000 genes. Use it when
+            for multiple testing within one comparison. A gene&apos;s FDR covers every feature tested in
+            that fitted comparison, from about a thousand to tens of thousands of genes depending on the
+            study and platform. A pathway&apos;s <Mono>padj</Mono> covers only the gene sets of its own
+            collection in that comparison, because each collection is run separately. Use it when
             searching a dataset for significant results. The threshold describes the expected
             false-discovery rate among results called significant. The family includes features
             without a gene symbol or with an ambiguous one: they stay in the model but are not shown.
           </P>
           <P>
-            The display rounds q-values to 2 significant figures; exports keep the full stored precision.
+            Most tables show p- and q-values below 0.001 to 2 significant figures in exponential form
+            and larger values to 3 decimals; a value that underflowed to zero shows as{' '}
+            <Mono>&lt; 1e-300</Mono>. Exports keep the full stored precision.
             For small pathway <Mono>padj</Mono> values, fgsea&apos;s <Mono>log2err</Mono> indicates
             uncertainty by a factor of roughly 1.6–2.
           </P>
@@ -327,7 +344,7 @@ export function MethodologyView({ onHome }: { onHome: () => void }) {
           </table>
           <Callout tone="warn">
             <strong>Stars use the raw p-value.</strong> A gene can show <Mono>***</Mono> yet fail
-            FDR &lt; 0.05 after correction across the dataset. This is common with small sample sizes.
+            FDR &lt; {FDR} after correction across the dataset. This is common with small sample sizes.
             Check FDR before treating an exploratory result as significant.
           </Callout>
           <H3>Direction and effect size</H3>
@@ -358,19 +375,21 @@ export function MethodologyView({ onHome }: { onHome: () => void }) {
           </P>
           <Callout tone="warn">
             <strong>A significant-dataset count is a tally.</strong> The report&apos;s
-            &quot;significant in N of M datasets&quot; line counts per-dataset results. Each FDR applies
-            within its own dataset, so some results across a hundred-plus datasets will pass{' '}
-            <Mono>FDR &lt; 0.05</Mono> by chance. The tally does not test significance across datasets.
+            &quot;significant in N of M datasets&quot; line counts per-dataset results, where M is the
+            selected studies that measured the gene, not all {DATASETS.length} in the collection. Each
+            FDR applies within its own dataset, so across many datasets some results will pass{' '}
+            <Mono>FDR &lt; {FDR}</Mono> by chance. The tally does not test significance across datasets.
             Inspect the direction, magnitude and study design behind each result, including disagreements.
           </Callout>
           <Callout tone="warn">
             <strong>Search and the gene and pathway reports also list nominal results.</strong> They
-            list every track with raw <Mono>p &lt; 0.05</Mono> and label the ones that also pass{' '}
-            <Mono>FDR &lt; 0.05</Mono>. The others are marked <Mono>p &lt; 0.05 only</Mono>: they are
+            include tracks with raw <Mono>p &lt; {NOMINAL_P_CUTOFF}</Mono> (search previews show the top
+            rows) and label the ones that also pass{' '}
+            <Mono>FDR &lt; {FDR}</Mono>. The others are marked <Mono>p &lt; {NOMINAL_P_CUTOFF} only</Mono>: they are
             not corrected for the thousands of genes or pathways each study tested, nor for the many
             tracks searched, so a share of them are expected by chance. The significant counts and
             the pathway follow-up count only the FDR results. Set <Mono>List</Mono> to{' '}
-            <Mono>FDR (q &lt; 0.05)</Mono> on any of these pages to list the FDR results alone; the
+            <Mono>FDR (q &lt; {FDR})</Mono> on any of these pages to list the FDR results alone; the
             choice is remembered in this browser.
           </Callout>
           <Callout>
@@ -383,7 +402,7 @@ export function MethodologyView({ onHome }: { onHome: () => void }) {
             The compare set shows selected studies or populations in columns. Each column names its
             contrast and replicate counts, uses its study&apos;s expression unit, and shows that
             study&apos;s p-values and FDR. The <Mono>Sig (tally)</Mono> column counts results passing{' '}
-            <Mono>FDR &lt; 0.05</Mono> by direction. It does not combine them into a statistical test.
+            <Mono>FDR &lt; {FDR}</Mono> by direction. It does not combine them into a statistical test.
             Populations from the same study share animals, as noted on the page.
           </P>
         </Section>

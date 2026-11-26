@@ -14,7 +14,7 @@
 // in memory — no extra loads happen here.
 import { useMemo, useState } from 'react';
 import type { CSSProperties } from 'react';
-import { pToStar, fmtP, fmtSigned } from '../utils/format';
+import { pToStar, fmtP, fmtSigned, starLegend } from '../utils/format';
 import { btnStyle, UP_TEXT_COLOR, DOWN_TEXT_COLOR, NEUTRAL_TEXT_COLOR, FONT_MONO, FONT_SANS } from '../styles/constants';
 import { SortableTh } from '../common/SortableTh';
 import { writeCsv } from '../utils/csv';
@@ -210,7 +210,7 @@ export function ContrastMatrix({ selectedGenes, slices, activeContrastId, onRemo
         </table>
       </div>
       <div style={{ padding: '6px 10px', fontSize: 11, color: 'var(--text-muted)', fontFamily: FONT_SANS, borderTop: '1px solid var(--border)' }}>
-        Bold = FDR &lt; {DEFAULT_FDR_CUTOFF} in that comparison. Stars use raw p-values: *** p&lt;0.001 · ** p&lt;0.01 · * p&lt;0.05 · ns not significant.
+        Bold = FDR &lt; {DEFAULT_FDR_CUTOFF} in that comparison. Stars use raw p-values: {starLegend()}.
       </div>
     </div>
   );

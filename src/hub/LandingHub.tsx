@@ -67,7 +67,7 @@ export function hubSections(
     {
       id: 'start', title: 'Start here',
       items: [
-        { name: 'Expression survey', desc: 'Survey gene expression in defined hypothalamic populations, isolated neurons and bulk tissue.', icon: 'expression', status: 'live', go: () => { if (onOpenExpression) onOpenExpression(); else window.location.hash = '#/expression'; } },
+        { name: 'Expression survey', desc: 'Compare genes across defined hypothalamic populations, isolated neurons and bulk tissue, and browse the population catalog.', icon: 'expression', status: 'live', go: () => { if (onOpenExpression) onOpenExpression(); else window.location.hash = '#/expression'; } },
         { name: 'Dataset library', desc: `Browse ${nDatasets} studies by brain region, experimental condition or assay. Each record includes the study design and replicate counts.`, icon: 'library', status: 'live', go: () => onOpenLibrary() },
       ],
     },

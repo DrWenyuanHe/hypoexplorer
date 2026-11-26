@@ -1,11 +1,22 @@
 export type Stars = '****' | '***' | '**' | '*' | 'ns';
 
+// The one star table: `pToStar`, the Methods star key and every on-screen star
+// legend read it, so a threshold cannot change in one place and not the others.
+export const STAR_THRESHOLDS: ReadonlyArray<{ star: Exclude<Stars, 'ns'>; below: number }> = [
+  { star: '****', below: 0.0001 },
+  { star: '***', below: 0.001 },
+  { star: '**', below: 0.01 },
+  { star: '*', below: 0.05 },
+];
+
 export function pToStar(p: number): Stars {
-  if (p < 0.0001) return '****';
-  if (p < 0.001) return '***';
-  if (p < 0.01) return '**';
-  if (p < 0.05) return '*';
+  for (const t of STAR_THRESHOLDS) if (p < t.below) return t.star;
   return 'ns';
+}
+
+// "**** p<0.0001 · *** p<0.001 · ** p<0.01 · * p<0.05 · ns not significant"
+export function starLegend(): string {
+  return `${STAR_THRESHOLDS.map((t) => `${t.star} p<${t.below}`).join(' · ')} · ns not significant`;
 }
 
 // ONE display rule for both p and q, by decision: 2 significant figures in

@@ -1,6 +1,8 @@
 // Read-only structural agreement check for the dataset registry and its emitted
 // sidecars. This deliberately does not compare query-index row values with
 // bundles; scripts/build_query_index.mts --check owns that stronger gate.
+// By default it parses each dataset's default-track bundle; `--all-tracks`
+// parses every track's bundle.
 
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';

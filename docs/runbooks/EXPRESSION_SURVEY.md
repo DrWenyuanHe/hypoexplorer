@@ -1,18 +1,40 @@
 # Expression survey
 
-The `#/expression` view surveys per-sample expression in hypothalamic populations,
-broader neuronal preparations and tissue, alongside GTEx, Human Protein Atlas and
-Allen Human Brain Atlas reference atlases. It is reachable from **Expression survey**
-on the home page. Its four sections are Gene survey, Population catalog, Tissue &
-bulk, and Sources & validation.
+The survey reads per-sample expression in hypothalamic populations, broader
+neuronal preparations and tissue, alongside GTEx, Human Protein Atlas and Allen
+Human Brain Atlas reference atlases. A gene has one home for it: its gene page.
+"Where <gene> is expressed" shows one tile per source, and each tile opens that
+source's full survey of the gene in place. The `#/expression` page,
+reachable from **Expression survey** on the home page, compares several genes and
+holds the population catalog and the sources with their validation. Its three
+sections are Gene survey, Population catalog, and Sources & validation.
 
-The page uses a centered, bounded workspace with search and source filters in one
-panel. The population picker starts collapsed; export and result-display controls
-appear after a submitted survey. Interpretation notes remain available in a
-disclosure below the results. Gene input starts empty, with no preset-gene buttons.
+`GeneSurvey` in `src/expression-survey/GeneSurvey.tsx` is the one survey
+workspace both places render. Its scope (`SurveyScope` in `expressionSurvey.ts`)
+chooses Populations or Tissue & bulk, then the collection, region, populations or
+tissue preparation, and the fed / reference filter. The gene page renders it
+through `GenePageSurvey` in its own chunk, loaded when the reader opens a tile. A
+tile holds the workspace to its source (`SurveyFocus`): the mode and collection are
+fixed and an `include` test narrows the sources, while region, populations and the
+fed / reference filter still apply. **All sources and filters** releases it, and so
+does **Use study library** after a NeuroSeq catalog failure: the library has none
+of a tile's own sources, so the panel reopens on the library with every source and
+filter. On the `#/expression` page, one gene symbol opens that gene's page with the
+page's scope (`useSurveyHandoff`: App hands it to the gene page in memory, not in
+the URL), and the gene page's survey opens in that scope. The handover lasts for
+that visit only: once the gene page has shown and the reader leaves it, the same
+gene reached by ordinary search opens plainly. The population catalog's source
+details show the values the last survey loaded for that source. Several genes, or one Ensembl gene ID, are surveyed on
+the page itself, because the gene page is keyed on symbols.
 
-Opening the view loads the source catalog only. The Survey button or Enter in the
-gene input starts expression-value requests. Up to four sources load concurrently; changing
+The workspace keeps search and source filters in one panel. The population picker
+starts collapsed; export and result-display controls appear once there is a gene.
+Interpretation notes remain available in a disclosure below the results. The survey
+page's gene input starts empty, with no preset-gene buttons.
+
+Opening the survey page loads the source catalog only. The Survey button or Enter in
+the gene input starts expression-value requests; on the gene page, opening every
+source starts them. Up to four sources load concurrently; changing
 the query or leaving a survey cancels its queued work. Shared requests already in
 flight finish normally so later queries can reuse their cached values. A failed source
 offers its own retry, which re-requests that source alone; the catalog and the validation
@@ -116,23 +138,45 @@ checkpoints. See the [GTEx runbook](../../data/expression/gtex/README.md), the
 
 The gene page's "Where <gene> is expressed" section (`GeneExpressionCards` in
 `src/search/portalCards.tsx`) reads the same products through
-`loadReferenceAtlases` in `src/search/searchSummaries.ts`. It is one card with a
-mouse column and a human column, then one link to this survey. The mouse column
-holds the NeuroSeq teaser and the reserved mouse single-cell slot. The teaser
-(`loadBaselineTeaser`) reads each population through the survey's own NeuroSeq
-reader and shows the top five of the 17 source groups by the survey's group mean.
-Source groups are not pooled: a population with two groups (NPY reporter / AgRP,
-SO AVP) gets one row per group, labeled with the group, because groups within one
-population can differ several-fold. The human
-column, "Human hypothalamus", holds four sources:
+`src/search/searchSummaries.ts`. It is one card with an animal row and a human row of
+source tiles. Each tile's **Every …** button opens that source's survey in a panel
+under its row, held to the source; one panel is open at a time. A link in the
+card's header opens the survey page to compare genes.
 
-- GTEx: the median TPM and interquartile range across its 257 donors.
+The animal row, "Animal hypothalamus", holds four tiles:
+
+- NeuroSeq (`loadBaselineTeaser`): each population read through the survey's own
+  NeuroSeq reader, the top three of the 15 source groups by the survey's group
+  mean. The two SFO boundary records are left out, as the survey leaves them out
+  by default. Source groups are not pooled: a population with two groups (NPY
+  reporter / AgRP, SO AVP) gets one row per group, labeled with the group,
+  because groups within one population can differ several-fold.
+- Study library and Tissue & bulk (`loadFamilyTeaser`): each source's highest
+  cohort mean, read through the survey's loaders. Sources keep their own units,
+  so the tile ranks only the sources in the family's most common unit and says
+  how many use another. The study library counts populations, not studies (one
+  study can contribute several, as GSE210311 does). Tissue covers animal
+  (non-human) tissue and broad neuronal preparations, and the tile names the
+  species its sources come from (mouse, rat and pig today); human atlases are in the human
+  row. Bars share one signed axis, so a measured zero draws nothing and a
+  negative value (the median-baselined rat tissue) is drawn left of zero. A
+  source that cannot be read is counted as unread, never as a source that lacks
+  the gene: when none can be read the tile says it could not be loaded and a
+  later visit retries, and a partial read is stated and not cached.
+- Single-cell atlases: a reserved slot. With `VITE_HYPOMAP_EXPRESSION` the tile
+  opens the HypoMap preview. A new mouse single-cell source joins the card here,
+  as this tile's teaser and the panel it opens.
+
+The human row, "Human hypothalamus", holds four tiles:
+
+- GTEx: the median TPM and interquartile range across its 257 donors, and the
+  donor mean, which is the value the source's survey ranks.
 - Allen: one row per probe, with the median and range of the six donor means in
   log2, never of the pooled tissue samples.
-- HPA subregions: the top four by published nTPM.
-- HPA snRNA-seq clusters: the top five by published nCPM.
+- HPA subregions: the top three by published nTPM.
+- HPA snRNA-seq clusters: the top three by published nCPM.
 
-Each atlas keeps its own unit, its bars are scaled to its own highest value, and
+Each source keeps its own unit, its bars are scaled to its own highest value, and
 published values are printed as published. When the page's symbol differs from the
 human gene's (`Pomc` → `POMC`), the column names the match. A provider that cannot
 be read marks only its own source.

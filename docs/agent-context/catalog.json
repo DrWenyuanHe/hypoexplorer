@@ -6,7 +6,7 @@
     "scripts": "Dataset builders, evidence checks and maintenance tools",
     "public": "Static assets and generated browser data bundles",
     "data": "Analysis inputs, retained evidence and reviewed assessments",
-    "geo_replication": "Tracked study inputs and analysis outputs",
+    "geo_replication": "Bulk-replication pipeline scripts and config; fetch:data restores the redistributable study data",
     "workers": "Scheduled R2 spend guard for the data origin",
     "services": "Loopback HypoMap co-detection service behind the gated co-expression card",
     "cloudflare": "Edge cache, WAF and rate-limit rule payloads for the data host",
@@ -108,8 +108,9 @@
       ]
     },
     "expression-survey": {
-      "summary": "Baseline expression by population, study condition and tissue",
+      "summary": "Gene survey workspace shown on gene pages, multi-gene survey, population catalog and source validation",
       "references": [
+        "src/expression-survey/GeneSurvey.tsx",
         "src/expression-survey/ExpressionSurveyView.tsx",
         "src/expression-survey/expressionData.ts",
         "src/expression-survey/sourceJson.ts",
@@ -354,7 +355,13 @@
         "crossdataset",
         "search",
         "utils",
-        "expression-survey"
+        "expression-survey",
+        "statistics",
+        "library",
+        "hub",
+        "circadian",
+        "compare",
+        "methodology"
       ],
       "sources": [
         "src/App.tsx",
