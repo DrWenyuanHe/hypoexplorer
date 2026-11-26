@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "809db7928ecfccf36cd0b17dfea82b4ac86e400c32c1f683560881138a545b8a",
-  "outcome": "updated",
-  "explanation": "No dataset workflow change. explorerStore.ts changes only its header comment: which dataset and track are active is the explorer position held by explorer/useExplorer.ts. No load, guard or cache rule changed.",
+  "fingerprint": "a708580e82c35c60ea7f08687486236e47851df0acd9672210daeb440b02fedb",
+  "outcome": "no-impact",
+  "explanation": "Adding or changing a dataset follows the same steps. main only rewords the explorerStore.ts header; this branch adds a CI test that fails when author-validation ledgers are committed without regenerating validation-records.generated.json, a step the workflow already required in the maintainer checkout.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/data/explorerStore.ts"
+    "src/data/explorerStore.ts",
+    "data/author-validation/README.md"
   ]
 }

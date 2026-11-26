@@ -16,6 +16,7 @@ import { pathwayValidationByDataset } from './lib/authorPathwayValidation.mjs';
 import { readCurrentIntakePathwayRecords } from './lib/currentIntakePathwayEvidence.mjs';
 import { carriedForwardWarning, missingLocalInputs } from './lib/authorValidationAudit.mjs';
 import { readScopedAuthorEvidence } from './lib/scopedAuthorEvidence.mjs';
+import { authorValidationInputSha256 } from './lib/authorValidationInputs.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const scopedAuthorEvidence = readScopedAuthorEvidence(ROOT);
@@ -421,6 +422,8 @@ const report = {
     excludedDatasetId: EXCLUDED_DATASET,
     unit: 'dataset x registered contrast',
   },
+  // Checked by src/__tests__/authorValidationFreshness.test.ts, which runs without the evidence.
+  inputSha256: authorValidationInputSha256(ROOT),
   counts,
   records,
 };

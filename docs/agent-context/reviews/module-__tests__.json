@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "93e1041a5eb0e8e28ec1d4ceb2f7f401ec4a820d88973419eb52a6023abf86d6",
+  "fingerprint": "1f3c2b400828e0a8aba09e8c2b4161d85251c9db47fc79b640c77ad4c6e19027",
   "outcome": "updated",
-  "explanation": "useExplorer.test.tsx pins the move order without mounting App (a dataset move with a saved analysis ends on the shared genes, a plain one clears them), a Compare link landing on a new epoch and riding in at only while in Compare, a report keeping the epoch, and stable nav and showActiveTrack. explorerTrackLoad.test.tsx removes the setup's seeded default-track global and counts loadTrackData calls: none on the hub, the active track once the explorer opens, none for Compare; it also pins the study-details disclosure staying open and the dataset-info panel closing across a trip home. Four router tests import ExplorerNavigation and ExplorerAt from explorer/useExplorer.",
+  "explanation": "From main: useExplorer.test.tsx and explorerTrackLoad.test.tsx pin the explorer move order and track loads, and four router tests import from explorer/useExplorer. From this branch: authorValidationFreshness.test.ts compares validation-records.generated.json with verification-review.json, comparability-review.json and the recorded inputSha256, and the builder source-gate fixture supplies additional-comparison-specs.json and checks the five recorded input hashes. The three freshness checks are marked it.fails until the 2026-10-25 records are regenerated, and the regenerating commit must change them back to it; the README and verification workflow say so.",
   "references": [
+    "src/__tests__/authorValidationFreshness.test.ts",
+    "src/__tests__/authorValidationBuilderSourceGate.test.ts",
     "src/__tests__/useExplorer.test.tsx",
-    "src/__tests__/explorerTrackLoad.test.tsx",
-    "src/__tests__/appRouter.test.tsx",
-    "src/__tests__/navigationAttempts.test.tsx"
+    "src/__tests__/explorerTrackLoad.test.tsx"
   ]
 }
