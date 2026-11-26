@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "a5d227b19d2051a82cfc9ba5d317333a53b90d4a732ae25a260db48b1addeefd",
+  "fingerprint": "1a588f4fa814b7b422f9570c7a7d72da71e80d70caf5feac4218214f10a036b5",
   "outcome": "updated",
-  "explanation": "CONTEXT.md gains a Keyed load entry for common/useLoad.ts: the null-key idle rule, loading for a new key or Retry, stale answers dropped, failed with a Retry, and the portal cards reading failed like null. No guidance, command or configuration changed.",
+  "explanation": "pnpm-workspace.yaml overrides workbox-build>glob to 14.0.6 so the build-time PWA globbing uses the patched minimatch 11 (GHSA-g3hv-75wg-m249) instead of minimatch 10.2.6; the lockfile changes only in that subtree. The full-worker build precaches the same 91 entries. No guidance, command or context map changed.",
   "references": [
-    "CONTEXT.md",
-    "src/common/useLoad.ts"
+    "pnpm-workspace.yaml",
+    "pnpm-lock.yaml",
+    "vite.config.ts"
   ]
 }
