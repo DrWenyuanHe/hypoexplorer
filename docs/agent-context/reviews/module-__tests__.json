@@ -1,13 +1,11 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "868da172ddee34a45a80eed5830b01c05bf4d2bab0d43c12f347adc5812bf61c",
+  "fingerprint": "e07b22a78e14f16bc5d20e1e29502be09740c7be068f63c61f7a8c83b3ca1669",
   "outcome": "updated",
-  "explanation": "Merges main (PR #88) into the cold-link change. From main: authorValidationFreshness.test.ts fails in CI when validation-records.generated.json disagrees with its ledgers or the inputSha256 the builder records; its three checks are marked it.fails until the 2026-10-25 records are regenerated, and the regenerating commit must change them back to it. The builder source-gate fixture supplies additional-comparison-specs.json and checks the five recorded input hashes. From this branch: bootLinkLoads.test.tsx removes the setup's seeded macaque globals and counts loadTrackData calls for cold links (each loads only its own track; a link refused after its check and the hub load none), and explorerStore.test.tsx pins a metadata failure keeping its banner while a track load starts and succeeds. Each new case fails with its fix removed.",
+  "explanation": "routeRoundTrip.test.ts writes an address with routeOf and reads it back with landHash (settling a named track with the dataset's real populations from its committed meta.js, as the router does), for every full page (search, library, tracker, both reports with seven study selections and both chart scales, the compare set) and, on every registered dataset, each real track and the tabs it offers, saved analyses on the default and last contrast, and Compare views. Hard strings (slashes, ?, #, &, %, quotes, Unicode, 120 characters) stress the codec. It found no mismatch; with the explorer writer made to drop a default track a non-default tab needs, it fails.",
   "references": [
-    "src/__tests__/bootLinkLoads.test.tsx",
-    "src/__tests__/explorerStore.test.tsx",
-    "src/__tests__/authorValidationFreshness.test.ts",
-    "src/__tests__/authorValidationBuilderSourceGate.test.ts"
+    "src/__tests__/routeRoundTrip.test.ts",
+    "src/__tests__/routeLanding.test.ts"
   ]
 }

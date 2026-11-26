@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (272):
+Covered source files (273):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -270,6 +270,7 @@ Covered source files (272):
 - [src/__tests__/rhythmicity.test.ts](<../../../src/__tests__/rhythmicity.test.ts>)
 - [src/__tests__/routeLanding.test.ts](<../../../src/__tests__/routeLanding.test.ts>)
 - [src/__tests__/routeLandingRegressions.test.tsx](<../../../src/__tests__/routeLandingRegressions.test.tsx>)
+- [src/__tests__/routeRoundTrip.test.ts](<../../../src/__tests__/routeRoundTrip.test.ts>)
 - [src/__tests__/sampleValues.test.ts](<../../../src/__tests__/sampleValues.test.ts>)
 - [src/__tests__/seRecovery.test.ts](<../../../src/__tests__/seRecovery.test.ts>)
 - [src/__tests__/sealedEvidenceProjection.test.ts](<../../../src/__tests__/sealedEvidenceProjection.test.ts>)

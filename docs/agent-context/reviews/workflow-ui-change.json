@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "bfd0fee0bfd2ba0fb80f55e0d8dd975284d9ec164b35b5a3b42a17568baa26a6",
+  "fingerprint": "762f9112c20badba5f6233cef9c6364697efabb8a68f52da79689cffea18250d",
   "outcome": "updated",
-  "explanation": "No workflow rule changes. App's active-track load waits for a landing to settle (the router's routePending) and skips a refusal, and the store keeps a metadata failure across a track load; CONTEXT.md names both. Routes, link format and the visible explorer are unchanged.",
+  "explanation": "No workflow rule changes. A link's written form now lives in routeLanding.routeOf beside its reader, and routeRoundTrip.test.ts fails if a change to either side makes an address land somewhere other than where it was written; CONTEXT.md names both. Routes and link format are unchanged.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/App.tsx",
-    "src/data/explorerStore.ts",
+    "src/routeLanding.ts",
     "CONTEXT.md"
   ]
 }
