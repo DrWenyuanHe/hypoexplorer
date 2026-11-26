@@ -6,7 +6,7 @@
     "scripts": "Dataset builders, evidence checks and maintenance tools",
     "public": "Static assets and generated browser data bundles",
     "data": "Analysis inputs, retained evidence and reviewed assessments",
-    "geo_replication": "Tracked study inputs and analysis outputs",
+    "geo_replication": "Bulk-replication pipeline scripts and config; fetch:data restores the redistributable study data",
     "workers": "Scheduled R2 spend guard for the data origin",
     "services": "Loopback HypoMap co-detection service behind the gated co-expression card",
     "cloudflare": "Edge cache, WAF and rate-limit rule payloads for the data host",
@@ -100,8 +100,10 @@
       ]
     },
     "explorer": {
-      "summary": "Explorer position, track navigation, tab declarations and session state",
+      "summary": "Explorer position, session state, the explorer screen, track navigation and tab declarations",
       "references": [
+        "src/explorer/useExplorer.ts",
+        "src/explorer/ExplorerShell.tsx",
         "src/explorer/explorerPosition.ts",
         "src/explorer/explorerTabs.ts",
         "src/explorer/explorerSession.ts"
@@ -355,10 +357,18 @@
         "crossdataset",
         "search",
         "utils",
-        "expression-survey"
+        "expression-survey",
+        "statistics",
+        "library",
+        "hub",
+        "circadian",
+        "compare",
+        "methodology"
       ],
       "sources": [
         "src/App.tsx",
+        "src/explorer/useExplorer.ts",
+        "src/explorer/ExplorerShell.tsx",
         "src/appRouter.ts",
         "src/routeLanding.ts",
         "CONTEXT.md",

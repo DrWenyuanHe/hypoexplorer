@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "23adfba2c391d79b6f5b09fd5d1e66eed69bd7fc8176d43c1404e62dbce70a7c",
+  "fingerprint": "2e27fe30b029210be8b17bd745fa9e0de2b33d2ad261d7431b67fffd1922510f",
   "outcome": "updated",
-  "explanation": "The tile layout follows the existing UI rules: the survey workspace loads through lazyView so the search page chunk stays unchanged, exports go through the survey's own export path, and routing is untouched. The ui-change workflow needs no new rule. The rename work changes it: the ui-change workflow now describes renames.js from the names builder, its search alias rules, the gene report and summaries reading studies under rename-group members with storedAs and pickStoredMember, the gene page note and row tag, the preview lookup and compareCell receiving the table.",
+  "explanation": "No workflow rule changes. A change to the explorer screen now lands in src/explorer/ExplorerShell.tsx and a change to how a move is carried out in src/explorer/useExplorer.ts; the catalog lists both as ui-change sources and CONTEXT.md names them. App.tsx keeps the view switch. Routes, link format and the visible explorer are unchanged; the dataset-info panel now starts closed on each visit.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/common/lazyView.tsx",
-    "src/search/portalCards.tsx",
-    "src/data/crossDataset.ts",
-    "src/data/symbolRenames.ts"
+    "docs/agent-context/catalog.json",
+    "src/explorer/ExplorerShell.tsx",
+    "src/explorer/useExplorer.ts",
+    "CONTEXT.md"
   ]
 }

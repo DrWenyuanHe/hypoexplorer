@@ -23,10 +23,9 @@ import { useSymbolRenames } from '../data/useSymbolRenames';
 import { DownloadIcon, DownloadMenu, type DownloadMenuItem } from './DownloadMenu';
 import type { Dataset, DatasetMeta, PopData, ResolvedContrast } from '../types';
 import type { CompareViewState } from '../utils/analysisState';
+import { compareLink, openCompareView, sameCompareLink, type CompareMode } from './compareView';
 import { useGeneSelection } from '../explorer/explorerSession';
 import { geneVocabulary, useBoundGeneSelection } from '../explorer/geneVocabulary';
-
-const DEFAULT_POPS = ['e9', 'i23'];
 
 interface CompareTabProps {
   /** The active dataset's metadata (labels, colors) — a value from App's state,
@@ -39,23 +38,16 @@ interface CompareTabProps {
    *  popData with neither, so it rendered the dataset's DEFAULT contrast while
    *  the shell showed another one. */
   contrast: ResolvedContrast | null;
-  defaultPops?: string[];
+  /** The pair Compare opens on (comparePair), from this dataset's own
+   *  populations. Required: a missing pair once fell back to the macaque
+   *  atlas's e9 / i23 for any dataset. */
+  defaultPops: string[];
   /** Where to start: a Compare link's view, or the one last left. Read once,
    *  on mount — the shell remounts this view to land somewhere else. */
   initialView?: CompareViewState;
   /** Told what Compare shows after every change, defaults left out, so the
    *  shell can keep it in the URL and resume it. */
   onViewChange?: (view: CompareViewState) => void;
-}
-
-/** What Compare shows, with each default left out (the shape a link carries). */
-function viewToRecord(pops: string[], defaults: string[], genes: readonly string[], mode: 'genes' | 'pathways'): CompareViewState {
-  const isDefault = pops.length === defaults.length && pops.every((id, i) => id === defaults[i]);
-  return {
-    ...(isDefault ? {} : { pops }),
-    ...(genes.length ? { genes: [...genes] } : {}),
-    ...(mode === 'pathways' ? { mode } : {}),
-  };
 }
 
 // Each selected population is a track column. Pathways included (the Pathways
@@ -101,26 +93,27 @@ const downloadTrigger: CSSProperties = {
 };
 
 export function CompareTab({ meta, dataset, contrast, defaultPops, initialView, onViewChange }: CompareTabProps) {
-  // Default compare selection comes from the active dataset (App passes
-  // dataset.defaultCompareTracks or its first two tracks). Fall back to the
-  // macaque curated pair only for direct/test renders with NO prop: an empty
-  // list for another dataset must not become two tracks that dataset lacks.
-  const initialPops = defaultPops ?? DEFAULT_POPS;
-  const [selectedPops, setSelectedPops] = useState(() => initialView?.pops ?? initialPops);
+  // Where to start, read once: the link's view with its left-out defaults
+  // filled back in (compareView.ts).
+  const [opened] = useState(() => openCompareView(initialView, defaultPops));
+  const [selectedPops, setSelectedPops] = useState(opened.pops);
   // The Compare tab's gene selection is its OWN — independent of the Gene
   // Explorer's. Two instances of the same concept is what makes useGeneSelection
   // a seam rather than a hoist.
-  const geneSelection = useGeneSelection(initialView?.genes);
+  const geneSelection = useGeneSelection(opened.genes);
   const { busy: exporting, run: runExport } = useExportAction();
   const chartScale = useChartScale();
-  const [compareMode, setCompareMode] = useState<'genes' | 'pathways'>(initialView?.mode ?? 'genes');
+  const [compareMode, setCompareMode] = useState<CompareMode>(opened.mode);
   // Report every change to the shell, which writes it into the URL: a refresh,
-  // Back or a copied link then reopens exactly this comparison.
-  // Keyed by VALUE: the shell hands over a fresh `defaultPops` array on every
-  // render, and an object identity in the deps would report (and re-render
-  // the shell) on every one of them.
-  const viewKey = JSON.stringify(viewToRecord(selectedPops, initialPops, geneSelection.genes, compareMode));
-  useEffect(() => { onViewChange?.(JSON.parse(viewKey) as CompareViewState); }, [viewKey, onViewChange]);
+  // Back or a copied link then reopens exactly this comparison. Compared by
+  // value, so a render that changes nothing reports nothing.
+  const link = compareLink({ pops: selectedPops, genes: geneSelection.genes, mode: compareMode }, defaultPops);
+  const reported = useRef<CompareViewState | null>(null);
+  useEffect(() => {
+    if (reported.current && sameCompareLink(reported.current, link)) return;
+    reported.current = link;
+    onViewChange?.(link);
+  });
   const rootRef = useRef<HTMLDivElement>(null);
 
   // On a phone, or a laptop window under 700px tall, the fixed rows (cells,
@@ -293,7 +286,7 @@ export function CompareTab({ meta, dataset, contrast, defaultPops, initialView, 
       {/* Population selector — own row so chips never push the gene search
           around. The selector keeps itself to one line until expanded. */}
       <div style={{ flexShrink: 0, padding: '8px 12px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', minWidth: 0 }}>
-        <CellSelectorPopup meta={meta} selectedPops={selectedPops} onChange={setSelectedPops} defaultSelection={initialPops} />
+        <CellSelectorPopup meta={meta} selectedPops={selectedPops} onChange={setSelectedPops} defaultSelection={defaultPops} />
       </div>
       {/* Gene search — own fixed row, genes mode only */}
       {compareMode === 'genes' && (

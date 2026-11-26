@@ -21,7 +21,7 @@ Directories:
 - `scripts/`: Dataset builders, evidence checks and maintenance tools.
 - `public/`: Static assets and generated browser data bundles.
 - `data/`: Analysis inputs, retained evidence and reviewed assessments.
-- `geo_replication/`: Tracked study inputs and analysis outputs.
+- `geo_replication/`: Bulk-replication pipeline scripts and config; fetch:data restores the redistributable study data.
 - `workers/`: Scheduled R2 spend guard for the data origin.
 - `services/`: Loopback HypoMap co-detection service behind the gated co-expression card.
 - `cloudflare/`: Edge cache, WAF and rate-limit rule payloads for the data host.
@@ -38,7 +38,7 @@ Source areas:
 - `crossdataset`: Gene, pathway and expression reports across studies.
 - `data`: Registry, bundle loading, query indexes and evidence state.
 - `dataset-tracker`: Integrated dataset intake and evidence board.
-- `explorer`: Explorer position, track navigation, tab declarations and session state.
+- `explorer`: Explorer position, session state, the explorer screen, track navigation and tab declarations.
 - `expression-survey`: Gene survey workspace shown on gene pages, multi-gene survey, population catalog and source validation.
 - `gene-explorer`: Gene search, volcano plots and expression displays.
 - `hub`: Search-first landing page and study entry points.

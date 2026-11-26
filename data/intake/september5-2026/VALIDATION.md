@@ -1,5 +1,7 @@
 # September 5 intake validation
 
+> Dated record (2026-09-05). The current audit of this intake is `pnpm run check:intake`; current author-comparison state is in [the verification guide](../../author-validation/README.md). The JSON records linked below are tracked here and can be read in any checkout; replaying the analyses needs inputs that are not, see [Files not in this repository](../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
+
 The intake adds 14 studies, 22 tracks and 51 fitted comparisons. The explorer registry now contains 159 studies and its query index contains 226 tracks.
 
 Completed checks:

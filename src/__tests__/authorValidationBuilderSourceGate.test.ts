@@ -90,6 +90,8 @@ vi.mock('node:fs', () => {
                 ],
         },
         'fgsea-migration.generated.json': {},
+        // Hashed into inputSha256; the builder reads it only through compare_author_results.mts.
+        'additional-comparison-specs.json': { schemaVersion: 1, comparisons: [] },
         'comparability-review.json': {
           schemaVersion: 1,
           records: fixture.profilePresent ? {
@@ -176,6 +178,7 @@ describe('author-validation builder source-integrity gate', () => {
     );
     expect(output).toBeDefined();
     expect(JSON.parse(output![1]).records[0].verification.state).toBe('full');
+    expect(Object.keys(JSON.parse(output![1]).inputSha256)).toHaveLength(5);
   });
   it('blocks regeneration if a numerical comparison loses its explicit scope review', async () => {
     fixture.sourceIntegrity = 'pass';

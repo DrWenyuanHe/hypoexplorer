@@ -77,6 +77,9 @@
 .portal-bar-label { color: var(--text-mono); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .portal-bar-track { height: 8px; background: var(--row-hover); border-radius: 999px; overflow: hidden; }
 .portal-bar { display: block; height: 100%; background: var(--text-muted); border-radius: 999px; }
+/* A tile bar on a signed axis: the fill starts at its own left edge; a zero line shows when values fall below zero. */
+.portal-bar-track--signed { position: relative; }
+.portal-bar-zero { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--text-mono); }
 .portal-bar-value { font-family: var(--font-mono); font-size: var(--fs-12); text-align: right; color: var(--text-mono); }
 
 /* Where the gene is expressed: a mouse row and a human row of source tiles.

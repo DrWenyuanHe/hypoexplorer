@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { mean } from '../utils/math';
-import { pToStar, fmtP } from '../utils/format';
+import { pToStar, fmtP, fmtFDR } from '../utils/format';
 import { displayUnit, getGroupedValues, groupLabels, unitProvenance } from '../utils/sampleValues';
 import { btnStyle, UP_TEXT_COLOR, DOWN_TEXT_COLOR, NEUTRAL_TEXT_COLOR, FONT_MONO, FONT_SANS } from '../styles/constants';
 import { useExportAction } from '../utils/exportAction';
@@ -146,7 +146,7 @@ export function SummaryTable({ selectedGenes, onRemove, popData, scrollMaxHeight
                 <td style={{ padding: '3px 8px', color: 'var(--text-mono)', fontWeight: 500 }}>{r.gene}</td>
                 <td style={{ padding: '3px 8px', textAlign: 'right', color: r.logFC > 0 ? UP_TEXT_COLOR : r.logFC < 0 ? DOWN_TEXT_COLOR : NEUTRAL_TEXT_COLOR, fontVariantNumeric: 'tabular-nums' }}>{r.logFC.toFixed(3)}</td>
                 <td style={{ padding: '3px 8px', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{fmtP(r.PValue)}</td>
-                <td style={{ padding: '3px 8px', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{r.FDR.toFixed(3)}</td>
+                <td style={{ padding: '3px 8px', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{fmtFDR(r.FDR)}</td>
                 <td style={{ padding: '3px 8px', textAlign: 'center', fontFamily: FONT_SANS, color: r.star === 'ns' ? NEUTRAL_TEXT_COLOR : 'var(--text-primary)' }}>{r.star}</td>
                 <td style={{ padding: '3px 8px', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{r.meanN.toFixed(2)}</td>
                 <td style={{ padding: '3px 8px', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{r.meanO.toFixed(2)}</td>

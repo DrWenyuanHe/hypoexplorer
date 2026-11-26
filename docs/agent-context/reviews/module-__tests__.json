@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "287627e2790c024c60c7523a2568eadd657870867dec02c85ff32e957806c6bd",
+  "fingerprint": "ccea4e99100fc54a93e8f5c4a6fd78c2040ffbc2f51a669decd9b376ee87d524",
   "outcome": "updated",
-  "explanation": "authorValidationFreshness.test.ts checks that validation-records.generated.json carries every verification-review.json field the builder copies (allowing only the builder-forced unresolved outcome), every comparability-review.json record unchanged, and inputSha256 equal to the current hashes of the four ledgers and direct-comparisons.generated.json. It runs without the untracked evidence, so CI catches a ledger committed without regeneration.",
+  "explanation": "From main: useExplorer.test.tsx and explorerTrackLoad.test.tsx pin the explorer move order and track loads, and four router tests import from explorer/useExplorer. From this branch: authorValidationFreshness.test.ts compares validation-records.generated.json with verification-review.json, comparability-review.json and the recorded inputSha256, and the builder source-gate fixture supplies additional-comparison-specs.json and checks the five recorded input hashes.",
   "references": [
     "src/__tests__/authorValidationFreshness.test.ts",
-    "scripts/lib/authorValidationInputs.mts",
-    "data/author-validation/README.md"
+    "src/__tests__/authorValidationBuilderSourceGate.test.ts",
+    "src/__tests__/useExplorer.test.tsx",
+    "src/__tests__/explorerTrackLoad.test.tsx"
   ]
 }

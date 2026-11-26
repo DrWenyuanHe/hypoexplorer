@@ -42,7 +42,10 @@
 //     placeholder names no other gene. A named alias does not join, because
 //     the NCBI and RGD alias lists mix in paralogs (chicken CCNB2 is listed
 //     under CCNB1, rat Eola2 under Eola1),
-//   * that symbol is stored as 'current' under the SAME authority, once,
+//   * that symbol is stored as 'current' under the SAME authority as one
+//     record: once, or as rows that differ only in case and share one
+//     authority ID (MGI stores Tango2 and TANGO2, both MGI:101825); the group
+//     takes the spelling the retired row names,
 //   * both rows carry the same authority ID (MGI:3646213 for both spellings),
 //   * the retired symbol is not itself current there, and its first letter
 //     has the current symbol's case (MGI and RGD list lowercase allele names
@@ -175,9 +178,11 @@ function renameGroups(rows: readonly ParsedRow[]): RenameGroup[] {
     if (currentByKey.has(`${r.authority}\x00${r.symbol.toUpperCase()}`)) continue;
     const key = `${r.authority}\x00${target.toUpperCase()}`;
     const current = currentByKey.get(key);
-    if (current?.length !== 1 || current[0].authorityId !== r.authorityId) continue;
-    if (startsLower(r.symbol) !== startsLower(current[0].symbol)) continue;
-    const group = groups.get(key) ?? { authority: r.authority, current: current[0].symbol, retired: [] };
+    // Current rows that differ only in case are one record when they share its ID.
+    if (!current || new Set(current.map((c) => c.authorityId)).size !== 1 || current[0].authorityId !== r.authorityId) continue;
+    const primary = current.find((c) => c.symbol === target) ?? current[0];
+    if (startsLower(r.symbol) !== startsLower(primary.symbol)) continue;
+    const group = groups.get(key) ?? { authority: r.authority, current: primary.symbol, retired: [] };
     if (!group.retired.some((s) => s.toUpperCase() === r.symbol.toUpperCase())) group.retired.push(r.symbol);
     groups.set(key, group);
   }

@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "c5e4ee582ae47710adf397efec9ebff66be322ff93c3d6311d0dc9e2967ec486",
+  "fingerprint": "25411a21d925155e34db8dd38fc93e10e8b78bda298496a308a846b7395f8530",
   "outcome": "updated",
-  "explanation": "GeneExpressionCards is now an animal row and a human row of source tiles (NeuroSeq, study library, tissue named by its species, a single-cell slot; GTEx, Allen, HPA subregions and clusters). Each tile opens its source's survey under its row through a lazyView of GenePageSurvey held to that source; the HypoMap preview sits behind the single-cell tile. searchSummaries adds loadFamilyTeaser (each source's highest cohort mean, ranked within the most common unit), leaves SFO boundary records out of the NeuroSeq teaser and gives GTEx and Allen spreads a mean.",
+  "explanation": "portalCards.tsx drops its own useLoad (no failure state, so a rejecting loader stayed loading) and its never-settling PENDING promise; it and SearchPage.tsx use common/useLoad, with a null key for an undecided study selection or an off-screen row in place of the empty-string key and loadRowSummary shim. Cards read failed like null (the portal loaders already map failures to null through searchSummaries.cached), so what they show is unchanged. The HypoMap views import the hook from common/useLoad.",
   "references": [
     "src/search/portalCards.tsx",
-    "src/search/searchSummaries.ts",
-    "src/search/search.css",
-    "docs/runbooks/EXPRESSION_SURVEY.md"
+    "src/search/SearchPage.tsx",
+    "src/search/hypomap/Coexpression.tsx",
+    "src/search/hypomap/HypoMapPreview.tsx",
+    "src/common/useLoad.ts"
   ]
 }

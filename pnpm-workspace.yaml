@@ -5,3 +5,10 @@ allowBuilds:
 
 patchedDependencies:
   xlsx: patches/xlsx.patch
+
+# workbox-build 7.4.1 (via vite-plugin-pwa) asks for glob ^11, whose minimatch 10
+# is affected by GHSA-g3hv-75wg-m249. glob 14 depends on the patched minimatch 11
+# and keeps the globSync(pattern, { cwd, follow, ignore }) call workbox makes.
+# Drop this once workbox-build moves past glob 11.
+overrides:
+  workbox-build>glob: 14.0.6

@@ -32,6 +32,7 @@ import {
 } from './CircadianResultsTable';
 import type { AdjustMethod } from './multipleTesting';
 import { hasEstimablePeak } from './peak';
+import { armVerdict } from './rhythmCall';
 import type { RhythmResult } from './rhythmicity';
 
 /** One arm's row: the single-gene fit and, once its scan is done, its adjusted value. */
@@ -71,16 +72,6 @@ export interface ArmStatsStripProps {
   threshold: number;
   /** Time-axis prefix for peak times ('' for elapsed hours). */
   unit: string;
-}
-
-type Verdict = 'rhythmic' | 'not rhythmic' | 'pending' | 'not tested';
-
-function verdictOf(stat: ArmStat, adjust: AdjustMethod, threshold: number): Verdict {
-  if (!stat.fit) return 'not tested';
-  if (adjust === 'none') return stat.fit.p < threshold ? 'rhythmic' : 'not rhythmic';
-  if (stat.q === undefined) return 'pending';
-  if (stat.q === null) return 'not tested';
-  return stat.q < threshold ? 'rhythmic' : 'not rhythmic';
 }
 
 /** "24", "23.5": hours to at most two decimals, no trailing zeros. */
@@ -187,7 +178,7 @@ export function ArmStatsStrip({ gene, arms, adjust, qLabel, threshold, unit }: A
           </thead>
           <tbody>
             {arms.map((a) => {
-              const verdict = verdictOf(a, adjust, threshold);
+              const verdict = armVerdict(a.fit, a.q, { adjust, threshold });
               const rhythmic = verdict === 'rhythmic';
               const fit = a.fit;
               const estimable = hasEstimablePeak(fit);

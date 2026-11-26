@@ -1,5 +1,7 @@
 # GSE224274: the deposited CPM matrix is a renormalized gene subset
 
+> Dated record (2026-10-29). Current review decisions are the ledgers described in [the verification guide](../README.md). Its commands and linked evidence need the maintainer checkout; see [Files not in this repository](../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
+
 The [September 11 review](../continuation-round2-2026-09-11/intake-author/README.md#gse224274-a-source-universe-discrepancy)
 found that the 14,952 readable genes in the authors' Figure 1c workbook share no gene with
 the 5,764 genes in the GEO matrix `GSE224274_CPM-Gys.txt.gz`. It recorded the cause as not
@@ -13,6 +15,7 @@ python -I data/author-validation/gse224274-deposit-slice-2026-10-29/measure.py
 python -I data/author-validation/gse224274-deposit-slice-2026-10-29/measure.py --check
 ```
 
+`measure.py` and `measurement.json` are not tracked in this repository; only this README is.
 The inputs and their SHA-256 values are pinned in `measurement.json`. The GEO matrix is a
 retained local input under `geo_replication/` and is not tracked; where it is absent, fetch
 it from the [GEO series files](https://ftp.ncbi.nlm.nih.gov/geo/series/GSE224nnn/GSE224274/suppl/)

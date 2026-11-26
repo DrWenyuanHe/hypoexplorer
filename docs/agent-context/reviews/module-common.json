@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-common",
-  "fingerprint": "73ae2a1661d0be43bf349690da0b970567fad1328367892b528411fa53826156",
+  "fingerprint": "6429e23bc88b101967819210430509b788394ed8f00a64fc2adfb47ab58d04b2",
   "outcome": "updated",
-  "explanation": "authorEvidenceText appends the author follow-up label, and AuthorValidationPanel adds an Author follow-up row when a record carries one. Badges and states are unchanged.",
+  "explanation": "Adds useLoad.ts, moved from search/hypomap: the one keyed load-and-retry lifecycle (idle without a key, loading for a new key or a Retry, failed with a Retry when a load rejects, loaded; a stale answer is dropped and the signal aborts on a key change or unmount). The search rows, the gene-page and search cards and the HypoMap views all use it.",
   "references": [
-    "src/common/AuthorValidation.tsx",
-    "src/data/authorVerification.ts"
+    "src/common/useLoad.ts",
+    "CONTEXT.md"
   ]
 }

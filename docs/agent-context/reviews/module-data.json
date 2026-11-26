@@ -1,13 +1,11 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "f771bfd15b7e30098458678a33dbe8be9095d580c3fb4ba6d127c423b08f1e3b",
+  "fingerprint": "548779939e290e7424b62b94948d31179eea632938cfd14c787b1961199cac05",
   "outcome": "updated",
-  "explanation": "Adds symbolRenames.ts (React-free client for public/nomenclature/renames.js: rename groups per authority, renameGroupOf, renamePartners, pickStoredMember, renameAuthorityOf) and useSymbolRenames.ts. queryGeneViaIndex reads partner shards beside the queried key and the full-download path checks partners in each DE table, one row per track, marking storedAs; the rename table loads beside the manifest.",
+  "explanation": "explorerStore.ts changes only its header comment: which dataset and track are active is the explorer position held by explorer/useExplorer.ts. No load, guard or cache rule changed.",
   "references": [
-    "src/data/symbolRenames.ts",
-    "src/data/useSymbolRenames.ts",
-    "src/data/crossDataset.ts",
-    "CONTEXT.md"
+    "src/data/explorerStore.ts",
+    "src/explorer/useExplorer.ts"
   ]
 }

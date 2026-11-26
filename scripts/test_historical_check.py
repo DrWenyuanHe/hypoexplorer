@@ -1,4 +1,9 @@
-"""Isolation and tamper tests for the historical check adapter's projections."""
+"""Isolation and tamper tests for the historical check adapter's projections.
+
+Maintainer only: scripts/run_historical_check.py is not in this repository
+(docs/PROJECT_GUIDANCE.md#files-not-in-this-repository), so these tests fail at
+import on a public clone.
+"""
 import gzip
 import hashlib
 import json

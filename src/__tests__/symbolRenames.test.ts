@@ -39,6 +39,14 @@ describe('the rename table', () => {
     expect(renameGroupsFor(renames, 'aars').map((g) => g.authority)).toEqual(['HGNC']);
   });
 
+  it('drops a row with a malformed member instead of throwing', () => {
+    const table = buildSymbolRenames({ v: 1, authorities: ['MGI'], groups: [[0, 'Fam237b', null], [0, 'Newa', ''], [0, 'Pomc', 'Pomc1']] });
+    expect(renameGroupOf(table, 'Fam237b', 'MGI')).toBeNull();
+    expect(renameGroupOf(table, 'Newa', 'MGI')).toBeNull();
+    expect(renameGroupOf(table, 'Pomc1', 'MGI')?.current).toBe('Pomc');
+    expect(buildSymbolRenames({ v: 1, authorities: ['MGI'], groups: [[0, 'Fam237b', 42]] })).toBeNull();
+  });
+
   it('reads a payload it cannot decode as no table at all', () => {
     expect(buildSymbolRenames(null)).toBeNull();
     expect(buildSymbolRenames({ ...PAYLOAD, v: 2 })).toBeNull();

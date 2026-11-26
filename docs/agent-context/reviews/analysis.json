@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "analysis",
-  "fingerprint": "dcb8e9e83dd51eaee4d6e43eb861d3da5a6725d491b7e19b4d4aab85b44626a3",
+  "fingerprint": "54728a440402b5a6fc1b949050fa4feae7eaf22d1fe7d3aeb3f0ef5ca66a6f4c",
   "outcome": "updated",
-  "explanation": "The author-validation README now says to commit regenerated records with any ledger edit, names the CI freshness test that compares validation-records.generated.json with verification-review.json, comparability-review.json and the recorded inputSha256, and documents the new inputSha256 field in the schema-2 data contract. No ledger, evidence or generated record changed.",
+  "explanation": "Merges main into the author-validation freshness guard. From main: dated evidence records gain their maintainer-checkout header and analyze:hfd runs the R 4.6.0 HFD producers, as the HFD intake record says. From this branch: the author-validation README says to commit regenerated records with any ledger edit, names the CI freshness test and documents the inputSha256 field that build_author_validation.mts now writes. No ledger, evidence or generated record changed.",
   "references": [
     "data/author-validation/README.md",
+    "data/quality/hfd-intake-2026-09-12/README.md",
     "scripts/build_author_validation.mts",
-    "scripts/lib/authorValidationInputs.mts"
+    "scripts/lib/authorValidationInputs.mts",
+    "scripts/analyze_hfd_r460.mts"
   ]
 }

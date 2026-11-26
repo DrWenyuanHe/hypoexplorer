@@ -1,5 +1,7 @@
 # September 5 discovery intake
 
+> Dated record (2026-09-05). The current audit of this intake is `pnpm run check:intake` (`scripts/audit_september5_intake_current.mts`). Its commands and linked evidence need the maintainer checkout; see [Files not in this repository](../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
+
 14 new studies, 22 tracks and 51 fitted comparisons. 14 new studies are registered in the explorer.
 
 The original discovery files are preserved. Download manifests record source URLs, file sizes and SHA-256 checksums. Animal or independent pool identifiers define replication; cells and technical runs are never promoted to independent animals.
@@ -55,9 +57,11 @@ Run the source fetcher and accession-specific preparers, then:
 Rscript scripts/run_september5_pipeline.R
 $ids = (Get-Content data/intake/september5-2026/analyses.json -Raw | ConvertFrom-Json).analysisId
 Rscript scripts/run_mouse_fgsea.R @ids --force
-npx tsx scripts/build_september5_bundles.mts
-npx tsx scripts/audit_september5_intake.mts
+pnpm exec tsx scripts/build_september5_bundles.mts
+pnpm exec tsx scripts/audit_september5_intake.mts
 python scripts/report_september5_intake.py
 ```
+
+`audit_september5_intake.mts` traces the replaced R 4.4.1 outputs. The current audit is `scripts/audit_september5_intake_current.mts`, run by `pnpm run check:intake`.
 
 The prepared study manifest and per-study source notes specify the importer and analysis lane. Downloading and preparing raw-read-only or unsupported-species candidates requires the additional work listed above.

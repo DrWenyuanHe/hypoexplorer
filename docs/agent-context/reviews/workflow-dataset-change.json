@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "aa8d1f3731b6084d69ef1a0a3dcd59d0801d626b2458116e94c801ce8c3ae02d",
+  "fingerprint": "a708580e82c35c60ea7f08687486236e47851df0acd9672210daeb440b02fedb",
   "outcome": "no-impact",
-  "explanation": "Adding or changing a dataset follows the same steps. Author-validation ledger edits already required regenerating validation-records.generated.json in the maintainer checkout; the new freshness test only makes CI fail when that step is skipped, as the verification workflow and author-validation README now say.",
+  "explanation": "Adding or changing a dataset follows the same steps. main only rewords the explorerStore.ts header; this branch adds a CI test that fails when author-validation ledgers are committed without regenerating validation-records.generated.json, a step the workflow already required in the maintainer checkout.",
   "references": [
     "docs/agent-context/workflows.md",
+    "src/data/explorerStore.ts",
     "data/author-validation/README.md"
   ]
 }

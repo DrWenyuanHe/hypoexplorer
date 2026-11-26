@@ -31,7 +31,8 @@ import { DbBadge } from './DbBadge';
 import { searchAll, describePathway } from './searchVocabulary';
 import { useSearchVocabulary } from './useSearchVocabulary';
 import { UnifiedSearchBox } from './UnifiedSearchBox';
-import { Effect, PlaceholderSlot, useLoad } from './portalCards';
+import { useLoad } from '../common/useLoad';
+import { Effect, PlaceholderSlot } from './portalCards';
 import { TierLabel } from '../statistics/TierLabel';
 import { SUMMARY_TOP, loadGeneSummary, loadPathwaySummary, type GeneSummary } from './searchSummaries';
 import type { GeneHit, PathwayHit, SearchFilter, SearchResults } from './searchTypes';
@@ -295,8 +296,6 @@ function useSeen<T extends Element>(eager: boolean) {
   return [ref, seen] as const;
 }
 
-const loadRowSummary = (symbol: string) => (symbol ? loadGeneSummary(symbol) : Promise.resolve(null));
-
 /**
  * One matching gene and, once the row is near the viewport, how it changes
  * across the studies: one index shard per gene, the same rows the gene page
@@ -312,10 +311,10 @@ function GeneRow({ hit, featured, eager, onOpenGene }: {
   const { symbol, name, datasets } = hit.entry;
   const [ref, seen] = useSeen<HTMLLIElement>(eager);
   const wanted = datasets > 0;
-  const load = useLoad(wanted && seen ? symbol : '', loadRowSummary);
-  // Off screen, the '' key resolves at once; the row is still waiting, not unavailable.
+  const load = useLoad(wanted && seen ? symbol : null, () => loadGeneSummary(symbol));
+  // Off screen the load is idle; the row is still waiting, not unavailable.
   const pending = wanted && (!seen || load.state === 'loading');
-  const summary = !pending && load.state === 'done' ? load.value : null;
+  const summary = load.state === 'loaded' ? load.value : null;
   return (
     <li ref={ref}>
       <button type="button" className={featured ? 'search-row search-row--featured' : 'search-row'} onClick={() => onOpenGene(symbol)}>
@@ -537,9 +536,9 @@ function moreNote(hidden: number, mode: ListingMode): string | null {
 }
 
 function PathwaySection({ pathwayId, onOpenPathway }: { pathwayId: string; onOpenPathway: (id: string) => void }) {
-  const load = useLoad(pathwayId, loadPathwaySummary);
+  const load = useLoad(pathwayId, () => loadPathwaySummary(pathwayId));
   const mode = useListingMode();
-  const summary = load.state === 'done' ? load.value : null;
+  const summary = load.state === 'loaded' ? load.value : null;
   const listing = useMemo(
     () => (summary ? listCrossStudy(summary.groups, mode, PATHWAY_KEYS, 'significance') : null),
     [summary, mode],

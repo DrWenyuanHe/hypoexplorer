@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "platform",
-  "fingerprint": "7e381ec67031e9a88462c30c35179d282fb4b6383a979abd512e4f16cb7df50d",
+  "fingerprint": "084b5587d8a5c24a5458f005632d79ce426f8720fce9b917f7ccf44ff718b889",
   "outcome": "updated",
-  "explanation": "App holds the survey-to-gene-page handoff in memory: ExpressionSurveyView calls onOpenGene(symbol, scope), App stores { gene, scope } and opens the gene report through searchGene, and passes the scope to that gene's report only. Routes and appRouter are unchanged; #/expression and #/gene/<symbol> keep their forms.",
+  "explanation": "App.tsx is now the view switch (about 350 lines): it calls useExplorer once above it, hands explorer.nav and explorer.at to useAppRouter, composes the one user-move callback (supersede then navigate) and renders <ErrorBoundary key=\"explorer\"><ExplorerShell/></ErrorBoundary>, so a throw in the explorer screen no longer blanks the page. The explorer-on-screen effect stays in App after the router so it still runs after a boot landing. App keeps the changelog and study-details flags, which outlive a visit to the explorer. appRouter.ts imports ExplorerNavigation and ExplorerAt as types from explorer/useExplorer.ts instead of declaring them; the entry bundle gains no runtime import.",
   "references": [
     "src/App.tsx",
     "src/appRouter.ts",
-    "src/utils/appLinks.ts"
+    "src/explorer/useExplorer.ts",
+    "src/explorer/ExplorerShell.tsx"
   ]
 }

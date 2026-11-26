@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "81aa9e2c481b791191bbd1480ca9c1e751d1932da419bb26fd94a9a444b323d8",
-  "outcome": "no-impact",
-  "explanation": "The repository-level change is a new scripts/lib helper that hashes the author-validation ledgers and a builder field that records those hashes; project guidance, startup map and catalog meanings are unchanged, and the regenerated codebase map only lists the new helper.",
+  "fingerprint": "d1767619f972cff0191316f2b5c6f0cc17ba51d8f1d03b90fac98e7af4262b2f",
+  "outcome": "updated",
+  "explanation": "From main: the workbox-build glob override and the explorer-screen entries in CONTEXT.md, the catalog and the startup map. From this branch: a scripts/lib helper that hashes the author-validation ledgers for the builder and the freshness test; project guidance and context-map rules are unchanged and the regenerated codebase map lists the helper.",
   "references": [
-    "docs/PROJECT_GUIDANCE.md",
+    "CONTEXT.md",
+    "docs/agent-context/catalog.json",
     "docs/agent-context/generated/codebase.md",
-    "scripts/lib/authorValidationInputs.mts"
+    "scripts/lib/authorValidationInputs.mts",
+    "pnpm-workspace.yaml"
   ]
 }

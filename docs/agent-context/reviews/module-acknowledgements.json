@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "module-acknowledgements",
-  "fingerprint": "560414ba3e913becd79cf1aeefc168b9f989e900d3b8fbc7248662ed599f03a5",
+  "fingerprint": "c528a0ca72aae1636ab9ec3f004dd7870952ab432e09d5f6425c22f23583eeab",
   "outcome": "updated",
-  "explanation": "DataSourcesTab is deleted. references.ts keeps its PubMed-verified software, gene-set and reference-atlas citations (SOFTWARE_REFERENCES) plus ACKNOWLEDGEMENTS as plain data, which the static /how-to-cite/ page renders. The per-study cards and macaque sections were dropped as duplicates of the library and study records.",
+  "explanation": "How to cite gains four references, each verified with a resolvable DOI: limma (Ritchie et al., Nucleic Acids Res 2015, PMID 25605792), the NeuroSeq atlas (Sugino et al., eLife 2019, PMID 30977723), the GSE147092 oxytocin-neuron reference (Lewis et al., Neuron 2020, PMID 33113347), and msigdbr, which has no paper and cites its CRAN DOI. The acknowledgement names limma, msigdbr, NeuroSeq and the Goff Lab, and the header comment says how the msigdbr DOI was checked.",
   "references": [
     "src/acknowledgements/references.ts",
-    "scripts/lib/seoGuides.mts",
-    "src/__tests__/references.test.tsx"
+    "src/__tests__/references.test.tsx",
+    "data/expression/neuroseq/README.md",
+    "data/expression/oxt-reference/README.md"
   ]
 }

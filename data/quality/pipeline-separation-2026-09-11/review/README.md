@@ -1,5 +1,7 @@
 # Independent review of the QC boundary
 
+> Dated record (2026-09-11). Current assessments: [the verification guide](../../../author-validation/README.md). Its commands and linked evidence need the maintainer checkout; see [Files not in this repository](../../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
+
 The simple two-check split would put every `independent_replication` note solely under Experimental design. Some of those notes also document a current input or model problem. The approved implementation keeps the original design check intact and adds a separately named, required pipeline review for the concrete concern. It changes no source assessment, scientific input, model, exclusion or result.
 
 The review read all 159 dataset replication notes and binds all 199 registered leaf assessments in the current raw internal-QC ledger. Selection is an explicit reviewed list in [prepare_proposal.py](prepare_proposal.py); no word matcher, source status or sample-count label determines the decision. [source-model-proposal.json](source-model-proposal.json) preserves each selected source and model check in full, its exact scope, and canonical SHA-256 hashes. That proposal was independently reviewed, approved and integrated through the [reviewed approval file](../reviewed-pipeline-limitations.json); the original proposal remains as its evidence record.

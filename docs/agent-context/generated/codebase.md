@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (262):
+Covered source files (271):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -111,6 +111,7 @@ Covered source files (262):
 - [src/__tests__/compareTabContrast.test.tsx](<../../../src/__tests__/compareTabContrast.test.tsx>)
 - [src/__tests__/compareTabLoading.test.tsx](<../../../src/__tests__/compareTabLoading.test.tsx>)
 - [src/__tests__/compareTabToolbar.test.tsx](<../../../src/__tests__/compareTabToolbar.test.tsx>)
+- [src/__tests__/compareView.test.ts](<../../../src/__tests__/compareView.test.ts>)
 - [src/__tests__/concordanceReviewEvidence.test.ts](<../../../src/__tests__/concordanceReviewEvidence.test.ts>)
 - [src/__tests__/confirmDialog.test.tsx](<../../../src/__tests__/confirmDialog.test.tsx>)
 - [src/__tests__/contrastMatrix.test.tsx](<../../../src/__tests__/contrastMatrix.test.tsx>)
@@ -147,6 +148,7 @@ Covered source files (262):
 - [src/__tests__/explorerPosition.test.ts](<../../../src/__tests__/explorerPosition.test.ts>)
 - [src/__tests__/explorerSession.test.tsx](<../../../src/__tests__/explorerSession.test.tsx>)
 - [src/__tests__/explorerStore.test.tsx](<../../../src/__tests__/explorerStore.test.tsx>)
+- [src/__tests__/explorerTrackLoad.test.tsx](<../../../src/__tests__/explorerTrackLoad.test.tsx>)
 - [src/__tests__/exportAction.test.tsx](<../../../src/__tests__/exportAction.test.tsx>)
 - [src/__tests__/exportEvidence.test.ts](<../../../src/__tests__/exportEvidence.test.ts>)
 - [src/__tests__/exportProvenance.test.ts](<../../../src/__tests__/exportProvenance.test.ts>)
@@ -204,6 +206,7 @@ Covered source files (262):
 - [src/__tests__/listingWords.test.ts](<../../../src/__tests__/listingWords.test.ts>)
 - [src/__tests__/loadDatasetMeta.test.ts](<../../../src/__tests__/loadDatasetMeta.test.ts>)
 - [src/__tests__/loadTrack.test.ts](<../../../src/__tests__/loadTrack.test.ts>)
+- [src/__tests__/lombScargleFloor.test.ts](<../../../src/__tests__/lombScargleFloor.test.ts>)
 - [src/__tests__/macaqueQc.test.ts](<../../../src/__tests__/macaqueQc.test.ts>)
 - [src/__tests__/matrixShape.test.ts](<../../../src/__tests__/matrixShape.test.ts>)
 - [src/__tests__/methodology.test.tsx](<../../../src/__tests__/methodology.test.tsx>)
@@ -260,6 +263,7 @@ Covered source files (262):
 - [src/__tests__/reviewedStudyMetadata.test.ts](<../../../src/__tests__/reviewedStudyMetadata.test.ts>)
 - [src/__tests__/reviewedTextEvidence.test.ts](<../../../src/__tests__/reviewedTextEvidence.test.ts>)
 - [src/__tests__/reviewedTrackLabels.test.ts](<../../../src/__tests__/reviewedTrackLabels.test.ts>)
+- [src/__tests__/rhythmCall.test.ts](<../../../src/__tests__/rhythmCall.test.ts>)
 - [src/__tests__/rhythmScanIdentity.test.tsx](<../../../src/__tests__/rhythmScanIdentity.test.tsx>)
 - [src/__tests__/rhythmTrace.test.tsx](<../../../src/__tests__/rhythmTrace.test.tsx>)
 - [src/__tests__/rhythmicity.test.ts](<../../../src/__tests__/rhythmicity.test.ts>)
@@ -289,7 +293,9 @@ Covered source files (262):
 - [src/__tests__/studyRecordDisclosure.test.tsx](<../../../src/__tests__/studyRecordDisclosure.test.tsx>)
 - [src/__tests__/studySelection.test.tsx](<../../../src/__tests__/studySelection.test.tsx>)
 - [src/__tests__/studyTopGenes.test.tsx](<../../../src/__tests__/studyTopGenes.test.tsx>)
+- [src/__tests__/summaryTableFormat.test.tsx](<../../../src/__tests__/summaryTableFormat.test.tsx>)
 - [src/__tests__/supersededProjection.ts](<../../../src/__tests__/supersededProjection.ts>)
+- [src/__tests__/surveyHandoff.test.ts](<../../../src/__tests__/surveyHandoff.test.ts>)
 - [src/__tests__/swHandover.test.ts](<../../../src/__tests__/swHandover.test.ts>)
 - [src/__tests__/symbolRenames.test.ts](<../../../src/__tests__/symbolRenames.test.ts>)
 - [src/__tests__/testIsolation.test.tsx](<../../../src/__tests__/testIsolation.test.tsx>)
@@ -301,6 +307,9 @@ Covered source files (262):
 - [src/__tests__/uploadPublication.test.ts](<../../../src/__tests__/uploadPublication.test.ts>)
 - [src/__tests__/upstreamProcessing.test.ts](<../../../src/__tests__/upstreamProcessing.test.ts>)
 - [src/__tests__/useBundleProgress.test.tsx](<../../../src/__tests__/useBundleProgress.test.tsx>)
+- [src/__tests__/useCompareView.test.tsx](<../../../src/__tests__/useCompareView.test.tsx>)
+- [src/__tests__/useExplorer.test.tsx](<../../../src/__tests__/useExplorer.test.tsx>)
+- [src/__tests__/useLoad.test.tsx](<../../../src/__tests__/useLoad.test.tsx>)
 - [src/__tests__/verificationAdvancement.test.ts](<../../../src/__tests__/verificationAdvancement.test.ts>)
 - [src/__tests__/verificationView.test.tsx](<../../../src/__tests__/verificationView.test.tsx>)
 - [src/__tests__/versionBadge.test.tsx](<../../../src/__tests__/versionBadge.test.tsx>)
@@ -342,7 +351,7 @@ Start here:
 - [src/circadian/jtkCycle.ts](<../../../src/circadian/jtkCycle.ts>)
 - [docs/runbooks/CIRCADIAN_VALIDATION.md](<../../runbooks/CIRCADIAN_VALIDATION.md>)
 
-Covered source files (17):
+Covered source files (19):
 - [src/circadian/ArmStatsStrip.tsx](<../../../src/circadian/ArmStatsStrip.tsx>)
 - [src/circadian/CircadianControls.tsx](<../../../src/circadian/CircadianControls.tsx>)
 - [src/circadian/CircadianNotes.tsx](<../../../src/circadian/CircadianNotes.tsx>)
@@ -355,8 +364,10 @@ Covered source files (17):
 - [src/circadian/circadianWorkbook.worker.ts](<../../../src/circadian/circadianWorkbook.worker.ts>)
 - [src/circadian/distributions.ts](<../../../src/circadian/distributions.ts>)
 - [src/circadian/jtkCycle.ts](<../../../src/circadian/jtkCycle.ts>)
+- [src/circadian/lombScargleFloor.ts](<../../../src/circadian/lombScargleFloor.ts>)
 - [src/circadian/multipleTesting.ts](<../../../src/circadian/multipleTesting.ts>)
 - [src/circadian/peak.ts](<../../../src/circadian/peak.ts>)
+- [src/circadian/rhythmCall.ts](<../../../src/circadian/rhythmCall.ts>)
 - [src/circadian/rhythmicity.ts](<../../../src/circadian/rhythmicity.ts>)
 - [src/circadian/scan.ts](<../../../src/circadian/scan.ts>)
 - [src/circadian/timeSeriesSource.ts](<../../../src/circadian/timeSeriesSource.ts>)
@@ -373,7 +384,7 @@ Start here:
 - [src/common/BrandLink.tsx](<../../../src/common/BrandLink.tsx>)
 - [brand/README.md](<../../../brand/README.md>)
 
-Covered source files (36):
+Covered source files (37):
 - [src/common/AuthorValidation.tsx](<../../../src/common/AuthorValidation.tsx>)
 - [src/common/BrandLink.tsx](<../../../src/common/BrandLink.tsx>)
 - [src/common/CellSelectorPopup.tsx](<../../../src/common/CellSelectorPopup.tsx>)
@@ -409,6 +420,7 @@ Covered source files (36):
 - [src/common/siteChrome.css](<../../../src/common/siteChrome.css>)
 - [src/common/toolIcons.tsx](<../../../src/common/toolIcons.tsx>)
 - [src/common/useCompactLayout.ts](<../../../src/common/useCompactLayout.ts>)
+- [src/common/useLoad.ts](<../../../src/common/useLoad.ts>)
 - [src/common/useSortedRows.ts](<../../../src/common/useSortedRows.ts>)
 
 ## compare
@@ -420,7 +432,7 @@ Start here:
 - [src/compare/CompareGenesView.tsx](<../../../src/compare/CompareGenesView.tsx>)
 - [src/compare/compareCell.ts](<../../../src/compare/compareCell.ts>)
 
-Covered source files (9):
+Covered source files (11):
 - [src/compare/CompareGenesView.tsx](<../../../src/compare/CompareGenesView.tsx>)
 - [src/compare/ComparePathwayView.tsx](<../../../src/compare/ComparePathwayView.tsx>)
 - [src/compare/CompareTab.tsx](<../../../src/compare/CompareTab.tsx>)
@@ -429,7 +441,9 @@ Covered source files (9):
 - [src/compare/compareColumns.ts](<../../../src/compare/compareColumns.ts>)
 - [src/compare/compareFigureExport.ts](<../../../src/compare/compareFigureExport.ts>)
 - [src/compare/compareSummary.ts](<../../../src/compare/compareSummary.ts>)
+- [src/compare/compareView.ts](<../../../src/compare/compareView.ts>)
 - [src/compare/resolveGene.ts](<../../../src/compare/resolveGene.ts>)
+- [src/compare/useCompareView.ts](<../../../src/compare/useCompareView.ts>)
 
 ## compareset
 
@@ -572,19 +586,23 @@ Covered source files (11):
 
 ## explorer
 
-Explorer position, track navigation, tab declarations and session state.
+Explorer position, session state, the explorer screen, track navigation and tab declarations.
 
 Start here:
+- [src/explorer/useExplorer.ts](<../../../src/explorer/useExplorer.ts>)
+- [src/explorer/ExplorerShell.tsx](<../../../src/explorer/ExplorerShell.tsx>)
 - [src/explorer/explorerPosition.ts](<../../../src/explorer/explorerPosition.ts>)
 - [src/explorer/explorerTabs.ts](<../../../src/explorer/explorerTabs.ts>)
 - [src/explorer/explorerSession.ts](<../../../src/explorer/explorerSession.ts>)
 
-Covered source files (5):
+Covered source files (7):
 - [src/explorer/CellNavigator.tsx](<../../../src/explorer/CellNavigator.tsx>)
+- [src/explorer/ExplorerShell.tsx](<../../../src/explorer/ExplorerShell.tsx>)
 - [src/explorer/explorerPosition.ts](<../../../src/explorer/explorerPosition.ts>)
 - [src/explorer/explorerSession.ts](<../../../src/explorer/explorerSession.ts>)
 - [src/explorer/explorerTabs.ts](<../../../src/explorer/explorerTabs.ts>)
 - [src/explorer/geneVocabulary.ts](<../../../src/explorer/geneVocabulary.ts>)
+- [src/explorer/useExplorer.ts](<../../../src/explorer/useExplorer.ts>)
 
 ## expression-survey
 
@@ -601,7 +619,7 @@ Start here:
 - [src/expression-survey/referenceExpression.ts](<../../../src/expression-survey/referenceExpression.ts>)
 - [data/expression/oxt-reference/README.md](<../../../data/expression/oxt-reference/README.md>)
 
-Covered source files (18):
+Covered source files (19):
 - [src/expression-survey/ExpressionSurveyView.tsx](<../../../src/expression-survey/ExpressionSurveyView.tsx>)
 - [src/expression-survey/GeneSurvey.tsx](<../../../src/expression-survey/GeneSurvey.tsx>)
 - [src/expression-survey/SourceDetail.tsx](<../../../src/expression-survey/SourceDetail.tsx>)
@@ -619,6 +637,7 @@ Covered source files (18):
 - [src/expression-survey/neuroseqExpression.ts](<../../../src/expression-survey/neuroseqExpression.ts>)
 - [src/expression-survey/referenceExpression.ts](<../../../src/expression-survey/referenceExpression.ts>)
 - [src/expression-survey/sourceJson.ts](<../../../src/expression-survey/sourceJson.ts>)
+- [src/expression-survey/useSurveyHandoff.ts](<../../../src/expression-survey/useSurveyHandoff.ts>)
 - [src/expression-survey/useSurveyLoad.ts](<../../../src/expression-survey/useSurveyLoad.ts>)
 
 ## gene-explorer
@@ -757,7 +776,7 @@ Start here:
 - [src/search/SearchPage.tsx](<../../../src/search/SearchPage.tsx>)
 - [src/search/hypomap/atlas.ts](<../../../src/search/hypomap/atlas.ts>)
 
-Covered source files (20):
+Covered source files (19):
 - [src/search/DbBadge.tsx](<../../../src/search/DbBadge.tsx>)
 - [src/search/SearchPage.tsx](<../../../src/search/SearchPage.tsx>)
 - [src/search/UnifiedSearchBox.tsx](<../../../src/search/UnifiedSearchBox.tsx>)
@@ -769,7 +788,6 @@ Covered source files (20):
 - [src/search/hypomap/codetection.ts](<../../../src/search/hypomap/codetection.ts>)
 - [src/search/hypomap/coexpression.css](<../../../src/search/hypomap/coexpression.css>)
 - [src/search/hypomap/preview.css](<../../../src/search/hypomap/preview.css>)
-- [src/search/hypomap/useLoad.ts](<../../../src/search/hypomap/useLoad.ts>)
 - [src/search/pathwaySpecificity.ts](<../../../src/search/pathwaySpecificity.ts>)
 - [src/search/portalCards.tsx](<../../../src/search/portalCards.tsx>)
 - [src/search/search.css](<../../../src/search/search.css>)

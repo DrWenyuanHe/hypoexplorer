@@ -9,10 +9,12 @@ export type Load<T> =
 type Settled<T> = { key: string; attempt: number; ok: true; value: T } | { key: string; attempt: number; ok: false };
 
 /**
- * The HypoMap views' one load-and-retry lifecycle. `key` names everything the load reads
- * (null = nothing to load yet); a new key or a Retry shows `loading` at once, never the
- * previous key's value, and a settled load whose key or attempt has moved on is dropped.
- * The signal aborts when the key changes or the view unmounts.
+ * A view's one keyed load-and-retry lifecycle, shared by the search and gene-page cards
+ * and the HypoMap views. `key` names everything the load reads (null = nothing to load
+ * yet, `idle`); a new key or a Retry shows `loading` at once, never the previous key's
+ * value, and a settled load whose key or attempt has moved on is dropped. A load that
+ * rejects is `failed` with a Retry, never left loading. The signal aborts when the key
+ * changes or the view unmounts.
  */
 export function useLoad<T>(key: string | null, load: (signal: AbortSignal) => Promise<T>): Load<T> {
   const [attempt, setAttempt] = useState(0);

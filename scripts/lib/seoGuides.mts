@@ -2,7 +2,7 @@
 // Avoid importing the HTML renderer here: it consumes these document bodies.
 import { listDatasets } from '../../src/data/datasets';
 import { QUALITY_STATUS } from '../../src/data/datasetQualityR460';
-import { AUTHOR_BIO, AUTHOR_EMAIL, AUTHOR_NAME, CONTRIBUTOR_NAMES, DATA_EXPORT_DOI, SITE_NAME, SITE_URL, studyPageHref } from '../../src/data/siteInfo';
+import { AUTHOR_BIO, AUTHOR_EMAIL, AUTHOR_NAME, CONTRIBUTOR_NAMES, DATA_EXPORT_DOI, SITE_NAME, SITE_URL, SOURCE_REPO_URL, studyPageHref } from '../../src/data/siteInfo';
 import sourceMetadata from '../../data/seo/studySources.json';
 import { ACKNOWLEDGEMENTS, SOFTWARE_REFERENCES } from '../../src/acknowledgements/references';
 import { escapeHtml } from './html.mjs';
@@ -45,9 +45,11 @@ ${datasetId === 'macaque_snrna' ? '<p>The macaque example is an obese-versus-nor
 }
 
 /** The full-dataset download paragraph; states plainly when no archive is deposited yet. */
+const isDoi = (doi: string | null): doi is string => !!doi && /^10\.\d{4,9}\/[^\s<>"']+$/.test(doi);
+
 export function dataExportParagraph(doi: string | null = DATA_EXPORT_DOI): string {
   const what = `every study's differential-expression and pathway results, sample tables and expression matrices as plain CSV`;
-  if (!doi || !/^10\.\d{4,9}\/[^\s<>"']+$/.test(doi)) {
+  if (!isDoi(doi)) {
     return `<p id="full-dataset"><strong>Full dataset download.</strong> A ZIP archive of ${what} is being prepared for deposit on Zenodo and is not yet published. Until then, use the export controls described below.</p>`;
   }
   return `<p id="full-dataset"><strong>Full dataset download.</strong> A ZIP archive of ${what} is deposited on Zenodo: <a href="https://doi.org/${escapeHtml(doi)}">DOI ${escapeHtml(doi)}</a>. Its README and AGENTS.md describe every table and the rules for interpreting it, so you can unpack the archive and point a local AI agent, such as Claude Code or Codex, at the folder. Each study, gene-set collection and reference keeps its own terms; read the archive's LICENSE-DATA.md before redistributing it.</p>`;
@@ -108,7 +110,7 @@ export function getGuideDocuments(): GuideDocument[] {
 <p>HypoExplorer loads precomputed gene results. The collection includes edgeR quasi-likelihood analyses of suitable count data and limma analyses of suitable processed expression matrices. Comparisons with the authors' methods may use other methods, including DESeq2. Check the dataset evidence for filtering, normalization, covariates, model and the exact contrast. There is no single universal fit for every dataset.</p>
 <p><strong>Raw p-values and adjusted values answer different questions.</strong> FDR or pathway <code>padj</code> accounts for multiple tests within the documented analysis scope. Plot significance stars use raw p-values, so stars can appear when FDR is not below the selected threshold. Filtering or missing reference evidence must not be read as a significant result.</p>
 <p>Pathway results use ranked gene-set enrichment with <a href="https://bioconductor.org/packages/release/bioc/html/fgsea.html">fgsea</a> where supported. This tests whether a gene set accumulates toward either end of a ranked list. It is different from over-representation analysis of a thresholded gene list. The normalized enrichment score, NES, gives direction and relative enrichment strength. Positive NES points toward the case-up end of the ranking. It does not by itself prove pathway activation or causation.</p>
-<p>The available gene-set collections, species mapping, ranking statistic and tested gene universe affect the result. For the macaque pipeline, gene sets are retained only when their overlap with the population's ranked genes contains 15 to 500 genes. A missing pathway can reflect size filtering, gene mapping or lack of assay support; it is not evidence that the pathway is biologically absent. Review pathway provenance and source methods before equating a local result with an author-reported pathway.</p>
+<p>The available gene-set collections, species mapping, ranking statistic and tested gene universe affect the result. In every analysis, including the macaque pipeline, a gene set is tested only when its overlap with the comparison's ranked genes contains 15 to 500 genes. A missing pathway can reflect size filtering, gene mapping or lack of assay support; it is not evidence that the pathway is biologically absent. Review pathway provenance and source methods before equating a local result with an author-reported pathway.</p>
 <p>The <a href="/#/methodology">Methods &amp; statistics page in the app</a> explains the current displays. Cross-dataset views arrange each study's results; they do not compute a pooled effect or combined p-value. A tally of significant datasets is descriptive and does not establish a new statistical test.</p></section>
 <section class="panel" id="verification"><h2>Quality control and author-result verification</h2>
 <p>Quality-control displays show sample coverage and the analysis inputs or outputs available for a dataset. Source checks can establish that a deposited matrix was retrieved and traced into a local analysis. They do not independently validate raw-read alignment, every laboratory measurement or every conclusion in the original paper.</p>
@@ -138,7 +140,7 @@ ${dataExportParagraph()}
 <p>The <a href="/about/">About page</a> has the app author's biography and contact details.</p></section>
 <section class="panel"><h2>Suggested interface reference</h2><p class="note">He, Wenyuan${CONTRIBUTOR_NAMES.map((name) => `, and ${escapeHtml(name)}`).join('')}. <em>${escapeHtml(SITE_NAME)}</em> [web application]. <a href="${escapeHtml(SITE_URL)}">${escapeHtml(SITE_URL)}</a>. Accessed [your actual access date].</p>
 <p>Replace the access-date placeholder with the date you used the app. Download the <a href="/CITATION.cff">software citation file</a> and save the <a href="/release.json">release metadata</a> with your results. Record the app version, full release identifier, source fingerprint and data build identifiers supplied in your export. The source fingerprint identifies working-tree builds too. This reference cites the website, not a peer-reviewed software paper. Do not assign an original study's DOI to ${escapeHtml(SITE_NAME)}.</p>
-<p>The <a href="https://github.com/DrWenyuanHe/hypoexplorer">source repository</a> contains the release packaging command and checksums. A public archive DOI has not yet been assigned; until an immutable archive is deposited, retain the exported result files and release metadata.</p></section>
+<p>The <a href="${escapeHtml(SOURCE_REPO_URL)}">source repository</a> contains the release packaging command, which writes a <code>SHA256SUMS</code> file into each publication package. If a software release is archived with a DOI, the software citation file records it; until then, retain the exported result files and release metadata.</p></section>
 <section class="panel"><h2>Source citation examples</h2>${publicationExample('mouse_hypo_hfd_gse236077')}${publicationExample('macaque_snrna')}</section>
 <section class="panel"><h2>What to record in your methods or figure caption</h2><ul>
 <li>The source accession, publication and selected species, tissue and assay.</li>

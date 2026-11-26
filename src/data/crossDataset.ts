@@ -299,15 +299,18 @@ export async function queryGeneViaIndex(
       // Every partner key any study could store, each shard read once.
       const partnerKeys = [...new Set([...groups.values()].flatMap((g) => partnersOf(g, GENE).map((m) => m.toUpperCase())))];
       if (own === null || partnerKeys.length === 0) return own;
-      // A partner shard that cannot be read leaves that partner out: the
-      // report then answers as it did before renames were known, which is
-      // incomplete but never wrong, and the queried symbol's own rows stand.
+      // A partner shard that cannot be read makes the index unable to answer,
+      // exactly as the queried symbol's own shard would: reading on without it
+      // would report the query as complete while studies are missing, and
+      // could let pickStoredMember accept the one partner it saw where it
+      // would have rejected two. A stale index degrades to slow, never wrong.
       const partnerRows = await Promise.all(partnerKeys.map((key) =>
         loadGeneRows(datasets, key, manifest.buildId).catch(() => null).then((rows) => ({ key, rows }))));
+      if (partnerRows.some((p) => p.rows === null)) return null;
       const ownTracks = new Set(own.map((r) => r[0]));
       const found = new Map<number, Array<{ symbol: string; value: GeneIndexRow }>>();
       for (const { key, rows } of partnerRows) {
-        for (const row of rows ?? []) {
+        for (const row of rows!) {
           if (ownTracks.has(row[0])) continue;
           const entry = manifest.tracks[row[0]];
           const group = entry && groups.get(entry.ds);

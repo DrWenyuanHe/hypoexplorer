@@ -228,8 +228,10 @@ controls, notes, the results table and the per-arm statistics strip are their
 own components. Any display, plot, sort or announcement of a peak time uses
 `hasEstimablePeak` in `src/circadian/peak.ts`; p, q, period and amplitude keep
 their own field rules. Statements about attainable p-values (the Lomb–Scargle
-floor) appear only when the code can verify them for every scored sampling
-pattern. Raw-value exports cover every listed gene; the workbook is built and
+floor) appear only when `armLombScargleFloor` (`src/circadian/lombScargleFloor.ts`)
+verifies them for every scored sampling pattern and every scored p; it leaves
+`rhythmicity.ts` byte-stable. Whether a gene is rhythmic, and its per-arm verdict,
+come from `src/circadian/rhythmCall.ts`. Raw-value exports cover every listed gene; the workbook is built and
 serialised in `circadianWorkbook.worker.ts` (ES-module worker, `worker.format`
 in vite.config.ts), with the same builder as an in-thread fallback.
 
@@ -334,7 +336,19 @@ the hub fetches no query data until a visitor reaches for the search. The box's
 suggestions follow `subscribeSearchVocabulary`: named genes show as soon as the
 same-origin `names.js` lands, and the data origin's symbol and pathway indexes
 fold in when they arrive. The results page waits for the full vocabulary
-(`loadSearchVocabulary`), so its counts never shift under the reader. A direct gene match leads the page as one featured
+(`loadSearchVocabulary`), so its counts never shift under the reader.
+The same builder
+writes `public/nomenclature/renames.js`, the rename groups (`src/data/symbolRenames.ts`,
+CONTEXT.md): members of a group are always each other's search aliases, a
+retired placeholder member gets its own row, and an alias its own authority
+uses as another stored gene's current symbol is dropped. The gene report and
+search summaries read a study under another member of the queried symbol's
+group in that study's authority (`queryGeneViaIndex` and the full-download
+path in `src/data/crossDataset.ts`, one row per track by `pickStoredMember`),
+mark such rows `storedAs`, and the gene page names those studies above the
+table and tags each row; the expression preview looks the row up under its
+stored symbol. Compare and the compare set pass the table to `compareCell`.
+A direct gene match leads the page as one featured
 row, followed by "Also matching": the other genes the query matched (POMCA and
 POMCB for POMC), eight under All and every one on the Genes breakdown. Every
 gene row reads an index-only summary (significant datasets, tracks up and down,

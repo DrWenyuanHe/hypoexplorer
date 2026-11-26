@@ -5,7 +5,7 @@ import {
   missMessage, type ReadyAtlas, spatialTable, WHOLE,
 } from './atlas';
 import { CsvDialog } from './CsvDialog';
-import { useLoad } from './useLoad';
+import { useLoad } from '../../common/useLoad';
 import { tabKeyTarget } from '../../utils/tabKeys';
 import './preview.css';
 

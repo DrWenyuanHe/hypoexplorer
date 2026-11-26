@@ -1,5 +1,7 @@
 # Dataset validation continuation — September 11, 2026
 
+> Dated record (2026-09-11). Current assessments: [the verification guide](../../author-validation/README.md) and `src/data/datasetQualityR460.ts`. Its commands and linked evidence need the maintainer checkout; see [Files not in this repository](../../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository).
+
 The subsequent [QC separation](../pipeline-separation-2026-09-11/README.md) introduces separate Pipeline QC and Experimental design badges. All `internalQc` counts in this continuation report retain the original combined definition; author-concordance counts are unchanged by the separation.
 
 This document records the first completed September 11 round. Its figures and validation results below are that round's snapshot. The [second round](../continuation-round2-2026-09-11/README.md) records subsequent work. The generated [current report](ADVANCEMENT_REPORT.md) and [complete record](continuation-report.json) continue comparing all 159 datasets with the original 75-QC/25-author baseline, including subsequent evidence. Every remaining required check and all 51 intake track/comparison assessments are recorded.

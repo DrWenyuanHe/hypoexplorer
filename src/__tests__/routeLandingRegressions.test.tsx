@@ -2,7 +2,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { useMemo } from 'react';
 import { act, render, renderHook, screen, waitFor } from '@testing-library/react';
 import App from '../App';
-import { useAppRouter, type ExplorerAt, type ExplorerNavigation } from '../appRouter';
+import { useAppRouter } from '../appRouter';
+import type { ExplorerAt, ExplorerNavigation } from '../explorer/useExplorer';
 import {
   activeTabOf, activeTrackOf, initialPosition, useExplorerPosition, type ExplorerPosition,
 } from '../explorer/explorerPosition';

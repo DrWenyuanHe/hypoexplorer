@@ -1,13 +1,16 @@
 {
   "version": 1,
   "area": "module-expression-survey",
-  "fingerprint": "c2d870589622cdeecef55ec4093dc6f09387e18addb22d4b1fa57e816ac0e9db",
+  "fingerprint": "f2c49abc20f564d21da7a524b1cc397d7388d8fa7dbd36358a961573b170c104",
   "outcome": "updated",
-  "explanation": "The survey workspace moved into GeneSurvey.tsx and SourceDetail.tsx so the gene page and the survey page render one component, with SurveyScope replacing section-keyed filters and Tissue & bulk a mode inside it. SurveyFocus holds the workspace to one source or family for the gene page's tiles (mode and collection fixed, include narrows the sources). One symbol surveyed on the survey page opens its gene page with that scope.",
+  "explanation": "From main: existingCatalog.ts moves the GSE162563 POA source from the GnRH population to tissue: its 11 libraries are the GnRH-depleted supernatant of a TRAP pull-down. Its identity text describes the supernatant after immunoprecipitation without claiming complete depletion. The source id, track, sample counts and reference eligibility are unchanged. The index compares the whole source record, so the published index must be rebuilt with build:expression-index before this source can load. From this branch: The survey workspace moved into GeneSurvey.tsx and SourceDetail.tsx so the gene page and the survey page render one component, with SurveyScope replacing section-keyed filters and Tissue & bulk a mode inside it. SurveyFocus holds the workspace to one source or family for the gene page's tiles (mode and collection fixed, include narrows the sources). One symbol surveyed on the survey page opens its gene page with that scope. Review fixes: GeneSurvey reports settled results through onResults so the survey page shows them in catalog source details; GenePageSurvey hands Use study library to its host (or releases the tile itself) so a tile filter never hides the library; useSurveyHandoff keeps a handover for one gene-page visit.",
   "references": [
+    "src/expression-survey/existingCatalog.ts",
+    "src/expression-survey/expressionIndex.ts",
+    "docs/runbooks/EXPRESSION_SURVEY.md",
     "src/expression-survey/GeneSurvey.tsx",
     "src/expression-survey/ExpressionSurveyView.tsx",
     "src/expression-survey/expressionSurvey.ts",
-    "docs/runbooks/EXPRESSION_SURVEY.md"
+    "src/expression-survey/useSurveyHandoff.ts"
   ]
 }

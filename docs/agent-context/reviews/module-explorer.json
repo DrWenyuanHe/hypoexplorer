@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "module-explorer",
-  "fingerprint": "225f6d78acf4e9e326c46adb03f81ad348a90084de285d107e4aeee6d7c221a3",
+  "fingerprint": "aba52e2bea55df919f538b8aeddb711240dfaabf74e889a556298ef164f5ed90",
   "outcome": "updated",
-  "explanation": "explorerTabs.ts drops explorerTabLabel, whose only caller was the explorer breadcrumb removed from App.tsx; EXPLORER_TABS, tab availability and tab scope are unchanged. CellNavigator gives active and inactive rows the same left padding so the id column aligns, keeping the 3px active-row border.",
+  "explanation": "Adds useExplorer.ts and ExplorerShell.tsx. useExplorer is the only place one navigation intent moves the position, the session, Compare's view and the store together (position commits, the session resets before a saved analysis is restored, a Compare link lands on a new epoch, the move's track loads naming its dataset); it returns nav and at for the router (ExplorerNavigation and ExplorerAt now declared here), showActiveTrack for App's effect, and screen for the shell. ExplorerShell is the explorer screen moved out of App unchanged; it moves the explorer only through onNavigate (App pairs it with supersede), owns the dataset-info panel and is wrapped by an ErrorBoundary in App. explorerSession.ts's header now names useExplorer as the holder. The catalog lists both new files.",
   "references": [
-    "src/explorer/explorerTabs.ts",
-    "src/explorer/CellNavigator.tsx",
-    "src/App.tsx"
+    "src/explorer/useExplorer.ts",
+    "src/explorer/ExplorerShell.tsx",
+    "src/explorer/explorerSession.ts",
+    "CONTEXT.md",
+    "docs/agent-context/catalog.json"
   ]
 }
