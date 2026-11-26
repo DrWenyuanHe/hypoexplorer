@@ -1,14 +1,11 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "25411a21d925155e34db8dd38fc93e10e8b78bda298496a308a846b7395f8530",
+  "fingerprint": "ae167489bfdba3ab09acef81120544d6756014fb9268469d7c98d11631181ea6",
   "outcome": "updated",
-  "explanation": "portalCards.tsx drops its own useLoad (no failure state, so a rejecting loader stayed loading) and its never-settling PENDING promise; it and SearchPage.tsx use common/useLoad, with a null key for an undecided study selection or an off-screen row in place of the empty-string key and loadRowSummary shim. Cards read failed like null (the portal loaders already map failures to null through searchSummaries.cached), so what they show is unchanged. The HypoMap views import the hook from common/useLoad.",
+  "explanation": "contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. SearchPage.tsx imports it from data/contrasts, so nothing under src/search imports src/crossdataset any more and the search ↔ crossdataset directory cycle (crossdataset/GeneReport.tsx still imports search/portalCards) is gone. No visible change.",
   "references": [
-    "src/search/portalCards.tsx",
     "src/search/SearchPage.tsx",
-    "src/search/hypomap/Coexpression.tsx",
-    "src/search/hypomap/HypoMapPreview.tsx",
-    "src/common/useLoad.ts"
+    "src/data/contrasts.ts"
   ]
 }

@@ -1,11 +1,10 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "42c106d569c60e23432fd89e1a24645c8cbd519da040d5f6757ab241607fe186",
+  "fingerprint": "9f2767780379d0d9182daca1410da44427665590bf26ab6666e13f55fd793250",
   "outcome": "updated",
-  "explanation": "explorerStore.ts splits its one error banner into a resource half (metadata, QC) and a track half: a track load clears only a track failure when it starts, so a metadata or QC failure keeps its banner and Retry until a dataset/track switch or Retry retires it. Before, starting any track load cleared a metadata failure, which App's held load could now do just after a failed metadata check.",
+  "explanation": "contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. No load, guard, cache or contrast rule changed.",
   "references": [
-    "src/data/explorerStore.ts",
-    "CONTEXT.md"
+    "src/data/contrasts.ts"
   ]
 }

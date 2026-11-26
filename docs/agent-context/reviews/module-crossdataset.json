@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "module-crossdataset",
-  "fingerprint": "c722c31ec0ead50090302ec6136c10ea9a941d23070d1671d13cc9b17a32b07d",
+  "fingerprint": "3a1ce30dd567cff1c7125437cb87abf501433c22ec1f4c410cc4c38bbbe74c84",
   "outcome": "updated",
-  "explanation": "GeneReport takes an optional expressionScope (the survey page's scope for a gene it handed over) and passes it to GeneExpressionCards as surveyScope; onOpenExpression now names the survey page for multi-gene comparison and the catalog rather than the only route to a gene's survey. GeneReport names the studies read under another rename-group member above the differential-expression table (renamedStudies) and tags each such row with its stored symbol; GeneEffectPreview looks the row up under track.storedAs so the preview draws the stored gene.",
+  "explanation": "contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. forestReport.tsx keeps only the forest plot's own helpers; PathwayReport.tsx imports the label from data/contrasts. No visible change.",
   "references": [
-    "src/crossdataset/GeneReport.tsx",
-    "src/search/portalCards.tsx",
-    "src/crossdataset/GeneEffectPreview.tsx",
-    "src/crossdataset/forestReport.css"
+    "src/crossdataset/forestReport.tsx",
+    "src/crossdataset/PathwayReport.tsx",
+    "src/data/contrasts.ts"
   ]
 }
