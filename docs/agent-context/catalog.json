@@ -100,8 +100,10 @@
       ]
     },
     "explorer": {
-      "summary": "Explorer position, track navigation, tab declarations and session state",
+      "summary": "Explorer position, session state, the explorer screen, track navigation and tab declarations",
       "references": [
+        "src/explorer/useExplorer.ts",
+        "src/explorer/ExplorerShell.tsx",
         "src/explorer/explorerPosition.ts",
         "src/explorer/explorerTabs.ts",
         "src/explorer/explorerSession.ts"
@@ -365,6 +367,8 @@
       ],
       "sources": [
         "src/App.tsx",
+        "src/explorer/useExplorer.ts",
+        "src/explorer/ExplorerShell.tsx",
         "src/appRouter.ts",
         "src/routeLanding.ts",
         "CONTEXT.md",

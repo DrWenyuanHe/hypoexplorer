@@ -16,7 +16,8 @@
 //   useExplorerStore({ dataset, activeTrackId, wantQC }) -> ExplorerStore
 //
 // What the caller keeps: navigation. Which dataset and which track are ACTIVE is
-// the shell's state, passed in — the store never navigates. What the store keeps:
+// the explorer's position (explorer/useExplorer.ts), passed in — the store
+// never navigates. What the store keeps:
 // everything that follows from that choice, including when a load is redundant.
 //
 // The load protocol itself is NOT here: bundle fetch → pathway sibling →

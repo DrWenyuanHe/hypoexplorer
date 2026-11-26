@@ -1,13 +1,15 @@
 // The explorer's SESSION state: what the user has selected and configured
 // inside a dataset, and what a navigation does to it.
 //
-// This state is held by App rather than by the tabs because the tabs are
-// conditionally rendered (App unmounts the Gene Explorer when you switch to the
-// Pathway Explorer), so state owned by a tab would not survive a tab switch.
-// That is a LIFETIME requirement, not a reason for App to publish ten raw
-// `Dispatch<SetStateAction<…>>` props: App never reads any of these values, it
-// only carries them. So the state lives here, with the operations that give it
-// meaning, and App hands each tab one cohesive slice.
+// This state is held by the explorer (useExplorer.ts, called once in App above
+// the view switch) rather than by the tabs because the tabs are conditionally
+// rendered (the shell unmounts the Gene Explorer when you switch to the Pathway
+// Explorer), so state owned by a tab would not survive a tab switch. That is a
+// LIFETIME requirement, not a reason to publish ten raw
+// `Dispatch<SetStateAction<…>>` props: nothing above the tabs reads any of
+// these values, it only carries them. So the state lives here, with the
+// operations that give it meaning, and ExplorerShell hands each tab one
+// cohesive slice.
 //
 // Three slices, not one object, because they have different consumers:
 //   - useGeneSelection  — the gene list. The Compare tab holds its OWN instance

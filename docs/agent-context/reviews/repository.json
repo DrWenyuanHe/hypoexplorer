@@ -1,12 +1,16 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "1a588f4fa814b7b422f9570c7a7d72da71e80d70caf5feac4218214f10a036b5",
+  "fingerprint": "ba88d1f14c05ea31229701eda01705d11db598ddeda02c5a61a5ed2a9414e1ca",
   "outcome": "updated",
-  "explanation": "pnpm-workspace.yaml overrides workbox-build>glob to 14.0.6 so the build-time PWA globbing uses the patched minimatch 11 (GHSA-g3hv-75wg-m249) instead of minimatch 10.2.6; the lockfile changes only in that subtree. The full-worker build precaches the same 91 entries. No guidance, command or context map changed.",
+  "explanation": "Merges main (PR #92) into the explorer split. From main: pnpm-workspace.yaml overrides workbox-build>glob to 14.0.6 so the build-time PWA globbing uses the patched minimatch 11 (GHSA-g3hv-75wg-m249) instead of minimatch 10.2.6; the lockfile changes only in that subtree and the full-worker build precaches the same 91 entries. From this branch: CONTEXT.md gains an \"Explorer + explorer screen\" entry for useExplorer.ts (the order a move is carried out in, the nav, at, showActiveTrack and screen it gives out, why App calls it above the view switch and keeps the load effect after the router) and ExplorerShell.tsx (onNavigate only, which state outlives a visit); the catalog's explorer summary and AGENTS.md's generated startup line name the explorer screen. No guidance, command or context-map rule changed.",
   "references": [
+    "CONTEXT.md",
+    "AGENTS.md",
+    "docs/agent-context/catalog.json",
+    "src/explorer/useExplorer.ts",
+    "src/explorer/ExplorerShell.tsx",
     "pnpm-workspace.yaml",
-    "pnpm-lock.yaml",
-    "vite.config.ts"
+    "pnpm-lock.yaml"
   ]
 }

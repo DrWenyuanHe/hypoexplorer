@@ -65,11 +65,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type Dispatch, type SetStateAction } from 'react';
 import { getDataset, type DatasetCategory } from './data/datasets';
 import { DEFAULT_EXPLORER_TAB } from './explorer/explorerTabs';
-import { COMPARE_TRACK, type NavigationIntent } from './explorer/explorerPosition';
+import { COMPARE_TRACK } from './explorer/explorerPosition';
+// The explorer's side of the seam: the router states intents through one and reads the other.
+import type { ExplorerAt, ExplorerNavigation } from './explorer/useExplorer';
 import { loadDatasetMeta } from './data/loadDatasetMeta';
 import { type CompareSetRouteItem, routeHref } from './utils/appLinks';
 import type { CompareSetItem } from './compareset/compareSetStore';
-import type { CompareViewState, ExplorerAnalysisState } from './utils/analysisState';
 import { selectionLink, type StudySelection } from './crossdataset/studySelectionLink';
 import { setChartScale, useChartScale } from './common/chartScaleStore';
 import type { SearchFilter } from './search/searchTypes';
@@ -98,42 +99,6 @@ export type AppView =
   | 'nomenclature'
   | 'expression'
   | 'search';
-
-/**
- * What the router needs the explorer shell to do when a route lands in it.
- *
- * The router never touches the shell's state directly — it states an intent and
- * the shell applies its own rules (which per-track state resets, which tab is
- * still valid for the target dataset, and so on).
- */
-export interface ExplorerNavigation {
-  /**
-   * Apply one whole navigation intent atomically. The explorer position
-   * (explorer/explorerPosition.ts) decides the landing tab, Compare entry and
-   * exit, and what the move resets; a saved analysis rides on an open.
-   */
-  navigate: (intent: NavigationIntent) => void;
-}
-
-/**
- * Where the explorer shell currently IS — the read side of the same seam, as
- * the URL spells it (Compare is the track id COMPARE_TRACK).
- *
- * The router owns which VIEW is on screen, but the explorer's position within
- * itself is the shell's state, and the URL has to name it. Rather than lifting
- * dataset/track/tab into the router (they drive a dozen shell behaviours that
- * have nothing to do with routing), the shell reports its position back and the
- * router serializes it. Optional: tests that only exercise the navigation verbs
- * pass no position, and the router then writes no explorer URL.
- */
-export interface ExplorerAt {
-  datasetId: string;
-  trackId: string;
-  tab: string;
-  analysis?: ExplorerAnalysisState;
-  /** In Compare: what it shows, defaults already left out (see CompareViewState). */
-  compare?: CompareViewState;
-}
 
 export interface AppRouter {
   /** The view currently on screen. */

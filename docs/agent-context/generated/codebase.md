@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (268):
+Covered source files (270):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -147,6 +147,7 @@ Covered source files (268):
 - [src/__tests__/explorerPosition.test.ts](<../../../src/__tests__/explorerPosition.test.ts>)
 - [src/__tests__/explorerSession.test.tsx](<../../../src/__tests__/explorerSession.test.tsx>)
 - [src/__tests__/explorerStore.test.tsx](<../../../src/__tests__/explorerStore.test.tsx>)
+- [src/__tests__/explorerTrackLoad.test.tsx](<../../../src/__tests__/explorerTrackLoad.test.tsx>)
 - [src/__tests__/exportAction.test.tsx](<../../../src/__tests__/exportAction.test.tsx>)
 - [src/__tests__/exportEvidence.test.ts](<../../../src/__tests__/exportEvidence.test.ts>)
 - [src/__tests__/exportProvenance.test.ts](<../../../src/__tests__/exportProvenance.test.ts>)
@@ -306,6 +307,7 @@ Covered source files (268):
 - [src/__tests__/upstreamProcessing.test.ts](<../../../src/__tests__/upstreamProcessing.test.ts>)
 - [src/__tests__/useBundleProgress.test.tsx](<../../../src/__tests__/useBundleProgress.test.tsx>)
 - [src/__tests__/useCompareView.test.tsx](<../../../src/__tests__/useCompareView.test.tsx>)
+- [src/__tests__/useExplorer.test.tsx](<../../../src/__tests__/useExplorer.test.tsx>)
 - [src/__tests__/useLoad.test.tsx](<../../../src/__tests__/useLoad.test.tsx>)
 - [src/__tests__/verificationAdvancement.test.ts](<../../../src/__tests__/verificationAdvancement.test.ts>)
 - [src/__tests__/verificationView.test.tsx](<../../../src/__tests__/verificationView.test.tsx>)
@@ -583,19 +585,23 @@ Covered source files (11):
 
 ## explorer
 
-Explorer position, track navigation, tab declarations and session state.
+Explorer position, session state, the explorer screen, track navigation and tab declarations.
 
 Start here:
+- [src/explorer/useExplorer.ts](<../../../src/explorer/useExplorer.ts>)
+- [src/explorer/ExplorerShell.tsx](<../../../src/explorer/ExplorerShell.tsx>)
 - [src/explorer/explorerPosition.ts](<../../../src/explorer/explorerPosition.ts>)
 - [src/explorer/explorerTabs.ts](<../../../src/explorer/explorerTabs.ts>)
 - [src/explorer/explorerSession.ts](<../../../src/explorer/explorerSession.ts>)
 
-Covered source files (5):
+Covered source files (7):
 - [src/explorer/CellNavigator.tsx](<../../../src/explorer/CellNavigator.tsx>)
+- [src/explorer/ExplorerShell.tsx](<../../../src/explorer/ExplorerShell.tsx>)
 - [src/explorer/explorerPosition.ts](<../../../src/explorer/explorerPosition.ts>)
 - [src/explorer/explorerSession.ts](<../../../src/explorer/explorerSession.ts>)
 - [src/explorer/explorerTabs.ts](<../../../src/explorer/explorerTabs.ts>)
 - [src/explorer/geneVocabulary.ts](<../../../src/explorer/geneVocabulary.ts>)
+- [src/explorer/useExplorer.ts](<../../../src/explorer/useExplorer.ts>)
 
 ## expression-survey
 
