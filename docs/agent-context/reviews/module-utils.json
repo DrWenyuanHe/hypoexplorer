@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-utils",
-  "fingerprint": "a3654cfdf4832e1c2456554e1113dafb337422fe06db70f2ff560fdf17a1142a",
+  "fingerprint": "25130dddb74dc726af15fe6a3a81e15bdd2a73dacd1de87cafaa628e806873df",
   "outcome": "updated",
-  "explanation": "format.ts exports STAR_THRESHOLDS, which pToStar reads, and starLegend(), which the ContrastMatrix legend and Methods star table use. pToStar returns the same stars at the same strict boundaries.",
+  "explanation": "New imeComposing.ts exports isImeComposing, the shared check (native isComposing or keyCode 229) that text fields with their own Enter, Escape or arrow handling consult before acting on the key.",
   "references": [
-    "src/utils/format.ts",
-    "src/gene-explorer/ContrastMatrix.tsx",
-    "src/methodology/MethodologyView.tsx"
+    "src/utils/imeComposing.ts",
+    "docs/agent-context/workflows.md"
   ]
 }

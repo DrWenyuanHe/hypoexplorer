@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "ad6ff8563b5a4d0f62eaf59f035a954f388892b02b63f065c16946f81db61753",
+  "fingerprint": "108d969ebc6f0f9e436889dd029f010c3fa20002f38708c97ec9acde4b048d74",
   "outcome": "updated",
-  "explanation": "contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. SearchPage.tsx imports it from data/contrasts, so nothing under src/search imports src/crossdataset any more and the search ↔ crossdataset directory cycle (crossdataset/GeneReport.tsx still imports search/portalCards) is gone. No visible change. The pathway portal note also keeps its nominal track counts but drops the not-corrected caveat clause, which the listing toggle (?) help beside the results title now carries.",
+  "explanation": "UnifiedSearchBox's keydown handler returns early while an IME is composing, so arrows move IME candidates instead of the option highlight and Escape cancels composition without closing the list; Enter still goes through native form submission.",
   "references": [
-    "src/search/SearchPage.tsx",
-    "src/data/contrasts.ts"
+    "src/search/UnifiedSearchBox.tsx",
+    "src/utils/imeComposing.ts"
   ]
 }

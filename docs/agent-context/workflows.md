@@ -173,7 +173,10 @@ writes its Metadata through `src/utils/exportProvenance.ts`; every CSV is writte
 by `src/utils/csv.ts` (escaping, formula guard, BOM/CRLF, per-row provenance for
 long tables, and a metadata JSON split down its column under Excel's cell limit);
 multi-file downloads are stored ZIPs from `src/utils/zip.ts`; every gene picker is
-`GenePicker` over `src/explorer/geneVocabulary.ts`; a table that lists tracks by
+`GenePicker` over `src/explorer/geneVocabulary.ts`; a text field whose own
+keydown handler acts on Enter, Escape or the arrows returns early on
+`isImeComposing` (`src/utils/imeComposing.ts`) so an IME's confirming keys never
+search half-typed text; a table that lists tracks by
 significance reads each row's `tier` (set once by `geneRow` / `pathwayRow` from
 `src/statistics/policy.ts`), takes what leads, the order and the counts from
 `listCrossStudy` in `src/statistics/crossStudyListing.ts`, its mode words and nominal caveat from `src/statistics/listingWords.ts` and any direction-coloured text from `directionTextColor` in `src/statistics/direction.ts`, for the mode

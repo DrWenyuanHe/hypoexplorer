@@ -1,14 +1,11 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "9aa81ffc74e30145691e4cdaee9a9bb4c1e99b9fc9bb781ebf0fcb933aca0b58",
+  "fingerprint": "f5464e3acfdce3126ce85f1be8dc6f9d4638b070b46b55531ca03239d4596a0d",
   "outcome": "updated",
-  "explanation": "No workflow rule changes. From main: contrastLabel moves unchanged to data/contrasts.ts, so the search area no longer imports the crossdataset area, and the significance explanations move from report paragraphs into a (?) help beside the listing toggle; the listing itself is unchanged. From this branch: App closes the changelog whenever a visit to the explorer ends (the view leaves it, or a refused link's error page replaces it), so entering again shows the explorer instead of earlier release notes; the hub's Changelog link still opens it. CONTEXT.md's explorer entry says which shell state outlives a visit.",
+  "explanation": "The ui-change runbook now says a text field whose own keydown handler acts on Enter, Escape or the arrows returns early on isImeComposing from src/utils/imeComposing.ts.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/App.tsx",
-    "src/data/contrasts.ts",
-    "src/statistics/ListingModeToggle.tsx",
-    "CONTEXT.md"
+    "src/utils/imeComposing.ts"
   ]
 }

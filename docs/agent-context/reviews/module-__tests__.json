@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "656b34e3edbc92d1774fa8d92d98f9ff28d995bb1818616a0f023e83370142a3",
+  "fingerprint": "bfdf995dddf62c1224f3f0913d52675f9e552745132a4b08ec0b615bb2217239",
   "outcome": "updated",
-  "explanation": "Merges main (#97, #98) into the changelog fix. From main: forestReport.test.tsx imports contrastLabel from data/contrasts, where it now lives; the gene and pathway report tests and the listing toggle test open the (?) help beside the listing toggle to find the FDR, q and p < 0.05 only explanation, and row q cells keep their hover title. From this branch: changelogVisit.test.tsx opens the changelog in the explorer, goes Home and enters through the hub's Quality control link, and requires the QC tab with no release notes; a second case follows a refused saved-analysis link and then a valid QC link; a third pins the hub's Changelog link still opening it. The first two failed before their fixes.",
+  "explanation": "imeComposing.test.ts pins isImeComposing on isComposing and the Safari keyCode 229 keydown; genePicker and unifiedSearchBox tests pin that a composing Enter adds no gene and composing arrows or Escape leave the hub list alone.",
   "references": [
-    "src/__tests__/changelogVisit.test.tsx",
-    "src/__tests__/forestReport.test.tsx",
-    "src/__tests__/geneReport.test.tsx",
-    "src/__tests__/pathwayReportResults.test.tsx",
-    "src/__tests__/listingModeToggle.test.tsx"
+    "src/__tests__/imeComposing.test.ts",
+    "src/__tests__/genePicker.test.tsx",
+    "src/__tests__/unifiedSearchBox.test.tsx"
   ]
 }

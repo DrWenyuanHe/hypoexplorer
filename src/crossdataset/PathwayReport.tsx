@@ -18,6 +18,7 @@ import { PathwayEffectPreview } from './PathwayEffectPreview';
 import './forestReport.css';
 import type { DatasetCategory } from '../data/datasets';
 import { fmtP, fmtFDR, fmtSigned } from '../utils/format';
+import { isImeComposing } from '../utils/imeComposing';
 import { FONT_MONO } from '../styles/constants';
 import { directionTextColor } from '../statistics/direction';
 import { leadingTracks, noneLeads, notLeading } from '../statistics/listingWords';
@@ -197,7 +198,7 @@ function PathwaySearch({ index, onPick }: { index: string[]; onPick: (p: string)
     <div style={{ position: 'relative', flex: 1, minWidth: 260, maxWidth: 460 }}>
       <input type="text" value={query} onChange={(e) => { setQuery(e.target.value); setOpen(true); }}
         onFocus={() => setOpen(true)} onBlur={() => setTimeout(() => setOpen(false), 150)}
-        onKeyDown={(e) => { if (e.key === 'Enter' && suggestions.length) { onPick(suggestions[0]); setQuery(''); setOpen(false); } }}
+        onKeyDown={(e) => { if (e.key === 'Enter' && suggestions.length && !isImeComposing(e)) { onPick(suggestions[0]); setQuery(''); setOpen(false); } }}
         aria-label="Search a pathway" placeholder="Search a pathway, e.g. ADIPOGENESIS"
         style={{ width: '100%', height: 38, padding: '0 12px', fontSize: 13, fontFamily: FONT_MONO, border: '1px solid var(--border-dark)', borderRadius: 'var(--r-lg)', background: 'var(--bg-panel)', outline: 'none', color: 'var(--text-primary)' }} />
       {open && suggestions.length > 0 && (
