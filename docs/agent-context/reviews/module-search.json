@@ -1,11 +1,13 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "ad6ff8563b5a4d0f62eaf59f035a954f388892b02b63f065c16946f81db61753",
+  "fingerprint": "176ff8a82193cd2d809181446d69e8ff7fc28f7d7d5554ca674544124f28c57f",
   "outcome": "updated",
-  "explanation": "contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. SearchPage.tsx imports it from data/contrasts, so nothing under src/search imports src/crossdataset any more and the search ↔ crossdataset directory cycle (crossdataset/GeneReport.tsx still imports search/portalCards) is gone. No visible change. The pathway portal note also keeps its nominal track counts but drops the not-corrected caveat clause, which the listing toggle (?) help beside the results title now carries.",
+  "explanation": "searchSummaries.ts adds visium to REFERENCE_ATLAS_SOURCES and a regional summary (regionalSummary) for sources whose groups are regions: each region keeps its donor values, sparse flag, spots and compartment, and donors are counted once across regions, so spreadOf is never applied to regions. portalCards.tsx adds the full-row HYPOMAP Visium tile (top five hypothalamic regions, a bar at the donor mean and a dot per donor, sparse marks, unit and tissue-average notes, credit links) and its drill; atlasGap uses absentLabel. search.css styles the wide tile and dots, including the phone layout.",
   "references": [
-    "src/search/SearchPage.tsx",
-    "src/data/contrasts.ts"
+    "src/search/searchSummaries.ts",
+    "src/search/portalCards.tsx",
+    "src/search/search.css",
+    "docs/runbooks/EXPRESSION_SURVEY.md"
   ]
 }

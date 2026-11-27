@@ -14,7 +14,8 @@ one retry). Beside the Vitest suite it runs `test:scripts`
 HypoMap co-detection service against its golden wire contract). It fetches the
 query catalog and the reference atlases from the live origins instead of
 building them, so it checks the app against the published data, not the data
-itself. The atlases are cached under `fetch:expression --identity`, a digest of
+itself. The exception is the HYPOMAP Visium atlas, whose extract is tracked: CI
+builds it with `pnpm run build:expression-visium`, which replays every value. The atlases are cached under `fetch:expression --identity`, a digest of
 each published manifest and validation record, and downloaded again when that
 changes. The [publication release procedure](../runbooks/PUBLICATION_RELEASE.md)
 documents citation, licensing, exact release identity and local archive packaging.
@@ -47,7 +48,8 @@ The site is an assets Worker configured in [wrangler.jsonc](../../wrangler.jsonc
 `wrangler deploy` and `verify:deploy`; `deploy:cf:dry` stops at
 `wrangler deploy --dry-run`. [prepare_deploy.mts](../../scripts/deploy/prepare_deploy.mts)
 fetches the gitignored inputs the build ships (query catalog, tracker catalog,
-reference atlases) when they are missing, keeps complete local atlases, and stops
+reference atlases) when they are missing, builds the Visium atlas from its tracked
+extract instead of fetching it, keeps complete local atlases, and stops
 when the local query pointers differ from the data origin's, because the app
 would pin an index R2 does not serve (`--refresh-query` takes the origin's).
 `verify:release` fails when `dist/` lacks an atlas file or the tracker catalog,
@@ -92,8 +94,13 @@ in this repository. Without them,
 `pnpm run fetch:expression` (and `prepare:deploy`, for any atlas that is missing)
 copies the deployed products from hypoexplorer.com. A deploy uploads
 these files as Workers static assets; nothing goes to R2. They are most of
-`public/`'s 9,800 files. A Workers Free version is capped at 20,000 asset files,
-so measure the file count before adding another provider. The `.br`/`.gz` sidecars
+`public/`'s files. A Workers Free version is capped at 20,000 asset files,
+so measure the file count before adding another provider. The HYPOMAP Visium atlas
+(`public/expression/visium/`, 17.4 MB in 2,050 files) is built from its tracked
+extract rather than fetched. Measured on 2026-11-27 with all four atlases, an
+off-origin `pnpm run build` wrote 11,079 deployable `dist/` files (2,050 of them
+Visium); the largest was `nomenclature/table.js` at 17.5 MB, under the 25 MiB
+per-file limit. The `.br`/`.gz` sidecars
 stay out of the upload (`public/.assetsignore`) and do not count.
 The separate `check:oxt-avp` check covers the admitted GSE65663 dataset's
 bundles and current intake audit. Reproduce its R4.6 analysis through the

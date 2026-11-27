@@ -60,8 +60,8 @@ Run `pnpm run check:expression-reference` for its source hashes, sample/feature
 alignment and full-value replay. A source's descriptive cell-profile count is
 not an independent-animal count; reference eligibility remains source-specific.
 
-Reference atlases (GTEx V10, HPA 25, Allen Human Brain Atlas microarray) are
-expression-only too. They use `scripts/build_gtex_reference.mts`,
+Reference atlases (GTEx V10, HPA 25, Allen Human Brain Atlas microarray,
+HYPOMAP human Visium by region) are expression-only too. They use `scripts/build_gtex_reference.mts`,
 `scripts/build_hpa_reference.mts` and `scripts/build_allen_human_reference.mts`,
 which share `scripts/lib/externalReference.mts` and the format in
 `src/expression-survey/externalReferenceFormat.ts`. Their retained sources are in
@@ -71,6 +71,12 @@ LFS), [`data/expression/hpa/`](../../data/expression/hpa/README.md) and
 (hypothalamic extracts of the six donor zips, expression under Git LFS). Their
 products under `public/expression/{gtex,hpa,allen-human}/` are gitignored build
 artifacts. Allen is probe-level: one result per probe, never collapsed.
+HYPOMAP Visium (`scripts/build_visium_reference.mts`) differs: its donor × region
+extract is tracked in [`data/expression/visium/`](../../data/expression/visium/README.md),
+so `pnpm run build:expression-visium` builds `public/expression/visium/` in any
+checkout (CI and `prepare:deploy` do), and `--fetch` re-extracts it from the pinned
+RDS with `scripts/extract_visium_reference.R`. Its groups are regions, not donors
+(`groupKind: 'region'`), so summaries use `regionalSummary`, never a donor spread.
 Run `pnpm run build:expression-external` after a source or builder change; it
 needs the retained source downloads, which this repository does not carry. A
 fresh checkout takes the deployed products with `pnpm run fetch:expression`, and
@@ -365,7 +371,7 @@ The gene page (`GeneReport`) holds the gene's detail; it no longer draws a
 forest plot. First, where the gene is expressed (`src/search/portalCards.tsx`): the
 NeuroSeq baseline-expression card, a reserved slot for mouse single-cell atlases,
 the HPA human snRNA clusters, and a wide "Human hypothalamus" card with GTEx, HPA
-subregion and per-probe Allen values. Those last two read the reference-atlas
+subregion, per-probe Allen and HYPOMAP Visium region values. Those last two read the reference-atlas
 products through `loadReferenceAtlases`, each atlas in its own unit. Then "Differential expression across studies":
 the tracks of the selected studies and visible categories, grouped by research
 area (most significant tracks first, each area with its tally; measured areas

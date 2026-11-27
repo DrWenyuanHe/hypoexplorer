@@ -101,6 +101,10 @@ jobs:
           key: expression-atlases-${{ steps.atlases.outputs.key }}
       - if: steps.atlas-cache.outputs.cache-hit != 'true'
         run: pnpm run fetch:expression
+      # The HYPOMAP Visium atlas is built from its tracked source
+      # (data/expression/visium/), not fetched; the build replays every value.
+      - name: Build the HYPOMAP Visium atlas
+        run: pnpm run build:expression-visium
       - name: Run tests
         # Tests that read retained evidence or pre-publication history are left
         # out of this repository's vite.config.ts; the maintainer runs them.
@@ -135,8 +139,9 @@ jobs:
             public/expression/allen-human
           key: expression-atlases-${{ steps.atlases.outputs.key }}
       # The same preparation as deploy:cf: the query catalog from R2, the tracker
-      # catalog and the GTEx, HPA and Allen atlases (~230 MB) from the app host.
-      # It keeps an atlas the cache restored complete and fetches any other.
+      # catalog and the GTEx, HPA and Allen atlases (~230 MB) from the app host,
+      # and the HYPOMAP Visium atlas built from its tracked source. It keeps an
+      # atlas the cache restored complete and fetches or builds any other.
       - run: pnpm run prepare:deploy
       - name: Build production application
         run: pnpm run build

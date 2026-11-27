@@ -1,8 +1,8 @@
 # Expression survey
 
 The survey reads per-sample expression in hypothalamic populations, broader
-neuronal preparations and tissue, alongside GTEx, Human Protein Atlas and Allen
-Human Brain Atlas reference atlases. A gene has one home for it: its gene page.
+neuronal preparations and tissue, alongside GTEx, Human Protein Atlas, Allen
+Human Brain Atlas and HYPOMAP Visium reference atlases. A gene has one home for it: its gene page.
 "Where <gene> is expressed" shows one tile per source, and each tile opens that
 source's full survey of the gene in place. The `#/expression` page,
 reachable from **Expression survey** on the home page, compares several genes and
@@ -83,7 +83,7 @@ matches supported stable feature IDs and source symbols. NeuroSeq prefers an exa
 symbol spelling before a case-insensitive fallback. Ambiguous matches require an
 unambiguous ID and are never silently merged; placeholder IDs fall back to portal IDs.
 
-## Reference atlases (GTEx, HPA, Allen)
+## Reference atlases (GTEx, HPA, Allen, HYPOMAP Visium)
 
 The `external` collection holds public reference atlases imported from retained,
 hash-pinned releases. They are never fetched from the providers at runtime. The
@@ -97,6 +97,7 @@ along with the Phase 0 measurements and the decisions behind this design.
 | HPA human hypothalamus snRNA clusters | Population survey, "Reference atlases (HPA)" | 26 clusters, one published nCPM each |
 | HPA mouse and pig hypothalamus | Tissue & bulk (whole hypothalamus; reference atlases) | 4 animals each, per-animal nTPM |
 | Allen Human Brain Atlas hypothalamus microarray | Tissue & bulk (reference atlases) | 102 tissue samples from 6 donors, per-sample log2 intensity, one row per probe |
+| HYPOMAP human Visium by region | Tissue & bulk (reference atlases) | 23 regions, 121 donor × region samples from 7 donors, FFPE Visium probe-count CPM |
 
 The Allen source is probe-level (`featureLevel: 'probe'`). A gene query returns one
 result per probe, each carrying `probe`, and several probes of one gene are not an
@@ -116,23 +117,60 @@ species. Ambiguous symbols, such as GTEx's `_PAR_Y` copies, are reported and nev
 merged. Every provider and source credits its release, licence and required
 attribution. No reference-atlas group is eligible for the fed / reference filter.
 
-Each provider writes one directory under `public/expression/{gtex,hpa,allen-human}/`
+Each provider writes one directory under `public/expression/{gtex,hpa,allen-human,visium}/`
 in the format of `src/expression-survey/externalReferenceFormat.ts`: a manifest,
 1,024 key-sharded lookup files and feature-sharded value files. GTEx and Allen have
-2,048 value files each and HPA 1,024. One gene costs one lookup request per provider
+2,048 value files each, HPA and Visium 1,024. One gene costs one lookup request per provider
 and one value request per feature (one per Allen probe), about 10–20 KB compressed.
-These directories are gitignored build artifacts (about 230 MB in 8,200 files).
-`pnpm run build:expression-external` regenerates them from the retained sources
+These directories are gitignored build artifacts (about 230 MB in 8,200 files for
+GTEx, HPA and Allen; 17.4 MB in 2,050 files for Visium).
+`pnpm run build:expression-external` regenerates the first three from the retained sources
 pinned in `data/expression/gtex/`, `data/expression/hpa/` and
 `data/expression/allen-human/`. Those sources are
 [not in this repository](../PROJECT_GUIDANCE.md#files-not-in-this-repository), so CI
 and a fresh checkout run `pnpm run fetch:expression`, which downloads the published
-products. A missing or inconsistent provider is reported on the page,
+products. The Visium extract is tracked, so `pnpm run build:expression-visium`
+builds its products in a few seconds; CI runs it and `prepare:deploy` runs it when
+the atlas is missing (see [HYPOMAP Visium by region](#hypomap-visium-by-region)). A missing or inconsistent provider is reported on the page,
 and other sources keep working. The builders verify each retained hash, replay every
 emitted value against its source, and check each provider's API against retained
 checkpoints. See the [GTEx runbook](../../data/expression/gtex/README.md), the
-[HPA runbook](../../data/expression/hpa/README.md) and the
-[Allen runbook](../../data/expression/allen-human/README.md).
+[HPA runbook](../../data/expression/hpa/README.md), the
+[Allen runbook](../../data/expression/allen-human/README.md) and the
+[Visium runbook](../../data/expression/visium/README.md).
+
+### HYPOMAP Visium by region
+
+`visium-hypomap-regions` holds the human HYPOMAP Visium sections (Tadross et al.
+2025, dataset doi:10.17863/CAM.111988, CC BY 4.0) as donor × region pseudobulks.
+Spot counts are summed per donor within each of the authors' grouped regions,
+across that donor's sections; a donor × region cell with at least 10 spots is one
+sample, and CPM is 10^6 × counts / library size. That gives 121 samples in 23
+regions from 7 donors, 9 sections and 86,041 spots.
+
+- Groups are regions (`groupKind: 'region'`) and samples are donors, so n counts
+  donors and one donor appears in several regions. Each region's condition
+  carries its coverage (donors, sections, spots) and its compartment.
+- The unit is "FFPE Visium probe-count CPM". It is never put on a scale shared
+  with TPM, nTPM, nCPM or Allen intensity.
+- Regions with fewer than three donors are marked sparse wherever regions are
+  ranked: POA (1 donor), ME and MAM (2). Their label says so in the survey's
+  ranked rows, and the gene page marks them.
+- Fibre tracts (Fx/LH, Fx/OT/ac, OT), vascular, ventricular, thalamic and
+  unassigned spots are their own groups, apart from the 16 hypothalamic areas.
+- A 55 µm spot mixes several cells: region values are tissue averages, not cell
+  types.
+- Every panel gene is shipped, including six with no counts (stored as measured
+  zeros). A gene outside the probe panel (IGF2, HCRT) is reported as "Not
+  measured in this Visium probe panel" (`absentLabel`), never as a zero.
+- Donors are shown as Donor 1–7, display-local labels. Source donor codes, sex,
+  age and BMI are not shipped; sample metadata is allow-listed in the builder.
+- Attribution, the dataset DOI, the licence and a "transformed by HypoExplorer"
+  notice appear in the provider credit, the gene-page tile, the metadata export
+  and, through the `source_credit` column, every CSV row.
+
+Per-spot section maps are not part of this source. They wait on a pilot that
+checks coordinate orientation against the tissue images and measures cost.
 
 ### On the gene page
 
@@ -167,7 +205,7 @@ The animal row, "Animal hypothalamus", holds four tiles:
   opens the HypoMap preview. A new mouse single-cell source joins the card here,
   as this tile's teaser and the panel it opens.
 
-The human row, "Human hypothalamus", holds four tiles:
+The human row, "Human hypothalamus", holds five tiles:
 
 - GTEx: the median TPM and interquartile range across its 257 donors, and the
   donor mean, which is the value the source's survey ranks.
@@ -175,6 +213,12 @@ The human row, "Human hypothalamus", holds four tiles:
   log2, never of the pooled tissue samples.
 - HPA subregions: the top three by published nTPM.
 - HPA snRNA-seq clusters: the top three by published nCPM.
+- HYPOMAP Visium (`regionalSummary`), across the row: the five hypothalamic
+  regions with the highest donor mean, each a bar at that mean with a dot per
+  donor on the same scale, its donor count, and a sparse mark under three
+  donors. Its groups are regions, so the GTEx/Allen donor spread does not apply:
+  it would count regions as donors. Non-nuclear compartments are not ranked; the
+  tile names one when it exceeds the top nucleus. It carries the source credit.
 
 Each source keeps its own unit, its bars are scaled to its own highest value, and
 published values are printed as published. When the page's symbol differs from the

@@ -1,4 +1,4 @@
-// Shared writer, checker and replay for external reference products (GTEx, HPA, Allen).
+// Shared writer, checker and replay for external reference products (GTEx, HPA, Allen, Visium).
 // Builders parse their retained sources into ExternalFeature rows; this module
 // shards them in the format of src/expression-survey/externalReferenceFormat.ts,
 // writes or byte-compares the products, then reads every emitted value back.

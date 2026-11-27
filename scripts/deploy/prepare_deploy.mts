@@ -19,8 +19,9 @@
 //   pass --refresh-query to take the origin's.
 // - Tracker catalog: fetched from the app host when missing.
 // - Reference atlases: any missing or incomplete atlas is fetched from the app
-//   host (pnpm run fetch:expression <atlas>). A complete local atlas is kept, so
-//   a rebuilt atlas (build:expression-external) deploys as built.
+//   host (pnpm run fetch:expression <atlas>), or, for an atlas whose source is
+//   tracked here (HYPOMAP Visium), built from it. A complete local atlas is
+//   kept, so a rebuilt atlas (build:expression-external) deploys as built.
 //
 // Exits non-zero, having changed nothing it could not verify, if any input is
 // still missing afterwards.
@@ -31,7 +32,7 @@ import { createRequire } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadEnv } from 'vite';
-import { ATLAS_DIRS, atlasProblems, TRACKER_CATALOG } from '../lib/deployInputs.mjs';
+import { ATLAS_DIRS, atlasProblems, BUILT_ATLASES, TRACKER_CATALOG } from '../lib/deployInputs.mjs';
 import { diskOrigin, httpOrigin, readQueryGeneration } from '../lib/queryGeneration.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
@@ -93,15 +94,20 @@ else console.log(`  public/${TRACKER_CATALOG} present`);
 
 // ── Reference atlases ────────────────────────────────────────────────────────
 console.log('Reference atlases');
+const require = createRequire(import.meta.url);
+const tsx = (script: string, args: string[] = []) => spawnSync(process.execPath, [require.resolve('tsx/cli'), path.join(ROOT, script), ...args], {
+  cwd: ROOT, stdio: 'inherit', env: { ...process.env, HYPOEXPLORER_APP_ORIGIN: app },
+});
 const incomplete = ATLAS_DIRS.filter((dir) => atlasProblems(local(`expression/${dir}`), `public/expression/${dir}`).length);
 for (const dir of ATLAS_DIRS) if (!incomplete.includes(dir)) console.log(`  public/expression/${dir} complete`);
-if (incomplete.length) {
-  console.log(`  fetching ${incomplete.join(', ')} from ${app}`);
-  const require = createRequire(import.meta.url);
-  const run = spawnSync(process.execPath, [require.resolve('tsx/cli'), path.join(ROOT, 'scripts/fetch/fetch_expression_references.mts'), ...incomplete], {
-    cwd: ROOT, stdio: 'inherit', env: { ...process.env, HYPOEXPLORER_APP_ORIGIN: app },
-  });
-  if (run.status !== 0) failures.push(`fetching ${incomplete.join(', ')} failed`);
+for (const { dir, builder } of BUILT_ATLASES.filter((atlas) => incomplete.includes(atlas.dir))) {
+  console.log(`  building ${dir} from its tracked source`);
+  if (tsx(builder).status !== 0) failures.push(`building ${dir} failed`);
+}
+const toFetch = incomplete.filter((dir) => !BUILT_ATLASES.some((atlas) => atlas.dir === dir));
+if (toFetch.length) {
+  console.log(`  fetching ${toFetch.join(', ')} from ${app}`);
+  if (tsx('scripts/fetch/fetch_expression_references.mts', toFetch).status !== 0) failures.push(`fetching ${toFetch.join(', ')} failed`);
 }
 for (const dir of ATLAS_DIRS) failures.push(...atlasProblems(local(`expression/${dir}`), `public/expression/${dir}`));
 
