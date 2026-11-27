@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "analysis",
-  "fingerprint": "49c3ead35d60e570c60178a7ff3f73bb6ef5bf03a3bf4f2a2b8c4253e2bd7cfd",
+  "fingerprint": "a12392cc8aa07320deaa47ea75115002fa61fba6a388b21851648c490072712c",
   "outcome": "updated",
-  "explanation": "Adds data/expression/visium/README.md, the runbook for the HYPOMAP human Visium reference: the pinned RDS (URL, bytes, MD5, SHA-256), the four tracked donor x region tables written by scripts/extract_visium_reference.R, the derivation (donor x region cells with at least 10 spots, CPM from summed counts and library sizes, six significant digits), the sparse-region and compartment rules, what the builder checks, the one-off DuckDB cross-check against the Parquet export, and the CC BY 4.0 attribution. No existing analysis output or producer changed. The tables were re-extracted on 2026-11-27 under R 4.6.0 (Seurat 6.0.0, SeuratObject 5.4.0, Matrix 1.7.5) and were byte-identical to the R 4.4.1 extraction; the manifest now records the R 4.6.0 runtime, and the extractor uses GetAssayData(layer =) because SeuratObject 5.4 made slot = an error.",
+  "explanation": "Merges main (#101) into the HypoMap study-card branch. From main: data/expression/visium/README.md documents the HYPOMAP human Visium reference (pinned RDS, four donor x region tables, derivation, sparse-region and compartment rules, the R 4.6.0 re-extraction and CC BY 4.0 attribution). From this branch: the HypoMap runbook lists which study-card columns the By dataset view shows and the two its CSV adds; the study card, exporter and export format are unchanged.",
   "references": [
     "data/expression/visium/README.md",
-    "data/expression/visium/source-manifest.json",
-    "scripts/build_visium_reference.mts",
-    "scripts/extract_visium_reference.R"
+    "scripts/extract_visium_reference.R",
+    "data/hypomap/README.md",
+    "src/search/hypomap/atlas.ts"
   ]
 }

@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "13dc11543c944071f9dcf8d0bc63037906d4b0547beb2c42ef2212dd2ffb0153",
+  "fingerprint": "25aa4ae8702c0690b42c8a0f0e0bd0e6abe6adff417d9576b0688d28bc84b56b",
   "outcome": "updated",
-  "explanation": "The gene page Human hypothalamus row gains a full-width HYPOMAP Visium tile (regions ranked by donor mean, a dot per donor, sparse marks, credit) and a Visium drill held to its source; survey panels show the not-measured label from absentLabel and CSV exports add source_credit. Checked in the browser at desktop and 390 px with no horizontal overflow; no new view or tab, so the smoke link list is unchanged.",
+  "explanation": "No workflow rule changes. From main: the gene page Human hypothalamus row gains the HYPOMAP Visium tile and drill, and survey CSVs add source_credit. From this branch: the gated HypoMap By dataset view shows study-card details read through atlas.ts, so views still never read the export wire, and its CSV still goes through the export-provenance and CSV seams with two added columns. No new view or tab.",
   "references": [
+    "docs/agent-context/workflows.md",
     "src/search/portalCards.tsx",
-    "src/search/search.css",
-    "src/expression-survey/GeneSurvey.tsx",
-    "src/expression-survey/SourceDetail.tsx",
-    "docs/agent-context/workflows.md"
+    "src/search/hypomap/atlas.ts",
+    "src/search/hypomap/HypoMapPreview.tsx"
   ]
 }

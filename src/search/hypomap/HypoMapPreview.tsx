@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AtlasMap, regions } from './AtlasMap';
 import {
-  type AtlasTable, COHORT, type DatasetMetrics, datasetSummary, datasetTable, EXPRESSION_UNIT, loadAtlasGene, type MetricField, type Metrics,
+  type AtlasDataset, type AtlasTable, COHORT, type DatasetMetrics, datasetSummary, datasetTable, EXPRESSION_UNIT, loadAtlasGene, type MetricField, type Metrics,
   missMessage, type ReadyAtlas, spatialTable, WHOLE,
 } from './atlas';
 import { CsvDialog } from './CsvDialog';
@@ -47,6 +47,33 @@ function Summary({ row }: { row: Metrics }) {
           <p className="hm-formula-note">Cell total = total stored counts per cell.<br />Averaged over detected cells only.</p>
         </details>
       </div>
+    </div>
+  );
+}
+
+/** The contributing study as its curated card describes it; blank card fields are left out. */
+function StudyDetails({ study }: { study: AtlasDataset }) {
+  const technology = study.technology && study.cellsOrNuclei ? `${study.technology} (${study.cellsOrNuclei})` : study.technology ?? study.cellsOrNuclei;
+  const facts = ([
+    ['Technology', technology],
+    ['Region sampled', study.sampledRegion],
+    ['Sex', study.sex],
+    ['Age', study.ageStage],
+    ['Condition', study.condition],
+    ['Cells in HypoMap', study.cellsInHypoMap === null ? null : count.format(study.cellsInHypoMap)],
+  ] satisfies [string, string | null][]).filter((fact): fact is [string, string] => fact[1] !== null);
+  return (
+    <div className="hm-study">
+      {study.publication && (
+        <p className="hm-study-publication">
+          {study.publicationUrl
+            ? <a href={study.publicationUrl} target="_blank" rel="noopener noreferrer">{study.publication}<span className="hm-sr-only"> (opens in a new tab)</span></a>
+            : study.publication}
+        </p>
+      )}
+      {facts.length
+        ? <dl>{facts.map(([term, detail]) => <div key={term}><dt>{term}</dt><dd>{detail}</dd></div>)}</dl>
+        : !study.publication && <p className="hm-study-empty">No study details recorded.</p>}
     </div>
   );
 }
@@ -167,8 +194,14 @@ function AtlasViews({ data }: { data: ReadyAtlas }) {
             ))}
           </fieldset>
           <div className="hm-grid">{checked.map(id => {
-            const row = rows.find(item => item.id === id);
-            return row && <section className="hm-card" key={id}><h5>{row.label}</h5><small>{row.id}</small><Summary row={row} /></section>;
+            const i = rows.findIndex(item => item.id === id);
+            return i >= 0 && (
+              <section className="hm-card" key={id} aria-labelledby={`hm-study-${i}`}>
+                <h5 id={`hm-study-${i}`}>{rows[i].label}</h5><small>{id}</small>
+                <StudyDetails study={data.datasets[i]} />
+                <Summary row={rows[i]} />
+              </section>
+            );
           })}</div>
         </>
       )}
