@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (275):
+Covered source files (276):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -192,6 +192,7 @@ Covered source files (275):
 - [src/__tests__/hypomapCoexpression.test.tsx](<../../../src/__tests__/hypomapCoexpression.test.tsx>)
 - [src/__tests__/hypomapFixture.ts](<../../../src/__tests__/hypomapFixture.ts>)
 - [src/__tests__/hypomapPreview.test.tsx](<../../../src/__tests__/hypomapPreview.test.tsx>)
+- [src/__tests__/imeComposing.test.ts](<../../../src/__tests__/imeComposing.test.ts>)
 - [src/__tests__/indexFreshness.test.ts](<../../../src/__tests__/indexFreshness.test.ts>)
 - [src/__tests__/indexProducts.test.ts](<../../../src/__tests__/indexProducts.test.ts>)
 - [src/__tests__/intakeStudies.test.ts](<../../../src/__tests__/intakeStudies.test.ts>)
@@ -857,7 +858,7 @@ Start here:
 - [src/utils/sampleValues.ts](<../../../src/utils/sampleValues.ts>)
 - [src/utils/geneListFile.ts](<../../../src/utils/geneListFile.ts>)
 
-Covered source files (26):
+Covered source files (27):
 - [src/utils/analysisState.ts](<../../../src/utils/analysisState.ts>)
 - [src/utils/appLinks.ts](<../../../src/utils/appLinks.ts>)
 - [src/utils/axes.ts](<../../../src/utils/axes.ts>)
@@ -873,6 +874,7 @@ Covered source files (26):
 - [src/utils/format.ts](<../../../src/utils/format.ts>)
 - [src/utils/geneLinks.ts](<../../../src/utils/geneLinks.ts>)
 - [src/utils/geneListFile.ts](<../../../src/utils/geneListFile.ts>)
+- [src/utils/imeComposing.ts](<../../../src/utils/imeComposing.ts>)
 - [src/utils/lazyExport.ts](<../../../src/utils/lazyExport.ts>)
 - [src/utils/mapLimit.ts](<../../../src/utils/mapLimit.ts>)
 - [src/utils/math.ts](<../../../src/utils/math.ts>)

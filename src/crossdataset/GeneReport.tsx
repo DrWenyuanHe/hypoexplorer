@@ -5,6 +5,7 @@ import { datasetCategory, DATASET_CATEGORIES } from '../data/datasets';
 import type { DatasetCategory } from '../data/datasets';
 import { datasetHref, libraryHref, isPlainLeftClick } from '../utils/appLinks';
 import { fmtFDR, fmtP, fmtSigned } from '../utils/format';
+import { isImeComposing } from '../utils/imeComposing';
 import { FONT_MONO } from '../styles/constants';
 import { directionTextColor } from '../statistics/direction';
 import { noneLeads, leadingTracks } from '../statistics/listingWords';
@@ -497,7 +498,7 @@ export function GeneReport({
           </div>
           <div style={{ position: 'relative', flex: 1, minWidth: 240, maxWidth: 380 }}>
             <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" style={{ position: 'absolute', left: 11, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }}><circle cx="11" cy="11" r="7" /><path d="m21 21-4.3-4.3" /></svg>
-            <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') submit(); }}
+            <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter' && !isImeComposing(e)) submit(); }}
               aria-label="Search another gene" placeholder="Search another gene…"
               style={{ width: '100%', height: 38, padding: '0 12px 0 34px', fontSize: 13, fontFamily: 'inherit', border: '1px solid var(--border-dark)', borderRadius: 'var(--r-lg)', background: 'var(--bg-panel)', outline: 'none', color: 'var(--text-primary)' }} />
           </div>

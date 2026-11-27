@@ -22,6 +22,7 @@
 import { useState, useRef, useMemo, useCallback, useEffect } from 'react';
 import type { ChangeEvent, KeyboardEvent } from 'react';
 import { FONT_MONO, FONT_SANS } from '../styles/constants';
+import { isImeComposing } from '../utils/imeComposing';
 import { useAliasIndex } from '../data/useAliasIndex';
 import {
   factsFor, resolveByOtherName,
@@ -197,6 +198,8 @@ export function GeneSearchBox({
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    // Enter and Escape mid-composition confirm or cancel the IME's text.
+    if (isImeComposing(e)) return;
     if (e.key === 'Enter') {
       // Enter takes the top match for the text in the box, which is the exact
       // match when there is one; a redirect works too (AARS1 selects the stored

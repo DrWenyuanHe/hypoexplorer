@@ -1,14 +1,17 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "ea28b028b3069d2af37b644e1563045e265b9205340150134157ddc84e7d6feb",
+  "fingerprint": "f7c1b661fd511fbb168164c454429d356d59ec1957cf90dc508c4a18f9803742",
   "outcome": "updated",
-  "explanation": "Merges main (#101). From main: externalReference, regionalSummary, portalCards, deployGuards, sourceJson and expressionSurvey tests cover the Visium provider, its tile, transport allow-list and source_credit CSV column. From this branch: the HypoMap fixture writes every study-card column (blank as an empty string); the atlas client tests cover named study fields, a partial card whose non-http link and non-numeric cell count read as null, a blank card and the Publication and Technology CSV columns; the preview tests read a checked dataset's linked publication and facts, and a blank card shows no details.",
+  "explanation": "Merges main (#100, #101) into the IME fix. From main: Merges main (#101). From main: externalReference, regionalSummary, portalCards, deployGuards, sourceJson and expressionSurvey tests cover the Visium provider, its tile, transport allow-list and source_credit CSV column. From this branch: the HypoMap fixture writes every study-card column (blank as an empty string); the atlas client tests cover named study fields, a partial card whose non-http link and non-numeric cell count read as null, a blank card and the Publication and Technology CSV columns; the preview tests read a checked dataset's linked publication and facts, and a blank card shows no details. From this branch: imeComposing.test.ts pins isImeComposing on isComposing and the Safari keyCode 229 keydown; genePicker and unifiedSearchBox tests pin that a composing Enter adds no gene and composing arrows or Escape leave the hub list alone.",
   "references": [
     "src/__tests__/externalReference.test.ts",
     "src/__tests__/portalCards.test.tsx",
     "src/__tests__/hypomapFixture.ts",
     "src/__tests__/hypomapAtlasClient.test.ts",
-    "src/__tests__/hypomapPreview.test.tsx"
+    "src/__tests__/hypomapPreview.test.tsx",
+    "src/__tests__/imeComposing.test.ts",
+    "src/__tests__/genePicker.test.tsx",
+    "src/__tests__/unifiedSearchBox.test.tsx"
   ]
 }

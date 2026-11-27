@@ -27,6 +27,7 @@ import { geneMatchLabel, searchAll } from './searchVocabulary';
 import { useSearchVocabulary } from './useSearchVocabulary';
 import type { GeneHit, PathwayHit } from './searchTypes';
 import { DbBadge } from './DbBadge';
+import { isImeComposing } from '../utils/imeComposing';
 
 export interface UnifiedSearchBoxProps {
   /** The text the field starts with, and follows when it changes (the results page's query). */
@@ -152,6 +153,9 @@ export function UnifiedSearchBox({ initialQuery = '', onSearch, autoLoad, varian
   };
 
   const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    // Mid-composition the arrows move the IME's candidates and Escape cancels
+    // it; Enter goes through the form, which the browser already holds back.
+    if (isImeComposing(event)) return;
     if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
       if (!options.length) return;
       event.preventDefault();

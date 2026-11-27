@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "module-crossdataset",
-  "fingerprint": "6a63345ab98bab6a233065243ee325637078a7b6f1b40288026834daa39e1017",
+  "fingerprint": "579a38a891bebeb92ea15e5ab76bfb708a7c5b624ac6521b5f4b28d848a9efe8",
   "outcome": "updated",
-  "explanation": "contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. forestReport.tsx keeps only the forest plot's own helpers; PathwayReport.tsx imports the label from data/contrasts. No visible change. The gene and pathway reports also drop the paragraph explaining p < 0.05 only tracks and the legend sentence defining q; both now sit behind the listing toggle (?) help, which names the gene or pathway correction family. Counts, ordering and empty-listing notes are unchanged.",
+  "explanation": "The gene report's 'Search another gene' box and the pathway report's 'Search a pathway' box now ignore an Enter that confirms IME text, via isImeComposing, so a CJK input method no longer submits half-typed text.",
   "references": [
-    "src/crossdataset/forestReport.tsx",
+    "src/crossdataset/GeneReport.tsx",
     "src/crossdataset/PathwayReport.tsx",
-    "src/data/contrasts.ts",
-    "src/crossdataset/GeneReport.tsx"
+    "src/utils/imeComposing.ts"
   ]
 }

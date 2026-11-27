@@ -94,3 +94,23 @@ describe('GenePicker — the retired-symbol note on a chip', () => {
     expect(await screen.findByText('now AARS1')).toBeTruthy();
   });
 });
+
+describe('GenePicker — Enter under an input method', () => {
+  function Explorer() {
+    return (
+      <GeneExplorerTab geneSelection={useGeneSelection()} volcano={stubVolcanoView()}
+        popData={E9} nomenclatureAuthority="HGNC" />
+    );
+  }
+
+  it('does not add a gene on the Enter that confirms IME text, then adds it on the next Enter', async () => {
+    await mount(<Explorer />);
+    const input = screen.getByPlaceholderText(/Search gene/i);
+    fireEvent.change(input, { target: { value: 'pomc' } });
+    fireEvent.keyDown(input, { key: 'Enter', isComposing: true });
+    fireEvent.keyDown(input, { key: 'Enter', keyCode: 229 });
+    expect(screen.queryByRole('button', { name: 'Remove POMC' })).toBeNull();
+    fireEvent.keyDown(input, { key: 'Enter' });
+    expect(screen.getByRole('button', { name: 'Remove POMC' })).toBeTruthy();
+  });
+});

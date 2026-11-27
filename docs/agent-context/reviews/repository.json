@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "c7852b7a84e93d0754dd2b3c6aef71cb299dd84ea74237586a58549f0e083f7d",
+  "fingerprint": "e3ce97b58b9965f6f4de2afffcb832031d835baf474aca9e91884dd38381f7c4",
   "outcome": "updated",
-  "explanation": "Repository configuration for the Visium atlas: package.json adds build:expression-visium and check:expression-visium; .gitignore ignores public/expression/visium/; .gitattributes keeps the pinned Visium TSV tables and the R extractor LF on every checkout; the application workflow builds the Visium atlas in the test job and prepare:deploy builds it in the build job; CHANGELOG.md records the change. The R extractor now reads counts with GetAssayData(layer =), works under R 4.4.1 and R 4.6.0, and notes that Seurat must be installed for the VisiumV1 image class.",
+  "explanation": "Merges main (#101) into the IME fix. From main: Repository configuration for the Visium atlas: package.json adds build:expression-visium and check:expression-visium; .gitignore ignores public/expression/visium/; .gitattributes keeps the pinned Visium TSV tables and the R extractor LF on every checkout; the application workflow builds the Visium atlas in the test job and prepare:deploy builds it in the build job; CHANGELOG.md records the change. The R extractor now reads counts with GetAssayData(layer =), works under R 4.4.1 and R 4.6.0, and notes that Seurat must be installed for the VisiumV1 image class. From this branch: docs/agent-context/workflows.md's ui-change section adds the IME rule: a text field whose own keydown handler acts on Enter, Escape or the arrows returns early on isImeComposing. No root configuration, scripts or workflows changed.",
   "references": [
     "package.json",
     ".gitignore",
@@ -11,6 +11,8 @@
     ".github/workflows/application.yml",
     "CHANGELOG.md",
     "data/expression/visium/README.md",
-    "scripts/extract_visium_reference.R"
+    "scripts/extract_visium_reference.R",
+    "docs/agent-context/workflows.md",
+    "src/utils/imeComposing.ts"
   ]
 }

@@ -1,14 +1,16 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "628c5c1a9e2d01a3e21d84994d0d560b2d500f01483720269516ac6e88162774",
+  "fingerprint": "9b4b77b0ebe8554cfbf381d0473844797f729aa9d860155cf331777bd023d755",
   "outcome": "updated",
-  "explanation": "Merges main (#101). From main: searchSummaries.ts adds the Visium reference and a regional summary, and portalCards.tsx adds the full-row HYPOMAP Visium tile and its drill. From this branch: atlas.ts reads each HypoMap study card into named AtlasDataset fields (publication with an http(s)-only link, technology, cells or nuclei, sampled region, sex, age stage, condition, cells in HypoMap), blank as null; the gated By dataset view shows them on each checked dataset card, and the by-dataset CSV appends Publication and Technology. Co-detection still reads only the wire labels.",
+  "explanation": "Merges main (#100, #101) into the IME fix. From main: Merges main (#101). From main: searchSummaries.ts adds the Visium reference and a regional summary, and portalCards.tsx adds the full-row HYPOMAP Visium tile and its drill. From this branch: atlas.ts reads each HypoMap study card into named AtlasDataset fields (publication with an http(s)-only link, technology, cells or nuclei, sampled region, sex, age stage, condition, cells in HypoMap), blank as null; the gated By dataset view shows them on each checked dataset card, and the by-dataset CSV appends Publication and Technology. Co-detection still reads only the wire labels. From this branch: UnifiedSearchBox's keydown handler returns early while an IME is composing, so arrows move IME candidates instead of the option highlight and Escape cancels composition without closing the list; Enter still goes through native form submission.",
   "references": [
     "src/search/searchSummaries.ts",
     "src/search/portalCards.tsx",
     "src/search/hypomap/atlas.ts",
     "src/search/hypomap/HypoMapPreview.tsx",
-    "src/search/hypomap/preview.css"
+    "src/search/hypomap/preview.css",
+    "src/search/UnifiedSearchBox.tsx",
+    "src/utils/imeComposing.ts"
   ]
 }
