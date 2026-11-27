@@ -1,0 +1,97 @@
+{
+  "datasetId": "gse309435",
+  "accession": "GSE309435",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "The 14-week rat PVN cohort and SHR-versus-Wistar direction match the registry. The authors report strain effects within each sex and average selected effects for Figure 5F. No public author result located estimates the joint, sex-adjusted strain coefficient in shr_vs_wistar.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE309435/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "processed_source",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-24",
+      "summary": "The public strain results are sex-specific. Figure 5F averages those effects for selected genes.",
+      "note": "All 19 deposited PVN libraries match the registered analysis, one library per rat. At 14 weeks, the authors compared five SHR with four Wistar males and five SHR with five Wistar females. Journal Tables 8 and 10 report 3,013 male and 1,122 female selected result rows. Table 12 repeats a male and a female log2 fold change for each of 555 labels. Its SYMBOL column includes 75 Ensembl IDs. The two effects under Arxes2 trace to different Ensembl genes. Figure 5F colors selected pathway genes by the mean of the male and female log2 fold changes. The registered TMM/edgeR quasi-likelihood model estimates one SHR-versus-Wistar coefficient across all 19 rats conditional on sex. The reviewed sources yielded only subgroup effects and descriptive summaries.",
+      "reviewFlags": [
+        "The sex-specific tables and the mean shown in Figure 5F cannot establish concordance for the registered pooled strain coefficient.",
+        "Author P values, multiple-testing results and effect agreement for shr_vs_wistar remain unassessed.",
+        "The methods describe Bonferroni adjustment. Within each of Tables 8 and 10, the ratio of adjusted to raw P varies among rows with positive P and adjusted P below 1. The adjustment used for these subgroup values remains unverified."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Journal article, methods and Figures 2–6",
+          "url": "https://doi.org/10.1186/s13293-026-00855-3",
+          "kind": "paper"
+        },
+        {
+          "label": "Journal supplementary tables",
+          "url": "https://doi.org/10.6084/m9.figshare.31550830",
+          "kind": "author_result"
+        },
+        {
+          "label": "Journal supplementary figures",
+          "url": "https://doi.org/10.6084/m9.figshare.31550833",
+          "kind": "author_result"
+        },
+        {
+          "label": "Research Square preprint and attachments",
+          "url": "https://doi.org/10.21203/rs.3.rs-7761756/v1",
+          "kind": "paper"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The cohort, 14-week collection and Wistar baseline agree. Tables 8 and 10 report separate SHR effects in males and females. Table 12 repeats those estimates by label, with an Ensembl ID conflict for Arxes2. Figure 5F averages sex-specific log2 fold changes for selected pathway genes. The GEO deposit contains counts per library. None of these sources reports a gene-level common strain effect adjusted for sex across the 19 rats.",
+      "nextStep": "Reopen if an author-generated result estimates the common SHR-versus-Wistar effect across these rats with sex adjustment, or documents an equivalent contrast. Check the sample list, coefficient definition, feature identifiers and selection scope. Assess P and adjusted P values where supplied.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO library names matched to registered samples by GSM, sex and strain",
+      "value": "19 of 19. Wistar 4 male and 5 female. SHR 5 male and 5 female.",
+      "script": "data/author-validation/continued-sources/GSE309435/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "Content of the deposited GEO matrix and sample records",
+      "value": "30,560 feature rows, 19 integer count columns. All 19 GSM records declare no sample supplement.",
+      "script": "data/author-validation/continued-sources/GSE309435/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "Registered shr_vs_wistar output",
+      "value": "14,565 published rows and 14,565 distinct symbols. Provenance records 16,847 fitted tests including 2,282 unpublished unmapped rows.",
+      "script": "data/author-validation/continued-sources/GSE309435/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "Workbook inventories",
+      "value": "19 journal workbooks containing 34 worksheets and 16 preprint workbooks containing 30 worksheets. All worksheets inspected.",
+      "script": "data/author-validation/continued-sources/GSE309435/codex-2026-11-24/refute/recheck.py"
+    },
+    {
+      "claim": "Selected result rows and distinct Ensembl_ID values in journal Tables 8 and 10",
+      "value": "Male, 3,013 rows and 2,967 distinct Ensembl IDs. Female, 1,122 rows and 1,094 distinct Ensembl IDs.",
+      "script": "data/author-validation/continued-sources/GSE309435/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "Journal Table 12 labels traced to Tables 8 and 10 by sex, label and exact stored log2 fold change",
+      "value": "1,110 rows across 555 labels, one row per sex per label. Of the 555 labels, 75 are Ensembl IDs. For 554 labels, both values trace to the same Ensembl ID across sexes, covering 546 distinct IDs. Arxes2 pairs male +1.608314 (ENSRNOG00000049355) with female −0.336826 (ENSRNOG00000046858). The male value for the latter ID is −0.216940.",
+      "script": "data/author-validation/continued-sources/GSE309435/codex-2026-11-24/refute/recheck.py"
+    },
+    {
+      "claim": "ENA project inventory",
+      "value": "19 read runs link to the experiments in the 19 GEO samples. The analysis search returned 0 records.",
+      "script": "data/author-validation/continued-sources/GSE309435/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "Within-table ratios of adjusted to raw P for positive values with adjusted P below 1",
+      "value": "Table 8 ranges from 5.828783 to 17,294. Table 10 ranges from 15.562157 to 5,675. These varying ratios are inconsistent with applying one Bonferroni multiplier within each table.",
+      "script": "data/author-validation/continued-sources/GSE309435/codex-2026-11-24/refute/recheck.py"
+    }
+  ],
+  "openIssues": [
+    "A gene-level author coefficient for the joint sex-adjusted strain contrast would reopen the review. Its absence leaves concordance and inference unassessed."
+  ]
+}

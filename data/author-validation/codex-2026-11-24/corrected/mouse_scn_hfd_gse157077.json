@@ -1,0 +1,66 @@
+{
+  "datasetId": "mouse_scn_hfd_gse157077",
+  "accession": "GSE157077",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "Tognini et al. tested SCN transcript rhythmicity separately in chow-fed and HFD-fed mice. The registered contrast estimates a common HFD-minus-chow expression difference across matched sampling times. No author estimate of that difference was located in the article, its eight supplements or the reviewed repositories.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE157077/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Both deposited SCN expression matrices match the registered input hashes. The common diet coefficient remains exploratory.",
+      "note": "The article reports male C57BL/6J mice after ten weeks of feeding. The 36 GEO libraries match the registered diet, time and replicate assignments. HypoExplorer fits limma-trend to log2(FPKM + 1) with categorical ZT and chow as baseline. Its single diet coefficient spans ZT0, 4, 8, 12, 16 and 20. Datasets S5 and S6 give per-diet JTK_CYCLE results and replicate expression. Each workbook stores 27 IDs as Excel dates, and some lag and amplitude entries are NA. The workbooks represent repeated GEO labels with one expression profile per label. HypoExplorer sums those features before testing. S1/S2 report metabolite ANOVA and S3/S4 include ZT-specific diet tests on metabolites. S7 reports pathway enrichment among rhythmic transcripts. Supplementary Fig. S7 reports selected mPFC qPCR results. The two compressed files retained with this review match the SHA-256 values in GSE157077_provenance.tsv. The producer's original raw-file paths are absent in this checkout. See data/author-validation/continued-sources/GSE157077/codex-2026-11-24/SEARCH_LOG.md and refute/check.py in the same folder.",
+      "reviewFlags": [
+        "The reviewed sources provide no author test of the common SCN diet coefficient. Effect agreement, P values and FDR for that comparison remain unassessed.",
+        "The SI Appendix names a HiSeq 2500. GEO and ENA name a HiSeq 4000 for the deposited libraries."
+      ],
+      "reviewedAt": "2026-11-24"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The six sampling times and 36 SCN libraries match the registered cohort. The authors tested oscillation within each diet and compared phase and amplitude among shared oscillators. The registered contrast tests an HFD-minus-chow difference in mean log2(FPKM + 1), adjusted for ZT. Neither the full transcript tables nor the selected-gene panels provided a signed author effect or test for this contrast.",
+      "nextStep": "Reopen if the authors publish gene-level results for the common matched-ZT diet effect in this SCN cohort. Verify the contrast, identifiers and scale. Preserve the stated selection for any gene panel and assess P values or FDR where available.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Compressed GEO input SHA-256 against the registered analysis provenance",
+      "value": "Chow b688c8634a64d94dbcd0183c5f63a9e9e853fefaf891206cbb2be1c566293d73, HFD 92438ff3ba6feb1d60d00efb598c0344f1177416e364ed68eb7ad09ae1e8beca.",
+      "script": "data/author-validation/continued-sources/GSE157077/codex-2026-11-24/refute/check.py"
+    },
+    {
+      "claim": "GEO sample labels reconciled to the registered sample sheet",
+      "value": "36 libraries, 18 per diet and 3 per diet at each of 6 ZTs. All 36 GSMs declare NONE for sample supplementary files.",
+      "script": "data/author-validation/continued-sources/GSE157077/codex-2026-11-24/refute/check.py"
+    },
+    {
+      "claim": "Feature and sample content of the two GEO matrices",
+      "value": "24,883 rows and 24,346 distinct labels per matrix. Both diets have identical feature order and 18 finite FPKM measurements per row.",
+      "script": "data/author-validation/continued-sources/GSE157077/codex-2026-11-24/refute/check.py"
+    },
+    {
+      "claim": "Registered hfd_vs_chow DE table and coefficient orientation",
+      "value": "14,644 distinct symbols, SHA-256 60a7666c1ec77413637842c3d7040c3c9824ec560e63a3db0c18e5fcce7d4172. The common HFD-minus-chow effect calculated from the two GEO matrices agrees with every registered logFC to within 6.0e-15.",
+      "script": "data/author-validation/continued-sources/GSE157077/codex-2026-11-24/refute/check.py"
+    },
+    {
+      "claim": "Fields, identifiers and numeric coverage in the author JTK_CYCLE workbooks",
+      "value": "S5 (chow) and S6 (HFD) each contain 24,346 data rows, ID, Q_VALUE, P_VALUE, PERIOD, LAG, AMPLITUDE and 18 time/replicate measurements. Each ID column has 24,319 distinct text labels and 27 date-valued cells. Q, P and period are numeric throughout. S5 has 9,534 numeric lags and 20,682 numeric amplitudes. S6 has 8,410 numeric lags and 20,641 numeric amplitudes.",
+      "script": "data/author-validation/continued-sources/GSE157077/codex-2026-11-24/refute/check.py"
+    },
+    {
+      "claim": "Handling of repeated GEO feature labels in the author expression profiles",
+      "value": "For each of the 280 repeated labels in each diet, the 18 workbook measurements match an individual GEO row. Those values differ from the sum used by the registered producer for 176 chow labels and 177 HFD labels.",
+      "script": "data/author-validation/continued-sources/GSE157077/codex-2026-11-24/refute/check.py"
+    }
+  ],
+  "openIssues": [
+    "Author concordance and inference for the common SCN diet effect remain unassessed. A signed author result for that contrast could reopen the review.",
+    "The SI Appendix and repository records differ on the sequencer model. The public sample records provide library and replicate labels without individual-animal identifiers."
+  ]
+}

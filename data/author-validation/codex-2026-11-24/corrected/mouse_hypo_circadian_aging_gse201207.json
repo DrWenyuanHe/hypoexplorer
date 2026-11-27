@@ -1,0 +1,65 @@
+{
+  "datasetId": "mouse_hypo_circadian_aging_gse201207",
+  "accession": "GSE201207",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "HypoExplorer estimates the common 27-month versus 6-month abundance difference across 12 collection times in male mouse hypothalamus. Wolff et al. fitted three-age trends separately in four overlapping circadian windows. The 604 rows shared across windows retain four distinct slope columns, leaving the registered endpoint unassessed.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE201207/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-24",
+      "summary": "GEO supports the registered hypothalamus cohort. Published gene-level effects address age trends within circadian windows.",
+      "note": "GEO identifies 12 two-mouse hypothalamus pools per endpoint age, one at each collection time. The registered edgeR quasi-likelihood model estimates the 27-month minus 6-month log2 fold change with collection time as a 12-level fixed block. Wolff et al. coded 6, 18 and 27 months as 0, 1 and 2 and fitted an edgeR age slope within each of four windows. Table S3 reports four slopes for each of the 604 selected rows shown in Figure 2J. In the shared sheet the activity-offset columns labeled P and q are identical in all 604 rows, and one identifier is date-formatted. The GEO count and CPM matrices, within-age cosinor fits and variability results provide no author-issued effect for the registered contrast.",
+      "reviewFlags": [
+        "The cycle-adjusted two-age effect is an exploratory HypoExplorer contrast. Author agreement on its effects and inference remains unassessed."
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "Wolff et al. estimated change per ordinal age step within each circadian window. The registered coefficient estimates a common old-minus-young difference across all 12 times. The analyses share tissue, sex and pooled-library replication. The middle age enters only the author fits. Table S3 and Figure 2J identify genes with changes across windows, without reporting a single endpoint coefficient or test.",
+      "nextStep": "Reopen if an author source reports gene-level 27-month versus 6-month hypothalamus effects across the cycle for the registered pools or a demonstrably compatible cohort and time adjustment. Verify the direction, units, replication and identifiers. Limit the comparison to the reported genes and statistics.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO library mapping for the registered hypothalamus contrast",
+      "value": "24 male pooled libraries matched to GSM records, with one 6-month and one 27-month library at each of 12 collection times.",
+      "script": "data/author-validation/continued-sources/GSE201207/codex-2026-11-24/inspect_sources.py"
+    },
+    {
+      "claim": "Hypothalamus library membership for the published windows",
+      "value": "Each of the four windows contains 4 libraries per age at 6, 18 and 27 months, or 12 pooled libraries per window.",
+      "script": "data/author-validation/continued-sources/GSE201207/codex-2026-11-24/inspect_sources.py"
+    },
+    {
+      "claim": "Table S3 DEGs_All rows, slope directions, identifier types and P/q columns",
+      "value": "A2:M2 holds the headers. Rows 3 through 606 contain 604 sets of four window slopes (514 positive in all four and 90 negative in all four). There are 603 distinct text identifiers and one Excel date in A64. The activity-offset P and q entries are identical in all 604 rows. Each of the three other window pairs contains distinct P and q values in all 604 rows.",
+      "script": "data/author-validation/continued-sources/GSE201207/codex-2026-11-24/refute/check_evidence.py"
+    },
+    {
+      "claim": "Registered DE output",
+      "value": "20,574 rows and 20,574 distinct symbols. SHA-256 b930876494b240cbda0b308296f309d4e67be24d72304ae7f54ff1246c9a813b.",
+      "script": "data/author-validation/continued-sources/GSE201207/codex-2026-11-24/inspect_sources.py"
+    },
+    {
+      "claim": "Processed GEO matrices and sample-supplement inventory",
+      "value": "Both matrices have 55,376 data rows and 216 distinct GSM-matched measurement columns. All 216 sample records declare no supplementary file.",
+      "script": "data/author-validation/continued-sources/GSE201207/codex-2026-11-24/inspect_sources.py"
+    },
+    {
+      "claim": "Completeness of the separate Table S3 DEGs_Active sheet",
+      "value": "977 of 978 gene rows have a finite slope, P and q. Sept7 has #N/A in cells B512:D512.",
+      "script": "data/author-validation/continued-sources/GSE201207/codex-2026-11-24/refute/check_evidence.py"
+    }
+  ],
+  "openIssues": [
+    "The original bioRxiv supplement binaries remain uninspected. The preprint labels Table 9 as a within-window ordinal analysis. The final paper and all ten PMC manuscript attachments were inspected. BioStudies confirms the attachment inventory and sizes.",
+    "The shared sheet leaves the activity-offset adjusted P values and the identity of its date-formatted row unresolved. The separate active-window sheet has missing statistics for Sept7."
+  ]
+}

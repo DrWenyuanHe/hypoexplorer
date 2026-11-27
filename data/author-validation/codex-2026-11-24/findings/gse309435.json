@@ -1,0 +1,91 @@
+{
+  "datasetId": "gse309435",
+  "accession": "GSE309435",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "The 14-week rat PVN cohort and SHR-versus-Wistar direction match the registry. The authors report strain effects within each sex and average selected effects for Figure 5F. No public author result located estimates the joint, sex-adjusted strain coefficient in shr_vs_wistar.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE309435/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "status": "review_required",
+      "comparisonLevel": "processed_source",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-24",
+      "summary": "The public strain results are sex-specific. Figure 5F averages those effects for selected genes.",
+      "note": "All 19 deposited PVN libraries match the registered rat-level analysis. Wistar contributes four males and five females, and SHR contributes five of each. At the 14-week collection, the author DESeq2 comparisons estimate SHR relative to Wistar separately in males and females. Journal Tables 8 and 10 have 3,013 and 1,122 selected result rows, respectively. Table 12 records both sex-specific effects for 555 shared symbols. Figure 5F uses the arithmetic mean of those subgroup fold changes on the log2 scale for selected pathway genes. The registered TMM/edgeR quasi-likelihood fit estimates groupcase across all libraries conditional on sex. The publication, supplements, preprint, sequence deposits and repository searches did not yield an author coefficient for that contrast.",
+      "reviewFlags": [
+        "The sex-specific tables and the mean shown in Figure 5F cannot establish concordance for the registered pooled strain coefficient.",
+        "Author P values, multiple-testing results and effect agreement for shr_vs_wistar remain unassessed."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Journal article, methods and Figures 2–6",
+          "url": "https://doi.org/10.1186/s13293-026-00855-3",
+          "kind": "paper"
+        },
+        {
+          "label": "Journal supplementary tables",
+          "url": "https://doi.org/10.6084/m9.figshare.31550830",
+          "kind": "author_result"
+        },
+        {
+          "label": "Journal supplementary figures",
+          "url": "https://doi.org/10.6084/m9.figshare.31550833",
+          "kind": "author_result"
+        },
+        {
+          "label": "Research Square preprint and attachments",
+          "url": "https://doi.org/10.21203/rs.3.rs-7761756/v1",
+          "kind": "paper"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The authors and registry use the same terminal rat PVN libraries and the same Wistar baseline. Tables 8 and 10 and Figures 3 and 4 report separate male and female SHR effects. Table 12 retains the two effects by sex, and Figure 5F averages them for selected pathway genes. None supplies the common SHR coefficient from a joint additive strain-and-sex model. The deposited GEO matrix contains counts per library, and the public source search located no equivalent fitted result.",
+      "nextStep": "Reopen if an author-generated gene-level SHR-versus-Wistar result becomes available for these PVN libraries jointly adjusted for sex. The sample list, design and coefficient definition must identify the estimand. Record the feature IDs, selection scope and any reported P or adjusted P values.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO library names matched to registered samples by GSM, sex and strain",
+      "value": "19 of 19. Wistar 4 male and 5 female. SHR 5 male and 5 female.",
+      "script": "data/author-validation/continued-sources/GSE309435/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "Content of the deposited GEO matrix and sample records",
+      "value": "30,560 feature rows, 19 integer count columns. All 19 GSM records declare no sample supplement.",
+      "script": "data/author-validation/continued-sources/GSE309435/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "Registered shr_vs_wistar output",
+      "value": "14,565 published rows and 14,565 distinct symbols. Provenance records 16,847 fitted tests including 2,282 unpublished unmapped rows.",
+      "script": "data/author-validation/continued-sources/GSE309435/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "Workbook inventories",
+      "value": "19 journal workbooks and 16 preprint workbooks, all sheets inspected.",
+      "script": "data/author-validation/continued-sources/GSE309435/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "Selected result rows and distinct Ensembl_ID values in journal Tables 8 and 10",
+      "value": "Male, 3,013 rows and 2,967 distinct Ensembl IDs. Female, 1,122 rows and 1,094 distinct Ensembl IDs.",
+      "script": "data/author-validation/continued-sources/GSE309435/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "Journal Table 12 sex-labelled fold changes",
+      "value": "1,110 rows for 555 distinct symbols, each with one male and one female row.",
+      "script": "data/author-validation/continued-sources/GSE309435/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "ENA project inventory",
+      "value": "19 read runs link to the experiments in the 19 GEO samples. The analysis search returned 0 records.",
+      "script": "data/author-validation/continued-sources/GSE309435/codex-2026-11-24/inspect_evidence.py"
+    }
+  ],
+  "openIssues": [
+    "A gene-level author coefficient for the joint sex-adjusted strain contrast would reopen the review. Its absence leaves concordance and inference unassessed."
+  ]
+}

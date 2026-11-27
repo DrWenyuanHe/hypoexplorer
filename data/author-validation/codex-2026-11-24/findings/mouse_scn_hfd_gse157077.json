@@ -1,0 +1,61 @@
+{
+  "datasetId": "mouse_scn_hfd_gse157077",
+  "accession": "GSE157077",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "The authors tested whether SCN transcripts oscillated within chow-fed and HFD-fed mice. HypoExplorer estimates the common HFD-minus-chow difference in expression at matched times. The article, all eight supplements, GEO files and repository searches yielded no author gene-level estimate of that difference.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE157077/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "The two deposited SCN expression matrices match the registered input hashes. Published SCN gene statistics measure within-diet rhythmicity.",
+      "note": "Tognini et al. studied male C57BL/6J mice after ten weeks of chow or HFD. All 36 SCN library labels match the registered diet, ZT and replicate assignments. HypoExplorer fits limma-trend to log2(FPKM + 1) with categorical ZT and one HFD-minus-chow coefficient across ZT0, 4, 8, 12, 16 and 20. Datasets S5 and S6 report per-diet JTK_CYCLE period, lag, amplitude, P and Q alongside replicate expression. The two-way ANOVA workbooks measure metabolites. Figure S7 tests selected mPFC transcripts by qPCR. The remaining supplement sheets and panels cover rhythmicity, enrichment or metabolite–enzyme associations. The source inventory, checksums and six comparability dimensions are in data/author-validation/continued-sources/GSE157077/codex-2026-11-24/SEARCH_LOG.md.",
+      "reviewFlags": [
+        "The common SCN diet coefficient has no published author comparator in the reviewed sources. Effect agreement, author diet-test P values and FDR remain unassessed.",
+        "The SI Appendix names a HiSeq 2500. GEO and ENA name a HiSeq 4000 for the deposited libraries. This instrument metadata difference does not affect the contrast decision."
+      ],
+      "reviewedAt": "2026-11-24"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The 36 libraries and six sampling times are consistent across the deposited SCN series and the registered cohort. The published SCN RNA result tests oscillation separately in each diet, with phase and amplitude summaries for common oscillators. The registered model tests a common HFD-minus-chow shift in expression conditional on ZT. No signed gene effect or test of that shift was located, including among labeled panels and selected-gene results.",
+      "nextStep": "Reopen if the study authors release signed gene-level HFD-minus-chow estimates for this SCN cohort across the same matched ZTs, with identifiers, effect scale and contrast definition. Assess any selected-gene result within its published scope and assess P or FDR only where supplied.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Compressed GEO input SHA-256 matches the registered analysis provenance in both arms",
+      "value": "Chow b688c8634a64d94dbcd0183c5f63a9e9e853fefaf891206cbb2be1c566293d73, HFD 92438ff3ba6feb1d60d00efb598c0344f1177416e364ed68eb7ad09ae1e8beca",
+      "script": "data/author-validation/continued-sources/GSE157077/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "GEO sample labels reconciled to the registered sample sheet",
+      "value": "36 libraries, 18 per diet, 3 per diet at each of 6 ZTs. All 36 GSMs declare NONE for sample supplementary files.",
+      "script": "data/author-validation/continued-sources/GSE157077/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "Feature and sample content of the two GEO matrices",
+      "value": "24,883 rows and 24,346 distinct input labels per matrix, with identical row order across diets. The 18 data columns per matrix contain finite sample expression measurements.",
+      "script": "data/author-validation/continued-sources/GSE157077/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "Registered hfd_vs_chow DE table inspected in place",
+      "value": "14,644 distinct symbols, SHA-256 60a7666c1ec77413637842c3d7040c3c9824ec560e63a3db0c18e5fcce7d4172",
+      "script": "data/author-validation/continued-sources/GSE157077/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "Occupied fields in the S5 chow and S6 HFD transcript workbooks",
+      "value": "24,346 data rows per workbook. Each has ID, Q_VALUE, P_VALUE, PERIOD, LAG and AMPLITUDE followed by 18 time- and replicate-labeled measurements for one diet.",
+      "script": "data/author-validation/continued-sources/GSE157077/codex-2026-11-24/inspect_evidence.py"
+    }
+  ],
+  "openIssues": [
+    "A study-author estimate of the common matched-ZT SCN diet effect would reopen this review. Author agreement and inference for that coefficient remain unassessed.",
+    "The SI Appendix and repository records name different sequencer models. Public sample records identify SCN libraries and biological replicates but lack individual-animal identifiers."
+  ]
+}

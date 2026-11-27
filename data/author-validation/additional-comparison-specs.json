@@ -3071,6 +3071,136 @@
         "sha256": "5c5eebcb95fcc18b934b598fbf1d04952e7b90ce52dd6a4bfefa9676b77fea61",
         "sourceUrl": "Registered salt_vs_control DE output"
       }
+    },
+    {
+      "datasetId": "macaque_hypo_aging_gse128537",
+      "accession": "GSE128537",
+      "contrast": "middle_aged_vs_young",
+      "localPath": "geo_replication/datasets/GSE128537_mmul_hypo_aging/processed/GSE128537_DE.tsv",
+      "localKey": "id",
+      "authorPath": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/author-effects.tsv",
+      "sourceUrl": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-020-14368-z/MediaObjects/41467_2020_14368_MOESM5_ESM.xlsx",
+      "sha256": "726939d9374036cb927b45557fc557bc16686e73566c156af479c5cbd2042c1d",
+      "format": "tsv",
+      "authorKey": "gene_name",
+      "authorEffect": "log2FoldChange",
+      "orientationSign": 1,
+      "localMethod": "Sex-adjusted edgeR-QL, TMM",
+      "authorMethod": "Regional DESeq2 Mid minus Young log2 fold change with sex in the design. A separate mgcv negative-binomial age test supplies the raw P values. The authors select by a permutation-calibrated FDR threshold and absolute log2 fold change.",
+      "orientation": "Original DESeq2 contrast Age_Stage, Mid, Young. Positive means higher in middle age. hyper labels confirm this convention.",
+      "note": "All HTHA rows in Supplementary Data 2, selected by the authors for age. Each Ensembl ID maps uniquely to the same published symbol. The paper supplies raw age P values and omits per-gene adjusted P values. Full hypothalamus effects, valid tests and FDR calls outside the selected list remain unassessed. Three paired genes fall below the v2 minimum. The source table and paired-effects.tsv retain the raw P values.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/41467_2020_14368_MOESM5_ESM.xlsx",
+          "sourceUrl": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-020-14368-z/MediaObjects/41467_2020_14368_MOESM5_ESM.xlsx",
+          "sha256": "4f5dd4d5439eab11ccd213b1f402a0a8d2af9244f84a7a5fe205617a31f4d63b",
+          "bytes": 32778
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/41467_2020_14368_MOESM4_ESM.xlsx",
+          "sourceUrl": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-020-14368-z/MediaObjects/41467_2020_14368_MOESM4_ESM.xlsx",
+          "sha256": "a50623e12645667263443c1eb7e7be886d09ecacd98ca3c12a384d0c3c4dcf01",
+          "bytes": 31538
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/41467_2020_14368_MOESM1_ESM.pdf",
+          "sourceUrl": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-020-14368-z/MediaObjects/41467_2020_14368_MOESM1_ESM.pdf",
+          "sha256": "099cb60af874131b5b48058ee36329128161895200ee3254617ad6e70c27ad45",
+          "bytes": 23412243
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/author-code.zip",
+          "sourceUrl": "https://codeload.github.com/KeyingLu/Rhesus-macaque-brain/zip/b7506c7d7d69cec3d7d67a6f48d12199b2e5a2f4",
+          "sha256": "d0c2e7203fbdb11b890ed0f8842820f42e97a37f686f3fb472e67bc9654e1cb1",
+          "bytes": 59742
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/previous-gene-count.R",
+          "sourceUrl": "https://raw.githubusercontent.com/KeyingLu/Rhesus-macaque-brain/2560c7940bbaa3fef32ac2c607daf44b68aaaa9b/R/Rhesus_gene_count.R",
+          "sha256": "350c61cf26c92e4bfcaaa1c3a364279128c6d63a3cadccabaa7717e48c9882d6",
+          "bytes": 122284
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/compare.py",
+          "sourceUrl": "Offline extraction of all HTHA rows and one-to-one stable-ID checks",
+          "sha256": "bf5d24ea72bc5c92336b43909e6751dca8c08f45390feb84a8058854ca57bd80",
+          "bytes": 9410
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/compare.py",
+      "resultScope": "Selected author reference. Every HTHA age row in Yin et al. Supplementary Data 2.",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE128537_mmul_hypo_aging/processed/GSE128537_DE.tsv",
+        "sourceUrl": "Registered Explorer DE table",
+        "sha256": "cade6c43ef56886dc95d5e1b98a736cc9cb721bfe618cc2e980a15ecd97b978b",
+        "bytes": 1229466
+      }
+    },
+    {
+      "datasetId": "rat_hypo_aging_gse314970",
+      "accession": "GSE314970",
+      "contrast": "aged_27m_vs_young_6m",
+      "localPath": "geo_replication/datasets/GSE314970_rnor_hypothalamus_aging/processed/GSE314970_DE.tsv",
+      "localKey": "symbol",
+      "authorPath": "data/author-validation/continued-sources/GSE314970/codex-2026-11-24/selected-effects.tsv",
+      "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13082319/supplementaryFiles",
+      "sha256": "2126d01a9e5851adccc4d50e00b247d806b0eeff59463598a0e1d192169ef95c",
+      "format": "tsv",
+      "authorKey": "comparison_key",
+      "authorEffect": "author_27vs6_log2FC",
+      "authorAdjustedP": "author_27vs6_BH",
+      "orientationSign": 1,
+      "localMethod": "edgeR-QL",
+      "authorMethod": "Author TMM/voom-limma age-factor model and empirical-Bayes contrasts within male rat hypothalamus across 6, 9, 12, 18, 21, 24 and 27 months",
+      "orientation": "Use the published log2FC.27vs6 values as signed. The deposited contrast subtracts the 6-month baseline from the 27-month group.",
+      "note": "The male rat worksheet of Table S2 supplies 27-versus-6-month log2 fold changes and adjusted P values for 817 selected whole-hypothalamus genes. The authors selected genes across later ages versus 6 months using a 1.5-fold change and BH-adjusted P below 0.05. The deposited code applies FC > 1.5 or FC < 1/1.5. All listed hypothalamus rows contribute regardless of their 27-month significance or trajectory class. Both pipelines sum duplicate source GeneName labels. Applying the pinned release-113 mRatBN7.2 annotation to those groups recovers Cd4, Spaar and LOC100910620. The registered Or12d14 and Krt18 features each combine distinct author labels and remain unpaired. Each paired registered feature corresponds to exactly one author GeneName group. Effects could be paired for 613/817 (75.03%) selected genes. Both numerical agreement routes pass on paired effects. Reference coverage falls below the 90% requirement, and one endpoint animal differs. Adjusted P values are rounded by the authors. Every source row is retained, including unpairable rows marked with a reserved key. This spec records the scoped comparison and grants no sign-off.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE314970/codex-2026-11-24/supplement-export.zip",
+          "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13082319/supplementaryFiles",
+          "sha256": "2b02256d4296cc65665a2055f6b350a42483d71de036507ffc8e16035a76612e",
+          "bytes": 33770794
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE314970/codex-2026-11-24/paper.xml",
+          "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13082319/fullTextXML",
+          "sha256": "e56e75c9ec0c8724617b50f93a3560950921b5aa1fe9dba5f7b29a9e92054023",
+          "bytes": 287608
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE314970/codex-2026-11-24/code/utilities.R",
+          "sourceUrl": "https://zenodo.org/api/records/18190271/files/utilities.R/content",
+          "sha256": "708362331361631e3ebdb81c26112a01a57426b3a0f171c2e71cb667da2254fc",
+          "bytes": 14323
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE314970/codex-2026-11-24/code/preprocess.ipynb",
+          "sourceUrl": "https://zenodo.org/api/records/18190271/files/preprocess.ipynb/content",
+          "sha256": "2a681fac658be06a8d86e75d36c272c240924a2c6264499256f5acc56955682c",
+          "bytes": 58593
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE314970/codex-2026-11-24/rn7.113.gtf.gz",
+          "sourceUrl": "https://ftp.ensembl.org/pub/release-113/gtf/rattus_norvegicus/Rattus_norvegicus.mRatBN7.2.113.gtf.gz",
+          "sha256": "402aefe269ecccba845a8a03137304af4356455c83b77453f799001974b4eb7c",
+          "bytes": 18101793
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE314970/codex-2026-11-24/geo-counts.txt.gz",
+          "sourceUrl": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE314nnn/GSE314970/suppl/GSE314970_rat_raw_counts_wo_muscle.txt.gz",
+          "sha256": "1a485322e88758131af6e6c292fdc2fa695100539a763c2248f2eee05fb76e42",
+          "bytes": 81454592
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE314970/codex-2026-11-24/compare.py",
+      "resultScope": "selected_results",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE314970_rnor_hypothalamus_aging/processed/GSE314970_DE.tsv",
+        "sha256": "4bb915b2235f0132f21b69b8139f78cc7edc7cf9517b8fbcf6e8c4f257128da9",
+        "bytes": 1527957
+      }
     }
   ]
 }

@@ -1,0 +1,108 @@
+{
+  "datasetId": "mouse_poa_fgf_gse285006",
+  "accession": "GSE285006",
+  "category": "not_comparable",
+  "closure": "compared",
+  "summary": "Figure 3B and the registered RNA-seq result both show lower POA Gnrh1 expression in dnFGFR males than in controls at PND320 when both housing groups are considered. This comparison establishes direction for one gene. The published PND320 RNA-seq tests address housing within genotype, and the genotype result found in the earlier PN140 same-sex cohort cannot supply the registered pooled effect.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE285006/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "Gnrh1 decreases in both the published POA qPCR genotype comparison and the registered RNA-seq analysis",
+      "note": "Akonom et al., Figure 3B, compares POA GnRH mRNA in PND320 control and dnFGFR males after 300 days of same- or opposite-sex housing. The four equally sized groups support a directional genotype comparison across housing. HPRT-normalized qPCR is lower in dnFGFR mice, as is the registered Gnrh1 edgeR estimate (log2FC −0.580). The article reports genotype ANOVA P = 0.0161. None of the Šidák pairwise tests reached significance. The RNA-seq row has raw P = 0.00045837 and BH FDR = 0.05277. These assays and tests have different scales and inference. Supplementary Table 1 and the full archived DESeq2 table concern OS versus SS housing within dnFGFR animals. The archived interaction-model analysis omits PN320DO5, which the registered genotype-only model includes. See the dated evidence folder for the figure, code, matrix and output fingerprints.",
+      "reviewFlags": [
+        "One selected transcript has directional evidence from qPCR. No author RNA-seq effect table for the registered genotype contrast was located.",
+        "The paper describes RNA-seq housing tests within each genotype. The archived PND320 interaction model also estimates housing effects. The earlier PN140 same-sex genotype test differs in age and housing scope. Historical efforts to reproduce housing inference concern a separate analysis."
+      ],
+      "reviewedAt": "2026-11-24"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "Figure 3B supplies a direct cross-assay direction for Gnrh1, the only selected gene compared. The registered edgeR estimate and the author qPCR means are lower in dnFGFR males across balanced housing conditions. Magnitude and transcriptome-wide inference remain unassessed. The archived DESeq2 housing tables have a different estimand and sample set.",
+      "nextStep": "Reopen the RNA-seq comparison if an author result supplies signed dnFGFR-versus-control gene effects across both housing groups for the 20 PND320 POA libraries, with sample IDs, model, coefficient definition and tested genes. Per-mouse qPCR measurements with IDs would permit a closer check of Figure 3B.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "dnfgfr_vs_control"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Direction of a single published POA mRNA measurement compared with the Gnrh1 row of the unmodified poa/dnfgfr_vs_control DE table. The figure identifies the gene and comparison independently of the registered result.",
+      "reference": "Akonom, Allen and Tsai (2025), Figure 3B and its caption, GnRH qPCR methods and genotype ANOVA in the Results. Europe PMC supplementary export, fendo-16-1571740-g003.jpg (SHA-256 5bc6b85d3c6410d6cce4d250800f69b96fc237cf629f80d04147f34733d5d4d2).",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "Both assays concern bulk POA from male control and dnFGFR mice at PND320 after 300 days of housing. Figure 3 reports five mice per genotype-by-housing cell. Supplementary Table 2 identifies the same four cells and all 20 registered RNA-seq libraries. The caption supplies group counts, with no mouse IDs attached to individual qPCR points. Technical qPCR duplicates contribute one biological measurement per mouse."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Positive is higher in dnFGFR relative to control. The qPCR genotype main effect averages equally across SS and OS in a balanced factorial experiment. The genotype-only edgeR fit pools both housing groups. These support a comparison of overall biological direction. Partner sex defines housing. Every profiled experimental mouse is male."
+        },
+        "features": {
+          "status": "limited",
+          "note": "The single target is the GnRH transcript (mouse Gnrh1), measured relative to HPRT by qPCR. The registered symbol identifies one DE row. Other genes appear only in RNA-seq outputs for a different contrast or lack a same-contrast reference."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "The equal-weight mean of the dnFGFR qPCR bars is below control in Figure 3B. Registered Gnrh1 log2FC is −0.579753671434139. The qPCR assay reports relative expression (2^−ΔΔCt), while edgeR estimates a TMM-normalized count fold change. The figure supports sign only."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Authors report a two-way genotype-by-housing ANOVA genotype F(1,16) = 7.230 and raw P = 0.0161. A qPCR gene-wise FDR is unavailable. Registered Gnrh1 has edgeR-QL raw P = 0.000458366416669203 and BH FDR = 0.0527682644169586 across tested genes. Only direction was assessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Figure 3B covers the direction of one gene among 16,923 registered DE rows. The author files reviewed contain PND320 housing coefficients and normalized counts. The earlier PN140 same-sex genotype table and the mixed-age housing table each concern a different comparison. No tabulated author RNA-seq coefficient for the pooled PND320 genotype effect was located."
+        }
+      },
+      "criteria": "Use the labelled POA mRNA panel, prespecified control baseline and both equally represented housing groups. Compare the direction with the exact registered Gnrh1 row. Leave qPCR effect magnitude, missing qPCR FDR and the remaining registered genes unassessed.",
+      "conclusion": "The selected Gnrh1 direction agrees across assays. The v2 minimum of 30 paired genes is unmet, and neither concordance route nor a full-verification sign-off is supported."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered genotype-only POA RNA-seq table",
+      "value": "16,923 rows, 10 dnFGFR and 10 control libraries, with five SS and five OS per genotype. DE SHA-256 5c94f213b578dbbad702ef827f48d352cefcbbfb7117f00dc8ab396efa66216c.",
+      "script": "data/author-validation/continued-sources/GSE285006/codex-2026-11-24/inspect_sources.py"
+    },
+    {
+      "claim": "Selected POA GnRH genotype direction in Figure 3B and registered Gnrh1",
+      "value": "Lower in dnFGFR in both assays. Registered log2FC −0.579753671434139, raw P 0.000458366416669203, BH FDR 0.0527682644169586.",
+      "script": "data/author-validation/continued-sources/GSE285006/codex-2026-11-24/inspect_archive.py"
+    },
+    {
+      "claim": "Author genotype test for the selected qPCR target",
+      "value": "Figure 3B genotype F(1,16) = 7.230, raw P = 0.0161. One directionally assessed target and no paired numeric log2 fold changes.",
+      "script": "data/author-validation/continued-sources/GSE285006/codex-2026-11-24/reconcile.py"
+    },
+    {
+      "claim": "Contents of the published dnFGFR housing reference",
+      "value": "72 unique OS-versus-SS genes at adjusted P < 0.1, 22 positive and 50 negative. The Results and Supplementary Table 1 support 72. The Discussion gives 77.",
+      "script": "data/author-validation/continued-sources/GSE285006/codex-2026-11-24/inspect_sources.py"
+    },
+    {
+      "claim": "Relationship of published and archived housing results",
+      "value": "All 72 selected symbols and directions match the archive's adjusted-P selection. The full archived dnFGFR housing CSV has 25,239 rows.",
+      "script": "data/author-validation/continued-sources/GSE285006/codex-2026-11-24/reconcile.py"
+    },
+    {
+      "claim": "Libraries behind the older timehousing-genotype_results.csv",
+      "value": "All 54,532 baseMean entries match means from its 38-library normalized matrix (19 PN140 and 19 PN320), within 1e−10 absolute or relative tolerance. PN140CS2 and PN320DO5 are absent.",
+      "script": "data/author-validation/continued-sources/GSE285006/codex-2026-11-24/reconcile.py"
+    },
+    {
+      "claim": "Earlier genotype result in the author's repository history",
+      "value": "PN140SS_genotype_results.csv contains 26,608 feature rows. The PN140 same-sex block of Old (First Round)/R_scripts/DESeq2.v2.Rmd fits genotype with control as reference. The notebook and result are accessible at commit ed141e3682614b32b87c2552f2675d5fceb65597. Run the linked script with --history to verify the two Git blobs.",
+      "script": "data/author-validation/continued-sources/GSE285006/codex-2026-11-24/refute/recheck.py"
+    }
+  ],
+  "openIssues": [
+    "A transcriptome-wide author RNA-seq result for the registered PND320 pooled genotype contrast was not located. Individual qPCR points lack public mouse IDs and tabulated values."
+  ]
+}

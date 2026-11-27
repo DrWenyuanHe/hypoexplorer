@@ -1,0 +1,100 @@
+{
+  "datasetId": "pig_hypo_mia_gse227725",
+  "accession": "GSE227725",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "HypoExplorer estimates a common MIA-minus-control effect in 35 nursed P22 piglets after adjustment for sex. The RNA paper reports this comparison separately for nursed males and females. The companion paper gives five numeric expression ratios on overall MIA-versus-control rows, but the authors do not identify the RNA cohort or sex model that produced them.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE227725/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "summary": "The published nursed RNA contrasts are sex-specific. The companion expression ratios have unresolved cohort and model definitions.",
+      "note": "The GEO family SOFT, matrix headers and registered sample sheet agree on 15 nursed MIA libraries (7 female, 8 male) and 20 nursed controls (10 female, 10 male). The model uses one RNA observation per piglet and includes sex and prenatal group. Prenatal treatment was assigned to gilts, and the registered model has no litter term. Rodriguez-Zas et al. report an edgeR analysis of 18,295 genes in 72 P22 piglets, with prenatal group, nursing, sex and their interactions. Their design figure shows nine animals per cell. GEO lists 73 libraries in unequal cells. S1 Table and main Table 2 give selected factorial effects. Figure 2C/D and S4 Table show control minus MIA separately by sex. In the companion RRBS study of 24 piglets, Alsegehy et al. annotate methylated sites with proximal-gene RNA expression ratios from GSE227725. Table 2 includes six sites labeled overall MIA versus control. The paper gives five numeric ratios and one missing value for those rows, without specifying which RNA samples or sex adjustment underlie them.",
+      "reviewFlags": [
+        "The reported RNA study design and deposited cell counts differ. The authors’ fitted library roster remains unknown.",
+        "The overall expression ratios in Gene Table 2 remain candidates for a selected-gene comparison if their RNA cohort, contrast and sex handling can be established."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-24",
+      "evidenceLinks": [
+        {
+          "label": "Primary RNA paper, factorial tests and figure panels",
+          "url": "https://doi.org/10.1371/journal.pone.0292952",
+          "kind": "paper"
+        },
+        {
+          "label": "S4 Table, numeric source for the hormone-network panels",
+          "url": "https://doi.org/10.1371/journal.pone.0292952.s005",
+          "kind": "author_result"
+        },
+        {
+          "label": "RNA series and individual sample annotations, family SOFT",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE227nnn/GSE227725/soft/GSE227725_family.soft.gz",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Deposited per-sample RNA expression matrix",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE227nnn/GSE227725/suppl/GSE227725_RodriguezZas_Pig_D22_Hypothalamus_pig_GEO_counts.csv.gz",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Companion study, overall and sex-specific rows in Table 2",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11826927/",
+          "kind": "paper"
+        },
+        {
+          "label": "Companion supplement with site-level methylation results",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0378111924002105-mmc1.docx",
+          "kind": "author_result"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The registered coefficient is MIA minus control on log2(TPM + 1) in nursed P22 hypothalamus libraries, with a common effect across sexes. In the RNA paper the prenatal main effect spans nursing conditions, and the MIA-by-nursing interaction describes how the effect changes with nursing. S4 columns C and E report the reverse orientation within each sex and contain no per-gene P or FDR. In Gene Table 2 the overall MIA-versus-control rows have selected expression profiles on a fold-ratio scale. The P values and LFC column describe the methylation sites. The GSE227725 citation leaves the RNA subset, sex adjustment and weights behind the profiles unresolved. None of these results establishes a paired benchmark for the registered contrast.",
+      "nextStep": "Reopen if the authors identify the RNA libraries, nursing restriction, baseline and sex handling behind the five overall Table 2 ratios, or provide another author estimate for this contrast. Document how the RNA cohort corresponds to the registered piglets. A compatible selected result would support a comparison within its gene list. A tested-gene table with RNA P values and FDR would also permit assessment of coverage and inference.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Nursed RNA cohort from GEO characteristics, matrix aliases, sample sheet and model roster",
+      "value": "35 of 35. MIA 7 female and 8 male, control 10 female and 10 male.",
+      "script": "data/author-validation/continued-sources/GSE227725/codex-2026-11-24/refute/audit.py"
+    },
+    {
+      "claim": "Deposited RNA expression matrix and GSM supplementary-file declarations",
+      "value": "25,187 data rows with 74 fields each. Symbol plus 73 sample aliases matched to 73 GSMs. Each GSM lists NONE for its supplementary file. TRIM23 is missing 25 of 35 nursed values.",
+      "script": "data/author-validation/continued-sources/GSE227725/codex-2026-11-24/refute/audit.py"
+    },
+    {
+      "claim": "S4 Table gene coverage and nursed prenatal contrasts",
+      "value": "11 genes and 12 labeled contrasts. Columns C and E give control minus MIA in nursed males and females respectively. Ten of 11 labels match registered symbols after case normalization. TTR has no exact registered symbol match. S4 provides no common nursed effect or per-gene P/FDR.",
+      "script": "data/author-validation/continued-sources/GSE227725/codex-2026-11-24/refute/audit.py"
+    },
+    {
+      "claim": "Registered DE file and provenance",
+      "value": "23,701 published symbols, 23,702 fitted features, and SHA-256 872abbb17399e567cb03650be5f172751dbc43d5aa8e9daced593b65595a3032, matching the provenance.",
+      "script": "data/author-validation/continued-sources/GSE227725/codex-2026-11-24/refute/audit.py"
+    },
+    {
+      "claim": "RNA and RRBS BioSample identifiers",
+      "value": "73 distinct RNA accessions and 24 distinct RRBS accessions. The intersection is empty. These identifiers cannot establish which physical animals were shared.",
+      "script": "data/author-validation/continued-sources/GSE227725/codex-2026-11-24/refute/audit.py"
+    },
+    {
+      "claim": "Expression annotations on all overall MIA - Co rows in Gene Table 2",
+      "value": "Six rows. Profile as printed gives CYP3A29 1,78 (decimal comma), MPEG1 0.78, MTDH 0.98, NRBP1 1.05, PEBP4 NA and SIRT3 1.00. All six gene symbols occur in the registered DE. Five numeric ratios are available and their RNA design is unspecified.",
+      "script": "data/author-validation/continued-sources/GSE227725/codex-2026-11-24/refute/audit.py"
+    },
+    {
+      "claim": "Manifest integrity and the contents of the downloaded landing pages",
+      "value": "53 of 53 files matched their recorded sizes and SHA-256 digests (13,898,537 bytes). geo.html contains a reCAPTCHA challenge. dna-publisher.html contains a redirect. The family SOFT and matrix supply the GEO evidence, and the primary texts and Office supplements open successfully.",
+      "script": "data/author-validation/continued-sources/GSE227725/codex-2026-11-24/refute/audit.py"
+    }
+  ],
+  "openIssues": [
+    "Which RNA GSM/SRX libraries entered the 72-piglet factorial analysis, given the unequal counts in the 73-library deposit?",
+    "Which RNA libraries, nursing condition, baseline, and sex adjustment or weights produced the overall expression ratios in Gene Table 2? A valid author effect for the registered comparison and its RNA inference remain unassessed."
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_poa_fgf_gse285006",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 60 retained files matched their recorded sizes and SHA-256 hashes. Figure 3B supports a one-gene directional comparison: pooled Gnrh1 expression was lower in PND320 dnFGFR males than in controls, consistent with the registered RNA-seq log2 fold change of −0.57975. The corrected proposal identifies an earlier genotype test restricted to PND140 same-sex-housed mice. It also reconciles the housing DEG count: the supplement and archive contain 72 genes, while the Discussion reports 77. [Article and Figure 3](https://pmc.ncbi.nlm.nih.gov/articles/PMC12037384/#F3) · [Historical genotype analysis](https://github.com/tylerakonom/dnFGFR/blob/ed141e3682614b32b87c2552f2675d5fceb65597/Old%20%28First%20Round%29/R_scripts/DESeq2.v2.Rmd)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-24/verdicts/mouse_poa_fgf_gse285006.json",
+    "data/author-validation/codex-2026-11-24/corrected/mouse_poa_fgf_gse285006.json",
+    "data/author-validation/continued-sources/GSE285006/codex-2026-11-24/refute/recheck.py"
+  ],
+  "openIssues": [
+    "No author RNA-seq coefficient table was located for the pooled PND320 genotype contrast. One gene direction falls below the 30-pair concordance minimum.",
+    "Figure 3B provides group means and individual points without a public key linking each qPCR measurement to its RNA-seq library."
+  ]
+}

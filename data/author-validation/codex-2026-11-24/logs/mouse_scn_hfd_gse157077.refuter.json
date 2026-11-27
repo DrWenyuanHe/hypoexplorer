@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_scn_hfd_gse157077",
+  "outcome": "upheld_with_corrections",
+  "summary": "The no_valid_comparison closure stands. The authors tested rhythmicity within each diet. I found no published gene-level estimate of the registered HFD-minus-chow expression difference across matched sampling times. All 46 source files matched their recorded hashes and sizes, and I reproduced all 14,644 registered coefficients. The corrected proposal documents 27 date-valued gene IDs per transcript workbook, incomplete lag and amplitude coverage, and different handling of duplicate GEO labels.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-24/verdicts/mouse_scn_hfd_gse157077.json",
+    "data/author-validation/codex-2026-11-24/corrected/mouse_scn_hfd_gse157077.json",
+    "data/author-validation/continued-sources/GSE157077/codex-2026-11-24/refute/check.py"
+  ],
+  "openIssues": [
+    "Author agreement on the registered diet effect, P values and FDR remains unassessed.",
+    "The SI Appendix reports a HiSeq 2500, while GEO and ENA report a HiSeq 4000. Public records identify libraries and replicate labels but omit individual-animal identifiers."
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "datasetId": "macaque_hypo_aging_gse128537",
+  "outcome": "upheld_with_corrections",
+  "summary": "The author analysis matches the registered sex-adjusted age contrast in the same eight animals. All 85 source files matched their manifest entries, and all nine computations reproduced. All three hypothalamus genes in Supplementary Data 2 agreed in direction, with a maximum absolute difference of 0.02769 log2 units. I narrowed the coverage claim to that table and corrected the source status because the fresh GEO metadata differs from its historical checksum.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-24/verdicts/macaque_hypo_aging_gse128537.json",
+    "data/author-validation/codex-2026-11-24/corrected/macaque_hypo_aging_gse128537.json",
+    "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/refute/audit.py"
+  ],
+  "openIssues": [
+    "The reviewed sources did not yield the complete hypothalamus age-effect table or per-gene author FDR values. Three paired genes fall below the 30-pair concordance minimum."
+  ]
+}

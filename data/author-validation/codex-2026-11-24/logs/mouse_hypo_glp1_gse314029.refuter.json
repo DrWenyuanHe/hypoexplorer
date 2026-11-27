@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_hypo_glp1_gse314029",
+  "outcome": "upheld_with_corrections",
+  "summary": "The no_valid_comparison closure stands. All 77 source files matched their recorded hashes and sizes, and all five computations reproduced. BioSample confirms six male Gr3 dual-agonist libraries and eight male vehicle controls. The published RNA results cover peripheral tissues, and the hypothalamic panels measure protein after a single dose. The corrected proposal records a treatment-label conflict affecting 48 peripheral libraries outside the registered contrast. [Study and source data](https://doi.org/10.1038/s41586-026-10427-5) · [BioSample records showing the conflict](https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=biosample&id=53543136,53543158&retmode=xml)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-24/verdicts/mouse_hypo_glp1_gse314029.json",
+    "data/author-validation/codex-2026-11-24/corrected/mouse_hypo_glp1_gse314029.json",
+    "data/author-validation/continued-sources/GSE314029/codex-2026-11-24/refute/recheck.py"
+  ],
+  "openIssues": [
+    "The figure workbook and BioSample assign opposite treatments to all 24 displayed Gr2 libraries and all 24 displayed Gr4 libraries. Both sources agree on Gr3 and vehicle.",
+    "GEO reports seven treatment days and the publication reports 12 for peripheral RNA. The hypothalamic specimen records omit dosing duration."
+  ]
+}

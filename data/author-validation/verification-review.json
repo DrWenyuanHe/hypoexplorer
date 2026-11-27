@@ -121,15 +121,15 @@
     "pig_hypo_mia_gse245146": {
       "resultAvailability": "partial",
       "comparisonOutcome": "not_comparable",
-      "reason": "The official supplement has been retrieved and inspected. Its whole-factorial main/interaction effects do not provide the registered saline-only sex-adjusted maternal effect.",
-      "nextStep": "Locate author simple-effect results or original fitted-model contrasts for saline-only PRRSV minus control. Retain the recovered factorial table as source evidence, without treating it as a matching comparator.",
+      "reason": "The authors analyzed saline, fasting and poly(I:C) offspring of both sexes. Table S1 labels the maternal coefficient as a main effect in that analysis. Its precise reference cells or averaging weights are undocumented. Figure 5 conditions each maternal comparison on sex and juvenile treatment. Neither source supplies an identifiable reference for the single sex-adjusted maternal coefficient in the 38 registered saline libraries.",
+      "nextStep": "Reopen on a gene-level author table or original fitted contrast that identifies the day-60 saline cohort and the common maternal effect adjusted for sex. Either contrast direction is usable when documented. Orient author effects to PRRSV minus control before comparison. For a fitted model, verify the sample identities, biological unit, design and contrast weights. Assess the available identifiers, effect units, coverage and any reported P values or FDR.",
       "fullyVerifiedContrasts": []
     },
     "mouse_scn_photoperiod_gse266472": {
       "resultAvailability": "partial",
       "comparisonOutcome": "not_comparable",
-      "reason": "Full author DE results are retrieved and their published totals reproduce, but they estimate the whole-day photoperiod effect. Local results estimate pZT12 only. This known scope difference does not demonstrate a pipeline mismatch.",
-      "nextStep": "Obtain an author pZT12-specific result or separately reconstruct the full-time-series analysis with documented sample exclusions, filtering and normalization. Retain the registered pZT12 result as a distinct contrast.",
+      "reason": "The published DESeq2 analysis estimates the long-versus-short photoperiod effect across the day with a batch term. The registered edgeR analysis estimates that effect within pZT12, adjusting for sequencing batch. The 18 pZT12 libraries match, but the searched author sources yield zero eligible pZT12 RNA-effect pairs. Effect agreement and inference for the registered contrast remain unassessed.",
+      "nextStep": "Reopen for an author-produced long-versus-short RNA-expression effect at pZT12 with identifiable SCN libraries, phase, baseline and batch handling. A selected list would cover only its named genes.",
       "fullyVerifiedContrasts": []
     },
     "chicken_hypo_rfi_gse278826": {
@@ -142,8 +142,8 @@
     "pig_hypo_formula_gse281726": {
       "resultAvailability": "partial",
       "comparisonOutcome": "not_comparable",
-      "reason": "Author supplementary results were retrieved and inspected. Its brain table reports selected ILA-producer/nonproducer subgroup effects, not the registered pooled ALAC-versus-WPI sex-adjusted comparison. This is a scope/evidence limitation, not an observed numeric mismatch.",
-      "nextStep": "Obtain complete author results for pooled ALAC versus WPI brain/hypothalamus with exact sex/covariate settings, or perform a separately labelled author-compatible subgroup reconstruction. Do not use subgroup results or absence of a table to validate the registered contrast.",
+      "reason": "The author diet CSV is a thresholded, header-only export from a four-region DESeq2 model adjusted for sow and region. HypoExplorer fits sex-adjusted edgeR-QL to hypothalamus alone, including the excluded WPI library 214. The nonempty brain tables estimate ILA subgroup effects across regions. Author effects, P values and FDR for the registered contrast remain unassessed.",
+      "nextStep": "Reopen if a gene-level ALAC-versus-WPI result for P16 hypothalamus becomes available with both ALAC ILA subgroups combined. Use the sample IDs, handling of library 214 and documented sex handling to assess compatibility with the registered effect. A selected-gene result supports comparison only for the genes supplied.",
       "fullyVerifiedContrasts": []
     },
     "zebrafish_hypo_cyp19a1b_gse299412": {
@@ -235,8 +235,9 @@
     "pig_hypo_mia_gse227725": {
       "resultAvailability": "partial",
       "comparisonOutcome": "not_comparable",
-      "reason": "The linked study provides molecular results for a different sample/analysis scope, not an established comparator for the registered RNA track.",
-      "nextStep": "Establish RNA sample correspondence and exact nursed-cohort coefficient, then locate gene-wide RNA statistics."
+      "reason": "The registered coefficient is MIA minus control on log2(TPM + 1) in nursed P22 hypothalamus libraries, with a common effect across sexes. In the RNA paper the prenatal main effect spans nursing conditions, and the MIA-by-nursing interaction describes how the effect changes with nursing. S4 columns C and E report the reverse orientation within each sex and contain no per-gene P or FDR. In Gene Table 2 the overall MIA-versus-control rows have selected expression profiles on a fold-ratio scale. The P values and LFC column describe the methylation sites. The GSE227725 citation leaves the RNA subset, sex adjustment and weights behind the profiles unresolved. None of these results establishes a paired benchmark for the registered contrast.",
+      "nextStep": "Reopen if the authors identify the RNA libraries, nursing restriction, baseline and sex handling behind the five overall Table 2 ratios, or provide another author estimate for this contrast. Document how the RNA cohort corresponds to the registered piglets. A compatible selected result would support a comparison within its gene list. A tested-gene table with RNA P values and FDR would also permit assessment of coverage and inference.",
+      "fullyVerifiedContrasts": []
     },
     "pig_hypo_genotype_gse201408": {
       "resultAvailability": "partial",
@@ -298,8 +299,9 @@
     "mouse_hypo_prenatal_benzene_gse229440": {
       "resultAvailability": "partial",
       "comparisonOutcome": "not_comparable",
-      "reason": "Selected author results exist, but the registered biological replicate unit is litter rather than individual offspring.",
-      "nextStep": "Locate complete author statistics and explicitly reconstruct the individual-offspring comparison if needed, without replacing the registered litter analysis."
+      "reason": "The tissue, P21 time point, male stratum and exposure direction agree. The author panel and narrative identify selected gene directions, but neither gives the six litter profiles or documents a model accounting for siblings within dams. A gene-level benchmark for the registered litter effect could not be established.",
+      "nextStep": "Reopen if author code, a design and sample mapping, or gene-level results establish that the reported effects estimate the same male P21 benzene-versus-air effect with litters as the independent exposure units. Within-litter sums or a justified compatible analysis could establish this. Verify gene identifiers and effect definitions, limit any comparison to the available genes, and assess P/FDR only where supplied.",
+      "fullyVerifiedContrasts": []
     },
     "mouse_mhypoa_palmitate_gse280030": {
       "resultAvailability": "available",
@@ -325,8 +327,8 @@
     "mouse_hypo_puberty_emtab12340": {
       "resultAvailability": "partial",
       "comparisonOutcome": "not_comparable",
-      "reason": "2026-11-15: the dedicated hypothalamus paper is Sokolowski et al. 2024, Biol Sex Differ 15:83 (PMID 39449090, PMC11515584); its data availability names E-MTAB-12340, a Zenodo Shiny app (10.5281/zenodo.10899706) and Figshare code/data (10.6084/m9.figshare.25517503). The paper's methods list author DE (DESeq2, FDR<0.05 and |FC|>=1.5) between sexes at each age and, within sex, between consecutive ages only (12-22, 22-27, 27-32, 32-37). The author Shiny repository wilsonlabgroup/hypothalamus_gene_shiny (commit 9b05a52) holds hypo_utr_2021_de_result_list_2022-10-19.rds with 17 comparisons, including female d22_F, d27_F, d32_F, d37_F, d32_22F and d37_27F; d32_22F and d37_27F are inferred from their labels to be 32-vs-22 and 37-vs-27 comparisons, which no retained source documents. None is a female PD37-versus-PD22 comparison. Its logCPM, F and PValue columns are constant 1 placeholders, so only logFC and FDR are informative and raw P cannot be assessed. The registered female P37-versus-P22 track therefore has no same-contrast author table; combining contrasts would be a derived reconstruction and was not done. Paper-content claims rest on full text and supplements whose hashes are recorded but which were not retained; the RDS and scripts.R independently corroborate the thresholds. Evidence is in continued-sources/E-MTAB-12340/turbo-2026-11-15-notloc3/.",
-      "nextStep": "Inspect the Figshare 10.6084/m9.figshare.25517503 archive (2.0 GB) or the Zenodo app snapshot for a female PD37-versus-PD22 result or full DESeq2 outputs; otherwise record a scoped comparison against the nearest author contrasts, labelled as non-registered.",
+      "reason": "All ten registered libraries map to the hypothalamus deposit. In both author DESeq2 lists the female PND37 fits use PND32 or PND27 as baseline, and the female PND22-baseline fits end at PND27 or PND32. The archived cell-proportion tests include the requested ages but measure cell abundance. In the companion qPCR study, Figure S6B includes the female hypothalamus PND22/PND37 pair as an aggregate gene count. Table S4 names hypothalamic genes for PND12/PND22 only, and Table S7 gives sample measurements. The reviewed sources provide no gene-level author effect, raw P or adjusted P for the registered contrast. Its concordance remains unassessed.",
+      "nextStep": "Reopen when an author-issued gene-level result explicitly identifies the female whole-hypothalamus PND37 versus PND22 libraries, orientation and effect definition. A labelled selected-gene result would reopen only those genes.",
       "fullyVerifiedContrasts": []
     },
     "mouse_arc_corticosterone_gse128148": {
@@ -345,8 +347,8 @@
     "mouse_arc_neun_development_gse189945": {
       "resultAvailability": "partial",
       "comparisonOutcome": "not_comparable",
-      "reason": "The retrieved full result is pooled-sex neuronal age, while the registered comparison is female-only. The source cohort and VSD input are supported, but equivalent female-age numerical output was not found in the published tables or code archive. This is a scope/evidence limitation, not observed disagreement.",
-      "nextStep": "Obtain the author's female-age output or original STAR counts plus annotation to reconstruct the archived group_neuron35f_vs_neuron12f model. Do not infer DESeq2 counts from VSD or combine shrunken pooled and sex effects.",
+      "reason": "S4b and Figure S4C estimate P35 versus P12 across male and female neuronal libraries using a shrunken DESeq2 count-model coefficient. The registered contrast estimates P35 minus P12 among female neuronal pools using limma on VSD expression. The archived script defines the female-only coefficient, but no gene-level output for it was located in the public record.",
+      "nextStep": "Reopen if the authors release output_csv/all_transcripts_res_comp_age_f_neuron.csv, an equivalent identified full or selected result, or the saved author fit and annotation from which this coefficient can be extracted. Confirm pool membership, feature mapping and effect scale. Original counts plus annotation and sample mapping would support a separate reconstruction.",
       "fullyVerifiedContrasts": []
     },
     "mouse_scn_trf_gse190389": {
@@ -735,44 +737,51 @@
     "mouse_hypo_hfd_gse220533": {
       "resultAvailability": "partial",
       "comparisonOutcome": "not_comparable",
-      "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
-      "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match."
+      "reason": "Supplementary Table S6 reports HFD relative to chow across WT and Gpr101 knockout males. The registered limma coefficient estimates that diet difference within the 15 WT males. Tables S2 through S4 compare genotypes, S5 gives the genotype-by-diet interaction, and the enrichment workbook reports term-level statistics. The expression figures and GEO deposits supply no author-reported coefficient for the WT diet contrast.",
+      "nextStep": "Reopen when an author-produced WT HFD-versus-chow gene result identifies the included libraries, direction and effect scale, or the authors release their fitted model with sufficient coding to extract that simple effect. Record any model-derived extraction separately. A selected result covers only its reported genes.",
+      "fullyVerifiedContrasts": []
     },
     "mouse_hypo_treg_gse282067": {
       "resultAvailability": "partial",
       "comparisonOutcome": "not_comparable",
-      "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
-      "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match."
+      "reason": "Figure 3f and Supplementary Figure 3h describe the female BALB/c pilot. Figures 3i and S3f mention HFHS-fed C57BL/6J mice in their legends and give aggregate overlaps without signed gene-level results or library IDs. The C57BL/6J revision volcano plots show a diet effect in activated conventional T cells or a cell-type comparison in HFHS-fed brain. GEO supplies per-library counts and abundances. The reviewed sources yielded no comparable author gene effects, P values or FDR for hfd_vs_sd.",
+      "nextStep": "Reopen for an author result giving signed HFHS-versus-standard-diet effects or directions by gene for the eight registered BL/6 hypothalamic Treg libraries, or for another cohort with documented compatibility in tissue, cell population, strain, sex, diet exposure and pool-level replication. Limit any assessment of a selected panel to its reported genes.",
+      "fullyVerifiedContrasts": []
     },
     "mouse_poa_fgf_gse285006": {
       "resultAvailability": "partial",
-      "comparisonOutcome": "not_comparable",
-      "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
-      "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match."
+      "comparisonOutcome": "method_differences",
+      "reason": "Figure 3B supplies a direct cross-assay direction for Gnrh1, the only selected gene compared. The registered edgeR estimate and the author qPCR means are lower in dnFGFR males across balanced housing conditions. Magnitude and transcriptome-wide inference remain unassessed. The archived DESeq2 housing tables have a different estimand and sample set.",
+      "nextStep": "Reopen the RNA-seq comparison if an author result supplies signed dnFGFR-versus-control gene effects across both housing groups for the 20 PND320 POA libraries, with sample IDs, model, coefficient definition and tested genes. Per-mouse qPCR measurements with IDs would permit a closer check of Figure 3B.",
+      "fullyVerifiedContrasts": []
     },
     "mouse_scn_hfd_gse157077": {
       "resultAvailability": "partial",
       "comparisonOutcome": "not_comparable",
-      "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
-      "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match."
+      "reason": "The six sampling times and 36 SCN libraries match the registered cohort. The authors tested oscillation within each diet and compared phase and amplitude among shared oscillators. The registered contrast tests an HFD-minus-chow difference in mean log2(FPKM + 1), adjusted for ZT. Neither the full transcript tables nor the selected-gene panels provided a signed author effect or test for this contrast.",
+      "nextStep": "Reopen if the authors publish gene-level results for the common matched-ZT diet effect in this SCN cohort. Verify the contrast, identifiers and scale. Preserve the stated selection for any gene panel and assess P values or FDR where available.",
+      "fullyVerifiedContrasts": []
     },
     "mouse_hypo_circadian_aging_gse201207": {
       "resultAvailability": "partial",
       "comparisonOutcome": "not_comparable",
-      "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
-      "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match."
+      "reason": "Wolff et al. estimated change per ordinal age step within each circadian window. The registered coefficient estimates a common old-minus-young difference across all 12 times. The analyses share tissue, sex and pooled-library replication. The middle age enters only the author fits. Table S3 and Figure 2J identify genes with changes across windows, without reporting a single endpoint coefficient or test.",
+      "nextStep": "Reopen if an author source reports gene-level 27-month versus 6-month hypothalamus effects across the cycle for the registered pools or a demonstrably compatible cohort and time adjustment. Verify the direction, units, replication and identifiers. Limit the comparison to the reported genes and statistics.",
+      "fullyVerifiedContrasts": []
     },
     "macaque_hypo_aging_gse128537": {
       "resultAvailability": "partial",
-      "comparisonOutcome": "not_comparable",
-      "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
-      "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match."
+      "comparisonOutcome": "method_differences",
+      "reason": "The registered edgeR-QL group coefficient and the DESeq2 age fold change in Yin et al. Supplementary Data 2 estimate the same two-stage age contrast across sexes. All three selected effects have the same sign and differ by at most 0.02770 log2 units. Raw age P values differ between methods. The reviewed sources supply neither per-gene author FDR values nor the complete regional age-effect table.",
+      "nextStep": "Extend this review if a per-gene HTHA Mid-minus-Young export or the corresponding regional Age_res and gam_res objects become available. To compare inference, obtain the fitted feature universe, age-test P values and the per-region permutation FDR mapping.",
+      "fullyVerifiedContrasts": []
     },
     "rat_hypo_aging_gse314970": {
       "resultAvailability": "partial",
-      "comparisonOutcome": "not_comparable",
-      "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
-      "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match."
+      "comparisonOutcome": "method_differences",
+      "reason": "The male rat worksheet of Table S2 supplies 27-versus-6-month log2 fold changes and adjusted P values for 817 selected whole-hypothalamus genes. Effects could be paired for 613/817 (75.03%) selected genes. Both numerical agreement routes pass on paired effects. Reference coverage falls below the 90% requirement, and one endpoint animal differs. Pearson 0.9325, Spearman 0.9264 and 604/612 same-direction nonzero pairs (98.69%).",
+      "nextStep": "Use the complete male rat hypothalamus 27-versus-6-month contrast from rat_all_DEGs.obj, or an equivalent author export, with tested identifiers, unrounded inference and the QC inclusion list to extend coverage. Retain the animal-level distinction when interpreting differences.",
+      "fullyVerifiedContrasts": []
     },
     "mouse_vlpo_galanin_sleep_gse132308": {
       "resultAvailability": "available",
@@ -784,14 +793,16 @@
     "mouse_hypo_glp1_gse314029": {
       "resultAvailability": "partial",
       "comparisonOutcome": "not_comparable",
-      "reason": "The reviewed source supports the registered track, but a complete author comparator with the same cohort and analysis target is unavailable. The scope limitation is documented below.",
-      "nextStep": "Obtain the same-comparison author statistics or reconstruct an explicitly labeled author-compatible analysis; preserve the registered track's stated scope."
+      "reason": "The registered edgeR-QL coefficient tests bulk hypothalamic RNA in six male Gr3 mice relative to eight male vehicle controls. GEO provides per-library counts. The published RNA Wald tests and signed gene lists use peripheral tissues. Figure 5k–m uses hypothalamic protein intensities from a separate experiment sampled seven hours after one 100 nmol/kg dose or vehicle. Its ANOVA, Tukey pairwise lists and protein-cluster enrichment in Extended Data Fig. 9b cannot supply a same-gene RNA comparison.",
+      "nextStep": "Reopen if a full table, signed list or labelled gene-level RNA panel can be linked to hypothalamic Gr3 versus vehicle. Check the cohort, handling of the two repeat-labelled libraries, dosing and harvest schedule, and confine the comparison to the reported genes.",
+      "fullyVerifiedContrasts": []
     },
     "mouse_arc_reverb_gse148641": {
       "resultAvailability": "partial",
-      "comparisonOutcome": "not_comparable",
-      "reason": "The reviewed source supports the registered track, but a complete author comparator with the same cohort and analysis target is unavailable. The scope limitation is documented below.",
-      "nextStep": "Obtain the same-comparison author statistics or reconstruct an explicitly labeled author-compatible analysis; preserve the registered track's stated scope."
+      "comparisonOutcome": "method_differences",
+      "reason": "The normal-chow genotype contrast is represented in S4A and S3F. All 24 RNA-seq expression directions agree. S4A reports 21 joint chow-and-HFD DESeq2 calls at TPM > 0.1 and FDR < 0.05. Only Fabp7 and Arntl meet the registered chow edgeR-QL BH threshold. No full chow DESeq2 table was located to resolve the inference differences.",
+      "nextStep": "Extend the review if the authors’ normal-chow ZT4 ARC HDKO-minus-control DESeq2 table becomes available with its sample design, feature IDs, tested universe, log2FC, raw P and adjusted P.",
+      "fullyVerifiedContrasts": []
     },
     "mouse_pomc_maternal_hfd_gse135639": {
       "resultAvailability": "partial",
@@ -803,8 +814,9 @@
     "mouse_vmh_sf1_sex_gse143818": {
       "resultAvailability": "partial",
       "comparisonOutcome": "not_comparable",
-      "reason": "The reviewed source supports the registered track, but a complete author comparator with the same cohort and analysis target is unavailable. The scope limitation is documented below.",
-      "nextStep": "Obtain the same-comparison author statistics or reconstruct an explicitly labeled author-compatible analysis; preserve the registered track's stated scope."
+      "reason": "Preprint Supplemental Figure 1b groups 530 P10 cells by sex. Positive average logFC denotes male-biased expression, and the legend colors genes by adjusted P < 0.05. The preprint does not specify the log base or the test for this panel. HypoExplorer estimates a male-minus-female log2 fold change from the 467 retained VMH cells, with three independent mice per arm. The authors’ cluster markers, adult regional optical-density contrasts and expression browser provide no paired gene effects for this mouse-level comparison.",
+      "nextStep": "Reopen if an author result estimates male versus female P10 VMH expression with mice as biological replicates. Check the Figure 2 cell membership or document a compatible cohort, the female baseline, and how the model weights cells and animals. Record the gene scope and effect definition, and assess P values and FDR where available.",
+      "fullyVerifiedContrasts": []
     },
     "mouse_hypo_glylow_gse234483": {
       "resultAvailability": "partial",
@@ -939,15 +951,15 @@
     "gse309435": {
       "resultAvailability": "partial",
       "comparisonOutcome": "not_comparable",
-      "reason": "Nineteen original supplementary workbooks were recovered from the publisher RAR. Table8 has3013 male SHR-versus-Wistar genes andTable10 has1122 female SHR-versus-Wistar genes. Other tables concern sex differences, selected shared genes, pathways, correlations and additional brain regions. No current pooled, sex-adjusted SHR-versus-Wistar coefficient was located in these19tables. Male/female coefficients were not averaged or substituted for the registered pooled estimate; unresolved litter/pairing is reviewed separately.",
-      "nextStep": "Recover a source pooled sex-adjusted strain result, or perform a separately scoped author-method reconstruction without changing registered outputs.",
+      "reason": "The cohort, 14-week collection and Wistar baseline agree. Tables 8 and 10 report separate SHR effects in males and females. Table 12 repeats those estimates by label, with an Ensembl ID conflict for Arxes2. Figure 5F averages sex-specific log2 fold changes for selected pathway genes. The GEO deposit contains counts per library. None of these sources reports a gene-level common strain effect adjusted for sex across the 19 rats.",
+      "nextStep": "Reopen if an author-generated result estimates the common SHR-versus-Wistar effect across these rats with sex adjustment, or documents an equivalent contrast. Check the sample list, coefficient definition, feature identifiers and selection scope. Assess P and adjusted P values where supplied.",
       "fullyVerifiedContrasts": []
     },
     "gse281701": {
       "resultAvailability": "partial",
-      "comparisonOutcome": "not_comparable",
-      "reason": "The new primary publication and Figshare v5 supplement were linked to GSE281701. The recovered Supplemental tableS3 contains colorectal, lung and pancreatic cachexia comparisons from skeletal muscle. It contains no hypothalamus tissue rows. TableS2 in the recovered DOCX mentions GSE281701 hypothalamus and a fold-change1.5/adjustedP.01 criterion, but does not supply its full gene effects. Muscle coefficients cannot verify the registered hypothalamus contrast.",
-      "nextStep": "Locate the GSE281701 hypothalamus coefficient table or a retained source underlying the hypothalamus supplemental figure.",
+      "comparisonOutcome": "method_differences",
+      "reason": "All three explicit gene directions agree for the same six hypothalamus libraries. The authors used a DESeq2 Wald test and the registered output uses edgeR quasi-likelihood. The approximate Lrg1 effect is similar, but its plotted significance is much more extreme. The authors’ per-gene coefficients, raw P values and adjusted P values could not be paired exactly. Figshare v5 Table S3 supplies skeletal-muscle coefficients.",
+      "nextStep": "A legible copy of the hypothalamic expression panel or its source values would establish the ten labels and their directions. The bulk hypothalamus DESeq2 export, design formula and definition of the S4C ordinate would permit a full comparison of effects and inference.",
       "fullyVerifiedContrasts": []
     },
     "gse308884": {

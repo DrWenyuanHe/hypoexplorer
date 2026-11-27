@@ -1,0 +1,14 @@
+{
+  "datasetId": "pig_hypo_formula_gse281726",
+  "outcome": "upheld_with_corrections",
+  "summary": "The no_valid_comparison closure stands. The authors estimated a diet effect across four brain regions, leaving zero paired gene effects for the registered hypothalamus contrast. All five computations reproduced, and all 57 source files matched their recorded sizes and SHA-256 hashes. The corrected proposal records a missed HBB base-mean discrepancy: 3336.86 in Supplementary Table 3 versus 336.855389887745 in the author CSV. It also clarifies how to assess sex handling if a matching result becomes available.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-24/verdicts/pig_hypo_formula_gse281726.json",
+    "data/author-validation/codex-2026-11-24/corrected/pig_hypo_formula_gse281726.json",
+    "data/author-validation/continued-sources/GSE281726/codex-2026-11-24/refute/recheck.py"
+  ],
+  "openIssues": [
+    "Gene-level concordance remains unassessed pending a P16 hypothalamus ALAC-versus-WPI result with documented sample membership, handling of library 214, and sex handling.",
+    "The supplement and subgroup CSVs disagree on the ALOX5AP effect sign and on the HBB singleton’s subgroup heading and base mean."
+  ]
+}

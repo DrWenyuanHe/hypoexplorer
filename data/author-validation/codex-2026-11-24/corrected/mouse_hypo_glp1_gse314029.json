@@ -1,0 +1,68 @@
+{
+  "datasetId": "mouse_hypo_glp1_gse314029",
+  "accession": "GSE314029",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "GEO supplies hypothalamic RNA counts from six retained GLP-1/GIP libraries and eight vehicle libraries, all from male mice. The published bulk RNA results cover liver, epididymal white adipose tissue and skeletal muscle. Figure 5k–m measures acute hypothalamic protein responses, leaving the registered RNA contrast without a comparable author result in the sources reviewed.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE314029/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-24",
+      "summary": "GEO and NCBI BioSample support the registered male hypothalamus Gr3 versus vehicle cohort. The available author results cover other tissues or assays.",
+      "note": "The sample sheet and edgeR provenance select one library per retained within-arm animal label and exclude Gr3_rep_31_Hy and Gr3_rep_30_Hy. The six Gr3 BioSamples (SAMN53543080–SAMN53543085) record GLP1:GIP, and the eight controls (SAMN53543064–SAMN53543071) record Vhcl. All 14 record adult male C57BL/6J mice and hypothalamus. The group-only model estimates gene-wise RNA log2 fold change for Gr3 relative to vehicle. The peripheral heatmap headings corroborate these two arms. Figure 5k–m reports hypothalamic proteomics seven hours after a single dose.",
+      "reviewFlags": [
+        "GEO describes seven daily treatments and collection 24 hours after the last injection. Supplementary Methods point to Fig. 2a–f for the bulk RNA experiment, and Extended Data Fig. 4 describes 12 daily treatments in the peripheral tissues. The individual BioSamples give a collection date but omit dosing duration and dose.",
+        "The peripheral workbook and BioSample disagree for 48 displayed libraries from arms outside the registered contrast. The workbook labels 24 Gr2 libraries GLP-1/GIP/Lani and 24 Gr4 libraries Lani. Their linked BioSamples label Gr2 Lani and Gr4 GLP1:GIP:Lani. Both sources agree on the 24 displayed Gr3 and 23 vehicle libraries.",
+        "The review supports the sample selection and treatment identity for Gr3 versus vehicle. Hypothalamic author RNA effects, P values, FDR and concordance remain unassessed.",
+        "The legacy preparation lacks a committed source-file checksum manifest. SOURCES.tsv fingerprints the public files retrieved for this review."
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The registered edgeR-QL coefficient tests bulk hypothalamic RNA in six male Gr3 mice relative to eight male vehicle controls. GEO provides per-library counts. The published RNA Wald tests and signed gene lists use peripheral tissues. Figure 5k–m uses hypothalamic protein intensities from a separate experiment sampled seven hours after one 100 nmol/kg dose or vehicle. Its ANOVA, Tukey pairwise lists and protein-cluster enrichment in Extended Data Fig. 9b cannot supply a same-gene RNA comparison.",
+      "nextStep": "Reopen if a full table, signed list or labelled gene-level RNA panel can be linked to hypothalamic Gr3 versus vehicle. Check the cohort, handling of the two repeat-labelled libraries, dosing and harvest schedule, and confine the comparison to the reported genes.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Retained hypothalamus RNA libraries by arm",
+      "value": "6 Gr3 and 8 Vhcl",
+      "script": "data/author-validation/continued-sources/GSE314029/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "GEO depositor matrix and sample-level files",
+      "value": "32,285 feature rows × 159 sample columns, with nonnegative integer counts throughout. All 159 GSMs declare NONE for supplementary files. The Series Matrix has 0 data rows.",
+      "script": "data/author-validation/continued-sources/GSE314029/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Extended Data Fig. 4b/f/j drug headings joined to GEO by library ID",
+      "value": "The figure headings label 24 Gr3 libraries GLP-1:GIP, 24 Gr2 GLP-1:GIP:Lani, 24 Gr4 Lani and 23 Vhcl vehicle. The 95 libraries comprise 32 liver, 32 eWAT and 31 quadriceps, with zero registered hypothalamus library IDs. The Gr2 and Gr4 labels conflict with BioSample.",
+      "script": "data/author-validation/continued-sources/GSE314029/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Registered DE output inspected",
+      "value": "18,744 distinct published symbols. SHA-256 1c8633a9bbb710ecf52e1ba4b7cfaee2726b176b8bc2f3dd459d48108e015e2e.",
+      "script": "data/author-validation/continued-sources/GSE314029/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Publication attachment coverage",
+      "value": "19 attachments including 15 workbooks and 204 worksheets",
+      "script": "data/author-validation/continued-sources/GSE314029/codex-2026-11-24/inspect_supplements.py"
+    },
+    {
+      "claim": "Treatment and sex from NCBI BioSample, joined through GEO and ENA library identifiers (recheck.py --biosample)",
+      "value": "159 unique specimen vouchers matched the GEO titles. All 159 are male. BioSample labels 40 Gr3 GLP1:GIP, 39 Vhcl Vhcl, 40 Gr2 Lani and 40 Gr4 GLP1:GIP:Lani. All 14 retained hypothalamus records confirm the registered arms. For the same 95 peripheral libraries as the heatmaps, 47 treatment labels agree and 48 conflict. For example, EDF4b AC4 (25L001141, SAMN53543136) and L4 (25L001163, SAMN53543158) show the two directions of conflict. NCBI EFetch XML for all 159 records was 342,537 bytes, SHA-256 cddf6b5ce3f1da67f274b905c8380c6a7486a1a9fe37c1df4c8eabb3be70ccd9.",
+      "script": "data/author-validation/continued-sources/GSE314029/codex-2026-11-24/refute/recheck.py"
+    }
+  ],
+  "openIssues": [
+    "GEO and the publication give different treatment durations. A library-level exposure record would settle the timing for any future RNA comparison.",
+    "The workbook and BioSample reverse the treatment labels for Gr2 and Gr4. Their identities remain unresolved for those arms. The registered contrast uses Gr3 and vehicle."
+  ]
+}

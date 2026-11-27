@@ -1,0 +1,59 @@
+{
+  "datasetId": "mouse_hypo_circadian_aging_gse201207",
+  "accession": "GSE201207",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "HypoExplorer estimates the common 27-month versus 6-month expression difference across all 12 collection times in male mouse hypothalamus. Wolff et al. included the 18-month group and fitted a separate ordinal age slope within each of four circadian windows. Even the 604-gene shared list in Table S3 reports four window-specific effects per gene, leaving the registered endpoint unassessed.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE201207/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-24",
+      "summary": "GEO supports the registered hypothalamus cohort. Published gene-level effects address age trends within circadian windows.",
+      "note": "The 24 registered libraries are the male 6- and 27-month whole-hypothalamus libraries in GEO, each pooled from two mice. The edgeR quasi-likelihood fit estimates old minus young abundance with a 12-level sampling-time block. Wolff et al. coded ages 6, 18 and 27 months as 0, 1 and 2 and fitted an edgeR slope separately in each of four overlapping windows. Table S3's DEGs_All sheet gives the separate slopes, P and q values for genes shared across windows. Figure 2J displays those genes across all three ages. The deposited count and CPM matrices and the age-specific cosinor and variability outputs supply no gene-level result for the registered endpoint.",
+      "reviewFlags": [
+        "The cycle-adjusted two-age effect is an exploratory HypoExplorer contrast. Author agreement on its effects and inference remains unassessed."
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The published hypothalamus DE results use a three-age ordinal predictor and four overlapping sets of collection times. The registered coefficient compares only the 27- and 6-month libraries across all 12 times in a single time-blocked fit. Table S3 provides the component slopes even for genes shared across all four windows. The sex, tissue and pooled-library unit agree.",
+      "nextStep": "Reopen for an author-issued gene-level 27-month minus 6-month hypothalamus result from the 24 endpoint libraries across all 12 collection times. Confirm the age coefficient, time adjustment, units, sample mapping and gene coverage. A selected-gene source can support only its stated scope.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO library mapping for the registered hypothalamus contrast",
+      "value": "24 male pooled libraries matched to GSM records, with one 6-month and one 27-month library at each of 12 collection times.",
+      "script": "data/author-validation/continued-sources/GSE201207/codex-2026-11-24/inspect_sources.py"
+    },
+    {
+      "claim": "Hypothalamus library membership for the published windows",
+      "value": "Each of the four windows contains 4 libraries per age at 6, 18 and 27 months, or 12 pooled libraries per window.",
+      "script": "data/author-validation/continued-sources/GSE201207/codex-2026-11-24/inspect_sources.py"
+    },
+    {
+      "claim": "Published Table S3 DEGs_All gene rows with four slopes and four pairs of P and q values",
+      "value": "604",
+      "script": "data/author-validation/continued-sources/GSE201207/codex-2026-11-24/inspect_sources.py"
+    },
+    {
+      "claim": "Registered DE output",
+      "value": "20,574 rows and 20,574 distinct symbols. SHA-256 b930876494b240cbda0b308296f309d4e67be24d72304ae7f54ff1246c9a813b.",
+      "script": "data/author-validation/continued-sources/GSE201207/codex-2026-11-24/inspect_sources.py"
+    },
+    {
+      "claim": "Processed GEO matrices and sample-supplement inventory",
+      "value": "Both matrices have 55,376 data rows and 216 distinct GSM-matched measurement columns. All 216 sample records declare no supplementary file.",
+      "script": "data/author-validation/continued-sources/GSE201207/codex-2026-11-24/inspect_sources.py"
+    }
+  ],
+  "openIssues": [
+    "The original bioRxiv supplementary binaries could not be independently inspected. The saved preprint identifies its hypothalamus DE table as ordinal window slopes, and the final publication's complete supplement set was retrieved and inspected."
+  ]
+}

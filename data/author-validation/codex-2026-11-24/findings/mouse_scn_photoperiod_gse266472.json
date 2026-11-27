@@ -1,0 +1,90 @@
+{
+  "datasetId": "mouse_scn_photoperiod_gse266472",
+  "accession": "GSE266472",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "The public author table estimates long versus short photoperiod across the circadian day in 121 male mice. The registered analysis uses the 18 mice sampled at pZT12, and all 18 match the author sample sheet. No author-produced pZT12 gene effect was located in the paper, supplements, labelled panels, study deposits or code outputs.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE266472/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "summary": "The author DESeq2 result spans the circadian day. No author effect specific to projected ZT12 was located.",
+      "note": "The authors used one whole-SCN library per male mouse and short photoperiod as baseline. Their GitLab sample sheet has 121 mice across six projected times. All 18 registered pZT12 libraries are present, nine per photoperiod. The DESeq2 coefficient adjusts for RNA-extraction batch across the day. The registered edgeR quasi-likelihood coefficient uses only pZT12 and adjusts for sequencing batch (four and five mice per arm in batches 5209 and 5728). The archived journal S4 workbook retains legacy S2 sheet labels, addressed in the corrigendum. Its 16,856 genes and 15,873 numeric adjusted P values yield 1,518 whole-day calls at adjusted P < 0.05 and absolute log2FC > 0.1 (546 higher, 972 lower in long days). The labelled volcano genes inherit that coefficient. Phase-labelled points are expression means and the fitted curves describe rhythms. GEO supplies counts, and the code export appends normalized counts to the whole-day result. No pZT12 author effect or inference was available for comparison. Evidence and six comparability dimensions are recorded in data/author-validation/continued-sources/GSE266472/codex-2026-11-24/SEARCH_LOG.md.",
+      "reviewFlags": [],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-24",
+      "evidenceLinks": [
+        {
+          "label": "Journal article and figures",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11425976/",
+          "kind": "paper"
+        },
+        {
+          "label": "Correction to S4 tab labels and rhythm descriptions",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12412228/",
+          "kind": "paper"
+        },
+        {
+          "label": "Journal supplementary archive retained in PMC Open Data",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC11425976.1/sj-zip-1-jbr-10.1177_07487304241265439.zip",
+          "kind": "author_result"
+        },
+        {
+          "label": "Author model, sample sheet, result files and figure code",
+          "url": "https://gitlab.com/giannoma/OHC_RNAseq/-/tree/7de067c20fe5ed9d3c89e106212725ade85664de",
+          "kind": "author_result"
+        }
+      ],
+      "paperAccess": "pmc_full_text",
+      "pmcUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11425976/",
+      "pmcId": "PMC11425976",
+      "pubmedUrl": "https://pubmed.ncbi.nlm.nih.gov/39096022/"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The published DESeq2 log2 fold change estimates the RNA-batch-adjusted photoperiod main effect across the sampled day. HypoExplorer estimates the sequencing-batch-adjusted effect within pZT12. Although the pZT12 library IDs agree, the supplement, code exports, gene browser and labelled figures provide no phase-specific coefficient. Registered effect and inference concordance are unassessed.",
+      "nextStep": "Reopen for an author-produced long-versus-short pZT12 gene effect with identifiable SCN libraries, phase, baseline and batch handling. A selected list would cover only its named genes.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Author DESeq2 libraries and arms",
+      "value": "121 libraries, 63 long and 58 short across pZT 0, 4, 8, 12, 16 and 20.",
+      "script": "data/author-validation/continued-sources/GSE266472/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Registered cohort matched by source-library ID, photoperiod and batch to the author pZT12 subset",
+      "value": "18 of 18 libraries, nine per arm. Each arm contains four in sequencing batch 5209 and five in 5728.",
+      "script": "data/author-validation/continued-sources/GSE266472/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Series libraries absent from the author DESeq2 sample table",
+      "value": "5209-OC-16, 5209-OC-38",
+      "script": "data/author-validation/continued-sources/GSE266472/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "GEO series and sample supplementary-file content",
+      "value": "123 series files inspected through the last row. Each contains 56,980 two-field feature/count rows. All 123 GSMs list NONE for sample supplements.",
+      "script": "data/author-validation/continued-sources/GSE266472/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Author S4 whole-day DE, journal threshold on available adjusted P values",
+      "value": "16,856 Ensembl IDs, 15,873 numeric adjusted P values, 1,518 calls at adjusted P < 0.05 and |log2FC| > 0.1. Long higher 546, long lower 972.",
+      "script": "data/author-validation/continued-sources/GSE266472/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Columns attached to the author compressed DESeq2 output",
+      "value": "121 normalized-count columns matching the author sample sheet accompany one set of whole-day DE fields.",
+      "script": "data/author-validation/continued-sources/GSE266472/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Registered edgeR-QL output inspected in place",
+      "value": "18,335 rows, 18,335 unique symbols. SHA-256 f25fd0341f751efa6dd4c55ed26c1adf733cb9357c82b9d8627837a76f600e65",
+      "script": "data/author-validation/continued-sources/GSE266472/codex-2026-11-24/audit.py"
+    }
+  ],
+  "openIssues": [
+    "Reopen for an author-produced long-versus-short pZT12 gene effect with identifiable SCN libraries, phase, baseline and batch handling. A selected list would cover only its named genes."
+  ]
+}
