@@ -67,6 +67,8 @@ geo_replication/**/metadata/*samplesheet.tsv -text !eol whitespace=blank-at-eol,
 geo_replication/**/metadata/*_source_files.tsv -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 geo_replication/**/processed/*_FGSEA_*.tsv -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 geo_replication/**/processed/*_fgsea.tsv -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# GSE252779's preprocessing QC table is released with CRLF bytes, which the FGSEA migration audit pins.
+geo_replication/datasets/GSE252779_mmus_hypo_celastrol/processed/GSE252779_preprocessing_qc.tsv -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 # The GSE135007 serialization successor pins its LF session records by exact SHA-256.
 geo_replication/datasets/GSE135007_discovery_20260905/processed/*sessionInfo.txt -text !eol whitespace=-blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 data/author-validation/fgsea-baselines/**/*.tsv -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

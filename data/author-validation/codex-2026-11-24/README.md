@@ -60,15 +60,43 @@ GSE309435 keeps its earlier `review_required` status, so its derived outcome is
 `unresolved` although its verification record says `not_comparable`. The merge did not
 change that.
 
+## Evidence reconstruction (2026-11-27)
+
+The evidence folders were not copied off the computer the pass ran on. On 2026-11-27 the
+folders of the two datasets with new comparison specs were rebuilt from the Codex
+transcripts (each `apply_patch` turn diff carries the full file and its git blob id) and
+fresh public downloads, outside the repository:
+
+- **GSE128537:** every reconstructed script matches its transcript blob id;
+  `compare.py` also matches its spec pin. Rerun, it writes `author-effects.tsv`
+  byte-identical to the pin (`726939d9…`). All six original references re-download
+  with their pinned SHA-256. `SOURCES.tsv` is partial: the transcripts print only 12
+  of its 85 rows in full.
+- **GSE314970:** the reconstructed `compare.py` writes `selected-effects.tsv`
+  byte-identical to the pin (`2126d01a…`), and five of the six original references
+  re-download with their pinned SHA-256. The sixth, `supplement-export.zip`, is
+  the archive Europe PMC assembles on each request, with entry dates set to the
+  request time. A same-size copy downloaded on 2026-11-27 hashes to `87b49eb0…`, not
+  the pinned `2b02256d…` (a 2026-11-16 copy differed too). Its member
+  `sciadv.ady8401_tables_s1_to_s5.zip`, which `compare.py` reads, hashes to
+  `b7cbb7e5…`, as the refuter recorded on 2026-11-24. That holds for Tables S1 and S2
+  inside it as well. The spec now pins that member instead of the wrapper, at the PMC Open
+  Access URL the refuter fetched it from (`pmc-oa-opendata`, `PMC13082319.1`). `SOURCES.tsv`
+  keeps the 2026-11-24 wrapper row as the historical retrieval; `compare.py` still opens the
+  wrapper, so replaying it needs that file and checking the pin needs the member.
+
+Each rebuilt folder carries a `RECONSTRUCTION.md` that separates byte-verified files
+from unverified ones: `SOURCES.tsv`, regenerated tables with no recorded hash, and
+the retrieval logs, which cannot be recovered. The other 17 folders were not rebuilt;
+their records here and their transcripts remain.
+
 ## Not yet done
 
 - **Evidence release.** The evidence folders
   (`continued-sources/<ACCESSION>/codex-2026-11-24/`) are excluded from git and not yet in
   a data release. The two new specs pin author files there, so they validate only where
   those folders exist.
-- **Generated records.** `compare_author_results.mts` cannot run from the public release,
-  so `direct-comparisons.generated.*`, `validation-records.generated.*`, the tracker and
-  `data/quality/` must be regenerated in the maintainer checkout.
+- **Generated records.** Regenerated on 2026-11-27 with the retained audit cache.
 - **Author sources.** The numbers above were reproduced by each refuter. After the run the
   registered values of the compared genes were spot-checked; the author files were not
   reopened.
