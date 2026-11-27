@@ -6,6 +6,16 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-11-27',
+    title: 'Human hypothalamic regions from HYPOMAP Visium',
+    items: [
+      'The expression survey adds the human HYPOMAP Visium sections (Tadross et al., Nature 2025) as a reference atlas: 18,085 genes in 23 of the authors\' regions, from 121 donor-by-region samples of 7 donors. Each sample sums one donor\'s spots in one region, and values are FFPE Visium probe-count CPM, a unit of its own that is never put on a scale with TPM, nCPM or microarray intensity.',
+      'On a gene page, a HYPOMAP Visium tile ranks the hypothalamic regions by their mean over donors and draws each donor as a dot. Regions with fewer than three donors (POA, ME and MAM) are marked sparse. Fibre tracts, vascular, ventricular, thalamic and unassigned spots stay apart from the nuclei.',
+      'A Visium spot is 55 µm across and mixes several cells, so region values are tissue averages, not cell types. A gene outside the probe panel, such as IGF2 or HCRT, is reported as not measured there, never as zero.',
+      'Donors are shown as Donor 1 to 7. Expression-survey CSV downloads gain a source_credit column with each source\'s required attribution and licence.',
+    ],
+  },
+  {
     date: '2026-11-25',
     title: 'Expression tiles and renamed genes: fixes from review',
     items: [

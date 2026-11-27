@@ -296,7 +296,7 @@ export function SourceDetail({
                 <span className="ex-muted">· {result.unit}</span>
               </h4>
               {result.status !== 'available' ? (
-                <p className="ex-empty">{missingLabel(result)}</p>
+                <p className="ex-empty">{missingLabel(result, source)}</p>
               ) : isSummary(source) ? (
                 <div className="ex-table-scroll">
                   <table className="ex-sample-table">

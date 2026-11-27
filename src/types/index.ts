@@ -517,6 +517,14 @@ export interface ExpressionCondition {
   timeOfDay?: string;
   genotype?: string;
   treatment?: string;
+  /**
+   * For a regional group (a source with `groupKind: 'region'`): the donors,
+   * tissue sections and spots behind it, and whether it is too sparse to rank
+   * without a warning (fewer than three donors).
+   */
+  coverage?: { donors: number; sections: number; spots: number; sparse: boolean };
+  /** For a regional group: 'hypothalamic', or the non-nuclear compartment it is ('fibre tract', 'vascular', …). */
+  compartment?: string;
 }
 
 /** Who published an external reference, under which release and terms. */
@@ -568,6 +576,17 @@ export interface ExpressionSource {
    * gene instead of reporting several probes as ambiguous; absent means 'gene'.
    */
   featureLevel?: 'gene' | 'probe';
+  /**
+   * 'region' when each condition is an anatomical region holding one sample
+   * per donor (HYPOMAP Visium), so a donor can appear in several groups;
+   * absent means the conditions are cohorts or donors.
+   */
+  groupKind?: 'region';
+  /**
+   * What it means that a gene is absent from this source, e.g. "Not measured
+   * in this probe panel"; absent means "Not retained in this source".
+   */
+  absentLabel?: string;
   provider?: ExpressionProvider;
 }
 

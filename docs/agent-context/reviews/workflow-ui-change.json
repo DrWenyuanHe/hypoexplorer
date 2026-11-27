@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "80f83a21cc6118582a4e709412ca9d76bc0ed6f0ad198e4b1e00eac6f32eb171",
+  "fingerprint": "25aa4ae8702c0690b42c8a0f0e0bd0e6abe6adff417d9576b0688d28bc84b56b",
   "outcome": "updated",
-  "explanation": "No workflow rule changes. From the base: contrastLabel lives in data/contrasts.ts, significance explanations sit in a (?) help beside the listing toggle, and App closes the changelog whenever an explorer visit ends (CONTEXT.md says which shell state outlives a visit). From this branch: the gated HypoMap By dataset view shows study-card details read through atlas.ts, so views still never read the export wire, and its CSV still goes through the export-provenance and CSV seams with two added columns.",
+  "explanation": "No workflow rule changes. From main: the gene page Human hypothalamus row gains the HYPOMAP Visium tile and drill, and survey CSVs add source_credit. From this branch: the gated HypoMap By dataset view shows study-card details read through atlas.ts, so views still never read the export wire, and its CSV still goes through the export-provenance and CSV seams with two added columns. No new view or tab.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/App.tsx",
-    "CONTEXT.md",
+    "src/search/portalCards.tsx",
     "src/search/hypomap/atlas.ts",
     "src/search/hypomap/HypoMapPreview.tsx"
   ]

@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "4ad384bbec855e110980f6237074d8765543518ea87bba7a8a5ecc7e2ee18a49",
-  "outcome": "no-impact",
-  "explanation": "Merges main: contrastLabel moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts. No dataset workflow change. From main, explorerStore.ts changes only its header comment (the active dataset and track are the explorer position held by useExplorer.ts). From this branch, the HypoMap atlas adds no registry entry, bundle or query index; its build is documented in data/hypomap/README.md.",
+  "fingerprint": "e77118fe194d1bd50eec210ef5a264c2123766cdb786f0d040cb5837e2f88c40",
+  "outcome": "updated",
+  "explanation": "The dataset-change route now names the HYPOMAP Visium reference atlas: scripts/build_visium_reference.mts builds public/expression/visium/ from the donor x region extract tracked in data/expression/visium/, --fetch re-extracts it from the pinned RDS with scripts/extract_visium_reference.R, and its groups are regions so summaries use regionalSummary rather than a donor spread. The shared writer header lists Visium. --fetch needs Seurat, SeuratObject and Matrix; the builder records the Seurat version in the extractor runtime, and the pinned tables reproduce byte for byte under R 4.6.0.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/data/explorerStore.ts",
-    "data/hypomap/README.md",
-    "src/data/contrasts.ts"
+    "scripts/build_visium_reference.mts",
+    "scripts/extract_visium_reference.R",
+    "scripts/lib/externalReference.mts",
+    "data/expression/visium/README.md"
   ]
 }

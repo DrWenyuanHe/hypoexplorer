@@ -60,11 +60,11 @@ export function sampleCount(source: ExpressionSource): string {
   return typeof count === 'number' ? String(count) : 'See cohorts';
 }
 
-export function missingLabel(result: ExpressionGeneResult | undefined): string {
+export function missingLabel(result: ExpressionGeneResult | undefined, source?: ExpressionSource): string {
   if (!result) return 'Unavailable';
   if (result.status === 'ambiguous')
     return `Ambiguous identifier${result.candidates?.length ? `: ${result.candidates.join(', ')}` : ''}`;
-  return 'Not retained in this source';
+  return source?.absentLabel ?? 'Not retained in this source';
 }
 
 // ── Reference eligibility and value status ───────────────────────────────────
@@ -304,7 +304,7 @@ function matrixRows(
               ? summary
                 ? `Published value · ${result.unit}`
                 : `${probes.length ? `Probes ${probes.join(', ')} · ` : ''}${values[0]?.n ?? 0} measured samples · ${result.unit}`
-              : missingLabel(result),
+              : missingLabel(result, source),
         };
       }),
     }));
@@ -401,6 +401,7 @@ export interface SurveyExport {
 const CSV_BASE_COLUMNS = [
   'source_id',
   'source_url',
+  'source_credit',
   'population',
   'species',
   'region',
@@ -435,6 +436,15 @@ function scopedResults(results: readonly ExpressionGeneResult[], referenceOnly: 
   return results.map((result) => ({ ...result, groups: scopedGroups(result, referenceOnly) }));
 }
 
+/**
+ * What a row must credit: a reference atlas's required attribution and licence
+ * (CC BY sources name the transformation there), otherwise the source citation.
+ */
+export function sourceCredit(source: ExpressionSource): string {
+  const provider = source.provider;
+  return provider ? `${provider.attribution} Licence: ${provider.license} (${provider.licenseUrl}).` : source.citation;
+}
+
 /** The header and rows of a samples or cohort-means CSV, before cell escaping. */
 export function csvTable(format: 'samples' | 'summary', input: Pick<ExportInput, 'sources' | 'results' | 'referenceOnly'>): unknown[][] {
   const sourceMap = new Map(input.sources.map((source) => [source.id, source]));
@@ -445,6 +455,7 @@ export function csvTable(format: 'samples' | 'summary', input: Pick<ExportInput,
     const base = [
       source.id,
       source.sourceUrl,
+      sourceCredit(source),
       source.populationLabel,
       source.species,
       source.region,

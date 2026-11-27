@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "analysis",
-  "fingerprint": "195731268591d2aeb5c26cb987b12555fef60f99d753f592d8c727d33712021b",
+  "fingerprint": "a12392cc8aa07320deaa47ea75115002fa61fba6a388b21851648c490072712c",
   "outcome": "updated",
-  "explanation": "The HypoMap runbook now says which study-card columns the app shows: the By dataset view reads the label, publication and link, technology, cells or nuclei, region, sex, age stage, condition and N_cells_in_HypoMap, and its CSV adds publication and technology. The study card, the exporter and the export format are unchanged.",
+  "explanation": "Merges main (#101) into the HypoMap study-card branch. From main: data/expression/visium/README.md documents the HYPOMAP human Visium reference (pinned RDS, four donor x region tables, derivation, sparse-region and compartment rules, the R 4.6.0 re-extraction and CC BY 4.0 attribution). From this branch: the HypoMap runbook lists which study-card columns the By dataset view shows and the two its CSV adds; the study card, exporter and export format are unchanged.",
   "references": [
+    "data/expression/visium/README.md",
+    "scripts/extract_visium_reference.R",
     "data/hypomap/README.md",
-    "data/hypomap/HypoMap_study_display_card.csv",
     "src/search/hypomap/atlas.ts"
   ]
 }

@@ -1,14 +1,14 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "9afb02b96bccb1f4bb187316f4b89582318e8cd71c7e188aaf3bb3db012a1b31",
+  "fingerprint": "ea28b028b3069d2af37b644e1563045e265b9205340150134157ddc84e7d6feb",
   "outcome": "updated",
-  "explanation": "Merges the HypoMap atlas build (with main #99) into the study-card branch. From the base: changelogVisit.test.tsx pins the changelog closing when an explorer visit ends, and the report tests read the significance help beside the listing toggle. From this branch: the HypoMap fixture writes every study-card column (blank as an empty string, filled fixtureCard values by default); the atlas client tests cover named study fields, a partial card whose non-http link and non-numeric cell count read as null, a blank card and the Publication and Technology CSV columns; the preview tests read a checked dataset's linked publication and facts, and a blank card shows no details.",
+  "explanation": "Merges main (#101). From main: externalReference, regionalSummary, portalCards, deployGuards, sourceJson and expressionSurvey tests cover the Visium provider, its tile, transport allow-list and source_credit CSV column. From this branch: the HypoMap fixture writes every study-card column (blank as an empty string); the atlas client tests cover named study fields, a partial card whose non-http link and non-numeric cell count read as null, a blank card and the Publication and Technology CSV columns; the preview tests read a checked dataset's linked publication and facts, and a blank card shows no details.",
   "references": [
+    "src/__tests__/externalReference.test.ts",
+    "src/__tests__/portalCards.test.tsx",
     "src/__tests__/hypomapFixture.ts",
     "src/__tests__/hypomapAtlasClient.test.ts",
-    "src/__tests__/hypomapPreview.test.tsx",
-    "src/__tests__/changelogVisit.test.tsx",
-    "src/__tests__/listingModeToggle.test.tsx"
+    "src/__tests__/hypomapPreview.test.tsx"
   ]
 }
