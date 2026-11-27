@@ -2,7 +2,7 @@ import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
-import { allAtlasProblems, ATLAS_DIRS, atlasFiles, atlasProblems } from '../../scripts/lib/deployInputs.mjs';
+import { allAtlasProblems, ATLAS_DIRS, atlasFiles, atlasProblems, BUILT_ATLASES, FETCHED_ATLAS_DIRS } from '../../scripts/lib/deployInputs.mjs';
 import { KEGG_NOTE, keggCollections, PUBLIC_RELEASE_MARKER, reducedBundleFindings } from '../../scripts/lib/publicDataRelease.mjs';
 import { EXTERNAL_LOOKUP_SHARDS } from '../expression-survey/externalReferenceFormat';
 
@@ -25,8 +25,11 @@ function writeAtlas(root: string, dir: string, options: { skip?: string } = {}):
 }
 
 describe('deploy inputs: reference atlases', () => {
-  it('names the three atlas directories the app loads', () => {
-    expect([...ATLAS_DIRS].sort()).toEqual(['allen-human', 'gtex', 'hpa']);
+  it('names the four atlas directories the app loads, and which are fetched or built here', () => {
+    expect([...ATLAS_DIRS].sort()).toEqual(['allen-human', 'gtex', 'hpa', 'visium']);
+    // GTEx, HPA and Allen come from the app host; Visium's source is tracked, so a checkout builds it.
+    expect([...FETCHED_ATLAS_DIRS].sort()).toEqual(['allen-human', 'gtex', 'hpa']);
+    expect(BUILT_ATLASES).toEqual([{ dir: 'visium', builder: 'scripts/build_visium_reference.mts' }]);
   });
 
   it('lists the validation report and every lookup and value shard', () => {
@@ -46,6 +49,7 @@ describe('deploy inputs: reference atlases', () => {
     expect(problems).toEqual([
       expect.stringContaining('dist/expression/gtex/ is missing 1 of'),
       'dist/expression/allen-human/manifest.json is missing',
+      'dist/expression/visium/manifest.json is missing',
     ]);
   });
 

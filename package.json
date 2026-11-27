@@ -15,6 +15,8 @@
     "check:expression-reference": "tsx scripts/build_oxt_reference.mts --check",
     "build:expression-external": "tsx scripts/build_gtex_reference.mts && tsx scripts/build_hpa_reference.mts && tsx scripts/build_allen_human_reference.mts",
     "check:expression-external": "tsx scripts/build_gtex_reference.mts --check && tsx scripts/build_hpa_reference.mts --check && tsx scripts/build_allen_human_reference.mts --check",
+    "build:expression-visium": "tsx scripts/build_visium_reference.mts",
+    "check:expression-visium": "tsx scripts/build_visium_reference.mts --check",
     "build:oxt-avp": "tsx scripts/build_oxt_avp_bundles_r460.mts && tsx scripts/audit_oxt_avp_intake_r460.mts",
     "check:oxt-avp": "tsx scripts/build_oxt_avp_bundles_r460.mts --check && tsx scripts/audit_oxt_avp_intake_r460.mts --check",
     "build:quality": "tsx scripts/build_internal_qc_r460.mts && tsx scripts/build_quality_report_r460.mts",

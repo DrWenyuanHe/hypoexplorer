@@ -245,11 +245,11 @@ describe('exports', () => {
     res('a', 'Npy', [], { status: 'ambiguous', gene: undefined, geneId: undefined, candidates: ['Npy1', 'Npy2'] }),
     res('elsewhere', 'Agrp', [group('fed', 1)]),
   ];
-  const base = ['source_id', 'source_url', 'population', 'species', 'region', 'assay', 'rna_fraction', 'query', 'gene', 'gene_id',
+  const base = ['source_id', 'source_url', 'source_credit', 'population', 'species', 'region', 'assay', 'rna_fraction', 'query', 'gene', 'gene_id',
     'probe', 'identifier_candidates', 'gene_status', 'cohort_key', 'cohort', 'reference_eligible', 'unit'];
   const cohort = (key: string, eligible = true) => [key, key, eligible, 'TPM'];
   const lead = (query: string, gene?: string, geneId?: string, status = 'available', candidates?: string) =>
-    ['a', 'https://example.org/a', '=Pop', sources[0].species, 'ARH', sources[0].assay, sources[0].rnaFraction, query, gene, geneId, undefined, candidates, status];
+    ['a', 'https://example.org/a', sources[0].citation, '=Pop', sources[0].species, 'ARH', sources[0].assay, sources[0].rnaFraction, query, gene, geneId, undefined, candidates, status];
 
   it('writes one row per sample with its value status, and published summaries as stated', () => {
     const table = csvTable('samples', { sources, results, referenceOnly: false });
@@ -283,7 +283,7 @@ describe('exports', () => {
     expect(file.filename).toBe('expression_Agrp-Npy_samples.csv');
     expect(file.type).toBe('text/csv;charset=utf-8');
     const lines = file.content.split('\r\n');
-    expect(lines[0].startsWith('"source_id","source_url","population"')).toBe(true);
+    expect(lines[0].startsWith('"source_id","source_url","source_credit","population"')).toBe(true);
     expect(lines[1]).toContain(`"'=Pop"`);
     expect(lines[3]).toContain('"l3","-1.5","measured"');
     expect(lines[2]).toContain('"l2","","missing"');

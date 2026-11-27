@@ -1,13 +1,11 @@
 {
   "version": 1,
   "area": "module-acknowledgements",
-  "fingerprint": "c528a0ca72aae1636ab9ec3f004dd7870952ab432e09d5f6425c22f23583eeab",
+  "fingerprint": "bc5580cdb2952f18def0ab17447de74fb682b08ee8049df5891e0ec33e74cdf2",
   "outcome": "updated",
-  "explanation": "How to cite gains four references, each verified with a resolvable DOI: limma (Ritchie et al., Nucleic Acids Res 2015, PMID 25605792), the NeuroSeq atlas (Sugino et al., eLife 2019, PMID 30977723), the GSE147092 oxytocin-neuron reference (Lewis et al., Neuron 2020, PMID 33113347), and msigdbr, which has no paper and cites its CRAN DOI. The acknowledgement names limma, msigdbr, NeuroSeq and the Goff Lab, and the header comment says how the msigdbr DOI was checked.",
+  "explanation": "references.ts gains the HYPOMAP human Visium entry (Tadross et al., Nature 2025;639(8055):708-716, doi:10.1038/s41586-024-08504-8, checked against PubMed 39910307) naming the Cambridge dataset DOI, CC BY 4.0 and the HypoExplorer transformation, and the acknowledgements thank the HYPOMAP authors. How to cite renders the entry from the same list.",
   "references": [
     "src/acknowledgements/references.ts",
-    "src/__tests__/references.test.tsx",
-    "data/expression/neuroseq/README.md",
-    "data/expression/oxt-reference/README.md"
+    "data/expression/visium/README.md"
   ]
 }

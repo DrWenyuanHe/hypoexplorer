@@ -505,7 +505,8 @@ export function ExpressionSurveyView({ onHome, onOpenGene }: {
                 <p className="ex-note">
                   Public atlases imported from retained, hash-pinned releases. Every stored value is
                   read back and compared with its source at build time; the reports below record
-                  that comparison and an independent check against each provider's API.
+                  that comparison and an independent check: against each provider's API, or for
+                  HYPOMAP Visium, every CPM recomputed from the retained donor × region counts.
                 </p>
               </div>
               <div className="ex-table-scroll">

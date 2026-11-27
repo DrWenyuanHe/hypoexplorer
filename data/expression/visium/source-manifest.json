@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "provider": "visium",
+  "release": "humanHYPOMAP_spatial.rds, University of Cambridge repository, doi:10.17863/CAM.111988",
+  "retrieved": "2026-11-23",
+  "original": {
+    "name": "humanHYPOMAP_spatial.rds",
+    "url": "https://www.repository.cam.ac.uk/bitstreams/a47399a8-2735-4b65-b6cb-3cd1a48b08d7/download",
+    "landing": "https://doi.org/10.17863/CAM.111988",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "bytes": 2632769082,
+    "md5": "b7cab4381a6a279d14bc35f03e7061e2",
+    "sha256": "9a49bc028cf4cfa0f89551f7f0cea6d51fb60e3c7ecd3778db25e3d4291d1cf3"
+  },
+  "extractor": {
+    "script": "scripts/extract_visium_reference.R",
+    "sha256": "58f850754843891beb210148fe6ba913cf7a222f91e7d4eb97ee8fed0a6d19f1",
+    "runtime": "R version 4.6.0 (2026-04-24 ucrt) ; Seurat 6.0.0 ; SeuratObject 5.4.0 ; Matrix 1.7.5"
+  },
+  "retained": {
+    "cells": {
+      "file": "cells.tsv",
+      "bytes": 4709,
+      "sha256": "40ff2782e879379d62a845f15d1793eae6f57486fe26107057d0c087cf9ec43e"
+    },
+    "counts": {
+      "file": "counts.tsv.gz",
+      "bytes": 3158832,
+      "sha256": "ae976af798c0302ee5232fef19cfcb306e1997e2d28086ad9d8578e5143e86e6",
+      "contentBytes": 7811082,
+      "contentSha256": "2446d2c4251734da3e23c76b6d41d65cbc368d570d927712d24d6ad70fd68846"
+    },
+    "sections": {
+      "file": "sections.tsv",
+      "bytes": 4667,
+      "sha256": "c3c9c1eaf709500c3906f0c37ae4e8c47b8ffd1fce478e6ce26a19ed2faee376"
+    },
+    "labels": {
+      "file": "labels.tsv",
+      "bytes": 473,
+      "sha256": "9db31be64d0b798359241294f0ac35deaca0a22f945f0d64d11c28c56006ac3d"
+    }
+  }
+}

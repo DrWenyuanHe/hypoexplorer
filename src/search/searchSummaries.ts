@@ -327,7 +327,7 @@ export function loadBaselineTeaser(symbol: string): Promise<BaselineTeaser | nul
   });
 }
 
-// ── Human reference atlases (GTEx, HPA, Allen; same-origin JSON) ───────────
+// ── Human reference atlases (GTEx, HPA, Allen, Visium; same-origin JSON) ───
 //
 // The external reference products the expression survey reads: one manifest
 // per provider, then one lookup and one value shard per source. A mouse symbol
@@ -340,6 +340,7 @@ export const REFERENCE_ATLAS_SOURCES = {
   subregions: 'hpa-human-hypothalamic-subregions',
   allen: 'allen-human-hypothalamus-microarray',
   clusters: 'hpa-human-hypothalamus-snrna-clusters',
+  visium: 'visium-hypomap-regions',
 } as const;
 export type ReferenceAtlasKey = keyof typeof REFERENCE_ATLAS_SOURCES;
 
@@ -352,6 +353,24 @@ export interface ReferenceSpread {
   mean: number;
 }
 
+/** One donor's value in one region: a donor-region sample, so a donor recurs across regions. */
+export interface ReferenceDonorValue { donor: string; value: number }
+
+/** One region of a regional source (groups = regions, samples = donors): its donor mean and each donor's value. */
+export interface ReferenceRegion {
+  key: string;
+  /** The full group label, with its coverage. */
+  label: string;
+  /** 'hypothalamic', or the non-nuclear compartment ('fibre tract', 'vascular', …). */
+  compartment: string;
+  /** Mean over this region's donors: the value the survey's bars rank. */
+  mean: number;
+  donors: ReferenceDonorValue[];
+  /** Fewer than three donors: ranked with a warning. */
+  sparse: boolean;
+  spots: number | null;
+}
+
 export interface ReferenceRow {
   /** The probe behind the row, for a probe-level source; one row per probe. */
   probe?: string;
@@ -360,9 +379,17 @@ export interface ReferenceRow {
   /**
    * Sample sources. One group of one sample per donor (GTEx): the median and
    * quartiles across donors. Several groups that are donors (Allen): the
-   * median, minimum and maximum of the donor means.
+   * median, minimum and maximum of the donor means. Null for a regional source.
    */
   spread: ReferenceSpread | null;
+  /**
+   * Regional sources (`groupKind: 'region'`, Visium): every region with a
+   * value, highest donor mean first. Its groups are regions, not donors, so the
+   * donor spread above would count regions as people.
+   */
+  regions?: ReferenceRegion[];
+  /** Regional sources: distinct donors across every region. */
+  donors?: number;
 }
 
 export type ReferenceAtlas =
@@ -396,7 +423,32 @@ function spreadOf(groups: ExpressionGroupResult[]): ReferenceSpread | null {
   return { median: quantile(means, 0.5), low: means[0], high: means[means.length - 1], donors: means.length, samples, mean: meanOf(means) };
 }
 
+/**
+ * A regional source's regions, highest donor mean first. Each sample is one
+ * donor in one region, keyed by region, so one donor counts once in each region
+ * it was sampled in and once among the source's donors.
+ */
+export function regionalSummary(groups: ExpressionGroupResult[], source: ExpressionSource): { regions: ReferenceRegion[]; donors: number } {
+  const conditions = new Map(source.conditions.map((condition) => [condition.key, condition]));
+  const people = new Set<string>();
+  const regions = groups.flatMap((group): ReferenceRegion[] => {
+    const donors = group.samples.flatMap((sample) => (sample.value == null ? [] : [{ donor: sample.id, value: sample.value }]));
+    if (!donors.length) return [];
+    for (const { donor } of donors) people.add(donor);
+    const condition = conditions.get(group.key);
+    return [{
+      key: group.key, label: group.label, compartment: condition?.compartment ?? 'hypothalamic',
+      mean: meanOf(donors.map((donor) => donor.value)), donors,
+      sparse: condition?.coverage?.sparse ?? donors.length < 3, spots: condition?.coverage?.spots ?? null,
+    }];
+  });
+  return { regions: regions.sort((a, b) => b.mean - a.mean), donors: people.size };
+}
+
 function referenceRow(result: ExpressionGeneResult, source: ExpressionSource): ReferenceRow {
+  if (source.groupKind === 'region') {
+    return { probe: result.probe, levels: [], spread: null, ...regionalSummary(result.groups, source) };
+  }
   if (source.valueKind === 'summary') {
     const levels = result.groups.flatMap((group) => (group.summary == null ? [] : [{ key: group.key, label: group.label, value: group.summary }]));
     return { probe: result.probe, levels: levels.sort((a, b) => b.value - a.value), spread: null };

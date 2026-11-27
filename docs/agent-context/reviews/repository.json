@@ -1,10 +1,17 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "574f54473f0c6f93af1245119d52b4654bad24c90f5f07ea545a195afc252648",
+  "fingerprint": "e3ce97b58b9965f6f4de2afffcb832031d835baf474aca9e91884dd38381f7c4",
   "outcome": "updated",
-  "explanation": "docs/agent-context/workflows.md's ui-change section adds the IME rule: a text field whose own keydown handler acts on Enter, Escape or the arrows returns early on isImeComposing. No root configuration, scripts or workflows changed.",
+  "explanation": "Merges main (#101) into the IME fix. From main: Repository configuration for the Visium atlas: package.json adds build:expression-visium and check:expression-visium; .gitignore ignores public/expression/visium/; .gitattributes keeps the pinned Visium TSV tables and the R extractor LF on every checkout; the application workflow builds the Visium atlas in the test job and prepare:deploy builds it in the build job; CHANGELOG.md records the change. The R extractor now reads counts with GetAssayData(layer =), works under R 4.4.1 and R 4.6.0, and notes that Seurat must be installed for the VisiumV1 image class. From this branch: docs/agent-context/workflows.md's ui-change section adds the IME rule: a text field whose own keydown handler acts on Enter, Escape or the arrows returns early on isImeComposing. No root configuration, scripts or workflows changed.",
   "references": [
+    "package.json",
+    ".gitignore",
+    ".gitattributes",
+    ".github/workflows/application.yml",
+    "CHANGELOG.md",
+    "data/expression/visium/README.md",
+    "scripts/extract_visium_reference.R",
     "docs/agent-context/workflows.md",
     "src/utils/imeComposing.ts"
   ]

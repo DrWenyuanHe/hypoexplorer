@@ -7,18 +7,31 @@
 //   pins an index generation R2 does not hold.
 // - public/tracker/catalog.js: the Dataset Tracker catalog, generated from survey
 //   notes that are not in this repository.
-// - public/expression/{gtex,hpa,allen-human}/: the GTEx, HPA and Allen reference
-//   atlases the Expression survey loads same-origin. A deploy without them
-//   removes them from the live site.
+// - public/expression/{gtex,hpa,allen-human,visium}/: the GTEx, HPA, Allen and
+//   HYPOMAP Visium reference atlases the Expression survey loads same-origin. A
+//   deploy without them removes them from the live site. GTEx, HPA and Allen are
+//   fetched from the app host; Visium's retained source is tracked, so it is
+//   built here (scripts/build_visium_reference.mts).
 
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import {
-  EXTERNAL_LOOKUP_SHARDS, EXTERNAL_PROVIDERS, EXTERNAL_REFERENCE_ROOTS, externalLookupFile, externalValueFile,
+  EXTERNAL_LOOKUP_SHARDS, EXTERNAL_PROVIDERS, EXTERNAL_REFERENCE_ROOTS, TRACKED_SOURCE_PROVIDERS, externalLookupFile, externalValueFile,
+  type ExternalProvider,
 } from '../../src/expression-survey/externalReferenceFormat';
 
-/** Directory names under expression/, e.g. 'gtex', 'hpa', 'allen-human'. */
-export const ATLAS_DIRS: readonly string[] = EXTERNAL_PROVIDERS.map((provider) => EXTERNAL_REFERENCE_ROOTS[provider].replace(/^\/expression\//, ''));
+const dirOf = (provider: ExternalProvider): string => EXTERNAL_REFERENCE_ROOTS[provider].replace(/^\/expression\//, '');
+
+/** Directory names under expression/, e.g. 'gtex', 'hpa', 'allen-human', 'visium'. */
+export const ATLAS_DIRS: readonly string[] = EXTERNAL_PROVIDERS.map(dirOf);
+
+/** Atlases built in a checkout from tracked sources, with the builder that writes each. */
+export const BUILT_ATLASES: ReadonlyArray<{ dir: string; builder: string }> = TRACKED_SOURCE_PROVIDERS.map((provider) => ({
+  dir: dirOf(provider), builder: `scripts/build_${provider}_reference.mts`,
+}));
+
+/** Atlases whose sources this repository does not carry, so they are fetched from the app host. */
+export const FETCHED_ATLAS_DIRS: readonly string[] = ATLAS_DIRS.filter((dir) => !BUILT_ATLASES.some((built) => built.dir === dir));
 
 export const TRACKER_CATALOG = 'tracker/catalog.js';
 

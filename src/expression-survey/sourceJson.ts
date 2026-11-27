@@ -1,5 +1,5 @@
 // The one transport for the expression survey's release-local JSON: NeuroSeq,
-// the OXT cell reference and the GTEx/HPA/Allen atlases. Each family's
+// the OXT cell reference and the GTEx/HPA/Allen/Visium atlases. Each family's
 // generated products live under one same-origin root, belong to the app
 // release (`?v=` app version) and are fetched lazily, once per session.
 //
@@ -26,6 +26,7 @@ const FAMILIES: Record<SourceFamily, FamilyRule> = {
   gtex: atlas('gtex'),
   hpa: atlas('hpa'),
   allen: atlas('allen'),
+  visium: atlas('visium'),
 };
 
 const requests = new Map<string, Promise<unknown>>();

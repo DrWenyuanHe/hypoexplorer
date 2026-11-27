@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "d3510f7bb63fa9b346ed67b73ec79966a79e461951edd3b5c8014d2141a8ba42",
-  "outcome": "no-impact",
-  "explanation": "Merges main: contrastLabel moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts. No verification workflow change. From main, explorerStore.ts changes only its header comment. From this branch, the data/hypomap inputs and the exporter test check an aggregated atlas export, not study verification or evidence ledgers.",
+  "fingerprint": "cc335b5b9a9cea8e77db7b6b7d2fb31a1a8f887cc291e25b7c7358f331800a43",
+  "outcome": "updated",
+  "explanation": "Verification evidence for the new source lives with it: the Visium builder verifies the pinned tables, checks every count column sums to its library size, reads back all 2,188,285 values and recomputes each CPM from counts in a separate routine, and its validation.json states that agreement is with derived CPM. data/expression/visium/README.md records the independent DuckDB rebuild from the spot-level Parquet export (2,586,155 values agree). No QC ledger or author-concordance record changed. A re-extraction under R 4.6.0 through the builder --fetch path reproduced all four pinned tables byte for byte.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "src/data/explorerStore.ts",
-    "data/hypomap/README.md",
-    "src/data/contrasts.ts"
+    "scripts/build_visium_reference.mts",
+    "data/expression/visium/README.md",
+    "src/expression-survey/externalReference.ts"
   ]
 }

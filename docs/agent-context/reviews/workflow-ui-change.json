@@ -1,10 +1,14 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "f5464e3acfdce3126ce85f1be8dc6f9d4638b070b46b55531ca03239d4596a0d",
+  "fingerprint": "13a758086bcc43d8bcfe622f4a02bf84058fbdd4d89a59bacacd36df4abb0197",
   "outcome": "updated",
-  "explanation": "The ui-change runbook now says a text field whose own keydown handler acts on Enter, Escape or the arrows returns early on isImeComposing from src/utils/imeComposing.ts.",
+  "explanation": "Merges main (#101) into the IME fix. From main: The gene page Human hypothalamus row gains a full-width HYPOMAP Visium tile (regions ranked by donor mean, a dot per donor, sparse marks, credit) and a Visium drill held to its source; survey panels show the not-measured label from absentLabel and CSV exports add source_credit. Checked in the browser at desktop and 390 px with no horizontal overflow; no new view or tab, so the smoke link list is unchanged. From this branch: The ui-change runbook now says a text field whose own keydown handler acts on Enter, Escape or the arrows returns early on isImeComposing from src/utils/imeComposing.ts.",
   "references": [
+    "src/search/portalCards.tsx",
+    "src/search/search.css",
+    "src/expression-survey/GeneSurvey.tsx",
+    "src/expression-survey/SourceDetail.tsx",
     "docs/agent-context/workflows.md",
     "src/utils/imeComposing.ts"
   ]
