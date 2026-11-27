@@ -1,0 +1,78 @@
+{
+  "datasetId": "mouse_hypo_prenatal_benzene_gse229440",
+  "accession": "GSE229440",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "Koshko et al. report a sex-specific exposure effect from individual offspring libraries. HypoExplorer sums the same retained P21 male libraries within three litters per arm before fitting the exposure effect. The labelled gene-expression panel, supplements and public deposits did not supply author effects for those litter aggregates.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE229440/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "summary": "Published P21 male offspring results use a different replicate unit from the registered litter-level contrast.",
+      "note": "After Xist-based sex reassignment and exclusion of OBFH14, GEO identifies 9 filtered-air and 6 benzene-exposed male offspring libraries. The authors describe DESeq2/apeglm analysis separately by sex after a total-count filter of 20, with BH-adjusted P < 0.1. The paper gives no design formula or litter-aggregation step. Figure 1B displays selected gene-expression averages by sex and exposure. The registered male edgeR quasi-likelihood fit compares within-litter sums from three litters per arm. The publisher and preprint supplements show glial imaging and body composition, and all 33 GEO sample supplements contain only STAR counts. No gene-level author table or figure panel for the registered analysis was located.",
+      "reviewFlags": [
+        "Sibling libraries contribute to the published offspring analysis. The independent observations in the registered fit are litters. Gene-level litter effects and their P/FDR remain unassessed."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-24",
+      "evidenceLinks": [
+        {
+          "label": "Author manuscript, RNA-seq methods and Figure 1",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10199724/",
+          "kind": "paper"
+        },
+        {
+          "label": "Publisher Figure 1, including the group-average heatmap",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0045653523010056-gr1_lrg.jpg",
+          "kind": "author_result"
+        },
+        {
+          "label": "Publisher supplementary figures on CX30 and body composition",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0045653523010056-mmc1.docx",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO family metadata with corrected sex and litter assignments",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE229nnn/GSE229440/soft/GSE229440_family.soft.gz",
+          "kind": "database"
+        },
+        {
+          "label": "Deposited per-offspring STAR count files",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE229nnn/GSE229440/suppl/GSE229440_RAW.tar",
+          "kind": "processed_data"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The available author gene directions describe benzene versus filtered air within male offspring at P21. HypoExplorer fits an exposure coefficient to three litter aggregates per arm. Figure 1B averages expression by sex and treatment, and no public source reviewed reports a gene-level effect for the six-litter analysis.",
+      "nextStep": "Reopen if author gene-level benzene-versus-filtered-air effects become available for the same post-exclusion P21 male libraries summed within each of the six litters. Check the sample mapping, direction, identifiers and reported scope before comparison.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO sample supplements matched to archive members and inspected row by row",
+      "value": "33 of 33 files. Each has 55,471 distinct Ensembl gene rows and four STAR summary rows with three integer count fields per row.",
+      "script": "data/author-validation/continued-sources/GSE229440/codex-2026-11-24/audit_sources.py"
+    },
+    {
+      "claim": "Male libraries and independent analysis units, using corrected GEO metadata, the paper's exclusion and the registered sample sheet",
+      "value": "9 filtered-air males in litters of 3, 3 and 3. After excluding GSM7163652 (OBFH14), 6 exposed males in litters of 1, 2 and 3. Three registered litter profiles per arm.",
+      "script": "data/author-validation/continued-sources/GSE229440/codex-2026-11-24/audit_sources.py"
+    },
+    {
+      "claim": "Registered output coverage and SHA-256 computed from the DE table",
+      "value": "21,796 rows and 21,796 unique published symbols. SHA-256 2af297d5e351ea238e9b0286eceee057643b6a661e9edc80d08af8e1174d22c0 matches the registered provenance.",
+      "script": "data/author-validation/continued-sources/GSE229440/codex-2026-11-24/audit_sources.py"
+    },
+    {
+      "claim": "Deposited project files indexed by ENA",
+      "value": "33 sequencing runs and 0 analysis-file rows for PRJNA954440.",
+      "script": "data/author-validation/continued-sources/GSE229440/codex-2026-11-24/audit_sources.py"
+    }
+  ],
+  "openIssues": [
+    "Author concordance for the registered litter-level exposure effect remains unassessed. Reopen if author gene-level benzene-versus-filtered-air effects become available for the same post-exclusion P21 male libraries summed within each of the six litters. Check the sample mapping, direction, identifiers and reported scope before comparison."
+  ]
+}

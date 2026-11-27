@@ -1,0 +1,211 @@
+[
+ {
+  "datasetId": "pig_hypo_mia_gse245146",
+  "category": "not_comparable",
+  "resultAvailability": "partial",
+  "comparisonOutcome": "not_comparable",
+  "reason": "The official supplement has been retrieved and inspected. Its whole-factorial main/interaction effects do not provide the registered saline-only sex-adjusted maternal effect.",
+  "nextStep": "Locate author simple-effect results or original fitted-model contrasts for saline-only PRRSV minus control. Retain the recovered factorial table as source evidence, without treating it as a matching comparator.",
+  "manualSummary": "Illinois supplement recovered; factorial results differ from the registered saline contrast",
+  "priorTurbo": null,
+  "accession": "GSE245146"
+ },
+ {
+  "datasetId": "mouse_scn_photoperiod_gse266472",
+  "category": "not_comparable",
+  "resultAvailability": "partial",
+  "comparisonOutcome": "not_comparable",
+  "reason": "Full author DE results are retrieved and their published totals reproduce, but they estimate the whole-day photoperiod effect. Local results estimate pZT12 only. This known scope difference does not demonstrate a pipeline mismatch.",
+  "nextStep": "Obtain an author pZT12-specific result or separately reconstruct the full-time-series analysis with documented sample exclusions, filtering and normalization. Retain the registered pZT12 result as a distinct contrast.",
+  "manualSummary": "Full whole-day author table retrieved; local pZT12 contrast is not equivalent",
+  "priorTurbo": null,
+  "accession": "GSE266472"
+ },
+ {
+  "datasetId": "pig_hypo_formula_gse281726",
+  "category": "not_comparable",
+  "resultAvailability": "partial",
+  "comparisonOutcome": "not_comparable",
+  "reason": "Author supplementary results were retrieved and inspected. Its brain table reports selected ILA-producer/nonproducer subgroup effects, not the registered pooled ALAC-versus-WPI sex-adjusted comparison. This is a scope/evidence limitation, not an observed numeric mismatch.",
+  "nextStep": "Obtain complete author results for pooled ALAC versus WPI brain/hypothalamus with exact sex/covariate settings, or perform a separately labelled author-compatible subgroup reconstruction. Do not use subgroup results or absence of a table to validate the registered contrast.",
+  "manualSummary": "Formula supplement retrieved; brain rows are non-equivalent ILA subgroups",
+  "priorTurbo": null,
+  "accession": "GSE281726"
+ },
+ {
+  "datasetId": "pig_hypo_mia_gse227725",
+  "category": "not_comparable",
+  "resultAvailability": "partial",
+  "comparisonOutcome": "not_comparable",
+  "reason": "The linked study provides molecular results for a different sample/analysis scope, not an established comparator for the registered RNA track.",
+  "nextStep": "Establish RNA sample correspondence and exact nursed-cohort coefficient, then locate gene-wide RNA statistics.",
+  "manualSummary": "Pig MIA expression source checked; linked methylation/integration results are not equivalent",
+  "priorTurbo": null,
+  "accession": "GSE227725"
+ },
+ {
+  "datasetId": "mouse_hypo_prenatal_benzene_gse229440",
+  "category": "not_comparable",
+  "resultAvailability": "partial",
+  "comparisonOutcome": "not_comparable",
+  "reason": "Selected author results exist, but the registered biological replicate unit is litter rather than individual offspring.",
+  "nextStep": "Locate complete author statistics and explicitly reconstruct the individual-offspring comparison if needed, without replacing the registered litter analysis.",
+  "manualSummary": "Benzene source checked; author individual-offspring analysis differs from litter pseudobulk",
+  "priorTurbo": null,
+  "accession": "GSE229440"
+ },
+ {
+  "datasetId": "mouse_hypo_puberty_emtab12340",
+  "category": "not_comparable",
+  "resultAvailability": "partial",
+  "comparisonOutcome": "not_comparable",
+  "reason": "2026-11-15: the dedicated hypothalamus paper is Sokolowski et al. 2024, Biol Sex Differ 15:83 (PMID 39449090, PMC11515584); its data availability names E-MTAB-12340, a Zenodo Shiny app (10.5281/zenodo.10899706) and Figshare code/data (10.6084/m9.figshare.25517503). The paper's methods list author DE (DESeq2, FDR<0.05 and |FC|>=1.5) between sexes at each age and, within sex, between consecutive ages only (12-22, 22-27, 27-32, 32-37). The author Shiny repository wilsonlabgroup/hypothalamus_gene_shiny (commit 9b05a52) holds hypo_utr_2021_de_result_list_2022-10-19.rds with 17 comparisons, including female d22_F, d27_F, d32_F, d37_F, d32_22F and d37_27F; d32_22F and d37_27F are inferred from their labels to be 32-vs-22 and 37-vs-27 comparisons, which no retained source documents. None is a female PD37-versus-PD22 comparison. Its logCPM, F and PValue columns are constant 1 placeholders, so only logFC and FDR are informative and raw P cannot be assessed. The registered female P37-versus-P22 track therefore has no same-contrast author table; combining contrasts would be a derived reconstruction and was not done. Paper-content claims rest on full text and supplements whose hashes are recorded but which were not retained; the RDS and scripts.R independently corroborate the thresholds. Evidence is in continued-sources/E-MTAB-12340/turbo-2026-11-15-notloc3/.",
+  "nextStep": "Inspect the Figshare 10.6084/m9.figshare.25517503 archive (2.0 GB) or the Zenodo app snapshot for a female PD37-versus-PD22 result or full DESeq2 outputs; otherwise record a scoped comparison against the nearest author contrasts, labelled as non-registered.",
+  "manualSummary": "Dedicated hypothalamus paper and author DE list located; no female P37-versus-P22 author table",
+  "priorTurbo": "data/author-validation/turbo-2026-11-15/corrected/mouse_hypo_puberty_emtab12340.json",
+  "accession": "E-MTAB-12340"
+ },
+ {
+  "datasetId": "mouse_arc_neun_development_gse189945",
+  "category": "not_comparable",
+  "resultAvailability": "partial",
+  "comparisonOutcome": "not_comparable",
+  "reason": "The retrieved full result is pooled-sex neuronal age, while the registered comparison is female-only. The source cohort and VSD input are supported, but equivalent female-age numerical output was not found in the published tables or code archive. This is a scope/evidence limitation, not observed disagreement.",
+  "nextStep": "Obtain the author's female-age output or original STAR counts plus annotation to reconstruct the archived group_neuron35f_vs_neuron12f model. Do not infer DESeq2 counts from VSD or combine shrunken pooled and sex effects.",
+  "manualSummary": "Author tables and code inspected; pooled-sex age results do not verify female-only analysis",
+  "priorTurbo": null,
+  "accession": "GSE189945"
+ },
+ {
+  "datasetId": "mouse_hypo_hfd_gse220533",
+  "category": "not_comparable",
+  "resultAvailability": "partial",
+  "comparisonOutcome": "not_comparable",
+  "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
+  "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match.",
+  "manualSummary": "Deposited hypothalamus normalized counts verified",
+  "priorTurbo": null,
+  "accession": "GSE220533"
+ },
+ {
+  "datasetId": "mouse_hypo_treg_gse282067",
+  "category": "not_comparable",
+  "resultAvailability": "partial",
+  "comparisonOutcome": "not_comparable",
+  "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
+  "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match.",
+  "manualSummary": "Deposited BL/6 Treg-pool contrast verified and cohort relabeled",
+  "priorTurbo": null,
+  "accession": "GSE282067"
+ },
+ {
+  "datasetId": "mouse_poa_fgf_gse285006",
+  "category": "not_comparable",
+  "resultAvailability": "partial",
+  "comparisonOutcome": "not_comparable",
+  "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
+  "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match.",
+  "manualSummary": "POA source verified; pooled genotype effect relabeled exploratory",
+  "priorTurbo": null,
+  "accession": "GSE285006"
+ },
+ {
+  "datasetId": "mouse_scn_hfd_gse157077",
+  "category": "not_comparable",
+  "resultAvailability": "partial",
+  "comparisonOutcome": "not_comparable",
+  "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
+  "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match.",
+  "manualSummary": "SCN HFD matrices verified; common diet effect is exploratory",
+  "priorTurbo": null,
+  "accession": "GSE157077"
+ },
+ {
+  "datasetId": "mouse_hypo_circadian_aging_gse201207",
+  "category": "not_comparable",
+  "resultAvailability": "partial",
+  "comparisonOutcome": "not_comparable",
+  "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
+  "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match.",
+  "manualSummary": "Circadian-aging source verified; endpoint contrast is exploratory",
+  "priorTurbo": null,
+  "accession": "GSE201207"
+ },
+ {
+  "datasetId": "macaque_hypo_aging_gse128537",
+  "category": "not_comparable",
+  "resultAvailability": "partial",
+  "comparisonOutcome": "not_comparable",
+  "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
+  "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match.",
+  "manualSummary": "Deposited macaque bulk counts verified",
+  "priorTurbo": null,
+  "accession": "GSE128537"
+ },
+ {
+  "datasetId": "rat_hypo_aging_gse314970",
+  "category": "not_comparable",
+  "resultAvailability": "partial",
+  "comparisonOutcome": "not_comparable",
+  "reason": "The available author result uses a different cohort, biological unit, or statistical comparison from the registered track. A different analysis target is not evidence that the local computation failed.",
+  "nextStep": "Use the precise cohort and statistical comparison described below for any author-compatible reconstruction. Do not relabel a different comparison as an author-result match.",
+  "manualSummary": "Deposited ArrayStudio count estimates verified",
+  "priorTurbo": null,
+  "accession": "GSE314970"
+ },
+ {
+  "datasetId": "mouse_hypo_glp1_gse314029",
+  "category": "not_comparable",
+  "resultAvailability": "partial",
+  "comparisonOutcome": "not_comparable",
+  "reason": "The reviewed source supports the registered track, but a complete author comparator with the same cohort and analysis target is unavailable. The scope limitation is documented below.",
+  "nextStep": "Obtain the same-comparison author statistics or reconstruct an explicitly labeled author-compatible analysis; preserve the registered track's stated scope.",
+  "manualSummary": "Gr3 hypothalamus contrast verified and compound relabeled",
+  "priorTurbo": null,
+  "accession": "GSE314029"
+ },
+ {
+  "datasetId": "mouse_arc_reverb_gse148641",
+  "category": "not_comparable",
+  "resultAvailability": "partial",
+  "comparisonOutcome": "not_comparable",
+  "reason": "The reviewed source supports the registered track, but a complete author comparator with the same cohort and analysis target is unavailable. The scope limitation is documented below.",
+  "nextStep": "Obtain the same-comparison author statistics or reconstruct an explicitly labeled author-compatible analysis; preserve the registered track's stated scope.",
+  "manualSummary": "Normal-chow ARC REV-ERB source and contrast verified",
+  "priorTurbo": null,
+  "accession": "GSE148641"
+ },
+ {
+  "datasetId": "mouse_vmh_sf1_sex_gse143818",
+  "category": "not_comparable",
+  "resultAvailability": "partial",
+  "comparisonOutcome": "not_comparable",
+  "reason": "The reviewed source supports the registered track, but a complete author comparator with the same cohort and analysis target is unavailable. The scope limitation is documented below.",
+  "nextStep": "Obtain the same-comparison author statistics or reconstruct an explicitly labeled author-compatible analysis; preserve the registered track's stated scope.",
+  "manualSummary": "Exact 467-cell author VMH cohort reconstructed and source-validated",
+  "priorTurbo": null,
+  "accession": "GSE143818"
+ },
+ {
+  "datasetId": "gse309435",
+  "category": "not_comparable",
+  "resultAvailability": "partial",
+  "comparisonOutcome": "not_comparable",
+  "reason": "Nineteen original supplementary workbooks were recovered from the publisher RAR. Table8 has3013 male SHR-versus-Wistar genes andTable10 has1122 female SHR-versus-Wistar genes. Other tables concern sex differences, selected shared genes, pathways, correlations and additional brain regions. No current pooled, sex-adjusted SHR-versus-Wistar coefficient was located in these19tables. Male/female coefficients were not averaged or substituted for the registered pooled estimate; unresolved litter/pairing is reviewed separately.",
+  "nextStep": "Recover a source pooled sex-adjusted strain result, or perform a separately scoped author-method reconstruction without changing registered outputs.",
+  "manualSummary": "Publisher19-table archive recovered; reported strain effects are separated by sex",
+  "priorTurbo": null,
+  "accession": "GSE309435"
+ },
+ {
+  "datasetId": "gse281701",
+  "category": "not_comparable",
+  "resultAvailability": "partial",
+  "comparisonOutcome": "not_comparable",
+  "reason": "The new primary publication and Figshare v5 supplement were linked to GSE281701. The recovered Supplemental tableS3 contains colorectal, lung and pancreatic cachexia comparisons from skeletal muscle. It contains no hypothalamus tissue rows. TableS2 in the recovered DOCX mentions GSE281701 hypothalamus and a fold-change1.5/adjustedP.01 criterion, but does not supply its full gene effects. Muscle coefficients cannot verify the registered hypothalamus contrast.",
+  "nextStep": "Locate the GSE281701 hypothalamus coefficient table or a retained source underlying the hypothalamus supplemental figure.",
+  "manualSummary": "Paper and versioned supplement recovered; full result workbook contains muscle comparisons",
+  "priorTurbo": null,
+  "accession": "GSE281701"
+ }
+]

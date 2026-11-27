@@ -1,0 +1,66 @@
+{
+  "datasetId": "mouse_hypo_treg_gse282067",
+  "accession": "GSE282067",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "Figure 3f gives 19 selected HFHS-to-standard-diet ratios from a female BALB/c hypothalamic Treg pilot with one pooled library per diet. HypoExplorer estimates the diet effect across four BL/6 hypothalamic Treg pools per arm. The C57BL/6J overlap diagrams report counts, and the reviewed sources yielded no signed gene-level author result for the registered contrast.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE282067/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "GEO supports the eight registered BL/6 hypothalamic Treg libraries. The gene-level Treg diet effects in Figure 3f and Supplementary Figure 3h describe the BALB/c pilot.",
+      "note": "The registered TMM-normalized edgeR quasi-likelihood model estimates HFHS relative to standard diet, using each of four BL/6 hypothalamic Treg pools per arm as one observation. The reporting summary identifies the C57BL/6J diet mice as male. The revision protocol describes 16–18 weeks of diet and five mice per pool. Individual GEO records omit sex, exact duration and donor rosters. The pilot GEO records identify one pool of nine female BALB/c mice per arm at 16 weeks (HFHS GSM8635148, standard diet GSM8635150). The authors describe DESeq2 normalization. Figure 3f reports 19 selected linear fold changes, and Supplementary Figure 3h labels additional pilot genes. Applying a single library-size-factor ratio to the two deposited pilot count files cannot reproduce all 19 displayed magnitudes, even allowing for rounding. Figure 3i and Supplementary Figure 3f report overlap counts without gene identities. Supplementary Figure 4d compares diets in activated conventional T cells from C57BL/6J hypothalami. Panel 4g compares Tregs with activated conventional T cells from C57BL/6J brains under HFHS. See SEARCH_LOG.md and refute/check_sources.py in the evidence folder.",
+      "reviewFlags": [
+        "GEO supports the registered library selection. Agreement with author gene effects, P values and FDR for hfd_vs_sd remains unassessed.",
+        "The registered provenance pins the assembled count matrix and sample sheet. The archive and member hashes obtained in this review describe the retrieved GEO files."
+      ],
+      "reviewedAt": "2026-11-24"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "Figure 3f and Supplementary Figure 3h describe the female BALB/c pilot. Figures 3i and S3f mention HFHS-fed C57BL/6J mice in their legends and give aggregate overlaps without signed gene-level results or library IDs. The C57BL/6J revision volcano plots show a diet effect in activated conventional T cells or a cell-type comparison in HFHS-fed brain. GEO supplies per-library counts and abundances. The reviewed sources yielded no comparable author gene effects, P values or FDR for hfd_vs_sd.",
+      "nextStep": "Reopen for an author result giving signed HFHS-versus-standard-diet effects or directions by gene for the eight registered BL/6 hypothalamic Treg libraries, or for another cohort with documented compatibility in tissue, cell population, strain, sex, diet exposure and pool-level replication. Limit any assessment of a selected panel to its reported genes.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered pool libraries per diet, reconciled between the GEO family and the registered sample sheet",
+      "value": "4 HFHS and 4 standard diet",
+      "script": "data/author-validation/continued-sources/GSE282067/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "Registered published gene symbols and the DE table SHA-256, checked against its provenance",
+      "value": "5191 unique symbols in 5191 rows, SHA-256 7c3094632397586970a0ca6e5a406997a0dc77f74bf0e82e006fc36fc00bb936",
+      "script": "data/author-validation/continued-sources/GSE282067/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "GEO sample supplementary files inspected in the series archive",
+      "value": "67 files across 67 GSMs, comprising 59 Salmon quantifications and 8 two-column HTSeq count files",
+      "script": "data/author-validation/continued-sources/GSE282067/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "ENA sequencing runs for the registered pools",
+      "value": "24 paired-end runs, 3 per library",
+      "script": "data/author-validation/continued-sources/GSE282067/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "Selected genes with numeric HFHS/SD ratios in the BALB/c pilot, Figure 3 worksheet B38:C56",
+      "value": "19 unique gene labels with ratios",
+      "script": "data/author-validation/continued-sources/GSE282067/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "Whether one pair of library size factors can recover the 19 published Figure 3f ratios from the deposited pilot HTSeq counts",
+      "value": "No shared multiplier fits the 19 fold changes to their displayed precision. For Leprot, 37.14 divided by (527/4) gives 0.281898. For Il7r, 25.94 divided by (2964/93) gives 0.813907. This check uses only the two BALB/c pilot libraries.",
+      "script": "data/author-validation/continued-sources/GSE282067/codex-2026-11-24/refute/check_sources.py"
+    }
+  ],
+  "openIssues": [
+    "Author concordance for hfd_vs_sd remains unassessed. Reopen for an author result giving signed HFHS-versus-standard-diet effects or directions by gene for the eight registered BL/6 hypothalamic Treg libraries, or for another cohort with documented compatibility in tissue, cell population, strain, sex, diet exposure and pool-level replication. Limit any assessment of a selected panel to its reported genes.",
+    "The figure and methods establish the reported pilot ratios and their direction. The exact transformation from the deposited HTSeq counts to those magnitudes remains unresolved."
+  ]
+}

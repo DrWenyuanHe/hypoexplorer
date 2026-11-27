@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_arc_reverb_gse148641",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 49 source files passed integrity checks. Both RNA-seq panels answer the registered normal-chow ARC contrast at ZT4, and all 24 plotted directions agree. Only Fabp7 and Arntl pass registered BH < 0.05 among the 21 author-positive S4A genes, so I changed the inference status from `limited` to `different`. I also corrected the supplement length to eight pages. The `compared` closure applies to the selected genes. [JCI supplement](https://www.jci.org/articles/view/140424/sd/pdf/render/1)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-24/verdicts/mouse_arc_reverb_gse148641.json",
+    "data/author-validation/codex-2026-11-24/corrected/mouse_arc_reverb_gse148641.json",
+    "data/author-validation/continued-sources/GSE148641/codex-2026-11-24/refute/check_panels.py"
+  ],
+  "openIssues": [
+    "The full author chow DESeq2 table and exact model design remain unavailable. The cause of the 19 significance-call differences is unresolved.",
+    "The 24 RNA-seq directions fall below the 30-pair minimum for author-concordance-v2."
+  ]
+}

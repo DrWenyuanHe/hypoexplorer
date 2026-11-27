@@ -1,0 +1,14 @@
+{
+  "datasetId": "gse309435",
+  "outcome": "upheld_with_corrections",
+  "summary": "The `no_valid_comparison` closure stands. All 63 manifest entries matched their SHA-256 and size. The authors report separate male and female SHR-versus-Wistar effects. Figure 5F averages selected effects, while the registered contrast estimates one sex-adjusted effect across all 19 rats. Table 12’s 555 labels include 75 Ensembl IDs, and its male and female `Arxes2` values trace to different genes. [Published article and Figure 5](https://link.springer.com/article/10.1186/s13293-026-00855-3#Fig5)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-24/verdicts/gse309435.json",
+    "data/author-validation/codex-2026-11-24/corrected/gse309435.json",
+    "data/author-validation/continued-sources/GSE309435/codex-2026-11-24/refute/recheck.py"
+  ],
+  "openIssues": [
+    "No author-generated gene-level result for the common sex-adjusted strain effect was located. Concordance for `shr_vs_wistar` remains unassessed.",
+    "The paper describes Bonferroni adjustment, but the adjusted-to-raw P-value ratios vary within each sex-specific table. The adjustment used for the deposited values remains unresolved."
+  ]
+}

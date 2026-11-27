@@ -1,0 +1,100 @@
+{
+  "datasetId": "mouse_hypo_puberty_emtab12340",
+  "accession": "E-MTAB-12340",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "The authors deposited complete-case DESeq2 tables and significant-gene lists for 17 comparisons. Six compare ages within females. None estimates the whole-hypothalamus change from female PND22 to PND37.",
+  "evidenceFolder": "data/author-validation/continued-sources/E-MTAB-12340/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "summary": "Author DESeq2 results cover six female age contrasts. The registered PND37 versus PND22 contrast is absent.",
+      "note": "Sokolowski et al. profiled individual C57BL/6J hypothalami by bulk 3′-UTR sequencing at five ages in both sexes. HypoExplorer fits edgeR-QL to five female PND37 mice and five female PND22 controls. The Figure 2 script fits each pair separately with the control as the DESeq2 reference. Its female baseline-to-case pairs are 12→22, 22→27, 27→32, 32→37, 22→32 and 27→37. Both deposited lists have those six comparisons. The larger list retains rows with complete DESeq2 results, including log2 fold change, raw P and adjusted P. The selected list applies adjusted P < 0.05 and absolute log2 fold change > log2(1.5). The Zenodo and GitHub app copies contain the same DE object. Its PValue, F and logCPM columns equal one throughout all 17 frames.",
+      "reviewFlags": [
+        "The registered PMID describes the companion pituitary experiment. The hypothalamus publication is PMID 39449090.",
+        "Expression trajectories, cell-proportion tests and age-by-sex component scores have different estimands from the female whole-tissue endpoint.",
+        "The file 12M_vs_12F_volcano.pdf contains panels titled 32_vs_37_F. The Figure 2 code and the two serialized result lists establish the comparison identities."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-24",
+      "evidenceLinks": [
+        {
+          "label": "Hypothalamus paper and supplements",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11515584/",
+          "kind": "paper"
+        },
+        {
+          "label": "Figure 2 code, complete-case DESeq2 tables and significant-gene lists",
+          "url": "https://doi.org/10.6084/m9.figshare.25517503",
+          "kind": "author_result"
+        },
+        {
+          "label": "Archived hypothalamus Shiny app",
+          "url": "https://doi.org/10.5281/zenodo.10899706",
+          "kind": "author_result"
+        },
+        {
+          "label": "Deposited counts and sample annotations",
+          "url": "https://www.ebi.ac.uk/biostudies/arrayexpress/studies/E-MTAB-12340",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Companion pituitary methods paper",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9552479/",
+          "kind": "paper"
+        },
+        {
+          "label": "Companion qPCR study and publisher supplements, Figure S6B and Tables S4 and S7",
+          "url": "https://doi.org/10.1093/hmg/ddx246",
+          "kind": "paper"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "All ten registered libraries map to the hypothalamus deposit. In both author DESeq2 lists the female PND37 fits use PND32 or PND27 as baseline, and the female PND22-baseline fits end at PND27 or PND32. The archived cell-proportion tests include the requested ages but measure cell abundance. In the companion qPCR study, Figure S6B includes the female hypothalamus PND22/PND37 pair as an aggregate gene count. Table S4 names hypothalamic genes for PND12/PND22 only, and Table S7 gives sample measurements. The reviewed sources provide no gene-level author effect, raw P or adjusted P for the registered contrast. Its concordance remains unassessed.",
+      "nextStep": "Reopen when an author-issued gene-level result explicitly identifies the female whole-hypothalamus PND37 versus PND22 libraries, orientation and effect definition. A labelled selected-gene result would reopen only those genes.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Independent registered female biological units matched to the public SDRF, PND37 case / PND22 baseline",
+      "value": "5 / 5",
+      "script": "data/author-validation/continued-sources/E-MTAB-12340/codex-2026-11-24/refute/audit_sources.py"
+    },
+    {
+      "claim": "Effect rows in the registered edgeR-QL table",
+      "value": "10863",
+      "script": "data/author-validation/continued-sources/E-MTAB-12340/codex-2026-11-24/refute/audit_sources.py"
+    },
+    {
+      "claim": "Figure 2 code-defined control/case pairs present as named elements in both complete-case and significant-gene result lists",
+      "value": "17",
+      "script": "data/author-validation/continued-sources/E-MTAB-12340/codex-2026-11-24/refute/audit_contrasts.py"
+    },
+    {
+      "claim": "Female baseline-to-case pairs in the two deposited DESeq2 lists (postnatal days)",
+      "value": "12 to 22, 22 to 27, 27 to 32, 32 to 37, 22 to 32, 27 to 37",
+      "script": "data/author-validation/continued-sources/E-MTAB-12340/codex-2026-11-24/refute/audit_contrasts.py"
+    },
+    {
+      "claim": "Female PND22/PND37 pairs in either orientation in the two deposited DESeq2 lists",
+      "value": "0",
+      "script": "data/author-validation/continued-sources/E-MTAB-12340/codex-2026-11-24/refute/audit_contrasts.py"
+    },
+    {
+      "claim": "Shiny DE frames with raw P, F and logCPM each identically one",
+      "value": "17",
+      "script": "data/author-validation/continued-sources/E-MTAB-12340/codex-2026-11-24/refute/audit_contrasts.py"
+    },
+    {
+      "claim": "Archived volcano PDFs whose printed comparison label agrees with the filename",
+      "value": "16 / 17",
+      "script": "data/author-validation/continued-sources/E-MTAB-12340/codex-2026-11-24/refute/audit_contrasts.py"
+    }
+  ],
+  "openIssues": [
+    "No direct author gene-level result for the registered endpoint was located. Effects and inference for that comparison remain unassessed."
+  ]
+}

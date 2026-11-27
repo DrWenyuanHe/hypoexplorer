@@ -1,0 +1,180 @@
+{
+  "datasetId": "macaque_hypo_aging_gse128537",
+  "accession": "GSE128537",
+  "category": "not_comparable",
+  "closure": "compared",
+  "summary": "Yin et al. and HypoExplorer compare middle-aged with young macaques using the same eight hypothalamus libraries and adjusting for sex. CHRNA1 is higher and EBF3 and SLC18A2 are lower in middle age in both analyses. These three selected genes are the entire published HTHA age list and fall below the 30-pair concordance minimum.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-24",
+      "summary": "Three published hypothalamus age effects compared",
+      "note": "The GEO gene-count matrix matches the pinned SHA-256. The current family SOFT gzip has a different hash from the historical download. Its eight hypothalamus GSMs, donor IDs, ages, sexes and sample titles match the sample sheet and the donor crosswalk from Supplementary Data 1 and Table 2. Yin et al. and HypoExplorer compare middle-aged with young macaques using the same eight hypothalamus libraries and adjusting for sex. CHRNA1 is higher and EBF3 and SLC18A2 are lower in middle age in both analyses. These three selected genes are the entire published HTHA age list and fall below the 30-pair concordance minimum. The paper supplies raw age P values and omits per-gene adjusted P values. Full hypothalamus effects, valid tests and FDR calls outside the selected list remain unassessed. See data/author-validation/continued-sources/GSE128537/codex-2026-11-24/SEARCH_LOG.md.",
+      "reviewFlags": []
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "The registered edgeR-QL group coefficient and the DESeq2 age fold change in Yin et al. Supplementary Data 2 estimate the same two-stage age contrast across sexes. All three selected effects have the same sign and differ by at most 0.02770 log2 units. Raw age P values differ between methods. Exact author FDR values and the remaining gene effects are unavailable.",
+      "nextStep": "Extend this review if a per-gene HTHA Mid-minus-Young export or the corresponding regional Age_res and gam_res objects become available. To compare inference, obtain the fitted feature universe, age-test P values and the per-region permutation FDR mapping.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "registeredContrastIds": [
+        "middle_aged_vs_young"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Sex-adjusted edgeR-QL groupcase effect for the hypothalamus track. This is a cross-sectional middle-aged-minus-young comparison at tissue collection.",
+      "reference": "Yin et al., Nature Communications (2020), doi:10.1038/s41467-020-14368-z. Supplementary Data 2, sheet Supplementary Data 2, region HTHA, rows 31–33. Sample identities are in Supplementary Data 1 and Supplementary Tables 1–2. See the pinned author code and SEARCH_LOG.md.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "One bulk hypothalamus RNA library per independent rhesus macaque. The young libraries are 4_36, 7_36, 8_36 and 10_36. The middle-aged libraries are 2_36, 3_36, 6_36 and 11_36. Both groups contain two females and two males. cohort.tsv links the paper's sequential donor aliases to GEO through the exact libraries."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Both analyses estimate the common age-stage effect across sexes with no interaction. Young (3.2–5 years, threshold ≤5) is the baseline. Mid (9.8–10 years, threshold >5) is the numerator. Supplementary Table 1 identifies HTHA as subregion 36. The authors' code explicitly requests Mid minus Young."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Each of the three selected macaque Ensembl IDs maps one-to-one to its named gene and registered symbol. None is ambiguous or filtered locally. Pre-fit count filtering in the author code and symbol aggregation and filtering in the registered fit use different universes."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Supplementary Data 2 log2FoldChange is a regional DESeq2 estimate from Age_res. The registered logFC is the TMM edgeR-QL groupcase estimate. Both are library-normalized log2 age contrasts with sex adjustment. All three directions agree. The separate raw-count GAM coefficient has different units and normalization."
+        },
+        "inference": {
+          "status": "different",
+          "note": "For single-subregion HTHA the authors use an additive negative-binomial GAM on counts, with fixed sex and age stage. Donor and subregion terms occur only in the multi-subregion branch. Raw age P values are available for all three genes. Selection requires a permutation FDR threshold below 0.1 and |log2FC| > 1. Explorer uses edgeR quasi-likelihood and BH over 15,237 fit rows. Author FDR at 0.05 and FDR overlap are unassessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All 3 of 3 selected HTHA age rows pair, covering 3 of 12,439 published Explorer effects (0.0241%). The full author HTHA test table was not located. Supplementary Table 3 selects on sex and Figure S3c illustrates two of the three age genes."
+        }
+      },
+      "criteria": "Under author-concordance-v2 the selected-reference denominator is the full HTHA age list. All three rows match. At least 30 paired effects and 90% relevant coverage are required before the correlation or directional route can support acceptance. Inference and magnitude are reported separately.",
+      "conclusion": "The regional age contrast is comparable, and its three published fold changes agree closely. The selected reference is too small for v2 acceptance or full verification."
+    },
+    "additionalComparisonSpec": {
+      "datasetId": "macaque_hypo_aging_gse128537",
+      "accession": "GSE128537",
+      "contrast": "middle_aged_vs_young",
+      "localPath": "geo_replication/datasets/GSE128537_mmul_hypo_aging/processed/GSE128537_DE.tsv",
+      "localKey": "id",
+      "authorPath": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/author-effects.tsv",
+      "sourceUrl": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-020-14368-z/MediaObjects/41467_2020_14368_MOESM5_ESM.xlsx",
+      "sha256": "726939d9374036cb927b45557fc557bc16686e73566c156af479c5cbd2042c1d",
+      "format": "tsv",
+      "authorKey": "gene_name",
+      "authorEffect": "log2FoldChange",
+      "orientationSign": 1,
+      "localMethod": "Sex-adjusted edgeR-QL, TMM",
+      "authorMethod": "Regional DESeq2 Mid minus Young log2 fold change with sex in the design. A separate mgcv negative-binomial age test supplies the raw P values. The authors select by a permutation-calibrated FDR threshold and absolute log2 fold change.",
+      "orientation": "Original DESeq2 contrast Age_Stage, Mid, Young. Positive means higher in middle age. hyper labels confirm this convention.",
+      "note": "All HTHA rows in Supplementary Data 2, selected by the authors for age. Each Ensembl ID maps uniquely to the same published symbol. The paper supplies raw age P values and omits per-gene adjusted P values. Full hypothalamus effects, valid tests and FDR calls outside the selected list remain unassessed. Three paired genes fall below the v2 minimum. The source table and paired-effects.tsv retain the raw P values.",
+      "interpretation": "effects_compared",
+      "originalReferences": [
+        {
+          "path": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/41467_2020_14368_MOESM5_ESM.xlsx",
+          "sourceUrl": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-020-14368-z/MediaObjects/41467_2020_14368_MOESM5_ESM.xlsx",
+          "sha256": "4f5dd4d5439eab11ccd213b1f402a0a8d2af9244f84a7a5fe205617a31f4d63b",
+          "bytes": 32778
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/41467_2020_14368_MOESM4_ESM.xlsx",
+          "sourceUrl": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-020-14368-z/MediaObjects/41467_2020_14368_MOESM4_ESM.xlsx",
+          "sha256": "a50623e12645667263443c1eb7e7be886d09ecacd98ca3c12a384d0c3c4dcf01",
+          "bytes": 31538
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/41467_2020_14368_MOESM1_ESM.pdf",
+          "sourceUrl": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-020-14368-z/MediaObjects/41467_2020_14368_MOESM1_ESM.pdf",
+          "sha256": "099cb60af874131b5b48058ee36329128161895200ee3254617ad6e70c27ad45",
+          "bytes": 23412243
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/author-code.zip",
+          "sourceUrl": "https://codeload.github.com/KeyingLu/Rhesus-macaque-brain/zip/b7506c7d7d69cec3d7d67a6f48d12199b2e5a2f4",
+          "sha256": "d0c2e7203fbdb11b890ed0f8842820f42e97a37f686f3fb472e67bc9654e1cb1",
+          "bytes": 59742
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/previous-gene-count.R",
+          "sourceUrl": "https://raw.githubusercontent.com/KeyingLu/Rhesus-macaque-brain/2560c7940bbaa3fef32ac2c607daf44b68aaaa9b/R/Rhesus_gene_count.R",
+          "sha256": "350c61cf26c92e4bfcaaa1c3a364279128c6d63a3cadccabaa7717e48c9882d6",
+          "bytes": 122284
+        },
+        {
+          "path": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/compare.py",
+          "sourceUrl": "Offline extraction of all HTHA rows and one-to-one stable-ID checks",
+          "sha256": "bf5d24ea72bc5c92336b43909e6751dca8c08f45390feb84a8058854ca57bd80",
+          "bytes": 9410
+        }
+      ],
+      "normalizationScript": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/compare.py",
+      "resultScope": "Selected author reference. Every HTHA age row in Yin et al. Supplementary Data 2.",
+      "localSnapshot": {
+        "path": "geo_replication/datasets/GSE128537_mmul_hypo_aging/processed/GSE128537_DE.tsv",
+        "sourceUrl": "Registered Explorer DE table",
+        "sha256": "cade6c43ef56886dc95d5e1b98a736cc9cb721bfe618cc2e980a15ecd97b978b",
+        "bytes": 1229466
+      }
+    }
+  },
+  "computed": [
+    {
+      "claim": "Independent hypothalamus donors, age stage by sex",
+      "value": "{'Young female': 2, 'Young male': 2, 'Mid male': 2, 'Mid female': 2}",
+      "script": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/compare.py"
+    },
+    {
+      "claim": "Directional matches among all published hypothalamus age effects",
+      "value": "3/3",
+      "script": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/compare.py"
+    },
+    {
+      "claim": "Largest absolute log2 fold-change difference",
+      "value": "0.02769409320904992",
+      "script": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/compare.py"
+    },
+    {
+      "claim": "Median absolute log2 fold-change difference",
+      "value": "0.022661383129820134",
+      "script": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/compare.py"
+    },
+    {
+      "claim": "Pearson and Spearman for the three selected effects",
+      "value": "0.9999998336, 1.000000",
+      "script": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/compare.py"
+    },
+    {
+      "claim": "Selected-reference coverage and published-output coverage",
+      "value": "3/3 and 3/12439",
+      "script": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/compare.py"
+    },
+    {
+      "claim": "Paired raw P values and paired adjusted P values",
+      "value": "3 and 0. Shared FDR calls unassessed.",
+      "script": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/compare.py"
+    },
+    {
+      "claim": "Registered BH < 0.05 discoveries",
+      "value": "0",
+      "script": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/compare.py"
+    },
+    {
+      "claim": "Local DE table SHA-256",
+      "value": "cade6c43ef56886dc95d5e1b98a736cc9cb721bfe618cc2e980a15ecd97b978b",
+      "script": "data/author-validation/continued-sources/GSE128537/codex-2026-11-24/compare.py"
+    }
+  ],
+  "openIssues": [
+    "The full gene-level HTHA age estimates and per-gene author FDR values were not located. A full-universe comparison requires the regional outputs described in nextStep."
+  ]
+}

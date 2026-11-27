@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_scn_photoperiod_gse266472",
+  "outcome": "upheld_with_corrections",
+  "summary": "The no_valid_comparison closure stands. All 214 source files matched their recorded hashes and sizes, and all seven proposed computations reproduced. The 18 registered pZT12 libraries match the author sample sheet, but the published RNA effect spans six phases. The corrected proposal distinguishes the journal table’s 1,518 calls from the compressed GitLab export’s 2,110 calls at the same threshold. The additional pZT12 result in [Cox’s dissertation](https://hdl.handle.net/1803/19460) measures Rasd1 DNA methylation.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-24/verdicts/mouse_scn_photoperiod_gse266472.json",
+    "data/author-validation/codex-2026-11-24/corrected/mouse_scn_photoperiod_gse266472.json",
+    "data/author-validation/continued-sources/GSE266472/codex-2026-11-24/refute/recheck.py"
+  ],
+  "openIssues": [
+    "No author-reported long-versus-short RNA-expression effect at pZT12 was located. Concordance for the registered contrast remains unassessed.",
+    "The reason the compressed GitLab export and journal S4a report different coefficients for shared genes remains unresolved."
+  ]
+}

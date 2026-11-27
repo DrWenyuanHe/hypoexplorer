@@ -1,0 +1,59 @@
+{
+  "datasetId": "mouse_hypo_treg_gse282067",
+  "accession": "GSE282067",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "Figure 3f reports selected diet effects from female BALB/c reporter mice, with one pooled hypothalamic Treg library per diet. HypoExplorer estimates the diet effect across four BL/6 Treg pools per arm. The revision figures report conventional T-cell diet effects and within-HFHS brain cell-type effects, and the public deposits supply no gene-level author result for the registered contrast.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE282067/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "GEO supports the registered BL/6 Treg pools. Published Treg diet effects come from the BALB/c pilot.",
+      "note": "GEO sample annotations, archive contents, the registered sample sheet and DE provenance identify four hypothalamic BL/6 Treg libraries per diet. The male C57BL/6J revision protocol describes 16–18 weeks of diet and five mice per pool. Exact duration and pool membership are unavailable for individual libraries. Figure 3f gives 19 selected gene ratios of DESeq2-normalized counts from one pool of nine female BALB/c mice per diet at 16 weeks (HFHS GSM8635148, standard diet GSM8635150). Supplementary Figure 3h displays further selected pilot genes. Supplementary Figure 4d uses activated conventional T cells, and 4g compares brain cell types within HFHS-fed BL/6 mice. The registered TMM/edgeR quasi-likelihood coefficient estimates the HFHS effect across replicate Treg pools. See the source manifest, sample inventory and panel review in data/author-validation/continued-sources/GSE282067/codex-2026-11-24/SEARCH_LOG.md.",
+      "reviewFlags": [
+        "GEO supports the registered library selection. Agreement with author gene effects, P values and FDR for hfd_vs_sd remains unassessed."
+      ],
+      "reviewedAt": "2026-11-24"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The available hypothalamic Treg diet ratios describe a 16-week BALB/c female pilot with one pool per arm. The registered hfd_vs_sd effect uses eight BL/6 libraries and pool-level replication. The BL/6 revision panels with labelled genes estimate either a diet effect in activated conventional T cells or a cell-type effect within HFHS-fed brain. GEO contains single-library abundances. No reviewed figure, supplement or deposited result gives the within-Treg BL/6 hypothalamic diet effect.",
+      "nextStep": "Reopen if an author table, code output or labelled panel identifies the eight registered BL/6 hypothalamic Treg libraries and gives gene identifiers with signed HFHS-versus-standard-diet effects or directions. Assess a selected panel only within its declared scope.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered pool libraries per diet, reconciled between the GEO family and the registered sample sheet",
+      "value": "4 HFHS and 4 standard diet",
+      "script": "data/author-validation/continued-sources/GSE282067/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "Registered published gene symbols and the DE table SHA-256, checked against its provenance",
+      "value": "5191 unique symbols in 5191 rows, SHA-256 7c3094632397586970a0ca6e5a406997a0dc77f74bf0e82e006fc36fc00bb936",
+      "script": "data/author-validation/continued-sources/GSE282067/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "GEO sample supplementary files inspected in the series archive",
+      "value": "67 files across 67 GSMs, comprising 59 Salmon quantifications and 8 two-column HTSeq count files",
+      "script": "data/author-validation/continued-sources/GSE282067/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "ENA sequencing runs for the registered pools",
+      "value": "24 paired-end runs, 3 per library",
+      "script": "data/author-validation/continued-sources/GSE282067/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "Selected genes with numeric HFHS/SD ratios in the BALB/c pilot, Figure 3 worksheet B38:C56",
+      "value": "19 unique gene labels with ratios",
+      "script": "data/author-validation/continued-sources/GSE282067/codex-2026-11-24/inspect_evidence.py"
+    }
+  ],
+  "openIssues": [
+    "Author concordance for hfd_vs_sd remains unassessed. Reopen if an author table, code output or labelled panel identifies the eight registered BL/6 hypothalamic Treg libraries and gives gene identifiers with signed HFHS-versus-standard-diet effects or directions. Assess a selected panel only within its declared scope."
+  ]
+}

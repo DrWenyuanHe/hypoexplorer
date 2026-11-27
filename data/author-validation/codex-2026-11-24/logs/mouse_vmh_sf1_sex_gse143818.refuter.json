@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_vmh_sf1_sex_gse143818",
+  "outcome": "upheld_with_corrections",
+  "summary": "The `no_valid_comparison` closure stands. The authors compared 530 P10 cells by sex. HypoExplorer compared three male mice with three female mice using 467 retained cells. All 51 source files matched their recorded sizes and SHA-256 hashes, and the independent reconstruction recovered all 6,321 published gene symbols. The corrected proposal identifies the Figure 2 source CSV as the evidence for 467 cells, documents the overlooked [Correa Lab expression browser](https://correalab.shinyapps.io/natmetabshiny/), and allows a compatible animal-level analysis to reopen review.",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-24/verdicts/mouse_vmh_sf1_sex_gse143818.json",
+    "data/author-validation/codex-2026-11-24/corrected/mouse_vmh_sf1_sex_gse143818.json",
+    "data/author-validation/continued-sources/GSE143818/codex-2026-11-24/refute/audit.py"
+  ],
+  "openIssues": [
+    "No author-issued gene effect for the registered mouse-level contrast was found. Effect, P-value and FDR agreement remain unassessed.",
+    "The current GEO SOFT checksum differs from the historical manifest. The six sample records reconcile to the registered cohort, but the historical bytes were unavailable to identify what changed."
+  ]
+}

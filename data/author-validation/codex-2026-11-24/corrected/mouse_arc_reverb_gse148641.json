@@ -1,0 +1,115 @@
+{
+  "datasetId": "mouse_arc_reverb_gse148641",
+  "accession": "GSE148641",
+  "category": "not_comparable",
+  "closure": "compared",
+  "summary": "The authors’ normal-chow ARC RNA-seq panels support a direct comparison for 24 named genes at ZT4. All 24 plotted HDKO-versus-control directions agree with the registered output, but only Fabp7 and Arntl pass registered BH < 0.05 among the 21 genes the authors called significant on both diets.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE148641/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "summary": "Normal-chow ARC RNA-seq directions compared for 24 figure genes",
+      "note": "The GEO chow count matrix matches the registered input SHA-256. In Supplemental Figure 4A, all 21 genes selected for DE on both diets have the same chow HDKO-minus-control direction as the registered log2FC. Fabp7 and Arntl are the only two of those genes passing registered BH < 0.05. In S3F, all three plotted mean TPM differences have the same direction as the registered effects. The published 169-up and 101-down count concerns the separate HFD-specific set. The complete source review and row-level comparisons are retained in data/author-validation/continued-sources/GSE148641/codex-2026-11-24.",
+      "reviewFlags": [
+        "Author coefficients, exact gene-level P and adjusted P, and the full chow call set were not located. S4A states the selection threshold, and S3F supplies expression bars without individual significance results.",
+        "Figure 1B is a separate qPCR experiment. Bmal1 and Npas2 agree in direction. The two targeted REV-ERB amplicons decrease while the registered whole-gene estimates for Nr1d1 and Nr1d2 are positive.",
+        "The 24 direct RNA-seq directions fall below the author-concordance-v2 minimum of 30. The panel comparison does not establish genome-wide concordance."
+      ],
+      "reviewedAt": "2026-11-24"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "The normal-chow genotype contrast is represented in S4A and S3F. All 24 RNA-seq expression directions agree. S4A reports 21 joint chow-and-HFD DESeq2 calls at TPM > 0.1 and FDR < 0.05. Only Fabp7 and Arntl meet the registered chow edgeR-QL BH threshold. No full chow DESeq2 table was located to resolve the inference differences.",
+      "nextStep": "Extend the review if the authors’ normal-chow ZT4 ARC HDKO-minus-control DESeq2 table becomes available with its sample design, feature IDs, tested universe, log2FC, raw P and adjusted P.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "dko_vs_control"
+      ],
+      "basis": "Compare each labelled gene in Supplemental Figures 4A and 3F with the registered arcuate / dko_vs_control table, geo_replication/datasets/GSE148641_mmus_arc_reverb/processed/GSE148641_DE.tsv (SHA-256 2fd2cd3c9586ba9a4f819d227cc38c053affbb46398c43d8dce825b8cf8810df). S4A supplies within-chow directions and membership in an author positive list. S3F supplies directions of within-chow mean TPM differences. Main Figure 1B is a separate orthogonal assay.",
+      "reference": "Adlanmerini et al., J Clin Invest, DOI 10.1172/JCI140424, PMID 33021965. Supplemental Figures 4A and 3F in DOI 10.1172/JCI140424DS1, PDF SHA-256 8ae2121c28cbbaa3f5460e247e4b6126e8c056fb231b6ee362b459254794afaf. Supplementary Table II starts on page 7 of the eight-page supplement and continues on page 8. The normal-chow ARC libraries are listed on page 7. GEO GSE148641 and ENA PRJNA625265 identify the libraries.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Normal-chow bulk ARC punches from four floxed Cre-negative littermate pools and four Nkx2.1-Cre-positive REV-ERBα/β DKO pools. Each RNA-seq library represents two to four independent punches. GSM4475994–GSM4475997 are NC_ARC_dc1–4 and GSM4475998–GSM4476001 are NC_ARC_DKO1–4. Male sex follows the manuscript default. GSMs give age 8–12 weeks without individual sex or ages, while the paper gives a usual age of 11–14 weeks."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "HDKO minus floxed control at ZT4 under ad libitum normal chow. The registered design fits genotype in ARC with no sex or diet term. In S4A only the four HDKO and four control chow columns enter the direction reading. HFD determines selection of the published list. The distinct HFD-specific headline uses four HFD controls and five HFD DKO pools."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 21 S4A symbols join exactly once. S3F joins Dio2 directly, Oatp1c1 to Slco1c1 and Mct8 to Slc16a2. No RNA-seq panel gene was lost or ambiguously joined. S3E reports Thra isoforms, so the separate whole-gene Thra comparison uses S4A."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "All 21 S4A chow directions match the sign of the registered log2FC (20 up, Thra down). In S3F each HDKO mean TPM bar is lower than its control and all three registered effects are negative. The graphical scales support directions. They do not supply exact fitted log2FCs or between-method magnitude correlations."
+        },
+        "inference": {
+          "status": "different",
+          "note": "S4A identifies genes passing the authors' DESeq2 rule of TPM > 0.1 and FDR < 0.05 on both diets. The registered chow edgeR quasi-likelihood model applies filterByExpr, TMM and BH across 14,246 tested genes. Of the 21 author-positive genes, Fabp7 and Arntl pass registered BH < 0.05 and the other 19 exceed it. The authors' per-gene P and FDR values and the cause of the 19 call differences remain unknown. S3F specifies two-way ANOVA and supplies no gene-specific test results."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All 21 S4A labels and three additional S3F labels join, covering 24 of 14,246 registered genes. Both registered BH-positive genes occur in S4A. The remaining 14,222 registered rows have no plotted RNA-seq direction in these two panels. The selection for significance on both diets precludes inference about all chow calls."
+        }
+      },
+      "criteria": "Read all labels and use HDKO relative to its control on chow. Compare the S4A ordinal expression directions and stated threshold membership, and the S3F mean TPM directions. Author-concordance-v2 requires at least 30 pairs and 90% relevant coverage, then either Pearson and Spearman ≥ 0.90 or ≥ 90% directional agreement among at least 30 nonzero pairs covering 90% of all pairs. These panels provide fewer than 30 distinct RNA-seq directions and no exact fitted author effects for a numerical comparison spec.",
+      "conclusion": "Direct selected-gene comparison completed for the registered contrast. Direction agrees throughout both RNA-seq panels. Registered and author significance calls differ within S4A, and genome-wide effects and inference remain unassessed."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered normal-chow control / HDKO biological libraries",
+      "value": "4 / 4",
+      "script": "data/author-validation/continued-sources/GSE148641/codex-2026-11-24/review.py"
+    },
+    {
+      "claim": "Registered tested rows and BH < 0.05 calls",
+      "value": "14,246 rows, 2 calls (Arntl and Fabp7)",
+      "script": "data/author-validation/continued-sources/GSE148641/codex-2026-11-24/review.py"
+    },
+    {
+      "claim": "S4A chow HDKO-minus-control directions and agreement",
+      "value": "20 higher, 1 lower, 21/21 agree",
+      "script": "data/author-validation/continued-sources/GSE148641/codex-2026-11-24/review.py"
+    },
+    {
+      "claim": "S4A author positive list passing registered BH < 0.05",
+      "value": "2/21 (Fabp7 and Arntl), with 19 above threshold and no registered positive outside S4A",
+      "script": "data/author-validation/continued-sources/GSE148641/codex-2026-11-24/review.py"
+    },
+    {
+      "claim": "S3F mean TPM directions agreeing with registered logFC",
+      "value": "3/3 lower (Dio2, Slco1c1, Slc16a2)",
+      "script": "data/author-validation/continued-sources/GSE148641/codex-2026-11-24/review.py"
+    },
+    {
+      "claim": "Distinct genes with direct RNA-seq direction comparisons",
+      "value": "24/14,246 registered genes, all 24 concordant",
+      "script": "data/author-validation/continued-sources/GSE148641/codex-2026-11-24/review.py"
+    },
+    {
+      "claim": "Separate Figure 1B qPCR directions agreeing with registered whole-gene coefficients",
+      "value": "2/4 (Arntl and Npas2). Nr1d1 and Nr1d2 show opposite signs.",
+      "script": "data/author-validation/continued-sources/GSE148641/codex-2026-11-24/review.py"
+    },
+    {
+      "claim": "Public chow count matrix SHA-256 versus registered fit provenance",
+      "value": "8dda876b3fa450a638fc915e301ac385d7fda1adaeef86d0685533b7ba134386, exact match",
+      "script": "data/author-validation/continued-sources/GSE148641/codex-2026-11-24/review.py"
+    }
+  ],
+  "openIssues": [
+    "The public sources searched do not provide a full normal-chow DESeq2 results table, fitted author effects, per-gene P/FDR or the exact model design. The cause of the 19 differing S4A calls remains untested.",
+    "The qPCR panel lacks a library-level sample crosswalk. Its REV-ERB amplicon measurements and the whole-gene RNA-seq estimates cannot be reconciled from the plotted results alone."
+  ]
+}

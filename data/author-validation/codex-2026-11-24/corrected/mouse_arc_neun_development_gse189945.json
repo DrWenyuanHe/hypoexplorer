@@ -1,0 +1,71 @@
+{
+  "datasetId": "mouse_arc_neun_development_gse189945",
+  "accession": "GSE189945",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "Table S4b and Figure S4C report P35 versus P12 in arcuate NeuN-positive RNA libraries across both sexes. HypoExplorer estimates the age difference within female pools. The authors’ code defines the female contrast, but the public tables, labelled figures and code archive supply no gene-level estimate for it.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE189945/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "summary": "Published neuronal age effects pool both sexes. The archived female coefficient has no deposited result table.",
+      "note": "For track arc_neun, the registered female_neun_pnd35_vs_pnd12 contrast uses five independent four-mouse female pools at P12 and five at P35. All ten libraries match Table S1 and GEO. The registered limma coefficient measures P35 minus P12 on deposited VSD values. S4b reports shrunken DESeq2 log2 fold changes across sexes, including five male P12 and four male P35 pools. Its 863 paper-threshold calls reproduce the two counts in Figure S4C. The sex sheets compare male with female at fixed ages. Figure S4E shows per-pool TPM against methylation, and the female-age entries in S2/S3 are methylation results. Zenodo defines group_neuron35f_vs_neuron12f but omits the numerical output. The GEO RNA supplement contains VSD expression, and the sample files contain methylation coverage. Female-age effects, P values and FDR remain unassessed. See continued-sources/GSE189945/codex-2026-11-24/SEARCH_LOG.md and audit.json.",
+      "reviewFlags": [],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-24",
+      "evidenceLinks": [
+        {
+          "label": "Manuscript, study design and data availability",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9519050/",
+          "kind": "paper"
+        },
+        {
+          "label": "Retrieved Figure S4 and Tables S1–S7",
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9519050/supplementaryFiles",
+          "kind": "author_result"
+        },
+        {
+          "label": "Author archive defining the female neuronal coefficient",
+          "url": "https://doi.org/10.5281/zenodo.6517177",
+          "kind": "author_result"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "S4b and Figure S4C estimate P35 versus P12 across male and female neuronal libraries using a shrunken DESeq2 count-model coefficient. The registered contrast estimates P35 minus P12 among female neuronal pools using limma on VSD expression. The archived script defines the female-only coefficient, but no gene-level output for it was located in the public record.",
+      "nextStep": "Reopen if the authors release output_csv/all_transcripts_res_comp_age_f_neuron.csv, an equivalent identified full or selected result, or the saved author fit and annotation from which this coefficient can be extracted. Confirm pool membership, feature mapping and effect scale. Original counts plus annotation and sample mapping would support a separate reconstruction.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Female NeuN-positive RNA libraries matched by sample ID, age and inclusion between S1, GEO and the registered sample sheet",
+      "value": "5 independent pools at P12 and 5 at P35. S1 also includes 5 male neuronal pools at P12 and 4 at P35.",
+      "script": "data/author-validation/continued-sources/GSE189945/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Published S4b pooled-sex neuronal age result at the paper’s adjusted P < 0.05 and absolute shrunken log2 fold change > 1 thresholds",
+      "value": "34,884 effect rows, 34,870 distinct nonempty gene names and 22,842 usable adjusted P values. Of the 863 qualifying rows, 537 are higher at P12 and 326 at P35, as labelled in S4C.",
+      "script": "data/author-validation/continued-sources/GSE189945/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Input-only replay of the deposited VSD values for registered female neuronal samples",
+      "value": "23,953 rows across 10 selected libraries. The maximum absolute difference across 239,530 prepared values was 0.",
+      "script": "data/author-validation/continued-sources/GSE189945/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Registered DE table identity and public symbol count",
+      "value": "23,480 rows and distinct symbols in geo_replication/datasets/GSE189945_mmus_arc_development/processed/GSE189945_DE.tsv. SHA-256 92346b9b2bb4cf8c1ca061946d865ef559f8746726a38587afabf8191662f839.",
+      "script": "data/author-validation/continued-sources/GSE189945/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "GEO sample supplementary files",
+      "value": "34 of 34 RAW.tar manifest entries matched individual WGBS coverage files. No RNA GSM listed a supplementary URL.",
+      "script": "data/author-validation/continued-sources/GSE189945/codex-2026-11-24/audit.py"
+    }
+  ],
+  "openIssues": [
+    "A labelled result for the female neuronal P35-versus-P12 coefficient is needed to assess author agreement."
+  ]
+}
