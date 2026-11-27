@@ -4,9 +4,10 @@
 #   Rscript scripts/extract_visium_reference.R <humanHYPOMAP_spatial.rds> <out-dir>
 #
 # The builder runs this from `--fetch` after checking the RDS's size, MD5 and
-# SHA-256; it can also be run by hand. Needs SeuratObject (to deserialize the
-# Seurat V4 object) and Matrix. The output is integer sums, so it does not
-# depend on the R or package version; the builder pins its SHA-256.
+# SHA-256; it can also be run by hand. Needs SeuratObject and Matrix, and Seurat
+# installed (its VisiumV1 image class is loaded when the object is read). The
+# output is integer sums, so it does not depend on the R or package version; the
+# builder pins its SHA-256.
 #
 # Writes four LF-only, tab-separated files to <out-dir>:
 #   cells.tsv     one row per donor x region cell (authors' grouped region label,
@@ -29,7 +30,7 @@ out <- args[[2]]
 dir.create(out, recursive = TRUE, showWarnings = FALSE)
 
 obj <- readRDS(rds)
-counts <- GetAssayData(obj, assay = "Spatial", slot = "counts")
+counts <- GetAssayData(obj, assay = "Spatial", layer = "counts")
 stopifnot(inherits(counts, "dgCMatrix"), all(counts@x == round(counts@x)), all(counts@x >= 0))
 md <- obj@meta.data
 stopifnot(identical(rownames(md), colnames(counts)))

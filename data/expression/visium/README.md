@@ -46,13 +46,14 @@ pnpm exec tsx scripts/build_visium_reference.mts --fetch                   # dow
 pnpm exec tsx scripts/build_visium_reference.mts --fetch --from <rds>      # the same from an RDS already on disk
 ```
 
-`--fetch` needs R with SeuratObject and Matrix to read the Seurat object;
-`HYPOEXPLORER_RSCRIPT` names `Rscript` when it is not on the path. The retained
-tables were extracted on 2026-11-27 with R 4.4.1, SeuratObject 5.1.0 and Matrix
-1.7.0 (the runtime is recorded in the manifest), because the extraction computer
-had no R 4.6.0 installation with SeuratObject. The step deserializes the object
-and sums integer counts, so it does not depend on the R version, and its output is
-pinned by hash; repeating it under R 4.6.0 must reproduce the same hashes. `--fetch` compares the
+`--fetch` needs R with Seurat, SeuratObject and Matrix to read the Seurat object
+(Seurat supplies the VisiumV1 image class); `HYPOEXPLORER_RSCRIPT` names `Rscript`
+when it is not on the path. The retained tables were first extracted
+under R 4.4.1 (SeuratObject 5.1.0, Matrix 1.7.0) and re-extracted on 2026-11-27
+under R 4.6.0 (Seurat 6.0.0, SeuratObject 5.4.0, Matrix 1.7.5); all four tables
+were byte-identical, and the manifest records the R 4.6.0 runtime. SeuratObject 5.4
+turned the `slot =` argument of `GetAssayData` into an error, so the extractor uses `layer =`,
+which SeuratObject 5.1 also accepts. `--fetch` compares the
 re-extracted tables' content with the pinned hashes; `--fetch --record` is for a
 deliberate source update and rewrites the hashes.
 

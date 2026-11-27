@@ -12,7 +12,7 @@
  *                      retained tables
  *   --from <file>      with --fetch: read the RDS from disk instead of downloading
  *   --record           with --fetch: record new retained hashes in the manifest
- * The R step needs Rscript with SeuratObject and Matrix (HYPOEXPLORER_RSCRIPT
+ * The R step needs Rscript with Seurat, SeuratObject and Matrix (HYPOEXPLORER_RSCRIPT
  * names the executable; default `Rscript`).
  */
 import assert from 'node:assert/strict';
@@ -152,7 +152,7 @@ async function acquire(manifest: SourceManifest, record: boolean, from: string |
     const run = spawnSync(rscript, [path.join(ROOT, EXTRACTOR), rds, out], { stdio: 'inherit', windowsHide: true });
     assert.equal(run.status, 0, `${EXTRACTOR} failed (${run.error?.message ?? `exit ${run.status}`})`);
     const script = sha256(lf(await readFile(path.join(ROOT, EXTRACTOR), 'utf8')));
-    const version = spawnSync(rscript, ['-e', 'cat(R.version.string, "; SeuratObject", as.character(packageVersion("SeuratObject")), "; Matrix", as.character(packageVersion("Matrix")))'], { encoding: 'utf8', windowsHide: true });
+    const version = spawnSync(rscript, ['-e', 'cat(R.version.string, "; Seurat", as.character(packageVersion("Seurat")), "; SeuratObject", as.character(packageVersion("SeuratObject")), "; Matrix", as.character(packageVersion("Matrix")))'], { encoding: 'utf8', windowsHide: true });
     if (record) {
       manifest.extractor = { script: EXTRACTOR, sha256: script, runtime: version.stdout.trim() || manifest.extractor.runtime };
     } else {

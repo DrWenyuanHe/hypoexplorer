@@ -1,14 +1,16 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "ccf532d4e98fc373e21ab213d66f2998dcc7df6bcd9a5d81ee491735fc1ac9ac",
+  "fingerprint": "c7852b7a84e93d0754dd2b3c6aef71cb299dd84ea74237586a58549f0e083f7d",
   "outcome": "updated",
-  "explanation": "Repository configuration for the Visium atlas: package.json adds build:expression-visium and check:expression-visium; .gitignore ignores public/expression/visium/; .gitattributes keeps the pinned Visium TSV tables and the R extractor LF on every checkout; the application workflow builds the Visium atlas in the test job and prepare:deploy builds it in the build job; CHANGELOG.md records the change.",
+  "explanation": "Repository configuration for the Visium atlas: package.json adds build:expression-visium and check:expression-visium; .gitignore ignores public/expression/visium/; .gitattributes keeps the pinned Visium TSV tables and the R extractor LF on every checkout; the application workflow builds the Visium atlas in the test job and prepare:deploy builds it in the build job; CHANGELOG.md records the change. The R extractor now reads counts with GetAssayData(layer =), works under R 4.4.1 and R 4.6.0, and notes that Seurat must be installed for the VisiumV1 image class.",
   "references": [
     "package.json",
     ".gitignore",
     ".gitattributes",
     ".github/workflows/application.yml",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "data/expression/visium/README.md",
+    "scripts/extract_visium_reference.R"
   ]
 }
