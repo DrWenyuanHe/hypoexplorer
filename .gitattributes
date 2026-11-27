@@ -92,6 +92,10 @@ scripts/lib/replicationEvidence.mts -text !eol whitespace=blank-at-eol,blank-at-
 
 # GTEx V10 hypothalamus TPM: original bytes, pinned in data/expression/gtex/source-manifest.json.
 # Allen Human Brain Atlas hypothalamic expression columns, pinned in data/expression/allen-human/source-manifest.json.
+# HYPOMAP Visium donor x region tables, pinned by SHA-256 in data/expression/visium/source-manifest.json:
+# LF on every checkout, so the pinned bytes hold on Windows too.
+data/expression/visium/*.tsv text eol=lf
+scripts/extract_visium_reference.R text eol=lf
 # Preserve the exact original dedicated scripts consumed by the reviewed replays.
 scripts/de_gse135639.R -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 scripts/de_gse157077.R -text !eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

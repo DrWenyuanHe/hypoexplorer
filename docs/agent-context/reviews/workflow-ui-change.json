@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "9aa81ffc74e30145691e4cdaee9a9bb4c1e99b9fc9bb781ebf0fcb933aca0b58",
+  "fingerprint": "25aa4ae8702c0690b42c8a0f0e0bd0e6abe6adff417d9576b0688d28bc84b56b",
   "outcome": "updated",
-  "explanation": "No workflow rule changes. From main: contrastLabel moves unchanged to data/contrasts.ts, so the search area no longer imports the crossdataset area, and the significance explanations move from report paragraphs into a (?) help beside the listing toggle; the listing itself is unchanged. From this branch: App closes the changelog whenever a visit to the explorer ends (the view leaves it, or a refused link's error page replaces it), so entering again shows the explorer instead of earlier release notes; the hub's Changelog link still opens it. CONTEXT.md's explorer entry says which shell state outlives a visit.",
+  "explanation": "No workflow rule changes. From main: the gene page Human hypothalamus row gains the HYPOMAP Visium tile and drill, and survey CSVs add source_credit. From this branch: the gated HypoMap By dataset view shows study-card details read through atlas.ts, so views still never read the export wire, and its CSV still goes through the export-provenance and CSV seams with two added columns. No new view or tab.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/App.tsx",
-    "src/data/contrasts.ts",
-    "src/statistics/ListingModeToggle.tsx",
-    "CONTEXT.md"
+    "src/search/portalCards.tsx",
+    "src/search/hypomap/atlas.ts",
+    "src/search/hypomap/HypoMapPreview.tsx"
   ]
 }

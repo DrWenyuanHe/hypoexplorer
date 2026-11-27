@@ -4,7 +4,7 @@ import { tabKeyTarget } from '../utils/tabKeys';
 import { atlasFiles, fixtureDatasets, memoryTransport } from './hypomapFixture';
 
 // The HypoMap export is not checked in; a three-context, 18-dataset fixture export is served
-// to the atlas client through its in-memory transport.
+// to the atlas client through its in-memory transport. Study 3's card is blank.
 const pin = vi.hoisted(() => ({ tag: 'hypomap-atlas-test', archive: '', archiveSha256: '', manifestSha256: '' }));
 vi.mock('../../hypomap-release.json', () => ({ default: pin }));
 
@@ -13,7 +13,7 @@ const { HypoMapPreview } = await import('../search/hypomap/HypoMapPreview');
 
 const { files, manifestSha256 } = atlasFiles({
   contexts: ['Whole hypothalamus', 'Arcuate hypothalamic nucleus', 'Supraoptic nucleus'],
-  datasets: fixtureDatasets(18, i => (i < 2 ? [[100, 40, 10], [50, 20, 5]][i] : [10, 4, 1])),
+  datasets: fixtureDatasets(18, i => (i < 2 ? [[100, 40, 10], [50, 20, 5]][i] : [10, 4, 1])).map((ds, i) => (i === 2 ? { ...ds, card: {} } : ds)),
   genes: [['ENSMUSG1', 'Pomc', 'pro-opiomelanocortin'], ['ENSMUSG2', 'Cartpt', 'CART prepropeptide']],
   aliases: { cart: [1] },
   outside: { cart: ['Cart-ps'] },
@@ -84,6 +84,35 @@ describe('HypoMapPreview views', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Reset to whole hypothalamus' }));
     expect(screen.getByRole('heading', { name: 'Whole hypothalamus' })).toBeTruthy();
     expect(screen.queryByRole('button', { name: 'Reset to whole hypothalamus' })).toBeNull();
+  });
+});
+
+describe('HypoMapPreview study details', () => {
+  async function checkDataset(label: string) {
+    const tablist = await renderReady();
+    fireEvent.click(within(tablist).getByRole('tab', { name: /By dataset/ }));
+    fireEvent.click(screen.getByRole('checkbox', { name: label }));
+    return screen.getByRole('region', { name: label });
+  }
+
+  it("shows a checked dataset's publication, linked, and its study card fields", async () => {
+    const card = await checkDataset('Study 2');
+    const link = within(card).getByRole('link', { name: 'Author2 et al. 2021, Cell (opens in a new tab)' });
+    expect(link.getAttribute('href')).toBe('https://pubmed.ncbi.nlm.nih.gov/1002/');
+    expect(link.getAttribute('target')).toBe('_blank');
+    expect(link.getAttribute('rel')).toBe('noopener noreferrer');
+    const facts = Object.fromEntries(within(card).getAllByRole('term').map(term => [term.textContent, term.nextElementSibling?.textContent]));
+    expect(facts).toEqual({
+      Technology: '10x v3 (nuclei)', 'Region sampled': 'Hypothalamus', Sex: 'M & F', Age: 'adult (6+ wk)',
+      Condition: 'normal chow', 'Cells in HypoMap': '2,000',
+    });
+  });
+
+  it("says so when a dataset's study card is blank", async () => {
+    const card = await checkDataset('Study 3');
+    expect(within(card).getByText('No study details recorded.')).toBeTruthy();
+    expect(within(card).queryByRole('link')).toBeNull();
+    expect(within(card).queryAllByRole('term')).toEqual([]);
   });
 });
 

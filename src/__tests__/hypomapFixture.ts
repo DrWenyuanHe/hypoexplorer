@@ -10,8 +10,8 @@ type Pair = [positive: number[], logSum: number[]] | null;
 export interface AtlasFixture {
   cohort?: string;
   contexts: string[];
-  /** Contributing datasets in export order, with eligible cells per context. */
-  datasets: { id: string; label: string; eligible: number[] }[];
+  /** Contributing datasets in export order, with eligible cells per context and their study-card fields (blank unless given). */
+  datasets: { id: string; label: string; eligible: number[]; card?: StudyCard }[];
   genes: [id: string, symbol: string, name: string][];
   aliases?: Record<string, number[]>;
   /** Lower-case symbol → canonical symbols of features outside the export. */
@@ -27,13 +27,30 @@ export interface AtlasFixture {
 
 export type AtlasFiles = Record<string, Uint8Array<ArrayBuffer>>;
 
+/** The study-card columns of data/hypomap/HypoMap_study_display_card.csv, which the exporter writes as text, blank as ''. */
+const CARD_COLUMNS = ['HypoMap_label', 'GEO_Acc', 'SRA_Acc', 'Publication', 'Publication_link', 'Year', 'Species', 'Technology',
+  'Cells_or_nuclei', 'Region', 'Sex', 'Age_stage', 'Condition', 'N_cells_in_HypoMap', 'Original_cells_reported',
+  'Fraction_kept_in_HypoMap', 'Subsetting_mechanism', 'N_batches', 'Embryonic_data_removed', 'Notes'] as const;
+export type StudyCard = Partial<Record<(typeof CARD_COLUMNS)[number], string>>;
+
+/** A filled study card for fixture study `n` (1-based): odd studies profile cells, even ones nuclei. */
+export function fixtureCard(n: number): StudyCard {
+  return {
+    Publication: `Author${n} et al. 2021, Cell`, Publication_link: `https://pubmed.ncbi.nlm.nih.gov/${1000 + n}/`, Year: '2021',
+    Species: 'Mus musculus', Technology: '10x v3', Cells_or_nuclei: n % 2 ? 'cells' : 'nuclei', Region: 'Hypothalamus',
+    Sex: 'M & F', Age_stage: 'adult (6+ wk)', Condition: 'normal chow', N_cells_in_HypoMap: String(1000 * n),
+  };
+}
+
 const sha256 = (bytes: Uint8Array) => createHash('sha256').update(bytes).digest('hex');
 const utf8 = (wire: unknown) => new Uint8Array(Buffer.from(JSON.stringify(wire)));
 export const gzip = (wire: unknown) => new Uint8Array(gzipSync(Buffer.from(JSON.stringify(wire))));
 
-/** `count` datasets named D01… / "Study 1"…, each with the same eligible cells per context unless `eligible` says otherwise. */
+/** `count` datasets named D01… / "Study 1"…, with `fixtureCard` study cards and the eligible cells per context `eligible` gives. */
 export function fixtureDatasets(count: number, eligible: (i: number) => number[]) {
-  return Array.from({ length: count }, (_, i) => ({ id: `D${String(i + 1).padStart(2, '0')}`, label: `Study ${i + 1}`, eligible: eligible(i) }));
+  return Array.from({ length: count }, (_, i) => ({
+    id: `D${String(i + 1).padStart(2, '0')}`, label: `Study ${i + 1}`, eligible: eligible(i), card: fixtureCard(i + 1),
+  }));
 }
 
 /** The release's files and the manifest SHA-256 to pin. */
@@ -47,7 +64,7 @@ export function atlasFiles(spec: AtlasFixture): { files: AtlasFiles; manifestSha
       contexts: spec.contexts,
       datasets: spec.datasets.map(ds => ds.id),
       eligible_cells: Object.fromEntries(spec.datasets.map(ds => [ds.id, ds.eligible])),
-      study_cards: spec.datasets.map(ds => ({ HypoMap_label: ds.label })),
+      study_cards: spec.datasets.map(ds => ({ ...Object.fromEntries(CARD_COLUMNS.map(column => [column, ''])), ...ds.card, HypoMap_label: ds.label })),
     },
     'search-index.json.gz': {
       genes: spec.genes,

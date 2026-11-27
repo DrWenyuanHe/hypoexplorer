@@ -1,14 +1,20 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "bc026d5532be9b83779f6a40a48818016e9fd081ff942b5ec6765806dbe0fb5f",
+  "fingerprint": "0b530a1090e66448f74cb5609fe19dda5a00deee4f9e4c85b559d83641f4a339",
   "outcome": "updated",
-  "explanation": ".gitattributes restores the maintainer checkout's exact-byte rule for geo_replication/datasets/GSE252779_mmus_hypo_celastrol/processed/GSE252779_preprocessing_qc.tsv. The public data release ships it with CRLF bytes and audit_fgsea_migration.mts refuses a checkout where Git would convert it; no tracked file changes line endings. public-safety.json allows the thesis label in the nine files that now carry the reviews' citations of published theses by original study authors: the regenerated validation records, report and quality assessments, and five 2026-11-24 review records, with the reason the existing ledger allowances give.",
+  "explanation": "Merges main (#100, #101) into the record regeneration. From main: Repository configuration for the Visium atlas: package.json adds build:expression-visium and check:expression-visium; .gitignore ignores public/expression/visium/; .gitattributes keeps the pinned Visium TSV tables and the R extractor LF on every checkout; the application workflow builds the Visium atlas in the test job and prepare:deploy builds it in the build job; CHANGELOG.md records the change. The R extractor now reads counts with GetAssayData(layer =), works under R 4.4.1 and R 4.6.0, and notes that Seurat must be installed for the VisiumV1 image class. From this branch: .gitattributes restores the maintainer checkout's exact-byte rule for geo_replication/datasets/GSE252779_mmus_hypo_celastrol/processed/GSE252779_preprocessing_qc.tsv. The public data release ships it with CRLF bytes and audit_fgsea_migration.mts refuses a checkout where Git would convert it; no tracked file changes line endings. public-safety.json allows the thesis label in the nine files that now carry the reviews' citations of published theses by original study authors: the regenerated validation records, report and quality assessments, and five 2026-11-24 review records, with the reason the existing ledger allowances give.",
   "references": [
     ".gitattributes",
+    ".github/workflows/application.yml",
+    ".gitignore",
+    "CHANGELOG.md",
     "data/author-validation/README.md",
+    "data/expression/visium/README.md",
+    "package.json",
     "public-safety.json",
     "scripts/audit_fgsea_migration.mts",
-    "scripts/check_public_safety.mts"
+    "scripts/check_public_safety.mts",
+    "scripts/extract_visium_reference.R"
   ]
 }

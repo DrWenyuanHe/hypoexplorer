@@ -24,7 +24,7 @@ import { DbBadge } from './DbBadge';
 import { describePathway } from './searchVocabulary';
 import {
   loadBaselineTeaser, loadConditionPathways, loadFamilyTeaser, loadReferenceAtlases, REFERENCE_ATLAS_SOURCES,
-  type BaselineTeaser, type ConditionPathway, type ConditionRef, type FamilyTeaser, type ReferenceAtlas, type ReferenceAtlases,
+  type BaselineTeaser, type ConditionPathway, type ConditionRef, type FamilyTeaser, type ReferenceAtlas, type ReferenceAtlases, type ReferenceRegion,
   type ReferenceLevel, type SourceFamily,
 } from './searchSummaries';
 import type { SurveyFocus } from '../expression-survey/GeneSurvey';
@@ -310,7 +310,7 @@ function SourceTitle({ id, name, method }: { id: string; name: string; method: s
 }
 
 /** The sources a tile can open, and the survey each one opens. */
-export type SourceDrillId = 'neuroseq' | 'studies' | 'tissue' | 'single-cell' | 'gtex' | 'allen' | 'subregions' | 'clusters';
+export type SourceDrillId = 'neuroseq' | 'studies' | 'tissue' | 'single-cell' | 'gtex' | 'allen' | 'subregions' | 'clusters' | 'visium';
 const MOUSE_DRILLS: readonly SourceDrillId[] = ['neuroseq', 'studies', 'tissue', 'single-cell'];
 
 /** A tile's way into its source: the button that opens (or closes) the source's full survey. */
@@ -320,16 +320,18 @@ interface TileOpen {
   panelId: string;
 }
 
-function Tile({ id, label, slot, nav, children }: {
+function Tile({ id, label, slot, nav, wide, children }: {
   id: SourceDrillId;
   label?: string;
   slot?: string;
   nav?: TileOpen;
+  /** Spans the whole row (the regional Visium tile). */
+  wide?: boolean;
   children: ReactNode;
 }) {
   const open = nav?.open === id;
   return (
-    <div className={`gene-tile${open ? ' gene-tile--open' : ''}`} data-tile={id} data-slot={slot}>
+    <div className={`gene-tile${wide ? ' gene-tile--wide' : ''}${open ? ' gene-tile--open' : ''}`} data-tile={id} data-slot={slot}>
       {children}
       {nav?.onOpen && label && (
         <button
@@ -483,8 +485,8 @@ export function FamilySection({ symbol, family }: { symbol: string; family: Sour
 
 // ── Human reference atlases ────────────────────────────────────────────────
 //
-// GTEx, HPA and Allen values for the human gene of this symbol, each in its
-// own unit. Nothing is converted, ranked across atlases or pooled with mouse
+// GTEx, HPA, Allen and HYPOMAP Visium values for the human gene of this
+// symbol, each in its own unit. Nothing is converted, ranked across atlases or pooled with mouse
 // data; a symbol that differs from the human gene's is shown as a match.
 
 function fmtLog2(value: number): string {
@@ -494,7 +496,10 @@ function fmtLog2(value: number): string {
 /** Why an atlas has no values for this gene, or null when it has them. */
 function atlasGap(atlas: ReferenceAtlas, symbol: string): string | null {
   if (atlas.status === 'unavailable') return 'This atlas could not be loaded.';
-  if (atlas.status === 'not-retained') return `${symbol} is not in this atlas.`;
+  if (atlas.status === 'not-retained') {
+    const absent = atlas.source.absentLabel;
+    return absent ? `${symbol}: ${absent.charAt(0).toLowerCase()}${absent.slice(1)}.` : `${symbol} is not in this atlas.`;
+  }
   if (atlas.status === 'ambiguous') return `${symbol} matches more than one gene (${atlas.candidates.join(', ')}). Open the survey to choose one.`;
   return null;
 }
@@ -589,6 +594,82 @@ function AllenAtlas({ atlas, symbol }: { atlas: ReferenceAtlas; symbol: string }
   );
 }
 
+const VISIUM_TOP = 5;
+
+function fmtCpm(value: number): string {
+  if (value === 0) return '0';
+  if (value >= 100) return value.toFixed(0);
+  if (value >= 10) return value.toFixed(1);
+  return value >= 0.1 ? value.toFixed(2) : value.toPrecision(2);
+}
+
+/** One region: a bar at its donor mean, and a dot at each donor's own value on the same scale. */
+function RegionBar({ region, max }: { region: ReferenceRegion; max: number }) {
+  const at = (value: number) => `${max > 0 ? (value / max) * 100 : 0}%`;
+  const donors = region.donors.length;
+  return (
+    <li>
+      <span className="portal-bar-label" title={region.label}>
+        {region.key}
+        <span className={`portal-region-n${region.sparse ? ' portal-region-n--sparse' : ''}`}>
+          {region.sparse ? ` · ${donors} donor${donors === 1 ? '' : 's'}, sparse` : ` · ${donors}`}
+        </span>
+      </span>
+      <span className="portal-bar-track portal-bar-track--dots" aria-hidden="true">
+        <span className="portal-bar" style={{ width: max > 0 && region.mean > 0 ? `max(2px, ${at(region.mean)})` : 0 }} />
+        {region.donors.map((donor) => (
+          <span key={`${region.key}:${donor.donor}`} className="portal-bar-dot" style={{ left: at(donor.value) }} title={`${donor.donor}: ${fmtCpm(donor.value)}`} />
+        ))}
+      </span>
+      <span className="portal-bar-value">{fmtCpm(region.mean)}</span>
+      <span className="portal-sr">
+        {region.label}: donor mean {fmtCpm(region.mean)} CPM; {region.donors.map((donor) => `${donor.donor} ${fmtCpm(donor.value)}`).join(', ')}.
+      </span>
+    </li>
+  );
+}
+
+/**
+ * HYPOMAP Visium by region. Its groups are regions and its samples donors, so
+ * it ranks regions by their donor mean and draws each donor as a dot, never
+ * summarizing regions as if they were donors. Hypothalamic regions are ranked;
+ * fibre tract, vascular, ventricular, thalamic and unassigned spots are not.
+ */
+function VisiumAtlas({ atlas, symbol }: { atlas: ReferenceAtlas; symbol: string }) {
+  const gap = atlasGap(atlas, symbol);
+  const row = atlas.status === 'available' ? atlas.rows[0] : null;
+  const regions = row?.regions ?? [];
+  const nuclei = regions.filter((region) => region.compartment === 'hypothalamic');
+  const shown = nuclei.slice(0, VISIUM_TOP);
+  const max = Math.max(0, ...shown.flatMap((region) => [region.mean, ...region.donors.map((donor) => donor.value)]));
+  const outside = regions.find((region) => region.compartment !== 'hypothalamic');
+  const gene = atlas.status === 'available' ? atlas.gene : symbol;
+  return (
+    <section className="portal-source" data-atlas="visium" aria-labelledby="portal-visium-title">
+      <SourceTitle id="portal-visium-title" name="HYPOMAP Visium" method="spatial, by region" />
+      {gap ? <p className="portal-note">{gap}</p> : !shown.length ? <p className="portal-note">No region has a value.</p> : (
+        <>
+          <ul className="portal-bars portal-bars--regions" aria-label={`Hypothalamic regions with the highest ${gene} donor mean, FFPE Visium probe-count CPM`}>
+            {shown.map((region) => <RegionBar key={region.key} region={region} max={max} />)}
+          </ul>
+          <p className="portal-note">
+            FFPE Visium probe-count CPM, not comparable with TPM or nCPM. Bars are the mean over donors and dots each donor
+            ({row?.donors} donors in all; the number after a region is its donors, and fewer than three is marked sparse).
+            Top {shown.length} of {nuclei.length} hypothalamic regions.
+            {outside && outside.mean > (shown[0]?.mean ?? 0) ? ` Higher outside the nuclei: ${outside.key} (${outside.compartment}) at ${fmtCpm(outside.mean)}.` : ''}{' '}
+            A 55 µm spot mixes several cells, so values are tissue averages, not cell types.
+          </p>
+          <p className="portal-note portal-credit">
+            Tadross et al. 2025, <a href="https://doi.org/10.1038/s41586-024-08504-8" target="_blank" rel="noreferrer">Nature</a>.
+            Data <a href="https://doi.org/10.17863/CAM.111988" target="_blank" rel="noreferrer">doi:10.17863/CAM.111988</a>,{' '}
+            <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a>, summed per donor and region and converted to CPM by HypoExplorer.
+          </p>
+        </>
+      )}
+    </section>
+  );
+}
+
 /** The human gene the atlases matched, when it is spelled differently from the query. */
 function matchedGene(atlases: ReferenceAtlases | null, symbol: string): string | null {
   if (!atlases) return null;
@@ -598,7 +679,8 @@ function matchedGene(atlases: ReferenceAtlases | null, symbol: string): string |
 
 /**
  * The human row of the expression section: GTEx and Allen whole-tissue
- * readouts, then the HPA subregions and snRNA-seq clusters, one tile each. One
+ * readouts, then the HPA subregions and snRNA-seq clusters, one tile each, and
+ * HYPOMAP Visium by region across the row. One
  * load serves every atlas; a provider that fails leaves only its own tile empty.
  */
 export function ReferenceAtlasSection({ symbol, nav }: { symbol: string; nav?: TileOpen }) {
@@ -626,6 +708,7 @@ export function ReferenceAtlasSection({ symbol, nav }: { symbol: string; nav?: T
             <Tile id="allen" label="Every probe and donor" nav={nav}><AllenAtlas atlas={atlases.allen} symbol={symbol} /></Tile>
             <Tile id="subregions" label="Every subregion" nav={nav}><SubregionAtlas atlas={atlases.subregions} symbol={symbol} /></Tile>
             <Tile id="clusters" label="Every cluster" nav={nav}><ClustersAtlas atlas={atlases.clusters} symbol={symbol} /></Tile>
+            <Tile id="visium" label="Every region and donor" nav={nav} wide><VisiumAtlas atlas={atlases.visium} symbol={symbol} /></Tile>
           </div>
         </>
       )}
@@ -658,6 +741,7 @@ const DRILLS: Record<Exclude<SourceDrillId, 'single-cell'>, { title: string; sco
   gtex: { title: 'GTEx v10 hypothalamus', scope: REFERENCES, focus: { include: onlySource(REFERENCE_ATLAS_SOURCES.gtex) } },
   allen: { title: 'Allen Human Brain Atlas', scope: REFERENCES, focus: { include: onlySource(REFERENCE_ATLAS_SOURCES.allen) } },
   subregions: { title: 'Human Protein Atlas subregions', scope: REFERENCES, focus: { include: onlySource(REFERENCE_ATLAS_SOURCES.subregions) } },
+  visium: { title: 'HYPOMAP Visium regions', scope: REFERENCES, focus: { include: onlySource(REFERENCE_ATLAS_SOURCES.visium) } },
   clusters: {
     title: 'Human Protein Atlas snRNA-seq clusters',
     scope: { ...POPULATIONS, collection: 'external' },

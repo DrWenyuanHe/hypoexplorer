@@ -83,7 +83,8 @@ export const SOFTWARE_REFERENCES: readonly SoftwareReference[] = [
     doi: '10.1016/j.cell.2021.04.048',
   },
   // Reference atlases in the expression survey (GTEx Release V10; Human Protein Atlas version 25;
-  // Allen Human Brain Atlas microarray, used under the Allen Institute's noncommercial terms).
+  // Allen Human Brain Atlas microarray, used under the Allen Institute's noncommercial terms;
+  // HYPOMAP human Visium, below).
   {
     resource: 'Allen Human Brain Atlas',
     ref: 'Hawrylycz MJ, Lein ES, Guillozet-Bongaarts AL, et al. An anatomically comprehensive atlas of the adult human brain transcriptome. Nature. 2012;489(7416):391–399. Allen Institute for Brain Science; human.brain-map.org.',
@@ -98,6 +99,13 @@ export const SOFTWARE_REFERENCES: readonly SoftwareReference[] = [
     resource: 'Human Protein Atlas',
     ref: 'Sjöstedt E, Zhong W, Fagerberg L, et al. An atlas of the protein-coding genes in the human, pig, and mouse brain. Science. 2020;367(6482):eaay5947. Data from HPA version 25 (v25.proteinatlas.org), CC BY 4.0.',
     doi: '10.1126/science.aay5947',
+  },
+  // HYPOMAP human Visium sections, by region (data/expression/visium; dataset
+  // doi:10.17863/CAM.111988, CC BY 4.0, summed per donor and region and converted to CPM here).
+  {
+    resource: 'HYPOMAP human Visium',
+    ref: 'Tadross JA, Steuernagel L, Dowsett GKC, et al. A comprehensive spatio-cellular map of the human hypothalamus. Nature. 2025;639(8055):708–716. Visium data from the University of Cambridge repository (doi:10.17863/CAM.111988), CC BY 4.0, transformed by HypoExplorer.',
+    doi: '10.1038/s41586-024-08504-8',
   },
   {
     resource: 'HPA single-nucleus brain',
@@ -121,5 +129,5 @@ export const SOFTWARE_REFERENCES: readonly SoftwareReference[] = [
 /** Acknowledgement paragraphs, as plain sentences. */
 export const ACKNOWLEDGEMENTS: readonly string[] = [
   'We thank Lei et al. (Cell Metab, 2024) for generating and openly publishing the macaque hypothalamus single-nucleus dataset that HypoExplorer re-analyzes, and every group whose deposited data appear in the collection.',
-  'We also thank the teams behind MSigDB (Broad Institute) and msigdbr, Reactome, KEGG, the Gene Ontology Consortium, GTEx, the Human Protein Atlas, the Allen Institute for Brain Science, Janelia\'s NeuroSeq, and the Goff Lab (GSE147092 oxytocin-neuron reference), and the Bioconductor developers of edgeR, limma and fgsea, for the annotations, reference data and analysis software used here.',
+  'We also thank the teams behind MSigDB (Broad Institute) and msigdbr, Reactome, KEGG, the Gene Ontology Consortium, GTEx, the Human Protein Atlas, the Allen Institute for Brain Science, the HYPOMAP authors (Tadross et al., human Visium sections), Janelia\'s NeuroSeq, and the Goff Lab (GSE147092 oxytocin-neuron reference), and the Bioconductor developers of edgeR, limma and fgsea, for the annotations, reference data and analysis software used here.',
 ];

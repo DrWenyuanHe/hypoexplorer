@@ -112,6 +112,15 @@
 .portal-ref-value { margin: 0; font-size: var(--fs-13); color: var(--text-muted); }
 .portal-ref-value b { font-size: var(--fs-18); font-weight: 600; color: var(--text-primary); }
 .portal-source .portal-bars li { grid-template-columns: minmax(0, 1.6fr) minmax(48px, 1fr) 3.5em; }
+/* HYPOMAP Visium by region: a bar at each region's donor mean, a dot per donor on the same scale. */
+.gene-tile--wide { grid-column: 1 / -1; }
+.portal-bars--regions { max-width: 760px; }
+.portal-source .portal-bars--regions li { grid-template-columns: minmax(0, 11em) minmax(80px, 1fr) 4.5em; }
+.portal-bar-track--dots { position: relative; overflow: visible; }
+.portal-bar-dot { position: absolute; top: 50%; width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; background: var(--text-primary); border: 1px solid var(--bg-panel); border-radius: 50%; }
+.portal-region-n { color: var(--text-muted); }
+.portal-region-n--sparse { color: var(--text-primary); font-style: italic; }
+.portal-credit { color: var(--text-muted); }
 .portal-probes { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: var(--fs-13); }
 .portal-probe-cell { padding: 3px 0; text-align: left; vertical-align: baseline; }
 .portal-probe-col { padding: 0 0 3px; text-align: left; font-size: var(--fs-11); font-weight: 600; color: var(--text-muted); border-bottom: 1px solid var(--border); }
@@ -225,6 +234,6 @@
   .search-row-main { grid-column: 1 / -1; grid-row: 2; }
   .search-row-summary { grid-column: 1 / -1; }
   .search-row--pathway .search-row-main { grid-row: auto; grid-column: 1; }
-  .portal-bars li, .portal-source .portal-bars li { grid-template-columns: minmax(0, 1fr) 4.5em; }
+  .portal-bars li, .portal-source .portal-bars li, .portal-source .portal-bars--regions li { grid-template-columns: minmax(0, 1fr) 4.5em; }
   .portal-bar-track { grid-column: 1 / -1; grid-row: 2; }
 }

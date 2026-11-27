@@ -1,11 +1,14 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "ad6ff8563b5a4d0f62eaf59f035a954f388892b02b63f065c16946f81db61753",
+  "fingerprint": "628c5c1a9e2d01a3e21d84994d0d560b2d500f01483720269516ac6e88162774",
   "outcome": "updated",
-  "explanation": "contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. SearchPage.tsx imports it from data/contrasts, so nothing under src/search imports src/crossdataset any more and the search ↔ crossdataset directory cycle (crossdataset/GeneReport.tsx still imports search/portalCards) is gone. No visible change. The pathway portal note also keeps its nominal track counts but drops the not-corrected caveat clause, which the listing toggle (?) help beside the results title now carries.",
+  "explanation": "Merges main (#101). From main: searchSummaries.ts adds the Visium reference and a regional summary, and portalCards.tsx adds the full-row HYPOMAP Visium tile and its drill. From this branch: atlas.ts reads each HypoMap study card into named AtlasDataset fields (publication with an http(s)-only link, technology, cells or nuclei, sampled region, sex, age stage, condition, cells in HypoMap), blank as null; the gated By dataset view shows them on each checked dataset card, and the by-dataset CSV appends Publication and Technology. Co-detection still reads only the wire labels.",
   "references": [
-    "src/search/SearchPage.tsx",
-    "src/data/contrasts.ts"
+    "src/search/searchSummaries.ts",
+    "src/search/portalCards.tsx",
+    "src/search/hypomap/atlas.ts",
+    "src/search/hypomap/HypoMapPreview.tsx",
+    "src/search/hypomap/preview.css"
   ]
 }

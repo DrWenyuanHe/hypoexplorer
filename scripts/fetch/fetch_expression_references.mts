@@ -8,6 +8,10 @@
 // total. Without them the survey reports those three collections as unavailable
 // and everything else works.
 //
+// The HYPOMAP Visium atlas is not fetched by default: its retained source is
+// tracked, so `pnpm run build:expression-visium` builds it (prepare:deploy does
+// that when it is missing). Name it to mirror the deployed copy instead.
+//
 //   pnpm run fetch:expression
 //   pnpm run fetch:expression gtex          # only the named atlases
 //   HYPOEXPLORER_APP_ORIGIN=https://... pnpm run fetch:expression
@@ -20,7 +24,7 @@ import { createHash } from 'node:crypto';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { ATLAS_DIRS, atlasFiles } from '../lib/deployInputs.mjs';
+import { ATLAS_DIRS, FETCHED_ATLAS_DIRS, atlasFiles } from '../lib/deployInputs.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const app = (process.env.HYPOEXPLORER_APP_ORIGIN || 'https://hypoexplorer.com').replace(/\/+$/, '');
@@ -29,7 +33,7 @@ const identityOnly = args.includes('--identity');
 const requested = args.filter((arg) => arg !== '--identity');
 const unknown = requested.filter((dir) => !ATLAS_DIRS.includes(dir));
 if (unknown.length) throw new Error(`Unknown atlas ${unknown.join(', ')}; choose from ${ATLAS_DIRS.join(', ')}`);
-const PROVIDERS = requested.length ? requested : [...ATLAS_DIRS];
+const PROVIDERS = requested.length ? requested : [...FETCHED_ATLAS_DIRS];
 const CONCURRENCY = 16;
 const ATTEMPTS = 3;
 

@@ -459,7 +459,8 @@ describe('BaselineSection', () => {
 // ── Human reference atlases ─────────────────────────────────────────────────
 //
 // The real loader over the generated GTEx, HPA and Allen products
-// (pnpm run build:expression-external), read from public/ instead of fetched.
+// (pnpm run build:expression-external) and the Visium ones
+// (pnpm run build:expression-visium), read from public/ instead of fetched.
 
 function productFetch(fail?: (url: string) => boolean) {
   vi.stubGlobal('fetch', vi.fn(async (url: string) => {
@@ -496,6 +497,35 @@ describe('ReferenceAtlasSection', () => {
       .toEqual(['A_23_P5875', 'CUST_15470_PI416261804', 'CUST_15474_PI416261804']);
     expect(within(allen).getByText('9.50')).toBeTruthy();
     expect(within(allen).getByText(/hypothalamic samples\s+\(102 across 6 donors\)/)).toBeTruthy();
+  });
+
+  it('ranks HYPOMAP Visium hypothalamic regions by donor mean, with a dot per donor and its credit', async () => {
+    productFetch();
+    render(<ReferenceAtlasSection symbol="Pomc" />);
+    const card = document.querySelector('[data-section="reference-atlases"]') as HTMLElement;
+    const visium = await waitFor(() => {
+      const column = card.querySelector('[data-atlas="visium"]') as HTMLElement;
+      expect(column?.querySelector('.portal-bars')).toBeTruthy();
+      return column;
+    });
+    const rows = [...visium.querySelectorAll('.portal-bars li')];
+    // Fibre tract, vascular and unassigned spots are not ranked with the nuclei; ME has two donors and is marked.
+    expect(rows.map((row) => row.querySelector('.portal-bar-label')?.textContent))
+      .toEqual(['ARC · 6', 'VMH · 4', 'LTN · 6', 'ME · 2 donors, sparse', 'Periventricular · 6']);
+    expect(rows[0].querySelectorAll('.portal-bar-dot')).toHaveLength(6);
+    expect(within(rows[0] as HTMLElement).getByText('1001')).toBeTruthy();
+    expect(within(visium).getByText(/FFPE Visium probe-count CPM, not comparable with TPM or nCPM/)).toBeTruthy();
+    expect(within(visium).getByText(/7 donors in all/)).toBeTruthy();
+    expect(within(visium).getByText(/55 µm spot mixes several cells/)).toBeTruthy();
+    expect(visium.querySelector('a[href="https://doi.org/10.17863/CAM.111988"]')).toBeTruthy();
+    expect(visium.querySelector('a[href="https://creativecommons.org/licenses/by/4.0/"]')).toBeTruthy();
+    expect(within(visium).getByText(/converted to CPM by HypoExplorer/)).toBeTruthy();
+  });
+
+  it('says a gene outside the Visium probe panel is not measured there', async () => {
+    productFetch();
+    render(<ReferenceAtlasSection symbol="IGF2" />);
+    expect(await screen.findByText('IGF2: not measured in this Visium probe panel.')).toBeTruthy();
   });
 
   it('keeps the other atlases when one provider cannot be read', async () => {

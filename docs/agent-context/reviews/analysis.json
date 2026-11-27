@@ -1,15 +1,19 @@
 {
   "version": 1,
   "area": "analysis",
-  "fingerprint": "fd68a5c893e9ecbc03cbe3f3003d6d898c9fe43650c30436f67c943bdda728ca",
+  "fingerprint": "77f727fbbf88360a57280bf2ae9f6a0ce2082d433e108395ef21f1c76c093083",
   "outcome": "updated",
-  "explanation": "Regenerates the author-validation records, direct comparisons (59 to 82), mechanical audit, internal QC ledger (84/60/0/18, unchanged) and quality assessments from the retained audit cache after the 2026-11-16 to 2026-11-24 ledger merges, including the 2026-11-24 not-comparable review. The README now says the records are regenerated and later ledger edits need the same rebuild. The codex-2026-11-24 README records the reconstruction of the GSE128537 and GSE314970 evidence folders from transcripts and the repin of GSE314970 to its inner tables zip. manual-review.json sets comparisonLevel direct for four reviewed author-result comparisons.",
+  "explanation": "Merges main (#100, #101) into the record regeneration. From main: Merges main (#101) into the HypoMap study-card branch. From main: data/expression/visium/README.md documents the HYPOMAP human Visium reference (pinned RDS, four donor x region tables, derivation, sparse-region and compartment rules, the R 4.6.0 re-extraction and CC BY 4.0 attribution). From this branch: the HypoMap runbook lists which study-card columns the By dataset view shows and the two its CSV adds; the study card, exporter and export format are unchanged. From this branch: Regenerates the author-validation records, direct comparisons (59 to 82), mechanical audit, internal QC ledger (84/60/0/18, unchanged) and quality assessments from the retained audit cache after the 2026-11-16 to 2026-11-24 ledger merges, including the 2026-11-24 not-comparable review. The README now says the records are regenerated and later ledger edits need the same rebuild. The codex-2026-11-24 README records the reconstruction of the GSE128537 and GSE314970 evidence folders from transcripts and the repin of GSE314970 to its inner tables zip. manual-review.json sets comparisonLevel direct for four reviewed author-result comparisons.",
   "references": [
     "data/author-validation/README.md",
+    "data/author-validation/additional-comparison-specs.json",
     "data/author-validation/codex-2026-11-24/README.md",
     "data/author-validation/manual-review.json",
-    "data/author-validation/additional-comparison-specs.json",
+    "data/expression/visium/README.md",
+    "data/hypomap/README.md",
     "scripts/build_author_validation.mts",
-    "scripts/build_internal_qc_r460.mts"
+    "scripts/build_internal_qc_r460.mts",
+    "scripts/extract_visium_reference.R",
+    "src/search/hypomap/atlas.ts"
   ]
 }
