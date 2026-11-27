@@ -12,14 +12,23 @@ import { datasetQuality, qualitySearchText } from '../data/datasetQualityR460';
 const SUCCESSOR_LEDGER = 'data/author-validation/regeneration-r460-2026-09-25/concordance-reviews-r460.json';
 const RESTORED = ['chicken_hypo_development_gse104255', 'mouse_arc_corticosterone_gse128148',
   'mouse_arc_hfd_gse284408', 'mouse_hypo_thrb_k146q_gse167105'];
+// The 2026-11-21 Codex closure pass added comparison specs and direct reviews that pass
+// author-concordance-v2 on their own numbers, without either concordance-review ledger.
+const DIRECT_PASSES = ['mouse_gnrh_androgen_gse162563', 'mouse_hypo_fedfast_gse254155',
+  'mouse_hypo_insulin_gse132352', 'rat_hypo_ozone_gse133293', 'rat_mbh_perinatal_des_gse225359'];
 const count = (quality: typeof datasetQuality, key: 'pipelineQc' | 'experimentalDesign' | 'authorConcordance', status: string) =>
   AUTHOR_VALIDATION_REPORT.records.filter((record) => quality(record)[key].status === status).length;
 
 describe('current quality decisions after the R 4.6.0 regeneration', () => {
-  it('restores the 27 author-concordance passes through the successor re-reviews', () => {
-    expect(count(datasetQuality, 'authorConcordance', 'pass')).toBe(27);
+  it('restores the 32 author-concordance passes through the successor re-reviews', () => {
+    expect(count(datasetQuality, 'authorConcordance', 'pass')).toBe(32);
     // Without the successor ledger, the four re-reviewed comparisons would drop to review.
-    expect(count(sealedDatasetQuality, 'authorConcordance', 'pass')).toBe(23);
+    expect(count(sealedDatasetQuality, 'authorConcordance', 'pass')).toBe(28);
+    for (const id of DIRECT_PASSES) {
+      const record = requireAuthorValidation(id);
+      expect(datasetQuality(record).authorConcordance.status, id).toBe('pass');
+      expect(sealedDatasetQuality(record).authorConcordance.status, id).toBe('pass');
+    }
     const changed = AUTHOR_VALIDATION_REPORT.records
       .filter((record) => datasetQuality(record).authorConcordance.status !== sealedDatasetQuality(record).authorConcordance.status)
       .map((record) => record.datasetId).sort();
@@ -54,8 +63,8 @@ describe('current quality decisions after the R 4.6.0 regeneration', () => {
   it('matches the combined quality ledger built by scripts/build_quality_report_r460.mts', () => {
     const report = JSON.parse(readFileSync('data/quality/assessments.generated.json', 'utf8'));
     const passes = report.records.filter((row: { authorConcordance: { status: string } }) => row.authorConcordance.status === 'pass');
-    expect(passes).toHaveLength(27);
-    for (const id of RESTORED) {
+    expect(passes).toHaveLength(32);
+    for (const id of [...RESTORED, ...DIRECT_PASSES]) {
       expect(report.records.find((row: { datasetId: string }) => row.datasetId === id).authorConcordance)
         .toEqual(datasetQuality(requireAuthorValidation(id)).authorConcordance);
     }

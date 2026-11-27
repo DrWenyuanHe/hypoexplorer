@@ -27,11 +27,10 @@ const comparabilityLedger = readJson('data/author-validation/comparability-revie
 // Fields assessAuthorVerification copies from the verification-review ledger.
 const COPIED_FIELDS = ['resultAvailability', 'reason', 'nextStep', 'followUp'] as const;
 
-// The records committed on 2026-10-25 predate the Nov 15-24 ledger merges and
-// cannot be rebuilt in CI, so these checks are expected to fail until they are
-// regenerated. The commit that regenerates them must change `it.fails` to `it`:
-// a passing check fails while it is still marked.
-const freshness = it.fails;
+// The records were regenerated on 2026-11-27 from the retained audit cache, after
+// the Nov 15-24 ledger merges. CI cannot rebuild them, so these checks hold every
+// later ledger edit to a regeneration in the maintainer's checkout.
+const freshness = it;
 
 describe('author-validation records match their review ledgers', () => {
   freshness('carries every verification-review field into the generated record', () => {

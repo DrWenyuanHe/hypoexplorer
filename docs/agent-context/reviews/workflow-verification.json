@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "d3510f7bb63fa9b346ed67b73ec79966a79e461951edd3b5c8014d2141a8ba42",
-  "outcome": "no-impact",
-  "explanation": "Merges main: contrastLabel moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts. No verification workflow change. From main, explorerStore.ts changes only its header comment. From this branch, the data/hypomap inputs and the exporter test check an aggregated atlas export, not study verification or evidence ledgers.",
+  "fingerprint": "41164bbdd304cc1ef68ff8ab616e6f4faf4fccf964544825fd13b11fd27043c3",
+  "outcome": "updated",
+  "explanation": "The verification workflow's outputs are regenerated in the maintainer route with the retained audit cache: compare_author_results.mts, audit_author_validation.mts, build_author_validation.mts, audit_concordance_review_ledger.mts, build_internal_qc_r460.mts and build_quality_report_r460.mts, with check:author-validation passing. The README no longer describes the records as lagging the ledgers. No workflow step or command changes.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/data/explorerStore.ts",
-    "data/hypomap/README.md",
-    "src/data/contrasts.ts"
+    "data/author-validation/README.md",
+    "scripts/compare_author_results.mts",
+    "scripts/build_quality_report_r460.mts"
   ]
 }

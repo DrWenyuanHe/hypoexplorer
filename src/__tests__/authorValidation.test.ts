@@ -118,7 +118,8 @@ describe('author-validation sidecar', () => {
     expect(record.directComparison?.metrics.sharedGenes).toBe(33);
     expect(record.directComparison?.metrics.pearsonLogFC).toBeGreaterThan(0.98);
     expect(record.directComparison?.metrics.signConcordance).toBe(1);
-    expect(record.reviewFlags.join(' ')).toContain('retained-profile/cluster list');
+    // The 2026-11-21 closure pass states the cohort limitation as unidentified regional membership.
+    expect(record.reviewFlags.join(' ')).toContain('cannot identify final regional membership');
   });
 
   it('records the reconstructed GSE285906 author-method validation and publisher evidence', () => {

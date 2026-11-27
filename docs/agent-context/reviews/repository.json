@@ -1,19 +1,12 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "e8de97e8f10e461917f124f860932466d12fb9146c24cad20bbe96573d870b0b",
+  "fingerprint": "612a5a6fa31cae5ab673780ab3171d3bdb9714aac427c5c0136f3ffb4b3d3ca9",
   "outcome": "updated",
-  "explanation": "Merges main (#99) into the HypoMap atlas build. From main: CONTEXT.md's explorer entry says the changelog closes when a visit ends while the study-details disclosure outlives it, naming changelogVisit.test.tsx. From this branch: package.json adds build:hypomap and test:hypomap-build, .gitignore excludes data/hypomap/source/ and data/hypomap/build/, hypomap-release.json pins the reproducible hypomap-atlas-2026-11-26, the Application workflow runs the synthetic-H5AD exporter test, and PROJECT_GUIDANCE lists the HypoMap sources among files not in the repository. Review fixes: hypomap-release.json is re-pinned to the rebuilt archive (manifest b8bc4809..., archive e2e6aa47...), and test:hypomap-build now also checks the tracked study card against its pin, fixed gzip bytes and LF-only JSON.",
+  "explanation": ".gitattributes restores the maintainer checkout's exact-byte rule for geo_replication/datasets/GSE252779_mmus_hypo_celastrol/processed/GSE252779_preprocessing_qc.tsv. The public data release ships it with CRLF bytes and audit_fgsea_migration.mts refuses a checkout where Git would convert it; no tracked file changes line endings.",
   "references": [
-    "package.json",
-    ".gitignore",
-    "hypomap-release.json",
-    ".github/workflows/application.yml",
-    "docs/PROJECT_GUIDANCE.md",
-    "scripts/hypomap/test_export_atlas.py",
-    "pnpm-workspace.yaml",
-    "CONTEXT.md",
-    "src/explorer/useExplorer.ts",
-    "src/App.tsx"
+    ".gitattributes",
+    "scripts/audit_fgsea_migration.mts",
+    "data/author-validation/README.md"
   ]
 }
