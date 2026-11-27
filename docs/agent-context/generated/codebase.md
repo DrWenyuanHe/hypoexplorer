@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (274):
+Covered source files (275):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -252,6 +252,7 @@ Covered source files (274):
 - [src/__tests__/rawTrack.test.ts](<../../../src/__tests__/rawTrack.test.ts>)
 - [src/__tests__/referenceExpression.test.ts](<../../../src/__tests__/referenceExpression.test.ts>)
 - [src/__tests__/references.test.tsx](<../../../src/__tests__/references.test.tsx>)
+- [src/__tests__/regionalSummary.test.ts](<../../../src/__tests__/regionalSummary.test.ts>)
 - [src/__tests__/releaseIdentity.test.ts](<../../../src/__tests__/releaseIdentity.test.ts>)
 - [src/__tests__/replicationEvidence.test.ts](<../../../src/__tests__/replicationEvidence.test.ts>)
 - [src/__tests__/responsiveSidebar.test.tsx](<../../../src/__tests__/responsiveSidebar.test.tsx>)

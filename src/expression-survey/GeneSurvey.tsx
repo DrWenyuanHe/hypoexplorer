@@ -277,7 +277,7 @@ function ResultPanel({
           {panel.unavailable.map((result) => (
             <p key={`${result.sourceId}:${result.query}`}>
               <span className="ex-mono">{result.query}</span> ·{' '}
-              {populationLabel(result.sourceId)}: {missingLabel(result)}.
+              {populationLabel(result.sourceId)}: {missingLabel(result, sources.find((source) => source.id === result.sourceId))}.
             </p>
           ))}
         </details>

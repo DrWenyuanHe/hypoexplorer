@@ -88,11 +88,12 @@ geo_replication/datasets/GSE281503_mmus_hypo_lps/raw/GSE281503_Effects_of_darido
 data/author-validation/continued-sources/GSE190389_TMM_workbook.xlsx
 
 # External reference expression products: BUILD ARTIFACTS (~100 MB for GTEx),
-# regenerated from data/expression/{gtex,hpa,allen-human}/ by scripts/build_*_reference.mts.
+# regenerated from data/expression/{gtex,hpa,allen-human,visium}/ by scripts/build_*_reference.mts.
 # The builders verify the retained source hashes and replay every emitted value.
 public/expression/gtex/
 public/expression/hpa/
 public/expression/allen-human/
+public/expression/visium/
 
 # Wrangler local state (Cloudflare Workers deploys)
 .wrangler

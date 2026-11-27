@@ -605,6 +605,13 @@ export interface ExpressionCondition {
     timeOfDay?: string;
     genotype?: string;
     treatment?: string;
+    coverage?: {
+        donors: number;
+        sections: number;
+        spots: number;
+        sparse: boolean;
+    };
+    compartment?: string;
 }
 ```
 
@@ -656,6 +663,8 @@ export interface ExpressionSource {
     valueKind?: 'samples' | 'summary';
     summaryStatistic?: string;
     featureLevel?: 'gene' | 'probe';
+    groupKind?: 'region';
+    absentLabel?: string;
     provider?: ExpressionProvider;
 }
 ```

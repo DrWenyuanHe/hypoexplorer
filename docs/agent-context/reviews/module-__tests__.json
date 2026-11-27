@@ -1,14 +1,15 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "656b34e3edbc92d1774fa8d92d98f9ff28d995bb1818616a0f023e83370142a3",
+  "fingerprint": "8b1921cdb1eef06b807b94669fd835f65585730f386d135f11f65576efd567da",
   "outcome": "updated",
-  "explanation": "Merges main (#97, #98) into the changelog fix. From main: forestReport.test.tsx imports contrastLabel from data/contrasts, where it now lives; the gene and pathway report tests and the listing toggle test open the (?) help beside the listing toggle to find the FDR, q and p < 0.05 only explanation, and row q cells keep their hover title. From this branch: changelogVisit.test.tsx opens the changelog in the explorer, goes Home and enters through the hub's Quality control link, and requires the QC tab with no release notes; a second case follows a refused saved-analysis link and then a valid QC link; a third pins the hub's Changelog link still opening it. The first two failed before their fixes.",
+  "explanation": "New and extended tests for the Visium provider: externalReference.test.ts checks the manifest (regions as groups, 121 donor-region samples, display-local donors, allow-listed metadata, sparse POA/ME/MAM, compartments, CC BY attribution), Pomc to POMC, measured zeros, IGF2 not measured, the derived-CPM validation report and the CSV source_credit column. regionalSummary.test.ts covers one donor in two regions. portalCards, deployGuards, sourceJson and expressionSurvey tests cover the tile, the built-vs-fetched atlas split, the transport allow-list and the new CSV column.",
   "references": [
-    "src/__tests__/changelogVisit.test.tsx",
-    "src/__tests__/forestReport.test.tsx",
-    "src/__tests__/geneReport.test.tsx",
-    "src/__tests__/pathwayReportResults.test.tsx",
-    "src/__tests__/listingModeToggle.test.tsx"
+    "src/__tests__/externalReference.test.ts",
+    "src/__tests__/regionalSummary.test.ts",
+    "src/__tests__/portalCards.test.tsx",
+    "src/__tests__/deployGuards.test.ts",
+    "src/__tests__/sourceJson.test.ts",
+    "src/__tests__/expressionSurvey.test.ts"
   ]
 }

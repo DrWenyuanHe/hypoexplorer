@@ -1,23 +1,33 @@
 // On-disk format shared by the external reference builders (scripts/) and the
 // browser reader. DOM-free: the Node builders import it.
 //
-// One provider (GTEx, HPA, Allen) writes one directory: a manifest, key-sharded lookup
-// files, feature-sharded value files and a validation report. A query reads the
-// manifest once, then one lookup shard and one value shard per gene, so no
-// client ever downloads a whole gene index.
+// One provider (GTEx, HPA, Allen, HYPOMAP Visium) writes one directory: a manifest,
+// key-sharded lookup files, feature-sharded value files and a validation report. A
+// query reads the manifest once, then one lookup shard and one value shard per gene,
+// so no client ever downloads a whole gene index.
 import { fnv1a } from '../data/queryWire';
 import type { ExpressionSource } from './expressionTypes';
 
 export const EXTERNAL_REFERENCE_SCHEMA_VERSION = 1;
 export const EXTERNAL_LOOKUP_SHARDS = 1024;
 
-export type ExternalProvider = 'gtex' | 'hpa' | 'allen';
-export const EXTERNAL_PROVIDERS: readonly ExternalProvider[] = ['gtex', 'hpa', 'allen'];
+export type ExternalProvider = 'gtex' | 'hpa' | 'allen' | 'visium';
+export const EXTERNAL_PROVIDERS: readonly ExternalProvider[] = ['gtex', 'hpa', 'allen', 'visium'];
 export const EXTERNAL_REFERENCE_ROOTS: Record<ExternalProvider, string> = {
   gtex: '/expression/gtex',
   hpa: '/expression/hpa',
   allen: '/expression/allen-human',
+  visium: '/expression/visium',
 };
+/**
+ * Providers whose retained source extract is tracked in this repository, so a
+ * checkout builds their products (`scripts/build_<provider>_reference.mts`)
+ * instead of fetching them from the app host. The others' sources are held by
+ * the maintainer and their products are fetched.
+ *
+ * @public Used by the deploy inputs in scripts/lib/deployInputs.mts.
+ */
+export const TRACKED_SOURCE_PROVIDERS: readonly ExternalProvider[] = ['visium'];
 
 /** One stored value slot: a sample, or a summary column when `sample` is null. */
 export interface ExternalColumn {
@@ -82,9 +92,11 @@ export interface ExternalValidationCheckpoint {
   feature: string;
   symbol: string;
   column: string;
-  /** The value's text in the retained source file. */
+  /** The value's text in the retained source file (for a derived value, its stored text). */
   sourceText: string;
   value: number;
+  /** For a value derived from retained counts (Visium CPM): the count and the library size it divides. */
+  derivedFrom?: { count: number; library: number };
 }
 
 export interface ExternalValidation {
