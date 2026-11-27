@@ -3,14 +3,16 @@ import { readFileSync } from 'node:fs';
 import { relative, resolve } from 'node:path';
 import type { CurrentIntakePathwayRecord } from './authorPathwayValidation.mjs';
 import { FGSEA_DATABASES, readVerifiedFgseaSet } from './fgseaProvenance.mjs';
-import { readAdditiveIntake } from './historicalEvidence.mjs';
+import { ADDITIVE_INTAKE, readAdditiveIntake } from './historicalEvidence.mjs';
 import { createOxtAvpIntakeReader, OXT_AVP_AUDIT, OXT_AVP_INTAKE } from './oxtAvpIntakeEvidence.mjs';
 
 type Registry = readonly { id: string; geo?: string; contrasts: readonly { id: string }[] }[];
 
 /** New outputs get current provenance, never synthetic migration differences. */
 export function readCurrentIntakePathwayRecords(root: string, registry: Registry): CurrentIntakePathwayRecord[] {
-  const declared = readAdditiveIntake(root).datasetIds;
+  // Only the OXT/AVP intake has a source-bound audit reader here. Other additive
+  // intakes (CircaDB) are excluded until their own pathway evidence is joined.
+  const declared = readAdditiveIntake(root).byManifest.get(ADDITIVE_INTAKE) ?? new Set<string>();
   const registered = registry.filter(dataset => declared.has(dataset.id));
   if (!registered.length) return [];
   const read = (path: string) => readFileSync(resolve(root, path));

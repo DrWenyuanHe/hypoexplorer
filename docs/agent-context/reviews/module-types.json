@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-types",
-  "fingerprint": "4028f31c65ed00409ad9e5c7e06746ad07b9e8e54ded26440da05b165b8bc958",
+  "fingerprint": "d3cbc3c563f1958857b632a4253005c74e143484aadb6749aa4a9c488f1ca8e2",
   "outcome": "updated",
-  "explanation": "TrackRow and PathwayTrackRow gain tier: SignificanceTier, documented as set by the row builders, with significant kept as the FDR call. The orphaned GroupSummary interface is removed with its producer, and its contract description leaves the catalog.",
+  "explanation": "TimeSeriesDescriptor gains the optional phaseGroups flag, documented in the dataset contract: registry groups are phase bins of one course and the time-series sibling carries a single course arm. No registered dataset sets it.",
   "references": [
     "src/types/index.ts",
-    "docs/agent-context/catalog.json",
+    "docs/DATASET_CONTRACT.md",
     "docs/agent-context/generated/contracts.md"
   ]
 }

@@ -1,11 +1,10 @@
 {
   "version": 1,
   "area": "module-data",
-  "fingerprint": "697f0088870cf2d2356c4120c90ad6f5949a94e1c560437c224fdddeaa94d38e",
-  "outcome": "updated",
-  "explanation": "siteInfo.ts drops BETA_NOTICE and adds SOURCE_REPO_URL and DATA_REPO_URL, the GitHub repositories for the application source and the processed data release.",
+  "fingerprint": "fba5abffe796a2f6a6686732a27c779cdcf95eca099d36e56cb6081e307be0e0",
+  "outcome": "no-impact",
+  "explanation": "AuthorValidationRecord.database also accepts CircaDB as a source database type. No registry entry, ledger record or displayed value changes, and no committed record uses the new value yet.",
   "references": [
-    "src/data/siteInfo.ts",
-    "data-release.json"
+    "src/data/authorValidation.ts"
   ]
 }

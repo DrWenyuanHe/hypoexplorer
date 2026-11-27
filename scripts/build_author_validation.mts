@@ -84,7 +84,7 @@ interface InventoryDataset {
   datasetId: string;
   accession: string;
   processedDataAccession: string;
-  database: 'GEO' | 'BioStudies' | 'CNGB';
+  database: 'GEO' | 'BioStudies' | 'CNGB' | 'CircaDB';
   databaseRecordUrl: string;
   processedInventoryUrl: string;
   processedInventoryAccess: 'listed' | 'empty' | 'unavailable' | 'excluded';

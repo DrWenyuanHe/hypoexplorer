@@ -51,6 +51,10 @@ const oxtAvpStudiesPath = resolve(ROOT, 'data/intake/oxt-avp-2026-10-19/studies.
 const oxtAvpAnalysesPath = resolve(ROOT, 'data/intake/oxt-avp-2026-10-19/analyses.json');
 const OXT_AVP_STUDIES = existsSync(oxtAvpStudiesPath) ? JSON.parse(readFileSync(oxtAvpStudiesPath, 'utf8')) : [];
 const OXT_AVP_ANALYSES = existsSync(oxtAvpAnalysesPath) ? JSON.parse(readFileSync(oxtAvpAnalysesPath, 'utf8')) : [];
+const circadbStudiesPath = resolve(ROOT, 'data/intake/circadb-2026-11-20/studies.json');
+const circadbAnalysesPath = resolve(ROOT, 'data/intake/circadb-2026-11-20/analyses.json');
+const CIRCADB_STUDIES = existsSync(circadbStudiesPath) ? JSON.parse(readFileSync(circadbStudiesPath, 'utf8')) : [];
+const CIRCADB_ANALYSES = existsSync(circadbAnalysesPath) ? JSON.parse(readFileSync(circadbAnalysesPath, 'utf8')) : [];
 
 interface ConfigRow {
   id: string;
@@ -153,6 +157,10 @@ function normalizedAccession(value: string): string {
 }
 
 function findDatasetDir(dataset: Dataset): string | null {
+  // Intake manifests name their source directory exactly; accession matching
+  // cannot (a SubSeries stored under its SuperSeries name, or a non-GEO source).
+  const declared = [...OXT_AVP_STUDIES, ...CIRCADB_STUDIES].find((study: any) => study.id === dataset.id)?.dir;
+  if (declared) return datasetDirs.find((path) => path.replaceAll('\\', '/').endsWith(declared)) ?? null;
   const accession = dataset.geo ?? '';
   const normalized = normalizedAccession(accession);
   let matches = datasetDirs.filter((path) => {
@@ -167,7 +175,7 @@ function findDatasetDir(dataset: Dataset): string | null {
 }
 
 function configIdFor(dataset: Dataset): string {
-  const hfd = [...HFD_ANALYSES, ...OXT_AVP_ANALYSES].filter((row: any) => row.studyId === dataset.id && row.track === dataset.defaultTrack);
+  const hfd = [...HFD_ANALYSES, ...OXT_AVP_ANALYSES, ...CIRCADB_ANALYSES].filter((row: any) => row.studyId === dataset.id && row.track === dataset.defaultTrack);
   if (hfd.length) return hfd.find((row: any) => row.contrast === (dataset.contrasts.find(co => co.isDefault) ?? dataset.contrasts[0]).id)!.analysisId;
   if (dataset.id === 'mouse_pomc_fedfast_gse68177') return 'GSE68177_POMC';
   if (dataset.id === 'mouse_hypo_aging_gse314817') return 'GSE314817_6v27mo';
@@ -405,8 +413,8 @@ function auditDataset(dataset: Dataset): DatasetAudit {
   const defaultContrast = dataset.contrasts.find((contrast) => contrast.isDefault)
     ?? dataset.contrasts[0];
   let explicitMapping = EXPLICIT_CONTRAST_DE_TABLES[dataset.id];
-  if ([...SEPTEMBER5_STUDIES, ...HFD_STUDIES, ...OXT_AVP_STUDIES].some((study) => study.id === dataset.id)) {
-    const intake = [...SEPTEMBER5_ANALYSES, ...HFD_ANALYSES, ...OXT_AVP_ANALYSES].filter((analysis) => analysis.studyId === dataset.id);
+  if ([...SEPTEMBER5_STUDIES, ...HFD_STUDIES, ...OXT_AVP_STUDIES, ...CIRCADB_STUDIES].some((study) => study.id === dataset.id)) {
+    const intake = [...SEPTEMBER5_ANALYSES, ...HFD_ANALYSES, ...OXT_AVP_ANALYSES, ...CIRCADB_ANALYSES].filter((analysis) => analysis.studyId === dataset.id);
     const claimed = new Set(intake.map((analysis) => `${analysis.analysisId}_DE.tsv`));
     const unclaimed = candidates.filter((table) => !claimed.has(basename(table.path)));
     if (unclaimed.length) throw new Error(`${dataset.id}: unclaimed intake DE tables: ${unclaimed.map((table) => table.path).join(', ')}`);

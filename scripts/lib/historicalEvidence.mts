@@ -13,12 +13,22 @@ const JOBS_MANIFEST = 'data/internal-qc/intake-numeric-2026-09-11/jobs.json';
 const SEALED_JOBS_ROOT = 'D:\\Monkey Brain\\MONKEYBRAIN';
 const JOB_PATH_FIELDS = ['source', 'sourceSheet', 'geneMap', 'input', 'expression', 'sheet', 'normalization', 'de', 'se'];
 export const ADDITIVE_INTAKE = 'data/intake/oxt-avp-2026-10-19/studies.json';
-// A manifest can authorize only these new source identities, never an old
-// dataset or an unrelated accession declared under a new identifier.
-const ADDITIVE_IDENTITIES: Record<string, [string, string]> = {
-  GSE30733: ['rat_son_lactation_gse30733', 'geo_replication/datasets/GSE30733_rnor_son_lactation'],
-  GSE65663: ['rat_son_salt_gse65663', 'geo_replication/datasets/GSE65663_rnor_son_salt'],
-};
+export const CIRCADB_INTAKE = 'data/intake/circadb-2026-11-20/studies.json';
+// Each additive intake manifest can authorize only its own new source
+// identities and organism, never an old dataset or an unrelated accession
+// declared under a new identifier.
+const ADDITIVE_INTAKES: ReadonlyArray<{ manifest: string; organism: string; identities: Record<string, [string, string]> }> = [
+  { manifest: ADDITIVE_INTAKE, organism: 'Rattus norvegicus', identities: {
+    GSE30733: ['rat_son_lactation_gse30733', 'geo_replication/datasets/GSE30733_rnor_son_lactation'],
+    GSE65663: ['rat_son_salt_gse65663', 'geo_replication/datasets/GSE65663_rnor_son_salt'],
+  } },
+  { manifest: CIRCADB_INTAKE, organism: 'Mus musculus', identities: {
+    GSE54650: ['mouse_hypo_circadian_gse54650', 'geo_replication/datasets/GSE54652_mmus_hypo_circadian'],
+    GSE70384: ['mouse_scn_circadian_gse70384', 'geo_replication/datasets/GSE70384_mmus_scn_circadian'],
+    PANDA2002: ['mouse_scn_circadian_panda2002', 'geo_replication/datasets/PANDA2002_mmus_scn_circadian'],
+    GNF1M: ['mouse_scn_circadian_gnf1m', 'geo_replication/datasets/GNF1M_mmus_scn_circadian'],
+  } },
+];
 const ADDITIVE_CONTAINERS: Record<string, string> = {
   'data/internal-qc/assessments.generated.json': 'records',
   'data/quality/assessments.generated.json': 'records',
@@ -33,22 +43,39 @@ function intakeChild(path: unknown, directory: string): asserts path is string {
     && path.split('/').every(part => part !== '' && part !== '.' && part !== '..'), `Intake path outside its source dataset: ${path}`);
 }
 
-/** Bounded OXT/AVP source identities and the analysis IDs declared by their intake. */
-export function readAdditiveIntake(root: string, read: (path: string) => Buffer = readFileSync): { datasetIds: Set<string>; configIds: Map<string, string> } {
-  const target = resolve(root, ADDITIVE_INTAKE);
-  if (!existsSync(target)) return { datasetIds: new Set(), configIds: new Map() };
-  const studies = JSON.parse(read(target).toString('utf8'));
+/** Additive intake declarations: every intake's dataset IDs (the union and per
+ *  manifest), and the analysis IDs each declares with its source directory and organism. */
+export interface AdditiveIntake {
+  datasetIds: Set<string>;
+  byManifest: Map<string, Set<string>>;
+  configIds: Map<string, string>;
+  configOrganisms: Map<string, string>;
+}
+export function readAdditiveIntake(root: string, read: (path: string) => Buffer = readFileSync): AdditiveIntake {
+  const result: AdditiveIntake = { datasetIds: new Set(), byManifest: new Map(), configIds: new Map(), configOrganisms: new Map() };
+  for (const intake of ADDITIVE_INTAKES) {
+    const target = resolve(root, intake.manifest);
+    const own = new Set<string>();
+    result.byManifest.set(intake.manifest, own);
+    if (!existsSync(target)) continue;
+    readOneAdditiveIntake(JSON.parse(read(target).toString('utf8')), intake, result, own);
+  }
+  return result;
+}
+function readOneAdditiveIntake(studies: any, intake: (typeof ADDITIVE_INTAKES)[number], result: AdditiveIntake, own: Set<string>): void {
+  const { datasetIds, configIds, configOrganisms } = result;
+  const ADDITIVE_IDENTITIES = intake.identities;
   assert.ok(Array.isArray(studies) && studies.length > 0 && studies.length <= Object.keys(ADDITIVE_IDENTITIES).length, 'Invalid additive intake studies');
-  const datasetIds = new Set<string>(), configIds = new Map<string, string>();
   for (const study of studies) {
     assert.ok(study && typeof study === 'object' && !Array.isArray(study), 'Invalid additive intake study');
     // biome-ignore lint/suspicious/noPrototypeBuiltins: Object.hasOwn requires ES2022; the app's tests target ES2020.
     const binding = Object.prototype.hasOwnProperty.call(ADDITIVE_IDENTITIES, study.accession) ? ADDITIVE_IDENTITIES[study.accession] : undefined;
     assert.ok(binding, `Unreviewed additive intake accession: ${study.accession}`);
     const [identity, directory] = binding;
-    assert.ok(study.id === identity && study.dir === directory && study.organism === 'Rattus norvegicus', `Additive intake source identity changed: ${study.accession}`);
+    assert.ok(study.id === identity && study.dir === directory && study.organism === intake.organism, `Additive intake source identity changed: ${study.accession}`);
     assert.ok(!datasetIds.has(identity), `Duplicate additive intake dataset: ${identity}`);
     datasetIds.add(identity);
+    own.add(identity);
     assert.ok(Array.isArray(study.tracks) && study.tracks.length > 0 && Array.isArray(study.contrasts) && study.contrasts.length > 0, 'Incomplete additive intake bindings');
     const contrastIds = study.contrasts.map((contrast: any) => contrast?.id);
     assert.ok(contrastIds.every((name: unknown) => typeof name === 'string' && /^[A-Za-z0-9_]+$/.test(name))
@@ -65,10 +92,10 @@ export function readAdditiveIntake(root: string, read: (path: string) => Buffer 
         const id = index === 0 ? analysis : `${analysis}_${contrast}`;
         assert.ok(!configIds.has(id), `Duplicate additive intake analysis: ${id}`);
         configIds.set(id, directory.replace(/^geo_replication\//, ''));
+        configOrganisms.set(id, intake.organism);
       });
     }
   }
-  return { datasetIds, configIds };
 }
 /** Pins whose current bytes are verified through readSealedHistoricalInput. */
 export const HISTORICAL_PINS = new Set(['geo_replication/config/datasets.tsv', JOBS_MANIFEST]);
@@ -146,7 +173,7 @@ function readArchivedInput(root: string, path: string, expectedSha256: string, c
       const cells = after.rows.get(id)!.split('\t');
       const row = Object.fromEntries(after.header.split('\t').map((key, index) => [key, cells[index]]));
       const directory = additive.configIds.get(id)!;
-      assert.ok(row.dir === directory && row.organism === 'Rattus norvegicus' && row.input_kind === 'matrix', `Added configuration source binding changed: ${id}`);
+      assert.ok(row.dir === directory && row.organism === additive.configOrganisms.get(id) && row.input_kind === 'matrix', `Added configuration source binding changed: ${id}`);
       for (const field of ['input_path', 'samplesheet']) intakeChild(row[field], directory);
     }
     return original;
@@ -403,7 +430,7 @@ export function checkLedgerTransition(path: string, before: any, after: any, dat
   const isObject = (value: unknown) => Boolean(value) && typeof value === 'object' && !Array.isArray(value);
   assert.ok(isObject(before) && isObject(after), `Ledger is not a JSON object: ${path}`);
   assert.ok(isDeepStrictEqual(Object.keys(after).sort(), Object.keys(before).sort()), `Regenerated ledger schema changed: ${path}`);
-  const boundedIds = new Set(Object.values(ADDITIVE_IDENTITIES).map(([id]) => id));
+  const boundedIds = new Set(ADDITIVE_INTAKES.flatMap(intake => Object.values(intake.identities).map(([id]) => id)));
   assert.ok([...additiveIds].every(id => boundedIds.has(id)), 'Unreviewed additive ledger identities');
   const container = ADDITIVE_CONTAINERS[path];
   let addedCount = 0;

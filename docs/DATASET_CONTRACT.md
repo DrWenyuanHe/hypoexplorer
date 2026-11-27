@@ -226,6 +226,21 @@ is how a format change breaks three of them silently.
 across EVERY block, so autocomplete reaches a pathway that appears only in a
 non-default contrast.
 
+## Time-series sibling (`<id>/timeseries_<trackId>.js`)
+
+A dataset with a sampled time course declares `timeSeries: { tracks, cycleHours,
+timeUnit, design }` and ships `HX_<NAMESPACE>_TS_<TRACKID> = { meta, values }`
+(`TimeSeriesBundle` in `src/types`), read only by the Circadian tab. By default
+its `meta.arms` are exactly the registry `groups`, so each arm is an experimental
+condition sampled across the cycle (chow and HFD, control and knockout).
+
+`timeSeries.phaseGroups: true` declares the other case: the registry groups are
+phase bins of ONE wild-type course (subjective day and night), so the contrast
+compares parts of a cycle rather than conditions. The sibling then carries a
+single arm keyed `course` holding every sample in time order, and
+`writeTimeSeriesBundle` rejects any other arm. Testing a day-only or night-only
+"arm" would fit a rhythm to half a cycle. No registered dataset uses it yet.
+
 ## Data-layer API
 
 `src/data/datasets.ts`

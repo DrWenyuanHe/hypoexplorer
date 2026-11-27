@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "9e57509822cc2ee3a037e2b4240745b2b277a69db919aaae7f6f63d85a70ce6a",
+  "fingerprint": "14f0bf38bf19d4031d257ad70abe9854cf80fb43b218278eb9d759bfbd09a595",
   "outcome": "no-impact",
-  "explanation": "Only page shells and release-status prose changed (no beta wording, GitHub links); evidence status, author validation and verification guidance are untouched.",
+  "explanation": "The historical-evidence readers and the author audit resolve a second additive intake only when its manifest exists, and bind it to its own organism and source directories. No ledger, pin or evidence status changes.",
   "references": [
-    "scripts/lib/seoPages.mts",
-    "docs/agent-context/workflows.md"
+    "scripts/lib/historicalEvidence.mts",
+    "scripts/audit_author_validation.mts",
+    "scripts/lib/currentIntakePathwayEvidence.mts"
   ]
 }

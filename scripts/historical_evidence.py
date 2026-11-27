@@ -17,12 +17,23 @@ JOBS_MANIFEST = 'data/internal-qc/intake-numeric-2026-09-11/jobs.json'
 SEALED_JOBS_ROOT = PureWindowsPath('D:/Monkey Brain/MONKEYBRAIN')
 JOB_PATH_FIELDS = ('source', 'sourceSheet', 'geneMap', 'input', 'expression', 'sheet', 'normalization', 'de', 'se')
 ADDITIVE_INTAKE = 'data/intake/oxt-avp-2026-10-19/studies.json'
-# The new intake is additive only. Its manifest cannot redefine an old dataset
+CIRCADB_INTAKE = 'data/intake/circadb-2026-11-20/studies.json'
+# The new intakes are additive only. A manifest cannot redefine an old dataset
 # or authorize an unrelated accession merely by declaring another identifier.
 ADDITIVE_IDENTITIES = {
     'GSE30733': ('rat_son_lactation_gse30733', 'geo_replication/datasets/GSE30733_rnor_son_lactation'),
     'GSE65663': ('rat_son_salt_gse65663', 'geo_replication/datasets/GSE65663_rnor_son_salt'),
 }
+CIRCADB_IDENTITIES = {
+    'GSE54650': ('mouse_hypo_circadian_gse54650', 'geo_replication/datasets/GSE54652_mmus_hypo_circadian'),
+    'GSE70384': ('mouse_scn_circadian_gse70384', 'geo_replication/datasets/GSE70384_mmus_scn_circadian'),
+    'PANDA2002': ('mouse_scn_circadian_panda2002', 'geo_replication/datasets/PANDA2002_mmus_scn_circadian'),
+    'GNF1M': ('mouse_scn_circadian_gnf1m', 'geo_replication/datasets/GNF1M_mmus_scn_circadian'),
+}
+ADDITIVE_INTAKES = (
+    (ADDITIVE_INTAKE, 'Rattus norvegicus', ADDITIVE_IDENTITIES),
+    (CIRCADB_INTAKE, 'Mus musculus', CIRCADB_IDENTITIES),
+)
 ADDITIVE_CONTAINERS = {
     'data/internal-qc/assessments.generated.json': 'records',
     'data/quality/assessments.generated.json': 'records',
@@ -40,25 +51,29 @@ def _intake_child(path, directory):
 
 
 def read_additive_intake(root: Path) -> tuple[set, dict]:
-    """Return only the two source-bound OXT/AVP identities and their declared analysis IDs.
+    """Return the source-bound additive intake identities and their declared analysis IDs.
 
     Analysis IDs follow the intake producers: the track's analysisId for the
     first contrast, then <analysisId>_<contrast.id>. No scientific pass is
     inferred; these declarations authorize additions, never changes to history.
     """
-    target = Path(root) / ADDITIVE_INTAKE
-    if not target.is_file():
-        return set(), {}
-    studies = json.loads(target.read_bytes())
-    assert isinstance(studies, list) and 0 < len(studies) <= len(ADDITIVE_IDENTITIES), 'Invalid additive intake studies'
     dataset_ids, configs = set(), {}
+    for manifest, organism, identities in ADDITIVE_INTAKES:
+        target = Path(root) / manifest
+        if target.is_file():
+            _read_one_additive_intake(json.loads(target.read_bytes()), organism, identities, dataset_ids, configs)
+    return dataset_ids, configs
+
+
+def _read_one_additive_intake(studies, organism, identities, dataset_ids, configs):
+    assert isinstance(studies, list) and 0 < len(studies) <= len(identities), 'Invalid additive intake studies'
     for study in studies:
         assert isinstance(study, dict), 'Invalid additive intake study'
         accession = study.get('accession')
-        assert isinstance(accession, str) and accession in ADDITIVE_IDENTITIES, f'Unreviewed additive intake accession: {accession}'
-        identity, directory = ADDITIVE_IDENTITIES[accession]
+        assert isinstance(accession, str) and accession in identities, f'Unreviewed additive intake accession: {accession}'
+        identity, directory = identities[accession]
         assert study.get('id') == identity and study.get('dir') == directory \
-            and study.get('organism') == 'Rattus norvegicus', f'Additive intake source identity changed: {accession}'
+            and study.get('organism') == organism, f'Additive intake source identity changed: {accession}'
         assert identity not in dataset_ids, f'Duplicate additive intake dataset: {identity}'
         dataset_ids.add(identity)
         tracks, contrasts = study.get('tracks'), study.get('contrasts')
@@ -81,7 +96,14 @@ def read_additive_intake(root: Path) -> tuple[set, dict]:
                 config_id = analysis if index == 0 else f'{analysis}_{contrast}'
                 assert config_id not in configs, f'Duplicate additive intake analysis: {config_id}'
                 configs[config_id] = directory.removeprefix('geo_replication/')
-    return dataset_ids, configs
+
+
+def _additive_organism(directory):
+    """The declared organism of the additive intake that owns a source directory."""
+    for _, organism, identities in ADDITIVE_INTAKES:
+        if any(bound.removeprefix('geo_replication/') == directory for _, bound in identities.values()):
+            return organism
+    raise AssertionError(f'Unreviewed additive source directory: {directory}')
 
 
 def relocate_jobs_manifest(body: bytes, source: PurePath, target: PurePath) -> bytes:
@@ -144,7 +166,7 @@ def _read_archived_input(root: Path, path: str, expected_sha: str, current: byte
         for identity in (new_rows.keys() - old_rows.keys()) & additive_configs.keys():
             row = dict(zip(new_header.split('\t'), new_rows[identity].split('\t')))
             directory = additive_configs[identity]
-            assert row.get('dir') == directory and row.get('organism') == 'Rattus norvegicus' \
+            assert row.get('dir') == directory and row.get('organism') == _additive_organism(directory) \
                 and row.get('input_kind') == 'matrix', f'Added configuration source binding changed: {identity}'
             for field in ('input_path', 'samplesheet'):
                 _intake_child(row.get(field), directory)
@@ -285,7 +307,7 @@ def check_ledger_transition(path: str, before, after, dataset_ids: set, paths: s
     assert isinstance(before, dict) and isinstance(after, dict), f'Ledger is not a JSON object: {path}'
     assert before.keys() == after.keys(), f'Regenerated ledger schema changed: {path}'
     additive_ids = set() if additive_ids is None else additive_ids
-    assert additive_ids <= {identity for identity, _ in ADDITIVE_IDENTITIES.values()}, 'Unreviewed additive ledger identities'
+    assert additive_ids <= {identity for _, _, identities in ADDITIVE_INTAKES for identity, _ in identities.values()}, 'Unreviewed additive ledger identities'
     container = ADDITIVE_CONTAINERS.get(path)
     added_count = 0
     if additive_ids and container and isinstance(before.get(container), list) and isinstance(after.get(container), list):

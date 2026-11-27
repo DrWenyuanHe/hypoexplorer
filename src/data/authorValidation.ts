@@ -183,7 +183,7 @@ export interface AuthorValidationRecord {
   summary: string;
   note: string;
   reviewFlags: string[];
-  database: 'GEO' | 'BioStudies' | 'CNGB';
+  database: 'GEO' | 'BioStudies' | 'CNGB' | 'CircaDB';
   databaseRecordUrl: string;
   processedDataAccession: string;
   processedInventoryUrl: string;

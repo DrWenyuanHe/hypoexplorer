@@ -454,6 +454,26 @@ describe('bundleWriter writer-reader contract', () => {
       .toThrow(/arm keys/);
   });
 
+  it('requires one whole-course arm when the registry groups are phase bins', () => {
+    const base = seriesDataset();
+    const phased = { ...base, timeSeries: { ...base.timeSeries!, phaseGroups: true } };
+    const course = seriesBundle();
+    course.meta.arms = [{ key: 'course', label: 'Wild type', color: '#3775BA' }];
+    course.meta.samples = [{ id: 'C1', arm: 'course', time: 0, replicate: 1 }];
+    expect(() => writeTimeSeriesBundle(phased, 'whole', course, { outRoot: tempRoot(), dry: true })).not.toThrow();
+
+    // Phase-group arms would let a rhythm test see only half of the cycle.
+    expect(() => writeTimeSeriesBundle(phased, 'whole', seriesBundle(), { outRoot: tempRoot(), dry: true }))
+      .toThrow(/exactly one "course" arm/);
+    const stray = seriesBundle();
+    stray.meta.arms = course.meta.arms;
+    expect(() => writeTimeSeriesBundle(phased, 'whole', stray, { outRoot: tempRoot(), dry: true }))
+      .toThrow(/exactly one "course" arm/);
+    // Without the flag, a course arm still has to match the registry groups.
+    expect(() => writeTimeSeriesBundle(base, 'whole', course, { outRoot: tempRoot(), dry: true }))
+      .toThrow(/arm keys/);
+  });
+
   it('rejects a time-series locator that aliases another bundle', () => {
     const ds = {
       ...seriesDataset(),

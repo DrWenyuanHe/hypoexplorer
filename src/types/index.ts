@@ -496,6 +496,14 @@ export interface TimeSeriesDescriptor {
   timeUnit: 'ZT' | 'CT' | 'h';
   /** One line on how the series was sampled — shown above the rhythm figure. */
   design: string;
+  /**
+   * True when the registry groups are phase bins of ONE uninterrupted course
+   * (e.g. subjective day vs night of a wild-type time series) rather than
+   * experimental arms. The time-series bundle then carries a single arm keyed
+   * 'course', so rhythm tests always see the whole cycle: testing a day-only or
+   * night-only "arm" would fit a rhythm to half a cycle.
+   */
+  phaseGroups?: boolean;
 }
 
 /** Expression sources retain study, material and condition identity; they are never pooled across studies. */

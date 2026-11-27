@@ -10,7 +10,15 @@ vi.mock('node:fs', () => ({
   readFileSync: (path: string) => Buffer.from(JSON.stringify(String(path).endsWith('studies.json') ? [fixture.study] : fixture.analyses)),
 }));
 vi.mock('../../scripts/lib/historicalEvidence.mjs', () => ({
-  readAdditiveIntake: () => ({ datasetIds: new Set(['rat_son_salt_gse65663']) }),
+  ADDITIVE_INTAKE: 'data/intake/oxt-avp-2026-10-19/studies.json',
+  // A second additive intake's datasets must not reach the OXT/AVP evidence reader.
+  readAdditiveIntake: () => ({
+    datasetIds: new Set(['rat_son_salt_gse65663', 'mouse_scn_circadian_gse70384']),
+    byManifest: new Map([
+      ['data/intake/oxt-avp-2026-10-19/studies.json', new Set(['rat_son_salt_gse65663'])],
+      ['data/intake/circadb-2026-11-20/studies.json', new Set(['mouse_scn_circadian_gse70384'])],
+    ]),
+  }),
 }));
 vi.mock('../../scripts/lib/oxtAvpIntakeEvidence.mjs', () => ({
   OXT_AVP_INTAKE: 'data/intake/oxt-avp-2026-10-19',

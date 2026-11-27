@@ -584,6 +584,7 @@ export interface TimeSeriesDescriptor {
     cycleHours: number;
     timeUnit: 'ZT' | 'CT' | 'h';
     design: string;
+    phaseGroups?: boolean;
 }
 ```
 

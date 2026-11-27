@@ -35,6 +35,9 @@ import type {
 } from '../../src/types';
 import { slimPathwayBlock, slimTrackObject } from './bundleSlim.mjs';
 
+/** The only arm key of a `phaseGroups` time series (see TimeSeriesDescriptor). */
+export const TIME_COURSE_ARM = 'course';
+
 /** Builder-side DE rows before bundleSlim removes null logCPM and private ids. */
 export type PreSlimGeneDERecord = Omit<GeneDERecord, 'logCPM'> & {
   logCPM?: number | null;
@@ -564,7 +567,12 @@ export function writeTimeSeriesBundle(
   }
   const armKeys = bundle.meta.arms.map((arm) => arm.key);
   const registryKeys = dataset.groups.map((group) => group.key);
-  if (new Set(armKeys).size !== armKeys.length || !sameOrdered(armKeys, registryKeys)) {
+  if (descriptor.phaseGroups) {
+    // Registry groups are phase bins of one course; the series is that course.
+    if (!sameOrdered(armKeys, [TIME_COURSE_ARM]) || bundle.meta.samples.some((s) => s.arm !== TIME_COURSE_ARM)) {
+      throw new Error(`${dataset.id}: a phaseGroups time series must carry exactly one "${TIME_COURSE_ARM}" arm`);
+    }
+  } else if (new Set(armKeys).size !== armKeys.length || !sameOrdered(armKeys, registryKeys)) {
     throw new Error(`${dataset.id}: time-series arm keys do not exactly match registry group keys`);
   }
   const locatedDataset = sameOriginDataset(dataset);

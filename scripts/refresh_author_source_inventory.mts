@@ -8,7 +8,7 @@
  * Network refresh:
  *   npx tsx scripts/refresh_author_source_inventory.mts
  * Incremental refresh (preserves other records and report metadata):
- *   npx tsx scripts/refresh_author_source_inventory.mts --dataset=<registry-id>
+ *   npx tsx scripts/refresh_author_source_inventory.mts --dataset=<registry-id> [--dataset=<registry-id> ...]
  * Offline closure check:
  *   npx tsx scripts/refresh_author_source_inventory.mts --check
  */
@@ -24,14 +24,19 @@ const CHECK = process.argv.includes('--check');
 const EXCLUDED_DATASET = 'macaque_snrna';
 const args = process.argv.slice(2);
 const datasetArgs = args.filter((arg) => arg.startsWith('--dataset='));
-if (datasetArgs.length > 1 || args.some((arg) => arg !== '--check' && !arg.startsWith('--dataset='))) {
+if (args.some((arg) => arg !== '--check' && !arg.startsWith('--dataset='))) {
   throw new Error('Usage: refresh_author_source_inventory.mts [--check] [--dataset=<registry-id>]');
 }
-const datasetId = datasetArgs[0]?.slice('--dataset='.length);
-if (datasetArgs.length && (!datasetId || !DATASETS.some((dataset) => dataset.id === datasetId))) {
-  throw new Error(`Unknown registry dataset: ${datasetId || '(empty)'}`);
+// One or more --dataset arguments scope the refresh to those registry datasets,
+// e.g. every study of one intake; nothing else is contacted or rewritten.
+const datasetIdList = datasetArgs.map((arg) => arg.slice('--dataset='.length));
+const datasetIds = new Set(datasetIdList);
+const datasetId = datasetIdList.join(',');
+for (const id of datasetIdList) if (!id || !DATASETS.some((dataset) => dataset.id === id)) {
+  throw new Error(`Unknown registry dataset: ${id || '(empty)'}`);
 }
-const selectedDatasets = datasetId ? DATASETS.filter((dataset) => dataset.id === datasetId) : DATASETS;
+if (datasetIds.size !== datasetIdList.length) throw new Error('Duplicate --dataset argument');
+const selectedDatasets = datasetIds.size ? DATASETS.filter((dataset) => datasetIds.has(dataset.id)) : DATASETS;
 
 interface DepositedFile {
   name: string;
@@ -46,7 +51,7 @@ interface InventoryRecord {
   /** Accession whose supplementary directory contains the analysis input.
    *  Usually the registry accession; two GEO SuperSeries delegate it. */
   processedDataAccession: string;
-  database: 'GEO' | 'BioStudies' | 'CNGB';
+  database: 'GEO' | 'BioStudies' | 'CNGB' | 'CircaDB';
   databaseRecordUrl: string;
   processedInventoryUrl: string;
   processedInventoryAccess: 'listed' | 'empty' | 'unavailable' | 'excluded';
@@ -66,6 +71,20 @@ const PROCESSED_DATA_ACCESSION: Record<string, string> = {
   // correctly 404; the named SubSeries carry the matrices used by our tracks.
   GSE162563: 'GSE155314',
   GSE153551: 'GSE153549',
+};
+
+const CIRCADB_FILES = 'http://circadb.hogeneschlab.org/files/';
+const CIRCADB_SOURCES: Record<string, { accession: string; inventoryUrl: string; files: DepositedFile[] }> = {
+  mouse_scn_circadian_panda2002: {
+    accession: 'CIRCADB-PANDA2002-SCN',
+    inventoryUrl: 'http://circadb.hogeneschlab.org/about',
+    files: [
+      { name: 'SCN_2002_U74Av1_MAS4.csv', url: `${CIRCADB_FILES}SCN_2002_U74Av1_MAS4.csv`, bytes: 1390051, repositorySection: 'CircaDB data references' },
+      { name: 'SCN_2002_U74Av1_gcrma.csv', url: `${CIRCADB_FILES}SCN_2002_U74Av1_gcrma.csv`, bytes: 1696025, repositorySection: 'CircaDB data references' },
+    ],
+  },
+  // CircaDB offers no file for this assay; values come from its per-probe export.
+  mouse_scn_circadian_gnf1m: { accession: 'CIRCADB-GNF1M-SCN', inventoryUrl: 'http://circadb.hogeneschlab.org/mouse', files: [] },
 };
 
 async function fetchWithRetry(url: string): Promise<Response> {
@@ -174,6 +193,24 @@ async function inventory(dataset: (typeof DATASETS)[number], pmcByPmid: Map<stri
     };
   }
 
+  // Undeposited CircaDB releases: the source is CircaDB itself, not GEO or
+  // BioStudies. Their files are fixed releases, so no request is made.
+  const circadb = CIRCADB_SOURCES[dataset.id];
+  if (circadb) {
+    return {
+      datasetId: dataset.id,
+      accession: circadb.accession,
+      processedDataAccession: circadb.accession,
+      database: 'CircaDB',
+      databaseRecordUrl: 'http://circadb.hogeneschlab.org/mouse',
+      processedInventoryUrl: circadb.inventoryUrl,
+      processedInventoryAccess: circadb.files.length ? 'listed' : 'empty',
+      processedInventoryHttpStatus: null,
+      depositedFiles: circadb.files,
+      ...paper,
+    };
+  }
+
   if (accession.startsWith('GSE')) {
     const processedDataAccession = PROCESSED_DATA_ACCESSION[accession] ?? accession;
     const base = `https://ftp.ncbi.nlm.nih.gov/geo/series/${geoSeriesStem(processedDataAccession)}/${processedDataAccession}/suppl/`;
@@ -267,7 +304,7 @@ function priorInventory(): Record<string, unknown> & { datasets: InventoryRecord
   if (new Set(previousIds).size !== previousIds.length || previousIds.some((id) => !registryIds.has(id))) {
     throw new Error('Incremental refresh cannot repair duplicate or unregistered existing records');
   }
-  const missingOther = DATASETS.filter((dataset) => dataset.id !== datasetId && !previousIds.includes(dataset.id));
+  const missingOther = DATASETS.filter((dataset) => !datasetIds.has(dataset.id) && !previousIds.includes(dataset.id));
   if (missingOther.length) {
     throw new Error(`Incremental refresh cannot supply unrelated missing records: ${missingOther.map((dataset) => dataset.id).join(', ')}`);
   }

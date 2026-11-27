@@ -63,6 +63,12 @@ class HistoricalCheckTests(unittest.TestCase):
         self.current_intake = json.loads(intake.read_text('utf8')) if intake.exists() else []
         if self.current_intake:
             write_additive_intake(self.root, self.current_intake)
+        # The same holds for every other additive intake's admitted rows.
+        circadb = ROOT / historical_evidence.CIRCADB_INTAKE
+        if circadb.exists():
+            target = self.root / historical_evidence.CIRCADB_INTAKE
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(circadb.read_bytes())
 
     def test_only_config_binary_pin_is_projected(self):
         other = self.root / 'source.tsv'
