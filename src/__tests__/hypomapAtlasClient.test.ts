@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { type AtlasFixture, atlasFiles, fixtureDatasets, gzip, memoryTransport } from './hypomapFixture';
+import { type AtlasFixture, atlasFiles, fixtureDatasets, gzip, memoryTransport, type StudyCard } from './hypomapFixture';
 
 // The atlas client read through its in-memory transport: the same bytes, checksums and
 // gzip handling the browser's fetch adapter feeds it.
@@ -13,10 +13,15 @@ const {
 
 const ARC = 'Arcuate hypothalamic nucleus';
 // D03 has no stored feature for Pomc: its metrics are unavailable, not zero. D04–D18 lack it too.
+// D02's study card is partly filled, with a link and cell count the client must not trust; D03's is blank.
 const eligible = [[100, 10, 5], [50, 0, 2], [40, 4, 1]];
+const cards: Record<number, StudyCard> = {
+  1: { Publication: 'Lab data, unpublished', Publication_link: 'javascript:alert(1)', Technology: '10x v2', N_cells_in_HypoMap: 'not stated' },
+  2: { Region: '  ' },
+};
 const fixture: AtlasFixture = {
   contexts: [WHOLE, ARC, NO_REGION],
-  datasets: fixtureDatasets(18, i => eligible[i] ?? [10, 1, 0]),
+  datasets: fixtureDatasets(18, i => eligible[i] ?? [10, 1, 0]).map((ds, i) => i in cards ? { ...ds, card: cards[i] } : ds),
   genes: [
     ['ENSMUSG01', 'Pomc', 'pro-opiomelanocortin'],
     ['ENSMUSG02', 'Agrp', 'agouti related neuropeptide'],
@@ -51,9 +56,24 @@ describe('loadAtlasGene', () => {
     expect({ id: atlas.gene.id, symbol: atlas.gene.symbol, name: atlas.gene.name })
       .toEqual({ id: 'ENSMUSG01', symbol: 'Pomc', name: 'pro-opiomelanocortin' });
     expect(atlas.datasets).toHaveLength(18);
-    expect(atlas.datasets[0]).toEqual({ id: 'D01', label: 'Study 1' });
+    expect(atlas.datasets.map(ds => ds.id).slice(0, 3)).toEqual(['D01', 'D02', 'D03']);
     expect(atlas.regions).toEqual([WHOLE, ARC, NO_REGION]);
     expect(atlas.namedRegions).toEqual([ARC]);
+  });
+
+  it('reads each study card into named fields, a blank or untrusted field as null', async () => {
+    serve();
+    const [filled, partial, blank] = (await ready()).datasets;
+    expect(filled).toEqual({
+      id: 'D01', label: 'Study 1', publication: 'Author1 et al. 2021, Cell', publicationUrl: 'https://pubmed.ncbi.nlm.nih.gov/1001/',
+      technology: '10x v3', cellsOrNuclei: 'cells', sampledRegion: 'Hypothalamus', sex: 'M & F', ageStage: 'adult (6+ wk)',
+      condition: 'normal chow', cellsInHypoMap: 1000,
+    });
+    expect(partial).toMatchObject({ publication: 'Lab data, unpublished', publicationUrl: null, technology: '10x v2', cellsOrNuclei: null, cellsInHypoMap: null });
+    expect(blank).toEqual({
+      id: 'D03', label: 'Study 3', publication: null, publicationUrl: null, technology: null, cellsOrNuclei: null,
+      sampledRegion: null, sex: null, ageStage: null, condition: null, cellsInHypoMap: null,
+    });
   });
 
   it('reads each dataset for one region and keeps an absent feature unavailable', async () => {
@@ -183,8 +203,8 @@ describe('dataset summary and tables', () => {
     expect(detection.kind).toBe('hypomap_datasets');
     expect(detection.csv).toEqual({
       title: `Pomc · ${ARC} · Detection by dataset`,
-      headers: ['Dataset', 'Accession', 'Region', '% detected'],
-      rows: [['Study 1', 'D01', ARC, 50], ['Study 3', 'D03', ARC, null]],
+      headers: ['Dataset', 'Accession', 'Region', '% detected', 'Publication', 'Technology'],
+      rows: [['Study 1', 'D01', ARC, 50, 'Author1 et al. 2021, Cell', '10x v3'], ['Study 3', 'D03', ARC, null, null, null]],
     });
     expect(detection.settings).toEqual({ region: ARC, metric: 'detection', datasets: ['D03', 'D01'] });
     // A table of percentages never records the log-expression unit.
@@ -192,7 +212,7 @@ describe('dataset summary and tables', () => {
     const mean = datasetTable(atlas, WHOLE, 'mean', ['D01']);
     expect(mean.csv.title).toBe(`Pomc · ${WHOLE} · Mean expression by dataset`);
     expect(mean.csv.headers[3]).toBe(EXPRESSION_UNIT);
-    expect(mean.csv.rows).toEqual([['Study 1', 'D01', WHOLE, 2]]);
+    expect(mean.csv.rows).toEqual([['Study 1', 'D01', WHOLE, 2, 'Author1 et al. 2021, Cell', '10x v3']]);
     expect(mean.subject.expressionUnit).toBe(EXPRESSION_UNIT);
   });
 

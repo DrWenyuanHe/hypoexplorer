@@ -1,14 +1,15 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "7b1c532acde25f9703057fbc0f54b782f3e9a37161e052e380a028cf445acb9d",
+  "fingerprint": "9b4b77b0ebe8554cfbf381d0473844797f729aa9d860155cf331777bd023d755",
   "outcome": "updated",
-  "explanation": "Merges main (#101) into the IME fix. From main: searchSummaries.ts adds visium to REFERENCE_ATLAS_SOURCES and a regional summary (regionalSummary) for sources whose groups are regions: each region keeps its donor values, sparse flag, spots and compartment, and donors are counted once across regions, so spreadOf is never applied to regions. portalCards.tsx adds the full-row HYPOMAP Visium tile (top five hypothalamic regions, a bar at the donor mean and a dot per donor, sparse marks, unit and tissue-average notes, credit links) and its drill; atlasGap uses absentLabel. search.css styles the wide tile and dots, including the phone layout. From this branch: UnifiedSearchBox's keydown handler returns early while an IME is composing, so arrows move IME candidates instead of the option highlight and Escape cancels composition without closing the list; Enter still goes through native form submission.",
+  "explanation": "Merges main (#100, #101) into the IME fix. From main: Merges main (#101). From main: searchSummaries.ts adds the Visium reference and a regional summary, and portalCards.tsx adds the full-row HYPOMAP Visium tile and its drill. From this branch: atlas.ts reads each HypoMap study card into named AtlasDataset fields (publication with an http(s)-only link, technology, cells or nuclei, sampled region, sex, age stage, condition, cells in HypoMap), blank as null; the gated By dataset view shows them on each checked dataset card, and the by-dataset CSV appends Publication and Technology. Co-detection still reads only the wire labels. From this branch: UnifiedSearchBox's keydown handler returns early while an IME is composing, so arrows move IME candidates instead of the option highlight and Escape cancels composition without closing the list; Enter still goes through native form submission.",
   "references": [
     "src/search/searchSummaries.ts",
     "src/search/portalCards.tsx",
-    "src/search/search.css",
-    "docs/runbooks/EXPRESSION_SURVEY.md",
+    "src/search/hypomap/atlas.ts",
+    "src/search/hypomap/HypoMapPreview.tsx",
+    "src/search/hypomap/preview.css",
     "src/search/UnifiedSearchBox.tsx",
     "src/utils/imeComposing.ts"
   ]

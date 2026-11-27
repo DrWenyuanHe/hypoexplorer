@@ -1,16 +1,15 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "9ae8cdac54f3eb0257baa7b86493e23602fca9b6f4a324018957e3473be6f9bb",
+  "fingerprint": "f7c1b661fd511fbb168164c454429d356d59ec1957cf90dc508c4a18f9803742",
   "outcome": "updated",
-  "explanation": "Merges main (#101) into the IME fix. From main: New and extended tests for the Visium provider: externalReference.test.ts checks the manifest (regions as groups, 121 donor-region samples, display-local donors, allow-listed metadata, sparse POA/ME/MAM, compartments, CC BY attribution), Pomc to POMC, measured zeros, IGF2 not measured, the derived-CPM validation report and the CSV source_credit column. regionalSummary.test.ts covers one donor in two regions. portalCards, deployGuards, sourceJson and expressionSurvey tests cover the tile, the built-vs-fetched atlas split, the transport allow-list and the new CSV column. From this branch: imeComposing.test.ts pins isImeComposing on isComposing and the Safari keyCode 229 keydown; genePicker and unifiedSearchBox tests pin that a composing Enter adds no gene and composing arrows or Escape leave the hub list alone.",
+  "explanation": "Merges main (#100, #101) into the IME fix. From main: Merges main (#101). From main: externalReference, regionalSummary, portalCards, deployGuards, sourceJson and expressionSurvey tests cover the Visium provider, its tile, transport allow-list and source_credit CSV column. From this branch: the HypoMap fixture writes every study-card column (blank as an empty string); the atlas client tests cover named study fields, a partial card whose non-http link and non-numeric cell count read as null, a blank card and the Publication and Technology CSV columns; the preview tests read a checked dataset's linked publication and facts, and a blank card shows no details. From this branch: imeComposing.test.ts pins isImeComposing on isComposing and the Safari keyCode 229 keydown; genePicker and unifiedSearchBox tests pin that a composing Enter adds no gene and composing arrows or Escape leave the hub list alone.",
   "references": [
     "src/__tests__/externalReference.test.ts",
-    "src/__tests__/regionalSummary.test.ts",
     "src/__tests__/portalCards.test.tsx",
-    "src/__tests__/deployGuards.test.ts",
-    "src/__tests__/sourceJson.test.ts",
-    "src/__tests__/expressionSurvey.test.ts",
+    "src/__tests__/hypomapFixture.ts",
+    "src/__tests__/hypomapAtlasClient.test.ts",
+    "src/__tests__/hypomapPreview.test.tsx",
     "src/__tests__/imeComposing.test.ts",
     "src/__tests__/genePicker.test.tsx",
     "src/__tests__/unifiedSearchBox.test.tsx"
