@@ -1,14 +1,11 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "f83278a2ce2a6b8029e4cd636a57116079653453ac53ec111d0c42a5a94cde31",
-  "outcome": "updated",
-  "explanation": "Delivery treats the Visium atlas as built, not fetched: deployInputs.mts splits BUILT_ATLASES from FETCHED_ATLAS_DIRS, fetch:expression (and its CI identity) covers only the fetched three, prepare:deploy runs the Visium builder when the atlas is missing, and CI builds it before tests. delivery.md records the measured build: 17.4 MB in 2,050 Visium files and 11,079 deployable dist files in all, largest 17.5 MB, within the 20,000-file and 25 MiB Workers limits.",
+  "fingerprint": "0636c80b60a7984d937e60ba327994183ab28f7380b936ca92cddfbe8351b200",
+  "outcome": "no-impact",
+  "explanation": "No delivery change: REFACTOR_CHECKLIST.md's dialog item now names the native dialog and portalHost, and nothing in build, deploy or release verification reads it.",
   "references": [
-    "docs/agent-context/delivery.md",
-    "scripts/lib/deployInputs.mts",
-    "scripts/deploy/prepare_deploy.mts",
-    "scripts/fetch/fetch_expression_references.mts",
-    ".github/workflows/application.yml"
+    "docs/runbooks/REFACTOR_CHECKLIST.md",
+    "docs/agent-context/delivery.md"
   ]
 }

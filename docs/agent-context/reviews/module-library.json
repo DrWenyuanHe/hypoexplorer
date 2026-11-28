@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-library",
-  "fingerprint": "b9d98f391eaa4b90d235fda517fab6c211ffada046c37db406bea58d0aec72d0",
+  "fingerprint": "59c69aacf6721030057f8914edc5f6197856288bc5135bc16e8641f076a9571b",
   "outcome": "updated",
-  "explanation": "Library search matches the author follow-up label. No facet is added: review state stays in the study record, the Validation column and search.",
+  "explanation": "ResultBars' card detail panel portals through portalHost, so inside a native modal dialog it renders in the dialog instead of under the top layer; its Escape handling already cancelled the keydown.",
   "references": [
-    "src/library/libraryFilters.ts",
-    "src/library/LibraryToolbar.tsx"
+    "src/library/ResultBars.tsx",
+    "src/common/portalHost.ts"
   ]
 }

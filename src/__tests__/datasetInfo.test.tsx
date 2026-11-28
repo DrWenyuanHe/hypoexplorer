@@ -79,9 +79,8 @@ describe('explorer hero — Dataset info button', () => {
     expect(within(dialog).getByText('Macaca fascicularis')).toBeTruthy();
 
     // Focus moves into the dialog on open (WCAG 2.4.3).
-    const panel = dialog.querySelector('.modal-panel');
-    expect(panel).toBeTruthy();
-    expect(panel === document.activeElement || panel!.contains(document.activeElement)).toBe(true);
+    expect(dialog).toHaveClass('modal-panel');
+    expect(dialog === document.activeElement || dialog.contains(document.activeElement)).toBe(true);
   });
 });
 

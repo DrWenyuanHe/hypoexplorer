@@ -27,6 +27,7 @@
 
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { portalHost } from '../common/portalHost';
 import { loadCardDetail, type CardDetail, type DiscoverySummary } from '../data/queryIndex';
 import { DEFAULT_FDR_CUTOFF } from '../statistics/policy';
 import { FONT_MONO, FONT_SANS, UP_COLOR, DOWN_COLOR, UP_TEXT_COLOR, DOWN_TEXT_COLOR, COLOR_WARNING_TEXT } from '../styles/constants';
@@ -427,7 +428,7 @@ function ResultPanel({ anchor, kind, dataset, discoveries, trackNoun, onEnter, o
         ? <GenePanel dataset={dataset} d={discoveries} trackNoun={trackNoun} />
         : <PathPanel d={discoveries} />}
     </section>,
-    document.body,
+    portalHost(anchor),
   );
 }
 

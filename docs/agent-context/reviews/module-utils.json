@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "module-utils",
-  "fingerprint": "25130dddb74dc726af15fe6a3a81e15bdd2a73dacd1de87cafaa628e806873df",
+  "fingerprint": "62bde3d5d6a6d2279860ebd1090bfad564d779ddefa728b5977c3ac99da95532",
   "outcome": "updated",
-  "explanation": "New imeComposing.ts exports isImeComposing, the shared check (native isComposing or keyCode 229) that text fields with their own Enter, Escape or arrow handling consult before acting on the key.",
+  "explanation": "focusTrap.ts is removed: its only caller was Modal's manual Tab trap, which the native modal dialog replaces with the browser's own focus containment.",
   "references": [
-    "src/utils/imeComposing.ts",
-    "docs/agent-context/workflows.md"
+    "src/common/Modal.tsx",
+    "docs/runbooks/REFACTOR_CHECKLIST.md"
   ]
 }

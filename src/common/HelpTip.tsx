@@ -8,6 +8,7 @@
 
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
+import { portalHost } from './portalHost';
 import './helpTip.css';
 
 const GAP = 6;
@@ -69,6 +70,9 @@ export function HelpTip({ label, width = 340, children }: HelpTipProps) {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return;
+      // Cancelled as well as stopped: a modal dialog closes on an Escape whose
+      // keydown is not cancelled, wherever it was stopped.
+      e.preventDefault();
       e.stopPropagation();
       close();
     };
@@ -126,7 +130,7 @@ export function HelpTip({ label, width = 340, children }: HelpTipProps) {
         >
           {children}
         </div>,
-        document.body,
+        portalHost(button.current),
       )}
     </>
   );

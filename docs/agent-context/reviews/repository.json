@@ -1,18 +1,11 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "e3ce97b58b9965f6f4de2afffcb832031d835baf474aca9e91884dd38381f7c4",
+  "fingerprint": "0cfc19058200b6ca5e6c334da7cffe3000aefa542878cf9b8d9a292807db3b48",
   "outcome": "updated",
-  "explanation": "Merges main (#101) into the IME fix. From main: Repository configuration for the Visium atlas: package.json adds build:expression-visium and check:expression-visium; .gitignore ignores public/expression/visium/; .gitattributes keeps the pinned Visium TSV tables and the R extractor LF on every checkout; the application workflow builds the Visium atlas in the test job and prepare:deploy builds it in the build job; CHANGELOG.md records the change. The R extractor now reads counts with GetAssayData(layer =), works under R 4.4.1 and R 4.6.0, and notes that Seurat must be installed for the VisiumV1 image class. From this branch: docs/agent-context/workflows.md's ui-change section adds the IME rule: a text field whose own keydown handler acts on Enter, Escape or the arrows returns early on isImeComposing. No root configuration, scripts or workflows changed.",
+  "explanation": "The ui-change runbook in workflows.md and REFACTOR_CHECKLIST.md now describe Modal as a native dialog opened with showModal, popups portaling through portalHost, and no body overflow scroll lock. No root configuration, scripts or CI changed.",
   "references": [
-    "package.json",
-    ".gitignore",
-    ".gitattributes",
-    ".github/workflows/application.yml",
-    "CHANGELOG.md",
-    "data/expression/visium/README.md",
-    "scripts/extract_visium_reference.R",
     "docs/agent-context/workflows.md",
-    "src/utils/imeComposing.ts"
+    "docs/runbooks/REFACTOR_CHECKLIST.md"
   ]
 }

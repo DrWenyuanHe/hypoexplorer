@@ -1,13 +1,11 @@
 {
   "version": 1,
   "area": "module-compare",
-  "fingerprint": "9fc220bc790a80f019a220350b58bf9f7fd8285a7cfea85abc6dd15b7e5b0fef",
+  "fingerprint": "5a6a4b180caf25147aa2aceb2b64af45867f8e016dec55282b40452e04915c50",
   "outcome": "updated",
-  "explanation": "Adds compareView.ts (comparePair, landCompareLink, openCompareView, compareLink, sameCompareLink: Compare's default pair, the known-population rule a link lands through, and the link form that leaves defaults out) and useCompareView.ts (the shell's per-dataset hold, whose epoch remounts CompareTab only when a link lands). CompareTab requires defaultPops, drops its macaque e9 / i23 fallback and viewToRecord, opens through openCompareView and reports by value instead of a JSON string round trip.",
+  "explanation": "DownloadMenu now cancels the Escape keydown that closes its menu, so a native modal dialog the menu sits in stays open instead of closing with it.",
   "references": [
-    "src/compare/compareView.ts",
-    "src/compare/useCompareView.ts",
-    "src/compare/CompareTab.tsx",
-    "CONTEXT.md"
+    "src/compare/DownloadMenu.tsx",
+    "src/common/Modal.tsx"
   ]
 }

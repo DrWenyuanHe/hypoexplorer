@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef } from 'react';
-import type { KeyboardEvent as ReactKeyboardEvent, MouseEvent, ReactNode } from 'react';
-import { trapTab } from '../utils/focusTrap';
+import { useLayoutEffect, useRef } from 'react';
+import type { ReactNode } from 'react';
+import './modal.css';
 
 interface ModalProps {
   title?: ReactNode;
@@ -19,18 +19,38 @@ interface ModalProps {
   ariaLabel?: string;
 }
 
+// Safari has no `closedby` yet, so a backdrop click does nothing there without
+// this. Escape and the back gesture close a modal everywhere regardless.
+const SUPPORTS_CLOSEDBY = typeof HTMLDialogElement !== 'undefined' && 'closedBy' in HTMLDialogElement.prototype;
+
+/** A pointer position outside the dialog's box, which is where the backdrop is. */
+function outside(e: MouseEvent, dialog: HTMLDialogElement): boolean {
+  const r = dialog.getBoundingClientRect();
+  return e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+}
+
 /**
- * Generic centered modal overlay. Dismissible via the × button, the Escape key,
- * or a click on the backdrop. Mirrors the look of the leading-edge pathway modal
- * in GeneExplorerTab. The backdrop only closes on a click that both starts and
- * ends on the backdrop, so a text-selection drag that ends outside won't close it.
+ * Generic centered modal: a native `<dialog>` opened with `showModal()` for as
+ * long as the component is mounted. The browser puts it in the top layer,
+ * makes the rest of the page inert, keeps Tab inside it and hands focus back
+ * to the opener when it closes, so none of that is rebuilt here.
+ *
+ * It closes through `onClose` on the × button, a close request (Escape, the
+ * Android back gesture) or a backdrop click (`closedby="any"`). A close
+ * request fires `cancel`, which is cancelled so the caller decides by
+ * unmounting; `close` is the fallback for one the browser will not let be
+ * cancelled. A backdrop click closes only when the press both starts and ends
+ * on the backdrop, so a text-selection drag that ends outside won't close it.
+ * A popup inside that handles Escape itself calls `preventDefault()` on the
+ * keydown, which keeps the close request from reaching the dialog.
  *
  * The header (title + × button) is skipped entirely when there is neither a
  * `title` nor a `headerRight`: a panel that renders its own header and close
  * button must not get a second one stacked above it.
  *
- * Body scroll is locked for as long as the modal is mounted, so the page can't
- * scroll away behind the overlay.
+ * Popups opened from inside portal into this dialog rather than document.body
+ * (see `portalHost`), since a body-level node would sit under the top layer
+ * and be inert.
  */
 export function Modal({
   title,
@@ -42,101 +62,73 @@ export function Modal({
   ariaLabel,
   initialFocusSelector,
 }: ModalProps) {
-  const backdropMouseDown = useRef(false);
-  const panelRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const onCloseRef = useRef(onClose);
+  useLayoutEffect(() => { onCloseRef.current = onClose; });
 
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [onClose]);
-
-  // Lock body scroll while the dialog is up. The previous value is SAVED and
-  // restored rather than cleared, so a modal opened from inside another modal
-  // doesn't hand the page back its scrollbar while the outer one is still up.
-  useEffect(() => {
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = prev; };
-  }, []);
-
-  // Move focus into the dialog on open and restore it on close.
-  useEffect(() => {
-    const prevFocused = document.activeElement as HTMLElement | null;
-    const initialFocus = initialFocusSelector
-      ? panelRef.current?.querySelector<HTMLElement>(initialFocusSelector)
-      : null;
-    (initialFocus ?? panelRef.current)?.focus();
-    return () => {
-      // Restore focus to the trigger, but only if it's still in the DOM — a modal
-      // action can unmount its opener (e.g. a tile that navigates away), and
-      // focusing a detached node silently drops focus to <body>.
-      if (prevFocused && document.contains(prevFocused)) prevFocused.focus();
+  // Open on mount, close on unmount. Closing before React removes the node is
+  // what returns focus to the opener: removing an open dialog does not.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: the dialog opens once per mount; the focus target is read only then
+  useLayoutEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    const requestClose = () => onCloseRef.current();
+    const onCancel = (e: Event) => { e.preventDefault(); requestClose(); };
+    let pressedOutside = false;
+    // Only a press on the dialog itself can be on the backdrop: one inside a
+    // nested dialog or a popup bubbles up with that element as its target.
+    const onDown = (e: MouseEvent) => { pressedOutside = e.target === dialog && outside(e, dialog); };
+    const onUp = (e: MouseEvent) => {
+      if (pressedOutside && e.target === dialog && outside(e, dialog)) requestClose();
+      pressedOutside = false;
     };
-  }, [initialFocusSelector]);
-
-  // Trap Tab so keyboard focus can't escape to the page behind the modal
-  // (WCAG 2.4.3 / 2.1.2).
-  //
-  // A REACT handler, not the native listener this used to attach to the panel.
-  // Callers render QualityBadge, which portals its checklist into document.body;
-  // native listeners follow the DOM tree, so keystrokes inside that popover
-  // never reached the panel and Tab walked straight out of the dialog. React's
-  // synthetic events propagate through the component tree instead, so the
-  // portal's keys arrive here.
-  const onPanelKeyDown = useCallback((e: ReactKeyboardEvent) => {
-    if (panelRef.current) trapTab(e, panelRef.current);
+    dialog.addEventListener('cancel', onCancel);
+    dialog.addEventListener('close', requestClose);
+    if (!SUPPORTS_CLOSEDBY) {
+      dialog.addEventListener('mousedown', onDown);
+      dialog.addEventListener('mouseup', onUp);
+    }
+    if (!dialog.open) dialog.showModal();
+    const initialFocus = initialFocusSelector ? dialog.querySelector<HTMLElement>(initialFocusSelector) : null;
+    (initialFocus ?? dialog).focus();
+    return () => {
+      dialog.removeEventListener('cancel', onCancel);
+      dialog.removeEventListener('close', requestClose);
+      dialog.removeEventListener('mousedown', onDown);
+      dialog.removeEventListener('mouseup', onUp);
+      if (dialog.open) dialog.close();
+    };
   }, []);
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
+    <dialog
+      ref={dialogRef}
+      closedby="any"
+      tabIndex={-1}
       aria-label={ariaLabel ?? (typeof title === 'string' ? title : undefined)}
-      className="modal-backdrop"
-      // The trap listens here, on the element that carries role="dialog", rather
-      // than on the panel: the panel is a role-less div, and the keys reach this
-      // one either way since it is the panel's React parent.
-      onKeyDown={onPanelKeyDown}
-      onMouseDown={(e: MouseEvent) => { backdropMouseDown.current = e.target === e.currentTarget; }}
-      onMouseUp={(e: MouseEvent) => {
-        if (backdropMouseDown.current && e.target === e.currentTarget) onClose();
-        backdropMouseDown.current = false;
-      }}
-      style={{
-        position: 'fixed', inset: 0, zIndex: 1000,
-        background: 'rgba(0, 0, 0, 0.45)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-      }}
+      className="modal-panel"
+      style={{ width, height }}
     >
-      <div ref={panelRef} tabIndex={-1} className="modal-panel" style={{
-        width, height, maxWidth: '95vw', maxHeight: '90vh',
-        background: 'var(--bg-app)', border: '1px solid var(--border-dark)',
-        borderRadius: 6, boxShadow: 'var(--shadow-lg)',
-        display: 'flex', flexDirection: 'column', overflow: 'hidden', outline: 'none',
-      }}>
-        {/* Header — see the headerless note above */}
-        {(title != null || headerRight != null) && (
-          <div className="modal-header" style={{
-            flexShrink: 0, display: 'flex', alignItems: 'center', gap: 8, rowGap: 6, flexWrap: 'wrap',
-            padding: '10px 14px', borderBottom: '1px solid var(--border)',
-            background: 'var(--bg-panel)',
-          }}>
-            <div className="type-heading" style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)', flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-              {title}
-            </div>
-            {headerRight != null && <div className="modal-header-actions">{headerRight}</div>}
-            <button className="modal-close" type="button" onClick={onClose} aria-label="Close"
-              style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 20, color: 'var(--text-muted)', lineHeight: 1, padding: '0 4px', flexShrink: 0 }}>
-              ×
-            </button>
+      {/* Header — see the headerless note above */}
+      {(title != null || headerRight != null) && (
+        <div className="modal-header" style={{
+          flexShrink: 0, display: 'flex', alignItems: 'center', gap: 8, rowGap: 6, flexWrap: 'wrap',
+          padding: '10px 14px', borderBottom: '1px solid var(--border)',
+          background: 'var(--bg-panel)',
+        }}>
+          <div className="type-heading" style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)', flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            {title}
           </div>
-        )}
-        {/* Body */}
-        <div style={{ flex: 1, minHeight: 0, overflow: 'auto', display: 'flex', flexDirection: 'column' }}>
-          {children}
+          {headerRight != null && <div className="modal-header-actions">{headerRight}</div>}
+          <button className="modal-close" type="button" onClick={onClose} aria-label="Close"
+            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 20, color: 'var(--text-muted)', lineHeight: 1, padding: '0 4px', flexShrink: 0 }}>
+            ×
+          </button>
         </div>
+      )}
+      <div className="modal-body">
+        {children}
       </div>
-    </div>
+    </dialog>
   );
 }

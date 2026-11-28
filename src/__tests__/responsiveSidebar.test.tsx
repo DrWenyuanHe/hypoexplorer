@@ -37,14 +37,13 @@ describe('responsive navigation', () => {
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
   });
 
-  it('dismisses with Escape, restores scrolling, and can reopen', () => {
+  it('dismisses with Escape and can reopen', () => {
     viewport(true);
     render(<Navigator />);
     fireEvent.click(screen.getByRole('button', { name: 'Cells e9' }));
-    expect(document.body.style.overflow).toBe('hidden');
+    expect((screen.getByRole('dialog') as HTMLDialogElement).open).toBe(true);
     fireEvent.keyDown(screen.getByRole('dialog'), { key: 'Escape' });
     expect(screen.queryByRole('dialog')).toBeNull();
-    expect(document.body.style.overflow).not.toBe('hidden');
     fireEvent.click(screen.getByRole('button', { name: 'Cells e9' }));
     fireEvent.click(screen.getByRole('button', { name: 'Show results' }));
     expect(screen.queryByRole('dialog')).toBeNull();
