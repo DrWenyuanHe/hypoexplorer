@@ -1,12 +1,12 @@
 {
   "version": 1,
   "area": "module-types",
-  "fingerprint": "9a9699af767d45ac705d6910817cba5cb7ed2dd90500fd211eecb9001477b4cf",
+  "fingerprint": "362e7691af8cf0a238ee1e636d78b95ea78a65e6d6af371eefa7824ec3f4f0a9",
   "outcome": "updated",
-  "explanation": "ExpressionSource gains groupKind (region when groups are anatomical regions holding one sample per donor) and absentLabel (what an absent gene means for the source); ExpressionCondition gains coverage (donors, sections, spots, sparse) and compartment. All optional, so existing sources and bundles are unaffected.",
+  "explanation": "ExpressionCondition drops compartment and coverage.sparse and gains poolWeights (each sample's weight, its library size, in sample order) and unassigned (the authors' Unassigned spots, never ranked as a region). ExpressionGroupResult gains an optional pooled value, present only for groups with pool weights. All optional, so other sources are unaffected.",
   "references": [
     "src/types/index.ts",
-    "src/search/searchSummaries.ts",
+    "src/expression-survey/externalReference.ts",
     "scripts/build_visium_reference.mts"
   ]
 }

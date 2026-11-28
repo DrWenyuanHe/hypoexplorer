@@ -40,10 +40,6 @@ const SOURCE = path.join(ROOT, 'data/expression/visium');
 const EXTRACTOR = 'scripts/extract_visium_reference.R';
 const SOURCE_ID = 'visium-hypomap-regions';
 const VALUE_SHARDS = 1024;
-/** A donor x region cell needs this many spots to become a sample. */
-const MIN_SPOTS = 10;
-/** A region with fewer donors than this is flagged as sparse wherever regions are ranked. */
-const MIN_DONORS = 3;
 /** CPM is stored to this many significant digits (Number.prototype.toPrecision). */
 const SIGNIFICANT_DIGITS = 6;
 /** Panel genes with no count in any spot: shipped as measured zero vectors, never dropped. */
@@ -55,35 +51,41 @@ const PUBLIC_SAMPLE_FIELDS = ['donor', 'region', 'spots', 'sections', 'libraryCo
 const CHECKPOINTS: Array<[gene: string, region: string]> = [['POMC', 'ARC'], ['AGRP', 'ARC'], ['OXT', 'PVN'], ['AVP', 'SON'], ['PMCH', 'LH'], ['TSPY1', 'ARC']];
 
 /**
- * The authors' grouped region labels, in display order (preoptic to mammillary,
- * then non-nuclear compartments). Names and compartments are HypoExplorer's
- * reading of the labels; the labels themselves are the authors'.
+ * The authors' 23 grouped regional clusters (regional_clusters_grouped): spot
+ * clusters named after the region holding most of their spots, with LH 1-3,
+ * MAM 1-2 and Thalamus 1-2 merged as the authors merge them. Names follow the
+ * authors' abbreviation table (Tadross et al. 2025, Supplementary Table 20);
+ * compound labels join its entries, and the authors define no name for
+ * Vascular or Unassigned. Like the authors, HypoExplorer sorts the clusters into
+ * no higher compartments. Order: preoptic to mammillary, then the rest.
  */
-const REGIONS: ReadonlyArray<{ key: string; name: string; compartment: string }> = [
-  { key: 'POA', name: 'preoptic area', compartment: 'hypothalamic' },
-  { key: 'MPOA', name: 'medial preoptic area', compartment: 'hypothalamic' },
-  { key: 'LPOA', name: 'lateral preoptic area', compartment: 'hypothalamic' },
-  { key: 'SCN', name: 'suprachiasmatic nucleus', compartment: 'hypothalamic' },
-  { key: 'SON', name: 'supraoptic nucleus', compartment: 'hypothalamic' },
-  { key: 'PVN', name: 'paraventricular nucleus', compartment: 'hypothalamic' },
-  { key: 'Periventricular', name: 'periventricular zone', compartment: 'hypothalamic' },
-  { key: 'ARC', name: 'arcuate nucleus', compartment: 'hypothalamic' },
-  { key: 'ME', name: 'median eminence', compartment: 'hypothalamic' },
-  { key: 'VMH', name: 'ventromedial hypothalamus', compartment: 'hypothalamic' },
-  { key: 'DMH', name: 'dorsomedial hypothalamus', compartment: 'hypothalamic' },
-  { key: 'LH', name: 'lateral hypothalamus', compartment: 'hypothalamic' },
-  { key: 'LH/RCN', name: 'lateral hypothalamus / RCN, authors’ grouping', compartment: 'hypothalamic' },
-  { key: 'LTN', name: 'lateral tuberal nucleus', compartment: 'hypothalamic' },
-  { key: 'TMN', name: 'tuberomammillary nucleus', compartment: 'hypothalamic' },
-  { key: 'MAM', name: 'mammillary nuclei', compartment: 'hypothalamic' },
-  { key: 'Fx/LH', name: 'fornix with adjacent lateral hypothalamus', compartment: 'fibre tract' },
-  { key: 'Fx/OT/ac', name: 'fornix, optic tract and anterior commissure', compartment: 'fibre tract' },
-  { key: 'OT', name: 'optic tract', compartment: 'fibre tract' },
-  { key: 'Vascular', name: 'vascular spots', compartment: 'vascular' },
-  { key: 'Ventricular', name: 'ventricular lining', compartment: 'ventricular' },
-  { key: 'Thalamus', name: 'thalamus (adjacent tissue)', compartment: 'thalamus' },
-  { key: 'Unassigned', name: 'spots without a region', compartment: 'unassigned' },
+const REGIONS: ReadonlyArray<{ key: string; name: string | null }> = [
+  { key: 'POA', name: 'Preoptic area' },
+  { key: 'MPOA', name: 'Medial preoptic area' },
+  { key: 'LPOA', name: 'Lateral preoptic area' },
+  { key: 'SCN', name: 'Suprachiasmatic nucleus' },
+  { key: 'SON', name: 'Supraoptic nucleus' },
+  { key: 'PVN', name: 'Paraventricular nucleus' },
+  { key: 'Periventricular', name: 'Periventricular hypothalamus' },
+  { key: 'ARC', name: 'Arcuate nucleus' },
+  { key: 'ME', name: 'Median eminence' },
+  { key: 'VMH', name: 'Ventromedial hypothalamus' },
+  { key: 'DMH', name: 'Dorsal medial hypothalamus' },
+  { key: 'LH', name: 'Lateral hypothalamus' },
+  { key: 'LH/RCN', name: 'Lateral hypothalamus / Retrochiasmatic nucleus' },
+  { key: 'LTN', name: 'Lateral tuberal nucleus' },
+  { key: 'TMN', name: 'Tuberomammillary nucleus' },
+  { key: 'MAM', name: 'Mammillary body' },
+  { key: 'Fx/LH', name: 'Fornix / Lateral hypothalamus' },
+  { key: 'Fx/OT/ac', name: 'Fornix / Optic tract / Anterior commissure' },
+  { key: 'OT', name: 'Optic tract' },
+  { key: 'Ventricular', name: 'Ventricular hypothalamus' },
+  { key: 'Vascular', name: null },
+  { key: 'Thalamus', name: null },
+  { key: 'Unassigned', name: null },
 ];
+/** The authors leave a snRNA-seq cluster without a region when its top regional cluster is Unassigned; it is never ranked as a region here either. */
+const UNASSIGNED = 'Unassigned';
 
 interface Retained { file: string; bytes: number; sha256: string }
 interface RetainedGzip extends Retained { contentBytes: number; contentSha256: string }
@@ -290,7 +292,8 @@ async function main(): Promise<void> {
 
   const tables = await readTables(manifest);
   checkTables(tables);
-  const kept = tables.cells.filter((cell) => cell.spots >= MIN_SPOTS);
+  // Every donor x region cell is a sample: the authors set no minimum spots per region or donor.
+  const kept = tables.cells;
   const donorOrder = (cell: Cell) => Number(cell.donor.slice('Donor '.length));
 
   const samples: ExternalSample[] = [];
@@ -299,19 +302,22 @@ async function main(): Promise<void> {
   const conditions: ExpressionCondition[] = [];
   for (const region of REGIONS) {
     const own = kept.filter((cell) => cell.region === region.key).sort((a, b) => donorOrder(a) - donorOrder(b));
-    assert.ok(own.length > 0, `Region ${region.key} has no donor with ${MIN_SPOTS} spots`);
+    assert.ok(own.length > 0, `Regional cluster ${region.key} has no spot`);
     const spots = own.reduce((sum, cell) => sum + cell.spots, 0);
     const sectionCount = new Set(tables.sections.filter(([donor, , key]) => key === region.key && own.some((cell) => cell.donor === donor)).map(([, section]) => section)).size;
-    const sparse = own.length < MIN_DONORS;
-    const where = region.compartment === 'hypothalamic' ? '' : ` · ${region.compartment}, not a hypothalamic nucleus`;
+    const unassigned = region.key === UNASSIGNED;
+    const title = region.name ? `${region.key} (${region.name})` : region.key;
     conditions.push({
       key: region.key,
-      label: `${region.key} (${region.name})${where} · ${plural(own.length, 'donor')}, ${plural(spots, 'spot')}${sparse ? ' · sparse' : ''}`,
+      label: `${title} · ${plural(own.length, 'donor')}, ${plural(spots, 'spot')}`,
       referenceEligible: false, feedingState: 'not applicable (postmortem donor)', sampleCount: own.length,
-      compartment: region.compartment, coverage: { donors: own.length, sections: sectionCount, spots, sparse },
-      notes: `${plural(own.length, 'donor')} with at least ${MIN_SPOTS} spots in ${region.key}, from ${plural(sectionCount, 'section')} and ${plural(spots, 'spot')}.`
-        + `${sparse ? ` Sparse: fewer than ${MIN_DONORS} donors, so its rank is uncertain.` : ''}`
-        + `${region.compartment === 'hypothalamic' ? '' : ` A ${region.compartment} compartment, kept apart from the hypothalamic nuclei.`}`,
+      coverage: { donors: own.length, sections: sectionCount, spots },
+      // Library sizes in sample order: the pooled CPM is the library-weighted mean of the donors' CPM.
+      poolWeights: own.map((cell) => cell.library),
+      ...(unassigned ? { unassigned: true } : {}),
+      notes: `${plural(spots, 'spot')} from ${plural(own.length, 'donor')} and ${plural(sectionCount, 'section')}. `
+        + 'Its pooled value sums every spot across donors and sections, as the authors summarise regions; each donor keeps its own value.'
+        + `${unassigned ? ' Spots the authors left in no region; not ranked as a region.' : ''}`,
     });
     for (const cell of own) {
       const id = `${SOURCE_ID}:${cell.donor.replace(' ', '-').toLowerCase()}:${region.key}`;
@@ -346,12 +352,12 @@ async function main(): Promise<void> {
   const donors = new Set(kept.map((cell) => cell.donor));
   const allSections = new Set(tables.sections.map(([, section]) => section));
   const totalSpots = tables.cells.reduce((sum, cell) => sum + cell.spots, 0);
-  const sparseRegions = conditions.filter((condition) => condition.coverage?.sparse).map((condition) => `${condition.key} (${plural(condition.coverage!.donors, 'donor')})`);
   const notes = [
     `Values are FFPE Visium probe-count CPM: each donor's spot counts summed over that donor's sections within one of the authors' grouped regions, divided by the summed library size, times 10^6, stored to ${SIGNIFICANT_DIGITS} significant digits. They are not TPM, nCPM or microarray intensity and are never placed on a shared scale with them.`,
-    `Samples are donor x region pseudobulks with at least ${MIN_SPOTS} spots: ${samples.length} from ${donors.size} donors, ${allSections.size} sections and ${totalSpots.toLocaleString('en-US')} spots. Groups are regions, so n counts donors and one donor appears in several regions.`,
-    `Regions with fewer than ${MIN_DONORS} donors are flagged as sparse: ${sparseRegions.join(', ')}.`,
-    'Each 55 µm Visium spot mixes several cells, so a region value is a tissue average, not a cell type. Fibre tract, vascular, ventricular, thalamic and unassigned spots are kept as their own groups, apart from the hypothalamic nuclei.',
+    `Groups are the authors' ${conditions.length} grouped regional clusters: spot clusters named after the hypothalamic region holding most of their spots (Tadross et al. 2025), not hand-drawn anatomical regions. Names follow the authors' abbreviation table.`,
+    `Samples are donor x regional-cluster pseudobulks of every spot, as the authors set no minimum: ${samples.length} from ${donors.size} donors, ${allSections.size} sections and ${totalSpots.toLocaleString('en-US')} spots. n counts donors, and one donor appears in several regions.`,
+    "A region's pooled value is the CPM of all its spots summed across donors and sections, as the authors pool spots to summarise regions; each donor's own value is kept beside it. Unassigned spots stay in the data but are not ranked as a region.",
+    'Each 55 µm Visium spot mixes several cells, so a region value is a tissue average, not a cell type.',
     `All ${tables.genes.length.toLocaleString('en-US')} panel genes are included; ${ZERO_GENES.length} (${ZERO_GENES.join(', ')}) have no count in any spot and are stored as measured zeros. Genes outside the probe panel, such as ${OFF_PANEL.join(', ')}, are reported as not measured, never as zero.`,
     'Donors are labeled Donor 1 to Donor 7 for this display only; source donor codes, sex, age and BMI are not shipped. Postmortem tissue: no group is eligible for the fed / reference filter.',
     'Data from Tadross et al. 2025 (HYPOMAP), University of Cambridge repository doi:10.17863/CAM.111988, CC BY 4.0; transformed by HypoExplorer (summed per donor and region, converted to CPM).',
@@ -369,7 +375,7 @@ async function main(): Promise<void> {
     species: 'Homo sapiens', assay: '10x Visium CytAssist spatial transcriptomics (probe-based) of postmortem FFPE sections; 55 µm spots',
     rnaFraction: 'Total RNA (FFPE, probe capture)', unit: 'FFPE Visium probe-count CPM',
     normalization: `Spot probe counts summed per donor and region across that donor's sections, divided by the summed library size and multiplied by 10^6 (CPM, ${SIGNIFICANT_DIGITS} significant digits); no further normalization`,
-    replicateUnit: `One donor × region pseudobulk (at least ${MIN_SPOTS} spots) per sample; groups are regions, so n counts donors`,
+    replicateUnit: "One donor × regional-cluster pseudobulk of all its spots per sample; groups are the authors' regional clusters, so n counts donors; a region's pooled value sums every spot",
     identityMethod: 'The authors’ grouped regional clusters of spots (regional_clusters_grouped), Tadross et al. 2025',
     featureLevel: 'gene', valueKind: 'samples', groupKind: 'region', absentLabel: 'Not measured in this Visium probe panel',
     sampleCount: samples.length, sourceGroupIds: conditions.map((condition) => condition.key), conditions,
@@ -399,7 +405,7 @@ async function main(): Promise<void> {
   const recomputed = await recomputeCpm(dir, tables, columns, cellOf);
   assert.equal(recomputed, compared);
   const total = [...files.values()].reduce((sum, text) => sum + Buffer.byteLength(text), 0);
-  console.log(`${check ? 'Verified' : 'Built'} HYPOMAP Visium: ${features.length} genes × ${samples.length} donor-region samples in ${conditions.length} regions from ${donors.size} donors; `
+  console.log(`${check ? 'Verified' : 'Built'} HYPOMAP Visium: ${features.length} genes × ${samples.length} donor-region samples in ${conditions.length} regional clusters from ${donors.size} donors; `
     + `${compared} values read back and recomputed from counts; ${files.size} files, ${(total / 1e6).toFixed(1)} MB.`);
 }
 

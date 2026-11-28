@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "module-search",
-  "fingerprint": "002b7c650a9adaba59e8dcd935f399e4c23da1aafed79cc2b284cc2c2012cdfa",
+  "fingerprint": "4767303a28c6ec55597cb2ad1b9f1ae712ae1845ff1626e2b19dcad8d21d8a4f",
   "outcome": "updated",
-  "explanation": "UnifiedSearchBox's slash-key guard now treats a native dialog element as a dialog as well as role=dialog, since Modal no longer carries the role attribute.",
+  "explanation": "regionalSummary ranks regions by their pooled value (falling back to the donor mean without one) and carries an unassigned flag instead of compartment and sparse; donors are still counted once across regions. The Visium tile ranks the top five regional clusters other than Unassigned, draws a bar at the pooled value and a dot per donor, and explains the pooling; the sparse style is removed from search.css. Region names, the absence of a minimum-spot or sparse rule, and pooling every spot to summarise a region follow the HYPOMAP authors (Tadross et al. 2025, Supplementary Table 20 and Methods).",
   "references": [
-    "src/search/UnifiedSearchBox.tsx",
-    "src/common/Modal.tsx"
+    "src/search/searchSummaries.ts",
+    "src/search/portalCards.tsx",
+    "src/search/search.css"
   ]
 }

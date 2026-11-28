@@ -97,7 +97,7 @@ along with the Phase 0 measurements and the decisions behind this design.
 | HPA human hypothalamus snRNA clusters | Population survey, "Reference atlases (HPA)" | 26 clusters, one published nCPM each |
 | HPA mouse and pig hypothalamus | Tissue & bulk (whole hypothalamus; reference atlases) | 4 animals each, per-animal nTPM |
 | Allen Human Brain Atlas hypothalamus microarray | Tissue & bulk (reference atlases) | 102 tissue samples from 6 donors, per-sample log2 intensity, one row per probe |
-| HYPOMAP human Visium by region | Tissue & bulk (reference atlases) | 23 regions, 121 donor × region samples from 7 donors, FFPE Visium probe-count CPM |
+| HYPOMAP human Visium by region | Tissue & bulk (reference atlases) | 23 regional clusters, 143 donor × region samples from 7 donors, FFPE Visium probe-count CPM |
 
 The Allen source is probe-level (`featureLevel: 'probe'`). A gene query returns one
 result per probe, each carrying `probe`, and several probes of one gene are not an
@@ -123,7 +123,7 @@ in the format of `src/expression-survey/externalReferenceFormat.ts`: a manifest,
 2,048 value files each, HPA and Visium 1,024. One gene costs one lookup request per provider
 and one value request per feature (one per Allen probe), about 10–20 KB compressed.
 These directories are gitignored build artifacts (about 230 MB in 8,200 files for
-GTEx, HPA and Allen; 17.4 MB in 2,050 files for Visium).
+GTEx, HPA and Allen; 19.2 MB in 2,050 files for Visium).
 `pnpm run build:expression-external` regenerates the first three from the retained sources
 pinned in `data/expression/gtex/`, `data/expression/hpa/` and
 `data/expression/allen-human/`. Those sources are
@@ -143,21 +143,27 @@ checkpoints. See the [GTEx runbook](../../data/expression/gtex/README.md), the
 
 `visium-hypomap-regions` holds the human HYPOMAP Visium sections (Tadross et al.
 2025, dataset doi:10.17863/CAM.111988, CC BY 4.0) as donor × region pseudobulks.
-Spot counts are summed per donor within each of the authors' grouped regions,
-across that donor's sections; a donor × region cell with at least 10 spots is one
-sample, and CPM is 10^6 × counts / library size. That gives 121 samples in 23
-regions from 7 donors, 9 sections and 86,041 spots.
+Spot counts are summed per donor within each of the authors' 23 grouped regional
+clusters, across that donor's sections; every donor × region cell is one sample,
+and CPM is 10^6 × counts / library size. That gives 143 samples from 7 donors, 9
+sections and 86,041 spots. The choices follow HYPOMAP's own conventions:
 
-- Groups are regions (`groupKind: 'region'`) and samples are donors, so n counts
-  donors and one donor appears in several regions. Each region's condition
-  carries its coverage (donors, sections, spots) and its compartment.
+- Regional clusters are the authors' spot clusters, named after the region
+  holding most of their spots, with the names of their abbreviation table
+  (Supplementary Table 20). Groups are regions (`groupKind: 'region'`) and
+  samples are donors, so n counts donors and one donor appears in several
+  regions. Each condition carries its coverage (donors, sections, spots).
+- The authors set no minimum spots or donors per region, so none is applied and
+  no region is flagged.
+- A region's value pools every spot across donors and sections, as the authors
+  summarise regions: the condition's `poolWeights` (library sizes) make the
+  group's `pooled` value the CPM of its summed counts. `groupValue` ranks it,
+  and the summary export writes it with `stat` = `pooled`.
+- The authors sort the clusters into no compartments, and neither does the
+  source. Unassigned is kept in the data but marked `unassigned` and not ranked,
+  as the authors assign no region when Unassigned comes out on top.
 - The unit is "FFPE Visium probe-count CPM". It is never put on a scale shared
   with TPM, nTPM, nCPM or Allen intensity.
-- Regions with fewer than three donors are marked sparse wherever regions are
-  ranked: POA (1 donor), ME and MAM (2). Their label says so in the survey's
-  ranked rows, and the gene page marks them.
-- Fibre tracts (Fx/LH, Fx/OT/ac, OT), vascular, ventricular, thalamic and
-  unassigned spots are their own groups, apart from the 16 hypothalamic areas.
 - A 55 µm spot mixes several cells: region values are tissue averages, not cell
   types.
 - Every panel gene is shipped, including six with no counts (stored as measured
@@ -213,12 +219,11 @@ The human row, "Human hypothalamus", holds five tiles:
   log2, never of the pooled tissue samples.
 - HPA subregions: the top three by published nTPM.
 - HPA snRNA-seq clusters: the top three by published nCPM.
-- HYPOMAP Visium (`regionalSummary`), across the row: the five hypothalamic
-  regions with the highest donor mean, each a bar at that mean with a dot per
-  donor on the same scale, its donor count, and a sparse mark under three
-  donors. Its groups are regions, so the GTEx/Allen donor spread does not apply:
-  it would count regions as donors. Non-nuclear compartments are not ranked; the
-  tile names one when it exceeds the top nucleus. It carries the source credit.
+- HYPOMAP Visium (`regionalSummary`), across the row: the five regional
+  clusters with the highest pooled value, each a bar at that value with a dot
+  per donor on the same scale and its donor count. Unassigned spots are not
+  ranked. Its groups are regions, so the GTEx/Allen donor spread does not apply:
+  it would count regions as donors. It carries the source credit.
 
 Each source keeps its own unit, its bars are scaled to its own highest value, and
 published values are printed as published. When the page's symbol differs from the

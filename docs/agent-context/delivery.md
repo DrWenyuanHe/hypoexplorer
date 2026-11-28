@@ -96,7 +96,7 @@ copies the deployed products from hypoexplorer.com. A deploy uploads
 these files as Workers static assets; nothing goes to R2. They are most of
 `public/`'s files. A Workers Free version is capped at 20,000 asset files,
 so measure the file count before adding another provider. The HYPOMAP Visium atlas
-(`public/expression/visium/`, 17.4 MB in 2,050 files) is built from its tracked
+(`public/expression/visium/`, 19.2 MB in 2,050 files) is built from its tracked
 extract rather than fetched. Measured on 2026-11-27 with all four atlases, an
 off-origin `pnpm run build` wrote 11,079 deployable `dist/` files (2,050 of them
 Visium); the largest was `nomenclature/table.js` at 17.5 MB, under the 25 MiB

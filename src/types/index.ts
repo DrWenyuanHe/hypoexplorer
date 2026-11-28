@@ -519,12 +519,17 @@ export interface ExpressionCondition {
   treatment?: string;
   /**
    * For a regional group (a source with `groupKind: 'region'`): the donors,
-   * tissue sections and spots behind it, and whether it is too sparse to rank
-   * without a warning (fewer than three donors).
+   * tissue sections and spots behind it.
    */
-  coverage?: { donors: number; sections: number; spots: number; sparse: boolean };
-  /** For a regional group: 'hypothalamic', or the non-nuclear compartment it is ('fibre tract', 'vascular', …). */
-  compartment?: string;
+  coverage?: { donors: number; sections: number; spots: number };
+  /**
+   * For a regional group: each sample's weight (its library size), in the
+   * group's sample order. The group's pooled value is the weighted mean of its
+   * samples, i.e. the CPM of all its spots summed across donors and sections.
+   */
+  poolWeights?: number[];
+  /** For a regional source: the authors' Unassigned spots, kept in the data but never ranked as a region. */
+  unassigned?: boolean;
 }
 
 /** Who published an external reference, under which release and terms. */
@@ -602,6 +607,12 @@ export interface ExpressionGroupResult {
   samples: ExpressionSampleValue[];
   /** Arithmetic mean of the stored values, including measured zeroes. */
   mean: number | null;
+  /**
+   * Regional groups with pool weights: the weighted mean of the stored values
+   * (the CPM of the group's summed counts). Present only for such groups, and
+   * then the group's value wherever groups are compared.
+   */
+  pooled?: number | null;
   /** Profiles with a finite value, which need not be individual animals. */
   n: number;
   totalSamples: number;

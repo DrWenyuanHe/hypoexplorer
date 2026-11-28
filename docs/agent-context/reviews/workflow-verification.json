@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "5570a80ea1043069023965f909a62648969ee6dfb68211a744212629c0c7570f",
-  "outcome": "no-impact",
-  "explanation": "Only the results browser smoke spec changed, to match the share dialog's native modal focus behaviour; author validation, QC evidence and verification records are untouched.",
+  "fingerprint": "95548884d05ef68913695210f4de561676b37a7debe35f2097b2610c496af157",
+  "outcome": "updated",
+  "explanation": "The Visium builder still reads back every value (now 18,085 x 143 = 2,586,155) and recomputes each CPM from its count and library size; the R 4.6.0 re-extraction reproduced the pinned tables. The new pooled value is tested against the summed ARC POMC counts.",
   "references": [
-    "scripts/smoke/results.smoke.spec.ts",
-    "data/author-validation/README.md"
+    "scripts/build_visium_reference.mts",
+    "data/expression/visium/README.md",
+    "src/expression-survey/externalReference.ts"
   ]
 }

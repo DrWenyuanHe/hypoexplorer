@@ -356,18 +356,16 @@ export interface ReferenceSpread {
 /** One donor's value in one region: a donor-region sample, so a donor recurs across regions. */
 export interface ReferenceDonorValue { donor: string; value: number }
 
-/** One region of a regional source (groups = regions, samples = donors): its donor mean and each donor's value. */
+/** One region of a regional source (groups = regions, samples = donors): its pooled value and each donor's value. */
 export interface ReferenceRegion {
   key: string;
   /** The full group label, with its coverage. */
   label: string;
-  /** 'hypothalamic', or the non-nuclear compartment ('fibre tract', 'vascular', …). */
-  compartment: string;
-  /** Mean over this region's donors: the value the survey's bars rank. */
-  mean: number;
+  /** The region's pooled value (all its spots summed across donors), else its donor mean: the value the survey's bars rank. */
+  value: number;
   donors: ReferenceDonorValue[];
-  /** Fewer than three donors: ranked with a warning. */
-  sparse: boolean;
+  /** The authors' Unassigned spots: listed, never ranked as a region. */
+  unassigned: boolean;
   spots: number | null;
 }
 
@@ -384,7 +382,7 @@ export interface ReferenceRow {
   spread: ReferenceSpread | null;
   /**
    * Regional sources (`groupKind: 'region'`, Visium): every region with a
-   * value, highest donor mean first. Its groups are regions, not donors, so the
+   * value, highest pooled value first. Its groups are regions, not donors, so the
    * donor spread above would count regions as people.
    */
   regions?: ReferenceRegion[];
@@ -424,7 +422,7 @@ function spreadOf(groups: ExpressionGroupResult[]): ReferenceSpread | null {
 }
 
 /**
- * A regional source's regions, highest donor mean first. Each sample is one
+ * A regional source's regions, highest pooled value first. Each sample is one
  * donor in one region, keyed by region, so one donor counts once in each region
  * it was sampled in and once among the source's donors.
  */
@@ -437,12 +435,12 @@ export function regionalSummary(groups: ExpressionGroupResult[], source: Express
     for (const { donor } of donors) people.add(donor);
     const condition = conditions.get(group.key);
     return [{
-      key: group.key, label: group.label, compartment: condition?.compartment ?? 'hypothalamic',
-      mean: meanOf(donors.map((donor) => donor.value)), donors,
-      sparse: condition?.coverage?.sparse ?? donors.length < 3, spots: condition?.coverage?.spots ?? null,
+      key: group.key, label: group.label,
+      value: group.pooled ?? meanOf(donors.map((donor) => donor.value)), donors,
+      unassigned: condition?.unassigned === true, spots: condition?.coverage?.spots ?? null,
     }];
   });
-  return { regions: regions.sort((a, b) => b.mean - a.mean), donors: people.size };
+  return { regions: regions.sort((a, b) => b.value - a.value), donors: people.size };
 }
 
 function referenceRow(result: ExpressionGeneResult, source: ExpressionSource): ReferenceRow {

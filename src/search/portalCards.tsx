@@ -603,61 +603,55 @@ function fmtCpm(value: number): string {
   return value >= 0.1 ? value.toFixed(2) : value.toPrecision(2);
 }
 
-/** One region: a bar at its donor mean, and a dot at each donor's own value on the same scale. */
+/** One region: a bar at its pooled value, and a dot at each donor's own value on the same scale. */
 function RegionBar({ region, max }: { region: ReferenceRegion; max: number }) {
   const at = (value: number) => `${max > 0 ? (value / max) * 100 : 0}%`;
-  const donors = region.donors.length;
   return (
     <li>
       <span className="portal-bar-label" title={region.label}>
-        {region.key}
-        <span className={`portal-region-n${region.sparse ? ' portal-region-n--sparse' : ''}`}>
-          {region.sparse ? ` · ${donors} donor${donors === 1 ? '' : 's'}, sparse` : ` · ${donors}`}
-        </span>
+        {region.key}<span className="portal-region-n"> · {region.donors.length}</span>
       </span>
       <span className="portal-bar-track portal-bar-track--dots" aria-hidden="true">
-        <span className="portal-bar" style={{ width: max > 0 && region.mean > 0 ? `max(2px, ${at(region.mean)})` : 0 }} />
+        <span className="portal-bar" style={{ width: max > 0 && region.value > 0 ? `max(2px, ${at(region.value)})` : 0 }} />
         {region.donors.map((donor) => (
           <span key={`${region.key}:${donor.donor}`} className="portal-bar-dot" style={{ left: at(donor.value) }} title={`${donor.donor}: ${fmtCpm(donor.value)}`} />
         ))}
       </span>
-      <span className="portal-bar-value">{fmtCpm(region.mean)}</span>
+      <span className="portal-bar-value">{fmtCpm(region.value)}</span>
       <span className="portal-sr">
-        {region.label}: donor mean {fmtCpm(region.mean)} CPM; {region.donors.map((donor) => `${donor.donor} ${fmtCpm(donor.value)}`).join(', ')}.
+        {region.label}: pooled {fmtCpm(region.value)} CPM; {region.donors.map((donor) => `${donor.donor} ${fmtCpm(donor.value)}`).join(', ')}.
       </span>
     </li>
   );
 }
 
 /**
- * HYPOMAP Visium by region. Its groups are regions and its samples donors, so
- * it ranks regions by their donor mean and draws each donor as a dot, never
- * summarizing regions as if they were donors. Hypothalamic regions are ranked;
- * fibre tract, vascular, ventricular, thalamic and unassigned spots are not.
+ * HYPOMAP Visium by region. Its groups are the authors' regional clusters and
+ * its samples donors. It ranks regional clusters by their pooled value (every
+ * spot summed, as the authors summarise regions) and draws each donor as a dot,
+ * never summarizing regions as if they were donors. As in the authors' region
+ * assignment, Unassigned spots are not ranked as a region.
  */
 function VisiumAtlas({ atlas, symbol }: { atlas: ReferenceAtlas; symbol: string }) {
   const gap = atlasGap(atlas, symbol);
   const row = atlas.status === 'available' ? atlas.rows[0] : null;
-  const regions = row?.regions ?? [];
-  const nuclei = regions.filter((region) => region.compartment === 'hypothalamic');
-  const shown = nuclei.slice(0, VISIUM_TOP);
-  const max = Math.max(0, ...shown.flatMap((region) => [region.mean, ...region.donors.map((donor) => donor.value)]));
-  const outside = regions.find((region) => region.compartment !== 'hypothalamic');
+  const ranked = (row?.regions ?? []).filter((region) => !region.unassigned);
+  const shown = ranked.slice(0, VISIUM_TOP);
+  const max = Math.max(0, ...shown.flatMap((region) => [region.value, ...region.donors.map((donor) => donor.value)]));
   const gene = atlas.status === 'available' ? atlas.gene : symbol;
   return (
     <section className="portal-source" data-atlas="visium" aria-labelledby="portal-visium-title">
       <SourceTitle id="portal-visium-title" name="HYPOMAP Visium" method="spatial, by region" />
       {gap ? <p className="portal-note">{gap}</p> : !shown.length ? <p className="portal-note">No region has a value.</p> : (
         <>
-          <ul className="portal-bars portal-bars--regions" aria-label={`Hypothalamic regions with the highest ${gene} donor mean, FFPE Visium probe-count CPM`}>
+          <ul className="portal-bars portal-bars--regions" aria-label={`Regional clusters with the highest pooled ${gene}, FFPE Visium probe-count CPM`}>
             {shown.map((region) => <RegionBar key={region.key} region={region} max={max} />)}
           </ul>
           <p className="portal-note">
-            FFPE Visium probe-count CPM, not comparable with TPM or nCPM. Bars are the mean over donors and dots each donor
-            ({row?.donors} donors in all; the number after a region is its donors, and fewer than three is marked sparse).
-            Top {shown.length} of {nuclei.length} hypothalamic regions.
-            {outside && outside.mean > (shown[0]?.mean ?? 0) ? ` Higher outside the nuclei: ${outside.key} (${outside.compartment}) at ${fmtCpm(outside.mean)}.` : ''}{' '}
-            A 55 µm spot mixes several cells, so values are tissue averages, not cell types.
+            FFPE Visium probe-count CPM, not comparable with TPM or nCPM. Regions are the authors' regional clusters of
+            spots. Bars pool every spot in a region across donors and sections, as HYPOMAP summarises regions; dots are each
+            donor ({row?.donors} donors in all; the number after a region is its donors). Top {shown.length} of {ranked.length} regions;
+            unassigned spots are not ranked. A 55 µm spot mixes several cells, so values are tissue averages, not cell types.
           </p>
           <p className="portal-note portal-credit">
             Tadross et al. 2025, <a href="https://doi.org/10.1038/s41586-024-08504-8" target="_blank" rel="noreferrer">Nature</a>.

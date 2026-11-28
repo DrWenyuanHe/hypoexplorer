@@ -1,11 +1,12 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "ceabe2ce128945676899cb0e313c6870511264c87e0667a7e2081ac932153999",
-  "outcome": "no-impact",
-  "explanation": "Only the results browser smoke spec changed, to match the share dialog's native modal focus behaviour; dataset intake, registration, bundles and the dataset contract are untouched.",
+  "fingerprint": "996d586c1a51a86989c1e86c8b0374644444052f82cd35363e366354526cf98e",
+  "outcome": "updated",
+  "explanation": "The Visium builder follows HYPOMAP's conventions: regional-cluster names from the authors' abbreviation table, every donor x region cell as a sample with no minimum, no compartments, Unassigned flagged and unranked, and per-condition poolWeights so a region's value is the CPM of all its spots. Region names, the absence of a minimum-spot or sparse rule, and pooling every spot to summarise a region follow the HYPOMAP authors (Tadross et al. 2025, Supplementary Table 20 and Methods).",
   "references": [
-    "scripts/smoke/results.smoke.spec.ts",
-    "docs/DATASET_CONTRACT.md"
+    "docs/agent-context/workflows.md",
+    "scripts/build_visium_reference.mts",
+    "data/expression/visium/README.md"
   ]
 }

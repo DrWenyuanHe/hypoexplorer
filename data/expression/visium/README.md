@@ -63,19 +63,33 @@ builds the atlas when it is missing, instead of fetching it from the app host.
 
 ## Derivation
 
-- Samples are donor × region cells with at least 10 spots: 121 of the 143 cells,
-  across 23 grouped regions. 22 cells with 1–9 spots are left out.
+- Groups are the authors' 23 grouped regional clusters
+  (`regional_clusters_grouped`). These are clusters of spots, named after the
+  hypothalamic region holding most of their spots, not hand-drawn anatomy; LH
+  1–3, MAM 1–2 and Thalamus 1–2 are merged as the authors merge them. Names
+  follow the authors' abbreviation table (Tadross et al. 2025, Supplementary
+  Table 20, with "commisure" spelled "commissure"); compound labels such as
+  LH/RCN (lateral hypothalamus / retrochiasmatic nucleus) join its entries, and
+  the authors give no expansion for Vascular, Thalamus or Unassigned.
+- Samples are all 143 donor × region cells. The authors set no minimum number of
+  spots, donors or sections for a region, so none is applied here; a cell with
+  one spot is a sample, and its donor dot is as noisy as one spot.
 - CPM = 10^6 × count / library size, where both are summed over the cell's
   spots. Stored to six significant digits (`toPrecision(6)`); a zero count is 0.
   The unit is "FFPE Visium probe-count CPM". It is not TPM, HPA nTPM/nCPM or
   microarray intensity, and the app never puts it on a scale shared with them.
 - Groups are regions and samples are donors, so n counts donors and one donor
-  appears in several regions. A region's survey mean is the mean over its donors.
-- 16 groups are hypothalamic areas. Fx/LH, Fx/OT/ac and OT (fibre tracts),
-  Vascular, Ventricular, Thalamus and Unassigned are kept as their own groups
-  and are not ranked with the nuclei on the gene page.
-- Regions with fewer than three donors are flagged as sparse wherever regions
-  are ranked: POA (1 donor), ME and MAM (2 each).
+  appears in several regions.
+- A region's value is pooled, as the authors summarise regions over all of a
+  region's spots across sections and donors: the CPM of the region's summed
+  counts. Each condition carries its samples' library sizes (`poolWeights`), and
+  the reader computes the pooled value as the library-weighted mean of the
+  stored donor CPMs. The survey ranks and exports it (`stat` = `pooled`); each
+  donor's own value stays beside it.
+- Like the authors, the build sorts the regional clusters into no compartments.
+  Only Unassigned is set apart (`unassigned: true`): it stays in the data but is
+  not ranked as a region, as the authors assign no region when Unassigned comes
+  out on top.
 - All 18,085 panel genes are included. Six (BPIFB6, HNRNPCL3, LRRC70, PRH2,
   PVRIG, TSPY1) have no count in any spot and are stored as measured zeros.
   Genes outside the panel, such as IGF2 and HCRT, are reported as "Not measured

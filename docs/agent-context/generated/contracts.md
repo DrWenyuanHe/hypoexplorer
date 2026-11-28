@@ -609,9 +609,9 @@ export interface ExpressionCondition {
         donors: number;
         sections: number;
         spots: number;
-        sparse: boolean;
     };
-    compartment?: string;
+    poolWeights?: number[];
+    unassigned?: boolean;
 }
 ```
 
@@ -691,6 +691,7 @@ export interface ExpressionGroupResult {
     referenceEligible: boolean;
     samples: ExpressionSampleValue[];
     mean: number | null;
+    pooled?: number | null;
     n: number;
     totalSamples: number;
     summary?: number | null;
