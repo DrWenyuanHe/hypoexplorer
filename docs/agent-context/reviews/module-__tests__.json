@@ -1,14 +1,12 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "e253c4e2f23230be0ab065d2028d6488c9abcbd0bfa0e4b0d823add05d7fc19b",
+  "fingerprint": "e21177b8f33f7c2be7d50e899fe4e2a68f82d96eedcd8fa667c295c9dfe187c2",
   "outcome": "updated",
-  "explanation": "modal.test.tsx now pins the native dialog: showModal with no role or aria-modal, closedby any, focus on open, onClose from the x button, a cancelled Escape request, an uncancellable close and the backdrop fallback (press and release outside, not a drag from inside, not an inner dialog's backdrop), focus return and an untouched body overflow. portalHost.test.tsx replaces focusTrapPortal and focusTrap tests; setup.ts shims showModal, close and the Escape close request for jsdom; dialog tests in confirmDialog, pwaUpdate, cellSelector, geneModal, smoke, datasetInfo and responsiveSidebar follow the new markup.",
+  "explanation": "Visium tests follow the HYPOMAP conventions. Region names, the absence of a minimum-spot or sparse rule, and pooling every spot to summarise a region follow the HYPOMAP authors (Tadross et al. 2025, Supplementary Table 20 and Methods). externalReference.test.ts checks 143 samples, the authors' region names (LH/RCN as lateral hypothalamus / retrochiasmatic nucleus, Ventricular hypothalamus), no compartment or sparse fields, pool weights equal to each sample's library size, and ARC's pooled POMC (134,074 counts over 110,969,984). regionalSummary.test.ts ranks by the pooled value, keeps a donor in two regions and flags Unassigned. portalCards.test.tsx expects ARC, VMH, LTN, Vascular and ME with Unassigned left unranked.",
   "references": [
-    "src/__tests__/modal.test.tsx",
-    "src/__tests__/portalHost.test.tsx",
-    "src/__tests__/setup.ts",
-    "src/__tests__/confirmDialog.test.tsx",
-    "src/__tests__/geneModal.test.tsx"
+    "src/__tests__/externalReference.test.ts",
+    "src/__tests__/regionalSummary.test.ts",
+    "src/__tests__/portalCards.test.tsx"
   ]
 }

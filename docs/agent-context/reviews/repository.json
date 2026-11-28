@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "5fd92b20e77d9678304cf22c1d3d16946c856ab07727ed34694d9fdc65630458",
+  "fingerprint": "9afa10e1df36126ee5ea0f0d2f25c1133c9146a790c7a011bd3d14f7ce4ee140",
   "outcome": "updated",
-  "explanation": "The ui-change runbook and REFACTOR_CHECKLIST.md describe Modal as a native dialog with portalHost and no body scroll lock. The results smoke spec no longer expects Shift+Tab from the share dialog's first control to wrap to its last, which was the removed manual trap; it checks focus never reaches the page under the native modal, then walks Close, link and Copy in order.",
+  "explanation": "CHANGELOG.md's Visium entry now states that region names, the lack of a minimum-spot or sparse rule and region pooling follow the HYPOMAP authors. Region names, the absence of a minimum-spot or sparse rule, and pooling every spot to summarise a region follow the HYPOMAP authors (Tadross et al. 2025, Supplementary Table 20 and Methods). The R extractor and build scripts are otherwise unchanged.",
   "references": [
-    "scripts/smoke/results.smoke.spec.ts",
-    "docs/agent-context/workflows.md",
-    "docs/runbooks/REFACTOR_CHECKLIST.md"
+    "CHANGELOG.md",
+    "scripts/build_visium_reference.mts",
+    "scripts/extract_visium_reference.R",
+    "package.json"
   ]
 }

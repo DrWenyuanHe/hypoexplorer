@@ -499,7 +499,7 @@ describe('ReferenceAtlasSection', () => {
     expect(within(allen).getByText(/hypothalamic samples\s+\(102 across 6 donors\)/)).toBeTruthy();
   });
 
-  it('ranks HYPOMAP Visium hypothalamic regions by donor mean, with a dot per donor and its credit', async () => {
+  it('ranks HYPOMAP Visium regional clusters by their pooled value, with a dot per donor and its credit', async () => {
     productFetch();
     render(<ReferenceAtlasSection symbol="Pomc" />);
     const card = document.querySelector('[data-section="reference-atlases"]') as HTMLElement;
@@ -509,11 +509,12 @@ describe('ReferenceAtlasSection', () => {
       return column;
     });
     const rows = [...visium.querySelectorAll('.portal-bars li')];
-    // Fibre tract, vascular and unassigned spots are not ranked with the nuclei; ME has two donors and is marked.
+    // Every regional cluster is ranked as the authors list them, except Unassigned (pooled 48.4, above ME).
     expect(rows.map((row) => row.querySelector('.portal-bar-label')?.textContent))
-      .toEqual(['ARC · 6', 'VMH · 4', 'LTN · 6', 'ME · 2 donors, sparse', 'Periventricular · 6']);
-    expect(rows[0].querySelectorAll('.portal-bar-dot')).toHaveLength(6);
-    expect(within(rows[0] as HTMLElement).getByText('1001')).toBeTruthy();
+      .toEqual(['ARC · 7', 'VMH · 7', 'LTN · 6', 'Vascular · 7', 'ME · 4']);
+    expect(rows[0].querySelectorAll('.portal-bar-dot')).toHaveLength(7);
+    expect(within(rows[0] as HTMLElement).getByText('1208')).toBeTruthy();
+    expect(within(visium).getByText(/unassigned spots are not ranked/)).toBeTruthy();
     expect(within(visium).getByText(/FFPE Visium probe-count CPM, not comparable with TPM or nCPM/)).toBeTruthy();
     expect(within(visium).getByText(/7 donors in all/)).toBeTruthy();
     expect(within(visium).getByText(/55 µm spot mixes several cells/)).toBeTruthy();

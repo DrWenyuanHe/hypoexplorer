@@ -78,6 +78,21 @@ export function providerOf(source: ExpressionSource): ExternalProvider {
   return provider;
 }
 
+/** The weighted mean of a group's measured values: the CPM of its summed counts when the weights are library sizes. */
+function pooledValue(weights: number[], samples: Array<{ value: number | null }>): number | null {
+  if (weights.length !== samples.length || weights.some((weight) => !Number.isFinite(weight) || weight <= 0)) {
+    throw new Error('External reference pool weights do not match the group samples.');
+  }
+  let total = 0;
+  let weight = 0;
+  samples.forEach((sample, index) => {
+    if (sample.value == null) return;
+    total += sample.value * weights[index];
+    weight += weights[index];
+  });
+  return weight > 0 ? total / weight : null;
+}
+
 /** Builds groups in the source's own order; summary groups carry no samples and no mean. */
 export function externalGeneResult(
   manifest: ExternalReferenceManifest, source: ExpressionSource, query: string,
@@ -101,6 +116,7 @@ export function externalGeneResult(
     const finite = samples.flatMap((sample) => sample.value == null ? [] : [sample.value]);
     return { key: condition.key, label: condition.label, referenceEligible: condition.referenceEligible,
       samples, mean: finite.length ? finite.reduce((sum, value) => sum + value, 0) / finite.length : null,
+      ...(condition.poolWeights ? { pooled: pooledValue(condition.poolWeights, samples) } : {}),
       n: finite.length, totalSamples: samples.length };
   });
   return { sourceId: source.id, query, status: 'available', gene: entry.symbol || entry.id,

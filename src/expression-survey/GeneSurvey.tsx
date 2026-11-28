@@ -129,6 +129,8 @@ function ResultPanel({
   const [first] = sources;
   const primary = genes[0];
   const summary = isSummary(first);
+  // A regional source (HYPOMAP Visium) ranks each region's pooled value, not a mean of its donors.
+  const pooled = first?.conditions.some((condition) => condition.poolWeights) ?? false;
   const panel = surveyPanel(sources, results, genes, { referenceOnly, matrix });
   const { rows, axis } = panel;
   const populationLabel = (id: string) => sources.find((source) => source.id === id)?.populationLabel;
@@ -212,7 +214,7 @@ function ResultPanel({
                   <th>Population / cohort</th>
                   <th className="ex-number">n</th>
                   <th>
-                    {primary} · {summary ? 'published value' : 'mean'}
+                    {primary} · {summary ? 'published value' : pooled ? 'pooled value' : 'mean'}
                   </th>
                   <th className="ex-number">{first.unit}</th>
                 </tr>

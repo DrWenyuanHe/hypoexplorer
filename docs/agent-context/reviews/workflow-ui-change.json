@@ -1,13 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "1d87f328685d18589cac9364a8082edf314bfca120b6fe3d1699424e5a3de623",
+  "fingerprint": "a623a114638847f2873fe8a20c027ee68aac06fac57baca44135a5ff08928be4",
   "outcome": "updated",
-  "explanation": "The ui-change runbook says the shared Modal is a native dialog whose browser behaviour supplies the focus trap, inert page, Escape and focus return, that portaling popups mount through portalHost, and that a popup handling Escape cancels it so the dialog stays open; the refactor checklist forbids role=dialog divs and body scroll locks.",
+  "explanation": "The gene-page Visium tile ranks regional clusters by their pooled value, with a dot per donor and no sparse mark, and leaves Unassigned unranked; the survey column for the source reads \"pooled value\". Checked in the browser at desktop and 390 px with no horizontal overflow and no console errors.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "docs/runbooks/REFACTOR_CHECKLIST.md",
-    "src/common/Modal.tsx",
-    "src/common/portalHost.ts"
+    "src/search/portalCards.tsx",
+    "src/search/search.css",
+    "src/expression-survey/GeneSurvey.tsx",
+    "docs/agent-context/workflows.md"
   ]
 }

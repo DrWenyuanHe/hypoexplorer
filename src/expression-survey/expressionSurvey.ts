@@ -41,9 +41,10 @@ export function isBoundary(source: ExpressionSource): boolean {
   return /\bSFO\b/i.test(source.region) || source.id.includes('.SFO_');
 }
 
-/** A summary group's published value, otherwise the stored-value mean; never a mean of summaries. */
+/** A summary group's published value, a regional group's pooled value, otherwise the stored-value mean; never a mean of summaries. */
 export function groupValue(group: ResultGroup): number | null {
-  return group.summary !== undefined ? group.summary : group.mean;
+  if (group.summary !== undefined) return group.summary;
+  return group.pooled !== undefined ? group.pooled : group.mean;
 }
 
 export function formatValue(value: number | null | undefined): string {
@@ -478,7 +479,8 @@ export function csvTable(format: 'samples' | 'summary', input: Pick<ExportInput,
           : [...cohort, group.summary, '', '', 'published-summary']);
       } else if (format === 'samples') {
         for (const sample of group.samples) rows.push([...cohort, sample.id, sample.value, sampleStatus(sample.value)]);
-      } else rows.push([...cohort, group.mean, group.n, group.totalSamples, 'mean']);
+      } else if (group.pooled !== undefined) rows.push([...cohort, group.pooled, group.n, group.totalSamples, 'pooled']);
+      else rows.push([...cohort, group.mean, group.n, group.totalSamples, 'mean']);
     }
   }
   return rows;

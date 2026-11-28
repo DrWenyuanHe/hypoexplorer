@@ -165,13 +165,13 @@ describe('HYPOMAP Visium by region', () => {
     const [visium] = manifest.sources;
     expect(visium).toMatchObject({
       id: VISIUM, collection: 'external', scope: 'tissue', species: 'Homo sapiens', valueKind: 'samples',
-      featureLevel: 'gene', groupKind: 'region', unit: 'FFPE Visium probe-count CPM', sampleCount: 121,
+      featureLevel: 'gene', groupKind: 'region', unit: 'FFPE Visium probe-count CPM', sampleCount: 143,
       absentLabel: 'Not measured in this Visium probe panel',
     });
     expect(visium.conditions).toHaveLength(23);
     expect(visium.conditions.every((condition) => !condition.referenceEligible)).toBe(true);
-    expect(manifest.samples).toHaveLength(121);
-    expect(new Set(manifest.samples.map((sample) => sample.id)).size).toBe(121);
+    expect(manifest.samples).toHaveLength(143);
+    expect(new Set(manifest.samples.map((sample) => sample.id)).size).toBe(143);
     // Display-local donor labels; no source donor code, sex, age or BMI anywhere in the manifest.
     expect([...new Set(manifest.samples.map((sample) => sample.label))].sort()).toEqual(
       ['Donor 1', 'Donor 2', 'Donor 3', 'Donor 4', 'Donor 5', 'Donor 6', 'Donor 7']);
@@ -180,16 +180,22 @@ describe('HYPOMAP Visium by region', () => {
     }
     const text = JSON.stringify(manifest);
     expect(text).not.toMatch(/"(sex|age|bmi|donorID)"/i);
-    // Sparse regions are flagged; non-nuclear compartments stay apart from the nuclei.
+    // As in HYPOMAP: every spot is kept (no minimum spots or donors), names follow the authors' abbreviation
+    // table, no compartments, and only Unassigned is set apart.
     const byKey = new Map(visium.conditions.map((condition) => [condition.key, condition]));
-    expect(byKey.get('POA')?.coverage).toMatchObject({ donors: 1, sparse: true });
-    expect(byKey.get('ME')?.coverage).toMatchObject({ donors: 2, sparse: true });
-    expect(byKey.get('MAM')?.coverage).toMatchObject({ donors: 2, sparse: true });
-    expect(byKey.get('ARC')?.coverage).toMatchObject({ donors: 6, sparse: false, spots: 3498 });
-    expect(byKey.get('POA')?.label).toMatch(/1 donor, 788 spots · sparse$/);
-    expect(['Fx/LH', 'Fx/OT/ac', 'OT', 'Vascular', 'Ventricular', 'Thalamus', 'Unassigned'].map((key) => byKey.get(key)?.compartment))
-      .toEqual(['fibre tract', 'fibre tract', 'fibre tract', 'vascular', 'ventricular', 'thalamus', 'unassigned']);
-    expect(visium.conditions.filter((condition) => condition.compartment === 'hypothalamic')).toHaveLength(16);
+    expect(byKey.get('POA')?.coverage).toEqual({ donors: 4, sections: 4, spots: 793 });
+    expect(byKey.get('ARC')?.coverage).toMatchObject({ donors: 7, spots: 3503 });
+    expect(byKey.get('POA')?.label).toBe('POA (Preoptic area) · 4 donors, 793 spots');
+    expect(byKey.get('LH/RCN')?.label).toMatch(/^LH\/RCN \(Lateral hypothalamus \/ Retrochiasmatic nucleus\)/);
+    expect(byKey.get('Ventricular')?.label).toMatch(/^Ventricular \(Ventricular hypothalamus\)/);
+    expect(byKey.get('Vascular')?.label).toMatch(/^Vascular · /);
+    expect(visium.conditions.filter((condition) => condition.unassigned).map((condition) => condition.key)).toEqual(['Unassigned']);
+    expect(text).not.toMatch(/compartment|sparse/);
+    for (const condition of visium.conditions) {
+      expect(condition.poolWeights).toHaveLength(condition.sampleCount!);
+      expect(manifest.columns[VISIUM].filter((column) => column.group === condition.key).map((column) =>
+        Number(manifest.samples.find((sample) => sample.id === column.sample)!.metadata.libraryCounts))).toEqual(condition.poolWeights);
+    }
     expect(visium.provider).toMatchObject({ license: 'CC BY 4.0', licenseUrl: 'https://creativecommons.org/licenses/by/4.0/' });
     expect(visium.provider?.attribution).toMatch(/10\.1038\/s41586-024-08504-8.*10\.17863\/CAM\.111988.*Transformed by HypoExplorer/);
     expect(visium.notes).toMatch(/55 µm/);
@@ -201,25 +207,27 @@ describe('HYPOMAP Visium by region', () => {
     const [pomc, zero, igf2] = await loadExternalExpression(visium, ['Pomc', 'TSPY1', 'IGF2']);
     expect(pomc).toMatchObject({ status: 'available', gene: 'POMC', geneId: 'POMC', unit: 'FFPE Visium probe-count CPM' });
     const arc = pomc.groups.find((group) => group.key === 'ARC')!;
-    expect(arc.n).toBe(6);
-    expect(arc.samples.map((sample) => sample.id)).toEqual(['Donor 1', 'Donor 2', 'Donor 3', 'Donor 4', 'Donor 5', 'Donor 6']);
+    expect(arc.n).toBe(7);
+    expect(arc.samples.map((sample) => sample.id)).toEqual(['Donor 1', 'Donor 2', 'Donor 3', 'Donor 4', 'Donor 5', 'Donor 6', 'Donor 7']);
     // 2,404 POMC counts over Donor 1's 5,126,481 ARC counts, to six significant digits.
     expect(arc.samples[0].value).toBe(468.938);
-    expect(pomc.groups.reduce((sum, group) => sum + group.samples.length, 0)).toBe(121);
+    // Pooled over every ARC spot: 134,074 POMC counts over 110,969,984, from the stored six-digit donor values.
+    expect(arc.pooled!).toBeCloseTo(1e6 * 134074 / 110969984, 2);
+    expect(pomc.groups.reduce((sum, group) => sum + group.samples.length, 0)).toBe(143);
     expect(zero.status).toBe('available');
     expect(zero.groups.every((group) => group.samples.every((sample) => sample.value === 0))).toBe(true);
     expect(igf2).toMatchObject({ status: 'not-retained', groups: [] });
     // Every exported row credits the authors, the dataset, the licence and the transformation.
     const table = csvTable('samples', { sources: [visium], results: [pomc], referenceOnly: false });
     const credit = table[0].indexOf('source_credit');
-    expect(table).toHaveLength(122);
+    expect(table).toHaveLength(144);
     for (const row of table.slice(1)) expect(String(row[credit])).toMatch(/s41586-024-08504-8.*CAM\.111988.*Transformed by HypoExplorer.*creativecommons\.org\/licenses\/by\/4\.0/);
   });
 
   it('accepts its derived-CPM validation report', async () => {
     localFetch();
     const report = await loadExternalValidation('visium');
-    expect(report.comparedValues).toBe(18085 * 121);
+    expect(report.comparedValues).toBe(18085 * 143);
     expect(report.exactMatches).toBe(report.comparedValues);
     expect(report.inputs[0]).toMatchObject({ name: 'humanHYPOMAP_spatial.rds', bytes: 2632769082 });
     expect(report.notes.join(' ')).toMatch(/recomputed from its count and library size/);

@@ -1,13 +1,12 @@
 {
   "version": 1,
   "area": "analysis",
-  "fingerprint": "a12392cc8aa07320deaa47ea75115002fa61fba6a388b21851648c490072712c",
+  "fingerprint": "f9eba833d35eb71fbd859d6a4dd5a3182d1d0b1bfa45ff7865e19f5ade81dbe1",
   "outcome": "updated",
-  "explanation": "Merges main (#101) into the HypoMap study-card branch. From main: data/expression/visium/README.md documents the HYPOMAP human Visium reference (pinned RDS, four donor x region tables, derivation, sparse-region and compartment rules, the R 4.6.0 re-extraction and CC BY 4.0 attribution). From this branch: the HypoMap runbook lists which study-card columns the By dataset view shows and the two its CSV adds; the study card, exporter and export format are unchanged.",
+  "explanation": "data/expression/visium/README.md now follows HYPOMAP's conventions. Region names, the absence of a minimum-spot or sparse rule, and pooling every spot to summarise a region follow the HYPOMAP authors (Tadross et al. 2025, Supplementary Table 20 and Methods). Groups are the authors' 23 grouped regional clusters, named from their abbreviation table; all 143 donor x region cells are samples; no compartments; Unassigned is kept but not ranked, as the authors assign no region when Unassigned comes out on top. A region's value is pooled (CPM of all its spots summed across donors and sections) through per-condition poolWeights. The R 4.6.0 re-extraction record is unchanged.",
   "references": [
     "data/expression/visium/README.md",
-    "scripts/extract_visium_reference.R",
-    "data/hypomap/README.md",
-    "src/search/hypomap/atlas.ts"
+    "scripts/build_visium_reference.mts",
+    "scripts/extract_visium_reference.R"
   ]
 }

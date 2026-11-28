@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "module-expression-survey",
-  "fingerprint": "38c401c2c955ebbdae7dd3b7a3c6e625da094c4df71ec39c08ac780cd6b1c6f0",
+  "fingerprint": "8cfbf3a5e13106f251bb206764d962a722cb04d836c791c307e4d8d340e63c65",
   "outcome": "updated",
-  "explanation": "externalReferenceFormat.ts adds the visium provider and root, TRACKED_SOURCE_PROVIDERS (providers built from a tracked extract) and an optional derivedFrom on validation checkpoints; sourceJson.ts allow-lists the visium family. missingLabel reads a source absentLabel so an off-panel gene reads Not measured in this Visium probe panel. CSV exports gain a source_credit column (provider attribution and licence, else the citation). The Sources & validation note names the Visium recomputation check. The reader and manifest validation are unchanged.",
+  "explanation": "externalReference.ts computes a group's pooled value when its condition carries poolWeights: the weighted mean of the stored sample values, which for library-size weights is the CPM of the group's summed counts; mismatched or non-positive weights throw. groupValue ranks pooled before the arithmetic mean, the summary CSV writes it with stat pooled, and GeneSurvey labels the column \"pooled value\" for such a source. Summary sources and every other source are unchanged.",
   "references": [
-    "src/expression-survey/externalReferenceFormat.ts",
-    "src/expression-survey/sourceJson.ts",
+    "src/expression-survey/externalReference.ts",
     "src/expression-survey/expressionSurvey.ts",
-    "src/expression-survey/ExpressionSurveyView.tsx",
+    "src/expression-survey/GeneSurvey.tsx",
     "docs/runbooks/EXPRESSION_SURVEY.md"
   ]
 }
