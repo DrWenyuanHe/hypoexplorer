@@ -1,13 +1,15 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "9afa10e1df36126ee5ea0f0d2f25c1133c9146a790c7a011bd3d14f7ce4ee140",
+  "fingerprint": "242b72df00bf89a9f9b7afe3d7138c17046dc4871f265ba5d04f92f32888f68b",
   "outcome": "updated",
-  "explanation": "CHANGELOG.md's Visium entry now states that region names, the lack of a minimum-spot or sparse rule and region pooling follow the HYPOMAP authors. Region names, the absence of a minimum-spot or sparse rule, and pooling every spot to summarise a region follow the HYPOMAP authors (Tadross et al. 2025, Supplementary Table 20 and Methods). The R extractor and build scripts are otherwise unchanged.",
+  "explanation": "CHANGELOG.md's Visium entry now states that region names, the lack of a minimum-spot or sparse rule and region pooling follow the HYPOMAP authors. Region names, the absence of a minimum-spot or sparse rule, and pooling every spot to summarise a region follow the HYPOMAP authors (Tadross et al. 2025, Supplementary Table 20 and Methods). The R extractor and build scripts are otherwise unchanged. .gitattributes keeps the section tables and the renderer LF and marks the WebP images binary; CHANGELOG.md records the section images.",
   "references": [
     "CHANGELOG.md",
     "scripts/build_visium_reference.mts",
     "scripts/extract_visium_reference.R",
-    "package.json"
+    "package.json",
+    ".gitattributes",
+    "scripts/render_visium_sections.R"
   ]
 }

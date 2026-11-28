@@ -21,6 +21,7 @@ import { DEFAULT_FDR_CUTOFF, type SignificanceTier } from '../statistics/policy'
 import { DOWN_TEXT_COLOR, UP_TEXT_COLOR } from '../styles/constants';
 import { fmtFDR, fmtP, fmtSigned, plural } from '../utils/format';
 import { DbBadge } from './DbBadge';
+import { VisiumSectionsButton } from './VisiumSections';
 import { describePathway } from './searchVocabulary';
 import {
   loadBaselineTeaser, loadConditionPathways, loadFamilyTeaser, loadReferenceAtlases, REFERENCE_ATLAS_SOURCES,
@@ -658,6 +659,7 @@ function VisiumAtlas({ atlas, symbol }: { atlas: ReferenceAtlas; symbol: string 
             Data <a href="https://doi.org/10.17863/CAM.111988" target="_blank" rel="noreferrer">doi:10.17863/CAM.111988</a>,{' '}
             <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a>, summed per donor and region and converted to CPM by HypoExplorer.
           </p>
+          <VisiumSectionsButton gene={gene} />
         </>
       )}
     </section>

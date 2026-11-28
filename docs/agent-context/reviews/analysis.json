@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "analysis",
-  "fingerprint": "f9eba833d35eb71fbd859d6a4dd5a3182d1d0b1bfa45ff7865e19f5ade81dbe1",
+  "fingerprint": "e0793ec366a58ac1ee85d7b27dd54163c566cbca03f3da2b68f43a06a0bcceef",
   "outcome": "updated",
-  "explanation": "data/expression/visium/README.md now follows HYPOMAP's conventions. Region names, the absence of a minimum-spot or sparse rule, and pooling every spot to summarise a region follow the HYPOMAP authors (Tadross et al. 2025, Supplementary Table 20 and Methods). Groups are the authors' 23 grouped regional clusters, named from their abbreviation table; all 143 donor x region cells are samples; no compartments; Unassigned is kept but not ranked, as the authors assign no region when Unassigned comes out on top. A region's value is pooled (CPM of all its spots summed across donors and sections) through per-condition poolWeights. The R 4.6.0 re-extraction record is unchanged.",
+  "explanation": "data/expression/visium/README.md now follows HYPOMAP's conventions. Region names, the absence of a minimum-spot or sparse rule, and pooling every spot to summarise a region follow the HYPOMAP authors (Tadross et al. 2025, Supplementary Table 20 and Methods). Groups are the authors' 23 grouped regional clusters, named from their abbreviation table; all 143 donor x region cells are samples; no compartments; Unassigned is kept but not ranked, as the authors assign no region when Unassigned comes out on top. A region's value is pooled (CPM of all its spots summed across donors and sections) through per-condition poolWeights. The R 4.6.0 re-extraction record is unchanged. Curated HYPOMAP Visium section images: 12 marker genes (POMC, AGRP, NPY, CARTPT, KISS1, GHRH, SST, TRH, CRH, OXT, AVP, PMCH) on all nine sections, each beside a labelled map of the authors' regional clusters, rendered from the pinned RDS by scripts/render_visium_sections.R (log1p(count / library x 1e4) on the authors' fixed 0-3 scale, light grey to dark green on white, anterior-to-posterior Section 1-9), tracked in data/expression/visium/sections/ and pinned file by file in source-manifest.json sectionImages. The Visium README gains a Section images part (rendering rules, checks, and a byte-for-byte re-render under R 4.6.0) and updated coverage examples.",
   "references": [
     "data/expression/visium/README.md",
     "scripts/build_visium_reference.mts",
-    "scripts/extract_visium_reference.R"
+    "scripts/extract_visium_reference.R",
+    "data/expression/visium/sections/frames.tsv",
+    "scripts/render_visium_sections.R"
   ]
 }

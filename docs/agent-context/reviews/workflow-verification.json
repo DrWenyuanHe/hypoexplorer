@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "95548884d05ef68913695210f4de561676b37a7debe35f2097b2610c496af157",
+  "fingerprint": "fa4240023c809bf8ecb62012dbd79ccf8d4f462486ab739dfa57ea560013e739",
   "outcome": "updated",
-  "explanation": "The Visium builder still reads back every value (now 18,085 x 143 = 2,586,155) and recomputes each CPM from its count and library size; the R 4.6.0 re-extraction reproduced the pinned tables. The new pooled value is tested against the summed ARC POMC counts.",
+  "explanation": "The Visium builder still reads back every value (now 18,085 x 143 = 2,586,155) and recomputes each CPM from its count and library size; the R 4.6.0 re-extraction reproduced the pinned tables. The new pooled value is tested against the summed ARC POMC counts. The section images are verified file by file on every build, and a --fetch --sections re-render from the RDS under R 4.6.0 reproduced every section file byte for byte.",
   "references": [
     "scripts/build_visium_reference.mts",
     "data/expression/visium/README.md",
-    "src/expression-survey/externalReference.ts"
+    "src/expression-survey/externalReference.ts",
+    "scripts/render_visium_sections.R"
   ]
 }

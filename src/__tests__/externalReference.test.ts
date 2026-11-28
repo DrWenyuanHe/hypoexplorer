@@ -8,6 +8,8 @@ import { resetSourceRequests, sourceJson } from '../expression-survey/sourceJson
 import { externalKey } from '../expression-survey/externalReferenceFormat';
 import type { ExternalReferenceManifest } from '../expression-survey/externalReferenceFormat';
 import { csvTable } from '../expression-survey/expressionSurvey';
+import { validateSectionIndex } from '../search/visiumSectionIndex';
+import { createHash } from 'node:crypto';
 
 function publicJson(path: string): unknown {
   return JSON.parse(readFileSync(`public${path.split('?')[0]}`, 'utf8'));
@@ -222,6 +224,32 @@ describe('HYPOMAP Visium by region', () => {
     const credit = table[0].indexOf('source_credit');
     expect(table).toHaveLength(144);
     for (const row of table.slice(1)) expect(String(row[credit])).toMatch(/s41586-024-08504-8.*CAM\.111988.*Transformed by HypoExplorer.*creativecommons\.org\/licenses\/by\/4\.0/);
+  });
+
+  it('ships pinned section images for the curated genes, with an index the page can trust', async () => {
+    const index = validateSectionIndex(JSON.parse(readFileSync('public/expression/visium/sections/index.json', 'utf8')));
+    expect(index.genes.map((gene) => gene.symbol)).toEqual(['POMC', 'AGRP', 'NPY', 'CARTPT', 'KISS1', 'GHRH', 'SST', 'TRH', 'CRH', 'OXT', 'AVP', 'PMCH']);
+    expect(index.sections.map((frame) => frame.label)).toEqual(Array.from({ length: 9 }, (_, at) => `Section ${at + 1}`));
+    // Every spot of the object is drawn once across the nine sections.
+    expect(index.sections.reduce((sum, frame) => sum + frame.spots, 0)).toBe(86041);
+    expect(index.scale).toMatchObject({ min: 0, max: 3, stops: ['#E9E9E9', '#B7D7CF', '#4FA593', '#16695C', '#06302A'] });
+    // The regional-cluster maps: one per section, a colour for each of the 23 clusters, labels inside their frame.
+    expect(index.regions.images.map((image) => image.file)).toEqual(Array.from({ length: 9 }, (_, at) => `regions/section-${at + 1}.webp`));
+    expect(index.regions.colours).toHaveLength(23);
+    expect(index.regions.labels.filter((label) => label.region === 'ARC').map((label) => label.section)).toEqual([4, 5, 8, 9]);
+    expect(index.credit).toMatch(/10\.17863\/CAM\.111988.*Transformed by HypoExplorer/);
+    for (const gene of [{ images: index.regions.images }, ...index.genes]) {
+      for (const image of gene.images) {
+        const bytes = readFileSync(`public/expression/visium/sections/${image.file}`);
+        expect(bytes.length).toBe(image.bytes);
+        expect(createHash('sha256').update(bytes).digest('hex')).toBe(image.sha256);
+        expect(bytes.toString('latin1', 8, 12)).toBe('WEBP');
+      }
+    }
+    // A file name outside the sections root is refused.
+    const bad = structuredClone(index);
+    bad.genes[0].images[0].file = '../manifest.json';
+    expect(() => validateSectionIndex(bad)).toThrow('inconsistent');
   });
 
   it('accepts its derived-CPM validation report', async () => {

@@ -13,6 +13,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'On a gene page, a HYPOMAP Visium tile ranks the regional clusters by their value pooled over all of a region\'s spots and draws each donor as a dot. Unassigned spots are not ranked.',
       'A Visium spot is 55 µm across and mixes several cells, so region values are tissue averages, not cell types. A gene outside the probe panel, such as IGF2 or HCRT, is reported as not measured there, never as zero.',
       'Donors are shown as Donor 1 to 7. Expression-survey CSV downloads gain a source_credit column with each source\'s required attribution and licence.',
+      'For 12 marker genes (POMC, AGRP, NPY, CARTPT, KISS1, GHRH, SST, TRH, CRH, OXT, AVP and PMCH) the Visium tile opens the gene on all nine tissue sections, each beside a labelled map of the authors\' regional clusters, anterior to posterior.',
     ],
   },
   {

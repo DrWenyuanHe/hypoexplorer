@@ -1,12 +1,13 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "e21177b8f33f7c2be7d50e899fe4e2a68f82d96eedcd8fa667c295c9dfe187c2",
+  "fingerprint": "4aec7cf69e5dfe84c98dbd9056e7bb4704057b3e84e2b1b2981cbd52febaa8ae",
   "outcome": "updated",
-  "explanation": "Visium tests follow the HYPOMAP conventions. Region names, the absence of a minimum-spot or sparse rule, and pooling every spot to summarise a region follow the HYPOMAP authors (Tadross et al. 2025, Supplementary Table 20 and Methods). externalReference.test.ts checks 143 samples, the authors' region names (LH/RCN as lateral hypothalamus / retrochiasmatic nucleus, Ventricular hypothalamus), no compartment or sparse fields, pool weights equal to each sample's library size, and ARC's pooled POMC (134,074 counts over 110,969,984). regionalSummary.test.ts ranks by the pooled value, keeps a donor in two regions and flags Unassigned. portalCards.test.tsx expects ARC, VMH, LTN, Vascular and ME with Unassigned left unranked.",
+  "explanation": "Visium tests follow the HYPOMAP conventions. Region names, the absence of a minimum-spot or sparse rule, and pooling every spot to summarise a region follow the HYPOMAP authors (Tadross et al. 2025, Supplementary Table 20 and Methods). externalReference.test.ts checks 143 samples, the authors' region names (LH/RCN as lateral hypothalamus / retrochiasmatic nucleus, Ventricular hypothalamus), no compartment or sparse fields, pool weights equal to each sample's library size, and ARC's pooled POMC (134,074 counts over 110,969,984). regionalSummary.test.ts ranks by the pooled value, keeps a donor in two regions and flags Unassigned. portalCards.test.tsx expects ARC, VMH, LTN, Vascular and ME with Unassigned left unranked. externalReference.test.ts checks the shipped section index (12 genes plus the regions maps, Section 1-9, 86,041 spots in all, 23 cluster colours, label sections, each image's bytes and SHA-256) and that a file name outside the sections root is refused; portalCards.test.tsx opens POMC's nine regions-and-gene pairs in the modal with labels and the 23-cluster legend, and checks the note for a non-curated gene; sourceJson.test.ts allows sections/index.json for Visium only and refuses image paths.",
   "references": [
     "src/__tests__/externalReference.test.ts",
     "src/__tests__/regionalSummary.test.ts",
-    "src/__tests__/portalCards.test.tsx"
+    "src/__tests__/portalCards.test.tsx",
+    "src/__tests__/sourceJson.test.ts"
   ]
 }

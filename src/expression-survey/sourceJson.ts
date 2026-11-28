@@ -26,7 +26,8 @@ const FAMILIES: Record<SourceFamily, FamilyRule> = {
   gtex: atlas('gtex'),
   hpa: atlas('hpa'),
   allen: atlas('allen'),
-  visium: atlas('visium'),
+  // Visium also ships the index of its curated section images (src/search/visiumSectionIndex.ts).
+  visium: { ...atlas('visium'), files: /^(?:manifest|validation|lookup\/l\d{4}|values\/v\d{4}|sections\/index)\.json$/ },
 };
 
 const requests = new Map<string, Promise<unknown>>();

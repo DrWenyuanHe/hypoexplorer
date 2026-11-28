@@ -155,3 +155,6 @@ data/intake/oxt-avp-2026-10-19/** -text !eol whitespace=blank-at-eol,blank-at-eo
 
 # pnpm hashes patch files into pnpm-lock.yaml; keep their bytes identical on every checkout.
 patches/*.patch text eol=lf
+data/expression/visium/sections/*.tsv text eol=lf
+data/expression/visium/sections/**/*.webp binary
+scripts/render_visium_sections.R text eol=lf
