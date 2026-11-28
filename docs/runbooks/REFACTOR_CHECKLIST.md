@@ -51,8 +51,10 @@ leave them byte-for-byte unchanged:
       precision.
 - [ ] Export click mechanics → `useExportAction` (busy state) / `exportFilename`
       (sanitizer) / `downloadFile` (anchor transport) in `src/utils/exportAction.ts`.
-- [ ] Dialog chrome (backdrop, Escape, focus trap) → `src/common/Modal.tsx` — no
-      hand-rolled dialog shells.
+- [ ] Dialog chrome (backdrop, Escape, focus trap) → `src/common/Modal.tsx`, a
+      native `<dialog>` with `showModal()` — no hand-rolled dialog shells, no
+      `role="dialog"`/`aria-modal` divs, no body `overflow: hidden` scroll lock.
+      Popups portal through `portalHost` in `src/common/portalHost.ts`.
 - [ ] Pathway-DB badge → `DbPill` in `src/common/DbPill.tsx` (owns the unknown-DB
       `?? '#888888'` guard — 6-digit, because the wash concatenates a 2-digit
       alpha and `'#888' + '22'` is a 5-digit hex the browser drops).

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { portalHost } from './portalHost';
 import type { AuthorValidationRecord } from '../data/authorValidation';
 import type { QualityAssessment } from '../data/qualityChecks';
 import { datasetQuality, QUALITY_BADGES, QUALITY_STATUS } from '../data/datasetQualityR460';
@@ -99,7 +100,7 @@ export function QualityBadge({ label, assessment, compact = false, icon = false,
         <button type="button" aria-label={`Close ${label} checks`} onClick={() => { close(true); trigger.current?.focus(); }}>×</button></div>
       {description && <p className="quality-scope">{description}</p>}
       <QualityChecklist assessment={assessment} />
-    </section>, document.body)}
+    </section>, portalHost(trigger.current))}
   </>;
 }
 

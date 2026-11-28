@@ -1,13 +1,11 @@
 {
   "version": 1,
   "area": "module-crossdataset",
-  "fingerprint": "6a63345ab98bab6a233065243ee325637078a7b6f1b40288026834daa39e1017",
+  "fingerprint": "91875e0e6b14b264cc71d69e4e212968080cc5fb131b0e78a00e647bd49fb2bf",
   "outcome": "updated",
-  "explanation": "contrastLabel, the pure display label of a resolved contrast, moves unchanged from crossdataset/forestReport.tsx to data/contrasts.ts beside resolveContrast and listContrasts. forestReport.tsx keeps only the forest plot's own helpers; PathwayReport.tsx imports the label from data/contrasts. No visible change. The gene and pathway reports also drop the paragraph explaining p < 0.05 only tracks and the legend sentence defining q; both now sit behind the listing toggle (?) help, which names the gene or pathway correction family. Counts, ordering and empty-listing notes are unchanged.",
+  "explanation": "EffectPreview portals through portalHost, so a preview opened inside a native modal dialog renders in the dialog rather than inert under it, and it cancels the Escape that dismisses it so the dialog stays open.",
   "references": [
-    "src/crossdataset/forestReport.tsx",
-    "src/crossdataset/PathwayReport.tsx",
-    "src/data/contrasts.ts",
-    "src/crossdataset/GeneReport.tsx"
+    "src/crossdataset/EffectPreview.tsx",
+    "src/common/portalHost.ts"
   ]
 }

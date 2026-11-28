@@ -1,107 +1,153 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Modal } from '../common/Modal';
+import { HelpTip } from '../common/HelpTip';
 
-// Focus management for the shared Modal: focus moves in on open, Tab is trapped
-// within the panel (both directions, including from the panel itself), Escape
-// closes, and focus is restored to the trigger on close — but never to a node
-// that was unmounted while the modal was open.
-//
-// The trap no longer decides visibility here: that moved to isFocusable in
-// src/utils/focusTrap.ts, which asks checkVisibility and falls back to a
-// hidden/display:none walk. This file used to mock HTMLElement.offsetParent for
-// the filter that used to live in Modal; the filter is gone, so the mock is too.
-// The visibility rules themselves are pinned in focusTrap.test.tsx.
+// The shared Modal is a native <dialog> opened with showModal(). The browser
+// owns the focus trap, the inert page and the top layer, which jsdom does not
+// model (setup.ts shims showModal/close and the Escape close request), so these
+// pin the wiring: it opens modally, takes focus, closes through onClose on each
+// path, hands focus back, and leaves the page's scrolling alone.
 
-const panelOf = () => document.querySelector('.modal-panel') as HTMLElement;
+const dialogOf = () => document.querySelector('dialog.modal-panel') as HTMLDialogElement;
 
-describe('Modal — focus management', () => {
-  it('moves focus into the panel on mount', () => {
-    render(<Modal onClose={() => {}} title="T"><button type="button">Inside</button></Modal>);
-    expect(document.activeElement).toBe(panelOf());
+describe('Modal — a native modal dialog', () => {
+  it('opens with showModal, named, with no hand-made role or aria-modal', () => {
+    const showModal = vi.spyOn(HTMLDialogElement.prototype, 'showModal');
+    render(<Modal onClose={() => {}} title="Dataset"><p>Body</p></Modal>);
+    const dialog = screen.getByRole('dialog', { name: 'Dataset' }) as HTMLDialogElement;
+    expect(dialog).toBe(dialogOf());
+    expect(showModal).toHaveBeenCalledTimes(1);
+    expect(dialog.open).toBe(true);
+    expect(dialog.hasAttribute('role')).toBe(false);
+    expect(dialog.hasAttribute('aria-modal')).toBe(false);
+    expect(dialog.getAttribute('closedby')).toBe('any');
+    showModal.mockRestore();
   });
 
-  it('Tab from the panel moves focus to the first focusable (the close button)', () => {
-    render(<Modal onClose={() => {}} title="T"><button type="button">Body</button></Modal>);
-    const panel = panelOf();
-    panel.focus();
-    fireEvent.keyDown(panel, { key: 'Tab' });
-    expect(document.activeElement).toBe(screen.getByLabelText('Close'));
+  it('moves focus to the dialog, or to the initial-focus control', () => {
+    const { unmount } = render(<Modal onClose={() => {}} title="T"><button type="button">Inside</button></Modal>);
+    expect(document.activeElement).toBe(dialogOf());
+    unmount();
+    render(
+      <Modal onClose={() => {}} title="T" initialFocusSelector="input">
+        <button type="button">First</button><input aria-label="Field" />
+      </Modal>,
+    );
+    expect(document.activeElement).toBe(screen.getByLabelText('Field'));
   });
 
-  it('Tab from the last focusable wraps to the first', () => {
-    render(<Modal onClose={() => {}} title="T"><button type="button">Body</button></Modal>);
-    const body = screen.getByText('Body');
-    body.focus();
-    fireEvent.keyDown(body, { key: 'Tab' });
-    expect(document.activeElement).toBe(screen.getByLabelText('Close'));
+  it('skips the header when there is neither a title nor headerRight', () => {
+    render(<Modal onClose={() => {}} ariaLabel="Own header"><p>Body</p></Modal>);
+    expect(screen.queryByLabelText('Close')).toBeNull();
+    expect(screen.getByRole('dialog', { name: 'Own header' })).toBeTruthy();
+  });
+});
+
+describe('Modal — closing', () => {
+  it('closes from the × button', () => {
+    const onClose = vi.fn();
+    render(<Modal onClose={onClose} title="T"><p>Body</p></Modal>);
+    fireEvent.click(screen.getByLabelText('Close'));
+    expect(onClose).toHaveBeenCalledTimes(1);
   });
 
-  it('Shift+Tab from the first focusable wraps to the last', () => {
-    render(<Modal onClose={() => {}} title="T"><button type="button">Body</button></Modal>);
-    const close = screen.getByLabelText('Close');
-    close.focus();
-    fireEvent.keyDown(close, { key: 'Tab', shiftKey: true });
-    expect(document.activeElement).toBe(screen.getByText('Body'));
-  });
-
-  it('keeps focus trapped when the close button is the only focusable', () => {
-    render(<Modal onClose={() => {}} title="T"><p>Just text</p></Modal>);
-    const close = screen.getByLabelText('Close');
-    fireEvent.keyDown(panelOf(), { key: 'Tab' });
-    expect(document.activeElement).toBe(close);
-    fireEvent.keyDown(close, { key: 'Tab' });
-    expect(document.activeElement).toBe(close); // first === last → stays
-  });
-
-  it('closes on Escape', () => {
+  it('turns an Escape close request into onClose and stays open until the caller unmounts', () => {
     const onClose = vi.fn();
     render(<Modal onClose={onClose} title="T"><button type="button">X</button></Modal>);
     fireEvent.keyDown(window, { key: 'Escape' });
     expect(onClose).toHaveBeenCalledTimes(1);
+    // The cancel was cancelled: React, not the browser, decides it closes.
+    expect(dialogOf().open).toBe(true);
   });
 
-  it('restores focus to the trigger element on close', () => {
+  it('calls onClose when the browser closes it anyway (an uncancellable request)', () => {
+    const onClose = vi.fn();
+    render(<Modal onClose={onClose} title="T"><p>Body</p></Modal>);
+    dialogOf().close();
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('leaves Escape to a popup inside that cancels it', () => {
+    const onClose = vi.fn();
+    render(
+      <Modal onClose={onClose} title="T">
+        <HelpTip label="What is q?"><p>Explanation</p></HelpTip>
+      </Modal>,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'What is q?' }));
+    expect(screen.getByRole('tooltip')).toBeTruthy();
+    fireEvent.keyDown(document.activeElement ?? document.body, { key: 'Escape' });
+    expect(screen.queryByRole('tooltip')).toBeNull();
+    expect(onClose).not.toHaveBeenCalled();
+    // The next Escape is the dialog's.
+    fireEvent.keyDown(window, { key: 'Escape' });
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  // jsdom lays nothing out, so the dialog's box is 0×0 at the origin and any
+  // point with a positive coordinate is on the backdrop. Without `closedby`
+  // (jsdom, like Safari) Modal's own fallback decides.
+  it('closes on a press that starts and ends on the backdrop', () => {
+    const onClose = vi.fn();
+    render(<Modal onClose={onClose} title="T"><p>Body</p></Modal>);
+    fireEvent.mouseDown(dialogOf(), { clientX: 5, clientY: 5 });
+    fireEvent.mouseUp(dialogOf(), { clientX: 5, clientY: 5 });
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not close on a drag that starts inside the panel and ends on the backdrop', () => {
+    const onClose = vi.fn();
+    render(<Modal onClose={onClose} title="T"><p>Body</p></Modal>);
+    fireEvent.mouseDown(screen.getByText('Body'), { clientX: 5, clientY: 5 });
+    fireEvent.mouseUp(dialogOf(), { clientX: 5, clientY: 5 });
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it('does not close the outer dialog on a press on an inner dialog\'s backdrop', () => {
+    const outerClose = vi.fn();
+    const innerClose = vi.fn();
+    render(
+      <Modal onClose={outerClose} title="Outer">
+        <Modal onClose={innerClose} title="Inner"><p>Inner body</p></Modal>
+      </Modal>,
+    );
+    const inner = screen.getByRole('dialog', { name: 'Inner' });
+    fireEvent.mouseDown(inner, { clientX: 5, clientY: 5 });
+    fireEvent.mouseUp(inner, { clientX: 5, clientY: 5 });
+    expect(innerClose).toHaveBeenCalledTimes(1);
+    expect(outerClose).not.toHaveBeenCalled();
+  });
+});
+
+describe('Modal — after it closes', () => {
+  it('hands focus back to the opener on unmount', () => {
     const trigger = document.createElement('button');
     document.body.appendChild(trigger);
     trigger.focus();
     const { unmount } = render(<Modal onClose={() => {}} title="T"><button type="button">X</button></Modal>);
-    expect(document.activeElement).not.toBe(trigger); // modal took focus
+    expect(document.activeElement).not.toBe(trigger);
     unmount();
     expect(document.activeElement).toBe(trigger);
     trigger.remove();
   });
 
-  it('does not restore focus to a trigger that was unmounted while open', () => {
+  it('does not refocus an opener that was removed while it was open', () => {
     const trigger = document.createElement('button');
     document.body.appendChild(trigger);
     trigger.focus();
     const { unmount } = render(<Modal onClose={() => {}} title="T"><button type="button">X</button></Modal>);
-    trigger.remove(); // opener navigated away while the modal was up
+    trigger.remove();
     expect(() => unmount()).not.toThrow();
     expect(document.activeElement).not.toBe(trigger);
   });
-});
 
-// The page behind a modal must not scroll under it. The lock lives in Modal so
-// every dialog gets it; the previous value is restored (not cleared) so a modal
-// opened over another modal can't hand the scrollbar back too early.
-describe('Modal — body scroll lock', () => {
-  it('locks body scroll while open and restores the previous value on close', () => {
+  it('never touches the body\'s overflow, which would shift the layout', () => {
     document.body.style.overflow = 'scroll';
-    const { unmount } = render(<Modal onClose={() => {}} title="T"><button type="button">X</button></Modal>);
-    expect(document.body.style.overflow).toBe('hidden');
+    const { unmount } = render(<Modal onClose={() => {}} title="T"><p>Body</p></Modal>);
+    expect(document.body.style.overflow).toBe('scroll');
     unmount();
     expect(document.body.style.overflow).toBe('scroll');
     document.body.style.overflow = '';
-  });
-
-  it('nested modals keep the lock until the outer one closes', () => {
-    const outer = render(<Modal onClose={() => {}} title="Outer"><button type="button">X</button></Modal>);
-    const inner = render(<Modal onClose={() => {}} title="Inner"><button type="button">Y</button></Modal>);
-    inner.unmount();
-    expect(document.body.style.overflow).toBe('hidden');
-    outer.unmount();
-    expect(document.body.style.overflow).toBe('');
   });
 });

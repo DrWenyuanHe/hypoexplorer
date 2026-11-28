@@ -1,0 +1,26 @@
+/* Modal: a native <dialog> opened with showModal(). The browser supplies the
+   top layer, the inert page, focus containment and focus return; these rules
+   only give the panel its look. */
+dialog.modal-panel {
+  box-sizing: border-box;
+  max-width: 95vw; max-height: 90vh;
+  padding: 0; margin: auto;
+  color: var(--text-primary); background: var(--bg-app);
+  border: 1px solid var(--border-dark); border-radius: 6px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden; outline: none;
+}
+/* display only while open: an unconditional display overrides the closed state. */
+dialog.modal-panel[open] { display: flex; flex-direction: column; }
+
+/* The page must not scroll under the modal. overscroll-behavior on the dialog
+   and on a non-scrollable ::backdrop stops scroll chaining where it is
+   supported; elsewhere the page can scroll behind the backdrop, but stays
+   inert. The body is deliberately not set to overflow: hidden, which drops the
+   root scrollbar and shifts the layout. */
+dialog.modal-panel:modal { overscroll-behavior: contain; }
+dialog.modal-panel::backdrop {
+  background: rgba(0, 0, 0, 0.45);
+  overflow: hidden; overscroll-behavior: contain;
+}
+.modal-body { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; display: flex; flex-direction: column; }

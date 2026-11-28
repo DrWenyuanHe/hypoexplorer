@@ -27,6 +27,7 @@ import { geneMatchLabel, searchAll } from './searchVocabulary';
 import { useSearchVocabulary } from './useSearchVocabulary';
 import type { GeneHit, PathwayHit } from './searchTypes';
 import { DbBadge } from './DbBadge';
+import { isImeComposing } from '../utils/imeComposing';
 
 export interface UnifiedSearchBoxProps {
   /** The text the field starts with, and follows when it changes (the results page's query). */
@@ -67,7 +68,7 @@ const MAGNIFIER = (
 /** Whether a key press landed somewhere that takes text or belongs to a dialog. */
 function isTypingTarget(target: EventTarget | null): boolean {
   if (!(target instanceof HTMLElement)) return false;
-  if (target.closest('[role="dialog"]')) return true;
+  if (target.closest('dialog, [role="dialog"]')) return true;
   return target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName);
 }
 
@@ -152,6 +153,9 @@ export function UnifiedSearchBox({ initialQuery = '', onSearch, autoLoad, varian
   };
 
   const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    // Mid-composition the arrows move the IME's candidates and Escape cancels
+    // it; Enter goes through the form, which the browser already holds back.
+    if (isImeComposing(event)) return;
     if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
       if (!options.length) return;
       event.preventDefault();

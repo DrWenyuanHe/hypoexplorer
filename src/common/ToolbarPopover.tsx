@@ -67,7 +67,8 @@ export function ToolbarPopover({
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return;
       // Escape inside the popup closes it and returns focus; it must not also
-      // reach a dialog this toolbar sits in.
+      // close a dialog this toolbar sits in, which takes an uncancelled keydown.
+      e.preventDefault();
       e.stopPropagation();
       close();
     };

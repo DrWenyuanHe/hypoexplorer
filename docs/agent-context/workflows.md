@@ -179,7 +179,10 @@ writes its Metadata through `src/utils/exportProvenance.ts`; every CSV is writte
 by `src/utils/csv.ts` (escaping, formula guard, BOM/CRLF, per-row provenance for
 long tables, and a metadata JSON split down its column under Excel's cell limit);
 multi-file downloads are stored ZIPs from `src/utils/zip.ts`; every gene picker is
-`GenePicker` over `src/explorer/geneVocabulary.ts`; a table that lists tracks by
+`GenePicker` over `src/explorer/geneVocabulary.ts`; a text field whose own
+keydown handler acts on Enter, Escape or the arrows returns early on
+`isImeComposing` (`src/utils/imeComposing.ts`) so an IME's confirming keys never
+search half-typed text; a table that lists tracks by
 significance reads each row's `tier` (set once by `geneRow` / `pathwayRow` from
 `src/statistics/policy.ts`), takes what leads, the order and the counts from
 `listCrossStudy` in `src/statistics/crossStudyListing.ts`, its mode words and nominal caveat from `src/statistics/listingWords.ts` and any direction-coloured text from `directionTextColor` in `src/statistics/direction.ts`, for the mode
@@ -264,8 +267,12 @@ done, the flags stay off in hosted builds.
 
 Responsive layouts share the 900px breakpoint in `useCompactLayout` and
 `src/styles/responsive.css`. `ResponsiveSidebar` keeps cell navigation and
-compare-set studies in a desktop rail or a mobile dialog, using the shared Modal
-for focus trapping, Escape and focus restoration. The dataset library has no
+compare-set studies in a desktop rail or a mobile dialog, using the shared Modal,
+a native `<dialog>` opened with `showModal()` whose browser behaviour supplies the
+focus trap, inert page, Escape and focus restoration. A popup that portals
+(`HelpTip`, `QualityBadge`, `ResultBars`, `EffectPreview`) mounts into
+`portalHost(anchor)` so it stays above and live inside an open dialog, and one
+that handles Escape itself calls `preventDefault()` so the dialog stays open. The dataset library has no
 rail: `LibraryToolbar` puts a view menu, sort, active-filter chips and an
 add-filter menu (with the same disjunctive facet counts) above a table-first
 record grid, and its chips scroll sideways on phones, where (600px and under)

@@ -51,18 +51,17 @@ describe('CellSelectorPopup — minimum-selection guard', () => {
 // role=dialog + aria-modal, the name comes from Modal's `ariaLabel`, and Escape
 // / the body-scroll lock are Modal's — the picker no longer hand-rolls any of it.
 describe('CellSelectorPopup — dialog chrome', () => {
-  it('opens a named modal dialog that Escape closes, and locks body scroll', () => {
+  it('opens a named modal dialog that Escape closes', () => {
     render(<CellSelectorPopup meta={POP_META_FIXTURE} selectedPops={['e9', 'i23']} onChange={() => {}} />);
     fireEvent.click(screen.getByTitle('Select cells to compare'));
 
-    const dialog = screen.getByRole('dialog');
-    expect(dialog.getAttribute('aria-modal')).toBe('true');
+    const dialog = screen.getByRole('dialog') as HTMLDialogElement;
+    expect(dialog.tagName).toBe('DIALOG');
+    expect(dialog.open).toBe(true);
     expect(dialog.getAttribute('aria-label')).toBe('Select cells to compare');
-    expect(document.body.style.overflow).toBe('hidden');
 
     fireEvent.keyDown(window, { key: 'Escape' });
     expect(screen.queryByRole('dialog')).toBeNull();
-    expect(document.body.style.overflow).toBe('');
   });
 });
 

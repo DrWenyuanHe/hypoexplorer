@@ -131,6 +131,15 @@ describe('UnifiedSearchBox', () => {
     expect(box).toHaveFocus();
   });
 
+  it('leaves the arrows and Escape to an IME that is composing', () => {
+    const { box } = renderBox();
+    typeInto(box, 'insulin');
+    fireEvent.keyDown(box, { key: 'ArrowDown', isComposing: true });
+    expect(box).not.toHaveAttribute('aria-activedescendant');
+    fireEvent.keyDown(box, { key: 'Escape', keyCode: 229 });
+    expect(box).toHaveAttribute('aria-expanded', 'true');
+  });
+
   it('closes the list on Escape and reopens it on typing', () => {
     const { form, box } = renderBox();
     typeInto(box, 'insulin');

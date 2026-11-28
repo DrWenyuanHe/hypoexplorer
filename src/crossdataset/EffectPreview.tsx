@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
+import { portalHost } from '../common/portalHost';
 
 interface EffectPreviewProps {
   label: string;
@@ -45,7 +46,8 @@ export function EffectPreview({ label, previewLabel, closeLabel, heading, subhea
     const observer = new ResizeObserver(place);
     if (panel.current) observer.observe(panel.current);
     const dismiss = () => setOpen(false);
-    const onEscape = (event: KeyboardEvent) => { if (event.key === 'Escape') { cancelTimer(); dismiss(); } };
+    // Cancelled, so the Escape that closes the preview leaves a dialog it sits in open.
+    const onEscape = (event: KeyboardEvent) => { if (event.key === 'Escape') { event.preventDefault(); cancelTimer(); dismiss(); } };
     const onScroll = (event: Event) => { if (!(event.target instanceof Node) || !panel.current?.contains(event.target)) dismiss(); };
     const outside = (event: PointerEvent) => {
       if (event.target instanceof Node && !trigger.current?.contains(event.target) && !panel.current?.contains(event.target)) dismiss();
@@ -85,7 +87,7 @@ export function EffectPreview({ label, previewLabel, closeLabel, heading, subhea
         </div>
         {content}
         {caption && <div className="report-preview-caption">{caption}</div>}
-      </section>, document.body,
+      </section>, portalHost(trigger.current),
     )}
   </>;
 }

@@ -81,7 +81,8 @@ export function SaveGeneListMenu({
     const onDown = (e: MouseEvent) => {
       if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false);
     };
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+    // Cancelled, so the Escape that closes the menu leaves a dialog it sits in open.
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { e.preventDefault(); setOpen(false); } };
     document.addEventListener('mousedown', onDown);
     document.addEventListener('keydown', onKey);
     return () => {

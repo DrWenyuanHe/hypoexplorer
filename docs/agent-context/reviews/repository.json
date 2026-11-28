@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "0b530a1090e66448f74cb5609fe19dda5a00deee4f9e4c85b559d83641f4a339",
+  "fingerprint": "22794cbca9310e3a9b19bcf5980a7883cc031d2791454b1474448abc67c8bbe8",
   "outcome": "updated",
-  "explanation": "Merges main (#100, #101) into the record regeneration. From main: Repository configuration for the Visium atlas: package.json adds build:expression-visium and check:expression-visium; .gitignore ignores public/expression/visium/; .gitattributes keeps the pinned Visium TSV tables and the R extractor LF on every checkout; the application workflow builds the Visium atlas in the test job and prepare:deploy builds it in the build job; CHANGELOG.md records the change. The R extractor now reads counts with GetAssayData(layer =), works under R 4.4.1 and R 4.6.0, and notes that Seurat must be installed for the VisiumV1 image class. From this branch: .gitattributes restores the maintainer checkout's exact-byte rule for geo_replication/datasets/GSE252779_mmus_hypo_celastrol/processed/GSE252779_preprocessing_qc.tsv. The public data release ships it with CRLF bytes and audit_fgsea_migration.mts refuses a checkout where Git would convert it; no tracked file changes line endings. public-safety.json adds reviewed allowances for the nine files that now cite published dissertations by original study authors: the regenerated validation records, report and quality assessments, and five 2026-11-24 review records, with the reason the existing ledger allowances give.",
+  "explanation": "Merges main (#100, #101, #102, #104) into the record regeneration. From main: Repository configuration for the Visium atlas: package.json adds build:expression-visium and check:expression-visium; .gitignore ignores public/expression/visium/; .gitattributes keeps the pinned Visium TSV tables and the R extractor LF on every checkout; the application workflow builds the Visium atlas in the test job and prepare:deploy builds it in the build job; CHANGELOG.md records the change. The R extractor now reads counts with GetAssayData(layer =), works under R 4.4.1 and R 4.6.0, and notes that Seurat must be installed for the VisiumV1 image class. From #104: The ui-change runbook and REFACTOR_CHECKLIST.md describe Modal as a native dialog with portalHost and no body scroll lock. The results smoke spec no longer expects Shift+Tab from the share dialog's first control to wrap to its last, which was the removed manual trap; it checks focus never reaches the page under the native modal, then walks Close, link and Copy in order. From this branch: .gitattributes restores the maintainer checkout's exact-byte rule for geo_replication/datasets/GSE252779_mmus_hypo_celastrol/processed/GSE252779_preprocessing_qc.tsv. The public data release ships it with CRLF bytes and audit_fgsea_migration.mts refuses a checkout where Git would convert it; no tracked file changes line endings. public-safety.json adds reviewed allowances for the nine files that now cite published dissertations by original study authors: the regenerated validation records, report and quality assessments, and five 2026-11-24 review records, with the reason the existing ledger allowances give.",
   "references": [
     ".gitattributes",
     ".github/workflows/application.yml",
@@ -11,10 +11,13 @@
     "CHANGELOG.md",
     "data/author-validation/README.md",
     "data/expression/visium/README.md",
+    "docs/agent-context/workflows.md",
+    "docs/runbooks/REFACTOR_CHECKLIST.md",
     "package.json",
     "public-safety.json",
     "scripts/audit_fgsea_migration.mts",
     "scripts/check_public_safety.mts",
-    "scripts/extract_visium_reference.R"
+    "scripts/extract_visium_reference.R",
+    "scripts/smoke/results.smoke.spec.ts"
   ]
 }

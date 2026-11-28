@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-utils",
-  "fingerprint": "a3654cfdf4832e1c2456554e1113dafb337422fe06db70f2ff560fdf17a1142a",
+  "fingerprint": "62bde3d5d6a6d2279860ebd1090bfad564d779ddefa728b5977c3ac99da95532",
   "outcome": "updated",
-  "explanation": "format.ts exports STAR_THRESHOLDS, which pToStar reads, and starLegend(), which the ContrastMatrix legend and Methods star table use. pToStar returns the same stars at the same strict boundaries.",
+  "explanation": "focusTrap.ts is removed: its only caller was Modal's manual Tab trap, which the native modal dialog replaces with the browser's own focus containment.",
   "references": [
-    "src/utils/format.ts",
-    "src/gene-explorer/ContrastMatrix.tsx",
-    "src/methodology/MethodologyView.tsx"
+    "src/common/Modal.tsx",
+    "docs/runbooks/REFACTOR_CHECKLIST.md"
   ]
 }

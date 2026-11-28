@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "fb2fbf68a0b67cc124edce54d5a6120706a4c179d98e7562659771816817ebf4",
+  "fingerprint": "bafe20d36dd73baf0a992a27bc64de637bedc700c805d4c4b504a66e10265478",
   "outcome": "updated",
-  "explanation": "Merges main (#100, #101) into the record regeneration. From main: Verification evidence for the new source lives with it: the Visium builder verifies the pinned tables, checks every count column sums to its library size, reads back all 2,188,285 values and recomputes each CPM from counts in a separate routine, and its validation.json states that agreement is with derived CPM. data/expression/visium/README.md records the independent DuckDB rebuild from the spot-level Parquet export (2,586,155 values agree). No QC ledger or author-concordance record changed. A re-extraction under R 4.6.0 through the builder --fetch path reproduced all four pinned tables byte for byte. From this branch: The verification workflow's outputs are regenerated in the maintainer route with the retained audit cache: compare_author_results.mts, audit_author_validation.mts, build_author_validation.mts, audit_concordance_review_ledger.mts, build_internal_qc_r460.mts and build_quality_report_r460.mts, with check:author-validation passing. The README no longer describes the records as lagging the ledgers. No workflow step or command changes.",
+  "explanation": "Merges main (#100, #101, #102, #104) into the record regeneration. From main: Verification evidence for the new source lives with it: the Visium builder verifies the pinned tables, checks every count column sums to its library size, reads back all 2,188,285 values and recomputes each CPM from counts in a separate routine, and its validation.json states that agreement is with derived CPM. data/expression/visium/README.md records the independent DuckDB rebuild from the spot-level Parquet export (2,586,155 values agree). No QC ledger or author-concordance record changed. A re-extraction under R 4.6.0 through the builder --fetch path reproduced all four pinned tables byte for byte. From #104: Only the results browser smoke spec changed, to match the share dialog's native modal focus behaviour; author validation, QC evidence and verification records are untouched. From this branch: The verification workflow's outputs are regenerated in the maintainer route with the retained audit cache: compare_author_results.mts, audit_author_validation.mts, build_author_validation.mts, audit_concordance_review_ledger.mts, build_internal_qc_r460.mts and build_quality_report_r460.mts, with check:author-validation passing. The README no longer describes the records as lagging the ledgers. No workflow step or command changes.",
   "references": [
     "data/author-validation/README.md",
     "data/expression/visium/README.md",
@@ -11,6 +11,7 @@
     "scripts/build_quality_report_r460.mts",
     "scripts/build_visium_reference.mts",
     "scripts/compare_author_results.mts",
+    "scripts/smoke/results.smoke.spec.ts",
     "src/expression-survey/externalReference.ts"
   ]
 }
