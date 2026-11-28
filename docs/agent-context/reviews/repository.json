@@ -1,10 +1,11 @@
 {
   "version": 1,
   "area": "repository",
-  "fingerprint": "0cfc19058200b6ca5e6c334da7cffe3000aefa542878cf9b8d9a292807db3b48",
+  "fingerprint": "5fd92b20e77d9678304cf22c1d3d16946c856ab07727ed34694d9fdc65630458",
   "outcome": "updated",
-  "explanation": "The ui-change runbook in workflows.md and REFACTOR_CHECKLIST.md now describe Modal as a native dialog opened with showModal, popups portaling through portalHost, and no body overflow scroll lock. No root configuration, scripts or CI changed.",
+  "explanation": "The ui-change runbook and REFACTOR_CHECKLIST.md describe Modal as a native dialog with portalHost and no body scroll lock. The results smoke spec no longer expects Shift+Tab from the share dialog's first control to wrap to its last, which was the removed manual trap; it checks focus never reaches the page under the native modal, then walks Close, link and Copy in order.",
   "references": [
+    "scripts/smoke/results.smoke.spec.ts",
     "docs/agent-context/workflows.md",
     "docs/runbooks/REFACTOR_CHECKLIST.md"
   ]

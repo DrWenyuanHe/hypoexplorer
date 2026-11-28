@@ -111,11 +111,22 @@ test('result tables and analysis sharing remain readable and keyboard accessible
   expect(JSON.parse(analysis.get('analysis') ?? '{}').genes).toContain('Pomc');
   await page.keyboard.press('Tab');
   await expect(close).toBeFocused();
+  // A native modal <dialog> makes the page behind it inert. Past either end of
+  // its controls the browser may hand focus to its own UI rather than wrap, so
+  // what is pinned is that focus never lands on the page under the dialog.
   await page.keyboard.press('Shift+Tab');
+  expect(
+    await dialog.evaluate((d) => {
+      const active = document.activeElement;
+      return !active || active === document.body || active === document.documentElement || d.contains(active);
+    }),
+  ).toBe(true);
+  await close.focus();
+  await page.keyboard.press('Tab');
+  await expect(link).toBeFocused();
+  await page.keyboard.press('Tab');
   await expect(copy).toBeFocused();
-  await page.keyboard.press('Tab');
-  await expect(close).toBeFocused();
-  await page.keyboard.press('Tab');
+  await page.keyboard.press('Shift+Tab');
   await expect(link).toBeFocused();
   await expect(link).toBeInViewport();
   expect(

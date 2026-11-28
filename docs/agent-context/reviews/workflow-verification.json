@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "cc335b5b9a9cea8e77db7b6b7d2fb31a1a8f887cc291e25b7c7358f331800a43",
-  "outcome": "updated",
-  "explanation": "Verification evidence for the new source lives with it: the Visium builder verifies the pinned tables, checks every count column sums to its library size, reads back all 2,188,285 values and recomputes each CPM from counts in a separate routine, and its validation.json states that agreement is with derived CPM. data/expression/visium/README.md records the independent DuckDB rebuild from the spot-level Parquet export (2,586,155 values agree). No QC ledger or author-concordance record changed. A re-extraction under R 4.6.0 through the builder --fetch path reproduced all four pinned tables byte for byte.",
+  "fingerprint": "5570a80ea1043069023965f909a62648969ee6dfb68211a744212629c0c7570f",
+  "outcome": "no-impact",
+  "explanation": "Only the results browser smoke spec changed, to match the share dialog's native modal focus behaviour; author validation, QC evidence and verification records are untouched.",
   "references": [
-    "scripts/build_visium_reference.mts",
-    "data/expression/visium/README.md",
-    "src/expression-survey/externalReference.ts"
+    "scripts/smoke/results.smoke.spec.ts",
+    "data/author-validation/README.md"
   ]
 }
