@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "ceabe2ce128945676899cb0e313c6870511264c87e0667a7e2081ac932153999",
+  "fingerprint": "a204072ba8d42e4a9a990a905442bc987a6a333f64b05854fd373e27fc008c17",
   "outcome": "no-impact",
-  "explanation": "Only the results browser smoke spec changed, to match the share dialog's native modal focus behaviour; dataset intake, registration, bundles and the dataset contract are untouched.",
+  "explanation": "Only the application browser smoke test gained a refresh-prompt centring check; dataset intake, registration and bundles are untouched.",
   "references": [
-    "scripts/smoke/results.smoke.spec.ts",
+    "scripts/smoke/application.smoke.spec.ts",
     "docs/DATASET_CONTRACT.md"
   ]
 }

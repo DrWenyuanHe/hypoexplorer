@@ -27,6 +27,21 @@ test('production app boots with matching release metadata and a populated study 
   });
   await expect(version).toBeVisible();
   await expect(version).toHaveAttribute('title', new RegExp(release.releaseId.slice(0, 12)));
+  // The refresh prompt is a native modal <dialog>. The page-wide `margin: 0`
+  // reset removes the auto margins that centre one, so it must set its own:
+  // without them it opens pinned to the top-left corner.
+  await version.click();
+  const prompt = page.getByRole('alertdialog', { name: 'Refresh to the latest version?' });
+  await expect(prompt).toBeVisible();
+  const box = await prompt.boundingBox();
+  const viewport = page.viewportSize();
+  expect(box && viewport).toBeTruthy();
+  if (box && viewport) {
+    expect(Math.abs(box.x + box.width / 2 - viewport.width / 2)).toBeLessThanOrEqual(2);
+    expect(Math.abs(box.y + box.height / 2 - viewport.height / 2)).toBeLessThanOrEqual(2);
+  }
+  await page.keyboard.press('Escape');
+  await expect(prompt).toBeHidden();
   await page
     .getByRole('navigation', { name: 'Reference' })
     .getByRole('button', { name: 'Dataset library', exact: true })

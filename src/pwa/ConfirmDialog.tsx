@@ -84,7 +84,9 @@ export function ConfirmDialog({ labelledBy, describedBy, onEscape, children }: C
       aria-labelledby={labelledBy}
       aria-describedby={describedBy}
       style={{
-        width: 420, maxWidth: 'calc(100% - 32px)', padding: 0, border: 'none',
+        // margin: auto centres a modal dialog. The page-wide reset in
+        // index.html sets margin: 0 on everything, which pins it top-left.
+        width: 420, maxWidth: 'calc(100% - 32px)', margin: 'auto', padding: 0, border: 'none',
         background: 'var(--bg-panel)', color: 'var(--text-primary)',
         borderRadius: 12, boxShadow: '0 18px 44px rgba(0,0,0,0.28)',
         overflow: 'hidden', fontFamily: FONT_SANS,

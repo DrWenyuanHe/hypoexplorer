@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "workflow-verification",
-  "fingerprint": "5570a80ea1043069023965f909a62648969ee6dfb68211a744212629c0c7570f",
+  "fingerprint": "ec53567774657218fa560d6a1203ed28c7efd3a36eb3690c3941c8d9a9b08b06",
   "outcome": "no-impact",
-  "explanation": "Only the results browser smoke spec changed, to match the share dialog's native modal focus behaviour; author validation, QC evidence and verification records are untouched.",
+  "explanation": "Only the application browser smoke test gained a refresh-prompt centring check; author validation, QC evidence and verification records are untouched.",
   "references": [
-    "scripts/smoke/results.smoke.spec.ts",
+    "scripts/smoke/application.smoke.spec.ts",
     "data/author-validation/README.md"
   ]
 }

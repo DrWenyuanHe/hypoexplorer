@@ -1,11 +1,11 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "0636c80b60a7984d937e60ba327994183ab28f7380b936ca92cddfbe8351b200",
+  "fingerprint": "ff11c5b0eb522e756d3de854bc40f39625159ab170c14324208ccd5e385f0e29",
   "outcome": "no-impact",
-  "explanation": "No delivery change: REFACTOR_CHECKLIST.md's dialog item now names the native dialog and portalHost, and nothing in build, deploy or release verification reads it.",
+  "explanation": "The application smoke test that the build job runs adds a refresh-prompt centring check; the build, deploy and release verification steps themselves are unchanged.",
   "references": [
-    "docs/runbooks/REFACTOR_CHECKLIST.md",
+    "scripts/smoke/application.smoke.spec.ts",
     "docs/agent-context/delivery.md"
   ]
 }

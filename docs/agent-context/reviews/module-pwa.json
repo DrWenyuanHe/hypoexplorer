@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-pwa",
-  "fingerprint": "436e25410dc00cc36d8f6d867e56eac5f2223bd3d8bb2e6b2ff3f452e6961367",
+  "fingerprint": "f277c6a0cad1b72d5edc1cdee812af2b154a48e00e3764caeb0397905a0a5ff8",
   "outcome": "updated",
-  "explanation": "ConfirmDialog is a native modal dialog with role alertdialog, opened in the top layer above any Modal. Callback mode uses closedby closerequest and turns a cancelled cancel event into onEscape; swallow mode uses closedby none and still cancels Escape in the capture phase; a dialog the browser closes anyway is shown again. The body overflow lock is gone and the backdrop is ::backdrop.",
+  "explanation": "ConfirmDialog sets margin: auto on its native modal dialog. The page-wide margin reset in index.html removed the user-agent auto margins, so the refresh and update prompts opened pinned to the top-left corner instead of centred.",
   "references": [
     "src/pwa/ConfirmDialog.tsx",
-    "src/pwa/UpdateModal.tsx",
-    "src/pwa/VersionBadge.tsx"
+    "index.html"
   ]
 }
