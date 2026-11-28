@@ -9,16 +9,54 @@ const ids = [
   'mouse_hypo_pomc_estrogen_gse328990',
 ];
 
+// Later reviews superseded three of the September follow-ups. The Codex closure pass
+// (2026-11-21) moved GSE292416's evidence citation into its comparability reference and
+// GSE328990's into a new evidence folder, and qualified GSE328990's cohort as compatible
+// (control genotype labels differ between GEO and the manuscript). The held-six review
+// (2026-11-24) qualified GSE284408's cohort as compatible (pool independence is
+// undocumented) and rewrote its note without an evidence-folder citation; its record now
+// cites the author's Table S1 workbook as an evidence link.
+const fiveDataset: Record<string, {
+  cohort: 'matched' | 'compatible';
+  evidence: { field: 'note' | 'reference'; folder: string } | { field: 'link'; url: string };
+}> = {
+  mouse_arc_hfd_gse284408: {
+    cohort: 'compatible',
+    evidence: { field: 'link', url: 'https://pmc-oa-opendata.s3.amazonaws.com/PMC11951025.1/mmc2.xlsx' },
+  },
+  mouse_arc_pnoc_trap_gse292416: {
+    cohort: 'matched',
+    evidence: { field: 'reference', folder: 'continued-sources/GSE292416/codex-2026-11-21' },
+  },
+  rat_son_dehydration_gse175461: {
+    cohort: 'matched', evidence: { field: 'note', folder: 'five-dataset-followup-2026-09-04' },
+  },
+  mouse_mpoa_pnoc_bactrap_gse306829: {
+    cohort: 'matched', evidence: { field: 'note', folder: 'five-dataset-followup-2026-09-04' },
+  },
+  mouse_hypo_pomc_estrogen_gse328990: {
+    cohort: 'compatible',
+    evidence: { field: 'note', folder: 'continued-sources/GSE328990/codex-2026-11-21' },
+  },
+};
+
 describe('five-dataset scientific follow-up', () => {
   it.each(ids)('%s exposes source availability, cohort progress and a concrete next step', (id) => {
     const record = requireAuthorValidation(id);
+    const expected = fiveDataset[id];
     expect(record.verification.resultAvailability).toBe('available');
-    expect(record.verification.comparability.dimensions.cohort.status).toBe('matched');
+    expect(record.verification.comparability.dimensions.cohort.status).toBe(expected.cohort);
     expect(record.verification.comparability.target).toBe('registered_output');
     expect(record.verification.fullyVerifiedContrasts).toEqual([]);
     expect(record.verification.state).not.toBe('full');
     expect(record.verification.nextStep).not.toMatch(/^Reconcile author-compatible cohort/);
-    expect(record.note).toContain('five-dataset-followup-2026-09-04');
+    if (expected.evidence.field === 'link') {
+      expect(record.evidenceLinks?.map((link) => link.url)).toContain(expected.evidence.url);
+    } else {
+      const cited = expected.evidence.field === 'note'
+        ? record.note : record.verification.comparability.reference;
+      expect(cited).toContain(expected.evidence.folder);
+    }
   });
 
   it('does not turn reproduced author-method results into an Explorer sign-off', () => {
@@ -63,6 +101,19 @@ const nextTen = [
   'mouse_arc_agrp_trap_gse240484',
 ];
 
+// The Codex closure pass (2026-11-21) re-reviewed four of the ten and cites its own
+// evidence folders: GSE185074 in its comparability reference, the others in the note.
+const tenDatasetEvidence: Record<string, { field: 'note' | 'reference'; folder: string }> = {
+  mouse_tanycyte_insulin_gse185074: {
+    field: 'reference', folder: 'continued-sources/GSE185074/codex-2026-11-21',
+  },
+  mouse_hypo_obob_fgf1_gse153551: { field: 'note', folder: 'continued-sources/GSE153551/codex-2026-11-21' },
+  mouse_hypo_maternal_hcd_gse242187: {
+    field: 'note', folder: 'continued-sources/GSE242187/codex-2026-11-21',
+  },
+  mouse_hypo_hibernation_gse295250: { field: 'note', folder: 'continued-sources/GSE295250/codex-2026-11-21' },
+};
+
 describe('ten additional scientific follow-ups', () => {
   it.each(nextTen)('%s shares the new evidence and next action with Explorer and tracker', (id) => {
     const record = requireAuthorValidation(id);
@@ -72,7 +123,9 @@ describe('ten additional scientific follow-ups', () => {
     expect(record.verification.fullyVerifiedContrasts).toEqual([]);
     expect(record.verification.state).not.toBe('full');
     expect(record.verification.nextStep).not.toMatch(/^Reconcile author-compatible cohort/);
-    expect(record.note).toContain('ten-dataset-followup-2026-09-04');
+    const evidence = tenDatasetEvidence[id] ?? { field: 'note', folder: 'ten-dataset-followup-2026-09-04' };
+    const cited = evidence.field === 'note' ? record.note : record.verification.comparability.reference;
+    expect(cited).toContain(evidence.folder);
     expect(record.verification.comparability.dimensions.inference.status).toBe('different');
   });
 
@@ -102,6 +155,9 @@ describe('ten additional scientific follow-ups', () => {
       expect(record.verification.state).toBe('unresolved');
       expect(record.verification.resultAvailability).toBe('available');
     }
-    expect(requireAuthorValidation(nextTen[8]).verification.nextStep).toContain('Holm');
+    // The 2026-11-21 closure pass narrowed the hibernation question to the Figure 2C Fto
+    // direction; the Holm call counts are now recorded in the note.
+    expect(requireAuthorValidation(nextTen[8]).verification.nextStep).toContain('Fto');
+    expect(requireAuthorValidation(nextTen[8]).note).toContain('deposited Holm PAdjust');
   });
 });

@@ -1,0 +1,84 @@
+{
+  "datasetId": "pig_hypo_mia_gse227725",
+  "accession": "GSE227725",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "The RNA-seq authors report separate control-versus-MIA effects for nursed males and females in Figure 2 and S4 Table. HypoExplorer fits one MIA-versus-control effect adjusted for sex in 35 nursed piglets. Neither those sex-specific results, the factorial main effect, nor the linked methylation study supplies that coefficient.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE227725/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "summary": "The published RNA figure reports separate MIA effects by sex in nursed piglets. The registered sex-adjusted effect remains untested.",
+      "note": "All 35 nursed RNA GSMs match the registered sample sheet and GEO expression columns (MIA 7 female and 8 male, control 10 female and 10 male). Rodriguez-Zas et al. report an edgeR factorial model of prenatal challenge, nursing, sex and interactions in 72 P22 piglets. Their design diagram shows nine piglets per cell, whereas GEO contains 73 libraries in unequal cells. S1 Table and main Table 2 list selected main and interaction effects. S4 Table and Figure 2C–D report sex-specific control-versus-MIA RNA log2 fold changes for 11 hormone-network genes. Alsegehy et al. analyzed 24 individual DNA libraries with methylKit and annotated selected sites with nearby-gene expression. They give neither a sample crosswalk nor a nursed, across-sex RNA coefficient. The public RNA matrix contains TPM per animal. Missing author inference for the registered contrast remains unassessed.",
+      "reviewFlags": [
+        "The nursed male and female figure contrasts have separate estimands. The public sources do not identify a common nursed RNA coefficient or reconcile the RNA paper’s design cells to the deposited libraries."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-24",
+      "evidenceLinks": [
+        {
+          "label": "Primary GSE227725 RNA-seq paper, design and figure panels",
+          "url": "https://doi.org/10.1371/journal.pone.0292952",
+          "kind": "paper"
+        },
+        {
+          "label": "S4 Table, numeric source for the hormone-network panels",
+          "url": "https://doi.org/10.1371/journal.pone.0292952.s005",
+          "kind": "author_result"
+        },
+        {
+          "label": "RNA-seq series, sample annotations and expression matrix",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE227725",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Companion methylation study and Tables 2–3",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11826927/",
+          "kind": "paper"
+        },
+        {
+          "label": "Publisher supplement with site-level methylation results",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0378111924002105-mmc1.docx",
+          "kind": "author_result"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The registered limma coefficient is MIA minus control at fixed sex in all 35 nursed P22 hypothalamus RNA libraries. The PLOS RNA paper reports factorial main effects and interactions across nursing groups. Its closest direct results, Figure 2C and 2D and S4 Table columns C and E, report control minus MIA separately in nursed males and nursed females for 11 selected genes. The linked Gene paper tests RRBS sites and gives selected proximal-gene expression annotations without identifying the RNA libraries and coefficient behind those annotations.",
+      "nextStep": "Reopen with an author-reported MIA versus control RNA effect across sexes within nursed P22 piglets, its baseline, sex handling or contrast weights, and a GSM/SRX inclusion list reconcilable to the registered cohort. A labelled selected-gene result could support a scoped comparison. Gene-wide effects, tested IDs and raw P/FDR would allow assessment of broader coverage and inference.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Nursed GEO sample accessions and source columns matching the registered sample sheet",
+      "value": "35 of 35. MIA 7 female and 8 male, control 10 female and 10 male.",
+      "script": "data/author-validation/continued-sources/GSE227725/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "Content of the deposited RNA series CSV and all GSM supplementary-file fields",
+      "value": "25,187 rows with 74 fields each. Symbol and 73 GSM-matched sample columns. All 73 GSM supplementary-file fields are NONE.",
+      "script": "data/author-validation/continued-sources/GSE227725/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "RNA author S4 Table coverage and conditioning",
+      "value": "11 gene rows and 12 labelled group contrasts. Columns C and E are control versus MIA within nursed males and nursed females, respectively.",
+      "script": "data/author-validation/continued-sources/GSE227725/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "Registered DE coverage and integrity",
+      "value": "23,701 published gene rows. SHA-256 872abbb17399e567cb03650be5f172751dbc43d5aa8e9daced593b65595a3032 matches registered provenance.",
+      "script": "data/author-validation/continued-sources/GSE227725/codex-2026-11-24/inspect_evidence.py"
+    },
+    {
+      "claim": "Deposited library identifiers for the two assays",
+      "value": "73 RNA BioSamples and 24 RRBS BioSamples, with 0 shared BioSample accessions. Individual animal overlap cannot be inferred from these identifiers.",
+      "script": "data/author-validation/continued-sources/GSE227725/codex-2026-11-24/inspect_evidence.py"
+    }
+  ],
+  "openIssues": [
+    "Which GSM/SRX libraries entered the authors’ RNA fit, and what coefficient and sex weights would they use for the nursed MIA-minus-control contrast? The published design and the GEO group counts differ.",
+    "The registered effect, P values and FDR remain unassessed against author results. A compatible author estimate and its sample list would reopen this review."
+  ]
+}

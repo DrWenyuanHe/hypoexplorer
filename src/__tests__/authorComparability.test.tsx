@@ -35,11 +35,15 @@ describe('recorded author comparability', () => {
   it('does not replace SST registered results with its improved sensitivity analysis', () => {
     const record = requireAuthorValidation('mouse_sst_neuron_sex_gse224254');
     render(<AuthorValidationPanel record={record} />);
+    // The 2026-11-21 closure pass reports the registered-call overlap as Jaccard counts and
+    // describes the DESeq2 replay separately in the reason; its outcome is method differences.
     expect(screen.getByRole('rowheader', { name: 'Statistical model, P values and FDR' }).closest('tr'))
-      .toHaveTextContent('502/25 with 23 shared');
+      .toHaveTextContent('jointly evaluable pairs give Jaccard 23/501');
     expect(screen.getByRole('rowheader', { name: 'Statistical model, P values and FDR' }).closest('tr'))
-      .toHaveTextContent('Refit 501/505 overlap is not Explorer agreement');
-    expect(record.verification.state).toBe('unresolved');
+      .toHaveTextContent('All 25 registered calls have a finite author adjusted P');
+    expect(record.verification.reason).toContain('23 shared discoveries among 25 registered and 505 author calls');
+    expect(record.verification.reason).toContain('A separate DESeq2 fit');
+    expect(record.verification.state).toBe('partial');
     expect(record.verification.fullyVerifiedContrasts).toEqual([]);
   });
   it('does not turn an organoid excerpt with zero discoveries into full-universe agreement', () => {

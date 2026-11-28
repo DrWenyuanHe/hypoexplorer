@@ -4,10 +4,10 @@ Three separate assessments. A pass applies only to the recorded checks and scope
 
 | Status | Pipeline QC | Experimental design | Author concordance |
 |---|---:|---:|---:|
-| Passed | 143 | 85 | 27 |
-| Review needed | 16 | 60 | 31 |
+| Passed | 143 | 85 | 32 |
+| Review needed | 16 | 60 | 47 |
 | Failed | 0 | 0 | 0 |
-| Not assessed | 3 | 17 | 103 |
+| Not assessed | 3 | 17 | 82 |
 | Not applicable | 0 | 0 | 1 |
 
 Experimental design covers independent biological replication and retained sample support. All other recorded checks remain in pipeline QC, including source integrity, species mapping, normalization and model pairing. The separation preserves each source check, status, requirement and evidence reference.

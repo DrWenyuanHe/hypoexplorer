@@ -1,0 +1,101 @@
+{
+  "datasetId": "mouse_scn_photoperiod_gse266472",
+  "accession": "GSE266472",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "All 18 registered male SCN libraries match the author sample sheet at projected lights-off (pZT12). The journal and GitLab report long-versus-short RNA effects across six phases, with different numerical results in the journal table and compressed GitLab export. The search found no author-reported RNA-expression effect specific to the registered pZT12 contrast.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE266472/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "summary": "The published whole-day RNA analysis and the registered pZT12 analysis estimate different photoperiod effects.",
+      "note": "One whole-SCN library represents one male mouse. The author sheet lists 121 libraries across six projected times. All 18 registered pZT12 libraries match by source ID, photoperiod and batch. Each arm contributes four mice in sequencing batch 5209 and five in 5728. Positive log2 fold change indicates higher RNA expression in long days. The paper describes a batch-adjusted photoperiod effect across the day. The posted DESeq2 code uses RNA-extraction batch. Registered edgeR quasi-likelihood inference uses sequencing batch within pZT12. In the archived S4 workbook, the full sheet retains the S2a label addressed by the corrigendum. It has 16,856 unique Ensembl IDs and 15,873 numeric adjusted P values. The journal rule (adjusted P < 0.05 and absolute log2 fold change > 0.1) gives 1,518 calls, 546 higher and 972 lower in long days. The volcano input has 16,864 rows and agrees with S4 on their shared fold changes. The separate compressed GitLab export contains 16,700 genes, 121 normalized-count columns and 2,110 calls by the journal rule. Its coefficients differ from S4 even for shared genes. The exact fit that produced the journal values remains unresolved. Time-course panels show expression means and fitted rhythms. GEO supplies library counts. Chapter III of Cox’s dissertation reports pZT12 Rasd1 CpG methylation. None of these sources supplies a long-versus-short pZT12 RNA effect. The six comparability dimensions are documented in data/author-validation/continued-sources/GSE266472/codex-2026-11-24/SEARCH_LOG.md.",
+      "reviewFlags": [],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-24",
+      "evidenceLinks": [
+        {
+          "label": "Journal article and figures",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11425976/",
+          "kind": "paper"
+        },
+        {
+          "label": "Correction to S4 tab labels and rhythm descriptions",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12412228/",
+          "kind": "paper"
+        },
+        {
+          "label": "Journal supplementary archive retained in PMC Open Data",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC11425976.1/sj-zip-1-jbr-10.1177_07487304241265439.zip",
+          "kind": "author_result"
+        },
+        {
+          "label": "Author model, sample sheet, result files and figure code",
+          "url": "https://gitlab.com/giannoma/OHC_RNAseq/-/tree/7de067c20fe5ed9d3c89e106212725ade85664de",
+          "kind": "author_result"
+        },
+        {
+          "label": "Cox dissertation, Chapters II and III (RNA expression and pZT12 DNA methylation)",
+          "url": "https://ir.vanderbilt.edu/items/39d594a7-a976-4985-9bba-c6a0dcc264d0",
+          "kind": "paper"
+        }
+      ],
+      "paperAccess": "pmc_full_text",
+      "pmcUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11425976/",
+      "pmcId": "PMC11425976",
+      "pubmedUrl": "https://pubmed.ncbi.nlm.nih.gov/39096022/"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The published DESeq2 analysis estimates the long-versus-short photoperiod effect across the day with a batch term. The registered edgeR analysis estimates that effect within pZT12, adjusting for sequencing batch. The 18 pZT12 libraries match, but the searched author sources yield zero eligible pZT12 RNA-effect pairs. Effect agreement and inference for the registered contrast remain unassessed.",
+      "nextStep": "Reopen for an author-produced long-versus-short RNA-expression effect at pZT12 with identifiable SCN libraries, phase, baseline and batch handling. A selected list would cover only its named genes.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Author DESeq2 libraries and arms",
+      "value": "121 libraries, 63 long and 58 short across pZT 0, 4, 8, 12, 16 and 20.",
+      "script": "data/author-validation/continued-sources/GSE266472/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Registered cohort matched by source-library ID, photoperiod and batch to the author pZT12 subset",
+      "value": "18 of 18 libraries, nine per arm. Each arm contains four in sequencing batch 5209 and five in 5728.",
+      "script": "data/author-validation/continued-sources/GSE266472/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Series libraries absent from the author DESeq2 sample table",
+      "value": "5209-OC-16, 5209-OC-38",
+      "script": "data/author-validation/continued-sources/GSE266472/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "GEO series and sample supplementary-file content",
+      "value": "123 series files inspected through the last row. Each contains 56,980 two-field feature/count rows. All 123 GSMs list NONE for sample supplements.",
+      "script": "data/author-validation/continued-sources/GSE266472/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Author S4 whole-day DE, journal threshold on available adjusted P values",
+      "value": "16,856 Ensembl IDs, 15,873 numeric adjusted P values, 1,518 calls at adjusted P < 0.05 and |log2FC| > 0.1. Long higher 546, long lower 972.",
+      "script": "data/author-validation/continued-sources/GSE266472/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Columns attached to the author compressed DESeq2 output",
+      "value": "121 normalized-count columns matching the author sample sheet accompany one set of whole-day DE fields.",
+      "script": "data/author-validation/continued-sources/GSE266472/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Registered edgeR-QL output inspected in place",
+      "value": "18,335 rows, 18,335 unique symbols. SHA-256 f25fd0341f751efa6dd4c55ed26c1adf733cb9357c82b9d8627837a76f600e65",
+      "script": "data/author-validation/continued-sources/GSE266472/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Journal S4a, the GitLab volcano input and the compressed GitLab model export",
+      "value": "At the published cutoffs, S4a has 1,518 calls and the 16,864-row volcano input has 1,518. All 16,856 S4a IDs are in that input (maximum absolute log2 fold-change difference below 2e-17). The compressed export has 16,700 unique IDs, 15,074 numeric adjusted P values and 2,110 calls (828 higher and 1,282 lower in long days). On its 16,692 IDs shared with S4a, the largest absolute log2 fold-change difference is 5.6392.",
+      "script": "data/author-validation/continued-sources/GSE266472/codex-2026-11-24/refute/recheck.py"
+    }
+  ],
+  "openIssues": [
+    "Reopen for an author-produced long-versus-short RNA-expression effect at pZT12 with identifiable SCN libraries, phase, baseline and batch handling. A selected list would cover only its named genes.",
+    "The posted DESeq2 export differs numerically from journal S4a. The source of that difference remains unresolved."
+  ]
+}

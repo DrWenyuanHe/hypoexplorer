@@ -73,7 +73,7 @@ pnpm run typecheck
 pnpm exec vitest run src/__tests__/authorVerification.test.tsx src/__tests__/authorValidationPanel.test.tsx src/__tests__/verificationView.test.tsx
 ```
 
-Commit the regenerated records with the ledger edit. CI cannot rebuild them, so `src/__tests__/authorValidationFreshness.test.ts` compares them with the committed ledgers instead: every `verification-review.json` field the builder copies, every `comparability-review.json` record, and the `inputSha256` the builder records for the four ledgers and `direct-comparisons.generated.json`. A ledger committed without this regeneration fails it. The records committed on 2026-10-25 predate the Nov 15-24 ledger merges, so its checks are marked `it.fails` until they are regenerated; the regenerating commit must change them back to `it`.
+Commit the regenerated records with the ledger edit. CI cannot rebuild them, so `src/__tests__/authorValidationFreshness.test.ts` compares them with the committed ledgers instead: every `verification-review.json` field the builder copies, every `comparability-review.json` record, and the `inputSha256` the builder records for the four ledgers and `direct-comparisons.generated.json`. A ledger committed without this regeneration fails it.
 
 The tracker catalog is built from a survey catalog that is
 [not in this repository](../../docs/PROJECT_GUIDANCE.md#files-not-in-this-repository);
@@ -119,12 +119,12 @@ Pipeline QC, Experimental design and Author concordance counts independently;
 each count applies only to that assessment and its recorded scope.
 
 The generated validation records (`validation-records.generated.json`, which the
-explorer reads, built 2026-10-25), `VALIDATION_REPORT.generated.md` and the quality
-assessments behind the quality report predate the review-ledger changes of 2026-11-16
-to 2026-11-24, so they lag the ledgers until they are regenerated in the maintainer
-checkout. The ledgers (`verification-review.json`, `manual-review.json`,
-`comparability-review.json`, `additional-comparison-specs.json`) hold the current
-review decisions.
+explorer reads), `VALIDATION_REPORT.generated.md`, the direct comparisons and the
+quality assessments were regenerated on 2026-11-27 from the retained audit cache,
+after the review-ledger changes of 2026-11-16 to 2026-11-24. The ledgers
+(`verification-review.json`, `manual-review.json`, `comparability-review.json`,
+`additional-comparison-specs.json`) hold the review decisions; a later ledger edit
+needs the same regeneration in the maintainer checkout.
 
 The [ten additional reviews](continued-sources/ten-dataset-followup-2026-09-04/README.md) extend source-cohort and statistical checks to tanycyte insulin, POMC Drd2, FGF1, Lef1, MKRN3, CBD, orexin, maternal HCD, hibernation and AgRP fasting. Recovered code explains joint-group and batch-model differences in several studies. The records distinguish successful separate reconstructions from unchanged Explorer outputs, recover damaged identifiers using source evidence, and keep missing tests separate from observed disagreements.
 

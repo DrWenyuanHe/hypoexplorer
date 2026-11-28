@@ -1,0 +1,14 @@
+{
+  "datasetId": "gse281701",
+  "outcome": "upheld_with_corrections",
+  "summary": "All 47 manifest entries matched their recorded sizes and SHA-256 hashes. The author analysis used the registered day-25 hypothalamus contrast, with three male mice per group. All three selected gene directions agreed. The corrected proposal attributes Lcn2 and Fabp7 to the Results text because the text and caption disagree on the figure panel. It also records that Lrg1 has a similar log2 fold change (+4.5 plotted versus +4.41 registered) but a much more extreme plotted significance value. [Paper](https://doi.org/10.1152/ajpcell.00319.2025) · [Supplement](https://doi.org/10.6084/m9.figshare.30071641.v5)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-24/verdicts/gse281701.json",
+    "data/author-validation/codex-2026-11-24/corrected/gse281701.json",
+    "data/author-validation/continued-sources/GSE281701/codex-2026-11-24/refute/recheck.py"
+  ],
+  "openIssues": [
+    "The complete ten-gene panel and full hypothalamus DESeq2 table remain unavailable. Three directions fall below the 30-pair concordance minimum.",
+    "The supplement does not specify whether the plotted Lrg1 P value is adjusted. Its −log10P is approximately 24.1, compared with registered values of 5.43 for raw P and 2.79 for FDR."
+  ]
+}

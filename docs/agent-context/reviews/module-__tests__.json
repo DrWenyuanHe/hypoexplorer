@@ -1,14 +1,25 @@
 {
   "version": 1,
   "area": "module-__tests__",
-  "fingerprint": "e253c4e2f23230be0ab065d2028d6488c9abcbd0bfa0e4b0d823add05d7fc19b",
+  "fingerprint": "7f122f76353969079d461f26def87de0a8704d567da0bf7576238ef26548fb97",
   "outcome": "updated",
-  "explanation": "modal.test.tsx now pins the native dialog: showModal with no role or aria-modal, closedby any, focus on open, onClose from the x button, a cancelled Escape request, an uncancellable close and the backdrop fallback (press and release outside, not a drag from inside, not an inner dialog's backdrop), focus return and an untouched body overflow. portalHost.test.tsx replaces focusTrapPortal and focusTrap tests; setup.ts shims showModal, close and the Escape close request for jsdom; dialog tests in confirmDialog, pwaUpdate, cellSelector, geneModal, smoke, datasetInfo and responsiveSidebar follow the new markup.",
+  "explanation": "Merges main (#100, #101, #102, #104) into the record regeneration. From #104: modal.test.tsx now pins the native dialog: showModal with no role or aria-modal, closedby any, focus on open, onClose from the x button, a cancelled Escape request, an uncancellable close and the backdrop fallback (press and release outside, not a drag from inside, not an inner dialog's backdrop), focus return and an untouched body overflow. portalHost.test.tsx replaces focusTrapPortal and focusTrap tests; setup.ts shims showModal, close and the Escape close request for jsdom; dialog tests in confirmDialog, pwaUpdate, cellSelector, geneModal, smoke, datasetInfo and responsiveSidebar follow the new markup. From earlier main: Merges main (#101). From main: externalReference, regionalSummary, portalCards, deployGuards, sourceJson and expressionSurvey tests cover the Visium provider, its tile, transport allow-list and source_credit CSV column. From this branch: the HypoMap fixture writes every study-card column (blank as an empty string); the atlas client tests cover named study fields, a partial card whose non-http link and non-numeric cell count read as null, a blank card and the Publication and Technology CSV columns; the preview tests read a checked dataset's linked publication and facts, and a blank card shows no details. From this branch: authorValidationFreshness.test.ts returns from it.fails to it now that the records are regenerated. Sixteen assertions that encoded the 2026-10-25 records now assert the reviewed ledgers: next steps, review flags, cohort statuses, evidence citations moved to codex-2026-11-21 folders, 32 author-concordance passes with the five new direct passes listed, partial availability for GSE225038 and the SST and GSE128148 inference notes. GSE284408 asserts its Table S1 workbook link instead of a retired folder.",
   "references": [
-    "src/__tests__/modal.test.tsx",
-    "src/__tests__/portalHost.test.tsx",
-    "src/__tests__/setup.ts",
+    "data/author-validation/comparability-review.json",
+    "data/author-validation/verification-review.json",
+    "src/__tests__/authorValidationFollowups.test.ts",
+    "src/__tests__/authorValidationFreshness.test.ts",
+    "src/__tests__/authorVerification.test.tsx",
     "src/__tests__/confirmDialog.test.tsx",
-    "src/__tests__/geneModal.test.tsx"
+    "src/__tests__/datasetQualityR460.test.ts",
+    "src/__tests__/externalReference.test.ts",
+    "src/__tests__/geneModal.test.tsx",
+    "src/__tests__/hypomapAtlasClient.test.ts",
+    "src/__tests__/hypomapFixture.ts",
+    "src/__tests__/hypomapPreview.test.tsx",
+    "src/__tests__/modal.test.tsx",
+    "src/__tests__/portalCards.test.tsx",
+    "src/__tests__/portalHost.test.tsx",
+    "src/__tests__/setup.ts"
   ]
 }

@@ -1,0 +1,83 @@
+{
+  "datasetId": "mouse_hypo_prenatal_benzene_gse229440",
+  "accession": "GSE229440",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "Koshko et al. report selected benzene-versus-filtered-air gene directions in P21 male hypothalamus. The paper identifies individual offspring libraries and describes separate analyses by sex, but leaves litter handling unspecified. None of the author results reviewed can be attributed to an exposure effect estimated across independent litters as in the registered contrast.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE229440/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "summary": "The paper reports P21 male gene directions. Its methods do not establish the litter-level comparison used by HypoExplorer.",
+      "note": "GEO records nine filtered-air and seven exposed male libraries after Xist-based sex reassignment. Excluding GSM7163652 (OBFH14), as the paper specifies, leaves nine and six. Section 2.4 describes reverse-strand STAR counts, removal of transcripts with fewer than 20 total reads, DESeq2 with apeglm shrinkage separately by sex, and a BH-adjusted P cutoff of 0.1 (strictly less than). The authors report 66 male DEGs. Figure 1B shows group-average expression for selected genes across four sex-by-exposure groups, including higher Ucp2 and lower Ebf2 in exposed males. The figure gives neither numerical exposure coefficients nor gene-level P or FDR values. The RNA-seq methods give no design formula, litter term or aggregation step. The registered edgeR quasi-likelihood model uses reverse-strand count sums within each of three litters per arm and estimates prenatal benzene relative to filtered air. The publisher DOCX and preprint PDF contain CX30 imaging and body-composition figures. All 33 declared GEO sample files contain STAR counts. No author gene-level result reviewed establishes a compatible litter-level effect.",
+      "reviewFlags": [
+        "Sibling libraries came from the same exposure-assigned dams. The published methods leave their dependence in the DE model unresolved. Effect concordance and gene-level inference for the registered six-litter comparison remain unassessed."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-24",
+      "evidenceLinks": [
+        {
+          "label": "Author manuscript, RNA-seq methods and Figure 1",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10199724/",
+          "kind": "paper"
+        },
+        {
+          "label": "Publisher Figure 1, including the group-average heatmap",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0045653523010056-gr1_lrg.jpg",
+          "kind": "author_result"
+        },
+        {
+          "label": "Publisher supplementary figures on CX30 and body composition",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0045653523010056-mmc1.docx",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO family metadata with corrected sex and litter assignments",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE229nnn/GSE229440/soft/GSE229440_family.soft.gz",
+          "kind": "database"
+        },
+        {
+          "label": "Deposited per-offspring STAR count files",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE229nnn/GSE229440/suppl/GSE229440_RAW.tar",
+          "kind": "processed_data"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The tissue, P21 time point, male stratum and exposure direction agree. The author panel and narrative identify selected gene directions, but neither gives the six litter profiles or documents a model accounting for siblings within dams. A gene-level benchmark for the registered litter effect could not be established.",
+      "nextStep": "Reopen if author code, a design and sample mapping, or gene-level results establish that the reported effects estimate the same male P21 benzene-versus-air effect with litters as the independent exposure units. Within-litter sums or a justified compatible analysis could establish this. Verify gene identifiers and effect definitions, limit any comparison to the available genes, and assess P/FDR only where supplied.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO sample supplements matched to archive members and inspected row by row",
+      "value": "33 of 33 files. Each has 55,471 distinct Ensembl gene rows and four STAR summary rows with three integer count fields per row.",
+      "script": "data/author-validation/continued-sources/GSE229440/codex-2026-11-24/refute/recheck.py"
+    },
+    {
+      "claim": "Male libraries and independent analysis units, using corrected GEO metadata, the paper's exclusion and the registered sample sheet",
+      "value": "9 filtered-air males in litters of 3, 3 and 3. After excluding GSM7163652 (OBFH14), 6 exposed males in litters of 1, 2 and 3. Three registered litter profiles per arm.",
+      "script": "data/author-validation/continued-sources/GSE229440/codex-2026-11-24/refute/recheck.py"
+    },
+    {
+      "claim": "Registered output coverage and SHA-256 computed from the DE table",
+      "value": "21,796 rows and 21,796 unique published symbols. SHA-256 2af297d5e351ea238e9b0286eceee057643b6a661e9edc80d08af8e1174d22c0 matches the registered provenance.",
+      "script": "data/author-validation/continued-sources/GSE229440/codex-2026-11-24/refute/recheck.py"
+    },
+    {
+      "claim": "Deposited project files indexed by ENA",
+      "value": "33 sequencing runs and 0 analysis-file rows for PRJNA954440.",
+      "script": "data/author-validation/continued-sources/GSE229440/codex-2026-11-24/refute/recheck.py"
+    },
+    {
+      "claim": "Exact sizes and SHA-256 digests against SOURCES.tsv",
+      "value": "All 40 files matched, totaling 17,089,958 bytes. publisher.html is a Linking Hub redirect. pre_fig1.html is a generic bioRxiv page. The separate figure images and supplement files supply the figure evidence. preprint_api.json identifies version 1 and its JATS URL, with the published field set to NA.",
+      "script": "data/author-validation/continued-sources/GSE229440/codex-2026-11-24/refute/recheck.py"
+    }
+  ],
+  "openIssues": [
+    "The author model design and its treatment of litter remain undocumented in the reviewed material. A compatible author effect reference and gene-level inference for the registered contrast remain unavailable."
+  ]
+}

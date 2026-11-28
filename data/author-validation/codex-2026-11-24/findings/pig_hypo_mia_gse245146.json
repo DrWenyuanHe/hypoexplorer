@@ -1,0 +1,94 @@
+{
+  "datasetId": "pig_hypo_mia_gse245146",
+  "accession": "GSE245146",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "The supplement reports 159 selected maternal main-effect rows from the full factorial study. Figure 5 shows maternal effects within saline separately for males and females. Neither source estimates the registered sex-adjusted PRRSV-minus-control effect across the 38 saline offspring, and the public deposits yielded no matching author result.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE245146/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "summary": "Factorial gene results and sex-specific saline panels do not test the registered maternal contrast",
+      "note": "Rodriguez-Zas et al. studied whole hypothalamus at day 60 in 112 pigs across maternal exposure, juvenile distress and sex. Maternal exposure was assigned to gilts, with one library per sampled pig. The authors report trimmed-mean normalization, edgeR 3.14 and main and interaction effects. We reviewed all 30 rendered pages of the Illinois supplement. Table S1 contains 159 selected maternal main-effect rows with log2 fold changes and FDR. Its column header and the paper’s methods say control versus PRRSV, while the introductory caption reverses that order. Tables S2 and S3 report pathway enrichment. Main-text Figure 5 shows control minus MIA for selected pain-pathway genes in separate male-saline and female-saline panels. HypoExplorer fits limma to log2(TPM + 1) for the 17 maternal-PRRSV and 21 control saline libraries and estimates one PRRSV-minus-control coefficient adjusted for sex. GEO contains expression values and no contrast columns. No public author table or fitted contrast was identified for the common effect in saline. Its author P values, FDR and effect concordance remain unassessed. See data/author-validation/continued-sources/GSE245146/codex-2026-11-24/SEARCH_LOG.md.",
+      "reviewFlags": [
+        "The author’s maternal main-effect table covers the factorial analysis. Figure 5 separates the two sexes within saline. Neither estimates the registered common maternal effect among saline offspring."
+      ],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-24",
+      "evidenceLinks": [
+        {
+          "label": "Reviewed full manuscript",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11283907/",
+          "kind": "paper"
+        },
+        {
+          "label": "Publication record",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/38189117/",
+          "kind": "paper"
+        },
+        {
+          "label": "Author supplementary evidence",
+          "url": "https://doi.org/10.13012/B2IDB-8635710_V1",
+          "kind": "author_result"
+        },
+        {
+          "label": "Original Illinois author supplement",
+          "url": "https://databank.illinois.edu/datafiles/xr3yz/download",
+          "kind": "author_result"
+        },
+        {
+          "label": "Illinois Data Bank supplement inventory and public document viewer",
+          "url": "https://databank.illinois.edu/datasets/IDB-8635710",
+          "kind": "author_result"
+        },
+        {
+          "label": "Figure 5 with separate male and female saline panels",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11283907/figure/F0005/",
+          "kind": "author_result"
+        }
+      ],
+      "paperAccess": "pmc_full_text",
+      "pmcUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11283907/",
+      "pmcId": "PMC11283907",
+      "pubmedUrl": "https://pubmed.ncbi.nlm.nih.gov/38189117/",
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The author’s edgeR study includes saline, fasting and poly(I:C) offspring of both sexes. The S1 maternal column is labeled control versus PRRSV across that factorial analysis. Figure 5 gives sex-specific maternal comparisons within saline for selected genes. HypoExplorer’s additive limma model estimates one sex-adjusted PRRSV-minus-control effect in saline only. No author result located in the public-source review tests that contrast.",
+      "nextStep": "Reopen if an author gene table or original fitted contrast identifies the saline cohort, PRRSV-minus-control orientation and common effect adjusted for sex. A fitted result needs the design and contrast weights to establish the estimand. Record effect units, identifiers and any available P values or FDR before comparison.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Day-60 GEO libraries and membership of the registered saline contrast",
+      "value": "112 GSMs. All 38 saline GSMs match the registered sheet. Control has 9 female and 12 male pigs. PRRSV has 6 female and 11 male pigs.",
+      "script": "data/author-validation/continued-sources/GSE245146/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "GEO processed-file fields and sample supplement inventory",
+      "value": "26,673 feature rows, one identifier column and 112 TPM columns matched to sample descriptions. Zero remaining columns. All 112 GSM supplementary-file fields say NONE. The series matrix has zero feature rows.",
+      "script": "data/author-validation/continued-sources/GSE245146/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Registered DE table inspected in place",
+      "value": "20,204 rows with distinct published symbols. SHA-256 801def5bf7152a128dbf5bd0ab07d5421709ed57bc1f1ee9ff488d4fb779728d matches producer provenance.",
+      "script": "data/author-validation/continued-sources/GSE245146/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Maternal main-effect rows in supplemental Table S1",
+      "value": "159 printed MIA rows. Pages 3, 4, 5 and 6 each contain 39. Page 7 contains 3 before the sex-effect section.",
+      "script": "data/author-validation/continued-sources/GSE245146/codex-2026-11-24/count_mia_rows.py"
+    },
+    {
+      "claim": "Public supplement page coverage",
+      "value": "30 consecutive rendered pages. The subsequent page request returned HTTP 404.",
+      "script": "data/author-validation/continued-sources/GSE245146/codex-2026-11-24/viewer_pages.py"
+    }
+  ],
+  "openIssues": [
+    "Reopen on a gene-level author result for the common maternal effect within saline, or an original fit and documented contrast that identifies it."
+  ]
+}

@@ -160,11 +160,13 @@ describe('visible verification evidence', () => {
     expect(screen.getByRole('rowheader', { name: 'Numerical comparison scope' }).closest('tr')).toHaveTextContent('missing, not nonsignificant');
     expect(screen.queryByText('Fully verified')).toBeNull();
   });
-  it('does not label GSE128148 full author results unavailable despite unresolved inference', () => {
+  it('does not label GSE128148 full author results unavailable despite differing inference', () => {
     const record = requireAuthorValidation('mouse_arc_corticosterone_gse128148');
     render(<AuthorValidationPanel record={record} />);
-    expect(record.verification).toMatchObject({ state: 'unresolved', evidenceLevel: 'author_results', resultAvailability: 'available' });
-    expect(screen.getByText(record.note)).toHaveTextContent('exact 43 original');
+    // The 2026-11-21 closure pass records method differences, not an unresolved mismatch.
+    expect(record.verification).toMatchObject({ state: 'partial', evidenceLevel: 'author_results', resultAvailability: 'available' });
+    expect(record.verification.comparability.dimensions.inference.status).toBe('different');
+    expect(screen.getByText(record.note)).toHaveTextContent('recovers all 43 author calls');
     expect(screen.getByRole('rowheader', { name: 'Author selection rule' }).closest('tr')).toHaveTextContent('FDR <0.1');
   });
   it('pairs a source-evidence icon with an explicit untested label, never a full badge', () => {
@@ -177,8 +179,10 @@ describe('visible verification evidence', () => {
   });
   it('displays a missing-reference limitation separately from a comparison outcome', () => {
     render(<AuthorValidationPanel record={requireAuthorValidation('mouse_arc_hfd_gse225038')} />);
-    expect(screen.getByText('Comparable author results not located in reviewed sources')).toBeTruthy();
-    expect(screen.getByText('Author-result agreement not tested')).toBeTruthy();
+    // The 2026-11-21 closure pass found only non-equivalent author results (isoform TPM by diet,
+    // whole-gene knockout results) and judged them a different comparison.
+    expect(screen.getByText('Only partial or non-equivalent author results available')).toBeTruthy();
+    expect(screen.getByText('Available author result is not the same comparison')).toBeTruthy();
     expect(screen.getByText('0 of 1 registered contrasts')).toBeTruthy();
     expect(screen.getByRole('link', { name: 'How data verification works' })).toHaveAttribute('href', '#/verification');
   });

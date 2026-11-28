@@ -1,0 +1,110 @@
+{
+  "datasetId": "gse281701",
+  "accession": "GSE281701",
+  "category": "not_comparable",
+  "closure": "compared",
+  "summary": "The authors report higher Lcn2 and Lrg1 and lower Fabp7 in the day-25 hypothalamus of CT-26 tumor-bearing male mice relative to healthy controls. All three directions agree with the registered output. The published directions cover three selected genes, and the full author coefficient and inference table remains unavailable in the sources checked.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE281701/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-24",
+      "summary": "Three published hypothalamic gene directions agree with the registered day-25 CT-26 comparison.",
+      "note": "The results text for Figure 1E names Lcn2 (up) and Fabp7 (down). Supplemental Figure S4C labels Lrg1 on the positive side of the hypothalamus volcano plot, at approximately +4.5 log2FC. The registered log2FC values are +8.58, −2.04 and +4.41 for Lcn2, Fabp7 and Lrg1, respectively. The authors used a DESeq2 Wald test. HypoExplorer used edgeR quasi-likelihood with a group-only design. Exact paired author coefficients and P/FDR values remain unassessed.",
+      "reviewFlags": [
+        "The comparison covers the two Figure 1E directions named in the accessible text and the sole labelled point in Figure S4C. The full set of ten Figure 1E labels could not be inspected.",
+        "Three selected genes fall below the author-concordance-v2 minimum. The full author testing universe and per-gene inference remain unavailable."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Lee et al., Figure 1E and results text",
+          "url": "https://doi.org/10.1152/ajpcell.00319.2025",
+          "kind": "paper"
+        },
+        {
+          "label": "Figshare v5, Supplemental Figure S4C and Tables S1–S5",
+          "url": "https://doi.org/10.6084/m9.figshare.30071641.v5",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO series, sample metadata and RSEM files",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE281701",
+          "kind": "processed_data"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "Three published directions for the same bulk hypothalamus contrast match the registered edgeR-QL coefficients. The authors used DESeq2 Wald inference. The reachable Figshare volcano labels one gene, the accessible Figure 1E text gives directions for two, and the S3 coefficient workbook covers skeletal muscle. Exact author P values and FDR remain unassessed.",
+      "nextStep": "A readable Figure 1E or its source values would extend the selected-gene review. The GSE281701 bulk hypothalamus DESeq2 export with feature identifiers, log2FC, raw P, adjusted P, and model metadata would permit a full-table comparison.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "cachexia_vs_control"
+      ],
+      "basis": "Direct comparison to the registered whole-hypothalamus edgeR-QL table, using exact case-sensitive symbols and the deposited cachexia-minus-control orientation.",
+      "reference": "Lee et al., results text for Figure 1E (Lcn2 and Fabp7) and Figshare v5 Supplemental Figure S4C (Lrg1). The latter supplies a graphical log2FC estimate. Table S2 supplies the tissue-specific selection criteria.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Both use one bulk hypothalamus library per male BALB/c mouse at the day-25 endpoint. Tumor-bearing mice are GSM8626408, GSM8626410 and GSM8626412. Healthy mice are GSM8626414, GSM8626416 and GSM8626418. Gastrocnemius libraries from the same experiment are outside this comparison."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Both ask how whole-hypothalamus gene expression differs between CT-26 tumor-bearing cachectic mice and healthy age-matched controls at sacrifice. A positive effect means higher expression in tumor-bearing animals. All animals are male. The registered model estimates one group coefficient."
+        },
+        "features": {
+          "status": "limited",
+          "note": "All three named mouse gene symbols map uniquely and literally to the registered table. The remaining Figure 1E labels and the author tested-gene universe could not be reconciled."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "The named gene directions agree for 3/3. Figure 1E displays group-average log-normalized expression. S4C places Lrg1 at approximately +4.5 log2FC, versus +4.41 registered. Exact author coefficients, magnitude correlations and a full-universe comparison are unavailable."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "The paper reports the DESeq2 Wald test for bulk RNA-seq. Table S2 lists fold change 1.5 and adjusted P 0.01 for this hypothalamus cohort. The registered fit uses lengthScaledTPM-corrected fractional counts, TMM, edgeR quasi-likelihood and a group term. Exact author raw P, FDR, test family and any additional design terms could not be checked. The S4C ordinate reads −log10P."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Three distinct selected directions pair among 17,886 registered symbols. The paper describes ten genes in Figure 1E. Only the two named in text were available from that panel. S4C separately labels Lrg1. Full-reference coverage and concordance-v2 acceptance cannot be established."
+        }
+      },
+      "criteria": "Take every gene with an explicit direction in the retained hypothalamic results text or a uniquely labelled point in S4C. Join by literal mouse symbol, use the reported orientation, and compare signs without filtering the registered table by effect size or significance. Keep the single graph-derived magnitude approximate. Leave missing author P/FDR unassessed.",
+      "conclusion": "All three published directions agree in cachexia_vs_control. This is a selected-gene comparison below the 30-pair concordance minimum. No registered contrast receives full verification."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Three selected directions, exact-symbol matches, and matching signs",
+      "value": "3 selected, 3 unique matches, 3 same direction, 0 opposite, 0 unmatched and 0 ambiguous",
+      "script": "data/author-validation/continued-sources/GSE281701/codex-2026-11-24/compare.py"
+    },
+    {
+      "claim": "Registered log2 fold changes, cachexia minus healthy control",
+      "value": "Lcn2 +8.5801, Fabp7 −2.0437, Lrg1 +4.4095",
+      "script": "data/author-validation/continued-sources/GSE281701/codex-2026-11-24/compare.py"
+    },
+    {
+      "claim": "Graph-derived author log2 fold change for the labelled Lrg1 point in S4C",
+      "value": "approximately +4.5 (one decimal)",
+      "script": "data/author-validation/continued-sources/GSE281701/codex-2026-11-24/compare.py"
+    },
+    {
+      "claim": "Published registered DE symbols and exact paired author statistics",
+      "value": "17,886 registered symbols, 0 exact author coefficients, 0 exact author raw P values, 0 exact author adjusted P values available for the selected comparison",
+      "script": "data/author-validation/continued-sources/GSE281701/codex-2026-11-24/compare.py"
+    }
+  ],
+  "openIssues": [
+    "The original Figure 1E graphic and its underlying values were unavailable through the reviewed routes. Only the two gene directions stated in the text were used from that panel.",
+    "A full hypothalamus DESeq2 export with model metadata and exact per-gene statistics would extend the comparison and allow assessment of genome-wide coverage and inference."
+  ]
+}

@@ -34,6 +34,7 @@ describe('complete round-two author tables', () => {
     expect(metrics.signConcordance).toBe(1);
     expect(metrics.pearsonLogFC).toBeGreaterThan(0.96);
     expect(assessAuthorConcordance(record).status).toBe('review');
-    expect(record.verification.nextStep).toContain('incubation replicate');
+    // The 2026-11-21 closure pass asks for the setter and run behind each library.
+    expect(record.verification.nextStep).toContain('setter and run for each of the eight target GSMs');
   });
 });

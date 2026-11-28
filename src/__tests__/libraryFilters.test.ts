@@ -142,7 +142,8 @@ describe('filterCards', () => {
       verification: { ...MOCK_VALIDATION.verification, resultAvailability: 'available' } } });
     expect(filterCards([...CARDS, available], withFilters({ availability: ['available'] }))).toEqual([available]);
     expect(facetCounts([...CARDS, available], withFilters({ availability: ['available'] }), 'availability'))
-      .toEqual({ not_located: 5, available: 1 });
+      // The mock cards reuse GSE225038, which the 2026-11-21 closure pass reclassified as partial.
+      .toEqual({ partial: 5, available: 1 });
   });
 });
 

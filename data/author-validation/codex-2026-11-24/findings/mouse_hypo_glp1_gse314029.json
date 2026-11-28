@@ -1,0 +1,61 @@
+{
+  "datasetId": "mouse_hypo_glp1_gse314029",
+  "accession": "GSE314029",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "GEO supplies raw counts for the registered six Gr3 and eight vehicle hypothalamus libraries. The authors’ RNA-seq results cover liver, epididymal white adipose tissue and skeletal muscle. Their gene-labelled hypothalamic results measure protein abundance seven hours after a single dose, so the public evidence cannot test the registered RNA effect.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE314029/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-24",
+      "summary": "The deposited library IDs support the Gr3 versus vehicle hypothalamus contrast. Published results cover different tissues or assays.",
+      "note": "The GEO count columns and sample records identify eight Vhcl and six retained Gr3 hypothalamus libraries. The preparation excludes Gr3_rep_31_Hy and Gr3_rep_30_Hy. Extended Data Fig. 4 explicitly labels peripheral libraries by drug. Joining those IDs to GEO establishes the group key across all 95 displayed libraries, with Gr3 assigned to GLP-1/GIP and Gr2 to GLP-1/GIP/Lani. The registered group-only edgeR model estimates Gr3 minus vehicle RNA log2 fold change. The hypothalamic Fig. 5k–m data come from acute mass spectrometry. No gene-level author RNA result was located for the registered cohort.",
+      "reviewFlags": [
+        "GEO describes seven daily treatments and collection 24 hours after the last dose. Supplementary Methods link the published bulk RNA analysis to a 12-day experiment. Individual hypothalamus records give a group code and omit dosing duration and sex. The paper describes male mice.",
+        "The review establishes library selection and treatment identity. The available results leave author RNA effects, P values, FDR and concordance unassessed for hypothalamus.",
+        "The legacy preparation lacks a committed source-file checksum manifest. SOURCES.tsv fingerprints the public files retrieved for this review."
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The registered result is bulk hypothalamic RNA log2 fold change for six Gr3 GLP-1/GIP libraries versus eight vehicle libraries, excluding two repeat-labelled libraries. The reported RNA Wald tests and gene lists use peripheral libraries. Fig. 5k–m and Extended Data Fig. 9b describe a separate single-dose, seven-hour hypothalamic protein experiment with protein-level ANOVA, pairwise tests and enrichment. GEO supplies sample counts, without an author contrast statistic.",
+      "nextStep": "Reopen on release of gene-level hypothalamic RNA effects or a signed, labelled author result for Gr3 versus vehicle, with the GSM or library IDs, handling of the two repeat libraries, and a dosing/harvest record that reconciles the seven- and 12-day descriptions. Assess any selected results only within their published scope.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Retained hypothalamus RNA libraries by arm",
+      "value": "6 Gr3 and 8 Vhcl",
+      "script": "data/author-validation/continued-sources/GSE314029/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "GEO depositor matrix and sample-level files",
+      "value": "32,285 feature rows × 159 sample columns, with nonnegative integer counts throughout. All 159 GSMs declare NONE for supplementary files. The Series Matrix has 0 data rows.",
+      "script": "data/author-validation/continued-sources/GSE314029/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Extended Data Fig. 4b/f/j drug headings joined to GEO by library ID",
+      "value": "95 peripheral libraries. All 24 Gr3 libraries map to GLP-1:GIP, 24 Gr2 to GLP-1:GIP:Lani, 24 Gr4 to Lani and 23 Vhcl to vehicle. These panels include 0 registered hypothalamus library IDs.",
+      "script": "data/author-validation/continued-sources/GSE314029/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Registered DE output inspected",
+      "value": "18,744 distinct published symbols. SHA-256 1c8633a9bbb710ecf52e1ba4b7cfaee2726b176b8bc2f3dd459d48108e015e2e.",
+      "script": "data/author-validation/continued-sources/GSE314029/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Publication attachment coverage",
+      "value": "19 attachments including 15 workbooks and 204 worksheets",
+      "script": "data/author-validation/continued-sources/GSE314029/codex-2026-11-24/inspect_supplements.py"
+    }
+  ],
+  "openIssues": [
+    "GEO and the publication give different treatment durations. A library-level exposure record would settle the timing for any future RNA comparison."
+  ]
+}

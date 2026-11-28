@@ -1,0 +1,103 @@
+{
+  "datasetId": "pig_hypo_formula_gse281726",
+  "accession": "GSE281726",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "The authors’ ALAC-versus-WPI result estimates a common effect across four brain regions and reports zero genes passing their selection rule. HypoExplorer estimates the sex-adjusted effect in hypothalamus alone and retains one library the authors excluded. The public results provide no paired gene effects or inference for that contrast.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE281726/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "summary": "The author diet result pools four brain regions and excludes one registered hypothalamus library",
+      "note": "The same formula-fed piglets and WPI baseline underlie both analyses. The authors fit a common ALAC diet coefficient across prefrontal cortex, striatum, hippocampus and hypothalamus, using 91 tissue libraries from 23 pigs after excluding sample 214 (GSM8626987, WPI PIG8, female hypothalamus). DESeq2 adjusted for sow and tissue, with no sex term or pig-level block. The diet CSV has only a header after BH-adjusted P < 0.05 and absolute apeglm-shrunken log2 fold change > log2(1.5). HypoExplorer retains sample 214 and estimates a sex-adjusted edgeR-QL diet effect from one hypothalamus library per pig (11 ALAC, 12 WPI). Figure 5B counts selected genes for the pooled regions. Supplementary Table 3 and the three nonempty brain CSVs cover ILA subgroups. The PDF repeats its producer-versus-WPI heading. The code and CSVs assign ALOX5AP to producers versus WPI and HBB to nonproducers versus WPI. The printed ALOX5AP fold-change sign differs from the deposited CSV. None of these sources supplies a gene-level effect or test for the registered contrast.",
+      "reviewFlags": [],
+      "auditState": "complete",
+      "reviewedAt": "2026-11-24",
+      "evidenceLinks": [
+        {
+          "label": "Full manuscript",
+          "url": "https://www.nature.com/articles/s41538-025-00571-z",
+          "kind": "paper"
+        },
+        {
+          "label": "Publication record",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/41102179/",
+          "kind": "paper"
+        },
+        {
+          "label": "Publisher supplement, Table 3 on pages 10–11",
+          "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41538-025-00571-z/MediaObjects/41538_2025_571_MOESM1_ESM.pdf",
+          "kind": "author_result"
+        },
+        {
+          "label": "Europe PMC supplement export",
+          "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12533098/supplementaryFiles",
+          "kind": "author_result"
+        },
+        {
+          "label": "Author brain diet result, selected rows",
+          "url": "https://github.com/xuahe/piglet-ila-variability-study/blob/7db301b17fe77310e5765809c9c683f821327c10/Data/DGE_output_tables/Brain_ALAC_vs_WPI.csv",
+          "kind": "author_result"
+        },
+        {
+          "label": "Author DESeq2 tissue selection, exclusion and diet coefficient",
+          "url": "https://github.com/xuahe/piglet-ila-variability-study/blob/7db301b17fe77310e5765809c9c683f821327c10/RNAseq_data_analysis/DESeq2_analysis.html",
+          "kind": "author_result"
+        },
+        {
+          "label": "Author participant and RNA-seq library workbook",
+          "url": "https://github.com/xuahe/piglet-ila-variability-study/blob/7db301b17fe77310e5765809c9c683f821327c10/Data/Data.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "Author brain subgroup results",
+          "url": "https://github.com/xuahe/piglet-ila-variability-study/tree/7db301b17fe77310e5765809c9c683f821327c10/Data/DGE_output_tables",
+          "kind": "author_result"
+        }
+      ],
+      "paperAccess": "pmc_full_text",
+      "pmcUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12533098/",
+      "pmcId": "PMC12533098",
+      "pubmedUrl": "https://pubmed.ncbi.nlm.nih.gov/41102179/",
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "The author diet CSV is a thresholded, header-only export from a four-region DESeq2 model adjusted for sow and region. HypoExplorer fits sex-adjusted edgeR-QL to hypothalamus alone, including the excluded WPI library 214. The nonempty brain tables estimate ILA subgroup effects across regions. Author effects, P values and FDR for the registered contrast remain unassessed.",
+      "nextStep": "Reopen if the authors release gene-level ALAC-versus-WPI log2 effects for P16 hypothalamus alone, with both ILA groups combined, sample IDs including the handling of library 214, and documented sex adjustment. A labelled selected-gene result could support comparison only for the genes supplied.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Registered hypothalamus cohort by sex from the samplesheet, checked against the author workbook and DE provenance",
+      "value": "11 ALAC (5 F, 6 M) and 12 WPI (6 F, 6 M), one library per pig",
+      "script": "data/author-validation/continued-sources/GSE281726/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Author four-region diet fit from the notebook selection applied to author sample IDs and deposited count-file inventory",
+      "value": "91 libraries from 23 pigs after excluding WPI hypothalamus library 214: 44 ALAC and 47 WPI",
+      "script": "data/author-validation/continued-sources/GSE281726/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Selected data rows in the author brain CSVs, omitting the column headers",
+      "value": "Diet ALAC vs WPI: 0. ILA producer vs WPI: 1 (ALOX5AP). ILA nonproducer vs WPI: 1 (HBB). Producer vs nonproducer: 20.",
+      "script": "data/author-validation/continued-sources/GSE281726/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Current registered DE table, hash checked against its own provenance",
+      "value": "9,460 published rows, 0 with adjusted P < 0.05. SHA-256 13297d154dda44de41762421685742a04aa955d4fd0a511c6b3ae6a97449969a",
+      "script": "data/author-validation/continued-sources/GSE281726/codex-2026-11-24/audit.py"
+    },
+    {
+      "claim": "Series archive checked against individual GEO supplement URLs and the study input pins",
+      "value": "232 sample files inspected, including all 23 registered count files with matching compressed-byte SHA-256.",
+      "script": "data/author-validation/continued-sources/GSE281726/codex-2026-11-24/audit.py"
+    }
+  ],
+  "openIssues": [
+    "Reopen if the authors release gene-level ALAC-versus-WPI log2 effects for P16 hypothalamus alone, with both ILA groups combined, sample IDs including the handling of library 214, and documented sex adjustment. A labelled selected-gene result could support comparison only for the genes supplied.",
+    "Supplementary Table 3 and the repository disagree on the ALOX5AP subgroup sign and the printed HBB subgroup heading. This affects interpretation of the separate subgroup report."
+  ]
+}

@@ -2396,42 +2396,42 @@
       "conclusion": "Nineteen original supplementary workbooks were recovered from the publisher RAR. Table8 has3013 male SHR-versus-Wistar genes andTable10 has1122 female SHR-versus-Wistar genes. Other tables concern sex differences, selected shared genes, pathways, correlations and additional brain regions. No current pooled, sex-adjusted SHR-versus-Wistar coefficient was located in these19tables. Male/female coefficients were not averaged or substituted for the registered pooled estimate; unresolved litter/pairing is reviewed separately."
     },
     "gse281701": {
-      "target": "not_tested",
-      "resultScope": "not_tested",
+      "target": "registered_output",
+      "resultScope": "selected_results",
       "registeredContrastIds": [
         "cachexia_vs_control"
       ],
-      "basis": "Current registered Explorer outputs; this bounded author-source availability review does not substitute source integrity for author-result comparison.",
-      "reference": "Paper and versioned supplement recovered; full result workbook contains muscle comparisons",
-      "assessment": "not_comparable",
+      "basis": "Direct comparison to the registered whole-hypothalamus edgeR-QL table, using exact case-sensitive symbols and the deposited cachexia-minus-control orientation.",
+      "reference": "Lee et al., Results on the CT-26 hypothalamus (Lcn2, Fabp7 and Lrg1), the Figure 1 caption, and Figshare v5 Supplemental Figure S4C (labelled Lrg1 point). The Results cite Figure 1D for Lcn2 and Fabp7. The caption identifies 1E as the hypothalamic gene-expression panel. Version 5 Table S2 gives the tissue-specific selection criteria.",
+      "assessment": "limited",
       "dimensions": {
         "cohort": {
-          "status": "not_tested",
-          "note": "No equivalent author-result cohort has been tested in this availability record."
+          "status": "matched",
+          "note": "Both use one bulk hypothalamus library per male BALB/c mouse at the day-25 endpoint. Tumor-bearing mice are GSM8626408, GSM8626410 and GSM8626412. Healthy mice are GSM8626414, GSM8626416 and GSM8626418. Gastrocnemius libraries from the same experiment are outside this comparison."
         },
         "contrast": {
-          "status": "different",
-          "note": "The new primary publication and Figshare v5 supplement were linked to GSE281701. The recovered Supplemental tableS3 contains colorectal, lung and pancreatic cachexia comparisons from skeletal muscle. It contains no hypothalamus tissue rows. TableS2 in the recovered DOCX mentions GSE281701 hypothalamus and a fold-change1.5/adjustedP.01 criterion, but does not supply its full gene effects. Muscle coefficients cannot verify the registered hypothalamus contrast."
+          "status": "matched",
+          "note": "Both ask how whole-hypothalamus gene expression differs between CT-26 tumor-bearing cachectic mice and healthy age-matched controls at sacrifice. A positive effect means higher expression in tumor-bearing animals. All animals are male. The registered model estimates one group coefficient."
         },
         "features": {
-          "status": "not_tested",
-          "note": "Complete equivalent author tested-gene universe has not been compared."
+          "status": "limited",
+          "note": "Each of the three named mouse symbols has one literal match in the registered table and its published track. The complete set of panel labels and the author testing universe remain unassessed."
         },
         "effects": {
-          "status": "not_tested",
-          "note": "No effect agreement is inferred from retained source files."
+          "status": "limited",
+          "note": "All three reported directions agree. The Figure 1 caption describes group-average log-normalized expression. Supplemental Figure S4C plots log2FC and places Lrg1 at approximately +4.5, compared with the registered +4.4095. The sources provided no exact author coefficient for these genes."
         },
         "inference": {
-          "status": "not_tested",
-          "note": "No equivalent author P-value or FDR comparison has been completed."
+          "status": "limited",
+          "note": "The authors report DESeq2 Wald tests. Figshare v5 Table S2 lists a fold-change cutoff of 1.5 and adjusted P cutoff of 0.01 for this cohort. The registered analysis uses lengthScaledTPM-corrected fractional counts, TMM and group-only edgeR quasi-likelihood. Lrg1 plots near 24 on S4C’s −log10P axis. Its registered −log10(raw P) is 5.43 and −log10(FDR) is 2.79. The definition of the plotted P, exact author P and adjusted P, model formula and full multiple-testing family remain unresolved."
         },
         "coverage": {
-          "status": "not_tested",
-          "note": "No full registered contrast coverage is inferred from source availability."
+          "status": "limited",
+          "note": "All three directions identified in the reviewed hypothalamus prose and labelled supplemental plot map uniquely among 17,886 published symbols. The Figure 1 caption describes ten selected genes. Membership of the complete panel and coverage of the author’s tested genes remain unknown."
         }
       },
-      "criteria": "Bounded source searches document what was found and retrieved. No numerical acceptance tolerance is applied without a comparable paired-gene measurement.",
-      "conclusion": "The new primary publication and Figshare v5 supplement were linked to GSE281701. The recovered Supplemental tableS3 contains colorectal, lung and pancreatic cachexia comparisons from skeletal muscle. It contains no hypothalamus tissue rows. TableS2 in the recovered DOCX mentions GSE281701 hypothalamus and a fold-change1.5/adjustedP.01 criterion, but does not supply its full gene effects. Muscle coefficients cannot verify the registered hypothalamus contrast."
+      "criteria": "Use every gene with an explicit direction in the reviewed CT-26 bulk hypothalamus Results and every uniquely labelled point in S4C. Count each gene once, join literal symbols and compare signs in the published orientation. Apply no cutoff to the registered genes. Report figure coordinates as graphical estimates and leave exact paired P and FDR unassessed.",
+      "conclusion": "The three selected directions agree in cachexia_vs_control. Lrg1 also has a similar plotted effect and a substantially different plotted significance. With only three paired directions, the 30-pair minimum is unmet and no contrast receives full verification."
     },
     "gse308884": {
       "target": "registered_output",
@@ -4754,6 +4754,158 @@
       },
       "criteria": "Use the published cluster as selected. Identify rows without the endpoints, join by exact symbol and apply no significance or effect-size filter. Subtract day-0 from week-12 means. A positive lower bound or negative upper bound establishes sign under the published color bins with a one-RGB-level allowance. Keep zero-touching intervals indeterminate and report all denominators.",
       "conclusion": "At the stated one-level RGB allowance, 147/156 determinate directions agree (94.23%). The selected-panel fractions reach the v2 numerical cutoffs descriptively. In a sensitivity check allowing two RGB levels per channel, only 147/170 pairs have determinate signs (86.47%), below the 90% directional coverage cutoff. The reconstruction and different effect units support a descriptive sign comparison only. Author concordance and full contrast sign-off remain unassessed."
+    },
+    "macaque_hypo_aging_gse128537": {
+      "registeredContrastIds": [
+        "middle_aged_vs_young"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Full-precision groupcase log2 fold change in the registered hypothalamus DE table, from a TMM edgeR quasi-likelihood fit with sex and age group. The coefficient compares middle-aged with young animals at tissue collection.",
+      "reference": "Yin et al., Nature Communications (2020), doi:10.1038/s41467-020-14368-z. Supplementary Data 2, sheet Supplementary Data 2, region HTHA, rows 31–33. Sample identities are in Supplementary Data 1 and Supplementary Tables 1–2. See the pinned author code and SEARCH_LOG.md.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "One bulk hypothalamus RNA library per independent rhesus macaque. The young libraries are 4_36, 7_36, 8_36 and 10_36. The middle-aged libraries are 2_36, 3_36, 6_36 and 11_36. Both groups contain two females and two males. cohort.tsv links the paper's sequential donor aliases to GEO through the exact libraries."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Both analyses estimate the common age-stage effect across sexes with no interaction. Young (3.2–5 years, threshold ≤5) is the baseline. Mid (9.8–10 years, threshold >5) is the numerator. Supplementary Table 1 identifies HTHA as subregion 36. The authors' code explicitly requests Mid minus Young."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "Each of the three selected macaque Ensembl IDs maps one-to-one to its named gene and registered symbol. None is ambiguous or filtered locally. Pre-fit count filtering in the author code and symbol aggregation and filtering in the registered fit use different universes."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Supplementary Data 2 log2FoldChange is a regional DESeq2 estimate from Age_res. The registered logFC is the TMM edgeR-QL groupcase estimate. Both are library-normalized log2 age contrasts with sex adjustment. All three directions agree. The separate raw-count GAM coefficient has different units and normalization."
+        },
+        "inference": {
+          "status": "different",
+          "note": "For single-subregion HTHA the authors use an additive negative-binomial GAM on counts, with fixed sex and age stage. Donor and subregion terms occur only in the multi-subregion branch. Raw age P values are available for all three genes. Selection requires a permutation FDR threshold below 0.1 and |log2FC| > 1. Explorer uses edgeR quasi-likelihood and BH over 15,237 fit rows. Author FDR at 0.05 and FDR overlap are unassessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All 3 HTHA rows in Supplementary Data 2 pair, covering 3 of 12,439 published Explorer effects (0.0241%). Supplementary Table 3 reports ancillary GAM age coefficients for two sex-selected HTHA genes. Figure S3c illustrates two genes already in Data 2. The reviewed sources did not yield the complete regional age-effect table."
+        }
+      },
+      "criteria": "Under author-concordance-v2 the selected-reference denominator is the full HTHA age list. All three rows match. At least 30 paired effects and 90% relevant coverage are required before the correlation or directional route can support acceptance. Inference and magnitude are reported separately.",
+      "conclusion": "The regional age contrast is comparable, and its three published fold changes agree closely. The selected reference is too small for v2 acceptance or full verification."
+    },
+    "mouse_arc_reverb_gse148641": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "dko_vs_control"
+      ],
+      "basis": "Compare each labelled gene in Supplemental Figures 4A and 3F with the registered arcuate / dko_vs_control table, geo_replication/datasets/GSE148641_mmus_arc_reverb/processed/GSE148641_DE.tsv (SHA-256 2fd2cd3c9586ba9a4f819d227cc38c053affbb46398c43d8dce825b8cf8810df). S4A supplies within-chow directions and membership in an author positive list. S3F supplies directions of within-chow mean TPM differences. Main Figure 1B is a separate orthogonal assay.",
+      "reference": "Adlanmerini et al., J Clin Invest, DOI 10.1172/JCI140424, PMID 33021965. Supplemental Figures 4A and 3F in DOI 10.1172/JCI140424DS1, PDF SHA-256 8ae2121c28cbbaa3f5460e247e4b6126e8c056fb231b6ee362b459254794afaf. Supplementary Table II starts on page 7 of the eight-page supplement and continues on page 8. The normal-chow ARC libraries are listed on page 7. GEO GSE148641 and ENA PRJNA625265 identify the libraries.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Normal-chow bulk ARC punches from four floxed Cre-negative littermate pools and four Nkx2.1-Cre-positive REV-ERBα/β DKO pools. Each RNA-seq library represents two to four independent punches. GSM4475994–GSM4475997 are NC_ARC_dc1–4 and GSM4475998–GSM4476001 are NC_ARC_DKO1–4. Male sex follows the manuscript default. GSMs give age 8–12 weeks without individual sex or ages, while the paper gives a usual age of 11–14 weeks."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "HDKO minus floxed control at ZT4 under ad libitum normal chow. The registered design fits genotype in ARC with no sex or diet term. In S4A only the four HDKO and four control chow columns enter the direction reading. HFD determines selection of the published list. The distinct HFD-specific headline uses four HFD controls and five HFD DKO pools."
+        },
+        "features": {
+          "status": "compatible",
+          "note": "All 21 S4A symbols join exactly once. S3F joins Dio2 directly, Oatp1c1 to Slco1c1 and Mct8 to Slc16a2. No RNA-seq panel gene was lost or ambiguously joined. S3E reports Thra isoforms, so the separate whole-gene Thra comparison uses S4A."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "All 21 S4A chow directions match the sign of the registered log2FC (20 up, Thra down). In S3F each HDKO mean TPM bar is lower than its control and all three registered effects are negative. The graphical scales support directions. They do not supply exact fitted log2FCs or between-method magnitude correlations."
+        },
+        "inference": {
+          "status": "different",
+          "note": "S4A identifies genes passing the authors' DESeq2 rule of TPM > 0.1 and FDR < 0.05 on both diets. The registered chow edgeR quasi-likelihood model applies filterByExpr, TMM and BH across 14,246 tested genes. Of the 21 author-positive genes, Fabp7 and Arntl pass registered BH < 0.05 and the other 19 exceed it. The authors' per-gene P and FDR values and the cause of the 19 call differences remain unknown. S3F specifies two-way ANOVA and supplies no gene-specific test results."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All 21 S4A labels and three additional S3F labels join, covering 24 of 14,246 registered genes. Both registered BH-positive genes occur in S4A. The remaining 14,222 registered rows have no plotted RNA-seq direction in these two panels. The selection for significance on both diets precludes inference about all chow calls."
+        }
+      },
+      "criteria": "Read all labels and use HDKO relative to its control on chow. Compare the S4A ordinal expression directions and stated threshold membership, and the S3F mean TPM directions. Author-concordance-v2 requires at least 30 pairs and 90% relevant coverage, then either Pearson and Spearman ≥ 0.90 or ≥ 90% directional agreement among at least 30 nonzero pairs covering 90% of all pairs. These panels provide fewer than 30 distinct RNA-seq directions and no exact fitted author effects for a numerical comparison spec.",
+      "conclusion": "Direct selected-gene comparison completed for the registered contrast. Direction agrees throughout both RNA-seq panels. Registered and author significance calls differ within S4A, and genome-wide effects and inference remain unassessed."
+    },
+    "mouse_poa_fgf_gse285006": {
+      "registeredContrastIds": [
+        "dnfgfr_vs_control"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Direction of a single published POA mRNA measurement compared with the Gnrh1 row of the unmodified poa/dnfgfr_vs_control DE table. The figure identifies the gene and comparison independently of the registered result.",
+      "reference": "Akonom, Allen and Tsai (2025), Figure 3B and its caption, GnRH qPCR methods and genotype ANOVA in the Results. Europe PMC supplementary export, fendo-16-1571740-g003.jpg (SHA-256 5bc6b85d3c6410d6cce4d250800f69b96fc237cf629f80d04147f34733d5d4d2).",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "compatible",
+          "note": "Both assays concern bulk POA from male control and dnFGFR mice at PND320 after 300 days of housing. Figure 3 reports five mice per genotype-by-housing cell. Supplementary Table 2 identifies the same four cells and all 20 registered RNA-seq libraries. The caption supplies group counts, with no mouse IDs attached to individual qPCR points. Technical qPCR duplicates contribute one biological measurement per mouse."
+        },
+        "contrast": {
+          "status": "compatible",
+          "note": "Positive is higher in dnFGFR relative to control. The qPCR genotype main effect averages equally across SS and OS in a balanced factorial experiment. The genotype-only edgeR fit pools both housing groups. These support a comparison of overall biological direction. Partner sex defines housing. Every profiled experimental mouse is male."
+        },
+        "features": {
+          "status": "limited",
+          "note": "The single target is the GnRH transcript (mouse Gnrh1), measured relative to HPRT by qPCR. The registered symbol identifies one DE row. Other genes appear only in RNA-seq outputs for a different contrast or lack a same-contrast reference."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "The equal-weight mean of the dnFGFR qPCR bars is below control in Figure 3B. Registered Gnrh1 log2FC is −0.579753671434139. The qPCR assay reports relative expression (2^−ΔΔCt), while edgeR estimates a TMM-normalized count fold change. The figure supports sign only."
+        },
+        "inference": {
+          "status": "different",
+          "note": "Authors report a two-way genotype-by-housing ANOVA genotype F(1,16) = 7.230 and raw P = 0.0161. A qPCR gene-wise FDR is unavailable. Registered Gnrh1 has edgeR-QL raw P = 0.000458366416669203 and BH FDR = 0.0527682644169586 across tested genes. Only direction was assessed."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "Figure 3B covers the direction of one gene among 16,923 registered DE rows. The author files reviewed contain PND320 housing coefficients and normalized counts. The earlier PN140 same-sex genotype table and the mixed-age housing table each concern a different comparison. No tabulated author RNA-seq coefficient for the pooled PND320 genotype effect was located."
+        }
+      },
+      "criteria": "Use the labelled POA mRNA panel, prespecified control baseline and both equally represented housing groups. Compare the direction with the exact registered Gnrh1 row. Leave qPCR effect magnitude, missing qPCR FDR and the remaining registered genes unassessed.",
+      "conclusion": "The selected Gnrh1 direction agrees across assays. The v2 minimum of 30 paired genes is unmet, and neither concordance route nor a full-verification sign-off is supported."
+    },
+    "rat_hypo_aging_gse314970": {
+      "registeredContrastIds": [
+        "aged_27m_vs_young_6m"
+      ],
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "basis": "Registered edgeR quasi-likelihood GLM with TMM on unrounded ArrayStudio counts, an intercept and groupcase. Each coefficient is the 27-month group minus its 6-month baseline.",
+      "reference": "Shavlakadze et al., Science Advances, DOI 10.1126/sciadv.ady8401, Supplementary Table S2, male rat, tissue = hypothalamus. The authors selected genes across later ages versus 6 months using a 1.5-fold change and BH-adjusted P below 0.05. The deposited code applies FC > 1.5 or FC < 1/1.5. All listed hypothalamus rows contribute regardless of their 27-month significance or trajectory class.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "limited",
+          "note": "Both studies compare independent male Sprague-Dawley rat hypothalami from the same collection. All 12 young animals and 11 aged animals are shared. Explorer uses all 12 aged animals, including Age27m_11 (GSM9417680, RNA ID 1553267), which Table S1 excludes after isotree outlier detection, low RNA quality and low mapping rate. The author model also uses the intermediate-age libraries for normalization and variance estimation."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Both coefficients compare 27-month males against 6-month males within whole rat hypothalamus. The endpoint coefficient is distinct from each trajectory slope and every other age contrast."
+        },
+        "features": {
+          "status": "limited",
+          "note": "Both pipelines sum duplicate source GeneName labels. Applying the pinned release-113 mRatBN7.2 annotation to those groups recovers Cd4, Spaar and LOC100910620. The registered Or12d14 and Krt18 features each combine distinct author labels and remain unpaired. Each paired registered feature corresponds to exactly one author GeneName group. Unpaired rows comprise 116 named features without a published coefficient, 86 features without a public symbol, 2 features combining distinct author labels."
+        },
+        "effects": {
+          "status": "compatible",
+          "note": "Both report old-minus-young log2 fold change. Author values are rounded to two decimals. Pearson 0.9325, Spearman 0.9264 and 604/612 same-direction nonzero pairs (98.69%). Median absolute difference 0.0700 log2 units. Registered/author RMS effect ratio 1.0211."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "Table S2 prints adjusted P values to three decimals. On 613 finite pairs, 379 author and 303 registered values are below 0.05, with 296 in both. Across the complete selected reference and the complete registered output the counts are 483 and 941. 2 paired author values print as 0.050, leaving their unrounded classification unknown. The endpoint raw author P values are unavailable. The authors' original selection also used a fold-change cutoff. These descriptive counts use adjusted P alone."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "613/817 (75.03%) selected author rows paired to 15,373 published registered genes. Every row of the tissue-specific author list contributes to the denominator. Unpaired genes are unassessed."
+        }
+      },
+      "criteria": "For a selected reference, author-concordance-v2 requires at least 30 pairs and 90% reference coverage, compatible cohort, contrast, identifiers and effect definitions, and either Pearson and Spearman each at least 0.90 or at least 90% directional agreement over at least 30 nonzero pairs spanning at least 90% of all pairs. Magnitude and inference are contextual.",
+      "conclusion": "Effects could be paired for 613/817 (75.03%) selected genes. Both numerical agreement routes pass on paired effects. Reference coverage falls below the 90% requirement, and one endpoint animal differs."
     }
   }
 }

@@ -1,0 +1,103 @@
+{
+  "datasetId": "mouse_vmh_sf1_sex_gse143818",
+  "accession": "GSE143818",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "Preprint Supplemental Fig. 1b reports male- and female-biased expression across the 530 P10 cells passing the initial filter. HypoExplorer sums 467 retained VMH neurons into six mouse pseudobulks and estimates male-minus-female expression across animals. The published cluster markers and adult in situ measurements also answer different questions.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE143818/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "checksum_match",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-24",
+      "summary": "The Figure 2 source-data CSV identifies the 467 P10 VMH cells used by HypoExplorer. The preprint’s sex-bias plot includes 63 additional cells from the same six mice and groups the observations by cell sex.",
+      "note": "The GEO count archive and the Figure 2 CSV each match their historical checksum. Of 576 wells, 261 female and 269 male cells pass the initial QC gate. Although the published Figure 2e caption says 530 cells, its CSV contains 467 unique IDs across six clusters. The authors’ code removes the Apoe and Pomc clusters before plotting the heatmap. All 467 IDs pass QC, yielding 237 female and 230 male cells from three mice per sex. The registered edgeR quasi-likelihood model uses one summed count vector per mouse and estimates male minus female. Preprint Supplemental Figure 1b compares the broader set of cells by sex. The published marker test compares a cluster with the other clusters, and Figure 3a–d measures optical density in separate adult animals. The Correa Lab browser provides gene-expression plots and gene-pair co-expression.",
+      "reviewFlags": [
+        "The sources reviewed yielded no author gene effect for the retained P10 VMH population with mice as biological replicates. Effect agreement, P-value agreement and FDR agreement for the registered contrast remain unassessed.",
+        "The current compressed GEO SOFT differs from the historical checksum. Its tissue, age, sex, genotype, GSM identifiers and file links support the same cohort. The checksum match applies to the count archive and Figure 2 CSV."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Preprint scRNA-seq methods and the pooled-cell sex comparison",
+          "url": "https://www.biorxiv.org/content/10.1101/549725v1.full",
+          "kind": "paper"
+        },
+        {
+          "label": "Preprint Supplemental Fig. 1b, sex-biased genes among initially filtered cells",
+          "url": "https://www.biorxiv.org/content/biorxiv/early/2019/02/14/549725/DC1/embed/media-1.pdf?download=true",
+          "kind": "author_result"
+        },
+        {
+          "label": "Published Results, Methods and Extended Data",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7202561/",
+          "kind": "paper"
+        },
+        {
+          "label": "Author Source Data Figure 2 cell map",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC7202561.1/NIHMS1576083-supplement-Source_Dat_Fig2.csv",
+          "kind": "author_result"
+        },
+        {
+          "label": "Supplementary Table 1, adult imaging and physiological tests",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC7202561.1/NIHMS1576083-supplement-Sup_Tab.xlsx",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO single-cell count matrices, one plate per mouse",
+          "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE143nnn/GSE143818/suppl/GSE143818_RAW.tar",
+          "kind": "processed_data"
+        },
+        {
+          "label": "Correa Lab browser for VMH gene expression and co-expression",
+          "url": "https://correalab.shinyapps.io/natmetabshiny/",
+          "kind": "database"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "Preprint Supplemental Figure 1b groups 530 P10 cells by sex. Positive average logFC denotes male-biased expression, and the legend colors genes by adjusted P < 0.05. The preprint does not specify the log base or the test for this panel. HypoExplorer estimates a male-minus-female log2 fold change from the 467 retained VMH cells, with three independent mice per arm. The authors’ cluster markers, adult regional optical-density contrasts and expression browser provide no paired gene effects for this mouse-level comparison.",
+      "nextStep": "Reopen if an author result estimates male versus female P10 VMH expression with mice as biological replicates. Check the Figure 2 cell membership or document a compatible cohort, the female baseline, and how the model weights cells and animals. Record the gene scope and effect definition, and assess P values and FDR where available.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "Deposited plate matrices inspected in the GEO archive",
+      "value": "Six GSM files, each with 21,926 gene rows and 96 well-count columns. Each file has the same Gene plus A01–H12 schema.",
+      "script": "data/author-validation/continued-sources/GSE143818/codex-2026-11-24/inspect_sources.py"
+    },
+    {
+      "claim": "Initially filtered and Figure 2 VMH cells per mouse, in GSM4274984–89 order",
+      "value": "QC-passing 88, 87, 86, 93, 84, 92 (530). Figure 2 cells 75, 85, 77, 78, 74, 78 (467). The first three mice are female and the last three male. All 467 cell IDs pass QC and the per-mouse totals match the registered sample sheet.",
+      "script": "data/author-validation/continued-sources/GSE143818/codex-2026-11-24/inspect_sources.py"
+    },
+    {
+      "claim": "Registered gene-level output and inference family",
+      "value": "6,321 published rows with 6,321 unique symbols. The registered fit tested 6,323 rows, including two hidden rows. DE SHA-256 f72fbdadcd9d44ae76b765ab84c2af83b8b2fc88de559846beb96f94b284f69a.",
+      "script": "data/author-validation/continued-sources/GSE143818/codex-2026-11-24/inspect_sources.py"
+    },
+    {
+      "claim": "Screened author figure and workbook data",
+      "value": "The Figure 2 source-data CSV has 467 cell IDs, six cluster IDs and 18 marker-expression columns. All 21 workbook tabs were read. The four Figure 3 tabs contain adult regional ISH statistics for Tac1, Rprm, Pdyn and Sst.",
+      "script": "data/author-validation/continued-sources/GSE143818/codex-2026-11-24/inspect_sources.py"
+    },
+    {
+      "claim": "Current public source fingerprints against the historical manifest",
+      "value": "The GEO tar and PMC Figure 2 CSV each match the corresponding historical file hash. Current SOFT SHA-256 027fd446b1b3cd8a2caa455c893292772172d0951dfa37ae361f7996ba445354 differs from historical ca09ecef695c3c171d272836cc8e290cfec62446928d317da2786be4db4f0499. All six current GSM records reconcile to the registered cohort.",
+      "script": "data/author-validation/continued-sources/GSE143818/codex-2026-11-24/inspect_sources.py"
+    },
+    {
+      "claim": "Independent reconstruction of the registered testing family from GEO wells",
+      "value": "The mouse-level counts and the registered expression filter retain 6,323 features. The feature map marks 1-Mar and 2-Mar as ambiguous. The other 6,321 symbols match the published DE table exactly, with zero published genes at BH FDR < 0.05.",
+      "script": "data/author-validation/continued-sources/GSE143818/codex-2026-11-24/refute/audit.py"
+    }
+  ],
+  "openIssues": [
+    "A published author estimate for the same P10 animal-level question, even for selected genes, could reopen review within its documented scope.",
+    "The historical compressed SOFT bytes were unavailable for a content diff. The cause of its changed checksum is undetermined."
+  ]
+}

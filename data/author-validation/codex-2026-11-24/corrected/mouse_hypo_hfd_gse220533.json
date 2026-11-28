@@ -1,0 +1,65 @@
+{
+  "datasetId": "mouse_hypo_hfd_gse220533",
+  "accession": "GSE220533",
+  "category": "not_comparable",
+  "closure": "no_valid_comparison",
+  "summary": "The registered analysis estimates the whole-hypothalamus HFD-versus-chow effect in 15 wild-type males. Garrett et al.’s Supplementary Table S6 estimates the diet effect across those mice and 17 Gpr101 knockout males. The other gene lists, labelled figure panels and public deposits yielded no author-reported WT-specific diet effect.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE220533/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "status": "processed_source_match",
+      "comparisonLevel": "processed_source",
+      "sourceComparison": "manual_structure_match",
+      "auditState": "complete",
+      "summary": "GEO confirms the wild-type libraries. Supplementary Table S6 combines wild-type and knockout mice.",
+      "note": "GSE220533 contains one bulk hypothalamus library per male mouse, collected at 21 weeks. The registered sample sheet selects all 7 WT chow and 8 WT HFD libraries, and limma estimates the HFD-minus-chow difference in mean deposited log2-normalized expression. Garrett et al. used DESeq2 after low-expression filtering. Their Table S6 reports 327 signed linear HFD-versus-chow fold changes selected at adjusted P < 0.1 across both genotypes, including 8 KO chow and 9 KO HFD mice. Tables S2–S5 report genotype effects and a genotype-by-diet interaction. Fig. 1A reports a genotype test for Gpr101, and Fig. S3 shows sample-level expression. The series CSV and individual GSM files contain normalized expression. The separate GEO series matrix has zero feature rows. The independently retrieved GEO matrix and registered DE table each match the SHA-256 recorded for them in the run provenance. The local raw-input path was absent. See data/author-validation/continued-sources/GSE220533/codex-2026-11-24/SEARCH_LOG.md and data/author-validation/continued-sources/GSE220533/codex-2026-11-24/SOURCES.tsv.",
+      "reviewFlags": [
+        "No WT-specific diet coefficient was located in the reviewed author sources. Tables S2 through S6 give selection cutoffs and fold changes for other contrasts. They omit individual raw and adjusted P values.",
+        "The legacy analysis has no committed source-file checksum manifest. The GEO download matches the input checksum in the fit provenance."
+      ],
+      "reviewedAt": "2026-11-24"
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "not_comparable",
+      "reason": "Supplementary Table S6 reports HFD relative to chow across WT and Gpr101 knockout males. The registered limma coefficient estimates that diet difference within the 15 WT males. Tables S2 through S4 compare genotypes, S5 gives the genotype-by-diet interaction, and the enrichment workbook reports term-level statistics. The expression figures and GEO deposits supply no author-reported coefficient for the WT diet contrast.",
+      "nextStep": "Reopen when an author-produced WT HFD-versus-chow gene result identifies the included libraries, direction and effect scale, or the authors release their fitted model with sufficient coding to extract that simple effect. Record any model-derived extraction separately. A selected result covers only its reported genes.",
+      "fullyVerifiedContrasts": []
+    }
+  },
+  "computed": [
+    {
+      "claim": "GEO animal-library counts reconciled with the registered sample sheet",
+      "value": "WT chow 7, WT HFD 8, KO chow 8, KO HFD 9. All 15 WT libraries match the registered arms.",
+      "script": "data/author-validation/continued-sources/GSE220533/codex-2026-11-24/inspect_sources.py"
+    },
+    {
+      "claim": "Gene rows across the five fold-change sheets in the publisher workbook",
+      "value": "S2 274, S3 227, S4 179, S5 124, S6 327. Each sheet has three populated columns.",
+      "script": "data/author-validation/continued-sources/GSE220533/codex-2026-11-24/inspect_sources.py"
+    },
+    {
+      "claim": "GEO expression-file coverage",
+      "value": "The series CSV has 55,401 distinct Ensembl IDs and 32 library columns. All 32 GSM files contain those IDs and one expression column each. The series matrix has zero feature rows.",
+      "script": "data/author-validation/continued-sources/GSE220533/codex-2026-11-24/inspect_sources.py"
+    },
+    {
+      "claim": "Registered DE coverage and integrity",
+      "value": "37,035 distinct published symbols. The provenance records 38,477 tested rows including 1,442 unmapped rows. The registered DE table SHA-256 is e825cee6ea993672de634e544bad3b1d0e1dd0252d81f49bfbabb796af779fba.",
+      "script": "data/author-validation/continued-sources/GSE220533/codex-2026-11-24/inspect_sources.py"
+    },
+    {
+      "claim": "Independent GEO matrix retrieval compared with the fit's recorded input checksum",
+      "value": "SHA-256 b843287f73de8d62f75f4e0ca9ca64dc4ec4d1ea6a1bb0e6f60e4ee61bb3ec22 matches the run provenance.",
+      "script": "data/author-validation/continued-sources/GSE220533/codex-2026-11-24/inspect_sources.py"
+    },
+    {
+      "claim": "Public supplementary file identities",
+      "value": "All three publisher downloads match their Europe PMC ZIP members byte for byte and match the corresponding PMC open-data inventory digests.",
+      "script": "data/author-validation/continued-sources/GSE220533/codex-2026-11-24/inspect_sources.py"
+    }
+  ],
+  "openIssues": [
+    "Author concordance for the registered WT diet contrast remains unassessed. A WT-specific result or a documented author fit from which it can be extracted would reopen the review."
+  ]
+}

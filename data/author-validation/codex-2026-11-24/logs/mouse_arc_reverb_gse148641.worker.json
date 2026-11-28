@@ -1,0 +1,20 @@
+{
+  "datasetId": "mouse_arc_reverb_gse148641",
+  "outcome": "compared",
+  "summary": "All 24 labelled normal-chow ARC RNA-seq genes agreed in direction between the author figures and the registered knockout-versus-control result. Of the 21 genes the authors called significant on both diets, only Fabp7 and Arntl passed the registered normal-chow BH threshold of 0.05. The proposal records this selected-gene comparison and leaves full verification open. [Author supplement](https://www.jci.org/articles/view/140424/sd/1)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-24/findings/mouse_arc_reverb_gse148641.json",
+    "data/author-validation/continued-sources/GSE148641/codex-2026-11-24/SEARCH_LOG.md",
+    "data/author-validation/continued-sources/GSE148641/codex-2026-11-24/SOURCES.tsv",
+    "data/author-validation/continued-sources/GSE148641/codex-2026-11-24/registered_libraries.tsv",
+    "data/author-validation/continued-sources/GSE148641/codex-2026-11-24/panel_comparison.tsv",
+    "data/author-validation/continued-sources/GSE148641/codex-2026-11-24/review.py",
+    "data/author-validation/continued-sources/GSE148641/codex-2026-11-24/results.json",
+    "data/author-validation/continued-sources/GSE148641/codex-2026-11-24/verification.txt"
+  ],
+  "openIssues": [
+    "The public sources searched lacked the full normal-chow DESeq2 table. Exact author effects, per-gene P and FDR values, and the cause of the 19 differing significance calls remain unassessed. The 24 genes fall below the 30-pair concordance minimum.",
+    "The separate qPCR panel showed decreases for Nr1d1 and Nr1d2, while both registered whole-gene estimates were positive. The paper supplies no sample-level crosswalk between assays.",
+    "The evidence files are present locally. This checkout’s Git exclude rule covers the continued-sources directory."
+  ]
+}

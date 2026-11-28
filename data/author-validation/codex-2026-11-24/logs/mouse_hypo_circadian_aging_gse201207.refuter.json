@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_hypo_circadian_aging_gse201207",
+  "outcome": "upheld_with_corrections",
+  "summary": "The `no_valid_comparison` closure stands. The authors fitted three-age trends within four circadian windows. None of the inspected sources reports the registered 27-month versus 6-month effect across all 12 collection times. All 57 retained files matched their recorded sizes and SHA-256 hashes. I corrected the description of Table S3: its activity-offset P and q columns are identical in all 604 shared rows, one identifier is stored as an Excel date, and the separate active-window sheet lacks statistics for Sept7. [Wolff et al.](https://pmc.ncbi.nlm.nih.gov/articles/PMC9929559/) · [Table S3](https://pmc-oa-opendata.s3.amazonaws.com/PMC9929559.1/NIHMS1870531-supplement-6.xlsx)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-24/verdicts/mouse_hypo_circadian_aging_gse201207.json",
+    "data/author-validation/codex-2026-11-24/corrected/mouse_hypo_circadian_aging_gse201207.json",
+    "data/author-validation/continued-sources/GSE201207/codex-2026-11-24/refute/check_evidence.py"
+  ],
+  "openIssues": [
+    "The shared sheet leaves the activity-offset adjusted P values and the gene identity at A64 unresolved.",
+    "The original bioRxiv supplement files remained inaccessible. The preprint legend identifies the same window-specific analysis, and all ten PMC manuscript attachments were inspected."
+  ]
+}

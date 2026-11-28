@@ -1,0 +1,14 @@
+{
+  "datasetId": "mouse_hypo_puberty_emtab12340",
+  "outcome": "upheld_with_corrections",
+  "summary": "The `no_valid_comparison` closure stands. All 51 source files matched their recorded sizes and SHA-256 hashes, and all six proposed computations reproduced. None of the 17 author DESeq2 comparisons pairs female PND37 with PND22. The corrected proposal identifies a mislabeled volcano plot, clarifies that the larger DESeq2 tables retain only complete rows, and records that the companion qPCR study reports an aggregate count for the requested age pair. [Author DESeq2 deposit](https://doi.org/10.6084/m9.figshare.25517503) · [Companion qPCR study](https://doi.org/10.1093/hmg/ddx246)",
+  "filesWritten": [
+    "data/author-validation/codex-2026-11-24/verdicts/mouse_hypo_puberty_emtab12340.json",
+    "data/author-validation/codex-2026-11-24/corrected/mouse_hypo_puberty_emtab12340.json",
+    "data/author-validation/continued-sources/E-MTAB-12340/codex-2026-11-24/refute/audit_sources.py",
+    "data/author-validation/continued-sources/E-MTAB-12340/codex-2026-11-24/refute/audit_contrasts.py"
+  ],
+  "openIssues": [
+    "Gene-level effect, raw P-value and FDR agreement remain unassessed for female whole hypothalamus at PND37 versus PND22."
+  ]
+}

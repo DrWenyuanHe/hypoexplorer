@@ -1,0 +1,117 @@
+{
+  "datasetId": "gse281701",
+  "accession": "GSE281701",
+  "category": "not_comparable",
+  "closure": "compared",
+  "summary": "For day-25 bulk hypothalamus from CT-26 tumor-bearing male mice versus healthy controls, Lee et al. report higher Lcn2 and Lrg1 and lower Fabp7. All three directions agree with the registered output. Supplemental Figure S4C also gives Lrg1 a similar log2 fold change, with a much more extreme plotted significance value.",
+  "evidenceFolder": "data/author-validation/continued-sources/GSE281701/codex-2026-11-24",
+  "proposed": {
+    "manualReview": {
+      "status": "validated_with_notes",
+      "comparisonLevel": "direct",
+      "auditState": "complete",
+      "reviewedAt": "2026-11-24",
+      "summary": "Three published hypothalamic gene directions agree with the registered day-25 CT-26 comparison.",
+      "note": "The hypothalamus Results paragraph identifies higher Lcn2 and lower Fabp7. It cites Figure 1D, while the caption assigns the top-ten hypothalamic expression panel to Figure 1E. The paper separately reports higher hypothalamic Lrg1 and identifies Supplemental Figure S4C. Its labelled point gives an approximate log2FC of +4.5. The registered log2FC values are +8.5801 for Lcn2, −2.0437 for Fabp7 and +4.4095 for Lrg1.",
+      "reviewFlags": [
+        "The two directions for Lcn2 and Fabp7 come from the Results prose. The identities and directions of all ten genes in the figure could not be independently read from the panel.",
+        "The Lrg1 point lies near 24 on the plotted −log10P scale. The registered −log10(raw P) is 5.43 and −log10(FDR) is 2.79. The supplement leaves the ordinate’s adjustment status unspecified.",
+        "Three paired directions fall below the author-concordance-v2 minimum of 30. The bulk hypothalamus author coefficient table and its testing universe remain unavailable in the reviewed sources."
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Lee et al., hypothalamus Results, Figure 1 caption and bulk RNA-seq methods",
+          "url": "https://doi.org/10.1152/ajpcell.00319.2025",
+          "kind": "paper"
+        },
+        {
+          "label": "Figshare v5, Supplemental Figure S4C and Tables S1–S5",
+          "url": "https://doi.org/10.6084/m9.figshare.30071641.v5",
+          "kind": "author_result"
+        },
+        {
+          "label": "GEO series, sample metadata and RSEM files",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE281701",
+          "kind": "processed_data"
+        }
+      ]
+    },
+    "verificationReview": {
+      "resultAvailability": "partial",
+      "comparisonOutcome": "method_differences",
+      "reason": "All three explicit gene directions agree for the same six hypothalamus libraries. The authors used a DESeq2 Wald test and the registered output uses edgeR quasi-likelihood. The approximate Lrg1 effect is similar, but its plotted significance is much more extreme. The authors’ per-gene coefficients, raw P values and adjusted P values could not be paired exactly. Figshare v5 Table S3 supplies skeletal-muscle coefficients.",
+      "nextStep": "A legible copy of the hypothalamic expression panel or its source values would establish the ten labels and their directions. The bulk hypothalamus DESeq2 export, design formula and definition of the S4C ordinate would permit a full comparison of effects and inference.",
+      "fullyVerifiedContrasts": []
+    },
+    "comparabilityReview": {
+      "target": "registered_output",
+      "resultScope": "selected_results",
+      "registeredContrastIds": [
+        "cachexia_vs_control"
+      ],
+      "basis": "Direct comparison to the registered whole-hypothalamus edgeR-QL table, using exact case-sensitive symbols and the deposited cachexia-minus-control orientation.",
+      "reference": "Lee et al., Results on the CT-26 hypothalamus (Lcn2, Fabp7 and Lrg1), the Figure 1 caption, and Figshare v5 Supplemental Figure S4C (labelled Lrg1 point). The Results cite Figure 1D for Lcn2 and Fabp7. The caption identifies 1E as the hypothalamic gene-expression panel. Version 5 Table S2 gives the tissue-specific selection criteria.",
+      "assessment": "limited",
+      "dimensions": {
+        "cohort": {
+          "status": "matched",
+          "note": "Both use one bulk hypothalamus library per male BALB/c mouse at the day-25 endpoint. Tumor-bearing mice are GSM8626408, GSM8626410 and GSM8626412. Healthy mice are GSM8626414, GSM8626416 and GSM8626418. Gastrocnemius libraries from the same experiment are outside this comparison."
+        },
+        "contrast": {
+          "status": "matched",
+          "note": "Both ask how whole-hypothalamus gene expression differs between CT-26 tumor-bearing cachectic mice and healthy age-matched controls at sacrifice. A positive effect means higher expression in tumor-bearing animals. All animals are male. The registered model estimates one group coefficient."
+        },
+        "features": {
+          "status": "limited",
+          "note": "Each of the three named mouse symbols has one literal match in the registered table and its published track. The complete set of panel labels and the author testing universe remain unassessed."
+        },
+        "effects": {
+          "status": "limited",
+          "note": "All three reported directions agree. The Figure 1 caption describes group-average log-normalized expression. Supplemental Figure S4C plots log2FC and places Lrg1 at approximately +4.5, compared with the registered +4.4095. The sources provided no exact author coefficient for these genes."
+        },
+        "inference": {
+          "status": "limited",
+          "note": "The authors report DESeq2 Wald tests. Figshare v5 Table S2 lists a fold-change cutoff of 1.5 and adjusted P cutoff of 0.01 for this cohort. The registered analysis uses lengthScaledTPM-corrected fractional counts, TMM and group-only edgeR quasi-likelihood. Lrg1 plots near 24 on S4C’s −log10P axis. Its registered −log10(raw P) is 5.43 and −log10(FDR) is 2.79. The definition of the plotted P, exact author P and adjusted P, model formula and full multiple-testing family remain unresolved."
+        },
+        "coverage": {
+          "status": "limited",
+          "note": "All three directions identified in the reviewed hypothalamus prose and labelled supplemental plot map uniquely among 17,886 published symbols. The Figure 1 caption describes ten selected genes. Membership of the complete panel and coverage of the author’s tested genes remain unknown."
+        }
+      },
+      "criteria": "Use every gene with an explicit direction in the reviewed CT-26 bulk hypothalamus Results and every uniquely labelled point in S4C. Count each gene once, join literal symbols and compare signs in the published orientation. Apply no cutoff to the registered genes. Report figure coordinates as graphical estimates and leave exact paired P and FDR unassessed.",
+      "conclusion": "The three selected directions agree in cachexia_vs_control. Lrg1 also has a similar plotted effect and a substantially different plotted significance. With only three paired directions, the 30-pair minimum is unmet and no contrast receives full verification."
+    }
+  },
+  "computed": [
+    {
+      "claim": "Three selected directions, exact-symbol matches, and matching signs",
+      "value": "3 selected, 3 unique matches, 3 same direction, 0 opposite, 0 unmatched and 0 ambiguous",
+      "script": "data/author-validation/continued-sources/GSE281701/codex-2026-11-24/refute/recheck.py"
+    },
+    {
+      "claim": "Registered log2 fold changes, cachexia minus healthy control",
+      "value": "Lcn2 +8.5801, Fabp7 −2.0437, Lrg1 +4.4095",
+      "script": "data/author-validation/continued-sources/GSE281701/codex-2026-11-24/refute/recheck.py"
+    },
+    {
+      "claim": "Graph-derived author log2 fold change for the labelled Lrg1 point in S4C",
+      "value": "approximately +4.5 (one decimal)",
+      "script": "data/author-validation/continued-sources/GSE281701/codex-2026-11-24/refute/recheck.py"
+    },
+    {
+      "claim": "Published registered DE symbols and exact paired author statistics",
+      "value": "17,886 registered symbols, 0 exact author coefficients, 0 exact author raw P values, 0 exact author adjusted P values available for the selected comparison",
+      "script": "data/author-validation/continued-sources/GSE281701/codex-2026-11-24/refute/recheck.py"
+    },
+    {
+      "claim": "Graphical inference for Lrg1 in S4C versus the registered output",
+      "value": "Approximately 24.1 on the plotted −log10P axis. Registered −log10(raw P) 5.43 and −log10(FDR) 2.79. The plotted P is unspecified as to adjustment.",
+      "script": "data/author-validation/continued-sources/GSE281701/codex-2026-11-24/refute/recheck.py"
+    }
+  ],
+  "openIssues": [
+    "The article’s Results and Figure 1 caption disagree on the panel letter. The available text establishes two directions without settling which genes appear in the ten-gene panel. The publisher’s image route returned HTTP 403.",
+    "A complete day-25 bulk hypothalamus DESeq2 table and its design and adjustment metadata would establish per-gene inference and author coverage. The S4C ordinate alone cannot identify the source of the Lrg1 significance difference.",
+    "The saved NTIS response requires sign-in and the Semantic Scholar HTML file is empty. The local publisher excerpt is a transcription. The biological comparison relies on the published Results text and the deposited Figshare figure."
+  ]
+}
