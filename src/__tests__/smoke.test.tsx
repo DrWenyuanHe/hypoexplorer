@@ -710,13 +710,13 @@ describe('Compare redesign Variant A', () => {
     fireEvent.click(screen.getByRole('button', { name: /Compare all cells/i }));
     const trigger = await screen.findByRole('button', { name: /Cells/ });
     fireEvent.click(trigger);
-    // The shared <Modal> puts role=dialog on the backdrop itself, which closes on
-    // a press that both starts and ends there (mousedown + mouseup, so a
-    // text-selection drag ending outside the panel doesn't dismiss it).
-    const backdrop = screen.getByRole('dialog');
-    expect(backdrop).toBeTruthy();
-    fireEvent.mouseDown(backdrop);
-    fireEvent.mouseUp(backdrop);
+    // The shared <Modal> is a native <dialog>; a press on its ::backdrop lands
+    // on the dialog outside its box (jsdom's box is 0x0 at the origin). It
+    // closes on a press that both starts and ends there, so a text-selection
+    // drag ending outside the panel doesn't dismiss it.
+    const dialog = screen.getByRole('dialog');
+    fireEvent.mouseDown(dialog, { clientX: 5, clientY: 5 });
+    fireEvent.mouseUp(dialog, { clientX: 5, clientY: 5 });
     await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull());
   });
 

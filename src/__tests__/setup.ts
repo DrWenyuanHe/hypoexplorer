@@ -133,6 +133,53 @@ if (!g.ResizeObserver) {
   };
 }
 
+// jsdom has HTMLDialogElement but none of its behaviour: no showModal(), no
+// close(), no `open` property and no close request on Escape. Modal and
+// ConfirmDialog are native modal dialogs, so this stands in for the parts of
+// the browser they rely on, close enough to test their wiring:
+// - showModal() marks the dialog open and remembers what had focus;
+// - close() clears it, focuses that element again if it is still in the
+//   document, and fires `close` (synchronously; browsers queue it);
+// - an Escape keydown no listener cancelled, seen at window in the bubble
+//   phase (after every document listener), is a close request to the topmost
+//   modal: `cancel` first, and close() unless that was cancelled.
+// It leaves `closedBy` undefined, as Safari does, so Modal's backdrop fallback
+// is the path these tests exercise. Inertness, the top layer and the focus trap
+// are the browser's and are not modelled.
+if (typeof HTMLDialogElement !== 'undefined' && !HTMLDialogElement.prototype.showModal) {
+  const modals: HTMLDialogElement[] = [];
+  const opener = new WeakMap<HTMLDialogElement, Element | null>();
+  const proto = HTMLDialogElement.prototype as any;
+  Object.defineProperty(proto, 'open', {
+    configurable: true,
+    get(this: HTMLDialogElement) { return this.hasAttribute('open'); },
+    set(this: HTMLDialogElement, value: boolean) { this.toggleAttribute('open', Boolean(value)); },
+  });
+  proto.show = function show(this: HTMLDialogElement) { this.setAttribute('open', ''); };
+  proto.showModal = function showModal(this: HTMLDialogElement) {
+    if (this.open) throw new DOMException('The dialog is already open.', 'InvalidStateError');
+    if (!this.isConnected) throw new DOMException('The dialog is not connected.', 'InvalidStateError');
+    opener.set(this, document.activeElement);
+    this.setAttribute('open', '');
+    modals.push(this);
+  };
+  proto.close = function close(this: HTMLDialogElement) {
+    if (!this.open) return;
+    this.removeAttribute('open');
+    const at = modals.indexOf(this);
+    if (at >= 0) modals.splice(at, 1);
+    const previous = opener.get(this);
+    if (previous instanceof HTMLElement && previous.isConnected) previous.focus();
+    this.dispatchEvent(new Event('close'));
+  };
+  window.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape' || event.defaultPrevented) return;
+    const open = modals.filter((d) => d.isConnected);
+    const top = open[open.length - 1];
+    if (top?.dispatchEvent(new Event('cancel', { cancelable: true }))) top.close();
+  });
+}
+
 // jsdom doesn't implement HTMLCanvasElement.getContext('2d').
 // VolcanoPlot now renders its point cloud on canvas; no-op stub is fine for tests
 // since we verify point counts via gene-count text, not by inspecting pixels.

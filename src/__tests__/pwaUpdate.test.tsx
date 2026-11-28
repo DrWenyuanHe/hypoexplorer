@@ -85,10 +85,15 @@ describe('UpdateModal', () => {
     fireEvent.keyDown(window, { key: 'Escape' });
     expect(screen.queryByRole('alertdialog')).toBeTruthy();
 
-    // Backdrop (role=presentation) click is swallowed.
-    const backdrop = document.querySelector('[role="presentation"]')!;
-    fireEvent.click(backdrop, { target: backdrop });
+    // A press on the backdrop is swallowed. The backdrop is the dialog's own
+    // ::backdrop, so the press lands on the dialog outside its box (jsdom's
+    // box is 0x0 at the origin).
+    const dialog = screen.getByRole('alertdialog') as HTMLDialogElement;
+    fireEvent.mouseDown(dialog, { clientX: 5, clientY: 5 });
+    fireEvent.mouseUp(dialog, { clientX: 5, clientY: 5 });
+    fireEvent.click(dialog, { clientX: 5, clientY: 5 });
     expect(screen.queryByRole('alertdialog')).toBeTruthy();
+    expect(dialog.open).toBe(true);
 
     // Reload is the only button offered.
     expect(screen.getByRole('button', { name: /^Reload now$/ })).toBeTruthy();

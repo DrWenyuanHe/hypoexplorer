@@ -1,12 +1,11 @@
 {
   "version": 1,
   "area": "module-crossdataset",
-  "fingerprint": "579a38a891bebeb92ea15e5ab76bfb708a7c5b624ac6521b5f4b28d848a9efe8",
+  "fingerprint": "91875e0e6b14b264cc71d69e4e212968080cc5fb131b0e78a00e647bd49fb2bf",
   "outcome": "updated",
-  "explanation": "The gene report's 'Search another gene' box and the pathway report's 'Search a pathway' box now ignore an Enter that confirms IME text, via isImeComposing, so a CJK input method no longer submits half-typed text.",
+  "explanation": "EffectPreview portals through portalHost, so a preview opened inside a native modal dialog renders in the dialog rather than inert under it, and it cancels the Escape that dismisses it so the dialog stays open.",
   "references": [
-    "src/crossdataset/GeneReport.tsx",
-    "src/crossdataset/PathwayReport.tsx",
-    "src/utils/imeComposing.ts"
+    "src/crossdataset/EffectPreview.tsx",
+    "src/common/portalHost.ts"
   ]
 }

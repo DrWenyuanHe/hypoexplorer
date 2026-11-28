@@ -45,7 +45,7 @@ Start here:
 - [src/__tests__/datasetsRegistry.test.ts](<../../../src/__tests__/datasetsRegistry.test.ts>)
 - [src/__tests__/bundleWriter.test.ts](<../../../src/__tests__/bundleWriter.test.ts>)
 
-Covered source files (276):
+Covered source files (275):
 - [src/__tests__/agentExport.test.ts](<../../../src/__tests__/agentExport.test.ts>)
 - [src/__tests__/analysisCorpusIntegrity.test.ts](<../../../src/__tests__/analysisCorpusIntegrity.test.ts>)
 - [src/__tests__/analysisState.test.ts](<../../../src/__tests__/analysisState.test.ts>)
@@ -169,8 +169,6 @@ Covered source files (276):
 - [src/__tests__/fgseaSummary.test.ts](<../../../src/__tests__/fgseaSummary.test.ts>)
 - [src/__tests__/fixtures.ts](<../../../src/__tests__/fixtures.ts>)
 - [src/__tests__/fixtures/jtkCanonical.json](<../../../src/__tests__/fixtures/jtkCanonical.json>)
-- [src/__tests__/focusTrap.test.tsx](<../../../src/__tests__/focusTrap.test.tsx>)
-- [src/__tests__/focusTrapPortal.test.tsx](<../../../src/__tests__/focusTrapPortal.test.tsx>)
 - [src/__tests__/forceRefresh.test.ts](<../../../src/__tests__/forceRefresh.test.ts>)
 - [src/__tests__/forestReport.test.tsx](<../../../src/__tests__/forestReport.test.tsx>)
 - [src/__tests__/format.test.ts](<../../../src/__tests__/format.test.ts>)
@@ -232,6 +230,7 @@ Covered source files (276):
 - [src/__tests__/pipelineQc.test.ts](<../../../src/__tests__/pipelineQc.test.ts>)
 - [src/__tests__/popGroups.test.ts](<../../../src/__tests__/popGroups.test.ts>)
 - [src/__tests__/portalCards.test.tsx](<../../../src/__tests__/portalCards.test.tsx>)
+- [src/__tests__/portalHost.test.tsx](<../../../src/__tests__/portalHost.test.tsx>)
 - [src/__tests__/publicationArchive.test.ts](<../../../src/__tests__/publicationArchive.test.ts>)
 - [src/__tests__/pwaUpdate.test.tsx](<../../../src/__tests__/pwaUpdate.test.tsx>)
 - [src/__tests__/qcColumns.test.tsx](<../../../src/__tests__/qcColumns.test.tsx>)
@@ -389,7 +388,7 @@ Start here:
 - [src/common/BrandLink.tsx](<../../../src/common/BrandLink.tsx>)
 - [brand/README.md](<../../../brand/README.md>)
 
-Covered source files (39):
+Covered source files (41):
 - [src/common/AuthorValidation.tsx](<../../../src/common/AuthorValidation.tsx>)
 - [src/common/BrandLink.tsx](<../../../src/common/BrandLink.tsx>)
 - [src/common/CellSelectorPopup.tsx](<../../../src/common/CellSelectorPopup.tsx>)
@@ -422,6 +421,8 @@ Covered source files (39):
 - [src/common/headerControl.css](<../../../src/common/headerControl.css>)
 - [src/common/helpTip.css](<../../../src/common/helpTip.css>)
 - [src/common/lazyView.tsx](<../../../src/common/lazyView.tsx>)
+- [src/common/modal.css](<../../../src/common/modal.css>)
+- [src/common/portalHost.ts](<../../../src/common/portalHost.ts>)
 - [src/common/prose.css](<../../../src/common/prose.css>)
 - [src/common/prose.tsx](<../../../src/common/prose.tsx>)
 - [src/common/siteChrome.css](<../../../src/common/siteChrome.css>)
@@ -858,7 +859,7 @@ Start here:
 - [src/utils/sampleValues.ts](<../../../src/utils/sampleValues.ts>)
 - [src/utils/geneListFile.ts](<../../../src/utils/geneListFile.ts>)
 
-Covered source files (27):
+Covered source files (26):
 - [src/utils/analysisState.ts](<../../../src/utils/analysisState.ts>)
 - [src/utils/appLinks.ts](<../../../src/utils/appLinks.ts>)
 - [src/utils/axes.ts](<../../../src/utils/axes.ts>)
@@ -870,7 +871,6 @@ Covered source files (27):
 - [src/utils/exportProvenance.ts](<../../../src/utils/exportProvenance.ts>)
 - [src/utils/exportProvenanceFormat.ts](<../../../src/utils/exportProvenanceFormat.ts>)
 - [src/utils/fdr.ts](<../../../src/utils/fdr.ts>)
-- [src/utils/focusTrap.ts](<../../../src/utils/focusTrap.ts>)
 - [src/utils/format.ts](<../../../src/utils/format.ts>)
 - [src/utils/geneLinks.ts](<../../../src/utils/geneLinks.ts>)
 - [src/utils/geneListFile.ts](<../../../src/utils/geneListFile.ts>)

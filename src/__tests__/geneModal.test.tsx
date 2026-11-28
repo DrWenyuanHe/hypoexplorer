@@ -75,20 +75,22 @@ describe('GeneExplorerTab — leading-edge modal', () => {
     expect(screen.queryByRole('dialog', { name: /Pathways where POMC is a leading gene/i })).toBeNull();
   });
 
+  // The backdrop is the dialog's ::backdrop: a press there lands on the dialog
+  // outside its box, which jsdom lays out as 0x0 at the origin.
   it('closes on a backdrop mousedown+mouseup', async () => {
     renderTab();
-    const backdrop = await openModal();
-    fireEvent.mouseDown(backdrop);
-    fireEvent.mouseUp(backdrop);
+    const dialog = await openModal();
+    fireEvent.mouseDown(dialog, { clientX: 5, clientY: 5 });
+    fireEvent.mouseUp(dialog, { clientX: 5, clientY: 5 });
     expect(screen.queryByRole('dialog', { name: /Pathways where POMC is a leading gene/i })).toBeNull();
   });
 
   it('does NOT close when a drag starts inside the panel and releases on the backdrop', async () => {
     renderTab();
-    const backdrop = await openModal();
-    const panel = backdrop.querySelector('.modal-panel')!;
-    fireEvent.mouseDown(panel); // bubbles to backdrop with target !== currentTarget
-    fireEvent.mouseUp(backdrop);
+    const dialog = await openModal();
+    const inside = dialog.querySelector('.modal-body')!;
+    fireEvent.mouseDown(inside, { clientX: 5, clientY: 5 }); // bubbles to the dialog with target !== dialog
+    fireEvent.mouseUp(dialog, { clientX: 5, clientY: 5 });
     // Still open — the guard ignored the panel-originated drag.
     expect(screen.getByRole('dialog', { name: /Pathways where POMC is a leading gene/i })).toBeTruthy();
   });

@@ -1,14 +1,11 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "e77118fe194d1bd50eec210ef5a264c2123766cdb786f0d040cb5837e2f88c40",
-  "outcome": "updated",
-  "explanation": "The dataset-change route now names the HYPOMAP Visium reference atlas: scripts/build_visium_reference.mts builds public/expression/visium/ from the donor x region extract tracked in data/expression/visium/, --fetch re-extracts it from the pinned RDS with scripts/extract_visium_reference.R, and its groups are regions so summaries use regionalSummary rather than a donor spread. The shared writer header lists Visium. --fetch needs Seurat, SeuratObject and Matrix; the builder records the Seurat version in the extractor runtime, and the pinned tables reproduce byte for byte under R 4.6.0.",
+  "fingerprint": "ceabe2ce128945676899cb0e313c6870511264c87e0667a7e2081ac932153999",
+  "outcome": "no-impact",
+  "explanation": "Only the results browser smoke spec changed, to match the share dialog's native modal focus behaviour; dataset intake, registration, bundles and the dataset contract are untouched.",
   "references": [
-    "docs/agent-context/workflows.md",
-    "scripts/build_visium_reference.mts",
-    "scripts/extract_visium_reference.R",
-    "scripts/lib/externalReference.mts",
-    "data/expression/visium/README.md"
+    "scripts/smoke/results.smoke.spec.ts",
+    "docs/DATASET_CONTRACT.md"
   ]
 }

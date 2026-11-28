@@ -68,7 +68,7 @@ const MAGNIFIER = (
 /** Whether a key press landed somewhere that takes text or belongs to a dialog. */
 function isTypingTarget(target: EventTarget | null): boolean {
   if (!(target instanceof HTMLElement)) return false;
-  if (target.closest('[role="dialog"]')) return true;
+  if (target.closest('dialog, [role="dialog"]')) return true;
   return target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName);
 }
 

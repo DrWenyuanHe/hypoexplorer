@@ -267,8 +267,12 @@ done, the flags stay off in hosted builds.
 
 Responsive layouts share the 900px breakpoint in `useCompactLayout` and
 `src/styles/responsive.css`. `ResponsiveSidebar` keeps cell navigation and
-compare-set studies in a desktop rail or a mobile dialog, using the shared Modal
-for focus trapping, Escape and focus restoration. The dataset library has no
+compare-set studies in a desktop rail or a mobile dialog, using the shared Modal,
+a native `<dialog>` opened with `showModal()` whose browser behaviour supplies the
+focus trap, inert page, Escape and focus restoration. A popup that portals
+(`HelpTip`, `QualityBadge`, `ResultBars`, `EffectPreview`) mounts into
+`portalHost(anchor)` so it stays above and live inside an open dialog, and one
+that handles Escape itself calls `preventDefault()` so the dialog stays open. The dataset library has no
 rail: `LibraryToolbar` puts a view menu, sort, active-filter chips and an
 add-filter menu (with the same disjunctive facet counts) above a table-first
 record grid, and its chips scroll sideways on phones, where (600px and under)

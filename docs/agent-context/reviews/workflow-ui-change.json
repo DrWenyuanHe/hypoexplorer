@@ -1,14 +1,13 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "6fa72d4e2dac7f887d945eda107761dad82da8bb527074362ce1db3f3a04c8f4",
+  "fingerprint": "1d87f328685d18589cac9364a8082edf314bfca120b6fe3d1699424e5a3de623",
   "outcome": "updated",
-  "explanation": "Merges main (#100, #101) into the IME fix. From main: No workflow rule changes. From main: the gene page Human hypothalamus row gains the HYPOMAP Visium tile and drill, and survey CSVs add source_credit. From this branch: the gated HypoMap By dataset view shows study-card details read through atlas.ts, so views still never read the export wire, and its CSV still goes through the export-provenance and CSV seams with two added columns. No new view or tab. From this branch: The ui-change runbook now says a text field whose own keydown handler acts on Enter, Escape or the arrows returns early on isImeComposing from src/utils/imeComposing.ts.",
+  "explanation": "The ui-change runbook says the shared Modal is a native dialog whose browser behaviour supplies the focus trap, inert page, Escape and focus return, that portaling popups mount through portalHost, and that a popup handling Escape cancels it so the dialog stays open; the refactor checklist forbids role=dialog divs and body scroll locks.",
   "references": [
     "docs/agent-context/workflows.md",
-    "src/search/portalCards.tsx",
-    "src/search/hypomap/atlas.ts",
-    "src/search/hypomap/HypoMapPreview.tsx",
-    "src/utils/imeComposing.ts"
+    "docs/runbooks/REFACTOR_CHECKLIST.md",
+    "src/common/Modal.tsx",
+    "src/common/portalHost.ts"
   ]
 }
