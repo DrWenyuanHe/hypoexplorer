@@ -5,6 +5,7 @@ import { render, screen, fireEvent, waitFor, within } from '@testing-library/rea
 import { BaselineSection, ConditionPathwaysSection, FamilySection, GeneExpressionCards, ReferenceAtlasSection, speciesPhrase } from '../search/portalCards';
 import { resetSearchSummaries } from '../search/searchSummaries';
 import { resetSourceRequests } from '../expression-survey/sourceJson';
+import { resetSectionIndex } from '../search/VisiumSections';
 import { getDataset } from '../data/datasets';
 import { getActiveContrast } from '../data/contrasts';
 import { geneRow } from '../data/crossDatasetRows';
@@ -470,7 +471,7 @@ function productFetch(fail?: (url: string) => boolean) {
 }
 
 describe('ReferenceAtlasSection', () => {
-  beforeEach(() => resetSourceRequests());
+  beforeEach(() => { resetSourceRequests(); resetSectionIndex(); });
   afterEach(() => { vi.unstubAllGlobals(); });
 
   it('shows GTEx, HPA subregions and every Allen probe for the human gene of a mouse symbol', async () => {
@@ -521,6 +522,32 @@ describe('ReferenceAtlasSection', () => {
     expect(visium.querySelector('a[href="https://doi.org/10.17863/CAM.111988"]')).toBeTruthy();
     expect(visium.querySelector('a[href="https://creativecommons.org/licenses/by/4.0/"]')).toBeTruthy();
     expect(within(visium).getByText(/converted to CPM by HypoExplorer/)).toBeTruthy();
+  });
+
+  it('opens the precomputed Visium section images of a curated gene, and names the curated set elsewhere', async () => {
+    productFetch();
+    render(<ReferenceAtlasSection symbol="Pomc" />);
+    const open = await screen.findByRole('button', { name: 'POMC on all 9 sections' });
+    fireEvent.click(open);
+    const dialog = await screen.findByRole('dialog', { name: 'POMC · HYPOMAP Visium sections' });
+    // Each section is a pair: the authors' regional clusters, then the gene.
+    const images = [...dialog.querySelectorAll('img')];
+    expect(images.map((image) => image.getAttribute('src')?.split('?')[0])).toEqual(
+      Array.from({ length: 9 }, (_, at) => [`/expression/visium/sections/regions/section-${at + 1}.webp`, `/expression/visium/sections/POMC/section-${at + 1}.webp`]).flat());
+    expect(images[0].getAttribute('alt')).toBe('Regional clusters in Section 1 of 9, labelled MPOA, SCN.');
+    expect(images[1].getAttribute('alt')).toMatch(/^POMC in Section 1 of 9 \(12,373 spots\)/);
+    expect([...dialog.querySelectorAll('.visium-sections-tag')].map((tag) => tag.textContent)).toContain('ARC');
+    expect(dialog.querySelectorAll('.visium-sections-key li')).toHaveLength(23);
+    expect(within(dialog).getByText(/log1p\(count \/ spot library × 10\^4\).*from 0 to 3/)).toBeTruthy();
+    expect(within(dialog).getByText(/anterior to posterior/)).toBeTruthy();
+    expect(dialog.querySelector('a[href="https://creativecommons.org/licenses/by/4.0/"]')).toBeTruthy();
+  });
+
+  it('names the curated section-image genes on the tile of any other measured gene', async () => {
+    productFetch();
+    render(<ReferenceAtlasSection symbol="GLP1R" />);
+    expect(await screen.findByText(/Section images are precomputed for 12 marker genes: POMC, AGRP/)).toBeTruthy();
+    expect(screen.queryByRole('button', { name: /on all 9 sections/ })).toBeNull();
   });
 
   it('says a gene outside the Visium probe panel is not measured there', async () => {

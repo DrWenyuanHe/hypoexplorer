@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "workflow-ui-change",
-  "fingerprint": "a623a114638847f2873fe8a20c027ee68aac06fac57baca44135a5ff08928be4",
+  "fingerprint": "4c4c7e7f133339054c5ed995255463f25ec6a3d7d7d96e830ca3276159e43318",
   "outcome": "updated",
-  "explanation": "The gene-page Visium tile ranks regional clusters by their pooled value, with a dot per donor and no sparse mark, and leaves Unassigned unranked; the survey column for the source reads \"pooled value\". Checked in the browser at desktop and 390 px with no horizontal overflow and no console errors.",
+  "explanation": "The gene-page Visium tile ranks regional clusters by their pooled value, with a dot per donor and no sparse mark, and leaves Unassigned unranked; the survey column for the source reads \"pooled value\". Checked in the browser at desktop and 390 px with no horizontal overflow and no console errors. The Visium tile gains a section-image button for the 12 curated genes, opening a modal of nine regions-and-gene pairs (three per row, one at phone width) with labels, a colour bar, a cluster legend and credit. Checked in the browser at desktop and 390 px with no overflow and no console errors.",
   "references": [
     "src/search/portalCards.tsx",
     "src/search/search.css",
     "src/expression-survey/GeneSurvey.tsx",
-    "docs/agent-context/workflows.md"
+    "docs/agent-context/workflows.md",
+    "src/search/VisiumSections.tsx"
   ]
 }

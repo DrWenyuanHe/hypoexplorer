@@ -1,12 +1,14 @@
 {
   "version": 1,
   "area": "workflow-dataset-change",
-  "fingerprint": "996d586c1a51a86989c1e86c8b0374644444052f82cd35363e366354526cf98e",
+  "fingerprint": "861f776814841ea99bc3b53557965a81109f87bfc212f6d304568612daf8c1eb",
   "outcome": "updated",
-  "explanation": "The Visium builder follows HYPOMAP's conventions: regional-cluster names from the authors' abbreviation table, every donor x region cell as a sample with no minimum, no compartments, Unassigned flagged and unranked, and per-condition poolWeights so a region's value is the CPM of all its spots. Region names, the absence of a minimum-spot or sparse rule, and pooling every spot to summarise a region follow the HYPOMAP authors (Tadross et al. 2025, Supplementary Table 20 and Methods).",
+  "explanation": "The Visium builder follows HYPOMAP's conventions: regional-cluster names from the authors' abbreviation table, every donor x region cell as a sample with no minimum, no compartments, Unassigned flagged and unranked, and per-condition poolWeights so a region's value is the CPM of all its spots. Region names, the absence of a minimum-spot or sparse rule, and pooling every spot to summarise a region follow the HYPOMAP authors (Tadross et al. 2025, Supplementary Table 20 and Methods). The Visium builder also ships the curated section images: it verifies every pinned file (bytes, SHA-256, WebP header size against frames.tsv, frame spots against sections.tsv, labels inside their frame, cluster colours against the 23 regional clusters) and writes them with sections/index.json; --fetch --sections re-renders them from the RDS and refuses any change. writeOrCheck in scripts/lib/externalReference.mts now writes and byte-compares Buffer products as well as text.",
   "references": [
     "docs/agent-context/workflows.md",
     "scripts/build_visium_reference.mts",
-    "data/expression/visium/README.md"
+    "data/expression/visium/README.md",
+    "scripts/render_visium_sections.R",
+    "scripts/lib/externalReference.mts"
   ]
 }

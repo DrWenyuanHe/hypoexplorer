@@ -175,8 +175,12 @@ sections and 86,041 spots. The choices follow HYPOMAP's own conventions:
   notice appear in the provider credit, the gene-page tile, the metadata export
   and, through the `source_credit` column, every CSV row.
 
-Per-spot section maps are not part of this source. They wait on a pilot that
-checks coordinate orientation against the tissue images and measures cost.
+Section images: the Phase 2 pilot checked the stored spot coordinates against the
+H&E of every section. The source now ships precomputed images of 12 marker genes
+on all nine sections (`public/expression/visium/sections/`, listed by
+`sections/index.json`; see the [Visium runbook](../../data/expression/visium/README.md#section-images)).
+Interactive per-gene maps for any gene would need about 240 MB on R2 and are not
+built.
 
 ### On the gene page
 
@@ -223,7 +227,11 @@ The human row, "Human hypothalamus", holds five tiles:
   clusters with the highest pooled value, each a bar at that value with a dot
   per donor on the same scale and its donor count. Unassigned spots are not
   ranked. Its groups are regions, so the GTEx/Allen donor spread does not apply:
-  it would count regions as donors. It carries the source credit.
+  it would count regions as donors. It carries the source credit. For a gene with
+  section images it offers "<GENE> on all 9 sections" (`VisiumSections.tsx`), a
+  modal with the nine sections, each as a labelled regional-cluster map beside
+  the gene (light grey to dark green), a colour bar, a cluster legend and the credit;
+  for any other measured gene it names the curated genes.
 
 Each source keeps its own unit, its bars are scaled to its own highest value, and
 published values are printed as published. When the page's symbol differs from the

@@ -236,3 +236,39 @@
   .portal-bars li, .portal-source .portal-bars li, .portal-source .portal-bars--regions li { grid-template-columns: minmax(0, 1fr) 4.5em; }
   .portal-bar-track { grid-column: 1 / -1; grid-row: 2; }
 }
+
+/* HYPOMAP Visium section images (VisiumSections.tsx). */
+.visium-sections-open {
+  margin-top: 8px; padding: 4px 10px; font: inherit; font-size: var(--fs-13);
+  color: var(--accent, var(--text-primary)); background: transparent;
+  border: 1px solid var(--border, currentColor); border-radius: 6px; cursor: pointer;
+}
+.visium-sections-open:hover { background: var(--surface-muted, rgba(0, 0, 0, 0.04)); }
+.visium-sections { display: flex; flex-direction: column; gap: 12px; padding: 4px 2px 8px; }
+.visium-sections-legend { display: grid; grid-template-columns: minmax(120px, 220px) 1fr; column-gap: 12px; align-items: center; }
+.visium-sections-scale { grid-column: 1; height: 10px; border-radius: 2px; border: 1px solid rgba(0, 0, 0, 0.08); }
+.visium-sections-ticks { grid-column: 1; display: flex; justify-content: space-between; font-size: var(--fs-12); color: var(--text-muted); }
+.visium-sections-legend .portal-note { grid-column: 2; grid-row: 1 / span 2; margin: 0; }
+.visium-sections-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 18px; }
+.visium-sections-grid > li { display: flex; flex-direction: column; gap: 4px; }
+.visium-sections-label { font-size: var(--fs-12); font-weight: 600; color: var(--text-primary); }
+.visium-sections-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; align-items: start; }
+.visium-sections-map { position: relative; margin: 0; }
+.visium-sections-map img { width: 100%; height: auto; display: block; }
+.visium-sections-map figcaption { font-size: var(--fs-12); color: var(--text-muted); text-align: center; }
+.visium-sections-tag {
+  position: absolute; transform: translate(-50%, -50%); pointer-events: none;
+  font-size: 10px; font-weight: 700; line-height: 1; white-space: nowrap;
+}
+.visium-sections-tag--dark { color: #111; text-shadow: 0 0 2px rgba(255, 255, 255, 0.9); }
+.visium-sections-tag--light { color: #fff; text-shadow: 0 0 2px rgba(0, 0, 0, 0.6); }
+.visium-sections-key { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: var(--fs-12); color: var(--text-muted); }
+.visium-sections-key li { display: inline-flex; align-items: center; gap: 4px; }
+.visium-sections-swatch { width: 10px; height: 10px; border-radius: 2px; border: 1px solid rgba(0, 0, 0, 0.1); }
+.visium-sections-name { color: var(--text-muted); opacity: 0.8; }
+@media (max-width: 900px) { .visium-sections-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) {
+  .visium-sections-grid { grid-template-columns: 1fr; }
+  .visium-sections-legend { grid-template-columns: 1fr; }
+  .visium-sections-legend .portal-note { grid-column: 1; grid-row: auto; }
+}

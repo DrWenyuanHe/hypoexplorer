@@ -1,13 +1,14 @@
 {
   "version": 1,
   "area": "module-expression-survey",
-  "fingerprint": "8cfbf3a5e13106f251bb206764d962a722cb04d836c791c307e4d8d340e63c65",
+  "fingerprint": "f455a13e175a3b0e8d292ed84a6f32113eb48f1bb7b380b93b6db4ebadcae166",
   "outcome": "updated",
-  "explanation": "externalReference.ts computes a group's pooled value when its condition carries poolWeights: the weighted mean of the stored sample values, which for library-size weights is the CPM of the group's summed counts; mismatched or non-positive weights throw. groupValue ranks pooled before the arithmetic mean, the summary CSV writes it with stat pooled, and GeneSurvey labels the column \"pooled value\" for such a source. Summary sources and every other source are unchanged.",
+  "explanation": "externalReference.ts computes a group's pooled value when its condition carries poolWeights: the weighted mean of the stored sample values, which for library-size weights is the CPM of the group's summed counts; mismatched or non-positive weights throw. groupValue ranks pooled before the arithmetic mean, the summary CSV writes it with stat pooled, and GeneSurvey labels the column \"pooled value\" for such a source. Summary sources and every other source are unchanged. sourceJson.ts lets the Visium family read sections/index.json, the index of its curated section images; no other family gains a file.",
   "references": [
     "src/expression-survey/externalReference.ts",
     "src/expression-survey/expressionSurvey.ts",
     "src/expression-survey/GeneSurvey.tsx",
-    "docs/runbooks/EXPRESSION_SURVEY.md"
+    "docs/runbooks/EXPRESSION_SURVEY.md",
+    "src/expression-survey/sourceJson.ts"
   ]
 }

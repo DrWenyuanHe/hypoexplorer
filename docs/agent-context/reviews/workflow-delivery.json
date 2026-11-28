@@ -1,9 +1,9 @@
 {
   "version": 1,
   "area": "workflow-delivery",
-  "fingerprint": "c045ca6c60d31670b704d9ff75acb951a8fa6bf86f9af6705298757caabbc220",
+  "fingerprint": "77bd22bc03fe8a1c3581498fb1ad8cd5d1a27d7e26074d7e7e4d6ff18ef73554",
   "outcome": "updated",
-  "explanation": "With every donor x region cell kept (143 samples instead of 121), the Visium atlas is 19.2 MB in the same 2,050 files; delivery.md records the new size. The deployable file count is unchanged, so the Workers asset limits are met as before.",
+  "explanation": "With every donor x region cell kept (143 samples instead of 121), the Visium atlas is 19.2 MB in the same 2,050 files; delivery.md records the new size. The deployable file count is unchanged, so the Workers asset limits are met as before. The section images add 118 files and 2.1 MB under public/expression/visium/sections/, built from tracked files like the rest of the atlas; a measured build has 11,198 deployable files, inside the Workers limits; no R2.",
   "references": [
     "docs/agent-context/delivery.md",
     "scripts/lib/deployInputs.mts",

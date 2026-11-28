@@ -210,20 +210,23 @@ export function productDir(root: string, provider: ExternalProvider): string {
   return path.join(root, 'public', EXTERNAL_REFERENCE_ROOTS[provider]);
 }
 
-/** Write a clean product directory, or byte-compare an existing one (--check). */
-export async function writeOrCheck(dir: string, files: Map<string, string>, check: boolean): Promise<void> {
+/** Write a clean product directory, or byte-compare an existing one (--check). Text is UTF-8; a Buffer is written as is. */
+export async function writeOrCheck(dir: string, files: Map<string, string | Buffer>, check: boolean): Promise<void> {
   if (check) {
     const present = (await listFiles(dir)).sort();
     assert.deepEqual(present, [...files.keys()].sort(), `Product file set differs in ${dir}; rebuild without --check`);
     for (const [file, expected] of files) {
-      assert.equal(await readFile(path.join(dir, file), 'utf8'), expected, `Stale product ${file}; rebuild without --check`);
+      const stale = `Stale product ${file}; rebuild without --check`;
+      if (typeof expected === 'string') assert.equal(await readFile(path.join(dir, file), 'utf8'), expected, stale);
+      else assert.ok(expected.equals(await readFile(path.join(dir, file))), stale);
     }
     return;
   }
   await rm(dir, { recursive: true, force: true });
-  for (const [file, text] of files) {
+  for (const [file, content] of files) {
     await mkdir(path.dirname(path.join(dir, file)), { recursive: true });
-    await writeFile(path.join(dir, file), text, 'utf8');
+    if (typeof content === 'string') await writeFile(path.join(dir, file), content, 'utf8');
+    else await writeFile(path.join(dir, file), content);
   }
 }
 

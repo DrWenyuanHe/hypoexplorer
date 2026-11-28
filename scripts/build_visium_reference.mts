@@ -12,6 +12,9 @@
  *                      retained tables
  *   --from <file>      with --fetch: read the RDS from disk instead of downloading
  *   --record           with --fetch: record new retained hashes in the manifest
+ *   --sections         with --fetch: also re-render the curated section images
+ *                      (scripts/render_visium_sections.R) and refuse any change,
+ *                      or record them with --record
  * The R step needs Rscript with Seurat, SeuratObject and Matrix (HYPOEXPLORER_RSCRIPT
  * names the executable; default `Rscript`).
  */
@@ -38,6 +41,15 @@ import {
 const ROOT = path.resolve('.');
 const SOURCE = path.join(ROOT, 'data/expression/visium');
 const EXTRACTOR = 'scripts/extract_visium_reference.R';
+const RENDERER = 'scripts/render_visium_sections.R';
+const SECTIONS_DIR = path.join(SOURCE, 'sections');
+/**
+ * The curated genes with precomputed section images: classic hypothalamic
+ * neuropeptide and hormone markers, each drawn on all nine sections.
+ */
+const SECTION_GENES = ['POMC', 'AGRP', 'NPY', 'CARTPT', 'KISS1', 'GHRH', 'SST', 'TRH', 'CRH', 'OXT', 'AVP', 'PMCH'];
+/** The authors' anterior-to-posterior section order (Extended Data Fig. 3); shown as Section 1-9. */
+const SECTION_ORDER = ['slice5A', 'sliceC1A', 'slice6B', 'sliceB1B', 'slice2B', 'slice4B', 'slice7A', 'slice3A', 'slice8B'];
 const SOURCE_ID = 'visium-hypomap-regions';
 const VALUE_SHARDS = 1024;
 /** CPM is stored to this many significant digits (Number.prototype.toPrecision). */
@@ -94,6 +106,13 @@ interface SourceManifest {
   original: { name: string; url: string; landing: string; license: string; licenseUrl: string; bytes: number; md5: string; sha256: string };
   extractor: { script: string; sha256: string; runtime: string };
   retained: { cells: Retained; counts: RetainedGzip; sections: Retained; labels: Retained };
+  /** The curated section images, rendered from the RDS and pinned file by file. */
+  sectionImages: {
+    renderer: { script: string; sha256: string; runtime: string };
+    genes: string[];
+    /** Every rendered file under sections/ (tables and images), by path. */
+    files: Record<string, { bytes: number; sha256: string }>;
+  };
 }
 
 interface Cell { id: string; donor: string; region: string; spots: number; sections: number; library: number }
@@ -133,7 +152,138 @@ async function hashFile(file: string): Promise<{ bytes: number; md5: string; sha
   return { bytes, md5: md5.digest('hex'), sha256: sha.digest('hex') };
 }
 
-async function acquire(manifest: SourceManifest, record: boolean, from: string | null): Promise<void> {
+/** The renderer's tables, pinned beside the images. */
+const SECTION_TABLES = ['frames.tsv', 'region-labels.tsv', 'legend.tsv'] as const;
+/** Image sets: the regional-cluster map, then each curated gene. */
+const SECTION_SETS = ['regions', ...SECTION_GENES];
+const sectionImageNames = () => SECTION_SETS.flatMap((set) => SECTION_ORDER.map((_, at) => `${set}/section-${at + 1}.webp`));
+
+/** Re-render the curated section images from the RDS; refuse any change unless recording. */
+async function renderSections(manifest: SourceManifest, rds: string, work: string, rscript: string, record: boolean): Promise<void> {
+  const out = path.join(work, 'sections');
+  const run = spawnSync(rscript, [path.join(ROOT, RENDERER), rds, out, ...SECTION_GENES], { stdio: 'inherit', windowsHide: true });
+  assert.equal(run.status, 0, `${RENDERER} failed (${run.error?.message ?? `exit ${run.status}`})`);
+  const script = sha256(lf(await readFile(path.join(ROOT, RENDERER), 'utf8')));
+  const pin = manifest.sectionImages;
+  if (!record) {
+    assert.equal(script, pin.renderer.sha256, `${RENDERER} changed; use --record deliberately`);
+    assert.deepEqual(pin.genes, SECTION_GENES, 'Section genes changed; use --record deliberately');
+  }
+  const files: Record<string, { bytes: number; sha256: string }> = {};
+  for (const name of [...SECTION_TABLES, ...sectionImageNames()]) {
+    const bytes = await readFile(path.join(out, name));
+    files[name] = { bytes: bytes.length, sha256: sha256(bytes) };
+    if (!record) assert.equal(files[name].sha256, pin.files[name]?.sha256, `Section file ${name} would change; use --record deliberately`);
+  }
+  if (!record) return;
+  const version = spawnSync(rscript, ['-e', 'cat(R.version.string, "; Seurat", as.character(packageVersion("Seurat")), "; RANN", as.character(packageVersion("RANN")), "; webp", as.character(packageVersion("webp")))'], { encoding: 'utf8', windowsHide: true });
+  await rm(SECTIONS_DIR, { recursive: true, force: true });
+  for (const name of Object.keys(files)) {
+    await mkdir(path.dirname(path.join(SECTIONS_DIR, name)), { recursive: true });
+    await writeFile(path.join(SECTIONS_DIR, name), await readFile(path.join(out, name)));
+  }
+  manifest.sectionImages = {
+    renderer: { script: RENDERER, sha256: script, runtime: version.stdout.trim() || pin?.renderer.runtime || '' },
+    genes: [...SECTION_GENES], files,
+  };
+}
+
+/** WebP canvas size from the file header (lossy VP8 or extended VP8X). */
+function webpSize(bytes: Buffer): { width: number; height: number } {
+  assert.equal(bytes.toString('latin1', 0, 4), 'RIFF');
+  assert.equal(bytes.toString('latin1', 8, 12), 'WEBP');
+  const chunk = bytes.toString('latin1', 12, 16);
+  if (chunk === 'VP8 ') return { width: bytes.readUInt16LE(26) & 0x3fff, height: bytes.readUInt16LE(28) & 0x3fff };
+  if (chunk === 'VP8X') return { width: 1 + bytes.readUIntLE(24, 3), height: 1 + bytes.readUIntLE(27, 3) };
+  if (chunk === 'VP8L') {
+    const bits = bytes.readUInt32LE(21);
+    return { width: 1 + (bits & 0x3fff), height: 1 + ((bits >> 14) & 0x3fff) };
+  }
+  throw new Error(`Unexpected WebP chunk ${chunk}`);
+}
+
+const HEX = /^#[0-9A-F]{6}$/;
+
+/**
+ * The curated section images as products: every pinned file verified, each
+ * image's size read from its header and matched with the frame table, the frame
+ * spots matched with the retained section table, label positions kept inside
+ * their frame and region colours matched with the authors' clusters. Adds
+ * sections/index.json, which the gene page reads to offer the images.
+ */
+async function sectionProducts(manifest: SourceManifest, tables: Tables, panel: Set<string>, source: ExpressionSource): Promise<Map<string, string | Buffer>> {
+  const pin = manifest.sectionImages;
+  assert.deepEqual(pin.genes, SECTION_GENES, 'Pinned section genes differ from the builder');
+  for (const gene of SECTION_GENES) assert.ok(panel.has(gene) && !OFF_PANEL.includes(gene), `Section gene ${gene} is not in the panel`);
+  assert.deepEqual(Object.keys(pin.files).sort(), [...SECTION_TABLES, ...sectionImageNames()].sort(), 'Pinned section files differ from tables + sets x sections');
+  const read = async (name: string): Promise<Buffer> => {
+    const bytes = await readFile(path.join(SECTIONS_DIR, name));
+    assert.equal(bytes.length, pin.files[name].bytes, `Section file ${name} size changed`);
+    assert.equal(sha256(bytes), pin.files[name].sha256, `Section file ${name} bytes changed`);
+    if (name.endsWith('.tsv')) assert.ok(!bytes.includes(13), `${name} is LF-only; a CR means the bytes were altered`);
+    return bytes;
+  };
+  const frames = tsv((await read('frames.tsv')).toString('utf8'), 'sections/frames.tsv', ['section', 'width', 'height', 'spots']).map(([n, width, height, spots], index) => {
+    assert.equal(Number(n), index + 1, 'Section frames are out of order');
+    return { section: index + 1, width: count(width, 'frame width'), height: count(height, 'frame height'), spots: count(spots, 'frame spots') };
+  });
+  assert.equal(frames.length, SECTION_ORDER.length);
+  // Each frame draws every spot of its section, as the retained section table counts them.
+  SECTION_ORDER.forEach((slice, index) => {
+    const spots = tables.sections.filter(([, section]) => section === slice).reduce((sum, row) => sum + Number(row[3]), 0);
+    assert.equal(frames[index].spots, spots, `Section ${index + 1} draws ${frames[index].spots} spots; the section table holds ${spots}`);
+  });
+  const regionKeys = new Set(REGIONS.map((region) => region.key));
+  const labels = tsv((await read('region-labels.tsv')).toString('utf8'), 'sections/region-labels.tsv', ['section', 'region', 'x', 'y']).map(([n, region, x, y]) => {
+    const frame = frames[count(n, 'label section') - 1];
+    assert.ok(frame && regionKeys.has(region), `Label ${n}/${region} names no section or regional cluster`);
+    const at = { section: frame.section, region, x: count(x, 'label x'), y: count(y, 'label y') };
+    assert.ok(at.x >= 1 && at.x <= frame.width && at.y >= 1 && at.y <= frame.height, `Label ${n}/${region} lies outside its frame`);
+    return at;
+  });
+  const legend = tsv((await read('legend.tsv')).toString('utf8'), 'sections/legend.tsv', ['kind', 'key', 'colour']);
+  for (const [, , colour] of legend) assert.match(colour, HEX, 'Legend colours are #RRGGBB');
+  const stops = legend.filter(([kind]) => kind === 'stop').map(([, , colour]) => colour);
+  const colours = Object.fromEntries(legend.filter(([kind]) => kind === 'region').map(([, key, colour]) => [key, colour]));
+  assert.ok(stops.length >= 2, 'The value scale needs at least two colour stops');
+  assert.deepEqual(Object.keys(colours).sort(), [...regionKeys].sort(), 'Region colours differ from the regional clusters');
+  const files = new Map<string, string | Buffer>();
+  const set = async (name: string) => Promise.all(frames.map(async (frame) => {
+    const file = `${name}/section-${frame.section}.webp`;
+    const bytes = await read(file);
+    assert.deepEqual(webpSize(bytes), { width: frame.width, height: frame.height }, `Section image ${file} size differs from its frame`);
+    files.set(`sections/${file}`, bytes);
+    return { section: frame.section, file, bytes: bytes.length, sha256: pin.files[file].sha256 };
+  }));
+  const regionImages = await set('regions');
+  const genes = [];
+  for (const gene of SECTION_GENES) genes.push({ symbol: gene, images: await set(gene) });
+  const index = {
+    schemaVersion: 2, source: SOURCE_ID,
+    title: 'HYPOMAP Visium sections',
+    value: 'log1p(count / spot library × 10^4), the authors\' per-spot log-normalised value',
+    scale: { min: 0, max: 3, stops, above: 'shown at the top colour' },
+    order: 'Sections 1–9 run anterior to posterior, in the authors\' order.',
+    sections: frames.map((frame) => ({ section: frame.section, label: `Section ${frame.section}`, width: frame.width, height: frame.height, spots: frame.spots })),
+    regions: {
+      images: regionImages,
+      colours: REGIONS.map((region) => ({ key: region.key, name: region.name, colour: colours[region.key] })),
+      labels,
+    },
+    genes,
+    notes: [
+      'Precomputed images for a curated set of marker genes, drawn from the authors\' Visium object. Each disc is one 55 µm spot, drawn to touch its neighbours; a spot with no count is light grey.',
+      'Regions are the authors\' regional clusters of spots, coloured as in the legend; the main nuclei are labelled where a section holds at least 150 of their spots.',
+      'A spot mixes several cells, so a colour is a tissue average, not a cell type.',
+    ],
+    credit: source.provider!.attribution,
+    license: source.provider!.license, licenseUrl: source.provider!.licenseUrl,
+  };
+  files.set('sections/index.json', `${JSON.stringify(index, null, 2)}\n`);
+  return files;
+}
+
+async function acquire(manifest: SourceManifest, record: boolean, from: string | null, sections: boolean): Promise<void> {
   const work = await mkdtemp(path.join(os.tmpdir(), 'hypoexplorer-visium-'));
   try {
     let rds = from;
@@ -177,11 +327,13 @@ async function acquire(manifest: SourceManifest, record: boolean, from: string |
       // The table is pinned by its content; the gzip bytes can differ between zlib builds, so the retained file is kept.
       assert.equal(sha256(counts), target.contentSha256, 'Retained counts would change; use --record deliberately');
     }
+    if (sections) await renderSections(manifest, rds, work, rscript, record);
     if (record) {
       if (!from) manifest.retrieved = new Date().toISOString().slice(0, 10);
       await writeFile(path.join(SOURCE, 'source-manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
     }
-    console.log(`Fetched ${manifest.original.name}: ${original.bytes} bytes, MD5 and SHA-256 match; retained tables ${record ? 'recorded' : 'unchanged'}.`);
+    console.log(`Fetched ${manifest.original.name}: ${original.bytes} bytes, MD5 and SHA-256 match; retained tables ${record ? 'recorded' : 'unchanged'}`
+      + `${sections ? `; section images ${record ? 'recorded' : 'unchanged'}` : ''}.`);
   } finally {
     await rm(work, { recursive: true, force: true });
   }
@@ -282,13 +434,15 @@ async function main(): Promise<void> {
   const record = process.argv.includes('--record');
   const fromIndex = process.argv.indexOf('--from');
   const from = fromIndex > 0 ? process.argv[fromIndex + 1] : null;
+  const sections = process.argv.includes('--sections');
+  assert.ok(!sections || fetchSource, '--sections requires --fetch');
   assert.ok(!(check && fetchSource), '--check is offline and cannot be combined with --fetch');
   assert.ok(!record || fetchSource, '--record requires --fetch');
   assert.ok(!from || fetchSource, '--from requires --fetch');
   const manifest = JSON.parse(await readFile(path.join(SOURCE, 'source-manifest.json'), 'utf8')) as SourceManifest;
   assert.equal(manifest.schemaVersion, 1);
   assert.equal(manifest.provider, 'visium');
-  if (fetchSource) await acquire(manifest, record, from);
+  if (fetchSource) await acquire(manifest, record, from, sections);
 
   const tables = await readTables(manifest);
   checkTables(tables);
@@ -399,14 +553,18 @@ async function main(): Promise<void> {
       ...notes,
     ],
   });
+  const images = await sectionProducts(manifest, tables, new Set(tables.genes), source);
+  const products = new Map<string, string | Buffer>([...files, ...images]);
   const dir = productDir(ROOT, 'visium');
-  await writeOrCheck(dir, files, check);
+  await writeOrCheck(dir, products, check);
   const compared = await replay(dir, productManifest, features);
   const recomputed = await recomputeCpm(dir, tables, columns, cellOf);
   assert.equal(recomputed, compared);
   const total = [...files.values()].reduce((sum, text) => sum + Buffer.byteLength(text), 0);
+  const imageBytes = [...images.values()].reduce((sum, content) => sum + Buffer.byteLength(content), 0);
   console.log(`${check ? 'Verified' : 'Built'} HYPOMAP Visium: ${features.length} genes × ${samples.length} donor-region samples in ${conditions.length} regional clusters from ${donors.size} donors; `
-    + `${compared} values read back and recomputed from counts; ${files.size} files, ${(total / 1e6).toFixed(1)} MB.`);
+    + `${compared} values read back and recomputed from counts; ${files.size} files, ${(total / 1e6).toFixed(1)} MB; `
+    + `section images for ${SECTION_GENES.length} genes in ${images.size} files, ${(imageBytes / 1e6).toFixed(1)} MB.`);
 }
 
 await main();

@@ -784,10 +784,11 @@ Start here:
 - [src/search/SearchPage.tsx](<../../../src/search/SearchPage.tsx>)
 - [src/search/hypomap/atlas.ts](<../../../src/search/hypomap/atlas.ts>)
 
-Covered source files (19):
+Covered source files (21):
 - [src/search/DbBadge.tsx](<../../../src/search/DbBadge.tsx>)
 - [src/search/SearchPage.tsx](<../../../src/search/SearchPage.tsx>)
 - [src/search/UnifiedSearchBox.tsx](<../../../src/search/UnifiedSearchBox.tsx>)
+- [src/search/VisiumSections.tsx](<../../../src/search/VisiumSections.tsx>)
 - [src/search/hypomap/AtlasMap.tsx](<../../../src/search/hypomap/AtlasMap.tsx>)
 - [src/search/hypomap/Coexpression.tsx](<../../../src/search/hypomap/Coexpression.tsx>)
 - [src/search/hypomap/CsvDialog.tsx](<../../../src/search/hypomap/CsvDialog.tsx>)
@@ -804,6 +805,7 @@ Covered source files (19):
 - [src/search/searchTypes.ts](<../../../src/search/searchTypes.ts>)
 - [src/search/searchVocabulary.ts](<../../../src/search/searchVocabulary.ts>)
 - [src/search/useSearchVocabulary.ts](<../../../src/search/useSearchVocabulary.ts>)
+- [src/search/visiumSectionIndex.ts](<../../../src/search/visiumSectionIndex.ts>)
 
 ## statistics
 

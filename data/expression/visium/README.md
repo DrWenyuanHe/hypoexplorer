@@ -120,11 +120,61 @@ recorded here; it needs the Parquet export, which is not in this repository.
 Agreement is with the CPM derived from the retained counts. The authors did not
 publish region CPM, so there is no published value to compare against.
 
+## Section images
+
+Precomputed images of 12 marker genes (POMC, AGRP, NPY, CARTPT, KISS1, GHRH, SST,
+TRH, CRH, OXT, AVP, PMCH) on all nine sections, each beside a map of the authors'
+regional clusters, from the Phase 2 pilot (alignment checked against the H&E in
+every section). They are tracked in `sections/`:
+
+- `<GENE>/section-<n>.webp` and `regions/section-<n>.webp`: the images.
+- `frames.tsv`: each section's image size and spots.
+- `region-labels.tsv`: where the main nuclei are labelled.
+- `legend.tsv`: the value colour stops and each cluster's colour.
+
+The manifest's `sectionImages` pins every file by bytes and SHA-256, with the
+renderer's hash and runtime.
+
+- `scripts/render_visium_sections.R` draws them from the RDS with array
+  operations, not a graphics device, so the pixels depend only on the data and
+  the rules below.
+- **Value:** the authors' per-spot log1p(count / spot library × 10^4) on a
+  fixed 0–3 scale, with higher values at the top colour (the scale of their
+  Extended Data Fig. 3). It is coloured from light grey (zero) through mint and
+  teal to dark green, the colours of HypoMap's earlier analysis figures, on
+  white.
+- **Regions map:** each spot is coloured by its grouped regional cluster.
+  MPOA, SCN, SON, PVN, ARC, ME, VMH, DMH, TMN and MAM are labelled where a
+  section holds at least 150 of their spots. A label is placed on the spot
+  nearest the region's median position, larger regions first, and a label
+  within 120 px of one already placed is dropped.
+- **Spots:** each spot is a disc 1.25 × the 100 µm spacing across, so
+  neighbours touch. The authors' dot plots leave gaps, which tripled the file
+  size.
+- **Size:** each section is cropped to its spots and scaled to 560 px on its
+  longer side (WebP quality 55).
+- **Order:** sections are numbered 1–9 in the authors' anterior-to-posterior
+  order; capture names and donors are not shown.
+- The builder checks:
+  - every pinned file's bytes and SHA-256;
+  - each image's size, read from its WebP header, against `frames.tsv`;
+  - each frame's spots against `sections.tsv`;
+  - that labels sit inside their frame;
+  - that the cluster colours cover the 23 regional clusters.
+
+  It then ships the files with `sections/index.json` under
+  `public/expression/visium/sections/` (118 files, 2.1 MB).
+- `--fetch --sections` re-renders them from the RDS and refuses any change;
+  `--fetch --sections --record` records new ones. On 2026-11-27 a re-render under
+  R 4.6.0 (Seurat 6.0.0, RANN 2.6.3, webp 1.3.0) reproduced every file byte for
+  byte.
+
 ## Interpretation limits
 
 A 55 µm Visium spot mixes several cells, so a region value is a tissue average,
 not a cell type. Region labels are the authors' spatial clusters. Sections and
-donors cover regions unevenly (ARC has 6 donors; POA has 1), and postmortem FFPE
+donors cover regions unevenly (ARC has 7 donors and 3,503 spots; MAM has 3
+donors and 279 spots), and postmortem FFPE
 probe capture differs from fresh-tissue RNA-seq. Feeding and circadian state are
 unknown, so no group is eligible for the fed / reference filter.
 

@@ -21,6 +21,7 @@ describe('release-local expression source transport', () => {
       ['hpa', '/expression/hpa/values/v0001.json'],
       ['allen', '/expression/allen-human/validation.json'],
       ['visium', '/expression/visium/values/v1023.json'],
+      ['visium', '/expression/visium/sections/index.json'],
     ];
     for (const [family, path] of accepted) await expect(sourceJson(family, path)).resolves.toBeTruthy();
     const rejected: Array<[SourceFamily, string]> = [
@@ -33,6 +34,9 @@ describe('release-local expression source transport', () => {
       ['oxt-reference', '/expression/oxt-reference/lookup/l0001.json'],
       ['allen', '/expression/allen/manifest.json'],
       ['visium', '/expression/visium/counts.tsv.gz'],
+      ['visium', '/expression/visium/sections/POMC/section-1.webp'],
+      ['visium', '/expression/visium/sections/../manifest.json'],
+      ['gtex', '/expression/gtex/sections/index.json'],
       ['visium', '/expression/allen-human/manifest.json'],
       ['toString' as SourceFamily, '/expression/neuroseq/manifest.json'],
     ];
